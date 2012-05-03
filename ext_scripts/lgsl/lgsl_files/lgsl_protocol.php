@@ -6,6 +6,8 @@
  |                                                                                                            |
  |    Released under the terms and conditions of the GNU General Public License Version 3 (http://gnu.org)    |
  |                                                                                                            |
+ |-------------------------------------------------------------------------------------------------------------
+ |        [ EDITOR STYLE SETTINGS: LUCIDA CONSOLE, SIZE 10, TAB = 2 SPACES, BOLD GLOBALLY TURNED OFF ]        |
  \-----------------------------------------------------------------------------------------------------------*/
 
 //------------------------------------------------------------------------------------------------------------+
@@ -30,12 +32,14 @@
     "bfvietnam"     => "Battlefield Vietnam",
     "bf1942"        => "Battlefield 1942",
     "bf2"           => "Battlefield 2",
+    "bf3"           => "Battlefield 3",
     "bf2142"        => "Battlefield 2142",
     "callofduty"    => "Call Of Duty",
     "callofdutyuo"  => "Call Of Duty: United Offensive",
     "callofdutywaw" => "Call Of Duty: World at War",
     "callofduty2"   => "Call Of Duty 2",
     "callofduty4"   => "Call Of Duty 4",
+	"callofdutymw2" => "Call of Duty Modern Warfare 2",
     "cncrenegade"   => "Command and Conquer: Renegade",
     "crysis"        => "Crysis",
     "crysiswars"    => "Crysis Wars",
@@ -67,6 +71,8 @@
     "jediknightja"  => "JediKnight: Jedi Academy",
     "killingfloor"  => "Killing Floor",
     "kingpin"       => "Kingpin: Life of Crime",
+    "modernwarfare3"=> "CoD: Modern Warfare 3",
+    "moh"           => "Medal of Honor",
     "mohaa"         => "Medal of Honor: Allied Assault",
     "mohaab"        => "Medal of Honor: Allied Assault Breakthrough",
     "mohaas"        => "Medal of Honor: Allied Assault Spearhead",
@@ -142,12 +148,14 @@
     "bfvietnam"     => "09",
     "bf1942"        => "03",
     "bf2"           => "06",
+    "bf3"           => "33",
     "bf2142"        => "06",
     "callofduty"    => "02",
     "callofdutyuo"  => "02",
     "callofdutywaw" => "02",
     "callofduty2"   => "02",
     "callofduty4"   => "02",
+	"callofdutymw2" => "02",
     "cncrenegade"   => "03",
     "crysis"        => "06",
     "crysiswars"    => "06",
@@ -179,6 +187,8 @@
     "jediknightja"  => "02",
     "killingfloor"  => "13",
     "kingpin"       => "03",
+    "modernwarfare3"=> "31",
+    "moh"           => "30",
     "mohaa"         => "03",
     "mohaab"        => "03",
     "mohaas"        => "03",
@@ -262,12 +272,14 @@
     "bfvietnam"     => "qtracker://{IP}:{S_PORT}?game=BattlefieldVietnam&action=show",
     "bf1942"        => "qtracker://{IP}:{S_PORT}?game=Battlefield1942&action=show",
     "bf2"           => "qtracker://{IP}:{S_PORT}?game=Battlefield2&action=show",
+    "bf3"           => "http://en.wikipedia.org/wiki/Battlefield_3",
     "bf2142"        => "qtracker://{IP}:{S_PORT}?game=Battlefield2142&action=show",
     "callofduty"    => "qtracker://{IP}:{S_PORT}?game=CallOfDuty&action=show",
     "callofdutyuo"  => "qtracker://{IP}:{S_PORT}?game=CallOfDutyUnitedOffensive&action=show",
     "callofdutywaw" => "qtracker://{IP}:{S_PORT}?game=CallOfDutyWorldAtWar&action=show",
     "callofduty2"   => "qtracker://{IP}:{S_PORT}?game=CallOfDuty2&action=show",
     "callofduty4"   => "qtracker://{IP}:{S_PORT}?game=CallOfDuty4&action=show",
+	"callofdutymw2" => "aiw://connect/{IP}:{S_PORT}",
     "cncrenegade"   => "qtracker://{IP}:{S_PORT}?game=CommandConquerRenegade&action=show",
     "crysis"        => "qtracker://{IP}:{S_PORT}?game=Crysis&action=show",
     "crysiswars"    => "qtracker://{IP}:{S_PORT}?game=CrysisWars&action=show",
@@ -291,7 +303,7 @@
     "graw2"         => "http://en.wikipedia.org/wiki/Tom_Clancy's_Ghost_Recon_Advanced_Warfighter_2",
     "gtr2"          => "http://en.wikipedia.org/wiki/GTR2",
     "had2"          => "http://en.wikipedia.org/wiki/Hidden_&_Dangerous_2",
-    "halflife"      => "qtracker://{IP}:{S_PORT}?game=HalfLife&action=show",
+    "halflife"      => "steam://connect/{IP}:{S_PORT}",
     "halflifewon"   => "qtracker://{IP}:{S_PORT}?game=HalfLife_WON2&action=show",
     "halo"          => "qtracker://{IP}:{S_PORT}?game=Halo&action=show",
     "il2"           => "http://en.wikipedia.org/wiki/IL-2_Sturmovik_(game)",
@@ -299,6 +311,7 @@
     "jediknightja"  => "qtracker://{IP}:{S_PORT}?game=JediKnightJediAcademy&action=show",
     "killingfloor"  => "qtracker://{IP}:{S_PORT}?game=KillingFloor&action=show",
     "kingpin"       => "qtracker://{IP}:{S_PORT}?game=Kingpin&action=show",
+    "modernwarfare3"=> "http://en.wikipedia.org/wiki/Call_of_Duty:_Modern_Warfare_3",
     "mohaa"         => "qtracker://{IP}:{S_PORT}?game=MedalofHonorAlliedAssault&action=show",
     "mohaab"        => "qtracker://{IP}:{S_PORT}?game=MedalofHonorAlliedAssaultBreakthrough&action=show",
     "mohaas"        => "qtracker://{IP}:{S_PORT}?game=MedalofHonorAlliedAssaultSpearhead&action=show",
@@ -328,7 +341,7 @@
     "shatteredh"    => "http://en.wikipedia.org/wiki/Shattered_Horizon",
     "sof2"          => "qtracker://{IP}:{S_PORT}?game=SoldierOfFortune2&action=show",
     "soldat"        => "http://www.soldat.pl",
-    "source"        => "qtracker://{IP}:{S_PORT}?game=HalfLife2&action=show",
+    "source"        => "steam://connect/{IP}:{S_PORT}",
     "stalker"       => "qtracker://{IP}:{S_PORT}?game=STALKER_ShadowChernobyl&action=show",
     "stalkercs"     => "qtracker://{IP}:{S_PORT}?game=STALKER_ClearSky&action=show",
     "startrekef"    => "http://en.wikipedia.org/wiki/Star_Trek:_Voyager:_Elite_Force",
@@ -379,6 +392,7 @@
       case "bfvietnam"     : $c_to_q = 0;     $c_def = 15567;   $q_def = 23000;   $c_to_s = 0;   break;
       case "bf1942"        : $c_to_q = 0;     $c_def = 14567;   $q_def = 23000;   $c_to_s = 0;   break;
       case "bf2"           : $c_to_q = 0;     $c_def = 16567;   $q_def = 29900;   $c_to_s = 0;   break;
+      case "bf3"           : $c_to_q = 22000; $c_def = 25200;   $q_def = 47200;   $c_to_s = 0;   break;
       case "bf2142"        : $c_to_q = 0;     $c_def = 17567;   $q_def = 29900;   $c_to_s = 0;   break;
       case "cube"          : $c_to_q = 1;     $c_def = 28785;   $q_def = 28786;   $c_to_s = 0;   break;
       case "dh2005"        : $c_to_q = 0;     $c_def = 23459;   $q_def = 34567;   $c_to_s = 0;   break;
@@ -390,6 +404,7 @@
       case "had2"          : $c_to_q = 3;     $c_def = 11001;   $q_def = 11004;   $c_to_s = 0;   break;
       case "kingpin"       : $c_to_q = -10;   $c_def = 31510;   $q_def = 31500;   $c_to_s = 0;   break;
       case "killingfloor"  : $c_to_q = 1;     $c_def = 7708;    $q_def = 7709;    $c_to_s = 0;   break;
+      case "modernwarfare3": $c_to_q = -1;    $c_def = 27015;   $q_def = 27017;   $c_to_s = 0;   break;
       case "mohaa"         : $c_to_q = 97;    $c_def = 12203;   $q_def = 12300;   $c_to_s = 0;   break;
       case "mohaab"        : $c_to_q = 97;    $c_def = 12203;   $q_def = 12300;   $c_to_s = 0;   break;
       case "mohaas"        : $c_to_q = 97;    $c_def = 12203;   $q_def = 12300;   $c_to_s = 0;   break;
@@ -473,7 +488,7 @@
 //---------------------------------------------------------+
 //  GET DATA
 
-    if ($lgsl_function == "lgsl_query_01") // TEST RETURNS DIRECT
+    if ($lgsl_function == "lgsl_query_01") // TEST BYPAssES THE REST
     {
       $lgsl_need = ""; $lgsl_fp = "";
       $response = call_user_func_array($lgsl_function, array(&$server, &$lgsl_need, &$lgsl_fp));
@@ -487,6 +502,10 @@
       $response = lgsl_query_feed($server, $request, $lgsl_config['feed']['method'], $lgsl_config['feed']['url']);
     }
     elseif ($lgsl_function == "lgsl_query_30")
+    {
+      $response = lgsl_query_direct($server, $request, $lgsl_function, "tcp");
+    }
+	elseif ($lgsl_function == "lgsl_query_33")
     {
       $response = lgsl_query_direct($server, $request, $lgsl_function, "tcp");
     }
@@ -504,7 +523,7 @@
     }
     else
     {
-      // FILL IN EMPTY VALUES
+      // IF NOT RETURNED USE THE TYPE AS THE GAME
       if (empty($server['s']['game'])) { $server['s']['game'] = $type; }
       if (empty($server['s']['map']))  { $server['s']['map']  = "-"; }
 
@@ -516,15 +535,17 @@
       $server['s']['players']    = intval($server['s']['players']);
       $server['s']['playersmax'] = intval($server['s']['playersmax']);
 
-      if (isset($server['s']['password'][0])) { $server['s']['password'] = (strtolower($server['s']['password'][0]) == "t") ? 1 : 0; }
-      else                                    { $server['s']['password'] = intval($server['s']['password']); }
+      if (strtolower($server['s']['password']) == "false") { $server['s']['password'] = 0; }
+      if (strtolower($server['s']['password']) == "true")  { $server['s']['password'] = 1; }
 
-      // REMOVE EMPTY AND UN-REQUESTED ARRAYS
+      $server['s']['password']   = intval($server['s']['password']);
 
-      if (strpos($request, "p") === FALSE && empty($server['p']) && $server['s']['players'] != 0) { unset($server['p']); }
-      if (strpos($request, "p") === FALSE && empty($server['t']))                                 { unset($server['t']); }
-      if (strpos($request, "e") === FALSE && empty($server['e']))                                 { unset($server['e']); }
-      if (strpos($request, "s") === FALSE && empty($server['s']['name']))                         { unset($server['s']); }
+      // REMOVE UN-REQUESTED AND UN-USED ARRAYS
+
+      if (strpos($request, "p") === FALSE && empty($server['p']) && $server['s']['players'] != 0)       { unset($server['p']); }
+      if (strpos($request, "p") === FALSE && empty($server['t']))                                       { unset($server['t']); }
+      if (strpos($request, "e") === FALSE && empty($server['e']))                                       { unset($server['e']); }
+      if (strpos($request, "s") === FALSE && empty($server['s']['name']) && empty($server['s']['map'])) { unset($server['s']); }
     }
 
 //---------------------------------------------------------+
@@ -546,8 +567,8 @@
 //---------------------------------------------------------+
 
     global $lgsl_config;
-
-    $lgsl_config['timeout'] = intval($lgsl_config['timeout']);
+	
+$lgsl_config['timeout'] = intval($lgsl_config['timeout']);
 
     stream_set_timeout($lgsl_fp, $lgsl_config['timeout'], $lgsl_config['timeout'] ? 0 : 500000);
     stream_set_blocking($lgsl_fp, TRUE);
@@ -757,7 +778,7 @@
   {
 //---------------------------------------------------------+
 
-    // BF1942 BUG: RETURNS 'GHOST' NAMES - TO SKIP THESE WE NEED AN [s] REQUEST FOR AN ACCURATE PLAYER COUNT
+    // BF1942 HAS A BUG WHERE IT RETURNS EXTRA NAMES - TO SKIP THESE 'GHOSTS' LATER WE NEED AN [s] REQUEST TO GET THE CURRENT NUMBER OF PLAYERS
     if ($server['b']['type'] == "bf1942" && $lgsl_need['p'] && !$lgsl_need['s'] && !isset($lgsl_need['sp'])) { $lgsl_need['s'] = TRUE; $lgsl_need['sp'] = TRUE; }
 
     if     ($server['b']['type'] == "cncrenegade") { fwrite($lgsl_fp, "\\status\\"); }
@@ -779,6 +800,9 @@
 
       // REMOVE SLASH PREFIX
       if ($packet[0] == "\\") { $packet = substr($packet, 1); }
+
+      // QUICK AND DIRTY FIX FOR AVP2 HAVING PREFIXES ON THE PLAYER NAMES
+      if (!$lgsl_need['s'] && !$lgsl_need['e'] && $server['b']['type'] == "avp2") { $packet = preg_replace("/\\\[0-9]+~/", "\\", $packet); }
 
       while ($packet)
       {
@@ -821,31 +845,29 @@
 
 //---------------------------------------------------------+
 
-    if (isset($server['e']['mapname']))
+    if ($server['e']['mapname'])
     {
       $server['s']['map'] = $server['e']['mapname'];
 
       if (!empty($server['e']['hostname']))    { $server['s']['name'] = $server['e']['hostname']; }
       if (!empty($server['e']['sv_hostname'])) { $server['s']['name'] = $server['e']['sv_hostname']; }
 
-      if (isset($server['e']['password']))   { $server['s']['password']   = $server['e']['password']; }
-      if (isset($server['e']['numplayers'])) { $server['s']['players']    = $server['e']['numplayers']; }
-      if (isset($server['e']['maxplayers'])) { $server['s']['playersmax'] = $server['e']['maxplayers']; }
-
       if (!empty($server['e']['gamename']))                                   { $server['s']['game'] = $server['e']['gamename']; }
       if (!empty($server['e']['gameid']) && empty($server['e']['gamename']))  { $server['s']['game'] = $server['e']['gameid']; }
       if (!empty($server['e']['gameid']) && $server['b']['type'] == "bf1942") { $server['s']['game'] = $server['e']['gameid']; }
+
+      if (isset($server['e']['mapname']))    { $server['s']['map']        = $server['e']['mapname']; }
+      if (isset($server['e']['numplayers'])) { $server['s']['players']    = $server['e']['numplayers']; }
+      if (isset($server['e']['maxplayers'])) { $server['s']['playersmax'] = $server['e']['maxplayers']; }
+      if (isset($server['e']['password']))   { $server['s']['password']   = $server['e']['password']; }
     }
 
 //---------------------------------------------------------+
 
     if ($server['p'])
     {
-      // BF1942 BUG - REMOVE 'GHOST' PLAYERS
-      if ($server['b']['type'] == "bf1942" && $server['s']['players'])
-      {
-        $server['p'] = array_slice($server['p'], 0, $server['s']['players']);
-      }
+      // REMOVE BF1942 GHOST PLAYERS WHICH ALSO RE-INDEXES PLAYER KEYS
+      if ($server['b']['type'] == "bf1942" && $server['s']['players']) { $server['p'] = array_slice($server['p'], 0, $server['s']['players']); }
 
       // OPERATION FLASHPOINT BUG: 'GHOST' PLAYERS IN UN-USED 'TEAM' FIELD
       if ($server['b']['type'] == "flashpoint")
@@ -865,7 +887,7 @@
         }
       }
 
-      // IF TEAM NAMES AVAILABLE USED INSTEAD OF TEAM NUMBERS
+      // CHANGE TEAM NUMBERS TO TEAM NAMES IF POSSIBLE
       if (isset($server['t'][0]['name']))
       {
         foreach ($server['p'] as $key => $value)
@@ -3465,7 +3487,6 @@
 
       $server['e']['level'] = $server['s']['map'];
       $map_check = strtolower($server['s']['map']);
-
       if     (strpos($map_check, "mp_001") !== FALSE) { $server['s']['map'] = "Panama Canal";   }
       elseif (strpos($map_check, "mp_002") !== FALSE) { $server['s']['map'] = "Valparaiso";     }
       elseif (strpos($map_check, "mp_003") !== FALSE) { $server['s']['map'] = "Laguna Alta";    }
@@ -3476,6 +3497,20 @@
       elseif (strpos($map_check, "mp_008") !== FALSE) { $server['s']['map'] = "Nelson Bay";     }
       elseif (strpos($map_check, "mp_009") !== FALSE) { $server['s']['map'] = "Laguna Presa";   }
       elseif (strpos($map_check, "mp_012") !== FALSE) { $server['s']['map'] = "Port Valdez";    }
+      elseif (strpos($map_check, "mp_01_elimination") !== FALSE) { $server['s']['map'] = "Bagram Hangar";    }
+      elseif (strpos($map_check, "mp_01") !== FALSE) { $server['s']['map'] = "Mazar-i-Sharif Airfield";    }
+      elseif (strpos($map_check, "mp_02_koth2") !== FALSE) { $server['s']['map'] = "Shah-i-Khot Village";     }
+      elseif (strpos($map_check, "mp_02_koth") !== FALSE) { $server['s']['map'] = "Hindu Kush Pass";     }
+      elseif (strpos($map_check, "mp_02") !== FALSE) { $server['s']['map'] = "Shah-i-Khot Mountains";     }
+      elseif (strpos($map_check, "mp_03") !== FALSE) { $server['s']['map'] = "Khyber Caves"; }
+      elseif (strpos($map_check, "mp_04_koth") !== FALSE) { $server['s']['map'] = "Helmand River Hill"; }
+      elseif (strpos($map_check, "mp_04") !== FALSE) { $server['s']['map'] = "Helmand Valley"; }
+      elseif (strpos($map_check, "mp_05") !== FALSE) { $server['s']['map'] = "Kandahar Marketplace"; }
+      elseif (strpos($map_check, "mp_06") !== FALSE) { $server['s']['map'] = "Diwagal Camp";   }
+      elseif (strpos($map_check, "mp_07") !== FALSE) { $server['s']['map'] = "Korengal Outpost"; }
+      elseif (strpos($map_check, "mp_08") !== FALSE) { $server['s']['map'] = "Kunar Base";     }
+      elseif (strpos($map_check, "mp_09") !== FALSE) { $server['s']['map'] = "Kabul City Ruins";   }
+      elseif (strpos($map_check, "mp_10") !== FALSE) { $server['s']['map'] = "Garmzir Town";    }
     }
 
 //---------------------------------------------------------+
@@ -3583,6 +3618,108 @@
     $server['s']['playersmax'] = 0; // HELD ON MASTER
 
     // DOES NOT RETURN PLAYER INFORMATION
+
+//---------------------------------------------------------+
+
+    return TRUE;
+  }
+
+//------------------------------------------------------------------------------------------------------------+
+//------------------------------------------------------------------------------------------------------------+
+  function lgsl_query_33(&$server, &$lgsl_need, &$lgsl_fp)
+  {
+//---------------------------------------------------------+
+//  REFERENCE: http://blogs.battlefield.ea.com/battlefield_bad_company/archive/2010/02/05/remote-administration-interface-for-bfbc2-pc.aspx
+//  THIS USES TCP COMMUNICATION
+//	Modified for BF3
+
+    if ($lgsl_need['s'] || $lgsl_need['e'])
+    {
+      fwrite($lgsl_fp, "\x00\x00\x00\x00\x1B\x00\x00\x00\x01\x00\x00\x00\x0A\x00\x00\x00serverInfo\x00");
+    }
+    elseif ($lgsl_need['p'])
+    {
+      fwrite($lgsl_fp, "\x00\x00\x00\x00\x24\x00\x00\x00\x02\x00\x00\x00\x0B\x00\x00\x00listPlayers\x00\x03\x00\x00\x00all\x00");
+    }
+
+//---------------------------------------------------------+
+
+    $buffer = fread($lgsl_fp, 4096);
+
+    if (!$buffer) { return FALSE; }
+
+    $buffer = substr($buffer, 12); // REMOVE HEADER
+
+    $response_type = lgsl_cut_pascal($buffer, 4, 0, 1);
+
+    if ($response_type != "OK") { return FALSE; }
+
+//---------------------------------------------------------+
+
+    if ($lgsl_need['s'] || $lgsl_need['e'])
+    {
+      $lgsl_need['s'] = FALSE;
+      $lgsl_need['e'] = FALSE;
+
+      $server['s']['name']            = lgsl_cut_pascal($buffer, 4, 0, 1);
+      $server['s']['players']         = lgsl_cut_pascal($buffer, 4, 0, 1);
+      $server['s']['playersmax']      = lgsl_cut_pascal($buffer, 4, 0, 1);
+      $server['e']['gamemode']        = lgsl_cut_pascal($buffer, 4, 0, 1);
+      $server['s']['map']             = lgsl_cut_pascal($buffer, 4, 0, 1);
+      $server['e']['score_attackers'] = lgsl_cut_pascal($buffer, 4, 0, 1);
+      $server['e']['score_defenders'] = lgsl_cut_pascal($buffer, 4, 0, 1);
+
+      // CONVERT MAP NUMBER TO DESCRIPTIVE NAME
+
+      $server['e']['level'] = $server['s']['map'];
+      $map_check = strtolower($server['s']['map']);
+
+      if            (strpos($map_check, "mp_001") !== FALSE) { $server['s']['map'] = "Grand Bazaar";    }
+      elseif (strpos($map_check, "mp_003") !== FALSE) { $server['s']['map'] = "Teheran Highway";    }
+      elseif (strpos($map_check, "mp_007") !== FALSE) { $server['s']['map'] = "Caspian Border";    }
+      elseif (strpos($map_check, "mp_011") !== FALSE) { $server['s']['map'] = "Seine Crossing";    }
+      elseif (strpos($map_check, "mp_012") !== FALSE) { $server['s']['map'] = "Operation Firestorm";    }
+      elseif (strpos($map_check, "mp_013") !== FALSE) { $server['s']['map'] = "Damavand Peak";    }
+      elseif (strpos($map_check, "mp_017") !== FALSE) { $server['s']['map'] = "Noshahr Canals";    }
+      elseif (strpos($map_check, "mp_018") !== FALSE) { $server['s']['map'] = "Kharg Island";    }
+      elseif (strpos($map_check, "mp_subway") !== FALSE) { $server['s']['map'] = "Operation Metro";   }
+    }
+
+//---------------------------------------------------------+
+
+    elseif ($lgsl_need['p'])
+    {
+      $lgsl_need['p'] = FALSE;
+
+      $field_total = lgsl_cut_pascal($buffer, 4, 0, 1);
+      $field_list  = array();
+
+      for ($i=0; $i<$field_total; $i++)
+      {
+        $field_list[] = strtolower(lgsl_cut_pascal($buffer, 4, 0, 1));
+      }
+
+      $player_squad = array("","Alpha","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel");
+      $player_team  = array("","Attackers","Defenders");
+      $player_total = lgsl_cut_pascal($buffer, 4, 0, 1);
+
+      for ($i=0; $i<$player_total; $i++)
+      {
+        foreach ($field_list as $field)
+        {
+          $value = lgsl_cut_pascal($buffer, 4, 0, 1);
+
+          switch ($field)
+          {
+            case "clantag": $server['p'][$i]['name']  = $value;                                                                             break;
+            case "name":    $server['p'][$i]['name']  = empty($server['p'][$i]['name']) ? $value : "[{$server['p'][$i]['name']}] {$value}"; break;
+            case "teamid":  $server['p'][$i]['team']  = isset($player_team[$value]) ? $player_team[$value] : $value;                        break;
+            case "squadid": $server['p'][$i]['squad'] = isset($player_squad[$value]) ? $player_squad[$value] : $value;                      break;
+            default:        $server['p'][$i][$field]  = $value;                                                                             break;
+          }
+        }
+      }
+    }
 
 //---------------------------------------------------------+
 
@@ -4040,7 +4177,7 @@
 
   function lgsl_version()
   {
-    return "LGSL 5.8 By Richard Perry";
+    return "LGSL 5.8 Beta 21 By Richard Perry";
   }
 
 //------------------------------------------------------------------------------------------------------------+
@@ -4050,3 +4187,5 @@
 
 //------------------------------------------------------------------------------------------------------------+
 //------------------------------------------------------------------------------------------------------------+
+
+?>
