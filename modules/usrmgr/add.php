@@ -175,14 +175,13 @@ function Addr1Input($field, $mode, $error = '') {
 
     case CHECK_ERROR_PROC:
       switch($_POST['country']) {
-        case 'de': // PLZ + City check germany
+        case 'de':
           if ($_POST['street|hnr'] != '' or FieldNeeded('street')){
           $pieces = explode(' ', $_POST['street|hnr']);
-          $_POST['hnr'] = (int)array_pop($pieces);
+          $_POST['hnr'] = array_pop($pieces);
           $_POST['street'] = implode(' ', $pieces);
 
-              if ($_POST['street'] == '') return t('Bitte gib Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
-              elseif ($_POST['hnr'] == 0) return t('Die Hausnummer muss numerisch sein.');
+            if ($_POST['street'] == '' or $_POST['hnr'] == '') return t('Bitte gib Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
           }
         break;
       }
@@ -210,7 +209,7 @@ function Addr2Input($field, $mode, $error = '') {
           $_POST['city'] = implode(' ', $pieces);
 
               if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte gib Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
-              elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).');
+              elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen.');
           }
         break;
       }
