@@ -168,14 +168,12 @@ switch ($_GET['step']){
 		}
 		$dsp->SetForm("index.php?mod=foodcenter&action=print&design=base\" target=\"_blank\"","print");
 		$dsp->AddDropDownFieldRow("file",t('Bitte Template auswählen:'),$file_array,"");
-		
-		
 
-		echo "<input type=\"hidden\" name=\"search_input[0]\" value=\"{$_POST['search_input'][0]}\">";
-		echo "<input type=\"hidden\" name=\"search_dd_input[0]\" value=\"{$_POST['search_dd_input'][0]}\">";
-		echo "<input type=\"hidden\" name=\"search_dd_input[1]\" value=\"{$_POST['search_dd_input'][1]}\">";
-		echo "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$_POST['search_dd_input'][2]}\">";
-		
+		$MainContent .= "<input type=\"hidden\" name=\"search_input[0]\" value=\"{$_POST['search_input'][0]}\">\n";
+		$MainContent .= "<input type=\"hidden\" name=\"search_dd_input[0]\" value=\"{$_POST['search_dd_input'][0]}\">\n";
+		$MainContent .= "<input type=\"hidden\" name=\"search_dd_input[1]\" value=\"{$_POST['search_dd_input'][1]}\">\n";
+		$MainContent .= "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$_POST['search_dd_input'][2]}\">\n";
+        
 		$dsp->AddFormSubmitRow(t('Drucken'));
 		$dsp->AddContent();
 		break;
