@@ -3142,6 +3142,12 @@
 				<it>System-mail</it>
 				<file>usrmgr</file>
 			</entry>
+			<entry>
+				<id>bc5520abc2003d74de52d61c030a03c9</id>
+				<org>Du must mindestens %1 Jahre alt sein um an dieser Party teilnehmen zu d&uuml;rfen!</org>
+				<en>You have to be at least %1 years old for this party!</en>
+				<file>usrmgr</file>
+			</entry>
 		</content>
 	</table>
 </lansuite>

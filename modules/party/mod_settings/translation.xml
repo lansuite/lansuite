@@ -753,8 +753,21 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<id></id>
-				<org></org>
+				<id>b911477f980efd412221ed1307dfe698</id>
+				<org>Mindestalter (0 = keine Altersbeschr&auml;nkung)</org>
+				<en>Minimum age (0 = no age limit)</en>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>f15ff52069db5e52a1f99b4f9c345b06</id>
+				<org>Mindestalter</org>
+				<en>minimum age</en>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>b175c0d8ca97c5417dc1e4644cef0a05</id>
+				<org>Kein Mindestalter</org>
+				<en>no age limit</en>
 				<file>party</file>
 			</entry>
 		</content>
