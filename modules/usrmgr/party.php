@@ -53,7 +53,7 @@ else {
         $db->free_result($res);
         if (isset($minage['minage']))
         {
-            return t('Du must min %1 Jahre alt sein um an dieser Party teilnehmen zu dürfen!', $minage['minage']);
+            return t('Du must mindestens %1 Jahre alt sein um an dieser Party teilnehmen zu d&uuml;rfen!', $minage['minage']);
         }                                                
       }
 
