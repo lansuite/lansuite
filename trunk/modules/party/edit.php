@@ -39,6 +39,7 @@ $mf->AddField(t('Partyname'), 'name');
 $mf->AddField(t('Anzahl Plätze'), 'max_guest');
 $mf->AddField(t('PLZ'), 'plz');
 $mf->AddField(t('Ort'), 'ort');
+$mf->AddField(t('Mindestalter (0 = keine Beschr&auml;nkung)'), 'minage');
 
 $mf->AddField(t('Party startet am'), 'startdate');
 $mf->AddField(t('Party endet am'), 'enddate', '', '', '', 'CheckEndDate');

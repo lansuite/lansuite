@@ -42,6 +42,21 @@ else {
         if ($row2['paid']!= 0) return t('Du bist für diese Party bereits auf bezahlt gesetzt. Bitte einen Admin dich auf "nicht bezahlt" zu setzen, bevor du dich abmeldest');
       }
 
+      // Check age
+      if (isset($_POST['InsertControll1']) && $_POST['InsertControll1']) {
+        $res = $db->qry("SELECT %prefix%partys.minage FROM %prefix%user, %prefix%partys
+                            WHERE %prefix%partys.party_id = %int%
+                                AND %prefix%user.userid = %int%
+                                AND DATEDIFF(DATE_SUB(%prefix%partys.startdate, INTERVAL %prefix%partys.minage YEAR), %prefix%user.birthday) < 0
+                                AND %prefix%partys.minage > 0", $_GET['party_id'], $id);
+        $minage = $db->fetch_array($res);
+        $db->free_result($res);
+        if (isset($minage['minage']))
+        {
+            return t('Du must min %1 Jahre alt sein um an dieser Party teilnehmen zu dürfen!', $minage['minage']);
+        }                                                
+      }
+
 			$row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
 			
 			// Free seats if the user hasn't paid already

@@ -101,6 +101,14 @@
 				<default></default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>minage</name>
+				<type>int(2)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
 		</structure>
 		<content>
 		</content>
