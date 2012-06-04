@@ -19,8 +19,8 @@ class lansuiteTree extends TourneyTree {
 	function lansuiteTree($id, $size, &$db) {
 		$this->size = $size;
 		$this->st = "SELECT games.round, teams.name, teams.teamid, games.leaderid, games.gameid, games.score, games.position
-				FROM lansuite_t2_games AS games
-				LEFT JOIN lansuite_t2_teams AS teams ON ( games.tournamentid = teams.tournamentid )
+				FROM %prefix%t2_games AS games
+				LEFT JOIN %prefix%t2_teams AS teams ON ( games.tournamentid = teams.tournamentid )
 					AND ( games.leaderid = teams.leaderid)
 				WHERE (games.tournamentid = '".(int)$id."')
 				AND (games.group_nr = 0) AND (games.round = %s) GROUP BY games.gameid ORDER BY games.position DESC";
