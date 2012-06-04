@@ -7,7 +7,7 @@
  * @version $Id$
  */
  
-include('modules/home/board.inc.php');
+include('modules/board/plugins/home.php');
 $box->Row($content);
 
 ?>
