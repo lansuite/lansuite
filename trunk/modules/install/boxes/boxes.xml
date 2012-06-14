@@ -60,4 +60,14 @@
 		<source>language</source>
 		<callback></callback>
 	</box>
+	<box>
+		<name>Teilen</name>
+		<place>1</place>
+		<pos>9</pos>
+		<active>0</active>
+		<internet>2</internet>
+		<login>0</login>
+		<source>social</source>
+		<callback></callback>
+	</box>
 </lansuite>
