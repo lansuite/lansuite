@@ -11,7 +11,7 @@ switch($_GET["step"]){
     $ms2->config['EntriesPerPage'] = 50;
 
     $ms2->AddTextSearchField(t('Meldung'), array('l.description' => 'like'));
-    $ms2->AddTextSearchField(t('IP'), array('ip' => 'like'));
+    $ms2->AddTextSearchField(t('IP'), array('ip' => 'aton'));
 
     $list = array('' => t('Alle'), '0' => t('System'));
     $res = $db->qry("SELECT l.userid, u.username FROM %prefix%log AS l
