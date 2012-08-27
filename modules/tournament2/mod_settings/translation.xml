@@ -2024,7 +2024,7 @@
 			</entry>
 			<entry>
 				<id>8270f61e2c099abf2902747168b2dd1c</id>
-				<org>Der Spieler wurde aus Ihrem Team entfernt</org>
+				<org>Der Spieler wurde aus deinem Team entfernt</org>
 				<en>The player has been removed from your team</en>
 				<es>El jugador se ha quitado de su equipo de</es>
 				<fr>Le joueur a été supprimé de votre équipe</fr>
@@ -2044,7 +2044,7 @@
 			</entry>
 			<entry>
 				<id>b1cc95c6edf6ebec3fb1c1dc73aefb13</id>
-				<org>Der Spieler wurde Ihrem Team hinzugef�gt</org>
+				<org>Der Spieler wurde deinem Team hinzugef�gt</org>
 				<en>The player was hinzugefgt your team</en>
 				<es>El jugador fue hinzugefgt su equipo</es>
 				<fr>Le joueur a été hinzugefgt votre équipe</fr>
@@ -2064,7 +2064,7 @@
 			</entry>
 			<entry>
 				<id>4992b2e50c231e6dbb68806e8c9d942e</id>
-				<org>Hier kannst du Ihre Teams verwalten</org>
+				<org>Hier kannst du deine Teams verwalten</org>
 				<en>You may submit manage your team</en>
 				<es>Usted puede presentar su equipo de gestión de la</es>
 				<fr>Vous mai présenter gérer votre équipe</fr>
@@ -3164,7 +3164,7 @@
 			</entry>
 			<entry>
 				<id>6ed7446a8e946445a7e02fa914ba84b9</id>
-				<org>Der Spieler wurde Ihrem Team hinzugefügt</org>
+				<org>Der Spieler wurde deinem Team hinzugefügt</org>
 				<en>The player has been added to your team</en>
 				<es>El jugador se ha añadido a su equipo</es>
 				<fr>Le joueur a été ajoutée à votre équipe</fr>

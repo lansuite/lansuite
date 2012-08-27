@@ -38,12 +38,12 @@ switch ($step){
     elseif($auth['login'])  
     {
         $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_GET["score"], $_POST["comment"]);
-   		$func->confirmation(t('Ihre Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
+   		$func->confirmation(t('Deine Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
     	$_SESSION["versuch"] = 0;
         $_SESSION["gewonnen"] = 0;
     }else{
         $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_GET["score"], $_POST["comment"]);
-        $func->confirmation(t('Ihre Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
+        $func->confirmation(t('Deine Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
     	$_SESSION["versuch"] = 0;
         $_SESSION["gewonnen"] = 0;
     }

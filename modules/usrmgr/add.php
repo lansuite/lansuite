@@ -33,7 +33,7 @@ global $mf, $db, $auth, $authentication, $party, $usrmgr, $func, $cfg, $signon;
     if ($_POST['password_original']) $_SESSION['tmp_pass'] = $_POST['password_original'];
 
     if ($cfg["signon_password_mail"]) {
-      if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Dein Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.'), NO_LINK);
+      if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Dein Passwort und weitere Informationen wurden an deine angegebene E-Mail-Adresse gesendet.'), NO_LINK);
       else if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-Email aufgetreten.') .'<br />'. t('Dein Passwort lautet: <b>%1</b>', array($_SESSION['tmp_pass'])), NO_LINK);
     }
 

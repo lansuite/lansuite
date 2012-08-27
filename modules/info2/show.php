@@ -17,7 +17,7 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
 
   if ($info['active'] == 1) {
   	if($info["text$val"] == null)
-  		$func->information(t("Es liegen Informationen zu der ausgewählten Seite vor, jedoch nicht in Ihrer aktuell gewählten Sprache: <b>%1</b>",$language));
+  		$func->information(t("Es liegen Informationen zu der ausgewählten Seite vor, jedoch nicht in deiner aktuell gewählten Sprache: <b>%1</b>",$language));
 	else
 	 	$dsp->AddSingleRow($func->AllowHTML($info["text$val"]), '', 'textContent');
 	} else $func->error(t('Diese Info-Seite ist nicht aktiviert. Ein Admin muss sie zuerst im Info-Modul aktivieren'));

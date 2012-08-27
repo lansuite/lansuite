@@ -3,7 +3,7 @@
 if (!$auth['userid'])
 {
 	$dsp->NewContent(t('Posteingang'));
-	$func->information(t('Um Ihren Posteingang sehen zu können, musst du dich zuerst einloggen. Nutzen kannst du das <a href="index.php?mod=mail&action=newmail">Kontaktformular</a> um Mails zu versenden. Dies ist auch im ausgeloggten Zustand möglich.'));
+	$func->information(t('Um deinen Posteingang sehen zu können, musst du dich zuerst einloggen. Nutzen kannst du das <a href="index.php?mod=mail&action=newmail">Kontaktformular</a> um Mails zu versenden. Dies ist auch im ausgeloggten Zustand möglich.'));
 }
 
 // If logged in

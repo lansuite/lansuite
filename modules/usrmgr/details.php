@@ -217,7 +217,7 @@ else {
   }
   $messenger .= '</td><td align="right">&nbsp;';
   (in_array($_GET['userid'], $authentication->online_users))? $messenger .= $dsp->AddIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->AddIcon('no', '', t('Benutzer ist Offline'));
-  if ($auth['login'] and $func->isModActive('msgsys')) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], t('Den User zu Ihrer Buddyliste hinzufügen')) .' ';
+  if ($auth['login'] and $func->isModActive('msgsys')) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], t('Den User zu deiner Buddyliste hinzufügen')) .' ';
   $messenger .= '</td></tr></table>';
   $dsp->AddDoubleRow('Messenger', $messenger);
   $dsp->AddFieldsetEnd();

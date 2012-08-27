@@ -264,7 +264,7 @@
 			</entry>
 			<entry>
 				<id>ce15bd0bab6c3a2a4d378dd2c575dab1</id>
-				<org>Ihre Identität konnte nicht verifiziert werden. Die Transaktion wird sicherheitshalber abgebrochen.</org>
+				<org>Deine Identität konnte nicht verifiziert werden. Die Transaktion wird sicherheitshalber abgebrochen.</org>
 				<en>Their identity could not be verified. The transaction will be canceled for safety.</en>
 				<es>Su identidad no pudo ser verificada. La transacción será cancelada por la seguridad.</es>
 				<fr>Leur identité n&amp;#39;a pu être vérifiée. La transaction sera annulée pour la sécurité.</fr>
@@ -274,7 +274,7 @@
 			</entry>
 			<entry>
 				<id>2f30b326c73a1688b01b78f67f1d43c5</id>
-				<org>Bitte wähle einen Empfänger für Ihre Transaktion aus</org>
+				<org>Bitte wähle einen Empfänger für deine Transaktion aus</org>
 				<en>Please select a recipient from your transaction</en>
 				<es>Por favor, seleccione un destinatario de la transacción</es>
 				<fr>S&amp;#39;il vous plaît sélectionner un destinataire dans votre transaction</fr>

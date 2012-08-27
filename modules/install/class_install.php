@@ -476,7 +476,7 @@ class Install {
 
     // Error Reporting
     if (error_reporting() <= (E_ALL ^ E_NOTICE)) $errreport_check = $ok;
-    else $errreport_check = $warning . t('In Ihrer php.ini ist \'error_reporting\' so konfiguriert, dass auch unwichtige Fehlermeldungen angezeigt werden. Dies kann dazu führen, dass störende Fehlermeldungen in Lansuite auftauchen. Wir empfehlen diese Einstellung auf \'E_ALL ^ E_NOTICE\' zu ändern. In dieser Einstellung werden dann nur noch Fehler angezeigt, welche die Lauffähigkeit des Skriptes beeinträchtigen.');
+    else $errreport_check = $warning . t('In deiner php.ini ist \'error_reporting\' so konfiguriert, dass auch unwichtige Fehlermeldungen angezeigt werden. Dies kann dazu führen, dass störende Fehlermeldungen in Lansuite auftauchen. Wir empfehlen diese Einstellung auf \'E_ALL ^ E_NOTICE\' zu ändern. In dieser Einstellung werden dann nur noch Fehler angezeigt, welche die Lauffähigkeit des Skriptes beeinträchtigen.');
     $dsp->AddDoubleRow("Error Reporting", $errreport_check);
 
     $dsp->AddFieldSetEnd();
@@ -640,7 +640,7 @@ class Install {
     $dsp->AddDoubleRow("Register Globals", $check);
 
     if (ini_get('expose_php') == FALSE) $check = $ok;
-    else $check = $optimize . t('Auf deinem System ist die PHP-Einstellung expose_php auf On gesetzt. Diese Einstellung fügt - wenn sie auf On steht - jedem HTTP-Response einen Headereintrag hinzu, dass die Seite mit PHP erstellt wurde. Das ist unnötig, denn Ihre Besucher interessiert das sowieso nicht und aus Performancesicht muss der hinzugefügte Headereintrag natürlich mit zum Client übertragen werden. Also besser auf Off stellen.');
+    else $check = $optimize . t('Auf deinem System ist die PHP-Einstellung expose_php auf On gesetzt. Diese Einstellung fügt - wenn sie auf On steht - jedem HTTP-Response einen Headereintrag hinzu, dass die Seite mit PHP erstellt wurde. Das ist unnötig, denn deine Besucher interessiert das sowieso nicht und aus Performancesicht muss der hinzugefügte Headereintrag natürlich mit zum Client übertragen werden. Also besser auf Off stellen.');
     $dsp->AddDoubleRow("Expose PHP", $check);
 
     if (ini_get('register_argc_argv') == FALSE) $check = $ok;

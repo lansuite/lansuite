@@ -15,10 +15,10 @@ function Check() {
 	$ret = true;
 	
 	if(($_POST['fromUserid'] != $auth['userid']) and $auth['type'] < 2) {
-		$func->error(t("Ihre Identität konnte nicht verifiziert werden. Die Transaktion wird sicherheitshalber abgebrochen."));
+		$func->error(t("Deine Identität konnte nicht verifiziert werden. Die Transaktion wird sicherheitshalber abgebrochen."));
 		$ret = false;
 	}elseif($_POST['toUserid'] == -1) {
-		$func->information(t("Bitte wähle einen Empfänger für Ihre Transaktion aus"));
+		$func->information(t("Bitte wähle einen Empfänger für deine Transaktion aus"));
 		$ret = false;
 	}elseif($_POST['toUserid'] == $auth['userid']) {
 		$func->information(t("Du kannst dir nicht selbst Geld überweisen"));

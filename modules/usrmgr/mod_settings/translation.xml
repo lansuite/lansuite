@@ -14,7 +14,7 @@
 		<content>
 			<entry>
 				<id>ff16eac4bb1728bdfea6162a83b34d65</id>
-				<org>Dein Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.</org>
+				<org>Dein Passwort und weitere Informationen wurden an deine angegebene E-Mail-Adresse gesendet.</org>
 				<en>Your password and further information were sent to the e-mail address.</en>
 				<es>Su contraseña y demás información se enviará a la dirección de correo electrónico.</es>
 				<fr>Votre mot de passe et des informations complémentaires ont été envoyés à l&amp;#39;adresse e-mail.</fr>
@@ -34,7 +34,7 @@
 			</entry>
 			<entry>
 				<id>a48417c75c7820deee77f0706bec69ca</id>
-				<org>Ihre Anmeldung bei %1</org>
+				<org>Deine Anmeldung bei %1</org>
 				<en>Your registration at %1</en>
 				<es>Su registro en %1</es>
 				<fr>Votre inscription à %1</fr>
@@ -1264,7 +1264,7 @@
 			</entry>
 			<entry>
 				<id>ecdc7ffafe7a5b5058e9f1e5585d8b78</id>
-				<org>Den User zu Ihrer Buddyliste hinzufügen</org>
+				<org>Den User zu deiner Buddyliste hinzufügen</org>
 				<en>To add someone to your Buddy List</en>
 				<es>Para añadir a alguien a tu lista de contactos</es>
 				<fr>Pour ajouter quelqu&amp;#39;un à votre liste de contacts</fr>
@@ -1864,7 +1864,7 @@
 			</entry>
 			<entry>
 				<id>3cfa0c33ca17502b148b9c7d69cc086a</id>
-				<org>Diese Seite ermöglicht es dir Ihre Eintrittskarte zur Veranstaltung auszudrucken</org>
+				<org>Diese Seite ermöglicht es dir deine Eintrittskarte zur Veranstaltung auszudrucken</org>
 				<en>This page allows you to print your admission ticket to the event</en>
 				<es>Esta página le permite imprimir tu boleto de entrada para el evento</es>
 				<fr>Cette page vous permet d&amp;#39;imprimer votre billet d&amp;#39;entrée à l&amp;#39;événement</fr>
@@ -1924,7 +1924,7 @@
 			</entry>
 			<entry>
 				<id>30727110f2a5709d338764ed643b2b2e</id>
-				<org>Eine Bestätigung der Anmeldung wurde an Ihre E-Mail-Adresse gesendet.</org>
+				<org>Eine Bestätigung der Anmeldung wurde an deine E-Mail-Adresse gesendet.</org>
 				<en>A registration confirmation is sent to your email address.</en>
 				<es>Una confirmación de inscripción se envía a su dirección de correo electrónico.</es>
 				<fr>Une confirmation d&amp;#39;inscription est envoyé à votre adresse email.</fr>
@@ -2234,7 +2234,7 @@
 			</entry>
 			<entry>
 				<id>f2c51fef2ce6d144b0f4c162e617aee0</id>
-				<org>Ihre Email</org>
+				<org>Deine Email</org>
 				<en>Your Email</en>
 				<es>Su correo electrónico</es>
 				<fr>Votre Email</fr>
@@ -2624,7 +2624,7 @@
 			</entry>
 			<entry>
 				<id>c3f497fb804c7651f47f01bb89d91bf5</id>
-				<org>Ihre Email-Adresse wurde erfolgreich verifiziert. Vielen Dank!</org>
+				<org>Deine Email-Adresse wurde erfolgreich verifiziert. Vielen Dank!</org>
 				<en>Your email address has been successfully verified. Thank you very much!</en>
 				<es>Su dirección de correo electrónico se ha verificado correctamente. Muchas gracias!</es>
 				<fr>Votre adresse email a été vérifié avec succès. Merci beaucoup!</fr>

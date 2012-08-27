@@ -45,7 +45,7 @@
 		<action>newsletter</action>
 		<file>newsletter</file>
 		<caption>Rundmail</caption>
-		<hint>Hier kannst du allen Ihren Gästen eine Mail schreiben</hint>
+		<hint>Hier kannst du all deinen Gästen eine Mail schreiben</hint>
 		<link>?mod=mail&amp;action=newsletter</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>

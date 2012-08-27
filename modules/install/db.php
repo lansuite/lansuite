@@ -18,7 +18,7 @@ if ($_GET["quest"]){
 		break;
 
 		case 4: // Rewrite configs
-			$func->question(t('Bist du sicher, dass du <b>\'alle Konfigurationen\'</b> zurÃ¼cksetzen möchtest? Damit gehen alle Ihre Moduleinstellungen verloren!'), "index.php?mod=install&action=db&step=4&quest=0", "index.php?mod=install&action=db");
+			$func->question(t('Bist du sicher, dass du <b>\'alle Konfigurationen\'</b> zurÃ¼cksetzen möchtest? Damit gehen alle deine Moduleinstellungen verloren!'), "index.php?mod=install&action=db&step=4&quest=0", "index.php?mod=install&action=db");
 		break;
 /*
 // Muss für die Multipartyfunktion angepasst werden

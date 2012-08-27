@@ -102,9 +102,9 @@ if($_GET[queryid])
 			//
 			if($row2 == TRUE){
 				if($cfg['sys_internet'] == 1){
-					$func->confirmation(t('Der Benutzer <b>%1</b> wurde aus Ihrer Buddy-Liste entfernt. Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf wirksam.', $row1[username]),"");
+					$func->confirmation(t('Der Benutzer <b>%1</b> wurde aus deiner Buddy-Liste entfernt. Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf wirksam.', $row1[username]),"");
 				}else{
-					$func->confirmation(t('Der Benutzer <b>%1 (%2 %3)</b> wurde aus Ihrer Buddy-Liste entfernt. Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf wirksam.', $row1[name],$row1[firstname],$row1[username]),"");
+					$func->confirmation(t('Der Benutzer <b>%1 (%2 %3)</b> wurde aus deiner Buddy-Liste entfernt. Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf wirksam.', $row1[name],$row1[firstname],$row1[username]),"");
 				}
 			}
 
