@@ -124,13 +124,13 @@ class db {
     if (is_array($this->QueryArgs[0])) $this->QueryArgs = $this->QueryArgs[0]; // Arguments could be passed als multiple ones, or a single array
 
     $query = array_shift($this->QueryArgs);
-    $this->QueryArgs = str_replace('%prefix%', $config['database']['prefix'], $this->QueryArgs);
+    #$this->QueryArgs = str_replace('%prefix%', $config['database']['prefix'], $this->QueryArgs);
 
     //if (is_array($this->QueryArgs[0])) $this->QueryArgs = $this->QueryArgs[0];
 
+    $query = str_replace('%prefix%', $config['database']['prefix'], $query);
     $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array(&$this, 'escape'), $query);
     // TODO: Don't replace %prefix% within quotes!
-    $query = str_replace('%prefix%', $config['database']['prefix'], $query);
     if (isset($debug)) $debug->query_start($query);
     if ($this->mysqli) {
       $this->query_id = mysqli_query($this->link_id, $query);
