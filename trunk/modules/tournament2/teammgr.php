@@ -14,7 +14,7 @@ switch($_GET['step']) {
 
 	// Spieler aus Team entfernen
 	case 20:
-		if ($tteam->kick($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde aus Ihrem Team entfernt'), "index.php?mod=tournament2&action=teammgr");
+		if ($tteam->kick($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde aus deinem Team entfernt'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
 	// Team abmelden (löschen) / Mich abmelden
@@ -34,7 +34,7 @@ switch($_GET['step']) {
 
 	// Spieler zum eigenen Team hinzufügen - In DB schreiben
 	case 41:
-		if ($tteam->join($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde Ihrem Team hinzugefügt'), "index.php?mod=tournament2&action=teammgr");
+		if ($tteam->join($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde deinem Team hinzugefügt'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
 	// Edit Teamdetails (Form)
@@ -48,7 +48,7 @@ switch($_GET['step']) {
     LEFT JOIN %prefix%user AS user ON user.userid = team.leaderid
     WHERE teamid = %int%", $_GET["teamid"]);
 
-		$dsp->NewContent(t('Teammanager'), t('Hier kannst du Ihre Teams verwalten'));
+		$dsp->NewContent(t('Teammanager'), t('Hier kannst du deinem Teams verwalten'));
 
 		$dsp->SetForm("index.php?mod=tournament2&action=teammgr&step=51&teamid={$_GET["teamid"]}&tournamentid=$tournamentid", "", "", "multipart/form-data");
 
@@ -99,7 +99,7 @@ switch($_GET['step']) {
 
 
 	default:
-		$dsp->NewContent(t('Teammanager'), t('Hier kannst du Ihre Teams verwalten'));
+		$dsp->NewContent(t('Teammanager'), t('Hier kannst du deine Teams verwalten'));
 
 		$dsp->AddSingleRow(t('Einzelspieler-Turniere, an denen du teilnimmst'));
 		// Teamname und Turniername auslesen

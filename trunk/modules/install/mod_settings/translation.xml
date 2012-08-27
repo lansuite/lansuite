@@ -102,8 +102,8 @@
 			</entry>
 			<entry>
 				<id>e131109beb747315914fc6010f9193d3</id>
-				<org>Auf Ihrem System konnte das PHP-Modul &lt;b&gt;FTP-Library&lt;/b&gt; nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</org>
-				<de>Auf Ihrem System konnte das PHP-Modul &amp;lt;b&amp;gt;FTP-Library&amp;lt;/b&amp;gt; nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</de>
+				<org>Auf deinem System konnte das PHP-Modul &lt;b&gt;FTP-Library&lt;/b&gt; nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</org>
+				<de>Auf deinem System konnte das PHP-Modul &amp;lt;b&amp;gt;FTP-Library&amp;lt;/b&amp;gt; nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</de>
 				<en>The PHP-Module &amp;lt;b&amp;gt;FTP-Library&amp;lt;/b&amp;gt; was not found. This will result in errors in the modules connecting to FTP-Servers, like (download, or server)</en>
 				<es>En su sistema, la &lt;b&gt;biblioteca&lt;/b&gt; del módulo PHP &lt;b&gt;FTP&lt;/b&gt; no pudo ser encontrado. Esto puede significar que los módulos que funcionan para acceder a servidores FTP (por ejemplo, el módulo de descarga, módulo de servidor) no es correcta.</es>
 				<fr>Sur votre système, le module PHP &lt;b&gt;librairie FTP&lt;/b&gt; n&amp;#39;a pas pu être trouvé. Cela signifie que les modules de mai de cette fonction pour accéder aux serveurs FTP (par exemple télécharger le module, le module serveur) n&amp;#39;est pas correct.</fr>
@@ -1259,7 +1259,7 @@
 			</entry>
 			<entry>
 				<id>1d656f0b245f9b56f8b11eb1fe921d5e</id>
-				<org>Hier kannst du dieses Modul Ihren Bedürfnissen anpassen</org>
+				<org>Hier kannst du dieses Modul deinen Bedürfnissen anpassen</org>
 				<en>Here you can customize this module to your needs</en>
 				<es>Aquí usted puede personalizar este módulo a sus necesidades</es>
 				<fr>Ici vous pouvez personnaliser ce module à vos besoins</fr>
@@ -2282,7 +2282,7 @@
 			</entry>
 			<entry>
 				<id>3ca804fe56c1fa6436f9bcc8a7c46bb8</id>
-				<org>Auf Ihrem System konnte das PHP-Modul &lt;b&gt;FTP-Library&lt;/b&gt; nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann</org>
+				<org>Auf deinem System konnte das PHP-Modul &lt;b&gt;FTP-Library&lt;/b&gt; nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann</org>
 				<en>On your system, the PHP module &lt;b&gt;FTP library&lt;/b&gt; could not be found. This has lead to that, the download module only in standard mode, but not in FTP mode, can be used</en>
 				<es>En su sistema, la &lt;b&gt;biblioteca&lt;/b&gt; del módulo PHP &lt;b&gt;FTP&lt;/b&gt; no pudo ser encontrado. Esto ha llevado a que, el módulo de descarga sólo en el modo estándar, pero no en el modo de FTP, puede ser utilizado</es>
 				<fr>Sur votre système, le module PHP &lt;b&gt;librairie FTP&lt;/b&gt; n&amp;#39;a pas pu être trouvé. Ceci a conduit à cela, le module de téléchargement uniquement en mode standard, mais pas en mode FTP, peut être utilisé</fr>
@@ -2782,7 +2782,7 @@
 			</entry>
 			<entry>
 				<id>f08620b4c5eccde44ce089f603b63948</id>
-				<org>Bist du sicher, dass du &lt;b&gt;'alle Konfigurationen'&lt;/b&gt; zurÃ¼cksetzen möchtest? Damit gehen alle Ihre Moduleinstellungen verloren!</org>
+				<org>Bist du sicher, dass du &lt;b&gt;'alle Konfigurationen'&lt;/b&gt; zurÃ¼cksetzen möchtest? Damit gehen alle deine Moduleinstellungen verloren!</org>
 				<en>Are you sure that you &lt;b&gt;&amp;#39;want&lt;/b&gt; cksetzen &lt;b&gt;all configurations&amp;#39; Return?&lt;/b&gt; To ensure that all your module settings will be lost!</en>
 				<es>¿Estás seguro de que &lt;b&gt;&amp;quot;quieren&lt;/b&gt; cksetzen &lt;b&gt;Volver todas las configuraciones?&lt;/b&gt; Para garantizar que todos los ajustes del módulo se perderán!</es>
 				<fr>Êtes-vous sûr que &lt;b&gt;tu veux&lt;/b&gt; cksetzen &lt;b&gt;Retour à toutes les configurations?&lt;/b&gt; Pour s&amp;#39;assurer que tous les paramètres de votre module sera perdu!</fr>

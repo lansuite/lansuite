@@ -115,7 +115,7 @@ Variablen:
 
 Du hast dich erfolgreich auf %PARTYURL% angemeldet.
 
-Hier nochmal Ihre Daten, die du angegeben hast:
+Hier nochmal deine Daten, die du angegeben hast:
 
 --Userdata------------------
 Username: %USERNAME%
@@ -155,7 +155,7 @@ Variablen:
     	<item>
     		<name>signon_paid_email_subject</name>
     		<type>string</type>
-    		<default>Ihre Zahlung ist bei uns eingegangen</default>
+    		<default>Deine Zahlung ist bei uns eingegangen</default>
     		<description>Betreff bei Zahlstatus-Änderung</description>
     	</item>
     	<item>

@@ -384,7 +384,7 @@
 			</entry>
 			<entry>
 				<id>0cd9899f56b1eb28a1ac194d29079b2b</id>
-				<org>Feedback zu Ihrem Bugreport benötigt</org>
+				<org>Feedback zu deinem Bugreport benötigt</org>
 				<en>Feedback about your bug report required</en>
 				<es>Comentarios acerca de su informe de error necesarios</es>
 				<fr>Vos commentaires sur votre rapport de bogue requis</fr>
@@ -394,7 +394,7 @@
 			</entry>
 			<entry>
 				<id>3fc081e91e80836d182b9f91f93d680c</id>
-				<org>Das Problem aus Ihrem Bugreport wurde behoben</org>
+				<org>Das Problem aus deinem Bugreport wurde behoben</org>
 				<en>The problem in your bug report has been fixed</en>
 				<es>El problema en su informe de error se ha corregido</es>
 				<fr>Le problème dans votre rapport de bogue a été corrigé</fr>
@@ -534,7 +534,7 @@
 			</entry>
 			<entry>
 				<id>d5da0e1ffffcb7c55e4e3512ae5ef189</id>
-				<org>Hier kannst du die bugs.xml-Datei Importieren, die du auf Ihrer Webseite exportiert hast</org>
+				<org>Hier kannst du die bugs.xml-Datei Importieren, die du auf deiner Webseite exportiert hast</org>
 				<en>Here you can bugs.xml file importing, you exported to your website</en>
 				<es>Aquí usted puede bugs.xml archivo de importación, que exportó a su sitio web</es>
 				<fr>Ici, vous pouvez bugs.xml import de fichiers, vous avez exporté vers votre site</fr>

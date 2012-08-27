@@ -44,7 +44,7 @@
 			</entry>
 			<entry>
 				<id>770656677df22ab271f752b343b2cb2f</id>
-				<org>Dieser Benutzer befindet sich nicht in ihrer Buddy-Liste</org>
+				<org>Dieser Benutzer befindet sich nicht in deiner Buddy-Liste</org>
 				<en>This user is not on their buddy list</en>
 				<es>Este usuario no está en su lista de contactos</es>
 				<fr>Cet utilisateur n&amp;#39;est pas sur leur liste de contacts</fr>
@@ -54,7 +54,7 @@
 			</entry>
 			<entry>
 				<id>7f618a1563f4c10ca80f19504e131511</id>
-				<org>Der Benutzer &lt;b&gt;%1&lt;/b&gt; wurde aus Ihrer Buddy-Liste entfernt. Die &amp;Auml;nderung wird beim n&amp;auml;chsten Seitenaufruf wirksam.</org>
+				<org>Der Benutzer &lt;b&gt;%1&lt;/b&gt; wurde aus deiner Buddy-Liste entfernt. Die &amp;Auml;nderung wird beim n&amp;auml;chsten Seitenaufruf wirksam.</org>
 				<en>The &lt;b&gt;user%1&lt;/b&gt; has been removed from your Buddy List. The change will take effect the next page request.</en>
 				<es>El &lt;b&gt;usuario%1&lt;/b&gt; se ha eliminado de su lista de contactos. El cambio surtirá efecto la solicitud de la página siguiente.</es>
 				<fr>&lt;b&gt;L&amp;#39;utilisateur%1&lt;/b&gt; a été supprimé de votre liste de contacts. Le changement prendra effet la demande de la page suivante.</fr>
@@ -64,7 +64,7 @@
 			</entry>
 			<entry>
 				<id>46cab2c50eda5ecbd19e9fab5ac97c52</id>
-				<org>Der Benutzer &lt;b&gt;%1 (%2 %3)&lt;/b&gt; wurde aus Ihrer Buddy-Liste entfernt. Die &amp;Auml;nderung wird beim n&amp;auml;chsten Seitenaufruf wirksam.</org>
+				<org>Der Benutzer &lt;b&gt;%1 (%2 %3)&lt;/b&gt; wurde aus deiner Buddy-Liste entfernt. Die &amp;Auml;nderung wird beim n&amp;auml;chsten Seitenaufruf wirksam.</org>
 				<en>The &lt;b&gt;user%1 (%2%3)&lt;/b&gt; has been removed from your Buddy List. The change will take effect the next page request.</en>
 				<es>El &lt;b&gt;usuario%1 (%2%3)&lt;/b&gt; se ha eliminado de su lista de contactos. El cambio surtirá efecto la solicitud de la página siguiente.</es>
 				<fr>&lt;b&gt;L&amp;#39;utilisateur%1 (%2%3)&lt;/b&gt; a été supprimé de votre liste de contacts. Le changement prendra effet la demande de la page suivante.</fr>

@@ -121,7 +121,7 @@ switch($_GET["step"]){
     			break;
 
     			case 'tgz':
-    			  $func->information(t('Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte lade und entpacke den Ordner manuell auf Ihren Webspace.'), 'index.php?mod=install&action=import');
+    			  $func->information(t('Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte lade und entpacke den Ordner manuell auf deinem Webspace.'), 'index.php?mod=install&action=import');
     //			  $import->ImportExtInc($_FILES['importdata']['tmp_name']);
     //				$func->confirmation(t('Import erfolgreich.'), "index.php?mod=install&action=import");
     			break;
