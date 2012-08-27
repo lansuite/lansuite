@@ -1,5 +1,6 @@
 <?php
 
+$ms_number = 0;
 class MasterSearch2 {
   var $query = array('select' => '', 'from' => '', 'where' => '', 'group_by' => '', 'order_by' => '', 'limit' => '',
     'having' => '', 'default_order_by' => '', 'default_order_dir' => '', 'order_by_end' => '');
@@ -24,7 +25,10 @@ class MasterSearch2 {
 
   // Constructor
   function MasterSearch2($module = '') {
-    $this->ms_number++;
+    global $ms_number;
+
+    $ms_number++;
+    $this->ms_number = $ms_number;
 
     $this->query['select'] = '';
     $this->query['from'] = '';
