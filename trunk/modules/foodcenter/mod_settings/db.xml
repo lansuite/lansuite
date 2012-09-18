@@ -255,7 +255,7 @@
 			</field>		
 			<field>
 				<name>price</name>
-				<type>float</type>
+				<type>decimal(10,2)</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
@@ -271,7 +271,7 @@
 			</field>	
 			<field>
 				<name>eprice</name>
-				<type>float</type>
+				<type>decimal(10,2)</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
