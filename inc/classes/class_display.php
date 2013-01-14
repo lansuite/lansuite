@@ -530,11 +530,11 @@ class display {
     for ($x = $start_year; $x <= $end_year; $x++) $arr[$x] = $x;
     $smarty->assign('years', $arr);
 
-    if ($disableds['min']) $smarty->assign('dis_min', 'disabled=disabled');
-    if ($disableds['hour']) $smarty->assign('dis_hour', 'disabled=disabled');
-    if ($disableds['day']) $smarty->assign('dis_day', 'disabled=disabled');
-    if ($disableds['month']) $smarty->assign('dis_month', 'disabled=disabled');
-    if ($disableds['year']) $smarty->assign('dis_year', 'disabled=disabled');
+    if (isset($disableds['min']) and $disableds['min']) $smarty->assign('dis_min', 'disabled=disabled');
+    if (isset($disableds['hour']) and $disableds['hour']) $smarty->assign('dis_hour', 'disabled=disabled');
+    if (isset($disableds['day']) and $disableds['day']) $smarty->assign('dis_day', 'disabled=disabled');
+    if (isset($disableds['month']) and $disableds['month']) $smarty->assign('dis_month', 'disabled=disabled');
+    if (isset($disableds['year']) and $disableds['year']) $smarty->assign('dis_year', 'disabled=disabled');
 
     if ($errortext) $smarty->assign('errortext', $this->errortext_prefix . $errortext . $this->errortext_suffix);
 
