@@ -1196,13 +1196,13 @@
                 <null></null>
                 <key>PRI</key>
                 <default></default>
-                <extra></extra>
+                <extra>auto_increment</extra>
             </field>
             <field>
                 <name>ip</name>
                 <type>int(11) unsigned</type>
                 <null>YES</null>
-                <key></key>
+                <key>IND</key>
                 <default></default>
                 <extra></extra>
             </field>
