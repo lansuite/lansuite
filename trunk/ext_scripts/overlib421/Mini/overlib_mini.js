@@ -25,7 +25,7 @@ var o3_x=0,o3_y=0,o3_showingsticky=0,o3_removecounter=0;
 var over=null,fnRef,hoveringSwitch=false,olHideDelay;
 var isMac=(navigator.userAgent.indexOf("Mac")!=-1),olOp=(navigator.userAgent.toLowerCase().indexOf('opera')>-1&&document.createTextNode),olNs4=(navigator.appName=='Netscape'&&parseInt(navigator.appVersion)==4),olNs6=(document.getElementById)?true:false,olKq=(olNs6&&/konqueror/i.test(navigator.userAgent)),olIe4=(document.all)?true:false,olIe5=false,olIe55=false,docRoot='document.body';
 if(olNs4){var oW=window.innerWidth;var oH=window.innerHeight;window.onresize=function(){if(oW!=window.innerWidth||oH!=window.innerHeight)location.reload();}}
-if(olIe4){var agent=navigator.userAgent;if(/MSIE/.test(agent)){var versNum=parseFloat(agent.match(/MSIE[ ](\d\.\d+)\.*/i)[1]);if(versNum>=5){olIe5=true;olIe55=(versNum>=5.5&&!olOp)?true:false;if(olNs6)olNs6=false;}}
+if(olIe4){var agent=navigator.userAgent;if(/MSIE/.test(agent)){var versNum=parseFloat(agent.match(/MSIE[ ](\d+\.\d+)\.*/i)[1]);if(versNum>=5){olIe5=true;olIe55=(versNum>=5.5&&!olOp)?true:false;if(olNs6)olNs6=false;}}
 if(olNs6)olIe4=false;}
 if(document.compatMode&&document.compatMode=='CSS1Compat'){docRoot=((olIe4&&!olOp)?'document.documentElement':docRoot);}
 if(window.addEventListener)window.addEventListener("load",OLonLoad_handler,false);else if(window.attachEvent)window.attachEvent("onload",OLonLoad_handler);
