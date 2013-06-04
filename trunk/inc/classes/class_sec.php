@@ -9,8 +9,7 @@ class sec {
     if ($cfg["reload_limit"]) {
   		// Reload-Black-List
   		if (!$cfg["reload_time"]) $cfg["reload_time"] = 600;
-  		$db->qry("DELETE FROM %prefix%ip_hits WHERE (date + %int%) < %int%", $cfg["reload_time"], time());
-
+  		$db->qry("DELETE FROM %prefix%ip_hits WHERE (date + %int%) < NOW()", $cfg["reload_time"]);
   		$db->qry("INSERT INTO %prefix%ip_hits SET ip = INET_ATON(%string%)",
               $_SERVER['REMOTE_ADDR'], $_GET["mod"], $_GET["action"], $_GET["step"]);
 
