@@ -226,7 +226,7 @@
         // FIX : Add function to scan DB for correkt config and Tables (prefix etc.)
 
         // Reset DB-Success in Setup if no Adm.-Account was found, because a connection could work, but prefix is wrong
-        if (!func::admin_exists() and (($_GET["action"] == "wizard" and $_GET["step"] <= 3) or ($_GET["action"] == "ls_conf"))) $db->success = 0;
+        if (!$func->admin_exists() and (($_GET["action"] == "wizard" and $_GET["step"] <= 3) or ($_GET["action"] == "ls_conf"))) $db->success = 0;
 
         $cfg = $func->read_db_config(); // Config-Tabelle aulesen
         $sec->check_blacklist();
