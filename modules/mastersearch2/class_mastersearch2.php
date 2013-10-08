@@ -274,7 +274,7 @@ class MasterSearch2 {
 
     // Order by user selection
     if ($_GET['order_by']) {
-      $this->query['order_by'] .= $_GET['order_by'];
+      $this->query['order_by'] = $_GET['order_by'];
 
       // Order direction given by user?
       if ($_GET['order_dir']) {
