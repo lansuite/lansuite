@@ -72,6 +72,8 @@ if ($party->party_id) {
   }
 }
 
+$ms2->AddTextSearchField(t('Clan'), array('c.name' => 'like'));
+
 $ms2->AddResultField(t('Benutzername'), 'u.username');
 if ($auth['type'] >= 2 or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
   $ms2->AddResultField(t('Vorname'), 'u.firstname');

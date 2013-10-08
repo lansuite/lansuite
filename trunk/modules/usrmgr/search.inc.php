@@ -43,7 +43,7 @@ function IfUnlocked($userid) {
 }
 
 
-$ms2->AddTextSearchField('NGL/WWCL/LGZ-ID', array('u.nglid' => 'exact', 'u.nglclanid' => 'exact', 'u.wwclid' => 'exact', 'u.wwclclanid' => 'exact', 'u.lgzid' => 'exact', 'u.lgzclanid' => 'exact',));
+$ms2->AddTextSearchField(t('Clan'), array('c.name' => 'like'));
 
 $ms2->AddTextSearchDropDown(t('Benutzertyp'), 'u.type', array('' => t('Alle'), '1' => t('Gast'), '!1' => t('Nicht Gast'), '<0' => t('Deaktiviert'), '2' => t('Admin'), '3' => t('Superadmin'), '2,3' => t('Admin, oder Superadmin')));
 	
