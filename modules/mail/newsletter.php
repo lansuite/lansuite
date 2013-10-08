@@ -60,9 +60,18 @@ switch($_GET["step"]) {
     while($res = $db->fetch_array($row)) array_push($t_array, '<option $selected value="'. $res['group_id'] .'">'. $res['group_name'] .'</option>');
     $db->free_result($row);
 		$dsp->AddDropDownFieldRow("group_id", t('Nur an folgende Gruppen'), $t_array, '');
+        
+        // Clanfilter
+		$t_array = array();
+		array_push($t_array, '<option $selected value="0">'. t('An alle Clans') .'</option>');
+		array_push($t_array, '<option $selected value="-1">'. t('Nur an Benutzer ohne Clan') .'</option>');
+        $row = $db->qry("SELECT clanid, name FROM %prefix%clan");
+        while($res = $db->fetch_array($row)) array_push($t_array, '<option $selected value="'. $res['clanid'] .'">'. $res['name'] .'</option>');
+        $db->free_result($row);
+		$dsp->AddDropDownFieldRow("clan_id", t('Nur an folgenden Clan'), $t_array, '');
 		$dsp->AddFieldSetEnd();
-
-		$dsp->AddFieldSetStart('An');
+        
+		$dsp->AddFieldSetStart(t('Zielsysteme'));
 		$dsp->AddCheckBoxRow("toinet", t('E-Mail-Adresse'), t('An die bei der Anmeldung angegebene E-Mail-Adresse'), $inet_error, 1, $_POST["toinet"]);
 		$dsp->AddCheckBoxRow("tosys", t('System-Mailbox'), t('An die System-Mailbox des Benutzers'), "", 1, $_POST["tosys"]);
 		$dsp->AddFieldSetEnd();
@@ -93,6 +102,10 @@ switch($_GET["step"]) {
 
 		if ($_POST['group_id'] == -1) $where .= ' AND u.group_id = 0';
 		elseif ($_POST['group_id']) $where .= " AND u.group_id=". (int)$_POST['group_id'];
+        
+        // Clanfilter
+        if ($_POST['clan_id'] == -1) $where .= ' AND u.clanid = 0';
+		elseif ($_POST['clan_id']) $where .= " AND u.clanid=". (int)$_POST['clan_id'];
 
 		$success = "";
 		$fail = "";
