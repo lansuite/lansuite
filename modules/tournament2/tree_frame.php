@@ -116,7 +116,7 @@ else {
   	}
 
     $templ['index']['html_header'] .= '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />';
-    $templ['index']['info']['content'] .= '<div id="content" style="width:'. (int)$width .'; height:'. (int)$img_height .'px"></div>
+    $templ['index']['info']['content'] .= '<div id="content" style="width:'. (int)$width .'px; height:'. (int)$img_height .'px"></div>
       <script src="ext_scripts/SVG2VMLv1_1.js"></script>
       <script src="ext_scripts/ls_svg2vml.js"></script>
   		<script>
