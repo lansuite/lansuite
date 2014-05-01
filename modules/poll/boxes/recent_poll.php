@@ -6,7 +6,7 @@
  * @author knox
  * @version $Id$
  */
-include('modules/home/poll.inc.php');
+include('modules/poll/plugins/home.php');
 $box->Row($content);
 
 ?>

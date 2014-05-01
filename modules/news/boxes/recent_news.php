@@ -7,7 +7,7 @@
  * @version $Id$
  */
  
-include('modules/home/news.inc.php');
+include('modules/news/plugins/home.php');
 $box->Row($content);
 
 ?>
