@@ -785,5 +785,61 @@ class tfunc {
 		}
 	} // END: CheckTimeExceede
 
+    /**
+     *  @brief Get status of a spezific user on a spezific tournament
+     *  
+     *  @param [in] $userid       Parameter_Description
+     *  @param [in] $tournamentid Parameter_Description
+     *  
+     *  @return Status of User in Tournament (0=NotIn, 1=member, 2=single, 3=leader)
+     */
+    function get_user_in_tournament($userid,$tournamentid) {
+		global $db;
+            $teams = $db->qry("SELECT teams.leaderid, members.userid
+                                    FROM %prefix%t2_teams AS teams
+                                    LEFT JOIN %prefix%t2_teammembers AS members ON (members.teamid = teams.teamid)
+                                    WHERE ((teams.leaderid = %int%) OR (members.userid = %int%)) AND teams.tournamentid=%int%
+                                ", $userid, $userid, $tournamentid);
+            $member = $db->fetch_array($teams);
+            // just looking for first line is enough
+            if ($db->num_rows($teams) >= 1) {
+                 if ($member["leaderid"]==$userid && $member["userid"]>0) {
+                    // is leader
+                    $role = 3;
+                 } elseif ($member["leaderid"]==$userid && $member["userid"]==0) {
+                    // is single
+                    $role = 2;
+                 } elseif ($member["leaderid"]>0 && $member["userid"]==$userid) {
+                    // is Member
+                    $role = 1;
+                 } else {
+                    // error
+                    $role = -1;
+                 }
+            } else {
+                $role = 0;
+            }
+            $db->free_result($teams);
+            return $role;
+	} // END: get_user_in_tournament
+    
+    /**
+     *  @brief Get teamid of a spezific user on a spezific tournament
+     *  
+     *  @param [in] $userid       Parameter_Description
+     *  @param [in] $tournamentid Parameter_Description
+     *  
+     *  @return Teamid
+     */
+    function get_teamid($userid,$tournamentid) {
+		global $db;
+            $teamid = $db->qry_first_rows("SELECT teams.teamid
+                                    FROM %prefix%t2_teams AS teams
+                                    LEFT JOIN %prefix%t2_teammembers AS members ON (members.teamid = teams.teamid)
+                                    WHERE ((teams.leaderid = %int%) OR (members.userid = %int%)) AND teams.tournamentid=%int%
+                                ", $userid, $userid, $tournamentid);
+            return $teamid['teamid'];
+            $db->free_result($teamid);
+	} // END: get_user_in_tournament
 } // END: Class
 ?>

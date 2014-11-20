@@ -50,6 +50,8 @@ $mf = new masterform();
 $mf->AddField(t('Turniername'), 'name');
 $mf->AddField(t('Spiel'), 'game');
 $mf->AddField(t('Version'), 'version', '', '', FIELD_OPTIONAL);
+$mf->AddDropDownFromTable(t('Turniermanagement'), 'tournamentadmin', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
+$mf->AddDropDownFromTable(t('Technik/Server'), 'techadmin', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
 
 $t_state = $db->qry_first('SELECT status FROM %prefix%tournament_tournaments WHERE tournamentid=%int%', $_GET['tournamentid']);
 

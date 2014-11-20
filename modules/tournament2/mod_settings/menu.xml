@@ -47,6 +47,16 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>show_games</action>
+		<file>show_games</file>
+		<caption>Spielliste</caption>
+		<hint>Hier sieht man alle begegnungen sortiert nach Alter</hint>
+		<link>?mod=tournament2&amp;action=show_games</link>
+		<requirement>1</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
 		<action>add</action>
 		<file>tournaments</file>
 		<caption>Hinzufügen</caption>
