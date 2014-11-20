@@ -22,6 +22,12 @@ function GetTournamentName($name) {
 	return $return;
 }
 
+function GetTournamentUserIcon($userid) {
+    global $db,$dsp;
+    $user = $db->qry_first("SELECT userid, username FROM %prefix%user WHERE userid = %int%", $userid);
+    if ($userid == 0) return '-';
+    else return $dsp->FetchUserIcon($user['userid'], $user['username']);
+}
 function GetTournamentTeamAnz($maxteams) {
   global $line;
 	return $line['teamanz'] .'/'. $maxteams;
@@ -75,6 +81,8 @@ $ms2->AddSelect('t.ngl_gamename');
 $ms2->AddSelect('t.lgz_gamename');
 $ms2->AddSelect('COUNT(teams.tournamentid) AS teamanz');
 $ms2->AddResultField(t('Turniername'), 't.name', 'GetTournamentName');
+$ms2->AddResultField(t('Admin'), 'tournamentadmin', 'GetTournamentUserIcon');
+$ms2->AddResultField(t('Tech'), 'techadmin', 'GetTournamentUserIcon');
 $ms2->AddResultField(t('Startzeit'), 'UNIX_TIMESTAMP(t.starttime) AS starttime', 'MS2GetDate');
 $ms2->AddResultField(t('Team'), 't.maxteams', 'GetTournamentTeamAnz');
 $ms2->AddResultField(t('Status'), 't.status', 'GetTournamentStatus');

@@ -41,6 +41,13 @@
     	  <on_delete>DENY</on_delete>
 			</field>
 			<field>
+				<name>lastchange</name>
+				<type>timestamp</type>
+				<null>NO</null>
+				<default>CURRENT_TIMESTAMP</default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>round</name>
 				<type>float</type>
 				<null></null>
@@ -362,6 +369,26 @@
 				<key></key>
 				<default>open</default>
 				<extra></extra>
+			</field>
+			<field>
+				<name>tournamentadmin</name>
+				<type>mediumint(8) unsigned</type>
+				<null></null>
+				<key>IND</key>
+				<default>0</default>
+				<extra></extra>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>ASK_SET0</on_delete>
+			</field>
+			<field>
+				<name>techadmin</name>
+				<type>mediumint(8) unsigned</type>
+				<null></null>
+				<key>IND</key>
+				<default>0</default>
+				<extra></extra>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>ASK_SET0</on_delete>
 			</field>
 			<field>
 				<name>over18</name>

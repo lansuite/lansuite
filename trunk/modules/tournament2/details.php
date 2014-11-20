@@ -7,8 +7,10 @@ $headermenuitem	= $_GET['headermenuitem'];
 
 if ($headermenuitem == "") $headermenuitem = 1;
 
-$tournament = $db->qry_first("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $_GET['tournamentid']);
-
+$tournament = $db->qry_first("SELECT t.*, a.username AS techadmin_name, r.username AS tournamentadmin_name, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments AS t    
+    LEFT JOIN %prefix%user AS r ON t.tournamentadmin = r.userid
+    LEFT JOIN %prefix%user AS a ON t.techadmin = a.userid
+    WHERE tournamentid = %int%", $_GET['tournamentid']);
 if (!$tournament["tournamentid"]) $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
 else {
 
@@ -72,10 +74,14 @@ else {
 					else $blind_draw = "";
 					$dsp->AddDoubleRow(t('Spiel-Modus'), $modus .", ". $tournament['teamplayer'] ." ".t('gegen')." ". $tournament['teamplayer'] . $blind_draw . $league);
 
+                    if ($tournament['tournamentadmin']) $dsp->AddDoubleRow(t('Turniermanagement'), $dsp->FetchUserIcon($tournament['tournamentadmin'], $tournament['tournamentadmin_name']));
+                        else $dsp->AddDoubleRow(t('Turniermanagement'), t('Noch nicht zugeordnet'));
+                    if ($tournament['techadmin']) $dsp->AddDoubleRow(t('Technik/Server'), $dsp->FetchUserIcon($tournament['techadmin'], $tournament['techadmin_name']));
+                        else $dsp->AddDoubleRow(t('Technik/Server'), t('Noch nicht zugeordnet'));
           $sponsor_banners = '';
           $sponsor = $db->qry("SELECT * FROM %prefix%sponsor WHERE tournamentid = %int%", $_GET['tournamentid']);
       		while($sponsor_row = $db->fetch_array($sponsor)) {
-            $sponsor_banner = '<img src="'. $sponsor_row['pic_path'] .'" border="1" class="img_border" title="'. $sponsor_row['name'] .'" alt="Sponsor Banner"/>';
+            $sponsor_banner = '<img src="'. $sponsor_row['pic_path'] .'" border="1" class="img_border" title="'. $sponsor_row['name'] .'" alt="Sponsor Banner" style="max-width:468px; max-height:450px;"/>';
             if ($cfg['sys_internet']) $sponsor_banner = '<a href="index.php?mod=sponsor&action=bannerclick&design=base&type=banner&sponsorid='. $sponsor_row["sponsorid"] .'" target="_blank">'. $sponsor_banner .'</a><br>';
             $sponsor_banners .= $sponsor_banner;
           }
