@@ -10,14 +10,14 @@
 #RewriteRule ^(.*)/(ext_inc/(.*))$ $2 [L]
 #RewriteRule ^(.*)/(index.php)$ $2 [L]
 
-# 2 days cache for images
 <ifModule mod_headers.c>
+  # 60 days cache for images
   <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf)$">
   Header set Cache-Control "max-age=5184000, public"
   </FilesMatch>
 
-  # 2 hours cache for css and js
+  # 24 hours cache for css and js
   <FilesMatch "\.(css|js)$">
-  Header set Cache-Control "max-age=7200, private, must-revalidate"
+  Header set Cache-Control "max-age=86400, private, must-revalidate"
   </FilesMatch>
 </ifModule>
