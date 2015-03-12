@@ -14,15 +14,6 @@
   <link rel="stylesheet" type="text/css" href="design/{$Design}/style.css" />
   {if $IsMobileBrowser}<link rel="stylesheet" type="text/css" href="design/{$Design}/style_mobile.css" />{/if}
   {$main_header_csscode} 
-  <script src="//d3nslu0hdya83q.cloudfront.net/dist/1.0/raven.min.js"></script>
-  <script>
-  {literal}
-  Raven.config('https://3813ff744f6b4f958ac38a1ac395b4e8@app.getsentry.com/14108', {
-    whitelistUrls: [/lansuite\.orgapage\.de/]
-  }).install();
-  window.onerror = Raven.process;
-  {/literal}
-  </script>
 
   {$main_header_jsfiles}
 
