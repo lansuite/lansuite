@@ -88,22 +88,19 @@ class db {
       }
     }
 
-    if ($this->mysqli) { 
-      if (!mysqli_set_charset($this->link_id, "utf8")) {
-        printf("Error loading character set utf8: %s\n", mysqli_error($this->link_id));
-        exit();
-      }
-    } else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
+    #if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
+    #else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
+    $this->link_id->set_charset('utf8');
     $this->success = true;
     $this->connectfailure = 0;
     return true;
   }
   
-  function set_charset()
-  {
-  	if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
-    else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
-  }
+  #function set_charset()
+  #{
+  #	if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
+  #  else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
+  #}
   
   function get_host_info() {
     if ($this->mysqli) return @mysqli_get_host_info($this->link_id);
