@@ -15,6 +15,6 @@ database			= "lansuite"
 prefix				= "ls_"
 
 [environment]
-configured			= "1"
+configured			= "0"
 
 ;*/ ?>
