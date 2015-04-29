@@ -201,16 +201,14 @@ function Addr2Input($field, $mode, $error = '') {
     break;
 
     case CHECK_ERROR_PROC:
-      switch($_POST['country']) {
-        case 'de': // PLZ + City check germany
-          if (($_POST['plz|city'] != '') || (FieldNeeded('city'))){
+        if (($_POST['plz|city'] != '') || (FieldNeeded('city'))){
           $pieces = explode(' ', $_POST['plz|city']);
           $_POST['plz'] = array_shift($pieces);
           $_POST['city'] = implode(' ', $pieces);
 
-              if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte gib Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
-              elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen.');
-          }
+          if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte gib Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
+          elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen.');
+        }
         break;
       }
       return false; // -> Means no error
