@@ -483,7 +483,7 @@ class seat2 {
                 $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
                 if (func::chk_img_path($user_info[$y][$x]['avatar_path']) and
                 ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)))
-                $tooltip .= '<img src=&quot;'. $user_info[$y][$x]['avatar_path'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
+                $tooltip .= '<img src=\''. $user_info[$y][$x]['avatar_path'] .'\' style=\'max-width:100%;\' />' . HTML_NEWLINE;
               break;
               case "1":
 							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
@@ -507,7 +507,7 @@ class seat2 {
 							  $tooltip .= t('Beschreibung') .': '. t('Catering') . HTML_NEWLINE;
               break;
             }
-            $tooltip = addslashes($tooltip);
+            $tooltip = addslashes(addslashes($tooltip));
 
 						// Set seat image
 						$body[$y]['line'][$x]['img_name'] = '';
