@@ -133,7 +133,7 @@ class UsrMgr {
         }
             else $clan = $_POST['clan_new'];
             $message = str_replace('%CLAN%', $clan, $message);
-
+            $message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
             $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
             $message = str_replace('%PAGE_TITLE%', $cfg['sys_page_title'], $message);
             if ($mail->create_inet_mail($_POST["firstname"]." ".$_POST["name"], $_POST["email"], $cfg["signon_signonemail_subject"], $message, $cfg["sys_party_mail"])) return true;
