@@ -242,7 +242,7 @@ else {
   $dsp->AddDoubleRow(t('Geschlecht'), $geschlecht[$user_data['sex']]);
 
   // Picture
-  if (func::chk_img_path($user_data['picture'])) $dsp->AddDoubleRow(t('Benutzerbild'), '<img src="'. $user_data['picture'] .'">');
+  if ($func->chk_img_path($user_data['picture'])) $dsp->AddDoubleRow(t('Benutzerbild'), '<img src="'. $user_data['picture'] .'">');
 
   // Comment
   $dsp->AddDoubleRow(t('Kommentar'), ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
