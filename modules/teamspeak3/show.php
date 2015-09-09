@@ -1,11 +1,8 @@
 <?php
 /*
- * Created on 03.03.2009
- * 
- * 
- * 
- * @package package_name
- * @author Maztah
+ * Created on 17.08.2015
+ * @package ts3viewer
+ * @author MaLuZ
  * 
  */
      if (isset($_GET['autorefresh'])) {
@@ -13,37 +10,73 @@
     } else {
         $autorefresh = 0;
     }
-    if ($autorefresh == 1) {
-        echo("      <meta http-equiv=\"refresh\" content=\"". $cfg['autorefresh'] ."; URL=" . $_SERVER["PHP_SELF"] . "index.php?mod=teamspeak3&autorefresh=1\">\n");
+    if ($autorefresh != 0) {
+        echo("      <meta http-equiv=\"refresh\" content=\"". $cfg['autorefresh'] ."; URL=" . $_SERVER["PHP_SELF"] . "index.php?mod=teamspeak3&autorefresh=180\">\n");
     }
 
-    function LoadTS3Config (){
-    global $cfg;
-    $settings = array();
-    $settings["serveraddress"] = $cfg['ts3_serveraddress'];
-    $settings["serverqueryport"] = $cfg['ts3_serverqueryport'];
-    $settings["serverqueryuser"] = $cfg['ts3_serverqueryuser'];
-    $settings["serverquerypassword"] = $cfg['ts3_serverquerypassword'];
-    $settings["serverudpport"] = $cfg['ts3_serverudpport'];
-    $settings["serverpassword"] = $cfg['ts3_serverpassword'];
-//    $settings["tournamentchannel"] = $cfg['ts3_tournamentchannel'];
-return $settings;    
-}
+
     
-     // Load the Teamspeak3 PHP Framework:
-    include_once("ext_inc/teamspeak3/libraries/Teamspeak3/TeamSpeak3.php");
-    //Load configuration settings
-    $settings = LoadTS3Config();
-    // Create an instance of the Teamspeak Display Class
-    $TS3 = TeamSpeak3::factory("serverquery://" . /*$settings['serverqueryuser'].':'.$settings['serverquerypassword'].'@'.*/ $settings["serveraddress"]. ':' . $settings["serverqueryport"]/* . '/?server_port=' . $settings["serverudpport"]*/);
-    $TS3->serverSelectById(1);
+/**
+ * Checks if a cache file is existing and if it is current
+ * @return boolean Indicates if the cache file is recent or too old. true if recent false if old or nonexistent
+ */
+function TS3CacheIsFresh($file, $time){
+    if (file_exists($file)){
+        if (filemtime($file) + $time < time()) {
+            //File too old
+            return false;
+        }
+        else {
+            //File is current
+            return true;
+        };  
+    } else {
+        //File is not existing...yet
+        return false;
+    };
+}
+
+function TS3PrintContent(){
+    $TS3_CACHE_FILE = 'ext_inc/teamspeak3/ts3cache.html';  //file where the output is buffered
+    $TS3_CACHE_TIME = 180; //how long should we use that file?
+    //check the cache....
+    if (TS3CacheIsFresh($TS3_CACHE_FILE, $TS3_CACHE_TIME)) {
+        readfile($TS3_CACHE_FILE);
+    } else {
+        echo TS3GenerateCacheFile($TS3_CACHE_FILE);
+    }    
+}
+
+function TS3GenerateCacheFile($cache_file){
+    global $cfg;
+    // Load the Teamspeak3 PHP Framework:
+    include_once("ext_inc/teamspeak3/libraries/TeamSpeak3/TeamSpeak3.php");
+    //create object
+    $TS3 = TeamSpeak3::factory("serverquery://" . /*$settings['serverqueryuser'].':'.$settings['serverquerypassword'].'@'.*/ $cfg['ts3_serveraddress']. ':' . $cfg['ts3_serverqueryport']/* . '/?server_port=' . $settings["serverudpport"]*/);
+    $TS3->serverSelectById(1); //select VirtualServer
+    $content = $TS3->getViewer(new TeamSpeak3_Viewer_Html("ext_inc/teamspeak3/images/viewer/", "ext_inc/teamspeak3/images/countryflags/", "data:image")); //generate output
+    //write back to file
+    $cache_file_handle = fopen($cache_file, 'w');
+    fwrite($cache_file_handle, $content);
+    fclose($cache_file_handle);
+    return $content;
+}
+
+function TS3GenerateOverview(){
+    global $dsp; 
     $dsp->NewContent(t('Teamspeak3'), t('Auflistung aller Nutzer auf Virtualserver 1'));
     ob_start();
-    echo $TS3->getViewer(new TeamSpeak3_Viewer_Html("ext_inc/teamspeak3/images/viewer/", "ext_inc/teamspeak3/images/countryflags/", "data:image"));
-    $TS3_server= $TS3->serverGetSelected();
-//    $TS3_tournament_channel = $TS3_server->channelGetByName($settings["tournamentchannel"]);
-//    echo $TS3_tournament_channel->getUniqueId();
+    TS3PrintContent();
     $dsp->AddContent();
     $dsp->AddSingleRow(ob_get_contents());
-    ob_end_clean();
+    ob_end_clean(); 
+    
+    
+    //   $TS3_server= $TS3->serverGetSelected();
+    //    $TS3_tournament_channel = $TS3_server->channelGetByName($settings["tournamentchannel"]);
+    //    echo $TS3_tournament_channel->getUniqueId();
+}    
+
+TS3GenerateOverview();
+
 ?>
