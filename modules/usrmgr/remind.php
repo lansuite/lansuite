@@ -30,10 +30,10 @@ else switch ($_GET['step']) {
             { // fallback to old version, 
             //TODO: proper check of old version
                 if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
-                    $proto = 'https';
+                    $proto = 'https://';
                 }
                 else {
-                    $proto = 'http';
+                    $proto = 'http://';
                 }
                 $verification_link = $proto . $_SERVER['SERVER_NAME']. ":" . $_SERVER['SERVER_PORT'].$path . "index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode";
             }
