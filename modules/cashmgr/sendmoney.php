@@ -30,6 +30,14 @@ function Check() {
 		$func->information(t("Bitte gib einen Kommentar zu ihrer Überweisung an."));
 		$ret = false;
 	}
+        else{//check if the user has enough money for the transaction
+                include_once("modules/cashmgr/class_accounting.php");
+                $accounting = new accounting(); //let it autodetermine user and party
+                if ($accounting->getOnlineTotalBudget()<(float)$_POST['movement']){
+		$func->information(t("Du hast nicht genug Guthaben"));
+		$ret = false;
+                }
+	}
 	return $ret;
 }
  
