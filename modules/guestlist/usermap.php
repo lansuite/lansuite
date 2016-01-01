@@ -35,7 +35,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
       if ($cfg['guestlist_shownames']) $text .= "<br>{$row['firstname']} {$row['name']}";
       $text .= "<br>{$row['plz']} {$row['city']}";
 
-      if (func::chk_img_path($row['avatar_path'])) $text .= '<br>'. sprintf('<img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\">', $row["avatar_path"], '');
+      if ($func->chk_img_path($row['avatar_path'])) $text .= '<br>'. sprintf('<img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\">', $row["avatar_path"], '');
 
       $adresses .= "showAddress('$GCountry', '{$row['city']}', '{$row['plz']}', '{$row['street']}', '{$row['hnr']}', '$text');\r\n";
     }
