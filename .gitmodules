@@ -1,0 +1,3 @@
+[submodule "ext_scripts/paypal-php-sdk"]
+	path = ext_scripts/paypal-php-sdk
+	url = https://github.com/paypal/PayPal-PHP-SDK.git
