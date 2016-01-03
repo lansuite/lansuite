@@ -32,9 +32,10 @@ function Check() {
 	}
         else{//check if the user has enough money for the transaction
                 include_once("modules/cashmgr/class_accounting.php");
-                $accounting = new accounting(); //let it autodetermine user and party
-                if ($accounting->getOnlineTotalBudget()<(float)$_POST['movement']){
-		$func->information(t("Du hast nicht genug Guthaben"));
+                $accounting = new accounting(0,$auth['userid']); //party not needed for calculation...or is it?
+                $userbalance = $accounting->GetUserBalance();
+                if ($userbalance<(float)$_POST['movement']){
+		$func->information(t("Du hast nicht genug Guthaben! Kontostand:"). $userbalance);
 		$ret = false;
                 }
 	}
