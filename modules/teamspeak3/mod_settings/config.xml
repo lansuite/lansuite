@@ -32,7 +32,7 @@
     	<item>
     		<name>ts3_serverudpport</name>
     		<type>integer</type>
-    		<default>8767</default>
+    		<default>9987</default>
     		<description>UDP Port für Teamspeak, der auch hinter der IP Adresse genutzt wird (Standard: 8767)</description>
     	</item>
     	<item>

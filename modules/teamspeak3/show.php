@@ -48,6 +48,16 @@ function TS3PrintContent(){
     }    
 }
 
+function TS3BuildServerLink($channel_ID='',$channel_password=''){
+    global $cfg;
+    $link = 'ts3server://'. $cfg['ts3_serveraddress'];
+    if (!empty($cfg['ts3_serverport'])) $link .= '?port='. $cfg['ts3_serverport'];
+    if (!empty($cfg['ts3_serverpassword'])) $link .= '?password='. $cfg['ts3_serverpassword'];
+    if (!empty($channel_ID)) $link .= '?cid='. $channel_ID;
+    if (!empty($channel_password)) $link .= '?channelpassword='. $channel_password;
+    return $link;
+}
+
 /**
  * Fetches the current server state and both stores it in a cache file and returns it
  * @global array $cfg Global configuration array
@@ -61,7 +71,7 @@ function TS3GenerateCacheFile($cache_file){
     //create object
     $TS3 = TeamSpeak3::factory("serverquery://" . /*$settings['serverqueryuser'].':'.$settings['serverquerypassword'].'@'.*/ $cfg['ts3_serveraddress']. ':' . $cfg['ts3_serverqueryport']/* . '/?server_port=' . $settings["serverudpport"]*/);
     $TS3->serverSelectById(1); //select VirtualServer
-    $content = $TS3->getViewer(new TeamSpeak3_Viewer_Html("ext_scripts/teamspeak3/images/viewer/", "ext_inc/teamspeak3/images/countryflags/", "data:image")); //generate output
+    $content = $TS3->getViewer(new TeamSpeak3_Viewer_Html("ext_scripts/teamspeak3/images/viewer/", "ext_scripts/teamspeak3/images/countryflags/", "data:image")); //generate output
     //write back content to file
     $cache_file_handle = fopen($cache_file, 'w');
     fwrite($cache_file_handle, $content);
@@ -71,10 +81,12 @@ function TS3GenerateCacheFile($cache_file){
 /**
  * Print overview page
  * @global type $dsp Display output class
+ * @global array $cfg Configuration array
  */
-function TS3GenerateOverview(){
+function TS3ShowOverview(){
     global $dsp; 
     $dsp->NewContent(t('Teamspeak3'), t('Auflistung aller Nutzer auf Virtualserver 1'));
+    $dsp->AddSingleRow($dsp->FetchSpanButton(t("Hier klicken zum Verbinden"),TS3BuildServerLink()));
     ob_start();
     TS3PrintContent();
     $dsp->AddContent();
@@ -87,6 +99,6 @@ function TS3GenerateOverview(){
     //    echo $TS3_tournament_channel->getUniqueId();
 }    
 
-TS3GenerateOverview();
+TS3ShowOverview();
 
 ?>
