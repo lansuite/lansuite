@@ -6,7 +6,7 @@ if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
 }else{
 	$dsp->NewContent(t('Einzahlen'), t('Hier sehen sie was f&uuml;r Betr&auml;ge noch ausstehend sind. W&auml;hlen sie was sie bezahlen m&ouml;chten.'));
 	$dsp->AddSmartyTpl('javascript', 'paypal');
-	$dsp->SetForm("index.php?mod=paypal&action=paying&design=base\" target=\"PopWnd\" onsubmit=\"submitpaypal(); return false;","paypal");
+	$dsp->SetForm("index.php?mod=paypal&action=CreatePayment","paypal");
 
 	// LIST ALL PARTYS
 	if($auth['userid'] != 0){
@@ -14,7 +14,7 @@ if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
 
 		if($db->num_rows($pay_partys) > 0){
 			while($pay = $db->fetch_array($pay_partys)){
-				$dsp->AddCheckBoxRow("price[]",$pay['name'],$pay['price_text'] . " " . $pay['price'] . " " . $cfg['paypal_currency_code'],"",NULL,NULL,NULL,$pay['price_id']);
+				$dsp->AddCheckBoxRow("price[]",$pay['name'],$pay['price_text'] . " " . $pay['price'] . " " . $cfg['paypal_currency_code'],"",NULL,true,NULL,$pay['price_id']);
 				if($cfg['paypal_depot'] && $pay['depot_price'] > 0){
 					$dsp->AddCheckBoxRow("depot[]",$pay['name'],$pay['depot_text'] . " " . $pay['depot_price'] . " " . $cfg['paypal_currency_code'],"",NULL,NULL,NULL,$pay['price_id']);
 				}
