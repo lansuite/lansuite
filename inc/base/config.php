@@ -2,19 +2,19 @@
 
 [lansuite]
 version				= "SVN"
-default_design			= "banana"
+default_design			= "simple"
 chmod_dir			= "777"
 chmod_file			= "666"
 debugmode			= "0"
 
 [database]
 server				= "localhost"
-user				= "lansuite"
-passwd				= "lansuite"
+user				= "ls"
+passwd				= "hnxls"
 database			= "lansuite"
-prefix				= ""
+prefix				= "ls_"
 
 [environment]
-configured			= "1"
+configured			= "0"
 
 ;*/ ?>
