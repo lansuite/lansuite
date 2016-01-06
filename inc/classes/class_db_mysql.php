@@ -90,7 +90,7 @@ class db {
 
     #if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
     #else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
-    $this->link_id->set_charset('utf8');
+    $this->link_id->set_charset('utf8_general_ci');
     $this->success = true;
     $this->connectfailure = 0;
     return true;
