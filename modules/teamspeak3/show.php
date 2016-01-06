@@ -38,7 +38,7 @@ function TS3CacheIsFresh($file, $time){
  * Outputs either the cached content if it is quite current or fetches a new page via the TS3 framework and stores it in the cahce file
  */
 function TS3PrintContent(){
-    $TS3_CACHE_FILE = 'ext_inc/teamspeak3/ts3cache.html';  //file where the output is buffered
+    $TS3_CACHE_FILE = 'ext_scripts/teamspeak3/ts3cache.html';  //file where the output is buffered
     $TS3_CACHE_TIME = 180; //how long should we use that file?
     //check the cache....
     if (TS3CacheIsFresh($TS3_CACHE_FILE, $TS3_CACHE_TIME)) {
@@ -57,11 +57,11 @@ function TS3PrintContent(){
 function TS3GenerateCacheFile($cache_file){
     global $cfg;
     // Load the Teamspeak3 PHP Framework:
-    include_once("ext_inc/teamspeak3/libraries/TeamSpeak3/TeamSpeak3.php");
+    include_once("ext_scripts/teamspeak3/libraries/TeamSpeak3/TeamSpeak3.php");
     //create object
     $TS3 = TeamSpeak3::factory("serverquery://" . /*$settings['serverqueryuser'].':'.$settings['serverquerypassword'].'@'.*/ $cfg['ts3_serveraddress']. ':' . $cfg['ts3_serverqueryport']/* . '/?server_port=' . $settings["serverudpport"]*/);
     $TS3->serverSelectById(1); //select VirtualServer
-    $content = $TS3->getViewer(new TeamSpeak3_Viewer_Html("ext_inc/teamspeak3/images/viewer/", "ext_inc/teamspeak3/images/countryflags/", "data:image")); //generate output
+    $content = $TS3->getViewer(new TeamSpeak3_Viewer_Html("ext_scripts/teamspeak3/images/viewer/", "ext_inc/teamspeak3/images/countryflags/", "data:image")); //generate output
     //write back content to file
     $cache_file_handle = fopen($cache_file, 'w');
     fwrite($cache_file_handle, $content);
