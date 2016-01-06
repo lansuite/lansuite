@@ -31,7 +31,7 @@ class Teamspeak3Server {
         $this->settings["serverqueryport"] = $cfg['ts3_serverqueryport'];
         $this->settings["serverqueryuser"] = $cfg['ts3_serverqueryuser'];
         $this->settings["serverquerypassword"] = $cfg['ts3_serverquerypassword'];
-        //$this->settings["tournamentchannel"] = $cfg['ts3_tournamentchannel'];  
+        if (!empty($cfg['ts3_tournamentchannel']))$this->settings["tournamentchannel"] = $cfg['ts3_tournamentchannel'];  
     }
     
     //public constructor if connection should be to a non-standard server
@@ -59,14 +59,50 @@ class Teamspeak3Server {
     }
     
     public function connect(){
-
-
+        global $func;
+        try {
+         // Load the Teamspeak3 PHP Framework:
+        include_once("ext_inc/teamspeak3/libraries/TeamSpeak3/TeamSpeak3.php");
+        //create object
+        $this->TS3 = TeamSpeak3::factory("serverquery://" . /*$settings['serverqueryuser'].':'.$settings['serverquerypassword'].'@'.*/ $this->settings['ts3_serveraddress']. ':' . $this->settings['ts3_serverqueryport']);
+        $this->TS3->serverSelectById(1); //select VirtualServer       
+        }
+        catch (TeamSpeak3_Exception $e){
+            //@TODO: Add proper Error-Handling
+            $func->error("Konnte nicht zum TS-Server verbinden. Fehlermeldung:\n" . $e->getMessage());
+        }
     }
     
     public function disconnect(){
-        
+        unlink($this->TS3);
         
     }
-
-
+    public function ViewServerOverview(){
+        return $this->TS3->getViewer(new TeamSpeak3_Viewer_Html("ext_inc/teamspeak3/images/viewer/", "ext_inc/teamspeak3/images/countryflags/", "data:image")); //generate output
+        //@TODO: Create custom, LS-Specific code
+        
+    }
+    
+    public function AddTournamentChannel($MatchID){
+        global $func;
+            $password = rand(10000, 99999);
+            try{
+                $this->TS3->channelCreate(
+                        array(
+                            "channel_name" => "My Sub-Channel",
+                            "channel_topic" => "This is a sub-level channel",
+                            "channel_codec" => TeamSpeak3::CODEC_OPUS_VOICE,
+                            "channel_flag_permanent" => TRUE,
+                            "channel_password" => $password,
+                            "cpid" => $this->settings["tournamentchannel"])
+                        );
+                //@TODO: Add data as comment (or separate Field) to Match
+            } catch (TeamSpeak3_Exception $e) {
+                    $func->Error("Konnte Channel nicht erzeugen. Fehlermeldung: \n". $e->getMessage());
+            }
+            }
+    public function DelTournamentChannel($MatchID){
+        //@TODO: Get previous channel data from Match
+        //$this->TS3->channelDelete()
+    }
 }
