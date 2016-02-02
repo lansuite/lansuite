@@ -90,7 +90,7 @@ class db {
     }
 
     // Set encoding based on config file
-    if (!empty($encoding)){
+    if (!empty($charset)){
          $this->link_id->set_charset($charset);
     } else {
         $this->link_id->set_charset('Latin1');
