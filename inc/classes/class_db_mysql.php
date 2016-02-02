@@ -58,6 +58,7 @@ class db {
     $user = $config['database']['user'];
     $pass = $config['database']['passwd'];
     $database = $config['database']['database'];
+    $charset = $config['database']['charset'];
 
     // Try to connect
     if ($this->mysqli) $this->link_id = @mysqli_connect($server, $user, $pass);
@@ -88,9 +89,12 @@ class db {
       }
     }
 
-    #if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
-    #else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
-    $this->link_id->set_charset('utf8_general_ci');
+    // Set encoding based on config file
+    if (!empty($encoding)){
+         $this->link_id->set_charset($charset);
+    } else {
+        $this->link_id->set_charset('Latin1');
+    }
     $this->success = true;
     $this->connectfailure = 0;
     return true;
