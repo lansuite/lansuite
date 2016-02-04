@@ -65,7 +65,7 @@ class Teamspeak3Server {
         include_once("ext_inc/teamspeak3/libraries/TeamSpeak3/TeamSpeak3.php");
         //create object
         $this->TS3 = TeamSpeak3::factory("serverquery://" . /*$settings['serverqueryuser'].':'.$settings['serverquerypassword'].'@'.*/ $this->settings['ts3_serveraddress']. ':' . $this->settings['ts3_serverqueryport']);
-        $this->TS3->serverSelectById(1); //select VirtualServer       
+        $this->TS3->serverSelectById(1); //select VirtualServer 1      
         }
         catch (TeamSpeak3_Exception $e){
             //@TODO: Add proper Error-Handling
@@ -82,8 +82,59 @@ class Teamspeak3Server {
         //@TODO: Create custom, LS-Specific code
         
     }
+    /**
+     * Add a lobby for a Match between two teams. 
+     * Automatically creates the subchannels
+     * @param int $MatchID1 Match ID for the first team
+     * @param int $MatchID2 Match ID for the second team
+     */
+    private function AddMatchLobby($MatchID1, $MatchID2){
+        
+    }
+    /**
+     * Create a channel that serves as Lobby for the Match 
+     * @param int $TournamentID The ID of the Tournament we should create this for
+     */
+    private function AddTournamentChannel($TournamentID){
+        global $func;
+      $password = rand(10000, 99999);
+      try{
+          $this->TS3->channelCreate(
+                  array(
+                      "channel_name" => "My Sub-Channel",
+                      "channel_topic" => "This is a sub-level channel",
+                      "channel_codec" => TeamSpeak3::CODEC_OPUS_VOICE,
+                      "channel_flag_permanent" => TRUE,
+                      "channel_password" => $password,
+                      "cpid" => $this->settings["tournamentchannel"])
+                  );
+          //@TODO: Add data as comment (or separate Field) to Match
+      } catch (TeamSpeak3_Exception $e) {
+              $func->Error("Konnte Channel nicht erzeugen. Fehlermeldung: \n". $e->getMessage());
+      }  
+        
+    }
     
-    public function AddTournamentChannel($MatchID){
+    private function GetChannelID($ChannelName){
+        
+        
+    }
+    /**
+     * Returns true if the given ChannelID exists, false otherwise
+     * @param int $ChannelID
+     */
+    private function ChannelExists($ChannelID){
+        
+        
+    }
+    
+    /**
+     * Creates a channel 
+     * @global type $func
+     * @param type $MatchID
+     * @param type $ParentChannel
+     */
+    public function AddTeamMatchChannel($MatchID, $ParentChannel){
         global $func;
             $password = rand(10000, 99999);
             try{
