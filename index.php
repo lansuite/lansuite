@@ -75,9 +75,11 @@
 
 ### Start session-management
 
-    #session_save_path('ext_inc/session'); Leave to hosters default value, for some don't seam to empty it and data here counts against web space quota
     session_start();
-
+    // PHP 5.6 only resets the session timeout if anything is written into the session array.
+    // Thus: Write the current timestamp into it...
+    $_SESSION['timestamp'] = time(); 
+    
 ### Initialise Frameworkclass for Basic output
 
     include_once("inc/classes/class_framework.php");
