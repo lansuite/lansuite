@@ -6,7 +6,7 @@ if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
 }else{
 	$dsp->NewContent(t('Einzahlen'), t('Hier sehen sie was f&uuml;r Betr&auml;ge noch ausstehend sind. W&auml;hlen sie was sie bezahlen m&ouml;chten.'));
 	$dsp->AddSmartyTpl('javascript', 'paypal');
-	$dsp->SetForm("index.php?mod=paypal&action=CreatePayment","paypal");
+	$dsp->SetForm("index.php?mod=paypal&action=createpayment","paypal");
 
 	// LIST ALL PARTYS
 	if($auth['userid'] != 0){
