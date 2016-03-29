@@ -231,7 +231,6 @@ class seat2 {
   		$smarty->assign('HiddenFields', $HiddenFields);
   		
   		// Main-Table
-  		$framework->main_header_metatags .= '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />';
   		$framework->add_js_path('ext_scripts/overlib421/Mini/overlib_mini.js');
   		$framework->add_js_path('ext_scripts/SVG2VMLv1_1.js');
   		$framework->add_js_path('ext_scripts/ls_svg2vml.js');
