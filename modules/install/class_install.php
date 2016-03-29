@@ -489,7 +489,7 @@ class Install {
     if (extension_loaded ('gd')){
         if (function_exists("gd_info")) {
             $GD = gd_info();
-            if (!strstr($GD["GD Version"], "2.0")) $gd_check = $warning . t('Auf deinem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1 gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Solltest du die Auswahl zwischen GD und GD2 haben, wähle immer das neuere GD2. Du kannst die Installation jetzt fortführen, allerdings wirst du entsprechende Einschränkungen im Gebrauch machen müssen.');
+            if (!(substr($GD["GD Version"],0,1)==2)) $gd_check = $warning . t('Auf deinem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1 gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Solltest du die Auswahl zwischen GD und GD2 haben, wähle immer das neuere GD2. Du kannst die Installation jetzt fortführen, allerdings wirst du entsprechende Einschränkungen im Gebrauch machen müssen.');
             elseif (!$GD["FreeType Support"]) $gd_check = $warning . t('Auf deinem System wurde das PHP-Modul <b>GD-Library</b> ohne Free-Type Support gefunden. Dadurch werden die Schriftarten in Grafiken (z.b. in den User-Avataren) nicht sehr schön dargestellt. Du kannst die Installation jetzt fortführen, allerdings wirst du entsprechende Einschränkungen im Gebrauch machen müssen.');
             else $gd_check = $ok;
             $gd_check .= '<table>';
@@ -500,7 +500,15 @@ class Install {
         $gd_check = $failed . t('Auf deinem System konnte das PHP-Modul <b>GD-Library</b> nicht gefunden werden. Durch diese Programmierbibliothek werden in Lansuite Grafiken, wie z.B. User-Avatare generiert. Ab PHP Version 4.3.0 ist die GD bereits in PHP enthalten. Solltest du PHP 4.3.0 installiert haben und diese Meldung dennoch erhalten, überprüfe, ob das GD-Modul evtl. deaktiviert ist. In PHP Version 4.2.3 ist die GD nicht enthalten. Wenn du diese Version benutzen muss GD 2.0 separat heruntergeladen, installiert und in PHP einkompiliert werden. Solltest du Windows und PHP 4.2.3 benutzen, empfehlen wir auf PHP 4.3.0 umzusteigen, da du dir auf diese Weise viel Arbeit sparen. Solltest du die Auswahl zwischen GD und GD2 haben, wähle immer das neuere GD2. Du kannst die Installation jetzt fortführen, allerdings wirst du erhebliche Einschränkungen im Gebrauch machen müssen.');
     }
     $dsp->AddDoubleRow("GD Library", $gd_check);
-
+    
+    //PHP-XML-Lib (required for utf8_en/decode
+    if (extension_loaded('xml')){
+        $xml_check = $ok;        
+    } else
+    {
+        $xml_check = $warning . t('Das PHP-Modul XML wurde nicht gefunden. Dies wird für (UTF-8 encodierte) eMails und CSV-Datenexporte benötigt');
+    }
+    $dsp->AddDoubleRow("XML Modul",$xml_check);
     // Test Safe-Mode
     if (!ini_get("safe_mode")) $safe_mode = $ok;
     else $safe_mode = $not_possible . t('Auf deinem System ist die PHP-Einstellung <b>safe_mode</b> auf <b>On</b> gesetzt. safe_mode ist dazu gedacht, einige Systemfunktionen auf dem Server zu sperren um Angriffe zu verhindern (siehe dazu: <a href=\'http://de2.php.net/features.safe-mode\' target=\'_blank\'>www.php.net</a>). Doch leider benötigen einige Lansuite-Module (speziell: LansinTV, Serverstatistiken oder das Server-Modul) Zugriff auf genau diese Funktionen. Du solltest daher, wenn du Probleme in diesen Modulen hast, in deiner <b>PHP.ini</b> die Option <b>safe_mode</b> auf <b>Off</b> setzen! <br />Außer bei oben genannten Modulen, kann es bei aktiviertem safe_mode außerdem auch zu Problemen bei dem Generieren von Buttons, wie dem am Ende dieser Seite kommen.');
