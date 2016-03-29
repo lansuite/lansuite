@@ -353,12 +353,12 @@
     if (isset($debug)) $debug->tracker("All upto HTML-Output");
 
     $framework->html_out();  // Output of all HTML
-    unset($framework);
-    unset($smarty);
-    unset($templ);
-    unset($dsp);
+     unset($framework);
+     unset($smarty);
+     unset($templ);
+     unset($dsp);
 
-### Statistics will be updated only at scriptend, so pagesize and loadtime can be insert
+### Statistics will be updated only at scriptend, so pagesize and loadtime can be inserted
 
     if ($db->success) {
 
@@ -368,7 +368,7 @@
       unset($stats);
 
       // Check Cronjobs
-      if (!$_GET['mod'] == 'install') {
+      if ($_GET['mod'] != 'install') {
         if (!isset($cron2)) {
           include_once('modules/cron2/class_cron2.php');
           $cron2 = new cron2();
