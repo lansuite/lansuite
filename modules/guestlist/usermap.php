@@ -1,6 +1,6 @@
 <?php
 
-$dsp->NewContent(t('Besucherkarte'), t('Hier siehst du aus welchen Gegenden Deutschlands Besucher zu dieser Party kommen'));
+$dsp->NewContent(t('Besucherkarte'), t('Hier siehst du aus welchen Gegenden Österreichs Besucher zu dieser Party kommen'));
 
 // Use Googlemaps
 if ($cfg['guestlist_guestmap'] == 2) {

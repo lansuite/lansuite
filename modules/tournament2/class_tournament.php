@@ -203,7 +203,7 @@ function get_ranking ($tournamentid, $group_nr = NULL) {
 			break;
 
 			case "single":
-				// Array für Teams auslesen
+				// Array fÃ¼r Teams auslesen
 				$teams = $db->qry("SELECT teams.teamid, teams.name, teams.disqualified, MAX(games.round) AS rounds, FLOOR(games.position/2) AS pos
      FROM (SELECT tournamentid, leaderid, round, position, score, group_nr FROM %prefix%t2_games where round = (SELECT MAX(round) FROM %prefix%t2_games WHERE tournamentid = %int%)-1 ORDER BY round DESC, score DESC) AS games
      LEFT JOIN %prefix%t2_teams AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
@@ -227,7 +227,7 @@ function get_ranking ($tournamentid, $group_nr = NULL) {
 
 			case "double":
 			case "groups":
-				// Array für Teams auslesen
+				// Array fÃ¼r Teams auslesen
 				$teams = $db->qry("SELECT teams.teamid, teams.name, teams.disqualified, MAX(games.round) AS rounds
      FROM %prefix%t2_games AS games
      LEFT JOIN %prefix%t2_teams AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
@@ -236,7 +236,7 @@ function get_ranking ($tournamentid, $group_nr = NULL) {
      ORDER BY teams.disqualified ASC, rounds DESC, games.score DESC
      ", $tournamentid);
 			
-				// Bei Doublemodus die ersten 2 Plätze auslesen und Array neu auslesen
+				// Bei Doublemodus die ersten 2 PlÃ¤tze auslesen und Array neu auslesen
 				if($tournament['mode'] == "double"){
 					for ($i = 0; $i < 2;$i++){
 						$team = $db->fetch_array($teams);
@@ -396,8 +396,15 @@ function get_ranking ($tournamentid, $group_nr = NULL) {
 		($score[$player1] < $score[$player2]) ? $looser = 1
 			: $looser = 0;
 
+		/* LEGA FIX - probably not necessary any more
+		// sind wir in der letzten runde und bearbeiten den 3. & 4. Platz (pos 2 & 3), nichts tun, kein update
+		if ( $round+1 == $num_rounds and ($team_pos_before == 2 or $team_pos_before == 3) ) {
+			return;
+		}
+		*/
+
 		// Runden-Berechnung
-		# Gewinnt jemand im Winner-Bracket, wird seine Runde um eins erhöht.
+		# Gewinnt jemand im Winner-Bracket, wird seine Runde um eins erhÃ¶ht.
 		if ($round >= 0 and $winner) $team_round[$player1]++;
 
 		# Gewinnt jemand im Loser-Bracket, oder verliert das allererste Spiel, so wird seiner Runde 0.5 abgezogen.
@@ -406,7 +413,7 @@ function get_ranking ($tournamentid, $group_nr = NULL) {
 		# Verliert jemand im Winner-Bracket, wird seine Runde mit -1 multipliziert.
 		elseif ($round > 0 and $looser) $team_round[$player1] *= (-1);
 
-		# Gewinnt jemand das Loser-Bracket, so wird seine Runde mit -1 multipliziert und anschließend 0.5 addiert. 
+		# Gewinnt jemand das Loser-Bracket, so wird seine Runde mit -1 multipliziert und anschlieÃŸend 0.5 addiert. 
 		if ($round == ($num_rounds * (-1) + 1)) $team_round[$player1] = $team_round[$player1] * (-1) + 0.5;
 
 
@@ -414,7 +421,7 @@ function get_ranking ($tournamentid, $group_nr = NULL) {
 		# Die Possition wird bei Siegern in ganzzahligen Runden und Verlieren der allerersten Runde halbiert
 		if (($round == floor($round) and $winner) or ($looser and $round == 0)) $team_pos[$player1] = floor($team_pos[$player1] / 2);
 
-		# Die Possition wird bei Siegern in 0.5-Runde und beim Gewinner des LB jeweils bei geraden Zahlen um 1 erhöht
+		# Die Possition wird bei Siegern in 0.5-Runde und beim Gewinner des LB jeweils bei geraden Zahlen um 1 erhÃ¶ht
 		if (($round != floor($round) and $winner) or ($round == ($num_rounds * (-1) + 1))) $team_pos[$player1] = floor($team_pos[$player1] / 2) * 2 + 1;
 
 		# Bei Verlierern im WB wird bei ungeraden Zahlen (in geraden Runden) 1 abgezogen und
@@ -439,7 +446,7 @@ function get_ranking ($tournamentid, $group_nr = NULL) {
     ", $tournamentid, $leaderid[$player1], $team_round[$player1], $team_pos[$player1]);
 		}
 
-		# Verliert jemand das Halb-Finale im SE, gibt es einen zusätzlichen Eintrag im Winnerbracket. (Spiel um Platz 3)
+		# Verliert jemand das Halb-Finale im SE, gibt es einen zusÃ¤tzlichen Eintrag im Winnerbracket. (Spiel um Platz 3)
 		if ($round == ($num_rounds - 2) and $looser) {
     	$db->qry("DELETE FROM %prefix%t2_games
         WHERE (tournamentid = %int%) AND (round = %string%) AND (position = %string%) AND (group_nr = 0)
@@ -555,7 +562,7 @@ function get_ranking ($tournamentid, $group_nr = NULL) {
       ", $score2, $gameid2);
 		$func->log_event(t('Das Ergebnis (%1 : %2) des Spieles #%3 vs. #%4 wurde eingetragen.', $score1, $score2, $gameid1, $gameid2), 1, t('Turnier Ergebnise'), $gameid1);
 
-		# Zusätzlich eine Mail an beide Teamleiter senden?
+		# ZusÃ¤tzlich eine Mail an beide Teamleiter senden?
 
 
 		// Groups + KO
@@ -734,17 +741,17 @@ function get_ranking ($tournamentid, $group_nr = NULL) {
 					$score2 = $cfg["t_default_win"];
 				}
 
-				$this->SubmitResult($tournamentid, $gameid1, $gameid2, $score1, $score2, t('Ergbnis wurde automatisch gelost, da die Zeit überschritten wurde'));
+				$this->SubmitResult($tournamentid, $gameid1, $gameid2, $score1, $score2, t('Ergbnis wurde automatisch gelost, da die Zeit Ã¼berschritten wurde'));
 
 				// Log action and send mail
-				$func->log_event(t('Das Ergebnis des Spieles %1 gegen %2 im Turnier %3 wurde automatisch gelost, da die Zeit überschritten wurde', $name1, $name2, $tournament['name']), 1, t('Turnier Ergebnise'));
+				$func->log_event(t('Das Ergebnis des Spieles %1 gegen %2 im Turnier %3 wurde automatisch gelost, da die Zeit Ã¼berschritten wurde', $name1, $name2, $tournament['name']), 1, t('Turnier Ergebnise'));
 				$mail->create_sys_mail($leaderid1,
-					t_no_html('Zeitüberschreitung im Turnier %1', $tournament['name']),
-					t_no_html('Das Ergebnis deines Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls du denkst diese Entscheidung wurde zu Unrecht getroffen, melden dich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
+					t_no_html('ZeitÃ¼berschreitung im Turnier %1', $tournament['name']),
+					t_no_html('Das Ergebnis deines Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um VerzÃ¶gerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls du denkst diese Entscheidung wurde zu Unrecht getroffen, melden dich bitte schnellstmÃ¶glich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
 					);
 				$mail->create_sys_mail($leaderid2,
-					t_no_html('Zeitüberschreitung im Turnier %1', $tournament['name']),
-					t_no_html('Das Ergebnis deines Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls du denkst diese Entscheidung wurde zu Unrecht getroffen, melden dich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
+					t_no_html('ZeitÃ¼berschreitung im Turnier %1', $tournament['name']),
+					t_no_html('Das Ergebnis deines Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um VerzÃ¶gerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls du denkst diese Entscheidung wurde zu Unrecht getroffen, melden dich bitte schnellstmÃ¶glich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
 					);
 			}
 		}

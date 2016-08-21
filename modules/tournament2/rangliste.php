@@ -31,6 +31,9 @@ else {
 
       $rows = '';
   		$anz_elements = count($ranking_data->tid);
+		// it makes no sense to display more than 4 elements for single elimination
+		if ($tournament['mode'] == "single") $anz_elements = 4;
+		
   		for ($i = 0; $i < $anz_elements; $i++) {
   			$akt_pos = $ranking_data->tid[$i];
   
