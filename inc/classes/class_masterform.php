@@ -699,36 +699,20 @@ class masterform {
 
 // Error-Callback-Functions
 function CheckValidEmail($email){
-global $cfg;
+global $cfg, $db;
 
   if ($email == '') return t('Bitte gib deine Email ein');
   elseif (substr_count($email, '@') != 1) return t('Die Adresse muss genau ein @-Zeichen enthalten');
   else {	
-    $allTLD = array();
-    // can be loaded via  'wget -O tlds.txt http://data.iana.org/TLD/tlds-alpha-by-domain.txt'
-    // try to open tlds.txt in root folder which should contain all allowed tlds (http://data.iana.org/TLD/tlds-alpha-by-domain.txt)
-    if (file_exists ("tlds.txt")) {
-            $tldFile = fopen("tlds.txt","r");
-            while(!feof($tldFile)){
-                    $line = fgets($tldFile);
-                    $allTLD[] = strtolower(trim($line));
-            }
-            fclose($tldFile);
-    } else {
-        $ccTLD = array('ac', 'ad', 'ae', 'af', 'ag', 'ai', 'al', 'am', 'an', 'ao', 'aq', 'ar', 'as', 'at', 'au', 'aw', 'az', 'ba', 'bb', 'bd', 'be', 'bf', 'bg', 'bh', 'bi', 'bj', 'bm', 'bn', 'bo', 'br', 'bs', 'bt', 'bv', 'bw', 'by', 'bz', 'ca', 'cc', 'cd', 'cf', 'cg', 'ch', 'ci', 'ck', 'cl', 'cm', 'cn', 'co', 'cr', 'cu', 'cv', 'cx', 'cy', 'cz', 'de', 'dj', 'dk', 'dm', 'do', 'dz', 'ec', 'ee', 'eg', 'eh', 'er', 'es', 'et', 'fi', 'fj', 'fk', 'fm', 'fo', 'fr', 'ga', 'gd', 'ge', 'gf', 'gg', 'gh', 'gi', 'gl', 'gm', 'gn', 'gp', 'gq', 'gr', 'gs', 'gt', 'gu', 'gw', 'gy', 'hk', 'hm', 'hn', 'hr', 'ht', 'hu', 'id', 'ie', 'il', 'im', 'in', 'io', 'iq', 'ir', 'is', 'it', 'je', 'jm', 'jo', 'jp', 'ke', 'kg', 'kh', 'ki', 'km', 'kn', 'kp', 'kr', 'kw', 'ky', 'kz', 'la', 'lb', 'lc', 'li', 'lk', 'lr', 'ls', 'lt', 'lu', 'lv', 'ly', 'ma', 'mc', 'md', 'mg', 'mh', 'mk', 'ml', 'mm', 'mn', 'mo', 'mp', 'mq', 'mr', 'ms', 'mt', 'mu', 'mv', 'mw', 'mx', 'my', 'mz', 'na', 'nc', 'ne', 'nf', 'ng', 'ni', 'nl', 'no', 'np', 'nr', 'nu', 'nz', 'om', 'pa', 'pe', 'pf', 'pg', 'ph', 'pk', 'pl', 'pm', 'pn', 'pr', 'ps', 'pt', 'pw', 'py', 'qa', 're', 'ro', 'ru', 'rw', 'sa', 'sb', 'sc', 'sd', 'se', 'sg', 'sh', 'si', 'sj', 'sk', 'sl', 'sm', 'sn', 'so', 'sr', 'st', 'sv', 'sy', 'sz', 'tc', 'td', 'tf', 'tg', 'th', 'tj', 'tk', 'tm', 'tn', 'to', 'tp', 'tr', 'tt', 'tv', 'tw', 'tz', 'ua', 'ug', 'uk', 'um', 'us', 'uy', 'uz', 'va', 'vc', 've', 'vg', 'vi', 'vn', 'vu', 'wf', 'ws', 'ye', 'yt', 'yu', 'za', 'zm', 'zw');
-        $gTLD = array('arpa', 'com', 'edu' , 'gov', 'int', 'mil', 'net', 'org');
-        $newTLD = array('aero', 'biz', 'coop', 'info', 'museum', 'name', 'pro', 'eu');
-        $TLD = array_merge($ccTLD, $gTLD);
-        $allTLD = array_merge($TLD, $newTLD);
-    }
-
     list($userName, $hostName) = explode('@', $email);
     if (!preg_match("/^[a-z0-9\_\-\.\%]+$/i", $userName)) return t('Diese Email ist ungültig (Falscher Benutzer-Teil)');
     if (!preg_match("/^([a-z0-9]+[\-\.]{0,1})+\.[a-z]+$/i", $hostName)) return t('Diese Email ist ungültig (Falscher Host-Teil)');
 
     $subdomains = explode('.', $hostName);
     $tld = $subdomains[count($subdomains) - 1];
-    if (!in_array($tld, $allTLD)) return t('Diese Email ist ungültig (Nicht existierende Domain)');
+    
+    $validTld = $db->qry_first("SELECT 1 AS found FROM %prefix%tlds WHERE tld = %string% %plain%", $table, $tld);
+    if (!$row['found']) return t('Diese Email ist ungültig (Nicht existierende Domain)');
 
     $TrashMailDomains = explode("\n", $cfg['mf_forbidden_trashmail_domains']);
     foreach ($TrashMailDomains as $key => $val) $TrashMailDomains[$key] = trim($val);
