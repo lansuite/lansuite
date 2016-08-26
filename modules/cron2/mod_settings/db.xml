@@ -35,7 +35,15 @@
 				<key></key>
 				<default></default>
 				<extra></extra>
-			</field>			
+			</field>	
+			<field>
+				<name>type</name>
+				<type>varchar(3)</type>
+				<null></null>
+				<key></key>
+				<default>sql</default>
+				<extra></extra>
+			</field>		
 			<field>
 				<name>active</name>
 				<type>tinyint(1)</type>
