@@ -1,4 +1,3 @@
-
 <?php
 
 if (!$_GET['tournamentid']) $func->error(t('Du hast kein Turnier ausgewählt!'));
