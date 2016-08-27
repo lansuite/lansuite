@@ -489,7 +489,7 @@ class Install {
     if (extension_loaded ('gd')){
         if (function_exists("gd_info")) {
             $GD = gd_info();
-            if (!(substr($GD["GD Version"],0,1)==2)) $gd_check = $warning . t('Auf deinem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1 gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Solltest du die Auswahl zwischen GD und GD2 haben, wähle immer das neuere GD2. Du kannst die Installation jetzt fortführen, allerdings wirst du entsprechende Einschränkungen im Gebrauch machen müssen.');
+            if (!preg_match('/2(\.[0-9]){2}/',$GD["GD Version"])) $gd_check = $warning . t('Auf deinem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1 gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Solltest du die Auswahl zwischen GD und GD2 haben, wähle immer das neuere GD2. Du kannst die Installation jetzt fortführen, allerdings wirst du entsprechende Einschränkungen im Gebrauch machen müssen.');
             elseif (!$GD["FreeType Support"]) $gd_check = $warning . t('Auf deinem System wurde das PHP-Modul <b>GD-Library</b> ohne Free-Type Support gefunden. Dadurch werden die Schriftarten in Grafiken (z.b. in den User-Avataren) nicht sehr schön dargestellt. Du kannst die Installation jetzt fortführen, allerdings wirst du entsprechende Einschränkungen im Gebrauch machen müssen.');
             else $gd_check = $ok;
             $gd_check .= '<table>';
