@@ -12,7 +12,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
     $res = $db->qry("SELECT u.* FROM %prefix%user AS u
   		LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
-  		WHERE u.plz > 0 AND u.type > 0 AND u.show_me_in_map = 1 %plain%
+  		WHERE u.plz > 0 AND u.type > 0 %plain% ORDER BY u.plz
       ", $where_pid);
 
     $templ['addresses'] = '';
@@ -31,20 +31,29 @@ if ($cfg['guestlist_guestmap'] == 2) {
         case 'fr': $GCountry = 'France'; break;
         default: $GCountry = 'Germany'; break;
       }
-
+      //show detailed map to admins only, otherwise stick to user settings
+      //@TODO: Combine details per City//City-code
+      if ($row['show_me_in_map'] == 1 || $auth['type'] >= 2){
       $text = "<b>{$row['username']}</b>";
-      if ($cfg['guestlist_shownames']) $text .= "<br>{$row['firstname']} {$row['name']}";
+      if ($cfg['guestlist_shownames']|| $auth['type'] >= 2) $text .= "<br>{$row['firstname']} {$row['name']}";
+      } else {
+          $text = "<i><b>anonymous</b></i>";
+      }
       $text .= "<br>{$row['plz']} {$row['city']}";
 
       if ($func->chk_img_path($row['avatar_path'])) $text .= '<br>'. sprintf('<img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\">', $row["avatar_path"], '');
-
+      
+      if ($auth['type'] >= 2){
       $adresses .= "{'country':'$GCountry', 'city':'{$row['city']}', 'plz':'{$row['plz']}', 'street':'{$row['street']}', 'hnr':'{$row['hnr']}', 'text':'$text'},\r\n";
+      }
+      else {
+          $adresses .= "{'country':'$GCountry', 'city':'{$row['city']}', 'plz':'{$row['plz']}', 'street':'', 'hnr':'', 'text':'$text'},\r\n";
+      }
     }
     $adresses .= '];';
     $db->free_result($haus_data);
-
+    if (!empty($cfg['google_analytics_id'])) $smarty->assign('apikey', 'key='. $cfg['google_analytics_id']);
     $smarty->assign('adresses', $adresses);
-    $smarty->assign('apikey', $cfg['google_maps_api_key']);
     $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
   //}
 
