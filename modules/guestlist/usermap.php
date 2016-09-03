@@ -16,6 +16,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
       ", $where_pid);
 
     $templ['addresses'] = '';
+    $adresses = 'var adresses = [';
     while ($row = $db->fetch_array($res)) {
 
       ($row['country'])? $country = $row['country'] : $country = $cfg['sys_country'];
@@ -37,8 +38,9 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
       if ($func->chk_img_path($row['avatar_path'])) $text .= '<br>'. sprintf('<img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\">', $row["avatar_path"], '');
 
-      $adresses .= "showAddress('$GCountry', '{$row['city']}', '{$row['plz']}', '{$row['street']}', '{$row['hnr']}', '$text');\r\n";
+      $adresses .= "{'country':'$GCountry', 'city':'{$row['city']}', 'plz':'{$row['plz']}', 'street':'{$row['street']}', 'hnr':'{$row['hnr']}', 'text':'$text'},\r\n";
     }
+    $adresses .= '];';
     $db->free_result($haus_data);
 
     $smarty->assign('adresses', $adresses);
