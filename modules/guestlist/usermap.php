@@ -12,12 +12,12 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
     $res = $db->qry("SELECT u.* FROM %prefix%user AS u
   		LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
-  		WHERE u.plz > 0 AND u.type > 0 %plain% ORDER BY u.plz, u.country, u.username ASC
+  		WHERE u.plz > 0 AND u.type > 0 %plain% ORDER BY u.city, u.country, u.username ASC
       ", $where_pid);
 
     $templ['addresses'] = '';
     $adresses = 'var adresses = [';
-    $last_postcode='';
+    $last_city='';
     $aggregated_text='';
     while ($row = $db->fetch_array($res)) {   
       ($row['country'])? $country = $row['country'] : $country = $cfg['sys_country'];
@@ -40,11 +40,11 @@ if ($cfg['guestlist_guestmap'] == 2) {
           $text = "<i><b>anonymous</b></i>";
       }
      if ($func->chk_img_path($row['avatar_path'])) $text .= sprintf('<br/><img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\"></br></br>', $row["avatar_path"], '');
-      if ($row['plz']!=$last_postcode){ 
+      if ($row['city']!=$last_city){ 
           //next (or first) area, flush current entry and prepare for the next one
           if (!empty($aggregated_text)){$adresses .= $aggregated_text . "'},\r\n";}
-          $aggregated_text = "{'country':'$GCountry', 'city':'{$row['city']}', 'plz':'{$row['plz']}', 'street':'', 'hnr':'', 'text':'<h4>{$row['plz']} {$row['city']}</h4> $text";
-          $last_postcode = $row['plz'];
+          $aggregated_text = "{'country':'$GCountry', 'city':'{$row['city']}', 'plz':'{$row['plz']}', 'street':'', 'hnr':'', 'text':'<h3>{$row['city']}</h3> $text";
+          $last_city = $row['city'];
       } else {
           //accumulate text
         $aggregated_text  .= "<hr>$text";  
