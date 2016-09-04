@@ -51,6 +51,17 @@ class db {
 
   #### Connection related ####
 
+  function set_charset(string $charset = null) {
+      global $config;
+      
+      if (!$charset) $charset = $config['database']['charset']; 
+      if (!empty($charset)){
+          $this->link_id->set_charset($charset);
+      } else {
+          $this->link_id->set_charset('latin1');
+      }
+  }
+  
   function connect($save = false) {
     global $config;
 
@@ -90,22 +101,13 @@ class db {
     }
 
     // Set encoding based on config file
-    if (!empty($charset)){
-         $this->link_id->set_charset($charset);
-    } else {
-        $this->link_id->set_charset('Latin1');
-    }
+    $this->set_charset($charset);
+ 
     $this->success = true;
     $this->connectfailure = 0;
     return true;
   }
-  
-  #function set_charset()
-  #{
-  #	if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
-  #  else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
-  #}
-  
+
   function get_host_info() {
     if ($this->mysqli) return @mysqli_get_host_info($this->link_id);
     else return @mysql_get_host_info($this->link_id);
