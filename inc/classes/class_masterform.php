@@ -711,7 +711,7 @@ global $cfg, $db;
     $subdomains = explode('.', $hostName);
     $tld = $subdomains[count($subdomains) - 1];
     
-    $validTld = $db->qry_first("SELECT 1 AS found FROM %prefix%tlds WHERE tld = %string% %plain%", $table, $tld);
+    $row = $db->qry_first("SELECT 1 AS found FROM %prefix%tlds WHERE tld = LOWER(%string%)", $tld);
     if (!$row['found']) return t('Diese Email ist ungültig (Nicht existierende Domain)');
 
     $TrashMailDomains = explode("\n", $cfg['mf_forbidden_trashmail_domains']);

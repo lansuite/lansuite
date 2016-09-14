@@ -10,10 +10,10 @@ class cron2{
     
     if ($row['type'] == 'sql') {
         $db->qry('%plain%', $func->AllowHTML($row['function']));
-        $db->qry("UPDATE %prefix%cron SET lastrun = NOW() WHERE jobid = %int%", $jobid);
     } elseif ($row['type'] == "php") {
         require_once 'ext_scripts/'.$row['function'];
     }
+    $db->qry("UPDATE %prefix%cron SET lastrun = NOW() WHERE jobid = %int%", $jobid);
 
     $func->log_event(t('Cronjob "%1" wurde ausgeführt', array($row['name'])), 1);
 

@@ -3,7 +3,7 @@ $allTlds = explode("\n",file_get_contents("http://data.iana.org/TLD/tlds-alpha-b
 
 $DbInsertQuery = "";
 foreach ($allTlds as $key => $value) {
-    if (strpos($value, "#") === false && strlen(trim($value)) > 0) $DbInsertQuery .= "('" . $value . "')," ;
+    if (strpos($value, "#") === false && strlen(trim($value)) > 0) $DbInsertQuery .= "('" . strtolower($value) . "')," ;
 }
 $DbInsertQuery = rtrim($DbInsertQuery, ",");
 $db->qry("delete from %prefix%%plain%", "tlds");
