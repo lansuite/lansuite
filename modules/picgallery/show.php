@@ -81,7 +81,7 @@ if (!$gd->available) $func->error(t('Kein GD installiert'));
 
 // Wenn keine Datei ausgewÃ¤hlt ist: Ãœbersicht
 elseif (!$akt_file) {
-	session_unregister("klick_reload");
+    unset($_SESSION['klick_reload']);
 	unset($klick_reload);
 
 	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicke auf ein Bild um das Bild in voller GrÃ¶ÃŸe anzuzeigen.'));
@@ -346,7 +346,7 @@ elseif (!$akt_file) {
       // Videos
       if (IsSupportedVideo($extension)) {
 				$dsp->AddDoubleRow("", '<video width="450" height="350" src="'. $root_file .'" autobuffer autoplay controls>
-          <div class="video-fallback"><br>Du benötigst einen Browser, der HTML5 unterstützt.</div>
+          <div class="video-fallback"><br>Du benï¿½tigst einen Browser, der HTML5 unterstï¿½tzt.</div>
         </video>');
 
       // Pics
@@ -370,7 +370,7 @@ elseif (!$akt_file) {
 				$dl_button = $dsp->FetchIcon($js_full_link, "fullscreen", t('Vollbild'));
 			$full_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "download", t('Bild herrunterladen'));
 			($auth[type] > "1") ? $del_button = $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", t('Bild l&ouml;schen')) : $del_button = "";
-			$note_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "add", t('Verlinkung hinzufügen'));
+			$note_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "add", t('Verlinkung hinzufï¿½gen'));
 
 
 			// Scan Directory
