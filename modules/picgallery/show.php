@@ -346,7 +346,7 @@ elseif (!$akt_file) {
       // Videos
       if (IsSupportedVideo($extension)) {
 				$dsp->AddDoubleRow("", '<video width="450" height="350" src="'. $root_file .'" autobuffer autoplay controls>
-          <div class="video-fallback"><br>Du ben�tigst einen Browser, der HTML5 unterst�tzt.</div>
+          <div class="video-fallback"><br>Du benötigst einen Browser, der HTML5 unterstützt.</div>
         </video>');
 
       // Pics
@@ -370,7 +370,7 @@ elseif (!$akt_file) {
 				$dl_button = $dsp->FetchIcon($js_full_link, "fullscreen", t('Vollbild'));
 			$full_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "download", t('Bild herrunterladen'));
 			($auth[type] > "1") ? $del_button = $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", t('Bild l&ouml;schen')) : $del_button = "";
-			$note_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "add", t('Verlinkung hinzuf�gen'));
+			$note_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "add", t('Verlinkung hinzufügen'));
 
 
 			// Scan Directory
