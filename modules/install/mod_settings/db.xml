@@ -388,7 +388,7 @@
             </field>
             <field>
                 <name>SessionId</name>
-                <type>varchar(40)</type>
+                <type>varchar(256)</type>
                 <null></null>
                 <key>IND</key>
                 <default></default>
@@ -1043,7 +1043,7 @@
         <structure>
             <field>
                 <name>sessid</name>
-                <type>char(40)</type>
+                <type>varchar(256)</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
