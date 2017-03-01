@@ -366,6 +366,7 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
       if (ShowField('handy')) $mf->AddField(t('Handy'), 'handy', '', '', Optional('telefon'));
       if (ShowField('icq')) $mf->AddField('ICQ', 'icq', '', '', Optional('icq'));
       if (ShowField('msn')) $mf->AddField('MSN', 'msn', '', '', Optional('msn'));
+      if (ShowField('xmpp')) $mf->AddField('XMPP', 'xmpp', '', '', Optional('xmpp'));
       if (ShowField('skype')) $mf->AddField('Skype', 'skype', '', '', Optional('skype'));
       $mf->AddGroup(t('Kontakt'));
 

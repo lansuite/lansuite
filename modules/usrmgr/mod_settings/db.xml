@@ -313,8 +313,15 @@
                 <extra></extra>
             </field>
             <field>
+                <name>xmpp</name>
+                <type>varchar(120)</type>
+                <null></null>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
                 <name>skype</name>
-                <type>varchar(20)</type>
+                <type>varchar(120)</type>
                 <null></null>
                 <default></default>
                 <extra></extra>
