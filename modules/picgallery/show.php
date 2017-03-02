@@ -81,8 +81,8 @@ if (!$gd->available) $func->error(t('Kein GD installiert'));
 
 // Wenn keine Datei ausgewählt ist: Übersicht
 elseif (!$akt_file) {
-	session_unregister("klick_reload");
-	unset($klick_reload);
+	unset ($klick_reload);
+	unset($_SESSION['klick_reload']);
 
 	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicke auf ein Bild um das Bild in voller Größe anzuzeigen.'));
 

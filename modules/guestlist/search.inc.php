@@ -104,5 +104,7 @@ if ($auth['type'] >= 2) {
   $ms2->AddMultiSelectAction(t('Auschecken'), "index.php?mod=guestlist&step=21", 1, 'out');
   $ms2->AddMultiSelectAction(t('Ein- und Auschecken rückgängig'), "index.php?mod=guestlist&step=22", 1, 'not_out');
 }
+//Sort by status and payment date
+if (empty($_GET['order_by'])) $ms2->query['order_by'] = 'p.paid DESC, p.paiddate ASC '; 
 $ms2->PrintSearch('index.php?mod=guestlist', 'u.userid');
 ?>

@@ -166,7 +166,7 @@ class tfunc {
 
 
 
-	function get_ranking ($tournamentid, $group_nr = NULL) {
+function get_ranking ($tournamentid, $group_nr = NULL) {
 		global $db, $akt_round, $num, $cfg, $array_id;
 
 		$ranking_data = new ranking_data;
@@ -183,79 +183,104 @@ class tfunc {
 
 
 		// Je nach Modus ergibt sich ein anderes Ranking
-		if ($tournament['mode'] == 'all') {
-			$teams = $db->qry("SELECT teams.name, teams.teamid, teams.disqualified, games.leaderid, games.score, games.gameid
-        FROM %prefix%t2_games AS games
-        LEFT JOIN %prefix%t2_teams AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
-        WHERE games.tournamentid = %int%
-        ORDER BY teams.disqualified ASC, games.score DESC, games.position ASC
-        ", $tournamentid);
-			while ($team = $db->fetch_array($teams)) {
-				$array_id++;
-				array_push ($ranking_data->id, $array_id);
-				array_push ($ranking_data->tid, $team['teamid']);
-				array_push ($ranking_data->name, $team['name']);
-				array_push ($ranking_data->pos, $num++);
-				array_push ($ranking_data->disqualified, $team['disqualified']);
-			}
-			$db->free_result($teams);
+		switch ($tournament['mode']) {
+			case 'all':
+				$teams = $db->qry("SELECT teams.name, teams.teamid, teams.disqualified, games.leaderid, games.score, games.gameid
+      FROM %prefix%t2_games AS games
+      LEFT JOIN %prefix%t2_teams AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
+      WHERE games.tournamentid = %int%
+      ORDER BY teams.disqualified ASC, games.score DESC, games.position ASC
+      ", $tournamentid);
+				while ($team = $db->fetch_array($teams)) {
+					$array_id++;
+					array_push ($ranking_data->id, $array_id);
+					array_push ($ranking_data->tid, $team['teamid']);
+					array_push ($ranking_data->name, $team['name']);
+					array_push ($ranking_data->pos, $num++);
+					array_push ($ranking_data->disqualified, $team['disqualified']);
+				}
+				$db->free_result($teams);
+			break;
 
-    } elseif ($tournament['mode'] == 'single' or $tournament['mode'] == 'double'
-      or ($tournament['mode'] == 'groups' and $group_nr == 0)) {
+			case "single":
+				// Array für Teams auslesen
+				$teams = $db->qry("SELECT teams.teamid, teams.name, teams.disqualified, MAX(games.round) AS rounds, FLOOR(games.position/2) AS pos
+     FROM (SELECT tournamentid, leaderid, round, position, score, group_nr FROM %prefix%t2_games where round = (SELECT MAX(round) FROM %prefix%t2_games WHERE tournamentid = %int%)-1 ORDER BY round DESC, score DESC) AS games
+     LEFT JOIN %prefix%t2_teams AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
+     WHERE games.tournamentid = %int% AND games.group_nr = 0 AND NOT ISNULL( teams.name )
+     GROUP BY teams.teamid
+     ORDER BY teams.disqualified ASC, rounds DESC, pos ASC, games.score DESC
+	 LIMIT 4
+     ", $tournamentid, $tournamentid);
+			
+				// Array schreiben
+				while ($team = $db->fetch_array($teams)) if ($team['teamid'] && !in_array($team['teamid'],$ranking_data->tid)){
+					$array_id++;
+					array_push ($ranking_data->id, $array_id);
+					array_push ($ranking_data->tid, $team['teamid']);
+					array_push ($ranking_data->name, $team['name']);
+					array_push ($ranking_data->pos, $num++);
+					array_push ($ranking_data->disqualified, $team['disqualified']);
+				}
+				$db->free_result($teams);
+			break;
 
-			// Array für Teams auslesen
-			$teams = $db->qry("SELECT teams.teamid, teams.name, teams.disqualified, MAX(games.round) AS rounds
-       FROM %prefix%t2_games AS games
-       LEFT JOIN %prefix%t2_teams AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
-       WHERE games.tournamentid = %int% AND games.group_nr = 0 AND NOT ISNULL( teams.name )
-       GROUP BY teams.teamid
-       ORDER BY teams.disqualified ASC, rounds DESC, games.score DESC
-       ", $tournamentid);
+			case "double":
+			case "groups":
+				// Array für Teams auslesen
+				$teams = $db->qry("SELECT teams.teamid, teams.name, teams.disqualified, MAX(games.round) AS rounds
+     FROM %prefix%t2_games AS games
+     LEFT JOIN %prefix%t2_teams AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
+     WHERE games.tournamentid = %int% AND games.group_nr = 0 AND NOT ISNULL( teams.name )
+     GROUP BY teams.teamid
+     ORDER BY teams.disqualified ASC, rounds DESC, games.score DESC
+     ", $tournamentid);
+			
+				// Bei Doublemodus die ersten 2 Plätze auslesen und Array neu auslesen
+				if($tournament['mode'] == "double"){
+					for ($i = 0; $i < 2;$i++){
+						$team = $db->fetch_array($teams);
+						if ($team['teamid']){
+							$array_id++;
+							array_push ($ranking_data->id, $array_id);
+							array_push ($ranking_data->tid, $team['teamid']);
+							array_push ($ranking_data->name, $team['name']);
+							array_push ($ranking_data->pos, $num++);
+							array_push ($ranking_data->disqualified, $team['disqualified']);
+						}
+					}
+					$db->free_result($teams);
 
-  				// Bei Doublemodus die ersten 2 Plätze auslesen und Array neu auslesen
-  				if($tournament['mode'] == "double"){
-  					for ($i = 0; $i < 2;$i++){
-  						$team = $db->fetch_array($teams);
-  						if ($team['teamid']){
-  							$array_id++;
-  							array_push ($ranking_data->id, $array_id);
-  							array_push ($ranking_data->tid, $team['teamid']);
-  							array_push ($ranking_data->name, $team['name']);
-  							array_push ($ranking_data->pos, $num++);
-  							array_push ($ranking_data->disqualified, $team['disqualified']);
-  						}
-  					}
-  					$db->free_result($teams);
+					// Teams auslesen und in Array schreiben
+					$teams = $db->qry("SELECT teams.teamid, teams.name, teams.disqualified, MIN(games.round) AS rounds
+     FROM %prefix%t2_games AS games
+     LEFT JOIN %prefix%t2_teams AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
+     WHERE games.tournamentid = %int% AND games.group_nr = 0
+     GROUP BY teams.teamid
+     ORDER BY teams.disqualified ASC, rounds ASC, games.score DESC
+     ", $tournamentid);
+				}
 
-  					// Teams auslesen und in Array schreiben
-  					$teams = $db->qry("SELECT teams.teamid, teams.name, teams.disqualified, MIN(games.round) AS rounds
-       FROM %prefix%t2_games AS games
-       LEFT JOIN %prefix%t2_teams AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
-       WHERE games.tournamentid = %int% AND games.group_nr = 0
-       GROUP BY teams.teamid
-       ORDER BY teams.disqualified ASC, rounds ASC, games.score DESC
-       ", $tournamentid);
-  				}
+				// Array schreiben
+				while ($team = $db->fetch_array($teams)) if ($team['teamid'] && !in_array($team['teamid'],$ranking_data->tid)){
+					$array_id++;
+					array_push ($ranking_data->id, $array_id);
+					array_push ($ranking_data->tid, $team['teamid']);
+					array_push ($ranking_data->name, $team['name']);
+					array_push ($ranking_data->pos, $num++);
+					array_push ($ranking_data->disqualified, $team['disqualified']);
+				}
+				$db->free_result($teams);
 
-  				// Array schreiben
-  				while ($team = $db->fetch_array($teams)) if ($team['teamid'] && !in_array($team['teamid'],$ranking_data->tid)){
-  					$array_id++;
-  					array_push ($ranking_data->id, $array_id);
-  					array_push ($ranking_data->tid, $team['teamid']);
-  					array_push ($ranking_data->name, $team['name']);
-  					array_push ($ranking_data->pos, $num++);
-  					array_push ($ranking_data->disqualified, $team['disqualified']);
-  				}
-  				$db->free_result($teams);
+				/*array_multisort ($ranking_data->disqualified, SORT_ASC, SORT_NUMERIC,
+							$ranking_data->id, SORT_ASC, SORT_NUMERIC,
+							$ranking_data->tid,
+							$ranking_data->name,
+							$ranking_data->pos);*/
+			break;
 
-  				/*array_multisort ($ranking_data->disqualified, SORT_ASC, SORT_NUMERIC,
-  							$ranking_data->id, SORT_ASC, SORT_NUMERIC,
-  							$ranking_data->tid,
-  							$ranking_data->name,
-  							$ranking_data->pos);*/
-      } elseif ($tournament['mode'] == 'liga'
-        or ($tournament['mode'] == 'groups' and $group_nr > 0)) {
-
+			case "liga":
+			
 	 			if ($group_nr == '') $group_nr = 1;
 	 			
 				// Beteiligte Teams in Array einlesen
@@ -309,9 +334,9 @@ class tfunc {
 						$ranking_data->win[array_search($score['tid1'], $ranking_data->tid)] += 1;
 						$ranking_data->win[array_search($score['tid2'], $ranking_data->tid)] += 1;
 					} elseif ($score['s1'] > $score['s2']) {
-						$ranking_data->win[array_search($score['tid1'], $ranking_data->tid)] += $cfg["t_league_points"];
+						$ranking_data->win[array_search($score['tid1'], $ranking_data->tid)] += 1;//&$cfg["t_league_points"];
 					} elseif ($score['s1'] < $score['s2']) {
-						$ranking_data->win[array_search($score['tid2'], $ranking_data->tid)] += $cfg["t_league_points"];
+						$ranking_data->win[array_search($score['tid2'], $ranking_data->tid)] += 1;//$cfg["t_league_points"];
 					}
 				}
 				$db->free_result($teams);
@@ -332,6 +357,7 @@ class tfunc {
 					$ranking_data->tid, SORT_ASC, SORT_NUMERIC,
 					$ranking_data->name, SORT_ASC, SORT_STRING,
 					$ranking_data->games, SORT_ASC, SORT_NUMERIC);
+			break;
 		}
 
 		return $ranking_data;
@@ -369,6 +395,13 @@ class tfunc {
 
 		($score[$player1] < $score[$player2]) ? $looser = 1
 			: $looser = 0;
+
+		/* LEGA FIX - probably not necessary any more
+		// sind wir in der letzten runde und bearbeiten den 3. & 4. Platz (pos 2 & 3), nichts tun, kein update
+		if ( $round+1 == $num_rounds and ($team_pos_before == 2 or $team_pos_before == 3) ) {
+			return;
+		}
+		*/
 
 		// Runden-Berechnung
 		# Gewinnt jemand im Winner-Bracket, wird seine Runde um eins erhöht.

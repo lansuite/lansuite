@@ -1,10 +1,11 @@
 <div id="GoogleMaps" style="width:100%; height:600px"></div>
 <div id="mapcode">
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true">
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?{$apikey}">
 </script>
 <script type="text/javascript">
 {literal}
 function ShowMap() {
+  //@TODO: If we are using a geolocation API, then we should also use it to center on the party location!
   var mapCenter = new google.maps.LatLng(51.17689812200107, 9.84375);
   var mapOpt = {
     zoom: 6,
@@ -15,73 +16,55 @@ function ShowMap() {
 
   var geocoder = new google.maps.Geocoder();
   var infoWindow = null;
+  var nextAddress = 0;
+  var delay = 1000;
+  
+  function getAddress(address, next) {
+	if (address == null) return;  
+	if (address.country == '') return;
+	if (address.city == '' && plz == '') return;
+	  
+	searchAddress = address.country + ' ' + address.city;
+	
+	if (address.street) searchAddress = searchAddress + ' ' + address.street;
+	if (address.hnr) searchAddress = searchAddress + ' '  + address.hnr;
 
-  function showAddress(country, city, plz, street, hnr, text) {
-    if (country == '') country = 'Germany';
-    if (city == '' && plz == '') return;
-
-    geocoder.geocode( { 'address': street+' '+hnr+', '+plz+' '+city+', '+country }, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-        });
-        google.maps.event.addListener(marker, 'click', function() {
-          if (infoWindow) infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({
-            content: text
-          });
-          infoWindow.open(map, marker);
-        });
-      } else geocoder.geocode( { 'address': street+', '+plz+' '+city+', '+country }, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-          });
-          google.maps.event.addListener(marker, 'click', function() {
-            if (infoWindow) infoWindow.close();
-            infoWindow = new google.maps.InfoWindow({
-              content: text
-            });
-            infoWindow.open(map, marker);
-          });
-        } else geocoder.geocode( { 'address': street+', '+plz+', '+country }, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-            var marker = new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location
-            });
-            google.maps.event.addListener(marker, 'click', function() {
-              if (infoWindow) infoWindow.close();
-              infoWindow = new google.maps.InfoWindow({
-                content: text
-              });
-              infoWindow.open(map, marker);
-            });
-          } else geocoder.geocode( { 'address': street+', '+city+', '+country }, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-              var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-              });
-              google.maps.event.addListener(marker, 'click', function() {
-                if (infoWindow) infoWindow.close();
-                infoWindow = new google.maps.InfoWindow({
-                  content: text
-                });
-                infoWindow.open(map, marker);
-              });
-            }
-          });
-        });
-      });
-    });
-  }
+    geocoder.geocode( { 'address': searchAddress }, 
+   		function(results, status) {
+		      if (status == google.maps.GeocoderStatus.OK) {
+		        var marker = new google.maps.Marker({
+		          map: map,
+		          position: results[0].geometry.location
+		        });
+		        
+		        google.maps.event.addListener(marker, 'click', function() {
+		          if (infoWindow) infoWindow.close();
+		          infoWindow = new google.maps.InfoWindow({
+		            content: address.text
+		          });
+		          infoWindow.open(map, marker);
+		        });
+		        if (delay > 250) delay = delay / 2;
+		      } else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+	               nextAddress--;
+	               if (delay < 2000) delay = delay * 2;	       
+		      }
+		      next();
+    	}		
+     );
+    }
+    
+    function getNext () {
+    	nextAddress++;
+    	if (nextAddress < adresses.length) setTimeout(()=>{getAddress(adresses[nextAddress], getNext)}, delay);
+    	return null;
+    }
+  
 
 {/literal}
   {$adresses}
 {literal}
+setTimeout(()=>{getAddress(adresses[nextAddress], getNext)}, delay); 
 }
 {/literal}
 </script>

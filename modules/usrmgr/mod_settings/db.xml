@@ -531,4 +531,19 @@
             </field>
         </structure>
     </table>
+        <table>
+        <table_head>
+            <name>tlds</name>
+        </table_head>
+        <structure>
+            <field>
+                <name>tld</name>
+                <type>varchar(64)</type>
+                <null></null>
+                <default></default>
+                <extra></extra>
+                <key>PRI</key>
+            </field>
+        </structure>
+    </table>
 </lansuite>

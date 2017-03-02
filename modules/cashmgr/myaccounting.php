@@ -53,9 +53,9 @@ while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'
 $db->free_result($row);
 
 $ms2->AddTextSearchDropDown('Party', 'a.partyid', $party_list, $party->party_id);
-$ms2->AddTextSearchDropDown('Zahlungsart', 'a.cash', array('' => 'Alle', 0 => 'Nur Online','1' => 'Nur Bar'));
+$ms2->AddTextSearchDropDown('Zahlungsart', 'a.fix', array('' => 'Alle', '0' => 'Nur Online','1' => 'Nur Bar'));
 
-$ms2->AddResultField(t('Datum'), 'a.actiontime', 'MS2GetDate');
+$ms2->AddResultField(t('Datum'), 'a.actiontime');
 $ms2->AddResultField(t('Modul'), 'a.modul');
 $ms2->AddResultField(t('Kommentar'), 'a.comment');
 $ms2->AddSelect('a.fromUserid');

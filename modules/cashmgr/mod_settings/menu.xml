@@ -40,7 +40,7 @@
 		<link>?mod=cashmgr&amp;action=fixbooking</link>  <!-- This is the link-target of the current menu item -->
 		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins -->
 		<needed_config></needed_config>
-		<level>3</level> <!-- 0 for Top level entry; 1 for sub entry -->
+		<level>1</level> <!-- 0 for Top level entry; 1 for sub entry -->
 	</entry>
 	<entry>
 		<action>managegroup</action>  <!-- This is the trigger standing in the URL behin the "action=" -->

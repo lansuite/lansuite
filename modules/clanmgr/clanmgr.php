@@ -88,7 +88,7 @@ switch ($_GET['step']) {
   case 2:
     $row = $db->qry_first('SELECT name, url, clanlogo_path FROM %prefix%clan WHERE clanid = %int%', $_GET['clanid']);
     
-    if (func::chk_img_path($row['clanlogo_path'])) $dsp->AddDoubleRow(t(''), '<img src="'. $row['clanlogo_path'] .'" alt="'.$row['name'].'">');
+    if ($func->chk_img_path($row['clanlogo_path'])) $dsp->AddDoubleRow(t(''), '<img src="'. $row['clanlogo_path'] .'" alt="'.$row['name'].'">');
     $dsp->AddDoubleRow(t('Clan'), $row['name']);
 	if(stristr($row['url'], 'http://') === FALSE) $row['url'] = "http://".$row['url'];
 	$dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a>');
@@ -221,7 +221,6 @@ switch ($_GET['step']) {
   // Delete Member
   case 40:
     if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
-    elseif(CountAdmins() == 1 and $auth['clanadmin'] == 1) {$func->information(t('Löschen nicht möglich. Du bist der einzige Clan-Admin in diesem Clan. Benne bitte vorher einen weiteren Admin.'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);}
     elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) or ($_GET['clanid'] == $auth['clanid'] and $_GET['userid'] = $auth['userid']) or $auth['type'] > 2) {
       $db->qry("UPDATE %prefix%user SET clanid = 0 WHERE userid = %int%", $_GET['userid']);
       $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);

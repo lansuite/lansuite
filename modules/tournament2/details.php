@@ -119,15 +119,13 @@ else {
          ", $auth["userid"], $party->party_id);
   						(($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']) < $tournament['coins']) ?
   							$coin_out = t('Das Anmelden kostet %COST% Coins, du besitzt jedoch nur %IS% Coins!')
-  							: $coin_out = t('Das Anmelden kostet %COST% Coins. Du besitzen noch: %IS% Coins');
+  							: $coin_out = t('Das Anmelden kostet %COST% Coins. Du besitzt noch %IS% Coins');
   						
   						$dsp->AddDoubleRow(t('Coin-Kosten'), "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
   					}
           }
 
-					($tournament['over18']) ?
-						$dsp->AddDoubleRow(t('U18-Sperre'), t('Nur zugänglich für Spieler aus Über-18-Blöcken'))
-						: $dsp->AddDoubleRow(t('U18-Sperre'), t('Keine Sperre'));
+					if ($tournament['over18']) $dsp->AddDoubleRow(t('U18-Sperre'), t('Nur zugänglich für Spieler aus Über-18-Blöcken'));
           $dsp->AddFieldsetEnd();
 
 
@@ -140,39 +138,41 @@ else {
           $dsp->AddFieldsetEnd();
 
 
-          $dsp->AddFieldsetStart(t('Regeln und Sonstiges'));
-					if ($tournament['rules_ext']) $dsp->AddDoubleRow(t('Regelwerk'), "<a href=\"./ext_inc/tournament_rules/{$tournament['rules_ext']}\" target=\"_blank\">".t('Regelwerk öffnen')."({$tournament['rules_ext']})</a>");
+            if ($tournament['rules_ext'] || $tournament['comment'] || $tournament['mapcycle']){
+                $dsp->AddFieldsetStart(t('Regeln und Sonstiges'));
+                    if ($tournament['rules_ext']) $dsp->AddDoubleRow(t('Regelwerk'), $dsp->FetchSpanButton(t('Regelwerk öffnen'), "./ext_inc/tournament_rules/{$tournament['rules_ext']}"));
+                    if ($tournament['comment']) $dsp->AddDoubleRow(t('Bemerkung'), $func->text2html($tournament["comment"]));
+                    if ($tournament['mapcycle']) {
+                        $maps = explode("\n", $tournament["mapcycle"]);
+                        $map_str = '';
+                        foreach ($maps as $key => $val) $map_str .= t('Runde')." $key: $val \n";
+                        $mapcycle = t('Mapcycle'). HTML_NEWLINE . HTML_NEWLINE;
+                        if ($auth['type'] > 1) $mapcycle .= $dsp->FetchSpanButton(t('Maps neu mischen'), "index.php?mod=tournament2&action=details&tournamentid=". $_GET['tournamentid'] ."&step=20");
+                        $dsp->AddDoubleRow($mapcycle, $func->text2html($map_str));
+                        }
+                $dsp->AddFieldsetEnd();
+                }
+        $dsp->EndTab();
 
-					$dsp->AddDoubleRow(t('Bemerkung'), $func->text2html($tournament["comment"]));
 
-          $maps = explode("\n", $tournament["mapcycle"]);
-          $map_str = '';
-          foreach ($maps as $key => $val) $map_str .= t('Runde')." $key: $val \n";
-          $mapcycle = t('Mapcycle'). HTML_NEWLINE . HTML_NEWLINE;
-          if ($auth['type'] > 1) $mapcycle .= '<a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. t('Maps neu mischen') .'</a>';
-					$dsp->AddDoubleRow($mapcycle, $func->text2html($map_str));
-          $dsp->AddFieldsetEnd();
-          $dsp->EndTab();
-
-
-		  $dsp->StartTab(t('Angemeldete Teams'), 'assign');
-					$waiting_teams = "";
-					$completed_teams = "";
-					$teams = $db->qry("SELECT name, teamid, seeding_mark, disqualified FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $_GET['tournamentid']);
-					while($team = $db->fetch_array($teams)) {
-						$members = $db->qry_first("SELECT COUNT(*) AS members
-       FROM %prefix%t2_teammembers
-       WHERE (teamid = %int%)
-       GROUP BY teamid
-       ", $team['teamid']);
-						$team_out = $team["name"] . $tfunc->button_team_details($team['teamid'], $_GET['tournamentid']);
-						if (($tournament['mode'] == "single") or ($tournament['mode'] == "double")){
-							if ($team["seeding_mark"]) $team_out .= " ". t('Dieses Team wird beim Generieren gesetzt');
-							if (($auth["type"] > 1) && ($tournament['status'] == "open")) {
-								if ($team["seeding_mark"]) $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=11&tournamentid={$_GET['tournamentid']}&teamid={$team['teamid']}\">".t('demarkieren')."</a>";
-								else $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=10&tournamentid={$_GET['tournamentid']}&teamid={$team['teamid']}\">".t('Team setzen')."</a>";
-							}
-						}
+        $dsp->StartTab(t('Angemeldete Teams'), 'assign');
+        $waiting_teams = "";
+        $completed_teams = "";
+        $teams = $db->qry("SELECT name, teamid, seeding_mark, disqualified FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $_GET['tournamentid']);
+        while($team = $db->fetch_array($teams)) {
+            $members = $db->qry_first("SELECT COUNT(*) AS members
+                                        FROM %prefix%t2_teammembers
+                                        WHERE (teamid = %int%)
+                                        GROUP BY teamid
+                                        ", $team['teamid']);
+            $team_out = $team["name"] . $tfunc->button_team_details($team['teamid'], $_GET['tournamentid']);
+                if (($tournament['mode'] == "single") or ($tournament['mode'] == "double")){
+                    if ($team["seeding_mark"]) $team_out .= " ". t('Dieses Team wird beim Generieren gesetzt');
+                    if (($auth["type"] > 1) && ($tournament['status'] == "open")) {
+                        if ($team["seeding_mark"]) $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=11&tournamentid={$_GET['tournamentid']}&teamid={$team['teamid']}\">".t('demarkieren')."</a>";
+                        else $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=10&tournamentid={$_GET['tournamentid']}&teamid={$team['teamid']}\">".t('Team setzen')."</a>";
+                        }
+                    }
 /*  // Disquallifiy droped, due to errors
 						if ($auth["type"] > 1 and $tournament['status'] == "process") {
 							if ($team['disqualified']) $team_out .= " <font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchSpanButton(t('Disqualifizieren rückgängig'), "index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}&step=10");

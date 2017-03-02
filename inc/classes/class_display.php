@@ -213,7 +213,10 @@ class display {
         
     $MainContent .=  '</div>';
   }
-
+/* Please note that there is no escaping of $value in the following functions.
+	Data taken from the DB, $_GET and $_POST is already sanitized by $func-NoHTML().
+	!!!IF YOUR INPUT COMES FROM A DIFFERENT SOURCE, MAKE SURE TO ESCAPE THE DATA YOURSELF!!!
+*/
   function AddSingleRow($text, $parm = NULL, $class = '') {
     global $smarty;
 
@@ -259,7 +262,6 @@ class display {
     ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
     ($optional)? $optional = "_optional" : $optional = '';
     if ($val == '') $val = '1';
-    $val = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
 
     $key = '<label for="'. $name .'">'. $key .'</label>';
     $value = '<input id="'. $name .'" name="'. $name .'" type="checkbox" class="checkbox" value="'. $val .'" '. $checked .' '. $disabled .' '. $additionalHTML .' />';
@@ -272,7 +274,6 @@ class display {
     ($disabled)? $disabled = 'disabled' : $disabled = '';
     ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
     ($optional)? $optional = "_optional" : $optional = '';
-    $val = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
 
     $value = '<input name="'. $name .'" type="radio" class="form'. $optional .'" value="'. $val .'" '. $checked .' '. $disabled .' />'. $errortext;
     $key = '<label for="'. $name .'">'. $key .'</label>';
@@ -285,7 +286,6 @@ class display {
     ($not_changeable)? $not_changeable = ' readonly="readonly"' : $not_changeable = '';
     if ($maxlength) $maxlength = ' maxlength="'. $maxlength .'"';
     if ($size == '') $size = '30';
-    $value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
 
     $value = '<input type="text" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'"'. $not_changeable .' value="'. $value .'"'. $maxlength .' />'. $errortext;
     $key = '<label for="'. $name .'">'. $key .'</label>';
@@ -296,7 +296,6 @@ class display {
     ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
     ($optional)? $optional = "_optional" : $optional = '';
     if ($size == '') $size = '30';
-    $value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
 
     $value = '<input type="password" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'" value="'. $value .'" '. $additional .' />'. $errortext;
     $key = '<label for="'. $name .'">'. $key .'</label>';

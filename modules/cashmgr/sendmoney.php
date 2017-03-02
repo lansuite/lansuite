@@ -30,6 +30,15 @@ function Check() {
 		$func->information(t("Bitte gib einen Kommentar zu ihrer Überweisung an."));
 		$ret = false;
 	}
+        else{//check if the user has enough money for the transaction
+                include_once("modules/cashmgr/class_accounting.php");
+                $accounting = new accounting(0,$auth['userid']); //party not needed for calculation...or is it?
+                $userbalance = $accounting->GetUserBalance();
+                if ($userbalance<(float)$_POST['movement']){
+		$func->information(t("Du hast nicht genug Guthaben! Kontostand:"). $userbalance);
+		$ret = false;
+                }
+	}
 	return $ret;
 }
  

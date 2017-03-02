@@ -55,5 +55,20 @@ class Clan {
   return false;
   }
   
-}
+    function GetClanMembers($clanid=NULL){
+        global $db, $auth;  
+      //What clanID do we have?
+      //0 = not in a clan
+      //else = ClanID  
+      // NULL = use the clan of the logged in user
+      if ($clanid == NULL) $clanid = $auth['clanid'];
+      $clan_members = $db->qry('SELECT nickname, userid from %prefix%user WHERE clanid=%int%', $clanid);
+      return $clan_members;
+      //TODO: Get User for the clan ID
+    }
+  
+  
+  
+  
+  }
 ?>

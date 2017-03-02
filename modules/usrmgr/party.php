@@ -95,8 +95,11 @@ else {
         if ($cfg['signon_autopaid'] or $_POST['paid']) $mf->AddFix('paiddate', 'NOW()');
     
         // Prices
-        $selections = array();  
-        $res2 = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND requirement <= %string%", $row['party_id'], $auth['type']);
+         $selections = array();  
+        $qrytmp = "SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND requirement <= %string%";
+        //show all prices for administrators and only the one not ended for normal users
+        if ($auth['type'] <= 1) $qrytmp.=" AND enddate > now()";
+        $res2 = $db->qry($qrytmp, $row['party_id'], $auth['type']);
         while ($row2 = $db->fetch_array($res2)) $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']&nbsp;&nbsp;'.t('Gültig bis : ').date_format(date_create($row2['enddate']), 'd.m.Y');
         if ($selections) $mf->AddField(t('Eintrittspreis'), 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
         else $mf->AddField(t('Eintrittspreis'), 'price_id', IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
