@@ -170,15 +170,8 @@
     }
 
     include_once('inc/base/define.php');                // Read definition file
-/*
-    // Exit if no Configfile
-    if (!$config) {
-      echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
-      Überprüfe die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
-      error_log('Öffnen oder Lesen der Konfigurations-Datei inc/base/config.php nicht möglich');
-      exit();
-    }
-*/
+
+
 ### Include and Initialize base classes
 
     $lang = array(); // For old $lang
