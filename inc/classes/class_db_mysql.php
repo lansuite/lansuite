@@ -218,6 +218,10 @@ class db {
    */
   function qry_first() {
     $this->qry($args = func_get_args());
+
+    // For execute querys $this->query_id will not be a resource that needs to be freed.
+    if ($this->query_id === true) return true;
+
     $row = $this->fetch_array();
     $this->free_result();
     return $row;
