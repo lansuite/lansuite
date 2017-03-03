@@ -99,13 +99,13 @@ class db {
     $this->connectfailure = 0;
     return true;
   }
-  
+
   #function set_charset()
   #{
   #	if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
   #  else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
   #}
-  
+
   function get_host_info() {
     if ($this->mysqli) return @mysqli_get_host_info($this->link_id);
     else return @mysql_get_host_info($this->link_id);
@@ -118,7 +118,7 @@ class db {
 
 
   #### Queries ####
-  
+
   /**
    * If the second parameter is an array, the function uses the array as value list.
    * @return unknown_type
@@ -148,7 +148,7 @@ class db {
     $this->count_query++;
     if (isset($debug)) $debug->query_stop($this->sql_error);
     $this->QueryArgs = array();
-    
+
     return $this->query_id;
   }
 
@@ -156,7 +156,7 @@ class db {
     global $func;
 
     if ($query_id != -1) $this->query_id = $query_id;
-    
+
     if ($this->mysqli) $this->record = @mysqli_fetch_array($this->query_id);
     else $this->record = @mysql_fetch_array($this->query_id);
 
@@ -165,36 +165,36 @@ class db {
     return $this->record;
   }
 
-  function num_rows($query_id =- 1) {
+  function num_rows($query_id = -1) {
     if ($query_id != -1) $this->query_id=$query_id;
 
     if ($this->mysqli) return @mysqli_num_rows($this->query_id);
     else return @mysql_num_rows($this->query_id);
   }
 
-  function get_affected_rows($query_id =- 1) {
+  function get_affected_rows($query_id = -1) {
     if ($query_id != -1) $this->query_id=$query_id;
 
     if ($this->mysqli) return @mysqli_affected_rows($this->link_id);
     else return @mysql_affected_rows($this->link_id);
   }
 
-  function insert_id($query_id =- 1) {
+  function insert_id($query_id = -1) {
     if ($query_id != -1) $this->query_id=$query_id;
 
     if ($this->mysqli) return @mysqli_insert_id($this->link_id);
     return @mysql_insert_id($this->link_id);
   }
 
-  function num_fields($query_id =- 1) {
+  function num_fields($query_id = -1) {
     if ($query_id != -1) $this->query_id=$query_id;
 
     if ($this->mysqli) return mysqli_num_fields($this->query_id);
     else return mysql_num_fields($this->query_id);
   }
 
-  function field_name($pos, $query_id =- 1) {
-    if ($query_id !=- 1) $this->query_id=$query_id;
+  function field_name($pos, $query_id = -1) {
+    if ($query_id != -1) $this->query_id=$query_id;
 
     if ($this->mysqli) {
       $finfo = mysqli_fetch_field_direct($this->query_id, $pos);
@@ -211,7 +211,7 @@ class db {
 
 
   #### Special ####
-  
+
   /**
    * If the second parameter is an array, the function uses the array as value list.
    * @return unknown_type
@@ -233,7 +233,7 @@ class db {
 
 
   #### Misc ####
-  
+
   function client_info() {
     if ($this->mysqli) {
       if (function_exists('mysqli_get_client_info')) return mysqli_get_client_info();
@@ -250,7 +250,7 @@ class db {
     if ($cfg['show_mysql_errors'] and $this->errors) {
       $func->error($this->errors);
       $this->errors = '';
-    } 
+    }
   }
 
   function field_exist($table, $field) {
