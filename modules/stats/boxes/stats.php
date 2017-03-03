@@ -34,6 +34,5 @@ foreach ($authentication->away_users as $userid) {
     $row = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
     $box->EngangedRow($dsp->FetchUserIcon($userid, $row["username"]));
 }
-$db->free_result($user_online);
 
 ?>
