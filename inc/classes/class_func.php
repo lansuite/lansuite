@@ -511,7 +511,7 @@ class func {
   function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name) {
       if ($max_entries_per_page > 0 and $overall_entries >= 0 and $working_link != "" and $var_page_name != "") {
           if($current_page == "") {
-              $page_sql = "LIMIT 0," . $max_entries_per_page;
+              $page_sql = "LIMIT 0," . (int)$max_entries_per_page;
               $page_a = 0;
               $page_b = $max_entries_per_page;
           }
@@ -520,7 +520,7 @@ class func {
               $page_a = 0;
               $page_b = $overall_entries;
           } else  {
-              $page_sql = ("LIMIT " . ($current_page * $max_entries_per_page) . ", " . ($max_entries_per_page));
+              $page_sql = ("LIMIT " . ($current_page * $max_entries_per_page) . ", " . (int)($max_entries_per_page));
               $page_a = ($current_page * $max_entries_per_page);
               $page_b = ($max_entries_per_page);
           }

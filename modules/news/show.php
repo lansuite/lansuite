@@ -10,7 +10,7 @@ else {
 
     if ($cfg["news_shorted_archiv"] == "") $cfg["news_shorted_archiv"] = 10;
     $pages = $func->page_split($_GET["news_page"], $cfg["news_shorted_archiv"], $overall_news - ($cfg['news_shorted'] + $cfg['news_completed']), "index.php?mod=news&action=show&subaction=archive", "news_page");
-  
+
     $get_newsshorted = $db->qry("SELECT UNIX_TIMESTAMP(n.date) AS date, n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC %plain%", $pages["sql"]);
     while($row=$db->fetch_array($get_newsshorted)) {
       $tmpDate = $func->unixstamp2date($row['date'], 'daydate');
@@ -23,13 +23,13 @@ else {
     foreach ($shortnews as $newsdate=>$value) {
       $tmpSNCode .= "<tr><td colspan=\"2\"><strong>$newsdate</strong></td></tr><tr><td colspan=\"2\"><div class=\"hrule\"></div></td></tr>";
       foreach ($shortnews[$newsdate] as $newsitemtime=>$newsitemdata ) {
-        $tmpSNCode .= "<tr><td width=\"45\" align=\"center\" valign=\"top\" rowspan=\"2\">" .$newsitemtime ."</td><td><strong>" .$newsitemdata['caption'] ."</strong> (" .$newsitemdata['username'] .")</td></tr><tr><td>" .$newsitemdata['text'] ."</td></tr>";      
-      } 
+        $tmpSNCode .= "<tr><td width=\"45\" align=\"center\" valign=\"top\" rowspan=\"2\">" .$newsitemtime ."</td><td><strong>" .$newsitemdata['caption'] ."</strong> (" .$newsitemdata['username'] .")</td></tr><tr><td>" .$newsitemdata['text'] ."</td></tr>";
+      }
       $tmpSNCode .= "<tr><td colspan=\"2\">&nbsp;</td></tr>";
     }
     $tmpSNCode .= "</table>";
     $rows .= $tmpSNCode;
-    
+
     $smarty->assign('number', $overall_news);
     $templ_news_case_number_per_site = $howmany;
 
@@ -45,11 +45,11 @@ else {
       $pages = $func->page_split($_GET["news_page"], $cfg["news_count"], $overall_news, "index.php?mod=news&amp;action=show", "news_page");
 
       $get_news = $db->qry('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC %plain%', $pages["sql"]);
-  
+
       while ($row=$db->fetch_array($get_news)) {
         $priority = $row["priority"];
-        if ($priority == 1) $type = important; 
-        else $type = normal; 
+        if ($priority == 1) $type = important;
+        else $type = normal;
 
         $smarty->assign('caption', $row["caption"]);
         $smarty->assign('username', $dsp->FetchUserIcon($row['userid'], $row["username"]));
@@ -74,10 +74,10 @@ else {
         if ($cfg['news_comments_allowed'])
         {
         	$get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
-        
+
         	if ($get_comments["number"] >= 0) $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>");
         }
-        
+
         // Buttons
         $buttons = "";
         if ($auth["type"] > 1) {
@@ -89,23 +89,23 @@ else {
         $smarty->assign('buttons', $buttons);
         $rows .= $smarty->fetch("modules/news/templates/show_row_$type.htm");
       }
-  
+
     } else {
       if ($cfg["news_complete"] == "") $cfg["news_complete"] = 3;
       $dsp->NewContent(t('Neuigkeiten'), t('Hier siehst du aktuelle Neuigkeiten.'));
-      
-      $get_news = $db->qry('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT %plain%', $cfg["news_complete"]);
+
+      $get_news = $db->qry('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT %int%', $cfg["news_complete"]);
       while($row=$db->fetch_array($get_news)) {
         $priority = $row["priority"];
-        if($priority == 1) $type = important; 
-        else $type = normal; 
+        if($priority == 1) $type = important;
+        else $type = normal;
 
         $smarty->assign('caption', $row["caption"]);
         $smarty->assign('username', $dsp->FetchUserIcon($row['userid'], $row["username"]));
         $smarty->assign('userid', $row["poster"]);
         if ($row['icon'] and $row['icon'] != 'none') $smarty->assign('icon', '<img src="ext_inc/news_icons/'.$row['icon'].'" vspace="2" align="right" />');
         else $smarty->assign('icon', '');
-  
+
         $newsid                                                     = $row["newsid"];
         $howmany++;
         $smarty->assign('date', $func->unixstamp2date($row["date"], "daydatetime"));
@@ -116,14 +116,14 @@ else {
         if ($row['link_2']) $text .= '<br><a href="'. $row['link_2'] .'" target="_blank">'. $row['link_2'] .'</a>';
         if ($row['link_3']) $text .= '<br><a href="'. $row['link_3'] .'" target="_blank">'. $row['link_3'] .'</a>';
         $smarty->assign('text', $text);
-  		
+
         if ($cfg['news_comments_allowed'])
         {
         	$get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
-        
+
         	if ($get_comments["number"] >= 0) $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>");
         }
-        
+
         // Buttons
         $buttons = "";
         if ($auth["type"] > 1) {
@@ -133,7 +133,7 @@ else {
         if ($cfg['news_comments_allowed'])
 			$buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=comment&amp;newsid=$newsid", "quote") . " ";
         $smarty->assign('buttons', $buttons);
-  
+
         $rows .= $smarty->fetch("modules/news/templates/show_row_$type.htm");
       }
 
@@ -149,7 +149,7 @@ else {
       if ($shortnews) foreach ($shortnews as $newsdate=>$value) {
         $tmpSNCode .= "<tr><td colspan=\"2\"><strong>$newsdate</strong></td></tr><tr><td colspan=\"2\"><div class=\"hrule\"></div></td></tr>";
         foreach ($shortnews[$newsdate] as $newsitemtime=>$newsitemdata )
-          $tmpSNCode .= "<tr><td width=\"45\" align=\"center\" valign=\"top\" rowspan=\"2\">" .$newsitemtime ."</td><td><strong>" .$newsitemdata['caption'] ."</strong> (" .$newsitemdata['username'] .")</td></tr><tr><td>" .$newsitemdata['text'] ."</td></tr>";      
+          $tmpSNCode .= "<tr><td width=\"45\" align=\"center\" valign=\"top\" rowspan=\"2\">" .$newsitemtime ."</td><td><strong>" .$newsitemdata['caption'] ."</strong> (" .$newsitemdata['username'] .")</td></tr><tr><td>" .$newsitemdata['text'] ."</td></tr>";
         $tmpSNCode .= "<tr><td colspan=\"2\">&nbsp;</td></tr>";
       }
       $tmpSNCode .= "</table>";
@@ -161,7 +161,7 @@ else {
       $rows .= $smarty->fetch("modules/news/templates/show_row_shorted.htm");
       if ($cfg['news_shorted_archiv'] != 0) $pages["html"] = "<strong><a href=\"index.php?mod=news&amp;action=show&amp;subaction=archive\">" .t('News Archiv') ."</a></strong>";
     }
-  
+
     // SET TEMPLATE CASE VARS
     $smarty->assign('number', $overall_news);
     $templ_news_case_number_per_site = $howmany;
