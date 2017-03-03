@@ -503,7 +503,7 @@ class func {
              target_id = %int%,
              script = %string%,
              referer = %string%,
-             ip = INET_ATON(%string%)
+             ip = INET6_ATON(%string%)
              ", $auth['userid'], $message, $type, $sort_tag, $target_id, $_SERVER["REQUEST_URI"], $this->internal_referer, $_SERVER['REMOTE_ADDR']);
           if ($entry == 1) return 1;
       }

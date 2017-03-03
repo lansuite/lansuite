@@ -186,12 +186,6 @@ class Import {
 								$db->qry("UPDATE %prefix%%plain% SET %plain% = FROM_UNIXTIME(%plain%_lstmp)", $table_name, $name, $name);
 								$db->qry("ALTER TABLE %prefix%%plain% DROP %plain%_lstmp", $table_name, $name);
 
-							// Changing varchar(15) to int(11) unsigned   (IP Adresses)
-							} elseif ($type == 'int(11) unsigned' and $db_field["Type"] == 'varchar(15)') {
-								$db->qry("ALTER TABLE %prefix%$table_name CHANGE %plain% %plain%_lstmp varchar(15)", $name, $name);
-								$db->qry("ALTER TABLE %prefix%%plain% ADD %plain% int(11) unsigned", $table_name, $name);
-								$db->qry("UPDATE %prefix%%plain% SET %plain% = INET_ATON(%plain%_lstmp)", $table_name, $name, $name);
-								$db->qry("ALTER TABLE %prefix%%plain% DROP %plain%_lstmp", $table_name, $name);
 
 								// Handle structure changes in general
 							} elseif ($db_field["Type"] != $type

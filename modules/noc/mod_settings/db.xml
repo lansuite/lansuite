@@ -30,7 +30,7 @@
 			</field>
 			<field>
 				<name>ip</name>
-				<type>varchar(20)</type>
+				<type>varbinary(16)</type>
 				<null></null>
 				<key></key>
 				<default></default>
@@ -134,7 +134,7 @@
 			</field>
 			<field>
 				<name>ip</name>
-				<type>varchar(16)</type>
+				<type>varbinary(16)</type>
 				<null>YES</null>
 				<key></key>
 				<default>0.0.0.0</default>

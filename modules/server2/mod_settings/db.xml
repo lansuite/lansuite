@@ -31,7 +31,7 @@
 			</field>
 			<field>
 				<name>ip</name>
-				<type>varchar(255)</type>
+				<type>varbinary(16)</type>
 				<null></null>
 				<key></key>
 				<default></default>

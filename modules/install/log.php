@@ -31,7 +31,7 @@ switch($_GET["step"]){
 
     $ms2->AddSelect('u.userid');
     $ms2->AddResultField(t('Meldung'), 'l.description', '', 140);
-    $ms2->AddResultField(t('IP'), 'INET_NTOA(l.ip) AS ip');
+    $ms2->AddResultField(t('IP'), 'INET6_NTOA(l.ip) AS ip');
     $ms2->AddResultField(t('Gruppe'), 'l.sort_tag');
     $ms2->AddResultField(t('Datum'), 'UNIX_TIMESTAMP(l.date) AS date', 'MS2GetDate');
     $ms2->AddResultField(t('Auslöser'), 'u.username', 'UserNameAndIcon');
@@ -45,7 +45,7 @@ switch($_GET["step"]){
 
   case 2:
     $log = $db->qry_first("SELECT l.type, l.sort_tag, l.description, l.script, l.referer, l.userid, UNIX_TIMESTAMP(l.date) AS date,
-      INET_NTOA(l.ip) AS ip, u.username
+      INET6_NTOA(l.ip) AS ip, u.username
       FROM %prefix%log AS l
       LEFT JOIN %prefix%user AS u ON l.userid = u.userid
       WHERE l.logid = %int%

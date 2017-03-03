@@ -219,7 +219,7 @@
 			</field>
 			<field>
 				<name>ip</name>
-				<type>int(11) unsigned</type>
+				<type>varbinary(16)</type>
 				<null>NULL</null>
 				<key></key>
 				<default></default>

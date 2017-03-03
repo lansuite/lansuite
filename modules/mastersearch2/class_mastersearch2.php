@@ -157,7 +157,7 @@ class MasterSearch2 {
           if ($x > 0) $sql_one_search_field .= ' OR ';
           switch ($compare_mode) {
             case 'aton':
-              $sql_one_search_field .= "($sql_field = INET_ATON('". $_GET["search_input"][$z] ."'))";
+              $sql_one_search_field .= "($sql_field = INET6_ATON('". $_GET["search_input"][$z] ."'))";
             break;
             case 'exact':
               $sql_one_search_field .= "($sql_field = '". $_GET["search_input"][$z] ."')";

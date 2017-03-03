@@ -87,13 +87,13 @@ elseif ($thread['caption'] != '') {
     $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=delete&tid=$tid", "delete");
   }
 
-	$query = $db->qry("SELECT pid, comment, userid, UNIX_TIMESTAMP(date) AS date, INET_NTOA(ip) AS ip, file FROM %prefix%board_posts WHERE tid=%int% ORDER BY date", $tid);
+	$query = $db->qry("SELECT pid, comment, userid, UNIX_TIMESTAMP(date) AS date, INET6_NTOA(ip) AS ip, file FROM %prefix%board_posts WHERE tid=%int% ORDER BY date", $tid);
 	$count_entrys = $db->num_rows($query);
 	
   // Page select
 	if ($count_entrys > $cfg['board_max_posts']){
 		$pages = $func->page_split($_GET['posts_page'], $cfg['board_max_posts'], $count_entrys, "index.php?mod=board&action=thread&tid=$tid", "posts_page");
-		$query = $db->qry("SELECT pid, comment, userid, UNIX_TIMESTAMP(date) AS date, UNIX_TIMESTAMP(changedate) AS changedate, changecount, INET_NTOA(ip) AS ip, file FROM %prefix%board_posts WHERE tid=%int% order by date %plain%", $tid, $pages['sql']);
+		$query = $db->qry("SELECT pid, comment, userid, UNIX_TIMESTAMP(date) AS date, UNIX_TIMESTAMP(changedate) AS changedate, changecount, INET6_NTOA(ip) AS ip, file FROM %prefix%board_posts WHERE tid=%int% order by date %plain%", $tid, $pages['sql']);
 	}
   $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
 
