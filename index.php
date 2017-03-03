@@ -145,8 +145,32 @@
 
 ### Read Config and Definitionfiles
 
-    $config = parse_ini_file('inc/base/config.php', 1); // Load Basic Config
+    // Load Basic Config
+    if (file_exists('inc/base/config.php')) {
+      $config = parse_ini_file('inc/base/config.php', 1);
+
+    // Default config. Will be used only until the wizard has created the config file
+    } else {
+      $config = array();
+
+      $config['lansuite']['version'] = 'Nightly';
+      $config['lansuite']['default_design'] = 'simple';
+      $config['lansuite']['chmod_dir'] = '777';
+      $config['lansuite']['chmod_file'] = '666';
+      $config['lansuite']['debugmode'] = '0';
+
+      $config['database']['server'] = 'localhost';
+      $config['database']['user'] = 'root';
+      $config['database']['passwd'] = '';
+      $config['database']['database'] = 'lansuite';
+      $config['database']['prefix'] = 'ls_';
+      $config['database']['charset'] = 'utf8';
+
+      $config['environment']['configured'] = 0;
+    }
+
     include_once('inc/base/define.php');                // Read definition file
+/*
     // Exit if no Configfile
     if (!$config) {
       echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
@@ -154,7 +178,7 @@
       error_log('Öffnen oder Lesen der Konfigurations-Datei inc/base/config.php nicht möglich');
       exit();
     }
-
+*/
 ### Include and Initialize base classes
 
     $lang = array(); // For old $lang

@@ -26,7 +26,7 @@ switch ($_GET["step"]){
   $_POST["email"], md5($_POST["password"]));
         $userid = $db->insert_id();
       }
-      
+
       include_once("inc/classes/class_auth.php");
       $authentication = new auth();
       $authentication->login($_POST["email"], $_POST["password"]);
@@ -91,7 +91,7 @@ switch ($_GET["step"]){
 
         include_once("inc/classes/class_xml.php");
         $xml = new xml;
-        
+
         // Check all Subdirs of $design_dir fpr valid design-xml-files
         $t_array = array();
         while ($akt_design = readdir($design_dir)) if ($akt_design != "." AND $akt_design != ".." AND $akt_design != ".svn" AND $akt_design != "templates") {
@@ -267,7 +267,7 @@ switch ($_GET["step"]){
         $dsp->NewContent(t('Adminaccount anlegen'), t('Hier kannst du einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, kannst du diesen Schritt auch überspringen (auf <b>\'Weiter\'</b> klicken).'));
         $dsp->SetForm("index.php?mod=install&action=wizard&step=7");
         if ($func->admin_exists()) $dsp->AddDoubleRow(t('Info'), t('Es existiert bereits ein Adminaccount'));
-        
+
         $dsp->AddTextFieldRow("email", t('E-Mail'), 'admin@example.com', '');
         $dsp->AddPasswordRow("password", t('Kennwort'), '', '', '', '', "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel1)\"");
         $dsp->AddPasswordRow("password2", t('Kennwort wiederholen'), '', '');
@@ -366,16 +366,16 @@ switch ($_GET["step"]){
         unset($_SESSION['language']);
 
         $dsp->NewContent(t('Installation abschließen'), t('Die Installation wurde erfolgreich beendet.'));
-            
+
         $dsp->AddSingleRow(t('Die Installation ist nun beendet.<br /><br />Mit einem Klick auf <b>Einloggen</b> unterhalb schließest dz die Installation ab und gelangst auf die Adminseite. Dort kannst du weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.<br /><br />Der Modulmanager ermöglicht es dir dort Module zu de-/aktivieren.<br /><br />Über den Link \'Allgemeine Einstellungen\' stehen dir eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
         if (!$func->admin_exists()) $dsp->AddSingleRow("<font color=red>". t('<b>Es wurde kein Admin-Account angelegt</b><br />Solange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.') ."</font>");
 
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Login'), "index.php?mod=install"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=9", "install/admin");
         $dsp->AddContent();
-        
+
         $config["environment"]["configured"] = 1;
-        $install->WriteConfig($cfg_set);
+        $install->WriteConfig();
     break;
 }
 
