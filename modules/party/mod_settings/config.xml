@@ -9,7 +9,7 @@
     		<name>signon_partyid</name>
     		<type>int</type>
     		<default>1</default>
-    		<description>Bitte Standart Party festlegen (Nummer muss existieren)</description>
+    		<description>Bitte Standard Party festlegen (Nummer muss existieren)</description>
     	</item>
     </items>
   </group>
