@@ -93,7 +93,7 @@ class db {
     if (!empty($charset)){
          $this->link_id->set_charset($charset);
     } else {
-        $this->link_id->set_charset('Latin1');
+        $this->link_id->set_charset('utf8');
     }
     $this->success = true;
     $this->connectfailure = 0;
