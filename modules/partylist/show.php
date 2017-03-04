@@ -24,9 +24,13 @@ function GetSite($url) {
     $HTTPHeader = t('Hostname, oder Pfad fehlt');
     return '';
   }
-#  $ip = gethostbyname($url['host']);
-  $fp = @fsockopen($url['host'], $url['port'], $errno, $errstr, 1);
-#  $fp = stream_set_timeout($fp, 1);
+  try {
+    # $ip = gethostbyname($url['host']);
+    $fp = @fsockopen($url['host'], $url['port'], $errno, $errstr, 1);
+    # $fp = stream_set_timeout($fp, 1);
+  } catch (Exception $e) {
+    // Ignore connection errors
+  }
 
   if (!$fp) {
     $HTTPHeader = $errno.': '.$errstr;
@@ -94,7 +98,7 @@ function AddSignonStatus($lsurl, $show_history = 0) {
 
         # Overview
         if (!$_GET['partyid'] and $current_party == $partyid) $ret .= $func->CreateSignonBar($registered, $paid, $max_guest).'Max.: '.$max_guest;
-        
+
         # Details
         if ($_GET['partyid']) {
           if (!$show_history and $current_party == $partyid) $ret .= $func->CreateSignonBar($registered, $paid, $max_guest);
