@@ -346,7 +346,7 @@ class MasterSearch2 {
 
     ###### Generate Page-Links
     $count_rows = $db->qry_first('SELECT FOUND_ROWS() AS count');
-    if ($this->config['EntriesPerPage']) $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
+    if ($this->config['EntriesPerPage'] > 0) $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
 
     if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {
     	$framework->AddToPageTitle(t('Seite') .' '. ((int)$_GET['ms_page'] + 1));
