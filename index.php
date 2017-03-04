@@ -21,6 +21,10 @@
       $rep = ini_get('error_reporting');
       if(!($rep & $errno)) return false;
 
+      // Does the same as above for PHP7
+      if (error_reporting() == 0) return false;
+
+
       // error_reporting setting currently doesn't show the following errors:
       // E_NOTICE
       // E_DEPRECATED
