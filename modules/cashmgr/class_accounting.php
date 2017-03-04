@@ -60,17 +60,25 @@ class accounting
     function getCashTotalBudget()
     {
         global $db;
-        $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE userid = %int% AND cash = '1'", $this->userid);
+        $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE toUserid = %int% AND fix = '1'", $this->editorid);
         return getMoneyColor($result['total']);
     }
 
     function getOnlineTotalBudget()
     {
         global $db;
-        $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE userid = %int% AND cash = '0'", $this->userid);
+        $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE toUserid = %int% AND fix = '0'", $this->editorid);
         return getMoneyColor($result['total']);
     }
 
+    function GetUserBalance($userid=0){
+        global $db;
+        if ($userid==0) $userid = $this->editorid;
+        $result = $db->qry_first("SELECT 
+            (select SUM(movement) FROM %prefix%cashmgr_accounting WHERE toUserid = %int%)AS received,
+            (select SUM(movement) FROM %prefix%cashmgr_accounting WHERE fromUserid = %int%) AS sent;", $userid, $userid);
+        return $result['received']- $result['sent'];
+    }
     
     function getEnergyUsage($paid)
     {

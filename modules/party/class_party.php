@@ -190,7 +190,7 @@ class party{
 		
 		
 		/**
-		 * Party löschen und auf Standartparty einstellen
+		 * Party löschen und auf Standardparty einstellen
 		 *
 		 */
 		function delete_party(){

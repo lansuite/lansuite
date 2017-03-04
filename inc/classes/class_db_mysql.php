@@ -58,6 +58,7 @@ class db {
     $user = $config['database']['user'];
     $pass = $config['database']['passwd'];
     $database = $config['database']['database'];
+    $charset = $config['database']['charset'];
 
     // Try to connect
     if ($this->mysqli) $this->link_id = @mysqli_connect($server, $user, $pass);
@@ -88,23 +89,23 @@ class db {
       }
     }
 
-    if ($this->mysqli) { 
-      if (!mysqli_set_charset($this->link_id, "utf8")) {
-        printf("Error loading character set utf8: %s\n", mysqli_error($this->link_id));
-        exit();
-      }
-    } else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
+    // Set encoding based on config file
+    if (!empty($charset)){
+         $this->link_id->set_charset($charset);
+    } else {
+        $this->link_id->set_charset('utf8');
+    }
     $this->success = true;
     $this->connectfailure = 0;
     return true;
   }
-  
-  function set_charset()
-  {
-  	if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
-    else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
-  }
-  
+
+  #function set_charset()
+  #{
+  #	if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
+  #  else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
+  #}
+
   function get_host_info() {
     if ($this->mysqli) return @mysqli_get_host_info($this->link_id);
     else return @mysql_get_host_info($this->link_id);
@@ -117,7 +118,7 @@ class db {
 
 
   #### Queries ####
-  
+
   /**
    * If the second parameter is an array, the function uses the array as value list.
    * @return unknown_type
@@ -147,7 +148,7 @@ class db {
     $this->count_query++;
     if (isset($debug)) $debug->query_stop($this->sql_error);
     $this->QueryArgs = array();
-    
+
     return $this->query_id;
   }
 
@@ -155,7 +156,7 @@ class db {
     global $func;
 
     if ($query_id != -1) $this->query_id = $query_id;
-    
+
     if ($this->mysqli) $this->record = @mysqli_fetch_array($this->query_id);
     else $this->record = @mysql_fetch_array($this->query_id);
 
@@ -164,36 +165,36 @@ class db {
     return $this->record;
   }
 
-  function num_rows($query_id =- 1) {
+  function num_rows($query_id = -1) {
     if ($query_id != -1) $this->query_id=$query_id;
 
     if ($this->mysqli) return @mysqli_num_rows($this->query_id);
     else return @mysql_num_rows($this->query_id);
   }
 
-  function get_affected_rows($query_id =- 1) {
+  function get_affected_rows($query_id = -1) {
     if ($query_id != -1) $this->query_id=$query_id;
 
     if ($this->mysqli) return @mysqli_affected_rows($this->link_id);
     else return @mysql_affected_rows($this->link_id);
   }
 
-  function insert_id($query_id =- 1) {
+  function insert_id($query_id = -1) {
     if ($query_id != -1) $this->query_id=$query_id;
 
     if ($this->mysqli) return @mysqli_insert_id($this->link_id);
     return @mysql_insert_id($this->link_id);
   }
 
-  function num_fields($query_id =- 1) {
+  function num_fields($query_id = -1) {
     if ($query_id != -1) $this->query_id=$query_id;
 
     if ($this->mysqli) return mysqli_num_fields($this->query_id);
     else return mysql_num_fields($this->query_id);
   }
 
-  function field_name($pos, $query_id =- 1) {
-    if ($query_id !=- 1) $this->query_id=$query_id;
+  function field_name($pos, $query_id = -1) {
+    if ($query_id != -1) $this->query_id=$query_id;
 
     if ($this->mysqli) {
       $finfo = mysqli_fetch_field_direct($this->query_id, $pos);
@@ -210,13 +211,17 @@ class db {
 
 
   #### Special ####
-  
+
   /**
    * If the second parameter is an array, the function uses the array as value list.
    * @return unknown_type
    */
   function qry_first() {
     $this->qry($args = func_get_args());
+
+    // For execute querys $this->query_id will not be a resource that needs to be freed.
+    if ($this->query_id === true) return true;
+
     $row = $this->fetch_array();
     $this->free_result();
     return $row;
@@ -232,7 +237,7 @@ class db {
 
 
   #### Misc ####
-  
+
   function client_info() {
     if ($this->mysqli) {
       if (function_exists('mysqli_get_client_info')) return mysqli_get_client_info();
@@ -249,7 +254,7 @@ class db {
     if ($cfg['show_mysql_errors'] and $this->errors) {
       $func->error($this->errors);
       $this->errors = '';
-    } 
+    }
   }
 
   function field_exist($table, $field) {

@@ -211,6 +211,7 @@ else {
     else $messenger .= ' <img src="ext_inc/footer_buttons/icq.gif" alt="ICQ" title="ICQ: #'. $user_data['icq'] .'" border="0" /> ';
   }
   if ($user_data['msn']) $messenger .= ' <img src="ext_inc/footer_buttons/msn.gif" alt="MSN" title="MSN: '. $user_data['msn'] .'" border="0" /> ';
+  if ($user_data['xmpp']) $messenger .= ' <img src="ext_inc/footer_buttons/msn.gif" alt="XMPP" title="XMPP: '. $user_data['xmpp'] .'" border="0" /> ';
   if ($user_data['skype']) {
     if ($cfg['sys_internet']) $messenger .= '<a href="skype:'. $user_data['skype'] .'?call"><img src="ext_inc/footer_buttons/skype.gif" alt="Skype" title="Skype: '. $user_data['skype'] .'" border="0" /></a>';
     else $messenger .= ' <img src="ext_inc/footer_buttons/skype.gif" alt="Skype" title="Skype: '. $user_data['skype'] .'" border="0" />';
@@ -242,7 +243,7 @@ else {
   $dsp->AddDoubleRow(t('Geschlecht'), $geschlecht[$user_data['sex']]);
 
   // Picture
-  if (func::chk_img_path($user_data['picture'])) $dsp->AddDoubleRow(t('Benutzerbild'), '<img src="'. $user_data['picture'] .'">');
+  if ($func->chk_img_path($user_data['picture'])) $dsp->AddDoubleRow(t('Benutzerbild'), '<img src="'. $user_data['picture'] .'">');
 
   // Comment
   $dsp->AddDoubleRow(t('Kommentar'), ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));

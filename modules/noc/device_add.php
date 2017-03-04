@@ -220,13 +220,13 @@ switch( $_GET["step"] ) {
 			
 			If ($_POST['device_write'] == "private") {
 
-				$confirmationtext .= t('HTML_NEWLINEHTML_NEWLINE<big>Warnung:</big> Eine Standartm&auml;ßig eingestellte Write-Community ( /\'/private/\'/ ) beinhaltet ein hohes Sicherheitsrisiko!');
+				$confirmationtext .= t('HTML_NEWLINEHTML_NEWLINE<big>Warnung:</big> Eine Standardm&auml;ßig eingestellte Write-Community ( /\'/private/\'/ ) beinhaltet ein hohes Sicherheitsrisiko!');
 				
 			}
 			
 			If ($_POST['device_read'] == "public") {
 				
-				$confirmationtext .= t('HTML_NEWLINEHTML_NEWLINE<big>Warnung:</big> Eine Standartm&auml;ßig eingestellte Read-Community ( /\'/public/\'/ ) beinhaltet ein hohes Sicherheitsrisiko!');
+				$confirmationtext .= t('HTML_NEWLINEHTML_NEWLINE<big>Warnung:</big> Eine Standardm&auml;ßig eingestellte Read-Community ( /\'/public/\'/ ) beinhaltet ein hohes Sicherheitsrisiko!');
 			
 			}
 		

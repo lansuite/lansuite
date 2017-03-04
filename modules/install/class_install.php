@@ -17,52 +17,26 @@ class Install {
     return $ret;
   }
 
-  // Get Config (/inc/base/config.php) an change it
-  function WriteConfig($values = NULL) {
-      global $config;
+  // Write $config into file (/inc/base/config.php)
+  function WriteConfig() {
+    global $config;
 
-      $conf = @file("inc/base/config.php");
+    $res = array();
+    foreach($config as $key => $val) {
+      if (is_array($val)) {
+        $res[] = "[$key]";
+        foreach($val as $skey => $sval) $res[] = "$skey = ".(is_numeric($sval) ? $sval : '"'.$sval.'"');
+      } else $res[] = "$key = ".(is_numeric($val) ? $val : '"'.$val.'"');
+    }
 
-      $i = 1;
-      while ($row = $conf[$i]) {
-          // Get Next Element if this is a Comment or a "Header"
-          if (stristr($row, ";")) {
-              $i++;
-              continue;
-          }
-          if (stristr($row, "[")) {
-              $setting['category'] = substr(trim($row), 1, -1);
-              $i++;
-              continue;
-          }
-
-          $setting['name'] = trim(strtok($row, "="));
-
-          $tabs = "";
-          for ($z = 0; $z < (4 - (strlen($setting['name']) / 8)); $z++) $tabs .= "\t";
-          if ($setting['name']) $conf[$i] = $setting['name'] . $tabs ."= \"". $config[$setting['category']][$setting['name']] ."\"\r\n";
-
-
-          $i++;
-      } // END while( $row = $conf[$i] )
-
-
-      // Write new settings to the config.php file
-      // Have we opened the file??? If not, tell the user ...
-      if($fh = @fopen("inc/base/config.php", "w")) {
-          foreach($conf AS $row) {
-              @fwrite($fh, $row, strlen($row));
-          }
-          @fclose( $fh );
-          return 1;
-      } else return 0;
+    return file_put_contents('inc/base/config.php', implode("\r\n", $res));
   }
 
 
   // Connect to DB and create Database, if not exist
   function TryCreateDB($createnew = NULL){
     global $config, $db;
-    
+
     if(!$db->connect(1))
     {
     	//No success connection
@@ -76,13 +50,13 @@ class Install {
 	        if ($query_id) $ret_val = 3; else $ret_val = 2;
 	    }
     }
-    else 
+    else
     {
       	// If User wants to rewrite all tables, drop databse. It will be created anew in the next step
         if (!$_GET["quest"] and $createnew and $_GET["step"] == 3) $this->DeleteAllTables();
         if($createnew) $ret_val = 5; else $ret_val = 1;
-    } 
-    
+    }
+
     // Return-Values:
     // 0 = Server not available
     // 1 = DB already exists
@@ -96,7 +70,7 @@ class Install {
   // Creates a DB-table using the file $table, located in the mod_settings-directory of the module $mod
   function WriteTableFromXMLFile($mod, $rewrite = NULL){
     global $db, $config, $import;
-    
+
     // Delete references, if table exists, for they will be recreated in ImportXML()
     if (in_array($config['database']['prefix'] .'ref', $import->installed_tables)) $db->qry('TRUNCATE TABLE %prefix%ref');
 
@@ -167,7 +141,7 @@ class Install {
         }
         $db->free_result($find);
       } else $return_val = 1;
-      
+
       return $return_val;
       // 0 = At least one create failed
       // 1 = Alreday existing
@@ -330,7 +304,7 @@ class Install {
             $db->qry("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%, pos=%int%, icon=%string%", $module, $name, $caption, $pos, $icon);
           }
         }
-        
+
         // translation.xml
         $file = "modules/$module/mod_settings/translation.xml";
         if (file_exists($file)) {
@@ -458,8 +432,9 @@ class Install {
 
     // config.php Rights
     $lansuite_conf = "inc/base/config.php";
-    if (!file_exists($lansuite_conf)) $cfgfile_check = $failed . t('Die Datei <b>config.php</b> befindet sich <b>nicht</b> im Lansuite-Verzeichnis <b> inc/base/ </b>. Bitte überprüfe die Datei auf korrekte Groß- und Kleinschreibung.');
-    elseif (!is_writable($lansuite_conf)) $cfgfile_check = $failed . t('Die Datei <b>config.php</b> im Lansuite-Verzeichnis <b> inc/base/ </b> muss geschrieben werden können. Ändere bitte die Zugriffsrechte entsprechend. Dies kannst du mit den meisten guten FTP-Clients erledigen. Die Datei muss mindestens die Schreibrechte (chmod) 666 besitzen.');
+    #if (!file_exists($lansuite_conf)) $cfgfile_check = $failed . t('Die Datei <b>config.php</b> befindet sich <b>nicht</b> im Lansuite-Verzeichnis <b> inc/base/ </b>. Bitte überprüfe die Datei auf korrekte Groß- und Kleinschreibung.');
+    #else
+    if (!is_writable($lansuite_conf) and !is_writable(dirname($lansuite_conf))) $cfgfile_check = $failed . t('Die Datei <b>config.php</b> muss im Lansuite-Verzeichnis <b> inc/base/ </b> geschrieben werden können. Ändere bitte die Zugriffsrechte entsprechend. Dies kannst du mit den meisten guten FTP-Clients erledigen. Der Ordner / die Datei muss mindestens die Schreibrechte (chmod) 666 besitzen.');
     else $cfgfile_check = $ok;
     $dsp->AddDoubleRow(t('Schreibrechte auf die Konfigurationsdatei'), $cfgfile_check);
     if ($cfgfile_check != $ok) $continue = 0;
@@ -489,7 +464,7 @@ class Install {
     if (extension_loaded ('gd')){
         if (function_exists("gd_info")) {
             $GD = gd_info();
-            if (!strstr($GD["GD Version"], "2.0")) $gd_check = $warning . t('Auf deinem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1 gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Solltest du die Auswahl zwischen GD und GD2 haben, wähle immer das neuere GD2. Du kannst die Installation jetzt fortführen, allerdings wirst du entsprechende Einschränkungen im Gebrauch machen müssen.');
+            if (!preg_match('/2(\.[0-9]){2}/',$GD["GD Version"])) $gd_check = $warning . t('Auf deinem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1 gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Solltest du die Auswahl zwischen GD und GD2 haben, wähle immer das neuere GD2. Du kannst die Installation jetzt fortführen, allerdings wirst du entsprechende Einschränkungen im Gebrauch machen müssen.');
             elseif (!$GD["FreeType Support"]) $gd_check = $warning . t('Auf deinem System wurde das PHP-Modul <b>GD-Library</b> ohne Free-Type Support gefunden. Dadurch werden die Schriftarten in Grafiken (z.b. in den User-Avataren) nicht sehr schön dargestellt. Du kannst die Installation jetzt fortführen, allerdings wirst du entsprechende Einschränkungen im Gebrauch machen müssen.');
             else $gd_check = $ok;
             $gd_check .= '<table>';
@@ -501,6 +476,14 @@ class Install {
     }
     $dsp->AddDoubleRow("GD Library", $gd_check);
 
+    //PHP-XML-Lib (required for utf8_en/decode
+    if (extension_loaded('xml')){
+        $xml_check = $ok;
+    } else
+    {
+        $xml_check = $warning . t('Das PHP-Modul XML wurde nicht gefunden. Dies wird für (UTF-8 encodierte) eMails und CSV-Datenexporte benötigt');
+    }
+    $dsp->AddDoubleRow("XML Modul",$xml_check);
     // Test Safe-Mode
     if (!ini_get("safe_mode")) $safe_mode = $ok;
     else $safe_mode = $not_possible . t('Auf deinem System ist die PHP-Einstellung <b>safe_mode</b> auf <b>On</b> gesetzt. safe_mode ist dazu gedacht, einige Systemfunktionen auf dem Server zu sperren um Angriffe zu verhindern (siehe dazu: <a href=\'http://de2.php.net/features.safe-mode\' target=\'_blank\'>www.php.net</a>). Doch leider benötigen einige Lansuite-Module (speziell: LansinTV, Serverstatistiken oder das Server-Modul) Zugriff auf genau diese Funktionen. Du solltest daher, wenn du Probleme in diesen Modulen hast, in deiner <b>PHP.ini</b> die Option <b>safe_mode</b> auf <b>Off</b> setzen! <br />Außer bei oben genannten Modulen, kann es bei aktiviertem safe_mode außerdem auch zu Problemen bei dem Generieren von Buttons, wie dem am Ende dieser Seite kommen.');
@@ -523,7 +506,7 @@ class Install {
 
         if (@shell_exec("cat /proc/cpuinfo") == ""){
           $env_stats .= "<strong>/proc/cpuinfo</strong>" . HTML_NEWLINE;
-        }  
+        }
 
         if (@shell_exec("cat /proc/meminfo") == ""){
           $env_stats .= "<strong>/proc/meminfo</strong>" . HTML_NEWLINE;
@@ -549,7 +532,7 @@ class Install {
 #    if (function_exists('debug_backtrace')) $debug_bt_check = $ok;
 #    else $debug_bt_check = $warning . t('Die Funktion "Debug Backtrace" ist auf deinem System nicht vorhanden. Diese wird jedoch benötigt, um Übersetzungs-Texte einem bestimmten Modul zuzuordnen. Solange du lansuite nur in Deutsch verwenden willst, sollte dies keine Auswirkung haben');
 #    $dsp->AddDoubleRow('Debug Backtrace', $debug_bt_check);
-    
+
     // SNMP-Lib
     if (extension_loaded('snmp')){
         $snmp_check = $ok;
@@ -622,7 +605,7 @@ class Install {
 
     #### Information ####
     $dsp->AddFieldSetStart(t('Sicherheit - Diese Einstellungen sollten aus Security-Gründen vorgenommen werden'));
-    
+
     // Session Use Only Cookies
     if (ini_get('session.use_only_cookies')) $only_cookies_check = $ok;
     else $only_cookies_check = $warning . t('Es wird empfohlen session.use_only_cookies in der php.ini auf 1 zu setzen! Dies verhindert, dass Session-IDs in der URL angezeigt werden. Wenn dies nicht verhindert wird, können unvorsichtige Benutzer, deren Browser keine Cookies zulassen, durch weiterleiten der URL an Dritte ihre Session preisgeben, was einer Weitergabe des Passwortes gleichkommt.');
@@ -658,7 +641,7 @@ class Install {
   // But this is much safer than DROP DATABASE, for this clean methode would drop other web-systems using the same DB table, too
   function DeleteAllTables () {
     global $xml, $db;
-  
+
     $modules_dir = opendir("modules/");
     while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
       $file = "modules/$module/mod_settings/db.xml";
@@ -669,7 +652,7 @@ class Install {
         fclose ($handle);
 
         $tables = $xml->get_tag_content_array("table", $xml_file);
-        foreach ($tables as $table) {        
+        foreach ($tables as $table) {
           $table_head = $xml->get_tag_content("table_head", $table, 0);
           $table_name = $xml->get_tag_content("name", $table_head);
           $db->qry_first("DROP TABLE IF EXISTS %prefix%%plain%", $table_name);
@@ -677,11 +660,11 @@ class Install {
       }
     }
   }
-  
+
   function check_updates(){
 /*
     include("modules/install/class_update.php");
-    
+
     $update = new update();
     // Check update for Version 2.0.2
     $file = "modules/install/update/update202.php";
@@ -691,7 +674,7 @@ class Install {
 
   function getModConfigLine($row, $showLinks = 1) {
     global $smarty, $db;
-    
+
     $smarty->assign('name', $row['name']);
     $smarty->assign('caption', $row['caption']);
     $smarty->assign('description', $row['description']);
@@ -742,7 +725,7 @@ class Install {
       else $help_link = '';
       $smarty->assign('help_link', $help_link);
     }
-    
+
     return $smarty->fetch('modules/install/templates/module.htm');
   }
 }

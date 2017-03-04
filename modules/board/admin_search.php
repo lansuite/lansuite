@@ -35,7 +35,7 @@ if ($_POST['action']) {
   $ms2->AddSelect('MAX(p.date) AS LastPost');
   $ms2->AddResultField(t('Text'), 'CONCAT(\'<b>\', f.name, \'</b> (\', t.caption, \')<br />\', p.comment) AS ThreadName', '', 140);
   $ms2->AddResultField(t('Autor'), 'u.username', 'UserNameAndIcon');
-  $ms2->AddResultField(t('IP'), 'INET_NTOA(p.ip) AS ip');
+  $ms2->AddResultField(t('IP'), 'INET6_NTOA(p.ip) AS ip');
   $ms2->AddResultField(t('Datum'), 'p.date', 'MS2GetDate');
 
   if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=10&pid=', t('Delete'));

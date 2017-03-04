@@ -88,7 +88,7 @@ switch ($_GET['step']) {
   case 2:
     $row = $db->qry_first('SELECT name, url, clanlogo_path FROM %prefix%clan WHERE clanid = %int%', $_GET['clanid']);
     
-    if (func::chk_img_path($row['clanlogo_path'])) $dsp->AddDoubleRow(t(''), '<img src="'. $row['clanlogo_path'] .'" alt="'.$row['name'].'">');
+    if ($func->chk_img_path($row['clanlogo_path'])) $dsp->AddDoubleRow(t(''), '<img src="'. $row['clanlogo_path'] .'" alt="'.$row['name'].'">');
     $dsp->AddDoubleRow(t('Clan'), $row['name']);
 	if(stristr($row['url'], 'http://') === FALSE) $row['url'] = "http://".$row['url'];
 	$dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a>');

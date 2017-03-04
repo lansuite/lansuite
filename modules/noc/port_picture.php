@@ -21,7 +21,7 @@ $filepath = "design/images/";
 // Failed = Disabled
 
 // LWL = Fibre Optic Ports
-// RJ45 = Standart Ports
+// RJ45 = Standard Ports
 
 If( $_GET["type"] == "lwl" ) { $special_image = "lwl_"; }
 

@@ -54,7 +54,7 @@
 			</field>
 		    <field>
                 <name>ip</name>
-                <type>char(15)</type>
+                <type>varbinary(16)</type>
                 <null></null>
                 <key></key>
                 <default></default>

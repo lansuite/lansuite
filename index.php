@@ -21,6 +21,10 @@
       $rep = ini_get('error_reporting');
       if(!($rep & $errno)) return false;
 
+      // Does the same as above for PHP7
+      if (error_reporting() == 0) return false;
+
+
       // error_reporting setting currently doesn't show the following errors:
       // E_NOTICE
       // E_DEPRECATED
@@ -145,15 +149,32 @@
 
 ### Read Config and Definitionfiles
 
-    $config = parse_ini_file('inc/base/config.php', 1); // Load Basic Config
-    include_once('inc/base/define.php');                // Read definition file
-    // Exit if no Configfile
-    if (!$config) {
-      echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
-      Überprüfe die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
-      error_log('Öffnen oder Lesen der Konfigurations-Datei inc/base/config.php nicht möglich');
-      exit();
+    // Load Basic Config
+    if (file_exists('inc/base/config.php')) {
+      $config = parse_ini_file('inc/base/config.php', 1);
+
+    // Default config. Will be used only until the wizard has created the config file
+    } else {
+      $config = array();
+
+      $config['lansuite']['version'] = 'Nightly';
+      $config['lansuite']['default_design'] = 'simple';
+      $config['lansuite']['chmod_dir'] = '777';
+      $config['lansuite']['chmod_file'] = '666';
+      $config['lansuite']['debugmode'] = '0';
+
+      $config['database']['server'] = 'localhost';
+      $config['database']['user'] = 'root';
+      $config['database']['passwd'] = '';
+      $config['database']['database'] = 'lansuite';
+      $config['database']['prefix'] = 'ls_';
+      $config['database']['charset'] = 'utf8';
+
+      $config['environment']['configured'] = 0;
     }
+
+    include_once('inc/base/define.php');                // Read definition file
+
 
 ### Include and Initialize base classes
 
@@ -353,12 +374,12 @@
     if (isset($debug)) $debug->tracker("All upto HTML-Output");
 
     $framework->html_out();  // Output of all HTML
-    unset($framework);
-    unset($smarty);
-    unset($templ);
-    unset($dsp);
+     unset($framework);
+     unset($smarty);
+     unset($templ);
+     unset($dsp);
 
-### Statistics will be updated only at scriptend, so pagesize and loadtime can be insert
+### Statistics will be updated only at scriptend, so pagesize and loadtime can be inserted
 
     if ($db->success) {
 
@@ -368,7 +389,7 @@
       unset($stats);
 
       // Check Cronjobs
-      if (!$_GET['mod'] == 'install') {
+      if ($_GET['mod'] != 'install') {
         if (!isset($cron2)) {
           include_once('modules/cron2/class_cron2.php');
           $cron2 = new cron2();

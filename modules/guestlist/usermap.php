@@ -12,12 +12,14 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
     $res = $db->qry("SELECT u.* FROM %prefix%user AS u
   		LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
-  		WHERE u.plz > 0 AND u.type > 0 AND u.show_me_in_map = 1 %plain%
+  		WHERE u.plz > 0 AND u.type > 0 %plain% ORDER BY u.city, u.country, u.username ASC
       ", $where_pid);
 
     $templ['addresses'] = '';
+    $adresses = 'var adresses = [';
+    $last_city='';
+    $aggregated_text='';
     while ($row = $db->fetch_array($res)) {
-
       ($row['country'])? $country = $row['country'] : $country = $cfg['sys_country'];
       switch($country) {
         case 'de': $GCountry = 'Germany'; break;
@@ -30,19 +32,28 @@ if ($cfg['guestlist_guestmap'] == 2) {
         case 'fr': $GCountry = 'France'; break;
         default: $GCountry = 'Germany'; break;
       }
-
+      //show detailed map to admins only, otherwise stick to user settings
+      if ($row['show_me_in_map'] == 1 || $auth['type'] >= 2){
       $text = "<b>{$row['username']}</b>";
-      if ($cfg['guestlist_shownames']) $text .= "<br>{$row['firstname']} {$row['name']}";
-      $text .= "<br>{$row['plz']} {$row['city']}";
-
-      if (func::chk_img_path($row['avatar_path'])) $text .= '<br>'. sprintf('<img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\">', $row["avatar_path"], '');
-
-      $adresses .= "showAddress('$GCountry', '{$row['city']}', '{$row['plz']}', '{$row['street']}', '{$row['hnr']}', '$text');\r\n";
+      if ($cfg['guestlist_shownames']|| $auth['type'] >= 2) $text .= " {$row['firstname']} {$row['name']}";
+      } else {
+          $text = "<i><b>anonymous</b></i>";
+      }
+     if ($func->chk_img_path($row['avatar_path'])) $text .= sprintf('<br/><img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\"></br></br>', $row["avatar_path"], '');
+      if ($row['city']!=$last_city){
+          //next (or first) area, flush current entry and prepare for the next one
+          if (!empty($aggregated_text)){$adresses .= $aggregated_text . "'},\r\n";}
+          $aggregated_text = "{'country':'$GCountry', 'city':'{$row['city']}', 'plz':'{$row['plz']}', 'street':'', 'hnr':'', 'text':'<h3>{$row['city']}</h3> $text";
+          $last_city = $row['city'];
+      } else {
+          //accumulate text
+        $aggregated_text  .= "<hr>$text";
+      }
     }
-    $db->free_result($haus_data);
-
+    $adresses .= '];';
+    $db->free_result($res);
+    if (!empty($cfg['google_analytics_id'])) $smarty->assign('apikey', 'key='. $cfg['google_analytics_id']);
     $smarty->assign('adresses', $adresses);
-    $smarty->assign('apikey', $cfg['google_maps_api_key']);
     $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
   //}
 
@@ -53,7 +64,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
   $res3 = $db->qry_first("SELECT laenge, breite FROM %prefix%locations WHERE plz = %int%", $_SESSION['party_info']['partyplz']);
   $pi = pi();
 
-  if ($db->num_rows($res) == 0) 
+  if ($db->num_rows($res) == 0)
   $func->information(t('Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben. Das Bestimmen der Position ist daher nicht m&ouml;glich.'), "index.php?mod=home");
   else {
 
@@ -72,7 +83,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
   	$xf = $img_width / (abs($x_start - $x_end));
   	$yf = $img_height / (abs($y_start - $y_end));
 
-  	$res = $db->qry("SELECT user.userid, user.username, user.city, user.plz, COUNT(*) AS anz, locations.laenge, locations.breite
+  	$res4 = $db->qry("SELECT user.userid, user.username, user.city, user.plz, COUNT(*) AS anz, locations.laenge, locations.breite
   		FROM %prefix%user AS user
   		INNER JOIN %prefix%locations AS locations ON user.plz = locations.plz
   		INNER JOIN %prefix%party_user AS party ON user.userid = party.user_id
@@ -80,15 +91,15 @@ if ($cfg['guestlist_guestmap'] == 2) {
   		GROUP BY locations.laenge, locations.breite
   		", $party->party_id);
   	$z = 0;
-  	while ($user = $db->fetch_array($res)) {
+  	while ($user = $db->fetch_array($res4)) {
   	  $z++;
 
   		$kx = (int) ($xf * ($user['laenge'] - $x_start));
   		$ky = (int) ($img_height - $yf * ($user['breite'] - $y_start));
   		$size = floor(1 + 0.25 * $user['anz']);
   		if ($size > 5) $size = 5;
-  		
-  		
+
+
   		// Get list of all users with current plz
   		$res2 = $db->qry("SELECT u.username, u.firstname, u.name
     		FROM %prefix%user AS u
@@ -97,9 +108,9 @@ if ($cfg['guestlist_guestmap'] == 2) {
     		WHERE (laenge LIKE %string% AND breite LIKE %string%) AND u.show_me_in_map = 1 AND (p.party_id = %int%) AND u.type > 0
     		GROUP BY u.userid
     		", $user['laenge'], $user['breite'], $party->party_id);
-		
+
   		$UsersOut = '';
-		
+
 			while ($current_user = $db->fetch_array($res2)) {
 			if ($auth['type'] < 2 and ($cfg['sys_internet'])) {
 			   		$current_user['firstname'] = '---';
@@ -114,15 +125,15 @@ if ($cfg['guestlist_guestmap'] == 2) {
   		$breite2 = $res3['breite']/180*$pi;
   		$laenge1 = $user['laenge']/180*$pi;
   		$laenge2 = $res3['laenge']/180*$pi;
-  		
+
   		$e = acos( sin($breite1)*sin($breite2) + cos($breite1)*cos($breite2)*cos($laenge2-$laenge1) );
   		$entfernung = round($e * 6378.137, 0);
-		
+
   		$hint = '<b>'. $user['plz'] .' '. $user['city'] .' ('. $user['anz'] . ' G&auml;ste) '. $entfernung .'km</b>'. $UsersOut;
 
   		$map_out .= "<area name=\"point$z\" shape=\"rect\" coords=\"". ($kx-$size) .", ". ($ky-$size) .", ". ($kx+$size) .", ". ($ky+$size) ."\" onmouseover=\"return overlib('". $hint ."');\" onmouseout=\"return nd();\"' />";
   	}
-  	$db->free_result($res);
+  	$db->free_result($res4);
   	$map_out .= "</map>";
 
   	$dsp->AddSingleRow($map_out ."<img src=\"index.php?mod=guestlist&action=usermap_img&design=base\" usemap=\"#deutschland\" border=\"0\">");

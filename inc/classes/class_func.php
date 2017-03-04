@@ -63,7 +63,7 @@ class func {
           }
         }
         $db->free_result($res);
-        
+
         return $cfg;
     }
 
@@ -87,30 +87,30 @@ class func {
     );
     // transform the characters array to a string
     $strCharacters = implode('', $arrCharacters);
-    
+
     // splits up the pattern by the date characters to get an array of the delimiters between the date characters
     $arrDelimiters = preg_split('~['.$strCharacters.']~', $strPattern);
     // transform the delimiters array to a string
     $strDelimiters = quotemeta(implode('', array_unique($arrDelimiters)));
-    
+
     // splits up the date by the delimiters to get an array of the declaration
     $arrStr    = preg_split('~['.$strDelimiters.']~', $strStr);
     // splits up the pattern by the delimiters to get an array of the used characters
     $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
-    
+
     // if the numbers of the two array are not the same, return false, because the cannot belong together
     if (count($arrStr) !== count($arrPattern)) return false;
-    
+
     // creates a new array which has the keys from the $arrPattern array and the values from the $arrStr array
     $arrTime = array();
     for ($i = 0;$i < count($arrStr);$i++) $arrTime[$arrPattern[$i]] = $arrStr[$i];
-    
+
     // gernerates a 4 digit year declaration of a 2 digit one by using the current year
     if (isset($arrTime['y']) && !isset($arrTime['Y'])) $arrTime['Y'] = substr(date('Y'), 0, 2) . $arrTime['y'];
-    
+
     // if a declaration is empty, it will be filled with the current date declaration
     foreach ($arrCharacters as $strCharacter) if (empty($arrTime[$strCharacter])) $arrTime[$strCharacter] = date($strCharacter);
-    
+
     // checks if the date is a valide date
     if (!checkdate($arrTime['m'], $arrTime['d'], $arrTime['Y'])) return false;
 
@@ -127,9 +127,9 @@ class func {
   function unixstamp2date($func_timestamp, $func_art) {
     if ((int)$func_timestamp == 0) return '---';
     else switch($func_art) {
-        case "year":        $func_date  = date("Y", $func_timestamp);       break;      
+        case "year":        $func_date  = date("Y", $func_timestamp);       break;
         case "month":       $func_date  = date("Y", $func_timestamp) ." - ". t(date("F", $func_timestamp));        break;
-        case "date":        $func_date  = date("d.m.Y", $func_timestamp);       break;      
+        case "date":        $func_date  = date("d.m.Y", $func_timestamp);       break;
         case "time":        $func_date  = date("H:i", $func_timestamp);     break;
         case "shorttime":   $func_date  = date("H:i", $func_timestamp);     break;
         case "datetime":    $func_date  = date("d.m.Y H:i", $func_timestamp);   break;
@@ -142,8 +142,8 @@ class func {
           $day[5] = t('Freitag');
           $day[6] = t('Samstag');
 
-          $func_date .= $day[date("w", $func_timestamp)]; 
-          $func_date .= ", "; 
+          $func_date .= $day[date("w", $func_timestamp)];
+          $func_date .= ", ";
           $func_date .= date("d.m.Y H:i", $func_timestamp);
         break;
 
@@ -167,8 +167,8 @@ class func {
           $day[5] = t('Fr');
           $day[6] = t('Sa');
 
-          $func_date .= $day[date("w", $func_timestamp)]; 
-          $func_date .= ", "; 
+          $func_date .= $day[date("w", $func_timestamp)];
+          $func_date .= ", ";
           $func_date .= date("H:i", $func_timestamp);
         break;
     }
@@ -205,7 +205,7 @@ class func {
 
       if ($priority != "0" AND $priority != "1" AND $priority != "2") {
           echo(t('Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)'));
-      } else { 
+      } else {
           $date = date("U");
           $db->qry("INSERT INTO %prefix%infobox SET userid=%int%, class=%string%, id_in_class = %int%, text=%string%, date=%string%, priority=%string%", $userid, $item, $itemid, $text, $date, $priority);
       }
@@ -228,7 +228,7 @@ class func {
       		$link_description = t('Zurück zur vorherigen Seite');
     		break;
       }
-      
+
       if (!$link_target) $link_target = $this->internal_referer;
       $smarty->assign('link', $dsp->FetchCssButton($link_text, $link_target, $link_description));
     }
@@ -244,7 +244,7 @@ class func {
     if ($JustReturn) $FrameworkMessages .= $smarty->fetch('design/templates/'. $type .'.htm');
     else $dsp->AddContentLine($smarty->fetch('design/templates/'. $type .'.htm'));
   }
-  
+
   function confirmation($text, $link_target = '', $JustReturn = 0, $link_type = '') {
     return $this->GeneralDialog('confirmation', $text, $link_target, $JustReturn, $link_type);
   }
@@ -272,10 +272,10 @@ class func {
 
   function multiquestion($questionarray, $linkarray, $text = '') {
     global $smarty, $dsp;
-    
+
     if ($text == '') $text = t('Bitte wähle eine Möglichkeit aus:');
     $smarty->assign('msg', $text);
-    
+
     if (is_array($questionarray)) foreach($questionarray as $ind => $question)
     $row .= '<br /><br /><a href="'. $linkarray[$ind] .'">'. $question .'</a>';
     $smarty->assign('row', $row);
@@ -322,24 +322,21 @@ class func {
             $string
           );
         }
-        
+
         if ($mode != 2) {
           $img_start = "<img src=\"design/".$auth["design"]."/images/";
           $img_start2 = '<img src="ext_inc/smilies/';
           $img_end   = '" border="0" alt="" />';
-  
+
           $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:468px; max-height:450px; overflow:hidden;" />', $string);
-          $string = preg_replace('#\\[url=(index\.php\?[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a href="\\1" rel="nofollow">\\2</a>', $string);
-          $string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
-    
+          $string = preg_replace('#\\[url=(https?://[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
+
           if ($mode != 1) {
-            $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
-            $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
-            $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2" rel="nofollow">\\2</a>\\4', $string);
+            $string = preg_replace('#(\\s|^)(https?://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
           }
         }
       }
-                  
+
       if ($mode != 2) {
         $string = str_replace("\r", '', $string);
         $string = str_replace("\n", "<br />\n", $string);
@@ -363,7 +360,7 @@ class func {
           $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
           $string = str_replace('[/color]', '</font>', $string);
         }
-        
+
         if ($mode != 1) {
           $string = preg_replace_callback(
             '#\[c\](.)*\[\/c\]#sUi',
@@ -382,14 +379,14 @@ class func {
         }
       }
 
-              
+
       return $string;
   }
 
   // Wiki Syntax
   function Text2Wiki($string) {
     $arr = explode("\n", $this->Text2HTML($string, 1));
-    
+
     $COpen = 0;
     $UlOpen = 0;
     $OlOpen = 0;
@@ -424,7 +421,7 @@ class func {
         $arr[$key] = preg_replace("|^\\# (.*)<br />|sUi", "<ol><li>\\1</li>", $arr[$key], -1, $count);
         if ($count) $OlOpen = 1;
       }
-      
+
       if ($COpen) {
         $arr[$key] = preg_replace("#^([^ ].)#sUi", "[/c]\\1", $arr[$key], -1, $count);
         if ($count) $COpen = 0;
@@ -438,16 +435,16 @@ class func {
         }
       }
     }
-    
+
     $string = implode("\n", $arr);
-    
+
     if ($UlOpen) $string .= '</ul>';
     if ($OlOpen) $string .= '</ol>';
     if ($COpen) $string .= '[/c]';
-    
+
     return $this->Text2HTML($string, 2);
   }
-    
+
   function Entity2Uml($string) {
     $string = str_replace('&uuml;', 'ü', $string);
     $string = str_replace('&Uuml;', 'Ü', $string);
@@ -458,7 +455,7 @@ class func {
     $string = str_replace('&szlig;', 'ß', $string);
     $string = str_replace('&nbsp;', '', $string);
     $string = str_replace('&quot;', '"', $string);
-    
+
     return $string;
   }
 
@@ -486,7 +483,7 @@ class func {
       return 1;
   }
 
-  
+
   #### Misc ####
   // Types:  1 = Info, 2 = Warning, 3 = Error (be careful with 3)
   function log_event($message, $type = 1, $sort_tag = '', $target_id = '') {
@@ -503,18 +500,18 @@ class func {
              target_id = %int%,
              script = %string%,
              referer = %string%,
-             ip = INET_ATON(%string%)
+             ip = INET6_ATON(%string%)
              ", $auth['userid'], $message, $type, $sort_tag, $target_id, $_SERVER["REQUEST_URI"], $this->internal_referer, $_SERVER['REMOTE_ADDR']);
           if ($entry == 1) return 1;
       }
       return 0;
   }
-  
+
   // Better use MasterSearch..
   function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name) {
       if ($max_entries_per_page > 0 and $overall_entries >= 0 and $working_link != "" and $var_page_name != "") {
           if($current_page == "") {
-              $page_sql = "LIMIT 0," . $max_entries_per_page;
+              $page_sql = "LIMIT 0," . (int)$max_entries_per_page;
               $page_a = 0;
               $page_b = $max_entries_per_page;
           }
@@ -523,7 +520,7 @@ class func {
               $page_a = 0;
               $page_b = $overall_entries;
           } else  {
-              $page_sql = ("LIMIT " . ($current_page * $max_entries_per_page) . ", " . ($max_entries_per_page));
+              $page_sql = ("LIMIT " . ($current_page * $max_entries_per_page) . ", " . (int)($max_entries_per_page));
               $page_a = ($current_page * $max_entries_per_page);
               $page_b = ($max_entries_per_page);
           }
@@ -532,7 +529,7 @@ class func {
               if( $current_page != "all" && ($current_page + 1) > 1 ) {
                   $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($current_page - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
               }
-              $i = 0;                 
+              $i = 0;
               while($i < ($overall_entries / $max_entries_per_page)) {
                   if($current_page == $i && $current_page != "all") {
                       $page_output .= (" " . ($i + 1));
@@ -545,7 +542,7 @@ class func {
                   $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
               }
               if($current_page != "all") {
-                  $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");                                 
+                  $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");
               }
               if ($current_page == "all") {
                   $page_output .= " Alle";
@@ -556,11 +553,11 @@ class func {
           $output["sql"] = $page_sql;
           $output["a"] = $page_a;
           $output["b"] = $page_b;
-  
+
           return($output);
-      
+
           // ?!?! unset($output); unset($working_link); unset($page_sql); unset($page_output);
-  
+
       } else echo ("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
   }
 
@@ -689,7 +686,7 @@ class func {
 
         }
     }
-  
+
   function FormatFileSize($size){
     $i = 0;
     $iec = array("Byte", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
@@ -729,7 +726,7 @@ class func {
                 return 0;
             }
         }
-    }  
+    }
 
   /**
    * Read DB and shows if a Superadmin exists
@@ -752,37 +749,37 @@ class func {
       if ($HardLimit and strlen($str) > $HardLimit) return substr($str, 0, $HardLimit - 2) . '...';
       elseif (strlen($str) > $SoftLimit) {
         preg_match('/[^a-zA-Z0-9]/', substr($str, $SoftLimit, strlen($str)), $ret, PREG_OFFSET_CAPTURE);
-        return substr($str, 0, $SoftLimit + $ret[0][1]) . '...'; 
+        return substr($str, 0, $SoftLimit + $ret[0][1]) . '...';
       } else return $str;
     }
 
     function CheckNewPosts($last_change, $table, $entryid, $userid = 0) {
       global $db, $auth;
-      
+
       // Older, than one week
       if ($last_change < (time() - 60 * 60 * 24 * 7)) return 0;
 
       // If logged out, everyting in the last week is considered new
       if (!$userid) $userid = $auth['userid'];
       if (!$userid) return 1;
-      
+
       // If logged in
       else {
         $last_read = $db->qry_first('SELECT UNIX_TIMESTAMP(date) AS date FROM %prefix%lastread
           WHERE userid = %int% AND tab = %string% AND entryid = %int%', $userid, $table, $entryid);
-  
+
         // Older, than one week
         if ($last_change < (time() - 60 * 60 * 24 * 7)) return 0;
-  
+
         // No entry -> Thread completely new
         elseif (!$last_read['date']) return 1;
-      
+
         // Entry exists
         else {
-      
+
           // The posts date is newer than the mark -> New
           if ($last_read['date'] < $last_change) return 1;
-      
+
           // The posts date is older than the mark -> Old
           else return 0;
         }
@@ -793,7 +790,7 @@ class func {
       global $db, $auth;
 
       if (!$userid) $userid = $auth['userid'];
-      
+
     	$search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%lastread WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
     	if ($search_read["found"]) $db->qry_first("UPDATE %prefix%lastread SET date = NOW() WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
     	else $db->qry_first("INSERT INTO %prefix%lastread SET date = NOW(), tab = %string%, entryid = %int%, userid = %int%", $table, $entryid, $userid);
@@ -824,7 +821,7 @@ class func {
 
     	return $bar;
     }
-    
+
     function getActiveModules() {
       global $db;
 
@@ -836,7 +833,7 @@ class func {
       $this->ActiveModules['popups'] = 'Popups';
       $this->ActiveModules['auth'] = 'Auth';
     }
-    
+
     function isModActive($mod, &$caption = '') {
       $caption = $this->ActiveModules[$mod];
       return array_key_exists($mod, $this->ActiveModules);

@@ -174,7 +174,7 @@
 			</entry>
 			<entry>
 				<id>19492d2ae80c1a57c10453ad4062cb40</id>
-				<org>HTML_NEWLINEHTML_NEWLINE&lt;big&gt;Warnung:&lt;/big&gt; Eine Standartm&amp;auml;ßig eingestellte Write-Community ( /'/private/'/ ) beinhaltet ein hohes Sicherheitsrisiko!</org>
+				<org>HTML_NEWLINEHTML_NEWLINE&lt;big&gt;Warnung:&lt;/big&gt; Eine Standardm&amp;auml;ßig eingestellte Write-Community ( /'/private/'/ ) beinhaltet ein hohes Sicherheitsrisiko!</org>
 				<en>HTML_NEWLINEHTML_NEWLINE &lt;big&gt;Warning:&lt;/big&gt; By default, set a write community (/ &amp;#39;/ private /&amp;#39; /) is a high security risk!</en>
 				<es>HTML_NEWLINEHTML_NEWLINE &lt;big&gt;Advertencia:&lt;/big&gt; Por defecto, establecer una escritura de la comunidad (/ &amp;#39;/ private /&amp;#39; /) es un alto riesgo de seguridad!</es>
 				<fr>HTML_NEWLINEHTML_NEWLINE &lt;big&gt;Avertissement:&lt;/big&gt; Par défaut, définir une écriture de la communauté (/ &amp;#39;/ private /&amp;#39; /) est un risque de sécurité élevé!</fr>
@@ -184,7 +184,7 @@
 			</entry>
 			<entry>
 				<id>b52bf8273575c9e2745f705fec91b5e6</id>
-				<org>HTML_NEWLINEHTML_NEWLINE&lt;big&gt;Warnung:&lt;/big&gt; Eine Standartm&amp;auml;ßig eingestellte Read-Community ( /'/public/'/ ) beinhaltet ein hohes Sicherheitsrisiko!</org>
+				<org>HTML_NEWLINEHTML_NEWLINE&lt;big&gt;Warnung:&lt;/big&gt; Eine Standardm&amp;auml;ßig eingestellte Read-Community ( /'/public/'/ ) beinhaltet ein hohes Sicherheitsrisiko!</org>
 				<en>HTML_NEWLINEHTML_NEWLINE &lt;big&gt;Warning:&lt;/big&gt; A By default, set read-community (/ &amp;#39;/ public /&amp;#39; /) is a high security risk!</en>
 				<es>HTML_NEWLINEHTML_NEWLINE &lt;big&gt;Advertencia:&lt;/big&gt; una por defecto, se lee la comunidad (/ &amp;#39;/ public /&amp;#39; /) es un alto riesgo de seguridad!</es>
 				<fr>HTML_NEWLINEHTML_NEWLINE &lt;big&gt;Avertissement:&lt;/big&gt; Par défaut, mis en lecture communautaire (/ &amp;#39;/ public /&amp;#39; /) est un risque de sécurité élevé!</fr>

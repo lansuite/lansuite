@@ -10,11 +10,11 @@ class sec {
   		// Reload-Black-List
   		if (!$cfg["reload_time"]) $cfg["reload_time"] = 600;
   		$db->qry("DELETE FROM %prefix%ip_hits WHERE (date + %int%) < NOW()", $cfg["reload_time"]);
-  		$db->qry("INSERT INTO %prefix%ip_hits SET ip = INET_ATON(%string%)",
+  		$db->qry("INSERT INTO %prefix%ip_hits SET ip = INET6_ATON(%string%)",
               $_SERVER['REMOTE_ADDR'], $_GET["mod"], $_GET["action"], $_GET["step"]);
 
   		$ip_hits = $db->qry_first("SELECT COUNT(*) AS hits FROM %prefix%ip_hits
-            WHERE ip = INET_ATON(%string%)
+            WHERE ip = INET6_ATON(%string%)
             GROUP BY ip
             LIMIT 1
             ", $_SERVER['REMOTE_ADDR']);
@@ -29,16 +29,14 @@ class sec {
 		global $db;
 
 		$_SESSION["lock_$module"] = true;
-        if ($_SERVER['REMOTE_ADDR'] == '::1') return true; // for INET_ATON(IPv6-Localhost) returns sql error
-		$db->qry("REPLACE INTO %prefix%ip_locklist SET ip = INET_ATON(%string%), module = %string%", $_SERVER['REMOTE_ADDR'], $module);
+		$db->qry("REPLACE INTO %prefix%ip_locklist SET ip = INET6_ATON(%string%), module = %string%", $_SERVER['REMOTE_ADDR'], $module);
 	}
 
 	function unlock ($module = NULL) {
 		global $db;
 
 		$_SESSION["lock_$module"] = false;
-        if ($_SERVER['REMOTE_ADDR'] == '::1') return true; // for INET_ATON(IPv6-Localhost) returns sql error
-		$db->qry("DELETE FROM %prefix%ip_locklist WHERE ip = INET_ATON(%string%) AND module = %string%", $_SERVER['REMOTE_ADDR'], $module);
+		$db->qry("DELETE FROM %prefix%ip_locklist WHERE ip = INET6_ATON(%string%) AND module = %string%", $_SERVER['REMOTE_ADDR'], $module);
 	}
 
 	function locked ($module = NULL, $referrer = '') {
@@ -46,7 +44,7 @@ class sec {
 
 		if ($_SESSION["lock_$module"]) $locked = true;
 		else {
-			$row = $db->qry_first("SELECT 1 AS found FROM %prefix%ip_locklist WHERE ip = INET_ATON(%string%) AND module = %string% LIMIT 1", $_SERVER['REMOTE_ADDR'], $module);
+			$row = $db->qry_first("SELECT 1 AS found FROM %prefix%ip_locklist WHERE ip = INET6_ATON(%string%) AND module = %string% LIMIT 1", $_SERVER['REMOTE_ADDR'], $module);
 			if ($row['found']) $locked = true;
 			else $locked = false;
 		}

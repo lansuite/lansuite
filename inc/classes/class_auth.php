@@ -179,13 +179,13 @@ class auth {
                 ($cfg["sys_internet"])? $remindtext = t('Hast du dein Passwort vergessen?<br/><a href="./index.php?mod=usrmgr&action=pwrecover"/>Hier kannst du ein neues Passwort generieren</a>.') : $remindtext = t('Solltest du dein Passwort vergessen haben, wende dich bitte an die Organisation.');
                 $func->information(t('Die von dir eingebenen Login-Daten sind fehlerhaft. Bitte überprüfe deine Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $tmp_login_email), "2", "Authentifikation");
-                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
+                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET6_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
             // Cookie login and no correct cookie supplied?
             } elseif (!$user["user_login"] and !$cookierow['userid']) {
                 ($cfg["sys_internet"])? $remindtext = t('Hast du dein Passwort vergessen?<br/><a href="./index.php?mod=usrmgr&action=pwrecover"/>Hier kannst du ein neues Passwort generieren</a>.') : $remindtext = t('Solltest du dein Passwort vergessen haben, wende dich sich bitte an die Organisation.');
                 $func->information(t('Deine Session ist abgelaufen und das bei dir gesetzte Cookie ist fehlerhaft. Leider konntest du damit nicht eingeloggt werden. Bitte logge dich erneut manuell ein'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Cookie-Fehler).', $tmp_login_email), "2", "Authentifikation");
-                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
+                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET6_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
                 $this->cookie_unset();
             // Not checked in?
             } elseif($func->isModActive('party') and (!$party_query["checkin"] or $party_query["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){
@@ -226,7 +226,7 @@ class auth {
   
                   // Show error logins
                   $msg = '';
-                  $res = $db->qry('SELECT INET_NTOA(ip) AS ip, time
+                  $res = $db->qry('SELECT INET6_NTOA(ip) AS ip, time
                                    FROM %prefix%login_errors
                                    WHERE userid = %int%', $user['userid']);
                   while ($row = $db->fetch_array($res)) $msg .= t('Am') .' '. $row['time'] .' von der IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>'. HTML_NEWLINE;

@@ -157,7 +157,7 @@ class MasterSearch2 {
           if ($x > 0) $sql_one_search_field .= ' OR ';
           switch ($compare_mode) {
             case 'aton':
-              $sql_one_search_field .= "($sql_field = INET_ATON('". $_GET["search_input"][$z] ."'))";
+              $sql_one_search_field .= "($sql_field = INET6_ATON('". $_GET["search_input"][$z] ."'))";
             break;
             case 'exact':
               $sql_one_search_field .= "($sql_field = '". $_GET["search_input"][$z] ."')";
@@ -314,7 +314,7 @@ class MasterSearch2 {
       if ($_GET['ms_page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $this->ms_number)) $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
       else $page_start = 0;
       if ($page_start < 0) $page_start = 0;
-      $this->query['limit'] = "LIMIT $page_start, ". $this->config['EntriesPerPage'];
+      $this->query['limit'] = 'LIMIT '. (int)$page_start .', '. (int)$this->config['EntriesPerPage'];
     }
         
     
@@ -346,7 +346,7 @@ class MasterSearch2 {
 
     ###### Generate Page-Links
     $count_rows = $db->qry_first('SELECT FOUND_ROWS() AS count');
-    if ($this->config['EntriesPerPage']) $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
+    if ($this->config['EntriesPerPage'] > 0) $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
 
     if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {
     	$framework->AddToPageTitle(t('Seite') .' '. ((int)$_GET['ms_page'] + 1));

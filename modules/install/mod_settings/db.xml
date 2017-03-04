@@ -388,7 +388,7 @@
             </field>
             <field>
                 <name>SessionId</name>
-                <type>varchar(40)</type>
+                <type>varchar(256)</type>
                 <null></null>
                 <key>IND</key>
                 <default></default>
@@ -596,7 +596,7 @@
             </field>
             <field>
                 <name>ip</name>
-                <type>int(11) unsigned</type>
+                <type>varbinary(16)</type>
                 <null>NULL</null>
                 <key></key>
                 <default></default>
@@ -1035,7 +1035,7 @@
                 <title>Eingecheckt?</title>
             </entry>
         </content>
-    </table>    
+    </table>
     <table>
         <table_head>
             <name>stats_auth</name>
@@ -1043,7 +1043,7 @@
         <structure>
             <field>
                 <name>sessid</name>
-                <type>char(40)</type>
+                <type>varchar(256)</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -1069,7 +1069,7 @@
             </field>
             <field>
                 <name>ip</name>
-                <type>char(15)</type>
+                <type>varbinary(16)</type>
                 <null></null>
                 <key></key>
                 <default></default>
@@ -1135,14 +1135,14 @@
         <content>
         </content>
     </table>
-    <table>     
+    <table>
         <table_head>
             <name>ip_blacklist</name>
         </table_head>
         <structure>
             <field>
                 <name>ip</name>
-                <type>int(11) unsigned</type>
+                <type>varbinary(16)</type>
                 <null>YES</null>
                 <key>PRI</key>
                 <default></default>
@@ -1159,15 +1159,15 @@
         </structure>
         <content>
         </content>
-    </table>        
-    <table>     
+    </table>
+    <table>
         <table_head>
             <name>ip_locklist</name>
         </table_head>
         <structure>
             <field>
                 <name>ip</name>
-                <type>int(11) unsigned</type>
+                <type>varbinary(16)</type>
                 <null>YES</null>
                 <key>PRI</key>
                 <default></default>
@@ -1184,8 +1184,8 @@
         </structure>
         <content>
         </content>
-    </table>        
-    <table>     
+    </table>
+    <table>
         <table_head>
             <name>ip_hits</name>
         </table_head>
@@ -1200,7 +1200,7 @@
             </field>
             <field>
                 <name>ip</name>
-                <type>int(11) unsigned</type>
+                <type>varbinary(16)</type>
                 <null>YES</null>
                 <key>IND</key>
                 <default></default>
@@ -1217,7 +1217,7 @@
         </structure>
         <content>
         </content>
-    </table>        
+    </table>
     <table>
         <table_head>
             <name>translation</name>
@@ -1437,7 +1437,7 @@
             </field>
             <field>
                 <name>ip</name>
-                <type>int(11) unsigned</type>
+                <type>varbinary(16)</type>
                 <null>NULL</null>
                 <key></key>
                 <default></default>

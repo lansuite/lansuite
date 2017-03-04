@@ -154,6 +154,12 @@
     		<description>MSN</description>
     	</item>
     	<item>
+    		<name>signon_show_xmpp</name>
+    		<type>signon</type>
+    		<default>1</default>
+    		<description>XMPP</description>
+    	</item>
+    	<item>
     		<name>signon_show_skype</name>
     		<type>signon</type>
     		<default>1</default>
