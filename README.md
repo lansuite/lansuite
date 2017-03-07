@@ -1,87 +1,43 @@
 
-	Lansuite - Webbased LAN-Party Management System
-	-----------------------------------------------
-		
-	(c) 2001-2006 by One-Network.Org
-	
-	
-INSTALLATION
-============
-	
-	(1) Um Lansuite zu installieren stellen Sie zunächst sicher dass ein Webserver (z.B. Apache), 
-	ein MySQL-Server (Ab Version 4.0) sowie PHP (Ab Version 4.3) installiert sind. 
-	
-	(2) Danach kopieren Sie bitte alle Lansuite-Dateien in den "DocumentRoot" Ihres Webservers (oder einen Unterordner darin).
-	Bei den meisten Webservern heisst dieser Ordner "htdocs".
-	
-	(3) Nun öffnen Sie einen Browser und geben als Adresse die IP Nummer des Servers an, auf dem
-	Lansuite installiert wurde. Sollten dies der gleiche Rechner sein, an dem Sie den Browser geöffnet haben,
-	geben Sie bitte "http://127.0.0.1" ein.
-	
-	(4) Da Lansuite noch nicht konfiguriert ist,  werden Sie direkt zu einem Setup Assistenten weiter-
-	geleitet, der Sie durch die Konfiguration von Lansuite führt.
-	
-	Halten Sie dazu bitte die Daten Ihres MySQL-Servers (Server-Adresse - meist 127.0.0.1 -, Benutzername,
-	Passwort und Datenbank) bereit.
-	Wärend der Installation werden Sie des weiteren dazu aufgefordert, den Daten-Export aus LANsurfer
-	anzugeben, der anschließend importiert wird. Diesen können Sie direkt von der LANsurfer Website 
-	(http://www.lansurfer.de) kopieren.
-	
-	(5) Sowie die Installation abgeschlossen ist, kann Lansuite benutzt werden.
-	Jeder Gast/Orga dessen Rechner nun über ein Netzwerk mit dem Server verbunden ist, kann auf Lansuite 
-	zugreifen, indem er in einem Browser die IP Nummer des Server eingibt (z.B. http://192.168.1.1).
-	
+# Lansuite - Webbased LAN-Party Management System
+-----------------------------------------------
 
-WEITERE HILFEN - ONLINE
-=======================
-	
-	Sollten Sie Probleme mit der Installation haben, oder weitere Fragen zum Arbeiten mit Lansuite haben, schauen Sie doch mal
-	im Online-Doku-Wiki unter http://lansuite-docu.orgapage.de vorbei. Hier steht dir eine inzwischen sehr ausführliche und
-	ständig aktuallisierte Dokumentation zu Lansuite bereit.
+Lansuite ist ein Lanparty-Administrationssystem, basierend auf PHP und MySQL.
+Es greift den Organisatoren von Lanparties in vielen Bereichen wie Turnierorganistation, Anmeldung oder Nachrichtenverwaltung unter die Arme und ermöglicht so, dass sich die Organisatoren auf die wesentlichen Dinge Ihrer Party konzentieren können.
 
-	Falls Sie Fehler im System finden, oder Feature-Wünsche äußern möchten, so verwenden Sie dazu bitte unseren Bugtracker:
-  http://bugtracking.one-network.org
+Auch für die Partybesucher bietet Lansuite eine Vielzahl von Möglichkeiten, am wichtigsten dürften hier die Kommunikationskomponenten von Lansuite, wie der ICQ-ähnliche Messenger und die Boards sein, aber auch die Möglichkeit sich über aktuelle Geschehnisse in den News zu Informieren, sowie den aktuellen Stand der Turniere zu sehen.
 
-	Für Diskussionen und sonstige Fragen steht dir unser Board unter http://board.one-network.org zur Verfügung.
+In den Turnierbereichen von Lansuite können die Gäste bequem ihre Spielergebnisse melden und mit dem integrierten Sitzplan behalten sowohl Organisatoren als auch Gäste immer den vollen Überblick über die Lanparty.
+
+Lansuite ist vollständig Lansurfer-kompatibel und unterstützt die Austragung von WWCL-, NGL- und LGZ-Turnieren.
+
+Durch die Verwendung von PHP/MySQL kann Lansuite auf jedem beliebigen System, auf dem ein aktueller Browser installiert ist, benutzt werden, sowie mit fast allen Hosting-Angeboten, die Scriptsprache und Datenbank anbieten im Internet betrieben werden.
+
+Serverseitig können sowohl Linux/Unix- als auch Windows- und Mac-Systeme eingesetzt werden.
 
 
-SYSTEMVORAUSSETZUNGEN
-=====================
+## Dies sind die Ziele auf die bei der Entwicklung von Lansuite besonders geachtet wird:
 
-	Hardware
-	--------
-	
-		Je nach Anzahl der User variiert die Hardwarevoraussetzung.
-		Hier einge empfohlene Richtlinien:
-		
-		unter 100 User:	486 100 Mhz	 + (od. kompatibel)	- 64  MB Ram
-		ab 100 User:	Pentium 200 Mhz	 + (od. kompatibel)	- 64  MB Ram
-		ab 200 User:	Pentium 500 Mhz	 + (od. kompatibel)	- 128 MB Ram
-		ab 500 User:	Pentium 1000 Mhz + (od. kompatibel)	- 256 MB Ram
-		ab 1000 User:	Dual Pentium 800 Mhz + (od. kompatibel)	- 1024 MB Ram
-		
-		Diese Wert sind reine Schätzungen und beruhen noch nicht auf Messwerten! Es kann daher keinerlei 
-		Verantwortung für diese Empfehlungen übernommen werden.
-		
-		! Ab einer Usergrenze von 500 Usern ist es dringend empfehlenswert die Datenbank (MySQL-Server) 
-		! auf einen seperaten Server auszulagern.
-	
-	Software
-	--------
-	
-		Empfohlene Betriebssysteme: Linux, FreeBSD, OpenBSD, Solaris9+, Microsoft Windows NT 4.0+, Windows 2000,  
-								Windows .net Server, 
-		
-		- PHP kompatibler Webserver. Empfohlen: Apache ab Version 1.3
-		- MySQL ab Version 3.2
-		- PHP ab Version 4.3+
-		- PHP Module: 
-			- FTP
-			- SNMP
-			- GD-LIBRARY (mit Freetype2-Support)
-	
-	Sonstiges
-	---------
-	
-		Um das Lansuite Modul "Downloads" nutzen zu können muss ein FTP-Server auf einem von dem Webserver 
-		verschiedenen Server installiert sein.
+- Einfache Bedienung, Benutzerfreundlichkeit mit möglichst einfachen Abläufen
+
+Dieses Ziel stellt die größte Veränderung zu Lansuite Version 1 da. Viele der Konzepte wurden über Bord geworfen, da deren Bedienung zu komplex war. So wurde z.B. das Turniersystem radikal verändert und von unnötigem Ballast befreit. Die einfache Bedienbarkeit und das Learning-by-doing sind wichtige Entwicklungsziele der Version 2. Auch die "unterschwellige" und "leise" Unterstützung des Benutzers war uns wichtig, so sind z.B. alle Tabellen sortierbar usw.
+
+- Mächtiges Verwaltungswerkzeug für die Organisatoren, das dennoch übersichtlich und einfach zu bedienen ist
+
+"Nehmt die Orgas an die Hand und gebt ihnen Sicherheit, denn sie haben schon genug zu tun". Getreu diesem Motto wurden die Verwaltungswerkzeuge von Lansuite entwickelt. Da wir selbst Erfahrung im Organisieren von Lanparties haben, wissen wir wo es Probleme gibt und wie kritische Situationen (Anmeldung) gelöst werden können. Lansuite versucht eben diese Situation so einfach wie möglich zu gestalten, insbesondere beim Einchecken der Gäste zu Beginn der Party.
+
+- Auswahl zwischen unterschiedlichen Designs, möglichst einfache Anpassung/Erstellung von Designs durch Organisatoren
+
+Das optische Erscheinungsbild von Lansuite kann komplett geändert werden. Mit Lansuite werden mehrere Designs geliefert, zwischen denen der User wählen kann. Wir haben uns für ein Template-Konzept entschieden, da damit die Organisatoren recht einfach eigene Designs erstellen, oder die Standarddesigns anpassen können. Eine Dokumenation dazu ist ebenfalls enthalten.
+
+- Erhöhung der Sicherheit
+
+Wenn der Webserver es unterstützt, was wir ausdrücklich empfehlen, arbeitet Lansuite komplett SSL-verschlüsselt. Durch einige Sicherheitskonzepte im Session-Tracking ist ein Session-Hijacking und somit das Ergaunern von Passwörtern auch ohne SSL-Support fast unmöglich. Zusammen mit SSL haben Hacker / Cracker kaum Chancen Passwörter zu knacken. Auch in der Lansuite-Datenbank werden sensible Daten nur verschlüsselt gespeichert.
+
+- Kleine Hilfebuttons (Helpletts) die zu fast jeder Situation eine on-line Hilfe bieten
+
+Lansuite bietet zu vielen Fachwörtern kleine Popup-Fenster mit deren Erklärung an. Dieses Prinzip wird konseqent angewendet und beantwortet so die meisten Fragen. Zu wichtigen Bereichen ist außerdem eine Onlinehilfe verfügbar.
+
+- Gute, ausführliche Dokumentation
+
+Sollten Onlinehilfe und Helpletts nicht weiterhelfen, kann der Anwender im Wiki blättern. Für die Organisatoren und Entwickler gibt es dort sehr nützliche Hinweise und Tipps.
