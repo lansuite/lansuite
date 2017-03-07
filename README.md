@@ -18,26 +18,26 @@ Serverseitig können sowohl Linux/Unix- als auch Windows- und Mac-Systeme eingese
 
 ## Dies sind die Ziele auf die bei der Entwicklung von Lansuite besonders geachtet wird:
 
-- Einfache Bedienung, Benutzerfreundlichkeit mit möglichst einfachen Abläufen
+- **Einfache Bedienung, Benutzerfreundlichkeit mit möglichst einfachen Abläufen**
 
 Dieses Ziel stellt die größte Veränderung zu Lansuite Version 1 da. Viele der Konzepte wurden über Bord geworfen, da deren Bedienung zu komplex war. So wurde z.B. das Turniersystem radikal verändert und von unnötigem Ballast befreit. Die einfache Bedienbarkeit und das Learning-by-doing sind wichtige Entwicklungsziele der Version 2. Auch die "unterschwellige" und "leise" Unterstützung des Benutzers war uns wichtig, so sind z.B. alle Tabellen sortierbar usw.
 
-- Mächtiges Verwaltungswerkzeug für die Organisatoren, das dennoch übersichtlich und einfach zu bedienen ist
+- **Mächtiges Verwaltungswerkzeug für die Organisatoren, das dennoch übersichtlich und einfach zu bedienen ist**
 
 "Nehmt die Orgas an die Hand und gebt ihnen Sicherheit, denn sie haben schon genug zu tun". Getreu diesem Motto wurden die Verwaltungswerkzeuge von Lansuite entwickelt. Da wir selbst Erfahrung im Organisieren von Lanparties haben, wissen wir wo es Probleme gibt und wie kritische Situationen (Anmeldung) gelöst werden können. Lansuite versucht eben diese Situation so einfach wie möglich zu gestalten, insbesondere beim Einchecken der Gäste zu Beginn der Party.
 
-- Auswahl zwischen unterschiedlichen Designs, möglichst einfache Anpassung/Erstellung von Designs durch Organisatoren
+- **Auswahl zwischen unterschiedlichen Designs, möglichst einfache Anpassung/Erstellung von Designs durch Organisatoren**
 
 Das optische Erscheinungsbild von Lansuite kann komplett geändert werden. Mit Lansuite werden mehrere Designs geliefert, zwischen denen der User wählen kann. Wir haben uns für ein Template-Konzept entschieden, da damit die Organisatoren recht einfach eigene Designs erstellen, oder die Standarddesigns anpassen können. Eine Dokumenation dazu ist ebenfalls enthalten.
 
-- Erhöhung der Sicherheit
+- **Erhöhung der Sicherheit**
 
 Wenn der Webserver es unterstützt, was wir ausdrücklich empfehlen, arbeitet Lansuite komplett SSL-verschlüsselt. Durch einige Sicherheitskonzepte im Session-Tracking ist ein Session-Hijacking und somit das Ergaunern von Passwörtern auch ohne SSL-Support fast unmöglich. Zusammen mit SSL haben Hacker / Cracker kaum Chancen Passwörter zu knacken. Auch in der Lansuite-Datenbank werden sensible Daten nur verschlüsselt gespeichert.
 
-- Kleine Hilfebuttons (Helpletts) die zu fast jeder Situation eine on-line Hilfe bieten
+- **Kleine Hilfebuttons (Helpletts) die zu fast jeder Situation eine on-line Hilfe bieten**
 
 Lansuite bietet zu vielen Fachwörtern kleine Popup-Fenster mit deren Erklärung an. Dieses Prinzip wird konseqent angewendet und beantwortet so die meisten Fragen. Zu wichtigen Bereichen ist außerdem eine Onlinehilfe verfügbar.
 
-- Gute, ausführliche Dokumentation
+- **Gute, ausführliche Dokumentation**
 
 Sollten Onlinehilfe und Helpletts nicht weiterhelfen, kann der Anwender im Wiki blättern. Für die Organisatoren und Entwickler gibt es dort sehr nützliche Hinweise und Tipps.
