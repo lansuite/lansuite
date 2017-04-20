@@ -3,4 +3,3 @@ $dsp->NewContent($config['lansuite']['version'], 'A web based lanparty administr
 $dsp->AddSmartyTpl('license', 'about');
 $dsp->AddBackButton("index.php?mod=about", "about/license");
 $dsp->AddContent();
-?>
