@@ -100,11 +100,11 @@ class db {
     return true;
   }
 
-  #function set_charset()
-  #{
-  #	if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
-  #  else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
-  #}
+  function set_charset()
+  {
+  	if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
+    else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
+ }
 
   function get_host_info() {
     if ($this->mysqli) return @mysqli_get_host_info($this->link_id);
