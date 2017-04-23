@@ -37,9 +37,9 @@
   ### Direct DB access ###
     // Lets use the database - This will simply read all usernames from the database and display them
     $res = $db->qry("SELECT username FROM %prefix%user");
-    while ($user = $db->fetch_array($res)) {
-        $user_out .= $user["username"] .", ";
-    }
+while ($user = $db->fetch_array($res)) {
+    $user_out .= $user["username"] .", ";
+}
     $dsp->AddSingleRow($user_out);
 
     $user_insg = $db->num_rows($res);
@@ -79,12 +79,12 @@
 
   // These functions could be accessed for each row. To each link the group-by id is attached. See PrintSearch
   $ms2->AddIconField('details', 'index.php?mod=news&action=comment&newsid=', t('Details'));
-  if ($auth['type'] >= 2) {
-      $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
-  }
-  if ($auth['type'] >= 3) {
-      $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
-  }
+if ($auth['type'] >= 2) {
+    $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
+}
+if ($auth['type'] >= 3) {
+    $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
+}
 
   // Use this to finaly print the search. first argument: the current url; second argument: the group-by-id this id will be unique in the result and will be attached to each AddIconField-link
   $ms2->PrintSearch('index.php?mod=sample&action=show', 'n.newsid');
@@ -112,9 +112,9 @@
   $mf->AddFix('poster', $auth['userid']);
 
   // Sendform: 1) Current Link; 2) Affected data base table; 3) prim key in table; 4) ID to edit, if this is empty a new record will be added to the data base
-  if ($mf->SendForm('index.php?mod=sample&action=show', 'news', 'newsid', $_GET['newsid'])) {
-      // Add additional actions here, that should be called, after successfully adding an entry
-  }
+if ($mf->SendForm('index.php?mod=sample&action=show', 'news', 'newsid', $_GET['newsid'])) {
+    // Add additional actions here, that should be called, after successfully adding an entry
+}
   
 
   
