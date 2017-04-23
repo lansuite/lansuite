@@ -1,7 +1,7 @@
 <?php
 
-switch($_GET["step"]){
-	default:
+switch ($_GET["step"]) {
+    default:
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('install');
 
@@ -15,13 +15,21 @@ switch($_GET["step"]){
     $res = $db->qry("SELECT l.userid, u.username FROM %prefix%log AS l
       LEFT JOIN %prefix%user AS u ON u.userid = l.userid
       GROUP BY l.userid");
-    while($row = $db->fetch_array($res)) if($row['userid']) $list[$row['userid']] = $row['username'];
+    while ($row = $db->fetch_array($res)) {
+        if ($row['userid']) {
+            $list[$row['userid']] = $row['username'];
+        }
+    }
     $db->free_result($res);
     $ms2->AddTextSearchDropDown(t('Benutzer'), 'a.userid', $list);
 
     $list = array('' => t('Alle'));
     $res = $db->qry('SELECT ip FROM %prefix%stats_auth GROUP BY ip ORDER BY ip');
-    while($row = $db->fetch_array($res)) if($row['ip']) $list[$row['ip']] = $row['ip'];
+    while ($row = $db->fetch_array($res)) {
+        if ($row['ip']) {
+            $list[$row['ip']] = $row['ip'];
+        }
+    }
     $db->free_result($res);
     $ms2->AddTextSearchDropDown(t('IP'), 'a.ip', $list);
 
@@ -36,10 +44,12 @@ switch($_GET["step"]){
     $ms2->AddResultField(t('Eingeloggt'), 'a.logintime', 'MS2GetDate');
     $ms2->AddResultField(t('Letzter Aufruf'), 'a.lasthit', 'MS2GetDate');
 
-    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Session beenden'), "index.php?mod=install&action=sessions&step=10", 1);
+    if ($auth['type'] >= 3) {
+        $ms2->AddMultiSelectAction(t('Session beenden'), "index.php?mod=install&action=sessions&step=10", 1);
+    }
 
     $ms2->PrintSearch('index.php?mod=install&action=sessions', 'a.sessid');
-	break;
+    break;
 
   case 10:
     include_once('inc/classes/class_masterdelete.php');
@@ -47,4 +57,3 @@ switch($_GET["step"]){
     $md->MultiDelete('stats_auth', 'sessid');
   break;
 }
-?>

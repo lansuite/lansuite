@@ -9,4 +9,3 @@ $install->envcheck();
 
 $dsp->AddBackButton("index.php?mod=install");
 $dsp->AddContent();
-?>

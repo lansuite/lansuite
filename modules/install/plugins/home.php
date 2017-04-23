@@ -3,15 +3,33 @@
 $smarty->assign('caption', t('Sonstige neue Kommentare'));
 $content = "";
 
-if (!$func->isModActive('faq')) $exclude .= ' AND relatedto_item != \'faq\'';
-if (!$func->isModActive('task') or $auth['type'] < 2) $exclude .= ' AND relatedto_item != \'task\'';
-if ($auth['type'] < 2) $exclude .= ' AND relatedto_item != \'SponSupp\'';
-if (!$func->isModActive('usrmgr')) $exclude .= ' AND relatedto_item != \'User\'';
-if (!$func->isModActive('poll')) $exclude .= ' AND relatedto_item != \'Poll\'';
-if (!$func->isModActive('server')) $exclude .= ' AND relatedto_item != \'server\'';
-if (!$func->isModActive('downloads')) $exclude .= ' AND relatedto_item != \'downloads\'';
-if (!$func->isModActive('picgallery')) $exclude .= ' AND relatedto_item != \'Picgallery\'';
-if (!$func->isModActive('clan')) $exclude .= ' AND relatedto_item != \'Clan\'';
+if (!$func->isModActive('faq')) {
+    $exclude .= ' AND relatedto_item != \'faq\'';
+}
+if (!$func->isModActive('task') or $auth['type'] < 2) {
+    $exclude .= ' AND relatedto_item != \'task\'';
+}
+if ($auth['type'] < 2) {
+    $exclude .= ' AND relatedto_item != \'SponSupp\'';
+}
+if (!$func->isModActive('usrmgr')) {
+    $exclude .= ' AND relatedto_item != \'User\'';
+}
+if (!$func->isModActive('poll')) {
+    $exclude .= ' AND relatedto_item != \'Poll\'';
+}
+if (!$func->isModActive('server')) {
+    $exclude .= ' AND relatedto_item != \'server\'';
+}
+if (!$func->isModActive('downloads')) {
+    $exclude .= ' AND relatedto_item != \'downloads\'';
+}
+if (!$func->isModActive('picgallery')) {
+    $exclude .= ' AND relatedto_item != \'Picgallery\'';
+}
+if (!$func->isModActive('clan')) {
+    $exclude .= ' AND relatedto_item != \'Clan\'';
+}
 
 $query = $db->qry('SELECT relatedto_id, relatedto_item, MAX(UNIX_TIMESTAMP(date)) AS date, COUNT(*) AS cnt FROM %prefix%comments
     WHERE relatedto_item != \'BugEintrag\' AND relatedto_item != \'news\' %plain%
@@ -20,8 +38,9 @@ $query = $db->qry('SELECT relatedto_id, relatedto_item, MAX(UNIX_TIMESTAMP(date)
     LIMIT 0, %int%',
     $exclude, $cfg['home_item_cnt_comments']);
 
-if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
-  switch($row['relatedto_item']) {
+if ($db->num_rows($query) > 0) {
+    while ($row = $db->fetch_array($query)) {
+        switch ($row['relatedto_item']) {
     case 'faq':
       $row2 = $db->qry_first('SELECT caption FROM %prefix%faq_item WHERE itemid = %int%', $row['relatedto_id']);
       $link = 'index.php?mod=faq&action=comment&itemid='. (int)$row['relatedto_id'];
@@ -66,17 +85,19 @@ if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
       $row3 = $db->qry_first('SELECT name FROM %prefix%sponsor WHERE sponsorid = %int%', $row2['sponsorid']);
       $link = 'index.php?mod=sponsor&action=change&step=40&supportid='. (int)$row['relatedto_id'];
       $title = 'Sponsor: '. $row3['name'];
-    break;       
+    break;
     default:
       $link = '';
       $title = $row['relatedto_id'];
     break;
   }
-  $smarty->assign('link', $link);
-  $smarty->assign('text', $func->CutString($title, 40));
-  $smarty->assign('text2', ' ['. $row['cnt'] .']');
+        $smarty->assign('link', $link);
+        $smarty->assign('text', $func->CutString($title, 40));
+        $smarty->assign('text2', ' ['. $row['cnt'] .']');
   #if ($func->CheckNewPosts($row['date'], 'wiki', $row['postid'])) $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
   #else $content .= $smarty->fetch('modules/home/templates/show_row.htm');
   $content .= $smarty->fetch('modules/home/templates/show_row.htm');
-} else $content = "<i>". t('Keine Einträge vorhanden') ."</i>";
-?>
+    }
+} else {
+    $content = "<i>". t('Keine Einträge vorhanden') ."</i>";
+}
