@@ -2,12 +2,12 @@
 include_once("modules/mastersearch2/class_mastersearch2.php");
 
 if (isset($_GET['autorefresh'])) {
-	$autorefresh = $_GET['autorefresh'];
+    $autorefresh = $_GET['autorefresh'];
 } else {
-	$autorefresh = 0;
+    $autorefresh = 0;
 }
 if ($autorefresh == 1) {
-	echo("<meta http-equiv=\"refresh\" content=\"". $cfg['autorefresh'] ."; URL=" . $_SERVER["PHP_SELF"] . "?mod=foodcenter&action=kitchen&autorefresh=1\">\n");
+    echo("<meta http-equiv=\"refresh\" content=\"". $cfg['autorefresh'] ."; URL=" . $_SERVER["PHP_SELF"] . "?mod=foodcenter&action=kitchen&autorefresh=1\">\n");
 }
 
 
@@ -34,15 +34,14 @@ $ms2->AddIconField('change', 'index.php?mod=foodcenter&action=kitchen&step=1&ord
 
 $ms2->PrintSearch('index.php?mod=foodcenter&action=kitchen', 'o.id');
 
-if($_GET['step'] == 1)
-	$db->qry("UPDATE %prefix%food_ordering SET status = '4' WHERE id = %string%", $_GET["orderid"]);
+if ($_GET['step'] == 1) {
+    $db->qry("UPDATE %prefix%food_ordering SET status = '4' WHERE id = %string%", $_GET["orderid"]);
+}
 
 // Display autorefresh status and control link:
 
 if ($autorefresh == 0) {
-	$dsp->AddSingleRow("<img src=\"ext_inc/teamspeak2/refresh_off.gif\"> <b>Autorefresh:</b> <font color=red><b>". t('AUS') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "index.php?mod=foodcenter&action=kitchen&autorefresh=1\">". t('Aktivieren') ."</a>)<br>\n");
-} else if ($autorefresh == 1) {
-	$dsp->AddSingleRow("<img src=\"ext_inc/teamspeak2/refresh_on.gif\"> <b>Autorefresh:</b> <font color=green><b>". t('AN') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "index.php?mod=foodcenter&action=kitchen&autorefresh=0\">". t('Deaktivieren') ."</a>)<br>\n");
+    $dsp->AddSingleRow("<img src=\"ext_inc/teamspeak2/refresh_off.gif\"> <b>Autorefresh:</b> <font color=red><b>". t('AUS') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "index.php?mod=foodcenter&action=kitchen&autorefresh=1\">". t('Aktivieren') ."</a>)<br>\n");
+} elseif ($autorefresh == 1) {
+    $dsp->AddSingleRow("<img src=\"ext_inc/teamspeak2/refresh_on.gif\"> <b>Autorefresh:</b> <font color=green><b>". t('AN') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "index.php?mod=foodcenter&action=kitchen&autorefresh=0\">". t('Deaktivieren') ."</a>)<br>\n");
 }
-
-?>
