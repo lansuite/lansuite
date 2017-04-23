@@ -30,7 +30,7 @@ switch ($_GET["step"]) {
 
             $func->confirmation(t('Der Adminaccount wurde erfolgreich angelegt.'), "index.php?mod=install&action=adminaccount");
         }
-    break;
+        break;
     
     default:
         $dsp->SetForm("index.php?mod=install&action=adminaccount&step=2");
@@ -41,5 +41,5 @@ switch ($_GET["step"]) {
 
         $dsp->AddBackButton("index.php?mod=install", "install/admin");
         $dsp->AddContent();
-    break;
+        break;
 }

@@ -79,7 +79,6 @@ class Import
 
         $tables = $xml->getTagContentArray("table", $this->xml_content_lansuite);
         foreach ($tables as $table) {
-
             // Get Table-Head-Data from XML-File
             $table_head = $xml->getFirstTagContent("table_head", $table, 0);
             $table_name = $xml->getFirstTagContent("name", $table_head);
@@ -91,7 +90,6 @@ class Import
             if ($rewrite) {
                 $db->qry_first("DROP TABLE IF EXISTS %prefix%%plain%", $table_name);
             } else {
-
                 // Search current XML-Table in installed tables
                 $table_found = in_array($config['database']['prefix'] . $table_name, $this->installed_tables);
                 if ($table_found) {
@@ -146,9 +144,8 @@ class Import
                 // Read the DB-Structure form XML-File
                 if ($fields) {
                     foreach ($fields as $field) {
-
                     // Read XML-Entries
-                    $name = $xml->getFirstTagContent("name", $field);
+                        $name = $xml->getFirstTagContent("name", $field);
                         $type = $xml->getFirstTagContent("type", $field);
                         $null_xml = $xml->getFirstTagContent("null", $field);
                         ($null_xml != 'NULL' and $null_xml != 'YES')? $null = "NOT NULL" : $null = "NULL";
@@ -161,207 +158,242 @@ class Import
                         $reference_condition = $xml->getFirstTagContent("reference_condition", $field);
 
                     // Set default value to 0 or '', if NOT NULL and not autoincrement
-                    if ($null == 'NOT NULL' and $extra == '') {
-                        if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint' or substr($type, 0, 9) == 'mediumint'
-                        or substr($type, 0, 8) == 'smallint' or substr($type, 0, 6) == 'bigint'
-                        or substr($type, 0, 7) == 'decimal' or substr($type, 0, 5) == 'float' or substr($type, 0, 6) == 'double') {
-                            $default = 'default '. (int)$default_xml;
-                        } elseif ($type == 'timestamp') {
-                            $default = 'default CURRENT_TIMESTAMP';
-                            $default_xml = 'CURRENT_TIMESTAMP';
-                            $extra = 'on update CURRENT_TIMESTAMP';
-                        } elseif ($type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') {
-                            $default = '';
-                        } elseif ($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext') {
-                            $default = '';
+                        if ($null == 'NOT NULL' and $extra == '') {
+                            if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint' or substr($type, 0, 9) == 'mediumint'
+                            or substr($type, 0, 8) == 'smallint' or substr($type, 0, 6) == 'bigint'
+                            or substr($type, 0, 7) == 'decimal' or substr($type, 0, 5) == 'float' or substr($type, 0, 6) == 'double') {
+                                    $default = 'default '. (int)$default_xml;
+                            } elseif ($type == 'timestamp') {
+                                $default = 'default CURRENT_TIMESTAMP';
+                                $default_xml = 'CURRENT_TIMESTAMP';
+                                $extra = 'on update CURRENT_TIMESTAMP';
+                            } elseif ($type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') {
+                                $default = '';
+                            } elseif ($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext') {
+                                $default = '';
+                            } else {
+                                $default = "default '$default_xml'";
+                            }
                         } else {
-                            $default = "default '$default_xml'";
+                            $default = '';
                         }
-                    } else {
-                        $default = '';
-                    }
 
                     // Create MySQL-String to import
-                    if ($key == "PRI") {
-                        $primary_key .= "$name, ";
-                    }
+                        if ($key == "PRI") {
+                            $primary_key .= "$name, ";
+                        }
                         if ($key == "UNI") {
                             $unique_key .= ", UNIQUE KEY $name ($name)";
                         }
                         $mysql_fields .= "$name $type $null $default $extra, ";
 
                     // Safe Field-Names to know which fields to import content for, in the next step.
-                    $field_names[] = $name;
+                        $field_names[] = $name;
 
                     // If table exists, compare XML-File with DB and check weather the DB has to be updated
-                    $found_in_db = 0;
+                        $found_in_db = 0;
                         if ($table_found) {
-
                         // Search for fiels, which exist in the XML-File, but dont exist in the DB yet.
-                        if ($db_fields) {
-                            foreach ($db_fields as $db_field) {
-                                if ($db_field["Field"] == $name) {
-                                    $found_in_db = 1;
+                            if ($db_fields) {
+                                foreach ($db_fields as $db_field) {
+                                    if ($db_field["Field"] == $name) {
+                                        $found_in_db = 1;
 
-                            // Check wheather the field in the DB differs from the one in the XML-File
-                            // Change it
-                            if ($db_field['Null'] == 'NO') {
-                                $db_field['Null'] = 'NOT NULL';
-                            } // Some MySQL-Versions return 'NO' instead of ''
+                                // Check wheather the field in the DB differs from the one in the XML-File
+                                // Change it
+                                        if ($db_field['Null'] == 'NO') {
+                                            $db_field['Null'] = 'NOT NULL';
+                                        } // Some MySQL-Versions return 'NO' instead of ''
 
-                            // Handle special type changes
-                            // Changing int() to datetime
-                            if ($type == 'datetime' and substr($db_field["Type"], 0, 3) == 'int') {
-                                $db->qry("ALTER TABLE %prefix%$table_name CHANGE %plain% %plain%_lstmp INT", $name, $name);
-                                $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% DATETIME", $table_name, $name);
-                                $db->qry("UPDATE %prefix%%plain% SET %plain% = FROM_UNIXTIME(%plain%_lstmp)", $table_name, $name, $name);
-                                $db->qry("ALTER TABLE %prefix%%plain% DROP %plain%_lstmp", $table_name, $name);
+                                // Handle special type changes
+                                // Changing int() to datetime
+                                        if ($type == 'datetime' and substr($db_field["Type"], 0, 3) == 'int') {
+                                            $db->qry("ALTER TABLE %prefix%$table_name CHANGE %plain% %plain%_lstmp INT", $name, $name);
+                                            $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% DATETIME", $table_name, $name);
+                                            $db->qry("UPDATE %prefix%%plain% SET %plain% = FROM_UNIXTIME(%plain%_lstmp)", $table_name, $name, $name);
+                                            $db->qry("ALTER TABLE %prefix%%plain% DROP %plain%_lstmp", $table_name, $name);
 
 
-                                // Handle structure changes in general
-                            } elseif ($db_field["Type"] != $type
-                              or (!($db_field["Null"] == $null or ($db_field["Null"] == 'YES' and $null == 'NULL')))
-                              or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
-                              or $db_field["Extra"] != $extra) {
-                                $db->qry("ALTER TABLE %prefix%%plain% CHANGE %plain% %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $name, $type, $null, $default, $extra);
-/*
-                                 // Differece-Report
-                                 #echo "ALTER TABLE $table_name CHANGE $name $name $type $null $default $extra";
-                                 if ($db_field["Type"] != $type) $func->information($db_field["Type"] ."=". $type ." Type in $table_name $name<br>");
-                                 if ($db_field["Null"] != $null) $func->information($db_field["Null"] ."=". $null ." Null in $table_name $name<br>");
-                                 if ($db_field["Default"] != $default_xml) $func->information($db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>");
-                                 if ($db_field["Extra"] != $extra) $func->information($db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>");
-*/
-                            }
-                                    break;
+                                            // Handle structure changes in general
+                                        } elseif ($db_field["Type"] != $type
+                                        or (!($db_field["Null"] == $null or ($db_field["Null"] == 'YES' and $null == 'NULL')))
+                                        or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
+                                        or $db_field["Extra"] != $extra) {
+                                            $db->qry("ALTER TABLE %prefix%%plain% CHANGE %plain% %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $name, $type, $null, $default, $extra);
+                    /*
+                                             // Differece-Report
+                                             #echo "ALTER TABLE $table_name CHANGE $name $name $type $null $default $extra";
+                                             if ($db_field["Type"] != $type) $func->information($db_field["Type"] ."=". $type ." Type in $table_name $name<br>");
+                                             if ($db_field["Null"] != $null) $func->information($db_field["Null"] ."=". $null ." Null in $table_name $name<br>");
+                                             if ($db_field["Default"] != $default_xml) $func->information($db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>");
+                                             if ($db_field["Extra"] != $extra) $func->information($db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>");
+                    */
+                                        }
+                                        break;
+                                    }
                                 }
                             }
-                        }
 
                         //// Index-Check
                         // Drop keys, which no longer exist in XML
-                        if ($key == '') {
-                            if (in_array($name, $DBPrimaryKeys)) {
-                                $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
-                                array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
-                            }
-                            if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) {
-                                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
-                            }
+                            if ($key == '') {
+                                if (in_array($name, $DBPrimaryKeys)) {
+                                    $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
+                                    array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
+                                }
+                                if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) {
+                                    $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                                }
 
-                            // Drop keys, which have changed type in XML. They will be re-created beneath
-                        } elseif ($key == 'PRI') {
-                            if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) {
-                                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                                // Drop keys, which have changed type in XML. They will be re-created beneath
+                            } elseif ($key == 'PRI') {
+                                if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) {
+                                    $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                                }
+                            } elseif ($key == 'UNI') {
+                                if (in_array($name, $DBPrimaryKeys)) {
+                                    $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
+                                    array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
+                                }
+                                if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) {
+                                    $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                                }
+                            } elseif ($key == 'IND') {
+                                if (in_array($name, $DBPrimaryKeys)) {
+                                    $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
+                                    array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
+                                }
+                                if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext)) {
+                                    $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                                }
+                            } elseif ($key == 'FUL') {
+                                if (in_array($name, $DBPrimaryKeys)) {
+                                    $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
+                                    array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
+                                }
+                                if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes)) {
+                                    $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                                }
                             }
-                        } elseif ($key == 'UNI') {
-                            if (in_array($name, $DBPrimaryKeys)) {
-                                $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
-                                array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
-                            }
-                            if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) {
-                                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
-                            }
-                        } elseif ($key == 'IND') {
-                            if (in_array($name, $DBPrimaryKeys)) {
-                                $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
-                                array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
-                            }
-                            if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext)) {
-                                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
-                            }
-                        } elseif ($key == 'FUL') {
-                            if (in_array($name, $DBPrimaryKeys)) {
-                                $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
-                                array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
-                            }
-                            if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes)) {
-                                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
-                            }
-                        }
                         // Primary Key in XML but not in DB
                         // Attention when adding a double-primary-key it is added one after another. So some lines will be droped!
-                        if ($key == 'PRI' and !in_array($name, $DBPrimaryKeys)) {
-                            // No key in DB, yet
-                            $DBPrimaryKeys[] = $name;
-                            // count = 1, because added to var one line before, IGNORE is to drop non-uniqe lines
-                            if (count($DBPrimaryKeys) == 1) {
-                                $db->qry("ALTER IGNORE TABLE %prefix%%plain% ADD PRIMARY KEY (%plain%)", $table_name, $name);
+                            if ($key == 'PRI' and !in_array($name, $DBPrimaryKeys)) {
+                                // No key in DB, yet
+                                $DBPrimaryKeys[] = $name;
+                                // count = 1, because added to var one line before, IGNORE is to drop non-uniqe lines
+                                if (count($DBPrimaryKeys) == 1) {
+                                    $db->qry("ALTER IGNORE TABLE %prefix%%plain% ADD PRIMARY KEY (%plain%)", $table_name, $name);
+                                } // Key in DB replaced/extended
+                                else {
+                                    $priKeys = implode(', ', $DBPrimaryKeys);
+                                    $db->qry("ALTER IGNORE TABLE %prefix%%plain% DROP PRIMARY KEY, ADD PRIMARY KEY (%plain%)", $table_name, $priKeys);
+                                }
                             }
-                            // Key in DB replaced/extended
-                            else {
-                                $priKeys = implode(', ', $DBPrimaryKeys);
-                                $db->qry("ALTER IGNORE TABLE %prefix%%plain% DROP PRIMARY KEY, ADD PRIMARY KEY (%plain%)", $table_name, $priKeys);
-                            }
-                        }
 
                         // Unique keys in XML but not in DB
-                        if ($key == 'UNI' and !in_array($name, $DBUniqueKeys)) {
-                            if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) {
-                                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                            if ($key == 'UNI' and !in_array($name, $DBUniqueKeys)) {
+                                if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) {
+                                    $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                                }
+                                // IGNORE is to drop non-uniqe lines
+                                $db->qry("ALTER IGNORE TABLE %prefix%%plain% ADD UNIQUE (%plain%)", $table_name, $name);
                             }
-                            // IGNORE is to drop non-uniqe lines
-                            $db->qry("ALTER IGNORE TABLE %prefix%%plain% ADD UNIQUE (%plain%)", $table_name, $name);
-                        }
 
                         // Index in XML but not in DB
-                        if ($key == 'IND' and !in_array($name, $DBIndizes)) {
-                            if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext)) {
-                                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                            if ($key == 'IND' and !in_array($name, $DBIndizes)) {
+                                if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext)) {
+                                    $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                                }
+                                $db->qry("ALTER TABLE %prefix%%plain% ADD INDEX (%plain%)", $table_name, $name);
                             }
-                            $db->qry("ALTER TABLE %prefix%%plain% ADD INDEX (%plain%)", $table_name, $name);
-                        }
 
                         // Fulltext in XML but not in DB
-                        if ($key == 'FUL' and !in_array($name, $DBFulltext)) {
-                            if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes)) {
-                                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                            if ($key == 'FUL' and !in_array($name, $DBFulltext)) {
+                                if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes)) {
+                                    $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
+                                }
+                                ## TODO: if ($type == 'text' or $type == 'longtext' or substr($type, 0, 7) == 'varchar')
+                                $db->qry("ALTER TABLE %prefix%%plain% ADD FULLTEXT (%plain%)", $table_name, $name);
                             }
-                            ## TODO: if ($type == 'text' or $type == 'longtext' or substr($type, 0, 7) == 'varchar')
-                            $db->qry("ALTER TABLE %prefix%%plain% ADD FULLTEXT (%plain%)", $table_name, $name);
-                        }
 
 
                         // If a key was not found in the DB, but in the XML-File -> Add it!
-                        if (!$found_in_db) {
-                            // If auto_increment is used for this key, add this key as primary, unique key
-                            if ($extra == "auto_increment") {
-                                $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% %plain% %plain% %plain% %plain%, ADD PRIMARY KEY (%plain%), ADD UNIQUE (%plain%)",
-                            $table_name, $name, $type, $null, $default, $extra, $name, $name);
-                            } else {
-                                $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $type, $null, $default, $extra);
+                            if (!$found_in_db) {
+                                // If auto_increment is used for this key, add this key as primary, unique key
+                                if ($extra == "auto_increment") {
+                                    $db->qry(
+                                        "ALTER TABLE %prefix%%plain% ADD %plain% %plain% %plain% %plain% %plain%, ADD PRIMARY KEY (%plain%), ADD UNIQUE (%plain%)",
+                                        $table_name,
+                                        $name,
+                                        $type,
+                                        $null,
+                                        $default,
+                                        $extra,
+                                        $name,
+                                        $name
+                                    );
+                                } else {
+                                    $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $type, $null, $default, $extra);
+                                }
                             }
-                        }
                         }
                 
                     // Foreign Key references
-                    if ($foreign_key) {
-                        list($foreign_table, $foreign_key_name) = explode('.', $foreign_key, 2);
-                        $row = $db->qry_first('SELECT 1 AS found, on_delete FROM %prefix%ref WHERE
+                        if ($foreign_key) {
+                            list($foreign_table, $foreign_key_name) = explode('.', $foreign_key, 2);
+                            $row = $db->qry_first(
+                                'SELECT 1 AS found, on_delete FROM %prefix%ref WHERE
               pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
-                        $table_name, $name, $foreign_table, $foreign_key_name);
-                        if ($row['on_delete'] != $on_delete) {
-                            $db->qry('DELETE FROM %prefix%ref WHERE
+                                $table_name,
+                                $name,
+                                $foreign_table,
+                                $foreign_key_name
+                            );
+                            if ($row['on_delete'] != $on_delete) {
+                                $db->qry(
+                                    'DELETE FROM %prefix%ref WHERE
                 pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
-                          $table_name, $name, $foreign_table, $foreign_key_name);
-                            $row['found'] = 0;
-                        }
-                        if (!$row['found']) {
-                            $db->qry('INSERT INTO %prefix%ref SET
+                                    $table_name,
+                                    $name,
+                                    $foreign_table,
+                                    $foreign_key_name
+                                );
+                                    $row['found'] = 0;
+                            }
+                            if (!$row['found']) {
+                                $db->qry(
+                                    'INSERT INTO %prefix%ref SET
               pri_table = %string%, pri_key = %string%, foreign_table = %string%, foreign_key = %string%, on_delete = %string%',
-                        $table_name, $name, $foreign_table, $foreign_key_name, $on_delete);
+                                    $table_name,
+                                    $name,
+                                    $foreign_table,
+                                    $foreign_key_name,
+                                    $on_delete
+                                );
+                            }
                         }
-                    }
                         if ($reference) {
                             list($reference_table, $reference_key) = explode('.', $reference, 2);
 
-                            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%ref WHERE
+                            $row = $db->qry_first(
+                                'SELECT 1 AS found FROM %prefix%ref WHERE
   				    pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string% AND foreign_condition = %string%',
-                        $reference_table, $reference_key, $table_name, $name, $reference_condition);
+                                $reference_table,
+                                $reference_key,
+                                $table_name,
+                                $name,
+                                $reference_condition
+                            );
                             if (!$row['found']) {
-                                $db->qry('INSERT INTO %prefix%ref SET
+                                $db->qry(
+                                    'INSERT INTO %prefix%ref SET
               pri_table = %string%, pri_key = %string%, foreign_table = %string%, foreign_key = %string%, foreign_condition = %string%',
-                        $reference_table, $reference_key, $table_name, $name, $reference_condition);
+                                    $reference_table,
+                                    $reference_key,
+                                    $table_name,
+                                    $name,
+                                    $reference_condition
+                                );
                             }
                         }
                     }
@@ -520,50 +552,50 @@ class Import
                 unset($seats_to_import);
 
             // Seats in this block
-            $seats_in_this_block    = $xml->get_tag_content_combine("seat_seats", $xml_block);
+                $seats_in_this_block    = $xml->get_tag_content_combine("seat_seats", $xml_block);
                 $seats            = $xml->getTagContentArray("seat", $seats_in_this_block);
 
                 if (is_array($seats)) {
                     foreach ($seats as $xml_seat) {
                         $seats_to_import[] = array(col =>        $xml->getFirstTagContent("col", $xml_seat),
-                row =>        $xml->getFirstTagContent("row", $xml_seat),
-                status =>    $xml->getFirstTagContent("status", $xml_seat),
-                owner =>    $xml->getFirstTagContent("owner", $xml_seat),
-                ipaddress =>    $xml->getFirstTagContent("ipaddress", $xml_seat));
+                        row =>        $xml->getFirstTagContent("row", $xml_seat),
+                        status =>    $xml->getFirstTagContent("status", $xml_seat),
+                        owner =>    $xml->getFirstTagContent("owner", $xml_seat),
+                        ipaddress =>    $xml->getFirstTagContent("ipaddress", $xml_seat));
                     }
                 } // foreach - seats
 
             // Sepeartors in this block
-            $seps_in_this_block    = $xml->get_tag_content_combine("seat_sep", $xml_block);
+                $seps_in_this_block    = $xml->get_tag_content_combine("seat_sep", $xml_block);
                 $seps            = $xml->getTagContentArray("sep", $seps_in_this_block);
 
                 if (is_array($seps)) {
                     foreach ($seps as $xml_sep) {
                         $seps_to_import[] = array(    orientation =>    $xml->getFirstTagContent("orientation", $xml_sep),
-                value =>    $xml->getFirstTagContent("value", $xml_sep));
+                        value =>    $xml->getFirstTagContent("value", $xml_sep));
                     }
                 } // foreach - seperators
 
             // Seatblockdata
-            $seat_blocks_to_import[] = array(    name =>        $xml->getFirstTagContent("name", $xml_block),
-            rows =>            $xml->getFirstTagContent("rows", $xml_block),
-            cols =>            $xml->getFirstTagContent("cols", $xml_block),
-            orientation =>        $xml->getFirstTagContent("orientation", $xml_block),
-            remark =>        $xml->getFirstTagContent("remark", $xml_block),
-            text_tl =>        $xml->getFirstTagContent("text_tl", $xml_block),
-            text_tc =>        $xml->getFirstTagContent("text_tc", $xml_block),
-            text_tr =>        $xml->getFirstTagContent("text_tr", $xml_block),
-            text_lt =>        $xml->getFirstTagContent("text_lt", $xml_block),
-            text_lc =>        $xml->getFirstTagContent("text_lc", $xml_block),
-            text_lb =>        $xml->getFirstTagContent("text_lb", $xml_block),
-            text_rt =>        $xml->getFirstTagContent("text_rt", $xml_block),
-            text_rc =>        $xml->getFirstTagContent("text_rc", $xml_block),
-            text_rb =>        $xml->getFirstTagContent("text_rb", $xml_block),
-            text_bl =>        $xml->getFirstTagContent("text_bl", $xml_block),
-            text_bc =>        $xml->getFirstTagContent("text_bc", $xml_block),
-            text_br =>        $xml->getFirstTagContent("text_br", $xml_block),
-            seats =>        $seats_to_import,
-            seps =>            $seps_to_import);
+                $seat_blocks_to_import[] = array(    name =>        $xml->getFirstTagContent("name", $xml_block),
+                rows =>            $xml->getFirstTagContent("rows", $xml_block),
+                cols =>            $xml->getFirstTagContent("cols", $xml_block),
+                orientation =>        $xml->getFirstTagContent("orientation", $xml_block),
+                remark =>        $xml->getFirstTagContent("remark", $xml_block),
+                text_tl =>        $xml->getFirstTagContent("text_tl", $xml_block),
+                text_tc =>        $xml->getFirstTagContent("text_tc", $xml_block),
+                text_tr =>        $xml->getFirstTagContent("text_tr", $xml_block),
+                text_lt =>        $xml->getFirstTagContent("text_lt", $xml_block),
+                text_lc =>        $xml->getFirstTagContent("text_lc", $xml_block),
+                text_lb =>        $xml->getFirstTagContent("text_lb", $xml_block),
+                text_rt =>        $xml->getFirstTagContent("text_rt", $xml_block),
+                text_rc =>        $xml->getFirstTagContent("text_rc", $xml_block),
+                text_rb =>        $xml->getFirstTagContent("text_rb", $xml_block),
+                text_bl =>        $xml->getFirstTagContent("text_bl", $xml_block),
+                text_bc =>        $xml->getFirstTagContent("text_bc", $xml_block),
+                text_br =>        $xml->getFirstTagContent("text_br", $xml_block),
+                seats =>        $seats_to_import,
+                seps =>            $seps_to_import);
             }
         } // foreach - seatblocks
 
@@ -601,17 +633,26 @@ class Import
                         $search_clan = $db->qry_first("SELECT clanid FROM %prefix%clan WHERE name = %string%", $clan);
                         if ($search_clan['clanid'] != '') {
                             $clan_id = $search_clan['clanid'];
-                        }
-                    
-                        // Insert new clan
+                        } // Insert new clan
                         else {
                             $db->qry("INSERT INTO %prefix%clan SET name = %string%, url = %string% ", $clan, $clanurl);
                             $clan_id = $db->insert_id();
                         }
                     }
-                    $db->qry("REPLACE INTO %prefix%user SET email = %string%, name = %string%, username = %string%, firstname = %string%, type = %string%, clanid = %int%,
+                    $db->qry(
+                        "REPLACE INTO %prefix%user SET email = %string%, name = %string%, username = %string%, firstname = %string%, type = %string%, clanid = %int%,
 								password = %string%, wwclid = %int%, wwclclanid = %int%, comment = %string%",
-                    $email, $name, $username, $firstname, $type, $clan_id, $password, $wwclid, $wwclclanid, $comment);
+                        $email,
+                        $name,
+                        $username,
+                        $firstname,
+                        $type,
+                        $clan_id,
+                        $password,
+                        $wwclid,
+                        $wwclclanid,
+                        $comment
+                    );
                     $id = $db->insert_id();
 
                     // Update Party-Signon
@@ -653,18 +694,41 @@ class Import
                 $text_bc    = $block['text_bc'];
                 $text_br    = $block['text_br'];
 
-                $db->qry("REPLACE INTO %prefix%seat_block SET name=%string%, cols=%string%, rows=%string%, orientation=%string%, remark=%string%, text_tl=%string%, text_tc=%string%,
+                $db->qry(
+                    "REPLACE INTO %prefix%seat_block SET name=%string%, cols=%string%, rows=%string%, orientation=%string%, remark=%string%, text_tl=%string%, text_tc=%string%,
   text_tr=%string%, text_lt=%string%, text_lc=%string%, text_lb=%string%, text_rt=%string%, text_rc=%string%, text_rb=%string%, text_bl=%string%, text_bc=%string%,
   text_br=%string%, party_id=%int%",
-                $name, $cols, $rows, $orientation, $remark, $text_tl, $text_tc, $text_tr, $text_lt, $text_lc, $text_lb, $text_rt, $text_rc, $text_rb, $text_bl, $text_bc, $text_br, $cfg['signon_partyid']);
+                    $name,
+                    $cols,
+                    $rows,
+                    $orientation,
+                    $remark,
+                    $text_tl,
+                    $text_tc,
+                    $text_tr,
+                    $text_lt,
+                    $text_lc,
+                    $text_lb,
+                    $text_rt,
+                    $text_rc,
+                    $text_rb,
+                    $text_bl,
+                    $text_bc,
+                    $text_br,
+                    $cfg['signon_partyid']
+                );
                 $blockid = $db->insert_id();
 
                 if (is_array($block['seps'])) {
                     foreach ($block['seps'] as $sep) {
                         $orientation    = $sep['orientation'];
                         $value        = $sep['value'];
-                        $db->qry("REPLACE INTO %prefix%seat_sep SET blockid=%int%, orientation=%string%, value=%string%",
-                    $blockid, $orientation, $value);
+                        $db->qry(
+                            "REPLACE INTO %prefix%seat_sep SET blockid=%int%, orientation=%string%, value=%string%",
+                            $blockid,
+                            $orientation,
+                            $value
+                        );
                     }
                 } // foreach - seps
 
@@ -680,8 +744,15 @@ class Import
                             $userid  = 0;
                         }
 
-                        $db->qry("REPLACE INTO %prefix%seat_seats SET blockid=%int%, col=%string%, row=%string%, status=%string%, userid=%int%, ip=%string%",
-                    $blockid, $col, $row, $status, $userid, $ipaddress);
+                        $db->qry(
+                            "REPLACE INTO %prefix%seat_seats SET blockid=%int%, col=%string%, row=%string%, status=%string%, userid=%int%, ip=%string%",
+                            $blockid,
+                            $col,
+                            $row,
+                            $status,
+                            $userid,
+                            $ipaddress
+                        );
                     }
                 } // foreach - seats
             } // foreach - $seat_blocks_to_import
@@ -719,9 +790,18 @@ class Import
             }
 
             if (!$skip) {
-                $replace_user = $db->qry("REPLACE INTO %prefix%user SET username = %string%, clan = %string%, firstname = %string%, name = %string%, email = %string%, paid = %int%,
+                $replace_user = $db->qry(
+                    "REPLACE INTO %prefix%user SET username = %string%, clan = %string%, firstname = %string%, name = %string%, email = %string%, paid = %int%,
   type = '1', signon = %string%, comment = %string%",
-                $user[0], $user[1], $user[2], $user[3], $user[4], $user_paid, $signon, $comment);
+                    $user[0],
+                    $user[1],
+                    $user[2],
+                    $user[3],
+                    $user[4],
+                    $user_paid,
+                    $signon,
+                    $comment
+                );
                 $id = $db->insert_id();
                 $db->qry("INSERT INTO %prefix%usersettings SET userid=%int%", $id);
             }

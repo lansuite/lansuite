@@ -30,7 +30,7 @@ switch ($_GET["step"]) {
         } else {
             $func->confirmation(t('Datei \'config.php\' wurde erfolgreich geschrieben.'), "index.php?mod=install&action=ls_conf");
         }
-    break;
+        break;
     
     default:
         $dsp->NewContent(t('Grundeinstellungen'), t('Bitte gib nun die Zugangsdaten zur Datenbank an.'));
@@ -70,9 +70,8 @@ switch ($_GET["step"]) {
             if ($akt_design != "." and $akt_design != ".." and $akt_design != ".svn" and $akt_design != "templates") {
                 $file = "design/$akt_design/design.xml";
                 if (file_exists($file)) {
-
                 // Read Names from design.xml
-                $xml_file = fopen($file, "r");
+                    $xml_file = fopen($file, "r");
                     $xml_content = fread($xml_file, filesize($file));
                     if ($xml_content != "") {
                         ($config['lansuite']['default_design'] == $akt_design) ? $selected = "selected" : $selected = "";
@@ -87,5 +86,5 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install", "install/ls_conf");
         $dsp->AddContent();
-    break;
+        break;
 }

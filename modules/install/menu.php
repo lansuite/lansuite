@@ -9,41 +9,41 @@ switch ($_GET["step"]) {
         $db->qry("UPDATE %prefix%menu SET pos = 0 WHERE pos = %int%", ($_GET["pos"] - 1));
         $db->qry("UPDATE %prefix%menu SET pos = pos - 1 WHERE pos = %int%", $_GET["pos"]);
         $db->qry("UPDATE %prefix%menu SET pos = %int% WHERE pos = 0", $_GET["pos"]);
-    break;
+        break;
 
     // Move Down
     case 3:
         $db->qry("UPDATE %prefix%menu SET pos = 0 WHERE pos = %int%", ($_GET["pos"] + 1));
         $db->qry("UPDATE %prefix%menu SET pos = pos + 1 WHERE pos = %int%", $_GET["pos"]);
         $db->qry("UPDATE %prefix%menu SET pos = %int% WHERE pos = 0", $_GET["pos"]);
-    break;
+        break;
 
     // Add HRule Row
     case 4:
         $db->qry("UPDATE %prefix%menu SET pos = pos + 1 WHERE pos > %int%", $_GET["pos"]);
         $db->qry("INSERT INTO %prefix%menu SET caption = '--hr--', pos = %int%", ($_GET["pos"] + 1));
-    break;
+        break;
 
     // Delete
     case 5:
         $db->qry("DELETE FROM %prefix%menu WHERE pos = %int%", $_GET["pos"]);
-    break;
+        break;
 
     // Rewrite Menu Question
     case 6:
         $func->question(t('Bist du sicher, dass du alle Navigationseinträge zurücksetzen möchten?'), "index.php?mod=install&action=menu&step=7&onlyactive={$_GET["onlyactive"]}", "index.php?mod=install&action=menu&onlyactive={$_GET["onlyactive"]}");
-    break;
+        break;
 
     // Rewrite Menu Action
     case 7:
         $db->qry_first("DELETE FROM %prefix%menu");
         $install->InsertMenus(1);
-    break;
+        break;
 
     // Change Group Action
     case 9:
         $menu = $db->qry("UPDATE %prefix%menu SET group_nr = %int% WHERE pos = %string%", $_POST["group"], $_GET["pos"]);
-    break;
+        break;
 
     // Set Possition
     case 10:
@@ -62,13 +62,11 @@ switch ($_GET["step"]) {
                 $db->qry('UPDATE %prefix%menu SET boxid = %int% WHERE id = %int%', $val, $key);
             }
         }
-    break;
-
+        break;
 }
 
 
 switch ($_GET["step"]) {
-
     // Change Group Choice
     case 8:
         $dsp->NewContent(t('Gruppe ändern'), t('Hier kannst du diesen Navigationseintrag einer Gruppe zuweisen'));
@@ -80,7 +78,7 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install&action=menu&onlyactive={$_GET["onlyactive"]}", "install/modules");
         $dsp->AddContent();
-    break;
+        break;
 
 
     default:
@@ -96,12 +94,12 @@ switch ($_GET["step"]) {
             $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&onlyactive=1\">".t('Nur Einträge von aktivierten Modulen anzeigen')."</a>");
         }
 
-    $validBoxIds = array();
-    $res = $db->qry('SELECT boxid,name FROM %prefix%boxes WHERE source = \'menu\'');
-    while ($row = $db->fetch_array($res)) {
-        $validBoxIds[$row['boxid']] = $row['name'];
-    }
-    $db->free_result($res);
+        $validBoxIds = array();
+        $res = $db->qry('SELECT boxid,name FROM %prefix%boxes WHERE source = \'menu\'');
+        while ($row = $db->fetch_array($res)) {
+            $validBoxIds[$row['boxid']] = $row['name'];
+        }
+        $db->free_result($res);
 
         $menus = $db->qry("SELECT module.active, menu.* FROM %prefix%menu AS menu
 			LEFT JOIN %prefix%modules AS module ON (menu.module = module.name)
@@ -146,5 +144,5 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install", "install/modules");
         $dsp->AddContent();
-    break;
+        break;
 }

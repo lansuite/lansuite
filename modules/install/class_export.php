@@ -184,7 +184,6 @@ class Export
         global $xml, $db;
 
         if (is_dir("modules/$mod/mod_settings/")) {
-
             // Read DB-Names from db.xml
             $file = "modules/$mod/mod_settings/db.xml";
             if (file_exists($file)) {

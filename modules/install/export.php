@@ -25,7 +25,7 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install", "install/export");
         $dsp->AddContent();
-    break;
+        break;
 
     case 2:
         $db->connect();
@@ -39,7 +39,7 @@ switch ($_GET["step"]) {
                 $dsp->AddCheckBoxRow("e_cont", t('Inhalt exportieren'), "", "", 1, 1);
 
                 $dsp->AddFormSubmitRow(t('Weiter'));
-            break;
+                break;
 
             case "xml_modules":
                 $dsp->SetForm("index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3", "", "", "");
@@ -79,7 +79,7 @@ switch ($_GET["step"]) {
                 $db->free_result($res);
 
                 $dsp->AddFormSubmitRow(t('Weiter'));
-            break;
+                break;
 
             case "xml_tables":
                 $dsp->SetForm("index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3", "", "", "");
@@ -112,32 +112,32 @@ switch ($_GET["step"]) {
                 $db->free_result($res);
 
                 $dsp->AddFormSubmitRow(t('Weiter'));
-            break;
+                break;
 
             case "csv_complete":
                 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">".t('Lansuite-CSV-Export speichern')."</a>", "", "", "");
-            break;
+                break;
 
             case "csv_sticker":
                 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">".t('Lansuite-Aufkleber-Export speichern')."</a>", "", "", "");
-            break;
+                break;
 
             case "csv_card":
                 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">".t('Lansuite-Sitzplatzkarten-Export speichern')."</a>", "", "", "");
-            break;
+                break;
 
-      case 'ext_inc_data':
+            case 'ext_inc_data':
                 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">".t('Lansuite Daten-Ordner herunterladen')."</a>", "", "", "");
-      break;
+                break;
 
             default:
                 $func->information(t('Der von dir angegebene Dateityp wird nicht unterstützt. Bitte wähle eine Datei vom Typ *.xml, oder *.csv aus oder überspringe den Dateiimport.'), "index.php?mod=install&action=import");
-            break;
+                break;
         }
 
         $dsp->AddBackButton("index.php?mod=install&action=export", "install/export");
         $dsp->AddContent();
-    break;
+        break;
 
     case 3:
         $db->connect();
@@ -145,7 +145,7 @@ switch ($_GET["step"]) {
         switch ($_GET["type"]) {
             case "xml":
                 $export->ExportAllTables($_POST["e_struct"], $_POST["e_cont"]);
-            break;
+                break;
 
             case "xml_modules":
                 $export->LSTableHead();
@@ -155,7 +155,7 @@ switch ($_GET["step"]) {
                     }
                 }
                 $export->LSTableFoot();
-            break;
+                break;
 
             case "xml_tables":
                 $export->LSTableHead();
@@ -165,31 +165,31 @@ switch ($_GET["step"]) {
                     }
                 }
                 $export->LSTableFoot();
-            break;
+                break;
 
 
             case "csv_complete":
                 $output = $export->ExportCSVComplete(";");
                 $export->SendExport($output, "lansuite.csv");
-            break;
+                break;
 
             case "csv_sticker":
                 $output = $export->ExportCSVSticker(";");
                 $export->SendExport($output, "lansuite_sticker.csv");
-            break;
+                break;
 
             case "csv_card":
                 $output = $export->ExportCSVCard(";");
                 $export->SendExport($output, "lansuite_card.csv");
-            break;
+                break;
 
             case "ext_inc_data":
                 $export->ExportExtInc('lansuite_data.tgz');
-            break;
+                break;
 
             default:
                 $func->information(t('Der von dir angegebene Dateityp wird nicht unterstützt. Bitte wählen dir eine Datei vom Typ *.xml, oder *.csv aus oder überspringe den Dateiimport.'), "index.php?mod=install&action=import");
-            break;
+                break;
         }
-    break;
+        break;
 }

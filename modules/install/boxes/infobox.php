@@ -8,7 +8,6 @@
  */
  
 if ($auth['login'] == 1) {
-
     // Checkout infos
     $halfanhour = date("U") - 30*60;
 

@@ -10,48 +10,52 @@ $_SESSION['auth']['design'] = 'simple';
 
 // Error-Switch
 switch ($_GET["step"]) {
-  case 7:
-    if ($_POST["email"] == "") {
-        $func->error(t('Bitte gib eine E-Mail-Adresse ein!'), "index.php?mod=install&action=wizard&step=6");
-    } elseif ($_POST["password"] == "") {
-        $func->error(t('Bitte gib ein Kennwort ein!'), "index.php?mod=install&action=wizard&step=6");
-    } elseif ($_POST["password"] != $_POST["password2"]) {
-        $func->error(t('Das Passwort und seine Verifizierung stimmen nicht überein!'), "index.php?mod=install&action=wizard&step=6");
-    } else {
-        // Check for existing Admin-Account.
-      $row = $db->qry_first("SELECT email FROM %prefix%user WHERE email=%string%", $_POST["email"]);
+    case 7:
+        if ($_POST["email"] == "") {
+            $func->error(t('Bitte gib eine E-Mail-Adresse ein!'), "index.php?mod=install&action=wizard&step=6");
+        } elseif ($_POST["password"] == "") {
+            $func->error(t('Bitte gib ein Kennwort ein!'), "index.php?mod=install&action=wizard&step=6");
+        } elseif ($_POST["password"] != $_POST["password2"]) {
+            $func->error(t('Das Passwort und seine Verifizierung stimmen nicht überein!'), "index.php?mod=install&action=wizard&step=6");
+        } else {
+            // Check for existing Admin-Account.
+            $row = $db->qry_first("SELECT email FROM %prefix%user WHERE email=%string%", $_POST["email"]);
 
-      // If found, update password
-      if ($row['email']) {
-          $db->qry("UPDATE %prefix%user SET password = %string%, type = '3' WHERE email=%string%",
-  md5($_POST["password"]), $_POST["email"]);
-      }
+            // If found, update password
+            if ($row['email']) {
+                $db->qry(
+                    "UPDATE %prefix%user SET password = %string%, type = '3' WHERE email=%string%",
+                    md5($_POST["password"]),
+                    $_POST["email"]
+                );
+            } // If not found, insert
+            else {
+                $db->qry(
+                    "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
+                    $_POST["email"],
+                    md5($_POST["password"])
+                );
+                  $userid = $db->insert_id();
+            }
 
-      // If not found, insert
-      else {
-          $db->qry("INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
-  $_POST["email"], md5($_POST["password"]));
-          $userid = $db->insert_id();
-      }
+            include_once("inc/classes/class_auth.php");
+            $authentication = new auth();
+            $authentication->login($_POST["email"], $_POST["password"]);
+        }
+      // No break!
 
-        include_once("inc/classes/class_auth.php");
-        $authentication = new auth();
-        $authentication->login($_POST["email"], $_POST["password"]);
-    }
-  // No break!
-
-  case 8:
-    if (!$func->admin_exists()) {
-        $func->information(t('Du musst einen Admin-Account anlegen, um fortfahren zu können'));
-        $_GET['step'] = 6;
-    }
-  break;
+    case 8:
+        if (!$func->admin_exists()) {
+            $func->information(t('Du musst einen Admin-Account anlegen, um fortfahren zu können'));
+            $_GET['step'] = 6;
+        }
+        break;
 }
 
 switch ($_GET["step"]) {
     // Check Environment
     default:
-    $dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration deines Webservers überprüft.<br />Sollte alles korrekt sein, so drücke bitte am Ende der Seite auf <b>Weiter</b> um mit der Eingabe der Grundeinstellungen fortzufahren.'));
+        $dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration deines Webservers überprüft.<br />Sollte alles korrekt sein, so drücke bitte am Ende der Seite auf <b>Weiter</b> um mit der Eingabe der Grundeinstellungen fortzufahren.'));
 
         $dsp->SetForm("index.php?mod=install&action=wizard");
         $lang_array = array();
@@ -76,7 +80,7 @@ switch ($_GET["step"]) {
             $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=2"));
         }
         $dsp->AddContent();
-    break;
+        break;
 
 
     // Setting up ls_conf
@@ -118,17 +122,15 @@ switch ($_GET["step"]) {
         // Check all Subdirs of $design_dir fpr valid design-xml-files
         $t_array = array();
         while ($akt_design = readdir($design_dir)) {
-            if (
-                $akt_design != "."
+            if ($akt_design != "."
             and $akt_design != ".."
             and $akt_design != "templates"
             and is_dir($akt_design)
-        ) {
+            ) {
                 $file = "design/$akt_design/design.xml";
                 if (file_exists($file)) {
-
                 // Read Names from design.xml
-                $xml_file = fopen($file, "r");
+                    $xml_file = fopen($file, "r");
                     $xml_content = fread($xml_file, filesize($file));
                     if ($xml_content != "") {
                         ($config['lansuite']['default_design'] == $akt_design) ? $selected = "selected" : $selected = "";
@@ -146,7 +148,7 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=1", "install/ls_conf");
         $dsp->AddContent();
-    break;
+        break;
 
 
     // Writing ls_conf & try to create DB-Strukture
@@ -174,12 +176,24 @@ switch ($_GET["step"]) {
 
             $res = $install->TryCreateDB($_POST["resetdb"]);
             switch ($res) {
-                case 0: $output .= $fail_leadin . t('Die Datenbank ist nicht erreichbar. Überprüfe bitte die Angaben zur Datenbankverbindung.') . $leadout; break;
-                case 1: $output .= t('Die Datenbank \'%1\' existiert bereits und wurde daher nicht neu angelegt.', $config["database"]["database"]); break;
-                case 2: $output .= $fail_leadin . t('Anlegen der Datenbank fehlgeschlagen. Überprüfe bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfe, ob du den Namen der Datenbank korrekt angegeben hast.') . $leadout; break;
-                case 3: $output .= t('Datenbank wurde erfolgreich angelegt.'); break;
-                case 4: $output .= $fail_leadin . t('Verbdindung ok aber keinen Datenbanknamen angegeben.') . $leadout; break;
-                case 5: $output .= t('Datenbank wurde erfolgreich Überschrieben.'); break;
+                case 0:
+                    $output .= $fail_leadin . t('Die Datenbank ist nicht erreichbar. Überprüfe bitte die Angaben zur Datenbankverbindung.') . $leadout;
+                    break;
+                case 1:
+                    $output .= t('Die Datenbank \'%1\' existiert bereits und wurde daher nicht neu angelegt.', $config["database"]["database"]);
+                    break;
+                case 2:
+                    $output .= $fail_leadin . t('Anlegen der Datenbank fehlgeschlagen. Überprüfe bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfe, ob du den Namen der Datenbank korrekt angegeben hast.') . $leadout;
+                    break;
+                case 3:
+                    $output .= t('Datenbank wurde erfolgreich angelegt.');
+                    break;
+                case 4:
+                    $output .= $fail_leadin . t('Verbdindung ok aber keinen Datenbanknamen angegeben.') . $leadout;
+                    break;
+                case 5:
+                    $output .= t('Datenbank wurde erfolgreich Überschrieben.');
+                    break;
             }
             $output .= HTML_NEWLINE . HTML_NEWLINE;
 
@@ -206,12 +220,11 @@ switch ($_GET["step"]) {
         }
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=2", "install/db");
         $dsp->AddContent();
-    break;
+        break;
 
 
     // Display import form
     case 4:
-
         $dsp->NewContent(t('Datenimport'), t('Hier kannst du die XML- oder CSV-Datei mit den Benutzerdaten ihrer Gäste importieren. Diese erhälst du z.B. bei LanSurfer, oder über den Export-Link einer anderen Lansuite-Version oder von jedem anderen System, das das Lansuite XML-Benutzerformat unterstützt.<br />Du kannst den Import auch überspringen (auf <b>\'Weiter\'</b> klicken). In diesem Fall solltest du im nächsten Schritt einen Adminaccount anlegen.'));
 
         $dsp->SetForm("index.php?mod=install&action=wizard&step=5", "", "", "multipart/form-data");
@@ -237,7 +250,7 @@ switch ($_GET["step"]) {
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=3", "install/import");
         $dsp->AddContent();
-    break;
+        break;
 
 
     // Import uploaded file
@@ -258,22 +271,22 @@ switch ($_GET["step"]) {
                         $dsp->AddDoubleRow(t('Quelle'), $header["source"]);
                         $dsp->AddDoubleRow(t('LanParty'), $header["event"]);
                         $dsp->AddDoubleRow(t('Lansuite-Version'), $header["version"]);
-                    break;
+                        break;
 
                     case "LanSuite":
                         $import->ImportXML($_POST["rewrite"]);
                         $dsp->AddSingleRow("Import erfolgreich");
-                    break;
+                        break;
 
                     default:
                         $func->Information(t('Dies scheint keine Lansuite-kompatible-XML-Datei zu sein. Bitte Überprüfen sie den Eintrag &lt;filetype&gt; am Anfang der XML-Datei (FileType: \'%1\')', $header["filetype"]), "index.php?mod=install&action=wizard&step=4");
-                    break;
+                        break;
                 }
 
                 $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
                 $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/import");
                 $dsp->AddContent();
-            break;
+                break;
 
             case "csv":
                 $check = $import->ImportCSV($_FILES['importdata']['tmp_name'], $_POST["deldb"], $_POST["replace"], $_POST["signon"], $_POST["comment"]);
@@ -284,13 +297,13 @@ switch ($_GET["step"]) {
                 $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
                 $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/import");
                 $dsp->AddContent();
-            break;
+                break;
 
             default:
                 $func->information(t('Der von dir angegebene Dateityp wird nicht unterstützt. Bitte wähle eine Datei vom Typ *.xml, oder *.csv aus oder überspringe den Dateiimport.'), "index.php?mod=install&action=wizard&step=4");
-            break;
+                break;
         }
-    break;
+        break;
 
 
     // Display form to create Adminaccount
@@ -311,7 +324,7 @@ switch ($_GET["step"]) {
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=8"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/admin");
         $dsp->AddContent();
-    break;
+        break;
 
 
     // Create Adminaccount
@@ -332,7 +345,7 @@ switch ($_GET["step"]) {
 
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/admin");
         $dsp->AddContent();
-    break;
+        break;
 
     // Set main config-variables
     case 9:
@@ -399,7 +412,7 @@ switch ($_GET["step"]) {
 
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=8", "install/vars");
         $dsp->AddContent();
-    break;
+        break;
 
 
     // Display final hints
@@ -426,5 +439,5 @@ switch ($_GET["step"]) {
 
         $config["environment"]["configured"] = 1;
         $install->WriteConfig();
-    break;
+        break;
 }

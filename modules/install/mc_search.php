@@ -1,11 +1,11 @@
 <?php
 
 switch ($_GET['step']) {
-  case 10:
-    include_once('inc/classes/class_masterdelete.php');
-    $md = new masterdelete();
-    $md->MultiDelete('comments', 'commentid');
-  break;
+    case 10:
+        include_once('inc/classes/class_masterdelete.php');
+        $md = new masterdelete();
+        $md->MultiDelete('comments', 'commentid');
+        break;
 }
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
