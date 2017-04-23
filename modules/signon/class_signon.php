@@ -86,7 +86,7 @@ class signon
             $input_start = 2;
             $input_end = 2;
             $lansurfer_data = array();
-            for ($z = 0; $z < 30 ; $z++) {
+            for ($z = 0; $z < 30; $z++) {
                 $input_start = strpos($lansurfer_site, "<input", $input_end);
                 if ($input_start == 0) {
                     break;

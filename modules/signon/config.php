@@ -39,12 +39,12 @@ switch ($step) {
 
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddContent();
-    break;
+        break;
 
     case 2:
         while (list($key, $val) = each($_POST)) {
             $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = %string%", $val, $key);
         }
         $func->confirmation(t('Einstellungen wurden erfolgreich geändert'), "index.php?mod=signon&action=config");
-    break;
+        break;
 }
