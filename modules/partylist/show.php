@@ -4,17 +4,17 @@ include_once("inc/classes/class_xml.php");
 $xml = new xml;
 
 switch ($_GET['step']) {
-  case 10:
-    $row = $db->qry_first("SELECT ls_url FROM %prefix%partylist WHERE partyid = %int%", $_GET['partyid']);
-    if (substr($row['ls_url'], strlen($row['ls_url']) - 1, 1) != '/') {
-        $row['ls_url'] .= '/';
-    }
-    if (substr($row['ls_url'], 0, 7) != 'http://') {
-        $row['ls_url'] = 'http://'. $row['ls_url'];
-    }
-    header('Location: '. $row['ls_url'] . 'index.php?mod=signon');
-    exit;
-  break;
+    case 10:
+        $row = $db->qry_first("SELECT ls_url FROM %prefix%partylist WHERE partyid = %int%", $_GET['partyid']);
+        if (substr($row['ls_url'], strlen($row['ls_url']) - 1, 1) != '/') {
+            $row['ls_url'] .= '/';
+        }
+        if (substr($row['ls_url'], 0, 7) != 'http://') {
+            $row['ls_url'] = 'http://'. $row['ls_url'];
+        }
+        header('Location: '. $row['ls_url'] . 'index.php?mod=signon');
+        exit;
+    break;
 }
 
 function GetSite($url)
@@ -33,7 +33,7 @@ function GetSite($url)
     }
     try {
         # $ip = gethostbyname($url['host']);
-    $fp = @fsockopen($url['host'], $url['port'], $errno, $errstr, 1);
+        $fp = @fsockopen($url['host'], $url['port'], $errno, $errstr, 1);
     # $fp = stream_set_timeout($fp, 1);
     } catch (Exception $e) {
         // Ignore connection errors
@@ -79,70 +79,70 @@ function AddSignonStatus($lsurl, $show_history = 0)
     }
     $lsurl .= 'ext_inc/party_infos/infos.xml';
 #  $lines = @file($lsurl);
-  $content = GetSite($lsurl);
+    $content = GetSite($lsurl);
 
 #  if (!$lines) return t('infos.xml fehlt');
-  if (!$content) {
-      return '<div class="infolink" style="display:inline">'. t('infos.xml fehlt') .'<span class="infobox">'. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace("'", "\\'", str_replace('"', "'", str_replace("\r\n", HTML_NEWLINE, $HTTPHeader))) .'</span></div>';
-  } else {
-      #    $content = '';
-#    foreach ($lines as $line_num => $line) $content .= $line;
-
-    $system = $xml->get_tag_content_array('system', $content);
-    // Version 3.0 XML-File
-    if ($system) {
-        #    $name = $xml->get_tag_content('name', $system[0]);
-  #    $link = $xml->get_tag_content('link', $system[0]);
-  #    $language = $xml->get_tag_content('language', $system[0]);
-      $current_party = $xml->get_tag_content('current_party', $system[0]);
-  #    $users = $xml->get_tag_content('users', $system[0]);
-
-      $partys = $xml->get_tag_content_array('party', $content);
-        $ret = '';
-        if (!$partys) {
-            return t('Noch keine Party angelegt');
-        } else {
-            foreach ($partys as $p) {
-                $partyid = $xml->get_tag_content('partyid', $p);
-                $partyname = $xml->get_tag_content('name', $p);
-                $max_guest = $xml->get_tag_content('max_guest', $p);
-                $ort = $xml->get_tag_content('ort', $p);
-                $plz = $xml->get_tag_content('plz', $p);
-  #     $startdate = $xml->get_tag_content('startdate', $p);
-  #     $enddate = $xml->get_tag_content('enddate', $p);
-  #     $sstartdate = $xml->get_tag_content('sstartdate', $p);
-  #     $senddate = $xml->get_tag_content('senddate', $p);
-        $registered = $xml->get_tag_content('registered', $p);
-                $paid = $xml->get_tag_content('paid', $p);
-
-        # Overview
-        if (!$_GET['partyid'] and $current_party == $partyid) {
-            $ret .= $func->CreateSignonBar($registered, $paid, $max_guest).'Max.: '.$max_guest;
-        }
-
-        # Details
-        if ($_GET['partyid']) {
-            if (!$show_history and $current_party == $partyid) {
-                $ret .= $func->CreateSignonBar($registered, $paid, $max_guest);
-            } elseif ($show_history and $current_party != $partyid) {
-                $dsp->AddDoubleRow($partyname .HTML_NEWLINE. $plz .' '. $ort, $func->CreateSignonBar($registered, $paid, $max_guest));
-            }
-        }
-            }
-        }
-        return $ret;
-
-    // Old version
+    if (!$content) {
+        return '<div class="infolink" style="display:inline">'. t('infos.xml fehlt') .'<span class="infobox">'. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace("'", "\\'", str_replace('"', "'", str_replace("\r\n", HTML_NEWLINE, $HTTPHeader))) .'</span></div>';
     } else {
-        $guests = $xml->get_tag_content('guests', $content);
-        $paid_guests = $xml->get_tag_content('paid_guests', $content);
-        $max_guests = $xml->get_tag_content('max_guests', $content);
-        $signon_start = $xml->get_tag_content('signon_start', $content);
-        $signon_end = $xml->get_tag_content('signon_end', $content);
+        #    $content = '';
+    #    foreach ($lines as $line_num => $line) $content .= $line;
 
-        return $func->CreateSignonBar($registered, $paid, $max_guest);
+        $system = $xml->get_tag_content_array('system', $content);
+        // Version 3.0 XML-File
+        if ($system) {
+            #    $name = $xml->get_tag_content('name', $system[0]);
+        #    $link = $xml->get_tag_content('link', $system[0]);
+        #    $language = $xml->get_tag_content('language', $system[0]);
+            $current_party = $xml->get_tag_content('current_party', $system[0]);
+        #    $users = $xml->get_tag_content('users', $system[0]);
+
+            $partys = $xml->get_tag_content_array('party', $content);
+            $ret = '';
+            if (!$partys) {
+                return t('Noch keine Party angelegt');
+            } else {
+                foreach ($partys as $p) {
+                    $partyid = $xml->get_tag_content('partyid', $p);
+                    $partyname = $xml->get_tag_content('name', $p);
+                    $max_guest = $xml->get_tag_content('max_guest', $p);
+                    $ort = $xml->get_tag_content('ort', $p);
+                    $plz = $xml->get_tag_content('plz', $p);
+      #     $startdate = $xml->get_tag_content('startdate', $p);
+      #     $enddate = $xml->get_tag_content('enddate', $p);
+      #     $sstartdate = $xml->get_tag_content('sstartdate', $p);
+      #     $senddate = $xml->get_tag_content('senddate', $p);
+                    $registered = $xml->get_tag_content('registered', $p);
+                    $paid = $xml->get_tag_content('paid', $p);
+
+            # Overview
+                    if (!$_GET['partyid'] and $current_party == $partyid) {
+                        $ret .= $func->CreateSignonBar($registered, $paid, $max_guest).'Max.: '.$max_guest;
+                    }
+
+            # Details
+                    if ($_GET['partyid']) {
+                        if (!$show_history and $current_party == $partyid) {
+                            $ret .= $func->CreateSignonBar($registered, $paid, $max_guest);
+                        } elseif ($show_history and $current_party != $partyid) {
+                            $dsp->AddDoubleRow($partyname .HTML_NEWLINE. $plz .' '. $ort, $func->CreateSignonBar($registered, $paid, $max_guest));
+                        }
+                    }
+                }
+            }
+              return $ret;
+
+          // Old version
+        } else {
+            $guests = $xml->get_tag_content('guests', $content);
+            $paid_guests = $xml->get_tag_content('paid_guests', $content);
+            $max_guests = $xml->get_tag_content('max_guests', $content);
+            $signon_start = $xml->get_tag_content('signon_start', $content);
+            $signon_end = $xml->get_tag_content('signon_end', $content);
+
+            return $func->CreateSignonBar($registered, $paid, $max_guest);
+        }
     }
-  }
 }
 
 function EditAllowed()
