@@ -10,90 +10,92 @@ $barcode     = new barcode_system();  // Load Barcode System
 /**
  * Klasse um die Menus und die PDF-Dateien im Modul PDF  zu erzeugen.
  * Author:          Genesis marco@chuchi.tv
- * Letzte Änderung: 5.4.2005    
+ * Letzte Änderung: 5.4.2005
  *
  */
-class pdf {
+class pdf
+{
 
     /**
      * Daten Array um Möglich Daten anzuzeigen
      *
      * @var array
      */
-    var $data_type_array = array();
+    public $data_type_array = array();
     /**
      * PDF Klasse um Daten zu erzeugen
      *
      * @var fpdf
      */
-    var $pdf;
+    public $pdf;
     /**
      * Momentane Position
      *
      * @var int
      */
-    var $x,$y = 0;
+    public $x;
+    public $y = 0;
     /**
      * Start Position x-Richtung
      *
      * @var int
      */
-    var $start_x;
+    public $start_x;
     /**
      * Start Position y-Richtung
      *
      * @var int
      */
-    var $start_y;
+    public $start_y;
     /**
      * End Position x-Richtung
      *
      * @var int
      */
-    var $total_x;
+    public $total_x;
     /**
      * End Position y-Richtung
      *
      * @var int
      */
-    var $total_y;
+    public $total_y;
     /**
      * Breite des zu zeichnenden Objekts
      *
      * @var int
      */
-    var $object_width = 0;
+    public $object_width = 0;
     /**
      * Höhe des zu zeichnenden Objekts
      *
      * @var int
      */
-    var $object_high = 0;
+    public $object_high = 0;
     /**
      * Momentane Spalten
      *
      * @var int
      */
-    var $col = 1;
+    public $col = 1;
     /**
      * Momentane Zeile
      *
      * @var int
      */
-    var $row = 1;
+    public $row = 1;
     /**
      * Maximale Anzahl möglicher Spalten
      *
      * @var int
      */
-    var $max_col = 0;
+    public $max_col = 0;
     /**
      * Maximale Anzahl möglicher Zeilen
      *
      * @var int
      */
-    var $max_row = 0;
-    var $templ_id;
+    public $max_row = 0;
+    public $templ_id;
     
     
     /**
@@ -102,10 +104,11 @@ class pdf {
      * @param int $templ_id
      * @return pdf
      */
-    function pdf($templ_id){
+    public function pdf($templ_id)
+    {
         $this->templ_id = $templ_id;
         // Typen Array erstellen
-        // Für Eintrittskarten 
+        // Für Eintrittskarten
         $this->data_type_array['guestcards']['user_nickname']   = "Nickname";
         $this->data_type_array['guestcards']['name']            = "Name";
         $this->data_type_array['guestcards']['firstname']       = "Vorname";
@@ -162,24 +165,23 @@ class pdf {
      *
      * @param unknown_type $action
      */
-    function pdf_menu($action){
+    public function pdf_menu($action)
+    {
         global $lang;
-        switch ($action){
+        switch ($action) {
             case 'guestcards':
                 $this->_menuUsercards($action);
-            break;  
+            break;
             case 'seatcards':
                 $this->_menuSeatcards($action);
-            break;              
+            break;
             default:
-                $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'),"index.php?mod=pdf&action=" . $action);
+                $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action);
             break;
             case 'userlist':
                 $this->_menuUserlist($action);
-            break;  
+            break;
         }
-
-        
     }
     
     // PDF erstellen
@@ -188,29 +190,28 @@ class pdf {
      *
      * @param string $action
      */
-    function pdf_make($action){
+    public function pdf_make($action)
+    {
         global $lang,$auth;
-        switch ($action){
+        switch ($action) {
             case 'guestcards':
-                $this->_makeUserCard($_POST['paid'],$_POST['guest'],$_POST['op'],$_POST['orga'],$_POST['user']);
-            break;  
+                $this->_makeUserCard($_POST['paid'], $_POST['guest'], $_POST['op'], $_POST['orga'], $_POST['user']);
+            break;
             case 'seatcards':
-                $this->_makeSeatCard($_POST['block'],$_POST['order']);
-            break;  
+                $this->_makeSeatCard($_POST['block'], $_POST['order']);
+            break;
             case 'userlist':
-                $this->_makeUserlist($_POST['paid'],$_POST['guest'],$_POST['op'],$_POST['orga'],$_POST['order']);
-            break;  
+                $this->_makeUserlist($_POST['paid'], $_POST['guest'], $_POST['op'], $_POST['orga'], $_POST['order']);
+            break;
             default:
-                $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'),"index.php?mod=pdf&action=" . $action);
+                $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action);
             break;
             case 'ticket':
-                if($auth["userid"] == $_GET['userid'] || $auth["type"] > 2){
-                    $this->_makeUserCard(1,1,1,1,$_GET['userid']);
+                if ($auth["userid"] == $_GET['userid'] || $auth["type"] > 2) {
+                    $this->_makeUserCard(1, 1, 1, 1, $_GET['userid']);
                 }
-            break;              
+            break;
         }
-
-        
     }
 
     /**
@@ -220,13 +221,14 @@ class pdf {
      * @param string $selected
      * @return array
      */
-    function get_data_array($action,$selected = ""){
+    public function get_data_array($action, $selected = "")
+    {
         $data[] = array();
-        foreach ($this->data_type_array[$action] as $key => $value){
-            if($key == $selected){
+        foreach ($this->data_type_array[$action] as $key => $value) {
+            if ($key == $selected) {
                 $data[] .= "<option selected value=\"$key\">$value</option>";
-            }else {
-                $data[] .= "<option value=\"$key\">$value</option>";    
+            } else {
+                $data[] .= "<option value=\"$key\">$value</option>";
             }
         }
         return $data;
@@ -234,14 +236,15 @@ class pdf {
     
     // Interne Funktionen ***********************************************
     
-    // Menus *************************  
+    // Menus *************************
     
     /**
      * Menu für Besucherausweise
      *
      * @param string $action
      */
-    function _menuUsercards($action){
+    public function _menuUsercards($action)
+    {
         global $lang,$dsp,$db;
         
         
@@ -256,48 +259,48 @@ class pdf {
                             );
         $t_array = array();
         
-        while (list ($key, $val) = each ($type_array)) {
-            array_push ($t_array, "<option $selected value=\"$key\">$val</option>");
+        while (list($key, $val) = each($type_array)) {
+            array_push($t_array, "<option $selected value=\"$key\">$val</option>");
         }
         // Checkboken für Benutzer
         $dsp->AddDropDownFieldRow("paid", t('Besucher hat bezahlt'), $t_array, "", 1);
         $dsp->AddCheckBoxRow("guest", t('Besucher ist normaler Gast'), "", "", "1", "1", "0");
         $dsp->AddCheckBoxRow("op", t('Besucher ist Superadmin'), "", "", "1", "0", "0");
         $dsp->AddCheckBoxRow("orga", t('Besucher ist Orga'), "", "", "1", "0", "0");
-        $dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'),"", "", "1", "1", "0");
+        $dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'), "", "", "1", "1", "0");
         
         
         // Array mit Benutzern
         $t_array = array();
-        array_push ($t_array, "<option $selected value=\"null\">Alle</option>");
-/*      $query = $db->qry('SELECT * FROM %prefix%user AS user 
+        array_push($t_array, "<option $selected value=\"null\">Alle</option>");
+/*      $query = $db->qry('SELECT * FROM %prefix%user AS user
                             LEFT JOIN %prefix%pdf_printed AS printed ON user.userid=printed.item_id OR printed.item_id is NULL WHERE user.type != \'-1\'');
 */
         $query = $db->qry('SELECT * FROM %prefix%user AS user WHERE user.type > 0');
-        while($row = $db->fetch_array($query)) {
-            if($row['item_id'] == ""){
-                array_push ($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>");
-            }else{
-                array_push ($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>");    
+        while ($row = $db->fetch_array($query)) {
+            if ($row['item_id'] == "") {
+                array_push($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>");
+            } else {
+                array_push($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>");
             }
         }
-        $dsp->AddSingleRow(t('Benutzer mit Stern wurden schon gedruckt'));              
+        $dsp->AddSingleRow(t('Benutzer mit Stern wurden schon gedruckt'));
         $dsp->AddDropDownFieldRow("user", t('Bestimmter Besucher'), $t_array, "", 1);
-/*      
+/*
         // Array für Datum
         $d_array = array("<option selected value=\"null\">Alle</option>");
-        
+
         $d_row = $db->qry('SELECT time FROM %prefix%pdf_printed GROUP BY time');
         while ($d_row_data = $db->fetch_array($d_row)){
             array_push ($d_array, "<option  value=\"" . $d_row_data['time'] . "\">" . date("m.d.y G:i",$d_row_data['time']) . "</option>");
         }
-        $dsp->AddSingleRow(t('Es werden alle Benutzer ausgedruck die <b>neuer</b> als das eingestellte Datum sind.HTML_NEWLINE Ausser er wurde nur dieses Datum angew&auml;hlt.'));             
+        $dsp->AddSingleRow(t('Es werden alle Benutzer ausgedruck die <b>neuer</b> als das eingestellte Datum sind.HTML_NEWLINE Ausser er wurde nur dieses Datum angew&auml;hlt.'));
         $dsp->AddDropDownFieldRow("date", t('Datum der Ausdrucke'), $d_array, "", 1);
         $dsp->AddCheckBoxRow("only", t('Nur dieses Datum drucken'), "", "", "1", "0", "0");
-*/      
+*/
         // Knopf für erzeugen der PDF
         $dsp->AddFormSubmitRow(t('Weiter'));
-        $dsp->AddBackButton("index.php?mod=pdf&action=$action","pdf/usercards"); 
+        $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/usercards");
         $dsp->AddContent();
     }
     
@@ -307,7 +310,8 @@ class pdf {
      *
      * @param string $action
      */
-    function _menuSeatcards($action){
+    public function _menuSeatcards($action)
+    {
         global $lang,$dsp,$db,$party,$func;
         
         $dsp->NewContent(t('Sitzplatzkarten erstellen.'), t('Hier k&ouml;nnen sie Karten f&uuml;r die Sitzpl&auml;tze erstellen.'));
@@ -316,27 +320,30 @@ class pdf {
 
         // Array mit Sitzen
         $block = array();
-        array_push ($block, "<option $selected value=\"null\"></option>");
+        array_push($block, "<option $selected value=\"null\"></option>");
         $query = $db->qry('SELECT * FROM %prefix%seat_block WHERE party_id=%int% ORDER BY blockid', $party->party_id);
         
-        if($db->num_rows($query) == 0) $func->error(t('Keine Sitzpl&auml;tze vorhanden'),"index.php?mod=pdf&action=$action");
-        else {
+        if ($db->num_rows($query) == 0) {
+            $func->error(t('Keine Sitzpl&auml;tze vorhanden'), "index.php?mod=pdf&action=$action");
+        } else {
+            while ($row = $db->fetch_array($query)) {
+                if ($row['name']) {
+                    array_push($block, "<option $selected value=\"" . $row['blockid'] . "\">" . $row['name'] . "</option>");
+                }
+            }
 
-            while($row = $db->fetch_array($query)) if ($row['name'])
-                array_push ($block, "<option $selected value=\"" . $row['blockid'] . "\">" . $row['name'] . "</option>");
-
-            // Dropdown für Blöcke      
+            // Dropdown für Blöcke
             $dsp->AddDropDownFieldRow("block", t('Block'), $block, "", 1);
 
-            // Array für Sortierung 
+            // Array für Sortierung
             $order = array("<option selected value=\"row\">". t('Reihen') . "</option>",
                              "<option value=\"col\">". t('Spalten') . "</option>");
         
-            // Dropdown für Sortierung      
+            // Dropdown für Sortierung
             $dsp->AddDropDownFieldRow("order", t('Sortierung'), $order, "", 1);
             // Knopf für erzeugen der PDF
             $dsp->AddFormSubmitRow(t('Weiter'));
-            $dsp->AddBackButton("index.php?mod=pdf&action=$action","pdf/seatcards"); 
+            $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/seatcards");
             $dsp->AddContent();
         }
     }
@@ -346,7 +353,8 @@ class pdf {
      *
      * @param string $action
      */
-    function _menuUserlist($action){
+    public function _menuUserlist($action)
+    {
         global $lang,$dsp,$db;
         
         $dsp->NewContent(t('Besucherlist erstellen.'), t('Hier k&ouml;nnen sie Listen mit allen Besuchern erstellen'));
@@ -360,15 +368,15 @@ class pdf {
                             );
         $t_array = array();
         
-        while (list ($key, $val) = each ($type_array)) {
-            array_push ($t_array, "<option $selected value=\"$key\">$val</option>");
+        while (list($key, $val) = each($type_array)) {
+            array_push($t_array, "<option $selected value=\"$key\">$val</option>");
         }
         // Checkboken für Benutzer
         $dsp->AddDropDownFieldRow("paid", t('Besucher hat bezahlt'), $t_array, "", 1);
         $dsp->AddCheckBoxRow("guest", t('Besucher ist normaler Gast'), "", "", "1", "1", "0");
         $dsp->AddCheckBoxRow("op", t('Besucher ist Superadmin'), "", "", "1", "0", "0");
         $dsp->AddCheckBoxRow("orga", t('Besucher ist Orga'), "", "", "1", "0", "0");
-        $dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'),"", "", "1", "1", "0");
+        $dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'), "", "", "1", "1", "0");
         
         // Array für Sortierung
         $sort_array = array("username" =>   t('Nickname'),
@@ -380,20 +388,20 @@ class pdf {
                             );
         $s_array = array();
         
-        while (list ($key, $val) = each ($sort_array)) {
-            array_push ($s_array, "<option $selected value=\"$key\">$val</option>");
+        while (list($key, $val) = each($sort_array)) {
+            array_push($s_array, "<option $selected value=\"$key\">$val</option>");
         }
         
         // Knopf für erzeugen der PDF
         $dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);
         $dsp->AddFormSubmitRow(t('Weiter'));
-        $dsp->AddBackButton("index.php?mod=pdf&action=$action","pdf/userlist"); 
+        $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/userlist");
         $dsp->AddContent();
     }
 
     // Erzeugung der PDF-Dateien ***********************************
     
-    // 
+    //
     /**
      * PDF erzeugen für Benutzerausweise
      *
@@ -403,8 +411,9 @@ class pdf {
      * @param string $pdf_orga
      * @param string $pdf_guestid
      */
-    function _makeUserCard($pdf_paid,$pdf_normal,$pdf_op,$pdf_orga,$pdf_guestid){
-        define('IMAGE_PATH','ext_inc/pdf_templates/');
+    public function _makeUserCard($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $pdf_guestid)
+    {
+        define('IMAGE_PATH', 'ext_inc/pdf_templates/');
         global $db, $func, $party, $seat2;
                 
         $date = date('U');
@@ -413,22 +422,41 @@ class pdf {
         $pdf_sqlstring = "";
 
         // Auf Party Prüfen
-        if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id";
-    $pdf_sqlstring .= ' WHERE user.type > -1';
-    if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
+        if ($_POST['party'] == '1' or $pdf_paid) {
+            $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id";
+        }
+        $pdf_sqlstring .= ' WHERE user.type > -1';
+        if ($_POST['party'] == '1' or $pdf_paid) {
+            $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
+        }
 
         // Bezahlstatus abfragen
-        if ($pdf_paid == '0') $pdf_sqlstring .= ' AND party.paid = 0';
-        elseif ($pdf_paid == '1') $pdf_sqlstring .= ' AND party.paid = 1';
+        if ($pdf_paid == '0') {
+            $pdf_sqlstring .= ' AND party.paid = 0';
+        } elseif ($pdf_paid == '1') {
+            $pdf_sqlstring .= ' AND party.paid = 1';
+        }
 
-        if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') $pdf_sqlstring .= ' AND (1 = 0';
-        if ($pdf_normal == '1') $pdf_sqlstring .= ' OR user.type = 1';
-        if ($pdf_orga == '1') $pdf_sqlstring .= ' OR user.type = 2';
-        if ($pdf_op == '1') $pdf_sqlstring .= ' OR user.type = 3';
-        if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') $pdf_sqlstring .= ')';
+        if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') {
+            $pdf_sqlstring .= ' AND (1 = 0';
+        }
+        if ($pdf_normal == '1') {
+            $pdf_sqlstring .= ' OR user.type = 1';
+        }
+        if ($pdf_orga == '1') {
+            $pdf_sqlstring .= ' OR user.type = 2';
+        }
+        if ($pdf_op == '1') {
+            $pdf_sqlstring .= ' OR user.type = 3';
+        }
+        if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') {
+            $pdf_sqlstring .= ')';
+        }
         
     //Userabfragen
-    if($pdf_guestid > 0) $pdf_sqlstring .= ' AND user.userid = '.$pdf_guestid.'';
+    if ($pdf_guestid > 0) {
+        $pdf_sqlstring .= ' AND user.userid = '.$pdf_guestid.'';
+    }
 
         $query = $db->qry('SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
       LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid %plain%', $pdf_sqlstring);
@@ -440,8 +468,8 @@ class pdf {
         // Datenbank abfragen für momentans Template
         $templ_data = $db->qry('SELECT * FROM %prefix%pdf_data WHERE template_id=%int% AND type != \'config\' AND type != \'header\' AND type != \'footer\' AND visible = \'1\' ORDER BY sort ASC', $this->templ_id);
         $templ = array();
-        while ($templ_data_array = $db->fetch_array($templ_data)){
-            $templ[] = array_merge($templ_data_array,$templ);
+        while ($templ_data_array = $db->fetch_array($templ_data)) {
+            $templ[] = array_merge($templ_data_array, $templ);
         }
 
         // Grösse ermitteln
@@ -452,7 +480,7 @@ class pdf {
         $this->max_row = floor(($this->total_y - $this->start_y)/($this->start_y + $this->object_high));
 
         // Seite füllen
-        while($row = $db->fetch_array($query)) {
+        while ($row = $db->fetch_array($query)) {
             unset($data);
             #$data['user_nickname'] = str_replace("&gt;","",$row["username"]);
             #$data['user_nickname'] = str_replace("&lt;","",$data['user_nickname']);
@@ -460,7 +488,7 @@ class pdf {
             #$data['user_nickname'] = str_replace("&lt","",$data['user_nickname']);
             #$data['user_nickname'] = trim($data['user_nickname']);
             $data['user_nickname'] = $func->AllowHTML($row["username"]);
-            $data['party_name']    = $_SESSION['party_info']['name'];   
+            $data['party_name']    = $_SESSION['party_info']['name'];
             
             $data['userid']         = $row["userid"];
             $data['name'] = $row["name"];
@@ -475,7 +503,7 @@ class pdf {
             // seat
             $row_seat = $db->qry_first('SELECT s.blockid, col, row, ip FROM %prefix%seat_seats AS s LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid WHERE b.party_id=%int% AND s.userid=%int%', $party->party_id, $row["userid"]);
             $blockid  = $row_seat["blockid"];
-            if($blockid != "") {
+            if ($blockid != "") {
                 $row_block = $db->qry_first('SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%', $blockid);
                 $data['orientation']  = $row_block["orientation"];
                 $data['col']          = $row_seat["col"];
@@ -487,40 +515,40 @@ class pdf {
             $data['user_ip'] = $row_seat["ip"];
 
             // Neue Seite Anlegen wenn die letze voll ist
-            if ($new_page){
+            if ($new_page) {
                 $this->pdf->AddPage();
                 $new_page = false;
             }
                         
-            // Spallte und Zelle anwählen   
+            // Spallte und Zelle anwählen
             $this->x = (($this->col - 1) * ($this->start_x + $this->object_width)) + $this->start_x;
             $this->y = (($this->row - 1) * ($this->start_y + $this->object_high)) + $this->start_y;
             
             // Objekte schreiben.
-            $this->_write_object($templ,$data);
+            $this->_write_object($templ, $data);
             // Nextes Feld auswählen
             
-            if($this->col < $this->max_col){
+            if ($this->col < $this->max_col) {
                 $this->col++;
-            }else{
+            } else {
                 $this->col = 1;
-                if($this->row < $this->max_row){
+                if ($this->row < $this->max_row) {
                     $this->row++;
-                }else{
+                } else {
                     $this->row = 1;
                     $new_page = true;
                 }
             }
             
             // Wenn neue Daten ausgedruckt werden Daten eintragen
-            if($row['template_id'] == ""){
+            if ($row['template_id'] == "") {
                 $db->qry_first('INSERT %prefix%pdf_printed SET template_id = %string%, item_id = %int%, time = %string%', $this->templ_id, $row['userid'], $date);
-            }else{
+            } else {
                 $db->qry_first('UPDATE %prefix%pdf_printed SET time = %string WHERE template_id = %string% AND item_id = %int%', $date, $this->templ_id, $row['userid']);
-            }           
+            }
         } // end while
 
-        $this->pdf->Output("UserCards.pdf","D");
+        $this->pdf->Output("UserCards.pdf", "D");
     }
 
     
@@ -531,21 +559,22 @@ class pdf {
      * @param int $block
      * @param string $order
      */
-    function _makeSeatCard($block,$order){
-        define('IMAGE_PATH','ext_inc/pdf_templates/');
+    public function _makeSeatCard($block, $order)
+    {
+        define('IMAGE_PATH', 'ext_inc/pdf_templates/');
         global $db, $func,$party, $seat2;
         
-        if($order == "row"){
+        if ($order == "row") {
             $sql_order = ", 'row', 'col'";
-        }else{
+        } else {
             $sql_order = ", 'col', 'row'";
         }
         //Daten der Sitzreihen auslesen
-        if($block == "null"){
+        if ($block == "null") {
             $query = $db->qry("SELECT * FROM %prefix%seat_seats AS s
         LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid
         WHERE b.party_id=%int% ORDER BY 's.blockid' %plain%", $party->party_id, $sql_order);
-        }else{
+        } else {
             $query = $db->qry("SELECT * FROM %prefix%seat_seats
       WHERE blockid=%string% ORDER BY 'blockid' %plain%", $block, $sql_order);
         }
@@ -557,8 +586,8 @@ class pdf {
         // Datenbank abfragen für momentans Template
         $templ_data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $this->templ_id);
         $templ = array();
-        while ($templ_data_array = $db->fetch_array($templ_data)){
-            $templ[] = array_merge($templ_data_array,$templ);
+        while ($templ_data_array = $db->fetch_array($templ_data)) {
+            $templ[] = array_merge($templ_data_array, $templ);
         }
     
         // Grösse ermitteln
@@ -568,7 +597,7 @@ class pdf {
         $this->max_col = floor(($this->total_x - $this->start_x)/($this->start_x + $this->object_width));
         $this->max_row = floor(($this->total_y - $this->start_y)/($this->start_y + $this->object_high));
         // Seite füllen
-        while($row = $db->fetch_array($query)) {
+        while ($row = $db->fetch_array($query)) {
             unset($data);
             // Block abfragen und Sitzplatz abfragen
             $row_block            = $db->qry_first("SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%", $row['blockid']);
@@ -577,7 +606,7 @@ class pdf {
             $data['row']          = $row["row"];
             $data['seat_block']   = $row_block['name'];
             $data['seat']         = $seat2->CoordinateToName($data['col'] + 1, $data['row'], $row_block['orientation']);
-            $data['party_name']    = $_SESSION['party_info']['name'];   
+            $data['party_name']    = $_SESSION['party_info']['name'];
             
             $row_user = $db->qry_first("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
         LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid
@@ -602,34 +631,33 @@ class pdf {
             $data['seat_ip']        = $row["ip"];
     
             // Neue Seite Anlegen wenn die letze voll ist
-            if ($new_page){
+            if ($new_page) {
                 $this->pdf->AddPage();
                 $new_page = false;
             }
                         
-            // Spallte und Zelle anwählen   
+            // Spallte und Zelle anwählen
             $this->x = (($this->col - 1) * ($this->start_x + $this->object_width)) + $this->start_x;
             $this->y = (($this->row - 1) * ($this->start_y + $this->object_high)) + $this->start_y;
             
             // Objekte schreiben
-            $this->_write_object($templ,$data);
+            $this->_write_object($templ, $data);
             // Nextes Feld auswählen
             
-            if($this->col < $this->max_col){
+            if ($this->col < $this->max_col) {
                 $this->col++;
-            }else{
+            } else {
                 $this->col = 1;
-                if($this->row < $this->max_row){
+                if ($this->row < $this->max_row) {
                     $this->row++;
-                }else{
+                } else {
                     $this->row = 1;
                     $new_page = true;
                 }
             }
-            
         } // end while
 
-        $this->pdf->Output("SeatCards.pdf","D");
+        $this->pdf->Output("SeatCards.pdf", "D");
     }
     
     
@@ -643,30 +671,48 @@ class pdf {
      * @param string $pdf_orga
      * @param string $order
      */
-    function _makeUserlist($pdf_paid,$pdf_normal,$pdf_op,$pdf_orga,$order){
-        define('IMAGE_PATH','ext_inc/pdf_templates/');
+    public function _makeUserlist($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $order)
+    {
+        define('IMAGE_PATH', 'ext_inc/pdf_templates/');
         global $db, $func,$party, $seat2;
                 
         // abfrage String erstellen
         $pdf_sqlstring = "";
 
         // Auf Party Prüfen
-        if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id";
-    $pdf_sqlstring .= ' WHERE user.type > -1';
-    if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
+        if ($_POST['party'] == '1' or $pdf_paid) {
+            $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id";
+        }
+        $pdf_sqlstring .= ' WHERE user.type > -1';
+        if ($_POST['party'] == '1' or $pdf_paid) {
+            $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
+        }
 
         // Bezahlstatus abfragen
-        if ($pdf_paid == '0') $pdf_sqlstring .= ' AND party.paid = 0';
-        elseif ($pdf_paid == '1') $pdf_sqlstring .= ' AND party.paid = 1';
+        if ($pdf_paid == '0') {
+            $pdf_sqlstring .= ' AND party.paid = 0';
+        } elseif ($pdf_paid == '1') {
+            $pdf_sqlstring .= ' AND party.paid = 1';
+        }
 
-        if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') $pdf_sqlstring .= ' AND (1 = 0';
-        if ($pdf_normal == '1') $pdf_sqlstring .= ' OR user.type = 1';
-        if ($pdf_orga == '1') $pdf_sqlstring .= ' OR user.type = 2';
-        if ($pdf_op == '1') $pdf_sqlstring .= ' OR user.type = 3';
-        if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') $pdf_sqlstring .= ')';
+        if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') {
+            $pdf_sqlstring .= ' AND (1 = 0';
+        }
+        if ($pdf_normal == '1') {
+            $pdf_sqlstring .= ' OR user.type = 1';
+        }
+        if ($pdf_orga == '1') {
+            $pdf_sqlstring .= ' OR user.type = 2';
+        }
+        if ($pdf_op == '1') {
+            $pdf_sqlstring .= ' OR user.type = 3';
+        }
+        if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') {
+            $pdf_sqlstring .= ')';
+        }
 
         // Sortierung einstellen
-        switch ($order){
+        switch ($order) {
             case 'username':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY username, name ASC";
             break;
@@ -699,11 +745,11 @@ class pdf {
         // Datenbank abfragen für momentans Template
         $templ_data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $this->templ_id);
         $templ = array();
-        while ($templ_data_array = $db->fetch_array($templ_data)){
-            $templ[] = array_merge($templ_data_array,$templ);
+        while ($templ_data_array = $db->fetch_array($templ_data)) {
+            $templ[] = array_merge($templ_data_array, $templ);
         }
         
-        // Grösse einstellen 
+        // Grösse einstellen
         $this->_get_size($templ);
         
         // Anzahl Spallten und Reihen ermitteln
@@ -712,7 +758,7 @@ class pdf {
 
         // Seite füllen
         $nr = 0;
-        while($row = $db->fetch_array($query)) {
+        while ($row = $db->fetch_array($query)) {
             $nr = $nr + 1;
             unset($data);
             #$data['user_nickname'] = str_replace("&gt;","",$row["username"]);
@@ -721,7 +767,7 @@ class pdf {
             #$data['user_nickname'] = str_replace("&lt","",$data['user_nickname']);
             #$data['user_nickname'] = trim($data['user_nickname']);
             $data['user_nickname'] = $func->AllowHTML($row["username"]);
-            $data['party_name']    = $_SESSION['party_info']['name'];   
+            $data['party_name']    = $_SESSION['party_info']['name'];
             $data['nr'] = $nr;
             
             $data['userid']         = $row["userid"];
@@ -736,7 +782,7 @@ class pdf {
             // seat
             $row_seat = $db->qry_first('SELECT s.blockid, col, row, ip FROM %prefix%seat_seats AS s LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid WHERE b.party_id=%int% AND s.userid=%int%', $party->party_id, $row["userid"]);
             $blockid  = $row_seat["blockid"];
-            if($blockid != "") {
+            if ($blockid != "") {
                 $row_block = $db->qry_first("SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%", $blockid);
                 $data['orientation']  = $row_block["orientation"];
                 $data['col']          = $row_seat["col"];
@@ -747,34 +793,33 @@ class pdf {
 
             $data['user_ip'] = $row_seat["ip"];
 
-            // Spallte und Zelle anwählen   
+            // Spallte und Zelle anwählen
             $this->x = (($this->col - 1) * ($this->start_x + $this->object_width)) + $this->start_x;
             $this->y = (($this->row - 1) * ($this->object_high)) + $this->start_y;
 
             // Neue Seite Anlegen wenn die letze voll ist
-            if ($new_page){
+            if ($new_page) {
                 $this->pdf->AddPage();
                 $new_page = false;
             }
                                     
-            $this->_write_object($templ,$data);
+            $this->_write_object($templ, $data);
             // Nextes Feld auswählen
             
-            if($this->col < $this->max_col){
+            if ($this->col < $this->max_col) {
                 $this->col++;
-            }else{
+            } else {
                 $this->col = 1;
-                if($this->row < $this->max_row){
+                if ($this->row < $this->max_row) {
                     $this->row++;
-                }else{
+                } else {
                     $this->row = 1;
                     $new_page = true;
                 }
             }
-
         } // end while
 
-        $this->pdf->Output("Userlist.pdf","D");
+        $this->pdf->Output("Userlist.pdf", "D");
     }
     
     // erstellen der ersten Seite
@@ -784,29 +829,29 @@ class pdf {
      * aufrufen.
      *
      */
-    function _make_page(){
+    public function _make_page()
+    {
         global $db;
         
         $page_data = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE template_id= %int% AND type = 'config' ORDER BY sort ASC", $this->templ_id);
-        define('FPDF_FONTPATH','ext_inc/pdf_fonts/');
-        if($page_data['visible'] == 1){
+        define('FPDF_FONTPATH', 'ext_inc/pdf_fonts/');
+        if ($page_data['visible'] == 1) {
             $orientation = 'l';
-        }else{
+        } else {
             $orientation = 'p';
         }
         
-        $this->pdf = new FPDF($orientation,'mm',$page_data['text']);
+        $this->pdf = new FPDF($orientation, 'mm', $page_data['text']);
         $this->start_x = $page_data['pos_x'];
         $this->start_y = $page_data['pos_y'];
-        $this->pdf->AddPage();  
-        if($page_data['visible'] == 1){
+        $this->pdf->AddPage();
+        if ($page_data['visible'] == 1) {
             $this->total_x = $this->pdf->fh;
             $this->total_y = $this->pdf->fw;
-        }else{
+        } else {
             $this->total_x = $this->pdf->fw;
             $this->total_y = $this->pdf->fh;
         }
-        
     }
 
     /**
@@ -814,46 +859,70 @@ class pdf {
      *
      * @param array $templ
      */
-    function _get_size($templ){
+    public function _get_size($templ)
+    {
         global $barcode;
 
         // Grösse aller Objekte ermitteln
-        for($i = 0; $i < count($templ); $i++){
-            switch ($templ[$i]['type']){
+        for ($i = 0; $i < count($templ); $i++) {
+            switch ($templ[$i]['type']) {
                 case 'text':
                     $width = $this->pdf->GetStringWidth($templ[$i]['text']);
-                    if($width > $this->object_width) $this->object_width = $width;
-                    if(($templ[$i]['fontsize']/2) > $this->object_high) $this->object_high = ($templ[$i]['fontsize']/2);
+                    if ($width > $this->object_width) {
+                        $this->object_width = $width;
+                    }
+                    if (($templ[$i]['fontsize']/2) > $this->object_high) {
+                        $this->object_high = ($templ[$i]['fontsize']/2);
+                    }
                 break;
                 case 'rect':
-                    if($templ[$i]['end_x'] > $this->object_width) $this->object_width = $templ[$i]['end_x'];
-                    if($templ[$i]['end_y'] > $this->object_high) $this->object_high = $templ[$i]['end_y'];
+                    if ($templ[$i]['end_x'] > $this->object_width) {
+                        $this->object_width = $templ[$i]['end_x'];
+                    }
+                    if ($templ[$i]['end_y'] > $this->object_high) {
+                        $this->object_high = $templ[$i]['end_y'];
+                    }
                 break;
                 case 'line':
-                    if($templ[$i]['end_x'] > $this->object_width) $this->object_width = $templ[$i]['end_x'];
-                    if($templ[$i]['end_y'] > $this->object_high) $this->object_high = $templ[$i]['end_y'];
+                    if ($templ[$i]['end_x'] > $this->object_width) {
+                        $this->object_width = $templ[$i]['end_x'];
+                    }
+                    if ($templ[$i]['end_y'] > $this->object_high) {
+                        $this->object_high = $templ[$i]['end_y'];
+                    }
                 break;
                 case 'image':
-                    if($templ[$i]['end_x'] > $this->object_width) $this->object_width = $templ[$i]['end_x'];
-                    if($templ[$i]['end_y'] > $this->object_high) $this->object_high = $templ[$i]['end_y'];
+                    if ($templ[$i]['end_x'] > $this->object_width) {
+                        $this->object_width = $templ[$i]['end_x'];
+                    }
+                    if ($templ[$i]['end_y'] > $this->object_high) {
+                        $this->object_high = $templ[$i]['end_y'];
+                    }
                 break;
                 
                 case 'barcode':
-                    $imagename = mt_rand(100000,999999);
-                    $barcode->get_image($_SESSION['userid'],BARCODE_PATH .$imagename);
+                    $imagename = mt_rand(100000, 999999);
+                    $barcode->get_image($_SESSION['userid'], BARCODE_PATH .$imagename);
                     $image = getimagesize(BARCODE_PATH .$imagename . ".png");
-                    if(($image[0]/2) > $this->object_width) $this->object_width = $image[0];
-                    if(($image[1]/2) > $this->object_high) $this->object_high = $image[1];
+                    if (($image[0]/2) > $this->object_width) {
+                        $this->object_width = $image[0];
+                    }
+                    if (($image[1]/2) > $this->object_high) {
+                        $this->object_high = $image[1];
+                    }
                     $barcode->kill_image(BARCODE_PATH . $imagename);
                     
                 case 'data':
                     $width = $this->pdf->GetStringWidth($data[$templ[$i]['text']]);
-                    if($width > $this->object_width) $this->object_width = $width;
-                    if(($templ[$i]['fontsize']/2) > $this->object_high) $this->object_high = ($templ[$i]['fontsize']/2);
+                    if ($width > $this->object_width) {
+                        $this->object_width = $width;
+                    }
+                    if (($templ[$i]['fontsize']/2) > $this->object_high) {
+                        $this->object_high = ($templ[$i]['fontsize']/2);
+                    }
                 break;
             }
         }
-        
     }
     
     /**
@@ -862,69 +931,67 @@ class pdf {
      * @param array $templ
      * @param array $data
      */
-    function _write_object($templ,$data){
+    public function _write_object($templ, $data)
+    {
         global $barcode;
 
-        for($i = 0; $i < count($templ); $i++){
-            if($templ[$i]['user_type'] == $row['type'] || $templ[$i]['user_type'] == "0"){
-                switch ($templ[$i]['type']){
+        for ($i = 0; $i < count($templ); $i++) {
+            if ($templ[$i]['user_type'] == $row['type'] || $templ[$i]['user_type'] == "0") {
+                switch ($templ[$i]['type']) {
                     case 'text':
-                    $this->pdf->SetFont($templ[$i]['font'],'',$templ[$i]["fontsize"]);
-                    $this->pdf->SetTextColor($templ[$i]["red"],$templ[$i]["green"],$templ[$i]["blue"]);
-                    if($templ[$i]['end_x'] == "1"){
-                        $this->pdf->Text(($templ[$i]["pos_x"] - $this->pdf->GetStringWidth($templ[$i]['text'])) + $this->x,$templ[$i]["pos_y"] + $this->y,$templ[$i]['text']);
-                    }else{
-                        $this->pdf->Text($templ[$i]["pos_x"] + $this->x,$templ[$i]["pos_y"] + $this->y,$templ[$i]['text']);
+                    $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
+                    $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                    if ($templ[$i]['end_x'] == "1") {
+                        $this->pdf->Text(($templ[$i]["pos_x"] - $this->pdf->GetStringWidth($templ[$i]['text'])) + $this->x, $templ[$i]["pos_y"] + $this->y, $templ[$i]['text']);
+                    } else {
+                        $this->pdf->Text($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y, $templ[$i]['text']);
                     }
                     break;
                     case 'rect':
-                    $this->pdf->SetDrawColor($templ[$i]["red"],$templ[$i]["green"],$templ[$i]["blue"]);
-                    if($templ[$i]['fontsize'] == "1"){
-                        $this->pdf->SetFillColor($templ[$i]["red"],$templ[$i]["green"],$templ[$i]["blue"]);
-                        $this->pdf->Rect($templ[$i]['pos_x'] + $this->x,$templ[$i]['pos_y'] + $this->y,$templ[$i]['end_x'],$templ[$i]['end_y'],"FD");
-                    }else{
+                    $this->pdf->SetDrawColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                    if ($templ[$i]['fontsize'] == "1") {
+                        $this->pdf->SetFillColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                        $this->pdf->Rect($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y'], "FD");
+                    } else {
                         $this->pdf->SetFillColor(255);
-                        $this->pdf->Rect($templ[$i]['pos_x'] + $this->x,$templ[$i]['pos_y'] + $this->y,$templ[$i]['end_x'],$templ[$i]['end_y']);
+                        $this->pdf->Rect($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y']);
                     }
                     break;
                     case 'line':
-                    $this->pdf->SetDrawColor($templ[$i]["red"],$templ[$i]["green"],$templ[$i]["blue"]);
-                    $this->pdf->Line($templ[$i]['pos_x'] + $this->x,$templ[$i]['pos_y'] + $this->y,$templ[$i]['end_x'] + $this->x,$templ[$i]['end_y'] + $this->y);
+                    $this->pdf->SetDrawColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                    $this->pdf->Line($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'] + $this->x, $templ[$i]['end_y'] + $this->y);
                     break;
                     case 'image':
-                    $this->pdf->Image(IMAGE_PATH . $templ[$i]['text'],$templ[$i]['pos_x'] + $this->x,$templ[$i]['pos_y'] + $this->y,$templ[$i]['end_x'],$templ[$i]['end_y']);
+                    $this->pdf->Image(IMAGE_PATH . $templ[$i]['text'], $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y']);
                     break;
                     
                     case 'barcode':
-                    $imagename = mt_rand(100000,999999);
-                    $barcode->get_image($data['userid'],BARCODE_PATH . $imagename);
-                    $this->pdf->Image(BARCODE_PATH . $imagename . ".png",$templ[$i]['pos_x'] + $this->x,$templ[$i]['pos_y'] + $this->y);
+                    $imagename = mt_rand(100000, 999999);
+                    $barcode->get_image($data['userid'], BARCODE_PATH . $imagename);
+                    $this->pdf->Image(BARCODE_PATH . $imagename . ".png", $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y);
                     $barcode->kill_image(BARCODE_PATH . $imagename);
                     
 
                     case 'data':
-                    $this->pdf->SetFont($templ[$i]['font'],'',$templ[$i]["fontsize"]);
-                    $this->pdf->SetTextColor($templ[$i]["red"],$templ[$i]["green"],$templ[$i]["blue"]);
-                    if($templ[$i]['end_x'] == "1"){
-                        $this->pdf->Text(($templ[$i]["pos_x"] - $this->pdf->GetStringWidth($data[$templ[$i]['text']])) + $this->x,$templ[$i]["pos_y"] + $this->y,$data[$templ[$i]['text']]);
-                    }else{
-                        $this->pdf->Text($templ[$i]["pos_x"] + $this->x,$templ[$i]["pos_y"] + $this->y,$data[$templ[$i]['text']]);
+                    $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
+                    $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                    if ($templ[$i]['end_x'] == "1") {
+                        $this->pdf->Text(($templ[$i]["pos_x"] - $this->pdf->GetStringWidth($data[$templ[$i]['text']])) + $this->x, $templ[$i]["pos_y"] + $this->y, $data[$templ[$i]['text']]);
+                    } else {
+                        $this->pdf->Text($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y, $data[$templ[$i]['text']]);
                     }
 
                     break;
                 }
             }
         }
-
-
     }
     
-    function _make_header(){
-        
+    public function _make_header()
+    {
     }
     
-    function _make_footer(){
-        
+    public function _make_footer()
+    {
     }
 } // END
-?>
