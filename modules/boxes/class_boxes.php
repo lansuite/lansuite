@@ -38,17 +38,23 @@ class boxes
         global $func;
 
       // Set Item-Class
-      switch ($requirement) {
-          default: $link_class = 'menu'; break;
-          case 2:
-          case 3:
-            $link_class = 'admin';
-          break;
-      }
+        switch ($requirement) {
+            default:
+                $link_class = 'menu';
+                break;
+            case 2:
+            case 3:
+                $link_class = 'admin';
+                break;
+        }
         switch ($level) {
-          case 0: $class = "box_entry"; break;
-          case 1: $class = "box_entry_lvl_1"; break;
-      }
+            case 0:
+                $class = "box_entry";
+                break;
+            case 1:
+                $class = "box_entry_lvl_1";
+                break;
+        }
 
         if ($highlighted) {
             $class .= "_active";
@@ -77,7 +83,7 @@ class boxes
    * @param string $hint
    * @return
    */
-    public function LinkItem($link, $caption, $class = "", $hint='')
+    public function LinkItem($link, $caption, $class = "", $hint = '')
     {
         global $func;
         if ($link != "") {
@@ -133,8 +139,7 @@ class boxes
             $framework->add_js_code("
 				$(document).ready(function(){
 					$('#".$id."').tabs();
-				});"
-            );
+				});");
         }
         $this->box_rows .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='".$id."'>\n";
     }
@@ -288,18 +293,40 @@ class boxes
         }
         if (!$title) {
             switch ((int)$boxid) {
-            case 1: $title = 'menu'; break;
-            case 2: $title = 'search'; break;
-            case 3: $title = 'sponsor'; break;
-            case 4: $title = 'info'; break;
-            case 5: $title = 'last_user'; break;
-            case 6: $title = 'user'; break;
-            case 7: $title = 'login'; break;
-            case 8: $title = 'stats'; break;
-            case 9: $title = 'signon_state'; break;
-            case 10: $title = 'messenger'; break;
-            case 11: $title = 'wwcl'; break;
-        }
+                case 1:
+                    $title = 'menu';
+                    break;
+                case 2:
+                    $title = 'search';
+                    break;
+                case 3:
+                    $title = 'sponsor';
+                    break;
+                case 4:
+                    $title = 'info';
+                    break;
+                case 5:
+                    $title = 'last_user';
+                    break;
+                case 6:
+                    $title = 'user';
+                    break;
+                case 7:
+                    $title = 'login';
+                    break;
+                case 8:
+                    $title = 'stats';
+                    break;
+                case 9:
+                    $title = 'signon_state';
+                    break;
+                case 10:
+                    $title = 'messenger';
+                    break;
+                case 11:
+                    $title = 'wwcl';
+                    break;
+            }
         }
         $smarty->assign('title', $title);
         $smarty->assign('caption', $caption);

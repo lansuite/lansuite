@@ -1,56 +1,56 @@
 <?php
 switch ($_GET['step']) {
   // Activate
-  case 10:
-    foreach ($_POST['action'] as $key => $val) {
-        $db->qry("UPDATE %prefix%boxes SET active = 1 WHERE boxid = %int%", $key);
-    }
-  break;
+    case 10:
+        foreach ($_POST['action'] as $key => $val) {
+            $db->qry("UPDATE %prefix%boxes SET active = 1 WHERE boxid = %int%", $key);
+        }
+        break;
   
   // Deactivate
-  case 11:
-    foreach ($_POST['action'] as $key => $val) {
-        $db->qry("UPDATE %prefix%boxes SET active = 0 WHERE boxid = %int%", $key);
-    }
-  break;
+    case 11:
+        foreach ($_POST['action'] as $key => $val) {
+            $db->qry("UPDATE %prefix%boxes SET active = 0 WHERE boxid = %int%", $key);
+        }
+        break;
   
   // Edit
-  case 20:
-    include_once('inc/classes/class_masterform.php');
-    $mf = new masterform();
+    case 20:
+        include_once('inc/classes/class_masterform.php');
+        $mf = new masterform();
 
-    $mf->AddField(t('Titel'), 'name');
-    $selections = array();
-    $selections['0'] = t('Links');
-    $selections['1'] = t('Rechts');
-    $mf->AddField(t('Seite'), 'place', IS_SELECTION, $selections, FIELD_OPTIONAL);
-    $mf->AddField(t('Position'), 'pos');
-    $mf->AddField(t('Aktiv'), 'active', '', '', FIELD_OPTIONAL);
-    $selections = array();
-    $selections['0'] = t('Egal');
-    $selections['1'] = t('Nur in Intranet Version');
-    $selections['2'] = t('Nur in Internet Verrsion');
-    $mf->AddField(t('Nur online / offline'), 'internet', IS_SELECTION, $selections, FIELD_OPTIONAL);
-    $selections = array();
-    $selections['0'] = t('Egal');
-    $selections['1'] = t('Nur für ausgeloggte');
-    $selections['2'] = t('Nur für eingeloggte');
-    $selections['3'] = t('Nur für Admins + Superadmins');
-    $selections['4'] = t('Nur für Superadmins');
-    $mf->AddField(t('Login benötigt'), 'login', IS_SELECTION, $selections, FIELD_OPTIONAL);
-    $mf->AddField(t('Modul benötigt'), 'module', '', '', FIELD_OPTIONAL);
-    $mf->AddField(t('Quelldatei'), 'source');
-    $mf->AddField(t('Callback'), 'callback', '', '', FIELD_OPTIONAL);
+        $mf->AddField(t('Titel'), 'name');
+        $selections = array();
+        $selections['0'] = t('Links');
+        $selections['1'] = t('Rechts');
+        $mf->AddField(t('Seite'), 'place', IS_SELECTION, $selections, FIELD_OPTIONAL);
+        $mf->AddField(t('Position'), 'pos');
+        $mf->AddField(t('Aktiv'), 'active', '', '', FIELD_OPTIONAL);
+        $selections = array();
+        $selections['0'] = t('Egal');
+        $selections['1'] = t('Nur in Intranet Version');
+        $selections['2'] = t('Nur in Internet Verrsion');
+        $mf->AddField(t('Nur online / offline'), 'internet', IS_SELECTION, $selections, FIELD_OPTIONAL);
+        $selections = array();
+        $selections['0'] = t('Egal');
+        $selections['1'] = t('Nur für ausgeloggte');
+        $selections['2'] = t('Nur für eingeloggte');
+        $selections['3'] = t('Nur für Admins + Superadmins');
+        $selections['4'] = t('Nur für Superadmins');
+        $mf->AddField(t('Login benötigt'), 'login', IS_SELECTION, $selections, FIELD_OPTIONAL);
+        $mf->AddField(t('Modul benötigt'), 'module', '', '', FIELD_OPTIONAL);
+        $mf->AddField(t('Quelldatei'), 'source');
+        $mf->AddField(t('Callback'), 'callback', '', '', FIELD_OPTIONAL);
 
-    $mf->SendForm('index.php?mod=boxes&amp;step=20', 'boxes', 'boxid', $_GET['boxid']);
-  break;
+        $mf->SendForm('index.php?mod=boxes&amp;step=20', 'boxes', 'boxid', $_GET['boxid']);
+        break;
   
   // Delete
-  case 30:
-    include_once('inc/classes/class_masterdelete.php');
-    $md = new masterdelete();
-    $md->Delete('boxes', 'boxid', $_GET['boxid']);
-  break;
+    case 30:
+        include_once('inc/classes/class_masterdelete.php');
+        $md = new masterdelete();
+        $md->Delete('boxes', 'boxid', $_GET['boxid']);
+        break;
 }
 
 $dsp->NewContent(t('Box-Manager'), t('Hier kannst du die Anzeige und Position der Boxen verwalten'));

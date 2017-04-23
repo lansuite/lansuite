@@ -46,10 +46,13 @@ class menu
         // Horrizontal Line IF Caption == '--hr--'
         if ($item['caption'] == '--hr--') {
             switch ($item['level']) {
-            default: return $this->box->HRuleRow(); break;
-            case 1: return $this->box->HRuleEngagedRow(); break;
-
-        }
+                default:
+                    return $this->box->HRuleRow();
+                break;
+                case 1:
+                    return $this->box->HRuleEngagedRow();
+                break;
+            }
         } else {
             // Scan for ID in info2 Link
             if ($_GET['mod'] == 'info2') {
@@ -103,11 +106,11 @@ class menu
                 $this->FetchItem($main_item);
 
             // If selected Module: Get Sub-Items
-            if (isset($_GET['module'])) {
-                $module = $_GET['module'];
-            } else {
-                $module = $_GET['mod'];
-            }
+                if (isset($_GET['module'])) {
+                    $module = $_GET['module'];
+                } else {
+                    $module = $_GET['mod'];
+                }
                 if ($module and $main_item['module'] == $module and $main_item['action'] != 'show_info2') {
                     $res2 = $db->qry("SELECT menu.*
                     FROM %prefix%menu AS menu
@@ -127,10 +130,10 @@ class menu
                     $db->free_result($res2);
 
                 // If Admin add general Management-Links
-                if ($auth['type'] > 2) {
-                    $AdminIcons .= $this->box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
-                    $this->box->Row('<span class="AdminIcons">'. $AdminIcons .'</span>');
-                }
+                    if ($auth['type'] > 2) {
+                        $AdminIcons .= $this->box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
+                        $this->box->Row('<span class="AdminIcons">'. $AdminIcons .'</span>');
+                    }
                 }
             }
         }
