@@ -18,7 +18,7 @@ class seat2
         global $db, $party;
   
     // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
-    $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
+        $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
                                    WHERE  party_id=%int% AND user_id=%int%", $party->party_id, $userid);
         if ($seat_paid['paid']>0) {
             $seat_status = 2;
@@ -46,7 +46,7 @@ class seat2
     {
         global $db, $party;
       // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
-      $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
+        $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
                                      WHERE  party_id=%int% AND user_id=%int%", $party->party_id, $userid);
         if ($seat_paid['paid']>0) {
             $seat_status = 2;
@@ -69,7 +69,7 @@ class seat2
     {
         global $db, $party;
       // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
-      $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
+        $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
                                      WHERE  party_id=%int% AND user_id=%int%", $party->party_id, $userid);
         if ($seat_paid['paid']>0) {
             $seat_status = 2;
@@ -254,57 +254,57 @@ class seat2
         }
 
         // Header-Row
-    if ($mode == 3) {
-        $head = array();
-        for ($x = 0; $x <= $block['cols']; $x++) {
-            if ($sep_rows[$x+1]) {
-                $head[$x]['width'] = 28;
-                $head[$x]['icon'] = "design/{$auth['design']}/images/arrows_seating_remove_sep_hor.gif";
-            } else {
-                $head[$x]['width'] = 14;
-                $head[$x]['icon'] = "design/{$auth['design']}/images/arrows_seating_add_sep_hor.gif";
+        if ($mode == 3) {
+            $head = array();
+            for ($x = 0; $x <= $block['cols']; $x++) {
+                if ($sep_rows[$x+1]) {
+                    $head[$x]['width'] = 28;
+                    $head[$x]['icon'] = "design/{$auth['design']}/images/arrows_seating_remove_sep_hor.gif";
+                } else {
+                    $head[$x]['width'] = 14;
+                    $head[$x]['icon'] = "design/{$auth['design']}/images/arrows_seating_add_sep_hor.gif";
+                }
+                $head[$x]['link'] = "index.php?mod=seating&action={$_GET['action']}&step=4&blockid=$blockid" . "&change_sep_row=".($x + 1);
+                $head[$x]['name'] = $this->CoordinateToName($x + 1, -1, $block['orientation']);
             }
-            $head[$x]['link'] = "index.php?mod=seating&action={$_GET['action']}&step=4&blockid=$blockid" . "&change_sep_row=".($x + 1);
-            $head[$x]['name'] = $this->CoordinateToName($x + 1, -1, $block['orientation']);
-        }
-        $smarty->assign('head', $head);
-    } else {
-        if ($mode == 2) {
-            $XStartPlan = 50;
-            $YStartPlan = 150;
-            $XStartPlanFrame = 0;
-            $YStartPlanFrame = 105;
+            $smarty->assign('head', $head);
         } else {
-            $XStartPlan = 50;
-            $YStartPlan = 50;
-            $XStartPlanFrame = 0;
-            $YStartPlanFrame = 5;
-        }
-        $SVGWidth = $XStartPlanFrame + 14 * $block['cols'] + count($sep_rows) * 7 + 100;
-        $SVGHeight = $YStartPlanFrame + 14 * $block['rows'] + count($sep_cols) * 7 + 100;
-        if ($mode == 2 and $SVGWidth < 600) {
-            $SVGWidth = 600;
-        }
-      ($SVGWidth < 250)? $SVGImgWidth = 250 : $SVGImgWidth = $SVGWidth;
-        $smarty->assign('SVGWidth', $SVGImgWidth);
-        $smarty->assign('SVGHeight', $SVGHeight + 50);
-
-        $HiddenFields = array();
-        for ($x = 0; $x <= $block['cols']; $x++) {
-            for ($y = 0; $y <= $block['rows']; $y++) {
-                $k = $x * 100 + $y;
-                $HiddenFields[$k] = $seat_state[$y][$x];
+            if ($mode == 2) {
+                $XStartPlan = 50;
+                $YStartPlan = 150;
+                $XStartPlanFrame = 0;
+                $YStartPlanFrame = 105;
+            } else {
+                $XStartPlan = 50;
+                $YStartPlan = 50;
+                $XStartPlanFrame = 0;
+                $YStartPlanFrame = 5;
             }
-        }
-        $smarty->assign('HiddenFields', $HiddenFields);
-        
-        // Main-Table
-        $framework->add_js_path('ext_scripts/overlib421/Mini/overlib_mini.js');
-        $framework->add_js_path('ext_scripts/SVG2VMLv1_1.js');
-        $framework->add_js_path('ext_scripts/ls_svg2vml.js');
-        $framework->add_js_path('seating.js');
+                $SVGWidth = $XStartPlanFrame + 14 * $block['cols'] + count($sep_rows) * 7 + 100;
+                $SVGHeight = $YStartPlanFrame + 14 * $block['rows'] + count($sep_cols) * 7 + 100;
+            if ($mode == 2 and $SVGWidth < 600) {
+                $SVGWidth = 600;
+            }
+              ($SVGWidth < 250)? $SVGImgWidth = 250 : $SVGImgWidth = $SVGWidth;
+                $smarty->assign('SVGWidth', $SVGImgWidth);
+                $smarty->assign('SVGHeight', $SVGHeight + 50);
 
-        $jscode .= 'function go() {
+                $HiddenFields = array();
+            for ($x = 0; $x <= $block['cols']; $x++) {
+                for ($y = 0; $y <= $block['rows']; $y++) {
+                    $k = $x * 100 + $y;
+                    $HiddenFields[$k] = $seat_state[$y][$x];
+                }
+            }
+                $smarty->assign('HiddenFields', $HiddenFields);
+        
+                // Main-Table
+                $framework->add_js_path('ext_scripts/overlib421/Mini/overlib_mini.js');
+                $framework->add_js_path('ext_scripts/SVG2VMLv1_1.js');
+                $framework->add_js_path('ext_scripts/ls_svg2vml.js');
+                $framework->add_js_path('seating.js');
+
+                $jscode .= 'function go() {
   				vectorModel = new VectorModel();
   				container = document.getElementById("SeatPlanSVGContet");
   				mySvg = vectorModel.createElement("svg");
@@ -315,148 +315,148 @@ class seat2
   				mySvg.appendChild(myG);
       ';
   
-      // Icon selection in mode 2
-      if ($mode == 2) {
-          $jscode .= "CreateText('Auswahl:', 0, 14);\n";
-          $jscode .= "DrawClearSeatingSymbol(19, 0, 14, 'javascript:UpdateCurrentDrawingSymbol(\"19\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(14, 14, 14, 'javascript:UpdateCurrentDrawingSymbol(\"14\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(18, 28, 14, 'javascript:UpdateCurrentDrawingSymbol(\"18\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(15, 0, 28, 'javascript:UpdateCurrentDrawingSymbol(\"15\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(16, 14, 28, 'javascript:UpdateCurrentDrawingSymbol(\"16\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(13, 28, 28, 'javascript:UpdateCurrentDrawingSymbol(\"13\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(20, 0, 42, 'javascript:UpdateCurrentDrawingSymbol(\"20\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(12, 14, 42, 'javascript:UpdateCurrentDrawingSymbol(\"12\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(17, 28, 42, 'javascript:UpdateCurrentDrawingSymbol(\"17\")', '');\n";
+              // Icon selection in mode 2
+            if ($mode == 2) {
+                  $jscode .= "CreateText('Auswahl:', 0, 14);\n";
+                  $jscode .= "DrawClearSeatingSymbol(19, 0, 14, 'javascript:UpdateCurrentDrawingSymbol(\"19\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(14, 14, 14, 'javascript:UpdateCurrentDrawingSymbol(\"14\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(18, 28, 14, 'javascript:UpdateCurrentDrawingSymbol(\"18\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(15, 0, 28, 'javascript:UpdateCurrentDrawingSymbol(\"15\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(16, 14, 28, 'javascript:UpdateCurrentDrawingSymbol(\"16\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(13, 28, 28, 'javascript:UpdateCurrentDrawingSymbol(\"13\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(20, 0, 42, 'javascript:UpdateCurrentDrawingSymbol(\"20\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(12, 14, 42, 'javascript:UpdateCurrentDrawingSymbol(\"12\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(17, 28, 42, 'javascript:UpdateCurrentDrawingSymbol(\"17\")', '');\n";
 
-          $jscode .= "DrawClearSeatingSymbol(103, 42, 14, 'javascript:UpdateCurrentDrawingSymbol(\"103\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(107, 56, 14, 'javascript:UpdateCurrentDrawingSymbol(\"107\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(104, 70, 14, 'javascript:UpdateCurrentDrawingSymbol(\"104\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(108, 42, 28, 'javascript:UpdateCurrentDrawingSymbol(\"108\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(111, 56, 28, 'javascript:UpdateCurrentDrawingSymbol(\"111\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(109, 70, 28, 'javascript:UpdateCurrentDrawingSymbol(\"109\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(105, 42, 42, 'javascript:UpdateCurrentDrawingSymbol(\"105\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(110, 56, 42, 'javascript:UpdateCurrentDrawingSymbol(\"110\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(106, 70, 42, 'javascript:UpdateCurrentDrawingSymbol(\"106\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(103, 42, 14, 'javascript:UpdateCurrentDrawingSymbol(\"103\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(107, 56, 14, 'javascript:UpdateCurrentDrawingSymbol(\"107\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(104, 70, 14, 'javascript:UpdateCurrentDrawingSymbol(\"104\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(108, 42, 28, 'javascript:UpdateCurrentDrawingSymbol(\"108\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(111, 56, 28, 'javascript:UpdateCurrentDrawingSymbol(\"111\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(109, 70, 28, 'javascript:UpdateCurrentDrawingSymbol(\"109\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(105, 42, 42, 'javascript:UpdateCurrentDrawingSymbol(\"105\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(110, 56, 42, 'javascript:UpdateCurrentDrawingSymbol(\"110\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(106, 70, 42, 'javascript:UpdateCurrentDrawingSymbol(\"106\")', '');\n";
 
-          $jscode .= "DrawClearSeatingSymbol(22, 84, 14, 'javascript:UpdateCurrentDrawingSymbol(\"22\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(21, 98, 14, 'javascript:UpdateCurrentDrawingSymbol(\"21\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(23, 84, 28, 'javascript:UpdateCurrentDrawingSymbol(\"108\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(24, 98, 28, 'javascript:UpdateCurrentDrawingSymbol(\"24\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(10, 84, 42, 'javascript:UpdateCurrentDrawingSymbol(\"10\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(11, 98, 42, 'javascript:UpdateCurrentDrawingSymbol(\"11\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(22, 84, 14, 'javascript:UpdateCurrentDrawingSymbol(\"22\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(21, 98, 14, 'javascript:UpdateCurrentDrawingSymbol(\"21\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(23, 84, 28, 'javascript:UpdateCurrentDrawingSymbol(\"108\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(24, 98, 28, 'javascript:UpdateCurrentDrawingSymbol(\"24\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(10, 84, 42, 'javascript:UpdateCurrentDrawingSymbol(\"10\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(11, 98, 42, 'javascript:UpdateCurrentDrawingSymbol(\"11\")', '');\n";
     
-          $jscode .= "DrawClearSeatingSymbol(148, 112, 14, 'javascript:UpdateCurrentDrawingSymbol(\"148\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(149, 126, 14, 'javascript:UpdateCurrentDrawingSymbol(\"149\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(150, 112, 28, 'javascript:UpdateCurrentDrawingSymbol(\"150\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(151, 126, 28, 'javascript:UpdateCurrentDrawingSymbol(\"151\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(102, 112, 42, 'javascript:UpdateCurrentDrawingSymbol(\"102\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(101, 126, 42, 'javascript:UpdateCurrentDrawingSymbol(\"101\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(148, 112, 14, 'javascript:UpdateCurrentDrawingSymbol(\"148\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(149, 126, 14, 'javascript:UpdateCurrentDrawingSymbol(\"149\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(150, 112, 28, 'javascript:UpdateCurrentDrawingSymbol(\"150\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(151, 126, 28, 'javascript:UpdateCurrentDrawingSymbol(\"151\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(102, 112, 42, 'javascript:UpdateCurrentDrawingSymbol(\"102\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(101, 126, 42, 'javascript:UpdateCurrentDrawingSymbol(\"101\")', '');\n";
         
-          $jscode .= "DrawClearSeatingSymbol(136, 140, 14, 'javascript:UpdateCurrentDrawingSymbol(\"136\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(137, 154, 14, 'javascript:UpdateCurrentDrawingSymbol(\"137\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(138, 140, 28, 'javascript:UpdateCurrentDrawingSymbol(\"138\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(139, 154, 28, 'javascript:UpdateCurrentDrawingSymbol(\"139\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(1, 140, 42, 'javascript:UpdateCurrentDrawingSymbol(\"1\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(100, 154, 42, 'javascript:UpdateCurrentDrawingSymbol(\"100\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(136, 140, 14, 'javascript:UpdateCurrentDrawingSymbol(\"136\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(137, 154, 14, 'javascript:UpdateCurrentDrawingSymbol(\"137\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(138, 140, 28, 'javascript:UpdateCurrentDrawingSymbol(\"138\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(139, 154, 28, 'javascript:UpdateCurrentDrawingSymbol(\"139\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(1, 140, 42, 'javascript:UpdateCurrentDrawingSymbol(\"1\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(100, 154, 42, 'javascript:UpdateCurrentDrawingSymbol(\"100\")', '');\n";
         
-          $jscode .= "DrawClearSeatingSymbol(140, 168, 14, 'javascript:UpdateCurrentDrawingSymbol(\"140\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(141, 182, 14, 'javascript:UpdateCurrentDrawingSymbol(\"141\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(142, 168, 28, 'javascript:UpdateCurrentDrawingSymbol(\"142\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(143, 182, 28, 'javascript:UpdateCurrentDrawingSymbol(\"143\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(7, 168, 42, 'javascript:UpdateCurrentDrawingSymbol(\"7\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(153, 182, 42, 'javascript:UpdateCurrentDrawingSymbol(\"153\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(140, 168, 14, 'javascript:UpdateCurrentDrawingSymbol(\"140\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(141, 182, 14, 'javascript:UpdateCurrentDrawingSymbol(\"141\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(142, 168, 28, 'javascript:UpdateCurrentDrawingSymbol(\"142\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(143, 182, 28, 'javascript:UpdateCurrentDrawingSymbol(\"143\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(7, 168, 42, 'javascript:UpdateCurrentDrawingSymbol(\"7\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(153, 182, 42, 'javascript:UpdateCurrentDrawingSymbol(\"153\")', '');\n";
         
-          $jscode .= "DrawClearSeatingSymbol(144, 196, 14, 'javascript:UpdateCurrentDrawingSymbol(\"144\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(145, 210, 14, 'javascript:UpdateCurrentDrawingSymbol(\"145\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(146, 196, 28, 'javascript:UpdateCurrentDrawingSymbol(\"146\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(147, 210, 28, 'javascript:UpdateCurrentDrawingSymbol(\"147\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(154, 196, 42, 'javascript:UpdateCurrentDrawingSymbol(\"154\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(156, 210, 42, 'javascript:UpdateCurrentDrawingSymbol(\"156\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(144, 196, 14, 'javascript:UpdateCurrentDrawingSymbol(\"144\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(145, 210, 14, 'javascript:UpdateCurrentDrawingSymbol(\"145\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(146, 196, 28, 'javascript:UpdateCurrentDrawingSymbol(\"146\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(147, 210, 28, 'javascript:UpdateCurrentDrawingSymbol(\"147\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(154, 196, 42, 'javascript:UpdateCurrentDrawingSymbol(\"154\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(156, 210, 42, 'javascript:UpdateCurrentDrawingSymbol(\"156\")', '');\n";
 
-          $jscode .= "DrawClearSeatingSymbol(112, 224, 14, 'javascript:UpdateCurrentDrawingSymbol(\"112\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(113, 238, 14, 'javascript:UpdateCurrentDrawingSymbol(\"113\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(114, 224, 28, 'javascript:UpdateCurrentDrawingSymbol(\"114\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(115, 238, 28, 'javascript:UpdateCurrentDrawingSymbol(\"115\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(132, 224, 42, 'javascript:UpdateCurrentDrawingSymbol(\"132\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(152, 238, 42, 'javascript:UpdateCurrentDrawingSymbol(\"152\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(112, 224, 14, 'javascript:UpdateCurrentDrawingSymbol(\"112\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(113, 238, 14, 'javascript:UpdateCurrentDrawingSymbol(\"113\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(114, 224, 28, 'javascript:UpdateCurrentDrawingSymbol(\"114\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(115, 238, 28, 'javascript:UpdateCurrentDrawingSymbol(\"115\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(132, 224, 42, 'javascript:UpdateCurrentDrawingSymbol(\"132\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(152, 238, 42, 'javascript:UpdateCurrentDrawingSymbol(\"152\")', '');\n";
 
-          $jscode .= "DrawClearSeatingSymbol(133, 252, 14, 'javascript:UpdateCurrentDrawingSymbol(\"133\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(134, 252, 28, 'javascript:UpdateCurrentDrawingSymbol(\"134\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(135, 252, 42, 'javascript:UpdateCurrentDrawingSymbol(\"135\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(133, 252, 14, 'javascript:UpdateCurrentDrawingSymbol(\"133\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(134, 252, 28, 'javascript:UpdateCurrentDrawingSymbol(\"134\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(135, 252, 42, 'javascript:UpdateCurrentDrawingSymbol(\"135\")', '');\n";
 
-          $jscode .= "DrawClearSeatingSymbol(224, 266, 14, 'javascript:UpdateCurrentDrawingSymbol(\"224\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(226, 280, 14, 'javascript:UpdateCurrentDrawingSymbol(\"226\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(227, 294, 14, 'javascript:UpdateCurrentDrawingSymbol(\"227\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(223, 266, 28, 'javascript:UpdateCurrentDrawingSymbol(\"223\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(222, 280, 28, 'javascript:UpdateCurrentDrawingSymbol(\"222\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(225, 294, 28, 'javascript:UpdateCurrentDrawingSymbol(\"225\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(100, 266, 42, 'javascript:UpdateCurrentDrawingSymbol(\"100\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(228, 280, 42, 'javascript:UpdateCurrentDrawingSymbol(\"228\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(100, 294, 42, 'javascript:UpdateCurrentDrawingSymbol(\"100\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(224, 266, 14, 'javascript:UpdateCurrentDrawingSymbol(\"224\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(226, 280, 14, 'javascript:UpdateCurrentDrawingSymbol(\"226\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(227, 294, 14, 'javascript:UpdateCurrentDrawingSymbol(\"227\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(223, 266, 28, 'javascript:UpdateCurrentDrawingSymbol(\"223\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(222, 280, 28, 'javascript:UpdateCurrentDrawingSymbol(\"222\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(225, 294, 28, 'javascript:UpdateCurrentDrawingSymbol(\"225\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(100, 266, 42, 'javascript:UpdateCurrentDrawingSymbol(\"100\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(228, 280, 42, 'javascript:UpdateCurrentDrawingSymbol(\"228\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(100, 294, 42, 'javascript:UpdateCurrentDrawingSymbol(\"100\")', '');\n";
 
-          $jscode .= "DrawClearSeatingSymbol(206, 308, 14, 'javascript:UpdateCurrentDrawingSymbol(\"206\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(212, 322, 14, 'javascript:UpdateCurrentDrawingSymbol(\"212\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(213, 336, 14, 'javascript:UpdateCurrentDrawingSymbol(\"213\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(207, 308, 28, 'javascript:UpdateCurrentDrawingSymbol(\"207\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(201, 322, 28, 'javascript:UpdateCurrentDrawingSymbol(\"201\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(216, 336, 28, 'javascript:UpdateCurrentDrawingSymbol(\"216\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(208, 308, 42, 'javascript:UpdateCurrentDrawingSymbol(\"208\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(220, 322, 42, 'javascript:UpdateCurrentDrawingSymbol(\"220\")', '');\n";
-          $jscode .= "DrawClearSeatingSymbol(209, 336, 42, 'javascript:UpdateCurrentDrawingSymbol(\"209\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(206, 308, 14, 'javascript:UpdateCurrentDrawingSymbol(\"206\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(212, 322, 14, 'javascript:UpdateCurrentDrawingSymbol(\"212\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(213, 336, 14, 'javascript:UpdateCurrentDrawingSymbol(\"213\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(207, 308, 28, 'javascript:UpdateCurrentDrawingSymbol(\"207\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(201, 322, 28, 'javascript:UpdateCurrentDrawingSymbol(\"201\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(216, 336, 28, 'javascript:UpdateCurrentDrawingSymbol(\"216\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(208, 308, 42, 'javascript:UpdateCurrentDrawingSymbol(\"208\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(220, 322, 42, 'javascript:UpdateCurrentDrawingSymbol(\"220\")', '');\n";
+                  $jscode .= "DrawClearSeatingSymbol(209, 336, 42, 'javascript:UpdateCurrentDrawingSymbol(\"209\")', '');\n";
 
-          $x = 0;
-          $y = 56;
-          for ($i = 300; $i <= 383; $i++) {
-              $jscode .= "DrawClearSeatingSymbol($i, $x, $y, 'javascript:UpdateCurrentDrawingSymbol(\"$i\")', 'Test');\n";
-  
-              $x += 14;
-              if ($x > 580) {
                   $x = 0;
-                  $y += 14;
-              }
-          }
-      }
+                  $y = 56;
+                for ($i = 300; $i <= 383; $i++) {
+                    $jscode .= "DrawClearSeatingSymbol($i, $x, $y, 'javascript:UpdateCurrentDrawingSymbol(\"$i\")', 'Test');\n";
   
-        $jscode .= "CreateRect(4, $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-        $jscode .= "CreateText('". $block['text_tl'] ."', ". (($SVGWidth / 6 * 1) - strlen($block['text_tl']) * 4) .", ". ($YStartPlanFrame + 15) .", '');\n";
-        $jscode .= "CreateRect(". (($SVGWidth / 3) + 4) .", $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-        $jscode .= "CreateText('". $block['text_tc'] ."', ". (($SVGWidth / 6 * 3) - strlen($block['text_tc']) * 4) .", ". ($YStartPlanFrame + 15) .", '');\n";
-        $jscode .= "CreateRect(". ((($SVGWidth / 3) * 2) + 4) .", $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-        $jscode .= "CreateText('". $block['text_tr'] ."', ". (($SVGWidth / 6 * 5) - strlen($block['text_tr']) * 4) .", ". ($YStartPlanFrame + 15) .", '');\n";
+                    $x += 14;
+                    if ($x > 580) {
+                        $x = 0;
+                        $y += 14;
+                    }
+                }
+            }
   
-        $jscode .= "CreateRect(4, ". ($YStartPlanFrame + 27) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-        for ($i = 0; $i <= strlen($block['text_lt']); $i++) {
-            $jscode .= "CreateText('". substr($block['text_lt'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 1 + ($YStartPlanFrame + 27)) - strlen($block['text_lt']) * 5 + 10 * $i) .", '');\n";
-        }
-        $jscode .= "CreateRect(4, ". (($SVGHeight - $YStartPlanFrame - 70) / 3 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-        for ($i = 0; $i <= strlen($block['text_lc']); $i++) {
-            $jscode .= "CreateText('". substr($block['text_lc'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 3 + ($YStartPlanFrame + 27)) - strlen($block['text_lc']) * 5 + 10 * $i) .", '');\n";
-        }
-        $jscode .= "CreateRect(4, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) * 2 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-        for ($i = 0; $i <= strlen($block['text_lb']); $i++) {
-            $jscode .= "CreateText('". substr($block['text_lb'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 5 + ($YStartPlanFrame + 27)) - strlen($block['text_lb']) * 5 + 10 * $i) .", '');\n";
-        }
+                $jscode .= "CreateRect(4, $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+                $jscode .= "CreateText('". $block['text_tl'] ."', ". (($SVGWidth / 6 * 1) - strlen($block['text_tl']) * 4) .", ". ($YStartPlanFrame + 15) .", '');\n";
+                $jscode .= "CreateRect(". (($SVGWidth / 3) + 4) .", $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+                $jscode .= "CreateText('". $block['text_tc'] ."', ". (($SVGWidth / 6 * 3) - strlen($block['text_tc']) * 4) .", ". ($YStartPlanFrame + 15) .", '');\n";
+                $jscode .= "CreateRect(". ((($SVGWidth / 3) * 2) + 4) .", $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+                $jscode .= "CreateText('". $block['text_tr'] ."', ". (($SVGWidth / 6 * 5) - strlen($block['text_tr']) * 4) .", ". ($YStartPlanFrame + 15) .", '');\n";
   
-        $jscode .= "CreateRect(". ($SVGWidth - 25) .", ". ($YStartPlanFrame + 27) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-        for ($i = 0; $i <= strlen($block['text_rt']); $i++) {
-            $jscode .= "CreateText('". substr($block['text_rt'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 1 + ($YStartPlanFrame + 27)) - strlen($block['text_rt']) * 5 + 10 * $i) .", '');\n";
-        }
-        $jscode .= "CreateRect(". ($SVGWidth - 25) .", ". (($SVGHeight - $YStartPlanFrame - 70) / 3 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-        for ($i = 0; $i <= strlen($block['text_rc']); $i++) {
-            $jscode .= "CreateText('". substr($block['text_rc'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 3 + ($YStartPlanFrame + 27)) - strlen($block['text_rc']) * 5 + 10 * $i) .", '');\n";
-        }
-        $jscode .= "CreateRect(". ($SVGWidth - 25) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) * 2 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-        for ($i = 0; $i <= strlen($block['text_rb']); $i++) {
-            $jscode .= "CreateText('". substr($block['text_rb'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 5 + ($YStartPlanFrame + 27)) - strlen($block['text_rb']) * 5 + 10 * $i) .", '');\n";
-        }
+                $jscode .= "CreateRect(4, ". ($YStartPlanFrame + 27) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+            for ($i = 0; $i <= strlen($block['text_lt']); $i++) {
+                $jscode .= "CreateText('". substr($block['text_lt'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 1 + ($YStartPlanFrame + 27)) - strlen($block['text_lt']) * 5 + 10 * $i) .", '');\n";
+            }
+                $jscode .= "CreateRect(4, ". (($SVGHeight - $YStartPlanFrame - 70) / 3 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+            for ($i = 0; $i <= strlen($block['text_lc']); $i++) {
+                $jscode .= "CreateText('". substr($block['text_lc'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 3 + ($YStartPlanFrame + 27)) - strlen($block['text_lc']) * 5 + 10 * $i) .", '');\n";
+            }
+                $jscode .= "CreateRect(4, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) * 2 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+            for ($i = 0; $i <= strlen($block['text_lb']); $i++) {
+                $jscode .= "CreateText('". substr($block['text_lb'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 5 + ($YStartPlanFrame + 27)) - strlen($block['text_lb']) * 5 + 10 * $i) .", '');\n";
+            }
   
-        $jscode .= "CreateRect(4, ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-        $jscode .= "CreateText('". $block['text_bl'] ."', ". (($SVGWidth / 6 * 1) - strlen($block['text_bl']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
-        $jscode .= "CreateRect(". (($SVGWidth / 3) + 4) .", ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-        $jscode .= "CreateText('". $block['text_bc'] ."', ". (($SVGWidth / 6 * 3) - strlen($block['text_bc']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
-        $jscode .= "CreateRect(". ((($SVGWidth / 3) * 2) + 4) .", ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-        $jscode .= "CreateText('". $block['text_br'] ."', ". (($SVGWidth / 6 * 5) - strlen($block['text_br']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
-    }
+                $jscode .= "CreateRect(". ($SVGWidth - 25) .", ". ($YStartPlanFrame + 27) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+            for ($i = 0; $i <= strlen($block['text_rt']); $i++) {
+                $jscode .= "CreateText('". substr($block['text_rt'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 1 + ($YStartPlanFrame + 27)) - strlen($block['text_rt']) * 5 + 10 * $i) .", '');\n";
+            }
+                $jscode .= "CreateRect(". ($SVGWidth - 25) .", ". (($SVGHeight - $YStartPlanFrame - 70) / 3 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+            for ($i = 0; $i <= strlen($block['text_rc']); $i++) {
+                $jscode .= "CreateText('". substr($block['text_rc'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 3 + ($YStartPlanFrame + 27)) - strlen($block['text_rc']) * 5 + 10 * $i) .", '');\n";
+            }
+                $jscode .= "CreateRect(". ($SVGWidth - 25) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) * 2 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+            for ($i = 0; $i <= strlen($block['text_rb']); $i++) {
+                $jscode .= "CreateText('". substr($block['text_rb'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 5 + ($YStartPlanFrame + 27)) - strlen($block['text_rb']) * 5 + 10 * $i) .", '');\n";
+            }
+  
+                $jscode .= "CreateRect(4, ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+                $jscode .= "CreateText('". $block['text_bl'] ."', ". (($SVGWidth / 6 * 1) - strlen($block['text_bl']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
+                $jscode .= "CreateRect(". (($SVGWidth / 3) + 4) .", ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+                $jscode .= "CreateText('". $block['text_bc'] ."', ". (($SVGWidth / 6 * 3) - strlen($block['text_bc']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
+                $jscode .= "CreateRect(". ((($SVGWidth / 3) * 2) + 4) .", ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+                $jscode .= "CreateText('". $block['text_br'] ."', ". (($SVGWidth / 6 * 5) - strlen($block['text_br']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
+        }
 
         $cell_nr = 0;
         $body = array();
@@ -515,106 +515,104 @@ class seat2
                         // Set seat link target
                         $link = '';
                         switch ($mode) {
-                          default:
-                            if ($linktarget) {
-                                $link = "$linktarget&row=$y&col=$x";
-                            } elseif ($auth['login']) {
-                                // If free and user has not paid-> Possibility to mark this seat
-                                if ($seat_state[$y][$x] == 1 and !$user_paid['paid']) {
-                                    $link = "index.php?mod=seating&action=show&step=12&blockid=$blockid&row=$y&col=$x";
+                            default:
+                                if ($linktarget) {
+                                    $link = "$linktarget&row=$y&col=$x";
+                                } elseif ($auth['login']) {
+                                    // If free and user has not paid-> Possibility to mark this seat
+                                    if ($seat_state[$y][$x] == 1 and !$user_paid['paid']) {
+                                        $link = "index.php?mod=seating&action=show&step=12&blockid=$blockid&row=$y&col=$x";
+                                    } // If free, or marked for another one -> Possibility to reserve this seat
+                                    elseif ($seat_state[$y][$x] == 1 or ($seat_state[$y][$x] == 3 and $seat_userid[$y][$x] != $auth['userid'])) {
+                                        $link = "index.php?mod=seating&action=show&step=10&blockid=$blockid&row=$y&col=$x";
+                                    } // If assigned to me, or marked for me -> Possibility to free this seat again
+                                    elseif (($seat_state[$y][$x] == 2 or $seat_state[$y][$x] == 3) and $seat_userid[$y][$x] == $auth['userid']) {
+                                        $link = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
+                                    } // If assigned and user is admin -> Possibility to free this seat
+                                    elseif ($seat_state[$y][$x] == 2 and $auth['type'] > 1) {
+                                        #$link = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
+                                    }
                                 }
-                                // If free, or marked for another one -> Possibility to reserve this seat
-                                elseif ($seat_state[$y][$x] == 1 or ($seat_state[$y][$x] == 3 and $seat_userid[$y][$x] != $auth['userid'])) {
-                                    $link = "index.php?mod=seating&action=show&step=10&blockid=$blockid&row=$y&col=$x";
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                // Seat only changeble, if noone sits there
+                                if ($seat_state[$y][$x] > 1 and $seat_state[$y][$x] < 7) {
+                                    $link = "javascript:alert(\"". t('Es können nur freie Sitzplätze geändert werden') ."\")";
+                                } else {
+                                    $link = "javascript:ChangeSeatingPlan(\"cell". ($x * 100 + $y) ."\", $XOffset, $YOffset)";
                                 }
-                                // If assigned to me, or marked for me -> Possibility to free this seat again
-                                elseif (($seat_state[$y][$x] == 2 or $seat_state[$y][$x] == 3) and $seat_userid[$y][$x] == $auth['userid']) {
-                                    $link = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
-                                }
-                                // If assigned and user is admin -> Possibility to free this seat
-                                elseif ($seat_state[$y][$x] == 2 and $auth['type'] > 1) {
-                                    #$link = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
-                                }
-                            }
-                          break;
-                          case 1: break;
-                          case 2:
-                            // Seat only changeble, if noone sits there
-                if ($seat_state[$y][$x] > 1 and $seat_state[$y][$x] < 7) {
-                    $link = "javascript:alert(\"". t('Es können nur freie Sitzplätze geändert werden') ."\")";
-                } else {
-                    $link = "javascript:ChangeSeatingPlan(\"cell". ($x * 100 + $y) ."\", $XOffset, $YOffset)";
-                }
-              break;
+                                break;
                         }
 
             // Generate popup
-                    if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) {
-                        $s_state = 8;
-                    } elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) {
-                        $s_state = 9;
-                    } else {
-                        $s_state = $seat_state[$y][$x];
-                    }
+                        if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) {
+                            $s_state = 8;
+                        } elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) {
+                            $s_state = 9;
+                        } else {
+                            $s_state = $seat_state[$y][$x];
+                        }
 
-            if ($seat_ip[$y][$x] == '') {
-                $seat_ip[$y][$x] = '<i>'. t('Keine zugeordnet') .'</i>';
-            }
-            $tooltip = '';
-            switch ($s_state) {
-              case "2":
-              case "3":
-              case "8":
-              case "9":
-                $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-                $tooltip .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
-                if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)) {
-                    $tooltip .= t('Name') .': '. trim($user_info[$y][$x]['firstname']) .' '. trim($user_info[$y][$x]['name']) . HTML_NEWLINE;
-                }
-                $tooltip .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
-                $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-                if ($func->chk_img_path($user_info[$y][$x]['avatar_path']) and
-                ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))) {
-                    $tooltip .= '<img src=\''. $user_info[$y][$x]['avatar_path'] .'\' style=\'max-width:100%;\' />' . HTML_NEWLINE;
-                }
-              break;
-              case "1":
-                              $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
-                              $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-              break;
-              case "7":
-                              $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Gesperrt'). HTML_NEWLINE;
-                              $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-              break;
-              case "80":
-              case "81":
-                              $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-                              $tooltip .= t('Beschreibung') .': '. t('WC') . HTML_NEWLINE;
-              break;
-              case "82":
-                              $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-                              $tooltip .= t('Beschreibung') .': '. t('Notausgang') . HTML_NEWLINE;
-              break;
-              case "83":
-                              $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-                              $tooltip .= t('Beschreibung') .': '. t('Catering') . HTML_NEWLINE;
-              break;
-            }
-            $tooltip = addslashes(addslashes($tooltip));
+                        if ($seat_ip[$y][$x] == '') {
+                            $seat_ip[$y][$x] = '<i>'. t('Keine zugeordnet') .'</i>';
+                        }
+                        $tooltip = '';
+                        switch ($s_state) {
+                            case "2":
+                            case "3":
+                            case "8":
+                            case "9":
+                                $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+                                $tooltip .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
+                                if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)) {
+                                    $tooltip .= t('Name') .': '. trim($user_info[$y][$x]['firstname']) .' '. trim($user_info[$y][$x]['name']) . HTML_NEWLINE;
+                                }
+                                $tooltip .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
+                                $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+                                if ($func->chk_img_path($user_info[$y][$x]['avatar_path']) and
+                                ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))) {
+                                      $tooltip .= '<img src=\''. $user_info[$y][$x]['avatar_path'] .'\' style=\'max-width:100%;\' />' . HTML_NEWLINE;
+                                }
+                                break;
+                            case "1":
+                                  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
+                                  $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+                                break;
+                            case "7":
+                                  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Gesperrt'). HTML_NEWLINE;
+                                  $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+                                break;
+                            case "80":
+                            case "81":
+                                  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+                                  $tooltip .= t('Beschreibung') .': '. t('WC') . HTML_NEWLINE;
+                                break;
+                            case "82":
+                                  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+                                  $tooltip .= t('Beschreibung') .': '. t('Notausgang') . HTML_NEWLINE;
+                                break;
+                            case "83":
+                                  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+                                  $tooltip .= t('Beschreibung') .': '. t('Catering') . HTML_NEWLINE;
+                                break;
+                        }
+                        $tooltip = addslashes(addslashes($tooltip));
 
                         // Set seat image
                         $body[$y]['line'][$x]['img_name'] = '';
 
-                      switch ($seat_state[$y][$x]) {
-                        case 0:
-                        case 100:
-                          if ($mode == 1) {
-                              $jscode .= "DrawSeatingSymbol(0, $XOffset, $YOffset, '$link', '$tooltip');\n";
-                          } elseif ($mode == 2) {
-                              $jscode .= "ClearArea($XOffset, $YOffset, 14, 14, '$link');\n";
-                          }
-                        break;
-                        case 2:
+                        switch ($seat_state[$y][$x]) {
+                            case 0:
+                            case 100:
+                                if ($mode == 1) {
+                                    $jscode .= "DrawSeatingSymbol(0, $XOffset, $YOffset, '$link', '$tooltip');\n";
+                                } elseif ($mode == 2) {
+                                    $jscode .= "ClearArea($XOffset, $YOffset, 14, 14, '$link');\n";
+                                }
+                                break;
+                            case 2:
                                 if ($selected_user) {
                                     $userid = $selected_user;
                                 } else {
@@ -633,20 +631,19 @@ class seat2
                                 elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') {
                                     $seat_state[$y][$x] = 8;
                                 } // Checked in
-                                // else = 2 -> Normal occupied seat
+                                    // else = 2 -> Normal occupied seat
 
-              // No Break!
-                        default:
-                          if ($mode == 2) {
-                              $jscode .= "ClearArea($XOffset, $YOffset, 14, 14, '$link');\n";
-                          }
-                          $jscode .= "DrawSeatingSymbol({$seat_state[$y][$x]}, $XOffset, $YOffset, '$link', '$tooltip');\n";
-                        break;
-                          
-                      }
+                    // No Break!
+                            default:
+                                if ($mode == 2) {
+                                      $jscode .= "ClearArea($XOffset, $YOffset, 14, 14, '$link');\n";
+                                }
+                                  $jscode .= "DrawSeatingSymbol({$seat_state[$y][$x]}, $XOffset, $YOffset, '$link', '$tooltip');\n";
+                                break;
+                        }
 
                         $templ['seat']['cell_content'] = '';
-          break;
+                        break;
 
                     // IP-Input-Fields
                     case 3:
@@ -655,7 +652,7 @@ class seat2
                         } else {
                             $body[$y]['line'][$x]['content'] = "&nbsp;";
                         }
-                    break;
+                        break;
                 }
                 $cell_nr++;
             }
@@ -700,19 +697,19 @@ class seat2
 
 
     // Seat management functions
-  public function ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid)
-  {
-      global $db, $party;
+    public function ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid)
+    {
+        global $db, $party;
     
-      $res = $db->qry("SELECT s.seatid, s.status FROM %prefix%seat_block AS b
+        $res = $db->qry("SELECT s.seatid, s.status FROM %prefix%seat_block AS b
    LEFT JOIN %prefix%seat_seats AS s ON b.blockid = s.blockid
    WHERE b.party_id = %int% AND s.userid = %int%
    ", $party->party_id, $userid);
-      $row = $db->fetch_array($res);
-      if ($db->num_rows($res) == 1 and $row['status'] == 3) {
-          $db->qry("UPDATE %prefix%seat_seats SET status = 2 WHERE seatid = %int%", $row['seatid']);
-      }
-  }
+        $row = $db->fetch_array($res);
+        if ($db->num_rows($res) == 1 and $row['status'] == 3) {
+            $db->qry("UPDATE %prefix%seat_seats SET status = 2 WHERE seatid = %int%", $row['seatid']);
+        }
+    }
     
     public function MarkSeatIfNotPaidAndSeatReserved($userid)
     {

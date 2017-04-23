@@ -52,7 +52,7 @@ switch ($_GET['step']) {
                 break;
             }
         }
-    break;
+        break;
 
     // Update Seperators
     case 4:
@@ -76,7 +76,7 @@ switch ($_GET['step']) {
                 $db->qry("INSERT INTO %prefix%seat_sep SET blockid = %int%, orientation = '0', value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
             }
         }
-    break;
+        break;
 
     case 6:
          // $icon_nr = (int) substr($_POST['icon'], 0, 3);
@@ -104,15 +104,15 @@ switch ($_GET['step']) {
                 }
             }
         }
-    break;
+        break;
 }
 
 
 // Form-Switch
 switch ($_GET['step']) {
     default:
-    include_once('modules/seating/search.inc.php');
-    break;
+        include_once('modules/seating/search.inc.php');
+        break;
 
     case 2:
         // Get data from DB
@@ -226,10 +226,10 @@ switch ($_GET['step']) {
         $t_array = array();
                 array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
                 $res = $db->qry("SELECT price_id, price_text FROM %prefix%party_prices WHERE party_id = %int%", $party->party_id);
-                while ($row = $db->fetch_array($res)) {
-                    ($_POST['price_id'] == $row['price_id'])? $selected = 'selected' : $selected = '';
-                    array_push($t_array, '<option '. $selected .' value="'. $row['price_id'] .'">'. $row['price_text'] .'</option>');
-                }
+        while ($row = $db->fetch_array($res)) {
+            ($_POST['price_id'] == $row['price_id'])? $selected = 'selected' : $selected = '';
+            array_push($t_array, '<option '. $selected .' value="'. $row['price_id'] .'">'. $row['price_text'] .'</option>');
+        }
         $db->free_result($res);
                 $dsp->AddDropDownFieldRow("price_id", t('Nur für diesen Eintrittspreis'), $t_array, '');
 
@@ -241,18 +241,18 @@ switch ($_GET['step']) {
         if (!$_POST['party_id']) {
             $_POST['party_id'] = $party->party_id;
         }
-    $res = $db->qry("SELECT party_id, name FROM %prefix%partys");
-    while ($row = $db->fetch_array($res)) {
-        ($_POST['party_id'] == $row['party_id']) ? $selected = 'selected' : $selected = '';
-        array_push($selections, "<option $selected value=\"". $row['party_id'] ."\">". $row['name'] .'</option>');
-    }
-    $db->free_result($res);
+        $res = $db->qry("SELECT party_id, name FROM %prefix%partys");
+        while ($row = $db->fetch_array($res)) {
+            ($_POST['party_id'] == $row['party_id']) ? $selected = 'selected' : $selected = '';
+            array_push($selections, "<option $selected value=\"". $row['party_id'] ."\">". $row['name'] .'</option>');
+        }
+        $db->free_result($res);
         $dsp->AddDropDownFieldRow('party_id', t('Party'), $selections, '');
 
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton('index.php?mod=seating', 'seating/add');
         $dsp->AddContent();
-    break;
+        break;
 
     case 3:
         // Save block settings
@@ -318,7 +318,7 @@ switch ($_GET['step']) {
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=seating&action={$_GET['action']}&step=2&blockid={$_GET['blockid']}", 'seating/add');
         $dsp->AddContent();
-    break;
+        break;
 
     // Seat-Selection
     case 5:
@@ -330,10 +330,10 @@ switch ($_GET['step']) {
         $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=seating&action={$_GET['action']}&step=7&blockid={$_GET['blockid']}"));
         $dsp->AddBackButton("index.php?mod=seating&action={$_GET['action']}&step=4&blockid={$_GET['blockid']}", 'seating/add');
         $dsp->AddContent();
-    break;
+        break;
 
     // Finished
     case 7:
         $func->confirmation(t('Der Sitzplan wurde erfolgreich bearbeitet'), 'index.php?mod=seating');
-    break;
+        break;
 }

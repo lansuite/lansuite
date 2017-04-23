@@ -14,9 +14,9 @@ switch ($_GET['step']) {
         $smarty->assign('form_action', "index.php?mod=seating&action=ipgen&step=10&blockid=". $_GET['blockid']);
         $smarty->assign('page_title', t('IP-Generierung'));
 
-    $smarty->assign('case', $smarty->fetch('modules/seating/templates/ipgen_details.htm'));
+        $smarty->assign('case', $smarty->fetch('modules/seating/templates/ipgen_details.htm'));
         $dsp->AddSingleRow($smarty->fetch('modules/seating/templates/ipgen.htm'));
-    break;
+        break;
 
     case 10:
         $ip_a  = $_POST["ipgen_a"];
@@ -39,11 +39,11 @@ switch ($_GET['step']) {
         $max_row = $get_size["rows"];
         $max_col = $get_size["cols"];
 
-    if ($br != 'rowcol' and $br != 'rowcol2') {
-        $check_status = 'status < 10 AND status > 0 AND';
-    } else {
-        $check_status = '';
-    }
+        if ($br != 'rowcol' and $br != 'rowcol2') {
+            $check_status = 'status < 10 AND status > 0 AND';
+        } else {
+            $check_status = '';
+        }
 
         // Hole alle seatids nach reihen sortiert in ein array
         $count = 0;
@@ -68,7 +68,7 @@ switch ($_GET['step']) {
         $durchg = 0;
 
         // zähle das array und update db
-        for ($i=1;$i<=$count;$i++) {
+        for ($i=1; $i<=$count; $i++) {
             $durchg++;
 
             // aktuelle anzahl der Spalten falls Sitzplaetze deaktiviert
@@ -110,76 +110,73 @@ switch ($_GET['step']) {
             echo $max_col_durchg . " max Cols Durchg.<br>";
             */
 
-        switch ($br) {
-            case "rowcol":    // wenn gewünscht nach jeder Reihe oder Spalte die 3. stelle hochzählen
-
-                if ($sort=="row") {
-                    if ($durchg==$max_col_durchg) {
-                        $ip_c++;
-                        $ip_d = 0;
-                        $durchg = 0;
-                        // echo "<font color=red>Max COL = SEAT COL (Überlauf)</font><br><br>";
-                    }
-                }
-
-                if ($sort=="col") {
-                    if ($durchg==$max_row_durchg) {
-                        $ip_c++;
-                        $ip_d = 0;
-                        $durchg = 0;
-                        // echo "<font color=red>Max ROW = SEAT ROW (Überlauf)</font><br><br>";
-                    }
-                }
-
-            break;
-
-
-            case "rowcol2":    // wenn gewünscht nach jeder ZWEITEN Reihe oder Spalte
-
-                if ($sort=="row") {
-                    if ($durchg==$max_col_durchg) {
-                        if ($sp2 == false) {
-                            $sp2 = true;
-                            $durchg = 0;
-                        } else {
+            switch ($br) {
+                case "rowcol":
+                    if ($sort=="row") {
+                        if ($durchg==$max_col_durchg) {
                             $ip_c++;
                             $ip_d = 0;
                             $durchg = 0;
-                            $sp2 = false;
+                            // echo "<font color=red>Max COL = SEAT COL (Überlauf)</font><br><br>";
                         }
-                        // echo "<font color=red>Max COL = SEAT COL (Überlauf)</font><br><br>";
                     }
-                }
 
-                if ($sort=="col") {
-                    if ($durchg==$max_row_durchg) {
-                        if ($sp2 == false) {
-                            $sp2 = true;
-                            $durchg = 0;
-                        } else {
+                    if ($sort=="col") {
+                        if ($durchg==$max_row_durchg) {
                             $ip_c++;
                             $ip_d = 0;
                             $durchg = 0;
-                            $sp2 = false;
+                            // echo "<font color=red>Max ROW = SEAT ROW (Überlauf)</font><br><br>";
                         }
-                        // echo "<font color=red>Max ROW = SEAT ROW (Überlauf)</font><br><br>";
                     }
-                }
-            break;
-        } // switch
+
+                    break;
+
+
+                case "rowcol2":
+                    if ($sort=="row") {
+                        if ($durchg==$max_col_durchg) {
+                            if ($sp2 == false) {
+                                $sp2 = true;
+                                $durchg = 0;
+                            } else {
+                                $ip_c++;
+                                $ip_d = 0;
+                                $durchg = 0;
+                                $sp2 = false;
+                            }
+                            // echo "<font color=red>Max COL = SEAT COL (Überlauf)</font><br><br>";
+                        }
+                    }
+
+                    if ($sort=="col") {
+                        if ($durchg==$max_row_durchg) {
+                            if ($sp2 == false) {
+                                $sp2 = true;
+                                $durchg = 0;
+                            } else {
+                                $ip_c++;
+                                $ip_d = 0;
+                                $durchg = 0;
+                                $sp2 = false;
+                            }
+                            // echo "<font color=red>Max ROW = SEAT ROW (Überlauf)</font><br><br>";
+                        }
+                    }
+                    break;
+            } // switch
         } //for loop
 
         $func->confirmation(t('Die IP Adressen wurden erfolgreich eingetragen.'), "index.php?mod=seating");
-    break;
+        break;
 
   // Delete IPs
-  case 20:
+    case 20:
         $func->question(t('IPs dieses Sitzblocks wirklich alle löschen?'), 'index.php?mod=seating&action=ipgen&step=21&blockid=' .$_GET['blockid'], 'index.php?mod=seating');
-  break;
+        break;
 
-  case 21:
+    case 21:
         $db->qry('UPDATE %prefix%seat_seats SET ip = \'\' WHERE blockid = %int%', $_GET['blockid']);
         $func->confirmation(t('Die IPs dieses Plans wurden erfolgreich gelöscht'), 'index.php?mod=seating');
-  break;
-
+        break;
 } // switch

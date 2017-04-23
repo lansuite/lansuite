@@ -14,11 +14,11 @@ switch ($_GET['step']) {
                     $row = $cur_cell % 100;
 
             // Check IP format
-            if (!$func->checkIP($value)) {
-                $func->error(t('Das Format mindestens einer IP ist ungültig. Format: 192.168.123.12'));
-                $_GET['step'] = 2;
-                break;
-            }
+                    if (!$func->checkIP($value)) {
+                        $func->error(t('Das Format mindestens einer IP ist ungültig. Format: 192.168.123.12'));
+                        $_GET['step'] = 2;
+                        break;
+                    }
 
             // Check for allready assigned IPs
             /*
@@ -31,20 +31,20 @@ switch ($_GET['step']) {
                 }
             }
         }
-    break;
+        break;
 }
 
 switch ($_GET['step']) {
     default:
-    $current_url = 'index.php?mod=seating&action=ip';
-    $target_url = 'index.php?mod=seating&action=ip&step=2&blockid=';
-    $target_icon = 'generate';
-    include_once('modules/seating/search_basic_blockselect.inc.php');
-    break;
+        $current_url = 'index.php?mod=seating&action=ip';
+        $target_url = 'index.php?mod=seating&action=ip&step=2&blockid=';
+        $target_icon = 'generate';
+        include_once('modules/seating/search_basic_blockselect.inc.php');
+        break;
 
     case 2:
-    include_once("modules/seating/class_seat.php");
-    $seat2 = new seat2();
+        include_once("modules/seating/class_seat.php");
+        $seat2 = new seat2();
 
         $dsp->NewContent(t('Sitzplatz - IP-Verteilung'), t('Hier siehst du die einzelnen Sitzpl&auml;tze und die jeweils zugewiesene IP-Nummer. Diese k&ouml;nnen einzeln von Hand neu eingetragen oder ge&auml;ndert werden.'));
 
@@ -54,7 +54,7 @@ switch ($_GET['step']) {
 
         $dsp->AddBackButton('index.php?mod=seating', 'seating/show');
         $dsp->AddContent();
-    break;
+        break;
 
     case 3:
         if ($_POST['cell']) {
@@ -67,5 +67,5 @@ switch ($_GET['step']) {
             }
         }
         $func->confirmation(t('Die IPs wurden erfolgreich eingetragen'), 'index.php?mod=seating');
-    break;
+        break;
 }
