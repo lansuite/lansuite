@@ -16,11 +16,9 @@
 
 
 switch ($_GET["step"]) {
-
     case 3:
-
     //  ERRORS
-    $get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
+        $get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
 
         while ($row=$db->fetch_array($get_cat_names)) {
             $name = $row["name"];
@@ -31,7 +29,7 @@ switch ($_GET["step"]) {
             }
         }
 
-    $i = strlen($_POST["question_text"]);
+        $i = strlen($_POST["question_text"]);
 
         if ($i > 5000) {
             $faq_error['question_text'] = t('Die Antwort darf nicht mehr als 5000 Zeichen enthalten');
@@ -39,52 +37,49 @@ switch ($_GET["step"]) {
         }
 
 
-    if ($_POST["question_new_cat"] == "" and $_POST["question_cat"] == "new") {
-        $faq_error['cat_name']    = t('Bitte gib einen Namen für die neue Kategorie ein');
-        $_GET["step"] = 2;
-    }
+        if ($_POST["question_new_cat"] == "" and $_POST["question_cat"] == "new") {
+            $faq_error['cat_name']    = t('Bitte gib einen Namen für die neue Kategorie ein');
+            $_GET["step"] = 2;
+        }
 
-    if ($_POST["question_caption"] == "") {
-        $faq_error['question_caption']    = t('Bitte gib eine Frage ein');
-        $_GET["step"] = 2;
-    }
+        if ($_POST["question_caption"] == "") {
+            $faq_error['question_caption']    = t('Bitte gib eine Frage ein');
+            $_GET["step"] = 2;
+        }
 
 
-    if ($_POST["question_text"] == "") {
-        $faq_error['question_text']    = t('Bitte gib einen Text ein');
-        $_GET["step"] = 2;
-    }
+        if ($_POST["question_text"] == "") {
+            $faq_error['question_text']    = t('Bitte gib einen Text ein');
+            $_GET["step"] = 2;
+        }
 
-    if ($_POST["question_cat"] == 0 and $_POST["question_new_cat"] == "") {
-        $faq_error['question_cat']    = t('Bitte wähle eine Kategorie aus oder erstelle eine neue Kategorie');
-        $_GET["step"] = 2;
-    }
+        if ($_POST["question_cat"] == 0 and $_POST["question_new_cat"] == "") {
+            $faq_error['question_cat']    = t('Bitte wähle eine Kategorie aus oder erstelle eine neue Kategorie');
+            $_GET["step"] = 2;
+        }
 
-    if ($_POST["question_cat"] != 0 and $_POST["question_new_cat"] != "") {
-        $faq_error['question_cat']    = t('Bitte wähle eine Kategorie aus <b> ODER </b> erstelle eine neue Kategorie');
-        $_GET["step"] = 2;
-    }
+        if ($_POST["question_cat"] != 0 and $_POST["question_new_cat"] != "") {
+            $faq_error['question_cat']    = t('Bitte wähle eine Kategorie aus <b> ODER </b> erstelle eine neue Kategorie');
+            $_GET["step"] = 2;
+        }
 
-    break;
-
+        break;
 } // close switch
 
 
 
 switch ($_GET["step"]) {
-
     default:
         include('show.php');
-    break;
+        break;
 
 
     case 2:
+        unset($_SESSION['change_blocker_faqitem']);
 
-    unset($_SESSION['change_blocker_faqitem']);
+        $get_data = $db->qry_first("SELECT caption, text, catid FROM %prefix%faq_item WHERE itemid = %int%", $_GET["itemid"]);
 
-    $get_data = $db->qry_first("SELECT caption, text, catid FROM %prefix%faq_item WHERE itemid = %int%", $_GET["itemid"]);
-
-    $question_caption    = $get_data["caption"];
+        $question_caption    = $get_data["caption"];
 
         if ($question_caption != "") {
             if ($_POST["question_caption"] == "") {
@@ -119,15 +114,14 @@ switch ($_GET["step"]) {
             $dsp->AddContent();
         } else {
                 $func->error(t('Diese Frage existiert nicht'));
-            }
+        }
 
-    break;
+        break;
 
 
     case 3:
-
-    $get_itemid = $db->qry_first("SELECT caption FROM %prefix%faq_item WHERE itemid = %int%", $_GET["itemid"]);
-    $faqitem_caption_test = $get_itemid["caption"];
+        $get_itemid = $db->qry_first("SELECT caption FROM %prefix%faq_item WHERE itemid = %int%", $_GET["itemid"]);
+        $faqitem_caption_test = $get_itemid["caption"];
 
         if ($faqitem_caption_test != "") {
             $courent_date = date("U");
@@ -159,9 +153,9 @@ switch ($_GET["step"]) {
                 }
             } // if
 
-                    else {
-                        if ($_SESSION['change_blocker_faqitem'] != 1) {
-                            $add_it = $db->qry("UPDATE %prefix%faq_item SET
+            else {
+                if ($_SESSION['change_blocker_faqitem'] != 1) {
+                    $add_it = $db->qry("UPDATE %prefix%faq_item SET
 											caption = %string%,
 											text = %string%,
 											poster = %int%,
@@ -169,18 +163,17 @@ switch ($_GET["step"]) {
 											catid = %string%
 								 			WHERE itemid = '{$_GET["itemid"]}'", $_POST["question_caption"], $_POST["question_text"], $_SESSION["auth"]["userid"], $courent_date, $_POST["question_cat"]);
 
-                            if ($add_it == 1) {
-                                $func->confirmation(t('Die Frage wurde erfolgreich ge&ändert'), "");
-                                $_SESSION['change_blocker_faqitem'] = 1;
-                            }
-                        } else {
-                            $func->error("NO_REFRESH");
-                        }
+                    if ($add_it == 1) {
+                        $func->confirmation(t('Die Frage wurde erfolgreich ge&ändert'), "");
+                        $_SESSION['change_blocker_faqitem'] = 1;
                     }
+                } else {
+                    $func->error("NO_REFRESH");
+                }
+            }
         } else {
                 $func->error(t('Diese Frage existiert nicht'));
-            }
+        }
 
-    break; // BREAK CASE 2
-
+        break; // BREAK CASE 2
 }

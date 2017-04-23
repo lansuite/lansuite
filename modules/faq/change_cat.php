@@ -15,10 +15,9 @@
 **************************************************************************/
 
 switch ($_GET["step"]) {
-    
     case 3:
     //  ERRORS
-    $get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
+        $get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
     
         while ($row=$db->fetch_array($get_cat_names)) {
             $name = $row["name"];
@@ -39,20 +38,16 @@ switch ($_GET["step"]) {
         }
             
                 
-    break;
-        
+        break;
 } // close switch
 
 
 switch ($_GET["step"]) {
-
-    
     case 2:
+        $get_data = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET["catid"]);
+        $_POST["cat_caption"] = $get_data["name"];
         
-    $get_data = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET["catid"]);
-    $_POST["cat_caption"] = $get_data["name"];
-        
-    $_SESSION["change_blocker_faq_cat"] = "";
+        $_SESSION["change_blocker_faq_cat"] = "";
         
         if ($_POST["cat_caption"] != "") {
             $dsp->NewContent(t('Frage ändern'));
@@ -62,13 +57,12 @@ switch ($_GET["step"]) {
             $dsp->AddContent();
         } else {
                 $func->error(t('Diese Kategorie existiert nicht'));
-            }
+        }
             
-    break;
+        break;
         
     
     case 3:
-        
         if ($_SESSION["change_blocker_faq_cat"] != 1) {
             $get_data = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET["catid"]);
             $catcaption = $get_data["name"];
@@ -88,15 +82,10 @@ switch ($_GET["step"]) {
             }
         } // close if blocker
         
-            else {
-                $func->error("NO_REFRESH");
-            }
+        else {
+            $func->error("NO_REFRESH");
+        }
                 
         
-    break;
-        
-    
+        break;
 } // close switch step
-    
-?>
-	

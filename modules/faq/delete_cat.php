@@ -15,22 +15,20 @@
 **************************************************************************/
 
 switch ($_GET["step"]) {
-    
     default:
         include('show.php');
-    break;
+        break;
 
     case 2:
-    
         $get_catname = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET['catid']);
         
         if ($get_catname["name"] != "") {
             $func->question(t('Bist du sicher, dass du die Kategorie  <b> %1 </b> und die darin enthaltenen Fragen wirklich löschen willst?', $get_catname['name']), "index.php?mod=faq&object=cat&action=delete_cat&catid={$_GET['catid']}&step=3", "index.php?mod=faq&object=cat&action=delete_cat");
         } else {
                 $func->error(t('Diese Kategorie existiert nicht'));
-            }
+        }
     
-    break;
+        break;
     
     case 3:
         $get_catname = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET['catid']);
@@ -46,10 +44,9 @@ switch ($_GET["step"]) {
             }
         } //if
         
-            else {
-                $func->error(t('Diese Kategorie existiert nicht'));
-            }
+        else {
+            $func->error(t('Diese Kategorie existiert nicht'));
+        }
     
-    break;
-
+        break;
 } // close switch step
