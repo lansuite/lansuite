@@ -14,43 +14,43 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <?php
 
 switch ($_GET['time']) {
-  default:
-    $link = 'y';
-    $back = '';
-    $group_by = '%Y-00-00-00-00-00';
-    $where = '0000-00-00-00-00-00';
-    $where_back = '';
-    $_GET['timeframe'] = '0000-00-00-00-00-00';
-    $XSteps = 20;
-    $multiply = 'y';
-  break;
+    default:
+        $link = 'y';
+        $back = '';
+        $group_by = '%Y-00-00-00-00-00';
+        $where = '0000-00-00-00-00-00';
+        $where_back = '';
+        $_GET['timeframe'] = '0000-00-00-00-00-00';
+        $XSteps = 20;
+        $multiply = 'y';
+        break;
     case 'y':
-    $link = 'm';
-    $back = '';
-    $group_by = '%Y-%m-00-00-00-00';
-    $where = '%Y-00-00-00-00-00';
-    $where_back = '00-00-00-00-00-00';
-    $XSteps = 12;
-    $multiply = 'm';
-    break;
+        $link = 'm';
+        $back = '';
+        $group_by = '%Y-%m-00-00-00-00';
+        $where = '%Y-00-00-00-00-00';
+        $where_back = '00-00-00-00-00-00';
+        $XSteps = 12;
+        $multiply = 'm';
+        break;
     case 'm':
-    $link = 'd';
-    $back = 'y';
-    $group_by = '%Y-%m-%d-00-00-00';
-    $where = '%Y-%m-00-00-00-00';
-    $where_back = '%Y-00-00-00-00-00';
-    $XSteps = 31;
-    $multiply = 'd';
-    break;
+        $link = 'd';
+        $back = 'y';
+        $group_by = '%Y-%m-%d-00-00-00';
+        $where = '%Y-%m-00-00-00-00';
+        $where_back = '%Y-00-00-00-00-00';
+        $XSteps = 31;
+        $multiply = 'd';
+        break;
     case 'd':
-    $link = '';
-    $back = 'm';
-    $group_by = '%Y-%m-%d-%H-00-00';
-    $where = '%Y-%m-%d-00-00-00';
-    $where_back = '%Y-%m-00-00-00-00';
-    $XSteps = 24;
-    $multiply = 'H';
-    break;
+        $link = '';
+        $back = 'm';
+        $group_by = '%Y-%m-%d-%H-00-00';
+        $where = '%Y-%m-%d-00-00-00';
+        $where_back = '%Y-%m-00-00-00-00';
+        $XSteps = 24;
+        $multiply = 'H';
+        break;
 }
 
 // Select max
