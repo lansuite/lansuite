@@ -10,5 +10,3 @@ $helplet['key'][2] = 'Wichtige News';
 $helplet['value'][2] = 'Als sehr wichtig markierte News werden gesondert (designabhängig meist rot) dargestellt.';
 $helplet['key'][3] = 'Eigene Newsicons';
 $helplet['value'][3] = 'Wenn du eigene News-Icons definieren möchtest, lade diese einfach in den Ordner ext_inc/news_icons/ hoch. Diese werden dann beim Hinzufügen der News in dem Dropdown angezeigt.';
-
-?>
