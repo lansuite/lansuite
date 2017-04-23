@@ -26,9 +26,11 @@ class xml
         }
 
         if ($save) {
-            return trim(str_replace("--lt--", "<", str_replace("--gt--", ">",
+            return trim(str_replace("--lt--", "<", str_replace(
+                "--gt--",
+                ">",
                 substr($input, $start, $end)
-                )));
+            )));
         } else {
             return trim(substr($input, $start, $end));
         }
@@ -55,12 +57,13 @@ class xml
         $i = 1;
         $output = array();
         while ($i < sizeof($content)) {
-
             // Copy till end-tag
             if ($save) {
-                $output[] = str_replace("--lt--", "<", str_replace("--gt--", ">",
+                $output[] = str_replace("--lt--", "<", str_replace(
+                    "--gt--",
+                    ">",
                     substr($content[$i], 0, strpos($content[$i], '</'. $tag .'>'))
-                    ));
+                ));
             } else {
                 $output[] = substr($content[$i], 0, strpos($content[$i], '</'. $tag .'>'));
             }
@@ -163,7 +166,7 @@ class xml
 
     // Todo: AllowHTML should be removed. Then --lt-- would also not be needed anymore
     // But then the import will need to replace HTML back.
-    $content = $func->AllowHTML($content);
+        $content = $func->AllowHTML($content);
         $content = str_replace("<", "--lt--", $content);
         $content = str_replace(">", "--gt--", $content);
 

@@ -74,72 +74,88 @@ class gd
         if ($file) {
             switch (strtolower($type)) {
                 case "jpeg":
-                case "jpg": if (ImageTypes() & IMG_JPG) {
-                    ImageJPEG($this->img, $file);
-                } break;
-                case "gif": if (ImageTypes() & IMG_GIF) {
-                    ImageGIF($this->img, $file);
-                } break;
-                case "wbmp": if (ImageTypes() & IMG_WBMP) {
-                    ImageWBMP($this->img, $file);
-                } break;
+                case "jpg":
+                    if (ImageTypes() & IMG_JPG) {
+                        ImageJPEG($this->img, $file);
+                    }
+                    break;
+                case "gif":
+                    if (ImageTypes() & IMG_GIF) {
+                        ImageGIF($this->img, $file);
+                    }
+                    break;
+                case "wbmp":
+                    if (ImageTypes() & IMG_WBMP) {
+                        ImageWBMP($this->img, $file);
+                    }
+                    break;
                 case "bmp":
                     include_once("ext_scripts/gd/bmp.php");
                     ImageBMP($this->img, $file);
-                break;
+                    break;
                 case "ico":
                     include_once("ext_scripts/gd/ico.php");
                     ImageICO($this->img, $file);
-                break;
+                    break;
                 case "cur":
                     include_once("ext_scripts/gd/cur.php");
                     ImageCUR($this->img, $file);
-                break;
+                    break;
 /*				case "ani":
                     include_once("ext_scripts/gd/ani.php");
                     ImageANI($this->img, $file);
                 break;*/
-                default: if (ImageTypes() & IMG_PNG) {
-                    ImagePNG($this->img, $file);
-                } break;
+                default:
+                    if (ImageTypes() & IMG_PNG) {
+                        ImagePNG($this->img, $file);
+                    }
+                    break;
             }
             chmod($file, octdec($config["lansuite"]["chmod_file"]));
 
             // Check filesize. Delete if filesize = 0 (i.e. becaus of exceeded disk quota), so it is tried to be generated on next load
-      if (filesize($file) == 0) {
-          unlink($file);
-      }
+            if (filesize($file) == 0) {
+                unlink($file);
+            }
         } else {
             switch (strtolower($type)) {
                 case "jpeg":
-                case "jpg": if (ImageTypes() & IMG_JPG) {
-                    ImageJPEG($this->img);
-                } break;
-                case "gif": if (ImageTypes() & IMG_GIF) {
-                    ImageGIF($this->img);
-                } break;
-                case "wbmp": if (ImageTypes() & IMG_WBMP) {
-                    ImageWBMP($this->img);
-                } break;
+                case "jpg":
+                    if (ImageTypes() & IMG_JPG) {
+                        ImageJPEG($this->img);
+                    }
+                    break;
+                case "gif":
+                    if (ImageTypes() & IMG_GIF) {
+                        ImageGIF($this->img);
+                    }
+                    break;
+                case "wbmp":
+                    if (ImageTypes() & IMG_WBMP) {
+                        ImageWBMP($this->img);
+                    }
+                    break;
                 case "bmp":
                     include_once("ext_scripts/gd/bmp.php");
                     ImageBMP($this->img);
-                break;
+                    break;
                 case "ico":
                     include_once("ext_scripts/gd/ico.php");
                     ImageICO($this->img);
-                break;
+                    break;
                 case "cur":
                     include_once("ext_scripts/gd/cur.php");
                     ImageCUR($this->img);
-                break;
+                    break;
 /*				case "ani":
                     include_once("ext_scripts/gd/ani.php");
                     ImageANI($this->img);
                 break;*/
-                default: if (ImageTypes() & IMG_PNG) {
-                    ImagePNG($this->img);
-                } break;
+                default:
+                    if (ImageTypes() & IMG_PNG) {
+                        ImagePNG($this->img);
+                    }
+                    break;
             }
         }
 
@@ -234,32 +250,42 @@ class gd
 
         $type = strtolower(substr($filename, strrpos($filename, ".") + 1, 4));
         switch ($type) {
-            default: return 0; break;
-            case "png": if (ImageTypes() & IMG_PNG) {
-                $img_src = ImageCreateFromPNG($filename);
-            } break;
+            default:
+                return 0;
+            break;
+            case "png":
+                if (ImageTypes() & IMG_PNG) {
+                    $img_src = ImageCreateFromPNG($filename);
+                }
+                break;
             case "jpeg":
-            case "jpg": if (ImageTypes() & IMG_JPG) {
-                $img_src = ImageCreateFromJPEG($filename);
-            } break;
-            case "gif": if (ImageTypes() & IMG_GIF) {
-                $img_src = ImageCreateFromGIF($filename);
-            } break;
-            case "wbmp": if (ImageTypes() & IMG_WBMP) {
-                $img_src = ImageCreateFromWBMP($filename);
-            } break;
+            case "jpg":
+                if (ImageTypes() & IMG_JPG) {
+                    $img_src = ImageCreateFromJPEG($filename);
+                }
+                break;
+            case "gif":
+                if (ImageTypes() & IMG_GIF) {
+                    $img_src = ImageCreateFromGIF($filename);
+                }
+                break;
+            case "wbmp":
+                if (ImageTypes() & IMG_WBMP) {
+                    $img_src = ImageCreateFromWBMP($filename);
+                }
+                break;
             case "bmp":
                 include_once("ext_scripts/gd/bmp.php");
                 $img_src = ImageCreateFromBMP($filename);
-            break;
+                break;
             case "ico":
                 include_once("ext_scripts/gd/ico.php");
                 $img_src = ImageCreateFromICO($filename);
-            break;
+                break;
             case "cur":
                 include_once("ext_scripts/gd/cur.php");
                 $img_src = ImageCreateFromCUR($filename);
-            break;
+                break;
 /*			case "ani":
                 include_once("ext_scripts/gd/ani.php");
                 $img_src = ImageCreateFromANI($filename);
@@ -283,7 +309,7 @@ class gd
             return false;
         } else {
             // Calculate new size
-        $old_width = imagesx($imgsrc_old);
+            $old_width = imagesx($imgsrc_old);
             $old_height = imagesy($imgsrc_old);
   
             $ratio_x = $old_width / $max_width;

@@ -40,7 +40,7 @@ class auth
    * @param mixed Frameworkmode for switch Stats
    *
    */
-    public function auth($frmwrkmode="")
+    public function auth($frmwrkmode = "")
     {
         global $db;
         
@@ -53,10 +53,13 @@ class auth
         //$this->cookie_crypt_pw = $cfg[''];    // CryptPW via Config => uniqekey
         
         // Better handle it here, otherwise its an DB-Query for each $dsp->FetchUserIcon()
-        $res = $db->qry('SELECT userid,lasthit FROM %prefix%stats_auth
+        $res = $db->qry(
+            'SELECT userid,lasthit FROM %prefix%stats_auth
             WHERE login = "1" AND (lasthit > %int% OR lastajaxhit > %int%) AND userid > 0
             GROUP BY userid',
-            $this->timestamp - 60*10, $this->timestamp - 60*1);
+            $this->timestamp - 60*10,
+            $this->timestamp - 60*1
+        );
         while ($row = $db->fetch_array($res)) {
             if ($row['lasthit'] > ($this->timestamp - 60*10)) {
                 $this->online_users[] = $row['userid'];
@@ -155,15 +158,19 @@ class auth
             // Search in cookie table for id + pw
             $cookierow = $db->qry_first('SELECT userid from %prefix%cookie WHERE cookieid = %int% AND password = %string%', $tmp_login_email, $tmp_login_pass);
             if ($cookierow['userid']) {
-                $user = $db->qry_first('SELECT *, 1 AS found FROM %prefix%user WHERE (userid = %int%)',
-              $cookierow['userid']);
-            }
- 
-            // Not found in cookie table, then check for manual login (either with email, oder userid)
+                $user = $db->qry_first(
+                    'SELECT *, 1 AS found FROM %prefix%user WHERE (userid = %int%)',
+                    $cookierow['userid']
+                );
+            } // Not found in cookie table, then check for manual login (either with email, oder userid)
             else {
-                $user = $db->qry_first('SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user
+                $user = $db->qry_first(
+                    'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user
               WHERE ((userid = %int% AND 0 = %int%) OR LOWER(email) = %string%)',
-              $tmp_login_email, $is_email, $tmp_login_email);
+                    $tmp_login_email,
+                    $is_email,
+                    $tmp_login_email
+                );
             }
 
             // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
@@ -219,7 +226,6 @@ class auth
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account ausgecheckt).', $tmp_login_email), "2", "Authentifikation");
             // Everything fine!
             } else {
-
                 // Set Logonstats
                 $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate, lastlogin = NOW() WHERE userid = %int%', $user['userid']);
                 
@@ -234,9 +240,16 @@ class auth
                 }
                 
                 // Set authdata
-                $db->qry('REPLACE INTO %prefix%stats_auth
+                $db->qry(
+                    'REPLACE INTO %prefix%stats_auth
                   SET sessid = %string%, userid = %int%, login = \'1\', ip = %string%, logtime = %string%, logintime = %string%, lasthit = %string%',
-                  $this->auth["sessid"], $user["userid"], $this->auth["ip"], $this->timestamp, $this->timestamp, $this->timestamp);
+                    $this->auth["sessid"],
+                    $user["userid"],
+                    $this->auth["ip"],
+                    $this->timestamp,
+                    $this->timestamp,
+                    $this->timestamp
+                );
 
                 $this->loadAuthBySID();
                 $this->auth['userid'] = $user['userid'];
@@ -246,15 +259,15 @@ class auth
 
                 if ($show_confirmation) {
                     // Print Loginmessages
-                  if ($_GET['mod']=='auth' and $_GET['action'] == 'login') {
-                      $auth_backlink = "index.php?mod=home";
-                  } else {
-                      $auth_backlink = "";
-                  }
+                    if ($_GET['mod']=='auth' and $_GET['action'] == 'login') {
+                        $auth_backlink = "index.php?mod=home";
+                    } else {
+                        $auth_backlink = "";
+                    }
                     $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink, '', 'FORWARD');
   
                   // Show error logins
-                  $msg = '';
+                    $msg = '';
                     $res = $db->qry('SELECT INET6_NTOA(ip) AS ip, time
                                    FROM %prefix%login_errors
                                    WHERE userid = %int%', $user['userid']);
@@ -459,7 +472,7 @@ class auth
                 } else {
                     $func->information('NO_LOGIN');
                 }
-            break;
+                break;
     
             case 2: // Type is Admin, or Superadmin
                 if ($this->auth['type'] > 1) {
@@ -469,7 +482,7 @@ class auth
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
-            break;
+                break;
     
             case 3: // Type is Superadmin
                 if ($this->auth['type'] > 2) {
@@ -479,7 +492,7 @@ class auth
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
-            break;
+                break;
     
             case 4: // Type is User, or less
                 if ($this->auth['type'] < 2) {
@@ -487,7 +500,7 @@ class auth
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
-            break;
+                break;
     
             case 5: // Logged out
                 if (!$this->auth['login']) {
@@ -495,7 +508,7 @@ class auth
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
-            break;
+                break;
     
             default:
                 return 1;
@@ -542,7 +555,7 @@ class auth
    *
    * @access private
    */
-    public function update_visits($frmwrkmode="")
+    public function update_visits($frmwrkmode = "")
     {
         global $db;
         if ($frmwrkmode != "ajax" and $frmwrkmode != "print" and $frmwrkmode != "popup" and $frmwrkmode != "base") {
@@ -636,11 +649,13 @@ class auth
    */
     public function cookie_set()
     {
-        setcookie($this->cookie_name,
-                  $this->cookiedata_pack(),
-                  time()+3600*24*$this->cookie_time,
-                  $this->cookie_path,
-                  $this->cookie_domain);
+        setcookie(
+            $this->cookie_name,
+            $this->cookiedata_pack(),
+            time()+3600*24*$this->cookie_time,
+            $this->cookie_path,
+            $this->cookie_domain
+        );
     }
 
   /**
@@ -650,11 +665,13 @@ class auth
    */
     public function cookie_unset()
     {
-        setcookie($this->cookie_name,
-                  '',
-                  time()+1,
-                  $this->cookie_path,
-                  $this->cookie_domain);
+        setcookie(
+            $this->cookie_name,
+            '',
+            time()+1,
+            $this->cookie_path,
+            $this->cookie_domain
+        );
     }
 
   /**

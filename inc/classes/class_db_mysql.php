@@ -12,39 +12,39 @@ class db
     public $errors = '';
     public $errorsFound = 0;
     public $connectfailure = 0;  //0= no error, 1=connection error, 2=database error
-  public $QueryArgs = array();
+    public $QueryArgs = array();
 
   // Construktor
-  public function db()
-  {
-      if (extension_loaded("mysqli")) {
-          $this->mysqli = 1;
-      } elseif (!extension_loaded("mysql")) {
-          echo HTML_FONT_ERROR . t('Das MySQL-PHP Modul ist nicht geladen. Bitte füge die mysql.so Erweiterung zur php.ini hinzu und restarte den Webserver neu. Lansuite wird abgebrochen') . HTML_FONT_END;
-      }
-  }
+    public function db()
+    {
+        if (extension_loaded("mysqli")) {
+            $this->mysqli = 1;
+        } elseif (!extension_loaded("mysql")) {
+            echo HTML_FONT_ERROR . t('Das MySQL-PHP Modul ist nicht geladen. Bitte füge die mysql.so Erweiterung zur php.ini hinzu und restarte den Webserver neu. Lansuite wird abgebrochen') . HTML_FONT_END;
+        }
+    }
 
 
   #### Internal only ####
 
-  public function print_error($msg, $query_string_with_error)
-  {
-      global $func, $config, $auth;
+    public function print_error($msg, $query_string_with_error)
+    {
+        global $func, $config, $auth;
 
-      $error = t('SQL-Failure. Database respondet: <b>%1</b><br /><br />Query: <br /><i>%2</i>', $msg, $query_string_with_error);
+        $error = t('SQL-Failure. Database respondet: <b>%1</b><br /><br />Query: <br /><i>%2</i>', $msg, $query_string_with_error);
 
-      $this->errors .= $error . '<br />';
-      $this->errorsFound = 1;
-    // Need to use mysql_querys here, to prevent loops!!
-    $query = 'INSERT INTO '. $config['database']['prefix'] .'log SET date = NOW(), userid = '. (int)$auth['userid'] .', type = 3, description = "'. strip_tags($error) .'", sort_tag = "SQL-Fehler"';
-      if ($this->mysqli) {
-          mysqli_query($this->link_id, $query);
-      } else {
-          mysql_query($query, $this->link_id);
-      }
+        $this->errors .= $error . '<br />';
+        $this->errorsFound = 1;
+        // Need to use mysql_querys here, to prevent loops!!
+        $query = 'INSERT INTO '. $config['database']['prefix'] .'log SET date = NOW(), userid = '. (int)$auth['userid'] .', type = 3, description = "'. strip_tags($error) .'", sort_tag = "SQL-Fehler"';
+        if ($this->mysqli) {
+            mysqli_query($this->link_id, $query);
+        } else {
+            mysql_query($query, $this->link_id);
+        }
 
-      $this->count_query++;
-  }
+          $this->count_query++;
+    }
 
     public function escape($match)
     {
@@ -67,61 +67,61 @@ class db
 
   #### Connection related ####
 
-  public function connect($save = false)
-  {
-      global $config;
+    public function connect($save = false)
+    {
+        global $config;
 
-      $server = $config['database']['server'];
-      $user = $config['database']['user'];
-      $pass = $config['database']['passwd'];
-      $database = $config['database']['database'];
-      $charset = $config['database']['charset'];
+        $server = $config['database']['server'];
+        $user = $config['database']['user'];
+        $pass = $config['database']['passwd'];
+        $database = $config['database']['database'];
+        $charset = $config['database']['charset'];
 
-    // Try to connect
-    if ($this->mysqli) {
-        $this->link_id = @mysqli_connect($server, $user, $pass);
-    } else {
-        $this->link_id = @mysql_connect($server, $user, $pass);
+        // Try to connect
+        if ($this->mysqli) {
+            $this->link_id = @mysqli_connect($server, $user, $pass);
+        } else {
+            $this->link_id = @mysql_connect($server, $user, $pass);
+        }
+        if (!$this->link_id) {
+            if ($save) {
+                $this->connectfailure = 1;
+                $this->success = false;
+                return false;
+            } else {
+                echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen') . HTML_FONT_END;
+                exit();
+            }
+
+      // Try to select DB
+        } else {
+            if ($this->mysqli) {
+                $ret = mysqli_select_db($this->link_id, $database);
+            } else {
+                $ret = mysql_select_db($database, $this->link_id);
+            }
+            if (!$ret) {
+                if ($save) {
+                    $this->connectfailure = 2;
+                    $this->success = false;
+                    return false;
+                } else {
+                    echo HTML_FONT_ERROR . t("Die Datenbank '%1' konnte nicht ausgewählt werden. Lansuite wird abgebrochen", $database) . HTML_FONT_END;
+                    exit();
+                }
+            }
+        }
+
+        // Set encoding based on config file
+        if (!empty($charset)) {
+              $this->link_id->set_charset($charset);
+        } else {
+            $this->link_id->set_charset('utf8');
+        }
+        $this->success = true;
+        $this->connectfailure = 0;
+        return true;
     }
-      if (!$this->link_id) {
-          if ($save) {
-              $this->connectfailure = 1;
-              $this->success = false;
-              return false;
-          } else {
-              echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen') . HTML_FONT_END;
-              exit();
-          }
-
-    // Try to select DB
-      } else {
-          if ($this->mysqli) {
-              $ret = mysqli_select_db($this->link_id, $database);
-          } else {
-              $ret = mysql_select_db($database, $this->link_id);
-          }
-          if (!$ret) {
-              if ($save) {
-                  $this->connectfailure = 2;
-                  $this->success = false;
-                  return false;
-              } else {
-                  echo HTML_FONT_ERROR . t("Die Datenbank '%1' konnte nicht ausgewählt werden. Lansuite wird abgebrochen", $database) . HTML_FONT_END;
-                  exit();
-              }
-          }
-      }
-
-    // Set encoding based on config file
-    if (!empty($charset)) {
-        $this->link_id->set_charset($charset);
-    } else {
-        $this->link_id->set_charset('utf8');
-    }
-      $this->success = true;
-      $this->connectfailure = 0;
-      return true;
-  }
 
     public function set_charset()
     {
@@ -157,43 +157,43 @@ class db
    * If the second parameter is an array, the function uses the array as value list.
    * @return unknown_type
    */
-  public function qry()
-  {
-      global $config, $debug;
-      $this->QueryArgs = func_get_args();
-      if (is_array($this->QueryArgs[0])) {
-          $this->QueryArgs = $this->QueryArgs[0];
-      } // Arguments could be passed als multiple ones, or a single array
+    public function qry()
+    {
+        global $config, $debug;
+        $this->QueryArgs = func_get_args();
+        if (is_array($this->QueryArgs[0])) {
+            $this->QueryArgs = $this->QueryArgs[0];
+        } // Arguments could be passed als multiple ones, or a single array
 
-    $query = array_shift($this->QueryArgs);
-    #$this->QueryArgs = str_replace('%prefix%', $config['database']['prefix'], $this->QueryArgs);
+        $query = array_shift($this->QueryArgs);
+        #$this->QueryArgs = str_replace('%prefix%', $config['database']['prefix'], $this->QueryArgs);
 
-    //if (is_array($this->QueryArgs[0])) $this->QueryArgs = $this->QueryArgs[0];
+        //if (is_array($this->QueryArgs[0])) $this->QueryArgs = $this->QueryArgs[0];
 
-    $query = str_replace('%prefix%', $config['database']['prefix'], $query);
-      $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array(&$this, 'escape'), $query);
-    // TODO: Don't replace %prefix% within quotes!
-    if (isset($debug)) {
-        $debug->query_start($query);
+        $query = str_replace('%prefix%', $config['database']['prefix'], $query);
+        $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array(&$this, 'escape'), $query);
+        // TODO: Don't replace %prefix% within quotes!
+        if (isset($debug)) {
+            $debug->query_start($query);
+        }
+        if ($this->mysqli) {
+            $this->query_id = mysqli_query($this->link_id, $query);
+            $this->sql_error = mysqli_error($this->link_id);
+        } else {
+            $this->query_id = mysql_query($query, $this->link_id);
+            $this->sql_error = mysql_error($this->link_id);
+        }
+        if (!$this->query_id) {
+            $this->print_error($this->sql_error, $query);
+        }
+          $this->count_query++;
+        if (isset($debug)) {
+            $debug->query_stop($this->sql_error);
+        }
+          $this->QueryArgs = array();
+
+          return $this->query_id;
     }
-      if ($this->mysqli) {
-          $this->query_id = mysqli_query($this->link_id, $query);
-          $this->sql_error = mysqli_error($this->link_id);
-      } else {
-          $this->query_id = mysql_query($query, $this->link_id);
-          $this->sql_error = mysql_error($this->link_id);
-      }
-      if (!$this->query_id) {
-          $this->print_error($this->sql_error, $query);
-      }
-      $this->count_query++;
-      if (isset($debug)) {
-          $debug->query_stop($this->sql_error);
-      }
-      $this->QueryArgs = array();
-
-      return $this->query_id;
-  }
 
     public function fetch_array($query_id = -1, $save = 1)
     {
@@ -303,48 +303,48 @@ class db
    * If the second parameter is an array, the function uses the array as value list.
    * @return unknown_type
    */
-  public function qry_first()
-  {
-      $this->qry($args = func_get_args());
+    public function qry_first()
+    {
+        $this->qry($args = func_get_args());
 
-    // For execute querys $this->query_id will not be a resource that needs to be freed.
-    if ($this->query_id === true) {
-        return true;
+        // For execute querys $this->query_id will not be a resource that needs to be freed.
+        if ($this->query_id === true) {
+            return true;
+        }
+
+        $row = $this->fetch_array();
+        $this->free_result();
+        return $row;
     }
-
-      $row = $this->fetch_array();
-      $this->free_result();
-      return $row;
-  }
 
     public function qry_first_rows()
     {
         $this->qry($args = func_get_args());
         $row = $this->fetch_array();
         $row['number'] = $this->num_rows(); // fieldname "number" is reserved
-    $this->free_result();
+        $this->free_result();
         return $row;
     }
 
 
   #### Misc ####
 
-  public function client_info()
-  {
-      if ($this->mysqli) {
-          if (function_exists('mysqli_get_client_info')) {
-              return mysqli_get_client_info();
-          } else {
-              return false;
-          }
-      } else {
-          if (function_exists('mysql_get_client_info')) {
-              return mysql_get_client_info();
-          } else {
-              return false;
-          }
-      }
-  }
+    public function client_info()
+    {
+        if ($this->mysqli) {
+            if (function_exists('mysqli_get_client_info')) {
+                return mysqli_get_client_info();
+            } else {
+                return false;
+            }
+        } else {
+            if (function_exists('mysql_get_client_info')) {
+                return mysql_get_client_info();
+            } else {
+                return false;
+            }
+        }
+    }
 
     public function DisplayErrors()
     {

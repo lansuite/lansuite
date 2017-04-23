@@ -65,7 +65,7 @@ class graph
         }
     
     // Layout
-    imagefilledrectangle($this->im, 10, $this->height-20, $this->width-10, $this->height-10, $this->grey);
+        imagefilledrectangle($this->im, 10, $this->height-20, $this->width-10, $this->height-10, $this->grey);
         imageline($this->im, 50, 10, 50, $this->height-20, $this->grey);
     }
     
@@ -111,7 +111,7 @@ class graph
         imagecolorallocate($image, 255, 255, 255);
 
     // Colours
-    $colours["black"] = imagecolorallocate($image, 0, 0, 0);
+        $colours["black"] = imagecolorallocate($image, 0, 0, 0);
         $colours["grey"] = imagecolorallocate($image, 193, 193, 193);
         $colours["red"] = imagecolorallocate($image, 255, 0, 0);
         $colours["blue"] = imagecolorallocate($image, 202, 218, 249);
@@ -119,14 +119,14 @@ class graph
     
 
     // Texts
-    imagettftext($image, "10", "0", "150", "10", "255", "{$GLOBALS["config"]["environment"]["dir"]}/ext_inc/fonts/arial.ttf", $text["top"]);
+        imagettftext($image, "10", "0", "150", "10", "255", "{$GLOBALS["config"]["environment"]["dir"]}/ext_inc/fonts/arial.ttf", $text["top"]);
         imagettftext($image, "10", "90", "10", $y_max/2, "255", "{$GLOBALS["config"]["environment"]["dir"]}/ext_inc/fonts/arial.ttf", $text["left"]);
         imagettftext($image, "10", "270", "590", $y_max/2, "255", "{$GLOBALS["config"]["environment"]["dir"]}/ext_inc/fonts/arial.ttf", $text["right"]);
         imagettftext($image, "10", "0", "300", $y_max - 10, "255", "{$GLOBALS["config"]["environment"]["dir"]}/ext_inc/fonts/arial.ttf", $text["buttom"]);
 
 
     // Background for middle
-    $date = date("Y-m-d H:i");
+        $date = date("Y-m-d H:i");
     
         imagefilledrectangle($image, 22, 22, 580, $y_max-30, $colours["grey"]);
         imagerectangle($image, 22, 22, 580, $y_max-30, $colours["black"]);

@@ -54,8 +54,8 @@ class framework
             }
             if ($CurentURL = parse_url($url)) {
                 $this->internal_url_query['base'] = $CurentURL['path'].'?'.$CurentURL['query']; // Enspricht alter $CurentURLBase;
-            $this->internal_url_query['query'] = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', $CurentURL['query']); // Enspricht alter $URLQuery;
-            $this->internal_url_query['host'] = $CurentURL['host'];
+                $this->internal_url_query['query'] = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', $CurentURL['query']); // Enspricht alter $URLQuery;
+                $this->internal_url_query['host'] = $CurentURL['host'];
             }
         }
         if (!$this->internal_url_query['host']) {
@@ -241,35 +241,35 @@ class framework
    *
    * @return string Returns the Complete HTML
    */
-  public function html_out()
-  {
-      global $dsp, $templ, $cfg, $db, $lang, $auth, $smarty, $func, $debug;
-      $compression_mode = $this->check_optimizer();
+    public function html_out()
+    {
+        global $dsp, $templ, $cfg, $db, $lang, $auth, $smarty, $func, $debug;
+        $compression_mode = $this->check_optimizer();
 
-    ### Prepare Header
-    if ($_GET['sitereload']) {
-        $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
-    }
-    // Add special CSS and JS
-    $smarty->assign('main_header_metatags', $this->main_header_metatags);
-      $smarty->assign('main_header_jsfiles', $this->main_header_jsfiles);
-      $smarty->assign('main_header_jscode', $this->main_header_jscode);
-      $smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);
-      $smarty->assign('main_header_csscode', $this->main_header_csscode);
+        ### Prepare Header
+        if ($_GET['sitereload']) {
+            $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
+        }
+        // Add special CSS and JS
+        $smarty->assign('main_header_metatags', $this->main_header_metatags);
+        $smarty->assign('main_header_jsfiles', $this->main_header_jsfiles);
+        $smarty->assign('main_header_jscode', $this->main_header_jscode);
+        $smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);
+        $smarty->assign('main_header_csscode', $this->main_header_csscode);
 
-      $smarty->assign('IsMobileBrowser', $this->IsMobileBrowser);
-      $smarty->assign('DisplayMode', $this->modus);
+        $smarty->assign('IsMobileBrowser', $this->IsMobileBrowser);
+        $smarty->assign('DisplayMode', $this->modus);
 
-      $smarty->assign('MainTitle', $this->pageTitle);
-      $smarty->assign('MainLogout', '');
-      $smarty->assign('MainLogo', '');
-      $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
-      $smarty->assign('MainJS', $templ['index']['control']['js']);
-      $smarty->assign('MainContent', $this->main_content);
+        $smarty->assign('MainTitle', $this->pageTitle);
+        $smarty->assign('MainLogout', '');
+        $smarty->assign('MainLogo', '');
+        $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
+        $smarty->assign('MainJS', $templ['index']['control']['js']);
+        $smarty->assign('MainContent', $this->main_content);
 
-      $EndJS = '';
-      if ($cfg['google_analytics_id']) {
-          $EndJS = '<script type="text/javascript">
+        $EndJS = '';
+        if ($cfg['google_analytics_id']) {
+            $EndJS = '<script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push([\'_setAccount\', \''. $cfg['google_analytics_id'] .'\']);
       _gaq.push([\'_trackPageview\']);
@@ -279,144 +279,144 @@ class framework
         var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);
       })();
       </script>';
-      }
-      $smarty->assign('EndJS', $EndJS);
-
-    ### Switch Displaymodus (popup, base, print, normal, beamer)
-    switch ($this->modus) {
-      case 'print':
-        // Make a Printpopup (without Boxes and Special CSS for printing)
-        $smarty->assign('MainContentStyleID', 'ContentFullscreen');
-        $smarty->display("design/simple/templates/main.htm");
-      break;
-  
-      case 'popup':
-        // Make HTML for Popup
-        $smarty->assign('MainContentStyleID', 'ContentFullscreen');
-
-        // TODO : Rendundant... zusammenfassen
-        if ($compression_mode and $cfg['sys_compress_level']) {
-            header("Content-Encoding: $compression_mode");
-            echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-            $index = $smarty->fetch("design/{$this->design}/templates/main.htm"). "\n<!-- Compressed by $compression_mode -->";
-            $this->content_size = strlen($index);
-            $this->content_crc = crc32($index);
-            $index = gzcompress($index, $cfg['sys_compress_level']);
-            $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
-          echo $index;
-            echo pack('V', $this->content_crc) . pack('V', $this->content_size);
-        } else {
-            $smarty->display("design/{$this->design}/templates/main.htm");
         }
-      break;
+        $smarty->assign('EndJS', $EndJS);
+
+        ### Switch Displaymodus (popup, base, print, normal, beamer)
+        switch ($this->modus) {
+            case 'print':
+                // Make a Printpopup (without Boxes and Special CSS for printing)
+                $smarty->assign('MainContentStyleID', 'ContentFullscreen');
+                $smarty->display("design/simple/templates/main.htm");
+                break;
   
-      case 'base':
-        // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
-        echo $this->main_content;
-      break;
+            case 'popup':
+                // Make HTML for Popup
+                $smarty->assign('MainContentStyleID', 'ContentFullscreen');
+
+                // TODO : Rendundant... zusammenfassen
+                if ($compression_mode and $cfg['sys_compress_level']) {
+                    header("Content-Encoding: $compression_mode");
+                    echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
+                    $index = $smarty->fetch("design/{$this->design}/templates/main.htm"). "\n<!-- Compressed by $compression_mode -->";
+                    $this->content_size = strlen($index);
+                    $this->content_crc = crc32($index);
+                    $index = gzcompress($index, $cfg['sys_compress_level']);
+                    $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
+                    echo $index;
+                    echo pack('V', $this->content_crc) . pack('V', $this->content_size);
+                } else {
+                    $smarty->display("design/{$this->design}/templates/main.htm");
+                }
+                break;
+  
+            case 'base':
+                // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
+                echo $this->main_content;
+                break;
     
-      case 'ajax':
-        // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
-        echo $this->main_content;
-      break;
+            case 'ajax':
+                // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
+                echo $this->main_content;
+                break;
   
-      default:
-        // Footer
-        $smarty->assign('main_footer_version', $templ['index']['info']['version']);
-        $smarty->assign('main_footer_date', date('y'));
-        $smarty->assign('main_footer_countquery', $db->count_query);
-        $smarty->assign('main_footer_timer', round($this->out_work(), 2));
-        $smarty->assign('main_footer_cleanquery', $this->get_clean_url_query('query'));
+            default:
+                // Footer
+                $smarty->assign('main_footer_version', $templ['index']['info']['version']);
+                $smarty->assign('main_footer_date', date('y'));
+                $smarty->assign('main_footer_countquery', $db->count_query);
+                $smarty->assign('main_footer_timer', round($this->out_work(), 2));
+                $smarty->assign('main_footer_cleanquery', $this->get_clean_url_query('query'));
         
-        if ($cfg["sys_footer_impressum"]) {
-            $smarty->assign('main_footer_impressum', $cfg["sys_footer_impressum"]);
-        }
+                if ($cfg["sys_footer_impressum"]) {
+                    $smarty->assign('main_footer_impressum', $cfg["sys_footer_impressum"]);
+                }
         
         
-        $main_footer_mem_usage = '';
-        if (function_exists('memory_get_peak_usage')) {
-            $main_footer_mem_usage = 'Memory-Usage: '. $func->FormatFileSize(memory_get_peak_usage()) .' |';
-        }
-        $smarty->assign('main_footer_mem_usage', $main_footer_mem_usage);
+                $main_footer_mem_usage = '';
+                if (function_exists('memory_get_peak_usage')) {
+                    $main_footer_mem_usage = 'Memory-Usage: '. $func->FormatFileSize(memory_get_peak_usage()) .' |';
+                }
+                $smarty->assign('main_footer_mem_usage', $main_footer_mem_usage);
 
-        $footer = $smarty->fetch('design/templates/footer.htm');
+                $footer = $smarty->fetch('design/templates/footer.htm');
 
-        if ($cfg["sys_optional_footer"]) {
-            $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
-        }
-        $smarty->assign('Footer', $footer);
+                if ($cfg["sys_optional_footer"]) {
+                    $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
+                }
+                $smarty->assign('Footer', $footer);
 
-        // Normal HTML-Output with Boxes
-        $smarty->assign('Design', $this->design);
+                // Normal HTML-Output with Boxes
+                $smarty->assign('Design', $this->design);
   
-        // Unterscheidung fullscreen / Normal
-        if ($_SESSION['lansuite']['fullscreen'] or $this->modus == 'beamer') {
-            $smarty->assign('MainContentStyleID', 'ContentFullscreen');
-        } else {
-            $smarty->assign('MainContentStyleID', 'Content');
-        }
+                // Unterscheidung fullscreen / Normal
+                if ($_SESSION['lansuite']['fullscreen'] or $this->modus == 'beamer') {
+                    $smarty->assign('MainContentStyleID', 'ContentFullscreen');
+                } else {
+                    $smarty->assign('MainContentStyleID', 'Content');
+                }
         
-        if ($auth['login']) {
-            $smarty->assign('MainLogout', '<a href="index.php?mod=auth&action=logout" class="menu">Logout</a>');
-        }
+                if ($auth['login']) {
+                    $smarty->assign('MainLogout', '<a href="index.php?mod=auth&action=logout" class="menu">Logout</a>');
+                }
     
-        // Ausgabe Hauptseite
-        if (!$_SESSION['lansuite']['fullscreen'] and !$this->modus == 'beamer') {
-            $smarty->assign('MainFrameworkmessages', $this->framework_messages);
-            $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
-            $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
-            $smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" border="0" />');
-            if ($auth['type'] >= 2 and isset($debug)) { // and $cfg['sys_showdebug'] (no more, for option now in inc/base/config)
-            $smarty->assign('MainDebug', $debug->show());
-            }
-        } elseif ($_SESSION['lansuite']['fullscreen']) {
-            // Ausgabe Vollbildmodus
-          $smarty->assign('CloseFullscreen', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span> Lansuite - Vollbildmodus</a>');
-        }
+                // Ausgabe Hauptseite
+                if (!$_SESSION['lansuite']['fullscreen'] and !$this->modus == 'beamer') {
+                    $smarty->assign('MainFrameworkmessages', $this->framework_messages);
+                    $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
+                    $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
+                    $smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" border="0" />');
+                    if ($auth['type'] >= 2 and isset($debug)) { // and $cfg['sys_showdebug'] (no more, for option now in inc/base/config)
+                        $smarty->assign('MainDebug', $debug->show());
+                    }
+                } elseif ($_SESSION['lansuite']['fullscreen']) {
+                    // Ausgabe Vollbildmodus
+                    $smarty->assign('CloseFullscreen', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span> Lansuite - Vollbildmodus</a>');
+                }
     
-        // Start Javascript-Code for MainContent with JQuery-Tabs
-        /*$this->main_header_jscode .= "
-            $(document).ready(function(){
-              $('#MainContentTabs').tabs({
+                // Start Javascript-Code for MainContent with JQuery-Tabs
+                /*$this->main_header_jscode .= "
+                  $(document).ready(function(){
+                    $('#MainContentTabs').tabs({
                   click: function(tab) {
                       location.href = $.data(tab, 'href');
                       return false;
                   }
-              });
-            });
-        ";*/
+                    });
+                  });
+                ";*/
         
-        // MainContent with JQuery-Tabs for LS-Messenger
-        #$main_content_with_tabs .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='MainContentTabs'>\n";
-        #$main_content_with_tabs .= "  <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>\n";
-        #$main_content_with_tabs .= "    <li class='ui-state-default ui-corner-top ui-tabs-selected ui-state-active'><a href='#main_content' title='Lansuite'><em>Lansuite</em></a></li>\n";
-        #$main_content_with_tabs .= "  </ul>\n";
-        #$main_content_with_tabs .= "  <div class='ui-content'>\n";
-        #$main_content_with_tabs .= "    <div id='main_content'>\n";
-        #$main_content_with_tabs .= "    <br />\n";
-        #$main_content_with_tabs .= $this->main_content;
-        #$main_content_with_tabs .= "    </div>\n";
-        #$main_content_with_tabs .= "  </div>\n";
-        #$main_content_with_tabs .= "</div>\n";
+                // MainContent with JQuery-Tabs for LS-Messenger
+                #$main_content_with_tabs .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='MainContentTabs'>\n";
+                #$main_content_with_tabs .= "  <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>\n";
+                #$main_content_with_tabs .= "    <li class='ui-state-default ui-corner-top ui-tabs-selected ui-state-active'><a href='#main_content' title='Lansuite'><em>Lansuite</em></a></li>\n";
+                #$main_content_with_tabs .= "  </ul>\n";
+                #$main_content_with_tabs .= "  <div class='ui-content'>\n";
+                #$main_content_with_tabs .= "    <div id='main_content'>\n";
+                #$main_content_with_tabs .= "    <br />\n";
+                #$main_content_with_tabs .= $this->main_content;
+                #$main_content_with_tabs .= "    </div>\n";
+                #$main_content_with_tabs .= "  </div>\n";
+                #$main_content_with_tabs .= "</div>\n";
         
-        #$smarty->assign("MainContent", $main_content_with_tabs);
+                #$smarty->assign("MainContent", $main_content_with_tabs);
     
-        // Ausgabe des Hautteils mit oder ohne Kompression
-        if ($compression_mode and $cfg['sys_compress_level']) {
-            header("Content-Encoding: $compression_mode");
-            echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-          # $index = $smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- Compressed by $compression_mode -->";
-          #$this->content_size = strlen($index);
-          #$this->content_crc = crc32($index);
-          #$index = gzcompress($index, $cfg['sys_compress_level']);
-          echo gzcompress($smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- Compressed by $compression_mode -->", $cfg['sys_compress_level']);
-          #$index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
-          #echo $index;
-          #echo pack('V', $this->content_crc) . pack('V', $this->content_size);
-        } else {
-            $smarty->display("design/{$this->design}/templates/main.htm");
+                // Ausgabe des Hautteils mit oder ohne Kompression
+                if ($compression_mode and $cfg['sys_compress_level']) {
+                    header("Content-Encoding: $compression_mode");
+                    echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
+                    # $index = $smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- Compressed by $compression_mode -->";
+                    #$this->content_size = strlen($index);
+                    #$this->content_crc = crc32($index);
+                    #$index = gzcompress($index, $cfg['sys_compress_level']);
+                    echo gzcompress($smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- Compressed by $compression_mode -->", $cfg['sys_compress_level']);
+                    #$index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
+                    #echo $index;
+                    #echo pack('V', $this->content_crc) . pack('V', $this->content_size);
+                } else {
+                    $smarty->display("design/{$this->design}/templates/main.htm");
+                }
+                break;
         }
-      break;
     }
-  }
 }

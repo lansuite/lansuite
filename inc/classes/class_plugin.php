@@ -3,7 +3,7 @@
 /**
  * Class PLUGIN for Lansuite
  *
- * This Class generates the needed Dataarray to load the Pluginfiles 
+ * This Class generates the needed Dataarray to load the Pluginfiles
  *
  * @package lansuite_core
  * @author bytekilla

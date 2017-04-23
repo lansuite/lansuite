@@ -38,7 +38,7 @@ class AzDGCrypt
         $r = md5($this->k);
         $c=0;
         $v = "";
-        for ($i=0;$i<strlen($t);$i++) {
+        for ($i=0; $i<strlen($t); $i++) {
             if ($c==strlen($r)) {
                 $c=0;
             }
@@ -53,7 +53,7 @@ class AzDGCrypt
         $r = md5(rand(0, 32000));
         $c=0;
         $v = "";
-        for ($i=0;$i<strlen($t);$i++) {
+        for ($i=0; $i<strlen($t); $i++) {
             if ($c==strlen($r)) {
                 $c=0;
             }
@@ -67,7 +67,7 @@ class AzDGCrypt
     {
         $t = $this->ed(base64_decode($t));
         $v = "";
-        for ($i=0;$i<strlen($t);$i++) {
+        for ($i=0; $i<strlen($t); $i++) {
             $md5 = substr($t, $i, 1);
             $i++;
             $v.= (substr($t, $i, 1) ^ $md5);

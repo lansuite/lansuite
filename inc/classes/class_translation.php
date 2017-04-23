@@ -11,7 +11,7 @@
  * @return string the translated String
  */
 $translation_no_html_replace = false;
-function t(/*$input, $parameter1, $parameter2....*/)
+function t()
 {
     global $db, $translation, $func, $translation_no_html_replace;
     
@@ -54,17 +54,16 @@ function t(/*$input, $parameter1, $parameter2....*/)
             // If OK replace Parameter
             if ($trans_text != '' and $trans_text != null) {
                 $output = $translation->ReplaceParameters($trans_text, $parameters);
+            } // If any Problem on get Translation just return $input
+            else {
+                $output = $translation->ReplaceParameters($input, $parameters, $key);
             }
-            // If any Problem on get Translation just return $input
-                else {
-                    $output = $translation->ReplaceParameters($input, $parameters, $key);
-                }
         }
     }
 
     if ($translation_no_html_replace) {
         // Deprecated. Should be replaced in t() by '<', '>' and '[br]'
-      $output = str_replace("--lt--", "<", $output);
+        $output = str_replace("--lt--", "<", $output);
         $output = str_replace("--gt--", ">", $output);
         $output = str_replace("HTML_NEWLINE", "<br />", $output);
   
@@ -461,11 +460,11 @@ class translation
         switch ($modul) {
             case 'DB':
                 $file = "inc/language/".$modul."_".$this->transfile_name;
-            break;
+                break;
             
             case 'System':
                 $file = "inc/language/".$modul."_".$this->transfile_name;
-            break;
+                break;
 
             default:
                 $file = "modules/".$modul."/mod_settings/".$this->transfile_name;
@@ -561,7 +560,7 @@ class translation
                             $output .= $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'<br />';
                         } else {
                             // New -> Insert to DB
-                          $db->qry("REPLACE INTO %prefix%translation%plain% SET id = %string%, file = %string%, org = %string%", $long, $key, $CurrentFile, $CurrentTrans);
+                            $db->qry("REPLACE INTO %prefix%translation%plain% SET id = %string%, file = %string%, org = %string%", $long, $key, $CurrentFile, $CurrentTrans);
                             $row['tid'] = $db->insert_id();
                             $output .= '<font color="#00ff00">'. $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'</font><br />';
                         }

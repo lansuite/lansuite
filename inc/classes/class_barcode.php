@@ -38,7 +38,7 @@ class barcode
     public $_format;
     public $_n2w;
 
-    public function barcode($encoding="EAN-13")
+    public function barcode($encoding = "EAN-13")
     {
         if (!function_exists("imagecreate")) {
             die("This class needs GD library support.");
@@ -62,7 +62,7 @@ class barcode
         $this->setHexColor("#000000", "#FFFFFF");
     }
 
-    public function setFont($font, $autolocate=false)
+    public function setFont($font, $autolocate = false)
     {
         $this->_font=$font;
         if ($autolocate) {
@@ -74,7 +74,7 @@ class barcode
         }
     }
 
-    public function setSymblogy($encoding="EAN-13")
+    public function setSymblogy($encoding = "EAN-13")
     {
         $this->_encode=strtoupper($encoding);
     }
@@ -118,7 +118,7 @@ class barcode
         $this->_n2w=$n2w;
     }
 
-    public function error($asimg=false)
+    public function error($asimg = false)
     {
         if (empty($this->_error)) {
             return "";
@@ -136,7 +136,7 @@ class barcode
         @imagedestroy($im);
     }
 
-    public function genBarCode($barnumber, $format="gif", $file="")
+    public function genBarCode($barnumber, $format = "gif", $file = "")
     {
         $this->setFormat($format);
         if ($this->_encode=="EAN-13") {
@@ -258,9 +258,9 @@ class barcode
         $arr_key=array_keys($encTable);
         /// calculating C And K
 
-        for ($j=0;$j<2;$j++) {
+        for ($j=0; $j<2; $j++) {
             $sum=0;
-            for ($i=strlen($barnumber);$i>0;$i--) {
+            for ($i=strlen($barnumber); $i>0; $i--) {
                 $num=$barnumber[strlen($barnumber)-$i];
                 if (preg_match("/[A-Z]+/", $num)) {
                     $num=ord($num)-55;
@@ -289,7 +289,7 @@ class barcode
 
         $barnumber="*".$barnumber."*";
 
-        for ($i=0;$i<strlen($barnumber);$i++) {
+        for ($i=0; $i<strlen($barnumber); $i++) {
             $mfcStr.=$encTable[$barnumber[$i]];
         }
         $mfcStr.='1';
@@ -297,7 +297,7 @@ class barcode
         return $mfcStr;
     }
 
-    public function _c93Barcode($barnumber, $scale=1, $file="", $checkdigit=false)
+    public function _c93Barcode($barnumber, $scale = 1, $file = "", $checkdigit = false)
     {
         $bars=$this->_c93Encode($barnumber);
         if (empty($file)) {
@@ -329,7 +329,7 @@ class barcode
         @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
         $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
 
-        for ($i=0;$i<strlen($bars);$i++) {
+        for ($i=0; $i<strlen($bars); $i++) {
             $h=$height;
             $val=$bars[$i];
 
@@ -381,7 +381,7 @@ class barcode
     An optional checksum digit calculated as described above and encoded from the table below.
     A stop character, which is a second asterisk character. */
 
-    public function _c39Encode($barnumber, $checkdigit=false)
+    public function _c39Encode($barnumber, $checkdigit = false)
     {
         $encTable=array("0" => "NNNWWNWNN",
         "1" => "WNNWNNNNW",
@@ -435,7 +435,7 @@ class barcode
 
         if ($checkdigit==true) {
             $arr_key=array_keys($encTable);
-            for ($i=0;$i<strlen($barnumber);$i++) {
+            for ($i=0; $i<strlen($barnumber); $i++) {
                 $num=$barnumber[$i];
                 if (preg_match("/[A-Z]+/", $num)) {
                     $num=ord($num)-55;
@@ -463,12 +463,12 @@ class barcode
 
         $barnumber="*".$barnumber."*";
 
-        for ($i=0;$i<strlen($barnumber);$i++) {
+        for ($i=0; $i<strlen($barnumber); $i++) {
             $tmp=$encTable[$barnumber[$i]];
 
             $bar =true;
 
-            for ($j=0;$j<strlen($tmp);$j++) {
+            for ($j=0; $j<strlen($tmp); $j++) {
                 if ($tmp[$j]=='N' && $bar) {
                     $mfcStr.='1';
                 } elseif ($tmp[$j]=='N' && !$bar) {
@@ -486,7 +486,7 @@ class barcode
         return $mfcStr;
     }
 
-    public function _c39Barcode($barnumber, $scale=1, $file="", $checkdigit=false)
+    public function _c39Barcode($barnumber, $scale = 1, $file = "", $checkdigit = false)
     {
         $bars=$this->_c39Encode($barnumber, $checkdigit);
         if (empty($file)) {
@@ -518,7 +518,7 @@ class barcode
         @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
         $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
 
-        for ($i=0;$i<strlen($bars);$i++) {
+        for ($i=0; $i<strlen($bars); $i++) {
             $h=$height;
             $val=$bars[$i];
 
@@ -572,7 +572,7 @@ class barcode
         $sum=0;
         $mfcStr="";
         if ($useKeys=='C') {
-            for ($i=0;$i<strlen($barnumber);$i+=2) {
+            for ($i=0; $i<strlen($barnumber); $i+=2) {
                 $val=substr($barnumber, $i, 2);
                 if (is_int($val)) {
                     $sum+=($i+1)*(int)($val);
@@ -584,7 +584,7 @@ class barcode
                 $mfcStr.=$encTable[$val];
             }
         } else {
-            for ($i=0;$i<strlen($barnumber);$i++) {
+            for ($i=0; $i<strlen($barnumber); $i++) {
                 $num=ord($barnumber[$i]);
                 if ($num>=32 && $num<=126) {
                     $num=ord($barnumber[$i])-32;
@@ -615,7 +615,7 @@ class barcode
         return $start[$useKeys].$mfcStr.$encTable[$check].$stop."11";
     }
 
-    public function _c128Barcode($barnumber, $scale=1, $file="")
+    public function _c128Barcode($barnumber, $scale = 1, $file = "")
     {
         $useKeys="B";
         if (preg_match("/^[0-9".chr(128).chr(129).chr(130)."]+$/", $barnumber)) {
@@ -625,7 +625,7 @@ class barcode
             }
         }
 
-        for ($i=0;$i<32;$i++) {
+        for ($i=0; $i<32; $i++) {
             $chr=chr($i);
         }
         if (preg_match("/[".$chr."]+/", $barnumber)) {
@@ -662,7 +662,7 @@ class barcode
         @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
         $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
 
-        for ($i=0;$i<strlen($bars);$i++) {
+        for ($i=0; $i<strlen($bars); $i++) {
             $h=$height;
             $val=strtoupper($bars[$i]);
 
@@ -727,7 +727,7 @@ class barcode
         $widebar=str_pad("", $this->_n2w, "1", STR_PAD_LEFT);
         $widespc=str_pad("", $this->_n2w, "0", STR_PAD_LEFT);
 
-        for ($i=0;$i<strlen($barnumber);$i++) {
+        for ($i=0; $i<strlen($barnumber); $i++) {
             if (preg_match("/[0-9]+/", $barnumber[$i])) {
                 $tmp=$encTable[(int)$barnumber[$i]];
             } else {
@@ -736,7 +736,7 @@ class barcode
 
             $bar =true;
 
-            for ($j=0;$j<strlen($tmp);$j++) {
+            for ($j=0; $j<strlen($tmp); $j++) {
                 if ($tmp[$j]=='0' && $bar) {
                     $mfcStr.='1';
                 } elseif ($tmp[$j]=='0' && !$bar) {
@@ -755,7 +755,7 @@ class barcode
         return $mfcStr;
     }
 
-    public function _codaBarcode($barnumber, $scale=1, $file="")
+    public function _codaBarcode($barnumber, $scale = 1, $file = "")
     {
         $bars=$this->_codaEncode($barnumber);
         if (empty($file)) {
@@ -787,7 +787,7 @@ class barcode
         @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
         $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
 
-        for ($i=0;$i<strlen($bars);$i++) {
+        for ($i=0; $i<strlen($bars); $i++) {
             $h=$height;
             $val=strtoupper($bars[$i]);
 
@@ -858,7 +858,7 @@ class barcode
 
         $sum=0;
         $encstr="";
-        for ($i=0;$i<strlen($barnumber);$i++) {
+        for ($i=0; $i<strlen($barnumber); $i++) {
             $sum+=(int)$barnumber[$i];
             $encstr.=$encTable[(int)$barnumber[$i]];
         }
@@ -871,15 +871,16 @@ class barcode
         return $encstr;
     }
 
-    public function _postBarcode($barnumber, $scale=1, $file="")
+    public function _postBarcode($barnumber, $scale = 1, $file = "")
     {
-        if (strlen($barnumber)==5 || strlen($barnumber)==9 || strlen($barnumber)==11)
-        ; else {
+        if (strlen($barnumber)==5 || strlen($barnumber)==9 || strlen($barnumber)==11) {
+            ;
+        } else {
             $this->_error="Not a valid postnet number.";
             return false;
         }
 
-        $bars=$this->_postEncode($barnumber);
+            $bars=$this->_postEncode($barnumber);
         if (empty($file)) {
             header("Content-type: image/".$this->_format);
         }
@@ -887,29 +888,29 @@ class barcode
         if ($scale<1) {
             $scale=2;
         }
-        $total_y=(double)$scale * $this->_height;
+            $total_y=(double)$scale * $this->_height;
         if (!$space) {
             $space=array('top'=>2*$scale,'bottom'=>2*$scale,'left'=>2*$scale,'right'=>2*$scale);
         }
 
         /* count total width */
-        $xpos=0;
+            $xpos=0;
 
-        $xpos=$scale*strlen($bars)*2;
+            $xpos=$scale*strlen($bars)*2;
 
         /* allocate the image */
-        $total_x= $xpos +$space['left']+$space['right'];
-        $xpos=$space['left'];
+            $total_x= $xpos +$space['left']+$space['right'];
+            $xpos=$space['left'];
 
-        $height=floor($total_y-($scale*10));
-        $height2=floor($total_y-$space['bottom']);
+            $height=floor($total_y-($scale*10));
+            $height2=floor($total_y-$space['bottom']);
 
-        $im=@imagecreatetruecolor($total_x, $total_y);
-        $bg_color = @imagecolorallocate($im, $this->_bgcolor[0], $this->_bgcolor[1], $this->_bgcolor[2]);
-        @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
-        $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
+            $im=@imagecreatetruecolor($total_x, $total_y);
+            $bg_color = @imagecolorallocate($im, $this->_bgcolor[0], $this->_bgcolor[1], $this->_bgcolor[2]);
+            @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
+            $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
 
-        for ($i=0;$i<strlen($bars);$i++) {
+        for ($i=0; $i<strlen($bars); $i++) {
             $val=strtoupper($bars[$i]);
             $h=$total_y-$space['bottom'];
 
@@ -947,7 +948,7 @@ class barcode
             }
         }
 
-        @imagedestroy($im);
+            @imagedestroy($im);
     }
     // End Function for POSTNET
 
@@ -990,10 +991,10 @@ class barcode
         $widebar=str_pad("", $this->_n2w, "1", STR_PAD_LEFT);
         $widespc=str_pad("", $this->_n2w, "0", STR_PAD_LEFT);
 
-        for ($i=0;$i<strlen($barnumber);$i+=2) {
+        for ($i=0; $i<strlen($barnumber); $i+=2) {
             $tmp=$encTable[(int)$barnumber[$i]];
             $tmp1=$encTable[(int)$barnumber[$i+1]];
-            for ($j=0;$j<strlen($tmp);$j++) {
+            for ($j=0; $j<strlen($tmp); $j++) {
                 if ($tmp[$j]=='N') {
                     $mfcStr.='1';
                 } else {
@@ -1011,7 +1012,7 @@ class barcode
         return $guards[0].$mfcStr.$guards[1];
     }
 
-    public function _i25Barcode($barnumber, $scale=1, $file="")
+    public function _i25Barcode($barnumber, $scale = 1, $file = "")
     {
         $bars=$this->_i25Encode($barnumber);
         if (empty($file)) {
@@ -1043,7 +1044,7 @@ class barcode
         @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
         $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
 
-        for ($i=0;$i<strlen($bars);$i++) {
+        for ($i=0; $i<strlen($bars); $i++) {
             $h=$height;
             $val=strtoupper($bars[$i]);
 
@@ -1125,7 +1126,7 @@ class barcode
         $widebar=str_pad("", $this->_n2w, "1", STR_PAD_LEFT);
         $widebar.="0";
 
-        for ($i=0;$i<strlen($barnumber);$i++) {
+        for ($i=0; $i<strlen($barnumber); $i++) {
             $num=(int)$barnumber{$i};
             $str="";
             $str=str_replace("N", "10", $encTable[$num]);
@@ -1136,7 +1137,7 @@ class barcode
         return $guards[0].$mfcStr.$guards[1];
     }
 
-    public function _so25Barcode($barnumber, $scale=1, $file="")
+    public function _so25Barcode($barnumber, $scale = 1, $file = "")
     {
         $bars=$this->_so25Encode($barnumber);
         if (empty($file)) {
@@ -1168,7 +1169,7 @@ class barcode
         @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
         $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
 
-        for ($i=0;$i<strlen($bars);$i++) {
+        for ($i=0; $i<strlen($bars); $i++) {
             $h=$height;
             $val=strtoupper($bars[$i]);
 
@@ -1271,7 +1272,7 @@ class barcode
         $checkdigit;
         $encTable[$checkdigit];
 
-        for ($i=0;$i<strlen($barnumber);$i++) {
+        for ($i=0; $i<strlen($barnumber); $i++) {
             $num=(int)$barnumber{$i};
             $even=(substr($encTable[$checkdigit], $i, 1)=='E');
             if (!$even) {
@@ -1284,7 +1285,7 @@ class barcode
         return $guards[0].$mfcStr.$guards[1].$guards[2];
     }
 
-    public function _upceBarcode($barnumber, $scale=1, $file="")
+    public function _upceBarcode($barnumber, $scale = 1, $file = "")
     {
         if (strlen($barnumber)>6) {
             $this->_ean13CheckDigit($barnumber);
@@ -1329,7 +1330,7 @@ class barcode
         @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
         $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
 
-        for ($i=0;$i<strlen($bars);$i++) {
+        for ($i=0; $i<strlen($bars); $i++) {
             $h=$height;
             $val=strtoupper($bars[$i]);
             if (preg_match("/[a-z]/i", $val)) {
@@ -1397,7 +1398,7 @@ class barcode
 
         // Calculate the checksum value for the message
 
-        for ($i=0;$i<strlen($barnumber);$i++) {
+        for ($i=0; $i<strlen($barnumber); $i++) {
             if ($i % 2 == 0) {
                 $csumTotal = $csumTotal + (3 * intval($barnumber{$i}));
             } else {
@@ -1439,7 +1440,7 @@ class barcode
         $mfcStr="";
         $prodStr="";
 
-        for ($i=0;$i<strlen($barnumber);$i++) {
+        for ($i=0; $i<strlen($barnumber); $i++) {
             $num=(int)$barnumber{$i};
             if ($i<4) {
                 $mfcStr.=$leftOdd[$num];
@@ -1451,7 +1452,7 @@ class barcode
         return $guards[0].$mfcStr.$guards[1].$prodStr.$guards[2];
     }
 
-    public function _ean8Barcode($barnumber, $scale=1, $file="")
+    public function _ean8Barcode($barnumber, $scale = 1, $file = "")
     {
         $barnumber=$this->_checkDigit($barnumber, 7);
         $bars=$this->_ean8Encode($barnumber);
@@ -1484,7 +1485,7 @@ class barcode
         @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
         $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
 
-        for ($i=0;$i<strlen($bars);$i++) {
+        for ($i=0; $i<strlen($bars); $i++) {
             $h=$height;
             $val=strtoupper($bars[$i]);
             if (preg_match("/[a-z]/i", $val)) {
@@ -1552,7 +1553,7 @@ class barcode
 
         // Calculate the checksum value for the message
 
-        for ($i=0;$i<strlen($barnumber);$i++) {
+        for ($i=0; $i<strlen($barnumber); $i++) {
             if ($i % 2 == 0) {
                 $csumTotal = $csumTotal + intval($barnumber{$i});
             } else {
@@ -1614,7 +1615,7 @@ class barcode
 
         $encbit=$barnumber[0];
 
-        for ($i=1;$i<strlen($barnumber);$i++) {
+        for ($i=1; $i<strlen($barnumber); $i++) {
             $num=(int)$barnumber{$i};
             if ($i<7) {
                 $even=(substr($encTable[$encbit], $i-1, 1)==1);
@@ -1631,7 +1632,7 @@ class barcode
         return $guards[0].$mfcStr.$guards[1].$prodStr.$guards[2];
     }
 
-    public function _eanBarcode($barnumber, $scale=1, $file="")
+    public function _eanBarcode($barnumber, $scale = 1, $file = "")
     {
         $barnumber=$this->_ean13CheckDigit($barnumber);
 
@@ -1665,7 +1666,7 @@ class barcode
         @imagefilledrectangle($im, 0, 0, $total_x, $total_y, $bg_color);
         $bar_color = @imagecolorallocate($im, $this->_color[0], $this->_color[1], $this->_color[2]);
 
-        for ($i=0;$i<strlen($bars);$i++) {
+        for ($i=0; $i<strlen($bars); $i++) {
             $h=$height;
             $val=strtoupper($bars[$i]);
             if (preg_match("/[a-z]/i", $val)) {

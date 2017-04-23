@@ -12,11 +12,11 @@ class display
     public $tabNames = array();
 
   // Constructor
-  public function display()
-  {
-      $this->errortext_prefix = HTML_NEWLINE . HTML_FONT_ERROR;
-      $this->errortext_suffix = HTML_FONT_END;
-  }
+    public function display()
+    {
+        $this->errortext_prefix = HTML_NEWLINE . HTML_FONT_ERROR;
+        $this->errortext_suffix = HTML_FONT_END;
+    }
 
   #### Main Functions ####
 
@@ -29,51 +29,51 @@ class display
 
   // Adds a smarty template.
   // Attention: This does not add the LS-line-container, so you have to take care of it yourselfe!
-  public function AddSmartyTpl($name, $mod = '')
-  {
-      global $smarty, $MainContent;
+    public function AddSmartyTpl($name, $mod = '')
+    {
+        global $smarty, $MainContent;
 
-      if ($mod == '') {
-          $MainContent .= $smarty->fetch('design/templates/'. $name .'.htm');
-      } else {
-          $MainContent .= $smarty->fetch('modules/'. $mod .'/templates/'. $name .'.htm');
-      }
-  }
+        if ($mod == '') {
+            $MainContent .= $smarty->fetch('design/templates/'. $name .'.htm');
+        } else {
+            $MainContent .= $smarty->fetch('modules/'. $mod .'/templates/'. $name .'.htm');
+        }
+    }
 
   // Adds the provided content in a new LS-line
-  public function AddContentLine($content)
-  {
-      global $smarty, $MainContent;
+    public function AddContentLine($content)
+    {
+        global $smarty, $MainContent;
 
-#    if ($_GET['design'] != 'base') {
-      if ($this->FirstLine) {
-          $smarty->assign('content', $content);
-          $MainContent .= $smarty->fetch('design/templates/ls_row_firstline.htm');
-          $this->FirstLine = 0;
-      } else {
-          $smarty->assign('content', $content);
-          $MainContent .= $smarty->fetch('design/templates/ls_row_line.htm');
-      }
-#    }
-  }
+    #    if ($_GET['design'] != 'base') {
+        if ($this->FirstLine) {
+            $smarty->assign('content', $content);
+            $MainContent .= $smarty->fetch('design/templates/ls_row_firstline.htm');
+            $this->FirstLine = 0;
+        } else {
+            $smarty->assign('content', $content);
+            $MainContent .= $smarty->fetch('design/templates/ls_row_line.htm');
+        }
+    #    }
+    }
 
   #### Add content ####
   # The following functions all printing their content directly, to the LS-content-container
 
   // Writes the headline of a page
-  public function NewContent($caption, $text = null, $helplet_id = 'help')
-  {
-      global $smarty, $language;
+    public function NewContent($caption, $text = null, $helplet_id = 'help')
+    {
+        global $smarty, $language;
 
-      if (file_exists('modules/'. $_GET['mod'] .'/docu/'. $language .'_'. $helplet_id .'.php')) {
-          $smarty->assign('helplet_id', $helplet_id);
-      }
-      $smarty->assign('mod', $_GET['mod']);
-      $smarty->assign('newcontent_caption', $caption);
-      $smarty->assign('newcontent_text', $text);
+        if (file_exists('modules/'. $_GET['mod'] .'/docu/'. $language .'_'. $helplet_id .'.php')) {
+            $smarty->assign('helplet_id', $helplet_id);
+        }
+        $smarty->assign('mod', $_GET['mod']);
+        $smarty->assign('newcontent_caption', $caption);
+        $smarty->assign('newcontent_text', $text);
 
-      $this->AddContentLine($smarty->fetch('design/templates/ls_row_headline.htm'));
-  }
+        $this->AddContentLine($smarty->fetch('design/templates/ls_row_headline.htm'));
+    }
 
     public function StartTabs()
     {
@@ -152,12 +152,12 @@ class display
   
   // dynamic = 1 --> Jquery-Javascript-Tabs
   // dynamic = 0 --> static tabs without Jquery & Javascript
-  public function AddJQueryTabsStart($id, $dynamic = null)
-  {
-      global $MainContent, $framework;
+    public function AddJQueryTabsStart($id, $dynamic = null)
+    {
+        global $MainContent, $framework;
     
-      if ($dynamic) {
-          $framework->add_js_code("
+        if ($dynamic) {
+            $framework->add_js_code("
 				$(document).ready(function(){
 					$('#".$id."').tabs({
     					click: function(tab) {
@@ -165,13 +165,12 @@ class display
         					return false;
     					}
 					});
-				});"
-            );
-      }
+				});");
+        }
     
-      $MainContent .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='".$id."'>\n";
-      $this->FirstLine = 1;
-  }
+        $MainContent .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='".$id."'>\n";
+        $this->FirstLine = 1;
+    }
   
     public function AddJQueryTabNavStart()
     {
@@ -183,14 +182,14 @@ class display
   
   // In case of dynamic Jquery-Javascript-Tabs selected is set automaticly
   // In case of static-tabs, selected has to be set 0 or 1
-  public function AddJQueryTab($content, $link, $title = null, $selected = null)
-  {
-      global $MainContent;
+    public function AddJQueryTab($content, $link, $title = null, $selected = null)
+    {
+        global $MainContent;
         
-#		if($selected) $additional = " ui-tabs-selected ui-state-active";
-#		$MainContent .= "    <li class='ui-state-default ui-corner-top".$additional."'><a href='".$link."' title='".$title."'><em>".$content."</em></a></li>\n";
+    #       if($selected) $additional = " ui-tabs-selected ui-state-active";
+    #       $MainContent .= "    <li class='ui-state-default ui-corner-top".$additional."'><a href='".$link."' title='".$title."'><em>".$content."</em></a></li>\n";
         $this->FirstLine = 1;
-  }
+    }
   
     public function AddJQueryTabNavStop()
     {
@@ -248,19 +247,19 @@ class display
     Data taken from the DB, $_GET and $_POST is already sanitized by $func-NoHTML().
     !!!IF YOUR INPUT COMES FROM A DIFFERENT SOURCE, MAKE SURE TO ESCAPE THE DATA YOURSELF!!!
 */
-  public function AddSingleRow($text, $parm = null, $class = '')
-  {
-      global $smarty;
+    public function AddSingleRow($text, $parm = null, $class = '')
+    {
+        global $smarty;
 
-      $smarty->assign('text', $text);
-      if ($parm != "") {
-          $smarty->assign('align', $parm);
-      }
-      if ($class != "") {
-          $smarty->assign('class', 'class="'. $class .'"');
-      }
-      $this->AddContentLine($smarty->fetch('design/templates/ls_row_single.htm'));
-  }
+        $smarty->assign('text', $text);
+        if ($parm != "") {
+            $smarty->assign('align', $parm);
+        }
+        if ($class != "") {
+            $smarty->assign('class', 'class="'. $class .'"');
+        }
+        $this->AddContentLine($smarty->fetch('design/templates/ls_row_single.htm'));
+    }
 
     public function AddDoubleRow($key, $value, $id = null)
     {
@@ -408,7 +407,7 @@ class display
             $maxchar = "5000";
         }
 
-    ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
+        ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
         ($optional)? $optional = "_optional" : $optional = '';
 
         $key = '<label for="'. $name .'">'. $key .'</label>
@@ -433,7 +432,7 @@ class display
             $maxchar = "5000";
         }
 
-    ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
+        ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
         ($optional)? $optional = "_optional" : $optional = '';
 
         $key = '<label for="'. $name .'">'. $key .'</label>';
@@ -491,7 +490,7 @@ class display
         
     // TODO: If no <option> in $options generate from array
 
-    $key = '<label for="'. $name .'">'. $key .'</label>';
+        $key = '<label for="'. $name .'">'. $key .'</label>';
         $value = '<select name="'. $name .'" class="form'. $optional .'" '. $additionalHTML .'>';
         $value .= $options;
         $value .= '</select>';
@@ -526,7 +525,7 @@ class display
 
     // TODO: If no <option> in $options generate from array
 
-    $key = '<label for="'. $name .'">'. $key .'</label>';
+        $key = '<label for="'. $name .'">'. $key .'</label>';
         $value = '<select name="'. $name .'[]" class="form'. $optional .'" size="'. $size .'" multiple>';
         $value .= $options;
         $value .= '</select>';
@@ -557,7 +556,7 @@ class display
         if ($size == '') {
             $size = '30';
         }
-    ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
+        ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
         ($optional)? $optional = "_optional" : $optional = '';
 
         $key = '<label for="barcode">'. $key .'</label>';
@@ -591,27 +590,27 @@ class display
         }
 
     // IF timestamp
-    if ($time > 0) {
-        $day = date("d", $time);
-        $month = date("m", $time);
-        $year = date("Y", $time);
-        $hour = date("H", $time);
-        $min = date("i", $time);
-    // IF values
-    } elseif ($values['day'] != "" and $values['month'] != "" and $values['year'] != "") {
-        $day = $values['day'];
-        $month = $values['month'];
-        $year = $values['year'];
-        $hour = $values['hour'];
-        $min = $values['min'];
-    // ELSE current date
-    } else {
-        $day = date("d");
-        $month = date("m");
-        $year = date("Y");
-        $hour = date("H");
-        $min = round(date("i") / 5) * 5;
-    }
+        if ($time > 0) {
+            $day = date("d", $time);
+            $month = date("m", $time);
+            $year = date("Y", $time);
+            $hour = date("H", $time);
+            $min = date("i", $time);
+            // IF values
+        } elseif ($values['day'] != "" and $values['month'] != "" and $values['year'] != "") {
+            $day = $values['day'];
+            $month = $values['month'];
+            $year = $values['year'];
+            $hour = $values['hour'];
+            $min = $values['min'];
+            // ELSE current date
+        } else {
+            $day = date("d");
+            $month = date("m");
+            $year = date("Y");
+            $hour = date("H");
+            $min = round(date("i") / 5) * 5;
+        }
         $smarty->assign('day', $day);
         $smarty->assign('month', $month);
         $smarty->assign('year', $year);
@@ -677,9 +676,9 @@ class display
         }
 
     // 0 =  All visible / 1 = Hide Time / 2 = Hide Date
-    if ($hidetime != 1) {
-        $smarty->assign('showtime', '1');
-    }
+        if ($hidetime != 1) {
+            $smarty->assign('showtime', '1');
+        }
         if ($hidetime != 2) {
             $smarty->assign('showdate', '1');
         }
@@ -724,12 +723,12 @@ class display
                 $extension = substr($file, strpos($file, '.') + 1, 4);
                 if ($extension == "jpeg" or $extension == "jpg" or $extension == "png" or $extension == "gif") {
                     ($file == $selected)? $file_out[] = "<option value=\"".$file."\" selected>".$file."</option>"
-          : $file_out[] = "<option value=\"".$file."\">".$file."</option>";
+                    : $file_out[] = "<option value=\"".$file."\">".$file."</option>";
                 }
             }
         }
 
-    ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
+        ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
         ($optional)? $optional = "_optional" : $optional = '';
         ($selected and $selected != "none")? $picpreview_init = $path."/".$selected :$picpreview_init = 'design/images/transparent.png';
         $options = implode("", $file_out);
@@ -743,101 +742,101 @@ class display
     }
 
   // TODO: Review!
-  public function AddPictureSelectRow($key, $path, $pics_per_row = null, $max_rows = null, $optional = null, $checked = null, $max_width = null, $max_height = null, $JS = false)
-  {
-      global $smarty;
+    public function AddPictureSelectRow($key, $path, $pics_per_row = null, $max_rows = null, $optional = null, $checked = null, $max_width = null, $max_height = null, $JS = false)
+    {
+        global $smarty;
 
-      include_once("inc/classes/class_gd.php");
-      $gd = new gd;
+        include_once("inc/classes/class_gd.php");
+        $gd = new gd;
 
-      if ($max_width == "") {
-          $max_width = 150;
-      }
-      if ($max_height == "") {
-          $max_height = 120;
-      }
-      if ($max_rows == "") {
-          $max_rows = 100;
-      }
-      if ($pics_per_row == "") {
-          $pics_per_row = 3;
-      }
-
-      $zeile = "";
-      $templ['ls']['row']['pictureselect']['spalte'] = "";
-
-      if ($optional) {
-          $optional = '_optional';
-      }
-
-      $handle = @opendir($path);
-      $z = 0;
-    // Filter and sort files in directory
-    $file_list = array();
-      while (($z < $max_rows * $pics_per_row) && ($file = @readdir($handle))) {
-          if (($file != ".") && ($file != "..") && (!is_dir($file)) && (substr($file, 0, 8) != "lsthumb_")) {
-              array_push($file_list, $file);
-              $z++;
-          }
-      }
-      @closedir($handle);
-      sort($file_list, SORT_NUMERIC);
-    
-    // For each file in directory
-    $pics = array();
-      $x = 0;
-      $y = 0;
-      $z = 0;
-      foreach ($file_list as $file) {
-          $arr = array();
-          $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
-          if (($extension == "jpeg") or ($extension == "jpg") or ($extension == "png") or ($extension == "gif")) {
-              $file_out = "$path/lsthumb_$file";
-
-        // Wenn Thumb noch nicht generiert wurde, generieren versuchen
-        if (!file_exists($file_out)) {
-            $gd->CreateThumb("$path/$file", $file_out, $max_width, $max_height);
+        if ($max_width == "") {
+            $max_width = 150;
+        }
+        if ($max_height == "") {
+            $max_height = 120;
+        }
+        if ($max_rows == "") {
+            $max_rows = 100;
+        }
+        if ($pics_per_row == "") {
+            $pics_per_row = 3;
         }
 
-              $pic_dimensions = GetImageSize($file_out);
-              if (!$pic_dimensions[0] or $pic_dimensions[0] > $max_width) {
-                  $pic_dimensions[0] = $max_width;
-              }
-              if (!$pic_dimensions[1] or $pic_dimensions[1] > $max_height) {
-                  $pic_dimensions[1] = $max_height;
-              }
-              $arr['width'] = $pic_dimensions[0];
-              $arr['height'] = $pic_dimensions[1];
+        $zeile = "";
+        $templ['ls']['row']['pictureselect']['spalte'] = "";
 
-              $arr['src'] = $file_out;
-              $caption = strtolower(substr($file, 0, strrpos($file, ".")));
-              if (($z == $checked) || ($file == $checked)) {
-                  $check = 'checked';
-              } else {
-                  $check = '';
-              }
+        if ($optional) {
+            $optional = '_optional';
+        }
 
-              if ($JS) {
-                  $arr['IconClick'] = " onClick=\"javascript:UpdateCurrentPicture('$file_out');\"";
-                  $arr['InputForm'] = '<input type="hidden" name="'. $key .'" value="'. $file .'" />';
-              } else {
-                  $arr['InputForm'] = '<input type="radio" name="'. $key .'" class="form'. $optional .'" value="'. $file .'" '. $check .' />'. $caption;
-              }
+        $handle = @opendir($path);
+        $z = 0;
+        // Filter and sort files in directory
+        $file_list = array();
+        while (($z < $max_rows * $pics_per_row) && ($file = @readdir($handle))) {
+            if (($file != ".") && ($file != "..") && (!is_dir($file)) && (substr($file, 0, 8) != "lsthumb_")) {
+                array_push($file_list, $file);
+                $z++;
+            }
+        }
+        @closedir($handle);
+        sort($file_list, SORT_NUMERIC);
+    
+        // For each file in directory
+        $pics = array();
+        $x = 0;
+        $y = 0;
+        $z = 0;
+        foreach ($file_list as $file) {
+            $arr = array();
+            $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
+            if (($extension == "jpeg") or ($extension == "jpg") or ($extension == "png") or ($extension == "gif")) {
+                $file_out = "$path/lsthumb_$file";
 
-              $pics[$x][$y] = $arr;
-              $z++;
-              $y++;
+          // Wenn Thumb noch nicht generiert wurde, generieren versuchen
+                if (!file_exists($file_out)) {
+                    $gd->CreateThumb("$path/$file", $file_out, $max_width, $max_height);
+                }
 
-              if ($z % $pics_per_row == 0) {
-                  $x++;
-                  $y = 0;
-              }
-          }
-      }
+                $pic_dimensions = GetImageSize($file_out);
+                if (!$pic_dimensions[0] or $pic_dimensions[0] > $max_width) {
+                    $pic_dimensions[0] = $max_width;
+                }
+                if (!$pic_dimensions[1] or $pic_dimensions[1] > $max_height) {
+                    $pic_dimensions[1] = $max_height;
+                }
+                $arr['width'] = $pic_dimensions[0];
+                $arr['height'] = $pic_dimensions[1];
 
-      $smarty->assign('pics', $pics);
-      $this->AddContentLine($smarty->fetch('design/templates/ls_row_pictureselect.htm'));
-  }
+                $arr['src'] = $file_out;
+                $caption = strtolower(substr($file, 0, strrpos($file, ".")));
+                if (($z == $checked) || ($file == $checked)) {
+                    $check = 'checked';
+                } else {
+                    $check = '';
+                }
+
+                if ($JS) {
+                    $arr['IconClick'] = " onClick=\"javascript:UpdateCurrentPicture('$file_out');\"";
+                    $arr['InputForm'] = '<input type="hidden" name="'. $key .'" value="'. $file .'" />';
+                } else {
+                    $arr['InputForm'] = '<input type="radio" name="'. $key .'" class="form'. $optional .'" value="'. $file .'" '. $check .' />'. $caption;
+                }
+
+                $pics[$x][$y] = $arr;
+                $z++;
+                $y++;
+
+                if ($z % $pics_per_row == 0) {
+                    $x++;
+                    $y = 0;
+                }
+            }
+        }
+
+        $smarty->assign('pics', $pics);
+        $this->AddContentLine($smarty->fetch('design/templates/ls_row_pictureselect.htm'));
+    }
 
     public function AddFileSelectRow($name, $key, $errortext, $size = null, $maxlength = null, $optional = null)
     {
@@ -853,15 +852,15 @@ class display
         }
 
     // If value is too low (most likely because of errors in above statement), set it to 100M
-    if ($maxfilesize < 1000) {
-        $maxfilesize = 1024 * 1024 * 100;
-    }
+        if ($maxfilesize < 1000) {
+            $maxfilesize = 1024 * 1024 * 100;
+        }
         $maxfilesize_formated = '(Max: '. $func->FormatFileSize($maxfilesize) .')';
 
         if ($size == '') {
             $size = '30';
         }
-    ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
+        ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
         ($optional)? $optional = "_optional" : $optional = '';
         ($selected and $selected != "none")? $picpreview_init = $path."/".$selected :$picpreview_init = 'design/images/transparent.png';
 
@@ -878,7 +877,7 @@ class display
         $MainContent .= "<a name=\"$name\"></a>";
     }
 
-    public function AddIFrame($url, $width=795, $height=600)
+    public function AddIFrame($url, $width = 795, $height = 600)
     {
         global $smarty;
 
@@ -896,66 +895,66 @@ class display
     }
 
   // Should be called AddForm
-  public function SetForm($f_url, $f_name = null, $f_method = null, $f_enctype = null)
-  {
-      global $smarty;
+    public function SetForm($f_url, $f_name = null, $f_method = null, $f_enctype = null)
+    {
+        global $smarty;
 
-      if ($f_name == null) {
-          $f_name = "dsp_form" . $this->formcount++;
-      }
-      if ($f_method == null) {
-          $f_method = "POST";
-      }
+        if ($f_name == null) {
+            $f_name = "dsp_form" . $this->formcount++;
+        }
+        if ($f_method == null) {
+            $f_method = "POST";
+        }
 
-      if ($f_enctype == null) {
-          $f_enctype = "";
-      } else {
-          $f_enctype = "enctype=\"$f_enctype\"";
-      }
+        if ($f_enctype == null) {
+            $f_enctype = "";
+        } else {
+            $f_enctype = "enctype=\"$f_enctype\"";
+        }
 
-      if ($this->form_open) {
-          $this->CloseForm();
-      }
-      $this->form_open = true;
+        if ($this->form_open) {
+            $this->CloseForm();
+        }
+          $this->form_open = true;
 
-      $this->form_name = $f_name;
+          $this->form_name = $f_name;
 
-      $smarty->assign('name', $f_name);
-      $smarty->assign('method', strtolower($f_method));
-      $smarty->assign('action', $f_url);
-      $smarty->assign('enctype', $f_enctype);
+          $smarty->assign('name', $f_name);
+          $smarty->assign('method', strtolower($f_method));
+          $smarty->assign('action', $f_url);
+          $smarty->assign('enctype', $f_enctype);
 
-      $this->AddSmartyTpl('ls_row_formbegin');
-  }
+          $this->AddSmartyTpl('ls_row_formbegin');
+    }
 
   // Should be called AddCloseForm
-  public function CloseForm()
-  {
-      $this->form_open = false;
-      $this->AddSmartyTpl('ls_row_formend');
-  }
+    public function CloseForm()
+    {
+        $this->form_open = false;
+        $this->AddSmartyTpl('ls_row_formend');
+    }
 
 
   #### Fetch Content ####
   # The following functions all return their content, to the module, instead of printing them directly
 
-  public function FetchAttachmentRow($file)
-  {
-      include_once("inc/classes/class_gd.php");
-      $gd = new gd;
+    public function FetchAttachmentRow($file)
+    {
+        include_once("inc/classes/class_gd.php");
+        $gd = new gd;
 
-      $FileEnding = strtolower(substr($file, strrpos($file, '.'), 5));
+        $FileEnding = strtolower(substr($file, strrpos($file, '.'), 5));
 
-      if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') {
-          $FileNamePath = strtolower(substr($file, 0, strrpos($file, '.')));
-          $FileThumb = $FileNamePath. '_thumb' .$FileEnding;
+        if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') {
+            $FileNamePath = strtolower(substr($file, 0, strrpos($file, '.')));
+            $FileThumb = $FileNamePath. '_thumb' .$FileEnding;
 
-          $gd->CreateThumb($file, $FileThumb, '300', '300');
-          return HTML_NEWLINE . HTML_NEWLINE. '<a href="'. $file .'" target="_blank"><img src="'. $FileThumb .'" border="0" /></a>';
-      } else {
-          return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon($file, 'download') .' ('. t('Angehängte Datei herunterladen').')';
-      }
-  }
+            $gd->CreateThumb($file, $FileThumb, '300', '300');
+            return HTML_NEWLINE . HTML_NEWLINE. '<a href="'. $file .'" target="_blank"><img src="'. $FileThumb .'" border="0" /></a>';
+        } else {
+            return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon($file, 'download') .' ('. t('Angehängte Datei herunterladen').')';
+        }
+    }
 
     public function FetchCssButton($title, $link, $hint = null, $target = null)
     {
@@ -976,24 +975,42 @@ class display
         global $smarty;
 
     // Picname-Mappings
-    switch ($picname) {
-      case 'next': $picname = 'forward'; break;
-      case 'preview': $picname = 'search'; break;
-    }
+        switch ($picname) {
+            case 'next':
+                $picname = 'forward';
+                break;
+            case 'preview':
+                $picname = 'search';
+                break;
+        }
         $smarty->assign('name', $picname);
 
     // Hint
-    if ($hint == '') {
-        switch ($picname) {
-      default: $hint = ''; break;
-      case 'add': $hint = t('Hinzufügen'); break;
-      case 'change': $hint = t('Ändern'); break;
-      case 'edit': $hint = t('Editieren'); break;
-      case 'delete': $hint = t('Löschen'); break;
-      case 'send': $hint = t('Senden'); break;
-      case 'quote': $hint = t('Zitieren'); break;
-    }
-    }
+        if ($hint == '') {
+            switch ($picname) {
+                default:
+                    $hint = '';
+                    break;
+                case 'add':
+                    $hint = t('Hinzufügen');
+                    break;
+                case 'change':
+                    $hint = t('Ändern');
+                    break;
+                case 'edit':
+                    $hint = t('Editieren');
+                    break;
+                case 'delete':
+                    $hint = t('Löschen');
+                    break;
+                case 'send':
+                    $hint = t('Senden');
+                    break;
+                case 'quote':
+                    $hint = t('Zitieren');
+                    break;
+            }
+        }
         $smarty->assign('hint', $hint);
         if ($align == 'right') {
             $smarty->assign('additionalhtml', 'align="right" valign="bottom" vspace="2" ');
@@ -1049,14 +1066,14 @@ class display
     }
 
   // Old: Use FetchIcon instead
-  public function AddIcon($name, $link = '', $title = '')
-  {
-      return $this->FetchIcon($link, $name, $title);
-  }
+    public function AddIcon($name, $link = '', $title = '')
+    {
+        return $this->FetchIcon($link, $name, $title);
+    }
 
   // Should be called FetchHelpText
-  public function HelpText($text, $help)
-  {
-      return '<div class="infolink" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
-  }
+    public function HelpText($text, $help)
+    {
+        return '<div class="infolink" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
+    }
 }

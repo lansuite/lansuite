@@ -33,7 +33,6 @@ class masterdelete
         // Delete main table
         $res = $db->qry("DELETE FROM %prefix%%plain% WHERE %plain% = %string%", $table, $idname, $id);
         if ($res) {
-    
             // Delete master tables, if content is now missing
             foreach ($this->DeleteIfEmpty as $key => $val) {
                 if ($val == '') {
@@ -53,11 +52,11 @@ class masterdelete
                     case 'DELETE':
                         $this->DoDelete($row['pri_table'], $row['pri_key'], $id);
                         //$db->qry("DELETE FROM %prefix%%plain% WHERE %plain% = %int%", $row['pri_table'], $row['pri_key'], $id);
-                    break;
+                        break;
                     case 'ASK_SET0':
                     case 'SET0':
                         $db->qry("UPDATE %prefix%%plain% SET %plain% = 0 WHERE %plain% = %int%", $row['pri_table'], $row['pri_key'], $row['pri_key'], $id);
-                    break;
+                        break;
                 }
             }
             if ($table != 'log') {
@@ -98,9 +97,11 @@ class masterdelete
                         $refFieldsDelete .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
                     } elseif ($row['on_delete'] == 'ASK_SET0') {
                         $refFieldsSet0 .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
-                    } elseif ($row['on_delete'] == 'DELETE') ; // No additional question needed
-                    elseif ($row['on_delete'] == 'SET0') ; // No additional question needed
-                    else {
+                    } elseif ($row['on_delete'] == 'DELETE') {
+// No additional question needed
+                    } elseif ($row['on_delete'] == 'SET0') {
+                    // No additional question needed
+                    } else {
                         $refFieldsDeny .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
                     }
                 }
@@ -146,12 +147,12 @@ class masterdelete
         $failed = '';
         if ($_POST['action']) {
             // TODO: Question for ASK_DELETE AND ASK_SET0
-      foreach ($_POST['action'] as $key => $val) {
-          $res = $this->DoDelete($table, $idname, $key);
-          if (!$res) {
-              $failed .= HTML_NEWLINE . '#'. $key;
-          }
-      }
+            foreach ($_POST['action'] as $key => $val) {
+                $res = $this->DoDelete($table, $idname, $key);
+                if (!$res) {
+                    $failed .= HTML_NEWLINE . '#'. $key;
+                }
+            }
 
             if ($failed != '') {
                 $func->information(t('Die folgenden Einträge konnte nicht gelöscht werden').':'.$failed);
