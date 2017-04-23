@@ -36,38 +36,36 @@ if ($_GET['step'] >= 2) {
 }
 
 switch ($_GET['step']) {
-  default:
-    include_once('modules/poll/search.inc.php');
-  break;
+    default:
+        include_once('modules/poll/search.inc.php');
+        break;
 
-  case 2:
-    $func->SetRead('poll', $_GET['pollid']);
+    case 2:
+        $func->SetRead('poll', $_GET['pollid']);
 
-    // Has voted? -> Show results
-    if ($voted['found'] or ($pollrow['endtime'] and $pollrow['endtime'] < time())) {
-        $poll->ShowResult($_GET['pollid'], $pollrow['anonym']);
-    }
-
-    // Has not voted? -> Show form
-    else {
-        $dsp->SetForm('index.php?mod=poll&action=show&step=3&pollid='. $_GET['pollid']);
+        // Has voted? -> Show results
+        if ($voted['found'] or ($pollrow['endtime'] and $pollrow['endtime'] < time())) {
+            $poll->ShowResult($_GET['pollid'], $pollrow['anonym']);
+        } // Has not voted? -> Show form
+        else {
+            $dsp->SetForm('index.php?mod=poll&action=show&step=3&pollid='. $_GET['pollid']);
   
-        $res = $db->qry('SELECT polloptionid, caption FROM %prefix%polloptions WHERE pollid = %int% ORDER BY polloptionid', $_GET['pollid']);
-        while ($row = $db->fetch_array($res)) {
-            if ($pollrow['multi']) {
-                $dsp->AddCheckBoxRow('option[]', $row['caption'], '', '', '', '', '', $row['polloptionid']);
-            } else {
-                $dsp->AddRadioRow("option", $row['caption'], $row['polloptionid']);
+            $res = $db->qry('SELECT polloptionid, caption FROM %prefix%polloptions WHERE pollid = %int% ORDER BY polloptionid', $_GET['pollid']);
+            while ($row = $db->fetch_array($res)) {
+                if ($pollrow['multi']) {
+                    $dsp->AddCheckBoxRow('option[]', $row['caption'], '', '', '', '', '', $row['polloptionid']);
+                } else {
+                    $dsp->AddRadioRow("option", $row['caption'], $row['polloptionid']);
+                }
             }
-        }
-        $db->free_result($res);
+            $db->free_result($res);
   
-        $dsp->AddFormSubmitRow(t('Abstimmen'));
-    }
+            $dsp->AddFormSubmitRow(t('Abstimmen'));
+        }
         $dsp->AddBackButton("index.php?mod=poll", "poll/vote");
-  break;
+        break;
 
-  case 3:
+    case 3:
         if ($pollrow['multi']) {
             foreach ($_POST['option'] as $option) {
                 $db->qry('INSERT INTO %prefix%pollvotes SET userid = %int%, polloptionid = %int%', $auth['userid'], $option);
@@ -75,6 +73,6 @@ switch ($_GET['step']) {
         } else {
             $db->qry('INSERT INTO %prefix%pollvotes SET userid = %int%, polloptionid = %int%', $auth['userid'], $_POST['option']);
         }
-        $func->confirmation(t('Deine Stimme wurde gezählt'), 'index.php?mod=poll&action=show&step=2&pollid='. $_GET['pollid']);
-  break;
+            $func->confirmation(t('Deine Stimme wurde gezählt'), 'index.php?mod=poll&action=show&step=2&pollid='. $_GET['pollid']);
+        break;
 }
