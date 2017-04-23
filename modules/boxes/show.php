@@ -2,12 +2,16 @@
 switch ($_GET['step']) {
   // Activate
   case 10:
-    foreach ($_POST['action'] AS $key => $val) $db->qry("UPDATE %prefix%boxes SET active = 1 WHERE boxid = %int%", $key);
+    foreach ($_POST['action'] as $key => $val) {
+        $db->qry("UPDATE %prefix%boxes SET active = 1 WHERE boxid = %int%", $key);
+    }
   break;
   
   // Deactivate
   case 11:
-    foreach ($_POST['action'] AS $key => $val) $db->qry("UPDATE %prefix%boxes SET active = 0 WHERE boxid = %int%", $key);
+    foreach ($_POST['action'] as $key => $val) {
+        $db->qry("UPDATE %prefix%boxes SET active = 0 WHERE boxid = %int%", $key);
+    }
   break;
   
   // Edit
@@ -60,9 +64,13 @@ $ms2->query['default_order_by'] = 'place ASC, pos ASC, name ASC';
 $ms2->AddTextSearchDropDown(t('Internet-Modus'), 'b.internet', array('' => t('Egal'), '1' => t('Nur im Intranet-Modus'), '2' => t('Nur im Internet-Modus')));
 $ms2->AddTextSearchDropDown(t('Login'), 'b.login', array('' => t('Egal'), '1' => t('Nur für ausgeloggte'), '2' => t('Nur für eingeloggte'), '3' => t('Nur für Admins + Superadminen'), '4' => t('Nur für Superadminen')));
 
-function PlaceName($place) {
-  if ($place == 0) return t('Linke Seite');
-  elseif ($place == 1) return t('Rechte Seite');
+function PlaceName($place)
+{
+    if ($place == 0) {
+        return t('Linke Seite');
+    } elseif ($place == 1) {
+        return t('Rechte Seite');
+    }
 }
 
 $ms2->AddResultField(t('Titel'), 'b.name');
@@ -72,8 +80,12 @@ $ms2->AddResultField(t('Position'), 'b.pos');
 $ms2->AddResultField(t('Aktiv'), 'b.active', 'TrueFalse');
 $ms2->AddResultField(t('Quelldatei'), 'b.source');
 
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=boxes&amp;step=20&amp;boxid=', t('Editieren'));
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=boxes&amp;step=30&amp;boxid=', t('Löschen'));
+if ($auth['type'] >= 2) {
+    $ms2->AddIconField('edit', 'index.php?mod=boxes&amp;step=20&amp;boxid=', t('Editieren'));
+}
+if ($auth['type'] >= 3) {
+    $ms2->AddIconField('delete', 'index.php?mod=boxes&amp;step=30&amp;boxid=', t('Löschen'));
+}
 
 $ms2->AddMultiSelectAction(t('Aktivieren'), 'index.php?mod=boxes&step=10');
 $ms2->AddMultiSelectAction(t('Deaktivieren'), 'index.php?mod=boxes&step=11');
@@ -81,4 +93,3 @@ $ms2->AddMultiSelectAction(t('Deaktivieren'), 'index.php?mod=boxes&step=11');
 $ms2->PrintSearch('index.php?mod=boxes', 'b.boxid');
 $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=boxes&amp;step=20'));
 $dsp->AddContent();
-?>

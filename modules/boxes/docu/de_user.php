@@ -14,5 +14,3 @@ $helplet['key'][4] = 'Pers. Details';
 $helplet['value'][4] = 'Hier kannst du die im System von dir gespeicherten Benutzerdaten einsehen und falls die Organisatoren dies gestatten auch zu ändern';
 $helplet['key'][5] = 'Logout';
 $helplet['value'][5] = 'Hier kannst du deine Sitzung beenden. Dies ist sehr empfehlenswert, wenn weitere Personen Zugang zu deinem PC haben.';
-
-?>
