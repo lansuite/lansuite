@@ -1,15 +1,15 @@
 <?php
 
-    function getMoneyColor($money)
-    {
-        if ($money > 0) {
-            return "<font color='green'>+".number_format($money, 2, ',', '.') . " EUR</font>";
-        }
-        
-        if ($money < 0) {
-            return "<font color='red'>".number_format($money, 2, ',', '.') . " EUR</font>";
-        }
+function getMoneyColor($money)
+{
+    if ($money > 0) {
+        return "<font color='green'>+".number_format($money, 2, ',', '.') . " EUR</font>";
     }
+        
+    if ($money < 0) {
+        return "<font color='red'>".number_format($money, 2, ',', '.') . " EUR</font>";
+    }
+}
 
 
 class accounting
@@ -51,7 +51,8 @@ class accounting
     public function booking($movement, $comment, $toUserid = 0, $silentMode = false)
     {
         global $func, $db;
-        $db->qry("INSERT INTO %prefix%cashmgr_accounting SET
+        $db->qry(
+            "INSERT INTO %prefix%cashmgr_accounting SET
                 toUserid  =%int%,
                 fromUserid=%int%,
                 partyid =%int%,
@@ -59,7 +60,14 @@ class accounting
                 movement=%string%,
                 fix     =%string%,
                 comment =%string%",
-                $toUserid, $this->editorid, $this->partyid, $this->modul, $movement, $this->fix, $comment);
+            $toUserid,
+            $this->editorid,
+            $this->partyid,
+            $this->modul,
+            $movement,
+            $this->fix,
+            $comment
+        );
                 
         if (!$silentMode) {
             $func->confirmation("Betrag von " . getMoneyColor($movement) . " erfolgreich von Modul " . $this->modul ." gebucht.", "");
@@ -81,7 +89,7 @@ class accounting
         return getMoneyColor($result['total']);
     }
 
-    public function GetUserBalance($userid=0)
+    public function GetUserBalance($userid = 0)
     {
         global $db;
         if ($userid==0) {
@@ -111,15 +119,15 @@ class accounting
         global $db;
     
         switch ($posneg) {
-        case 0:
-            $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string% AND movement < 0", $this->partyid, $fix);
-            break;
-        case 1:
-            $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string% AND movement > 0", $this->partyid, $fix);
-            break;
-        case 3:
-            $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string", $this->partyid, $fix);
-            break;
+            case 0:
+                $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string% AND movement < 0", $this->partyid, $fix);
+                break;
+            case 1:
+                $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string% AND movement > 0", $this->partyid, $fix);
+                break;
+            case 3:
+                $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string", $this->partyid, $fix);
+                break;
         }
         return getMoneyColor($result['total']);
     }
@@ -132,15 +140,15 @@ class accounting
         $result_list = array();
     
         switch ($posneg) {
-        case 0:
-            $row = $db->qry("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM %prefix%cashmgr_accounting AS a LEFT JOIN %prefix%cashmgr_group AS g ON a.groupid = g.id WHERE partyid = %int% AND fix = %string% AND movement < 0 GROUP BY modul, caption", $this->partyid, $fix);
-            break;
-        case 1:
-            $row = $db->qry("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM %prefix%cashmgr_accounting AS a LEFT JOIN %prefix%cashmgr_group AS g ON a.groupid = g.id  WHERE partyid = %int% AND fix = %string% AND movement > 0 GROUP BY modul, caption", $this->partyid, $fix);
-            break;
-        case 3:
-            $row = $db->qry("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM %prefix%cashmgr_accounting AS a LEFT JOIN %prefix%cashmgr_group AS g ON a.groupid = g.id  WHERE partyid = %int% AND fix = %string% GROUP BY modul, caption", $this->partyid, $fix);
-            break;
+            case 0:
+                $row = $db->qry("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM %prefix%cashmgr_accounting AS a LEFT JOIN %prefix%cashmgr_group AS g ON a.groupid = g.id WHERE partyid = %int% AND fix = %string% AND movement < 0 GROUP BY modul, caption", $this->partyid, $fix);
+                break;
+            case 1:
+                $row = $db->qry("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM %prefix%cashmgr_accounting AS a LEFT JOIN %prefix%cashmgr_group AS g ON a.groupid = g.id  WHERE partyid = %int% AND fix = %string% AND movement > 0 GROUP BY modul, caption", $this->partyid, $fix);
+                break;
+            case 3:
+                $row = $db->qry("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM %prefix%cashmgr_accounting AS a LEFT JOIN %prefix%cashmgr_group AS g ON a.groupid = g.id  WHERE partyid = %int% AND fix = %string% GROUP BY modul, caption", $this->partyid, $fix);
+                break;
         }
         
         while ($res = $db->fetch_array($row)) {
@@ -210,5 +218,3 @@ class accounting
         $dsp->AddFieldsetEnd();
     }
 }
-?>
-

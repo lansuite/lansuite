@@ -21,9 +21,9 @@ $mf->AddField('Betrag (bei Negativen, minus davor)', 'movement');
 
 $user_list = array('' => '(keine Auswahl)');
     $row = $db->qry("SELECT userid, username FROM %prefix%user");
-    while ($res = $db->fetch_array($row)) {
-        $user_list[$res['userid']] = $res['username'];
-    }
+while ($res = $db->fetch_array($row)) {
+    $user_list[$res['userid']] = $res['username'];
+}
 
 $mf->AddDropDownFromTable(t('Party'), 'partyid', 'party_id', 'name', 'partys');
 $mf->AddDropDownFromTable(t('Betrifft Benutzer'), 'userid', 'userid', 'username', 'user', t('keine Auswahl'));

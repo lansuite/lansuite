@@ -10,15 +10,15 @@ $mf->AddField('Betrag (bei Negativen, minus davor)', 'movement');
 
 $party_list = array();
     $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
-    while ($res = $db->fetch_array($row)) {
-        $party_list[$res['party_id']] = $res['name'];
-    }
+while ($res = $db->fetch_array($row)) {
+    $party_list[$res['party_id']] = $res['name'];
+}
     
 $group_list = array();
     $row = $db->qry("SELECT id, caption FROM %prefix%cashmgr_group");
-    while ($res = $db->fetch_array($row)) {
-        $group_list[$res['id']] = $res['caption'];
-    }
+while ($res = $db->fetch_array($row)) {
+    $group_list[$res['id']] = $res['caption'];
+}
 
     
 $mf->AddDropDownFromTable(t('Party'), 'partyid', 'party_id', 'name', 'partys');
