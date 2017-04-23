@@ -22,14 +22,14 @@ switch ($_GET["step"]) {
             $func->information(t('Bei einer direkten Ablehnung ist die Angabe eines Grundes notwendig.'), "index.php?mod=troubleticket&action=change&step=2&ttid={$_GET["ttid"]}");
             $_GET["step"] = 2;
         }
-    break;
+        break;
 }
 
 
 switch ($_GET["step"]) {
     default:
-    include_once('modules/troubleticket/search.inc.php');
-    break;
+        include_once('modules/troubleticket/search.inc.php');
+        break;
 
     case 2:
         $tt_id = $_GET['ttid'];
@@ -40,9 +40,7 @@ switch ($_GET["step"]) {
         // Prüfen ob ticketid leer ist
         if ($tt_id == "") {
             $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
-        }
-
-        // Prüfen ob ticketid gültig ist
+        } // Prüfen ob ticketid gültig ist
         elseif ($numrows == "") {
             $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
         } else {
@@ -65,16 +63,16 @@ switch ($_GET["step"]) {
             switch ($row["priority"]) {
                 default:
                     $priority = t('Niedrig');
-                break;
+                    break;
                 case 20:
                     $priority = t('Normal');
-                break;
+                    break;
                 case 30:
                     $priority = t('Hoch');
-                break;
+                    break;
                 case 40:
                     $priority = t('Kritisch');
-                break;
+                    break;
             }
             $dsp->AddDoubleRow(t('Priorität'), $priority);
 
@@ -83,7 +81,7 @@ switch ($_GET["step"]) {
             switch ($row["status"]) {
                 default:
                     $status    = t('default: Scriptfehler!');
-                break;
+                    break;
 
                 // status: NEU EINGETRAGEN / NICHT GEPRÜFT
                 case 1:
@@ -92,7 +90,7 @@ switch ($_GET["step"]) {
                     array_push($status_wahl, optionrow(5, t(' Bearbeitung ablehnen ')));
                     $time_text = "";
                     $time_val = "";
-                break;
+                    break;
 
                 // status: GEPRÜFT / ggf. VON EINEM ORGA NEU EINGETRAGEN
                 case 2:
@@ -104,7 +102,7 @@ switch ($_GET["step"]) {
                     array_push($status_wahl, optionrow(5, t(' Bearbeitung ablehnen ')));
                     $time_text = t('Überprüft am/um');
                     $time_val = $func->unixstamp2date($row["verified"], "daydatetime");
-                break;
+                    break;
 
                 // status: ORGA HAT ARBEIT BEGONNEN
                 case 3:
@@ -113,7 +111,7 @@ switch ($_GET["step"]) {
                     array_push($status_wahl, optionrow(4, t(' Auf Erledigt setzen ')));
                     $time_text = t('In Bearbeitung seit');
                     $time_val = $func->unixstamp2date($row["process"], "daydatetime");
-                break;
+                    break;
 
                 // status: BEARBEITUNG ABGESCHLOSSEN
                 case 4:
@@ -122,7 +120,7 @@ switch ($_GET["step"]) {
                     array_push($status_wahl, optionrow(3, t(' Problem übernehmen und Bearbeitung beginnen ')));
                     $time_text = t('Beendet am/um');
                     $time_val = $func->unixstamp2date($row["finished"], "daydatetime");
-                break;
+                    break;
 
                 // status: BEARBEITUNG ABGELEHNT
                 case 5:
@@ -130,7 +128,7 @@ switch ($_GET["step"]) {
                     array_push($status_wahl, optionrow(0, t(' Keine Änderung ')));
                     $time_text = t('Bearbeitung abgelehnt am/um');
                     $time_val = $func->unixstamp2date($row["finished"], "daydatetime");
-                break;
+                    break;
             }
             $dsp->AddDoubleRow(t('Ticketstatus'), $status);
             if ($time_text and $time_val) {
@@ -149,7 +147,7 @@ switch ($_GET["step"]) {
             $dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/change");
             $dsp->AddContent();
         }
-    break;
+        break;
 
 
     case 3:
@@ -164,14 +162,14 @@ switch ($_GET["step"]) {
         switch ($_POST["tticket_status"]) {
             case 1:
                 $db->qry('UPDATE %prefix%troubleticket SET status = \'1\' WHERE ttid = %int%', $tt_id);
-            break;
+                break;
 
             case 2:
                 $db->qry("UPDATE %prefix%troubleticket SET
      status = '2',
      target_userid = '0'
      WHERE ttid = %int%", $tt_id);
-            break;
+                break;
 
             case 3:
                 $db->qry("UPDATE %prefix%troubleticket SET
@@ -180,7 +178,7 @@ switch ($_GET["step"]) {
      process = %string%,
      finished = ''
      WHERE ttid = %int%", $zeit, $tt_id);
-            break;
+                break;
 
             case 4:
                 $db->qry("UPDATE %prefix%troubleticket SET
@@ -188,7 +186,7 @@ switch ($_GET["step"]) {
      processstatus = '100',
      finished = %string%
      WHERE ttid = %int%", $zeit, $tt_id);
-            break;
+                break;
 
             case 5:
                 $db->qry("UPDATE %prefix%troubleticket SET
@@ -196,9 +194,9 @@ switch ($_GET["step"]) {
      processstatus = '100',
      finished = %string%
      WHERE ttid = %int%", $zeit, $tt_id);
-            break;
+                break;
         }
 
         $func->confirmation(t('Das Troubleticket wurde erfolgreich geändert'), "index.php?mod=troubleticket&action=change");
-    break;
+        break;
 }

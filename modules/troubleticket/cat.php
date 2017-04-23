@@ -29,10 +29,9 @@ switch ($_GET['step']) {
             $_POST['tticket_cat'] = $_GET['cat_id'];
             $_GET['step'] = 2;
         }
-    break;
+        break;
 }
 switch ($_GET['step']) {
-    
     default:
         $dsp->NewContent(t('Kategorie'));
         
@@ -54,7 +53,7 @@ switch ($_GET['step']) {
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=troubleticket&action=cat&act=add&step=2"));
         $dsp->AddBackButton("index.php?mod=troubleticket");
         $dsp->AddContent();
-    break;
+        break;
     
     
     case 2:
@@ -90,7 +89,7 @@ switch ($_GET['step']) {
         }
         $dsp->AddContent();
     
-    break;
+        break;
     
     case 3:
         if ($_GET['act'] == "add") {
@@ -113,5 +112,5 @@ switch ($_GET['step']) {
             }
         }
     
-    break;
+        break;
 }

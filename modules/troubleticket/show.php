@@ -2,8 +2,8 @@
 
 switch ($_GET["step"]) {
     default:
-    include_once('modules/troubleticket/search.inc.php');
-    break;
+        include_once('modules/troubleticket/search.inc.php');
+        break;
 
 
     case 2:
@@ -15,9 +15,7 @@ switch ($_GET["step"]) {
         // Prüfen ob ticketid leer ist
         if ($tt_id == "") {
             $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
-        }
-
-        // Prüfen ob ticketid gültig ist
+        } // Prüfen ob ticketid gültig ist
         elseif ($numrows == "") {
             $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
         } else {
@@ -40,16 +38,16 @@ switch ($_GET["step"]) {
             switch ($row["priority"]) {
                 default:
                     $priority = t('Niedrig');
-                break;
+                    break;
                 case 20:
                     $priority = t('Normal');
-                break;
+                    break;
                 case 30:
                     $priority = t('Hoch');
-                break;
+                    break;
                 case 40:
                     $priority = t('Kritisch');
-                break;
+                    break;
             }
             $dsp->AddDoubleRow(t('Priorität'), $priority);
 
@@ -58,42 +56,42 @@ switch ($_GET["step"]) {
             switch ($row["status"]) {
                 default:
                     $status    = t('default: Scriptfehler!');
-                break;
+                    break;
 
                 // status: NEU EINGETRAGEN / NICHT GEPRÜFT
                 case 1:
                     $status    = t('Neu / Ungeprüft');
                     $time_text = "";
                     $time_val = "";
-                break;
+                    break;
 
                 // status: GEPRÜFT / ggf. VON EINEM ORGA NEU EINGETRAGEN
                 case 2:
                     $status    = t('Überprüft / Akzeptiert');
                     $time_text = t('Überprüft am/um');
                     $time_val = $func->unixstamp2date($row["verified"], "daydatetime");
-                break;
+                    break;
 
                 // status: ORGA HAT ARBEIT BEGONNEN
                 case 3:
                     $status    = t('In Arbeit');
                     $time_text = t('In Bearbeitung seit');
                     $time_val = $func->unixstamp2date($row["process"], "daydatetime");
-                break;
+                    break;
 
                 // status: BEARBEITUNG ABGESCHLOSSEN
                 case 4:
                     $status    = t('Abgeschlossen');
                     $time_text = t('Beendet am/um');
                     $time_val = $func->unixstamp2date($row["finished"], "daydatetime");
-                break;
+                    break;
 
                 // status: BEARBEITUNG ABGELEHNT
                 case 5:
                     $status    = t('Abgelehnt');
                     $time_text = t('Bearbeitung abgelehnt am/um');
                     $time_val = $func->unixstamp2date($row["finished"], "daydatetime");
-                break;
+                    break;
             }
             $dsp->AddDoubleRow(t('Ticketstatus'), $status);
             if ($time_text and $time_val) {
@@ -115,5 +113,5 @@ switch ($_GET["step"]) {
             $dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/change");
             $dsp->AddContent();
         }
-    break;
+        break;
 }

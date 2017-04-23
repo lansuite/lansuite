@@ -51,7 +51,7 @@ switch ($_GET["step"]) {
             $error['tticket_cat'] = t('Bitte wähle eine Kategorie');
             $_GET['step'] = 1;
         }
-    break;
+        break;
 }
 
 
@@ -100,7 +100,7 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/add");
         $dsp->AddContent();
-    break;
+        break;
 
     case 2:
         $czeit = time();
@@ -152,5 +152,5 @@ switch ($_GET["step"]) {
         }
         
         $func->confirmation(t('Das Troubleticket wurde erfolgreich eingetragen'), "index.php?mod=troubleticket&action=add");
-    break;
+        break;
 }

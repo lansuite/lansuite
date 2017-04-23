@@ -1,20 +1,20 @@
 <?php
 switch ($_GET["step"]) {
     default:
-    include_once('modules/troubleticket/search.inc.php');
-    break;
+        include_once('modules/troubleticket/search.inc.php');
+        break;
 
 
     case 2:
-    include_once('modules/usrmgr/search_main.inc.php');
+        include_once('modules/usrmgr/search_main.inc.php');
     
-    $ms2->query['where'] .= "u.type > 1";
-    if ($auth['type'] >= 2) {
-        $ms2->AddIconField('assign', 'index.php?mod=troubleticket&action=assign&step=3&ttid='.$_GET['ttid'] .'&userid=', 'Assign');
-    }
+        $ms2->query['where'] .= "u.type > 1";
+        if ($auth['type'] >= 2) {
+            $ms2->AddIconField('assign', 'index.php?mod=troubleticket&action=assign&step=3&ttid='.$_GET['ttid'] .'&userid=', 'Assign');
+        }
     
-    $ms2->PrintSearch('index.php?mod=troubleticket&action=assign&step=2&ttid='. $_GET['ttid'], 'u.userid');
-    break;
+        $ms2->PrintSearch('index.php?mod=troubleticket&action=assign&step=2&ttid='. $_GET['ttid'], 'u.userid');
+        break;
 
     case 3:
         // Variabeln zuweisen
@@ -46,5 +46,5 @@ switch ($_GET["step"]) {
         } else {
             $func->error(t('Das Troubleticket konnte nicht zugewiesen werden! Problem mit der Datenbank !'), "index.php?mod=troubleticket&action=assign");
         }
-    break;
+        break;
 }
