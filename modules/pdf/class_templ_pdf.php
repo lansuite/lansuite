@@ -47,9 +47,15 @@ class pdf_tmpl
         $this->tmpl_id = $db->insert_id();
         
         // Config anlegen
-        $db->qry("INSERT INTO %prefix%pdf_data ( `pdfid` , `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` ) VALUES
+        $db->qry(
+            "INSERT INTO %prefix%pdf_data ( `pdfid` , `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` ) VALUES
   ('', %int%, %string%, 'config', %string%, %string%,'0','0','0','','0','0','0', %string%, '')",
-  $this->tmpl_id, $_POST['landscape'], $_POST['rand_x'], $_POST['rand_y'], $_POST['pagesize']);
+            $this->tmpl_id,
+            $_POST['landscape'],
+            $_POST['rand_x'],
+            $_POST['rand_y'],
+            $_POST['pagesize']
+        );
     }
     
     // Daten auslesen

@@ -171,16 +171,16 @@ class pdf
         switch ($action) {
             case 'guestcards':
                 $this->_menuUsercards($action);
-            break;
+                break;
             case 'seatcards':
                 $this->_menuSeatcards($action);
-            break;
+                break;
             default:
                 $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action);
-            break;
+                break;
             case 'userlist':
                 $this->_menuUserlist($action);
-            break;
+                break;
         }
     }
     
@@ -196,21 +196,21 @@ class pdf
         switch ($action) {
             case 'guestcards':
                 $this->_makeUserCard($_POST['paid'], $_POST['guest'], $_POST['op'], $_POST['orga'], $_POST['user']);
-            break;
+                break;
             case 'seatcards':
                 $this->_makeSeatCard($_POST['block'], $_POST['order']);
-            break;
+                break;
             case 'userlist':
                 $this->_makeUserlist($_POST['paid'], $_POST['guest'], $_POST['op'], $_POST['orga'], $_POST['order']);
-            break;
+                break;
             default:
                 $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action);
-            break;
+                break;
             case 'ticket':
                 if ($auth["userid"] == $_GET['userid'] || $auth["type"] > 2) {
                     $this->_makeUserCard(1, 1, 1, 1, $_GET['userid']);
                 }
-            break;
+                break;
         }
     }
 
@@ -454,9 +454,9 @@ class pdf
         }
         
     //Userabfragen
-    if ($pdf_guestid > 0) {
-        $pdf_sqlstring .= ' AND user.userid = '.$pdf_guestid.'';
-    }
+        if ($pdf_guestid > 0) {
+            $pdf_sqlstring .= ' AND user.userid = '.$pdf_guestid.'';
+        }
 
         $query = $db->qry('SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
       LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid %plain%', $pdf_sqlstring);
@@ -715,24 +715,24 @@ class pdf
         switch ($order) {
             case 'username':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY username, name ASC";
-            break;
+                break;
             case 'name':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY name, firstname ASC";
-            break;
+                break;
             case 'firstname':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY firstname, name ASC";
-            break;
+                break;
             case 'clan':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY clan, name ASC";
-            break;
+                break;
             case 'plz':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY plz, name ASC";
-            break;
+                break;
             case 'city':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY city, name ASC";
-            break;
+                break;
             default:
-            break;
+                break;
         }
 
         $query = $db->qry("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
@@ -874,7 +874,7 @@ class pdf
                     if (($templ[$i]['fontsize']/2) > $this->object_high) {
                         $this->object_high = ($templ[$i]['fontsize']/2);
                     }
-                break;
+                    break;
                 case 'rect':
                     if ($templ[$i]['end_x'] > $this->object_width) {
                         $this->object_width = $templ[$i]['end_x'];
@@ -882,7 +882,7 @@ class pdf
                     if ($templ[$i]['end_y'] > $this->object_high) {
                         $this->object_high = $templ[$i]['end_y'];
                     }
-                break;
+                    break;
                 case 'line':
                     if ($templ[$i]['end_x'] > $this->object_width) {
                         $this->object_width = $templ[$i]['end_x'];
@@ -890,7 +890,7 @@ class pdf
                     if ($templ[$i]['end_y'] > $this->object_high) {
                         $this->object_high = $templ[$i]['end_y'];
                     }
-                break;
+                    break;
                 case 'image':
                     if ($templ[$i]['end_x'] > $this->object_width) {
                         $this->object_width = $templ[$i]['end_x'];
@@ -898,7 +898,7 @@ class pdf
                     if ($templ[$i]['end_y'] > $this->object_high) {
                         $this->object_high = $templ[$i]['end_y'];
                     }
-                break;
+                    break;
                 
                 case 'barcode':
                     $imagename = mt_rand(100000, 999999);
@@ -920,7 +920,7 @@ class pdf
                     if (($templ[$i]['fontsize']/2) > $this->object_high) {
                         $this->object_high = ($templ[$i]['fontsize']/2);
                     }
-                break;
+                    break;
             }
         }
     }
@@ -939,49 +939,49 @@ class pdf
             if ($templ[$i]['user_type'] == $row['type'] || $templ[$i]['user_type'] == "0") {
                 switch ($templ[$i]['type']) {
                     case 'text':
-                    $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
-                    $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                    if ($templ[$i]['end_x'] == "1") {
-                        $this->pdf->Text(($templ[$i]["pos_x"] - $this->pdf->GetStringWidth($templ[$i]['text'])) + $this->x, $templ[$i]["pos_y"] + $this->y, $templ[$i]['text']);
-                    } else {
-                        $this->pdf->Text($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y, $templ[$i]['text']);
-                    }
-                    break;
+                        $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
+                        $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                        if ($templ[$i]['end_x'] == "1") {
+                            $this->pdf->Text(($templ[$i]["pos_x"] - $this->pdf->GetStringWidth($templ[$i]['text'])) + $this->x, $templ[$i]["pos_y"] + $this->y, $templ[$i]['text']);
+                        } else {
+                            $this->pdf->Text($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y, $templ[$i]['text']);
+                        }
+                        break;
                     case 'rect':
-                    $this->pdf->SetDrawColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                    if ($templ[$i]['fontsize'] == "1") {
-                        $this->pdf->SetFillColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                        $this->pdf->Rect($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y'], "FD");
-                    } else {
-                        $this->pdf->SetFillColor(255);
-                        $this->pdf->Rect($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y']);
-                    }
-                    break;
+                        $this->pdf->SetDrawColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                        if ($templ[$i]['fontsize'] == "1") {
+                            $this->pdf->SetFillColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                            $this->pdf->Rect($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y'], "FD");
+                        } else {
+                            $this->pdf->SetFillColor(255);
+                            $this->pdf->Rect($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y']);
+                        }
+                        break;
                     case 'line':
-                    $this->pdf->SetDrawColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                    $this->pdf->Line($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'] + $this->x, $templ[$i]['end_y'] + $this->y);
-                    break;
+                        $this->pdf->SetDrawColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                        $this->pdf->Line($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'] + $this->x, $templ[$i]['end_y'] + $this->y);
+                        break;
                     case 'image':
-                    $this->pdf->Image(IMAGE_PATH . $templ[$i]['text'], $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y']);
-                    break;
+                        $this->pdf->Image(IMAGE_PATH . $templ[$i]['text'], $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y']);
+                        break;
                     
                     case 'barcode':
-                    $imagename = mt_rand(100000, 999999);
-                    $barcode->get_image($data['userid'], BARCODE_PATH . $imagename);
-                    $this->pdf->Image(BARCODE_PATH . $imagename . ".png", $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y);
-                    $barcode->kill_image(BARCODE_PATH . $imagename);
+                        $imagename = mt_rand(100000, 999999);
+                        $barcode->get_image($data['userid'], BARCODE_PATH . $imagename);
+                        $this->pdf->Image(BARCODE_PATH . $imagename . ".png", $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y);
+                        $barcode->kill_image(BARCODE_PATH . $imagename);
                     
 
                     case 'data':
-                    $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
-                    $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                    if ($templ[$i]['end_x'] == "1") {
-                        $this->pdf->Text(($templ[$i]["pos_x"] - $this->pdf->GetStringWidth($data[$templ[$i]['text']])) + $this->x, $templ[$i]["pos_y"] + $this->y, $data[$templ[$i]['text']]);
-                    } else {
-                        $this->pdf->Text($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y, $data[$templ[$i]['text']]);
-                    }
+                        $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
+                        $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                        if ($templ[$i]['end_x'] == "1") {
+                            $this->pdf->Text(($templ[$i]["pos_x"] - $this->pdf->GetStringWidth($data[$templ[$i]['text']])) + $this->x, $templ[$i]["pos_y"] + $this->y, $data[$templ[$i]['text']]);
+                        } else {
+                            $this->pdf->Text($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y, $data[$templ[$i]['text']]);
+                        }
 
-                    break;
+                        break;
                 }
             }
         }

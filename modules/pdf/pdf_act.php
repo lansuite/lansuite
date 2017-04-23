@@ -26,11 +26,11 @@ switch ($_GET['act']) {
         }
         // Vorlagen ausgeben
         $pdf_tmpl->read_List();
-    break;
+        break;
     
     case 'new':
         $pdf_tmpl->new_templ_mask();
-    break;
+        break;
         
     case 'add':
         $pdf_tmpl->add_templ();
@@ -47,33 +47,33 @@ switch ($_GET['act']) {
         
         // Eintr�ge anzeigen
         $pdf_tmpl->display_data();
-    break;
+        break;
     
     // Neues Feld anlegen
     case 'insert_mask':
         $pdf_tmpl->insert_mask($_POST['type']);
-    break;
+        break;
     
     // Neues Feld eintragen
     case 'insert_item':
         $pdf_tmpl->insert_item($_GET['object']);
-    break;
+        break;
     
     // Feld �ndern
     case 'change_mask':
         $pdf_tmpl->change_mask($_GET['itemid']);
-    break;
+        break;
     
     case 'change_item':
         $pdf_tmpl->change_item($_GET['itemid']);
-    break;
+        break;
     
     // Ausgabe vorbereiten
     case 'start':
         $pdf_export->pdf_menu($_GET['action']);
-    break;
+        break;
     
     case 'print':
         $pdf_export->pdf_make($_GET['action']);
-    break;
+        break;
 }
