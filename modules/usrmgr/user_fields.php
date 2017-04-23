@@ -1,16 +1,21 @@
 <?php
 
-function Update($id){
-  global $db;
+function Update($id)
+{
+    global $db;
   
-  $db->qry("ALTER TABLE %prefix%user ADD %plain% VARCHAR(255) NOT NULL;", $_POST['name']);
+    $db->qry("ALTER TABLE %prefix%user ADD %plain% VARCHAR(255) NOT NULL;", $_POST['name']);
   
-  return true;
+    return true;
 }
 
-function check_no_space($val) {
-  if (strpos($val, ' ') !== false) return t('Der Feldname darf kein Leerzeichen enthalten');
-  else return false;
+function check_no_space($val)
+{
+    if (strpos($val, ' ') !== false) {
+        return t('Der Feldname darf kein Leerzeichen enthalten');
+    } else {
+        return false;
+    }
 }
 
 switch ($_GET['step']) {
@@ -26,7 +31,9 @@ switch ($_GET['step']) {
     $ms2->AddResultField('Bezeichnung', 'f.caption');
     $ms2->AddResultField('Optional', 'f.optional');
     
-    if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=user_fields&step=20&fieldid=', t('Löschen'));
+    if ($auth['type'] >= 3) {
+        $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=user_fields&step=20&fieldid=', t('Löschen'));
+    }
     $ms2->PrintSearch('index.php?mod=usrmgr&action=user_fields', 'f.fieldid');
     
     $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=usrmgr&action=user_fields&step=10"));
@@ -61,4 +68,3 @@ switch ($_GET['step']) {
     $func->confirmation('Gelöscht', 'index.php?mod=usrmgr&action=user_fields');
   break;
 }
-?>

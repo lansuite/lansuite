@@ -14,5 +14,3 @@ $helplet['key'][4] = 'Barcode System';
 $helplet['value'][4] = 'Eine weitere Funktion um den Einlass bei bereits angemeldeten Benutzern zu beschleunigen ist das Barcode-System. Ist es im PDF-Modul aktiviert, kann sich jeder Benutzer über den Link rechts in der Benutzerdaten-Box seine Eintrittskarte im PDF-Format mit Barcode anzeigen und ausdrucken lassen. Mit Hilfe dieses Ausdrucks und einem Scanner, reicht ein einfaches einlesen des Barcodes auf der Party um den Benutzer einchecken zu können.';
 $helplet['key'][5] = 'Benutzergruppen';
 $helplet['value'][5] = 'Es lassen sich über den Benutzermanager verschiedene Benutzergruppen anlegen, in die Benutzer später beim anlegen, oder ändern eingeordnet werden können. Es ist sogar möglich diese Zuordnung automatisch geschehen zu lassen. Dazu stehen die vorgefertigten Filter für das Alter (U-/Ü18 (16)), das Geschlecht und die Ortschaft bereit';
-
-?>
