@@ -38,7 +38,7 @@ div.Button a:hover {
   width: 140px;
   margin: 2px 0px 2px 0px;    padding: 2px 6px 2px 6px;
   text-align: center;
-  background: #999999;	color: #ffffff;
+  background: #999999;  color: #ffffff;
   font-weight: bold;
   text-decoration: none;
   display: block;
@@ -126,7 +126,7 @@ li.LineLeftHalf {
   width: 48%;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
   float: left;    vertical-align: middle;
-  list-style: none; 
+  list-style: none;
 }
 li.LineRightHalf {
   width: 48%;   min-height: 16px;   z-index: 11;
@@ -143,7 +143,7 @@ li.LineRight {
 }
 li.Confirmation {
   padding: 4px 2px 0px 2px;
-	background: #00ff00;
+    background: #00ff00;
   list-style: none;
 }
 li.Err {
@@ -212,395 +212,395 @@ body {
 
 /* Size */
 .small {
-	font-size:		10px; 
+    font-size:      10px;
 }
 
 
 /* Message-Highlighting */
 .error {
-	color:			#FF0000;
-	font-weight:	bold;
+    color:          #FF0000;
+    font-weight:    bold;
 }
 
 .warning {
-	color:			#EE6600;
-	font-weight:	bold;
+    color:          #EE6600;
+    font-weight:    bold;
 }
 
 .okay {
-	color:			#008000;
-	font-weight:	bold;
+    color:          #008000;
+    font-weight:    bold;
 }
 
 
 /* Main */
-.copyright {		/* old name: tbl_small2 */
-	font-size:		10px; 
-	color:			#666666;
+.copyright {        /* old name: tbl_small2 */
+    font-size:      10px;
+    color:          #666666;
 }
 
-.img_border {		/* old name: img */
-	border-width:	1px;
-	border-color:	#000000;
+.img_border {       /* old name: img */
+    border-width:   1px;
+    border-color:   #000000;
 }
 
-.content {			/* old name: tbl_5 */
-	background:		#DEE3E7;
-	padding:		0px;
-	font-size:		11px; 
+.content {          /* old name: tbl_5 */
+    background:     #DEE3E7;
+    padding:        0px;
+    font-size:      11px;
 }
 
-.content_head {		/* old name: tbl_5 */
-	background:		#DEE3E7;
-	padding:		4px;
-	font-size:		11px; 
-	border-bottom:	1px solid #9D9D9D;
+.content_head {     /* old name: tbl_5 */
+    background:     #DEE3E7;
+    padding:        4px;
+    font-size:      11px;
+    border-bottom:  1px solid #9D9D9D;
 }
 
-.row_key, .mastersearch2_search_row_key, .mastersearch2_result_row_key {			/* old name: tbl_6 */
-	background:		#E8E7E7;
-	padding:		4px;
-	font-size:		11px; 
-	border-bottom:	1px solid #9D9D9D;
+.row_key, .mastersearch2_search_row_key, .mastersearch2_result_row_key {            /* old name: tbl_6 */
+    background:     #E8E7E7;
+    padding:        4px;
+    font-size:      11px;
+    border-bottom:  1px solid #9D9D9D;
 }
 
-.row_value, .mastersearch2_search_row_value, .mastersearch2_result_row_value {		/* old name: tbl_1 */
-	background:		#EFEFEF;
-	padding:		4px;
-	font-size:		11px; 
-	border-bottom:	1px solid #9D9D9D;
+.row_value, .mastersearch2_search_row_value, .mastersearch2_result_row_value {      /* old name: tbl_1 */
+    background:     #EFEFEF;
+    padding:        4px;
+    font-size:      11px;
+    border-bottom:  1px solid #9D9D9D;
 }
 
-.row_value_highlighted, .mastersearch2_search_row_value_highlighted, .mastersearch2_result_row_value_highlighted {		/* old name: tbl_2 */
-	background:		#E2F2E2;
-	padding:		4px;
-	font-size:		11px; 
-	border-bottom:	1px solid #9D9D9D;
+.row_value_highlighted, .mastersearch2_search_row_value_highlighted, .mastersearch2_result_row_value_highlighted {      /* old name: tbl_2 */
+    background:     #E2F2E2;
+    padding:        4px;
+    font-size:      11px;
+    border-bottom:  1px solid #9D9D9D;
 }
 
-.row_value_important, .mastersearch2_search_row_value_important, .mastersearch2_result_row_value_important {		/* old name: tbl_important */
-	background:		#EEE6BD;
-	padding:		4px;
-	font-size:		11px; 
-	border-bottom:	1px solid #9D9D9D;
+.row_value_important, .mastersearch2_search_row_value_important, .mastersearch2_result_row_value_important {        /* old name: tbl_important */
+    background:     #EEE6BD;
+    padding:        4px;
+    font-size:      11px;
+    border-bottom:  1px solid #9D9D9D;
 }
 
-.row_value_code {		/* old name: tbl_7 */
-	background:		#C7C6C4;
-	padding:		4px;
-	font-family: 	 Courier New, Courier, mono;
-  font-size:		11px;
-	border-bottom:	1px solid #9D9D9D;
+.row_value_code {       /* old name: tbl_7 */
+    background:     #C7C6C4;
+    padding:        4px;
+    font-family:     Courier New, Courier, mono;
+  font-size:        11px;
+    border-bottom:  1px solid #9D9D9D;
 }
-	
-.hrule {			/* old name: tbl_4 */
-	background:		#9D9D9D;
-	border-bottom:	1px solid #9D9D9D;
+    
+.hrule {            /* old name: tbl_4 */
+    background:     #9D9D9D;
+    border-bottom:  1px solid #9D9D9D;
 }
 
-.engaged {			/* old name: tbl_1 */		/* Used, if a text should be engaged */
-	padding-left:	18px;
+.engaged {          /* old name: tbl_1 */       /* Used, if a text should be engaged */
+    padding-left:   18px;
 }
 
 
 /* Boxes */
-.box_frame {		/* old name: tbl_1 */
-	background:		#EFEFEF;
+.box_frame {        /* old name: tbl_1 */
+    background:     #EFEFEF;
 }
 
 .box_caption {
-	color:			#000000;
-	padding:		0px;
-	font-size:		9px; 
+    color:          #000000;
+    padding:        0px;
+    font-size:      9px;
 }
 
 .box_content {
-	background:		#EFEFEF;
-	padding:		4px;
-	font-size:		11px; 
+    background:     #EFEFEF;
+    padding:        4px;
+    font-size:      11px;
 }
 
 /* Form fields */
-.form {				/* Form fields, which must be supplied */
-	font-size:		11px;
-	font-weight:	normal;
-	color:			#000000;
-	border:			1px solid #000000;
-	background-color:	#E4E4E4;
-	background-image:	url(images/index_form_bg.gif);
+.form {             /* Form fields, which must be supplied */
+    font-size:      11px;
+    font-weight:    normal;
+    color:          #000000;
+    border:         1px solid #000000;
+    background-color:   #E4E4E4;
+    background-image:   url(images/index_form_bg.gif);
 }
 
-.form_optional {	/* Optional form fields, which need not to be supplied */
-	font-size:		11px;
-	font-weight:	normal;
-	color:			#000000;
-	border:			1px solid #000000;
-	background-color:	#DFC9AC;
+.form_optional {    /* Optional form fields, which need not to be supplied */
+    font-size:      11px;
+    font-weight:    normal;
+    color:          #000000;
+    border:         1px solid #000000;
+    background-color:   #DFC9AC;
 }
 
 
 /* Links */
 a:link, a:visited, a.link:link, a.link:visited {
-	color:			#000000; 
-	text-decoration:underline;
+    color:          #000000;
+    text-decoration:underline;
 }
 a:hover, a.link:hover {
-	color:			#666666; 
-	text-decoration:none; 
+    color:          #666666;
+    text-decoration:none;
 }
 
 /* Link, undelined only, when mouse is over it */
 a.underline_on_hover:link, a.underline_on_hover:visited, a.menu:link, a.menu:visited,
-a.mastersearch2_result_heading:link, a.mastersearch2_result_heading:visited { 
-	color:			#000000; 
-	text-decoration:none;
+a.mastersearch2_result_heading:link, a.mastersearch2_result_heading:visited {
+    color:          #000000;
+    text-decoration:none;
 }
 a.underline_on_hover:hover, a.menu:hover, a.mastersearch2_result_heading:hover {
-	color:			#666666; 
-	text-decoration:underline;
+    color:          #666666;
+    text-decoration:underline;
 }
 
 /* special */
 .frame_box {
-	background:		#D6D6D6;
-	font-family:	verdana, helvetica, sans-serif;
-	font-size:		11px;
-	font-weight:	normal;
-	color:			#000000;
-	text-align:		center;
-	vertical-align:	middle;
-	border:			1px solid #000000;
-	padding:		4px;
+    background:     #D6D6D6;
+    font-family:    verdana, helvetica, sans-serif;
+    font-size:      11px;
+    font-weight:    normal;
+    color:          #000000;
+    text-align:     center;
+    vertical-align: middle;
+    border:         1px solid #000000;
+    padding:        4px;
 }
 
 /* MAIN FIELDS. FOR EXAMPLE THE RIGHT SIDE IN A FORM */
-.tbl_1  		
+.tbl_1
 {
-	background:  	 #EEEEEE;
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:  	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #EEEEEE;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* HOR. LINES BETWEEN THE ROW'S */
-.tbl_4		
+.tbl_4
 {
-	background:  	 #B0B0B0;
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #B0B0B0;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* THE BACKGROUND IN THE CONENT TABLE */
-.tbl_5		
+.tbl_5
 {
-	background:  	 #DDDDDD;
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 10px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #DDDDDD;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       10px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* CAPTION FIELDS. FOR EXAMPLE THE LEFT SIDE IN A FORM */
-.tbl_6		
+.tbl_6
 {
-	background:  	 #CCCCCC;
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #CCCCCC;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* CODE STYLE */
-.tbl_7		
+.tbl_7
 {
-	background:  	 #C7C6C4;
-	font-family: 	 Courier New, Courier, mono;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #C7C6C4;
+    font-family:     Courier New, Courier, mono;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* BORDER */
-.tbl_8	
+.tbl_8
 {
-	border: 1px solid #000000;
+    border: 1px solid #000000;
 }
 
 /* SPECIAL BG. FOR EXAMPLE THE DESCRAPTION AT THE SEAT PLAN */
-.tbl_9		
+.tbl_9
 {
-	background:  	 #D6D6D6;
-	font-family: 	 verdana, helvetica, sans-serif;
-	border:		     1px solid #000000;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #D6D6D6;
+    font-family:     verdana, helvetica, sans-serif;
+    border:          1px solid #000000;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* HELPLET STYLE NORMAL */
-.tbl_helplet		
+.tbl_helplet
 {
-	background:  	 #CCCCCC;
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #CCCCCC;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* HELPLET STYLE LEFT SIDE IN THE TABLE */
-.tbl_helplet_left		
+.tbl_helplet_left
 {
-	background:  	 #80ACF7;
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #80ACF7;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* HELPLET STYLE RIGTH SIDE IN THE TABLE */
-.tbl_helplet_right		
+.tbl_helplet_right
 {
-	background:  	 #E4E4E4;
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #E4E4E4;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* IMPORTANT FIELDS. FOR EXAMPLE IMPORTANT NEWS */
-.tbl_important	
+.tbl_important
 {
-	background:  	 #EEE6BD;
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:  	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #EEE6BD;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* SMALL TEXT */
-.tbl_small		
+.tbl_small
 {
-	font-family: 	 verdana, Helvetica, sans-serif;
-	font-size:   	 10px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
+    font-family:     verdana, Helvetica, sans-serif;
+    font-size:       10px;
+    font-weight:     normal;
+    color:           #000000;
 }
 
 /* COPYRIGHT */
-.tbl_small2		
+.tbl_small2
 {
-	font-family: 	 verdana, Helvetica, sans-serif;
-	font-size:   	 10px; 
-	font-weight: 	 normal;
-	color:       	 #666666;
+    font-family:     verdana, Helvetica, sans-serif;
+    font-size:       10px;
+    font-weight:     normal;
+    color:           #666666;
 }
 
 /* ERROR FIELDS IN FORM'S */
-.tbl_1_error  		
+.tbl_1_error
 {
-	background:  	 #EEE6BD;
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:  	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
-	background-image: url(images/index_form_error.gif);
+    background:      #EEE6BD;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
+    background-image: url(images/index_form_error.gif);
 }
 
 /* INACTIVE ROW'S IN SEARCH RESULTS */
-.tbl_1_off 		
+.tbl_1_off
 {
-	background:  	 #D1C2B7;
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:  	 11px; 
-	font-weight: 	 normal;
-	color:       	 #000000;
-	text-align:      left;
+    background:      #D1C2B7;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* RED ERROR MESSAGE'S */
-.tbl_error	  		
+.tbl_error
 {
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:      	 #E54600;
-	text-align:      left;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #E54600;
+    text-align:      left;
 }
 
 /* BLACK FONT */
-.tbl_black	  		
+.tbl_black
 {
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:      	 #000000;
-	text-align:      left;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #000000;
+    text-align:      left;
 }
 
 /* RED FONT */
-.tbl_red	  		
+.tbl_red
 {
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px;
-	color:      	 #F46814;
-	text-align:      left;
-	font-weight:     bold;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    color:           #F46814;
+    text-align:      left;
+    font-weight:     bold;
 }
 
 /* GREEN FONT */
-.tbl_green	  		
+.tbl_green
 {
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:      	 #00A800;
-	text-align:      left;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #00A800;
+    text-align:      left;
 }
 
 /* BLUE FONT */
-.tbl_blue	  		
+.tbl_blue
 {
-	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
-	font-weight: 	 normal;
-	color:      	 #2264DD;
-	text-align:      left;
+    font-family:     verdana, helvetica, sans-serif;
+    font-size:       11px;
+    font-weight:     normal;
+    color:           #2264DD;
+    text-align:      left;
 }
 
 /* KEYWORD DESCREPTIONS */
-acronym 
+acronym
 {
-        border-bottom:	 1px dashed #990000;
-        cursor: 	     help;
+        border-bottom:   1px dashed #990000;
+        cursor:          help;
 }
 
 
 
 /* IMAGE STYLE */
-.img		
+.img
 {
-	border:	1px solid #000000;
+    border: 1px solid #000000;
 }
 
 /* TOOLTIP STYLE in Seatplan and Guestmap*/
 .tooltip {
-	background-color:#FFFF99; 
-	border-width:1px; 
-	border-style:solid;
+    background-color:#FFFF99;
+    border-width:1px;
+    border-style:solid;
 }
 
 /* Boxes */
