@@ -22,7 +22,7 @@ function ReadMap($enc)
             $cc2gn[$cc]=$gn;
         }
     }
-    for ($i=0;$i<=255;$i++) {
+    for ($i=0; $i<=255; $i++) {
         if (!isset($cc2gn[$i])) {
             $cc2gn[$i]='.notdef';
         }
@@ -64,7 +64,7 @@ function ReadAFM($file, &$map)
             }
             if (isset($fix[$gn])) {
                 //Fix incorrect glyph name
-                foreach ($map as $c=>$n) {
+                foreach ($map as $c => $n) {
                     if ($n==$fix[$gn]) {
                         $map[$c]=$gn;
                     }
@@ -117,7 +117,7 @@ function ReadAFM($file, &$map)
             $widths['Delta']=$widths['increment'];
         }
         //Order widths according to map
-        for ($i=0;$i<=255;$i++) {
+        for ($i=0; $i<=255; $i++) {
             if (!isset($widths[$map[$i]])) {
                 echo '<B>Warning:</B> character '.$map[$i].' is missing<BR>';
                 $widths[$i]=$widths['.notdef'];
@@ -194,7 +194,7 @@ function MakeWidthArray($fm)
     //Make character width array
     $s="array(\n\t";
     $cw=$fm['Widths'];
-    for ($i=0;$i<=255;$i++) {
+    for ($i=0; $i<=255; $i++) {
         if (chr($i)=="'") {
             $s.="'\\''";
         } elseif (chr($i)=="\\") {
@@ -222,7 +222,7 @@ function MakeFontEncoding($map)
     $ref=ReadMap('cp1252');
     $s='';
     $last=0;
-    for ($i=32;$i<=255;$i++) {
+    for ($i=32; $i<=255; $i++) {
         if ($map[$i]!=$ref[$i]) {
             if ($i!=$last+1) {
                 $s.=$i.' ';
@@ -234,7 +234,7 @@ function MakeFontEncoding($map)
     return chop($s);
 }
 
-function SaveToFile($file, $s, $mode='t')
+function SaveToFile($file, $s, $mode = 't')
 {
     $f=fopen($file, 'w'.$mode);
     if (!$f) {
@@ -269,7 +269,7 @@ function CheckTTF($file)
     fseek($f, 6, SEEK_CUR);
     //Seek OS/2 table
     $found=false;
-    for ($i=0;$i<$nb;$i++) {
+    for ($i=0; $i<$nb; $i++) {
         if (fread($f, 4)=='OS/2') {
             $found=true;
             break;
@@ -302,13 +302,13 @@ function CheckTTF($file)
 * $patch:    optional patch for encoding                                       *
 * $type :    font type if $fontfile is empty                                   *
 *******************************************************************************/
-function MakeFont($fontfile, $afmfile, $enc='cp1252', $patch=array(), $type='TrueType')
+function MakeFont($fontfile, $afmfile, $enc = 'cp1252', $patch = array(), $type = 'TrueType')
 {
     //Generate a font definition file
     set_magic_quotes_runtime(0);
     if ($enc) {
         $map=ReadMap($enc);
-        foreach ($patch as $cc=>$gn) {
+        foreach ($patch as $cc => $gn) {
             $map[$cc]=$gn;
         }
     } else {
