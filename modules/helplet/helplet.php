@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $file = "modules/{$_GET['module']}/docu/{$language}_{$_GET['helpletid']}.php";
 if (!file_exists($file)) {
