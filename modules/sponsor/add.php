@@ -40,9 +40,7 @@ function UploadFiles()
     // 2) Was an external URL given?
     } elseif ($_POST['pic_path'] != 'http://' and $_POST['pic_path'] != '') {
         $_POST['pic_path'] = $_POST['pic_path'];
-    }
-
-    // 3) Was a code submitted?
+    } // 3) Was a code submitted?
     elseif ($_POST['pic_code'] != '') {
         $_POST['pic_path'] = $_POST['pic_code'];
         if (substr($_POST['pic_path'], 0, 12) != 'html-code://') {
@@ -58,9 +56,7 @@ function UploadFiles()
     // 2) Was an external URL given?
     } elseif ($_POST['pic_path_banner'] != 'http://' and $_POST['pic_path_banner'] != '') {
         $_POST['pic_path_banner'] = $_POST['pic_path_banner'];
-    }
-
-    // 3) Was a code submitted?
+    } // 3) Was a code submitted?
     elseif ($_POST['pic_code_banner'] != '') {
         $_POST['pic_path_banner'] = $_POST['pic_code_banner'];
         if (substr($_POST['pic_path_banner'], 0, 12) != 'html-code://') {
@@ -81,9 +77,7 @@ function UploadFiles()
     // 2) Was an external URL given?
     } elseif ($_POST['pic_path_button'] != 'http://' and $_POST['pic_path_button'] != '') {
         $_POST['pic_path_button'] = $_POST['pic_path_button'];
-    }
-
-    // 3) Was a code submitted?
+    } // 3) Was a code submitted?
     elseif ($_POST['pic_code_button'] != '') {
         $_POST['pic_path_button'] = $_POST['pic_code_button'];
         if (substr($_POST['pic_path_button'], 0, 12) != 'html-code://') {
