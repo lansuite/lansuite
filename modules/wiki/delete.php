@@ -1,11 +1,11 @@
 <?php
-switch($_GET['step']) {
-	default:
+switch ($_GET['step']) {
+    default:
     include_once('modules/wiki/search.php');
-	break;
+    break;
 
   // Delete whole post
-	case 2:
+    case 2:
     include_once('inc/classes/class_masterdelete.php');
     $md = new masterdelete();
 
@@ -13,11 +13,10 @@ switch($_GET['step']) {
   break;
 
   // Delete one version
-	case 10:
+    case 10:
     include_once('inc/classes/class_masterdelete.php');
     $md = new masterdelete();
 
     $md->Delete('wiki_versions', 'versionid', $_GET['versionid']);
   break;
 }
-?>
