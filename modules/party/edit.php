@@ -3,36 +3,51 @@
 include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
-function CheckEndDate($enddate) {
-  global $func;
+function CheckEndDate($enddate)
+{
+    global $func;
 
-  if ($func->str2time($enddate) < $func->str2time($_POST['startdate'])) return t('Der Endzeitpunkt muss nach dem Startzeitpunkt liegen');
-  else return false;
+    if ($func->str2time($enddate) < $func->str2time($_POST['startdate'])) {
+        return t('Der Endzeitpunkt muss nach dem Startzeitpunkt liegen');
+    } else {
+        return false;
+    }
 }
 
-function CheckSignonStartDate($sstartdate) {
-  global $func;
+function CheckSignonStartDate($sstartdate)
+{
+    global $func;
   
-  if ($func->str2time($sstartdate) > $func->str2time($_POST['startdate'])) return t('Der Anmeldestart muss vor dem Partystart liegen');
-  else return false;
+    if ($func->str2time($sstartdate) > $func->str2time($_POST['startdate'])) {
+        return t('Der Anmeldestart muss vor dem Partystart liegen');
+    } else {
+        return false;
+    }
 }
 
-function CheckSignonEndDate($senddate) {
-  global $func;
-  if ($func->str2time($senddate) < $func->str2time($_POST['sstartdate'])) return t('Der Anmeldeschluss muss nach dem Anmeldestart liegen');
-  if ($func->str2time($senddate) > $func->str2time($_POST['startdate'])) return t('Der Anmeldeschluss muss vor dem Partystart liegen');
-  else return false;
+function CheckSignonEndDate($senddate)
+{
+    global $func;
+    if ($func->str2time($senddate) < $func->str2time($_POST['sstartdate'])) {
+        return t('Der Anmeldeschluss muss nach dem Anmeldestart liegen');
+    }
+    if ($func->str2time($senddate) > $func->str2time($_POST['startdate'])) {
+        return t('Der Anmeldeschluss muss vor dem Partystart liegen');
+    } else {
+        return false;
+    }
 }
 
 
-function UpdatePartyID($id) {
-  global $db, $func, $cfg;
+function UpdatePartyID($id)
+{
+    global $db, $func, $cfg;
   
-  if (!$cfg['signon_partyid']) {
-    $db->qry("UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = 'signon_partyid'", $id);
-  }
-  $_SESSION['party_id'] = $id;
-  $func->confirmation(t('Die Daten wurden erfolgreich geändert.'),'index.php?mod=party');  
+    if (!$cfg['signon_partyid']) {
+        $db->qry("UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = 'signon_partyid'", $id);
+    }
+    $_SESSION['party_id'] = $id;
+    $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), 'index.php?mod=party');
 }
 
 $mf->AddField(t('Partyname'), 'name');
@@ -47,11 +62,11 @@ $mf->AddField(t('Anmeldung startet am'), 'sstartdate', '', '', '', 'CheckSignonS
 $mf->AddField(t('Anmeldung endet am'), 'senddate', '', '', '', 'CheckSignonEndDate');
 
 /*
-		// erster Preis einfügen
-		if($_GET['var'] == "new"){
-			$dsp->AddTextFieldRow("price_text",t('Text für Eintrittspreis'),$_POST['price_text'],$signon_error['price_text']);
-			$dsp->AddTextFieldRow("price",t('Preis'),$_POST['price'],$signon_error['price']);
-		}
+        // erster Preis einfügen
+        if($_GET['var'] == "new"){
+            $dsp->AddTextFieldRow("price_text",t('Text für Eintrittspreis'),$_POST['price_text'],$signon_error['price_text']);
+            $dsp->AddTextFieldRow("price",t('Preis'),$_POST['price'],$signon_error['price']);
+        }
 */
 
 $mf->AdditionalDBUpdateFunction = 'UpdatePartyID';
@@ -59,8 +74,6 @@ $mf->SendForm('index.php?mod=party&action=edit', 'partys', 'party_id', $_GET['pa
 
 // Write ext_inc/party_infos/infos.xml on Change
 if ($_GET['mf_step'] == '2') {
-	include_once("modules/usrmgr/class_usrmgr.php");
-	$usrmgr->WriteXMLStatFile();	
+    include_once("modules/usrmgr/class_usrmgr.php");
+    $usrmgr->WriteXMLStatFile();
 }
-
-?>
