@@ -5,50 +5,50 @@ $UsrMgr = new UsrMgr;
 
 switch ($_GET['step']) {
     case 10:
-    if (!$_POST['action'] and $_GET['userid']) {
-        $_POST['action'][$_GET['userid']] = 1;
-    }
-
-    $err = '';
-    foreach ($_POST['action'] as $key => $val) {
-        if ($key == $auth['userid']) {
-            $err = t('Du kannst nicht deinen eigenen Account sperren');
-            break;
+        if (!$_POST['action'] and $_GET['userid']) {
+            $_POST['action'][$_GET['userid']] = 1;
         }
-    }
 
-    if ($err) {
-        $func->information($err);
-    } else {
+        $err = '';
         foreach ($_POST['action'] as $key => $val) {
-            $UsrMgr->LockAccount($key);
+            if ($key == $auth['userid']) {
+                $err = t('Du kannst nicht deinen eigenen Account sperren');
+                break;
+            }
         }
-        $func->confirmation(t('Accounts wurden gesperrt'));
-    }
-    break;
+
+        if ($err) {
+            $func->information($err);
+        } else {
+            foreach ($_POST['action'] as $key => $val) {
+                $UsrMgr->LockAccount($key);
+            }
+            $func->confirmation(t('Accounts wurden gesperrt'));
+        }
+        break;
 
     case 11:
-    if (!$_POST['action'] and $_GET['userid']) {
-        $_POST['action'][$_GET['userid']] = 1;
-    }
-
-    $err = '';
-    foreach ($_POST['action'] as $key => $val) {
-        if ($key == $auth['userid']) {
-            $err = t('Du kannst nicht deinen eigenen Account freigeben');
-            break;
+        if (!$_POST['action'] and $_GET['userid']) {
+            $_POST['action'][$_GET['userid']] = 1;
         }
-    }
 
-    if ($err) {
-        $func->information($err);
-    } else {
+        $err = '';
         foreach ($_POST['action'] as $key => $val) {
-            $UsrMgr->UnlockAccount($key);
+            if ($key == $auth['userid']) {
+                $err = t('Du kannst nicht deinen eigenen Account freigeben');
+                break;
+            }
         }
-        $func->confirmation(t('Accounts wurden freigegeben'));
-    }
-    break;
+
+        if ($err) {
+            $func->information($err);
+        } else {
+            foreach ($_POST['action'] as $key => $val) {
+                $UsrMgr->UnlockAccount($key);
+            }
+            $func->confirmation(t('Accounts wurden freigegeben'));
+        }
+        break;
 }
 
 if ($cfg['sys_barcode_on']) {

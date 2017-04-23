@@ -32,41 +32,41 @@ if ($party->count == 0) {
             global $db, $row, $lang, $func, $auth, $seat2;
 
       // Do not allow changes, if party is over
-      if ($row['enddate'] < time()) {
-          return t('Du kannst dich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist');
-      }
+            if ($row['enddate'] < time()) {
+                return t('Du kannst dich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist');
+            }
 
       // Signon started?
-      if ($row['sstartdate'] > time()) {
-          return t('Die Anmeldung öffnet am'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['sstartdate'], 'daydatetime'). '</strong>';
-      }
+            if ($row['sstartdate'] > time()) {
+                return t('Die Anmeldung öffnet am'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['sstartdate'], 'daydatetime'). '</strong>';
+            }
 
       // Signon ended?
-      if ($row['senddate'] < time() and $auth['type'] < 2) {
-          return t('Die Anmeldung ist beendet seit'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['senddate'], 'daydatetime'). '</strong>';
-      }
+            if ($row['senddate'] < time() and $auth['type'] < 2) {
+                return t('Die Anmeldung ist beendet seit'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['senddate'], 'daydatetime'). '</strong>';
+            }
 
       // Do not allow changes, if user has paid
-      if ($auth['type'] <= 1) {
-          $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
-          if ($row2['paid']!= 0) {
-              return t('Du bist für diese Party bereits auf bezahlt gesetzt. Bitte einen Admin dich auf "nicht bezahlt" zu setzen, bevor du dich abmeldest');
-          }
-      }
+            if ($auth['type'] <= 1) {
+                $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
+                if ($row2['paid']!= 0) {
+                    return t('Du bist für diese Party bereits auf bezahlt gesetzt. Bitte einen Admin dich auf "nicht bezahlt" zu setzen, bevor du dich abmeldest');
+                }
+            }
 
       // Check age
-      if (isset($_POST['InsertControll1']) && $_POST['InsertControll1']) {
-          $res = $db->qry("SELECT %prefix%partys.minage FROM %prefix%user, %prefix%partys
+            if (isset($_POST['InsertControll1']) && $_POST['InsertControll1']) {
+                $res = $db->qry("SELECT %prefix%partys.minage FROM %prefix%user, %prefix%partys
                             WHERE %prefix%partys.party_id = %int%
                                 AND %prefix%user.userid = %int%
                                 AND DATEDIFF(DATE_SUB(%prefix%partys.startdate, INTERVAL %prefix%partys.minage YEAR), %prefix%user.birthday) < 0
                                 AND %prefix%partys.minage > 0", $_GET['party_id'], $id);
-          $minage = $db->fetch_array($res);
-          $db->free_result($res);
-          if (isset($minage['minage'])) {
-              return t('Du must mindestens %1 Jahre alt sein um an dieser Party teilnehmen zu d&uuml;rfen!', $minage['minage']);
-          }
-      }
+                      $minage = $db->fetch_array($res);
+                      $db->free_result($res);
+                if (isset($minage['minage'])) {
+                    return t('Du must mindestens %1 Jahre alt sein um an dieser Party teilnehmen zu d&uuml;rfen!', $minage['minage']);
+                }
+            }
 
             $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
 
@@ -80,7 +80,7 @@ if ($party->count == 0) {
 
 
     // Show Upcomming
-    include_once('inc/classes/class_masterform.php');
+        include_once('inc/classes/class_masterform.php');
         $MFID = 1;
 
         $res = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys WHERE UNIX_TIMESTAMP(enddate) >= UNIX_TIMESTAMP(NOW()) ORDER BY startdate");
@@ -91,25 +91,25 @@ if ($party->count == 0) {
                 $mf->AdditionalKey = 'party_id = '. $row['party_id'];
 
         // Signon
-        $mf->AddInsertControllField = t('Angemeldet').'|'.t('Wenn dieses Häckchen gesetzt ist, bist du zu dieser Party angemeldet');
+                $mf->AddInsertControllField = t('Angemeldet').'|'.t('Wenn dieses Häckchen gesetzt ist, bist du zu dieser Party angemeldet');
                 $mf->AddChangeCondition = 'ChangeAllowed';
 
         // Paid
-        if ($auth['type'] >= 2) {
-            $selections = array();
-            $selections['0'] = t('Nicht bezahlt');
-            $selections['1'] = t('Bezahlt');
-            $mf->AddField(t('Bezahltstatus'), 'paid', IS_SELECTION, $selections);
-        } elseif ($cfg['signon_autopaid']) {
-            $mf->AddFix('paid', '1');
-        }
+                if ($auth['type'] >= 2) {
+                    $selections = array();
+                    $selections['0'] = t('Nicht bezahlt');
+                    $selections['1'] = t('Bezahlt');
+                    $mf->AddField(t('Bezahltstatus'), 'paid', IS_SELECTION, $selections);
+                } elseif ($cfg['signon_autopaid']) {
+                    $mf->AddFix('paid', '1');
+                }
 
                 if ($cfg['signon_autopaid'] or $_POST['paid']) {
                     $mf->AddFix('paiddate', 'NOW()');
                 }
 
         // Prices
-        $selections = array();
+                $selections = array();
                 $res2 = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND requirement <= %string%", $row['party_id'], $auth['type']);
                 while ($row2 = $db->fetch_array($res2)) {
                     $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']&nbsp;&nbsp;'.t('Gültig bis : ').date_format(date_create($row2['enddate']), 'd.m.Y');
@@ -133,7 +133,7 @@ if ($party->count == 0) {
           #$mf->AddField(t('Anmeldedatum'), 'signondate', '', '', FIELD_OPTIONAL);
         #}
         #else
-        $mf->AddFix('signondate', 'NOW()');
+                $mf->AddFix('signondate', 'NOW()');
 
                 if ($auth['type'] >= 2) {
                     $mf->AddField(t('Mail versenden?') .'|'. t('Den Benutzer per Mail über die Änderung informieren'), 'sendmail', 'tinyint(1)', '', FIELD_OPTIONAL);
@@ -145,7 +145,7 @@ if ($party->count == 0) {
                 $dsp->AddFieldsetEnd();
             } else {
                 // Fucking bad Bugfix. $mf_number is a Globalvar in Masterform
-          $mf_number++;
+                $mf_number++;
             }
             $MFID++;
         }
@@ -153,7 +153,7 @@ if ($party->count == 0) {
 
 
     // ShowHistory
-    $dsp->AddFieldsetStart(t('Vergangene Partys'));
+        $dsp->AddFieldsetStart(t('Vergangene Partys'));
         $res = $db->qry("SELECT
           p.*
         , pu.user_id

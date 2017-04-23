@@ -31,14 +31,14 @@ function CheckDeleteUser($userid)
 switch ($_GET['step']) {
     default:
         include_once('modules/usrmgr/search.inc.php');
-    break;
+        break;
     
     case 2:
         // Do some checks, before calling MD
         if (CheckDeleteUser($_GET['userid'])) {
             $md->Delete('user', 'userid', $_GET['userid']);
         }
-    break;
+        break;
     
     case 10:
         $success = 1;
@@ -51,7 +51,7 @@ switch ($_GET['step']) {
         if ($success) {
             $md->MultiDelete('user', 'userid');
         }
-    break;
+        break;
 }
 /*
 $userid 	= $_GET["userid"];

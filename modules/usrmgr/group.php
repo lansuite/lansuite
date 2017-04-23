@@ -41,7 +41,7 @@ switch ($_GET['step']) {
             $error_usrmgr['select_opts'] = t('Bitte eine Stadt angeben');
             $_GET['step'] = 2;
         }
-    break;
+        break;
     
         // Move Up
     case 16:
@@ -49,7 +49,7 @@ switch ($_GET['step']) {
         $db->qry("UPDATE %prefix%party_usergroups SET pos = pos - 1 WHERE pos = %int%", $_GET["pos"]);
         $db->qry("UPDATE %prefix%party_usergroups SET pos = %string% WHERE pos = 0", $_GET["pos"]);
         $_GET['step'] = 15;
-    break;
+        break;
 
     // Move Down
     case 17:
@@ -57,18 +57,17 @@ switch ($_GET['step']) {
         $db->qry("UPDATE %prefix%party_usergroups SET pos = pos + 1 WHERE pos = %int%", $_GET["pos"]);
         $db->qry("UPDATE %prefix%party_usergroups SET pos = %string% WHERE pos = 0", $_GET["pos"]);
         $_GET['step'] = 15;
-    break;
+        break;
     
     case 22:
         if ($_GET['group_id'] == $_POST['group_id']) {
             $_GET['step'] = 21;
         }
-    break;
+        break;
 }
 
 
 switch ($_GET['step']) {
-    
     default:
         $dsp->NewContent(t('Gruppenverwaltung'), t('Erstelle Benutzergruppen um unterschiedliche Preise zu verlangen.'));
         $dsp->AddSingleRow("<a href='index.php?mod=usrmgr&action=group&step=9'>".t('Benutzer einer Gruppe zuweisen')."</a>");
@@ -122,7 +121,7 @@ switch ($_GET['step']) {
         }
         
         $dsp->AddContent();
-    break;
+        break;
     
     case 3:
         if ($_GET['var'] == "new") {
@@ -135,7 +134,7 @@ switch ($_GET['step']) {
             $func->error(t('Die Benutzergruppe konnte nicht angelegt werden.'), 'index.php?mod=usrmgr&action=group&step=2');
         }
         
-    break;
+        break;
     
     case 9:
         $dsp->NewContent(t('Gruppe auswählen'), t('Gruppe auswählen'));
@@ -143,16 +142,16 @@ switch ($_GET['step']) {
         $party->get_user_group_dropdown();
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddContent();
-    break;
+        break;
     
     case 10:
         if (isset($_POST['group_id'])) {
             $_GET['group_id'] = $_POST['group_id'];
         }
-    $current_url = "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}";
-    $target_url = "index.php?mod=usrmgr&action=group&step=11&group_id={$_GET['group_id']}&userid=";
-    include_once('modules/usrmgr/search_basic_userselect.inc.php');
-    break;
+        $current_url = "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}";
+        $target_url = "index.php?mod=usrmgr&action=group&step=11&group_id={$_GET['group_id']}&userid=";
+        include_once('modules/usrmgr/search_basic_userselect.inc.php');
+        break;
 
     case 11:
         if ($_POST['checkbox']) {
@@ -183,7 +182,7 @@ switch ($_GET['step']) {
             $func->error(t('Dieser Benutzer existiert nicht'), "index.php?mod=usrmgr&action=group&step=10");
         }
     
-    break;
+        break;
     
     case 12:
         if ($_GET["userids"]) {
@@ -196,7 +195,7 @@ switch ($_GET['step']) {
         }
 
         $func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgeführt'), "index.php?mod=usrmgr&action=group&group_id={$_GET['group_id']}");
-    break;
+        break;
     
     
     // Sort Groups
@@ -225,13 +224,13 @@ switch ($_GET['step']) {
 
         $dsp->AddBackButton("index.php?mod=usrmgr&action=group");
         $dsp->AddContent();
-    break;
+        break;
     
     // Delete Group
     case 20:
         $row = $db->qry_first("SELECT * FROM %prefix%party_usergroups WHERE group_id=%int%", $_POST['group_id']);
         $func->question(t('Wollen sie die Gruppe %1 wirklich löschen?', $row['group_name']), "index.php?mod=usrmgr&action=group&step=21&group_id={$_POST['group_id']}", "index.php?mod=usrmgr&action=group");
-    break;
+        break;
     
     case 21:
         $dsp->NewContent(t('Gruppe zuweisen'), t('Welche Gruppe möchtest du den Benutzern die in der gelöschten Gruppe sind zuweisen?'));
@@ -239,18 +238,18 @@ switch ($_GET['step']) {
         $party->get_user_group_dropdown("NULL", 1);
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddContent();
-    break;
+        break;
     
     case 22:
         $party->delete_usergroups($_GET['group_id'], $_POST['group_id']);
         $func->confirmation(t('Gruppe erfolgreich gelöscht.'), "index.php?mod=usrmgr&action=group");
-    break;
+        break;
     
     // Multi-User-Assign
-  case 30:
-    foreach ($_POST['action'] as $key => $val) {
-        $db->qry("UPDATE %prefix%user SET group_id = %int% WHERE userid = %int%", $_GET['group_id'], $key);
-    }
+    case 30:
+        foreach ($_POST['action'] as $key => $val) {
+            $db->qry("UPDATE %prefix%user SET group_id = %int% WHERE userid = %int%", $_GET['group_id'], $key);
+        }
         $func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgeführt'), "index.php?mod=usrmgr");
-  break;
+        break;
 }

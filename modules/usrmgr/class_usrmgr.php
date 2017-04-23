@@ -20,7 +20,7 @@ class UsrMgr
         $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
         if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'
-      || $_SERVER['SERVER_PORT'] == 443) {
+        || $_SERVER['SERVER_PORT'] == 443) {
             $proto = 'https';
         } else {
             $proto = 'http';
@@ -84,9 +84,7 @@ class UsrMgr
         if ((strlen($code) != 36) ||
             (strlen($perso_block[0]) != 11) || (strlen($perso_block[2]) != 7) || (strlen($perso_block[3]) != 7) || (strlen($perso_block[10]) != 1)) {
             return 2;
-        }
-
-        // Chechsum Check
+        } // Chechsum Check
         else {
             $multiplier = array("7", "3", "1");
 
@@ -140,66 +138,65 @@ class UsrMgr
         global $cfg, $func, $templ, $dsp, $mail, $db, $auth;
 
         switch ($type) {
-
       // Register-Mail
-      default:
-        $message = $cfg["signon_signonemail_text_register"];
+            default:
+                    $message = $cfg["signon_signonemail_text_register"];
 
-            $message = str_replace('%USERNAME%', $_POST['username'], $message);
-            $message = str_replace('%EMAIL%', $_POST['email'], $message);
-            $message = str_replace('%PASSWORD%', $_SESSION['tmp_pass'], $message);
-            if ($_POST['clan']) {
-                $row = $db->qry_first("SELECT name FROM %prefix%clan WHERE clanid = %int%", $_POST['clan']);
-                $clan = $row['name'];
-            } else {
-                $clan = $_POST['clan_new'];
-            }
-            $message = str_replace('%CLAN%', $clan, $message);
-            $message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
-            $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
-            $message = str_replace('%PAGE_TITLE%', $cfg['sys_page_title'], $message);
-            if ($mail->create_inet_mail($_POST["firstname"]." ".$_POST["name"], $_POST["email"], $cfg["signon_signonemail_subject"], $message, $cfg["sys_party_mail"])) {
-                return true;
-            } else {
-                return false;
-            }
-      break;
+                  $message = str_replace('%USERNAME%', $_POST['username'], $message);
+                  $message = str_replace('%EMAIL%', $_POST['email'], $message);
+                  $message = str_replace('%PASSWORD%', $_SESSION['tmp_pass'], $message);
+                if ($_POST['clan']) {
+                    $row = $db->qry_first("SELECT name FROM %prefix%clan WHERE clanid = %int%", $_POST['clan']);
+                    $clan = $row['name'];
+                } else {
+                    $clan = $_POST['clan_new'];
+                }
+                        $message = str_replace('%CLAN%', $clan, $message);
+                        $message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
+                        $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
+                        $message = str_replace('%PAGE_TITLE%', $cfg['sys_page_title'], $message);
+                if ($mail->create_inet_mail($_POST["firstname"]." ".$_POST["name"], $_POST["email"], $cfg["signon_signonemail_subject"], $message, $cfg["sys_party_mail"])) {
+                    return true;
+                } else {
+                    return false;
+                }
+                break;
 
       // Signon-Mail
-      case 1:
-        if ($_POST['InsertControll'.$_GET[mf_id]]) {
-            $message = $cfg["signon_signonemail_text"];
-            $subject = $cfg["signon_signonemail_subject"];
-        } else {
-            $message = $cfg["signon_signoffemail_text"];
-            $subject = $cfg["signon_signoffemail_subject"];
-        }
+            case 1:
+                if ($_POST['InsertControll'.$_GET[mf_id]]) {
+                    $message = $cfg["signon_signonemail_text"];
+                    $subject = $cfg["signon_signonemail_subject"];
+                } else {
+                      $message = $cfg["signon_signoffemail_text"];
+                      $subject = $cfg["signon_signoffemail_subject"];
+                }
 
-        if (!$_GET['user_id']) {
-            $_GET['user_id'] = $auth['userid'];
+                if (!$_GET['user_id']) {
+                      $_GET['user_id'] = $auth['userid'];
+                }
+                if ($_GET['user_id']) {
+                      $row = $db->qry_first("SELECT firstname, name, username, email FROM %prefix%user WHERE userid = %int%", $_GET['user_id']);
+                      $message = str_replace('%USERNAME%', $row['username'], $message);
+                      $message = str_replace('%EMAIL%', $row['email'], $message);
+                      $message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
+                      $message = str_replace('%MAXGUESTS%', $_SESSION['party_info']['max_guest'], $message);
+                      $anmelde_schluss = '';
+                    if ($_SESSION['party_info']['s_enddate'] > 0) {
+                        $anmelde_schluss = "Anmeldeschluss: ". $func->unixstamp2date($_SESSION['party_info']['s_enddate'], date);
+                    }
+                      $message = str_replace('%SIGNON_DEADLINE%', $anmelde_schluss, $message);
+                      $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
+                    if ($mail->create_inet_mail($row["firstname"]." ".$row["name"], $row["email"], $subject, $message, $cfg["sys_party_mail"])) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                      return false;
+                }
+                break;
         }
-        if ($_GET['user_id']) {
-            $row = $db->qry_first("SELECT firstname, name, username, email FROM %prefix%user WHERE userid = %int%", $_GET['user_id']);
-            $message = str_replace('%USERNAME%', $row['username'], $message);
-            $message = str_replace('%EMAIL%', $row['email'], $message);
-            $message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
-            $message = str_replace('%MAXGUESTS%', $_SESSION['party_info']['max_guest'], $message);
-            $anmelde_schluss = '';
-            if ($_SESSION['party_info']['s_enddate'] > 0) {
-                $anmelde_schluss = "Anmeldeschluss: ". $func->unixstamp2date($_SESSION['party_info']['s_enddate'], date);
-            }
-            $message = str_replace('%SIGNON_DEADLINE%', $anmelde_schluss, $message);
-            $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
-            if ($mail->create_inet_mail($row["firstname"]." ".$row["name"], $row["email"], $subject, $message, $cfg["sys_party_mail"])) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-      break;
-    }
     }
 
     public function WriteXMLStatFile()
