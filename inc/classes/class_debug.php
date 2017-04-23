@@ -17,30 +17,37 @@
 * </code>
 *
 */
-function d() {
+function d()
+{
     global $debug, $func;
 
     $arg_vars = func_get_args();
-    if (!isset($debug)) $debug = new debug(1);
+    if (!isset($debug)) {
+        $debug = new debug(1);
+    }
 
     if ($arg_vars[1]) {
-      $title = $arg_vars[0];
-      $val = $arg_vars[1];
+        $title = $arg_vars[0];
+        $val = $arg_vars[1];
     } elseif (is_string($arg_vars[0]) and substr($arg_vars[0], 0, 1) == '$') {
-      $title = $arg_vars[0];
-      eval('global '. $arg_vars[0] .'; $val = '. $arg_vars[0] .';');
+        $title = $arg_vars[0];
+        eval('global '. $arg_vars[0] .'; $val = '. $arg_vars[0] .';');
     } else {
-      $title = 'Variable';
-      $val = $arg_vars[0];
+        $title = 'Variable';
+        $val = $arg_vars[0];
     }
 
     $func->information($title .':<br>"'. nl2br(str_replace(' ', '&nbsp;', htmlentities(print_r($val, true)))) .'"', NO_LINK);
 
     if ($title == 'Variable') {
-      if (is_numeric($val)) $title = $val;
-      elseif (is_string($val)) $title = substr($val, 0, 10);
-      else $title = 'No title given';
-    } 
+        if (is_numeric($val)) {
+            $title = $val;
+        } elseif (is_string($val)) {
+            $title = substr($val, 0, 10);
+        } else {
+            $title = 'No title given';
+        }
+    }
     $debug->tracker('Debug point: '. $title);
 }
 
@@ -57,7 +64,7 @@ function d() {
  * $debug->timer_start('function sortarray');
  * $array = sortarray($array)
  * $debug->timer_stop('function sortarray');
- * echo $sys_debug->show();                     // Show() generates simple HTML-Output                       
+ * echo $sys_debug->show();                     // Show() generates simple HTML-Output
  * </code>
  *
  * @author  bytekilla@synergy-lan.de
@@ -69,19 +76,20 @@ function d() {
  * @todo Improve HTML-Output (Use just 1 Funktion for better overview)
  * @todo Improve File-Output (scheiben zur Laufzeit fuer besseres Debuging)
  */
-class debug {
+class debug
+{
 
   /**#@+
    * Intern Variables
    * @access private
    * @var mixed
    */
-  var $timer_first = "";    // Helpvar Timer
-  var $timer_last = "";     // Helpvar Timer
-  var $timer_out = "";      // Helpvar Timer (Outputstring)
-  var $debugvars = array(); // Uservars to show
-  var $mode = "";           // Debugmode
-  var $debug_path = "";     // Debugpath for Filedebug
+  public $timer_first = "";    // Helpvar Timer
+  public $timer_last = "";     // Helpvar Timer
+  public $timer_out = "";      // Helpvar Timer (Outputstring)
+  public $debugvars = array(); // Uservars to show
+  public $mode = "";           // Debugmode
+  public $debug_path = "";     // Debugpath for Filedebug
   /**#@-*/
 
 /**
@@ -92,46 +100,66 @@ class debug {
  * @param string Path for Filedebug
  * @return void
  */
-  function debug($mode = "0", $debug_path = "") {
-    // TODO : argvars verwenden um einfache Variablenübergabe zu ermöglischen.
+  public function debug($mode = "0", $debug_path = "")
+  {
+      // TODO : argvars verwenden um einfache Variablenübergabe zu ermöglischen.
     // TODO : Debugbacktrace
     $this->mode = $mode;
-    $this->debug_path = $debug_path;
-    $this->tracker("INIT DEBUG-CLASS");  // Sets first Timerpoint
-    if ($this->mode > 0) @ini_set('display_errors', 1);
+      $this->debug_path = $debug_path;
+      $this->tracker("INIT DEBUG-CLASS");  // Sets first Timerpoint
+    if ($this->mode > 0) {
+        @ini_set('display_errors', 1);
+    }
   }
 
   // Set Timerpoint for Debugoutput. Shows Memoryusage also, if available
   // @param string Name of Event
-  function tracker($event) {
-    if ($this->mode > 0) {
-      $time = array_sum(explode(" ", microtime()));
+  public function tracker($event)
+  {
+      if ($this->mode > 0) {
+          $time = array_sum(explode(" ", microtime()));
 
       // Prepare for Memory, just if functions avail
-      if (function_exists('memory_get_usage')) $mem = sprintf("MemAct: %05d KB &nbsp;&nbsp;", memory_get_usage() / 1024);
-      else $mem = "";
-      if (function_exists('memory_get_peak_usage')) $memmax = sprintf("MemPeak: %05d KB &nbsp;&nbsp;", memory_get_peak_usage() / 1024);
-      else $memmax = "";
+      if (function_exists('memory_get_usage')) {
+          $mem = sprintf("MemAct: %05d KB &nbsp;&nbsp;", memory_get_usage() / 1024);
+      } else {
+          $mem = "";
+      }
+          if (function_exists('memory_get_peak_usage')) {
+              $memmax = sprintf("MemPeak: %05d KB &nbsp;&nbsp;", memory_get_peak_usage() / 1024);
+          } else {
+              $memmax = "";
+          }
 
-      if (!$this->timer_first or !$event) $this->timer_first = $time;
-      if (!$this->timer_last or !$event) $this->timer_last = $time;
+          if (!$this->timer_first or !$event) {
+              $this->timer_first = $time;
+          }
+          if (!$this->timer_last or !$event) {
+              $this->timer_last = $time;
+          }
 
-      $tmp_out = sprintf("Step: %07.1f ms &nbsp; Total: %07.1f ms &nbsp;&nbsp;".$mem.$memmax." => [%s]<br />\n",
+          $tmp_out = sprintf("Step: %07.1f ms &nbsp; Total: %07.1f ms &nbsp;&nbsp;".$mem.$memmax." => [%s]<br />\n",
         ($time - $this->timer_last) * 1000, ($time - $this->timer_first)*1000, $event);
 
-      $this->timer_out .= $tmp_out;
-      $this->timer_all = $time - $this->timer_first;
-      $this->timer_last = $time;
+          $this->timer_out .= $tmp_out;
+          $this->timer_all = $time - $this->timer_first;
+          $this->timer_last = $time;
+      }
+  }
+
+    public function timer_show()
+    {
+        if ($this->mode > 0) {
+            return $this->timer_out;
+        }
     }
-  }
 
-  function timer_show() {
-    if ($this->mode > 0) return $this->timer_out;
-  }
-
-  function timer_all() {
-    if ($this->mode > 0) return sprintf("%8.4f", $this->timer_all);
-  }
+    public function timer_all()
+    {
+        if ($this->mode > 0) {
+            return sprintf("%8.4f", $this->timer_all);
+        }
+    }
 
   /**
    * Add Userdefined Debugvariable e.g. addvar('$anz',$anz)
@@ -139,11 +167,15 @@ class debug {
    * @param string  Name of the Variable
    * @param mixed   Variable
    */
-  function addvar($key, $value){
-    if ($this->mode > 0) {
-      if (is_string($key)) $this->debugvars[$key] = $value;
-      else $this->debugvars["debugvar_".count($this->debugvars)] = $value;
-    }
+  public function addvar($key, $value)
+  {
+      if ($this->mode > 0) {
+          if (is_string($key)) {
+              $this->debugvars[$key] = $value;
+          } else {
+              $this->debugvars["debugvar_".count($this->debugvars)] = $value;
+          }
+      }
   }
 
   /**
@@ -159,10 +191,11 @@ class debug {
    * @todo Write it
    */
   //
-  function timer_start($caption){
-    if ($this->mode > 0) {
-      // Diverse Ueberpruefungen, evtl mehrfach start/stop erlauben
-    }
+  public function timer_start($caption)
+  {
+      if ($this->mode > 0) {
+          // Diverse Ueberpruefungen, evtl mehrfach start/stop erlauben
+      }
   }
 
   /**
@@ -171,9 +204,10 @@ class debug {
    * @param string  String to Identify Timer
    * @todo Write it
    */
-  function timer_stop($caption){
-    if ($this->mode > 0) {
-    }
+  public function timer_stop($caption)
+  {
+      if ($this->mode > 0) {
+      }
   }
 
   /**
@@ -181,8 +215,9 @@ class debug {
    * @param string  Executet Querystring
    */
   //
-  function query_start($query){
-      if (($this->mode > 0) AND (!$this->sql_query_running)) {
+  public function query_start($query)
+  {
+      if (($this->mode > 0) and (!$this->sql_query_running)) {
           $this->sql_query_running = true;
           $this->sql_query_start = microtime(true);
           $this->sql_query_string = $query;
@@ -193,8 +228,9 @@ class debug {
    * Stop Timer for Querys. Always use with query_start()
    * @param string  Executet Querystring
    */
-  function query_stop($error = null){
-      if (($this->mode > 0) AND ($this->sql_query_running)) {
+  public function query_stop($error = null)
+  {
+      if (($this->mode > 0) and ($this->sql_query_running)) {
           $this->sql_query_running = false;
           $sql_query_end = microtime(true);
           $this->sql_query_list[] = array(round(($sql_query_end - $this->sql_query_start) *1000, 4),$this->sql_query_string, $error);
@@ -206,12 +242,15 @@ class debug {
    * @return array Sortet HTML-Querylist
    * @access private
    */
-  function query_fetchlist(){
-      if (($this->mode > 0) AND is_array($this->sql_query_list)) {
+  public function query_fetchlist()
+  {
+      if (($this->mode > 0) and is_array($this->sql_query_list)) {
           $this->sql_query_list = $this->sort_array_by_col($this->sql_query_list);
-          foreach($this->sql_query_list as $debug_query) {
+          foreach ($this->sql_query_list as $debug_query) {
               $sql_query_debug .= debug::row_double(sprintf("<b>%8.4f ms</b>", $debug_query[0]), $debug_query[1]);
-              if (!($debug_query[2]=="")) $sql_query_debug .= debug::row_double("", "<span style=\"color:red\"><b>Error : ".$debug_query[2]."</b></span>");
+              if (!($debug_query[2]=="")) {
+                  $sql_query_debug .= debug::row_double("", "<span style=\"color:red\"><b>Error : ".$debug_query[2]."</b></span>");
+              }
           }
           return $sql_query_debug;
       }
@@ -223,13 +262,15 @@ class debug {
    * @return array Sortet Array
    * @access private
    */
-  function sort_array_by_col($array){
-      function compare($wert_a, $wert_b) {
+  public function sort_array_by_col($array)
+  {
+      function compare($wert_a, $wert_b)
+      {
           // Sortierung nach dem zweiten Wert des Array (Index: 1)
           $a = $wert_a[0];
           $b = $wert_b[0];
           if ($a == $b) {
-             return 0;
+              return 0;
           }
           return ($a > $b) ? -1 : +1;
       }
@@ -243,7 +284,8 @@ class debug {
    * @return string HTML-Row for table (<tr><td>...</td></tr>)
    * @access private
    */
-  function row_top($name){
+  public function row_top($name)
+  {
       $out = "<tr><td width=\"100%\" colspan=\"2\" bgcolor=\"#C0C0C0\">".$name."</td></tr>\n";
       return $out;
   }
@@ -254,7 +296,8 @@ class debug {
    * @return string HTML-Row for table (<tr><td>...</td></tr>)
    * @access private
    */
-  function row_single($name){
+  public function row_single($name)
+  {
       $out = "<tr><td width=\"100%\" colspan=\"2\" align=\"left\">".$name."</td></tr>";
       $out .= "<tr><td width=\"100%\" height=\"1\" bgcolor=\"#C0C0C0\" colspan=\"2\"></td></tr>\n";
       return $out;
@@ -267,8 +310,9 @@ class debug {
    * @return string HTML-Row for Table (<tr><td>...</td></tr>)
    * @access private
    */
-  function row_double($key, $value){
-      $out = "<tr><td width=\"20%\" align=\"left\">".$key."</td><td width=\"80%\" align=\"left\">".wordwrap( $value, 65, "<br />\n", true )."&nbsp;</td></tr>";
+  public function row_double($key, $value)
+  {
+      $out = "<tr><td width=\"20%\" align=\"left\">".$key."</td><td width=\"80%\" align=\"left\">".wordwrap($value, 65, "<br />\n", true)."&nbsp;</td></tr>";
       $out .= "<tr><td width=\"100%\" height=\"1\" bgcolor=\"#C0C0C0\" colspan=\"2\"></td></tr>\n";
       return $out;
   }
@@ -281,18 +325,25 @@ class debug {
    * @return string HTML-Rows for table (<tr><td>...</td></tr>) multiline
    * @access private
    */
-  function row_array($array, $array_node = NULL, $array_level = 0 ){
-      if ($array_level == 0) $out .= debug::row_double("<b>Key</b>", "<b>Value</b>");
+  public function row_array($array, $array_node = null, $array_level = 0)
+  {
+      if ($array_level == 0) {
+          $out .= debug::row_double("<b>Key</b>", "<b>Value</b>");
+      }
       foreach ($array as $key => $value) {
-          $shift = str_repeat("&nbsp;&nbsp;", $array_level); 
-          if ($array_level==0) {$caption = $key;} else {$caption = "[".$key."]";};            
+          $shift = str_repeat("&nbsp;&nbsp;", $array_level);
+          if ($array_level==0) {
+              $caption = $key;
+          } else {
+              $caption = "[".$key."]";
+          };
           // walk types
-          if (is_array($value)){
-              $out .= debug::row_double($shift.$array_node.$caption,"(".gettype($value).")");
-              $out .= $this->row_array($value,$array_node.$caption,$array_level+1);
+          if (is_array($value)) {
+              $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")");
+              $out .= $this->row_array($value, $array_node.$caption, $array_level+1);
           } elseif (is_object($value)) {
               $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;");
-              $out .= $this->row_array(get_object_vars($value),$array_node.$caption,$array_level+1);                
+              $out .= $this->row_array(get_object_vars($value), $array_node.$caption, $array_level+1);
           } elseif (is_scalar($value)) {
               $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;".htmlentities($value));
           } else {
@@ -308,7 +359,8 @@ class debug {
    * @todo Add "Jump Top" Links
    * @return string HTML-Table
    */
-  function show() {
+  public function show()
+  {
       if ($this->mode > 0) {
           $this->tracker("END DEBUG-CLASS");
           $out .= "<div align=\"left\"><table width=\"100%\" border=\"0\" cols=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
@@ -348,12 +400,11 @@ class debug {
               echo $this->mode;
               $file_handle = fopen($this->debug_path."debug_".time().".htm", "a");
               fputs($file_handle, $out);
-              fclose($file_handle);   
+              fclose($file_handle);
           }
           return $out;
       } else {
           return "";
-
       }
   }
 }

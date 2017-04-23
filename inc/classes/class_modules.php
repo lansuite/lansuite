@@ -8,26 +8,30 @@
  * @version $Id$
  * @access public
  */
-class modules {
+class modules
+{
 
   /**#@+
    * Intern Variables
    * @access private
    * @var mixed
    */
-    var $active_modules = array();      // Active Modules
+    public $active_modules = array();      // Active Modules
   /**#@-*/
   
   /**
    * CONSTRUCTOR : Initialize basic Variables
    *
    */
-    function modules() {
+    public function modules()
+    {
         global $db;
 
         // Read Active Modules (once, better performance)
         $res = $db->qry("SELECT name FROM %prefix%modules WHERE active = 1");
-        while($row = $db->fetch_array($res)) $this->active_modules[] = $row['name'];
+        while ($row = $db->fetch_array($res)) {
+            $this->active_modules[] = $row['name'];
+        }
         $db->free_result($res);
 
         // Add Systemmodules (always active)
@@ -41,7 +45,8 @@ class modules {
    *
    * @return array Returns the active Modules
    */
-    function get_act_modules() {
+    public function get_act_modules()
+    {
         return $this->active_modules;
     }
 
@@ -51,7 +56,8 @@ class modules {
    * @param string Modul
    * @return boolean Returns the Status. True = active
    */
-    function get_act_status($modul) {
+    public function get_act_status($modul)
+    {
         if (in_array($modul, $this->active_modules)) {
             return true;
         } else {
@@ -65,8 +71,8 @@ class modules {
    * @param string Modul
    * @return boolean Returns the Status of Action. True=Success
    */
-    function set_active($modul) {
-
+    public function set_active($modul)
+    {
     }
 
   /**
@@ -75,8 +81,8 @@ class modules {
    * @param string Modul
    * @return boolean Returns the Status of Action. True=Success
    */
-    function set_inactive($modul) {
-
+    public function set_inactive($modul)
+    {
     }
 
   /**
@@ -85,7 +91,8 @@ class modules {
    * @param string Modul
    * @return boolean Returns the Status of Modulcheck. True=Modul Ok
    */
-    function check_modul($modul) {
+    public function check_modul($modul)
+    {
         /*
         Punkte könnten u.a. sein Verzeichniss vorhanden, Configdateien
         vorhanden, Uebersetzung vorhanden, etc. Was macht sinn... es
@@ -100,7 +107,8 @@ class modules {
    * @param mixed Actual Userid
    * @return boolean Should Userrights to be resetet?
    */
-    function get_modulpermission($modul, $userid) {
+    public function get_modulpermission($modul, $userid)
+    {
         global $db;
         // Has at least someone access to this mod?
         $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string%", $modul);
@@ -108,8 +116,11 @@ class modules {
         if ($permission['found']) {
             $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string% AND userid = %int%", $modul, $userid);
             // If not: Set his rights to user-rights
-            if (!$permission['found']) return 1;
-                else return 0;
+            if (!$permission['found']) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }
     
@@ -120,7 +131,8 @@ class modules {
    * @param mixed $field
    * @return string Returns the Fielddata
    */
-    function get_modulinfo($modul, $field) {
+    public function get_modulinfo($modul, $field)
+    {
         // Possible Fields (also see module.xml)
         // name : The modules internal name.
         // caption: The modulname displayed to the user
@@ -132,6 +144,4 @@ class modules {
         // version: The version of this module
         // state: The state of this module (f.e.: stable, in development, beta, ...)
     }
-
 }
-?>

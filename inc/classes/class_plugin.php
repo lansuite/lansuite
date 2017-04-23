@@ -10,34 +10,36 @@
  * @version $Id$
  * @access public
  */
-class plugin {
+class plugin
+{
 
   /**
    * Intern Variables
    * @access private
    * @var mixed
    */
-    var $modules    =     array();
-    var $captions    =     array();
-    var $icons    =     array();
-    var $currentIndex = 0;
-    var $count = 0;
-    var $type = '';
+    public $modules    =     array();
+    public $captions    =     array();
+    public $icons    =     array();
+    public $currentIndex = 0;
+    public $count = 0;
+    public $type = '';
 
-    function plugin($type) {
-      global $db, $func;
+    public function plugin($type)
+    {
+        global $db, $func;
 
-      $res = $db->qry('SELECT caption, module, icon FROM %prefix%plugin WHERE pluginType = %string% ORDER BY pos', $type);
-      while ($row = $db->fetch_array($res)) {
-        if ($func->isModActive($row['module'])) {
-          $this->modules[] = $row['module'];
-          ($row['caption'] != '')? $this->captions[] = $row['caption'] : $this->captions[] = $row['module'];
-          ($row['icon'] != '')? $this->icons[] = $row['icon'] : $this->icons[] = $row['icon'];
-          $this->count++;
+        $res = $db->qry('SELECT caption, module, icon FROM %prefix%plugin WHERE pluginType = %string% ORDER BY pos', $type);
+        while ($row = $db->fetch_array($res)) {
+            if ($func->isModActive($row['module'])) {
+                $this->modules[] = $row['module'];
+                ($row['caption'] != '')? $this->captions[] = $row['caption'] : $this->captions[] = $row['module'];
+                ($row['icon'] != '')? $this->icons[] = $row['icon'] : $this->icons[] = $row['icon'];
+                $this->count++;
+            }
         }
-      }
-      $db->free_result($res);
-      $this->type = $type;
+        $db->free_result($res);
+        $this->type = $type;
     }
 
   /**
@@ -45,18 +47,22 @@ class plugin {
    * @access public
    * @return list(caption, include_string, icon)
    */
-    function fetch($index = -1) {
-      if ($index == -1) (int)$index = $this->currentIndex;
+    public function fetch($index = -1)
+    {
+        if ($index == -1) {
+            (int)$index = $this->currentIndex;
+        }
 
-      if ($index >= $this->count) return false;
+        if ($index >= $this->count) {
+            return false;
+        }
 
-      $arr = array();
-      $this->currentIndex = $index + 1;
-      $arr[] = $this->captions[$index];
-      $arr[] = 'modules/'. $this->modules[$index] .'/plugins/'. $this->type .'.php';
-      $arr[] = $this->icons[$index];
+        $arr = array();
+        $this->currentIndex = $index + 1;
+        $arr[] = $this->captions[$index];
+        $arr[] = 'modules/'. $this->modules[$index] .'/plugins/'. $this->type .'.php';
+        $arr[] = $this->icons[$index];
 
-      return $arr;
+        return $arr;
     }
 }
-?>
