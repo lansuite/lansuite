@@ -5,75 +5,71 @@ $framework->set_modus('ajax');
 
 
 switch ($_GET['shout']) {
-
     case 'add':
-
-     if ($_POST['captchaInputSend'] == $_SESSION['captcha'] and $_POST['captchaInputSend'] != "") {
-         $captchaCheck = true;
-     } else {
-         $captchaCheck = false;
-     }
+        if ($_POST['captchaInputSend'] == $_SESSION['captcha'] and $_POST['captchaInputSend'] != "") {
+            $captchaCheck = true;
+        } else {
+            $captchaCheck = false;
+        }
 
     
 
-     if (!$auth['login'] or !$captchaCheck) {
+        if (!$auth['login'] or !$captchaCheck) {
+            // No Login -> Captcha
 
-         // No Login -> Captcha
+            include_once('ext_scripts/ascii_captcha.class.php');
 
-         include_once('ext_scripts/ascii_captcha.class.php');
+            $captcha = new ASCII_Captcha();
 
-         $captcha = new ASCII_Captcha();
+            $cap = $captcha->create($text);
 
-         $cap = $captcha->create($text);
+            $_SESSION['captcha'] = $text;
 
-         $_SESSION['captcha'] = $text;
+            $data['response'] = 'captcha';
 
-         $data['response'] = 'captcha';
+            $data['code'] = $text;
 
-         $data['code'] = $text;
-
-         $data['captcha'] = $cap;
-     }
-
+            $data['captcha'] = $cap;
+        }
 
 
-     if (($_POST['message'] and $auth['login']) or ($_POST['message'] and $captchaCheck)) {
-         if ($auth['type']>=1) {
-             $_POST['nickname'] = $auth['username'];
-         }
+
+        if (($_POST['message'] and $auth['login']) or ($_POST['message'] and $captchaCheck)) {
+            if ($auth['type']>=1) {
+                $_POST['nickname'] = $auth['username'];
+            }
 
              
 
-         $result = $db->qry("INSERT INTO %prefix%shoutbox (userid, ip, name, message) VALUES (%int%,%string%,%string%,%string%)", $auth['userid'], $auth['ip'], $_POST["nickname"], $_POST["message"]);
+            $result = $db->qry("INSERT INTO %prefix%shoutbox (userid, ip, name, message) VALUES (%int%,%string%,%string%,%string%)", $auth['userid'], $auth['ip'], $_POST["nickname"], $_POST["message"]);
 
-         $resp =  $db->qry_first("SELECT id, created FROM %prefix%shoutbox WHERE id = %int%", $db->insert_id());
+            $resp =  $db->qry_first("SELECT id, created FROM %prefix%shoutbox WHERE id = %int%", $db->insert_id());
 
             
 
-         $data['response'] = 'Good work';
+            $data['response'] = 'Good work';
 
-         $data['nickname'] = $_POST['nickname'];
+            $data['nickname'] = $_POST['nickname'];
 
-         $data['message'] = $_POST['message'];
+            $data['message'] = $_POST['message'];
 
-         $data['time'] = strtotime($resp['created']);
+            $data['time'] = strtotime($resp['created']);
 
-         $data['id'] = $resp['id'];
-     }
+            $data['id'] = $resp['id'];
+        }
 
-    break;
+        break;
 
     
 
     case 'view':
-
-      $data = array();
-
+        $data = array();
 
 
-      if (!$_GET['lastid']) {
-          $_GET['lastid'] = 0;
-      }
+
+        if (!$_GET['lastid']) {
+            $_GET['lastid'] = 0;
+        }
 
   
 
@@ -99,9 +95,8 @@ switch ($_GET['shout']) {
 
         $db->free_result($qry);
 
-    break;
-
-  }
+        break;
+}
 
   
 

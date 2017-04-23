@@ -21,5 +21,3 @@ $ms2->AddResultField('Name', 'name');
 $ms2->AddResultField('Shout Message', 'message');
 $ms2->AddResultField('Datum', 'created');
 $ms2->PrintSearch('index.php?mod=shoutbox&action=show', 'id');
-?>
-
