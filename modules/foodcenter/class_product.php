@@ -52,7 +52,7 @@ class product_list
         global $dsp;
         
         if (count($this->product) > 0) {
-            for ($i = 0;$i < count($this->product);$i++) {
+            for ($i = 0; $i < count($this->product); $i++) {
                 $this->product[$i]->order_form($worklink);
             }
         } else {
@@ -85,7 +85,6 @@ class product_list
         global $func;
         ### Produkt schon vorhanden?
         if (in_array($id, $this->product_list)) {
-     
             // Wenn das Produkt ein
             if (is_array($opt)) {
                 // Produkt für den Vergleich erzeugen
@@ -401,7 +400,7 @@ class product
         $this->supp->read_post();
         
         if ($this->type == 1) {
-            for ($i=0;$i < 3;$i++) {
+            for ($i=0; $i < 3; $i++) {
                 if ($_POST['hidden'][$i] > 0) {
                     $this->option[$i]->read_post($this->id, $this->type, $i);
                 } elseif ($_POST['price'][$i] != "") {
@@ -412,7 +411,7 @@ class product
             }
         } elseif ($this->type == 2) {
             (isset($_POST['caption'][0])) ? $q = 0 : $q = 3;
-            for ($i=$q;$i < ($q + 8);$i++) {
+            for ($i=$q; $i < ($q + 8); $i++) {
                 if ($_POST['hidden'][$i] > 0) {
                     $this->option[$i]->read_post($this->id, $this->type, $i);
                 } elseif ($_POST['caption'][$i] != "" || $i == $q) {
@@ -452,7 +451,7 @@ class product
         if ($this->supp->check() == false) {
             $this->noerror = false;
         }
-        for ($i=0;$i < count($this->option);$i++) {
+        for ($i=0; $i < count($this->option); $i++) {
             if ($this->option[$i]->check() == false) {
                 $this->noerror = false;
             }
@@ -553,14 +552,14 @@ class product
     public function count_price()
     {
         if ($this->type == 2) {
-            for ($i=0;$i<count($this->option);$i++) {
+            for ($i=0; $i<count($this->option); $i++) {
                 if (is_object($this->option[$i])) {
                     $tot_price += $this->option[$i]->count_price();
                 }
             }
             return  $this->ordered * $tot_price;
         } else {
-            for ($i=0;$i<count($this->option);$i++) {
+            for ($i=0; $i<count($this->option); $i++) {
                 if (is_object($this->option[$i])) {
                     $tot_price += $this->option[$i]->count_price();
                 }
@@ -580,7 +579,7 @@ class product
     {
         global $func;
         $ok = true;
-        for ($i = 0;$i < count($this->option);$i++) {
+        for ($i = 0; $i < count($this->option); $i++) {
             $this->option[$i]->error['pice_error'] = "";
             $count = $this->option[$i]->ordered;
             if ($this->option[$i]->id == $id) {
@@ -611,7 +610,7 @@ class product
         if ($this->type == 2) {
             return $this->ordered;
         } else {
-            for ($i=0;$i<count($this->option);$i++) {
+            for ($i=0; $i<count($this->option); $i++) {
                 if ($this->option[$i]) {
                     $count += $this->option[$i]->ordered;
                 }
@@ -701,7 +700,7 @@ class product
             $smarty->assign('hidden_display', $display[1]);
             $dsp->AddSmartyTpl('hiddenbox_start', 'foodcenter');
 
-            for ($i = 0;$i < 3;$i++) {
+            for ($i = 0; $i < 3; $i++) {
                 ($i == 0) ? $optional = null : $optional = true;
                 if (!is_object($this->option[$i])) {
                     $this->option[$i] = new product_option();
@@ -718,7 +717,7 @@ class product
             $dsp->AddSmartyTpl('hiddenbox_start', 'foodcenter');
             $dsp->AddCheckBoxRow("chois\" onclick=\"change_optionelem(this.checked)", t('Mehrfachauswahl möglich'), "", "", null, $this->choise);
             ($this->type == null) ? $q = 3 : $q = 0;
-            for ($i = $q;$i < ($q+8);$i++) {
+            for ($i = $q; $i < ($q+8); $i++) {
                 ($i == $q) ? $optional = null : $optional = true;
                 if (!is_object($this->option[$i])) {
                     $this->option[$i] = new product_option();
@@ -800,7 +799,6 @@ class product
                     $dsp->AddFormSubmitRow(t('Bestellen'));
                 }
                 break;
-                    
         }
     }
     
@@ -814,7 +812,7 @@ class product
         global $dsp;
         $show_caption = $this->caption;
         if ($this->type == 1 || $this->choise == false) {
-            for ($i = 0; $i < count($this->option);$i++) {
+            for ($i = 0; $i < count($this->option); $i++) {
                 if ($this->option[$i]->ordered > 0) {
                     $this->option[$i]->get_basket($listid, $show_caption, false);
                 }
@@ -822,7 +820,7 @@ class product
         } else {
             $dsp->AddTextFieldRow("option_$listid", $this->caption, $this->ordered, $this->error_food['order_error']);
             $this->error_food['order_error'] = "";
-            for ($i = 0; $i < count($this->option);$i++) {
+            for ($i = 0; $i < count($this->option); $i++) {
                 if ($this->option[$i]->ordered > 0 || $this->option[$i]->fix > 0) {
                     $this->option[$i]->get_basket($listid, $show_caption, true);
                 }
@@ -850,9 +848,7 @@ class product
         $dsp->AddSingleRow(t('Auswahlmöglichkeiten'));
             
         switch ($this->type) {
-
-                case 1:
-                
+            case 1:
                 if (is_object($this->option[0])) {
                     $dsp->AddDoubleRow("", "<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" /></a>");
                 }
@@ -865,7 +861,7 @@ class product
 
                 break;
                 
-                case 2:
+            case 2:
                 if ($this->choise == 1) {
                     $dsp->SetForm("$worklink&add={$this->id}&opt=0");
                 }
@@ -890,8 +886,7 @@ class product
                     $dsp->AddFormSubmitRow(t('Bestellen'));
                 }
                 break;
-
-            }
+        }
         if ($auth['type'] > 1) {
             $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=foodcenter&amp;action=addproduct&amp;id=". $this->id));
         }
@@ -908,7 +903,7 @@ class product
     public function compare($prod)
     {
         if ($this->type == 2) {
-            for ($i = 0;$i < count($prod->option);$i++) {
+            for ($i = 0; $i < count($prod->option); $i++) {
                 if ($this->option[$i]->ordered != $prod->option[$i]->ordered) {
                     return false;
                 }

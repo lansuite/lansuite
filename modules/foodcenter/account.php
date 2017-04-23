@@ -29,7 +29,7 @@ switch ($_GET['act']) {
     default:
     case "list":
         $account->list_balance();
-    break;
+        break;
 
 
     case "menu":
@@ -41,15 +41,15 @@ switch ($_GET['act']) {
         $dia_link[]     .= "index.php?mod=foodcenter&action=account&act=himbalance";
         $dia_link[]     .= "index.php?mod=foodcenter&action=account&act=list";
         $func->multiquestion($dia_quest, $dia_link, "");
-    break;
+        break;
     
     case "payment":
         switch ($step) {
             default:
-        $current_url = 'index.php?mod=foodcenter&action=account&act=payment';
-        $target_url = 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=';
-        include_once('modules/usrmgr/search_basic_userselect.inc.php');
-            break;
+                $current_url = 'index.php?mod=foodcenter&action=account&act=payment';
+                $target_url = 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=';
+                include_once('modules/usrmgr/search_basic_userselect.inc.php');
+                break;
             
             
             case "2":
@@ -62,32 +62,30 @@ switch ($_GET['act']) {
                 $account = new accounting($_GET['userid']);
                 $account->list_balance();
 
-            break;
+                break;
             
             
             case "3":
                 $account = new accounting($_GET['userid']);
                 $account->change($_POST['amount'], $_POST['comment'] . " (" . $auth['username'] . ")", $_GET['userid']);
                 $account->list_balance();
-            break;
-            
-            
+                break;
         }
-    break;
+        break;
         
     case "himbalance":
         switch ($step) {
             default:
-        $current_url = 'index.php?mod=foodcenter&action=account&act=himbalance';
-        $target_url = 'index.php?mod=foodcenter&action=account&act=himbalance&step=2&userid=';
-        include_once('modules/usrmgr/search_basic_userselect.inc.php');
-            break;
+                $current_url = 'index.php?mod=foodcenter&action=account&act=himbalance';
+                $target_url = 'index.php?mod=foodcenter&action=account&act=himbalance&step=2&userid=';
+                include_once('modules/usrmgr/search_basic_userselect.inc.php');
+                break;
             
             
             case "2":
                 $account = new accounting($_GET['userid']);
                 $account->list_balance();
-            break;
+                break;
         }
-    break;
+        break;
 }

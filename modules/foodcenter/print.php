@@ -172,9 +172,15 @@ class foodcenter_print
             $d = 0;
             foreach ($config['search_fields'] as $col) {
                 switch ($config['search_type'][$d]) {
-                    case "exact": $search .= "($col = '$key') OR "; break;
-                    case "1337": $search .= "($col REGEXP '$key_1337') OR "; break;
-                    default: $search .= "($col LIKE '%$key%') OR "; break;
+                    case "exact":
+                        $search .= "($col = '$key') OR ";
+                        break;
+                    case "1337":
+                        $search .= "($col REGEXP '$key_1337') OR ";
+                        break;
+                    default:
+                        $search .= "($col LIKE '%$key%') OR ";
+                        break;
                 }
                 $d ++;
             }

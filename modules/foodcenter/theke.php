@@ -37,8 +37,6 @@ if (!isset($_SESSION['foodcenter']['theke_userid'])) {
     $target_url = 'index.php?mod=foodcenter&action=theke&userid=';
     include_once('modules/foodcenter/search.inc.php');
 } else {
-    
-    
     // Productgroups
     $row = $db->qry("SELECT * FROM %prefix%food_cat");
     $i = 1;

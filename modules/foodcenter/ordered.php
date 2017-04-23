@@ -21,16 +21,16 @@ $ms2->query['where'] = 'userid='. (int)$auth['userid'];
 
     $status_list = array('' => 'Alle');
     $row = $db->qry("SELECT * FROM %prefix%food_status");
-    while ($res = $db->fetch_array($row)) {
-        $status_list[$res['id']] = $res['statusname'];
-    }
+while ($res = $db->fetch_array($row)) {
+    $status_list[$res['id']] = $res['statusname'];
+}
     $db->free_result($row);
     
     $party_list = array('' => 'Alle');
     $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
-    while ($res = $db->fetch_array($row)) {
-        $party_list[$res['party_id']] = $res['name'];
-    }
+while ($res = $db->fetch_array($row)) {
+    $party_list[$res['party_id']] = $res['name'];
+}
     $db->free_result($row);
 
     $ms2->AddTextSearchDropDown('Status', 'a.status', $status_list);
@@ -48,30 +48,29 @@ $ms2->query['where'] = 'userid='. (int)$auth['userid'];
 //$ms2->AddIconField('details', 'index.php?mod=foodcenter&action=ordered&step=2&id=', t('Details'));
 
 switch ($_POST['search_dd_input'][0]) {
-        case 1:
-            $ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
+    case 1:
+        $ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
         break;
 
-        case 2:
-            $ms2->NoItemsText = t('Es müssen keine Produkte bestellt werden.');
+    case 2:
+        $ms2->NoItemsText = t('Es müssen keine Produkte bestellt werden.');
         break;
 
-        case 3:
-            $ms2->NoItemsText = t('Es wird auf keine Lieferung gewartet.');
+    case 3:
+        $ms2->NoItemsText = t('Es wird auf keine Lieferung gewartet.');
         break;
 
-        case 4:
-            $ms2->NoItemsText = t('Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.');
+    case 4:
+        $ms2->NoItemsText = t('Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.');
         break;
         
-         case 5:
-            $ms2->NoItemsText = t('Du hast alle Produkte abgeholt.');
+    case 5:
+        $ms2->NoItemsText = t('Du hast alle Produkte abgeholt.');
         break;
         
-        default:
-            $ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
+    default:
+        $ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
         break;
-
 }
 
 $ms2->PrintSearch('index.php?mod=foodcenter&action=ordered', 'a.id');

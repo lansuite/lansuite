@@ -16,9 +16,9 @@ function PaidIconLink($paid)
     global $dsp, $templ, $line, $party, $lang;
   
   // Only link, if selected party = current party
-  if ($_POST["search_dd_input"][1] == $party->party_id) {
-      $link = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
-  }
+    if ($_POST["search_dd_input"][1] == $party->party_id) {
+        $link = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
+    }
   
     if ($paid) {
         return $dsp->FetchIcon($link, 'paid', t('Bezahlt'));

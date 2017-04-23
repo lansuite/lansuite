@@ -13,19 +13,17 @@ switch ($_GET['step']) {
         if (!$food->check()) {
             $_GET['step'] = 1;
         }
-    break;
+        break;
 }
 
 
 switch ($_GET['step']) {
-
     default:
         $food->form_add_product($_GET['step']);
-    break;
+        break;
     
     case 2:
         $food->write();
         $func->confirmation(t('Das Produkt wurde hinzugefügt.'), "index.php?mod=foodcenter");
-    break;
-    
+        break;
 }
