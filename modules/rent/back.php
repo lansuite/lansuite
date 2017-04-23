@@ -1,5 +1,5 @@
 <?php
-switch($_GET['step']) {
+switch ($_GET['step']) {
   default:
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('news');
@@ -19,8 +19,7 @@ switch($_GET['step']) {
   break;
 
   case 10:
-		$db->qry('UPDATE %prefix%rentuser SET back_orgaid = %int% WHERE rentid = %int%', $auth['userid'], $_GET['rentid']);
-		$func->confirmation(t('Artikel wurde zurückgenommen'), 'index.php?mod=rent&action=back');
+        $db->qry('UPDATE %prefix%rentuser SET back_orgaid = %int% WHERE rentid = %int%', $auth['userid'], $_GET['rentid']);
+        $func->confirmation(t('Artikel wurde zurückgenommen'), 'index.php?mod=rent&action=back');
   break;
 }
-?>

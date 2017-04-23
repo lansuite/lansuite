@@ -1,5 +1,5 @@
 <?php
-switch($_GET['step']) {
+switch ($_GET['step']) {
   default:
     include_once('modules/rent/search.inc.php');
   break;
@@ -12,9 +12,8 @@ switch($_GET['step']) {
   break;
 
   case 11:
-		$db->qry('INSERT INTO %prefix%rentuser SET stuffid = %int%, userid = %int%, out_orgaid = %int%, back_orgaid = 0',
+        $db->qry('INSERT INTO %prefix%rentuser SET stuffid = %int%, userid = %int%, out_orgaid = %int%, back_orgaid = 0',
       $_GET['stuffid'], $_GET['userid'], $auth['userid']);
-		$func->confirmation(t('OK, der Artikel wurde verliehen.'), 'index.php?mod=rent&action=show');
+        $func->confirmation(t('OK, der Artikel wurde verliehen.'), 'index.php?mod=rent&action=show');
   break;
 }
-?>
