@@ -50,14 +50,10 @@ class team
         // Is the tournament finished?
         if ($t["status"] != "open") {
             $func->information(t('Dieses Turnier befindet sich momentan nicht in der Anmeldephase!'));
-        }
-
-        // Is the tournament allready full?
+        } // Is the tournament allready full?
         elseif ($completed_teams >= $t["maxteams"]) {
             $func->information(t('Es haben sich bereits %1 von %2 Teams zu diesem Turnier angemeldet. Das Turnier ist damit ausgebucht.', $completed_teams, $t["maxteams"]));
-        }
-
-    // Everything fine
+        } // Everything fine
         else {
             return true;
         }
@@ -116,39 +112,25 @@ class team
         // Is the user allready signed on to this tournament?
         if ($team["found"]) {
             $func->information(t('%1 ist bereits zu diesem Turnier angemeldet!', $user["username"]));
-        }
-
-        // Is the user member of a team, allready signed on to this tournament?
+        } // Is the user member of a team, allready signed on to this tournament?
         elseif ($teammember["found"] != "") {
             $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu diesem Turnier angemeldet hat!', $user["username"]));
-        }
-
-        // Is the user allready signed on to a tournament in the same group as this tournament?
+        } // Is the user allready signed on to a tournament in the same group as this tournament?
         elseif ($in_group["found"] != "") {
             $func->information(t('%1 ist bereits zu einem Turnier angemeldet, welches der gleichen Gruppe angehört!', $user["username"]));
-        }
-
-        // Is the user member of a team, allready signed on to a tournament in the same group as this tournament?
+        } // Is the user member of a team, allready signed on to a tournament in the same group as this tournament?
         elseif ($memb_in_group["found"] != "") {
             $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu einem Turnier der gleichen Gruppe angemeldet hat!', $user["username"]));
-        }
-
-        // Has the user paid?
+        } // Has the user paid?
         elseif (!$user["paid"]) {
             $func->information(t('%1 muss erst für diese Party bezahlen, um sich an einem Turnier anmelden zu können!', $user["username"]));
-        }
-
-        // Is the user 18 (only for 18+ tournaments)?
+        } // Is the user 18 (only for 18+ tournaments)?
         elseif ($over_18_error) {
             $func->information(t('%1 kann diesem Turnier nicht beitreten. In diesem Turnier dürfen nur Benutzer mitspielen, die <b>nicht</b> in einem Unter-18-Block sitzen', $user["username"]));
-        }
-
-        // Are enough coins left to afford this tournament
+        } // Are enough coins left to afford this tournament
         elseif (($cfg["t_coins"] - $team_coin["t_coins"] - $member_coin["t_coins"] - $t["coins"]) < 0) {
             $func->information(t('%1 besitzt nicht genügend Coins um an diesem Turnier teilnehmen zu können!', $user["username"]));
-        }
-
-    // Everything fine
+        } // Everything fine
         else {
             return true;
         }
@@ -176,13 +158,13 @@ class team
     ", $teamid);
 
       // Check password, if set and if acction is not performed, by teamadmin or ls-admin
-      if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= 1) and ($team['password'] != '') and (md5($password) != $team['password'])) {
-          $func->information(t('Das eingegebene Kennwort ist nicht korrekt'));
-          return false;
+            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= 1) and ($team['password'] != '') and (md5($password) != $team['password'])) {
+                $func->information(t('Das eingegebene Kennwort ist nicht korrekt'));
+                return false;
 
-            // May one still signon for this tournament?
-      } elseif ($this->SignonCheckUser($team["tournamentid"], $userid)) {
-          $member_anz = $db->qry_first("SELECT COUNT(*) AS members FROM %prefix%t2_teammembers WHERE teamid = %int% GROUP BY teamid", $teamid);
+                  // May one still signon for this tournament?
+            } elseif ($this->SignonCheckUser($team["tournamentid"], $userid)) {
+                $member_anz = $db->qry_first("SELECT COUNT(*) AS members FROM %prefix%t2_teammembers WHERE teamid = %int% GROUP BY teamid", $teamid);
 
                 // Isn't the team full yet?
                 if ($team["teamplayer"] <= ($member_anz["members"] + 1)) {
@@ -201,9 +183,9 @@ class team
 
                     $func->log_event(t('Der Benutzer %1 ist dem Team %2 im Turnier %3 beigetreten', $auth["username"], $team["teamname"], $team["tname"]), 1, t('Turnier Teamverwaltung'));
                 }
-      } else {
-          return false;
-      }
+            } else {
+                return false;
+            }
         }
         return true;
     }

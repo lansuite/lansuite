@@ -9,14 +9,14 @@ $md->References['t2_games'] = '';
 
 switch ($_GET['step']) {
     default:
-    include_once('modules/tournament2/search.inc.php');
-    break;
+        include_once('modules/tournament2/search.inc.php');
+        break;
 
     case 2:
-    $md->Delete('tournament_tournaments', 'tournamentid', $_GET['tournamentid']);
-  break;
+        $md->Delete('tournament_tournaments', 'tournamentid', $_GET['tournamentid']);
+        break;
   
-  case 10:
-    $md->MultiDelete('tournament_tournaments', 'tournamentid');
-  break;
+    case 10:
+        $md->MultiDelete('tournament_tournaments', 'tournamentid');
+        break;
 }

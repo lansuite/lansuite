@@ -53,7 +53,7 @@ if ($tteam->SignonCheck($tournamentid)) {
             if (count($error) > 0) {
                 $_GET['step']--;
             }
-        break;
+            break;
     }
 
     switch ($_GET["step"]) {
@@ -116,6 +116,6 @@ if ($tteam->SignonCheck($tournamentid)) {
             $dsp->AddBackButton("index.php?mod=tournament2&action=details&tournamentid=$tournamentid", "tournament2/join");
 
             $dsp->AddContent();
-        break;
+            break;
     }
 }

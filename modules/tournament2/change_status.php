@@ -26,7 +26,7 @@ if ($tournamentid == "") {
             switch ($_GET["step"]) {
                 default:
                     $func->question(t('Bist du sicher, dass du das generieren rückgängig machen wilst? Alle Paarungen und alle bereits eingetragenen Ergebnisse dieses Turnieres werden dabei gelöscht! Bei bereits beendeten Turnieren geht dadurch außerdem die Rangliste verloren!'), "index.php?mod=tournament2&action=undo_generate&step=2&tournamentid=$tournamentid", "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=1");
-                break;
+                    break;
 
                 case 2:
                     ## Blind-Draw Teas auflösen
@@ -48,15 +48,15 @@ if ($tournamentid == "") {
 
                     $func->confirmation(t('Das Turnier \'%1\' wurde erfolgreich zurückgesetzt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
                     $func->log_event(t('Das Generieren des Turnieres \'%1\' wurde rückgängig gemacht', $tournament["name"]), 1, t('Turnier Verwaltung'));
-                break;
+                    break;
             }
-        break;
+            break;
 
         case "undo_close":
             $db->qry("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = %int%", $tournamentid);
 
             $func->confirmation(t('Der Status wurde wieder auf \'wird gespielt\' gesetzt. Das Turnier wird wieder beendet, sobald du das nächste Ergebniss eingetragen hast.'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
             $func->log_event(t('Der Status wurde wieder auf \'wird gespielt\' gesetzt'), 1, t('Turnier Verwaltung'));
-        break;
+            break;
     }
 }

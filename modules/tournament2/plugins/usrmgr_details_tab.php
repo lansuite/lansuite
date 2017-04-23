@@ -10,28 +10,28 @@
 // League IDs
 $dsp->AddFieldsetStart(t('Ligen'));
     $wwcl = '';
-    if ($user_data['wwclid']) {
-        $wwcl .= $user_data['wwclid'] .' ';
-    }
-    if ($user_data['wwclclanid']) {
-        $wwcl .= '('. $user_data['wwclclanid'] .')';
-    }
+if ($user_data['wwclid']) {
+    $wwcl .= $user_data['wwclid'] .' ';
+}
+if ($user_data['wwclclanid']) {
+    $wwcl .= '('. $user_data['wwclclanid'] .')';
+}
     $dsp->AddDoubleRow(t('WWCL-ID'). ' (Clan-ID)', $wwcl);
     $ngl = '';
-    if ($user_data['nglid']) {
-        $ngl .= $user_data['nglid'] .' ';
-    }
-    if ($user_data['nglclanid']) {
-        $ngl .= '('. $user_data['nglclanid'] .')';
-    }
+if ($user_data['nglid']) {
+    $ngl .= $user_data['nglid'] .' ';
+}
+if ($user_data['nglclanid']) {
+    $ngl .= '('. $user_data['nglclanid'] .')';
+}
     $dsp->AddDoubleRow(t('NGL-ID'). ' (Clan-ID)', $ngl);
     $lgz = '';
-    if ($user_data['lgzid']) {
-        $lgz .= $user_data['lgzid'] .' ';
-    }
-    if ($user_data['lgzclanid']) {
-        $lgz .= '('. $user_data['lgzclanid'] .')';
-    }
+if ($user_data['lgzid']) {
+    $lgz .= $user_data['lgzid'] .' ';
+}
+if ($user_data['lgzclanid']) {
+    $lgz .= '('. $user_data['lgzclanid'] .')';
+}
     $dsp->AddDoubleRow(t('LGZ-ID').' (Clan-ID)', $lgz);
 $dsp->AddFieldsetEnd();
 
@@ -51,10 +51,10 @@ $dsp->AddFieldsetStart(t('Benutzer hat folgende Teams er&ouml;ffnet'));
             $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $leader_team['tid']. '">'. $leader_team['name'] .'</a>', $leader_team['teamname'] .' '. $tfunc->button_team_details($leader_team['teamid'], $leader_team['tid']));
         }
     }
-$dsp->AddFieldsetEnd();
+    $dsp->AddFieldsetEnd();
 
 // Teammember
-$dsp->AddFieldsetStart(t('Benutzer ist in folgenden Teams Mitglied'));
+    $dsp->AddFieldsetStart(t('Benutzer ist in folgenden Teams Mitglied'));
     $member_teams = $db->qry("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid 
                               FROM %prefix%t2_teams AS team
                               LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = team.tournamentid
@@ -67,4 +67,4 @@ $dsp->AddFieldsetStart(t('Benutzer ist in folgenden Teams Mitglied'));
             $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $member_team['tid']. '">'. $member_team['name'] .'</a>', $member_team['teamname'] .' '. $tfunc->button_team_details($member_team['teamid'], $member_team['tid']));
         }
     }
-$dsp->AddFieldsetEnd();
+    $dsp->AddFieldsetEnd();

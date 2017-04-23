@@ -225,7 +225,7 @@ if ($team_anz < 4) {
                         }
                     }
                 }
-            break;
+                break;
 
             case "liga":
             case "groups":
@@ -291,7 +291,7 @@ if ($team_anz < 4) {
                         array_push($team_liste, $team_liste_2[$group_size-3]);
                     }
                 }
-            break;
+                break;
 
             case "all":
                 $z = 0;
@@ -305,7 +305,7 @@ if ($team_anz < 4) {
        ", $_GET["tournamentid"], $team['leaderid'], $z);
                     $z++;
                 }
-            break;
+                break;
         } // Switch Tournament-Mode
         $db->free_result($teams);
 

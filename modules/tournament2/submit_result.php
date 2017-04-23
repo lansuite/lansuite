@@ -57,14 +57,14 @@ if ($tournament["name"] == "") {
 } else {
     switch ($_GET["step"]) {
         default:
-      include_once("modules/seating/class_seat.php");
-      $seat2 = new seat2();
+            include_once("modules/seating/class_seat.php");
+            $seat2 = new seat2();
 
             unset($_SESSION['tournament_submit_result_blocker']);
             
             if ($func->isModActive('server')) {
                 //Server auslesen
-        $selections = array();
+                $selections = array();
                 $selections['0'] = t('Kein Server zugewiesen');
                 $res = $db->qry("SELECT * FROM %prefix%server WHERE party_id = %int%", $party->party_id);
                 while ($row = $db->fetch_array($res)) {
@@ -124,10 +124,10 @@ if ($tournament["name"] == "") {
 
             // Write Comment
             $dsp->AddFieldSetStart(t('Anmerkungen'));
-      $dsp->AddFileSelectRow('screenshot', t('Screenshot anhängen'), '', '', '', 1);
-      if (file_exists('ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png')) {
-          $dsp->AddDoubleRow(t('Aktuelles Bild'), '<img src="ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png" />');
-      }
+            $dsp->AddFileSelectRow('screenshot', t('Screenshot anhängen'), '', '', '', 1);
+            if (file_exists('ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png')) {
+                $dsp->AddDoubleRow(t('Aktuelles Bild'), '<img src="ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png" />');
+            }
 
             if ($team1['comment'] != "") {
                 $score_comment = $team1['comment'];
@@ -136,25 +136,25 @@ if ($tournament["name"] == "") {
             $dsp->AddFieldSetEnd();
             $dsp->AddFormSubmitRow(t('Ergebnis'));
 
-        $dsp->AddFieldsetStart('Log');
-      include_once('modules/mastersearch2/class_mastersearch2.php');
-      $ms2 = new mastersearch2('t2_games');
+            $dsp->AddFieldsetStart('Log');
+            include_once('modules/mastersearch2/class_mastersearch2.php');
+            $ms2 = new mastersearch2('t2_games');
 
-      $ms2->query['from'] = "%prefix%log AS l LEFT JOIN %prefix%user AS u ON l.userid = u.userid";
-      $ms2->query['where'] = "(sort_tag = 'Turnier Ergebnise' AND target_id = ". (int)$_GET['gameid1'] .')';
+            $ms2->query['from'] = "%prefix%log AS l LEFT JOIN %prefix%user AS u ON l.userid = u.userid";
+            $ms2->query['where'] = "(sort_tag = 'Turnier Ergebnise' AND target_id = ". (int)$_GET['gameid1'] .')';
 
-      $ms2->AddResultField('', 'l.description');
-      $ms2->AddSelect('u.userid');
-      $ms2->AddResultField('', 'u.username', 'UserNameAndIcon');
-      $ms2->AddResultField('', 'UNIX_TIMESTAMP(l.date) AS date', 'MS2GetDate');
-      $ms2->PrintSearch('index.php?mod=tournament2&action=submit_result&step=1&tournamentid='. $_GET['tournamentid'] .'&gameid1='. $_GET['gameid1'] .'&gameid2='. $_GET['gameid2'], 'logid');
-        $dsp->AddFieldsetEnd();
+            $ms2->AddResultField('', 'l.description');
+            $ms2->AddSelect('u.userid');
+            $ms2->AddResultField('', 'u.username', 'UserNameAndIcon');
+            $ms2->AddResultField('', 'UNIX_TIMESTAMP(l.date) AS date', 'MS2GetDate');
+            $ms2->PrintSearch('index.php?mod=tournament2&action=submit_result&step=1&tournamentid='. $_GET['tournamentid'] .'&gameid1='. $_GET['gameid1'] .'&gameid2='. $_GET['gameid2'], 'logid');
+            $dsp->AddFieldsetEnd();
 
             $buttons = "";
             $buttons .= $dsp->FetchSpanButton(t('Paarungen'), "index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid");
             $buttons .= " ". $dsp->FetchSpanButton(t('Spielbaum'), "index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid");
             $dsp->AddDoubleRow("", $buttons);
-        break;
+            break;
 
         // Formular in Datenbank eintragen
         case 2:
@@ -215,7 +215,7 @@ if ($tournament["name"] == "") {
                 $func->information(t('Es wurde bereits ein Ergebnis für diese Partie eingetragen. Das Ergebnis kann nur noch von Turnieradmins editiert werden. Melden dich daher für Änderungen bei diesen.'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
             } else {
                 // Upload Screenshot
-        $old_file = $func->FileUpload('screenshot', 'ext_inc/tournament_screenshots/');
+                $old_file = $func->FileUpload('screenshot', 'ext_inc/tournament_screenshots/');
                 if ($old_file) {
                     unlink('ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png');
                     $gd->CreateThumb($old_file, 'ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png', 800, 600);
@@ -239,12 +239,9 @@ if ($tournament["name"] == "") {
 */
                 }
             }
-        break;
+            break;
         
         case 3:
-        
-        
-        
-        break;
+            break;
     } // Switch
 }

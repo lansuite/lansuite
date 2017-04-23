@@ -29,7 +29,7 @@ if (!$_GET["teamid"]) {
     }
 
     // Leader
-  include_once("modules/seating/class_seat.php");
+    include_once("modules/seating/class_seat.php");
     $seat2 = new seat2();
     $dsp->AddDoubleRow(t('Teamleiter'), $dsp->FetchUserIcon($team['userid'], $team['username']) . " (Platz: ". $seat2->SeatNameLink($team['userid'], '', '') .")");
 

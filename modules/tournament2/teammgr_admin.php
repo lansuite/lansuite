@@ -15,26 +15,26 @@ switch ($_GET["step"]) {
         if ($tteam->delete($_POST["teamid"])) {
             $func->confirmation(t('Das Team wurde erfolgreich gelöscht'), "index.php?mod=tournament2&action=teammgr_admin");
         }
-    break;
+        break;
 
     // Spieler einem Team hinzufügen - Suchen
     case 20:
-    include_once('modules/usrmgr/search_main.inc.php');
+        include_once('modules/usrmgr/search_main.inc.php');
 
-    $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
-    if ($auth['type'] >= 2) {
-        $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr_admin&step=21&teamid='. $teamid .'&userid=', 'Assign');
-    }
+        $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
+        if ($auth['type'] >= 2) {
+            $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr_admin&step=21&teamid='. $teamid .'&userid=', 'Assign');
+        }
 
-    $ms2->PrintSearch('index.php?mod=tournament2&action=teammgr_admin&step=20&teamid='. $teamid, 'u.userid');
-    break;
+        $ms2->PrintSearch('index.php?mod=tournament2&action=teammgr_admin&step=20&teamid='. $teamid, 'u.userid');
+        break;
 
     // Spieler einem Team hinzufügen - Ausführen
     case 21:
         if ($tteam->join($_GET["teamid"], $_GET["userid"])) {
             $func->confirmation(t('Der Spieler wurde dem Team hinzugefügt'), "index.php?mod=tournament2&action=teammgr_admin");
         }
-    break;
+        break;
 
     // Member aus Team löschen
     case 30:
@@ -42,7 +42,7 @@ switch ($_GET["step"]) {
         if ($tteam->kick($team_id, $user_id)) {
             $func->confirmation(t('Der Spieler wurde erfolgreich aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr_admin");
         }
-    break;
+        break;
 
     // Neues Team eröffnen - Teamleiter auswählen
     case 40:
@@ -56,7 +56,7 @@ switch ($_GET["step"]) {
 
             $ms2->PrintSearch('index.php?mod=tournament2&action=teammgr_admin&step=40&tournamentid='. $tournamentid, 'u.userid');
         }
-    break;
+        break;
 
     // Neues Team eröffnen - Teamname eingeben
     case 41:
@@ -78,7 +78,7 @@ switch ($_GET["step"]) {
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
             $dsp->AddBackButton("index.php?mod=tournament2&action=teammgr_admin", "");
         }
-    break;
+        break;
 
     // Neues Team eröffnen - In DB schreiben
     case 42:
@@ -95,7 +95,7 @@ switch ($_GET["step"]) {
 
             $sec->lock("t_admteam_create");
         }
-    break;
+        break;
 
 
     default:
@@ -184,7 +184,7 @@ switch ($_GET["step"]) {
         $db->free_result($teams);
 
         $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/teammgr_admin");
-    break;
+        break;
 }
 
 $dsp->AddContent();

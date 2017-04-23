@@ -277,19 +277,31 @@ muss hier 2x siegen'))));
             // Draw Frame and write captions
             $gd->Text($x_start + $x_len * $y, $y_start, $color["text"], $leader_name_array[$y-1], 12);
             $gd->Text($x_start, $y_start + $y_len * $y, $color["text"], $leader_name_array[$y-1], 12);
-            ImageLine($gd->img,
-                $x_start + $x_len * $y - 7, 0,
-                $x_start + $x_len * $y - 7, $img_height - 8,
-                $color["frame"]);
-            ImageLine($gd->img,
-                0, $y_start + $y_len * $y - 7,
-                $width - 8, $y_start + $y_len * $y - 7,
-                $color["frame"]);
+            ImageLine(
+                $gd->img,
+                $x_start + $x_len * $y - 7,
+                0,
+                $x_start + $x_len * $y - 7,
+                $img_height - 8,
+                $color["frame"]
+            );
+            ImageLine(
+                $gd->img,
+                0,
+                $y_start + $y_len * $y - 7,
+                $width - 8,
+                $y_start + $y_len * $y - 7,
+                $color["frame"]
+            );
 
-            ImageFilledRectangle($gd->img,
-                $x_start + $x_len * $y - 6, $y_start + $y_len * $y - 6,
-                $x_start + $x_len * $y + $x_len - 8, $y_start + $y_len * $y + $y_len - 8,
-                $color["round_bg_1"]);
+            ImageFilledRectangle(
+                $gd->img,
+                $x_start + $x_len * $y - 6,
+                $y_start + $y_len * $y - 6,
+                $x_start + $x_len * $y + $x_len - 8,
+                $y_start + $y_len * $y + $y_len - 8,
+                $color["round_bg_1"]
+            );
 
             for ($x = 0; $x < $y-1; $x++) {
                 $score = $db->qry_first("SELECT games1.score AS s1, games2.score AS s2, games1.leaderid AS leader1
@@ -310,10 +322,14 @@ muss hier 2x siegen'))));
                     $game_score = $score['s1']. " : " .$score['s2'];
                 }
 
-                ImageFilledRectangle($gd->img,
-                    $x_start + $x_len * ($x+1) - 6, $y_start + $y_len * $y - 6,
-                    $x_start + $x_len * ($x+2) - 8, $y_start + $y_len * ($y+1) - 8,
-                    $color["round_bg_2"]);
+                ImageFilledRectangle(
+                    $gd->img,
+                    $x_start + $x_len * ($x+1) - 6,
+                    $y_start + $y_len * $y - 6,
+                    $x_start + $x_len * ($x+2) - 8,
+                    $y_start + $y_len * ($y+1) - 8,
+                    $color["round_bg_2"]
+                );
                 $gd->Text($x_start + $x_len*($x+1), $y_start + $y_len*$y, $color["text"], $game_score);
             }
         }

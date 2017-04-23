@@ -37,7 +37,7 @@ switch ($_GET["step"]) {
         }
 
         $dsp->AddBackButton("index.php?mod=tournament2&action=export", "tournament2/export");
-    break;
+        break;
 
 
     default:
@@ -51,7 +51,7 @@ switch ($_GET["step"]) {
         $dsp->AddTextFieldRow("lgz_event_id", "LGZ-Event-ID", "", "");
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/export");
-    break;
+        break;
 }
 
 $dsp->AddContent();

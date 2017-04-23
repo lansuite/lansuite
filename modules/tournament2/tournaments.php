@@ -257,7 +257,7 @@ $selections = array();
 $verz = opendir('ext_inc/tournament_rules/');
 while ($file_name = readdir($verz)) {
     if (!is_dir('ext_inc/tournament_rules/'.$file_name) and $file_name != 'gameini.xml'
-  and $file_name != 'games.xml' and $file_name != 'info.txt' and $file_name != 'xml_games.xml') {
+    and $file_name != 'games.xml' and $file_name != 'info.txt' and $file_name != 'xml_games.xml') {
         $selections[$file_name] = $file_name;
     }
 }

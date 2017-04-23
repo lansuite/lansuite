@@ -12,38 +12,38 @@ switch ($_GET['step']) {
         if ($tteam->kick($_GET["teamid"], $auth["userid"])) {
             $func->confirmation(t('Du wurdest aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr");
         }
-    break;
+        break;
 
     // Spieler aus Team entfernen
     case 20:
         if ($tteam->kick($_GET["teamid"], $userid)) {
             $func->confirmation(t('Der Spieler wurde aus deinem Team entfernt'), "index.php?mod=tournament2&action=teammgr");
         }
-    break;
+        break;
 
     // Team abmelden (löschen) / Mich abmelden
     case 30:
         if ($tteam->delete($_GET["teamid"])) {
             $func->confirmation(t('Dein Team wurde vom Turnier abgemeldet'), "index.php?mod=tournament2&action=teammgr");
         }
-    break;
+        break;
 
     // Spieler zum eigenen Team hinzufügen - Suchen
     case 40:
-    include_once('modules/usrmgr/search_main.inc.php');
+        include_once('modules/usrmgr/search_main.inc.php');
 
-    $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
-    $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr&step=41&teamid='. $_GET["teamid"] .'&tournamentid='. $tournamentid .'&userid=', 'Assign');
+        $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
+        $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr&step=41&teamid='. $_GET["teamid"] .'&tournamentid='. $tournamentid .'&userid=', 'Assign');
 
-    $ms2->PrintSearch('index.php?mod=tournament2&action=teammgr&step=40&teamid='. $_GET["teamid"] .'&tournamentid='. $tournamentid, 'u.userid');
-    break;
+        $ms2->PrintSearch('index.php?mod=tournament2&action=teammgr&step=40&teamid='. $_GET["teamid"] .'&tournamentid='. $tournamentid, 'u.userid');
+        break;
 
     // Spieler zum eigenen Team hinzufügen - In DB schreiben
     case 41:
         if ($tteam->join($_GET["teamid"], $userid)) {
             $func->confirmation(t('Der Spieler wurde deinem Team hinzugefügt'), "index.php?mod=tournament2&action=teammgr");
         }
-    break;
+        break;
 
     // Edit Teamdetails (Form)
     case 50:
@@ -93,7 +93,7 @@ switch ($_GET['step']) {
         $dsp->AddBackButton("index.php?mod=tournament2&action=teammgr", "tournament2/teammgr");
 
         $dsp->AddContent();
-    break;
+        break;
 
     // Edit Teamdetails (Action)
     case 51:
@@ -115,7 +115,7 @@ switch ($_GET['step']) {
 
             $sec->lock("t_team_edit");
         }
-    break;
+        break;
 
 
     default:
@@ -155,7 +155,7 @@ switch ($_GET['step']) {
                 $i++;
 
             // Mitgliedernamen auslesen
-            $members = $db->qry("SELECT users.username, members.userid, members.teamid
+                $members = $db->qry("SELECT users.username, members.userid, members.teamid
     FROM %prefix%t2_teammembers AS members
     LEFT JOIN %prefix%t2_teams AS teams ON members.teamid = teams.teamid
     LEFT JOIN %prefix%user AS users ON members.userid = users.userid
@@ -193,7 +193,7 @@ switch ($_GET['step']) {
                 $i++;
 
             // Mitgliedernamen auslesen
-            $members2 = $db->qry("SELECT users.username, members.userid, members.teamid
+                $members2 = $db->qry("SELECT users.username, members.userid, members.teamid
     FROM %prefix%t2_teammembers AS members
     LEFT JOIN %prefix%t2_teams AS teams ON members.teamid = teams.teamid
     LEFT JOIN %prefix%user AS users ON members.userid = users.userid
@@ -217,5 +217,5 @@ switch ($_GET['step']) {
 
         $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/teammgr");
         $dsp->AddContent();
-    break;
+        break;
 } // Switch step

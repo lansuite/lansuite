@@ -27,7 +27,7 @@ class TourneyTree
     public $lb_tbl = array();
     public $lb_indexes = array();
 
-    public function TourneyTree($size, $wb_teams, $lb_teams=false)
+    public function TourneyTree($size, $wb_teams, $lb_teams = false)
     {
         // init vars !
         $this->size = $size;
@@ -78,7 +78,7 @@ class TourneyTree
         return (log($x)/log(2));
     }
 
-    public function getPrevCoords($round, $indexes, $offset=2)
+    public function getPrevCoords($round, $indexes, $offset = 2)
     {
         $tmp = $indexes;
         $tmp2 = $round-$offset;
@@ -210,30 +210,30 @@ class TourneyTree
                     // rounds > 1 < max
                     // $x / 2 is the actual round!
                     // $round-2 is the actual previous round
-                    if ($x > 0 && $x < $this->wb_num_cols && ($x % 2) == 0) {
-                        if ((count($this->wb_teams[$x/2]) % 2) == 1) {
-                            $this->generateBar($x+1, $y, $this->wb_tbl);
-                            $this->generateBar($x+1, $y-1, $this->wb_tbl);
-                        }
-
-                        $tmp = $this->getPrevCoords($round, $this->wb_indexes);
-                        if ($this->calcMW($tmp[0][1], $tmp[1][1]) == $y) {
-                            $this->wb_tbl[$x][$y] = array_shift($this->wb_teams[($x/2)]);        // insert team
-                            array_shift($this->wb_indexes[$round-2]);
-                            array_shift($this->wb_indexes[$round-2]);
-                            array_push($this->wb_indexes[$round], array($x, $y));
-                        }
+                if ($x > 0 && $x < $this->wb_num_cols && ($x % 2) == 0) {
+                    if ((count($this->wb_teams[$x/2]) % 2) == 1) {
+                        $this->generateBar($x+1, $y, $this->wb_tbl);
+                        $this->generateBar($x+1, $y-1, $this->wb_tbl);
                     }
+
+                    $tmp = $this->getPrevCoords($round, $this->wb_indexes);
+                    if ($this->calcMW($tmp[0][1], $tmp[1][1]) == $y) {
+                        $this->wb_tbl[$x][$y] = array_shift($this->wb_teams[($x/2)]);        // insert team
+                        array_shift($this->wb_indexes[$round-2]);
+                        array_shift($this->wb_indexes[$round-2]);
+                        array_push($this->wb_indexes[$round], array($x, $y));
+                    }
+                }
 
                     // final round
-                    if ($x == $this->wb_num_cols) {
-                        if (($y*2)+2 == $this->wb_num_rows) {
-                            $tmp = array_shift($this->wb_teams[($x/2)]);
-                            $this->wb_tbl[$x][$y] = $tmp;        // insert team
-                            // we need this team again later for the final in DE!!!
-                            array_push($this->wb_teams[($x/2)], $tmp);
-                        }
+                if ($x == $this->wb_num_cols) {
+                    if (($y*2)+2 == $this->wb_num_rows) {
+                        $tmp = array_shift($this->wb_teams[($x/2)]);
+                        $this->wb_tbl[$x][$y] = $tmp;        // insert team
+                        // we need this team again later for the final in DE!!!
+                        array_push($this->wb_teams[($x/2)], $tmp);
                     }
+                }
             }
         }
     }
@@ -246,67 +246,67 @@ class TourneyTree
                 $row = $y+1;
 
                     // first round
-                    if ($x == 0) {
-                        if ((count($this->lb_teams[$x]) % 2) == 1) {
-                            $this->generateBar($x+1, $y, $this->lb_tbl);
-                            $this->generateBar($x+1, $y-1, $this->lb_tbl);
-                        }
-                        if (($row % 2) == 1 && count($this->lb_teams[$x]) > 0) {
-                            $this->lb_tbl[$x][$y] = array_shift($this->lb_teams[$x]);        // insert team
-                            array_push($this->lb_indexes[$round], array($x, $y));
-                            // we need them for the positions of the following round
-                            if (count($this->lb_teams[$x]) <= 0) {
-                                for ($t=2; $t < $this->lb_num_rows/2; $t++) {
-                                    array_push($this->lb_indexes[$round], array($x, $y+$t));
-                                    $t += 2;
-                                }
+                if ($x == 0) {
+                    if ((count($this->lb_teams[$x]) % 2) == 1) {
+                        $this->generateBar($x+1, $y, $this->lb_tbl);
+                        $this->generateBar($x+1, $y-1, $this->lb_tbl);
+                    }
+                    if (($row % 2) == 1 && count($this->lb_teams[$x]) > 0) {
+                        $this->lb_tbl[$x][$y] = array_shift($this->lb_teams[$x]);        // insert team
+                        array_push($this->lb_indexes[$round], array($x, $y));
+                        // we need them for the positions of the following round
+                        if (count($this->lb_teams[$x]) <= 0) {
+                            for ($t=2; $t < $this->lb_num_rows/2; $t++) {
+                                array_push($this->lb_indexes[$round], array($x, $y+$t));
+                                $t += 2;
                             }
                         }
                     }
+                }
 
                     // rounds > 1
-                    if ($x > 0 && $x < ($this->lb_num_cols-2) && ($x % 2) == 0) {
-                        if ((count($this->lb_teams[$x/2]) % 2) == 1) {
-                            $this->generateBar($x+1, $y, $this->lb_tbl);
-                            $this->generateBar($x+1, $y-1, $this->lb_tbl);
-                        }
+                if ($x > 0 && $x < ($this->lb_num_cols-2) && ($x % 2) == 0) {
+                    if ((count($this->lb_teams[$x/2]) % 2) == 1) {
+                        $this->generateBar($x+1, $y, $this->lb_tbl);
+                        $this->generateBar($x+1, $y-1, $this->lb_tbl);
+                    }
 
-                        $tmp = $this->getPrevCoords($round, $this->lb_indexes);
-                        if ($this->calcMW($tmp[0][1], $tmp[1][1]) == $y) {
-                            if (count($this->lb_teams[($x/2)]) > 0) {
-                                $this->lb_tbl[$x][$y] = array_shift($this->lb_teams[($x/2)]);
-                            }        // insert team
+                    $tmp = $this->getPrevCoords($round, $this->lb_indexes);
+                    if ($this->calcMW($tmp[0][1], $tmp[1][1]) == $y) {
+                        if (count($this->lb_teams[($x/2)]) > 0) {
+                            $this->lb_tbl[$x][$y] = array_shift($this->lb_teams[($x/2)]);
+                        }        // insert team
+                        array_shift($this->lb_indexes[$round-2]);
+
+                        if ((($x/2) % 2) == 0) {
                             array_shift($this->lb_indexes[$round-2]);
+                        }
+                        array_push($this->lb_indexes[$round], array($x, $y));
 
-                            if ((($x/2) % 2) == 0) {
-                                array_shift($this->lb_indexes[$round-2]);
-                            }
-                            array_push($this->lb_indexes[$round], array($x, $y));
-
-                            if (count($this->lb_teams[($x/2)]) <= 0) {
-                                $tmp = $this->getPrevCoords($round, $this->lb_indexes, 0);
-                                $delta = $tmp[1][1] - $tmp[0][1] ;
-                                if ($delta > 0) {
-                                    for ($t=$delta; $t < ($this->lb_num_rows/2);) {
-                                        array_push($this->lb_indexes[$round], array($x, $y+$t));
-                                        $t += $delta;
-                                    }
+                        if (count($this->lb_teams[($x/2)]) <= 0) {
+                            $tmp = $this->getPrevCoords($round, $this->lb_indexes, 0);
+                            $delta = $tmp[1][1] - $tmp[0][1] ;
+                            if ($delta > 0) {
+                                for ($t=$delta; $t < ($this->lb_num_rows/2);) {
+                                    array_push($this->lb_indexes[$round], array($x, $y+$t));
+                                    $t += $delta;
                                 }
                             }
                         }
                     }
+                }
 
                     // this is the overall-final
-                    if ($x > 1 && $x == $this->lb_num_cols-2) {
-                        $tmp = $this->getPrevCoords($round, $this->lb_indexes);
-                        if ($this->calcMW($tmp[0][1], $tmp[1][1]) == $y) {
-                            $max_lb = count($this->lb_teams)-1;
-                            $max_lb = count($this->wb_teams)-1;
-                            $final = ($this->lb_teams[$this->lb_rounds-1]);
-                            $this->lb_tbl[$x][$y] = array_shift($final);
-                            $this->lb_tbl[$x][$y+2] = array_shift($final);
-                        }
+                if ($x > 1 && $x == $this->lb_num_cols-2) {
+                    $tmp = $this->getPrevCoords($round, $this->lb_indexes);
+                    if ($this->calcMW($tmp[0][1], $tmp[1][1]) == $y) {
+                        $max_lb = count($this->lb_teams)-1;
+                        $max_lb = count($this->wb_teams)-1;
+                        $final = ($this->lb_teams[$this->lb_rounds-1]);
+                        $this->lb_tbl[$x][$y] = array_shift($final);
+                        $this->lb_tbl[$x][$y+2] = array_shift($final);
                     }
+                }
             }
         }
     }

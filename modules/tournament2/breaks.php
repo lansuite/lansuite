@@ -8,7 +8,7 @@ switch ($_GET['step']) {
         include_once('inc/classes/class_masterdelete.php');
         $md = new masterdelete();
         $md->Delete('t2_breaks', 'breakid', $_GET['breakid']);
-    break;
+        break;
     
     default:
         include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -31,7 +31,7 @@ switch ($_GET['step']) {
         $mf->AddField(t('Dauer der Pause (in Minuten)'), 'duration');
         $mf->SendForm('', 't2_breaks', 'breakid', $_GET['breakid']);
         $dsp->AddFieldSetEnd();
-    break;
+        break;
 }
 
 $buttons = "";
