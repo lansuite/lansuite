@@ -4,45 +4,44 @@ include_once('modules/guestlist/class_guestlist.php');
 $guestlist = new guestlist;
 
 switch ($_GET['step']) {
-
     // Export CSV
     case 10:
-    if (!$_POST['action'] and $_GET['userid']) {
-        $_POST['action'][$_GET['userid']] = 1;
-    }
-
-    if ($auth['type'] >= 2 and $_POST['action']) {
-        header('Expires: 0');
-        header('Cache-control: private');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/vnd.ms-excel; charset: UTF-8');
-        header('Content-disposition: attachment; filename=user.csv');
-        echo pack("CCC", 0xef, 0xbb, 0xbf);
-            
-        echo "UserID;Username;Firstname;Lastname;Clan\n";
-        foreach ($_POST['action'] as $key => $val) {
-            echo $func->AllowHTML($guestlist->Export($key, $party->party_id)). "\n";
+        if (!$_POST['action'] and $_GET['userid']) {
+            $_POST['action'][$_GET['userid']] = 1;
         }
-        exit;
-    }
+
+        if ($auth['type'] >= 2 and $_POST['action']) {
+            header('Expires: 0');
+            header('Cache-control: private');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/vnd.ms-excel; charset: UTF-8');
+            header('Content-disposition: attachment; filename=user.csv');
+            echo pack("CCC", 0xef, 0xbb, 0xbf);
+            
+            echo "UserID;Username;Firstname;Lastname;Clan\n";
+            foreach ($_POST['action'] as $key => $val) {
+                echo $func->AllowHTML($guestlist->Export($key, $party->party_id)). "\n";
+            }
+            exit;
+        }
     
-    $func->information(t('Bitte markiere die User jetzt noch als exportiert.'));
-    break;
+        $func->information(t('Bitte markiere die User jetzt noch als exportiert.'));
+        break;
     
     // Set Exported
     case 11:
-    if (!$_POST['action'] and $_GET['userid']) {
-        $_POST['action'][$_GET['userid']] = 1;
-    }
-
-    if ($auth['type'] >= 2 and $_POST['action']) {
-        foreach ($_POST['action'] as $key => $val) {
-            $guestlist->SetExported($key, $party->party_id);
+        if (!$_POST['action'] and $_GET['userid']) {
+            $_POST['action'][$_GET['userid']] = 1;
         }
-        $func->confirmation(t('Die User wurden für die aktuelle Party als exportiert markiert.'));
-    }
-    break;
+
+        if ($auth['type'] >= 2 and $_POST['action']) {
+            foreach ($_POST['action'] as $key => $val) {
+                $guestlist->SetExported($key, $party->party_id);
+            }
+            $func->confirmation(t('Die User wurden für die aktuelle Party als exportiert markiert.'));
+        }
+        break;
 }
 
 include_once('modules/mastersearch2/class_mastersearch2.php');

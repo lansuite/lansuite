@@ -42,7 +42,7 @@ class guestlist
         }
 
     // Reserve Seat
-    $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
+        $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
 
         $usrmgr->WriteXMLStatFile();
 
@@ -79,7 +79,7 @@ class guestlist
         }
 
     // Switch seat back to "marked"
-    $seat2->MarkSeatIfNotPaidAndSeatReserved($userid);
+        $seat2->MarkSeatIfNotPaidAndSeatReserved($userid);
 
         $usrmgr->WriteXMLStatFile();
 
@@ -92,7 +92,7 @@ class guestlist
         global $db, $func;
 
     // Check paid
-    $row = $db->qry_first('SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+        $row = $db->qry_first('SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
         if (!$row['paid']) {
             return 1;
         }
@@ -100,7 +100,7 @@ class guestlist
         $db->qry('UPDATE %prefix%party_user SET checkin = NOW() WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
 
     // Log
-    $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
+        $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
         $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
         $func->log_event(t('Benutzer "%1" wurde für die Party "%2" eingecheckt', $row['username'], $row2['name']), 1, '', 'Checkin');
     }
@@ -110,7 +110,7 @@ class guestlist
         global $db, $func;
 
     // Check checkin
-    $row = $db->qry_first('SELECT checkin FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+        $row = $db->qry_first('SELECT checkin FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
         if (!$row['checkin']) {
             return 1;
         }
@@ -118,7 +118,7 @@ class guestlist
         $db->qry('UPDATE %prefix%party_user SET checkout = NOW() WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
 
     // Log
-    $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
+        $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
         $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
         $func->log_event(t('Benutzer "%1" wurde für die Party "%2" ausgecheckt', $row['username'], $row2['name']), 1, '', 'Checkin');
     }
@@ -130,7 +130,7 @@ class guestlist
         $db->qry('UPDATE %prefix%party_user SET checkin = 0, checkout = 0 WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
 
     // Log
-    $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
+        $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
         $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
         $func->log_event(t('Einceck- und Auscheckstatus des Benutzers "%1" wurde für die Party "%2" zurückgesetzt', $row['username'], $row2['name']), 1, '', 'Checkin');
     }

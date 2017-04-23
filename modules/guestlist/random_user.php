@@ -25,9 +25,9 @@
 
         $party_list = array('' => 'Alle', 'NULL' => 'Zu keiner Party angemeldet');
         $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
-        while ($res = $db->fetch_array($row)) {
-            $party_list[$res['party_id']] = $res['name'];
-        }
+while ($res = $db->fetch_array($row)) {
+    $party_list[$res['party_id']] = $res['name'];
+}
         $db->free_result($row);
 
         $ms2->AddTextSearchDropDown(t('Party'), 'p.party_id', $party_list, $party->party_id);
