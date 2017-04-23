@@ -76,15 +76,15 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     $mf->AddField(t('Name'), 'caption');
 
   //Party-Liste
-  if ($func->isModActive('party')) {
-      $party_list = array('' => t('KEINE'));
-      $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
-      while ($res = $db->fetch_array($row)) {
-          $party_list[$res['party_id']] = $res['name'];
-      }
-      $db->free_result($row);
-      $mf->AddField(t('Party'), 'party_id', IS_SELECTION, $party_list, $party->party_id);
-  }
+    if ($func->isModActive('party')) {
+        $party_list = array('' => t('KEINE'));
+        $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
+        while ($res = $db->fetch_array($row)) {
+            $party_list[$res['party_id']] = $res['name'];
+        }
+        $db->free_result($row);
+        $mf->AddField(t('Party'), 'party_id', IS_SELECTION, $party_list, $party->party_id);
+    }
 
     $selections = array();
     $selections['gameserver'] = t('Gameserver');
@@ -113,8 +113,8 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
 
     if ($mf->SendForm('index.php?mod=server&action=add', 'server', 'serverid', $_GET['serverid'])) {
         // Increase auto IP
-    if ($cfg['server_ip_auto_assign']) {
-        $db->qry('UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = \'server_ip_next\'', $cfg['server_ip_next'] + 1);
-    }
+        if ($cfg['server_ip_auto_assign']) {
+            $db->qry('UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = \'server_ip_next\'', $cfg['server_ip_next'] + 1);
+        }
     };
 }
