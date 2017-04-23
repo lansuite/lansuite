@@ -40,7 +40,7 @@ if (!$pic['caption']) {
 switch ($_GET["step"]) {
     default:
         $func->question(t('Willst du das Bild <b>%1 (%2)</b> wirklich l&ouml;schen?', $pic['caption'], $_GET["file"]), "index.php?mod=picgallery&action=delete&step=2&file={$_GET["file"]}", "index.php?mod=picgallery&file=$akt_dir");
-    break;
+        break;
     
     case 2:
         $delete_db = $db->qry("DELETE FROM %prefix%picgallery WHERE name = %string%", $db_dir);
@@ -51,18 +51,19 @@ switch ($_GET["step"]) {
         }
 
         $func->confirmation(t('Das Bild <b>%1 (%2)</b> wurde gel&ouml;scht', $pic['caption'], $_GET["file"]), "index.php?mod=picgallery&file=$akt_dir");
-    break;
+        break;
     
   // Delete directory
     case 10:
-        $func->question(t('Möchtest du dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!'),
-      "index.php?mod=picgallery&action=delete&step=11&file={$_GET["file"]}",
-      "index.php?mod=picgallery&file=$akt_dir"
-      );
-  break;
+        $func->question(
+            t('Möchtest du dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!'),
+            "index.php?mod=picgallery&action=delete&step=11&file={$_GET["file"]}",
+            "index.php?mod=picgallery&file=$akt_dir"
+        );
+        break;
 
-  case 11:
-    recursiveRemoveDirectory("ext_inc/picgallery".$_GET["file"]);
-    $func->confirmation(t('Das Verzeichnis wurde erfolgreich gelöscht'), 'index.php?mod=picgallery');
-    break;
+    case 11:
+        recursiveRemoveDirectory("ext_inc/picgallery".$_GET["file"]);
+        $func->confirmation(t('Das Verzeichnis wurde erfolgreich gelöscht'), 'index.php?mod=picgallery');
+        break;
 }

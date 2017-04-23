@@ -102,9 +102,7 @@ if ($_POST["file_name"] and ($auth['type'] >= 2 or $cfg['picgallery_allow_user_n
 // GD-Check
 if (!$gd->available) {
     $func->error(t('Kein GD installiert'));
-}
-
-// Wenn keine Datei ausgewählt ist: Übersicht
+} // Wenn keine Datei ausgewählt ist: Übersicht
 elseif (!$akt_file) {
     unset($_SESSION['klick_reload']);
     unset($klick_reload);
@@ -161,7 +159,7 @@ elseif (!$akt_file) {
         closedir($handle);
 
     // Sort by Name
-    sort($dir_list);
+        sort($dir_list);
         sort($file_list);
     }
     $num_files = count($file_list);
@@ -254,34 +252,34 @@ elseif (!$akt_file) {
                     $smarty->assign('buttons', $buttons);
 
           // Videos
-          if (IsSupportedVideo($extension)) {
-              $smarty->assign('pic_width', $cfg["picgallery_max_width"]);
-              $smarty->assign('pic_height', $cfg["picgallery_max_height"]);
-              $smarty->assign('pic_src', $root_dir . $file);
+                    if (IsSupportedVideo($extension)) {
+                        $smarty->assign('pic_width', $cfg["picgallery_max_width"]);
+                        $smarty->assign('pic_height', $cfg["picgallery_max_height"]);
+                        $smarty->assign('pic_src', $root_dir . $file);
 
-              $cols .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_spalte_vid.htm');
-          // Pics
-          } else {
-              // Wenn Thumb noch nicht generiert wurde, generieren versuchen
-                    if (!file_exists($thumb_path)) {
-                        $gd->CreateThumb($root_dir . $file, $thumb_path, $cfg["picgallery_max_width"], $cfg["picgallery_max_height"]);
+                        $cols .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_spalte_vid.htm');
+                              // Pics
+                    } else {
+                        // Wenn Thumb noch nicht generiert wurde, generieren versuchen
+                        if (!file_exists($thumb_path)) {
+                            $gd->CreateThumb($root_dir . $file, $thumb_path, $cfg["picgallery_max_width"], $cfg["picgallery_max_height"]);
+                        }
+
+                              // Size HTML
+                        if (file_exists($thumb_path)) {
+                            $pic_dimensions = GetImageSize($thumb_path);
+                        }
+                        if (!$pic_dimensions) {
+                            $pic_dimensions[0] = $cfg["picgallery_max_width"];
+                            $pic_dimensions[1] = $cfg["picgallery_max_height"];
+                        }
+
+                        $smarty->assign('pic_width', $pic_dimensions[0]);
+                        $smarty->assign('pic_height', $pic_dimensions[1]);
+                        $smarty->assign('pic_src', $thumb_path);
+
+                        $cols .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_spalte.htm');
                     }
-
-                    // Size HTML
-                    if (file_exists($thumb_path)) {
-                        $pic_dimensions = GetImageSize($thumb_path);
-                    }
-              if (!$pic_dimensions) {
-                  $pic_dimensions[0] = $cfg["picgallery_max_width"];
-                  $pic_dimensions[1] = $cfg["picgallery_max_height"];
-              }
-
-              $smarty->assign('pic_width', $pic_dimensions[0]);
-              $smarty->assign('pic_height', $pic_dimensions[1]);
-              $smarty->assign('pic_src', $thumb_path);
-
-              $cols .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_spalte.htm');
-          }
 
                     if ($z % $cfg["picgallery_items_per_row"] == 0) {
                         $smarty->assign('cols', $cols);
@@ -301,14 +299,18 @@ elseif (!$akt_file) {
                     $extension =  strtolower(substr($package, strrpos($package, ".") + 1, 4));
 
                     switch ($extension) {
-                        case "ace":        $icon = "ace.jpg";
-                        break;
-                        case "rar":        $icon = "rar.jpg";
-                        break;
-                        case "zip":        $icon = "zip.jpg";
-                        break;
-                        default:        $icon = "zip.jpg";
-                        break;
+                        case "ace":
+                            $icon = "ace.jpg";
+                            break;
+                        case "rar":
+                            $icon = "rar.jpg";
+                            break;
+                        case "zip":
+                            $icon = "zip.jpg";
+                            break;
+                        default:
+                            $icon = "zip.jpg";
+                            break;
                     }
 
                     $thumb_path = $icon_dir . $icon;
@@ -411,27 +413,27 @@ elseif (!$akt_file) {
             }
 
       // Videos
-      if (IsSupportedVideo($extension)) {
-          $dsp->AddDoubleRow("", '<video width="450" height="350" src="'. $root_file .'" autobuffer autoplay controls>
+            if (IsSupportedVideo($extension)) {
+                $dsp->AddDoubleRow("", '<video width="450" height="350" src="'. $root_file .'" autobuffer autoplay controls>
           <div class="video-fallback"><br>Du benötigst einen Browser, der HTML5 unterstützt.</div>
         </video>');
 
-      // Pics
-      } else {
-          // Get pic data
-            $picinfo = GetImageSize($root_file);
-          $picinfo['5'] = filesize($root_file) / 1024;
+                  // Pics
+            } else {
+                // Get pic data
+                  $picinfo = GetImageSize($root_file);
+                $picinfo['5'] = filesize($root_file) / 1024;
 
-            // Check width
-            ($picinfo['0'] > "450") ? $pic_width = "450" : $pic_width = $picinfo['0'];
+                  // Check width
+                  ($picinfo['0'] > "450") ? $pic_width = "450" : $pic_width = $picinfo['0'];
 
-          $js_full_link = "javascript:var w=window.open('$root_file','_blank','width=". ($picinfo['0'] + 10) .",height=". ($picinfo['1'] + 10) .",resizable=yes,scrollbars=yes')";
+                $js_full_link = "javascript:var w=window.open('$root_file','_blank','width=". ($picinfo['0'] + 10) .",height=". ($picinfo['1'] + 10) .",resizable=yes,scrollbars=yes')";
 
-            //					JPG						PNG						GIF						BMP
-            if ($picinfo['2'] == "1" or $picinfo['2'] == "2" or $picinfo['2'] == "3" or $picinfo['2'] == "6") {
-                $dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
+                  //					JPG						PNG						GIF						BMP
+                if ($picinfo['2'] == "1" or $picinfo['2'] == "2" or $picinfo['2'] == "3" or $picinfo['2'] == "6") {
+                    $dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
+                }
             }
-      }
 
             // Define Buttons
             if (!IsPackage($extension)) {
