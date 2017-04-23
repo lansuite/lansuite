@@ -16,7 +16,7 @@ if ($party->count > 0) {
     ($user_party['user_id'])? $party_row .= t('Angemeldet') :  $party_row .= t('Nicht Angemeldet');
     if (IsAuthorizedAdmin()) {
         ($user_party['paid'])? $link = 'index.php?mod=guestlist&step=11&userid='. $_GET['userid']
-      : $link = 'index.php?mod=guestlist&step=10&userid='. $_GET['userid'];
+        : $link = 'index.php?mod=guestlist&step=10&userid='. $_GET['userid'];
     }
     // Paid
     ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link, t('Nicht bezahlt'));

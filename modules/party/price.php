@@ -6,10 +6,10 @@ if (!$_GET['party_id']) {
 $dsp->AddDoubleRow('Party', $party->data['name']);
 
 switch ($_GET['step']) {
-  case 11:
-    $db->qry('UPDATE %prefix%partys SET evening_price_id = %int% WHERE party_id = %int%', $_GET['evening_price_id'], $_GET['party_id']);
-    $func->confirmation(t('Der neue Abendkasse-Preis wurde gesetzt'));
-  break;
+    case 11:
+        $db->qry('UPDATE %prefix%partys SET evening_price_id = %int% WHERE party_id = %int%', $_GET['evening_price_id'], $_GET['party_id']);
+        $func->confirmation(t('Der neue Abendkasse-Preis wurde gesetzt'));
+        break;
 }
 
 function eveningPriceIdLink($evening_price_id)

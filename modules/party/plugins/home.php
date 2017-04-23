@@ -3,16 +3,14 @@ $smarty->assign('caption', t('Party') . " " . $_SESSION['party_info']['name']);
 $content = '';
   
 if ($party->count > 0) {
-
   // With or without admins?
-  if ($cfg['guestlist_showorga'] == 0) {
-      $querytype = 'type = 1';
-  } else {
-      $querytype = 'type >= 1';
-  }
+    if ($cfg['guestlist_showorga'] == 0) {
+        $querytype = 'type = 1';
+    } else {
+        $querytype = 'type >= 1';
+    }
 
     if ($party->party_id != '') {
-
     // User paid / Checked In / Checked Out
         $user_paid = $db->qry_first("SELECT count(*) as n FROM %prefix%party_user AS p
       LEFT JOIN %prefix%user ON user_id=userid
@@ -39,7 +37,7 @@ if ($party->count > 0) {
     ", (time() - 60 * 10));
     $online = $db->qry_first('SELECT FOUND_ROWS() AS count');
     */
-    $online = count($authentication->online_users);
+        $online = count($authentication->online_users);
         $visits = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
         $content .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. $online['count'] . HTML_NEWLINE;
     }

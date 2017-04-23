@@ -80,7 +80,7 @@ $bar .= '<ul class="BarClear">&nbsp;</ul>';
 if ($cfg['sys_internet']) {
     #if (strlen($_SESSION['party_info']['name']) > 16) $party_name = substr($_SESSION['party_info']['name'], 0, 14) .'...';
   #else
-  $options = '';
+    $options = '';
     $res = $db->qry('SELECT party_id, name FROM %prefix%partys');
     if ($db->num_rows($res) > 1 && $cfg['display_change_party']) {
         while ($row = $db->fetch_array($res)) {
