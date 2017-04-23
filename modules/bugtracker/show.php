@@ -23,19 +23,19 @@ if ($_POST['action']) {
     foreach ($_POST['action'] as $key => $val) {
         if ($auth['type'] >= 2) {
             // Change state
-    if ($_GET['state'] != '' and $_GET['state'] >= 2) {
-        $bugtracker->SetBugState($key, $_GET['state']);
-    }
+            if ($_GET['state'] != '' and $_GET['state'] >= 2) {
+                $bugtracker->SetBugState($key, $_GET['state']);
+            }
 
     // Assign to new user
-    if ($_GET['userid'] != '') {
-        $bugtracker->AssignBugToUser($key, $_GET['userid']);
-    }
+            if ($_GET['userid'] != '') {
+                $bugtracker->AssignBugToUser($key, $_GET['userid']);
+            }
         } elseif ($auth['login']) {
             // Change state
-    if ($_GET['state'] != '' and ($_GET['state'] == 1 or $_GET['state'] == 2 or $_GET['state'] == 7)) {
-        $bugtracker->SetBugState($key, $_GET['state']);
-    }
+            if ($_GET['state'] != '' and ($_GET['state'] == 1 or $_GET['state'] == 2 or $_GET['state'] == 7)) {
+                $bugtracker->SetBugState($key, $_GET['state']);
+            }
         }
     }
 }
@@ -90,7 +90,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     ";
     $ms2->query['where'] = '(!private OR '. (int)$auth['type'] .' >= 2)';
 #  $ms2->query['default_order_by'] = 'FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
-  $ms2->query['default_order_by'] = 'changedate DESC, FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
+    $ms2->query['default_order_by'] = 'changedate DESC, FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
     $ms2->config['EntriesPerPage'] = 50;
     $ms2->AddBGColor('state', $colors);
 
@@ -138,7 +138,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $ms2->AddTextSearchDropDown('Typ', 'b.type', $list);
 */
 
-  $ms2->AddResultField(t('Titel'), 'b.caption');
+    $ms2->AddResultField(t('Titel'), 'b.caption');
     $ms2->AddSelect('r.userid');
     $ms2->AddSelect('b.price');
     $ms2->AddSelect('b.price_payed');
@@ -189,8 +189,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     $row = $db->qry_first("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, UNIX_TIMESTAMP(b.date) AS date, r.username AS reporter_name, a.username AS agent_name FROM %prefix%bugtracker AS b
     LEFT JOIN %prefix%user AS r ON b.reporter = r.userid
     LEFT JOIN %prefix%user AS a ON b.agent = a.userid
-    WHERE bugid = %int% AND (!private OR ". (int)$auth['type'] ." >= 2)", $_GET['bugid']
-    );
+    WHERE bugid = %int% AND (!private OR ". (int)$auth['type'] ." >= 2)", $_GET['bugid']);
 
     $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
     $dsp->StartTabs();

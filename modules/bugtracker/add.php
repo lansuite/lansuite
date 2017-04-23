@@ -38,11 +38,11 @@ if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']
     $mf->AddField(t('Priorität'), 'priority', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
   // Assign bug
-  if ($auth['type'] >= 2) {
-      $mf->AddDropDownFromTable(t('Bearbeiter'), 'agent', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
-      $mf->AddField(t('Preis'), 'price', '', '', FIELD_OPTIONAL);
-      $mf->AddField(t('Bereits gespendet'), 'price_payed', '', '', FIELD_OPTIONAL);
-  }
+    if ($auth['type'] >= 2) {
+        $mf->AddDropDownFromTable(t('Bearbeiter'), 'agent', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
+        $mf->AddField(t('Preis'), 'price', '', '', FIELD_OPTIONAL);
+        $mf->AddField(t('Bereits gespendet'), 'price_payed', '', '', FIELD_OPTIONAL);
+    }
 
     if (!$_GET['bugid']) {
         $mf->AddFix('date', 'NOW()');
