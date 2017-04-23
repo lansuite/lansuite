@@ -31,43 +31,43 @@ if (!$_GET['file']) {
 // Details
 } else {
     switch ($_GET['time']) {
-    default:
-      $link = 'y';
-      $back = '';
-      $group_by = '%Y-00-00-00-00-00';
-      $where = '0000-00-00-00-00-00';
-      $where_back = '';
-      $_GET['timeframe'] = '0000-00-00-00-00-00';
-    break;
-    case 'y':
-      $link = 'm';
-      $back = '';
-      $group_by = '%Y-%m-00-00-00-00';
-      $where = '%Y-00-00-00-00-00';
-      $where_back = '00-00-00-00-00-00';
-    break;
-    case 'm':
-      $link = 'd';
-      $back = 'y';
-      $group_by = '%Y-%m-%d-00-00-00';
-      $where = '%Y-%m-00-00-00-00';
-      $where_back = '%Y-00-00-00-00-00';
-    break;
-    case 'd':
-      $link = '';
-      $back = 'm';
-      $group_by = '%Y-%m-%d-%H-00-00';
-      $where = '%Y-%m-%d-00-00-00';
-      $where_back = '%Y-%m-00-00-00-00';
-    break;
-  }
+        default:
+              $link = 'y';
+              $back = '';
+              $group_by = '%Y-00-00-00-00-00';
+              $where = '0000-00-00-00-00-00';
+              $where_back = '';
+              $_GET['timeframe'] = '0000-00-00-00-00-00';
+            break;
+        case 'y':
+              $link = 'm';
+              $back = '';
+              $group_by = '%Y-%m-00-00-00-00';
+              $where = '%Y-00-00-00-00-00';
+              $where_back = '00-00-00-00-00-00';
+            break;
+        case 'm':
+              $link = 'd';
+              $back = 'y';
+              $group_by = '%Y-%m-%d-00-00-00';
+              $where = '%Y-%m-00-00-00-00';
+              $where_back = '%Y-00-00-00-00-00';
+            break;
+        case 'd':
+              $link = '';
+              $back = 'm';
+              $group_by = '%Y-%m-%d-%H-00-00';
+              $where = '%Y-%m-%d-00-00-00';
+              $where_back = '%Y-%m-00-00-00-00';
+            break;
+    }
 
     $dsp->AddSingleRow('<object data="index.php?mod=downloads&action=stats_grafik&design=base&file='. $_GET['file'] .'&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
     Dein Browser kann das Objekt leider nicht anzeigen!
   </object>');
 #  #  <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'>
 
-  $dsp->AddDoubleRow("<b>Time</b>", "<b>Hits</b>");
+    $dsp->AddDoubleRow("<b>Time</b>", "<b>Hits</b>");
 
     $res = $db->qry("SELECT DATE_FORMAT(time, %string%) AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits FROM %prefix%download_stats
     WHERE file = %string% AND DATE_FORMAT(time, %string%) = %string%
@@ -76,11 +76,19 @@ if (!$_GET['file']) {
   ", $group_by, $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
     while ($row = $db->fetch_array($res)) {
         switch ($_GET['time']) {
-      default: $out = $func->unixstamp2date($row['display_time'], 'year'); break;
-      case 'y': $out = $func->unixstamp2date($row['display_time'], 'month'); break;
-      case 'm': $out = $func->unixstamp2date($row['display_time'], 'daydate'); break;
-      case 'd': $out = $func->unixstamp2date($row['display_time'], 'daydatetime'); break;
-    }
+            default:
+                $out = $func->unixstamp2date($row['display_time'], 'year');
+                break;
+            case 'y':
+                $out = $func->unixstamp2date($row['display_time'], 'month');
+                break;
+            case 'm':
+                $out = $func->unixstamp2date($row['display_time'], 'daydate');
+                break;
+            case 'd':
+                $out = $func->unixstamp2date($row['display_time'], 'daydatetime');
+                break;
+        }
         if ($link) {
             $out = '<a href="index.php?mod=downloads&action=stats&file='.$_GET['file'].'&time='. $link .'&timeframe='. $row['group_by_time'] .'">'. $out .'</a>';
         }

@@ -4,152 +4,150 @@ if (!$cfg['download_use_ftp']) {
     $BaseDir = 'ext_inc/downloads/';
 
   // Don't allow directories above base!
-  $_GET['dir'] = str_replace('..', '', $_GET['dir']);
+    $_GET['dir'] = str_replace('..', '', $_GET['dir']);
 
   // Download dialoge, if file is selected
-  if (is_file($BaseDir.$_GET['dir'])) {
-      $row = $db->qry_first("SELECT 1 AS found FROM %prefix%download_stats WHERE file = %string% AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
-      if ($row['found']) {
-          $db->qry("UPDATE %prefix%download_stats SET hits = hits + 1 WHERE file = %string% AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
-      } else {
-          $db->qry("INSERT INTO %prefix%download_stats SET file = %string%, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
-      }
-
-#    header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
-#    header('Content-Disposition: attachment; filename="'. substr($_GET['dir'], strrpos($_GET['dir'], '/') + 1, strlen($_GET['dir'])) .'"');
-#    header("Content-Length: " .(string)(filesize($BaseDir.$_GET['dir'])));
-#    readfile($BaseDir.$_GET['dir']);
-    header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $_GET['dir']);
-      exit;
-
-  // Display directory
-  } else {
-
-    // Generate up-links
-    $Dirs = explode('/', $_GET['dir']);
-      $LinkUp = '<a href="index.php?mod=downloads" class="menu">Downloads</a>';
-      $LinkUpDir = '';
-      $FileName = '';
-      foreach ($Dirs as $val) {
-          if ($val != '') {
-              $LinkUpDir .= $val;
-              $LinkUp .= ' - <a href="index.php?mod=downloads&dir='. $LinkUpDir .'" class="menu">'. $val .'</a>';
-              $LinkUpDir .= '/';
-              $FileName = $val;
-          }
-      }
-      $dsp->NewContent(t('Downloads'), $LinkUp);
-
-    // Display Dir-Info-Text from DB
-    $row = $db->qry_first("SELECT dirid, text, allow_upload FROM %prefix%download_dirs WHERE name = %string%", $_GET['dir']);
-      if (!$row['dirid'] and is_dir($BaseDir.$_GET['dir'])) {
-          $db->qry("INSERT INTO %prefix%download_dirs SET name = %string%", $_GET['dir']);
-          $row['dirid'] = $db->insert_id();
-      }
-      if ($row['text']) {
-          $dsp->AddFieldSetStart(t('Ordner-Information'));
-          $dsp->AddSingleRow($func->text2html($row['text']));
-          $dsp->AddFieldSetEnd();
-      }
-
-    // Upload submittet file
-    if ($_GET['step'] == 20 and $auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
-        $func->FileUpload('upload', $BaseDir.$_GET['dir']);
-    }
-
-      $dsp->AddFieldSetStart(t('Navigation: ') . $LinkUp);
-      $FileList = array();
-      if (file_exists($BaseDir.$_GET['dir'])) {
-          $DLDesign = opendir($BaseDir.$_GET['dir']);
-          if ($DLDesign) {
-              while ($CurFile = readdir($DLDesign)) {
-                  if ($CurFile != '.' and $CurFile != '..') {
-                      $FileList[] = $CurFile;
-                  }
-              }
-              closedir($DLDesign);
-              sort($FileList);
-          }
-      }
-          
-      if ($FileList) {
-          foreach ($FileList as $CurFile) {
-              $CreateTime = filectime($BaseDir.'/'.$CurFilePath);
-
-              if ($_GET['dir']) {
-                  $CurFilePath = $_GET['dir'] .'/'. $CurFile;
-              } else {
-                  $CurFilePath = $CurFile;
-              }
-
-              if ($CurFilePath != 'info.txt' and $CurFilePath != '.svn') {
-
-        // Dir
-        if (is_dir($BaseDir.'/'.$CurFilePath)) {
-            $dsp->AddSingleRow('<a href="index.php?mod=downloads&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_folder.gif" border="0" /> '. $CurFile .'</a>');
-
-        // File
+    if (is_file($BaseDir.$_GET['dir'])) {
+        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%download_stats WHERE file = %string% AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
+        if ($row['found']) {
+            $db->qry("UPDATE %prefix%download_stats SET hits = hits + 1 WHERE file = %string% AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
         } else {
-            $Size = filesize($BaseDir.'/'.$CurFilePath);
-            $dsp->AddSingleRow('<a href="index.php?mod=downloads&design=base&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $CurFile .' ['. $func->FormatFileSize($Size) .']'.'</a>');
-        }
-              }
-          }
-      } else {
-          $func->information('No files found in "'. ($BaseDir.$_GET['dir']) .'"');
-      }
-
-    // Links
-    $res2 = $db->qry('SELECT link FROM %prefix%download_urls WHERE dir = %string%', $_GET['dir']);
-      while ($row2 = $db->fetch_array($res2)) {
-          $LinkName = substr($row2['link'], strrpos($row2['link'], '/') + 1, strlen($row2['link']));
-          $dsp->AddSingleRow('<a href="'. $row2['link'] .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $LinkName .'</a>');
-      }
-      $db->free_result($res2);
-
-      $dsp->AddFieldSetEnd();
-
-      if ($auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
-          // File Upload Box
-      $dsp->AddFieldSetStart(t('Datei hochladen'));
-          $dsp->SetForm('index.php?mod=downloads&step=20&dir='. $_GET['dir'], '', '', 'multipart/form-data');
-          $dsp->AddFileSelectRow('upload', t('Datei'), '', '', '', 1);
-          $dsp->AddFormSubmitRow('add');
-          $dsp->AddFieldSetEnd();
-
-      // URL Upload Box
-      $dsp->AddFieldSetStart(t('URL verlinken'));
-          include_once('inc/classes/class_masterform.php');
-          $mf = new masterform();
-          $mf->AddField(t('URL'), 'link');
-          $mf->AddFix('dir', $_GET['dir']);
-          $mf->SendForm('index.php?mod=downloads&dir='. $_GET['dir'], 'download_urls', 'urlid', $row['urlid']);
-          $dsp->AddFieldSetEnd();
-      }
-
-    // Comments
-    if ($_GET['mf_step'] != 2 or $_GET['step'] != 10) {
-        include('inc/classes/class_mastercomment.php');
-        new Mastercomment('downloads', $row['dirid']);
-    }
-
-    // Admin functions for dir
-    if ($auth['type'] >= 2 and ($_GET['mf_step'] != 2 or $_GET['step'] == 10)) {
-        $dsp->AddFieldSetStart(t('Ordner Text und Einstellungen editieren'));
-        include_once('inc/classes/class_masterform.php');
-        $mf = new masterform();
-
-        $mf->AddField(t('Text'), 'text', '', LSCODE_BIG, FIELD_OPTIONAL);
-        $mf->AddField(t('Benutzer-Upload erlauben?'), 'allow_upload', '', '', FIELD_OPTIONAL);
-        if (!$_GET['dirid']) {
-            $mf->AddFix('name', $_GET['dir']);
-            $mf->AddFix('userid', $auth['userid']);
+            $db->qry("INSERT INTO %prefix%download_stats SET file = %string%, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
         }
 
-        $mf->SendForm('index.php?mod=downloads&step=10&dir='. $_GET['dir'], 'download_dirs', 'dirid', $row['dirid']);
-        $dsp->AddFieldSetEnd();
+    #    header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
+    #    header('Content-Disposition: attachment; filename="'. substr($_GET['dir'], strrpos($_GET['dir'], '/') + 1, strlen($_GET['dir'])) .'"');
+    #    header("Content-Length: " .(string)(filesize($BaseDir.$_GET['dir'])));
+    #    readfile($BaseDir.$_GET['dir']);
+        header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $_GET['dir']);
+          exit;
+
+      // Display directory
+    } else {
+        // Generate up-links
+        $Dirs = explode('/', $_GET['dir']);
+        $LinkUp = '<a href="index.php?mod=downloads" class="menu">Downloads</a>';
+        $LinkUpDir = '';
+        $FileName = '';
+        foreach ($Dirs as $val) {
+            if ($val != '') {
+                $LinkUpDir .= $val;
+                $LinkUp .= ' - <a href="index.php?mod=downloads&dir='. $LinkUpDir .'" class="menu">'. $val .'</a>';
+                $LinkUpDir .= '/';
+                $FileName = $val;
+            }
+        }
+        $dsp->NewContent(t('Downloads'), $LinkUp);
+
+        // Display Dir-Info-Text from DB
+        $row = $db->qry_first("SELECT dirid, text, allow_upload FROM %prefix%download_dirs WHERE name = %string%", $_GET['dir']);
+        if (!$row['dirid'] and is_dir($BaseDir.$_GET['dir'])) {
+            $db->qry("INSERT INTO %prefix%download_dirs SET name = %string%", $_GET['dir']);
+            $row['dirid'] = $db->insert_id();
+        }
+        if ($row['text']) {
+            $dsp->AddFieldSetStart(t('Ordner-Information'));
+            $dsp->AddSingleRow($func->text2html($row['text']));
+            $dsp->AddFieldSetEnd();
+        }
+
+        // Upload submittet file
+        if ($_GET['step'] == 20 and $auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
+            $func->FileUpload('upload', $BaseDir.$_GET['dir']);
+        }
+
+        $dsp->AddFieldSetStart(t('Navigation: ') . $LinkUp);
+        $FileList = array();
+        if (file_exists($BaseDir.$_GET['dir'])) {
+            $DLDesign = opendir($BaseDir.$_GET['dir']);
+            if ($DLDesign) {
+                while ($CurFile = readdir($DLDesign)) {
+                    if ($CurFile != '.' and $CurFile != '..') {
+                        $FileList[] = $CurFile;
+                    }
+                }
+                closedir($DLDesign);
+                sort($FileList);
+            }
+        }
+          
+        if ($FileList) {
+            foreach ($FileList as $CurFile) {
+                $CreateTime = filectime($BaseDir.'/'.$CurFilePath);
+
+                if ($_GET['dir']) {
+                    $CurFilePath = $_GET['dir'] .'/'. $CurFile;
+                } else {
+                    $CurFilePath = $CurFile;
+                }
+
+                if ($CurFilePath != 'info.txt' and $CurFilePath != '.svn') {
+          // Dir
+                    if (is_dir($BaseDir.'/'.$CurFilePath)) {
+                        $dsp->AddSingleRow('<a href="index.php?mod=downloads&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_folder.gif" border="0" /> '. $CurFile .'</a>');
+
+                              // File
+                    } else {
+                        $Size = filesize($BaseDir.'/'.$CurFilePath);
+                        $dsp->AddSingleRow('<a href="index.php?mod=downloads&design=base&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $CurFile .' ['. $func->FormatFileSize($Size) .']'.'</a>');
+                    }
+                }
+            }
+        } else {
+            $func->information('No files found in "'. ($BaseDir.$_GET['dir']) .'"');
+        }
+
+        // Links
+        $res2 = $db->qry('SELECT link FROM %prefix%download_urls WHERE dir = %string%', $_GET['dir']);
+        while ($row2 = $db->fetch_array($res2)) {
+            $LinkName = substr($row2['link'], strrpos($row2['link'], '/') + 1, strlen($row2['link']));
+            $dsp->AddSingleRow('<a href="'. $row2['link'] .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $LinkName .'</a>');
+        }
+          $db->free_result($res2);
+
+          $dsp->AddFieldSetEnd();
+
+        if ($auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
+            // File Upload Box
+            $dsp->AddFieldSetStart(t('Datei hochladen'));
+            $dsp->SetForm('index.php?mod=downloads&step=20&dir='. $_GET['dir'], '', '', 'multipart/form-data');
+            $dsp->AddFileSelectRow('upload', t('Datei'), '', '', '', 1);
+            $dsp->AddFormSubmitRow('add');
+            $dsp->AddFieldSetEnd();
+
+          // URL Upload Box
+            $dsp->AddFieldSetStart(t('URL verlinken'));
+            include_once('inc/classes/class_masterform.php');
+            $mf = new masterform();
+            $mf->AddField(t('URL'), 'link');
+            $mf->AddFix('dir', $_GET['dir']);
+            $mf->SendForm('index.php?mod=downloads&dir='. $_GET['dir'], 'download_urls', 'urlid', $row['urlid']);
+            $dsp->AddFieldSetEnd();
+        }
+
+        // Comments
+        if ($_GET['mf_step'] != 2 or $_GET['step'] != 10) {
+              include('inc/classes/class_mastercomment.php');
+              new Mastercomment('downloads', $row['dirid']);
+        }
+
+        // Admin functions for dir
+        if ($auth['type'] >= 2 and ($_GET['mf_step'] != 2 or $_GET['step'] == 10)) {
+            $dsp->AddFieldSetStart(t('Ordner Text und Einstellungen editieren'));
+            include_once('inc/classes/class_masterform.php');
+            $mf = new masterform();
+
+            $mf->AddField(t('Text'), 'text', '', LSCODE_BIG, FIELD_OPTIONAL);
+            $mf->AddField(t('Benutzer-Upload erlauben?'), 'allow_upload', '', '', FIELD_OPTIONAL);
+            if (!$_GET['dirid']) {
+                $mf->AddFix('name', $_GET['dir']);
+                $mf->AddFix('userid', $auth['userid']);
+            }
+
+            $mf->SendForm('index.php?mod=downloads&step=10&dir='. $_GET['dir'], 'download_dirs', 'dirid', $row['dirid']);
+            $dsp->AddFieldSetEnd();
+        }
     }
-  }
     $dsp->AddContent();
 
 
