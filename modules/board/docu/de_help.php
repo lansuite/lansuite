@@ -14,5 +14,3 @@ $helplet['key'][4] = 'Nich gelesene Threads';
 $helplet['value'][4] = 'Sofern man eingeloggt ist, werden Threads mit noch nicht gelesenen Posts in der Übersicht mit dem Wort "Neu" markiert. Alle anderen, sowie Nachrichten, die älter als eine Woche sind, werden mit "Alt" markiert. Somit ist immer leicht zu erkennen, welcher Thread seid dem letzten Post darin nicht mehr gelesen wurde.';
 $helplet['key'][5] = 'Spam-bekämpfung';
 $helplet['value'][5] = 'Als Admin hat man mit der Admin-Suche die Möglichkeit nach einem bestimmten Titel, oder einer bestimmten Person zu suchen und anschließend mit einem Klick alle auf die Suche zutreffenden Posts zu löschen. Somit geht das entfernen von Spam wesentlich einfacher, als das hinzufügen.';
-
-?>

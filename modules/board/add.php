@@ -1,8 +1,11 @@
 <?php
 
-function Update($id) {
-  if (!$_POST['board_group']) $_POST['board_group'] = $_POST['group_new'];
-  return true;
+function Update($id)
+{
+    if (!$_POST['board_group']) {
+        $_POST['board_group'] = $_POST['group_new'];
+    }
+    return true;
 }
 
 include_once('inc/classes/class_masterform.php');
@@ -27,4 +30,3 @@ $mf->AddField(t('Neue Gruppe'), 'group_new', '', '', FIELD_OPTIONAL);
 
 $mf->AdditionalDBPreUpdateFunction = 'Update';
 $mf->SendForm('index.php?mod=board&action=add', 'board_forums', 'fid', $_GET['fid']);
-?>
