@@ -19,17 +19,14 @@
 // Check queryid
 //
 if ($_GET[queryid]) {
-
     //
     // Step
     //
     switch ($_GET[step]) {
-
         //
         // Case question
         //
         default:
-
             $rowcheck = $db->qry("
    SELECT id
    FROM %prefix%buddys
@@ -66,13 +63,12 @@ if ($_GET[queryid]) {
                 $func->error(t('Dieser Benutzer befindet sich nicht in deiner Buddy-Liste'));
             } // else
 
-        break;
+            break;
 
         //
         // Case remove
         //
         case 2:
-
             //
             // Get name
             //
@@ -105,8 +101,7 @@ if ($_GET[queryid]) {
 
 
 
-        break;
-
+            break;
     } // switch
 } // if queryid
 else {

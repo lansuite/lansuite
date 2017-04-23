@@ -9,7 +9,6 @@
  
 // Check for valid login
 if ($auth['login']) {
-
     // Buddylist
     $box->EngangedRow('<span class="copyright">-- Buddy List --</span>');
 
@@ -22,7 +21,6 @@ if ($auth['login']) {
 		", $auth['userid']);
 
     while ($row = $db->fetch_array($query)) {
-
         // Is user online, or offline?
         (in_array($auth['userid'], $authentication->online_users))? $class = "menu" : $class = "admin";
 
@@ -85,7 +83,6 @@ if ($auth['login']) {
         $querynobody = $db->qry('SELECT id FROM %prefix%buddys WHERE buddyid = %int% AND userid = %int%', $row['senderid'], $auth['userid']);
 
         if ($db->num_rows($query_id = $querynobody) < "1" and $notinlist_peoples[$row["senderid"]] != 1) {
-
             // Topic not in list
             if ($notinlist != "1") {
                 $notinlist = "1";
@@ -105,9 +102,10 @@ if ($auth['login']) {
             }
 
             // Output
-            $box->ItemRow("message_blink",
+            $box->ItemRow(
+                "message_blink",
                 "<a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=msgsys&amp;action=query&amp;design=base&amp;queryid={$row["senderid"]}$msg_sid','_blank','width=600,height=400,resizable=no');\" class=\"$class\">$username</a> ". $dsp->FetchUserIcon($row["senderid"]) ." <a href=\"index.php?mod=msgsys&amp;action=addbuddy&amp;step=2&amp;userid={$row["senderid"]}\"><img src=\"design/{$auth["design"]}/images/arrows_add.gif\" width=\"12\" height=\"13\" hspace=\"1\" vspace=\"0\" border=\"0\"><span class=\"infobox\">". t('Benutzer %1 in Buddy-Liste aufnehmen', $row["username"]) ."</span></a>"
-                );
+            );
 
             $notinlist_peoples[$row["senderid"]] = 1;
         }
