@@ -8,7 +8,7 @@ function fsockPost($url, $data)
     $web=parse_url($url);
 
     //build post string
-    foreach ($data as $i=>$v) {
+    foreach ($data as $i => $v) {
         $postdata.= $i . "=" . urlencode($v) . "&";
     }
 
@@ -28,9 +28,7 @@ function fsockPost($url, $data)
     //Error checking
     if (!$fp) {
         echo "$errnum: $errstr";
-    }
-
-    //Post Data
+    } //Post Data
     else {
         fputs($fp, "POST $web[path] HTTP/1.1\r\n");
         fputs($fp, "Host: $web[host]\r\n");
@@ -63,28 +61,28 @@ function create_csv_file($file, $data)
         $post_values=array_values($data);
 
     //build csv data
-    foreach ($post_values as $i) {
-        $csv.="\"$i\",";
-    }
+        foreach ($post_values as $i) {
+            $csv.="\"$i\",";
+        }
 
     //remove the last comma from string
-    $csv=substr($csv, 0, -1);
+        $csv=substr($csv, 0, -1);
 
     //check for existence of file
-    if (file_exists($file) && is_writeable($file)) {
-        $mode="a";
-    } else {
-        $mode="w";
-    }
+        if (file_exists($file) && is_writeable($file)) {
+            $mode="a";
+        } else {
+            $mode="w";
+        }
 
     //create file pointer
-    $fp=fopen($file, "a");
+        $fp=fopen($file, "a");
 
     //write to file
-    fwrite($fp, $csv . "\n");
+        fwrite($fp, $csv . "\n");
 
     //close file pointer
-    fclose($fp);
+        fclose($fp);
 
         return true;
     } else {
@@ -135,100 +133,99 @@ function check_transaction($verify_file, $checked_file, $verify_id, $item_id)
 }
 
 
-    switch ($_GET['step']) {
-        case 2:
-            if ($_POST['firstname'] == "") {
-                $error_pay['firstname'] = t('Bitte geben sie einen Vornamen ein');
-            }
-            if ($_POST['lastname'] == "") {
-                $error_pay['lastname'] = t('Bitte geben sie einen Namen ein');
-            }
-            if ($_POST['email'] == "") {
-                $error_pay['email'] = t('Bitte geben sie eine Email ein');
-            }
+switch ($_GET['step']) {
+    case 2:
+        if ($_POST['firstname'] == "") {
+            $error_pay['firstname'] = t('Bitte geben sie einen Vornamen ein');
+        }
+        if ($_POST['lastname'] == "") {
+            $error_pay['lastname'] = t('Bitte geben sie einen Namen ein');
+        }
+        if ($_POST['email'] == "") {
+            $error_pay['email'] = t('Bitte geben sie eine Email ein');
+        }
                     
-            if (isset($error_pay)) {
-                $_GET['step'] = 1;
-            }
+        if (isset($error_pay)) {
+            $_GET['step'] = 1;
+        }
             
         break;
+}
+
+
+
+switch ($_GET['step']) {
+    case 1:
+        $_POST['price'] = unserialize(urldecode($_POST['price']));
+        $_POST['depot'] = unserialize(urldecode($_POST['depot']));
         
-    }
-
-
-
-    switch ($_GET['step']) {
-        case 1:
-            $_POST['price'] = unserialize(urldecode($_POST['price']));
-            $_POST['depot'] = unserialize(urldecode($_POST['depot']));
-        
-        default:
-            if (!isset($_POST['email']) && $auth['userid'] != 0) {
-                $row = $db->qry_first("SELECT * FROM %prefix%user WHERE userid=%int%", $auth['userid']);
-                $_POST['firstname'] = $row['firstname'];
-                $_POST['lastname'] = $row['name'];
-                $_POST['street'] = $row['street'];
-                $_POST['city'] = $row['city'];
-                $_POST['zip'] = $row['plz'];
-                $_POST['email'] = $auth['email'];
-            }
-            $price = 0;
-            // Party price
-            if (isset($_POST['price'])) {
-                $_SESSION['paypal']['price'] = $_POST['price'];
-                foreach ($_POST['price'] as $price_id) {
-                    $price_db = $db->qry_first("SELECT * FROM %prefix%party_prices WHERE price_id=%int%", $price_id);
-                    $price = $price + $price_db['price'];
-                    if (isset($_POST['depot']) && in_array($price_id, $_POST['depot'])) {
-                        $_SESSION['paypal']['depot'] = $_POST['depot'];
-                        $price = $price + $price_db['depot_price'];
-                    }
+    default:
+        if (!isset($_POST['email']) && $auth['userid'] != 0) {
+            $row = $db->qry_first("SELECT * FROM %prefix%user WHERE userid=%int%", $auth['userid']);
+            $_POST['firstname'] = $row['firstname'];
+            $_POST['lastname'] = $row['name'];
+            $_POST['street'] = $row['street'];
+            $_POST['city'] = $row['city'];
+            $_POST['zip'] = $row['plz'];
+            $_POST['email'] = $auth['email'];
+        }
+        $price = 0;
+        // Party price
+        if (isset($_POST['price'])) {
+            $_SESSION['paypal']['price'] = $_POST['price'];
+            foreach ($_POST['price'] as $price_id) {
+                $price_db = $db->qry_first("SELECT * FROM %prefix%party_prices WHERE price_id=%int%", $price_id);
+                $price = $price + $price_db['price'];
+                if (isset($_POST['depot']) && in_array($price_id, $_POST['depot'])) {
+                    $_SESSION['paypal']['depot'] = $_POST['depot'];
+                    $price = $price + $price_db['depot_price'];
                 }
             }
-            // Catering
-            $price = $price + $_POST['catering'];
-            // Donation
-            $price = $price + $_POST['donation'];
+        }
+        // Catering
+        $price = $price + $_POST['catering'];
+        // Donation
+        $price = $price + $_POST['donation'];
             
-            if ($price <= 0) {
-                $func->error(t('Kein Preis ausgew&auml;hlt'), "\" OnClick=\"javascript: refreshParent()");
-            } else {
-                $dsp->NewContent(t('Daten eingeben'), t('Bitte geben sie ihre Zahlungsdaten ein.'));
-                $dsp->AddSmartyTpl('javascript', 'paypal');
-                $dsp->SetForm("index.php?mod=paypal&action=paying&design=base&step=2");
-                $dsp->AddTextFieldRow("firstname", t('Vorname'), $_POST['firstname'], $error_pay['firstname']);
-                $dsp->AddTextFieldRow("lastname", t('Nachname'), $_POST['lastname'], $error_pay['lastname']);
-                $dsp->AddTextFieldRow("street", t('Strasse'), $_POST['street'], $error_pay['street']);
-                $dsp->AddTextFieldRow("city", t('Stadt'), $_POST['city'], $error_pay['city']);
-                $dsp->AddTextFieldRow("zip", t('PLZ'), $_POST['zip'], $error_pay['zip']);
-                $dsp->AddTextFieldRow("email", t('E-Mail'), $_POST['email'], $error_pay['email']);
-                $dsp->AddDoubleRow(t('Zu &uuml;berweisender Betrag'), $price . " " . $cfg['paypal_currency_code']);
-                $dsp->AddSingleRow("<font color=\"red\">" .t('Achtung mit dem klicken auf weiter wird die Zahlung durchgef&uuml;hrt')    .
-                                    "</font><input type=\"hidden\" name=\"price_text\" value=\"$price\">
+        if ($price <= 0) {
+            $func->error(t('Kein Preis ausgew&auml;hlt'), "\" OnClick=\"javascript: refreshParent()");
+        } else {
+            $dsp->NewContent(t('Daten eingeben'), t('Bitte geben sie ihre Zahlungsdaten ein.'));
+            $dsp->AddSmartyTpl('javascript', 'paypal');
+            $dsp->SetForm("index.php?mod=paypal&action=paying&design=base&step=2");
+            $dsp->AddTextFieldRow("firstname", t('Vorname'), $_POST['firstname'], $error_pay['firstname']);
+            $dsp->AddTextFieldRow("lastname", t('Nachname'), $_POST['lastname'], $error_pay['lastname']);
+            $dsp->AddTextFieldRow("street", t('Strasse'), $_POST['street'], $error_pay['street']);
+            $dsp->AddTextFieldRow("city", t('Stadt'), $_POST['city'], $error_pay['city']);
+            $dsp->AddTextFieldRow("zip", t('PLZ'), $_POST['zip'], $error_pay['zip']);
+            $dsp->AddTextFieldRow("email", t('E-Mail'), $_POST['email'], $error_pay['email']);
+            $dsp->AddDoubleRow(t('Zu &uuml;berweisender Betrag'), $price . " " . $cfg['paypal_currency_code']);
+            $dsp->AddSingleRow("<font color=\"red\">" .t('Achtung mit dem klicken auf weiter wird die Zahlung durchgef&uuml;hrt')    .
+                            "</font><input type=\"hidden\" name=\"price_text\" value=\"$price\">
 									<input type=\"hidden\" name=\"price\" value=\"" . urlencode(serialize($_POST['price'])) . "\">
 									<input type=\"hidden\" name=\"depot\" value=\"" . urlencode(serialize($_POST['depot'])) . "\">
 									<input type=\"hidden\" name=\"catering\" value=\"" . $_POST['catering'] . "\">
 									<input type=\"hidden\" name=\"donation\" value=\"" . $_POST['donation'] . "\">");
-                $dsp->AddFormSubmitRow(t('Weiter'));
-                $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
-                $dsp->AddContent();
-            }
+            $dsp->AddFormSubmitRow(t('Weiter'));
+            $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
+            $dsp->AddContent();
+        }
             
             
         break;
         
-        case 2:
-            $item_number = rand();
-            $_SESSION['paypal']['catering'] = $_POST['catering'];
-            $_SESSION['paypal']['donation'] = $_POST['donation'];
-            $_SESSION['paypal']['item_number'] = $item_number;
+    case 2:
+        $item_number = rand();
+        $_SESSION['paypal']['catering'] = $_POST['catering'];
+        $_SESSION['paypal']['donation'] = $_POST['donation'];
+        $_SESSION['paypal']['item_number'] = $item_number;
             
             
-            $smarty->assign('action', "document.paypal_form.submit();");
-            $dsp->NewContent(t('Senden der Daten'), t('Die Daten werden gesendet einen Moment bitte'));
-            $dsp->SetForm($cfg['paypal_url'], "paypal_form");
-            $dsp->AddSingleRow("<font color=\"red\">" . t('Einen Moment Bitte die Daten werden gesendet') . "</font>");
-            $dsp->AddSingleRow("
+        $smarty->assign('action', "document.paypal_form.submit();");
+        $dsp->NewContent(t('Senden der Daten'), t('Die Daten werden gesendet einen Moment bitte'));
+        $dsp->SetForm($cfg['paypal_url'], "paypal_form");
+        $dsp->AddSingleRow("<font color=\"red\">" . t('Einen Moment Bitte die Daten werden gesendet') . "</font>");
+        $dsp->AddSingleRow("
 			<!-- PayPal Configuration --> 
 					<input type=\"hidden\" name=\"business\" value=\"{$cfg['paypal_business']}\"> 
 					<input type=\"hidden\" name=\"cmd\" value=\"_xclick\"> 
@@ -256,74 +253,76 @@ function check_transaction($verify_file, $checked_file, $verify_id, $item_id)
 					<input type=\"hidden\" name=\"item_name\" value=\"{$cfg['paypal_desc_name']}\">
 					<input type=\"hidden\" name=\"item_number\" value=\"$item_number\">
 					<input type=\"hidden\" name=\"amount\" value=\"{$_POST['price_text']}\">");
-            $dsp->CloseForm();
-            $dsp->AddContent();
+        $dsp->CloseForm();
+        $dsp->AddContent();
             
         break;
 
-        case 3:
-
-            $check = check_transaction("ext_inc/paypal/ipn_success.txt.php", "ext_inc/paypal/ipn_checked.txt.php", $_POST['verify_sign'], $_POST['item_number']);
+    case 3:
+        $check = check_transaction("ext_inc/paypal/ipn_success.txt.php", "ext_inc/paypal/ipn_checked.txt.php", $_POST['verify_sign'], $_POST['item_number']);
             
-            if ($_POST['item_number'] == $_SESSION['paypal']['item_number'] && $check) {
-                if (isset($_SESSION['paypal']['price'])) {
-                    foreach ($_SESSION['paypal']['price'] as $price_id) {
-                        $db->qry("UPDATE %prefix%party_user SET paid='1' WHERE user_id=%int% AND price_id=%int%", $auth['userid'], $price_id);
-                        if (isset($_SESSION['paypal']['depot']) && in_array($price_id, $_SESSION['paypal']['depot'])) {
-                            $db->qry("UPDATE %prefix%party_user SET seatcontrol='1' WHERE user_id=%int% AND price_id=%int%", $auth['userid'], $price_id);
-                        }
+        if ($_POST['item_number'] == $_SESSION['paypal']['item_number'] && $check) {
+            if (isset($_SESSION['paypal']['price'])) {
+                foreach ($_SESSION['paypal']['price'] as $price_id) {
+                    $db->qry("UPDATE %prefix%party_user SET paid='1' WHERE user_id=%int% AND price_id=%int%", $auth['userid'], $price_id);
+                    if (isset($_SESSION['paypal']['depot']) && in_array($price_id, $_SESSION['paypal']['depot'])) {
+                        $db->qry("UPDATE %prefix%party_user SET seatcontrol='1' WHERE user_id=%int% AND price_id=%int%", $auth['userid'], $price_id);
                     }
                 }
-                
-                if ($_SESSION['paypal']['catering'] > 0) {
-                    $db->qry("INSERT INTO %prefix%catering_accounting SET userID=%int%, actiontime=NOW(), comment=\"PAYPAL: %string% %string%\", movement=%string",
-  $auth["userid"], $_POST['payment_date'], $_POST['txn_id'], $_SESSION['paypal']['catering']);
-                }
-                
-                $dsp->NewContent(t('Zahlung erfolgreich'));
-                $dsp->AddSmartyTpl('javascript', 'paypal');
-                $dsp->AddSingleRow(t('Die Zahlung war erfolgreich. Wir danken f&uuml;r die Einzahlung.'));
-                $dsp->AddDoubleRow(t('Vorname'), $_POST['first_name']);
-                $dsp->AddDoubleRow(t('Nachname'), $_POST['last_name']);
-                $dsp->AddDoubleRow(t('E-Mail'), $_POST['payer_email']);
-                $dsp->AddDoubleRow(t('Zahlungsnummer'), $_POST['txn_id']);
-                $dsp->AddDoubleRow(t('Zahlungsdatum'), $_POST['payment_date']);
-                $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
-                $dsp->AddContent();
-            } else {
-                $dsp->NewContent(t('Transaktionsfehler oder unerlaubter Zugriff'));
-                $dsp->AddSmartyTpl('javascript', 'paypal');
-                $dsp->AddSingleRow("<font color=\"red\">" . t('Bitte melden sie sich beim einem Admin damit der die Zahlung pr&uuml;fen kann.') . "</font>");
-                $dsp->AddDoubleRow(t('Vorname'), $_POST['first_name']);
-                $dsp->AddDoubleRow(t('Nachname'), $_POST['last_name']);
-                $dsp->AddDoubleRow(t('E-Mail'), $_POST['payer_email']);
-                $dsp->AddDoubleRow(t('Zahlungsnummer'), $_POST['txn_id']);
-                $dsp->AddDoubleRow(t('Zahlungsdatum'), $_POST['payment_date']);
-                $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
-                $dsp->AddContent();
-            }
-        break;
-        
-        case 5:
-            $result=fsockPost($cfg['paypal_url'], $_POST);
-            
-            if (eregi("VERIFIED", $result)) {
-                create_csv_file("ext_inc/paypal/ipn_success.txt.php", $_POST);
-            } else {
-                create_csv_file("ext_inc/paypal/ipn_error.txt.php", $_POST);
             }
                 
-        break;
-        
-        case 10:
-            $dsp->NewContent(t('Fehler'));
-            $dsp->AddSingleRow(t('Die Transaktion konnte nicht durchgef&uuml;hrt werden.'));
+            if ($_SESSION['paypal']['catering'] > 0) {
+                $db->qry(
+                    "INSERT INTO %prefix%catering_accounting SET userID=%int%, actiontime=NOW(), comment=\"PAYPAL: %string% %string%\", movement=%string",
+                    $auth["userid"],
+                    $_POST['payment_date'],
+                    $_POST['txn_id'],
+                    $_SESSION['paypal']['catering']
+                );
+            }
+                
+            $dsp->NewContent(t('Zahlung erfolgreich'));
+            $dsp->AddSmartyTpl('javascript', 'paypal');
+            $dsp->AddSingleRow(t('Die Zahlung war erfolgreich. Wir danken f&uuml;r die Einzahlung.'));
+            $dsp->AddDoubleRow(t('Vorname'), $_POST['first_name']);
+            $dsp->AddDoubleRow(t('Nachname'), $_POST['last_name']);
+            $dsp->AddDoubleRow(t('E-Mail'), $_POST['payer_email']);
+            $dsp->AddDoubleRow(t('Zahlungsnummer'), $_POST['txn_id']);
+            $dsp->AddDoubleRow(t('Zahlungsdatum'), $_POST['payment_date']);
             $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
             $dsp->AddContent();
-        
+        } else {
+            $dsp->NewContent(t('Transaktionsfehler oder unerlaubter Zugriff'));
+            $dsp->AddSmartyTpl('javascript', 'paypal');
+            $dsp->AddSingleRow("<font color=\"red\">" . t('Bitte melden sie sich beim einem Admin damit der die Zahlung pr&uuml;fen kann.') . "</font>");
+            $dsp->AddDoubleRow(t('Vorname'), $_POST['first_name']);
+            $dsp->AddDoubleRow(t('Nachname'), $_POST['last_name']);
+            $dsp->AddDoubleRow(t('E-Mail'), $_POST['payer_email']);
+            $dsp->AddDoubleRow(t('Zahlungsnummer'), $_POST['txn_id']);
+            $dsp->AddDoubleRow(t('Zahlungsdatum'), $_POST['payment_date']);
+            $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
+            $dsp->AddContent();
+        }
         break;
         
+    case 5:
+        $result=fsockPost($cfg['paypal_url'], $_POST);
+            
+        if (eregi("VERIFIED", $result)) {
+            create_csv_file("ext_inc/paypal/ipn_success.txt.php", $_POST);
+        } else {
+            create_csv_file("ext_inc/paypal/ipn_error.txt.php", $_POST);
+        }
+                
+        break;
         
-    }
+    case 10:
+        $dsp->NewContent(t('Fehler'));
+        $dsp->AddSingleRow(t('Die Transaktion konnte nicht durchgef&uuml;hrt werden.'));
+        $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
+        $dsp->AddContent();
+        
+        break;
+}
     
 echo $smarty->fetch('modules/paypal/templates/sendbox.htm');
