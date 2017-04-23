@@ -68,4 +68,3 @@ HTML: <!--HTML-LINES-START-->12156<!--HTML-LINES-STOP--> html-code lines and <!-
 
 $dsp->AddBackButton("index.php?mod=about", "about/credits");
 $dsp->AddContent();
-?>
