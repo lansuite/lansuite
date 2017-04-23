@@ -6,5 +6,3 @@ $helplet['info'] = 'Hier siehst du eine Liste aller Besucher, die sich zur Zeit 
 
 $helplet['key'][1] = '';
 $helplet['value'][1] = '';
-
-?>
