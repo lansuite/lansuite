@@ -25,7 +25,7 @@ if (!$_GET['mailID']) {
         switch ($_GET['ref']) {
             default:
                 $back_link = 'index.php?mod=mail&action=inbox';
-            break;
+                break;
 
             case 'in':
                 $back_link = 'index.php?mod=mail&action=inbox';
@@ -34,18 +34,18 @@ if (!$_GET['mailID']) {
                     $buttons .= $dsp->FetchSpanButton(t('Antworten'), "index.php?mod=mail&action=newmail&step=2&userID=". $row['fromUserID'] ."&replyto=". (int)$_GET['mailID']);
                 }
                 $buttons .= $dsp->FetchSpanButton(t("Weiterleiten"), "index.php?mod=mail&action=newmail&step=2&replyto=". (int)$_GET['mailID']);
-            break;
+                break;
 
             case 'out':
                 $back_link = 'index.php?mod=mail&action=outbox';
-            break;
+                break;
 
             case 'trash':
                 $back_link = 'index.php?mod=mail&action=trash';
                 if ($row['fromUserID']) {
                     $buttons .= $dsp->FetchSpanButton(t('Antworten'), "index.php?mod=mail&action=newmail&step=2&userID=". $row['fromUserID'] ."&replyto=". (int)$_GET['mailID']);
                 }
-            break;
+                break;
         }
 
         if ($buttons) {

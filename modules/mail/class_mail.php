@@ -22,12 +22,12 @@ class Mail
         $this->error = 'OK';
         
         // Send Info-Mail to receiver
-    if ($cfg['sys_internet']) {
-        $row = $db->qry_first('SELECT u.username, u.email, u.lsmail_alert FROM %prefix%user AS u WHERE u.userid = %int%', $to_userid);
-        if ($row['lsmail_alert']) {
-            $this->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Du hast eine neue Lansuite-Mail erhalten. Diese Benachrichtigung kkannst du im System unter "Meine Einstellungen" deaktivieren'));
+        if ($cfg['sys_internet']) {
+            $row = $db->qry_first('SELECT u.username, u.email, u.lsmail_alert FROM %prefix%user AS u WHERE u.userid = %int%', $to_userid);
+            if ($row['lsmail_alert']) {
+                $this->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Du hast eine neue Lansuite-Mail erhalten. Diese Benachrichtigung kkannst du im System unter "Meine Einstellungen" deaktivieren'));
+            }
         }
-    }
 
         return true;
     }
@@ -52,7 +52,7 @@ class Mail
         }
 
     // No special charachters in Username!
-    $to_user_name = preg_replace('#[^a-zA-Z ]#', '', $to_user_name);
+        $to_user_name = preg_replace('#[^a-zA-Z ]#', '', $to_user_name);
 
     // Do not send, when in intranet mode
         if (!$cfg['sys_internet']) {
@@ -61,20 +61,20 @@ class Mail
         }
 
     // Set Charset
-    if ($cfg['mail_utf8']) {
-        $CharsetStr = ' charset=utf-8';
-    } else {
-        $CharsetStr = '';
-        $subject_text = utf8_decode($subject_text);
-        $msgbody_text = utf8_decode($msgbody_text);
-    }
+        if ($cfg['mail_utf8']) {
+            $CharsetStr = ' charset=utf-8';
+        } else {
+            $CharsetStr = '';
+            $subject_text = utf8_decode($subject_text);
+            $msgbody_text = utf8_decode($msgbody_text);
+        }
 
         $this->inet_headers = "MIME-Version: 1.0\n";
         $this->inet_headers .= "Content-type: text/plain;$CharsetStr\n";
         $this->inet_headers .= "From: $from\n";
 
     // Cut out double line breaks
-    $msgbody_text = str_replace("\r", '', $msgbody_text);
+        $msgbody_text = str_replace("\r", '', $msgbody_text);
 
         // SMTP-Mail
         if ($cfg["mail_use_smtp"]) {

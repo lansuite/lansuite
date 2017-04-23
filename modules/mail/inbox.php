@@ -8,31 +8,30 @@ if (!$auth['userid']) {
 // If logged in
 if ($auth['userid']) {
     switch ($_GET['step']) {
-
     // Lable
-    case 10:  // None
-    case 11:
-    case 12:
-    case 13:
-    case 14:
-    case 15:
-      foreach ($_POST['action'] as $key => $val) {
-          $db->qry('UPDATE %prefix%mail_messages SET label = %int% WHERE mailID = %int%', ($_GET['step'] - 10), $key);
-      }
-    break;
+        case 10:  // None
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+        case 15:
+            foreach ($_POST['action'] as $key => $val) {
+                $db->qry('UPDATE %prefix%mail_messages SET label = %int% WHERE mailID = %int%', ($_GET['step'] - 10), $key);
+            }
+            break;
 
     // Move to trashcan
-    case 20:
-      if (!$_POST['action'] and $_GET['mailid']) {
-          $_POST['action'][$_GET['mailid']] = 1;
-      }
-      if ($_POST['action']) {
-          foreach ($_POST['action'] as $key => $val) {
-              $db->qry("UPDATE %prefix%mail_messages SET mail_status = 'delete' WHERE mailID = %int%", $key);
-          }
-      }
-    break;
-  }
+        case 20:
+            if (!$_POST['action'] and $_GET['mailid']) {
+                $_POST['action'][$_GET['mailid']] = 1;
+            }
+            if ($_POST['action']) {
+                foreach ($_POST['action'] as $key => $val) {
+                    $db->qry("UPDATE %prefix%mail_messages SET mail_status = 'delete' WHERE mailID = %int%", $key);
+                }
+            }
+            break;
+    }
 
     $colors = array();
     $colors[0] = '';

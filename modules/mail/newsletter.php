@@ -17,7 +17,7 @@ switch ($_GET["step"]) {
             $inet_error = t('Bitte wähle mindestens ein Ziel aus');
             $_GET["step"] = 1;
         }
-    break;
+        break;
 }
 
 switch ($_GET["step"]) {
@@ -39,11 +39,11 @@ switch ($_GET["step"]) {
         $t_array = array();
         array_push($t_array, '<option $selected value="0">'. t('An alle Benutzer') .'</option>');
         array_push($t_array, '<option $selected value="-1">'. t('Zu keiner Party angemeldet') .'</option>');
-    $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
-    while ($res = $db->fetch_array($row)) {
-        array_push($t_array, '<option $selected value="'. $res['party_id'] .'">'. $res['name'] .'</option>');
-    }
-    $db->free_result($row);
+        $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
+        while ($res = $db->fetch_array($row)) {
+            array_push($t_array, '<option $selected value="'. $res['party_id'] .'">'. $res['name'] .'</option>');
+        }
+        $db->free_result($row);
         $dsp->AddDropDownFieldRow("onlysignon", t('Nur Angemeldete an folgender Party'), $t_array, '');
 
         $t_array = array();
@@ -62,11 +62,11 @@ switch ($_GET["step"]) {
         $t_array = array();
         array_push($t_array, '<option $selected value="0">'. t('An alle Gruppen') .'</option>');
         array_push($t_array, '<option $selected value="-1">'. t('Nur an Benutzer ohne Gruppe') .'</option>');
-    $row = $db->qry("SELECT group_id, group_name FROM %prefix%party_usergroups");
-    while ($res = $db->fetch_array($row)) {
-        array_push($t_array, '<option $selected value="'. $res['group_id'] .'">'. $res['group_name'] .'</option>');
-    }
-    $db->free_result($row);
+        $row = $db->qry("SELECT group_id, group_name FROM %prefix%party_usergroups");
+        while ($res = $db->fetch_array($row)) {
+            array_push($t_array, '<option $selected value="'. $res['group_id'] .'">'. $res['group_name'] .'</option>');
+        }
+        $db->free_result($row);
         $dsp->AddDropDownFieldRow("group_id", t('Nur an folgende Gruppen'), $t_array, '');
         
         // Clanfilter
@@ -93,7 +93,7 @@ switch ($_GET["step"]) {
 
         $dsp->AddFormSubmitRow(t('Senden'));
         $dsp->AddContent();
-    break;
+        break;
 
     case 2:
         $where = "u.username != 'LS_SYSTEM'";
@@ -197,5 +197,5 @@ switch ($_GET["step"]) {
         }
 
         $func->confirmation($inet_success . $sys_success, "index.php?mod=mail&action=newsletter&step=1");
-    break;
+        break;
 }

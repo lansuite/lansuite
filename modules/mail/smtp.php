@@ -96,7 +96,6 @@ function smtpmail($mail_to, $subject, $message, $headers = '')
     // Ok we have error checked as much as we can to this point let's get on
     // it already.
     if ($socket = fsockopen($board_config['smtp_host'], 25, $errno, $errstr, 20)) {
-
         // Wait for reply
         server_parse($socket, "220", __LINE__);
 

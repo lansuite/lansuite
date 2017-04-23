@@ -9,22 +9,22 @@ $dsp->AddContent();
 if ($auth['userid']) {
     switch ($_GET['step']) {
     // check if it can delete from Database and delete
-    case 20:
-      if (!$_POST['action'] and $_GET['mailid']) {
-          $_POST['action'][$_GET['mailid']] = 1;
-      }
-      foreach ($_POST['action'] as $key => $val) {
-          $rx_status = $db->qry_first("SELECT rx_deleted FROM %prefix%mail_messages WHERE mailID = %int%", $key);
+        case 20:
+            if (!$_POST['action'] and $_GET['mailid']) {
+                $_POST['action'][$_GET['mailid']] = 1;
+            }
+            foreach ($_POST['action'] as $key => $val) {
+                  $rx_status = $db->qry_first("SELECT rx_deleted FROM %prefix%mail_messages WHERE mailID = %int%", $key);
           
-          // Ist eMail vom Sender gelöscht? JA: Lösche aus DB, NEIN: Setze rx flag
-          if ($rx_status['rx_deleted']) {
-              $db->qry("DELETE FROM %prefix%mail_messages WHERE mailID = %int%", $key);
-          } else {
-              $db->qry("UPDATE %prefix%mail_messages SET tx_deleted = 1 WHERE mailID = %int%", $key);
-          }
-      }
-    break;
-  }
+                  // Ist eMail vom Sender gelöscht? JA: Lösche aus DB, NEIN: Setze rx flag
+                if ($rx_status['rx_deleted']) {
+                    $db->qry("DELETE FROM %prefix%mail_messages WHERE mailID = %int%", $key);
+                } else {
+                    $db->qry("UPDATE %prefix%mail_messages SET tx_deleted = 1 WHERE mailID = %int%", $key);
+                }
+            }
+            break;
+    }
 }
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
