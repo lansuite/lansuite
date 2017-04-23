@@ -23,9 +23,9 @@ if ($overall_news == 0) {
         }
         $tmpDate = "";
         $tmpSNCode ="<table cellspacing=\"5\" width=\"100%\">";
-        foreach ($shortnews as $newsdate=>$value) {
+        foreach ($shortnews as $newsdate => $value) {
             $tmpSNCode .= "<tr><td colspan=\"2\"><strong>$newsdate</strong></td></tr><tr><td colspan=\"2\"><div class=\"hrule\"></div></td></tr>";
-            foreach ($shortnews[$newsdate] as $newsitemtime=>$newsitemdata) {
+            foreach ($shortnews[$newsdate] as $newsitemtime => $newsitemdata) {
                 $tmpSNCode .= "<tr><td width=\"45\" align=\"center\" valign=\"top\" rowspan=\"2\">" .$newsitemtime ."</td><td><strong>" .$newsitemdata['caption'] ."</strong> (" .$newsitemdata['username'] .")</td></tr><tr><td>" .$newsitemdata['text'] ."</td></tr>";
             }
             $tmpSNCode .= "<tr><td colspan=\"2\">&nbsp;</td></tr>";
@@ -90,16 +90,16 @@ if ($overall_news == 0) {
                 $smarty->assign('text', $text);
 
         // GET NUMBER OF COMMENTS
-        if ($cfg['news_comments_allowed']) {
-            $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
+                if ($cfg['news_comments_allowed']) {
+                    $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
 
-            if ($get_comments["number"] >= 0) {
-                $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>");
-            }
-        }
+                    if ($get_comments["number"] >= 0) {
+                        $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>");
+                    }
+                }
 
         // Buttons
-        $buttons = "";
+                $buttons = "";
                 if ($auth["type"] > 1) {
                     $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid", "edit") . " ";
                     $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid", "delete") . " ";
@@ -163,7 +163,7 @@ if ($overall_news == 0) {
                 }
 
         // Buttons
-        $buttons = "";
+                $buttons = "";
                 if ($auth["type"] > 1) {
                     $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid", "edit") . " ";
                     $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid", "delete") . " ";
@@ -186,9 +186,9 @@ if ($overall_news == 0) {
             $tmpDate = "";
             $tmpSNCode ="<table cellspacing=\"5\" width=\"100%\">";
             if ($shortnews) {
-                foreach ($shortnews as $newsdate=>$value) {
+                foreach ($shortnews as $newsdate => $value) {
                     $tmpSNCode .= "<tr><td colspan=\"2\"><strong>$newsdate</strong></td></tr><tr><td colspan=\"2\"><div class=\"hrule\"></div></td></tr>";
-                    foreach ($shortnews[$newsdate] as $newsitemtime=>$newsitemdata) {
+                    foreach ($shortnews[$newsdate] as $newsitemtime => $newsitemdata) {
                         $tmpSNCode .= "<tr><td width=\"45\" align=\"center\" valign=\"top\" rowspan=\"2\">" .$newsitemtime ."</td><td><strong>" .$newsitemdata['caption'] ."</strong> (" .$newsitemdata['username'] .")</td></tr><tr><td>" .$newsitemdata['text'] ."</td></tr>";
                     }
                     $tmpSNCode .= "<tr><td colspan=\"2\">&nbsp;</td></tr>";
@@ -213,7 +213,7 @@ if ($overall_news == 0) {
         }
 
     // SET TEMPLATE CASE VARS
-    $smarty->assign('number', $overall_news);
+        $smarty->assign('number', $overall_news);
         $templ_news_case_number_per_site = $howmany;
         $smarty->assign('pages', $pages["html"]);
 
