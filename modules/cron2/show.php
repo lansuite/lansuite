@@ -39,4 +39,3 @@ switch ($_GET['step']) {
 }
 
 $dsp->AddContent();
-?>
