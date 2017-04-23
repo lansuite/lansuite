@@ -24,4 +24,3 @@ document.write (\"'>&lt;\" + \"/script>\");<br>
 &lt;/script>&lt;noscript>&lt;a href='http://dico.planetlan-gmbh.de/adclick.php?n=af5ab174' target='_blank'>&nlt&lt;img src='http://dico.planetlan-gmbh.de/adview.php?what=zone:13&n=af5ab174' border='0' alt=''>&lt;/a>&lt;/noscript><br>
 <br>
 &lt;!-- END OF WWCL BUTTON CODE -->";
-?>
