@@ -3,12 +3,14 @@
 $smarty->assign('caption', t('Neue Wiki Einträge'));
 $content = "";
 
-$query = $db->qry('SELECT w.postid, w.name, MAX(UNIX_TIMESTAMP(v.date)) AS date, COUNT(*) AS refCount FROM %prefix%wiki_versions AS v
+$query = $db->qry(
+    'SELECT w.postid, w.name, MAX(UNIX_TIMESTAMP(v.date)) AS date, COUNT(*) AS refCount FROM %prefix%wiki_versions AS v
     LEFT JOIN %prefix%wiki AS w ON w.postid = v.postid
     GROUP BY v.postid
     ORDER BY date DESC
     LIMIT 0, %int%',
-    $cfg['home_item_cnt_wiki']);
+    $cfg['home_item_cnt_wiki']
+);
 
 if ($db->num_rows($query) > 0) {
     while ($row = $db->fetch_array($query)) {
