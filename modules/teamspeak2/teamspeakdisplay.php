@@ -526,9 +526,8 @@ class teamspeakDisplayClass
             // Loop through all channels:
             foreach ($serverInfo["channellist"] as $channelInfo) {
                 if ($channelInfo["parent"] == -1) {
-                
                 // determine number of players in channel
-                $currentplayers = 0;
+                    $currentplayers = 0;
                     foreach ($serverInfo["playerlist"] as $playerInfo) {
                         if ($playerInfo["channelid"] == $channelInfo["channelid"]) {
                             $currentplayers++;
@@ -536,7 +535,7 @@ class teamspeakDisplayClass
                     }
                 
                 // Count the number of channels to be listed:
-                $currentplayersandsubchannels = $currentplayers;
+                    $currentplayersandsubchannels = $currentplayers;
                     foreach ($serverInfo["channellist"] as $subchannelInfo) {
                         if ($subchannelInfo["parent"] == $channelInfo["channelid"]) {
                             $currentplayersandsubchannels++;
@@ -549,7 +548,7 @@ class teamspeakDisplayClass
                     }
                 
                 // Display channel:
-                echo("<table><tr><td>");
+                    echo("<table><tr><td>");
                     echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter + 1) == $currentchannels) ? "3" : "2") . ".png\" alt=\"\">");
                     echo("<img src=\"ext_inc/teamspeak2/channel.png\" alt=\"\" title=\"" . $popupInfo . "\">");
                     echo("</td><td class=\"teamspeakchannel\" title=\"" . $popupInfo . "\">");
@@ -560,89 +559,87 @@ class teamspeakDisplayClass
                     echo("</td></tr></table>\n");
                 
                 // Initialize the playercounter for this channel to zero
-                $counter_playerandsubchannels = 0;
+                    $counter_playerandsubchannels = 0;
                 
                 // Loop through all players in the current channel:
-                foreach ($serverInfo["playerlist"] as $playerInfo) {
-                    
-                    // Is the current player in the current channel?
-                    if ($playerInfo["channelid"] == $channelInfo["channelid"]) {
-                        $popupInfo = "Time online: " . $this->_formatTime($playerInfo["totaltime"]) . ", Time idle: " . $this->_formatTime($playerInfo["idletime"]) . ", Ping: " . $playerInfo["pingtime"] . "ms";
-                        
-                        // Display player:
-                        echo("<table><tr><td>");
-                        echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter + 1) == $currentchannels) ? "4" : "1") . ".png\" alt=\"\">");
-                        echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter_playerandsubchannels + 1) == $currentplayersandsubchannels) ? "3" : "2") . ".png\" alt=\"\">");
-                        echo("<img src=\"ext_inc/teamspeak2/player_" . $playerInfo["displayimage"] . ".png\" alt=\"" . $playerInfo["displayimage"] . "\" title=\"" . $popupInfo . "\">");
-                        echo("</td><td class=\"teamspeakplayer\" title=\"" . $popupInfo . "\">");
-                        echo(str_replace(" ", "&nbsp;", htmlspecialchars($playerInfo["displayname"])));
-                        echo("</td></tr></table>\n");
-                        
-                        // Increase the player counter:
-                        $counter_playerandsubchannels++;
-                    }
-                }
-                
-                // Loop through all channels:
-                foreach ($serverInfo["channellist"] as $subchannelInfo) {
-                    if ($subchannelInfo["parent"] == $channelInfo["channelid"]) {
-                        // determine number of players in channel
-                    $currentplayers = 0;
-                        foreach ($serverInfo["playerlist"] as $playerInfo) {
-                            if ($playerInfo["channelid"] == $subchannelInfo["channelid"]) {
-                                $currentplayers++;
-                            }
-                        }
-                    
-                        $popupInfo = "Max players: " . $subchannelInfo["maxplayers"] . ", Codec: " . $this->_getCodecName($subchannelInfo["codec"]);
-                        if ($subchannelInfo["topic"] != "") {
-                            $popupInfo = $popupInfo . ", Topic: " . $subchannelInfo["topic"];
-                        }
-                    
-                    // Display channel:
-                    echo("<table><tr><td>");
-                        echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter + 1) == $currentchannels) ? "4" : "1") . ".png\" alt=\"\">");
-                        echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter_playerandsubchannels + 1) == $currentplayersandsubchannels) ? "3" : "2") . ".png\" alt=\"\">");
-                        echo("<img src=\"ext_inc/teamspeak2/channel.png\" alt=\"\" title=\"" . $popupInfo . "\">");
-                        echo("</td><td class=\"teamspeaksubchannel\" title=\"" . $popupInfo . "\">");
-                        echo("<a class=\"teamspeaksubchannel\" href=\"javascript:enterSubChannel_" . $jsTeamspeakId . "('" . str_replace("'", "\'", $channelInfo["channelname"]) . "', " . (($channelInfo["password"]) == "1" ? "true" : "false") . ", '" . str_replace("'", "\'", $subchannelInfo["channelname"]) . "');\">");
-                        echo(str_replace(" ", "&nbsp;", htmlspecialchars($subchannelInfo["displayname"])));
-                        echo(" - (" .$currentplayers ."/" .$channelInfo["maxplayers"]) .")";
-                        echo("</a>");
-                        echo("</td></tr></table>\n");
-                    
-                    // Initialize the playercounter for this channel to zero
-                    $counter_player = 0;
-                    
-                    // Loop through all players in the current channel:
                     foreach ($serverInfo["playerlist"] as $playerInfo) {
-                        
                         // Is the current player in the current channel?
-                        if ($playerInfo["channelid"] == $subchannelInfo["channelid"]) {
+                        if ($playerInfo["channelid"] == $channelInfo["channelid"]) {
                             $popupInfo = "Time online: " . $this->_formatTime($playerInfo["totaltime"]) . ", Time idle: " . $this->_formatTime($playerInfo["idletime"]) . ", Ping: " . $playerInfo["pingtime"] . "ms";
-                            
+                        
                             // Display player:
                             echo("<table><tr><td>");
                             echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter + 1) == $currentchannels) ? "4" : "1") . ".png\" alt=\"\">");
-                            echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter_playerandsubchannels + 1) == $currentplayersandsubchannels) ? "4" : "1") . ".png\" alt=\"\">");
-                            echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter_player + 1) == $currentplayers) ? "3" : "2") . ".png\" alt=\"\">");
+                            echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter_playerandsubchannels + 1) == $currentplayersandsubchannels) ? "3" : "2") . ".png\" alt=\"\">");
                             echo("<img src=\"ext_inc/teamspeak2/player_" . $playerInfo["displayimage"] . ".png\" alt=\"" . $playerInfo["displayimage"] . "\" title=\"" . $popupInfo . "\">");
                             echo("</td><td class=\"teamspeakplayer\" title=\"" . $popupInfo . "\">");
                             echo(str_replace(" ", "&nbsp;", htmlspecialchars($playerInfo["displayname"])));
                             echo("</td></tr></table>\n");
-                            
+                        
                             // Increase the player counter:
-                            $counter_player++;
+                            $counter_playerandsubchannels++;
                         }
                     }
+                
+                // Loop through all channels:
+                    foreach ($serverInfo["channellist"] as $subchannelInfo) {
+                        if ($subchannelInfo["parent"] == $channelInfo["channelid"]) {
+                            // determine number of players in channel
+                            $currentplayers = 0;
+                            foreach ($serverInfo["playerlist"] as $playerInfo) {
+                                if ($playerInfo["channelid"] == $subchannelInfo["channelid"]) {
+                                    $currentplayers++;
+                                }
+                            }
                     
-                    // Increase the channelcounter
-                    $counter_playerandsubchannels++;
+                            $popupInfo = "Max players: " . $subchannelInfo["maxplayers"] . ", Codec: " . $this->_getCodecName($subchannelInfo["codec"]);
+                            if ($subchannelInfo["topic"] != "") {
+                                $popupInfo = $popupInfo . ", Topic: " . $subchannelInfo["topic"];
+                            }
+                    
+                        // Display channel:
+                            echo("<table><tr><td>");
+                            echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter + 1) == $currentchannels) ? "4" : "1") . ".png\" alt=\"\">");
+                            echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter_playerandsubchannels + 1) == $currentplayersandsubchannels) ? "3" : "2") . ".png\" alt=\"\">");
+                            echo("<img src=\"ext_inc/teamspeak2/channel.png\" alt=\"\" title=\"" . $popupInfo . "\">");
+                            echo("</td><td class=\"teamspeaksubchannel\" title=\"" . $popupInfo . "\">");
+                            echo("<a class=\"teamspeaksubchannel\" href=\"javascript:enterSubChannel_" . $jsTeamspeakId . "('" . str_replace("'", "\'", $channelInfo["channelname"]) . "', " . (($channelInfo["password"]) == "1" ? "true" : "false") . ", '" . str_replace("'", "\'", $subchannelInfo["channelname"]) . "');\">");
+                            echo(str_replace(" ", "&nbsp;", htmlspecialchars($subchannelInfo["displayname"])));
+                            echo(" - (" .$currentplayers ."/" .$channelInfo["maxplayers"]) .")";
+                            echo("</a>");
+                            echo("</td></tr></table>\n");
+                    
+                        // Initialize the playercounter for this channel to zero
+                            $counter_player = 0;
+                    
+                        // Loop through all players in the current channel:
+                            foreach ($serverInfo["playerlist"] as $playerInfo) {
+                                // Is the current player in the current channel?
+                                if ($playerInfo["channelid"] == $subchannelInfo["channelid"]) {
+                                    $popupInfo = "Time online: " . $this->_formatTime($playerInfo["totaltime"]) . ", Time idle: " . $this->_formatTime($playerInfo["idletime"]) . ", Ping: " . $playerInfo["pingtime"] . "ms";
+                            
+                                    // Display player:
+                                    echo("<table><tr><td>");
+                                    echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter + 1) == $currentchannels) ? "4" : "1") . ".png\" alt=\"\">");
+                                    echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter_playerandsubchannels + 1) == $currentplayersandsubchannels) ? "4" : "1") . ".png\" alt=\"\">");
+                                    echo("<img src=\"ext_inc/teamspeak2/treeimage" . ((($counter_player + 1) == $currentplayers) ? "3" : "2") . ".png\" alt=\"\">");
+                                    echo("<img src=\"ext_inc/teamspeak2/player_" . $playerInfo["displayimage"] . ".png\" alt=\"" . $playerInfo["displayimage"] . "\" title=\"" . $popupInfo . "\">");
+                                    echo("</td><td class=\"teamspeakplayer\" title=\"" . $popupInfo . "\">");
+                                    echo(str_replace(" ", "&nbsp;", htmlspecialchars($playerInfo["displayname"])));
+                                    echo("</td></tr></table>\n");
+                            
+                                    // Increase the player counter:
+                                    $counter_player++;
+                                }
+                            }
+                    
+                        // Increase the channelcounter
+                            $counter_playerandsubchannels++;
+                        }
                     }
-                }
                 
                 // Increase the channelcounter
-                $counter++;
+                    $counter++;
                 }
             }
         }
@@ -655,7 +652,7 @@ class teamspeakDisplayClass
         echo("</div>\n");
     }
     
-    public function displayTeamspeak($serverAddress, $serverUDPPort=8767, $serverQueryPort=51234)
+    public function displayTeamspeak($serverAddress, $serverUDPPort = 8767, $serverQueryPort = 51234)
     {
         $settings = $this->getDefaultSettings();
         $settings["serveraddress"] = $serverAddress;
