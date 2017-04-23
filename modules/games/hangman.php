@@ -106,7 +106,7 @@ switch ($_GET["step"]) {
 
         $dsp->AddTextFieldRow("buchstabe", t('Bitte einen Buchstaben raten'), "", $BuchstabeError);
         $dsp->AddFormSubmitRow(t('Weiter'));
-    break;
+        break;
 
     // Sieg
     case 2:
@@ -122,26 +122,26 @@ switch ($_GET["step"]) {
             $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", FIELD_OPTIONAL);
             $dsp->AddFormSubmitRow(t('Weiter'));
         }
-    break;
+        break;
 
     // Highscoreeintrag hinzufügen
     case 4:
-    if (!$_SESSION["do_highscore"] or !($_SESSION["ratewort"] == $_SESSION["losungswort"]) && ($_SESSION["losungswort"] != "")) {
-        $func->error("Faking verboten!", "index.php?mod=games&action=hangman");
-    } elseif ($auth['login']) {
-        $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_SESSION["versuche"], $_POST["comment"]);
-        $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=hangman&headermenuitem=2");
-        unset($_SESSION["ratewort"]);
-        unset($_SESSION["losungswort"]);
-        unset($_SESSION["do_highscore"]);
-    } else {
-        $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_SESSION["versuche"], $_POST["comment"]);
-        $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=hangman&headermenuitem=2");
-        unset($_SESSION["ratewort"]);
-        unset($_SESSION["losungswort"]);
-        unset($_SESSION["do_highscore"]);
-    }
-    break;
+        if (!$_SESSION["do_highscore"] or !($_SESSION["ratewort"] == $_SESSION["losungswort"]) && ($_SESSION["losungswort"] != "")) {
+            $func->error("Faking verboten!", "index.php?mod=games&action=hangman");
+        } elseif ($auth['login']) {
+            $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_SESSION["versuche"], $_POST["comment"]);
+            $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=hangman&headermenuitem=2");
+            unset($_SESSION["ratewort"]);
+            unset($_SESSION["losungswort"]);
+            unset($_SESSION["do_highscore"]);
+        } else {
+            $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_SESSION["versuche"], $_POST["comment"]);
+            $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=hangman&headermenuitem=2");
+            unset($_SESSION["ratewort"]);
+            unset($_SESSION["losungswort"]);
+            unset($_SESSION["do_highscore"]);
+        }
+        break;
     
     // Highscoreliste
     case 5:
@@ -164,7 +164,7 @@ switch ($_GET["step"]) {
 
 
         $dsp->AddBackButton("index.php?mod=games", "games/hangman");
-    break;
+        break;
 
     // Startscreen
     default:
@@ -174,7 +174,7 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton("index.php?mod=games", "games/hangman");
-    break;
+        break;
 }
 
 $dsp->AddContent();

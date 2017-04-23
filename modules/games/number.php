@@ -38,20 +38,20 @@ if ($headermenuitem == 2) {
 switch ($step) {
     // Write Score to DB
     case 2:
-    if ($_GET["score"] != $_SESSION["versuch"] or $_SESSION["gewonnen"] == 0) {
-        $func->error("Faking verboten!", "index.php?mod=games&action=number");
-    } elseif ($auth['login']) {
-        $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_GET["score"], $_POST["comment"]);
-        $func->confirmation(t('Deine Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
-        $_SESSION["versuch"] = 0;
-        $_SESSION["gewonnen"] = 0;
-    } else {
-        $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_GET["score"], $_POST["comment"]);
-        $func->confirmation(t('Deine Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
-        $_SESSION["versuch"] = 0;
-        $_SESSION["gewonnen"] = 0;
-    }
-    break;
+        if ($_GET["score"] != $_SESSION["versuch"] or $_SESSION["gewonnen"] == 0) {
+            $func->error("Faking verboten!", "index.php?mod=games&action=number");
+        } elseif ($auth['login']) {
+            $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_GET["score"], $_POST["comment"]);
+            $func->confirmation(t('Deine Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
+            $_SESSION["versuch"] = 0;
+            $_SESSION["gewonnen"] = 0;
+        } else {
+            $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_GET["score"], $_POST["comment"]);
+            $func->confirmation(t('Deine Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
+            $_SESSION["versuch"] = 0;
+            $_SESSION["gewonnen"] = 0;
+        }
+        break;
 
     // Highscoreliste
     case 3:
@@ -73,7 +73,7 @@ switch ($step) {
         $ms2->PrintSearch('index.php?mod=games&action=number&headermenuitem=2', 'g.id');
         
         $dsp->AddBackButton("index.php?mod=games", "games/number");
-    break;
+        break;
 
     // Game
     default:
@@ -126,7 +126,7 @@ switch ($step) {
 
             $dsp->AddBackButton("index.php?mod=games", "games/number");
         }
-    break;
+        break;
 }
 
 $dsp->AddContent();

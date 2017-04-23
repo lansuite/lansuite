@@ -76,7 +76,7 @@ switch ($_GET["step"]) {
             $smarty->assign('generate_field', $generate_field);
             $dsp->AddSingleRow($smarty->fetch('modules/games/templates/minesweeper.htm'));
         }
-    break;
+        break;
 
     case 3:
         $dsp->AddSingleRow("<b>". t('Du hast Gewonnen! Herzlichen Glückwunsch!') ."</b>");
@@ -94,7 +94,7 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton("index.php?mod=games", "games/minesweeper");
-    break;
+        break;
 
     case 4:
         $db->qry("UPDATE %prefix%game_hs
@@ -107,7 +107,7 @@ switch ($_GET["step"]) {
         } else {
             $func->information("Der angegebene temporäre Nick wurde nicht gefunden. Das Ergebnis konnte daher leider nicht eingetragen werden.", "index.php?mod=games&action=minesweeper&headermenuitem=2");
         }
-    break;
+        break;
 
     case 5:
         $dsp->AddSingleRow(t('Highscoreliste'));
@@ -119,7 +119,7 @@ switch ($_GET["step"]) {
         $db->free_result($hs_liste);
 
         $dsp->AddBackButton("index.php?mod=games", "games/minesweeper");
-    break;
+        break;
 
     default:
         $dsp->SetForm("index.php?mod=games&action=minesweeper&step=2");
@@ -129,7 +129,7 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton("index.php?mod=games", "games/minesweeper");
-    break;
+        break;
 }
 
 $dsp->AddContent();
