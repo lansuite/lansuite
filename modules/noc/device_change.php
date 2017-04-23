@@ -4,11 +4,9 @@ include_once("modules/noc/class_noc.php");
 $noc = new noc();
 
 switch ($_GET["step"]) {
-    
     // ------------------------------------------------------------------------------------
     // ERROR CHECKING
     case 3:
-    
         if ($_POST["device_caption"] == "") {
             $noc_error['device_caption'] = t('Bitte gib einen Namen f&uuml;r das Device ein');
 
@@ -41,22 +39,19 @@ switch ($_GET["step"]) {
         }
         
         break;
-        
 } // END SWITCH I
 
 // ----------------------------------------------------------------------------------------------------------
 
 switch ($_GET["step"]) {
-    
     // --------------------------------------------------------------------------------------------------
     // Display Form
     default:
     case 1:
-    include_once('modules/noc/search.inc.php');
-    break;
+        include_once('modules/noc/search.inc.php');
+        break;
         
     case 2:
-    
         $db->qry("SELECT * FROM %prefix%noc_devices WHERE id = %int%", $_GET["deviceid"]);
         
         if ($row = $db->fetch_array()) {
@@ -85,12 +80,11 @@ switch ($_GET["step"]) {
         }
 
 
-    break;
+        break;
     
     // --------------------------------------------------------------------------------------------------
     // Check and Update Device Data
     case 3:
-    
         if ($noc->checkSNMPDevice($_POST["device_ip"], $_POST["device_read"]) != 1) {
             $func->error(t('HTML_NEWLINEDas Device konnte nicht erreicht werden. M&ouml;gl. Ursachen:HTML_NEWLINEHTML_NEWLINE
 				      				- Das Device hat keinen StromHTML_NEWLINE
@@ -122,8 +116,7 @@ switch ($_GET["step"]) {
         } // END IF
                 
     
-    break;
-        
+        break;
 } // END SWITCH II
 
 // ----------------------------------------------------------------------------------------------------------

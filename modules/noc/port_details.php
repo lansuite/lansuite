@@ -5,8 +5,6 @@ $noc = new noc();
 
  
 switch ($_GET["step"]) {
-
-
     default:
     case 1:
         // Get all the Port data
@@ -15,35 +13,32 @@ switch ($_GET["step"]) {
         if ($row["portid"] == "") {
             $func->error(t('Dieser Port existiert nicht'));
         } else {
-                
         // Is the Port Enabled? No? Is it connected?
-        switch ($row["linkstatus"]) {
+            switch ($row["linkstatus"]) {
+                case "1":
+                case "up":
+                case "up(1)":
+                    if ($row["adminstatus"] == "down(2)" || $row["adminstatus"] == "down" || $row["adminstatus"] == "2") {
+                        $linkstatus = "<font color=\"red\">" . t('Ausgeschaltet') . "</font>";
+                    } else {
+                        $linkstatus = "<font color=\"green\">" . t('Aktiv') . "</font>";
+                    }
+                    break;
             
-            case "1":
-            case "up":
-            case "up(1)":
-                if ($row["adminstatus"] == "down(2)" || $row["adminstatus"] == "down" || $row["adminstatus"] == "2") {
-                    $linkstatus = "<font color=\"red\">" . t('Ausgeschaltet') . "</font>";
-                } else {
-                    $linkstatus = "<font color=\"green\">" . t('Aktiv') . "</font>";
-                }
-            break;
-            
-            case "2":
-            case "down":
-            case "down(2)":
-                if ($row["adminstatus"] == "down(2)" || $row["adminstatus"] == "down" || $row["adminstatus"] == "2") {
-                    $linkstatus = "<font color=\"red\">" . t('Ausgeschaltet') . "</font>";
-                } else {
-                    $linkstatus = "<font color=\"red\">" . t('Inaktiv') . "</font>";
-                }
-            break;
-            
-        }
+                case "2":
+                case "down":
+                case "down(2)":
+                    if ($row["adminstatus"] == "down(2)" || $row["adminstatus"] == "down" || $row["adminstatus"] == "2") {
+                        $linkstatus = "<font color=\"red\">" . t('Ausgeschaltet') . "</font>";
+                    } else {
+                        $linkstatus = "<font color=\"red\">" . t('Inaktiv') . "</font>";
+                    }
+                    break;
+            }
         
         // We assume that of course 1 PetaByte = 1024 Terabyte = 1024² Gigabyte = 1024³ Megabyte = 1024 * 1024 * 1024 * 1024 Kilobyte = 1024 * 1024 * 1024 * 1024 * 1024 Byte = 1024 * 1024 * 1024 * 1024 * 1024 * 8 Bit
         // Clear, right?
-        $bytesIn  = round($row["bytesIn"]  / (1024 * 1024), 2) . " MBytes";
+            $bytesIn  = round($row["bytesIn"]  / (1024 * 1024), 2) . " MBytes";
             $bytesOut = round($row["bytesOut"] / (1024 * 1024), 2) . " MBytes";
         
         
@@ -51,7 +46,7 @@ switch ($_GET["step"]) {
             $dsp->SetForm("index.php?mod=noc&action=port_details&step=2&portid=" . $_GET['portid'], "noc");
 
         // Template Variables
-        $dsp->AddDoubleRow(t('Portnummer'), $row["portnr"]);
+            $dsp->AddDoubleRow(t('Portnummer'), $row["portnr"]);
             $dsp->AddDoubleRow(t('MAC-Adresse'), nl2br($row["mac"]));
             $dsp->AddDoubleRow(t('IP-Adresse'), $row["ip"]);
             $dsp->AddDoubleRow(t('Portstatus'), $linkstatus);
@@ -63,20 +58,20 @@ switch ($_GET["step"]) {
             $dsp->AddContent();
         }//port exists
     
-    break;
+        break;
     
     case 2:
+        $func->question(
+            t('Bist du sicher, dass du den Status dieses Ports &auml;ndern willst?'),
+            "index.php?mod=noc&action=port_details&portid={$_GET["portid"]}&step=3",
+            "index.php?mod=noc&action=port_details&portid={$_GET["portid"]}"
+        );
     
-    $func->question(t('Bist du sicher, dass du den Status dieses Ports &auml;ndern willst?'),
-                "index.php?mod=noc&action=port_details&portid={$_GET["portid"]}&step=3",
-                "index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
-    
-    break;
+        break;
     
     
     // 3 stands for change the port "status" (deactivate it, regulate the speed, and so on)
     case 3:
-    
         $port = $db->qry_first("SELECT portid, deviceid, portnr, adminstatus FROM %prefix%noc_ports WHERE portid = %int%", $_GET["portid"]);
         
         if ($port["portid"] == "") {
@@ -89,17 +84,21 @@ switch ($_GET["step"]) {
             $status = $noc->getSNMPValue($device["ip"], $device["readcommunity"], ".1.3.6.1.2.1.2.2.1.7.{$port["portnr"]}");
 
             switch ($status) {
-                
                 case "1":
                 case "up":
-                case "up(1)":    $newstatus = "2"; $statusdescr = "<font color=\"red\">" . t('deaktiviert') . "</font>"; $statusdb = "down(2)";
-                break;
+                case "up(1)":
+                    $newstatus = "2";
+                    $statusdescr = "<font color=\"red\">" . t('deaktiviert') . "</font>";
+                    $statusdb = "down(2)";
+                    break;
 
                 case "2":
                 case "down":
-                case "down(2)":    $newstatus = "1"; $statusdescr = "<font color=\"green\">" . t('aktiviert') . "</font>"; $statusdb = "up(1)";
-                break;
-
+                case "down(2)":
+                    $newstatus = "1";
+                    $statusdescr = "<font color=\"green\">" . t('aktiviert') . "</font>";
+                    $statusdb = "up(1)";
+                    break;
             }
 
             if ($noc->setSNMPValue($device["ip"], $device["writecommunity"], ".1.3.6.1.2.1.2.2.1.7.{$port["portnr"]}", "i", $newstatus)) {
@@ -112,6 +111,5 @@ switch ($_GET["step"]) {
             }
         }//port exists
         
-    break;
-
+        break;
 }

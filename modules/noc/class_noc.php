@@ -141,12 +141,12 @@ class noc
 
         //Umrechnung der Portnummer für 3Com
         if (stristr($modell, "3com")) {
-            for ($i = 0;$i < count($ports);$i++) {
+            for ($i = 0; $i < count($ports); $i++) {
                 $ports[$i] = 100 + $ports[$i];
             }
         }
         // Array mit Ports und Adressen zusammenfügen
-        for ($i = 0;$i < count($ports);$i++) {
+        for ($i = 0; $i < count($ports); $i++) {
             if ($data[$ports[$i]] == "") {
                 $data[$ports[$i]] = $Addresses[$i];
             } else {
@@ -185,13 +185,13 @@ class noc
             @exec("arp -a $ip", $arp_output);
             $result = array();
             preg_match("/.{2}-.{2}-.{2}-.{2}-.{2}-.{2}/i", implode("", $arp_output), $result);
-            for ($i = 0;$i < count($result);$i++) {
+            for ($i = 0; $i < count($result); $i++) {
                 $result[$i] = str_replace("-", ":", $result[$i]);
             }
         }
         // Jede gefundene MAC-Adresse zuordnen und im Netzwerk suchen
         if ($result[0] != '') {
-            for ($i = 0;$i < count($result);$i++) {
+            for ($i = 0; $i < count($result); $i++) {
                 $dsp->AddDoubleRow(t('MAC-Addresse'), $result[$i]);
                 $dsp->AddHRuleRow();
                 $string = str_replace(":", "%", $result[$i]);

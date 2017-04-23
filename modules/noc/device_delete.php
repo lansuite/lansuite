@@ -4,21 +4,18 @@ include_once("modules/noc/class_noc.php");
 $noc = new noc();
 
 switch ($_GET["step"]) {
-
     default:
     case 1:
-    include_once('modules/noc/search.inc.php');
-    break;
+        include_once('modules/noc/search.inc.php');
+        break;
     
     case 2:
-                        
         $func->question(t('Willst du dieses Device wirklich l&ouml;schen?HTML_NEWLINE
 				 				   Dadurch gehen alle (auch f&uuml;r die Statistik relevante) Informationen verloren'), "index.php?mod=noc&action=delete_device&step=3&deviceid=" . $_GET["deviceid"], "index.php?mod=noc");
          
-    break;
+        break;
     
     case 3:
-    
         // DELETE 'em all....
         $check_device = $db->qry_first("SELECT id FROM %prefix%noc_devices WHERE id=%int%", $_GET["deviceid"]);
         
@@ -35,7 +32,5 @@ switch ($_GET["step"]) {
             }
         }
         
-    break;
-
-
+        break;
 }

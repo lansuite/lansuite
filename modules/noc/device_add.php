@@ -8,11 +8,9 @@ $noc = new noc();
 // --------------------------------------------------------------------------------------------
 
 switch ($_GET["step"]) {
-
     // ------------------------------------------------------------------------------------
     // ERROR CHECKING
     case 2:
-    
         if ($_POST["device_caption"] == "") {
             $noc_error['device_caption'] = t('Bitte gib einen Namen f&uuml;r das Device ein');
 
@@ -45,18 +43,15 @@ switch ($_GET["step"]) {
         }
         
         break;
-        
 } // END SWITCH I
 
 // -------------------------------------------------------------------------------------------
 
 switch ($_GET["step"]) {
-    
     // ------------------------------------------------------------------------------------
     // Display Form
     default:
     case 1:
-        
         $dsp->NewContent(t('Device hinzuf&uuml;gen'), t('Um einen Device zum NOC hinzuzuf&uuml;gen, f&uuml;lle bitte
 				         		  das folgende Formular vollst&auml;ndig aus.HTML_NEWLINEF&uuml;r das Feld Name
               					   stehen 30 Zeichen zur Verf&uuml;gung. '));
@@ -71,12 +66,11 @@ switch ($_GET["step"]) {
         $dsp->AddContent();
     
         unset($noc_error);
-    break;
+        break;
     
     // ------------------------------------------------------------------------------------
     // Store Everything, print confirmation
     case 2:
-
         if ($noc->checkSNMPDevice($_POST["device_ip"], $_POST["device_read"]) != 1) {
             $func->error(t('HTML_NEWLINEDas Device konnte nicht erreicht werden. M&ouml;gl. Ursachen:HTML_NEWLINEHTML_NEWLINE
 				      				- Das Device hat keinen StromHTML_NEWLINE
@@ -119,7 +113,7 @@ switch ($_GET["step"]) {
 
         $row = $db->fetch_array();
 
-        for ($ActualPort=0;$ActualPort < count($ports);$ActualPort++) {
+        for ($ActualPort=0; $ActualPort < count($ports); $ActualPort++) {
             $Port[$ActualPort]["deviceid"] = $row["id"];
 
             $Port[$ActualPort]["PortNr"] =
@@ -171,7 +165,7 @@ switch ($_GET["step"]) {
                     if ($Port[$ActualPort]["ifSpecific"] != "zeroDotZero") {
                         $Port[$ActualPort]["Type"] = 'rj45';
                     }
-                break;
+                    break;
                 
                 case "fibreChannel(56)":
                 case "56":
@@ -180,14 +174,15 @@ switch ($_GET["step"]) {
                         $Port[$ActualPort]["Type"] = 'rj45';
                     }
                     
-                break;
+                    break;
                 
                 default:
                     $Port[$ActualPort]["Type"] = 'system';
-                break;
+                    break;
             }
             // Save it all
-                $add_query = $db->qry("INSERT INTO %prefix%noc_ports SET
+                $add_query = $db->qry(
+                    "INSERT INTO %prefix%noc_ports SET
        portnr = %string%,
        bytesIn = %string%,
        bytesOut = %string%,
@@ -199,7 +194,18 @@ switch ($_GET["step"]) {
        deviceid = %int%,
        type = %string%,
        indexname = %string%",
-  $Port[$ActualPort]["PortNr"], $Port[$ActualPort]["BytesIn"], $Port[$ActualPort]["BytesOut"], $Port[$ActualPort]["Speed"], $Port[$ActualPort]["MACAddress"], $Port[$ActualPort]["IPAddress"], $Port[$ActualPort]["AdminStatus"], $Port[$ActualPort]["LinkStatus"], $Port[$ActualPort]["deviceid"], $Port[$ActualPort]["Type"], $Port[$ActualPort]["indexname"]);
+                    $Port[$ActualPort]["PortNr"],
+                    $Port[$ActualPort]["BytesIn"],
+                    $Port[$ActualPort]["BytesOut"],
+                    $Port[$ActualPort]["Speed"],
+                    $Port[$ActualPort]["MACAddress"],
+                    $Port[$ActualPort]["IPAddress"],
+                    $Port[$ActualPort]["AdminStatus"],
+                    $Port[$ActualPort]["LinkStatus"],
+                    $Port[$ActualPort]["deviceid"],
+                    $Port[$ActualPort]["Type"],
+                    $Port[$ActualPort]["indexname"]
+                );
         } // END FOR
 
         $noc->getMacAddress($row["ip"], $row["readcommunity"], $row["id"], $sysDescr);
@@ -220,7 +226,7 @@ switch ($_GET["step"]) {
             $func->error(t('Device konnte nicht in die Datenbank eingetragen werden.'));
         }
     
-    break;
+        break;
     
     // ---------------------------------------------------------
-    }
+}

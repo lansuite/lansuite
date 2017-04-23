@@ -34,10 +34,8 @@ $Image = ImageCreateFromPNG($ImageURL);
 
 // On RJ45 Ports, write the Speed and The Portnumber In the Middle of the Picutre
 switch ($_GET["type"]) {
-
     default:
     case "rj45":
-
         $string = $_GET["portnr"];
         $black = ImageColorAllocate($Image, 0, 0, 0);
 
@@ -98,10 +96,9 @@ switch ($_GET["type"]) {
             ImageString($Image, 1, $stringxcoordinate, $stringycoordinate, $string, $black);
         }
 
-    break;
+        break;
 
     case "lwl":
-
         // In LWL Port Pictures, write Port Number on the Left and Speed on the Right Side
 
         $black = ImageColorAllocate($Image, 0, 0, 0);
@@ -164,10 +161,9 @@ switch ($_GET["type"]) {
             ImageString($Image, 1, $stringxcoordinate, $stringycoordinate, $string, $black);
         }
         
-    break;
+        break;
 
     case "lo":
-
         $black = ImageColorAllocate($Image, 0, 0, 0);
 
         $ImageSize = getImageSize($ImageURL);
@@ -191,8 +187,7 @@ switch ($_GET["type"]) {
         $stringycoordinate = ($ImageSize[1] / 2) - (ImageFontHeight(1) + 2);
         ImageString($Image, 1, $stringxcoordinate, $stringycoordinate, $string, $black);
 
-    break;
-        
+        break;
 }
 
 // Output the image
