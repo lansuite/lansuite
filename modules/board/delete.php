@@ -12,7 +12,7 @@ if ($_GET['pid']) {
 } elseif ($_GET['tid']) {
     #$md->References['board_posts'] = '';
   #$md->References['board_bookmark'] = '';
-  $md->Delete('board_threads', 'tid', $_GET['tid']);
+    $md->Delete('board_threads', 'tid', $_GET['tid']);
 
 // Delete board
 } else {
@@ -20,17 +20,17 @@ if ($_GET['pid']) {
   #$md->SubReferences['board_posts'] = 'tid';
   #$md->SubReferences['board_bookmark'] = 'tid';
 
-  switch ($_GET['step']) {
-    default:
-      include_once('modules/board/show.php');
-    break;
+    switch ($_GET['step']) {
+        default:
+            include_once('modules/board/show.php');
+            break;
 
-    case 2:
-      $md->Delete('board_forums', 'fid', $_GET['fid']);
-    break;
+        case 2:
+            $md->Delete('board_forums', 'fid', $_GET['fid']);
+            break;
 
-    case 10:
-      $md->MultiDelete('board_forums', 'fid');
-    break;
-  }
+        case 10:
+            $md->MultiDelete('board_forums', 'fid');
+            break;
+    }
 }

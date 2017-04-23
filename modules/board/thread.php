@@ -33,9 +33,15 @@ function getuserinfo($userid)
     $user["posts"] = $count_rows["posts"];
 
     switch ($row_poster["type"]) {
-        case 1:    $user["type"] = t('Benutzer'); break;
-        case 2: $user["type"] = t('Organisator'); break;
-        case 3: $user["type"] = t('Superadmin'); break;
+        case 1:
+            $user["type"] = t('Benutzer');
+            break;
+        case 2:
+            $user["type"] = t('Organisator');
+            break;
+        case 3:
+            $user["type"] = t('Superadmin');
+            break;
     }
 
     return $user;
@@ -46,15 +52,15 @@ function getuserinfo($userid)
 if ($auth['type'] >= 2) {
     switch ($_GET['step']) {
   // Close Thread
-  case 10:
-    $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $_GET['tid']);
-  break;
+        case 10:
+                $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $_GET['tid']);
+            break;
 
   // Open Thread
-  case 11:
-    $db->qry("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = %int%", $_GET['tid']);
-  break;
-}
+        case 11:
+                $db->qry("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = %int%", $_GET['tid']);
+            break;
+    }
 }
 
 $tid = (int)$_GET["tid"];
@@ -205,11 +211,11 @@ if ($thread['closed']) {
     $func->error('Du darfst nur deine eigenen Beiträge editieren!', NO_LINK);
 } elseif ($thread) {
     //Topic erstellen oder auf Topic antworten
-  if ($_GET['tid']) {
-      $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));
-  } else {
-      $dsp->AddFieldsetStart(t('Thread erstellen'));
-  }
+    if ($_GET['tid']) {
+        $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));
+    } else {
+        $dsp->AddFieldsetStart(t('Thread erstellen'));
+    }
   
     include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
@@ -234,19 +240,19 @@ if ($thread['closed']) {
         $tid = (int)$_GET['tid'];
   
     // Update thread-table, if new thread
-    if (!$_GET['tid'] and $_POST['caption'] != '') {
-        $db->qry("INSERT INTO %prefix%board_threads SET
+        if (!$_GET['tid'] and $_POST['caption'] != '') {
+            $db->qry("INSERT INTO %prefix%board_threads SET
   				fid = %int%,
   				caption = %string%
   				", $_GET['fid'], $_POST['caption']);
-        $tid = $db->insert_id();
+                $tid = $db->insert_id();
   
-      // Assign just created post to this new thread
-        $db->qry("UPDATE %prefix%board_posts SET tid = %int% WHERE pid = %int%", $tid, $pid);
-    }
+              // Assign just created post to this new thread
+                $db->qry("UPDATE %prefix%board_posts SET tid = %int% WHERE pid = %int%", $tid, $pid);
+        }
 
     // Send email-notifications to thread-subscribers
-    $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
+        $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
         include_once("modules/mail/class_mail.php");
         $mail = new mail();
@@ -255,7 +261,7 @@ if ($thread['closed']) {
             $_GET['fid'] = $thread['fid'];
         }
     // Internet-Mail
-    $subscribers = $db->qry("SELECT b.userid, u.firstname, u.name, u.email FROM %prefix%board_bookmark AS b
+        $subscribers = $db->qry("SELECT b.userid, u.firstname, u.name, u.email FROM %prefix%board_bookmark AS b
   		LEFT JOIN %prefix%user AS u ON b.userid = u.userid
   		WHERE b.email = 1 and (b.tid = %int% or b.fid = %int%)
   		", $tid, $_GET['fid']);
@@ -267,7 +273,7 @@ if ($thread['closed']) {
         $db->free_result($subscribers);
   
     // Sys-Mail
-    $subscribers = $db->qry("SELECT userid FROM %prefix%board_bookmark AS b
+        $subscribers = $db->qry("SELECT userid FROM %prefix%board_bookmark AS b
       WHERE b.sysemail = 1 and (b.tid = %int% or b.fid = %int%)
       ", $tid, $_GET['fid']);
         while ($subscriber = $db->fetch_array($subscribers)) {
@@ -283,44 +289,44 @@ if ($thread['closed']) {
 
 if ($thread['caption'] != '') {
     // Bookmarks and Auto-Mail
-  if ($auth['login']) {
-      if ($_GET["set_bm"]) {
-          $db->qry_first("DELETE FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
-          if ($_POST["check_bookmark"]) {
-              $db->qry_first("INSERT INTO %prefix%board_bookmark SET tid = %int%, userid = %int%, email = %string%, sysemail = %string%", $tid, $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]);
-          }
-      }
+    if ($auth['login']) {
+        if ($_GET["set_bm"]) {
+            $db->qry_first("DELETE FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
+            if ($_POST["check_bookmark"]) {
+                $db->qry_first("INSERT INTO %prefix%board_bookmark SET tid = %int%, userid = %int%, email = %string%, sysemail = %string%", $tid, $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]);
+            }
+        }
   
-      $bookmark = $db->qry_first("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
-      if ($bookmark["found"]) {
-          $_POST["check_bookmark"] = 1;
-      }
-      if ($bookmark["email"]) {
-          $_POST["check_email"] = 1;
-      }
-      if ($bookmark["sysemail"]) {
-          $_POST["check_sysemail"] = 1;
-      }
+        $bookmark = $db->qry_first("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
+        if ($bookmark["found"]) {
+            $_POST["check_bookmark"] = 1;
+        }
+        if ($bookmark["email"]) {
+            $_POST["check_email"] = 1;
+        }
+        if ($bookmark["sysemail"]) {
+            $_POST["check_sysemail"] = 1;
+        }
   
-      $dsp->SetForm("index.php?mod=board&action=thread&tid=$tid&fid=$fid&set_bm=1");
-      $dsp->AddFieldsetStart(t('Monitoring'));
-      $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
-      $dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Diesen Beitrag in meine Lesezeichen aufnehmen<br><i>(Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren)</i>'), "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
-      $dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
-      $dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden'), "", 1, $_POST["check_email"]);
-      $dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf diesen Beitrag eine System-Mail an mich senden'), "", 1, $_POST["check_sysemail"]);
-      if ($bookmark["found"]) {
-          $dsp->StopHiddenBox();
-      }
-      $dsp->AddFormSubmitRow("edit");
-      if (!$bookmark["found"]) {
-          $dsp->StopHiddenBox();
-      }
-      $dsp->AddFieldsetEnd();
-  }
+        $dsp->SetForm("index.php?mod=board&action=thread&tid=$tid&fid=$fid&set_bm=1");
+        $dsp->AddFieldsetStart(t('Monitoring'));
+        $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
+        $dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Diesen Beitrag in meine Lesezeichen aufnehmen<br><i>(Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren)</i>'), "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
+        $dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
+        $dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden'), "", 1, $_POST["check_email"]);
+        $dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf diesen Beitrag eine System-Mail an mich senden'), "", 1, $_POST["check_sysemail"]);
+        if ($bookmark["found"]) {
+            $dsp->StopHiddenBox();
+        }
+        $dsp->AddFormSubmitRow("edit");
+        if (!$bookmark["found"]) {
+            $dsp->StopHiddenBox();
+        }
+        $dsp->AddFieldsetEnd();
+    }
   
   // Generate Boardlist-Dropdown
-  $foren_liste = $db->qry("SELECT fid, name FROM %prefix%board_forums
+    $foren_liste = $db->qry("SELECT fid, name FROM %prefix%board_forums
     WHERE need_type <= %string% AND (!need_group OR need_group = %int%)", $list_type, $auth['group_id']);
     $goto = '';
     while ($forum = $db->fetch_array($foren_liste)) {

@@ -2,15 +2,15 @@
 if ($_POST['action']) {
     foreach ($_POST['action'] as $key => $val) {
         switch ($_GET['mode']) {
-        case 'del':
-        include_once('inc/classes/class_masterdelete.php');
-        $md = new masterdelete();
-        $md->MultiDelete('board_posts', 'pid');
-        break;
-        case 'ban':
+            case 'del':
+                include_once('inc/classes/class_masterdelete.php');
+                $md = new masterdelete();
+                $md->MultiDelete('board_posts', 'pid');
+                break;
+            case 'ban':
                 echo $item. "b" . HTML_NEWLINE;
-        break;
-      }
+                break;
+        }
     }
 } else {
     include_once('modules/mastersearch2/class_mastersearch2.php');

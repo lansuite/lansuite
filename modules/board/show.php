@@ -19,10 +19,12 @@ function LastPostDetails($date)
       LEFT JOIN %prefix%board_threads AS t ON p.tid = t.tid
       WHERE UNIX_TIMESTAMP(p.date) = %string% AND t.fid = %int%", $date, $line['fid']);
 
-        $row2 = $db->qry_first("SELECT COUNT(*) AS cnt FROM %prefix%board_posts AS p
+        $row2 = $db->qry_first(
+            "SELECT COUNT(*) AS cnt FROM %prefix%board_posts AS p
         WHERE p.tid = %int%
         GROUP BY p.tid",
-        $row['tid']);
+            $row['tid']
+        );
         $page = floor(($row2['cnt'] - 1) / $cfg['board_max_posts']);
 
         if (strlen($row['caption']) > 18) {

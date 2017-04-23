@@ -8,10 +8,12 @@ function LastPostDetails($date)
       LEFT JOIN %prefix%user AS u ON p.userid = u.userid
       WHERE UNIX_TIMESTAMP(p.date) = %string% AND p.tid = %int%", $date, $line['tid']);
 
-        $row2 = $db->qry_first("SELECT COUNT(*) AS cnt FROM %prefix%board_posts AS p
+        $row2 = $db->qry_first(
+            "SELECT COUNT(*) AS cnt FROM %prefix%board_posts AS p
         WHERE p.tid = %int%
         GROUP BY p.tid",
-        $line['tid']);
+            $line['tid']
+        );
         $page = floor(($row2['cnt'] - 1) / $cfg['board_max_posts']);
 
         $ret = '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&posts_page='. $page .'#pid'. $row['pid'] .'" class="menu">'. date('d.m.y H:i', $date);
@@ -66,68 +68,68 @@ if ($_GET['fid'] != '') {
 
 switch ($_GET['step']) {
   // Edit headline
-  case 10:
-    if ($auth['type'] >= 2) {
-        $dsp->AddFieldsetStart(t('Thread bearbeiten'));
-        include_once('inc/classes/class_masterform.php');
-        $mf = new masterform();
-        $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
-        $pid = $mf->SendForm('index.php?mod=board&action=forum&step=10&fid='. $_GET['fid'] .'&tid='. $_GET['tid'], 'board_threads', 'tid', $_GET['tid']);
-        $dsp->AddFieldsetEnd();
-    }
-  break;
-
-  case 20:
-    if ($auth['type'] >= 2) {
-        foreach ($_POST['action'] as $key => $val) {
-            $db->qry_first("UPDATE %prefix%board_threads SET fid = %int% WHERE tid = %int%", $_GET['to_fid'], $key);
+    case 10:
+        if ($auth['type'] >= 2) {
+            $dsp->AddFieldsetStart(t('Thread bearbeiten'));
+            include_once('inc/classes/class_masterform.php');
+            $mf = new masterform();
+            $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
+            $pid = $mf->SendForm('index.php?mod=board&action=forum&step=10&fid='. $_GET['fid'] .'&tid='. $_GET['tid'], 'board_threads', 'tid', $_GET['tid']);
+            $dsp->AddFieldsetEnd();
         }
-    }
-  break;
+        break;
+
+    case 20:
+        if ($auth['type'] >= 2) {
+            foreach ($_POST['action'] as $key => $val) {
+                $db->qry_first("UPDATE %prefix%board_threads SET fid = %int% WHERE tid = %int%", $_GET['to_fid'], $key);
+            }
+        }
+        break;
   
   // Delete Bookmark
-  case 30:
-    $GetFid = $db->qry_first('SELECT fid FROM %prefix%board_threads WHERE tid = %int%', $_GET['tid']);
-    $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = 0 AND tid = %int% AND userid = %int%', $_GET['tid'], $auth['userid']);
-    $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = %int% AND tid = 0 AND userid = %int%', $GetFid['fid'], $auth['userid']);
-  break;
+    case 30:
+        $GetFid = $db->qry_first('SELECT fid FROM %prefix%board_threads WHERE tid = %int%', $_GET['tid']);
+        $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = 0 AND tid = %int% AND userid = %int%', $_GET['tid'], $auth['userid']);
+        $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = %int% AND tid = 0 AND userid = %int%', $GetFid['fid'], $auth['userid']);
+        break;
 
   // Lable
-  case 40:  // None
-  case 41:
-  case 42:
-  case 43:
-  case 44:
-  case 45:
-    if ($auth['type'] >= 2) {
-        foreach ($_POST['action'] as $key => $val) {
-            $db->qry('UPDATE %prefix%board_threads SET label = %int% WHERE tid = %int%', $_GET['step'] - 40, $key);
+    case 40:  // None
+    case 41:
+    case 42:
+    case 43:
+    case 44:
+    case 45:
+        if ($auth['type'] >= 2) {
+            foreach ($_POST['action'] as $key => $val) {
+                $db->qry('UPDATE %prefix%board_threads SET label = %int% WHERE tid = %int%', $_GET['step'] - 40, $key);
+            }
         }
-    }
-  break;
+        break;
 
   // Sticky
-  case 50: // Add
-    if ($auth['type'] >= 2) {
-        foreach ($_POST['action'] as $key => $val) {
-            $db->qry('UPDATE %prefix%board_threads SET sticky = 1 WHERE tid = %int%', $key);
+    case 50: // Add
+        if ($auth['type'] >= 2) {
+            foreach ($_POST['action'] as $key => $val) {
+                $db->qry('UPDATE %prefix%board_threads SET sticky = 1 WHERE tid = %int%', $key);
+            }
         }
-    }
-  break;
-  case 51: // Remove
-    if ($auth['type'] >= 2) {
-        foreach ($_POST['action'] as $key => $val) {
-            $db->qry('UPDATE %prefix%board_threads SET sticky = 0 WHERE tid = %int%', $key);
+        break;
+    case 51: // Remove
+        if ($auth['type'] >= 2) {
+            foreach ($_POST['action'] as $key => $val) {
+                $db->qry('UPDATE %prefix%board_threads SET sticky = 0 WHERE tid = %int%', $key);
+            }
         }
-    }
-  break;
-  case 52: //Close Threads
-  if ($auth['type'] >= 2) {
-      foreach ($_POST['action'] as $key => $val) {
-          $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $key);
-      }
-  }
-  break;
+        break;
+    case 52: //Close Threads
+        if ($auth['type'] >= 2) {
+            foreach ($_POST['action'] as $key => $val) {
+                $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $key);
+            }
+        }
+        break;
 }
 
 $colors = array();
