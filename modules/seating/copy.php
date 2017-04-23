@@ -1,6 +1,6 @@
 <?php
 
-switch($_GET['step']) {
+switch ($_GET['step']) {
   default:
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('seating');
@@ -43,8 +43,10 @@ switch($_GET['step']) {
     $blockid = $db->insert_id();
 
     $res = $db->qry('SELECT * FROM %prefix%seat_seats WHERE blockid = %int%', $_GET['blockid']);
-    while ($row = $db->fetch_array($res)){
-      if ($row['status'] > 1 and $row['status'] < 5) $row['status'] = 1; // Mark all seats free
+    while ($row = $db->fetch_array($res)) {
+        if ($row['status'] > 1 and $row['status'] < 5) {
+            $row['status'] = 1;
+        } // Mark all seats free
       $db->qry('INSERT INTO %prefix%seat_seats SET
         blockid = %int%,
         col = %int%,
@@ -57,8 +59,8 @@ switch($_GET['step']) {
     $db->free_result($res);
 
     $res = $db->qry('SELECT * FROM %prefix%seat_sep WHERE blockid = %int%', $_GET['blockid']);
-    while ($row = $db->fetch_array($res)){
-      $db->qry('INSERT INTO %prefix%seat_sep SET
+    while ($row = $db->fetch_array($res)) {
+        $db->qry('INSERT INTO %prefix%seat_sep SET
         blockid = %int%,
         orientation = %int%,
         value = %int%',
@@ -69,4 +71,3 @@ switch($_GET['step']) {
     $func->confirmation(t('Der Sitzplan wurde erfolgreich kopiert'), 'index.php?mod=seating');
   break;
 }
-?>

@@ -11,4 +11,3 @@ $_GET['step'] = 2;
 $_GET['blockid'] = $row['blockid'];
 
 include('modules/seating/show.php');
-?>
