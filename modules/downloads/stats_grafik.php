@@ -59,28 +59,31 @@ $res = $db->qry("SELECT SUM(hits) AS hits FROM %prefix%download_stats
   GROUP BY DATE_FORMAT(time, %string%)
   ", $_GET['file'], $where, $_GET['timeframe'], $group_by);
 while ($row = $db->fetch_array($res)) {
-  if ($row_max['hits'] < $row['hits']) $row_max['hits'] = $row['hits'];
+    if ($row_max['hits'] < $row['hits']) {
+        $row_max['hits'] = $row['hits'];
+    }
 }
 $db->free_result($res);
 
 $z = 1;
 for ($x = 0 + ((700 - 80) / $XSteps); $x < 660; $x += ((700 - 80) / $XSteps)) {
-  echo '<polyline points="'. $x .' 278  '. $x .' 270" fill="none" stroke="black" stroke-width="3px" />';
-  echo '<text y="295" x="'. ($x - 8) .'" fill="blue">'. $z .'</text>';
-  if ($z % 5 == 0)
-    echo '<polyline points="'. $x .' 278  '. $x .' 0" fill="none" stroke="black" stroke-width="1px" stroke-dasharray="1%, 1%" />';
-  $z++;
+    echo '<polyline points="'. $x .' 278  '. $x .' 270" fill="none" stroke="black" stroke-width="3px" />';
+    echo '<text y="295" x="'. ($x - 8) .'" fill="blue">'. $z .'</text>';
+    if ($z % 5 == 0) {
+        echo '<polyline points="'. $x .' 278  '. $x .' 0" fill="none" stroke="black" stroke-width="1px" stroke-dasharray="1%, 1%" />';
+    }
+    $z++;
 }
 
 #$z = $row_max['visits'];
 $z2 = $row_max['hits'];
 for ($y = 0; $y < 280; $y+= (280 / 14)) {
-  echo '<polyline points="0 '. $y .' 8  '. $y .'" fill="none" stroke="black" stroke-width="3px" />';
-  echo '<polyline points="652 '. $y .' 660  '. $y .'" fill="none" stroke="black" stroke-width="3px" />';
+    echo '<polyline points="0 '. $y .' 8  '. $y .'" fill="none" stroke="black" stroke-width="3px" />';
+    echo '<polyline points="652 '. $y .' 660  '. $y .'" fill="none" stroke="black" stroke-width="3px" />';
 #  echo '<text x="0" y="'. $y .'" fill="#990000">'. round($z, 0) .'</text>';
 #  $z -= $row_max['visits'] / 14;
   echo '<text x="662" y="'. $y .'" fill="#009900">'. round($z2, 0) .'</text>';
-  $z2 -= $row_max['hits'] / 14;
+    $z2 -= $row_max['hits'] / 14;
 }
 
 
@@ -94,10 +97,10 @@ $X = 0;
 $Y = 280;
 $Y2 = 280;
 while ($row = $db->fetch_array($res)) {
-  $lastX = $X;
-  $lastY = $Y;
-  $lastY2 = $Y2;
-  $X = (0 + ((700 - 80) / $XSteps) * date($multiply, $row['display_time']));
+    $lastX = $X;
+    $lastY = $Y;
+    $lastY2 = $Y2;
+    $X = (0 + ((700 - 80) / $XSteps) * date($multiply, $row['display_time']));
 #  $Y = 280 - (($row["visits"] / $row_max['visits']) * 280);
   $Y2 = 280 - (($row["hits"] / $row_max['hits']) * 280);
 #  echo '<polyline points="'. $lastX .' '. $lastY .'  '. $X .' '. $Y .'" stroke="#990000" stroke-width="3px"/>';
