@@ -10,29 +10,29 @@ if ($cfg['sys_blocksite'] == 1) {
 $missing_fields = 0;
 if ($func->admin_exists() and $_GET["mod"] != 'install') {
     // Check, if all required user data fields, are known and force user to add them, if not.
-  if ($auth['login'] and $auth['userid']) {
-      include_once('modules/usrmgr/missing_fields.php');
-  }
+    if ($auth['login'] and $auth['userid']) {
+        include_once('modules/usrmgr/missing_fields.php');
+    }
 
   // Reset $auth['type'], if no permission to Mod
-  if ($auth['type'] > 1) {
-      // Has at least someone (with rights equal or above) access to this mod?
-      $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions AS p
+    if ($auth['type'] > 1) {
+        // Has at least someone (with rights equal or above) access to this mod?
+        $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions AS p
         LEFT JOIN %prefix%user AS u on p.userid = u.userid
         WHERE p.module = %string% AND u.type >= %int%", $_GET['mod'], $auth['type']);
 
-      // If so: Has the current user access to this mod?
-      if ($permission['found']) {
-          $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string% AND userid = %int%", $_GET['mod'], $auth['userid']);
+          // If so: Has the current user access to this mod?
+        if ($permission['found']) {
+            $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string% AND userid = %int%", $_GET['mod'], $auth['userid']);
 
-          // If not: Set his rights to user-rights
-          if (!$permission['found']) {
-              $auth['type'] = 1;
-              $_SESSION['auth']['type'] = 1;
-              $authentication->auth['type'] = 1;
-          }
-      }
-  }
+            // If not: Set his rights to user-rights
+            if (!$permission['found']) {
+                $auth['type'] = 1;
+                $_SESSION['auth']['type'] = 1;
+                $authentication->auth['type'] = 1;
+            }
+        }
+    }
 }
 
 
@@ -44,11 +44,11 @@ if (!$missing_fields and !$siteblock) {
     switch ($_GET['mod']) {
         case 'logout':
             $func->confirmation(t('Du wurdest erfolgreich ausgeloggt.'), '');
-        break;
+            break;
 
         case 'auth':
             $_GET['mod'] = 'home';
-        break;
+            break;
 
         case 'install':
             if ($IsAboutToInstall) {
