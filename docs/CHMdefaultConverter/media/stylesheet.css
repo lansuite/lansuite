@@ -39,11 +39,11 @@ A:link{
     color: #336699;
 }
 
-A:visited           {
+A:visited {
     color: #003366;
 }
 
-A:active, A:hover   {
+A:active, A:hover {
     color: #6699CC;
 }
 
@@ -51,7 +51,7 @@ A:hover{
     text-decoration: underline;
 }
 
-SPAN.type           {
+SPAN.type {
     color: #336699;
     font-size: xx-small;
     font-weight: normal;
@@ -73,7 +73,7 @@ HR  {
     filter: Alpha (opacity=100,finishopacity=0,style=1);
 }
 
-DIV.sdesc           {
+DIV.sdesc {
     font-weight: bold;
     background-color: #EEEEEE;
     padding: 10px;
@@ -82,7 +82,7 @@ DIV.sdesc           {
     border-style: solid;
 }
 
-DIV.desc            {
+DIV.desc {
     font-family: monospace;
     background-color: #EEEEEE;
     padding: 10px;
@@ -91,11 +91,11 @@ DIV.desc            {
     border-style: solid;
 }
 
-SPAN.code           {
+SPAN.code {
     font-family: monospace;
 }
 
-CODE.varsummarydefault{
+CODE.varsummarydefault {
     padding: 1px;
     border-width: 1px;
     border-style: dashed;
@@ -105,8 +105,8 @@ CODE.varsummarydefault{
 UL.tute {
     margin:         0px;
     padding:        0px;
-    padding-left:       5px;
-    }
+    padding-left:   5px;
+}
 
 LI.tute {
     line-height: 140%;
@@ -116,15 +116,36 @@ LI.tute {
     padding-left:       14px;
 }
 
-.small{
+.small {
     font-size: 9pt;
 }
 
+.tute-tag {
+    color: #009999;
+}
 
-.tute-tag { color: #009999 }
-.tute-attribute-name { color: #0000FF }
-.tute-attribute-value { color: #0099FF }
-.tute-entity { font-weight: bold; }
-.tute-comment { font-style: italic }
-.tute-inline-tag { color: #636311; font-weight: bold }
-.src-code { font-family: 'Courier New', Courier, monospace; font-weight: normal; }
+.tute-attribute-name {
+    color: #0000FF;
+}
+
+.tute-attribute-value {
+    color: #0099FF;
+}
+
+.tute-entity {
+    font-weight: bold;
+}
+
+.tute-comment {
+    font-style: italic;
+}
+
+.tute-inline-tag {
+    color: #636311;
+    font-weight: bold;
+}
+
+.src-code {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: normal;
+}
