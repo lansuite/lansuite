@@ -1,7 +1,7 @@
 <?php
 //
 /*************************************************************************
-* 
+*
 *   Lansuite - Webbased LAN-Party Management System
 *   -----------------------------------------------
 *
@@ -14,7 +14,7 @@
 *   Main editor:        jochen@one-network.org
 *   Last change:        24.05.2004 13:35
 *   Description:        The Classic Minesweeper Game, you all know
-*   Remarks:        
+*   Remarks:
 *
 **************************************************************************/
 
@@ -24,8 +24,12 @@ $menunames[1] = t('Start');
 $menunames[2] = t('Highscore');
 $dsp->AddHeaderMenu($menunames, "index.php?mod=games&action=hangman", $_GET["headermenuitem"]);
 
-if ($_GET["headermenuitem"] == 1) $_GET["step"] = 0;
-if ($_GET["headermenuitem"] == 2) $_GET["step"] = 5;
+if ($_GET["headermenuitem"] == 1) {
+    $_GET["step"] = 0;
+}
+if ($_GET["headermenuitem"] == 2) {
+    $_GET["step"] = 5;
+}
 
 
 if (!$_GET["sieg"]) {
@@ -34,8 +38,9 @@ if (!$_GET["sieg"]) {
     // Bei Spiel-Start Variablen zurücksetzen
     if ($_GET["ratewort"] == "") {
         $_SESSION["do_highscore"] = 0;
-        if ($_POST["word"]) $_SESSION["losungswort"] = $_POST["word"];
-        else {
+        if ($_POST["word"]) {
+            $_SESSION["losungswort"] = $_POST["word"];
+        } else {
             $_SESSION["do_highscore"] = 1;
             $lines = 0;
             $handle = fopen("modules/games/woerter.txt", "r");
@@ -43,38 +48,45 @@ if (!$_GET["sieg"]) {
                 fgets($handle, 4096);
                 $lines ++;
             }
-            fclose ($handle);
+            fclose($handle);
 
-            $linenr = rand (1, $lines -1);
-            $handle = fopen ("modules/games/woerter.txt", "r");
-            for ($z = 0; $z < $linenr; $z++) $_SESSION["losungswort"] = fgets($handle, 4096);
-            fclose ($handle);
+            $linenr = rand(1, $lines -1);
+            $handle = fopen("modules/games/woerter.txt", "r");
+            for ($z = 0; $z < $linenr; $z++) {
+                $_SESSION["losungswort"] = fgets($handle, 4096);
+            }
+            fclose($handle);
         }
         $_SESSION["losungswort"] = chop(trim($_SESSION["losungswort"]));
         $_SESSION["losungswort"] = strtoupper($_SESSION["losungswort"]);
 
-        for ($z = 1; $z <= strlen($_SESSION["losungswort"]); $z++) $_GET["ratewort"] .= "-";
+        for ($z = 1; $z <= strlen($_SESSION["losungswort"]); $z++) {
+            $_GET["ratewort"] .= "-";
+        }
         $_SESSION["versuche"] = 0;
         $_SESSION["used_letters"] = "";
     }
 
     // Richtige Buchstaben ersetzen
     $BuchstabeError = '';
-    if ($_POST["buchstabe"] != ""){
-    if (strlen($_POST["buchstabe"]) > 1) $BuchstabeError = t('Bitte gebe nur einen Buchstaben ein');
-    else {
-        $_SESSION["used_letters"] .= $_POST["buchstabe"];
+    if ($_POST["buchstabe"] != "") {
+        if (strlen($_POST["buchstabe"]) > 1) {
+            $BuchstabeError = t('Bitte gebe nur einen Buchstaben ein');
+        } else {
+            $_SESSION["used_letters"] .= $_POST["buchstabe"];
 
-        $pos = 0;
-        $found = 0;
-        while (!(strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) === false)) {
-            $pos = strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) + 1;
-            $_GET["ratewort"] = substr_replace($_GET["ratewort"], $_POST["buchstabe"], $pos - 1, 1);
-            $found = 1;
+            $pos = 0;
+            $found = 0;
+            while (!(strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) === false)) {
+                $pos = strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) + 1;
+                $_GET["ratewort"] = substr_replace($_GET["ratewort"], $_POST["buchstabe"], $pos - 1, 1);
+                $found = 1;
+            }
+
+            if (!$found) {
+                $_SESSION["versuche"] ++;
+            }
         }
-
-        if (!$found) $_SESSION["versuche"] ++;
-    }
     }
 
     // Sieg-Check
@@ -94,7 +106,7 @@ switch ($_GET["step"]) {
 
         $dsp->AddTextFieldRow("buchstabe", t('Bitte einen Buchstaben raten'), "", $BuchstabeError);
         $dsp->AddFormSubmitRow(t('Weiter'));
-    break;
+        break;
 
     // Sieg
     case 2:
@@ -102,7 +114,7 @@ switch ($_GET["step"]) {
         $dsp->AddHRuleRow();
 
         if ($_SESSION["do_highscore"]) {
-        	$_SESSION["ratewort"] = $_GET["ratewort"];
+            $_SESSION["ratewort"] = $_GET["ratewort"];
             $dsp->SetForm("index.php?mod=games&action=hangman&step=4&sieg=1");
             $dsp->AddSingleRow(t('Hier kannst du dich in die Highscoreliste eintragen'));
             $dsp->AddDoubleRow("Fehlversuche", $_SESSION["versuche"]);
@@ -110,49 +122,49 @@ switch ($_GET["step"]) {
             $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", FIELD_OPTIONAL);
             $dsp->AddFormSubmitRow(t('Weiter'));
         }
-    break;
+        break;
 
     // Highscoreeintrag hinzufügen
     case 4:
-    if (!$_SESSION["do_highscore"] or !($_SESSION["ratewort"] == $_SESSION["losungswort"]) && ($_SESSION["losungswort"] != "")) $func->error("Faking verboten!", "index.php?mod=games&action=hangman");
-    elseif($auth['login'])  
-	{
-        $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_SESSION["versuche"], $_POST["comment"]);
-        $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=hangman&headermenuitem=2");
-    	unset($_SESSION["ratewort"]);
-        unset($_SESSION["losungswort"]);
-        unset($_SESSION["do_highscore"]);
-    }else{
-        $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_SESSION["versuche"], $_POST["comment"]);
-        $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=hangman&headermenuitem=2");
-    	unset($_SESSION["ratewort"]);
-        unset($_SESSION["losungswort"]);
-        unset($_SESSION["do_highscore"]);
-    }
-    break;
+        if (!$_SESSION["do_highscore"] or !($_SESSION["ratewort"] == $_SESSION["losungswort"]) && ($_SESSION["losungswort"] != "")) {
+            $func->error("Faking verboten!", "index.php?mod=games&action=hangman");
+        } elseif ($auth['login']) {
+            $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_SESSION["versuche"], $_POST["comment"]);
+            $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=hangman&headermenuitem=2");
+            unset($_SESSION["ratewort"]);
+            unset($_SESSION["losungswort"]);
+            unset($_SESSION["do_highscore"]);
+        } else {
+            $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_SESSION["versuche"], $_POST["comment"]);
+            $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=hangman&headermenuitem=2");
+            unset($_SESSION["ratewort"]);
+            unset($_SESSION["losungswort"]);
+            unset($_SESSION["do_highscore"]);
+        }
+        break;
     
     // Highscoreliste
     case 5:
         $dsp->AddSingleRow(t('Highscoreliste'));
 
-		include_once('modules/mastersearch2/class_mastersearch2.php');
-		$ms2 = new mastersearch2('games');
+        include_once('modules/mastersearch2/class_mastersearch2.php');
+        $ms2 = new mastersearch2('games');
 
-		//Anzeige der Aufgaben
-		$ms2->query['from'] = "%prefix%game_hs AS g";
-		$ms2->query['where'] ="game='hm'"; 
-		$ms2->query['default_order_by'] ="g.score"; 
-		$ms2->config['EntriesPerPage'] = 50;
+        //Anzeige der Aufgaben
+        $ms2->query['from'] = "%prefix%game_hs AS g";
+        $ms2->query['where'] ="game='hm'";
+        $ms2->query['default_order_by'] ="g.score";
+        $ms2->config['EntriesPerPage'] = 50;
 
-		$ms2->AddSelect('g.userid');
-		$ms2->AddResultField(t('Name'), 'g.nick', 'UserNameAndIcon');
-		$ms2->AddResultField(t('Fehlversuche'), 'g.score');
-		$ms2->AddResultField(t('Kommentar'), 'g.comment');
-		$ms2->PrintSearch('index.php?mod=games&action=hangman&headermenuitem=2', 'g.id');
+        $ms2->AddSelect('g.userid');
+        $ms2->AddResultField(t('Name'), 'g.nick', 'UserNameAndIcon');
+        $ms2->AddResultField(t('Fehlversuche'), 'g.score');
+        $ms2->AddResultField(t('Kommentar'), 'g.comment');
+        $ms2->PrintSearch('index.php?mod=games&action=hangman&headermenuitem=2', 'g.id');
 
 
         $dsp->AddBackButton("index.php?mod=games", "games/hangman");
-    break;
+        break;
 
     // Startscreen
     default:
@@ -162,8 +174,7 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton("index.php?mod=games", "games/hangman");
-    break;
+        break;
 }
 
 $dsp->AddContent();
-?>

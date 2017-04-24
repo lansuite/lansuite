@@ -1,7 +1,7 @@
 <?php
 
 /*************************************************************************
-* 
+*
 *   Lansuite - Webbased LAN-Party Management System
 *   -----------------------------------------------
 *
@@ -14,7 +14,7 @@
 *   Main editor:        jochen@one-network.org
 *   Last change:        25.05.2004 19:34
 *   Description:        Number Guessing
-*   Remarks:            
+*   Remarks:
 *
 **************************************************************************/
 
@@ -28,67 +28,77 @@ $menunames[1] = t('Start');
 $menunames[2] = t('Highscore');
 $dsp->AddHeaderMenu($menunames, "index.php?mod=games&action=number", $headermenuitem);
 
-if ($headermenuitem == 1) $step = 1;
-if ($headermenuitem == 2) $step = 3;
+if ($headermenuitem == 1) {
+    $step = 1;
+}
+if ($headermenuitem == 2) {
+    $step = 3;
+}
 
-switch ($step){
+switch ($step) {
     // Write Score to DB
     case 2:
-    if ($_GET["score"] != $_SESSION["versuch"] or $_SESSION["gewonnen"] == 0) $func->error("Faking verboten!", "index.php?mod=games&action=number");
-    elseif($auth['login'])  
-    {
-        $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_GET["score"], $_POST["comment"]);
-   		$func->confirmation(t('Deine Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
-    	$_SESSION["versuch"] = 0;
-        $_SESSION["gewonnen"] = 0;
-    }else{
-        $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_GET["score"], $_POST["comment"]);
-        $func->confirmation(t('Deine Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
-    	$_SESSION["versuch"] = 0;
-        $_SESSION["gewonnen"] = 0;
-    }
-    break;
+        if ($_GET["score"] != $_SESSION["versuch"] or $_SESSION["gewonnen"] == 0) {
+            $func->error("Faking verboten!", "index.php?mod=games&action=number");
+        } elseif ($auth['login']) {
+            $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_GET["score"], $_POST["comment"]);
+            $func->confirmation(t('Deine Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
+            $_SESSION["versuch"] = 0;
+            $_SESSION["gewonnen"] = 0;
+        } else {
+            $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_GET["score"], $_POST["comment"]);
+            $func->confirmation(t('Deine Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
+            $_SESSION["versuch"] = 0;
+            $_SESSION["gewonnen"] = 0;
+        }
+        break;
 
     // Highscoreliste
     case 3:
         $dsp->AddSingleRow(t('Highscoreliste'));
 
-		include_once('modules/mastersearch2/class_mastersearch2.php');
-		$ms2 = new mastersearch2('games');
+        include_once('modules/mastersearch2/class_mastersearch2.php');
+        $ms2 = new mastersearch2('games');
 
-		//Anzeige der Aufgaben
-		$ms2->query['from'] = "%prefix%game_hs AS g";
-		$ms2->query['where'] ="game='num'"; 
-		$ms2->query['default_order_by'] ="g.score"; 
-		$ms2->config['EntriesPerPage'] = 50;
+        //Anzeige der Aufgaben
+        $ms2->query['from'] = "%prefix%game_hs AS g";
+        $ms2->query['where'] ="game='num'";
+        $ms2->query['default_order_by'] ="g.score";
+        $ms2->config['EntriesPerPage'] = 50;
 
-		$ms2->AddSelect('g.userid');
-		$ms2->AddResultField(t('Name'), 'g.nick', 'UserNameAndIcon');
-		$ms2->AddResultField(t('Versuche'), 'g.score');
-		$ms2->AddResultField(t('Kommentar'), 'g.comment');
-		$ms2->PrintSearch('index.php?mod=games&action=number&headermenuitem=2', 'g.id');
-		
+        $ms2->AddSelect('g.userid');
+        $ms2->AddResultField(t('Name'), 'g.nick', 'UserNameAndIcon');
+        $ms2->AddResultField(t('Versuche'), 'g.score');
+        $ms2->AddResultField(t('Kommentar'), 'g.comment');
+        $ms2->PrintSearch('index.php?mod=games&action=number&headermenuitem=2', 'g.id');
+        
         $dsp->AddBackButton("index.php?mod=games", "games/number");
-    break;
+        break;
 
     // Game
     default:
         if ($headermenuitem == 1) {
-            unset( $_SESSION['zahl'] );
+            unset($_SESSION['zahl']);
             $_SESSION["versuch"] = 0;
             $_SESSION["gewonnen"] = 0;
         }
 
-        if (!isset($_SESSION["zahl"])){
+        if (!isset($_SESSION["zahl"])) {
             srand(date(U));
             $_SESSION["zahl"] = rand(1, 1000);
             $_POST['eingabe'] = "0";
         }
 
         $_SESSION["gewonnen"] = 0;
-        if ($headermenuitem != 1) if ($_POST["eingabe"] > $_SESSION["zahl"]) $dsp->AddSingleRow(t('Die Gesuchte Zahl ist <b>kleiner</b> als <b>%1</b>', $_POST['eingabe']));
-        else if ($_POST["eingabe"] < $_SESSION["zahl"]) $dsp->AddSingleRow(t('Die Gesuchte Zahl ist <b>größer</b> als <b>%1</b>', $_POST['eingabe']));
-        else $_SESSION["gewonnen"] = 1;
+        if ($headermenuitem != 1) {
+            if ($_POST["eingabe"] > $_SESSION["zahl"]) {
+                $dsp->AddSingleRow(t('Die Gesuchte Zahl ist <b>kleiner</b> als <b>%1</b>', $_POST['eingabe']));
+            } elseif ($_POST["eingabe"] < $_SESSION["zahl"]) {
+                $dsp->AddSingleRow(t('Die Gesuchte Zahl ist <b>größer</b> als <b>%1</b>', $_POST['eingabe']));
+            } else {
+                $_SESSION["gewonnen"] = 1;
+            }
+        }
 
         if (!$_SESSION["gewonnen"]) {
             $dsp->SetForm("index.php?mod=games&action=number");
@@ -116,8 +126,7 @@ switch ($step){
 
             $dsp->AddBackButton("index.php?mod=games", "games/number");
         }
-    break;
+        break;
 }
 
 $dsp->AddContent();
-?>
