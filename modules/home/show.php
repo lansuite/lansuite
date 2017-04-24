@@ -46,7 +46,7 @@ switch ($home_page) {
                     if ($z % 2 == 1) {
                         $MainContent .= '</ul>';
                     }
-                        $z++;
+                    $z++;
                 }
             }
         }
