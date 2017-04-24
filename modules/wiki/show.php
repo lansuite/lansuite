@@ -19,7 +19,7 @@ if ($start_versionid < 0) {
 }
 $res = $db->qry(
     'SELECT v.versionid, v.date, u.username FROM %prefix%wiki_versions AS v LEFT JOIN %prefix%user AS u ON v.userid = u.userid
-  WHERE postid = %int% ORDER BY versionid LIMIT %int%, 7',
+    WHERE postid = %int% ORDER BY versionid LIMIT %int%, 7',
     $_GET['postid'],
     $start_versionid
 );
@@ -47,7 +47,7 @@ if ($auth['type'] > 2) {
 
 $row = $db->qry_first(
     'SELECT w.postid, w.name, v.text FROM %prefix%wiki AS w LEFT JOIN %prefix%wiki_versions AS v ON w.postid = v.postid
-  WHERE w.postid = %int% AND v.versionid = %int%',
+    WHERE w.postid = %int% AND v.versionid = %int%',
     $_GET['postid'],
     $_GET['versionid']
 );
