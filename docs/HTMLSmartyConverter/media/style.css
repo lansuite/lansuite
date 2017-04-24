@@ -1,5 +1,5 @@
 .php {
-	padding: 1em;
+    padding: 1em;
 }
 .php-src { font-family: 'Courier New', Courier, monospace; font-weight: normal; }
 
@@ -139,8 +139,8 @@ span.smalllinenumber
 }
 
 ul {
-	margin-left:		0px;
-	padding-left:		8px;
+    margin-left:        0px;
+    padding-left:       8px;
 }
 /* Syntax highlighting */
 
