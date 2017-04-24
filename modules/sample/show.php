@@ -1,59 +1,59 @@
 <?php
 
   ### Translation and Textoutput
-	// This is how you start a new output
-	// Use the t-function for each text you like to output. This function will translate the text to the users languge
-	// To define textes in other languages, use the translation function within lansuite.
-	// To provide the translations with your module, export the translations and attach them to your db.xml file
-	$dsp->NewContent(t('Überschrift'), t('Erweiterte Überschrift'));
+    // This is how you start a new output
+    // Use the t-function for each text you like to output. This function will translate the text to the users languge
+    // To define textes in other languages, use the translation function within lansuite.
+    // To provide the translations with your module, export the translations and attach them to your db.xml file
+    $dsp->NewContent(t('Überschrift'), t('Erweiterte Überschrift'));
 
-	// This is how to simply output some text
-	$dsp->AddSingleRow(t('Eine einfache Zeile'));
-    $dsp->AddDoubleRow("TEST : ",t('Eine einfache Zeile %1 und %2', "eins", "zwei"));
+    // This is how to simply output some text
+    $dsp->AddSingleRow(t('Eine einfache Zeile'));
+    $dsp->AddDoubleRow("TEST : ", t('Eine einfache Zeile %1 und %2', "eins", "zwei"));
 
 
   ### Forms ###
-	// Lets start a form
-	// The first argument is the target-php, which will be loaded after submitting
-	// In this case it will just reload this page without any effect
-	$dsp->SetForm("index.php?mod=sample&action=show&step=2");
+    // Lets start a form
+    // The first argument is the target-php, which will be loaded after submitting
+    // In this case it will just reload this page without any effect
+    $dsp->SetForm("index.php?mod=sample&action=show&step=2");
 
-	// Text-Input
-	// 1st argument: the html-name of the text-input, so you cann access the input after submitting by $_POST["name"]
-	// 2nd argument: here you can write a text, which gives the user a hint what information he has to write in this field
-	// 3rd argument: the default vaule
-	// 4th argument: an errortext. i.e. if the submitted information is incomplete
-	$dsp->AddTextFieldRow("name", t('Texteingabe'), "value", "");
+    // Text-Input
+    // 1st argument: the html-name of the text-input, so you cann access the input after submitting by $_POST["name"]
+    // 2nd argument: here you can write a text, which gives the user a hint what information he has to write in this field
+    // 3rd argument: the default vaule
+    // 4th argument: an errortext. i.e. if the submitted information is incomplete
+    $dsp->AddTextFieldRow("name", t('Texteingabe'), "value", "");
 
-	// Use this to display the form-submit-link
-	// "add" is the text which is displayed on the button. It will be translatet into other languages, if translations exist
-	$dsp->AddFormSubmitRow(t('Hinzufügen'));
+    // Use this to display the form-submit-link
+    // "add" is the text which is displayed on the button. It will be translatet into other languages, if translations exist
+    $dsp->AddFormSubmitRow(t('Hinzufügen'));
 
-	// This is how to load your own template, located in the 'templates'-folder of your module
-	$dsp->AddSingleRow($smarty->fetch('modules/sample/templates/my_template.htm'));
+    // This is how to load your own template, located in the 'templates'-folder of your module
+    $dsp->AddSingleRow($smarty->fetch('modules/sample/templates/my_template.htm'));
 
 
 
   ### Direct DB access ###
-	// Lets use the database - This will simply read all usernames from the database and display them
-	$res = $db->qry("SELECT username FROM %prefix%user");
-	while ($user = $db->fetch_array($res)){
-		$user_out .= $user["username"] .", ";
-	}
-	$dsp->AddSingleRow($user_out);
+    // Lets use the database - This will simply read all usernames from the database and display them
+    $res = $db->qry("SELECT username FROM %prefix%user");
+while ($user = $db->fetch_array($res)) {
+    $user_out .= $user["username"] .", ";
+}
+    $dsp->AddSingleRow($user_out);
 
-	$user_insg = $db->num_rows($res);
-	$db->free_result($res);
+    $user_insg = $db->num_rows($res);
+    $db->free_result($res);
 
-	$dsp->AddSingleRow(t('Benutzer insgesamt') .": ". $user_insg);
+    $dsp->AddSingleRow(t('Benutzer insgesamt') .": ". $user_insg);
 
-	// This will finaly output all the $dsp-Rows
-	$dsp->AddContent();
-	
-	
-	
-	### Mastersearch ###
-	// There is a quite simple way in lansuite to list and search data within data base tables, called mastersearch
+    // This will finaly output all the $dsp-Rows
+    $dsp->AddContent();
+    
+    
+    
+    ### Mastersearch ###
+    // There is a quite simple way in lansuite to list and search data within data base tables, called mastersearch
   // In this exapmle we will list all news
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('news');
@@ -79,8 +79,12 @@
 
   // These functions could be accessed for each row. To each link the group-by id is attached. See PrintSearch
   $ms2->AddIconField('details', 'index.php?mod=news&action=comment&newsid=', t('Details'));
-  if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
-  if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
+if ($auth['type'] >= 2) {
+    $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
+}
+if ($auth['type'] >= 3) {
+    $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
+}
 
   // Use this to finaly print the search. first argument: the current url; second argument: the group-by-id this id will be unique in the result and will be attached to each AddIconField-link
   $ms2->PrintSearch('index.php?mod=sample&action=show', 'n.newsid');
@@ -108,25 +112,24 @@
   $mf->AddFix('poster', $auth['userid']);
 
   // Sendform: 1) Current Link; 2) Affected data base table; 3) prim key in table; 4) ID to edit, if this is empty a new record will be added to the data base
-  if ($mf->SendForm('index.php?mod=sample&action=show', 'news', 'newsid', $_GET['newsid'])) {
+if ($mf->SendForm('index.php?mod=sample&action=show', 'news', 'newsid', $_GET['newsid'])) {
     // Add additional actions here, that should be called, after successfully adding an entry
-  }
+}
   
 
   
   ### Mastercomment ###
   // There are only two lines needed to add a comment function to the current table
-	include('inc/classes/class_mastercomment.php');
-	// Mastercomment: 1) which module should the comment belong to? 2) Which id should the comment referr to?
-	new Mastercomment('news', $_GET['newsid']);
-	
-	
-	
-	### Masterdelete ###
+    include('inc/classes/class_mastercomment.php');
+    // Mastercomment: 1) which module should the comment belong to? 2) Which id should the comment referr to?
+    new Mastercomment('news', $_GET['newsid']);
+    
+    
+    
+    ### Masterdelete ###
   // Use this, to delete entries from the data base
   include_once('inc/classes/class_masterdelete.php');
   $md = new masterdelete();
   // Will delete from the table 'news', where the fild 'newsid' is '$_GET['newsid']'
   // However a security question will be displayed first
   $md->Delete('news', 'newsid', $_GET['newsid']);
-?>
