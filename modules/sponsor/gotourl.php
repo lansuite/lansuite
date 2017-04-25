@@ -10,7 +10,7 @@
 *	Main editor: 		jochen@one-network.org
 *	Last change: 		29.05.2004
 *	Description: 		show a list of sponsors
-*	Remarks: 			
+*	Remarks:
 *
 **************************************************************************/
 
@@ -21,4 +21,3 @@ $dsp->AddDoubleRow(t('Du wirst weitergeleitet...'), "<a href=\"{$_GET["url"]}\">
 <script language = \"JavaScript\">window.location.href = \"{$_GET["url"]}\";</script>");
 $dsp->AddBackButton("index.php?mod=sponsor", "sponsor/show");
 $dsp->AddContent();
-?>
