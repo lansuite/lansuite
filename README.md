@@ -19,7 +19,7 @@ Serverseitig können sowohl Linux/Unix- als auch Windows- und Mac-Systeme einges
 
 Dieses Ziel stellt die größte Veränderung zu Lansuite Version 1 da. Viele der Konzepte wurden über Bord geworfen, da deren Bedienung zu komplex war. So wurde z.B. das Turniersystem radikal verändert und von unnötigem Ballast befreit. Die einfache Bedienbarkeit und das Learning-by-doing sind wichtige Entwicklungsziele der Version 2. Auch die "unterschwellige" und "leise" Unterstützung des Benutzers war uns wichtig, so sind z.B. alle Tabellen sortierbar usw.
 
-- **Mächtiges Verwaltungswerkzeug für die Organisatoren, das dennoch Übersichtlich und einfach zu bedienen ist**
+- **Mächtiges Verwaltungswerkzeug für die Organisatoren, das dennoch übersichtlich und einfach zu bedienen ist**
 
 "Nehmt die Orgas an die Hand und gebt ihnen Sicherheit, denn sie haben schon genug zu tun". Getreu diesem Motto wurden die Verwaltungswerkzeuge von Lansuite entwickelt. Da wir selbst Erfahrung im Organisieren von Lanparties haben, wissen wir wo es Probleme gibt und wie kritische Situationen (Anmeldung) gelöst werden können. Lansuite versucht eben diese Situation so einfach wie möglich zu gestalten, insbesondere beim Einchecken der Gäste zu Beginn der Party.
 
