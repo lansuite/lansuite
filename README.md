@@ -38,3 +38,12 @@ Lansuite bietet zu vielen Fachwörtern kleine Popup-Fenster mit deren Erklärung
 - **Gute, ausführliche Dokumentation**
 
 Sollten Onlinehilfe und Helpletts nicht weiterhelfen, kann der Anwender im Wiki blättern. Für die Organisatoren und Entwickler gibt es dort sehr nützliche Hinweise und Tipps.
+
+## Development
+
+### Coding style guide
+
+This project follows the coding guideline standards:
+
+* [PSR-1: Basic Coding Standard](http://www.php-fig.org/psr/psr-1/)
+* [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/)
