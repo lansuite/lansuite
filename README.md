@@ -45,6 +45,16 @@ Sollten Onlinehilfe und Helpletts nicht weiterhelfen, kann der Anwender im Wiki 
 
 ## Development
 
+### Contribution Guide
+
+#### English
+
+How to contribute is described in detail in our [Contribution Guide](./CONTRIBUTING.md).
+
+#### German / Deutsch
+
+Wie man zu diesem Projekt etwas beisteuert ist sehr detailliert in unserem [Contribution Guide](./CONTRIBUTING-DE.md) beschrieben.
+
 ### Coding style guide
 
 This project follows the coding guideline standards:
