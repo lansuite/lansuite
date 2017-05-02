@@ -39,6 +39,10 @@ Lansuite bietet zu vielen Fachwörtern kleine Popup-Fenster mit deren Erklärung
 
 Sollten Onlinehilfe und Helpletts nicht weiterhelfen, kann der Anwender im Wiki blättern. Für die Organisatoren und Entwickler gibt es dort sehr nützliche Hinweise und Tipps.
 
+## Requirements
+
+* PHP 7
+
 ## Development
 
 ### Coding style guide
