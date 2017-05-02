@@ -24,10 +24,9 @@ $mf->AddField(t('Hausnummer'), 'hnr');
 $mf->AddGroup(t('Adresse der Location'));
 
 if (!$_GET['partyid']) {
-  $mf->AddFix('userid', $auth['userid']);
+    $mf->AddFix('userid', $auth['userid']);
 }
 
 $mf->SendForm('index.php?mod=partylist&action=add', 'partylist', 'partyid', $_GET['partyid']);
 $dsp->AddBackButton('index.php?mod=partylist');
 $dsp->AddContent();
-?>
