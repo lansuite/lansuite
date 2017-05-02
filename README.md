@@ -1,36 +1,3 @@
-# Contribution Guide
-
-## Commit Code
-
-**deutsch**
-
-- Fork erstellen
-- Änderungen auf den fork commiten
-- Merge request machen
-- Pull Request reviewen lassen
-
-
-**english**
-
-- create a fork
-- commit changes to the fork
-- create a merge request
-- let the pull request be reviewed
-
-## Bug Report
-
-**deutsch**
-
-Falls du eine Issue anlegst sollte dieses einen klaren Titel mit einer genauen Beschreibung des enthalten. Du solltest so viele relevante Informationen wie möglich angeben und auch ein Code Beispiel, welches den Fehler demonstriert. Ein Bug Report soll dir und anderen helfen  den Fehler zu reproduzieren und einen Fix zu entwickeln.
-
-Bitte denk daran, dass ein Bug Report erstellt werden in der Hoffnung andere mit dem selben Problem zusammenzubringen und dann zusammen eine Lösung zu finden. Erwarte nicht, dass der Bug Report automatisch als Aufgabe gesehen wird oder sofort gelöst wird. Das Erstellen eines Bug Reports soll dabei helfen dir und anderen den ursprung des Problems zu ermitteln.
-
-**english**
-
-If you file a bug report, your issue should contain a title and a clear description of the issue. You should also include as much relevant information as possible and a code sample that demonstrates the issue. The goal of a bug report is to make it easy for yourself - and others - to replicate the bug and develop a fix.
-
-Remember, bug reports are created in the hope that others with the same problem will be able to collaborate with you on solving it. Do not expect that the bug report will automatically see any activity or that others will jump to fix it. Creating a bug report serves to help yourself and others start on the path of fixing the problem.
-
 # Lansuite - Webbased LAN-Party Management System
 
 Lansuite ist ein Lanparty-Administrationssystem, basierend auf PHP und MySQL.
@@ -73,6 +40,16 @@ Lansuite bietet zu vielen Fachwörtern kleine Popup-Fenster mit deren Erklärung
 Sollten Onlinehilfe und Helpletts nicht weiterhelfen, kann der Anwender im Wiki blättern. Für die Organisatoren und Entwickler gibt es dort sehr nützliche Hinweise und Tipps.
 
 ## Development
+
+### Contribution Guide
+
+#### English
+
+How to contribute is described in detail in our [Contribution Guide](./CONTRIBUTING.md).
+
+#### German / Deutsch
+
+Wie man zu diesem Projekt etwas beisteuert ist sehr detailliert in unserem [Contribution Guide](./CONTRIBUTING-DE.md) beschrieben.
 
 ### Coding style guide
 
