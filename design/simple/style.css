@@ -16,87 +16,87 @@ name {
 
 /* Main-Template */
 div#DateLogout {
-  	position: absolute;   
-	top: 2px;   
-	right: 4px;   
-	width: 300px;   
-	height: 20px;   
-	z-index: 90;
-  	text-align: right;
-  	font-size: 11px;
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    width: 300px;
+    height: 20px;
+    z-index: 90;
+    text-align: right;
+    font-size: 11px;
 }
 div#LansuiteFullscreen {
-	position: absolute;
-	top: 2px;
-	height: 20px;
-	z-index: 90;
-	font-size: 11px;
-	left: 4px;
+    position: absolute;
+    top: 2px;
+    height: 20px;
+    z-index: 90;
+    font-size: 11px;
+    left: 4px;
 }
 div#Logo {
-  	position: absolute;   
-	top: 10px;    
-	left: 10px;   
-	z-index: 10;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
 }
 div#Banner {
-  	position: absolute;   
-	top: 20px;    
-	right: 4px;   
-	z-index: 5;
+    position: absolute;
+    top: 20px;
+    right: 4px;
+    z-index: 5;
 }
 div#BoxesLeft {
-  	position: absolute;   
-	top: 100px;   
-	left: 4px;    
-	width: 180px;   
-	z-index: 50;
+    position: absolute;
+    top: 100px;
+    left: 4px;
+    width: 180px;
+    z-index: 50;
 }
 div#Content {
-  	position: absolute;   
-  	top: 100px;   
-  	right: 190px;   
-  	left: 190px;    
-  	z-index: 100;
-  	margin: 0px 2px 10px 2px;   
-  	padding: 8px 4px 10px 8px;
-  	background: #eee6e6;
-  	-moz-border-radius-topleft: 8px;
-  	-moz-border-radius-topright: 8px;
+    position: absolute;
+    top: 100px;
+    right: 190px;
+    left: 190px;
+    z-index: 100;
+    margin: 0px 2px 10px 2px;
+    padding: 8px 4px 10px 8px;
+    background: #eee6e6;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
     -webkit-border-top-left-radius: 8px;
     -webkit-border-top-right-radius: 8px;
-  	-moz-border-radius-bottomleft: 8px;
-  	-moz-border-radius-bottomright: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    -moz-border-radius-bottomright: 8px;
     -webkit-border-bottom-left-radius: 8px;
     -webkit-border-bottom-right-radius: 8px;
 }
 div#tabs {
-  	background: #eee6e6;
+    background: #eee6e6;
 }
 div#ContentFullscreen {
-  	position: absolute;   
-  	top: 40px;    
-  	right: 10px;    
-  	left: 10px;   
-  	z-index: 10;
-  	margin: 0px 2px 10px 2px;   
-  	padding: 8px 4px 10px 8px;
-  	background: #eee6e6;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    left: 10px;
+    z-index: 10;
+    margin: 0px 2px 10px 2px;
+    padding: 8px 4px 10px 8px;
+    background: #eee6e6;
 }
 div#BoxesRight {
-  	position: absolute;   
-  	top: 100px;   
-  	right: 4px;   
-  	width: 180px;   
-  	z-index: 50;
+    position: absolute;
+    top: 100px;
+    right: 4px;
+    width: 180px;
+    z-index: 50;
 }
 div#Footer {
-  	margin: 8px 0px 0px 0px;
-  	color: #bbbbbb;
-  	text-align: center;
+    margin: 8px 0px 0px 0px;
+    color: #bbbbbb;
+    text-align: center;
 }
 div#Footer a {
-  	color: #bbbbbb;
+    color: #bbbbbb;
 }
 
 /* Links */
@@ -111,47 +111,47 @@ a.admin:hover {
 
 /* Boxes */
 div.Box {
-  	position: relative;
-  	margin: 0px 4px 8px 4px;    
-  	padding: 0px 0px 0px 0px;
+    position: relative;
+    margin: 0px 4px 8px 4px;
+    padding: 0px 0px 0px 0px;
     word-wrap: break-word;
 }
 ul.BoxHeadline {
-  	width: 160px;
-  	margin: 0px 0px 0px 0px;    
-  	border-bottom:1px solid #9c9d9c;    
-  	padding: 4px 4px 4px 8px;
-  	background: #eee6e6;
-  	font-weight: bold;    
-  	list-style: none;
-  	white-space:nowrap
-  	-moz-border-radius-topleft: 4px;
-  	-moz-border-radius-topright: 4px;
+    width: 160px;
+    margin: 0px 0px 0px 0px;
+    border-bottom:1px solid #9c9d9c;
+    padding: 4px 4px 4px 8px;
+    background: #eee6e6;
+    font-weight: bold;
+    list-style: none;
+    white-space:nowrap
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
     -webkit-border-top-left-radius: 4px;
     -webkit-border-top-right-radius: 4px;
 }
 li.BoxCaption {
-  	width: 136px; 
-  	display: inline;
-  	float: left;
-  	background: #eee6e6;
-  	font-weight: bold;    
-  	list-style: none;
+    width: 136px;
+    display: inline;
+    float: left;
+    background: #eee6e6;
+    font-weight: bold;
+    list-style: none;
 }
 li.BoxHelpClose {
-  	width: 18px; 
-  	display: inline;
-  	font-size: 10px;   
-  	list-style: none;
+    width: 18px;
+    display: inline;
+    font-size: 10px;
+    list-style: none;
 }
 ul.BoxContent {
-  	width: 160px;
-  	margin: 0px 0px 0px 0px;    
-  	padding: 4px 4px 4px 8px;
-  	background: #dee2e6;
-  	list-style: none;
-  	-moz-border-radius-bottomleft: 4px;
-  	-moz-border-radius-bottomright: 4px;
+    width: 160px;
+    margin: 0px 0px 0px 0px;
+    padding: 4px 4px 4px 8px;
+    background: #dee2e6;
+    list-style: none;
+    -moz-border-radius-bottomleft: 4px;
+    -moz-border-radius-bottomright: 4px;
     -webkit-border-bottom-left-radius: 4px;
     -webkit-border-bottom-right-radius: 4px;
 }

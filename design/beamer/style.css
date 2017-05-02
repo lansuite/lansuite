@@ -16,333 +16,441 @@ name {
 
 /* Main-Template */
 body {
-  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
-  text-align: left;
-  background: #ffffff;    color: #000000;
-  font-size: 11px;    font-weight: normal;   font-family: verdana, helvetica, sans-serif;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: left;
+    background: #ffffff;
+    color: #000000;
+    font-size: 11px;
+    font-weight: normal;
+    font-family: verdana, helvetica, sans-serif;
 }
 td {
-  font-size: 11px;
+    font-size: 11px;
 }
 div#DateLogout {
-  position: absolute;   top: 2px;   right: 4px;   width: 300px;   height: 20px;   z-index: 90;
-  text-align: right;
-  font-size: 11px;
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    width: 300px;
+    height: 20px;
+    z-index: 90;
+    text-align: right;
+    font-size: 11px;
 }
 div#Logo {
-  position: absolute;   top: 1200px;    left: 10px;   z-index: 10;
+    position: absolute;
+    top: 1200px;
+    left: 10px;
+    z-index: 10;
 }
 div#Banner {
-  position: absolute;   top: 20px;    right: 4px;   z-index: 5;
-  color: red;
-  font-size:22px;
+    position: absolute;
+    top: 20px;
+    right: 4px;
+    z-index: 5;
+    color: red;
+    font-size:22px;
 }
 div#BoxesLeft {
-  position: absolute;   top: 100px;   left: 4px;    width: 180px;   z-index: 50;
+    position: absolute;
+    top: 100px;
+    left: 4px;
+    width: 180px;
+    z-index: 50;
 }
 div#Content {
-  position: absolute;   top: 100px;   right: 190px;   left: 190px;    z-index: 100;
-  margin: 0px 2px 10px 2px;   padding: 8px 4px 10px 8px;
-  background: #eee6e6;
+    position: absolute;
+    top: 100px;
+    right: 190px;
+    left: 190px;
+    z-index: 100;
+    margin: 0px 2px 10px 2px;
+    padding: 8px 4px 10px 8px;
+    background: #eee6e6;
 }
 div#ContentFullscreen {
-  position: absolute;   top: 0px;    right: 10px;    left: 10px;   z-index: 10;
-  margin: 0px 2px 10px 2px;   padding: 8px 4px 10px 8px;
-  background: #eee6e6;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    left: 10px;
+    z-index: 10;
+    margin: 0px 2px 10px 2px;
+    padding: 8px 4px 10px 8px;
+    background: #eee6e6;
 }
 div#BoxesRight {
-  position: absolute;   top: 100px;   right: 4px;   width: 180px;   z-index: 50;
+    position: absolute;
+    top: 100px;
+    right: 4px;
+    width: 180px;
+    z-index: 50;
 }
 div#Footer {
-  position: relative;   width: 100%;    z-index: 20;
-  margin: 8px 0px 0px 0px;
-  text-align: center;
+    position: relative;
+    width: 100%;
+    z-index: 20;
+    margin: 8px 0px 0px 0px;
+    text-align: center;
 }
 
 /* Boxes */
 div.Box {
-  position: relative;
-  margin: 0px 4px 8px 4px;    padding: 0px 0px 0px 0px;
+    position: relative;
+    margin: 0px 4px 8px 4px;
+    padding: 0px 0px 0px 0px;
 }
 ul.BoxHeadline {
-  margin: 0px 0px 0px 0px;    border-bottom:1px solid #9c9d9c;    padding: 4px 4px 4px 8px;
-  background: #eee6e6;
-  font-weight: bold;    list-style: none;
+    margin: 0px 0px 0px 0px;
+    border-bottom: 1px solid #9c9d9c;
+    padding: 4px 4px 4px 8px;
+    background: #eee6e6;
+    font-weight: bold;
+    list-style: none;
 }
 li.BoxCaption {
-  width: 136px;
-  float: left;
-  background: #eee6e6;
-  font-weight: bold;    list-style: none;
+    width: 136px;
+    float: left;
+    background: #eee6e6;
+    font-weight: bold;
+    list-style: none;
 }
 li.BoxHelpClose {
-  width: 18px;
-  font-size: 10px;   list-style: none;
+    width: 18px;
+    font-size: 10px;   list-style: none;
 }
 ul.BoxContent {
-  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 8px;
-  background: #dee2e6;
-  list-style: none;
+    margin: 0px 0px 0px 0px;
+    padding: 4px 4px 4px 8px;
+    background: #dee2e6;
+    list-style: none;
 }
 li.engaged {
-  padding: 0px 0px 0px 16px;
+    padding: 0px 0px 0px 16px;
 }
 .box_entry {
-  padding: 0px 0px 2px 16px;
-  background-image: url(images/arrows_menurow.gif);   background-repeat: no-repeat;
+    padding: 0px 0px 2px 16px;
+    background-image: url(images/arrows_menurow.gif);
+    background-repeat: no-repeat;
 }
 .box_entry_active {
-  padding: 0px 0px 2px 16px;
-	background-image: url(images/arrows_menurow_close.gif);    background-repeat: no-repeat;
+    padding: 0px 0px 2px 16px;
+    background-image: url(images/arrows_menurow_close.gif);
+    background-repeat: no-repeat;
 }
 .box_entrymessage {
-  padding: 0px 0px 2px 16px;
-	background-image: url(images/arrows_message.gif);    background-repeat: no-repeat;
+    padding: 0px 0px 2px 16px;
+    background-image: url(images/arrows_message.gif);
+    background-repeat: no-repeat;
 }
 .box_entrymessage_blink {
-  padding: 0px 0px 2px 16px;
-	background-image: url(images/arrows_message_blink.gif);    background-repeat: no-repeat;
+    padding: 0px 0px 2px 16px;
+    background-image: url(images/arrows_message_blink.gif);
+    background-repeat: no-repeat;
 }
 .box_entrydata {
-  padding: 0px 0px 2px 16px;
-	background-image: url(images/arrows_data.gif);    background-repeat: no-repeat;
+    padding: 0px 0px 2px 16px;
+    background-image: url(images/arrows_data.gif);
+    background-repeat: no-repeat;
 }
 /* ---- Teamspeak2 Display BEGINN ----*/
 #teamspeakdisplay img {
-  border: 0px;
+    border: 0px;
 }
 #teamspeakdisplay table {
-  border-collapse: collapse;  border-spacing: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
 }
 #teamspeakdisplay td {
-  padding: 0px;
-  vertical-align: top;  white-space: nowrap;
-  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+    padding: 0px;
+    vertical-align: top;
+    white-space: nowrap;
+    font-size: 11px;
+    font-family: verdana, helvetica, sans-serif;
 }
 #teamspeakdisplay td.teamspeakserver {
-  padding-left: 3px;
-  font-weight: bold;
+    padding-left: 3px;
+    font-weight: bold;
 }
 #teamspeakdisplay td.teamspeakchannel {
-  padding-left: 3px;
+    padding-left: 3px;
 }
 #teamspeakdisplay td.teamspeaksubchannel {
-  padding-left: 3px;
+    padding-left: 3px;
 }
 #teamspeakdisplay td.teamspeakplayer {
-	padding-left: 3px;
-	font-weight: bold;
+    padding-left: 3px;
+    font-weight: bold;
 }
 #teamspeakdisplay a.teamspeakserver {
-  font-size: 11px;  font-weight: bold;  font-family: verdana, helvetica, sans-serif;
-  text-decoration: none;
-  color: #000000;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: verdana, helvetica, sans-serif;
+    text-decoration: none;
+    color: #000000;
 }
 #teamspeakdisplay a.teamspeakchannel, a.teamspeaksubchannel {
-  font-size: 11px;  font-weight: ;  font-family: verdana, helvetica, sans-serif;
-  text-decoration: none;
-  color: #000000;
+    font-size: 11px;  font-weight: ;  font-family: verdana, helvetica, sans-serif;
+    text-decoration: none;
+    color: #000000;
 }
 #teamspeakdisplay a.teamspeakserver:hover, a.teamspeakchannel:hover, a.teamspeaksubchannel:hover {
-  color: #000066;
-  text-decoration: none;
+    color: #000066;
+    text-decoration: none;
 }
 /* ---- Teamspeak2 Display ENDE ----*/
 /* Content */
 .content {
-  padding: 0px 0px 0px 0px;
-  background:		#DEE3E7;
+    padding: 0px 0px 0px 0px;
+    background: #DEE3E7;
 }
 ul.Line {
-  position: relative;   height: 100%;
-  margin: 0px 0px 0px 0px;    border-top: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
-  clear: left;
-  background: #eee6e6;
+    position: relative;
+    height: 100%;
+    margin: 0px 0px 0px 0px;
+    border-top: 1px solid #9c9d9c;
+    padding: 0px 0px 2px 0px;
+    clear: left;
+    background: #eee6e6;
 }
 ul.LineFirst {
-  position: relative;   height: 100%;
-  margin: 0px 0px 0px 0px;    padding: 0px 0px 2px 0px;
-  clear: left;
-  background: #eee6e6;
+    position: relative;
+    height: 100%;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 2px 0px;
+    clear: left;
+    background: #eee6e6;
 }
 li.LineLeft {
-  width: 180px;   min-height: 16px;   z-index: 10;
-  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
-  float: left;
-  list-style: none;
+    width: 180px;
+    min-height: 16px;
+    z-index: 10;
+    margin: 0px 0px 0px 0px;
+    padding: 4px 4px 4px 4px;
+    float: left;
+    list-style: none;
 }
 li.LineLeftBoard {
-  width: 120px;   min-height: 16px;   z-index: 10;
-  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
-  float: left;
-  list-style: none;
+    width: 120px;
+    min-height: 16px;
+    z-index: 10;
+    margin: 0px 0px 0px 0px;
+    padding: 4px 4px 4px 4px;
+    float: left;
+    list-style: none;
 }
 li.LineLeftHalf {
-  width: 50%;   min-height: 16px;   z-index: 10;
-  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
-  float: left;
-  list-style: none;
+    width: 50%;
+    min-height: 16px;
+    z-index: 10;
+    margin: 0px 0px 0px 0px;
+    padding: 4px 4px 4px 4px;
+    float: left;
+    list-style: none;
 }
 li.LineRight {
-  min-height: 16px;   z-index: 11;
-  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
-  background: #eeeeee;
-  list-style: none;
+    min-height: 16px;   z-index: 11;
+    margin: 0px 0px 0px 0px;
+    padding: 4px 4px 4px 4px;
+    background: #eeeeee;
+    list-style: none;
 }
 li.Confirmation {
-  padding: 4px 2px 0px 2px;
-	background: #00ff00;
-  list-style: none;
+    padding: 4px 2px 0px 2px;
+    background: #00ff00;
+    list-style: none;
 }
 li.Err {
-  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
-	background: #f33737;
-  list-style: none;
+    margin: 8px 2px 8px 2px;
+    padding: 8px 4px 10px 8px;
+    background: #f33737;
+    list-style: none;
 }
 li.Information {
-  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
-	background: #f8ae38;
-  list-style: none;
+    margin: 8px 2px 8px 2px;
+    padding: 8px 4px 10px 8px;
+    background: #f8ae38;
+    list-style: none;
 }
 li.Confirmation {
-  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
-	background: #84cd82;
-  list-style: none;
+    margin: 8px 2px 8px 2px;
+    padding: 8px 4px 10px 8px;
+    background: #84cd82;
+    list-style: none;
 }
 h1 {
   position: relative;
-  font-weight: bold;
+    font-weight: bold;
 }
-div.HeadlineSub {
-}
+
 div.HeadlineHelp {
-  position: absolute;   top: 0px;   right: 8px;
-  font-size: 10px;
+    position: absolute;   top: 0px;   right: 8px;
+    font-size: 10px;
 }
 .login {
-	background: #dee2e6;
-  font-size: 11px;
-  text-align: left;
+    background: #dee2e6;
+    font-size: 11px;
+    text-align: left;
 }
 .row_key {
-  height: 100%;
-  border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
-	background: #E8E7E7;
-  font-weight: bold;
-  font-size: 11px;
-  text-align: left;
+    height: 100%;
+    border-bottom: 1px solid #9c9d9c;
+    padding: 4px 2px 0px 2px;
+    background: #E8E7E7;
+    font-weight: bold;
+    font-size: 11px;
+    text-align: left;
 }
 .row_value {
-  height: 100%;
-  border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
-	background: #EFEFEF;
-  font-size: 11px;
+    height: 100%;
+    border-bottom: 1px solid #9c9d9c;
+    padding: 4px 2px 0px 2px;
+    background: #EFEFEF;
+    font-size: 11px;
 }
 .row_value_highlighted {
-  height: 100%;
-  border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
-	background:		#E2F2E2;
-  font-size: 11px;
+    height: 100%;
+    border-bottom: 1px solid #9c9d9c;
+    padding: 4px 2px 0px 2px;
+    background: #E2F2E2;
+    font-size: 11px;
 }
 .row_value_important {
-  height: 100%;
-  border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
-	background: #EEE6BD;
-  font-size: 11px;
+    height: 100%;
+    border-bottom: 1px solid #9c9d9c;
+    padding: 4px 2px 0px 2px;
+    background: #EEE6BD;
+    font-size: 11px;
 }
 div.Button {
-  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 
 div.Button a {
-  width: 140px;
-  margin: 2px 0px 2px 0px;    padding: 2px 6px 2px 6px;
-  text-align: center;
-	background: #bbbbbb;
-  font-weight: bold;
-  display: block;
+    width: 140px;
+    margin: 2px 0px 2px 0px;
+    padding: 2px 6px 2px 6px;
+    text-align: center;
+    background: #bbbbbb;
+    font-weight: bold;
+    display: block;
 }
 div.Button a:hover {
-  width: 140px;
-  margin: 2px 0px 2px 0px;    padding: 2px 6px 2px 6px;
-  text-align: center;
-	background: #999999;	color: #ffffff;
-  font-weight: bold;
-  text-decoration: none;
-  display: block;
+    width: 140px;
+    margin: 2px 0px 2px 0px;
+    padding: 2px 6px 2px 6px;
+    text-align: center;
+    background: #999999;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
 }
 div.Buttons a {
-  width: 125px;  height: 100%;
-  margin: 2px 2px 2px 0px;   border: 2px solid #6882b9;   padding: 1px;
-  float: left;
-  background: #D7E5F2;   color: #102132;
-  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
-  text-align: center;
+    width: 125px;
+    height: 100%;
+    margin: 2px 2px 2px 0px;
+    border: 2px solid #6882b9;
+    padding: 1px;
+    float: left;
+    background: #D7E5F2;
+    color: #102132;
+    font-size: 11px;
+    font-family: verdana, helvetica, sans-serif;
+    text-align: center;
 }
 div.Buttons a:hover {
-  width: 125px;  height: 100%;
-  margin: 2px 2px 2px 0px;   border: 2px solid #6882b9;   padding: 1px;
-  float: left;
-  background: #284279;   color: #ffffff;
-  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
-  text-align: center;
-  text-decoration: none;
+    width: 125px;
+    height: 100%;
+    margin: 2px 2px 2px 0px;
+    border: 2px solid #6882b9;
+    padding: 1px;
+    float: left;
+    background: #284279;
+    color: #ffffff;
+    font-size: 11px;
+    font-family: verdana, helvetica, sans-serif;
+    text-align: center;
+    text-decoration: none;
 }
 input.Button {
-  width: 125px;  height: 100%;
-  margin: 2px 0px 2px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
-  background: #D7E5F2;   color: #102132;
-  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+    width: 125px;
+    height: 100%;
+    margin: 2px 0px 2px 0px;
+    border: 2px solid #6882b9;
+    padding: 0px 2px 0px 2px;
+    background: #D7E5F2;
+    color: #102132;
+    font-size: 11px;
+    font-family: verdana, helvetica, sans-serif;
 }
 input.Button:hover {
-  width: 125px;  height: 100%;
-  margin: 2px 0px 2px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
-  background: #284279;   color: #ffffff;
-  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
-  text-decoration: none;
+    width: 125px;  height: 100%;
+    margin: 2px 0px 2px 0px;
+    border: 2px solid #6882b9;  
+    padding: 0px 2px 0px 2px;
+    background: #284279;
+    color: #ffffff;
+    font-size: 11px;
+    font-family: verdana, helvetica, sans-serif;
+    text-decoration: none;
 }
 
 .Help {
-  color: #aaaaaa;
+    color: #aaaaaa;
 }
 .AdminIcons {
-  padding: 0px 0px 2px 16px;
-  background-image: url(images/arrows_data.gif);   background-repeat: no-repeat;
-  font-size: 10px;
+    padding: 0px 0px 2px 16px;
+    background-image: url(images/arrows_data.gif);   background-repeat: no-repeat;
+    font-size: 10px;
 }
 .form_optional { /* used for optional form fields */
-  background: rgb(191,255,255);
+    background: rgb(191,255,255);
 }
 .tbl_7 { /* used for quotes */
-  text-align: left;
-  background: #C7C6C4;    color: #000000;
-  font-family: Courier New, Courier, mono;
+    text-align: left;
+    background: #C7C6C4;
+    color: #000000;
+    font-family: Courier New, Courier, mono;
 }
 .frame_box { /* used for seating descriptions */
-	border: 1px solid #9D9D9D;   padding: 4px 4px 4px 4px;
-	text-align: center;   vertical-align: middle;
-	background: #D6D6D6;
+    border: 1px solid #9D9D9D;
+    padding: 4px 4px 4px 4px;
+    text-align: center;
+    vertical-align: middle;
+    background: #D6D6D6;
 }
 .small {
-  font-size: 10px;
+    font-size: 10px;
 }
 
 /* Forms */
 
 fieldset {
-  margin: 0px 0px 0px 0px;   padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 label {
-  margin: 0px 0px 0px 0px;   padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 input {
-  margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 1px 0px 1px 0px;
-  background: #D7E5F2;   color: #102132;
-  font-size: 11px;    font-weight: normal;   font-family: verdana, helvetica, sans-serif;
+    margin: 0px 0px 0px 0px;
+    border: 1px solid #284279;
+    padding: 1px 0px 1px 0px;
+    background: #D7E5F2;  
+    color: #102132;
+    font-size: 11px;
+    font-weight: normal;
+    font-family: verdana, helvetica, sans-serif;
 }
 input.checkbox {
-  margin: 0px 4px 0px 0px;   border: 0px 0px 0px 0px;   padding: 0px 0px 0px 0px;
-  background: #eeeeee;   color: #eeeeee;
+    margin: 0px 4px 0px 0px;
+    border: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background: #eeeeee;
+    color: #eeeeee;
 }
 /*
 input[type=text] {
@@ -350,82 +458,112 @@ input[type=text] {
 }
 */
 select {
-  margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
-  background: #D7E5F2;   color: #102132;
-  font-size: 11px;
+    margin: 0px 0px 0px 0px;
+    border: 1px solid #284279;
+    padding: 0px 0px 0px 0px;
+    background: #D7E5F2;
+    color: #102132;
+    font-size: 11px;
 }
 textarea {
-  width: 100%;
-  margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
-  background: #D7E5F2;   color: #102132;
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    border: 1px solid #284279;
+    padding: 0px 0px 0px 0px;
+    background: #D7E5F2;   color: #102132;
 }
 /* Dropdown Images */
-option[value=de]:before { content:url("../images/icon_de.png"); }
-option[value=en]:before { content:url("../images/icon_en.png"); }
-option[value=at]:before { content:url("../images/icon_at.png"); }
-option[value=ch]:before { content:url("../images/icon_ch.png"); }
-option[value=es]:before { content:url("../images/icon_es.png"); }
-option[value=fr]:before { content:url("../images/icon_fr.png"); }
-option[value=nl]:before { content:url("../images/icon_nl.png"); }
-option[value=it]:before { content:url("../images/icon_it.png"); }
+option[value=de]:before {#
+    content:url("../images/icon_de.png");
+}
+option[value=en]:before {
+    content:url("../images/icon_en.png");
+}
+option[value=at]:before {
+    content:url("../images/icon_at.png");
+}
+option[value=ch]:before {
+    content:url("../images/icon_ch.png");
+}
+option[value=es]:before {
+    content:url("../images/icon_es.png");
+}
+option[value=fr]:before {
+    content:url("../images/icon_fr.png");
+}
+option[value=nl]:before {
+    content:url("../images/icon_nl.png");
+}
+option[value=it]:before {
+    content:url("../images/icon_it.png");
+}
 
 
 /* Message-Highlighting */
 .error {
-	text-align: left;
-	color: #FF0000;
-	font-weight: bold;
+    text-align: left;
+    color: #FF0000;
+    font-weight: bold;
 }
 .warning {
-	text-align: left;
-	color: #EE6600;
-	font-weight: bold;
+    text-align: left;
+    color: #EE6600;
+    font-weight: bold;
 }
 .okay {
-	text-align: left;
-	color: #008000;
-	font-weight: bold;
+    text-align: left;
+    color: #008000;
+    font-weight: bold;
 }
 
 /* Bars*/
 ul.BarOccupied {
-  position: static;   height: 12px;
-  margin: 0px 0px 0px 0px;        padding: 0px 0px 0px 0px;
-  float: left;
-	background: #2bb800;
+    position: static;
+    height: 12px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    float: left;
+    background: #2bb800;
 }
 ul.BarMarked {
-  position: static;   height: 12px;
-  margin: 0px 0px 0px 0px;    border: 2px 0px 2px 0px solid #9c9d9c;    padding: 0px 0px 0px 0px;
-  float: left;
-	background: #fff500;
+    position: static;
+    height: 12px;
+    margin: 0px 0px 0px 0px;
+    border: 2px 0px 2px 0px solid #9c9d9c;
+    padding: 0px 0px 0px 0px;
+    float: left;
+    background: #fff500;
 }
 ul.BarFree {
-  position: static;   height: 12px;
-  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
-  float: left;
-	background: #b0b0b0;
+    position: static;
+    height: 12px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    float: left;
+    background: #b0b0b0;
 }
 ul.BarClear {
-  position: static;   width: 0px;   height: 0px;
-  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
-  clear: left;
+    position: static;
+    width: 0px;   height: 0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    clear: left;
 }
 
 /* Links */
 a:link, a:visited {
-	color: #000000;
-	text-decoration:none;
+    color: #000000;
+    text-decoration:none;
 }
 a:hover {
-	color: #888888;
-	text-decoration:underline;
+    color: #888888;
+    text-decoration:underline;
 }
 a.admin:link, a.admin:visited {
-	color: #ff0000;
-	text-decoration:none;
+    color: #ff0000;
+    text-decoration:none;
 }
 a.admin:hover {
-	color: #ff0000;
-	text-decoration:underline;
+    color: #ff0000;
+    text-decoration:underline;
 }
