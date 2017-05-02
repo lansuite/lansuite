@@ -7,6 +7,6 @@
 // ADD HERE MODULPUGINCODE
 
 // Show Editbutton for Signonstatus
-if ($party->count > 0) $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action=party&user_id=', t('Partyanmeldung'));
-
-?>
+if ($party->count > 0) {
+    $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action=party&user_id=', t('Partyanmeldung'));
+}

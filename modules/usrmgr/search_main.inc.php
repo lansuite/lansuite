@@ -17,5 +17,3 @@ $ms2->AddTextSearchField(t('E-Mail'), array('u.email' => 'like'));
 $ms2->AddResultField(t('Benutzername'), 'u.username');
 $ms2->AddResultField(t('Vorname'), 'u.firstname');
 $ms2->AddResultField(t('Nachname'), 'u.name');
-
-?>

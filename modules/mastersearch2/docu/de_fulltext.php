@@ -20,5 +20,3 @@ $helplet['key'][7] = '*';
 $helplet['value'][7] = 'Steht anstelle von beliebigen Zeichen';
 $helplet['key'][8] = '""';
 $helplet['value'][8] = 'Mit den "-Zeichen kann man der Suche sagen, dass der Wert der durch sie eingeschlossen wird, exakt so vorkommen soll';
-
-?>

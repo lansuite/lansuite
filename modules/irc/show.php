@@ -1,29 +1,38 @@
 <?php
 
-if ($auth['username']) $_POST["username"] = $auth['username'];
-if ($auth['firstname']) $_POST["firstname"] = $auth['firstname'];
-if ($auth['name']) $_POST["name"] = $auth['name'];
+if ($auth['username']) {
+    $_POST["username"] = $auth['username'];
+}
+if ($auth['firstname']) {
+    $_POST["firstname"] = $auth['firstname'];
+}
+if ($auth['name']) {
+    $_POST["name"] = $auth['name'];
+}
 
-if ($cfg["irc_server"] == "null" or $cfg["irc_server"] == "") $func->error(t('Kein IRC Server in den Moduleinstellungen definiert.'));
-elseif ($cfg["irc_width"] == "" or $cfg["irc_height"] == "") $func->error(t('Keine Gr&ouml;&szlig;enangaben in den Moduleinstellungen definiert.'));
+if ($cfg["irc_server"] == "null" or $cfg["irc_server"] == "") {
+    $func->error(t('Kein IRC Server in den Moduleinstellungen definiert.'));
+} elseif ($cfg["irc_width"] == "" or $cfg["irc_height"] == "") {
+    $func->error(t('Keine Gr&ouml;&szlig;enangaben in den Moduleinstellungen definiert.'));
+} elseif (!$_POST["username"]) {
+    $dsp->NewContent(t('Chat'), t('Hier kannst du auf unserem IRC Server chatten.'));
+    $dsp->SetForm("index.php?mod=irc");
 
-elseif (!$_POST["username"]) {
-	$dsp->NewContent(t('Chat'), t('Hier kannst du auf unserem IRC Server chatten.'));
-	$dsp->SetForm("index.php?mod=irc");
+    $dsp->AddTextFieldRow("username", t('Benutzername'), $_POST["username"], "");
+    $dsp->AddTextFieldRow("firstname", t('Vorname'), $_POST["firstname"], "");
+    $dsp->AddTextFieldRow("name", t('Nachname'), $_POST["name"], "");
 
-	$dsp->AddTextFieldRow("username", t('Benutzername'), $_POST["username"], "");
-	$dsp->AddTextFieldRow("firstname", t('Vorname'), $_POST["firstname"], "");
-	$dsp->AddTextFieldRow("name", t('Nachname'), $_POST["name"], "");
-
-	$dsp->AddFormSubmitRow(t('Hinzufügen'));
-	$dsp->AddContent();
-
+    $dsp->AddFormSubmitRow(t('Hinzufügen'));
+    $dsp->AddContent();
 } else {
-	if ($language == "en") $lang_out = "english";
-	else $lang_out = "german";
+    if ($language == "en") {
+        $lang_out = "english";
+    } else {
+        $lang_out = "german";
+    }
 
-	$dsp->NewContent(t('Chat'), t('Hier kannst du auf unserem IRC Server chatten.'));
-	$dsp->AddSingleRow(HTML_NEWLINE . '<div align=center><applet code=IRCApplet.class codebase="ext_scripts/pjirc/" archive="irc.jar,pixx.jar" width=' . $cfg["irc_width"] . ' height=' . $cfg["irc_height"] . '>
+    $dsp->NewContent(t('Chat'), t('Hier kannst du auf unserem IRC Server chatten.'));
+    $dsp->AddSingleRow(HTML_NEWLINE . '<div align=center><applet code=IRCApplet.class codebase="ext_scripts/pjirc/" archive="irc.jar,pixx.jar" width=' . $cfg["irc_width"] . ' height=' . $cfg["irc_height"] . '>
 	<param name="CABINETS" value="irc.cab,securedirc.cab,pixx.cab">
 
 	<param name="nick" value="' . $_POST["username"] . '">
@@ -78,6 +87,5 @@ elseif (!$_POST["username"]) {
 	</applet></div>
 	'. HTML_NEWLINE);
 
-	$dsp->AddContent();
+    $dsp->AddContent();
 }
-?>

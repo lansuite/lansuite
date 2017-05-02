@@ -10,5 +10,4 @@ $mf->AddField(t('Aktiv'), 'active');
 $mf->AddField(t('Type'), 'type');
 $mf->AddField(t('Ausführen täglich, um'), 'runat');
 
-$mf->SendForm('index.php?mod=cron2&action=add', 'cron', 'jobid', $_GET['jobid'])
-?>
+$mf->SendForm('index.php?mod=cron2&action=add', 'cron', 'jobid', $_GET['jobid']);

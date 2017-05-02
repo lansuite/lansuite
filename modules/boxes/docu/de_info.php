@@ -6,5 +6,3 @@ $helplet['info'] = 'In der Infobox werden alle f&uuml;r dich pers&ouml;nlich wic
 
 $helplet['key'][1] = '';
 $helplet['value'][1] = '';
-
-?>

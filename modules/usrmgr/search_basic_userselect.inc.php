@@ -4,33 +4,47 @@ include_once('modules/usrmgr/search_main.inc.php');
 include_once("modules/seating/class_seat.php");
 $seat2 = new seat2();
 
-function SeatNameLink($userid){
-  global $seat2;
+function SeatNameLink($userid)
+{
+    global $seat2;
 
-  return $seat2->SeatNameLink($userid);
+    return $seat2->SeatNameLink($userid);
 }
 
-function PaidIcon($paid){
-  global $dsp;
+function PaidIcon($paid)
+{
+    global $dsp;
 
-  if ($paid) return $dsp->FetchIcon('', 'paid', t('Bezahlt'));
-  else return $dsp->FetchIcon('', 'not_paid', t('Nicht bezahlt'));
+    if ($paid) {
+        return $dsp->FetchIcon('', 'paid', t('Bezahlt'));
+    } else {
+        return $dsp->FetchIcon('', 'not_paid', t('Nicht bezahlt'));
+    }
 }
 
-function ClanURLLink($clan_name) {
-  global $line;
+function ClanURLLink($clan_name)
+{
+    global $line;
 
-  if ($clan_name != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
-    if (substr($line['clanurl'], 0, 7) != 'http://') $line['clanurl'] = 'http://'. $line['clanurl'];
-    return '<a href="'. $line['clanurl'] .'" target="_blank">'. $clan_name .'</a>';
-  } else return $clan_name;
+    if ($clan_name != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
+        if (substr($line['clanurl'], 0, 7) != 'http://') {
+            $line['clanurl'] = 'http://'. $line['clanurl'];
+        }
+        return '<a href="'. $line['clanurl'] .'" target="_blank">'. $clan_name .'</a>';
+    } else {
+        return $clan_name;
+    }
 }
 
-function p_price($price_text) {
-  global $line, $cfg;
+function p_price($price_text)
+{
+    global $line, $cfg;
   
-  if ($line['price']) return $price_text .' ('. $line['price'] .' '. $cfg['sys_currency'] .')';
-  else return $price_text;
+    if ($line['price']) {
+        return $price_text .' ('. $line['price'] .' '. $cfg['sys_currency'] .')';
+    } else {
+        return $price_text;
+    }
 }
 
 
@@ -54,4 +68,3 @@ $ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLink');
 $ms2->AddIconField('assign', $target_url, t('Zuweisen'));
 
 $ms2->PrintSearch($current_url, 'u.userid');
-?>

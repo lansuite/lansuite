@@ -1,17 +1,19 @@
 <?php
 
-class masterrate {
+class masterrate
+{
 
-	// Construktor
-	function masterrate($mod, $id, $caption = '') {
-	  global $auth, $db, $dsp, $framework, $smarty;
-	  
-	  $framework->add_js_path('ext_scripts/jquery.rating.js');
-	  $framework->add_js_code("jQuery(function(){
+    // Construktor
+    public function masterrate($mod, $id, $caption = '')
+    {
+        global $auth, $db, $dsp, $framework, $smarty;
+      
+        $framework->add_js_path('ext_scripts/jquery.rating.js');
+        $framework->add_js_code("jQuery(function(){
   jQuery('form.rating').rating();
 });");
 
-	  $framework->add_css_code("
+        $framework->add_css_code("
   .rating {
       cursor: pointer;
       clear: both;
@@ -55,7 +57,7 @@ class masterrate {
 		background-position: 0 -32px;
 	}");
 /*
-	  include_once('inc/classes/class_masterform.php');
+      include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
     $mf->LogID = $id;
 
@@ -80,20 +82,29 @@ class masterrate {
     $mf->AddFix('creatorid', $auth['userid']);
     $mf->SendForm('', 'ratings', 'ratingid', $_GET['ratingid']);
 
-  	$row = $db->qry_first('SELECT AVG(score) AS score FROM %prefix%ratings WHERE ref_name = %string% AND ref_id = %string% GROUP BY ref_name, ref_id', $mod, $id);
-  	$dsp->AddDoubleRow('Current Rating:', $row['score']);
+    $row = $db->qry_first('SELECT AVG(score) AS score FROM %prefix%ratings WHERE ref_name = %string% AND ref_id = %string% GROUP BY ref_name, ref_id', $mod, $id);
+    $dsp->AddDoubleRow('Current Rating:', $row['score']);
 */
-  	$row = $db->qry_first('SELECT ROUND(AVG(score), 1) AS score FROM %prefix%ratings WHERE ref_name = %string% AND ref_id = %string% GROUP BY ref_name, ref_id',
-      $mod, $id);
-  	$smarty->assign('rating', $row['score']);
-  	$smarty->assign('action', $framework->get_clean_url_query('base') .'&mr_step=2&design=base');
-  	if ($caption == '') $caption = t('Bewertung');
-  	$dsp->AddDoubleRow($caption, $smarty->fetch('design/templates/ls_masterrate_row.htm'));
-  	
-  	if ($_GET['mr_step'] == 2) {
-      $db->qry('INSERT INTO %prefix%ratings SET score = %int%, ref_name = %string%, ref_id = %string%, date = NOW(), creatorid = %int%',
-        $_POST['rating'], $mod, $id, $auth['userid']);
+        $row = $db->qry_first(
+            'SELECT ROUND(AVG(score), 1) AS score FROM %prefix%ratings WHERE ref_name = %string% AND ref_id = %string% GROUP BY ref_name, ref_id',
+            $mod,
+            $id
+        );
+        $smarty->assign('rating', $row['score']);
+        $smarty->assign('action', $framework->get_clean_url_query('base') .'&mr_step=2&design=base');
+        if ($caption == '') {
+            $caption = t('Bewertung');
+        }
+        $dsp->AddDoubleRow($caption, $smarty->fetch('design/templates/ls_masterrate_row.htm'));
+    
+        if ($_GET['mr_step'] == 2) {
+            $db->qry(
+                'INSERT INTO %prefix%ratings SET score = %int%, ref_name = %string%, ref_id = %string%, date = NOW(), creatorid = %int%',
+                $_POST['rating'],
+                $mod,
+                $id,
+                $auth['userid']
+            );
+        }
     }
-	}
 }
-?>
