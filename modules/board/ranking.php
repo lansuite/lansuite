@@ -5,8 +5,8 @@ $dsp->NewContent(t('Ränge'));
 $out = '';
 $lines = explode("\n", $cfg['board_rank']);
 foreach ($lines as $line) {
-  list($num, $name) = explode('->', $line);
-  $out .= t('Ab %1 Posts: %2', array($num, $name)) . HTML_NEWLINE;
+    list($num, $name) = explode('->', $line);
+    $out .= t('Ab %1 Posts: %2', array($num, $name)) . HTML_NEWLINE;
 }
 $dsp->AddSingleRow($out);
 
@@ -23,4 +23,3 @@ $ms2->PrintSearch('index.php?mod=board&action=ranking', 'p.userid');
 $dsp->AddFieldsetEnd();
 
 $dsp->AddBackButton($func->internal_referer);
-?>
