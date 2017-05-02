@@ -1,10 +1,11 @@
 <?php
 
-function RentCount($quantity) {
-  global $line, $db;
+function RentCount($quantity)
+{
+    global $line, $db;
 
-  $row = $db->qry_first('SELECT COUNT(*) AS back FROM %prefix%rentuser WHERE stuffid = %int% AND back_orgaid > 0', $line['stuffid']);
-  return ($line['rented'] - $row['back']) .' / '. $quantity;
+    $row = $db->qry_first('SELECT COUNT(*) AS back FROM %prefix%rentuser WHERE stuffid = %int% AND back_orgaid > 0', $line['stuffid']);
+    return ($line['rented'] - $row['back']) .' / '. $quantity;
 }
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -22,9 +23,14 @@ $ms2->AddResultField('Titel', 's.caption');
 $ms2->AddResultField('Verliehen', 's.quantity', 'RentCount');
 $ms2->AddResultField('Besitzer', 'o.username', 'UserNameAndIcon');
 
-if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=rent&action=show&step=10&stuffid=', t('Zuweisen'));
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=rent&action=add&stuffid=', t('Editieren'));
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=rent&action=delete&stuffid=', t('Löschen'));
+if ($auth['type'] >= 2) {
+    $ms2->AddIconField('assign', 'index.php?mod=rent&action=show&step=10&stuffid=', t('Zuweisen'));
+}
+if ($auth['type'] >= 2) {
+    $ms2->AddIconField('edit', 'index.php?mod=rent&action=add&stuffid=', t('Editieren'));
+}
+if ($auth['type'] >= 3) {
+    $ms2->AddIconField('delete', 'index.php?mod=rent&action=delete&stuffid=', t('Löschen'));
+}
 
 $ms2->PrintSearch('index.php?mod=rent&action=show', 's.stuffid');
-?>
