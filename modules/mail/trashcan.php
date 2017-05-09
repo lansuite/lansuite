@@ -2,31 +2,41 @@
 $mail_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'delete'", $auth['userid']);
 $mail_unread_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'delete' AND des_status = 'new'", $auth['userid']);
 
-$dsp->NewContent(t('Papierkorb'), t('Du hast <b>%1</b> Mail(s) in ihrem Papierkorb. Davon wurde(n) <b>%2</b> nicht von dir gelesen.',$mail_total["n"],$mail_unread_total["n"]));
+$dsp->NewContent(t('Papierkorb'), t('Du hast <b>%1</b> Mail(s) in ihrem Papierkorb. Davon wurde(n) <b>%2</b> nicht von dir gelesen.', $mail_total["n"], $mail_unread_total["n"]));
 
-function MailStatus ( $status ) {
- global $lang;
- if ( $status == "new" ) return t('Ungelesen');
- if ( $status == "read" ) return t('Gelesen');
- if ( $status == "reply" ) return t('Beantwortet'); 
+function MailStatus($status)
+{
+    global $lang;
+    if ($status == "new") {
+        return t('Ungelesen');
+    }
+    if ($status == "read") {
+        return t('Gelesen');
+    }
+    if ($status == "reply") {
+        return t('Beantwortet');
+    }
 }
 
 if ($auth['userid']) {
-  switch($_GET['step']) {
+    switch ($_GET['step']) {
     // check if it can delete from Database and delete
-    case 20:
-      if (!$_POST['action'] and $_GET['mailid']) $_POST['action'][$_GET['mailid']] = 1;
-      foreach ($_POST['action'] as $key => $val){
-      	$tx_status = $db->qry_first("SELECT fromUserID, tx_deleted FROM %prefix%mail_messages WHERE mailID = %int%", $key);
-      	
-      	// Ist eMail vom Sender gelöscht? JA: Lösche aus DB, NEIN: Setze rx flag
-      	if($tx_status['tx_deleted'] == 1 or $tx_status['fromUserID'] == 0)
-      		$db->qry("DELETE FROM %prefix%mail_messages WHERE mailID = %int%", $key);
-      	else
-      		$db->qry("UPDATE %prefix%mail_messages SET rx_deleted = 1 WHERE mailID = %int%", $key);
-      }
-    break;
-  }
+        case 20:
+            if (!$_POST['action'] and $_GET['mailid']) {
+                $_POST['action'][$_GET['mailid']] = 1;
+            }
+            foreach ($_POST['action'] as $key => $val) {
+                  $tx_status = $db->qry_first("SELECT fromUserID, tx_deleted FROM %prefix%mail_messages WHERE mailID = %int%", $key);
+          
+                  // Ist eMail vom Sender gelöscht? JA: Lösche aus DB, NEIN: Setze rx flag
+                if ($tx_status['tx_deleted'] == 1 or $tx_status['fromUserID'] == 0) {
+                    $db->qry("DELETE FROM %prefix%mail_messages WHERE mailID = %int%", $key);
+                } else {
+                    $db->qry("UPDATE %prefix%mail_messages SET rx_deleted = 1 WHERE mailID = %int%", $key);
+                }
+            }
+            break;
+    }
 }
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -45,16 +55,15 @@ $ms2->AddTextSearchField(t('Nachricht von'), array('u.userid' => 'exact', 'u.use
 $ms2->AddSelect('u.userid');
 
 $ms2->AddResultField(t('Betreff'), 'm.subject', '', 160);
-$ms2->AddResultField(t('Nachricht von'), 'u.username', 'UserNameAndIcon','',100);
-$ms2->AddResultField('Status', 'm.des_status', 'MailStatus', '',80);
-$ms2->AddResultField(t('Gesendet'), 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate','',70);
-$ms2->AddResultField(t('Gelesen'), 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate','',60);
+$ms2->AddResultField(t('Nachricht von'), 'u.username', 'UserNameAndIcon', '', 100);
+$ms2->AddResultField('Status', 'm.des_status', 'MailStatus', '', 80);
+$ms2->AddResultField(t('Gesendet'), 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate', '', 70);
+$ms2->AddResultField(t('Gelesen'), 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate', '', 60);
 
 $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=trash&mailID=', t('Details'));
-$ms2->AddIconField('delete', 'index.php?mod=mail&action=trashcan&step=20&mailid=', t('Entgültig löschen'),'',10);
+$ms2->AddIconField('delete', 'index.php?mod=mail&action=trashcan&step=20&mailid=', t('Entgültig löschen'), '', 10);
 
 $ms2->AddMultiSelectAction(t('Entgültig löschen'), 'index.php?mod=mail&action=trashcan&step=20', 1, 'delete');
 
 
 $ms2->PrintSearch('index.php?mod=mail&action=trash', 'm.mailid');
-?>

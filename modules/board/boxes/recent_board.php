@@ -9,5 +9,3 @@
  
 include('modules/board/plugins/home.php');
 $box->Row($content);
-
-?>

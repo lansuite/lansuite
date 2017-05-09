@@ -10,7 +10,7 @@
 *	Main editor: 		christian@one-network.org
 *	Last change: 		2002-12-15
 *	Description: 		Shows informations about database.
-*	Remarks: 		
+*	Remarks:
 *
 **************************************************************************/
 
@@ -21,7 +21,9 @@ $dsp->AddDoubleRow(t('Servername'), $hostname[0]);
 $dsp->AddDoubleRow(t('Verbindungstyp'), $hostname[2]);
 
 $res = $db->qry('SHOW status');
-while ($row = $db->fetch_array($res)) $dsp->AddDoubleRow($row[0], $row[1]);
+while ($row = $db->fetch_array($res)) {
+    $dsp->AddDoubleRow($row[0], $row[1]);
+}
 $db->free_result($res);
 
 #$dsp->AddDoubleRow(t('Abfragen Insg.'), $status[7]);
@@ -31,5 +33,3 @@ $db->free_result($res);
 
 $dsp->AddBackButton("index.php?mod=stats", "stats/db");
 $dsp->AddContent();
-
-?>

@@ -10,14 +10,14 @@ http://lansuite-docu.orgapage.de/index.php?title=Stylesheets
 
 /* Basic HTML-Elements-Rewrite */
 body {
-	background:		#FFFFFF;
-	font-family:	verdana, helvetica, sans-serif;
-	font-size:		11px; 
-	font-weight:	normal;
-	text-align:		left;
-	color:			#000000;
-	margin-left:	8px;
-	margin-right:	8px;
+    background:     #FFFFFF;
+    font-family:    verdana, helvetica, sans-serif;
+    font-size:      11px;
+    font-weight:    normal;
+    text-align:     left;
+    color:          #000000;
+    margin-left:    8px;
+    margin-right:   8px;
 }
 
 
@@ -38,8 +38,8 @@ body {
   border-style:solid;
   border-color:black;
   padding:0em;
-  text-align:justify; 
-  text-align:		left;  
+  text-align:justify;
+  text-align:       left;
   font-size: 18px;
   font-weight: bold;
   border-collapse: collapse;
@@ -50,7 +50,7 @@ body {
   border-style:solid;
   border-color:black;
   padding:0em;
-  text-align:justify; 
+  text-align:justify;
   font-weight: bold;
   border-collapse: collapse;
 }
@@ -61,7 +61,7 @@ body {
   border-color:black;
   padding:0em;
   text-align:justify;
-  border-collapse: collapse; 
+  border-collapse: collapse;
 }
 
 .col_mid{
@@ -71,7 +71,7 @@ body {
   padding:0em;
   text-align:middle;
   vertical-align:middle;
-  border-collapse: collapse; 
+  border-collapse: collapse;
 }
 
 .row{
@@ -79,6 +79,6 @@ body {
   border-style:solid;
   border-color:black;
   padding:0em;
-  text-align:justify; 
+  text-align:justify;
   border-collapse: collapse;
 }

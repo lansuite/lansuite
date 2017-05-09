@@ -19,7 +19,7 @@ $user_online = $db->qry("SELECT user.username
   ", $visit_timeout);
 $user_list = "";
 while ($user = $db->fetch_array($user_online)) {
-	$user_list .= $user["username"] . ", ";
+    $user_list .= $user["username"] . ", ";
 }
 $user_list = substr($user_list, 0, strlen($user_list) - 2);
 $dsp->AddDoubleRow(t('Benutzer eingeloggt (letzte Stunde)'), $online["insg"] . " ($user_list)");
@@ -32,5 +32,3 @@ $dsp->AddDoubleRow(t('Bis jetzt &uuml;bertragene Daten'), $total_time['size'] . 
 $db->free_result($res);
 #$dsp->AddBackButton("index.php?mod=stats", "stats/user");
 $dsp->AddContent();
-
-?>

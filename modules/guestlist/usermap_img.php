@@ -24,16 +24,17 @@ $res = $db->qry("SELECT user.userid, user.username, user.city, user.plz, COUNT(*
 		", $party->party_id);
 
 while ($user = $db->fetch_array($res)) {
-	$kx = (int) ($xf * ($user['laenge'] - $x_start));
-	$ky = (int) ($img_height - $yf * ($user['breite'] - $y_start));
+    $kx = (int) ($xf * ($user['laenge'] - $x_start));
+    $ky = (int) ($img_height - $yf * ($user['breite'] - $y_start));
 
-	$size = floor(1 + 0.25 * $user['anz']);
-	if ($size > 5) $size = 5;
-	imagefilledrectangle($map_img, $kx-$size, $ky-$size, $kx+$size, $ky+$size, $red);
+    $size = floor(1 + 0.25 * $user['anz']);
+    if ($size > 5) {
+        $size = 5;
+    }
+    imagefilledrectangle($map_img, $kx-$size, $ky-$size, $kx+$size, $ky+$size, $red);
 }
 $db->free_result($res);
 
 
 Imagepng($map_img);
 ImageDestroy($map_img);
-?>

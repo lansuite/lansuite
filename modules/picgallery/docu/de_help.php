@@ -12,5 +12,3 @@ $helplet['key'][3] = 'Automatisch generierte Thumbnails';
 $helplet['value'][3] = 'Zur besseren Übersicht werden automatisch beim ersten Aufruf Thumbnails generiert und dem Benutzer so eine Übersicht über die Bilder der Galerie geboten';
 $helplet['key'][4] = 'Bildformat';
 $helplet['value'][4] = 'LanSuite kann mit den 3 üblichen Webgrafik-Formaten umgehen: Jpeg, Png und Gif. Bei Gif-Bildern ist jedoch zu beachten, dass bei Älteren PHP-Versionen hier keine Thumbnails generiert werden können. Um zu sehen, ob dies bei dir funktioniert, wirf einen Blick auf die Version und Komponenten deiner GD-Bibliothek (Zu sehen auf der Admin-Seite bei den Systemvorraussetzungen).';
-
-?>

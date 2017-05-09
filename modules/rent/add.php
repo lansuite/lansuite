@@ -13,4 +13,3 @@ $mf->SendForm('index.php?mod=rent&action=add', 'rentstuff', 'stuffid', $_GET['st
 
 $dsp->AddBackButton('index.php?mod=rent');
 $dsp->AddContent();
-?>

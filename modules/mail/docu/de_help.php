@@ -12,5 +12,3 @@ $helplet['key'][3] = 'Mails löschen';
 $helplet['value'][3] = 'Du hast lediglich die Möglichkeit eine Mail aus dem Posteingang in den Papierkorb zu verschieben. Ein endgültiges Löschen einer Mail aus der Datenbank ist nicht möglich, denn das würde die Mail auch beim Sender löschen. Da dies zu Verwirrung führen kann und von diesem evtl. überhaupt nicht gewünscht ist können Mails daher nicht gelöscht werden';
 $helplet['key'][4] = 'Labels';
 $helplet['value'][4] = 'Aus dem gleichen Grund, wie beim Löschen, ist es nicht Möglich den Lese-Status wieder auf "Ungelesen" zu setzen. Statt dessen gibt es die Möglichekeit Mails im Posteingang mit 5 verschiedenfarbigen Labels zu markieren';
-
-?>

@@ -8,20 +8,20 @@
  * @author Maztah
  * 
  */
-     if (isset($_GET['autorefresh'])) {
-        $autorefresh = $_GET['autorefresh'];
-    } else {
-        $autorefresh = 0;
-    }
-    if ($autorefresh == 1) {
-        echo("      <meta http-equiv=\"refresh\" content=\"". $cfg['autorefresh'] ."; URL=" . $_SERVER["PHP_SELF"] . "index.php?mod=teamspeak2&autorefresh=1\">\n");
-    }
+if (isset($_GET['autorefresh'])) {
+    $autorefresh = $_GET['autorefresh'];
+} else {
+    $autorefresh = 0;
+}
+if ($autorefresh == 1) {
+    echo("      <meta http-equiv=\"refresh\" content=\"". $cfg['autorefresh'] ."; URL=" . $_SERVER["PHP_SELF"] . "index.php?mod=teamspeak2&autorefresh=1\">\n");
+}
 
      // Load the Teamspeak Display:
     include_once("teamspeakdisplay.php");
 
-	// Create an instance of the Teamspeak Display Class
-	$teamspeakDisplay = new teamspeakDisplayClass;
+    // Create an instance of the Teamspeak Display Class
+    $teamspeakDisplay = new teamspeakDisplayClass;
     
     // Get the default settings
     $settings = $teamspeakDisplay->getDefaultSettings();
@@ -44,29 +44,29 @@
     
     //================== END OF CONFIGURATION CODE ========================
     // Is the script improperly configured?
-  if ($settings["serveraddress"] == "*.*.*.*") { $func->information(t('Kein Teamspeak Server konfiguriert.')); }
-else {
-$dsp->NewContent("TeamSpeak2", t('Übersicht der Channels und User auf dem TeamSpeak Server. Um auf den Server zu connecten, einfach auf einen Channel klicken und den Anweisungen folgen.'));
-ob_start();
-?>
+if ($settings["serveraddress"] == "*.*.*.*") {
+    $func->information(t('Kein Teamspeak Server konfiguriert.'));
+} else {
+    $dsp->NewContent("TeamSpeak2", t('Übersicht der Channels und User auf dem TeamSpeak Server. Um auf den Server zu connecten, einfach auf einen Channel klicken und den Anweisungen folgen.'));
+    ob_start(); ?>
 <table border="0" width="<?php echo $cfg['tabellenbreite'] ?>" bgcolor = "<?php echo $cfg['hintergrund'] ?>">
  <tr>
   <td>
 <?php
-    // Display the Teamspeak server
-    $teamspeakDisplay->displayTeamspeakEx($settings);
-    echo('<br />');
-    // Display autorefresh status and control link:
-    if ($autorefresh == 0)
-   		echo('<img src="ext_inc/teamspeak2/refresh_off.gif"><b>Autorefresh:</b> <font color=red><b>'. t('AUS') .'</b></font> (<a href="'. $_SERVER["PHP_SELF"] . '?mod=teamspeak2&autorefresh=1">'. t('Aktivieren') .'</a>)');
-    else
-    	echo('<img src="ext_inc/teamspeak2/refresh_on.gif"><b>Autorefresh:</b> <font color=green><b>'. t('AN') .'</b></font> (<a href="'. $_SERVER["PHP_SELF"] . '?mod=teamspeak2&autorefresh=0">'. t('Deaktivieren') .'</a>)');
-?>
+// Display the Teamspeak server
+$teamspeakDisplay->displayTeamspeakEx($settings);
+echo('<br />');
+// Display autorefresh status and control link:
+if ($autorefresh == 0) {
+    echo('<img src="ext_inc/teamspeak2/refresh_off.gif"><b>Autorefresh:</b> <font color=red><b>'. t('AUS') .'</b></font> (<a href="'. $_SERVER["PHP_SELF"] . '?mod=teamspeak2&autorefresh=1">'. t('Aktivieren') .'</a>)');
+} else {
+    echo('<img src="ext_inc/teamspeak2/refresh_on.gif"><b>Autorefresh:</b> <font color=green><b>'. t('AN') .'</b></font> (<a href="'. $_SERVER["PHP_SELF"] . '?mod=teamspeak2&autorefresh=0">'. t('Deaktivieren') .'</a>)');
+} ?>
   </td>
  </tr>
 </table>
 <?php
-  $dsp->AddSingleRow(ob_get_contents());
-  ob_end_clean();
+$dsp->AddSingleRow(ob_get_contents());
+ob_end_clean();
 }
 ?>

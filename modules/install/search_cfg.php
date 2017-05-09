@@ -1,7 +1,8 @@
 <?php
 // Searchform for all Configsettings
 
-function get_modullink($modul) {
+function get_modullink($modul)
+{
     return "<a href=\"index.php?mod=install&action=mod_cfg&step=10&module=".$modul."\">".$modul."</a>";
 }
 
@@ -19,7 +20,9 @@ $ms2->AddSelect('l.cfg_desc');
 $ms2->AddTextSearchField(t('Alle Felder'), array('l.cfg_key' => 'like', 'l.cfg_value' => 'like', 'l.cfg_desc' => 'like', 'l.cfg_module' => 'like'));
 $list = array('' => 'Alle');
 $row = $db->qry('SELECT cfg_module FROM %prefix%config WHERE cfg_module != "" GROUP BY cfg_module ORDER BY cfg_module');
-while($res = $db->fetch_array($row)) $list[$res['cfg_module']] = $res['cfg_module'];
+while ($res = $db->fetch_array($row)) {
+    $list[$res['cfg_module']] = $res['cfg_module'];
+}
 $db->free_result($row);
 $ms2->AddTextSearchDropDown('Modul', 'l.cfg_module', $list);
 
@@ -35,4 +38,3 @@ $ms2->AddResultField(t('Beschreibung'), 'l.cfg_desc');
 
 // Final Output
 $ms2->PrintSearch('index.php?mod=install&action=search_cfg', 'l.cfg_key');
-?>

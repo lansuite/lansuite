@@ -39,7 +39,21 @@ Lansuite bietet zu vielen Fachwörtern kleine Popup-Fenster mit deren Erklärung
 
 Sollten Onlinehilfe und Helpletts nicht weiterhelfen, kann der Anwender im Wiki blättern. Für die Organisatoren und Entwickler gibt es dort sehr nützliche Hinweise und Tipps.
 
+## Requirements
+
+* PHP 7
+
 ## Development
+
+### Contribution Guide
+
+#### English
+
+How to contribute is described in detail in our [Contribution Guide](./CONTRIBUTING.md).
+
+#### German / Deutsch
+
+Wie man zu diesem Projekt etwas beisteuert ist sehr detailliert in unserem [Contribution Guide](./CONTRIBUTING-DE.md) beschrieben.
 
 ### Coding style guide
 
@@ -47,6 +61,7 @@ This project follows the coding guideline standards:
 
 * [PSR-1: Basic Coding Standard](http://www.php-fig.org/psr/psr-1/)
 * [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/)
+
 
 ### Generating API docs
 

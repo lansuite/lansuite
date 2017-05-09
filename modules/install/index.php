@@ -34,22 +34,22 @@ $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export\"><img src
 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=mc_search\"><img src=\"design/images/icon_search.png\" border=\"0\" /> ".t('Kommentare aller Module durchsuchen')."</a>");
 $dsp->AddFieldSetEnd();
 
-if (!$func->admin_exists()) $func->information(t('<b>ACHTUNG</b>: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Lege unbedingt im Benutzermanager einen Superadmin an.'));
-else {
+if (!$func->admin_exists()) {
+    $func->information(t('<b>ACHTUNG</b>: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Lege unbedingt im Benutzermanager einen Superadmin an.'));
+} else {
     $module_list = $db->qry("SELECT module.caption FROM %prefix%modules AS module
             LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
             LEFT JOIN %prefix%user_permissions AS perm ON (module.name = perm.module)
             WHERE menu.file != '' and ISNULL(perm.module)
             GROUP BY menu.module
             ");
-    if ($db->num_rows() > 0){
-        while($row = $db->fetch_array($module_list)) {
+    if ($db->num_rows() > 0) {
+        while ($row = $db->fetch_array($module_list)) {
             $mod_list .= "{$row["caption"]}, ";
         }
         $mod_list = substr($mod_list, 0, strlen($mod_list) - 2);
-		$func->information(t('Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:<br>%1', $mod_list), NO_LINK);
+        $func->information(t('Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:<br>%1', $mod_list), NO_LINK);
     }
 }
 
 $dsp->AddContent();
-?>

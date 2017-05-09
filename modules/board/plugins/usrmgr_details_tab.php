@@ -1,6 +1,6 @@
 <?php
 // This File is a Part of the LS-Pluginsystem. It will be included in
-// modules/usrmgr/details.php to generate Modulspezific Headermenue 
+// modules/usrmgr/details.php to generate Modulspezific Headermenue
 // for Userdetails
 
 // ADD HERE MODULSPECIFIC INCLUDES
@@ -19,11 +19,9 @@ $get_board_threads = $db->qry("SELECT b.tid, UNIX_TIMESTAMP(b.date) AS date, t.c
     ORDER BY date DESC
     LIMIT 20
     ", $_GET['userid'], $auth['type']);
-while($row_threads = $db->fetch_array($get_board_threads)) {
+while ($row_threads = $db->fetch_array($get_board_threads)) {
     $threads .= $func->unixstamp2date($row_threads['date'], "datetime")." - <a href=\"index.php?mod=board&action=thread&tid={$row_threads['tid']}\">{$row_threads['caption']}</a>". HTML_NEWLINE;
 }
 $db->free_result($get_board_threads);
 $dsp->AddDoubleRow(t('Letzte 20 Threads'), $threads);
 $dsp->AddSingleRow('');
-
-?>

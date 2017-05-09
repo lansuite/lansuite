@@ -8,7 +8,7 @@ switch ($_GET['step']) {
         include_once('inc/classes/class_masterdelete.php');
         $md = new masterdelete();
         $md->Delete('t2_breaks', 'breakid', $_GET['breakid']);
-    break;
+        break;
     
     default:
         include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -31,7 +31,7 @@ switch ($_GET['step']) {
         $mf->AddField(t('Dauer der Pause (in Minuten)'), 'duration');
         $mf->SendForm('', 't2_breaks', 'breakid', $_GET['breakid']);
         $dsp->AddFieldSetEnd();
-    break;
+        break;
 }
 
 $buttons = "";
@@ -39,4 +39,3 @@ $buttons .= $dsp->FetchSpanButton(t('Paarungen'), "index.php?mod=tournament2&act
 $buttons .= " ". $dsp->FetchSpanButton(t('Spielbaum'), "index.php?mod=tournament2&action=tree&step=2&tournamentid=". $_GET['tournamentid']);
 $dsp->AddDoubleRow("", $buttons);
 $dsp->AddContent();
-?>

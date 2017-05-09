@@ -14,7 +14,9 @@ $ms2->AddTextSearchField(t('Suchbegriff'), array('term' => 'like'));
 
 $list = array('' => 'Alle');
 $res = $db->qry('SELECT se FROM %prefix%stats_se GROUP BY se ORDER BY se');
-while($row = $db->fetch_array($res)) $list[$row['se']] = $row['se'];
+while ($row = $db->fetch_array($res)) {
+    $list[$row['se']] = $row['se'];
+}
 $db->free_result($res);
 $ms2->AddTextSearchDropDown('Suchmaschiene', 'se', $list);
 
@@ -31,4 +33,3 @@ $ms2->PrintSearch('index.php?mod=stats&action=search_engines', '1');
 
 $dsp->AddBackButton("index.php?mod=stats", "stats/se");
 $dsp->AddContent();
-?>

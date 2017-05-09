@@ -12,7 +12,7 @@ include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('task');
 
 $ms2->query['from'] = '%prefix%shoutbox';
-$ms2->query['default_order_by'] ="id DESC"; 
+$ms2->query['default_order_by'] ="id DESC";
 
 $ms2->config['EntriesPerPage'] = 20;
 
@@ -21,5 +21,3 @@ $ms2->AddResultField('Name', 'name');
 $ms2->AddResultField('Shout Message', 'message');
 $ms2->AddResultField('Datum', 'created');
 $ms2->PrintSearch('index.php?mod=shoutbox&action=show', 'id');
-?>
-
