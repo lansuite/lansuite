@@ -61,3 +61,13 @@ This project follows the coding guideline standards:
 
 * [PSR-1: Basic Coding Standard](http://www.php-fig.org/psr/psr-1/)
 * [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/)
+
+
+### Generating API docs
+
+Former versions of LANSuite bundled an API documentation in the `docs/` folder.
+To regenerate an API documentation in a HTML-Version you can use [phpDocumentor](https://www.phpdoc.org/):
+
+```
+phpdoc --progressbar -t ./lansuite-apidocs-html/ -d ./lansuite-code/
+```
