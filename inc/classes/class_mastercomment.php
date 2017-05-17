@@ -52,7 +52,6 @@ class Mastercomment
     {
         global $framework, $dsp, $auth, $db, $func, $cfg;
 
-    #echo '<ul class="Line">';
         $dsp->AddFieldsetStart(t('Kommentare'));
 
     // Delete comments
@@ -168,7 +167,6 @@ class Mastercomment
         }
 
         $dsp->AddFieldsetEnd();
-    #echo '</ul>';
 
     // Bookmarks and Auto-Mail
         if ($auth['login'] and $auth['type'] > 1) {

@@ -14,9 +14,6 @@ if (function_exists('date_default_timezone_set')) {
     date_default_timezone_set('Europe/Berlin');
 } // As of PHP 5.3 this needs to be set. Otherwise some webservers will throw warnings
 if (function_exists('ini_set')) {
-    #ini_set('display_errors', 0);
-  #ini_set('log_errors', 1);
-  #ini_set('error_log', 'log/php/');
   // Disable SID in URL
     ini_set('url_rewriter.tags', '');
 }
@@ -129,7 +126,6 @@ function myErrorHandler($errno, $errstr, $errfile, $errline)
 
 ### Start session-management
 
-    #session_save_path('ext_inc/session'); Leave to hosters default value, for some don't seam to empty it and data here counts against web space quota
     session_start();
 
 ### Initialise Frameworkclass for Basic output
@@ -153,8 +149,6 @@ if (isset($frmwrkmode)) {
 ### Set HTTP-Headers
 
     header('Content-Type: text/html; charset=utf-8');
-    #header('Content-Type: application/xhtml+xml; charset=utf-8');
-    #header("Cache-Control: no-cache, must-revalidate");
 
     include_once("ext_scripts/mobile_device_detect.php");
     $framework->IsMobileBrowser = mobile_device_detect();
@@ -240,10 +234,6 @@ if (!get_magic_quotes_gpc()) {   // and !get_magic_quotes_runtime()
         }
     }
 }
-
-    // Protect from XSS
-    #foreach ($_GET as $key => $val) $_GET[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_GET[$key]);
-    #foreach ($_POST as $key => $val) $_POST[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_POST[$key]);
 
 ### Read Config and Definitionfiles
 
@@ -356,13 +346,6 @@ if ($config['environment']['configured'] == 0) {
     $cfg = $func->read_db_config(); // Config-Tabelle aulesen
     $sec->check_blacklist();
 
-    // Set timezone info (php + mysql)
-    if ($cfg['sys_timezone'] and function_exists('date_default_timezone_set')) {
-        #date_default_timezone_set($cfg['sys_timezone']);
-      #$db->qry('SET SESSION time_zone = %string%', $cfg['sys_timezone']);
-      ##$db->qry('SET SESSION time_zone = \'+0:00\'');
-    }
-
     if (!$_GET['mod']) {
         $_GET['mod'] = 'home';
     }
@@ -474,8 +457,6 @@ if ($PHPErrors) {
 }
     $PHPErrors = '';
 
-    #$func->error($func->FormatFileSize(memory_get_usage()));
-    #trigger_error(memory_get_usage(), E_USER_ERROR);
     include_once('index_module.inc.php');
 
 ### Complete Framework and Output HTML

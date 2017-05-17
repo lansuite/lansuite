@@ -1,9 +1,4 @@
 <?php
-
-
-// Definiere HTML Tags
-/* XHTML Tags*/
-
 define('VALID_LS', true);
 
 define('HTML_NEWLINE', '<br/>');
