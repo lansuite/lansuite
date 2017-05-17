@@ -38,7 +38,7 @@ class barcode
     public $_format;
     public $_n2w;
 
-    public function barcode($encoding = "EAN-13")
+    public function __construct($encoding = "EAN-13")
     {
         if (!function_exists("imagecreate")) {
             die("This class needs GD library support.");

@@ -54,7 +54,7 @@ class masterform
     public $FCKeditorID = 0;
     public $Pages = array();
 
-    public function masterform($MFID = 0)
+    public function __construct($MFID = 0)
     {
         global $mf_number;
     
