@@ -30,7 +30,7 @@ class func
    * CONSTRUCTOR : Get referer and transform in a internal Link
    *
    */
-    public function func()
+    public function __construct()
     {
         define('NO_LINK', -1);
         $url_array = parse_url($_SERVER['HTTP_REFERER']);
