@@ -39,7 +39,7 @@ class framework
   /**
    * CONSTRUCTOR : Initialize basic Variables
    */
-    public function framework()
+    public function __construct()
     {
         // Set Script-Start-Time, to calculate the scripts runtime
         $this->design = $design;

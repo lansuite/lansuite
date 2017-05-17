@@ -11,7 +11,7 @@ class Import
     public $installed_tables = array();
 
     // Constructor
-    public function Import()
+    public function __construct()
     {
         global $db;
 

@@ -15,7 +15,7 @@ class db
     public $QueryArgs = array();
 
   // Construktor
-    public function db()
+    public function __construct()
     {
         if (extension_loaded("mysqli")) {
             $this->mysqli = 1;
