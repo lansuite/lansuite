@@ -286,7 +286,7 @@ if ($config['lansuite']['debugmode'] > 0) {
     include_once("inc/classes/class_translation.php");  // Load Translationclass. No t()-Function before this point!
     $translation = new translation();
 
-    include_once('ext_scripts/smarty/Smarty.class.php');
+    include_once('ext_scripts/smarty/libs/Smarty.class.php');
     $smarty = new Smarty();
     $smarty->template_dir = '.';
     $smarty->compile_dir = './ext_inc/templates_c/';
