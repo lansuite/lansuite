@@ -40,7 +40,7 @@ class auth
    * @param mixed Frameworkmode for switch Stats
    *
    */
-    public function auth($frmwrkmode = "")
+    public function __construct($frmwrkmode = "")
     {
         global $db;
         

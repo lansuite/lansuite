@@ -29,7 +29,7 @@
 class AzDGCrypt
 {
     public $k;
-    public function AzDGCrypt($m)
+    public function __construct($m)
     {
         $this->k = $m;
     }

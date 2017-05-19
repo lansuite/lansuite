@@ -111,7 +111,7 @@ class translation
    * CONSTRUCTOR Translation
    *
    */
-    public function translation()
+    public function __construct()
     {
         $this->get_lang();          // Read Language from GET, POST & set
     }

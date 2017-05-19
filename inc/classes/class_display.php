@@ -12,7 +12,7 @@ class display
     public $tabNames = array();
 
   // Constructor
-    public function display()
+    public function __construct()
     {
         $this->errortext_prefix = HTML_NEWLINE . HTML_FONT_ERROR;
         $this->errortext_suffix = HTML_FONT_END;

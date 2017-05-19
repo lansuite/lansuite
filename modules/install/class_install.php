@@ -666,10 +666,6 @@ class Install
                     $env_stats .= "<strong>/proc/uptime</strong>" . HTML_NEWLINE;
                 }
 
-                if (@shell_exec("/sbin/ifconfig") == "" and @shell_exec("/usr/sbin/ifconfig") == "") {
-                    $env_stats .= "<strong>ifconfig</strong>" . HTML_NEWLINE;
-                }
-
                 if (@shell_exec("cat /proc/loadavg") == "") {
                     $env_stats .= "<strong>/proc/loadavg</strong>" . HTML_NEWLINE;
                 }

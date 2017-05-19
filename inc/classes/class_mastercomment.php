@@ -48,7 +48,7 @@ class Mastercomment
 {
 
     // Construktor
-    public function Mastercomment($mod, $id, $update_table = array())
+    public function __construct($mod, $id, $update_table = array())
     {
         global $framework, $dsp, $auth, $db, $func, $cfg;
 

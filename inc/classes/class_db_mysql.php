@@ -12,8 +12,7 @@ class db
     public $connectfailure = 0;  //0= no error, 1=connection error, 2=database error
     public $QueryArgs = array();
 
-    #### Internal only ####
-
+    // Internal only
     public function print_error($msg, $query_string_with_error)
     {
         global $config, $auth;
