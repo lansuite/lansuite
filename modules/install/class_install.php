@@ -861,18 +861,6 @@ class Install
         }
     }
 
-    public function check_updates()
-    {
-        /*
-    include("modules/install/class_update.php");
-
-    $update = new update();
-    // Check update for Version 2.0.2
-    $file = "modules/install/update/update202.php";
-    if(file_exists($file)) include($file);
-*/
-    }
-
     public function getModConfigLine($row, $showLinks = 1)
     {
         global $smarty, $db;
