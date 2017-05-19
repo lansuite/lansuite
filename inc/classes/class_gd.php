@@ -11,7 +11,7 @@ class gd
 
 
     // Constructor
-    public function gd()
+    public function __construct()
     {
         if (function_exists("gd_info")) {
             $GD = gd_info();

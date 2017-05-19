@@ -100,9 +100,9 @@ class debug
  * @param string Path for Filedebug
  * @return void
  */
-    public function debug($mode = "0", $debug_path = "")
+    public function __construct($mode = "0", $debug_path = "")
     {
-        // TODO : argvars verwenden um einfache Variablenübergabe zu ermöglischen.
+        // TODO : argvars verwenden um einfache Variablenï¿½bergabe zu ermï¿½glischen.
         // TODO : Debugbacktrace
         $this->mode = $mode;
         $this->debug_path = $debug_path;

@@ -4,7 +4,7 @@ class masterrate
 {
 
     // Construktor
-    public function masterrate($mod, $id, $caption = '')
+    public function __construct($mod, $id, $caption = '')
     {
         global $auth, $db, $dsp, $framework, $smarty;
       

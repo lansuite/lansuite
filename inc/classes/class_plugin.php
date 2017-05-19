@@ -25,7 +25,7 @@ class plugin
     public $count = 0;
     public $type = '';
 
-    public function plugin($type)
+    public function __construct($type)
     {
         global $db, $func;
 

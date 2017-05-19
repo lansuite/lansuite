@@ -23,7 +23,7 @@ class modules
    * CONSTRUCTOR : Initialize basic Variables
    *
    */
-    public function modules()
+    public function __construct()
     {
         global $db;
 
