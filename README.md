@@ -59,7 +59,7 @@ $ chmod -R 0777 ./ext_inc/
 $ docker-compose up
 ```
 
-This will start a [Nginx webserver]() with a [php-fpm]() configuration and a [MySQL database]() for you.
+This will start a [Nginx webserver](https://nginx.org/) with a [php-fpm](https://secure.php.net/manual/en/install.fpm.php) configuration and a [MySQL database](https://www.mysql.com/) for you.
 After everythign started you should be able to visit http://<Your-Docker-IP>:8080/ and see a running LanSuite-System.
 
 ### Example configuration file
