@@ -1,4 +1,7 @@
 <?php
+// Composer autoloading
+require __DIR__ . '/vendor/autoload.php';
+
 ### Set Error Reporting & INI-Settings
 
 if (defined('E_STRICT')) {
@@ -276,14 +279,12 @@ if ($config['lansuite']['debugmode'] > 0) {
     include_once("inc/classes/class_translation.php");  // Load Translationclass. No t()-Function before this point!
     $translation = new translation();
 
-    include_once('ext_scripts/smarty/libs/Smarty.class.php');
     $smarty = new Smarty();
     $smarty->template_dir = '.';
     $smarty->compile_dir = './ext_inc/templates_c/';
     $smarty->cache_dir = './ext_inc/templates_cache/';
     $smarty->caching = false;
     $smarty->cache_lifetime = 0; // sec
-    #$smarty->compile_check = 0;
 
 if (isset($debug)) {
     $debug->tracker("Include and Init Smarty");
