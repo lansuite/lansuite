@@ -49,9 +49,7 @@ class auth
         $this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
         $this->timestamp = time();              // Timestamp for Statistik
         $this->update_visits($frmwrkmode);      // Update Statistik
-        //$this->cookie_crypt = $cfg[''];       // Crypt via Config
-        //$this->cookie_crypt_pw = $cfg[''];    // CryptPW via Config => uniqekey
-        
+
         // Better handle it here, otherwise its an DB-Query for each $dsp->FetchUserIcon()
         $res = $db->qry(
             'SELECT userid,lasthit FROM %prefix%stats_auth
@@ -443,8 +441,6 @@ class auth
                 
                 // Logs the new user out on the board2 and logs the admin user on again
                 //TODO: fix switch user phpbb logon
-                //$this->logoutPhpbb();
-                //$this->loginPhpbb($this->cookie_data['userid']);
                 
                 $func->confirmation(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), '', 1);
             } else {
@@ -632,12 +628,6 @@ class auth
                 ($this->cookie_version == $this->cookie_data['version'])) {
                 $ok = 1;
             }
-        }
-        if (!$ok) {
-            // i.e. user don't like to log in
-            // But still we maybe need Cookies for not logged in users. So just keep it.
-            #$this->cookie_unset();
-            #$func->error(t('Fehlerhafte Cookie-Daten. Cookie wurde gelöscht'), '', 1);
         }
         return $ok;
     }

@@ -101,10 +101,6 @@ class gd
                     include_once("ext_scripts/gd/cur.php");
                     ImageCUR($this->img, $file);
                     break;
-/*				case "ani":
-                    include_once("ext_scripts/gd/ani.php");
-                    ImageANI($this->img, $file);
-                break;*/
                 default:
                     if (ImageTypes() & IMG_PNG) {
                         ImagePNG($this->img, $file);
@@ -147,10 +143,6 @@ class gd
                     include_once("ext_scripts/gd/cur.php");
                     ImageCUR($this->img);
                     break;
-/*				case "ani":
-                    include_once("ext_scripts/gd/ani.php");
-                    ImageANI($this->img);
-                break;*/
                 default:
                     if (ImageTypes() & IMG_PNG) {
                         ImagePNG($this->img);
@@ -215,33 +207,6 @@ class gd
         }
     }
 
-/*
-    function CreateButton($name) {
-        global $auth, $language, $func;
-
-        if (!file_exists("ext_inc/auto_images/{$auth["design"]}/$language/button_$name.png")) {
-            $func->CreateDir("ext_inc/auto_images/{$auth["design"]}");
-            $func->CreateDir("ext_inc/auto_images/{$auth["design"]}/$language");
-
-      $text = t($name);
-            if (strlen($text) <= 10) {
-                $start_x = 34 - (strlen($text) * 6) / 2;
-                $this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button.png");
-            } elseif (strlen($text) <= 15) {
-                $start_x = 49 - (strlen($text) * 6) / 2;
-                $this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button_b.png");
-            } else {
-                $start_x = 64 - (strlen($text) * 6) / 2;
-                if (strlen($text) > 20) $text = substr($text, 0, 20);
-                $this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button_c.png");
-            }
-            $this->SetFont("ext_inc/fonts/verdana.ttf", 7);
-            $this->Text ($start_x, 4, imagecolorallocate($this->img, 30, 30, 30), $text, 20);
-            $this->PutImage("ext_inc/auto_images/{$auth["design"]}/$language/button_$name.png");
-        }
-    }
-*/
-
     public function OpenImage($filename)
     {
         if (!file_exists($filename)) {
@@ -286,10 +251,6 @@ class gd
                 include_once("ext_scripts/gd/cur.php");
                 $img_src = ImageCreateFromCUR($filename);
                 break;
-/*			case "ani":
-                include_once("ext_scripts/gd/ani.php");
-                $img_src = ImageCreateFromANI($filename);
-            break;*/
         }
 
         return $img_src;
