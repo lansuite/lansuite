@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "8080:80"
+        volumes:
+            - .:/code
+            - ./.docker/nginx-development.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - code-network
+    php:
+        image: lansuite/lansuite:latest
+        volumes:
+            - .:/code
+            - ./.docker/nginx-php-flags.conf:/usr/local/etc/php-fpm.d/php-flags.conf
+        networks:
+            - code-network
+    mysql:
+        image: mysql:5.5
+        environment:
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_DATABASE="lansuite"
+        networks:
+            - code-network
+
+networks:
+    code-network:
+        driver: bridge
