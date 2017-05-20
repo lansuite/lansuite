@@ -1,15 +1,4 @@
 <?php
-### Set Error Reporting & INI-Settings
-
-if (defined('E_STRICT')) {
-    error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
-} // Will work for PHP >= 5.3
-elseif (defined('E_DEPRECATED')) {
-    error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
-} // Will work for PHP >= 5.3
-else {
-    error_reporting(E_ALL ^ E_NOTICE);
-} // For PHP < 5.3
 if (function_exists('date_default_timezone_set')) {
     date_default_timezone_set('Europe/Berlin');
 } // As of PHP 5.3 this needs to be set. Otherwise some webservers will throw warnings

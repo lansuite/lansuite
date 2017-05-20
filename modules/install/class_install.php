@@ -604,18 +604,8 @@ class Install
                 $ext_inc_check = $ok;
             }
         }
-          $dsp->AddDoubleRow(t('Schreibrechte im Ordner \'ext_inc\''), $ext_inc_check);
-
-        // Error Reporting
-        if (error_reporting() <= (E_ALL ^ E_NOTICE)) {
-              $errreport_check = $ok;
-        } else {
-            $errreport_check = $warning . t('In deiner php.ini ist \'error_reporting\' so konfiguriert, dass auch unwichtige Fehlermeldungen angezeigt werden. Dies kann dazu führen, dass störende Fehlermeldungen in Lansuite auftauchen. Wir empfehlen diese Einstellung auf \'E_ALL ^ E_NOTICE\' zu ändern. In dieser Einstellung werden dann nur noch Fehler angezeigt, welche die Lauffähigkeit des Skriptes beeinträchtigen.');
-        }
-        $dsp->AddDoubleRow("Error Reporting", $errreport_check);
-
+        $dsp->AddDoubleRow(t('Schreibrechte im Ordner \'ext_inc\''), $ext_inc_check);
         $dsp->AddFieldSetEnd();
-
 
         #### Warning ####
         $dsp->AddFieldSetStart("Warnungen - Lansuite kann trotz evtl. Fehler verwendet werden");
