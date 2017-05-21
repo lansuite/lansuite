@@ -13,9 +13,6 @@ elseif (defined('E_DEPRECATED')) {
 else {
     error_reporting(E_ALL ^ E_NOTICE);
 } // For PHP < 5.3
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set('Europe/Berlin');
-} // As of PHP 5.3 this needs to be set. Otherwise some webservers will throw warnings
 if (function_exists('ini_set')) {
   // Disable SID in URL
     ini_set('url_rewriter.tags', '');
