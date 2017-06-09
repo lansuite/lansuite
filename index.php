@@ -1,20 +1,10 @@
 <?php
-// Composer autoloading
-require __DIR__ . '/vendor/autoload.php';
+// Set error_reporting properly
+// Right now we depend on it. This will change in future.
+error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
 
-### Set Error Reporting & INI-Settings
-
-if (defined('E_STRICT')) {
-    error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
-} // Will work for PHP >= 5.3
-elseif (defined('E_DEPRECATED')) {
-    error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
-} // Will work for PHP >= 5.3
-else {
-    error_reporting(E_ALL ^ E_NOTICE);
-} // For PHP < 5.3
 if (function_exists('ini_set')) {
-  // Disable SID in URL
+    // Disable SID in URL
     ini_set('url_rewriter.tags', '');
 }
 

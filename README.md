@@ -41,7 +41,49 @@ Sollten Onlinehilfe und Helpletts nicht weiterhelfen, kann der Anwender im Wiki 
 
 ## Requirements
 
-* PHP 7
+* PHP 7 (with mysqli, snmp and gd extensions)
+
+## Installation
+
+### Docker
+
+We assume that you have a running [Docker Community Edition](https://www.docker.com/community-edition) installed.
+
+```
+$ git clone https://github.com/lansuite/lansuite.git
+$ cd lansuite
+$ touch ./inc/base/config.php
+$ # Add the content of the example configuration file below into ./inc/base/config.php 
+$ chmod 0777 ./inc/base/config.php
+$ chmod -R 0777 ./ext_inc/
+$ docker-compose up
+```
+
+This will start a [Nginx webserver](https://nginx.org/) with a [php-fpm](https://secure.php.net/manual/en/install.fpm.php) configuration and a [MySQL database](https://www.mysql.com/) for you.
+After everythign started you should be able to visit http://<Your-Docker-IP>:8080/ and see a running LanSuite-System.
+
+### Example configuration file
+
+An example configuration file:
+
+```ini
+[lansuite]
+version=Nightly
+default_design=simple
+chmod_dir=777
+chmod_file=666
+debugmode=0
+
+[database]
+server=mysql
+user=root
+passwd=
+database=lansuite
+prefix=ls_
+charset=utf8
+```
+
+**Warning**: Setting directories to 0777 is not suggested for production. Only your webserver user should be able to write into this directory.
 
 ## Development
 
