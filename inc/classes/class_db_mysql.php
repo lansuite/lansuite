@@ -2,11 +2,9 @@
 
 class db
 {
-    public $mysqli = 0;
     public $link_id = 0;
     public $query_id = 0;
-    public $record   = array();
-    public $print_sql_error;
+    public $record = array();
     public $success = false;
     public $count_query = 0;
     public $errors = '';
@@ -14,36 +12,20 @@ class db
     public $connectfailure = 0;  //0= no error, 1=connection error, 2=database error
     public $QueryArgs = array();
 
-  // Construktor
-    public function __construct()
-    {
-        if (extension_loaded("mysqli")) {
-            $this->mysqli = 1;
-        } elseif (!extension_loaded("mysql")) {
-            echo HTML_FONT_ERROR . t('Das MySQL-PHP Modul ist nicht geladen. Bitte füge die mysql.so Erweiterung zur php.ini hinzu und restarte den Webserver neu. Lansuite wird abgebrochen') . HTML_FONT_END;
-        }
-    }
-
-
-  #### Internal only ####
-
+    // Internal only
     public function print_error($msg, $query_string_with_error)
     {
-        global $func, $config, $auth;
+        global $config, $auth;
 
         $error = t('SQL-Failure. Database respondet: <b>%1</b><br /><br />Query: <br /><i>%2</i>', $msg, $query_string_with_error);
 
         $this->errors .= $error . '<br />';
         $this->errorsFound = 1;
+
         // Need to use mysql_querys here, to prevent loops!!
         $query = 'INSERT INTO '. $config['database']['prefix'] .'log SET date = NOW(), userid = '. (int)$auth['userid'] .', type = 3, description = "'. strip_tags($error) .'", sort_tag = "SQL-Fehler"';
-        if ($this->mysqli) {
-            mysqli_query($this->link_id, $query);
-        } else {
-            mysql_query($query, $this->link_id);
-        }
-
-          $this->count_query++;
+        mysqli_query($this->link_id, $query);
+        $this->count_query++;
     }
 
     public function escape($match)
@@ -52,20 +34,17 @@ class db
 
         if ($match[0] == '%int%') {
             return (int)$CurrentArg;
+
         } elseif ($match[0] == '%string%') {
             $CurrentArg = stripslashes($CurrentArg);
-            if ($this->mysqli) {
-                return "'". mysqli_real_escape_string($this->link_id, (string)$CurrentArg) ."'";
-            } else {
-                return "'". mysql_real_escape_string((string)$CurrentArg, $this->link_id) ."'";
-            }
+            return "'". mysqli_real_escape_string($this->link_id, (string)$CurrentArg) ."'";
+
         } elseif ($match[0] == '%plain%') {
             return $CurrentArg;
         }
     }
 
-
-  #### Connection related ####
+    #### Connection related ####
 
     public function connect($save = false)
     {
@@ -78,11 +57,8 @@ class db
         $charset = $config['database']['charset'];
 
         // Try to connect
-        if ($this->mysqli) {
-            $this->link_id = @mysqli_connect($server, $user, $pass);
-        } else {
-            $this->link_id = @mysql_connect($server, $user, $pass);
-        }
+        $this->link_id = mysqli_connect($server, $user, $pass);
+
         if (!$this->link_id) {
             if ($save) {
                 $this->connectfailure = 1;
@@ -93,13 +69,9 @@ class db
                 exit();
             }
 
-      // Try to select DB
+        // Try to select DB
         } else {
-            if ($this->mysqli) {
-                $ret = mysqli_select_db($this->link_id, $database);
-            } else {
-                $ret = mysql_select_db($database, $this->link_id);
-            }
+            $ret = mysqli_select_db($this->link_id, $database);
             if (!$ret) {
                 if ($save) {
                     $this->connectfailure = 2;
@@ -125,74 +97,61 @@ class db
 
     public function set_charset()
     {
-        if ($this->mysqli) {
-            @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
-        } else {
-            @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
-        }
+        mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
     }
 
     public function get_host_info()
     {
-        if ($this->mysqli) {
-            return @mysqli_get_host_info($this->link_id);
-        } else {
-            return @mysql_get_host_info($this->link_id);
-        }
+        return mysqli_get_host_info($this->link_id);
     }
 
     public function disconnect()
     {
-        if ($this->mysqli) {
-            mysqli_close($this->link_id);
-        } else {
-            mysql_close($this->link_id);
-        }
+        mysqli_close($this->link_id);
     }
 
 
-  #### Queries ####
+    #### Queries ####
 
-  /**
-   * If the second parameter is an array, the function uses the array as value list.
-   * @return unknown_type
-   */
+    /**
+     * If the second parameter is an array, the function uses the array as value list.
+     *
+     * @return bool|int|mysqli_result
+     */
     public function qry()
     {
         global $config, $debug;
+
+        // Arguments could be passed als multiple ones, or a single array
         $this->QueryArgs = func_get_args();
         if (is_array($this->QueryArgs[0])) {
             $this->QueryArgs = $this->QueryArgs[0];
-        } // Arguments could be passed als multiple ones, or a single array
+        }
 
         $query = array_shift($this->QueryArgs);
-        #$this->QueryArgs = str_replace('%prefix%', $config['database']['prefix'], $this->QueryArgs);
-
-        //if (is_array($this->QueryArgs[0])) $this->QueryArgs = $this->QueryArgs[0];
 
         $query = str_replace('%prefix%', $config['database']['prefix'], $query);
         $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array(&$this, 'escape'), $query);
+
         // TODO: Don't replace %prefix% within quotes!
         if (isset($debug)) {
             $debug->query_start($query);
         }
-        if ($this->mysqli) {
-            $this->query_id = mysqli_query($this->link_id, $query);
-            $this->sql_error = mysqli_error($this->link_id);
-        } else {
-            $this->query_id = mysql_query($query, $this->link_id);
-            $this->sql_error = mysql_error($this->link_id);
-        }
+
+        $this->query_id = mysqli_query($this->link_id, $query);
+        $this->sql_error = mysqli_error($this->link_id);
+
         if (!$this->query_id) {
             $this->print_error($this->sql_error, $query);
         }
-          $this->count_query++;
+
+        $this->count_query++;
         if (isset($debug)) {
             $debug->query_stop($this->sql_error);
         }
-          $this->QueryArgs = array();
+        $this->QueryArgs = array();
 
-          return $this->query_id;
+        return $this->query_id;
     }
 
     public function fetch_array($query_id = -1, $save = 1)
@@ -203,11 +162,7 @@ class db
             $this->query_id = $query_id;
         }
 
-        if ($this->mysqli) {
-            $this->record = @mysqli_fetch_array($this->query_id);
-        } else {
-            $this->record = @mysql_fetch_array($this->query_id);
-        }
+        $this->record = mysqli_fetch_array($this->query_id);
 
         if ($save and $this->record) {
             foreach ($this->record as $key => $value) {
@@ -221,66 +176,47 @@ class db
     public function num_rows($query_id = -1)
     {
         if ($query_id != -1) {
-            $this->query_id=$query_id;
+            $this->query_id = $query_id;
         }
 
-        if ($this->mysqli) {
-            return @mysqli_num_rows($this->query_id);
-        } else {
-            return @mysql_num_rows($this->query_id);
-        }
+        return mysqli_num_rows($this->query_id);
     }
 
     public function get_affected_rows($query_id = -1)
     {
         if ($query_id != -1) {
-            $this->query_id=$query_id;
+            $this->query_id = $query_id;
         }
 
-        if ($this->mysqli) {
-            return @mysqli_affected_rows($this->link_id);
-        } else {
-            return @mysql_affected_rows($this->link_id);
-        }
+        return mysqli_affected_rows($this->link_id);
     }
 
     public function insert_id($query_id = -1)
     {
         if ($query_id != -1) {
-            $this->query_id=$query_id;
+            $this->query_id = $query_id;
         }
 
-        if ($this->mysqli) {
-            return @mysqli_insert_id($this->link_id);
-        }
-        return @mysql_insert_id($this->link_id);
+        return mysqli_insert_id($this->link_id);
     }
 
     public function num_fields($query_id = -1)
     {
         if ($query_id != -1) {
-            $this->query_id=$query_id;
+            $this->query_id = $query_id;
         }
 
-        if ($this->mysqli) {
-            return mysqli_num_fields($this->query_id);
-        } else {
-            return mysql_num_fields($this->query_id);
-        }
+        return mysqli_num_fields($this->query_id);
     }
 
     public function field_name($pos, $query_id = -1)
     {
         if ($query_id != -1) {
-            $this->query_id=$query_id;
+            $this->query_id = $query_id;
         }
 
-        if ($this->mysqli) {
-            $finfo = mysqli_fetch_field_direct($this->query_id, $pos);
-            return $finfo->name;
-        } else {
-            return mysql_field_name($this->query_id, $pos);
-        }
+        $finfo = mysqli_fetch_field_direct($this->query_id, $pos);
+        return $finfo->name;
     }
 
     public function free_result($query_id = -1)
@@ -289,20 +225,16 @@ class db
             $this->query_id = $query_id;
         }
 
-        if ($this->mysqli) {
-            return @mysqli_free_result($this->query_id);
-        } else {
-            return @mysql_free_result($this->query_id);
-        }
+        return mysqli_free_result($this->query_id);
     }
 
+    #### Special ####
 
-  #### Special ####
-
-  /**
-   * If the second parameter is an array, the function uses the array as value list.
-   * @return unknown_type
-   */
+    /**
+     * If the second parameter is an array, the function uses the array as value list.
+     *
+     * @return array|bool|null
+     */
     public function qry_first()
     {
         $this->qry($args = func_get_args());
@@ -326,24 +258,11 @@ class db
         return $row;
     }
 
-
-  #### Misc ####
+    #### Misc ####
 
     public function client_info()
     {
-        if ($this->mysqli) {
-            if (function_exists('mysqli_get_client_info')) {
-                return mysqli_get_client_info();
-            } else {
-                return false;
-            }
-        } else {
-            if (function_exists('mysql_get_client_info')) {
-                return mysql_get_client_info();
-            } else {
-                return false;
-            }
-        }
+        return mysqli_get_client_info();
     }
 
     public function DisplayErrors()
@@ -354,28 +273,5 @@ class db
             $func->error($this->errors);
             $this->errors = '';
         }
-    }
-
-    public function field_exist($table, $field)
-    {
-        $fields = mysql_list_fields($this->database, $table);
-        if ($this->mysqli) {
-            $columns = mysqli_num_fields($fields);
-        } else {
-            $columns = mysql_num_fields($fields);
-        }
-        $found = 0;
-        for ($i = 0; $i < $columns; $i++) {
-            if ($this->mysqli) {
-                if (trim($field) == trim(mysqli_field_name($fields, $i))) {
-                    $found = 1;
-                }
-            } else {
-                if (trim($field) == trim(mysql_field_name($fields, $i))) {
-                    $found = 1;
-                }
-            }
-        }
-        return $found;
     }
 }
