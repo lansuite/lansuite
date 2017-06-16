@@ -621,8 +621,8 @@ class MasterSearch2
                     or $this->SQLFieldTypes[$current_field['sql_field']] == 'time'
                     or $this->SQLFieldTypes[$current_field['sql_field']] == 'timestamp') {
                         ($_GET['order_dir'] != 'asc')? $order_dir = 'asc' : $order_dir = 'desc';
-                    } else ($_GET['order_dir'] != 'desc') {
-                        ? $order_dir = 'desc' : $order_dir = 'asc';
+                    } else {
+                        ($_GET['order_dir'] != 'desc')? $order_dir = 'desc' : $order_dir = 'asc';
                     }
                 }
 
