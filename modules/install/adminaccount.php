@@ -1,4 +1,7 @@
 <?php
+
+require_once("inc/classes/class_pwhash.php");
+
 $db->connect();
 
 $dsp->NewContent(t('Adminaccount anlegen'), t('Lege hier einen Adminaccount an, Ã¼ber welchen du Zugriff auf diese Admin-Seite erhälst. Wenn du bereits Benutzer-Daten importiert hast musst du hier keinen weiteren Account anlegen.'));
@@ -23,7 +26,7 @@ switch ($_GET["step"]) {
 					email=%string%,
 					password = %string%,
 					type = '3'
-					", $_POST["email"], md5($_POST["password"]));
+					", $_POST["email"], PasswordHash::hash($_POST["password"]));
             $userid = $db->insert_id();
             // Admin zur Party hinzufügen
             $party->add_user_to_party($userid, 1, "1", "1");
