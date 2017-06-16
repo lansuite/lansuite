@@ -1,7 +1,10 @@
 <?php
+
+use LanSuite\PasswordHash;
+
 $db->connect();
 
-$dsp->NewContent(t('Adminaccount anlegen'), t('Lege hier einen Adminaccount an, über welchen du Zugriff auf diese Admin-Seite erh�lst. Wenn du bereits Benutzer-Daten importiert hast musst du hier keinen weiteren Account anlegen.'));
+$dsp->NewContent(t('Adminaccount anlegen'), t('Lege hier einen Adminaccount an, �ber welchen du Zugriff auf diese Admin-Seite erh?lst. Wenn du bereits Benutzer-Daten importiert hast musst du hier keinen weiteren Account anlegen.'));
 
 $find = $db->qry("SELECT * FROM %prefix%user");
 if ($db->num_rows($find) == 0) {
@@ -16,7 +19,7 @@ switch ($_GET["step"]) {
         } elseif ($_POST["password"] == "") {
             $func->error(t('Bitte gib ein Kennwort ein!'), "index.php?mod=install&action=adminaccount");
         } elseif ($_POST["password"] != $_POST["password2"]) {
-            $func->error(t('Das Passwort und seine Verifizierung stimmen nicht überein!'), "index.php?mod=install&action=adminaccount");
+            $func->error(t('Das Passwort und seine Verifizierung stimmen nicht �berein!'), "index.php?mod=install&action=adminaccount");
         } else {
             $db->qry("
               INSERT INTO %prefix%user
@@ -24,7 +27,7 @@ switch ($_GET["step"]) {
                 username = 'ADMIN',
                 email=%string%,
                 password = %string%,
-                type = '3'", $_POST["email"], md5($_POST["password"]));
+                type = '3'", $_POST["email"], PasswordHash::hash($_POST["password"]));
             $userid = $db->insert_id();
 
             // Add administrator to party
