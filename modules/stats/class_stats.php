@@ -46,7 +46,6 @@ class stats
           ON DUPLICATE KEY UPDATE visits = visits + 1, hits = hits + 1;");
             }
                 $_SESSION['last_hit'] = time();
-              #setcookie('last_hit', time(), time() + (30 * 60));
 
               // Beispiel: Suche bei Google nach lansuite.orgapage.de fuehrt zu folgendem Referrer:
               #$_SERVER['HTTP_REFERER'] = "http://www.google.de/search?hl=de&q=lansuite.orgapage.de&btnG=Google-Suche&meta=";
