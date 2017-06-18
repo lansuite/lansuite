@@ -349,7 +349,7 @@ if ($config['environment']['configured'] == 0) {
     ### Start autentication, just if LS is working
     include_once("inc/classes/class_auth.php");
     $authentication = new auth($frmwrkmode);
-    $auth      = $authentication->check_logon();    // Testet Cookie / Session ob User eingeloggt ist
+    $auth      = $authentication->check_logon();    // Testet Session ob User eingeloggt ist
     $olduserid = $authentication->get_olduserid();  // Olduserid for Switback on Boxes
 }
 

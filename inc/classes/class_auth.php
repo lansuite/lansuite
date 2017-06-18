@@ -54,7 +54,6 @@ class auth
             }
         }
         
-        
         // Close sessions older than 1-2 hours.
         // ceil(x / $oneHour) * $oneHour for making query the same for one hour and therefore cacheable by MySQL
         // Do check first, for SELECT is faster than DELETE
@@ -64,7 +63,6 @@ class auth
         if ($row['found']) {
             $row = $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
             $row = $db->qry_first('OPTIMIZE TABLE %prefix%stats_auth');
-            
         }
     }
 
@@ -80,8 +78,8 @@ class auth
         global $func;
         // Mögliche Fälle
         // 1. ausgeloggt.. keine Session
-        // 3. Eingeloggt Session
-        // 4. Eingeloggt Session und userswitch
+        // 2. Eingeloggt Session
+        // 3. Eingeloggt Session und userswitch
         
         // Look for SessionID in DB and load auth-data
         $this->loadAuthBySID();
@@ -97,26 +95,18 @@ class auth
    * @param mixed Userpassword
    * @return array Returns the auth-dataarray
    */
-    public function login($email, $password, $show_confirmation = 1)
+    public function login($raw_email, $password, $show_confirmation = 1)
     {
         global $db, $func, $cfg, $party;
 
-        $tmp_login_email = "";
-        $tmp_login_pass = "";
+        $email = strtolower(htmlspecialchars(trim($raw_email)));
 
-        if ($email != "") {
-            $tmp_login_email = strtolower(htmlspecialchars(trim($email)));
-        }
-        if ($password != "") {
-            $tmp_login_pass = md5($password);
-        }
-
-        if ($tmp_login_email == "") {
+        if ($email == "") {
             $func->information(t('Bitte gib deine E-Mail-Adresse oder deine Lansuite-ID ein.'), '', 1);
-        } elseif ($tmp_login_pass == "") {
+        } elseif ($password == "") {
             $func->information(t('Bitte gib dein Kennwort ein.'), '', 1);
         } else {
-            $is_email = strstr($tmp_login_email, '@');
+            $is_email = strstr($email, '@');
             if (!$is_email) {
                 $is_email = 0;
             } else {
@@ -124,11 +114,10 @@ class auth
             }
 
             $user = $db->qry_first(
-                'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user
-          WHERE ((userid = %int% AND 0 = %int%) OR LOWER(email) = %string%)',
-                $tmp_login_email,
+                'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE ((userid = %int% AND 0 = %int%) OR LOWER(email) = %string%)',
+                $email,
                 $is_email,
-                $tmp_login_email
+                $email
             );
 
             // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
@@ -148,35 +137,37 @@ class auth
             // Email not found?
             } elseif (!$user["found"]) {
                 $func->information(t('Dieser Benutzer existiert nicht in unserer Datenbank. Bitte prüfe die eingegebene Email/ID'), '', 1);
-                $func->log_event(t('Falsche Email angegeben (%1)', $tmp_login_email), '2', 'Authentifikation');
+                $func->log_event(t('Falsche Email angegeben (%1)', $email), '2', 'Authentifikation');
             // Account disabled?
             } elseif ($user["type"] <= -1) {
                 $func->information(t('Dein Account ist gesperrt. Melde dich bitte bei der Organisation.'), '', 1);
-                $func->log_event(t('Login für %1 fehlgeschlagen (Account gesperrt).', $tmp_login_email), "2", "Authentifikation");
+                $func->log_event(t('Login für %1 fehlgeschlagen (Account gesperrt).', $email), "2", "Authentifikation");
             // Account locked?
             } elseif ($user['locked']) {
                 $func->information(t('Dieser Account ist noch nicht freigeschaltet. Bitte warte bis ein Organisator dich freigeschaltet hat.'), '', 1);
-                $func->log_event(t('Account von %1 ist noch gesperrt. Login daher fehlgeschlagen.', $tmp_login_email), "2", "Authentifikation");
+                $func->log_event(t('Account von %1 ist noch gesperrt. Login daher fehlgeschlagen.', $email), "2", "Authentifikation");
             // Mail not verified?
             } elseif ($cfg['sys_login_verified_mail_only'] == 2 and !$user['email_verified'] and $user["type"] < 2) {
                 $func->information(t('Du hast deine Email-Adresse (%1) noch nicht verifiziert. Bitte folge dem Link in der dir zugestellten Email.', $user['email']).' <a href="index.php?mod=usrmgr&action=verify_email&step=2&userid='. $user['userid'] .'">'. t('Klicke hier, um die Mail erneut zu versenden</a>'), '', 1);
                 $func->log_event(t('Login fehlgeschlagen. Email (%1) nicht verifiziert', $user['email']), "2", "Authentifikation");
             // User login and wrong password?
-            } elseif ($user["user_login"] and $tmp_login_pass != $user["password"]) {
+            } elseif ($user["user_login"] and md5($password) != $user["password"]) {
                 ($cfg["sys_internet"])? $remindtext = t('Hast du dein Passwort vergessen?<br/><a href="./index.php?mod=usrmgr&action=pwrecover"/>Hier kannst du ein neues Passwort generieren</a>.') : $remindtext = t('Solltest du dein Passwort vergessen haben, wende dich bitte an die Organisation.');
                 $func->information(t('Die von dir eingebenen Login-Daten sind fehlerhaft. Bitte überprüfe deine Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, '', 1);
-                $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $tmp_login_email), "2", "Authentifikation");
+                $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $email), "2", "Authentifikation");
                 $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET6_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
             // Not checked in?
             } elseif ($func->isModActive('party') and (!$party_query["checkin"] or $party_query["checkin"] == '0000-00-00 00:00:00') and $user["type"] < 2 and !$cfg["sys_internet"]) {
                 $func->information(t('Du bist nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn du eingecheckt bist.') .HTML_NEWLINE. t('Bitte melden dich bei der Organisation.'), '', 1);
-                $func->log_event(t('Login für %1 fehlgeschlagen (Account nicht eingecheckt).', $tmp_login_email), "2", "Authentifikation");
+                $func->log_event(t('Login für %1 fehlgeschlagen (Account nicht eingecheckt).', $email), "2", "Authentifikation");
             // Already checked out?
             } elseif ($func->isModActive('party') and $party_query["checkout"] and $party_query["checkout"] != '0000-00-00 00:00:00' and $user["type"] < 2 and !$cfg["sys_internet"]) {
                 $func->information(t('Du bist bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn du eingecheckt bist.') .HTML_NEWLINE. t('Bitte melden dich bei der Organisation.'), '', 1);
-                $func->log_event(t('Login für %1 fehlgeschlagen (Account ausgecheckt).', $tmp_login_email), "2", "Authentifikation");
+                $func->log_event(t('Login für %1 fehlgeschlagen (Account ausgecheckt).', $email), "2", "Authentifikation");
             // Everything fine!
             } else {
+                $this->regenerateSessionId();
+
                 // Set Logonstats
                 $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate, lastlogin = NOW() WHERE userid = %int%', $user['userid']);
 
@@ -228,13 +219,15 @@ class auth
 
             }
         }
-	$_SESSION['auth']=$this->auth;
+
+        $_SESSION['auth'] = $this->auth;
+
         return $this->auth; // For global setting $auth
     }
 
     
     /**
-     * Logout the User and delete Sessiondata, Cookie and Authdata
+     * Logout the User, reset the session ID and delete Sessiondata and Authdata
      *
      * @return array Returns the cleared auth-dataarray
      */
@@ -245,6 +238,8 @@ class auth
         // Delete entry from SID
         $db->qry('DELETE FROM %prefix%stats_auth WHERE sessid=%string%', $this->auth["sessid"]);
         $this->auth['login'] = "0";
+
+        $this->regenerateSessionId();
 
         // Reset Sessiondata
         unset($this->auth);
@@ -262,7 +257,7 @@ class auth
 
   /**
    * Switch to UserID
-   * Switches to given UserID and stores a callbackfunktion in a Cookie and DB
+   * Switches to given UserID and stores a callbackfunktion in session
    *
    * @param mixed $target_id
    */
@@ -275,13 +270,11 @@ class auth
 
         // Only highlevel to lowerlevel
         if ($this->auth["type"] > $target_user["type"]) {
-
             // Save old user ID
             $_SESSION['auth']['olduserid'] = $this->auth['userid'];
             
             // Link session ID to new user ID
             $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $target_id, $this->auth["sessid"]);
-
 
             $func->confirmation(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), '', 1);  //FIX meldungen auserhalb/standart?!?
         } else {
@@ -298,8 +291,6 @@ class auth
     {
         global $db, $func;
         if ($_SESSION['auth']['olduserid'] > 0) {
-            // Check switch back code
-
             // Link session ID to origin user ID
             $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $_SESSION['auth']['olduserid'], $this->auth["sessid"]);
             // Delete switch back code in admins user data
@@ -308,7 +299,6 @@ class auth
             $_SESSION['auth']['olduserid'] = '';
 
             $func->confirmation(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), '', 1);
-
         } else {
             $func->information(t('Fehler: Keine Switchbackdaten gefunden!'), '', 1);
         }
@@ -429,5 +419,11 @@ class auth
         if ($frmwrkmode == "ajax") {
             $db->qry('UPDATE %prefix%stats_auth SET lastajaxhit=%int% WHERE sessid=%string%', $this->timestamp, $this->auth["sessid"]);
         }
+    }
+
+    private function regenerateSessionId()
+    {
+        session_regenerate_id();
+        $this->auth["sessid"] = session_id();
     }
 }
