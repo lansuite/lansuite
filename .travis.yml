@@ -9,4 +9,4 @@ install:
   - phpenv rehash
 script:
   - find . -name '*.php' -print0 | xargs -0 -n1 php -lf || true # Allow failures for now
-  - phpcs --standard=PSR1,PSR2 --extensions=php . || true # Allow failures for now
+  - phpcs --standard=PSR1,PSR2 --extensions=php --ignore="^$(pwd)/ext_scripts/*" . || true # Allow failures for now
