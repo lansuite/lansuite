@@ -439,7 +439,7 @@ Class ASCII_Captcha
 		
 		function str_replace_left($search, $replace, $subject)
 			{
-          if ($serach == '') return $subject;
+          if ($search == '') return $subject;
 			    if (($pos = @strpos($subject, $search)) !== FALSE)
 			 		{
 			     	   $ret = substr($subject, 0, $pos).$replace.substr($subject, $pos + strlen($search));
