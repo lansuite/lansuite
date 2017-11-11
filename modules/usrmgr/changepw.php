@@ -1,11 +1,13 @@
 <?php
 
+require_once("inc/classes/class_pwhash.php");
+
 function CheckOldPW($old_password)
 {
     global $db, $auth, $lang;
 
     $get_dbpwd = $db->qry_first("SELECT password FROM %prefix%user WHERE userid = %int%", $auth["userid"]);
-    if ($get_dbpwd["password"] != md5($old_password)) {
+    if (!PasswordHash::verify($old_password, $get_dbpwd["password"])) {
         return t('Passwort inkorrekt');
     }
 

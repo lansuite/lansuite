@@ -1,5 +1,8 @@
 <?php
 
+require_once("inc/classes/class.crypt.php");
+require_once("inc/classes/class_pwhash.php");
+
 /**
  * Authorisation for Lansuite
  *
@@ -151,7 +154,7 @@ class auth
                 $func->information(t('Du hast deine Email-Adresse (%1) noch nicht verifiziert. Bitte folge dem Link in der dir zugestellten Email.', $user['email']).' <a href="index.php?mod=usrmgr&action=verify_email&step=2&userid='. $user['userid'] .'">'. t('Klicke hier, um die Mail erneut zu versenden</a>'), '', 1);
                 $func->log_event(t('Login fehlgeschlagen. Email (%1) nicht verifiziert', $user['email']), "2", "Authentifikation");
             // User login and wrong password?
-            } elseif ($user["user_login"] and md5($password) != $user["password"]) {
+            } elseif ($user["user_login"] and !PasswordHash::verify($password, $user["password"])) {
                 ($cfg["sys_internet"])? $remindtext = t('Hast du dein Passwort vergessen?<br/><a href="./index.php?mod=usrmgr&action=pwrecover"/>Hier kannst du ein neues Passwort generieren</a>.') : $remindtext = t('Solltest du dein Passwort vergessen haben, wende dich bitte an die Organisation.');
                 $func->information(t('Die von dir eingebenen Login-Daten sind fehlerhaft. Bitte überprüfe deine Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $email), "2", "Authentifikation");
@@ -167,6 +170,15 @@ class auth
             // Everything fine!
             } else {
                 $this->regenerateSessionId();
+
+                if ($user["user_login"] and PasswordHash::needsRehash($user["password"])) {
+                    try {
+                        $db->qry('UPDATE %prefix%user SET password = %string% WHERE userid = %int%', PasswordHash::hash($password), $user["userid"]);
+                        $func->information(t('Es wurde ein Sicherheitsupgrade von deinem Passwort durchgeführt.'), '', 1);
+                    } catch (Exception $e) {
+                        $func->error(t('Sicherheitsupgrade von deinem Passwort ist fehlgeschlagen!'));
+                    }
+                }
 
                 // Set Logonstats
                 $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate, lastlogin = NOW() WHERE userid = %int%', $user['userid']);
