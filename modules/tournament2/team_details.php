@@ -51,9 +51,17 @@ if (!$_GET["teamid"]) {
     while ($game = $db->fetch_array($games)) {
         $game_anz++;
         if ($game['leaderid'] == $team['userid']) {
-            ($game[s1] > $game[s2])? $won++ : $lost++;
-        } else ($game[s1] > $game[s2]) {
-            ? $lost++ : $won++;
+            if ($game[s1] > $game[s2]) {
+                $won++;
+            } else {
+                $lost++;
+            }
+        } else {
+            if ($game[s1] > $game[s2]) {
+                $lost++;
+            } else {
+                $won++;
+            }
         }
     }
     $db->free_result($games);

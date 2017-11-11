@@ -1,5 +1,7 @@
 <?php
 
+require_once("inc/classes/class_pwhash.php");
+
 define('FIELD_OPTIONAL', 1);
 define('HTML_ALLOWED', 1);
 define('LSCODE_ALLOWED', 1);
@@ -779,7 +781,7 @@ class masterform
                     // Convert Passwords
                                             if ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != '') {
                                                 $_POST[$field['name'] .'_original'] = $_POST[$field['name']];
-                                                $_POST[$field['name']] = md5($_POST[$field['name']]);
+                                                $_POST[$field['name']] = PasswordHash::hash($_POST[$field['name']]);
                                             }
                                         }
                                     }
