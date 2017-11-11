@@ -1,5 +1,7 @@
 <?php
 
+require_once("inc/classes/class_pwhash.php");
+
 include_once("modules/seating/class_seat.php");
 $seat2 = new seat2();
 
@@ -158,7 +160,7 @@ class team
     ", $teamid);
 
       // Check password, if set and if acction is not performed, by teamadmin or ls-admin
-            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= 1) and ($team['password'] != '') and (md5($password) != $team['password'])) {
+            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= 1) and ($team['password'] != '') and !PasswordHash::verify($password, $team['password'])) {
                 $func->information(t('Das eingegebene Kennwort ist nicht korrekt'));
                 return false;
 
@@ -244,7 +246,7 @@ class team
      comment = %string%,
      banner = %string%,
      password = %string%
-     ", $tournamentid, $name, $leaderid, $comment, $_FILES[$banner]["name"], md5($password));
+     ", $tournamentid, $name, $leaderid, $comment, $_FILES[$banner]["name"], PasswordHash::hash($password));
 
                 $func->log_event(t('Der Benutzer %1 hat sich zum Turnier %2 angemeldet', $auth["username"], $t["name"]), 1, t('Turnier Teamverwaltung'));
             }
@@ -278,7 +280,7 @@ class team
 
         // Set Password
         if ($password != "") {
-            $db->qry("UPDATE %prefix%t2_teams SET password = %string% WHERE teamid = %int%", md5($password), $_GET["teamid"]);
+            $db->qry("UPDATE %prefix%t2_teams SET password = %string% WHERE teamid = %int%", PasswordHash::hash($password), $_GET["teamid"]);
         }
 
         $db->qry("UPDATE %prefix%t2_teams 
