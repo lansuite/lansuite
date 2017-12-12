@@ -286,13 +286,13 @@ class product
     /**
      * Kategorie
      *
-     * @var cat_object
+     * @var \cat
      */
     public $cat;
     /**
      * Lieferant
      *
-     * @var supp_object
+     * @var \supp
      */
     public $supp;
     /**
