@@ -437,19 +437,19 @@ Class ASCII_Captcha
 				return $return;
 			}
 		
-		function str_replace_left($search, $replace, $subject)
-			{
-          if ($serach == '') return $subject;
-			    if (($pos = @strpos($subject, $search)) !== FALSE)
-			 		{
-			     	   $ret = substr($subject, 0, $pos).$replace.substr($subject, $pos + strlen($search));
-					}
-			    else
-					{
-			     	   $ret = $subject;
-			   		};
-			    return $ret;
+		function str_replace_left($search, $replace, $subject) {
+			if ($search == '') {
+				return $subject;
 			}
+
+			if (($pos = @strpos($subject, $search)) !== FALSE) {
+				$ret = substr($subject, 0, $pos).$replace.substr($subject, $pos + strlen($search));
+			} else {
+				$ret = $subject;
+			}
+
+			return $ret;
+		}
 		
 		function str_replace_right($search, $replace, $subject)
 			{
