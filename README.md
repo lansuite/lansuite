@@ -41,7 +41,7 @@ Sollten Onlinehilfe und Helpletts nicht weiterhelfen, kann der Anwender im Wiki 
 
 ## Requirements
 
-* PHP 7 (with mysqli, snmp and gd extensions)
+* >= PHP 7.0 (with mysqli, snmp and gd extensions)
 
 ## Installation
 
