@@ -1748,7 +1748,7 @@ class barcode_system
 {
     public $class_barcode;
     
-    public function barcode_system()
+    public function __construct()
     {
         global $cfg, $db;
         
