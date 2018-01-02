@@ -21,7 +21,7 @@ LANSuite is a administration system for LAN-Parties based.
 
 ## Requirements
 
-* PHP 7 (with `mysqli`, `snmp` and `gd` extensions)
+* >= PHP 7 (with `mysqli`, `snmp` and `gd` extensions)
 
 ## Installation
 
