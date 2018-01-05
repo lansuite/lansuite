@@ -784,22 +784,6 @@ class Install
             $only_cookies_check = $warning . t('Es wird empfohlen session.use_only_cookies in der php.ini auf 1 zu setzen! Dies verhindert, dass Session-IDs in der URL angezeigt werden. Wenn dies nicht verhindert wird, können unvorsichtige Benutzer, deren Browser keine Cookies zulassen, durch weiterleiten der URL an Dritte ihre Session preisgeben, was einer Weitergabe des Passwortes gleichkommt.');
         }
         $dsp->AddDoubleRow("Session.use_only_cookies", $only_cookies_check);
-
-        $dsp->AddFieldSetEnd();
-
-
-        #### Performace ####
-        $dsp->AddFieldSetStart("Performace - Hier kannst du ansetzen um die Performace deines Servers zu optimieren");
-
-        // Register Globals
-        if (ini_get('register_globals') == false) {
-            $check = $ok;
-        } else {
-            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung register_globals auf On gesetzt. Dabei muss PHP mehr Speicher für Globale Variablen belegen, als eigentlich für Lansuite notwendig. Du kannst diese Einstellung in der php.ini ändern. Vergessis nicht deinen Webserver nach dieser Änderung neu zu starten.');
-        }
-        $dsp->AddDoubleRow("Register Globals", $check);
-
-        $dsp->AddFieldSetEnd();
         $dsp->AddFieldSetEnd();
 
         return $continue;
