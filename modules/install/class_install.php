@@ -799,17 +799,10 @@ class Install
         }
         $dsp->AddDoubleRow("Register Globals", $check);
 
-        if (ini_get('register_argc_argv') == false) {
-            $check = $ok;
-        } else {
-            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung register_argc_argv auf On gesetzt. Diese Einstellung ist nur nützlich, wenn man PHP über die Kommandozeile aufruft und dort Parameter mitgeben möchte. Das ist für Lansuite nicht notwendig und belegt unnötig Speicher');
-        }
-          $dsp->AddDoubleRow("Register_argc_argv", $check);
+        $dsp->AddFieldSetEnd();
+        $dsp->AddFieldSetEnd();
 
-          $dsp->AddFieldSetEnd();
-          $dsp->AddFieldSetEnd();
-
-          return $continue;
+        return $continue;
     }
 
   // Scans all db.xml-files and deletes all tables listed in them
