@@ -730,7 +730,6 @@ class Install
             $post_max_size = $post_max_size / 1024;
         } // For some PHP-Versions use KB, instead of MB
         $dsp->AddDoubleRow('Max. Post-Form Size', (float)ini_get('post_max_size') .' MB');
-        $dsp->AddDoubleRow('Magic Quotes', get_magic_quotes_gpc());
         $dsp->AddFieldSetEnd();
 
         if ($db->success) {
