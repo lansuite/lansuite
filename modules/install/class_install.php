@@ -799,13 +799,6 @@ class Install
         }
         $dsp->AddDoubleRow("Register Globals", $check);
 
-        if (ini_get('expose_php') == false) {
-            $check = $ok;
-        } else {
-            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung expose_php auf On gesetzt. Diese Einstellung fügt - wenn sie auf On steht - jedem HTTP-Response einen Headereintrag hinzu, dass die Seite mit PHP erstellt wurde. Das ist unnötig, denn deine Besucher interessiert das sowieso nicht und aus Performancesicht muss der hinzugefügte Headereintrag natürlich mit zum Client übertragen werden. Also besser auf Off stellen.');
-        }
-          $dsp->AddDoubleRow("Expose PHP", $check);
-
         if (ini_get('register_argc_argv') == false) {
             $check = $ok;
         } else {
