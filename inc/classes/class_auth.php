@@ -319,23 +319,13 @@ class auth
     
     /**
      * Logs the user on the phpbb board on, if the board was integrated.
+     * 
+     * @deprecated
      */
     public function loginPhpbb($userid = '')
     {
-        global $config, $func;
-
-        if ($userid == '') {
-            $userid = $this->auth['userid'];
-        }
-
-        // The User will be logged in on the phpBB Board if the modul is available, configured and active.
-        if ($config['environment']['configured']) {
-            if ($func->isModActive('board2')) {
-                include_once('./modules/board2/class_board2.php');
-                $board2 = new Board2();
-                $board2->loginPhpBB($userid);
-            }
-        }
+        // TODO: Remove it in the next major version release
+        // We keep this method to not break backwards compatibility
     }
     
     /**
@@ -375,17 +365,13 @@ class auth
     
     /**
      * Logs the user from the phpbb board off, if it was integrated.
+     * 
+     * @deprecated
      */
     public function logoutPhpbb()
     {
-        global $func;
- 
-        // The User will be logged out on the phpBB Board if the modul is available, configured and active.
-        if ($func->isModActive('board2') and $this->auth['userid'] != '') {
-            include_once('./modules/board2/class_board2.php');
-            $board2 = new board2();
-            $board2->logoutPhpBB($this->auth['userid']);
-        }
+        // TODO: Remove it in the next major version release
+        // We keep this method to not break backwards compatibility
     }
 
   /**
@@ -415,11 +401,6 @@ class auth
             // Link session ID to new user ID
             $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $target_id, $this->auth["sessid"]);
             
-            // Logs the auser out on the board2 and logs the new user on
-            //TODO: fix switch user phpbb logon
-            //$this->logoutPhpbb();
-            //$this->loginPhpbb($target_id);
-            
             $func->confirmation(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), '', 1);  //FIX meldungen auserhalb/standart?!?
         } else {
             $func->error(t('Dein Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), '', 1); //FIX meldungen auserhalb/standart?!
@@ -448,9 +429,6 @@ class auth
                 $this->cookie_data['olduserid'] = '';
                 $this->cookie_data['sb_code'] = '';
                 $this->cookie_set();
-                
-                // Logs the new user out on the board2 and logs the admin user on again
-                //TODO: fix switch user phpbb logon
                 
                 $func->confirmation(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), '', 1);
             } else {
