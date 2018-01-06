@@ -146,19 +146,6 @@ if (isset($frmwrkmode)) {
     // For XHTML compatibility
     @ini_set('arg_separator.output', '&amp;');
 
-### load $_POST and $_GET variables
-
-    // Fallback for PHP < 4.1 (still needed?)
-if (!is_array($_POST)) {
-    $_POST = $HTTP_POST_VARS;
-}
-if (!is_array($_GET)) {
-    $_GET = $HTTP_GET_VARS;
-}
-if (!is_array($_COOKIE)) {
-    $_COOKIE = $HTTP_COOKIE_VARS;
-}
-
     // Base Functions (anything that doesnt belong elsewere)
     require_once("inc/classes/class_func.php");
     $func        = new func;
