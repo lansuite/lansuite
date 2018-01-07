@@ -42,6 +42,8 @@ $ docker-compose up
 This will start a [Nginx webserver](https://nginx.org/) with a [php-fpm](https://secure.php.net/manual/en/install.fpm.php) configuration and a [MySQL database](https://www.mysql.com/) for you.
 After everything started you should be able to visit http://<Your-Docker-IP>:8080/ and see a running LanSuite-System.
 
+*Attention*: This docker setup is not suggested for production.
+
 ### Configuration file
 
 An example configuration file looks like:

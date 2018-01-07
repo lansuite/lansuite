@@ -5,25 +5,47 @@
 $smarty->assign('caption', t('Turnier: Spielpaarungen'));
 $content = "";
 
+// When a user logged in, specify the query based on the user id
+$loggedInUserQueryPart = '';
 if ($auth["userid"]) {
-    $teams = $db->qry("SELECT games1.gameid AS gid1, games2.gameid AS gid2, teams1.name AS name1, teams2.name AS name2, t.name AS tuname, t.tournamentid AS tid
-		FROM %prefix%t2_games AS games1
-		INNER JOIN %prefix%t2_games AS games2 ON (games1.tournamentid = games2.tournamentid) AND (games1.round = games2.round) 
-		LEFT JOIN %prefix%tournament_tournaments AS t ON (t.tournamentid = games1.tournamentid)
-		LEFT JOIN %prefix%t2_teams AS teams1 ON (games1.leaderid = teams1.leaderid) AND (t.tournamentid = teams1.tournamentid)
-		LEFT JOIN %prefix%t2_teams AS teams2 ON (games2.leaderid = teams2.leaderid) AND (t.tournamentid = teams2.tournamentid)
-		LEFT JOIN %prefix%t2_teammembers AS memb1 ON (teams1.teamid = memb1.teamid)
-		LEFT JOIN %prefix%t2_teammembers AS memb2 ON (teams2.teamid = memb2.teamid)
-		WHERE ((games1.position / 2) = FLOOR(games1.position / 2)) AND (games1.score = 0) AND (games1.leaderid != 0)
-			AND ((games1.position + 1) = games2.position) AND (games2.score = 0) AND (games2.leaderid != 0)
-			AND ((games1.leaderid = %int%) OR (games2.leaderid = %int%)
-        OR (memb1.userid = %int%) OR (memb2.userid = %int%))
-			AND (teams1.disqualified = '0')
-			AND (teams2.disqualified = '0')
-			AND (t.party_id = %int%) AND (t.status = 'process')
-		GROUP BY games1.gameid, games2.gameid
-		LIMIT 0, %int%
-		", $auth["userid"], $auth["userid"], $auth["userid"], $auth["userid"], $party->party_id, $cfg['home_item_cnt_tournament2']);
+    $loggedInUserQueryPart = 'AND ((games1.leaderid = %int%) OR (games2.leaderid = %int%)
+    OR (memb1.userid = %int%) OR (memb2.userid = %int%))';
+}
+$query = "
+    SELECT
+        games1.gameid AS gid1,
+        games2.gameid AS gid2,
+        teams1.name AS name1,
+        teams2.name AS name2,
+        t.name AS tuname,
+        t.tournamentid AS tid
+    FROM
+        %prefix%t2_games AS games1
+        INNER JOIN %prefix%t2_games AS games2 ON (games1.tournamentid = games2.tournamentid) AND (games1.round = games2.round) 
+        LEFT JOIN %prefix%tournament_tournaments AS t ON (t.tournamentid = games1.tournamentid)
+        LEFT JOIN %prefix%t2_teams AS teams1 ON (games1.leaderid = teams1.leaderid) AND (t.tournamentid = teams1.tournamentid)
+        LEFT JOIN %prefix%t2_teams AS teams2 ON (games2.leaderid = teams2.leaderid) AND (t.tournamentid = teams2.tournamentid)
+        LEFT JOIN %prefix%t2_teammembers AS memb1 ON (teams1.teamid = memb1.teamid)
+        LEFT JOIN %prefix%t2_teammembers AS memb2 ON (teams2.teamid = memb2.teamid)
+    WHERE
+        ((games1.position / 2) = FLOOR(games1.position / 2))
+        AND (games1.score = 0)
+        AND (games1.leaderid != 0)
+        AND ((games1.position + 1) = games2.position)
+        AND (games2.score = 0)
+        AND (games2.leaderid != 0)
+        " . $loggedInUserQueryPart . "
+        AND (teams1.disqualified = '0')
+        AND (teams2.disqualified = '0')
+        AND (t.party_id = %int%)
+        AND (t.status = 'process')
+    GROUP BY games1.gameid, games2.gameid
+    LIMIT 0, %int%";
+
+if ($auth["userid"]) {
+    $teams = $db->qry($query, $auth["userid"], $auth["userid"], $auth["userid"], $auth["userid"], $party->party_id, $cfg['home_item_cnt_tournament2']);
+} else {
+    $teams = $db->qry($query, $party->party_id, $cfg['home_item_cnt_tournament2']);
 }
 
 if ($db->num_rows($teams) == 0) {
