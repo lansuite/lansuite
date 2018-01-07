@@ -21,7 +21,7 @@ services:
         image: mysql:5.5
         environment:
             - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-            - MYSQL_DATABASE="lansuite"
+            - MYSQL_DATABASE=lansuite
         networks:
             - code-network
 
