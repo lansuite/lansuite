@@ -440,7 +440,17 @@ class func
                     '#\[c\](.)*\[\/c\]#sUi',
                     create_function(
                         '$treffer',
-                        'global $func, $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. $func->AllowHTML(geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true)) .\'</div></blockquote>\';'
+                        'global $func, $HighlightCode, $HighlightCount2;
+                        $HighlightCount2++;
+                        $geshi = new GeSHi($HighlightCode[$HighlightCount2], \'php\');
+                        $geshi->set_header_type(GESHI_HEADER_NONE);
+                        return \'
+                            <blockquote>
+                                <div class="tbl_small">Code:</div>
+                                <div class="tbl_7">
+                                    \'. $func->AllowHTML(\'<code>\' . $geshi->parse_code() . \'</code>\') .\'
+                                </div>
+                            </blockquote>\';'
                     ),
                     $string
                 );
