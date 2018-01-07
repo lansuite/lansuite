@@ -783,6 +783,14 @@ class Install
             $only_cookies_check = $warning . t('Es wird empfohlen session.use_only_cookies in der php.ini auf 1 zu setzen! Dies verhindert, dass Session-IDs in der URL angezeigt werden. Wenn dies nicht verhindert wird, können unvorsichtige Benutzer, deren Browser keine Cookies zulassen, durch weiterleiten der URL an Dritte ihre Session preisgeben, was einer Weitergabe des Passwortes gleichkommt.');
         }
         $dsp->AddDoubleRow("Session.use_only_cookies", $only_cookies_check);
+
+        // Expose PHP version
+        if (ini_get('expose_php') == false) {
+            $check = $ok;
+        } else {
+            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung "expose_php" auf On gesetzt. Diese Einstellung fügt - wenn sie auf On steht - jedem HTTP-Response einen Headereintrag hinzu, dass die Seite mit PHP erstellt wurde. Es ist unnötig, jedem Besucher die exakte Version der PHP-Engine mitzuteilen. Also besser auf Off stellen.');
+        }
+        $dsp->AddDoubleRow("Expose PHP", $check);
         $dsp->AddFieldSetEnd();
 
         return $continue;
