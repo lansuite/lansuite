@@ -28,7 +28,4 @@ $total_time = $db->qry_first("SELECT time, size FROM %prefix%stats");
 $dsp->AddDoubleRow(t('Bis jetzt ben&ouml;tigte Zeit f&uuml;r Skript'), $total_time['time'] . " " . t('Sekunde(n)'));
 $dsp->AddDoubleRow(t('Bis jetzt &uuml;bertragene Daten'), $total_time['size'] . " kB");
 
-
-$db->free_result($res);
-#$dsp->AddBackButton("index.php?mod=stats", "stats/user");
 $dsp->AddContent();
