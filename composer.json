@@ -1,7 +1,7 @@
 {
     "name": "lansuite/lansuite",
-    "type": "project",
     "description": "A Content Management System designed especially for the needs of LAN-Parties",
+    "type": "project",
     "keywords": ["lanparty", "cms", "gaming", "esports"],
     "homepage": "https://github.com/lansuite/lansuite",
     "license": "GPL-2.0",
@@ -12,6 +12,19 @@
         }
     ],
     "require": {
+        "php-64bit": "^7.0",
+
+        "ext-gd": "*",
+        "ext-mysqli": "*",
+        "ext-snmp": "*",
+
         "smarty/smarty": "^3.1"
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "^2.9"
+    },
+    "minimum-stability": "stable",
+    "config": {
+        "bin-dir": "bin"
     }
 }

@@ -1,3 +1,10 @@
+# LanSuite configuration
 /inc/base/config.php
 
-/vendor/
+# Generated folder/files
+bin/jsonlint
+bin/phpdoc
+bin/phpdoc.php
+bin/validate-json
+docs/
+vendor/
