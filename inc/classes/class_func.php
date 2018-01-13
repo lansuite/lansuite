@@ -883,7 +883,16 @@ class func
    */
     public function admin_exists()
     {
-        global $db;
+        global $db, $config;
+
+        // If the system is not configured at all, quit.
+        // Otherwise the query below would throw an
+        //      Table 'lansuite.user' doesn't exist
+        // error
+        if (!$config['environment']['configured']) {
+            return false;
+        }
+
         if (is_object($db) and $db->success==1) {
             $res = $db->qry("SELECT userid FROM %prefix%user WHERE type = 3 LIMIT 1");
             if ($db->num_rows($res) > 0) {
@@ -893,9 +902,9 @@ class func
             }
             $db->free_result($res);
             return $found;
-        } else {
-            return 0;
         }
+
+        return false;
     }
 
     public function CutString($str, $SoftLimit, $HardLimit = false)
