@@ -21,7 +21,7 @@ class framework
     public $send_size = "0";
     public $content_crc = "";                  // Checksum of Content
     public $content_size = "";                 // Size of Content
-    
+
     public $internal_url_query = array();      // Clean URL-Query (keys : path, query, base)
     public $design = "simple";                 // Design
     public $modus = "";                        // Displaymodus (popup)
@@ -35,40 +35,44 @@ class framework
     public $IsMobileBrowser = false;
     public $pageTitle = '';
   /**#@-*/
-  
+
   /**
    * CONSTRUCTOR : Initialize basic Variables
    */
     public function __construct()
     {
         // Set Script-Start-Time, to calculate the scripts runtime
-        $this->design = $design;
+        $this->design = '';
         $this->timer = time();
         $this->timer2 = explode(' ', microtime());
 
         if (isset($_SERVER['REQUEST_URI'])) {
-            if ($_SERVER['HTTPS']) {
+            if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) {
                 $url = 'https://'. $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
             } else {
                 $url = 'http://'. $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
             }
-            if ($CurentURL = parse_url($url)) {
-                $this->internal_url_query['base'] = $CurentURL['path'].'?'.$CurentURL['query']; // Enspricht alter $CurentURLBase;
-                $this->internal_url_query['query'] = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', $CurentURL['query']); // Enspricht alter $URLQuery;
-                $this->internal_url_query['host'] = $CurentURL['host'];
+
+            $CurentURL = parse_url($url);
+            $this->internal_url_query['base'] = $CurentURL['path'];
+            $this->internal_url_query['query'] = '';
+            if (isset($CurentURL['query']) && $CurentURL['query']) {
+                $this->internal_url_query['base'] .= '?' . $CurentURL['query'];
+                $this->internal_url_query['query'] = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', $CurentURL['query']);
             }
+            $this->internal_url_query['host'] = $CurentURL['host'];
         }
         if (!$this->internal_url_query['host']) {
             $this->internal_url_query['host'] = $_SERVER['SERVER_NAME'];
         }
-        
+
         $this->add_js_path('ext_scripts/jquery-min.js');
         $this->add_js_path('ext_scripts/jquery-ui/jquery-ui.custom.min.js');
         $this->add_js_path('scripts.js');
 
         $this->add_css_path('ext_scripts/jquery-ui/smoothness/jquery-ui.custom.css');
         $this->add_css_path('design/style.css');
-        
+
         if ($this->internal_url_query['query']) {
             $query = preg_replace('/&language=(de|en|it|fr|es|nl)/sUi', '', $this->internal_url_query['query']);
             $query = preg_replace('/&order_by=(.)*&/sUi', '&', $query);
@@ -97,7 +101,7 @@ class framework
     {
         $this->modus = $modus;
     }
-    
+
   /**
    * Add String/Html to MainContent
    *
@@ -289,7 +293,7 @@ class framework
                 $smarty->assign('MainContentStyleID', 'ContentFullscreen');
                 $smarty->display("design/simple/templates/main.htm");
                 break;
-  
+
             case 'popup':
                 // Make HTML for Popup
                 $smarty->assign('MainContentStyleID', 'ContentFullscreen');
@@ -309,17 +313,17 @@ class framework
                     $smarty->display("design/{$this->design}/templates/main.htm");
                 }
                 break;
-  
+
             case 'base':
                 // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
                 echo $this->main_content;
                 break;
-    
+
             case 'ajax':
                 // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
                 echo $this->main_content;
                 break;
-  
+
             default:
                 // Footer
                 $smarty->assign('main_footer_version', $templ['index']['info']['version']);
@@ -327,12 +331,12 @@ class framework
                 $smarty->assign('main_footer_countquery', $db->count_query);
                 $smarty->assign('main_footer_timer', round($this->out_work(), 2));
                 $smarty->assign('main_footer_cleanquery', $this->get_clean_url_query('query'));
-        
+
                 if ($cfg["sys_footer_impressum"]) {
                     $smarty->assign('main_footer_impressum', $cfg["sys_footer_impressum"]);
                 }
-        
-        
+
+
                 $main_footer_mem_usage = '';
                 if (function_exists('memory_get_peak_usage')) {
                     $main_footer_mem_usage = 'Memory-Usage: '. $func->FormatFileSize(memory_get_peak_usage()) .' |';
@@ -348,18 +352,18 @@ class framework
 
                 // Normal HTML-Output with Boxes
                 $smarty->assign('Design', $this->design);
-  
+
                 // Unterscheidung fullscreen / Normal
                 if ($_SESSION['lansuite']['fullscreen'] or $this->modus == 'beamer') {
                     $smarty->assign('MainContentStyleID', 'ContentFullscreen');
                 } else {
                     $smarty->assign('MainContentStyleID', 'Content');
                 }
-        
+
                 if ($auth['login']) {
                     $smarty->assign('MainLogout', '<a href="index.php?mod=auth&action=logout" class="menu">Logout</a>');
                 }
-    
+
                 // Ausgabe Hauptseite
                 if (!$_SESSION['lansuite']['fullscreen'] and !$this->modus == 'beamer') {
                     $smarty->assign('MainFrameworkmessages', $this->framework_messages);
@@ -373,7 +377,7 @@ class framework
                     // Ausgabe Vollbildmodus
                     $smarty->assign('CloseFullscreen', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span> Lansuite - Vollbildmodus</a>');
                 }
-    
+
                 // Start Javascript-Code for MainContent with JQuery-Tabs
                 /*$this->main_header_jscode .= "
                   $(document).ready(function(){
@@ -385,7 +389,7 @@ class framework
                     });
                   });
                 ";*/
-        
+
                 // MainContent with JQuery-Tabs for LS-Messenger
                 #$main_content_with_tabs .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='MainContentTabs'>\n";
                 #$main_content_with_tabs .= "  <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>\n";
@@ -398,9 +402,9 @@ class framework
                 #$main_content_with_tabs .= "    </div>\n";
                 #$main_content_with_tabs .= "  </div>\n";
                 #$main_content_with_tabs .= "</div>\n";
-        
+
                 #$smarty->assign("MainContent", $main_content_with_tabs);
-    
+
                 // Ausgabe des Hautteils mit oder ohne Kompression
                 if ($compression_mode and $cfg['sys_compress_level']) {
                     header("Content-Encoding: $compression_mode");

@@ -122,14 +122,16 @@ session_start();
 // Initialise Frameworkclass for Basic output
 include_once("inc/classes/class_framework.php");
 $framework = new framework();
-$framework->fullscreen($_GET['fullscreen']);
+if (isset($_GET['fullscreen'])) {
+    $framework->fullscreen($_GET['fullscreen']);
+}
 
 // Compromise ... design as base and popup should be deprecated
-if ($_GET['design'] == 'base' || $_GET['design'] == 'popup' || $_GET['design'] == 'ajax' || $_GET['design'] == 'print' || $_GET['design'] == 'beamer') {
+if (isset($_GET['design']) && ($_GET['design'] == 'base' || $_GET['design'] == 'popup' || $_GET['design'] == 'ajax' || $_GET['design'] == 'print' || $_GET['design'] == 'beamer')) {
     $frmwrkmode = $_GET['design'];
 }
 // Set Popupmode via GET (base, popup)
-if ($_GET['frmwrkmode']) {
+if (isset($_GET['frmwrkmode']) && $_GET['frmwrkmode']) {
     $frmwrkmode = $_GET['frmwrkmode'];
 }
 // Set Popupmode via GET (base, popup)
@@ -169,7 +171,9 @@ foreach ($_GET as $key => $val) {
 }
 
 $_SERVER['REQUEST_URI'] = $func->NoHTML($_SERVER['REQUEST_URI'], 1);
-$_SERVER['HTTP_REFERER'] = $func->NoHTML($_SERVER['HTTP_REFERER'], 1);
+if (isset($_SERVER['HTTP_REFERER'])) {
+    $_SERVER['HTTP_REFERER'] = $func->NoHTML($_SERVER['HTTP_REFERER'], 1);
+}
 $_SERVER['QUERY_STRING'] = $func->NoHTML($_SERVER['QUERY_STRING'], 1);
 
 // Save original Array
@@ -289,7 +293,7 @@ if ($config['environment']['configured'] == 0) {
     $auth["login"] = 1;
 
     // Load DB-Data after installwizard step 3
-    if ($_GET["action"] == "wizard" && $_GET["step"] > 3) {
+    if ($_GET["action"] == "wizard" && isset($_GET["step"]) && $_GET["step"] > 3) {
         $cfg = $func->read_db_config();
     }
 
@@ -297,10 +301,12 @@ if ($config['environment']['configured'] == 0) {
     // Normal auth cycle and Database-init
     $db->connect(0);
     $IsAboutToInstall = 0;
-    $translation->load_trans('db', $_GET['mod']);
+    if (isset($_GET['mod'])) {
+        $translation->load_trans('db', $_GET['mod']);
+    }
 
     // Reset DB-Success in Setup if no Adm.-Account was found, because a connection could work, but prefix is wrong
-    if (!$func->admin_exists() && (($_GET["action"] == "wizard" && $_GET["step"] <= 3) || ($_GET["action"] == "ls_conf"))) {
+    if (!$func->admin_exists() && isset($_GET["action"]) && (($_GET["action"] == "wizard" && $_GET["step"] <= 3) || ($_GET["action"] == "ls_conf"))) {
         $db->success = 0;
     }
 
@@ -377,14 +383,14 @@ function initializeDesign()
     }
 
     // Design switch by URL
-    if ($_GET['design'] && $_GET['design'] != 'popup' && $_GET['design'] != 'base') {
+    if (isset($_GET['design']) && $_GET['design'] != 'popup' && $_GET['design'] != 'base') {
         $auth['design'] = $_GET['design'];
     }
 
     // Fallback design is 'simple'
     if (!$auth['design'] || !file_exists('design/' . $auth['design'] . '/templates/main.htm')) {
         $auth['design'] = 'simple';
-        if ($_GET['design'] != 'popup' && $_GET['design'] != 'base') {
+        if (!isset($_GET['design']) || ($_GET['design'] != 'popup' && $_GET['design'] != 'base')) {
             $_GET['design'] = 'simple';
         }
     }
