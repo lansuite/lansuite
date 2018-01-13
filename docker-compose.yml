@@ -19,9 +19,11 @@ services:
             - code-network
     mysql:
         image: mysql:5.5
+        ports:
+            - "3306:3306"
         environment:
             - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-            - MYSQL_DATABASE="lansuite"
+            - MYSQL_DATABASE=lansuite
         networks:
             - code-network
 
