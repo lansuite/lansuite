@@ -9,8 +9,8 @@ Class ASCII_Captcha
 		var $repset = array('*', "!", "~");
 		var $repset_count = 10;
 		var $parent;
-		
-		function ASCII_Captcha()
+
+		function __construct()
 			{
 				$fonts[0]['A'] = 
 "   ###    
