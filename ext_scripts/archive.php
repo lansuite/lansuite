@@ -14,7 +14,7 @@
 
 class archive
 {
-	function archive($name)
+	function __construct($name)
 	{
 		$this->options = array (
 			'basedir' => ".",
@@ -323,9 +323,9 @@ class archive
 
 class tar_file extends archive
 {
-	function tar_file($name)
+	function __construct($name)
 	{
-		$this->archive($name);
+		parent::__construct($name);
 		$this->options['type'] = "tar";
 	}
 
@@ -348,10 +348,10 @@ class tar_file extends archive
 					continue;
 				}
 			}
-			$block = pack("a100a8a8a8a12a12a8a1a100a6a2a32a32a8a8a155a12", $current['name2'], sprintf("%07o", 
-				$current['stat'][2]), sprintf("%07o", $current['stat'][4]), sprintf("%07o", $current['stat'][5]), 
-				sprintf("%011o", $current['type'] == 2 ? 0 : $current['stat'][7]), sprintf("%011o", $current['stat'][9]), 
-				"        ", $current['type'], $current['type'] == 2 ? @readlink($current['name']) : "", "ustar ", " ", 
+			$block = pack("a100a8a8a8a12a12a8a1a100a6a2a32a32a8a8a155a12", $current['name2'], sprintf("%07o",
+				$current['stat'][2]), sprintf("%07o", $current['stat'][4]), sprintf("%07o", $current['stat'][5]),
+				sprintf("%011o", $current['type'] == 2 ? 0 : $current['stat'][7]), sprintf("%011o", $current['stat'][9]),
+				"        ", $current['type'], $current['type'] == 2 ? @readlink($current['name']) : "", "ustar ", " ",
 				"Unknown", "Unknown", "", "", !empty ($path) ? $path : "", "");
 
 			$checksum = 0;
@@ -481,9 +481,9 @@ class tar_file extends archive
 
 class gzip_file extends tar_file
 {
-	function gzip_file($name)
+	function __construct($name)
 	{
-		$this->tar_file($name);
+		parent::__construct($name);
 		$this->options['type'] = "gzip";
 	}
 
@@ -522,9 +522,9 @@ class gzip_file extends tar_file
 
 class bzip_file extends tar_file
 {
-	function bzip_file($name)
+	function __construct($name)
 	{
-		$this->tar_file($name);
+		parent::__construct($name);
 		$this->options['type'] = "bzip";
 	}
 
@@ -563,9 +563,9 @@ class bzip_file extends tar_file
 
 class zip_file extends archive
 {
-	function zip_file($name)
+	function __construct($name)
 	{
-		$this->archive($name);
+		parent::__construct($name);
 		$this->options['type'] = "zip";
 	}
 
