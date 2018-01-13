@@ -22,7 +22,7 @@
 *           Returns: if $file specified - true if OK
                      if $file not specified - image data
 */
-function imagebmp($img,$file="",$RLE=0)
+function imagebmpGD($img,$file="",$RLE=0)
 {
 
 
