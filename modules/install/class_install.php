@@ -739,7 +739,6 @@ class Install
             $post_max_size = $post_max_size / 1024;
         } // For some PHP-Versions use KB, instead of MB
         $dsp->AddDoubleRow('Max. Post-Form Size', (float)ini_get('post_max_size') .' MB');
-        $dsp->AddDoubleRow('Magic Quotes', get_magic_quotes_gpc());
         $dsp->AddFieldSetEnd();
 
         if ($db->success) {
@@ -794,38 +793,16 @@ class Install
         }
         $dsp->AddDoubleRow("Session.use_only_cookies", $only_cookies_check);
 
-        $dsp->AddFieldSetEnd();
-
-
-        #### Performace ####
-        $dsp->AddFieldSetStart("Performace - Hier kannst du ansetzen um die Performace deines Servers zu optimieren");
-
-        // Register Globals
-        if (ini_get('register_globals') == false) {
-            $check = $ok;
-        } else {
-            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung register_globals auf On gesetzt. Dabei muss PHP mehr Speicher für Globale Variablen belegen, als eigentlich für Lansuite notwendig. Du kannst diese Einstellung in der php.ini ändern. Vergessis nicht deinen Webserver nach dieser Änderung neu zu starten.');
-        }
-        $dsp->AddDoubleRow("Register Globals", $check);
-
+        // Expose PHP version
         if (ini_get('expose_php') == false) {
             $check = $ok;
         } else {
-            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung expose_php auf On gesetzt. Diese Einstellung fügt - wenn sie auf On steht - jedem HTTP-Response einen Headereintrag hinzu, dass die Seite mit PHP erstellt wurde. Das ist unnötig, denn deine Besucher interessiert das sowieso nicht und aus Performancesicht muss der hinzugefügte Headereintrag natürlich mit zum Client übertragen werden. Also besser auf Off stellen.');
+            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung "expose_php" auf On gesetzt. Diese Einstellung fügt - wenn sie auf On steht - jedem HTTP-Response einen Headereintrag hinzu, dass die Seite mit PHP erstellt wurde. Es ist unnötig, jedem Besucher die exakte Version der PHP-Engine mitzuteilen. Also besser auf Off stellen.');
         }
-          $dsp->AddDoubleRow("Expose PHP", $check);
+        $dsp->AddDoubleRow("Expose PHP", $check);
+        $dsp->AddFieldSetEnd();
 
-        if (ini_get('register_argc_argv') == false) {
-            $check = $ok;
-        } else {
-            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung register_argc_argv auf On gesetzt. Diese Einstellung ist nur nützlich, wenn man PHP über die Kommandozeile aufruft und dort Parameter mitgeben möchte. Das ist für Lansuite nicht notwendig und belegt unnötig Speicher');
-        }
-          $dsp->AddDoubleRow("Register_argc_argv", $check);
-
-          $dsp->AddFieldSetEnd();
-          $dsp->AddFieldSetEnd();
-
-          return $continue;
+        return $continue;
     }
 
   // Scans all db.xml-files and deletes all tables listed in them
