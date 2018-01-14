@@ -22,7 +22,7 @@ class menu
    * @param mixed $caption
    * @return
    */
-    public function menu($id, $caption, $title = '')
+    public function __construct($id, $caption, $title = '')
     {
         $this->caption = $caption;
         $this->boxid = $id;

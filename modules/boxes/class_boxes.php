@@ -15,14 +15,6 @@ class boxes
     public $box_rows = '';
 
   /**
-   * Constructor
-   *
-   */
-    public function boxes()
-    {
-    }
-
-  /**
    * Add a Menueitem to Navibar
    *
    * @param mixed Linktext
