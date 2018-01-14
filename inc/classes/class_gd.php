@@ -91,7 +91,7 @@ class gd
                     break;
                 case "bmp":
                     include_once("ext_scripts/gd/bmp.php");
-                    imagebmpGD($this->img, $file);
+                    imagebmpLanSuite($this->img, $file);
                     break;
                 case "ico":
                     include_once("ext_scripts/gd/ico.php");
@@ -133,7 +133,7 @@ class gd
                     break;
                 case "bmp":
                     include_once("ext_scripts/gd/bmp.php");
-                    imagebmpGD($this->img);
+                    imagebmpLanSuite($this->img);
                     break;
                 case "ico":
                     include_once("ext_scripts/gd/ico.php");
@@ -241,7 +241,7 @@ class gd
                 break;
             case "bmp":
                 include_once("ext_scripts/gd/bmp.php");
-                $img_src = ImageCreateFromBMP($filename);
+                $img_src = imagecreatefrombmpLanSuite($filename);
                 break;
             case "ico":
                 include_once("ext_scripts/gd/ico.php");
