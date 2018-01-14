@@ -52,9 +52,18 @@ class auth
 
         // Better handle it here, otherwise its an DB-Query for each $dsp->FetchUserIcon()
         $res = $db->qry(
-            'SELECT userid,lasthit FROM %prefix%stats_auth
-            WHERE login = "1" AND (lasthit > %int% OR lastajaxhit > %int%) AND userid > 0
-            GROUP BY userid',
+            'SELECT
+                userid,
+                lasthit
+            FROM %prefix%stats_auth
+            WHERE
+                login = "1"
+                AND (
+                    lasthit > %int%
+                    OR lastajaxhit > %int%
+                )
+                AND userid > 0
+            GROUP BY userid, lasthit',
             $this->timestamp - 60*10,
             $this->timestamp - 60*1
         );
