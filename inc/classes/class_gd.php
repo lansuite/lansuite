@@ -91,6 +91,7 @@ class gd
                     break;
                 case "bmp":
                     include_once("ext_scripts/gd/bmp.php");
+                    // TODO Check if we can replace this files/function with the native gd lib
                     imagebmpLanSuite($this->img, $file);
                     break;
                 case "ico":
@@ -133,6 +134,7 @@ class gd
                     break;
                 case "bmp":
                     include_once("ext_scripts/gd/bmp.php");
+                    // TODO Check if we can replace this files/function with the native gd lib
                     imagebmpLanSuite($this->img);
                     break;
                 case "ico":
@@ -241,6 +243,7 @@ class gd
                 break;
             case "bmp":
                 include_once("ext_scripts/gd/bmp.php");
+                // TODO Check if we can replace this files/function with the native gd lib
                 $img_src = imagecreatefrombmpLanSuite($filename);
                 break;
             case "ico":
