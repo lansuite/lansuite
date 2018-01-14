@@ -33,8 +33,18 @@ class func
     public function __construct()
     {
         define('NO_LINK', -1);
-        $url_array = parse_url($_SERVER['HTTP_REFERER']);
-        $this->internal_referer = "index.php?".$url_array['query'].$url_array['fragment'];
+        $url_array = [];
+        $this->internal_referer = 'index.php';
+
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $url_array = parse_url($_SERVER['HTTP_REFERER']);
+        }
+        if (isset($url_array['query']) && $url_array['query']) {
+            $this->internal_referer .= '?' . $url_array['query'];
+        }
+        if (isset($url_array['fragment']) && $url_array['fragment']) {
+            $this->internal_referer .= $url_array['fragment'];
+        }
     }
 
 
@@ -47,6 +57,7 @@ class func
     public function read_db_config()
     {
         global $db;
+        $cfg = [];
 
         // Idea: Select current mod only, does not work with plugin.
         // $res = $db->qry('SELECT cfg_value, cfg_key, cfg_type FROM %prefix%config WHERE cfg_module = "install" OR cfg_module = %string%', $mod);
@@ -1024,9 +1035,11 @@ class func
         $this->ActiveModules['auth'] = 'Auth';
     }
 
-    public function isModActive($mod, &$caption = '')
-    {
-        $caption = $this->ActiveModules[$mod];
+    public function isModActive($mod, &$caption = '') {
+        if (array_key_exists($mod, $this->ActiveModules)) {
+            $caption = $this->ActiveModules[$mod];
+        }
+
         return array_key_exists($mod, $this->ActiveModules);
     }
 }

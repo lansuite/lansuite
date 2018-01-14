@@ -5,7 +5,7 @@ class stats
     public $stat_data = array();
     
     // Constructor
-    public function stats()
+    public function __construct()
     {
         global $db, $auth, $cfg;
 

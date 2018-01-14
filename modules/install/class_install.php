@@ -553,35 +553,44 @@ class Install
         $optimize = "<span class=\"warning\">".t('Optimierungsbedarf')."</span>" . HTML_NEWLINE;
         $not_possible = "<span class=\"warning\">".t('Leider nicht möglich')."</span>" . HTML_NEWLINE;
 
-
-        #### Critical ####
+        // Critical
         $dsp->AddFieldSetStart("Kritisch - Diese Test müssen alle erfolgreich sein, damit Lansuite funktioniert");
 
-        // PHP-Version
-        if (version_compare(phpversion(), "4.1.2") >= 0) {
-            $phpv_check = $ok . phpversion();
+        // PHP version
+        $minPHPVersion = '7.0.0';
+        $currentPHPVersion = phpversion();
+        if (version_compare($currentPHPVersion, $minPHPVersion) >= 0) {
+            $phpv_check = $ok . $currentPHPVersion;
         } else {
-            $phpv_check = $failed . t('Auf deinem System wurde die PHP-Version %1 gefunden. Lansuite benötigt mindestens PHP Version 4.3.0. Du kannst zwar die Installation fortsetzen, allerdings kann keinerlei Garantie auf die ordnungsgemäße Funktionsweise gegeben werden. Laden und installiere dir eine aktuellere Version von <a href=\'http://www.php.net\' target=\'_blank\'>www.php.net</a>.', phpversion());
+            $phpv_check = $failed . t('Auf deinem System wurde die PHP-Version %1 gefunden. Lansuite benötigt mindestens PHP Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.php.net\' target=\'_blank\'>PHP.net</a>.', $currentPHPVersion, $minPHPVersion);
         }
         $dsp->AddDoubleRow("PHP Version", $phpv_check);
 
-        // MySQL installed?
-        if (extension_loaded("mysql") or extension_loaded("mysqli")) {
+        // MySQLi extension
+        if (extension_loaded("mysqli")) {
             $mysql_version = sprintf("%s\n", $db->client_info());
             if (!$mysql_version) {
                 $mysql_version = t('Unbekannt');
             }
             $mysql_check = $ok . $mysql_version;
         } else {
-            $mysql_check = $failed . t('Die MySQL-Erweiterung ist in PHP nicht geladen. Diese wird benötigt um auf die Datenbank zuzugreifen. Bevor keine Datenbank verfügbar ist, kann Lansuite nicht installiert werden. Den MySQL-Server gibt es unter <a href=\'http://www.mysql.com\' target=\'_blank\'>www.mysql.com</a> zum Download.');
+            $mysql_check = $failed . t('Die MySQLi-Erweiterung von PHP ist nicht geladen. Diese wird benötigt um auf die Datenbank zuzugreifen. Bevor keine Datenbank verfügbar ist, kann Lansuite nicht installiert werden.');
             $continue = 0;
         }
-        $dsp->AddDoubleRow("MySQL-Extention", $mysql_check);
+        $dsp->AddDoubleRow("MySQLi-Extension", $mysql_check);
+
+        // MySQL Server version
+        $minMysqlVersion = '5.6.3';
+        $currentMysqlVersion = $db->getServerInfo();
+        if (version_compare($currentMysqlVersion, '5.6.3') >= 0) {
+            $mysqlVersionCheck = $ok . $currentMysqlVersion;
+        } else {
+            $mysqlVersionCheck = $failed . t('LanSuite ist zu einer Datenbank mit der Version %1 verbunden. LanSuite benötigt mindestens eine MySQL Datenbank mit der Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.mysql.com\' target=\'_blank\'>MySQL.com</a>.', $currentMysqlVersion, $minMysqlVersion);
+        }
+        $dsp->AddDoubleRow("MySQL Server Version", $mysqlVersionCheck);
 
         // config.php Rights
         $lansuite_conf = "inc/base/config.php";
-        #if (!file_exists($lansuite_conf)) $cfgfile_check = $failed . t('Die Datei <b>config.php</b> befindet sich <b>nicht</b> im Lansuite-Verzeichnis <b> inc/base/ </b>. Bitte überprüfe die Datei auf korrekte Groß- und Kleinschreibung.');
-        #else
         if (!is_writable($lansuite_conf) and !is_writable(dirname($lansuite_conf))) {
             $cfgfile_check = $failed . t('Die Datei <b>config.php</b> muss im Lansuite-Verzeichnis <b> inc/base/ </b> geschrieben werden können. Ändere bitte die Zugriffsrechte entsprechend. Dies kannst du mit den meisten guten FTP-Clients erledigen. Der Ordner / die Datei muss mindestens die Schreibrechte (chmod) 666 besitzen.');
         } else {
@@ -730,7 +739,6 @@ class Install
             $post_max_size = $post_max_size / 1024;
         } // For some PHP-Versions use KB, instead of MB
         $dsp->AddDoubleRow('Max. Post-Form Size', (float)ini_get('post_max_size') .' MB');
-        $dsp->AddDoubleRow('Magic Quotes', get_magic_quotes_gpc());
         $dsp->AddFieldSetEnd();
 
         if ($db->success) {
@@ -785,38 +793,16 @@ class Install
         }
         $dsp->AddDoubleRow("Session.use_only_cookies", $only_cookies_check);
 
-        $dsp->AddFieldSetEnd();
-
-
-        #### Performace ####
-        $dsp->AddFieldSetStart("Performace - Hier kannst du ansetzen um die Performace deines Servers zu optimieren");
-
-        // Register Globals
-        if (ini_get('register_globals') == false) {
-            $check = $ok;
-        } else {
-            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung register_globals auf On gesetzt. Dabei muss PHP mehr Speicher für Globale Variablen belegen, als eigentlich für Lansuite notwendig. Du kannst diese Einstellung in der php.ini ändern. Vergessis nicht deinen Webserver nach dieser Änderung neu zu starten.');
-        }
-        $dsp->AddDoubleRow("Register Globals", $check);
-
+        // Expose PHP version
         if (ini_get('expose_php') == false) {
             $check = $ok;
         } else {
-            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung expose_php auf On gesetzt. Diese Einstellung fügt - wenn sie auf On steht - jedem HTTP-Response einen Headereintrag hinzu, dass die Seite mit PHP erstellt wurde. Das ist unnötig, denn deine Besucher interessiert das sowieso nicht und aus Performancesicht muss der hinzugefügte Headereintrag natürlich mit zum Client übertragen werden. Also besser auf Off stellen.');
+            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung "expose_php" auf On gesetzt. Diese Einstellung fügt - wenn sie auf On steht - jedem HTTP-Response einen Headereintrag hinzu, dass die Seite mit PHP erstellt wurde. Es ist unnötig, jedem Besucher die exakte Version der PHP-Engine mitzuteilen. Also besser auf Off stellen.');
         }
-          $dsp->AddDoubleRow("Expose PHP", $check);
+        $dsp->AddDoubleRow("Expose PHP", $check);
+        $dsp->AddFieldSetEnd();
 
-        if (ini_get('register_argc_argv') == false) {
-            $check = $ok;
-        } else {
-            $check = $optimize . t('Auf deinem System ist die PHP-Einstellung register_argc_argv auf On gesetzt. Diese Einstellung ist nur nützlich, wenn man PHP über die Kommandozeile aufruft und dort Parameter mitgeben möchte. Das ist für Lansuite nicht notwendig und belegt unnötig Speicher');
-        }
-          $dsp->AddDoubleRow("Register_argc_argv", $check);
-
-          $dsp->AddFieldSetEnd();
-          $dsp->AddFieldSetEnd();
-
-          return $continue;
+        return $continue;
     }
 
   // Scans all db.xml-files and deletes all tables listed in them
