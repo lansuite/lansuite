@@ -17,6 +17,26 @@ if (function_exists('ini_set')) {
 function myErrorHandler($errno, $errstr, $errfile, $errline) {
     global $PHPErrors, $PHPErrorsFound, $db, $auth;
 
+    // Only show errors, which sould be reported according to error_reporting
+    // Also filters @ (for @ will have error_reporting "0")
+    // Why this is necessary at all?
+    // From the PHP docs of "set_error_handler"
+    //      It is important to remember that the standard PHP error handler is completely bypassed for the error types specified by error_types unless the callback function returns FALSE.
+    // Source: https://secure.php.net/manual/en/function.set-error-handler.php
+    // LanSuite is _at the moment_ (2018-01-13) not PHP Notice free.
+    // We are working on this. Once this is done, we can remove the next two
+    // conditions and move along.
+    // Until this time we have to keep it.
+    // Otherwise the system might not be usable at all.
+    $rep = ini_get('error_reporting');
+    if (!($rep & $errno)) {
+        return false;
+    }
+
+    if (error_reporting() == 0) {
+        return false;
+    }
+
     switch ($errno) {
         case E_ERROR:
             $errors = "Error";
@@ -102,14 +122,16 @@ session_start();
 // Initialise Frameworkclass for Basic output
 include_once("inc/classes/class_framework.php");
 $framework = new framework();
-$framework->fullscreen($_GET['fullscreen']);
+if (isset($_GET['fullscreen'])) {
+    $framework->fullscreen($_GET['fullscreen']);
+}
 
 // Compromise ... design as base and popup should be deprecated
-if ($_GET['design'] == 'base' || $_GET['design'] == 'popup' || $_GET['design'] == 'ajax' || $_GET['design'] == 'print' || $_GET['design'] == 'beamer') {
+if (isset($_GET['design']) && ($_GET['design'] == 'base' || $_GET['design'] == 'popup' || $_GET['design'] == 'ajax' || $_GET['design'] == 'print' || $_GET['design'] == 'beamer')) {
     $frmwrkmode = $_GET['design'];
 }
 // Set Popupmode via GET (base, popup)
-if ($_GET['frmwrkmode']) {
+if (isset($_GET['frmwrkmode']) && $_GET['frmwrkmode']) {
     $frmwrkmode = $_GET['frmwrkmode'];
 }
 // Set Popupmode via GET (base, popup)
@@ -149,7 +171,9 @@ foreach ($_GET as $key => $val) {
 }
 
 $_SERVER['REQUEST_URI'] = $func->NoHTML($_SERVER['REQUEST_URI'], 1);
-$_SERVER['HTTP_REFERER'] = $func->NoHTML($_SERVER['HTTP_REFERER'], 1);
+if (isset($_SERVER['HTTP_REFERER'])) {
+    $_SERVER['HTTP_REFERER'] = $func->NoHTML($_SERVER['HTTP_REFERER'], 1);
+}
 $_SERVER['QUERY_STRING'] = $func->NoHTML($_SERVER['QUERY_STRING'], 1);
 
 // Save original Array
@@ -269,7 +293,7 @@ if ($config['environment']['configured'] == 0) {
     $auth["login"] = 1;
 
     // Load DB-Data after installwizard step 3
-    if ($_GET["action"] == "wizard" && $_GET["step"] > 3) {
+    if ($_GET["action"] == "wizard" && isset($_GET["step"]) && $_GET["step"] > 3) {
         $cfg = $func->read_db_config();
     }
 
@@ -277,10 +301,12 @@ if ($config['environment']['configured'] == 0) {
     // Normal auth cycle and Database-init
     $db->connect(0);
     $IsAboutToInstall = 0;
-    $translation->load_trans('db', $_GET['mod']);
+    if (isset($_GET['mod'])) {
+        $translation->load_trans('db', $_GET['mod']);
+    }
 
     // Reset DB-Success in Setup if no Adm.-Account was found, because a connection could work, but prefix is wrong
-    if (!$func->admin_exists() && (($_GET["action"] == "wizard" && $_GET["step"] <= 3) || ($_GET["action"] == "ls_conf"))) {
+    if (!$func->admin_exists() && isset($_GET["action"]) && (($_GET["action"] == "wizard" && $_GET["step"] <= 3) || ($_GET["action"] == "ls_conf"))) {
         $db->success = 0;
     }
 
@@ -357,14 +383,14 @@ function initializeDesign()
     }
 
     // Design switch by URL
-    if ($_GET['design'] && $_GET['design'] != 'popup' && $_GET['design'] != 'base') {
+    if (isset($_GET['design']) && $_GET['design'] != 'popup' && $_GET['design'] != 'base') {
         $auth['design'] = $_GET['design'];
     }
 
     // Fallback design is 'simple'
     if (!$auth['design'] || !file_exists('design/' . $auth['design'] . '/templates/main.htm')) {
         $auth['design'] = 'simple';
-        if ($_GET['design'] != 'popup' && $_GET['design'] != 'base') {
+        if (!isset($_GET['design']) || ($_GET['design'] != 'popup' && $_GET['design'] != 'base')) {
             $_GET['design'] = 'simple';
         }
     }
