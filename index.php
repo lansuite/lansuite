@@ -177,9 +177,9 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 $_SERVER['QUERY_STRING'] = $func->NoHTML($_SERVER['QUERY_STRING'], 1);
 
 // Save original Array
-$__GET = $_GET;
+// This is use in modules mails and popups and in ./inc/classes/class_masterform.php
+// TODO investigate why this is needed
 $__POST = $_POST;
-$__COOKIE = $_COOKIE;
 
 // Emulate MQ, if disabled
 if (!get_magic_quotes_gpc()) {
