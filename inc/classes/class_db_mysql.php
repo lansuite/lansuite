@@ -258,11 +258,17 @@ class db
         return $row;
     }
 
-    #### Misc ####
-
-    public function client_info()
-    {
+    public function client_info() {
         return mysqli_get_client_info();
+    }
+
+    /**
+     * Returns the version of the MySQL server
+     *
+     * @return string
+     */
+    public function getServerInfo() {
+        return mysqli_get_server_info($this->link_id);
     }
 
     public function DisplayErrors()

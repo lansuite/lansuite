@@ -14,7 +14,7 @@ $translation_no_html_replace = false;
 function t()
 {
     global $db, $translation, $func, $translation_no_html_replace;
-    
+
     ### Prepare Functionparameters
     // First argument is the Inputstring, the following are Parameters
     $args = func_get_args();
@@ -33,11 +33,15 @@ function t()
         return '';
     }
     $key = md5($input);
-    $modul = $_GET['mod'];
+    $modul = '';
+    if (isset($_GET['mod']) && $_GET['mod']) {
+        $modul = $_GET['mod'];
+    }
+
     $trans_text = '';
     (strlen($input) > 255)? $long = '_long' : $long = '';
 
-    if ($translation->lang_cache[$modul][$key] != '') {
+    if (array_key_exists($modul, $translation->lang_cache) && $translation->lang_cache[$modul][$key] != '') {
         // Already in Memorycache ($this->lang_cache[key])
         $output = $translation->ReplaceParameters($translation->lang_cache[$modul][$key], $parameters, $key);
     } else {
@@ -66,7 +70,7 @@ function t()
         $output = str_replace("--lt--", "<", $output);
         $output = str_replace("--gt--", ">", $output);
         $output = str_replace("HTML_NEWLINE", "<br />", $output);
-  
+
         return $func->text2html($output, 4);
     } else {
         return $output;
@@ -149,13 +153,13 @@ class translation
     {
         global $cfg;
 
-        if ($_POST['language']) {
+        if (isset($_POST['language']) && $_POST['language']) {
             $_SESSION['language'] = $_POST['language'];
-        } elseif ($_GET['language']) {
+        } elseif (isset($_GET['language']) && $_GET['language']) {
             $_SESSION['language'] = $_GET['language'];
         }
-        
-        if ($_SESSION['language']) {
+
+        if (isset($_SESSION['language']) && $_SESSION['language']) {
             $this->language = $_SESSION['language'];
         } elseif ($cfg["sys_language"]) {
             $this->language = $cfg["sys_language"];
@@ -169,7 +173,7 @@ class translation
         }
         return $this->language;
     }
-    
+
   /**
    * Load Translation for a Modul from DB into Memory
    *
@@ -202,8 +206,11 @@ class translation
         $xmldata = $this->xml_read_to_array($modul);
         if (is_array($xmldata)) {
             foreach ($xmldata as $data) {
-                $text = $data[$this->language];
-                if ($this->lang_cache[$modul][$data['id']] == '' and $text != '') {
+                $text = '';
+                if (isset($data[$this->language])) {
+                    $text = $data[$this->language];
+                }
+                if (array_key_exists($modul, $this->lang_cache) && $this->lang_cache[$modul][$data['id']] == '' && $text != '') {
                     $this->lang_cache[$modul][$data['id']] = $text;
                 }
             }
@@ -234,7 +241,7 @@ class translation
         }
         return $input;
     }
-    
+
   /**
    * Get the calling Module for a t() function.
    *
@@ -315,10 +322,10 @@ class translation
         $header .= $xml->write_tag("source", "http://www.lansuite.de", 2);
         $header .= $xml->write_tag("date", date("Y-m-d h:i"), 2);
         $header = $xml->write_master_tag("header", $header, 1);
-        
+
         $table_head = $xml->write_tag('name', 'translation', 3);
         $tables = $xml->write_master_tag("table_head", $table_head, 2);
-    
+
         $content = '';
         // read normal Translation
         $res = $db->qry("SELECT * FROM %prefix%translation WHERE file = %string% AND obsolete = 0", $modul);
@@ -349,7 +356,7 @@ class translation
             }
         }
         $db->free_result($res);
-        
+
         // read long Translation
         $res2 = $db->qry("SELECT * FROM %prefix%translation_long WHERE file = %string% AND obsolete = 0", $modul);
         while ($row2 = $db->fetch_array($res2)) {
@@ -377,7 +384,7 @@ class translation
             $content .= $xml->write_master_tag("entry", $entry, 3);
         }
         $db->free_result($res2);
-    
+
         $tables .= $xml->write_master_tag("content", $content, 2);
         $lansuite .= $xml->write_master_tag("table", $tables, 1);
         $output .= $xml->write_master_tag("lansuite", $header . $lansuite, 0);
@@ -416,14 +423,13 @@ class translation
    * @param string Modulname e.g. file-field
    * @return array Temporary XML-Data
    */
-    public function xml_read_to_array($modul)
-    {
-        $records = array();
+    public function xml_read_to_array($modul) {
+        $records = [];
 
-        if (!is_object($xml)) {
-            include_once('inc/classes/class_xml.php');
-            $xml = new xml();
+        if (!class_exists('xml')) {
+            require_once('inc/classes/class_xml.php');
         }
+        $xml = new xml();
 
         $lang_file = $this->get_trans_filename($modul);
         if (file_exists($lang_file)) {
@@ -461,7 +467,7 @@ class translation
             case 'DB':
                 $file = "inc/language/".$modul."_".$this->transfile_name;
                 break;
-            
+
             case 'System':
                 $file = "inc/language/".$modul."_".$this->transfile_name;
                 break;

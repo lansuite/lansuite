@@ -5,8 +5,7 @@ class party
     public $count = 0;
     public $data = array();
     
-  // Constructor
-    public function party()
+    public function __construct()
     {
         global $cfg, $db;
 
