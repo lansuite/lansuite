@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ba89adf20d672ec2772c2aa6dc5b3e0",
+    "content-hash": "cd6161317d50940e576fdad0e778dd9a",
     "packages": [
         {
             "name": "geshi/geshi",
@@ -107,7 +107,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php-64bit": "^7.0",
+        "php": "^7.0",
         "ext-gd": "*",
         "ext-mysqli": "*",
         "ext-snmp": "*"
