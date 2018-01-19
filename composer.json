@@ -12,10 +12,11 @@
         }
     ],
     "require": {
-        "php-64bit": "^7.0",
+        "php": "^7.0",
         "ext-gd": "*",
         "ext-mysqli": "*",
         "ext-snmp": "*",
+
         "smarty/smarty": "^3.1",
         "geshi/geshi": "^1.0.9"
     },
