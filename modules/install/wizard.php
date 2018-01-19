@@ -112,29 +112,25 @@ switch ($_GET["step"]) {
         $dsp->AddTextFieldRow("database", t('Datenbank'), $_POST["database"], "");
         $dsp->AddTextFieldRow("prefix", t('Tabellen-Prefix'), $_POST["prefix"], "");
 
-        #### Default Design
-        // Open the design-dir
-        $design_dir = opendir("design/");
+        // Default Designs
+        $designPath = 'design' . DIRECTORY_SEPARATOR;
+        $designDir = opendir($designPath);
 
         include_once("inc/classes/class_xml.php");
-        $xml = new xml;
+        $xml = new xml();
 
-        // Check all Subdirs of $design_dir fpr valid design-xml-files
+        // Check all Subdirs of $designDir for valid design-xml-files
         $t_array = array();
-        while ($akt_design = readdir($design_dir)) {
-            if ($akt_design != "."
-            and $akt_design != ".."
-            and $akt_design != "templates"
-            and is_dir($akt_design)
-            ) {
-                $file = "design/$akt_design/design.xml";
+        while ($currentDesign = readdir($designDir)) {
+            if ($currentDesign != '.' && $currentDesign != '..' && $currentDesign != 'templates' && is_dir($designPath . $currentDesign)) {
+                $file = "design/$currentDesign/design.xml";
                 if (file_exists($file)) {
                 // Read Names from design.xml
                     $xml_file = fopen($file, "r");
                     $xml_content = fread($xml_file, filesize($file));
                     if ($xml_content != "") {
-                        ($config['lansuite']['default_design'] == $akt_design) ? $selected = "selected" : $selected = "";
-                        array_push($t_array, "<option $selected value=\"$akt_design\">". $xml->get_tag_content("name", $xml_content) ."</option>");
+                        ($config['lansuite']['default_design'] == $currentDesign) ? $selected = "selected" : $selected = "";
+                        array_push($t_array, "<option $selected value=\"$currentDesign\">". $xml->get_tag_content("name", $xml_content) ."</option>");
                     }
                     fclose($xml_file);
                 }
