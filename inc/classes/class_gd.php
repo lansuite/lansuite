@@ -91,7 +91,8 @@ class gd
                     break;
                 case "bmp":
                     include_once("ext_scripts/gd/bmp.php");
-                    ImageBMP($this->img, $file);
+                    // TODO Check if we can replace this files/function with the native gd lib
+                    imagebmpLanSuite($this->img, $file);
                     break;
                 case "ico":
                     include_once("ext_scripts/gd/ico.php");
@@ -133,7 +134,8 @@ class gd
                     break;
                 case "bmp":
                     include_once("ext_scripts/gd/bmp.php");
-                    ImageBMP($this->img);
+                    // TODO Check if we can replace this files/function with the native gd lib
+                    imagebmpLanSuite($this->img);
                     break;
                 case "ico":
                     include_once("ext_scripts/gd/ico.php");
@@ -241,7 +243,8 @@ class gd
                 break;
             case "bmp":
                 include_once("ext_scripts/gd/bmp.php");
-                $img_src = ImageCreateFromBMP($filename);
+                // TODO Check if we can replace this files/function with the native gd lib
+                $img_src = imagecreatefrombmpLanSuite($filename);
                 break;
             case "ico":
                 include_once("ext_scripts/gd/ico.php");
@@ -272,7 +275,7 @@ class gd
             // Calculate new size
             $old_width = imagesx($imgsrc_old);
             $old_height = imagesy($imgsrc_old);
-  
+
             $ratio_x = $old_width / $max_width;
             $ratio_y = $old_height / $max_height;
 
@@ -289,12 +292,12 @@ class gd
                 $func->error("Source file '$old_file' has 0x0 pixel", NO_LINK);
                 return false;
             }
-  
+
             $this->NewImage($new_width, $new_height);
             ImageCopyResized($this->img, $imgsrc_old, 0, 0, 0, 0, $new_width, $new_height, $old_width, $old_height);
-  
+
             imagecolortransparent($this->img, imagecolorallocate($this->img, 255, 255, 255));
-  
+
             $this->PutImage($new_file);
             ImageDestroy($imgsrc_old);
         }

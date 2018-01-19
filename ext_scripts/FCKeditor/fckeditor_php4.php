@@ -127,7 +127,7 @@ class FCKeditor
 	 *
 	 * @param string $instanceName
 	 */
-	function FCKeditor( $instanceName )
+	function __construct( $instanceName )
 	{
 		$this->InstanceName	= $instanceName ;
 		$this->BasePath		= '/fckeditor/' ;
