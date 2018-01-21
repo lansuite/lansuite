@@ -38,12 +38,13 @@ $ # Add the content of the example configuration file below into ./inc/base/conf
 $ chmod 0777 ./inc/base/config.php
 $ chmod -R 0777 ./ext_inc/
 $ docker-compose up
+$ docker-compose run php composer install
 ```
 
 This will start a [Nginx webserver](https://nginx.org/) with a [php-fpm](https://secure.php.net/manual/en/install.fpm.php) configuration and a [MySQL database](https://www.mysql.com/) for you.
-After everything started you should be able to visit http://<Your-Docker-IP>:8080/ and see a running LanSuite-System.
+After everything started you should be able to visit http://`<Your-Docker-IP>`:8080/ and see a running LanSuite-System.
 
-*Attention*: This docker setup is not suggested for production.
+*Attention*: This Docker setup is not suggested for production.
 
 ### Configuration file
 
