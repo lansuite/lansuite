@@ -18,6 +18,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
+# Composer setup starts here. The zip extension is required for that.
+# See https://github.com/composer/docker/blob/8a2a40c3376bac96f8e3db2f129062173bff7734/1.6/Dockerfile
+
 RUN docker-php-ext-install zip
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
