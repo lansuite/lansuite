@@ -12,7 +12,7 @@ switch ($_GET['shout']) {
             $captchaCheck = false;
         }
 
-    
+
 
         if (!$auth['login'] or !$captchaCheck) {
             // No Login -> Captcha
@@ -39,13 +39,13 @@ switch ($_GET['shout']) {
                 $_POST['nickname'] = $auth['username'];
             }
 
-             
+
 
             $result = $db->qry("INSERT INTO %prefix%shoutbox (userid, ip, name, message) VALUES (%int%,%string%,%string%,%string%)", $auth['userid'], $auth['ip'], $_POST["nickname"], $_POST["message"]);
 
             $resp =  $db->qry_first("SELECT id, created FROM %prefix%shoutbox WHERE id = %int%", $db->insert_id());
 
-            
+
 
             $data['response'] = 'Good work';
 
@@ -60,7 +60,7 @@ switch ($_GET['shout']) {
 
         break;
 
-    
+
 
     case 'view':
         $data = array();
@@ -71,7 +71,7 @@ switch ($_GET['shout']) {
             $_GET['lastid'] = 0;
         }
 
-  
+
 
         $qry = $db->qry('SELECT * FROM %prefix%shoutbox WHERE id > %int% ORDER BY ID DESC LIMIT %int%', $_GET['lastid'], $cfg['shout_entries']);
 
@@ -98,24 +98,10 @@ switch ($_GET['shout']) {
         break;
 }
 
-  
-
-require_once('ext_scripts/json/json.php');
-
-$json = new Services_JSON();
-
 header("Content-Type: application/json; charset=utf-8");
-
 header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
-
 header("Cache-Control: no-store, no-cache, must-revalidate");
-
 header("Cache-Control: post-check=0, pre-check=0", false);
-
 header("Pragma: no-cache");
 
-
-
-$out = $json->encode($data);
-
-print $out;
+echo json_encode($data);
