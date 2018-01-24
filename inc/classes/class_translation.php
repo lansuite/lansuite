@@ -313,8 +313,7 @@ class translation
     {
         global $db;
 
-        include_once("inc/classes/class_xml.php");
-        $xml = new xml;
+        $xml = new xml();
 
         $output = '<?xml version="1.0" encoding="UTF-8"?'.">\r\n\r\n";
         $header = $xml->write_tag("filetype", "LanSuite", 2);
@@ -426,9 +425,6 @@ class translation
     public function xml_read_to_array($modul) {
         $records = [];
 
-        if (!class_exists('xml')) {
-            require_once('inc/classes/class_xml.php');
-        }
         $xml = new xml();
 
         $lang_file = $this->get_trans_filename($modul);

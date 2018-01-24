@@ -38,7 +38,6 @@ switch ($_GET["step"]) {
                   $userid = $db->insert_id();
             }
 
-            include_once("inc/classes/class_auth.php");
             $authentication = new auth();
             $authentication->login($_POST["email"], $_POST["password"]);
         }
@@ -116,7 +115,6 @@ switch ($_GET["step"]) {
         $designPath = 'design' . DIRECTORY_SEPARATOR;
         $designDir = opendir($designPath);
 
-        include_once("inc/classes/class_xml.php");
         $xml = new xml();
 
         // Check all Subdirs of $designDir for valid design-xml-files

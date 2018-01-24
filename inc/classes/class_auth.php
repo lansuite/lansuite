@@ -1,8 +1,5 @@
 <?php
 
-require_once("inc/classes/class.crypt.php");
-
-
 /**
  * Authorisation and Cookiemanagement for Lansuite
  *

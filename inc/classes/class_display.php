@@ -746,8 +746,7 @@ class display
     {
         global $smarty;
 
-        include_once("inc/classes/class_gd.php");
-        $gd = new gd;
+        $gd = new gd();
 
         if ($max_width == "") {
             $max_width = 150;
@@ -940,8 +939,7 @@ class display
 
     public function FetchAttachmentRow($file)
     {
-        include_once("inc/classes/class_gd.php");
-        $gd = new gd;
+        $gd = new gd();
 
         $FileEnding = strtolower(substr($file, strrpos($file, '.'), 5));
 

@@ -22,7 +22,6 @@ switch ($_GET['step']) {
         break;
         
     case 1:
-        include_once('inc/classes/class_masterform.php');
         $mf = new masterform();
 
         $dsp->NewContent(t('Gruppe anlegen/ editieren '), t(''));

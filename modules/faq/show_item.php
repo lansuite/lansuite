@@ -15,12 +15,10 @@ if ($_GET['mcact'] == "show" or $_GET['mcact'] == "") {
     $dsp->AddFieldsetStart($func->text2html($get_data["caption"]));
     $dsp->AddSingleRow('<br>'. $func->text2html($get_data["text"]) .'<br>');
 
-    include('inc/classes/class_masterrate.php');
     new masterrate('faq', $_GET['itemid'], t('War dieser Eintrag hilfreich?'));
 
     $dsp->AddSingleRow($buttons);
     $dsp->AddFieldsetEnd();
 
-    include('inc/classes/class_mastercomment.php');
     new Mastercomment('faq', $_GET['itemid']);
 }

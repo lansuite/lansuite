@@ -1,7 +1,6 @@
 <?php
 $dsp->NewContent(t('Party eintragen'), t('Hier kannst du deine Party der Liste hinzufügen'));
 
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 $mf->AddField(t('Partyname'), 'name');

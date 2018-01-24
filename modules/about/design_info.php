@@ -1,13 +1,12 @@
 <?php
-include_once("inc/classes/class_xml.php");
-$xml = new xml;
+$xml = new xml();
 
 $xml_file = @fopen("design/" . $auth["design"] . "/design.xml", "r");
 $xml_content = @fread($xml_file, filesize("design/".$auth["design"]."/design.xml"));
 
 $design_name = $xml->get_tag_content("name", $xml_content);
 
-$dsp->NewContent("Designinfo zu '<b>$design_name</b>'", "Auf dieser Seite erhälst du Informationen &uuml;ber das derzeitige Lansuite-Erscheinungsbild");
+$dsp->NewContent("Designinfo zu '<b>$design_name</b>'", "Auf dieser Seite erhï¿½lst du Informationen &uuml;ber das derzeitige Lansuite-Erscheinungsbild");
 $dsp->AddDoubleRow("Name", $design_name);
 $dsp->AddDoubleRow("Version", $xml->get_tag_content("version", $xml_content));
 $dsp->AddDoubleRow("Beschreibung", $xml->get_tag_content("description", $xml_content));

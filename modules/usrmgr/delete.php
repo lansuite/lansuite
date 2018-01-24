@@ -1,6 +1,5 @@
 <?php
 
-include_once('inc/classes/class_masterdelete.php');
 $md = new masterdelete();
 
 /* Checks which MD does not perform */

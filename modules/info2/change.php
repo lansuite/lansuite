@@ -152,7 +152,6 @@ if ($auth['type'] <= 1) {
 
             $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Seite editieren.'));
 
-              include_once('inc/classes/class_masterform.php');
               $mf = new masterform();
 
             foreach ($translation->valid_lang as $val) {
@@ -289,7 +288,6 @@ if ($auth['type'] <= 1) {
         case 30:
               $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du einen externen Link definieren.'));
 
-              include_once('inc/classes/class_masterform.php');
               $mf = new masterform();
 
               $mf->AddField(t('Link'), 'link');

@@ -8,7 +8,6 @@ function Update($id)
     return true;
 }
 
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 $mf->AddField(t('Forumname'), 'name');
