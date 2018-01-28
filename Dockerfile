@@ -14,7 +14,9 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd \
     # Development extensions
     && pecl install xdebug-2.5.5 \
-    && docker-php-ext-enable xdebug
+    && docker-php-ext-enable xdebug \
+    && echo 'xdebug.remote_enable=1' >> /usr/local/etc/php/php.ini \
+    && echo 'xdebug.remote_connect_back=1' >> /usr/local/etc/php/php.ini \
     # Cleanup
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
