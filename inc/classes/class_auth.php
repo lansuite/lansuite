@@ -12,14 +12,8 @@ require_once("inc/classes/class.crypt.php");
  * @access public
  * @todo Change uniqkey from md5(password) to an extra Field
  */
-class auth
-{
+class auth {
 
-  /**#@+
-   * Intern Variables
-   * @access private
-   * @var mixed
-   */
     public $auth = array();                 // Userdaten im Array
     public $timestamp;                      // Zeit
     public $cookie_data =     array();      // Cookiedaten
@@ -32,29 +26,29 @@ class auth
     public $cookie_crypt_pw = "iD9ww32e";   // Passphrase for AzDGCrypt
     public $online_users = array();         // Array containing all users, currently online
     public $away_users = array();         // Array containing all users, currently online by ajax but no hit last 10min
-    
- /**#@-*/
-  
+
   /**
    * CONSTRUCTOR : Initialize basic Variables for Authorisation
    * @param mixed Frameworkmode for switch Stats
    *
    */
-    public function __construct($frmwrkmode = "")
-    {
+    public function __construct($frmwrkmode = "") {
         global $db;
-        
-        // Init-Vars
+
         $this->auth["sessid"] = session_id();
         $this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
-        $this->timestamp = time();              // Timestamp for Statistik
-        $this->update_visits($frmwrkmode);      // Update Statistik
+        $this->timestamp = time();
 
-        // Better handle it here, otherwise its an DB-Query for each $dsp->FetchUserIcon()
+        // Update statistics
+        $this->update_visits($frmwrkmode);
+
+        $last10Minutes = $this->timestamp - 60*10;
+        $lastMinute = $this->timestamp - 60*1;
+
         $res = $db->qry(
             'SELECT
-                userid,
-                lasthit
+                `userid`,
+                SUM(IF(`lasthit` > %int%, 1, 0)) AS `online`
             FROM %prefix%stats_auth
             WHERE
                 login = "1"
@@ -63,19 +57,28 @@ class auth
                     OR lastajaxhit > %int%
                 )
                 AND userid > 0
-            GROUP BY userid, lasthit',
-            $this->timestamp - 60*10,
-            $this->timestamp - 60*1
+            GROUP BY userid',
+            $last10Minutes,
+            $last10Minutes,
+            $lastMinute
         );
+
         while ($row = $db->fetch_array($res)) {
-            if ($row['lasthit'] > ($this->timestamp - 60*10)) {
+            // If at the same time a user is logged in twice or multiple times
+            // (e.g. via different browsers)
+            // the field `online` will be more than 1.
+            // But we don't care at this point, because we only care _which_
+            // user is logged in  and not how many times.
+            // Even if the user is logged in with Chrome, is inactive for more then 10 minutes
+            // and the AJAX heartbeat kicks in _and_ the same user is logged in with Safari
+            // and there the user is active, it will count as an online user.
+            if ($row['online'] > 0) {
                 $this->online_users[] = $row['userid'];
             } else {
                 $this->away_users[] = $row['userid'];
             }
         }
-        
-        
+
         // Close sessions older than 1-2 hours.
         // ceil(x / $oneHour) * $oneHour for making query the same for one hour and therefore cacheable by MySQL
         // Do check first, for SELECT is faster than DELETE
@@ -85,7 +88,7 @@ class auth
         if ($row['found']) {
             $row = $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
             $row = $db->qry_first('OPTIMIZE TABLE %prefix%stats_auth');
-            
+
             // Delete cookie after 30 days
             // (TODO: Maybe make this time a config option)
             // (TODO: Maybe differ time for admins and non-admins)
@@ -116,7 +119,7 @@ class auth
 
         // Read Cookiedata
         $CookieStatus = $this->cookie_read();
-        
+
         // Look for SessionID in DB and load auth-data
         // Not found? Then look for valid cookie
             // Found? Then try cookie login
@@ -235,7 +238,7 @@ class auth
             } else {
                 // Set Logonstats
                 $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate, lastlogin = NOW() WHERE userid = %int%', $user['userid']);
-                
+
                 // If not logged in by cookie, generete new cookie and store it
                 if (!$cookierow['userid']) {
                     $this->set_cookie_pw($user['userid']);
@@ -245,7 +248,7 @@ class auth
                     $db->qry('DELETE FROM %prefix%stats_auth WHERE userid = %int%', $user['userid']);
                     $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid != %int%', $user['userid'], $this->cookie_data['userid']);
                 }
-                
+
                 // Set authdata
                 $db->qry(
                     'REPLACE INTO %prefix%stats_auth
@@ -272,7 +275,7 @@ class auth
                         $auth_backlink = "";
                     }
                     $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink, '', 'FORWARD');
-  
+
                   // Show error logins
                     $msg = '';
                     $res = $db->qry('SELECT INET6_NTOA(ip) AS ip, time
@@ -315,10 +318,10 @@ class auth
             $this->login($userid, $uniquekey, 0);
         }
     }
-    
+
     /**
      * Logs the user on the phpbb board on, if the board was integrated.
-     * 
+     *
      * @deprecated
      */
     public function loginPhpbb($userid = '')
@@ -326,7 +329,7 @@ class auth
         // TODO: Remove it in the next major version release
         // We keep this method to not break backwards compatibility
     }
-    
+
     /**
      * Logout the User and delete Sessiondata, Cookie and Authdata
      *
@@ -344,7 +347,7 @@ class auth
         $this->cookie_read();
         $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid = %int%', $this->auth['userid'], $this->cookie_data['userid']);
         $this->cookie_unset();
-        
+
         // Logs the user from the board2 off.
         $this->logoutPhpbb();
 
@@ -361,10 +364,10 @@ class auth
         $func->confirmation(t('Du wurdest erfolgreich ausgeloggt. Vielen dank für deinen Besuch.'), "", 1, FORWARD);
         return $this->auth;                // For overwrite global $auth
     }
-    
+
     /**
      * Logs the user from the phpbb board off, if it was integrated.
-     * 
+     *
      * @deprecated
      */
     public function logoutPhpbb()
@@ -394,12 +397,12 @@ class auth
             $this->cookie_data['olduserid'] = $this->auth['userid'];
             $this->cookie_data['sb_code'] = $switchbackcode;
             $this->cookie_set();
-            
+
             // Store switch back code in current (admin) user data
             $db->qry('UPDATE %prefix%user SET switch_back = %string% WHERE userid = %int%', md5($switchbackcode), $this->auth["userid"]);
             // Link session ID to new user ID
             $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $target_id, $this->auth["sessid"]);
-            
+
             $func->confirmation(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), '', 1);  //FIX meldungen auserhalb/standart?!?
         } else {
             $func->error(t('Dein Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), '', 1); //FIX meldungen auserhalb/standart?!
@@ -428,7 +431,7 @@ class auth
                 $this->cookie_data['olduserid'] = '';
                 $this->cookie_data['sb_code'] = '';
                 $this->cookie_set();
-                
+
                 $func->confirmation(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), '', 1);
             } else {
                 $func->information(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), '', 1);
@@ -447,7 +450,7 @@ class auth
     public function authorized($requirement)
     {
         global $func;
-    
+
         switch ($requirement) {
             case 1: // Logged in
                 if ($this->auth['login']) {
@@ -456,7 +459,7 @@ class auth
                     $func->information('NO_LOGIN');
                 }
                 break;
-    
+
             case 2: // Type is Admin, or Superadmin
                 if ($this->auth['type'] > 1) {
                     return 1;
@@ -466,7 +469,7 @@ class auth
                     $func->information('ACCESS_DENIED');
                 }
                 break;
-    
+
             case 3: // Type is Superadmin
                 if ($this->auth['type'] > 2) {
                     return 1;
@@ -476,7 +479,7 @@ class auth
                     $func->information('ACCESS_DENIED');
                 }
                 break;
-    
+
             case 4: // Type is User, or less
                 if ($this->auth['type'] < 2) {
                     return 1;
@@ -484,7 +487,7 @@ class auth
                     $func->information('ACCESS_DENIED');
                 }
                 break;
-    
+
             case 5: // Logged out
                 if (!$this->auth['login']) {
                     return 1;
@@ -492,7 +495,7 @@ class auth
                     $func->information('ACCESS_DENIED');
                 }
                 break;
-    
+
             default:
                 return 1;
             break;
@@ -563,7 +566,7 @@ class auth
     public function set_cookie_pw($userid)
     {
         global $db;
-      
+
         $password_cookie = $this->gen_rnd_key(40);
         $db->qry('INSERT INTO %prefix%cookie SET password = %string%, userid = %int%', md5($password_cookie), $userid);
 
@@ -618,7 +621,7 @@ class auth
         }
         return $ok;
     }
-        
+
   /**
    * Set Cookie for User
    *
