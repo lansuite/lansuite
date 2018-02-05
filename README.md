@@ -34,7 +34,7 @@ We assume that you have a running [Docker Community Edition](https://www.docker.
 $ git clone https://github.com/lansuite/lansuite.git
 $ cd lansuite
 $ touch ./inc/base/config.php
-$ # Add the content of the example configuration file below into ./inc/base/config.php 
+$ # Add the content of the example configuration file below into ./inc/base/config.php
 $ chmod 0777 ./inc/base/config.php
 $ chmod -R 0777 ./ext_inc/
 $ docker-compose up
@@ -44,7 +44,7 @@ $ docker-compose run php composer install
 This will start a [Nginx webserver](https://nginx.org/) with a [php-fpm](https://secure.php.net/manual/en/install.fpm.php) configuration and a [MySQL database](https://www.mysql.com/) for you.
 After everything started you should be able to visit http://`<Your-Docker-IP>`:8080/ and see a running LanSuite-System.
 
-*Attention*: This Docker setup is not suggested for production.
+*Warning*: This Docker setup should not be used for production. It contains a debugging setup like [Xdebug](https://xdebug.org/).
 
 ### Configuration file
 
