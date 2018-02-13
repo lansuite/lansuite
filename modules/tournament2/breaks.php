@@ -5,7 +5,6 @@ $dsp->NewContent(t('Turnier - Pausenverwaltung'), t('Trage Startzeitpunkt und da
 switch ($_GET['step']) {
     // Delete
     case 10:
-        include_once('inc/classes/class_masterdelete.php');
         $md = new masterdelete();
         $md->Delete('t2_breaks', 'breakid', $_GET['breakid']);
         break;
@@ -24,7 +23,6 @@ switch ($_GET['step']) {
         $t = $db->qry_first('SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $_GET['tournamentid']);
           
         $dsp->AddFieldSetStart(t('Pause für Turnier %1 festlegen', $t['name']));
-        include_once('inc/classes/class_masterform.php');
         $mf = new masterform();
         $mf->AddFix('tournamentid', $_GET['tournamentid']);
         $mf->AddField(t('Pause beginnen um'), 'start');

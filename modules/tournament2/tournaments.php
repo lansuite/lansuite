@@ -1,7 +1,6 @@
 <?php
 
-include_once("inc/classes/class_xml.php");
-$xml = new xml;
+$xml = new xml();
 
 function CheckModeForWWCLLeague($league)
 {
@@ -60,12 +59,6 @@ function CheckStateChangeAllowed($state)
     return false;
 }
 
-#$dsp->SetForm('index.php?mod=tournament2&action=add&step=10');
-#$dsp->AddDropDownFieldRow('template', t('Von Vorlage laden'), $selections, '');
-#$dsp->AddFormSubmitRow(t('Weiter'));
-
-
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 // Name

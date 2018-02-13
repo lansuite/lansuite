@@ -1,7 +1,6 @@
 <?php
 
-include_once("inc/classes/class_gd.php");
-$gd = new gd;
+$gd = new gd();
 
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
@@ -84,7 +83,6 @@ if ($tournament["name"] == "") {
             }
             
             if ($func->isModActive('server') and $auth['type'] >= 2) {
-                include_once('inc/classes/class_masterform.php');
                 $mf = new masterform();
                 $mf->AddField(t('Server Zuweisen'), 'server_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
                 if ($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1)) {

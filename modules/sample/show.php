@@ -95,7 +95,6 @@ if ($auth['type'] >= 3) {
   // If you like to insert data to the database, you could use the masterform class
   $dsp->NewContent(t('News verwalten'), t('Mit Hilfe des folgenden Formulars kannst du Neuigkeiten auf deiner Seite ergänzen und bearbeiten'));
 
-  include_once('inc/classes/class_masterform.php');
   $mf = new masterform();
 
   // Define the db filds, which should be written. The second argument must be a valid db field, of the table supplied to SendForm
@@ -120,7 +119,6 @@ if ($mf->SendForm('index.php?mod=sample&action=show', 'news', 'newsid', $_GET['n
   
   ### Mastercomment ###
   // There are only two lines needed to add a comment function to the current table
-    include('inc/classes/class_mastercomment.php');
     // Mastercomment: 1) which module should the comment belong to? 2) Which id should the comment referr to?
     new Mastercomment('news', $_GET['newsid']);
     
@@ -128,7 +126,6 @@ if ($mf->SendForm('index.php?mod=sample&action=show', 'news', 'newsid', $_GET['n
     
     ### Masterdelete ###
   // Use this, to delete entries from the data base
-  include_once('inc/classes/class_masterdelete.php');
   $md = new masterdelete();
   // Will delete from the table 'news', where the fild 'newsid' is '$_GET['newsid']'
   // However a security question will be displayed first

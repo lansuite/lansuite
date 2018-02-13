@@ -1,7 +1,6 @@
 <?php
 
-include_once("inc/classes/class_gd.php");
-$gd = new gd;
+$gd = new gd();
 
 function RewriteFields()
 {
@@ -95,7 +94,6 @@ function UploadFiles()
 if ($_GET['action'] == 'change' and $_GET['sponsorid'] == '') {
     include_once('modules/sponsor/search.inc.php');
 } else {
-    include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
 
     $mf->AddField(t('Name'), 'name');

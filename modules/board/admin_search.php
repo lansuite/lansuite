@@ -3,7 +3,6 @@ if ($_POST['action']) {
     foreach ($_POST['action'] as $key => $val) {
         switch ($_GET['mode']) {
             case 'del':
-                include_once('inc/classes/class_masterdelete.php');
                 $md = new masterdelete();
                 $md->MultiDelete('board_posts', 'pid');
                 break;

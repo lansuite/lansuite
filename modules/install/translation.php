@@ -76,7 +76,6 @@ switch ($_GET['step']) {
     case 3:
         $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
 
-        include_once('inc/classes/class_masterform.php');
         $mf = new masterform();
     
         // Name
@@ -266,7 +265,6 @@ function translate_all_empty(from, to) {
     case 40:
         $dsp->NewContent(t('Modul Übersetzen'), '');
 
-        include_once('inc/classes/class_masterform.php');
         $mf = new masterform();
         $mf->AddField(t('Orginal-Text'), 'org', IS_NOT_CHANGEABLE);
         $mf->AddField(t('Deutsch'), 'de', '', '', FIELD_OPTIONAL);

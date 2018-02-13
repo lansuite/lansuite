@@ -16,7 +16,6 @@ switch ($_GET['step']) {
   
   // Edit
     case 20:
-        include_once('inc/classes/class_masterform.php');
         $mf = new masterform();
 
         $mf->AddField(t('Titel'), 'name');
@@ -47,7 +46,6 @@ switch ($_GET['step']) {
   
   // Delete
     case 30:
-        include_once('inc/classes/class_masterdelete.php');
         $md = new masterdelete();
         $md->Delete('boxes', 'boxid', $_GET['boxid']);
         break;

@@ -52,7 +52,6 @@ if ($check["caption"] != "") {
     if ($cfg['news_comments_allowed'] == false) {
         $dsp->AddSingleRow(t('Kommentare wurden deaktiviert.'));
     } else {
-        include('inc/classes/class_mastercomment.php');
         new Mastercomment('news', $_GET['newsid'], array('news' => 'newsid'));
     }
 } else {

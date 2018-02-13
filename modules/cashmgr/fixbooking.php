@@ -1,6 +1,5 @@
 <?php
 
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 $dsp->NewContent(t('Betrag Buchen'), t('Fixbetrag (z.B Miete oder Sponsoring) oder Geldschiebungen'));

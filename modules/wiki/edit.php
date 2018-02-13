@@ -27,7 +27,6 @@ $framework->add_js_code($jscode);
 $smarty->assign('define_url_options', $define_url_options);
 $dsp->AddDoubleRow('', $smarty->fetch('modules/wiki/templates/add_page_link.htm'));
 
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 $mf->AddField(t('Text'), 'text', '', HTML_ALLOWED);

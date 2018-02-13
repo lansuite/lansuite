@@ -37,7 +37,6 @@ class poll
         $db->free_result($res);
 
         if (!$boxmode and $auth["login"] == 1) {
-            include_once('inc/classes/class_mastercomment.php');
             new Mastercomment('Poll', $pollid, array('polls' => 'pollid'));
         }
     }

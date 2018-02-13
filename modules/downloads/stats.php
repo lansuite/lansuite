@@ -3,7 +3,6 @@ $dsp->NewContent(t('Statistiken'), $_GET['file']);
 
 // Delete
 if ($_GET['delfile'] and $auth['type'] >= 3) {
-    include_once('inc/classes/class_masterdelete.php');
     $md = new masterdelete();
     $md->Delete('download_stats', 'file', $_GET['delfile']);
 }
