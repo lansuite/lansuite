@@ -80,7 +80,6 @@ if ($party->count == 0) {
 
 
     // Show Upcomming
-        include_once('inc/classes/class_masterform.php');
         $MFID = 1;
 
         $res = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys WHERE UNIX_TIMESTAMP(enddate) >= UNIX_TIMESTAMP(NOW()) ORDER BY startdate");

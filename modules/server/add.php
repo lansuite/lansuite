@@ -61,8 +61,7 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     $func->information(t('Du musst zuerst bezahlen, um Server hinzufügen zu dürfen'), "index.php?mod=server");
 } else {
     $dsp->NewContent(t('Server'), t('Hinzufügen und Aendern der Server'));
-    
-    include_once('inc/classes/class_masterform.php');
+
     $mf = new masterform();
 
     if (!$_GET['serverid']) {

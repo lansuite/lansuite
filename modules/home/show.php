@@ -18,7 +18,6 @@ switch ($home_page) {
 
         $z = 0;
 
-        include_once("inc/classes/class_plugin.php");
         $plugin = new plugin('home');
         while (list($caption, $inc) = $plugin->fetch()) {
             if ($caption == 'install') {

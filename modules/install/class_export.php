@@ -1,7 +1,6 @@
 <?php
 
-include_once("inc/classes/class_xml.php");
-$xml = new xml;
+$xml = new xml();
 
 class Export
 {
@@ -14,8 +13,7 @@ class Export
     {
         global $xml;
 
-        include_once("inc/classes/class_xml.php");
-        $xml = new xml;
+        $xml = new xml();
 
         if ($filename) {
             $this->filename = $filename;

@@ -1,7 +1,6 @@
 <?php
 
-include_once("inc/classes/class_gd.php");
-$gd = new gd;
+$gd = new gd();
 
 /**
  *  Produktliste

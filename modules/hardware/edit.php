@@ -1,7 +1,6 @@
 <?php
 // Edit Hardwareinfos for User
 if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])) {
-    include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
     
     $dsp->NewContent(t("Hardware &auml;ndern"), t("Hier kannst du die Hardware eingeben"));

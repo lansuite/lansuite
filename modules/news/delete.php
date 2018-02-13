@@ -5,7 +5,6 @@ switch ($_GET['step']) {
         break;
 
     case 2:
-        include_once('inc/classes/class_masterdelete.php');
         $md = new masterdelete();
         $md->Delete('news', 'newsid', $_GET['newsid']);
 

@@ -56,7 +56,6 @@ class Mastercomment
 
     // Delete comments
         if ($_GET['mc_step'] == 10) {
-            include_once('inc/classes/class_masterdelete.php');
             $md = new masterdelete();
             $md->LogID = $id;
             $md->Delete('comments', 'commentid', $_GET['commentid']);
@@ -108,7 +107,6 @@ class Mastercomment
                 $row = $db->qry_first("SELECT creatorid FROM %prefix%comments WHERE commentid = %int%", $_GET['commentid']);
             }
             if (!$_GET['commentid'] or ($row['creatorid'] and $row['creatorid'] == $auth['userid']) or $auth['type'] >= 2) {
-                include_once('inc/classes/class_masterform.php');
                 $mf = new masterform();
                 $mf->LogID = $id;
 

@@ -42,7 +42,6 @@ switch ($_GET['step']) {
   
   // Add new entry
     case 10:
-        include_once('inc/classes/class_masterform.php');
         $mf = new masterform();
 
         $mf->AddField('Feldname', 'name', '', '', '', 'check_no_space');

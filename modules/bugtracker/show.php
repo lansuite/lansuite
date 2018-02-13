@@ -42,11 +42,9 @@ if ($_POST['action']) {
 
 if ($_GET['action'] == 'delete' and $auth['type'] >= 2) {
     if ($_GET['bugid'] != '') {
-        include_once('inc/classes/class_masterdelete.php');
         $md = new masterdelete();
         $md->Delete('bugtracker', 'bugid', $_GET['bugid']);
     } else {
-        include_once('inc/classes/class_masterdelete.php');
         $md = new masterdelete();
         $md->MultiDelete('bugtracker', 'bugid');
     }
@@ -218,7 +216,6 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     }
 
     if ($auth['type'] >= 2) {
-        include_once('inc/classes/class_masterform.php');
         $mf = new masterform();
         $mf->AddField(t('Fix in SVN-Revision'), 'revision');
         $mf->SendForm('', 'bugtracker', 'bugid', $_GET['bugid']);
@@ -231,7 +228,6 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Editieren'), 'index.php?mod=bugtracker&action=add&bugid='.$row['bugid']) . $dsp->FetchSpanButton(t('Zurück zur Übersicht'), 'index.php?mod=bugtracker'));
 
     if ($auth['login']) {
-        include_once('inc/classes/class_masterform.php');
         $mf = new masterform();
         $mf->ManualUpdate = 1;
         if ($auth['type'] >= 2) {
@@ -250,7 +246,6 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
         }
     }
 
-    include('inc/classes/class_mastercomment.php');
     new Mastercomment('BugEintrag', $_GET['bugid'], array('bugtracker' => 'bugid'));
     $dsp->EndTab();
 

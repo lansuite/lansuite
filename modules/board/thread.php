@@ -216,8 +216,7 @@ if ($thread['closed']) {
     } else {
         $dsp->AddFieldsetStart(t('Thread erstellen'));
     }
-  
-    include_once('inc/classes/class_masterform.php');
+
     $mf = new masterform();
   
     if ($thread['caption'] == '') {

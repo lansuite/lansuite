@@ -3,7 +3,6 @@
 switch ($_GET['step']) {
   // Delete
     case 10:
-        include_once('inc/classes/class_masterdelete.php');
         $md = new masterdelete();
         $md->MultiDelete('cron', 'jobid');
         break;

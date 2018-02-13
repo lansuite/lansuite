@@ -1,6 +1,5 @@
 <?php
 
-include_once("inc/classes/class_plugin.php");
 include_once("modules/usrmgr/class_usrmgr.php");
 $usrmgr = new UsrMgr;
 
@@ -350,7 +349,6 @@ if (!$user_data['userid']) {
     $dsp->AddFieldsetStart(t('In Kommentaren'));
     switch ($_GET['step']) {
         case 10:
-            include_once('inc/classes/class_masterdelete.php');
             $md = new masterdelete();
             $md->MultiDelete('comments_bookmark', 'bid');
             break;
@@ -401,7 +399,6 @@ if (!$user_data['userid']) {
 
   // Including comment-engine
     if ($auth["login"] == 1) {
-        include('inc/classes/class_mastercomment.php');
         new Mastercomment('User', $_GET['userid']);
     }
 

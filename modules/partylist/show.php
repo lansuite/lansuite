@@ -1,7 +1,6 @@
 <?php
 
-include_once("inc/classes/class_xml.php");
-$xml = new xml;
+$xml = new xml();
 
 switch ($_GET['step']) {
     case 10:

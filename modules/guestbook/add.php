@@ -1,6 +1,5 @@
 <?php
 
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 if ($_POST['poster'] == '') {

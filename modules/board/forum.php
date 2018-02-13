@@ -71,7 +71,6 @@ switch ($_GET['step']) {
     case 10:
         if ($auth['type'] >= 2) {
             $dsp->AddFieldsetStart(t('Thread bearbeiten'));
-            include_once('inc/classes/class_masterform.php');
             $mf = new masterform();
             $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
             $pid = $mf->SendForm('index.php?mod=board&action=forum&step=10&fid='. $_GET['fid'] .'&tid='. $_GET['tid'], 'board_threads', 'tid', $_GET['tid']);

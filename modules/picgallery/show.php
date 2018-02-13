@@ -1,7 +1,6 @@
 <?php
 
-include_once("inc/classes/class_gd.php");
-$gd = new gd;
+$gd = new gd();
 
 # Forbid changedir to upper directories
 $_GET['file'] = str_replace('/..', '', $_GET['file']);
@@ -525,7 +524,6 @@ elseif (!$akt_file) {
         if ($_GET['picid']) {
             $pic['picid'] = $_GET['picid'];
         }
-        include('inc/classes/class_mastercomment.php');
         new Mastercomment('Picgallery', $pic['picid']);
     }
 }

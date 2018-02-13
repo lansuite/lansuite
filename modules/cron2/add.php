@@ -1,7 +1,6 @@
 <?php
 $dsp->NewContent(t('Cronjob hinzufügen'), '');
 
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 $mf->AddField(t('Name'), 'name');

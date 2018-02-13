@@ -169,7 +169,6 @@ switch ($_GET['step']) {
 
         $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr');
 
-        include('inc/classes/class_mastercomment.php');
         new Mastercomment('Clan', $_GET['clanid'], '');
         break;
 
@@ -180,7 +179,6 @@ switch ($_GET['step']) {
         } elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) {
             $func->information(t('Du bist nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
         } else {
-            include_once('inc/classes/class_masterform.php');
             $mf = new masterform();
 
             if ($auth['type'] < 2) {
@@ -225,7 +223,6 @@ switch ($_GET['step']) {
         if ($_GET['clanid'] != '' and !($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < 2) {
             $func->information(t('Du bist nicht berechtigt diesen Clan zu ändern'), "index.php?mod=home");
         } else {
-            include_once('inc/classes/class_masterform.php');
             $mf = new masterform();
 
             $dsp->AddFieldsetStart(t('Clan-Daten'));

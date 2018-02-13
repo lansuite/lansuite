@@ -2,7 +2,6 @@
 
 switch ($_GET['step']) {
     case 10:
-        include_once('inc/classes/class_masterdelete.php');
         $md = new masterdelete();
         $md->MultiDelete('comments', 'commentid');
         break;

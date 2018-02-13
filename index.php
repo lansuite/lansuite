@@ -120,7 +120,6 @@ set_error_handler("myErrorHandler");
 session_start();
 
 // Initialise Frameworkclass for Basic output
-include_once("inc/classes/class_framework.php");
 $framework = new framework();
 if (isset($_GET['fullscreen'])) {
     $framework->fullscreen($_GET['fullscreen']);
@@ -149,7 +148,6 @@ $framework->IsMobileBrowser = mobile_device_detect();
 @ini_set('arg_separator.output', '&amp;');
 
 // Base Functions (anything that doesnt belong elsewere)
-require_once("inc/classes/class_func.php");
 $func = new func();
 
 // Prevent XSS
@@ -233,13 +231,11 @@ $lang = [];
 
 // Debug initialisieren
 if ($config['lansuite']['debugmode'] > 0) {
-    include_once "inc/classes/class_debug.php";
     require_once('inc/Functions/Debug.php');
     $debug = new debug($config['lansuite']['debugmode']);
 }
 
 // Load Translationclass. No t()-Function before this point!
-include_once("inc/classes/class_translation.php");
 $translation = new translation();
 
 $smarty = new Smarty();
@@ -255,15 +251,12 @@ if (isset($debug)) {
 }
 
 // Display Functions (to load the lansuite-templates)
-include_once("inc/classes/class_display.php");
 $dsp = new display();
 
 // DB Functions (to work with the databse)
-include_once("inc/classes/class_db_mysql.php");
 $db = new db();
 
 // Security Functions (to lock pages)
-include_once("inc/classes/class_sec.php");
 $sec = new sec();
 
 if (isset($debug)) {
@@ -325,7 +318,6 @@ if ($config['environment']['configured'] == 0) {
     }
 
     // Start authentication, just if LS is working
-    include_once("inc/classes/class_auth.php");
     $authentication = new auth($frmwrkmode);
     // Test Cookie / Session if user is logged in
     $auth = $authentication->check_logon();
