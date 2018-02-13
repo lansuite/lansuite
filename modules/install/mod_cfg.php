@@ -123,7 +123,6 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                 $dsp->EndTab();
 
                 $dsp->StartTab(t('Zugriff'), 'delete_group');
-                  include_once('inc/classes/class_masterform.php');
                   $mf = new masterform();
 
                   $res = $db->qry('SELECT * FROM %prefix%menu WHERE module = %string% AND caption != \'\' ORDER BY level, requirement, pos', $_GET['module']);
@@ -319,7 +318,6 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                 $db->qry("INSERT INTO %prefix%menu SET caption = 'Neuer Eintrag', requirement = '0', hint = '', link = 'index.php?mod=', needed_config = '', module=%string%, level = 1", $_GET["module"]);
             }
 
-                  include_once('inc/classes/class_masterform.php');
                   $mf = new masterform();
 
                     $res = $db->qry('SELECT * FROM %prefix%menu WHERE module = %string% AND caption != \'\' ORDER BY level, requirement, pos', $_GET['module']);

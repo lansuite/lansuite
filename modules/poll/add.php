@@ -25,7 +25,6 @@ function Update($id)
 
 $dsp->NewContent(t('Poll hinzufügen / ändern'), t('Um den Poll hinzuzufügen / zu ändern, fülle bitte das folgende Formular vollständig aus.'));
 
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 $mf->AddField(t('Name'), 'caption');

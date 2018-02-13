@@ -13,7 +13,6 @@ function CheckOldPW($old_password)
 }
 
 $_GET['userid'] = $auth['userid'];
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 $mf->AddField(t('Derzeitiges Passwort'), 'old_password', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckOldPW');

@@ -1,7 +1,6 @@
 <?php
 
-include_once("inc/classes/class_gd.php");
-$gd = new gd;
+$gd = new gd();
 
 // Create user in user_settings, if not pressent
 // (in some installations this was not created automatically)
@@ -24,8 +23,6 @@ function CheckAndResizeUploadPic($AvatarName)
     return false;
 }
 
-
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 // Designs
@@ -33,8 +30,7 @@ if ($cfg['user_design_change']) {
     $selections = array();
     $selections[''] = t('System-Vorgabe');
 
-    include_once("inc/classes/class_xml.php");
-    $xml = new xml;
+    $xml = new xml();
 
     $ResDesign = opendir('design/');
     while ($dir = readdir($ResDesign)) {

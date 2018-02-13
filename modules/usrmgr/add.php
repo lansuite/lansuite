@@ -2,8 +2,7 @@
 include_once("modules/usrmgr/class_usrmgr.php");
 $usrmgr = new UsrMgr();
 
-include_once("inc/classes/class_gd.php");
-$gd = new gd;
+$gd = new gd();
 
 function Update($id)
 {
@@ -316,18 +315,12 @@ function ShowField($key)
 
 if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
     $party_user = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id= %int%", $_GET["userid"], $party->party_id);
-    include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
   
     if ($cfg['signon_def_locked'] and !$_GET['userid']) {
         $mf->AddFix('locked', 1);
     }
-  
-/*
-  if (count($_POST) == 0) $_POST['signon'] = $party_user['party_id'];
-  if (!isset($_POST['price_id'])) $_POST['price_id'] = $party_user['price_id'];
-  if (!isset($_POST['paid'])) $_POST['paid'] = $party_user['paid'];
-*/
+
     if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
         if (!$DoSignon) {
         // If Admin, Creating a new user, or Missing fields:
@@ -565,8 +558,7 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
                 $selections = array();
                 $selections[''] = t('System-Vorgabe');
 
-                include_once("inc/classes/class_xml.php");
-                $xml = new xml;
+                $xml = new xml();
 
                 $ResDesign = opendir('design/');
                 while ($dir = readdir($ResDesign)) {

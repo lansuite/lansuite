@@ -52,7 +52,6 @@ switch ($_GET["step"]) {
         break;
 
     case 10:
-        include_once('inc/classes/class_masterdelete.php');
         $md = new masterdelete();
         $md->MultiDelete('stats_auth', 'sessid');
         break;

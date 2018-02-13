@@ -93,10 +93,8 @@ if ($server == "") {
 
     // Including comment-engine
     if ($auth['login'] == 1) {
-        include('inc/classes/class_masterrate.php');
         new masterrate('server', $_GET['serverid']);
 
-        include('inc/classes/class_mastercomment.php');
         new Mastercomment('server', $_GET['serverid'], array('server' => 'serverid'));
     }
     //End comment-engine

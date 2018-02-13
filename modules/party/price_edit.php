@@ -9,7 +9,6 @@ if (!$_GET['party_id']) {
     $_GET['party_id'] = $party->party_id;
 }
 
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 $mf->AdditionalKey = 'party_id = '. (int)$_GET['party_id'];

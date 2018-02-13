@@ -203,8 +203,7 @@ class UsrMgr
     {
         global $cfg, $db, $config;
 
-        include_once('inc/classes/class_xml.php');
-        $xml = new xml;
+        $xml = new xml();
         $output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
 
         $system = $xml->write_tag('version', $config['lansuite']['version'], 2);

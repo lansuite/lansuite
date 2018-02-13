@@ -23,5 +23,26 @@
     "minimum-stability": "stable",
     "config": {
         "bin-dir": "bin"
+    },
+    "autoload": {
+        "classmap": [
+            "inc/classes/class.crypt.php",
+            "inc/classes/class_auth.php",
+            "inc/classes/class_barcode.php",
+            "inc/classes/class_db_mysql.php",
+            "inc/classes/class_debug.php",
+            "inc/classes/class_display.php",
+            "inc/classes/class_framework.php",
+            "inc/classes/class_func.php",
+            "inc/classes/class_gd.php",
+            "inc/classes/class_mastercomment.php",
+            "inc/classes/class_masterdelete.php",
+            "inc/classes/class_masterform.php",
+            "inc/classes/class_masterrate.php",
+            "inc/classes/class_plugin.php",
+            "inc/classes/class_sec.php",
+            "inc/classes/class_translation.php",
+            "inc/classes/class_xml.php"
+        ]
     }
 }

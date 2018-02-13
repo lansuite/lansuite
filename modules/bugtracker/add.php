@@ -5,7 +5,6 @@ $row = $db->qry_first('SELECT reporter FROM %prefix%bugtracker WHERE bugid = %in
 if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']) {
     $func->error(t('Nur Admins und der Reporter dürfen Bug-Einträge im Nachhinein editieren'), 'index.php?mod=bugtracker');
 } else {
-    include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
 
     $mf->AddField(t('Überschrift'), 'caption');

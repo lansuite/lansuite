@@ -117,7 +117,6 @@ if (!$cfg['download_use_ftp']) {
 
           // URL Upload Box
             $dsp->AddFieldSetStart(t('URL verlinken'));
-            include_once('inc/classes/class_masterform.php');
             $mf = new masterform();
             $mf->AddField(t('URL'), 'link');
             $mf->AddFix('dir', $_GET['dir']);
@@ -127,14 +126,12 @@ if (!$cfg['download_use_ftp']) {
 
         // Comments
         if ($_GET['mf_step'] != 2 or $_GET['step'] != 10) {
-              include('inc/classes/class_mastercomment.php');
               new Mastercomment('downloads', $row['dirid']);
         }
 
         // Admin functions for dir
         if ($auth['type'] >= 2 and ($_GET['mf_step'] != 2 or $_GET['step'] == 10)) {
             $dsp->AddFieldSetStart(t('Ordner Text und Einstellungen editieren'));
-            include_once('inc/classes/class_masterform.php');
             $mf = new masterform();
 
             $mf->AddField(t('Text'), 'text', '', LSCODE_BIG, FIELD_OPTIONAL);

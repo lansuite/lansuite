@@ -41,8 +41,7 @@ function Check()
     }
     return $ret;
 }
- 
-include_once('inc/classes/class_masterform.php');
+
 $mf = new masterform();
 
 $dsp->NewContent(t('Geld überweisen'), t('Hier kannst du anderen Benutzern Geld überweisen'));

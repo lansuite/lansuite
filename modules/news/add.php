@@ -1,7 +1,6 @@
 <?php
 $dsp->NewContent(t('News verwalten'), t('Mit Hilfe des folgenden Formulars kannst du Neuigkeiten auf deiner Seite ergänzen und bearbeiten'));
 
-include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 // Name
