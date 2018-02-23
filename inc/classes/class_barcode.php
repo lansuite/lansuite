@@ -1,7 +1,4 @@
 <?php
-
-
-
 //########################//
 //
 // Author :Harish Chauhan
@@ -22,9 +19,6 @@
 *
 * Reference : http://www.barcodeisland.com/symbolgy.phtml
 */
-
-define('BARCODE_PATH', 'ext_inc/barcodes/');
-
 class barcode
 {
     public $_encode;
@@ -1740,61 +1734,5 @@ class barcode
         }
 
         @imagedestroy($im);
-    }
-}
-
-
-class barcode_system
-{
-    public $class_barcode;
-    
-    public function __construct()
-    {
-        global $cfg, $db;
-        
-        $this->class_barcode = new barcode($cfg['sys_barcode_typ']);
-
-        $this->class_barcode->setHeight(50);
-        $this->class_barcode->setScale(1);
-        $this->class_barcode->setHexColor("#000000", "#FFFFFF");
-        
-        if (isset($_POST['barcodefield']) && $cfg['sys_barcode_on']) {
-            $data = $db->qry_first("SELECT userid FROM %prefix%user WHERE barcode=%string%", $_POST['barcodefield']);
-            $_POST['userid'] = $data['userid'];
-            $_GET['userid'] = $data['userid'];
-        }
-    }
-    
-    
-    public function gencode($userid)
-    {
-        $code = 768300000000;
-        $code = $code + ($userid * 10000);
-        $code = $code + mt_rand(0, 9999);
-        return $code;
-    }
-    
-    public function getcode($userid)
-    {
-        global $db,$cfg;
-        
-        $data = $db->qry_first("SELECT barcode FROM %prefix%user WHERE userid=%int%", $userid);
-        if ($data['barcode'] == "0") {
-            $data['barcode'] = $this->gencode($userid);
-
-            $db->qry_first("UPDATE %prefix%user SET barcode = %string% WHERE userid=%int%", $data['barcode'], $userid);
-        }
-        return $data['barcode'];
-    }
-    
-    public function get_image($userid, $filename)
-    {
-        $code = $this->getcode($userid);
-        return $this->class_barcode->genBarCode($code, "png", $filename);
-    }
-    
-    public function kill_image($filename)
-    {
-        unlink($filename . ".png");
     }
 }
