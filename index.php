@@ -231,6 +231,7 @@ $lang = [];
 
 // Debug initialisieren
 if ($config['lansuite']['debugmode'] > 0) {
+    require_once('inc/Functions/Debug.php');
     $debug = new debug($config['lansuite']['debugmode']);
 }
 

@@ -7,49 +7,6 @@
  * @package lansuite_core
  */
 
-/**
-* Magic Debugfunction
-* You can use it 3 ways.
-* <code>
-* d($config); // Just an variable. Variables name will be unknown in the output
-* d('$config'); // Variable as string. This way the variables name can be written as well.
-* d('Any Text', $config); // Write the variables name as a string
-* </code>
-*
-*/
-function d()
-{
-    global $debug, $func;
-
-    $arg_vars = func_get_args();
-    if (!isset($debug)) {
-        $debug = new debug(1);
-    }
-
-    if ($arg_vars[1]) {
-        $title = $arg_vars[0];
-        $val = $arg_vars[1];
-    } elseif (is_string($arg_vars[0]) and substr($arg_vars[0], 0, 1) == '$') {
-        $title = $arg_vars[0];
-        eval('global '. $arg_vars[0] .'; $val = '. $arg_vars[0] .';');
-    } else {
-        $title = 'Variable';
-        $val = $arg_vars[0];
-    }
-
-    $func->information($title .':<br>"'. nl2br(str_replace(' ', '&nbsp;', htmlentities(print_r($val, true)))) .'"', NO_LINK);
-
-    if ($title == 'Variable') {
-        if (is_numeric($val)) {
-            $title = $val;
-        } elseif (is_string($val)) {
-            $title = substr($val, 0, 10);
-        } else {
-            $title = 'No title given';
-        }
-    }
-    $debug->tracker('Debug point: '. $title);
-}
 
 /**
  * Debugclass to provide functions like timer, debugvar output, servervar output
