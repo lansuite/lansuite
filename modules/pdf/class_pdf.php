@@ -16,6 +16,11 @@ class pdf
 {
 
     /**
+     * Storage of barcodes
+     */
+    const BARCODE_PATH ='ext_inc/barcodes/';
+
+    /**
      * Daten Array um M�glich Daten anzuzeigen
      *
      * @var array

@@ -29,6 +29,7 @@
             "inc/classes/class.crypt.php",
             "inc/classes/class_auth.php",
             "inc/classes/class_barcode.php",
+            "inc/classes/class_barcode_system.php",
             "inc/classes/class_db_mysql.php",
             "inc/classes/class_debug.php",
             "inc/classes/class_display.php",
