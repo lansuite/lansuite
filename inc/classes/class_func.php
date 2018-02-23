@@ -10,19 +10,6 @@
  * @todo Remove Dialogfunctions and create own class
 */
 
-// Rewrite PHP's htmlspecialchars for ' is replaced by &#039;, instead of &#39;
-function htmlspecchars($string, $quote_style = ENT_COMPAT, $format = null)
-{
-    $aTransSpecchar = array('&' => '&amp;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;');
-    if (ENT_NOQUOTES == $quote_style) {
-        unset($aTransSpecchar['"']);
-    } elseif (ENT_QUOTES == $quote_style) {
-        $aTransSpecchar["'"] = '&#39;';
-    } // (apos) htmlspecialchars() uses '&#039;'
-    return strtr($string, $aTransSpecchar);
-}
-
-
 class func
 {
     public $ActiveModules = array();
