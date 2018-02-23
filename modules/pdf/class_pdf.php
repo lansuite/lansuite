@@ -906,15 +906,15 @@ class pdf
                 
                 case 'barcode':
                     $imagename = mt_rand(100000, 999999);
-                    $barcode->get_image($_SESSION['userid'], BARCODE_PATH .$imagename);
-                    $image = getimagesize(BARCODE_PATH .$imagename . ".png");
+                    $barcode->get_image($_SESSION['userid'], static::BARCODE_PATH .$imagename);
+                    $image = getimagesize(static::BARCODE_PATH .$imagename . ".png");
                     if (($image[0]/2) > $this->object_width) {
                         $this->object_width = $image[0];
                     }
                     if (($image[1]/2) > $this->object_high) {
                         $this->object_high = $image[1];
                     }
-                    $barcode->kill_image(BARCODE_PATH . $imagename);
+                    $barcode->kill_image(static::BARCODE_PATH . $imagename);
                     
                 case 'data':
                     $width = $this->pdf->GetStringWidth($data[$templ[$i]['text']]);
@@ -971,9 +971,9 @@ class pdf
                     
                     case 'barcode':
                         $imagename = mt_rand(100000, 999999);
-                        $barcode->get_image($data['userid'], BARCODE_PATH . $imagename);
-                        $this->pdf->Image(BARCODE_PATH . $imagename . ".png", $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y);
-                        $barcode->kill_image(BARCODE_PATH . $imagename);
+                        $barcode->get_image($data['userid'], static::BARCODE_PATH . $imagename);
+                        $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y);
+                        $barcode->kill_image(static::BARCODE_PATH . $imagename);
                     
 
                     case 'data':
