@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 /**
 * Check for common failures
 *
-* Small functtion to check against a number of dependencies that cause install.php to fail without showing any error details
+* Small function to check against a number of dependencies that cause install.php to fail without showing any error details
 * @return bool check result. True if error found, false if all OK
 */
 function checkdeps(){
@@ -15,7 +15,7 @@ function checkdeps(){
 	$error =false;
 	$errmsg='The following issues were found while preparing to run the installation:<br/>'. PHP_EOL;
 
-	//check if composer was executed (./vendors existing)
+	//check if composer was executed (folder ./vendor created)
 	if (!is_dir(__DIR__ . '/vendor')) {
 
 		$error = true;
@@ -28,7 +28,7 @@ function checkdeps(){
 		$errmsg .= __DIR__ . '/ext_inc/templates_c seems not to be writable by the PHP user. Please confirm that file and folder access rights are applied correctly<br/>' . PHP_EOL;
 	}
 
-	//check error state and return stored messges if problem found
+	//check error state and return stored messages if problem found
 	if ($error) echo $errmsg;
 	return $error;
 }
