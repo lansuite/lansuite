@@ -48,7 +48,7 @@ if ($auth["userid"]) {
     $teams = $db->qry($query, $party->party_id, $cfg['home_item_cnt_tournament2']);
 }
 
-if ($db->num_rows($teams) == 0) {
+if (!$teams instanceof mysqli_result || $db->num_rows($teams) == 0) {
     $content = "<i>". t('Es sind keine aktuellen Spielpaarungen vorhanden') ."</i>";
 } else {
     while ($team = $db->fetch_array($teams)) {
@@ -57,8 +57,8 @@ if ($db->num_rows($teams) == 0) {
         $smarty->assign('text2', "({$team["tuname"]})");
         $content .= $smarty->fetch('modules/home/templates/show_row.htm');
     }
+    $db->free_result($teams);
 }
-$db->free_result($teams);
 
 // Show dropdown to see all active games
 if ($auth['type'] > 1) {
