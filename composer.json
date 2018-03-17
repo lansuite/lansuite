@@ -15,7 +15,6 @@
         "php": "^7.0",
         "ext-gd": "*",
         "ext-mysqli": "*",
-        "ext-snmp": "*",
 
         "smarty/smarty": "^3.1",
         "geshi/geshi": "^1.0.9"
@@ -26,6 +25,9 @@
     "minimum-stability": "stable",
     "config": {
         "bin-dir": "bin"
+    },
+    "suggest": {
+        "ext-snmp": "Required to use the \"Network Operation Center\" module."
     },
     "autoload": {
         "classmap": [
