@@ -305,7 +305,10 @@ if ($config['environment']['configured'] == 0) {
     }
 
     $cfg = $func->read_db_config();
-    $sec->check_blacklist();
+    $message = $sec->check_blacklist();
+    if (strlen($message) > 0) {
+        die($message);
+    }
 
     if (!$_GET['mod']) {
         $_GET['mod'] = 'home';
