@@ -1,5 +1,8 @@
 # LanSuite configuration
 /inc/base/config.php
 
+# Installed by vendors
+bin/phpunit
+
 # Generated folder/files
 /vendor/
