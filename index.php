@@ -2,6 +2,9 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
+// Load global functions
+require_once('inc/Functions/T.php');
+
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise
 // LanSuite might not work properly anymore.
