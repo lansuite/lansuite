@@ -6,7 +6,7 @@
  convertNoticesToExceptions="true"
  convertWarningsToExceptions="true"
  -->
-<phpunit backupGlobals="false"
+<phpunit backupGlobals="true"
          backupStaticAttributes="false"
          colors="true"
          bootstrap="vendor/autoload.php"
