@@ -15,14 +15,20 @@
         "php": "^7.0",
         "ext-gd": "*",
         "ext-mysqli": "*",
-        "ext-snmp": "*",
 
         "smarty/smarty": "^3.1",
         "geshi/geshi": "^1.0.9"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5",
+        "doctrine/instantiator": "~1.0.5"
+    },
     "minimum-stability": "stable",
     "config": {
         "bin-dir": "bin"
+    },
+    "suggest": {
+        "ext-snmp": "Required to use the \"Network Operation Center\" module."
     },
     "autoload": {
         "classmap": [

@@ -10,10 +10,16 @@ matrix:
   allow_failures:
   - php: nightly
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 install:
   - pear install PHP_CodeSniffer
   - phpenv rehash
+  - composer install
 
 script:
   - find . -name '*.php' -print0 | xargs -0 -n1 php -lf
   - phpcs --standard=PSR1,PSR2 --extensions=php --ignore="^$(pwd)/ext_scripts/*" . || true # Allow failures for now
+  - bin/phpunit
