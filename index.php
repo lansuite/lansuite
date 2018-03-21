@@ -3,7 +3,11 @@
 require __DIR__ . '/vendor/autoload.php';
 
 // Load global functions
+// TODO Switch to function autoloading later on
 require_once('inc/Functions/T.php');
+require_once('inc/Functions/FetchDataRow.php');
+require_once('inc/Functions/FetchPostRow.php');
+require_once('inc/Functions/MasterCommentEditAllowed.php');
 
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise
