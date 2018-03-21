@@ -45,7 +45,7 @@ function FetchPostRow($text) {
 /**
  * @return bool
  */
-function EditAllowed() {
+function MasterCommentEditAllowed() {
     global $line, $auth;
 
     if ($line['creatorid'] == $auth['userid'] || $auth['type'] >= 2) {
@@ -107,7 +107,7 @@ class Mastercomment {
         $ms2->AddResultField('', 'u.username', 'FetchDataRow', '', 180);
         $ms2->AddResultField('', 'c.text', 'FetchPostRow');
         $ms2->AddIconField('quote', 'javascript:document.getElementById(\'text\').value += \'[quote]\' + document.getElementById(\'post%id%\').innerHTML + \'[/quote]\'', t('Zitieren'));
-        $ms2->AddIconField('edit', $CurentURLBase.'&commentid=%id%#dsp_form2', t('Editieren'), 'EditAllowed');
+        $ms2->AddIconField('edit', $CurentURLBase.'&commentid=%id%#dsp_form2', t('Editieren'), 'MasterCommentEditAllowed');
 
         if ($auth['type'] >= 3) {
             $ms2->AddIconField('delete', $CurentURLBase.'&mc_step=10&commentid=', t('Löschen'));
