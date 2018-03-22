@@ -2,6 +2,8 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
+// Load global functions
+require_once('inc/Functions/T.php');
 require_once('inc/Functions/CheckValidEmail.php');
 
 // Set error_reporting.
@@ -307,7 +309,10 @@ if ($config['environment']['configured'] == 0) {
     }
 
     $cfg = $func->read_db_config();
-    $sec->check_blacklist();
+    $message = $sec->check_blacklist();
+    if (strlen($message) > 0) {
+        die($message);
+    }
 
     if (!$_GET['mod']) {
         $_GET['mod'] = 'home';
