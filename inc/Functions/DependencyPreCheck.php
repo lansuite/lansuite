@@ -22,7 +22,7 @@ function dependencyPreCheck(){
 	}
 
 	// Check error state and return stored messages if problem found
-	if (!empty($errmsg) {
+	if (!empty($errmsg)) {
 		return 'The following issues were found while preparing to run the installation:<br/>'. PHP_EOL . $errmsg;
 	} else {
 		return false;
