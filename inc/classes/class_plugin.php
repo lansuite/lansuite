@@ -1,28 +1,41 @@
 <?php
 
 /**
- * Class PLUGIN for Lansuite
+ * Class plugin
  *
- * This Class generates the needed Dataarray to load the Pluginfiles
- *
- * @package lansuite_core
- * @author bytekilla
- * @version $Id$
- * @access public
+ * This class generates the needed data array to load the plugin files.
  */
 class plugin
 {
 
-  /**
-   * Intern Variables
-   * @access private
-   * @var mixed
-   */
-    public $modules    =     array();
-    public $captions    =     array();
-    public $icons    =     array();
+    /**
+     * @var array
+     */
+    public $modules = [];
+
+    /**
+     * @var array
+     */
+    public $captions = [];
+
+    /**
+     * @var array
+     */
+    public $icons = [];
+
+    /**
+     * @var int
+     */
     public $currentIndex = 0;
+
+    /**
+     * @var int
+     */
     public $count = 0;
+
+    /**
+     * @var string
+     */
     public $type = '';
 
     public function __construct($type)
@@ -38,29 +51,31 @@ class plugin
                 $this->count++;
             }
         }
+
         $db->free_result($res);
         $this->type = $type;
     }
 
-  /**
-   * Get the next (or specific) element
-   * @access public
-   * @return list(caption, include_string, icon)
-   */
+    /**
+     * Get the next (or specific) element
+     *
+     * @param int $index
+     * @return array|bool
+     */
     public function fetch($index = -1)
     {
         if ($index == -1) {
-            (int)$index = $this->currentIndex;
+            $index = (int) $this->currentIndex;
         }
 
         if ($index >= $this->count) {
             return false;
         }
 
-        $arr = array();
+        $arr = [];
         $this->currentIndex = $index + 1;
         $arr[] = $this->captions[$index];
-        $arr[] = 'modules/'. $this->modules[$index] .'/plugins/'. $this->type .'.php';
+        $arr[] = 'modules/' . $this->modules[$index] . '/plugins/' . $this->type . '.php';
         $arr[] = $this->icons[$index];
 
         return $arr;
