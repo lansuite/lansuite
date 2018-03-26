@@ -4,6 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 // Load global functions
 require_once('inc/Functions/T.php');
+require_once('inc/Functions/CheckValidEmail.php');
 
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise
