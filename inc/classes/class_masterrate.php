@@ -3,7 +3,6 @@
 class masterrate
 {
 
-    // Construktor
     public function __construct($mod, $id, $caption = '')
     {
         global $auth, $db, $dsp, $framework, $smarty;
@@ -53,17 +52,21 @@ class masterrate
   div.rating div.on a {
     background-position: 0 -16px;
   }
-	div.rating div.hover a {
-		background-position: 0 -32px;
-	}");
+    div.rating div.hover a {
+        background-position: 0 -32px;
+    }");
 
-        $row = $db->qry_first(
-            'SELECT ROUND(AVG(score), 1) AS score FROM %prefix%ratings WHERE ref_name = %string% AND ref_id = %string% GROUP BY ref_name, ref_id',
-            $mod,
-            $id
-        );
+        $row = $db->qry_first('
+          SELECT ROUND(AVG(score), 1) AS score
+          FROM %prefix%ratings
+          WHERE
+            ref_name = %string%
+            AND ref_id = %string%
+        GROUP BY ref_name, ref_id', $mod, $id);
+
         $smarty->assign('rating', $row['score']);
-        $smarty->assign('action', $framework->get_clean_url_query('base') .'&mr_step=2&design=base');
+        $smarty->assign('action', $framework->get_clean_url_query('base') . '&mr_step=2&design=base');
+
         if ($caption == '') {
             $caption = t('Bewertung');
         }
