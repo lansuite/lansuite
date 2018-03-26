@@ -1,34 +1,102 @@
 <?php
 
 /**
- * Authorisation and Cookiemanagement for Lansuite
+ * Class auth
  *
- * @package lansuite_core
- * @author bytekilla
- * @version $Id$
- * @access public
+ * Authorisation and Cookie management for LanSuite
+ *
  * @todo Change uniqkey from md5(password) to an extra Field
  */
 class auth {
 
-    public $auth = array();                 // Userdaten im Array
-    public $timestamp;                      // Zeit
-    public $cookie_data =     array();      // Cookiedaten
-    public $cookie_name =     "LSAUTH";     // Cookiename
-    public $cookie_version =  "1";          // Cookieversion
-    public $cookie_domain =   "";           // Domain
-    public $cookie_time =     "30";         // Dauer in Tagen
-    public $cookie_path =     "";           // Cookiepath. Left blank for autodetect
-    public $cookie_crypt =    true;         // Crypt Cookie with AzDGCrypt
-    public $cookie_crypt_pw = "iD9ww32e";   // Passphrase for AzDGCrypt
-    public $online_users = array();         // Array containing all users, currently online
-    public $away_users = array();         // Array containing all users, currently online by ajax but no hit last 10min
+    /**
+     * Userdata
+     *
+     * @var array
+     */
+    public $auth = [];
 
-  /**
-   * CONSTRUCTOR : Initialize basic Variables for Authorisation
-   * @param mixed Frameworkmode for switch Stats
-   *
-   */
+    /**
+     * Time
+     *
+     * @var int
+     */
+    public $timestamp;
+
+    /**
+     * Cookie data
+     *
+     * @var array
+     */
+    public $cookie_data = [];
+
+    /**
+     * Cookie name
+     *
+     * @var string
+     */
+    public $cookie_name = 'LSAUTH';
+
+    /**
+     * Cookie version
+     *
+     * @var string
+     */
+    public $cookie_version = '1';
+
+    /**
+     * Domain
+     *
+     * @var string
+     */
+    public $cookie_domain = '';
+
+    /**
+     * Duration in days
+     *
+     * @var string
+     */
+    public $cookie_time = '30';
+
+    /**
+     * Cookie path
+     *
+     * @var string
+     */
+    public $cookie_path = '';
+
+    /**
+     * Crypt Cookie with AzDGCrypt
+     *
+     * @var bool
+     */
+    public $cookie_crypt = true;
+
+    /**
+     * Passphrase for AzDGCrypt
+     *
+     * @var string
+     */
+    public $cookie_crypt_pw = "iD9ww32e";
+
+    /**
+     * Array containing all users, currently online
+     *
+     * @var array
+     */
+    public $online_users = [];
+
+    /**
+     * Array containing all users, currently online by ajax, but no hit last 10min
+     *
+     * @var array
+     */
+    public $away_users = [];
+
+    /**
+     * auth constructor.
+     * @param string $frmwrkmode Frameworkmode for switch Stats
+     */
     public function __construct($frmwrkmode = "") {
         global $db;
 
@@ -71,6 +139,7 @@ class auth {
             // and there the user is active, it will count as an online user.
             if ($row['online'] > 0) {
                 $this->online_users[] = $row['userid'];
+
             } else {
                 $this->away_users[] = $row['userid'];
             }
@@ -83,38 +152,35 @@ class auth {
         $thirtyDays = 60 * 60 * 24 * 30;
         $row = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
         if ($row['found']) {
-            $row = $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
-            $row = $db->qry_first('OPTIMIZE TABLE %prefix%stats_auth');
+            $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
+            $db->qry_first('OPTIMIZE TABLE %prefix%stats_auth');
 
             // Delete cookie after 30 days
             // (TODO: Maybe make this time a config option)
             // (TODO: Maybe differ time for admins and non-admins)
             $row = $db->qry_first('SELECT 1 AS found FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
             if ($row['found']) {
-                $row = $db->qry_first('DELETE FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
-                $row = $db->qry_first('OPTIMIZE TABLE %prefix%cookie');
+                $db->qry_first('DELETE FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
+                $db->qry_first('OPTIMIZE TABLE %prefix%cookie');
             }
         }
     }
 
-  /**
-   * Check Userlogon via Session or Cookie. Check some Security Options
-   * and set or delete logon if any Problem are found.
-   *
-   * @todo Set more securityfunctions
-   * @return array Returns the auth-Array
-   */
+    /**
+     * Check User logon via Session or Cookie.
+     * Check some security options and set or delete logon if any problem is found.
+     *
+     * @return array
+     */
     public function check_logon()
     {
-        global $func;
-        // Mögliche Fälle
-        // 1. ausgeloggt.. keine Session, kein Cookie
-        // 1.5 Session aber kein Cookie (Cookies nicht erlaubt, nur User)
-        // 2. Keine session aber Cookie (session abgelaufen)
-        // 3. Eingeloggt Session und Cookie
-        // 4. Eingeloggt Session und Cookie und userswitch
+        // Possible cases
+        // 1. Logged out. No Session. No Cookie
+        // 1.5 Session exists, but no cookie
+        // 2. No session, but a cookie (session times out)
+        // 3. Logged in with session and cookie
+        // 4. Logged in with session and cookie and user switch
 
-        // Read Cookiedata
         $CookieStatus = $this->cookie_read();
 
         // Look for SessionID in DB and load auth-data
@@ -128,14 +194,14 @@ class auth {
         return $this->auth;
     }
 
-  /**
-   * Check and Login a User.
-   *
-   * @todo Get the Messages out of the Class, just make Strings
-   * @param mixed Useremail
-   * @param mixed Userpassword
-   * @return array Returns the auth-dataarray
-   */
+    /**
+     * Check and Login a User.
+     *
+     * @param string $email
+     * @param string $password
+     * @param int $show_confirmation
+     * @return array
+     */
     public function login($email, $password, $show_confirmation = 1)
     {
         global $db, $func, $cfg, $party;
@@ -146,18 +212,22 @@ class auth {
         if ($email != "") {
             $tmp_login_email = strtolower(htmlspecialchars(trim($email)));
         }
+
         if ($password != "") {
             $tmp_login_pass = md5($password);
         }
 
         if ($tmp_login_email == "") {
             $func->information(t('Bitte gib deine E-Mail-Adresse oder deine Lansuite-ID ein.'), '', 1);
+
         } elseif ($tmp_login_pass == "") {
             $func->information(t('Bitte gib dein Kennwort ein.'), '', 1);
+
         } else {
             $is_email = strstr($tmp_login_email, '@');
             if (!$is_email) {
                 $is_email = 0;
+
             } else {
                 $is_email = 1;
             }
@@ -169,8 +239,9 @@ class auth {
                     'SELECT *, 1 AS found FROM %prefix%user WHERE (userid = %int%)',
                     $cookierow['userid']
                 );
-            } // Not found in cookie table, then check for manual login (either with email, oder userid)
-            else {
+
+            // Not found in cookie table, then check for manual login (either with email, oder userid)
+            } else {
                 $user = $db->qry_first(
                     'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user
               WHERE ((userid = %int% AND 0 = %int%) OR LOWER(email) = %string%)',
@@ -194,28 +265,34 @@ class auth {
             // Too many login trys?
             if ($row['anz'] >= 5) {
                 $func->information(t('Du hast in der letzten Minute bereits 5 mal dein Passwort falsch eingegeben. Bitte warte einen Moment, bevor du es erneut versuchen darfst'), '', 1);
+
             // Email not found?
             } elseif (!$user["found"]) {
                 $func->information(t('Dieser Benutzer existiert nicht in unserer Datenbank. Bitte prüfe die eingegebene Email/ID'), '', 1);
                 $func->log_event(t('Falsche Email angegeben (%1)', $tmp_login_email), '2', 'Authentifikation');
+
             // Account disabled?
             } elseif ($user["type"] <= -1) {
                 $func->information(t('Dein Account ist gesperrt. Melde dich bitte bei der Organisation.'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account gesperrt).', $tmp_login_email), "2", "Authentifikation");
+
             // Account locked?
             } elseif ($user['locked']) {
                 $func->information(t('Dieser Account ist noch nicht freigeschaltet. Bitte warte bis ein Organisator dich freigeschaltet hat.'), '', 1);
                 $func->log_event(t('Account von %1 ist noch gesperrt. Login daher fehlgeschlagen.', $tmp_login_email), "2", "Authentifikation");
+
             // Mail not verified?
             } elseif ($cfg['sys_login_verified_mail_only'] == 2 and !$user['email_verified'] and $user["type"] < 2) {
                 $func->information(t('Du hast deine Email-Adresse (%1) noch nicht verifiziert. Bitte folge dem Link in der dir zugestellten Email.', $user['email']).' <a href="index.php?mod=usrmgr&action=verify_email&step=2&userid='. $user['userid'] .'">'. t('Klicke hier, um die Mail erneut zu versenden</a>'), '', 1);
                 $func->log_event(t('Login fehlgeschlagen. Email (%1) nicht verifiziert', $user['email']), "2", "Authentifikation");
+
             // User login and wrong password?
             } elseif ($user["user_login"] and $tmp_login_pass != $user["password"]) {
                 ($cfg["sys_internet"])? $remindtext = t('Hast du dein Passwort vergessen?<br/><a href="./index.php?mod=usrmgr&action=pwrecover"/>Hier kannst du ein neues Passwort generieren</a>.') : $remindtext = t('Solltest du dein Passwort vergessen haben, wende dich bitte an die Organisation.');
                 $func->information(t('Die von dir eingebenen Login-Daten sind fehlerhaft. Bitte überprüfe deine Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $tmp_login_email), "2", "Authentifikation");
                 $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET6_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
+
             // Cookie login and no correct cookie supplied?
             } elseif (!$user["user_login"] and !$cookierow['userid']) {
                 ($cfg["sys_internet"])? $remindtext = t('Hast du dein Passwort vergessen?<br/><a href="./index.php?mod=usrmgr&action=pwrecover"/>Hier kannst du ein neues Passwort generieren</a>.') : $remindtext = t('Solltest du dein Passwort vergessen haben, wende dich sich bitte an die Organisation.');
@@ -223,14 +300,17 @@ class auth {
                 $func->log_event(t('Login für %1 fehlgeschlagen (Cookie-Fehler).', $tmp_login_email), "2", "Authentifikation");
                 $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET6_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
                 $this->cookie_unset();
+
             // Not checked in?
             } elseif ($func->isModActive('party') and (!$party_query["checkin"] or $party_query["checkin"] == '0000-00-00 00:00:00') and $user["type"] < 2 and !$cfg["sys_internet"]) {
                 $func->information(t('Du bist nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn du eingecheckt bist.') .HTML_NEWLINE. t('Bitte melden dich bei der Organisation.'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account nicht eingecheckt).', $tmp_login_email), "2", "Authentifikation");
+
             // Already checked out?
             } elseif ($func->isModActive('party') and $party_query["checkout"] and $party_query["checkout"] != '0000-00-00 00:00:00' and $user["type"] < 2 and !$cfg["sys_internet"]) {
                 $func->information(t('Du bist bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn du eingecheckt bist.') .HTML_NEWLINE. t('Bitte melden dich bei der Organisation.'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account ausgecheckt).', $tmp_login_email), "2", "Authentifikation");
+
             // Everything fine!
             } else {
                 // Set Logonstats
@@ -273,7 +353,7 @@ class auth {
                     }
                     $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink, '', 'FORWARD');
 
-                  // Show error logins
+                    // Show error logins
                     $msg = '';
                     $res = $db->qry('SELECT INET6_NTOA(ip) AS ip, time
                                    FROM %prefix%login_errors
@@ -287,50 +367,37 @@ class auth {
                     }
                     $db->qry('DELETE FROM %prefix%login_errors WHERE userid = %int%', $user['userid']);
                 }
-
-                // The User will be logged in on the phpBB Board if the modul is available, configured and active.
-                $this->loginPhpbb();
             }
         }
-        return $this->auth; // For global setting $auth
+        return $this->auth;
     }
 
-  /**
-   * Login User via Cookie e.g. if Session is expired
-   *
-   * @access private
-   * @param mixed Userid
-   * @param mixed Uniquekey
-   * @return array Returns the auth-dataarray
-   */
+    /**
+     * Login user via cookie e.g. if session is expired
+     *
+     * @param string $userid
+     * @param string $uniquekey
+     * @return void
+     */
     public function login_cookie($userid, $uniquekey)
     {
-        global $db, $func, $cfg;
+        global $func;
 
         if ($userid == "") {
             $func->information(t('Keine Userid beim Login via Cookie erkannt.'), '', 1);
+
         } elseif ($uniquekey == "") {
             $func->information(t('Kein Uniquekey beim Login via Cookie erkannt.'), '', 1);
+
         } else {
             $this->login($userid, $uniquekey, 0);
         }
     }
 
     /**
-     * Logs the user on the phpbb board on, if the board was integrated.
+     * Logout the user and delete Session data, cookie and authdata
      *
-     * @deprecated
-     */
-    public function loginPhpbb($userid = '')
-    {
-        // TODO: Remove it in the next major version release
-        // We keep this method to not break backwards compatibility
-    }
-
-    /**
-     * Logout the User and delete Sessiondata, Cookie and Authdata
-     *
-     * @return array Returns the cleared auth-dataarray
+     * @return array
      */
     public function logout()
     {
@@ -345,9 +412,6 @@ class auth {
         $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid = %int%', $this->auth['userid'], $this->cookie_data['userid']);
         $this->cookie_unset();
 
-        // Logs the user from the board2 off.
-        $this->logoutPhpbb();
-
         // Reset Sessiondata
         unset($this->auth);
         unset($_SESSION['auth']);
@@ -359,26 +423,16 @@ class auth {
         $this->auth["type"] = 0;
 
         $func->confirmation(t('Du wurdest erfolgreich ausgeloggt. Vielen dank für deinen Besuch.'), "", 1, FORWARD);
-        return $this->auth;                // For overwrite global $auth
+        return $this->auth;
     }
 
     /**
-     * Logs the user from the phpbb board off, if it was integrated.
+     * Switch to UserID
+     * Switches to given UserID and stores a callback function in a Cookie and DB
      *
-     * @deprecated
+     * @param $target_id
+     * @return void
      */
-    public function logoutPhpbb()
-    {
-        // TODO: Remove it in the next major version release
-        // We keep this method to not break backwards compatibility
-    }
-
-  /**
-   * Switch to UserID
-   * Switches to given UserID and stores a callbackfunktion in a Cookie and DB
-   *
-   * @param mixed $target_id
-   */
     public function switchto($target_id)
     {
         global $db, $func;
@@ -401,18 +455,22 @@ class auth {
             $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $target_id, $this->auth["sessid"]);
 
             $func->confirmation(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), '', 1);  //FIX meldungen auserhalb/standart?!?
+
         } else {
             $func->error(t('Dein Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), '', 1); //FIX meldungen auserhalb/standart?!
         }
     }
 
     /**
-     * Switchback to Adminuser
-     * Logout from the selectet User and go back to the calling Adminuser
+     * Switch back to Adminuser
+     * Logout from the selected User and go back to the calling Adminuser
+     *
+     * @return void
      */
     public function switchback()
     {
         global $db, $func;
+
         // Make sure that Cookiedata is loaded
         $this->cookie_read();
         if ($this->cookie_data['olduserid'] > 0) {
@@ -430,64 +488,78 @@ class auth {
                 $this->cookie_set();
 
                 $func->confirmation(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), '', 1);
+
             } else {
                 $func->information(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), '', 1);
             }
+
         } else {
             $func->information(t('Fehler: Keine Switchbackdaten gefunden! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), '', 1);
         }
     }
 
-  /**
-   * Check Userrights and add a Errormessage if needed
-   *
-   * @param mixed $requirement
-   * @return
-   */
+    /**
+     * Check user rights and add a error message if needed
+     *
+     * @param int $requirement
+     * @return int
+     */
     public function authorized($requirement)
     {
         global $func;
 
         switch ($requirement) {
-            case 1: // Logged in
+            // Logged in
+            case 1:
                 if ($this->auth['login']) {
                     return 1;
+
                 } else {
                     $func->information('NO_LOGIN');
                 }
                 break;
 
-            case 2: // Type is Admin, or Superadmin
+            // Type is Admin, or Superadmin
+            case 2:
                 if ($this->auth['type'] > 1) {
                     return 1;
+
                 } elseif (!$this->auth['login']) {
                     $func->information('NO_LOGIN');
+
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
                 break;
 
-            case 3: // Type is Superadmin
+            // Type is Superadmin
+            case 3:
                 if ($this->auth['type'] > 2) {
                     return 1;
+
                 } elseif (!$this->auth['login']) {
                     $func->information('NO_LOGIN');
+
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
                 break;
 
-            case 4: // Type is User, or less
+            // Type is User, or less
+            case 4:
                 if ($this->auth['type'] < 2) {
                     return 1;
+
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
                 break;
 
-            case 5: // Logged out
+            // Logged out
+            case 5:
                 if (!$this->auth['login']) {
                     return 1;
+
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
@@ -495,26 +567,24 @@ class auth {
 
             default:
                 return 1;
-            break;
         }
     }
 
-  /**
-   * Returns the old Userid if one is set.
-   *
-   * @return void Olduserid
-   */
+    /**
+     * Returns the old Userid if one is set.
+     *
+     * @return int
+     */
     public function get_olduserid()
     {
         return $this->cookie_data['olduserid'];
     }
 
-
-  /**
-   * Load all needed Auth-Data from DB and set to auth[]
-   *
-   * @access private
-   */
+    /**
+     * Load all needed Auth-Data from DB and set to auth[]
+     *
+     * @return mixed
+     */
     public function loadAuthBySID()
     {
         global $db;
@@ -533,15 +603,16 @@ class auth {
         return $this->auth['login'];
     }
 
-  /**
-   * Update Visitdata in stats_auth Table
-   *
-   * @access private
-   */
+    /**
+     * Update visit data in stats_auth Table
+     *
+     * @param string $frmwrkmode
+     * @return void
+     */
     public function update_visits($frmwrkmode = "")
     {
         global $db;
-        if ($frmwrkmode != "ajax" and $frmwrkmode != "print" and $frmwrkmode != "popup" and $frmwrkmode != "base") {
+        if ($frmwrkmode != "ajax" && $frmwrkmode != "print" && $frmwrkmode != "popup" && $frmwrkmode != "base") {
             // Update visits, hits, IP and lasthit
             $visit_timeout = time() - 60*60;
             // If a session loaded no page for over one hour, this counts as a new visit
@@ -549,17 +620,19 @@ class auth {
             // Update user-stats and lasthit, so the timeout is resetted
             $db->qry('UPDATE %prefix%stats_auth SET lasthit=%int%, hits = hits + 1, ip=%string%, lasthiturl= %string% WHERE sessid=%string%', $this->timestamp, $this->auth["ip"], $_SERVER['REQUEST_URI'], $this->auth["sessid"]);
         }
+
         // Heartbeat
         if ($frmwrkmode == "ajax") {
             $db->qry('UPDATE %prefix%stats_auth SET lastajaxhit=%int% WHERE sessid=%string%', $this->timestamp, $this->auth["sessid"]);
         }
     }
 
-  /**
-   * Generate a new CookiePW and set it (in DB + Cookie)
-   *
-   * @access public
-   */
+    /**
+     * Generate a new CookiePW and set it (in DB + Cookie)
+     *
+     * @param int $userid
+     * @return void
+     */
     public function set_cookie_pw($userid)
     {
         global $db;
@@ -575,39 +648,19 @@ class auth {
         $this->cookie_set();
     }
 
-  /**
-   * Validate Usercookie
-   *
-   * @return int Return the Vailidity. 1=OK, 0=NOK
-   * @access private
-   */
-    public function cookie_valid()
-    {
-        global $db;
-
-        if ($this->cookie_data['userid'] >= 1) {
-            $user_row = $db->qry_first('SELECT password FROM %prefix%cookie WHERE userid = %int%', $this->cookie_data['userid']);
-        }
-        if (md5($this->cookie_data['uniqekey']) == $user_row['password']) {
-            return 1;
-        } else {
-            $this->cookie_unset();
-            return 0;
-        }
-    }
-
-  /**
-   * Read and check Usercookie
-   *
-   * @return int Return the Cookiestatus. 1=OK, 0=NOK
-   * @access private
-   */
+    /**
+     * Read and check user cookie
+     *
+     * @return int Return the Cookiestatus. 1=OK, 0=NOK
+     */
     public function cookie_read()
     {
         $ok = 0;
+
         // Check for Cookie
         if (array_key_exists($this->cookie_name, $_COOKIE)) {
             $this->cookiedata_unpack($_COOKIE[$this->cookie_name]);
+
             // Look for correkt cookieformat
             if (is_numeric($this->cookie_data['userid']) and
                 is_string($this->cookie_data['uniqekey']) and
@@ -616,14 +669,15 @@ class auth {
                 $ok = 1;
             }
         }
+
         return $ok;
     }
 
-  /**
-   * Set Cookie for User
-   *
-   * @access private
-   */
+    /**
+     * Set cookie for user
+     *
+     * @return void
+     */
     public function cookie_set()
     {
         setcookie(
@@ -635,11 +689,11 @@ class auth {
         );
     }
 
-  /**
-   * Delete Usercookie
-   *
-   * @access private
-   */
+    /**
+     * Delete user cookie
+     *
+     * @return void
+     */
     public function cookie_unset()
     {
         setcookie(
@@ -651,12 +705,11 @@ class auth {
         );
     }
 
-  /**
-   * Pack and encrypt Cookiedata
-   *
-   * @return mixed Encryptet Cookiedata
-   * @access private
-   */
+    /**
+     * Pack and encrypt cookie data
+     *
+     * @return string
+     */
     public function cookiedata_pack()
     {
         $data = array($this->cookie_data['userid'],
@@ -665,21 +718,22 @@ class auth {
                       $this->cookie_data['olduserid'],
                       $this->cookie_data['sb_code']);
         $cookie = implode("|", $data);
+
         // Crypt only via Config. See Construktor
         if ($this->cookie_crypt) {
             $crypt= new AzDGCrypt(md5($this->cookie_crypt_pw));
             $cookie = $crypt->crypt($cookie);
         }
+
         return $cookie;
     }
 
-  /**
-   * Decrypt and unpack Cookiedata
-   *
-   * @param mixed Encryptet Cookiedata
-   * @return mixed Decryptet Cookiedata as array
-   * @access private
-   */
+    /**
+     * Decrypt and unpack cookie data
+     *
+     * @param string $cookie
+     * @return void
+     */
     public function cookiedata_unpack($cookie)
     {
         // Crypt only via Config. See Construktor
@@ -687,7 +741,7 @@ class auth {
             $crypt= new AzDGCrypt(md5($this->cookie_crypt_pw));
             $cookie = $crypt->decrypt($cookie);
         }
-        // TODO : Check Vars
+
         list($this->cookie_data['userid'],
               $this->cookie_data['uniqekey'],
               $this->cookie_data['version'],
@@ -695,13 +749,12 @@ class auth {
               $this->cookie_data['sb_code']) = explode("|", $cookie);
     }
 
-
-  /**
-   * Generate simple Randomkey
-   * @param integer How many Chars to generate
-   * @return mixed Generated Randomkey
-   * @access private
-   */
+    /**
+     * Generate simple random key
+     *
+     * @param int $count
+     * @return string
+     */
     public function gen_rnd_key($count)
     {
         $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
