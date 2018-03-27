@@ -1,24 +1,20 @@
 <?php
-//########################//
-//
-// Author :Harish Chauhan
-// Created : 7July 2005
-//
-//########################//
 
-/*
-* This class is for generating barcodes in diffrenct encoding symbologies.
-* It supports EAN-13,EAN-8,UPC-A,UPC-E,ISBN ,2 of 5 Symbologies(std,ind,interleaved),postnet,
-* codabar,code128,code39,code93 symbologies.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-*
-* Requirements : PHP with GD library support.
-*
-* Reference : http://www.barcodeisland.com/symbolgy.phtml
-*/
+/**
+ * Class barcode_system
+ *
+ * This class is for generating barcodes in different encoding symbols.
+ * It supports EAN-13, EAN-8, UPC-A, UPC-E, ISBN, 2 of 5 Symbologies(std, ind, interleaved), postnet,
+ * codabar, code128, code39, code93 symbologies.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * Requirements: PHP with GD library support.
+ *
+ * Reference: http://www.barcodeisland.com/symbolgy.phtml
+ */
 class barcode_system
 {
     public $class_barcode;
@@ -39,8 +35,11 @@ class barcode_system
             $_GET['userid'] = $data['userid'];
         }
     }
-    
-    
+
+    /**
+     * @param int $userid
+     * @return int
+     */
     public function gencode($userid)
     {
         $code = 768300000000;
@@ -48,10 +47,14 @@ class barcode_system
         $code = $code + mt_rand(0, 9999);
         return $code;
     }
-    
+
+    /**
+     * @param int $userid
+     * @return int
+     */
     public function getcode($userid)
     {
-        global $db,$cfg;
+        global $db;
         
         $data = $db->qry_first("SELECT barcode FROM %prefix%user WHERE userid=%int%", $userid);
         if ($data['barcode'] == "0") {
@@ -59,15 +62,25 @@ class barcode_system
 
             $db->qry_first("UPDATE %prefix%user SET barcode = %string% WHERE userid=%int%", $data['barcode'], $userid);
         }
+
         return $data['barcode'];
     }
-    
+
+    /**
+     * @param int $userid
+     * @param string $filename
+     * @return bool
+     */
     public function get_image($userid, $filename)
     {
         $code = $this->getcode($userid);
         return $this->class_barcode->genBarCode($code, "png", $filename);
     }
-    
+
+    /**
+     * @param string $filename
+     * @return void
+     */
     public function kill_image($filename)
     {
         unlink($filename . ".png");
