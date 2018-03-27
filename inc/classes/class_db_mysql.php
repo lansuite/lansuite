@@ -2,17 +2,60 @@
 
 class db
 {
+    /**
+     * @var int
+     */
     public $link_id = 0;
-    public $query_id = 0;
-    public $record = array();
-    public $success = false;
-    public $count_query = 0;
-    public $errors = '';
-    public $errorsFound = 0;
-    public $connectfailure = 0;  //0= no error, 1=connection error, 2=database error
-    public $QueryArgs = array();
 
-    // Internal only
+    /**
+     * @var int
+     */
+    public $query_id = 0;
+
+    /**
+     * @var array
+     */
+    public $record = [];
+
+    /**
+     * @var bool
+     */
+    public $success = false;
+
+    /**
+     * @var int
+     */
+    public $count_query = 0;
+
+    /**
+     * @var string
+     */
+    public $errors = '';
+
+    /**
+     * @var int
+     */
+    public $errorsFound = 0;
+
+    /**
+     * 0 = no error
+     * 1 = connection error
+     * 2 = database error
+     *
+     * @var int
+     */
+    public $connectfailure = 0;
+
+    /**
+     * @var array
+     */
+    public $QueryArgs = [];
+
+    /**
+     * @param string $msg
+     * @param string $query_string_with_error
+     * @return void
+     */
     public function print_error($msg, $query_string_with_error)
     {
         global $config, $auth;
@@ -28,6 +71,10 @@ class db
         $this->count_query++;
     }
 
+    /**
+     * @param array $match
+     * @return int|mixed|string
+     */
     public function escape($match)
     {
         $CurrentArg = array_shift($this->QueryArgs);
@@ -44,8 +91,10 @@ class db
         }
     }
 
-    #### Connection related ####
-
+    /**
+     * @param bool $save
+     * @return bool
+     */
     public function connect($save = false)
     {
         global $config;
@@ -64,6 +113,7 @@ class db
                 $this->connectfailure = 1;
                 $this->success = false;
                 return false;
+
             } else {
                 echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen') . HTML_FONT_END;
                 exit();
@@ -87,31 +137,39 @@ class db
         // Set encoding based on config file
         if (!empty($charset)) {
               $this->link_id->set_charset($charset);
+
         } else {
             $this->link_id->set_charset('utf8');
         }
         $this->success = true;
         $this->connectfailure = 0;
+
         return true;
     }
 
+    /**
+     * @return void
+     */
     public function set_charset()
     {
         mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
     }
 
+    /**
+     * @return string
+     */
     public function get_host_info()
     {
         return mysqli_get_host_info($this->link_id);
     }
 
+    /**
+     * @return void
+     */
     public function disconnect()
     {
         mysqli_close($this->link_id);
     }
-
-
-    #### Queries ####
 
     /**
      * If the second parameter is an array, the function uses the array as value list.
@@ -149,11 +207,16 @@ class db
         if (isset($debug)) {
             $debug->query_stop($this->sql_error);
         }
-        $this->QueryArgs = array();
+        $this->QueryArgs = [];
 
         return $this->query_id;
     }
 
+    /**
+     * @param int $query_id
+     * @param int $save
+     * @return array|null
+     */
     public function fetch_array($query_id = -1, $save = 1)
     {
         global $func;
@@ -173,6 +236,10 @@ class db
         return $this->record;
     }
 
+    /**
+     * @param int $query_id
+     * @return int
+     */
     public function num_rows($query_id = -1)
     {
         if ($query_id != -1) {
@@ -182,6 +249,10 @@ class db
         return mysqli_num_rows($this->query_id);
     }
 
+    /**
+     * @param int $query_id
+     * @return int
+     */
     public function get_affected_rows($query_id = -1)
     {
         if ($query_id != -1) {
@@ -191,6 +262,10 @@ class db
         return mysqli_affected_rows($this->link_id);
     }
 
+    /**
+     * @param int $query_id
+     * @return int|string
+     */
     public function insert_id($query_id = -1)
     {
         if ($query_id != -1) {
@@ -200,6 +275,10 @@ class db
         return mysqli_insert_id($this->link_id);
     }
 
+    /**
+     * @param int $query_id
+     * @return int
+     */
     public function num_fields($query_id = -1)
     {
         if ($query_id != -1) {
@@ -209,6 +288,11 @@ class db
         return mysqli_num_fields($this->query_id);
     }
 
+    /**
+     * @param int $pos
+     * @param int $query_id
+     * @return mixed
+     */
     public function field_name($pos, $query_id = -1)
     {
         if ($query_id != -1) {
@@ -219,6 +303,10 @@ class db
         return $finfo->name;
     }
 
+    /**
+     * @param int $query_id
+     * @return void
+     */
     public function free_result($query_id = -1)
     {
         if ($query_id != -1) {
@@ -227,8 +315,6 @@ class db
 
         return mysqli_free_result($this->query_id);
     }
-
-    #### Special ####
 
     /**
      * If the second parameter is an array, the function uses the array as value list.
@@ -249,15 +335,22 @@ class db
         return $row;
     }
 
+    /**
+     * @return array|null
+     */
     public function qry_first_rows()
     {
         $this->qry($args = func_get_args());
         $row = $this->fetch_array();
-        $row['number'] = $this->num_rows(); // fieldname "number" is reserved
+        // fieldname "number" is reserved
+        $row['number'] = $this->num_rows();
         $this->free_result();
         return $row;
     }
 
+    /**
+     * @return string
+     */
     public function client_info() {
         return mysqli_get_client_info();
     }
@@ -271,11 +364,14 @@ class db
         return mysqli_get_server_info($this->link_id);
     }
 
+    /**
+     * @return void
+     */
     public function DisplayErrors()
     {
         global $cfg, $func;
 
-        if ($cfg['show_mysql_errors'] and $this->errors) {
+        if ($cfg['show_mysql_errors'] && $this->errors) {
             $func->error($this->errors);
             $this->errors = '';
         }
