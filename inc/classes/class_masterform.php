@@ -278,7 +278,7 @@ class masterform
         if (count($this->Groups) > 0) {
             $arr = [
                 'caption' => $caption,
-                'groups' => $this->Groupsm
+                'groups' => $this->Groups
             ];
             $this->Pages[] = $arr;
             $this->Groups = [];
