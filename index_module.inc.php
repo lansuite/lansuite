@@ -8,13 +8,13 @@ if ($cfg['sys_blocksite'] == 1) {
 }
 
 $missing_fields = 0;
-if ($func->admin_exists() and $_GET["mod"] != 'install') {
+if ($_GET["mod"] != 'install' && $func->admin_exists()) {
     // Check, if all required user data fields, are known and force user to add them, if not.
     if ($auth['login'] and $auth['userid']) {
         include_once('modules/usrmgr/missing_fields.php');
     }
 
-  // Reset $auth['type'], if no permission to Mod
+    // Reset $auth['type'], if no permission to Mod
     if ($auth['type'] > 1) {
         // Has at least someone (with rights equal or above) access to this mod?
         $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions AS p
