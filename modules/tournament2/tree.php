@@ -66,7 +66,7 @@ if (!$_GET['tournamentid']) {
                     $dsp->AddDropDownFieldRow("group", t('Gruppenauswahl'), $t_array, "");
                     $dsp->AddFormSubmitRow(t('Weiter'));
                 } else {
-                    $dsp->AddSingleRow('<iframe src="index.php?mod=tournament2&action=tree_frame&design=popup&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'" width="100%" height="'. (int)$height .'" style="width:100%; min-width:600px;"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'">Tree</a></iframe>');
+                    $dsp->AddSingleRow('<iframe src="index.php?mod=tournament2&action=tree_frame&design=popup&tournamentid='. (int)$_GET['tournamentid'] .'" width="100%" height="'. (int)$height .'" style="width:100%; min-width:600px;"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'">Tree</a></iframe>');
                 }
 
               /*
