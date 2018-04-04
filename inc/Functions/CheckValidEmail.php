@@ -25,13 +25,9 @@ function CheckValidEmail($email)
         if (!preg_match("/^([a-z0-9]+[\-\.]{0,1})+\.[a-z]+$/i", $hostName)) {
             return t('Diese Email ist ungültig (Falscher Host-Teil)');
         }
-
-        $subdomains = explode('.', $hostName);
-        $tld = $subdomains[count($subdomains) - 1];
-
-        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%tlds WHERE tld = LOWER(%string%)", $tld);
-        if (!$row['found']) {
-            return t('Diese Email ist ungültig (Nicht existierende Domain)');
+        //  Compare first and second email entry. As only first entry is passed to this function, we have to get the second one from $_POST directly
+        if (!isset($_POST['email2']) || $email != $_POST['email2']) {
+            return t('E-Mail Addressen stimmen nicht überein. Bitte überprüfe deine Eingabe');
         }
 
         $TrashMailDomains = explode("\n", $cfg['mf_forbidden_trashmail_domains']);
