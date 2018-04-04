@@ -105,8 +105,9 @@ class db
         $database = $config['database']['database'];
         $charset = $config['database']['charset'];
 
-        // Try to connect
-        $this->link_id = mysqli_connect($server, $user, $pass);
+        // Try to connect to the database
+        // Suppress error output, because mysqli_connect throws a PHP Warning once it is not able to connect
+        $this->link_id = @mysqli_connect($server, $user, $pass);
 
         if (!$this->link_id) {
             if ($save) {
@@ -115,7 +116,7 @@ class db
                 return false;
 
             } else {
-                echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen') . HTML_FONT_END;
+                echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen. Zurückgegebener MySQL-Fehler: ' . mysqli_connect_error()) . HTML_FONT_END;
                 exit();
             }
 
@@ -361,7 +362,11 @@ class db
      * @return string
      */
     public function getServerInfo() {
-        return mysqli_get_server_info($this->link_id);
+        if ($this->link_id) {
+            return mysqli_get_server_info($this->link_id);
+        }
+
+        return false;
     }
 
     /**
