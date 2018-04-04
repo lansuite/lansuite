@@ -105,8 +105,9 @@ class db
         $database = $config['database']['database'];
         $charset = $config['database']['charset'];
 
-        // Try to connect, supress error output (state will be checked later on)
-        @$this->link_id = mysqli_connect($server, $user, $pass);
+        // Try to connect to the database
+        // Suppress error output, because mysqli_connect throws a PHP Warning once it is not able to connect
+        $this->link_id = @mysqli_connect($server, $user, $pass);
 
         if (!$this->link_id) {
             if ($save) {
