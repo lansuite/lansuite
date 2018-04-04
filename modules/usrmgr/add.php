@@ -392,6 +392,7 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
             }
   
             $mf->AddField(t('E-Mail'), 'email', '', '', '', CheckValidEmail);
+            $mf->AddField(t('E-Mail wiederholen'),'email2','','','');	
             if (($_GET['action'] != 'change' and $_GET['action'] != 'entrance') or ($_GET['action'] == 'entrance' and !$_GET['userid'])) {
                 if ($cfg['signon_autopw']) {
                     $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
