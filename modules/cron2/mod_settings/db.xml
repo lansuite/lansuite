@@ -88,15 +88,6 @@
 				<lastrun>2007-02-01 23:16:25</lastrun>
 				<runat>05:15:00</runat>
 			</entry>
-	       <entry>
-	           <jobid>3</jobid>
-	           <name>Update TLDs</name>
-               <function>update_tlds.php</function>
-	           <type>php</type>
-	           <active>0</active>
-	           <lastrun>2007-02-01 23:16:25</lastrun>
-	           <runat>04:15:00</runat>
-           </entry>
 		</content>
 	</table>
 </lansuite>
