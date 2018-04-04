@@ -362,13 +362,11 @@ class db
      * @return string
      */
     public function getServerInfo() {
-        // Only execute if connected to server
-        if ($this->success) {
+        if ($this->link_id) {
             return mysqli_get_server_info($this->link_id);
-        } else {
-            return false;
         }
-        
+
+        return false;
     }
 
     /**
