@@ -53,7 +53,6 @@ switch ($_GET['step']) {
         $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton('index.php?mod=seating', 'seating/show');
-        $dsp->AddContent();
         break;
 
     case 3:

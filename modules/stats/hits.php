@@ -27,5 +27,3 @@ $dsp->AddDoubleRow(t('Benutzer eingeloggt (letzte Stunde)'), $online["insg"] . "
 $total_time = $db->qry_first("SELECT time, size FROM %prefix%stats");
 $dsp->AddDoubleRow(t('Bis jetzt ben&ouml;tigte Zeit f&uuml;r Skript'), $total_time['time'] . " " . t('Sekunde(n)'));
 $dsp->AddDoubleRow(t('Bis jetzt &uuml;bertragene Daten'), $total_time['size'] . " kB");
-
-$dsp->AddContent();

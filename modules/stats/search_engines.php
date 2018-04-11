@@ -27,9 +27,8 @@ $ms2->AddResultField(t('Zuletzt'), 'UNIX_TIMESTAMP(last) AS last', 'MS2GetDate')
 
 #$ms2->AddIconField('details', 'index.php?mod=news&action=comment&newsid=', t('Details'));
 #if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
-#if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
+#if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Lï¿½schen'));
 
 $ms2->PrintSearch('index.php?mod=stats&action=search_engines', '1');
 
 $dsp->AddBackButton("index.php?mod=stats", "stats/se");
-$dsp->AddContent();

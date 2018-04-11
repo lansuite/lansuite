@@ -266,5 +266,3 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   
     $dsp->EndTabs();
 }
-
-$dsp->AddContent();

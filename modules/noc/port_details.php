@@ -36,7 +36,7 @@ switch ($_GET["step"]) {
                     break;
             }
         
-        // We assume that of course 1 PetaByte = 1024 Terabyte = 1024² Gigabyte = 1024³ Megabyte = 1024 * 1024 * 1024 * 1024 Kilobyte = 1024 * 1024 * 1024 * 1024 * 1024 Byte = 1024 * 1024 * 1024 * 1024 * 1024 * 8 Bit
+        // We assume that of course 1 PetaByte = 1024 Terabyte = 1024ï¿½ Gigabyte = 1024ï¿½ Megabyte = 1024 * 1024 * 1024 * 1024 Kilobyte = 1024 * 1024 * 1024 * 1024 * 1024 Byte = 1024 * 1024 * 1024 * 1024 * 1024 * 8 Bit
         // Clear, right?
             $bytesIn  = round($row["bytesIn"]  / (1024 * 1024), 2) . " MBytes";
             $bytesOut = round($row["bytesOut"] / (1024 * 1024), 2) . " MBytes";
@@ -55,7 +55,6 @@ switch ($_GET["step"]) {
             $dsp->AddDoubleRow(t('Empfangene Bytes'), $bytesIn);
             $dsp->AddDoubleRow(t('Gesendete Bytes'), $bytesOut);
             $dsp->AddBackButton("index.php?mod=noc&action=details_device&deviceid=" . $row["deviceid"]);
-            $dsp->AddContent();
         }//port exists
     
         break;

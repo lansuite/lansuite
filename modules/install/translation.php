@@ -385,4 +385,3 @@ function translate_all_empty(from, to) {
       
         break;
 }
-$dsp->AddContent();

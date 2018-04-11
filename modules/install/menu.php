@@ -77,7 +77,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install&action=menu&onlyactive={$_GET["onlyactive"]}", "install/modules");
-        $dsp->AddContent();
         break;
 
 
@@ -143,6 +142,5 @@ switch ($_GET["step"]) {
 
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install", "install/modules");
-        $dsp->AddContent();
         break;
 }

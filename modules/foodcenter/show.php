@@ -81,5 +81,4 @@ if ($open == false && $cfg['foodcenter_foodtime'] == 3) {
             $dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));
         }
     }
-    $dsp->AddContent();
 }

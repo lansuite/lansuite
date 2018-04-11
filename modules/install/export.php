@@ -24,7 +24,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install", "install/export");
-        $dsp->AddContent();
         break;
 
     case 2:
@@ -136,7 +135,6 @@ switch ($_GET["step"]) {
         }
 
         $dsp->AddBackButton("index.php?mod=install&action=export", "install/export");
-        $dsp->AddContent();
         break;
 
     case 3:

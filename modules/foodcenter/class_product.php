@@ -731,10 +731,6 @@ class product
         } else {
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
         }
-        
-                
-        
-        $dsp->AddContent();
     }
     
     

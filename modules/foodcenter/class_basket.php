@@ -88,7 +88,6 @@ class basket
         if (isset($_SESSION['basket_item']['backlink'])) {
             $dsp->AddBackButton($_SESSION['basket_item']['backlink']);
         }
-        $dsp->AddContent();
     }
     
     
