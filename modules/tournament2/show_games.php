@@ -82,7 +82,7 @@ while ($tgamesrow = $db->fetch_array($tgames, 1, MYSQLI_ASSOC)) {
             $outputrow['Überfällig'] = (ceil($delay/60))."Std ".(ceil($delay%60))."Min";
             $outputrow['cellstyle'] = "background-color:#00814A;";
         }
-        $outputrow['Akt.'] ="<div style=\"text-align:right;\">".$dsp->AddIcon('search', 'index.php?mod=tournament2&action=submit_result&step=1&tournamentid='.$tgamesrow['tid'].'&gameid1='.$tgamesrow['gid1'].'&gameid2='.$tgamesrow['gid2'])."</div>";
+        $outputrow['Akt.'] ="<div style=\"text-align:right;\">".$dsp->FetchIcon('index.php?mod=tournament2&action=submit_result&step=1&tournamentid='.$tgamesrow['tid'].'&gameid1='.$tgamesrow['gid1'].'&gameid2='.$tgamesrow['gid2'], 'search')."</div>";
         $tgamestable[] = $outputrow;
     }
 }

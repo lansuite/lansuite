@@ -1331,19 +1331,6 @@ class display
     }
 
     /**
-     * TODO Remove method, use FetchIcon instead
-     *
-     * @param string $name
-     * @param string $link
-     * @param string $title
-     * @return string
-     */
-    public function AddIcon($name, $link = '', $title = '')
-    {
-        return $this->FetchIcon($link, $name, $title);
-    }
-
-    /**
      * @param string $text
      * @param string $help
      * @return string
