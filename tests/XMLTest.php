@@ -28,26 +28,6 @@ class XMLTest extends TestCase {
         $this->assertEquals('simple', $actual);
     }
 
-    public function dataProviderLevel2Tab() {
-        return array(
-            array(0, ''),
-            array(1, "\t"),
-            array(5, "\t\t\t\t\t"),
-            array(10, "\t\t\t\t\t\t\t\t\t\t")
-        );
-    }
-
-    /**
-     * @dataProvider dataProviderLevel2Tab
-     * @covers xml::level2tab
-     */
-    public function testLevel2Tab($level, $expected) {
-        $xml = new \xml();
-        $actual = $xml->level2tab($level);
-
-        $this->assertEquals($expected, $actual);
-    }
-
     /**
      * @covers xml::write_tag
      */
