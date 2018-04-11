@@ -26,7 +26,7 @@ while ($res = $db->fetch_array($row)) {
 
 $mf->AddDropDownFromTable(t('Party'), 'partyid', 'party_id', 'name', 'partys');
 $mf->AddDropDownFromTable(t('Betrifft Benutzer'), 'userid', 'userid', 'username', 'user', t('keine Auswahl'));
-$mf->AddField('Fix Betrag', 'fix', 'tinyint(1)', FIELD_OPTIONAL);
+$mf->AddField('Fix Betrag', 'fix', 'tinyint(1)', masterform::FIELD_OPTIONAL);
 $mf->AddFix('editorid', $auth['userid']);
 $mf->AddFix('modul', 'cashmgr');
 

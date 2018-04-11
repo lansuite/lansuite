@@ -98,7 +98,7 @@ if ($party->count == 0) {
                     $selections = array();
                     $selections['0'] = t('Nicht bezahlt');
                     $selections['1'] = t('Bezahlt');
-                    $mf->AddField(t('Bezahltstatus'), 'paid', IS_SELECTION, $selections);
+                    $mf->AddField(t('Bezahltstatus'), 'paid', masterform::IS_SELECTION, $selections);
                 } elseif ($cfg['signon_autopaid']) {
                     $mf->AddFix('paid', '1');
                 }
@@ -114,9 +114,9 @@ if ($party->count == 0) {
                     $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']&nbsp;&nbsp;'.t('Gültig bis : ').date_format(date_create($row2['enddate']), 'd.m.Y');
                 }
                 if ($selections) {
-                    $mf->AddField(t('Eintrittspreis'), 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
+                    $mf->AddField(t('Eintrittspreis'), 'price_id', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
                 } else {
-                    $mf->AddField(t('Eintrittspreis'), 'price_id', IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
+                    $mf->AddField(t('Eintrittspreis'), 'price_id', masterform::IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
                 }
                 $db->free_result($res2);
 
@@ -124,18 +124,10 @@ if ($party->count == 0) {
                     $mf->AddFix('checkin', 'NOW()');
                 }
 
-        #if ($auth['type'] >= 2) {
-          //$mf->AddField('Seatcontrol', 'seatcontrol', IS_TEXT_MESSAGE, '', FIELD_OPTIONAL);
-          #$mf->AddField(t('Bezahltdatum'), 'paiddate', '', '', FIELD_OPTIONAL);
-          #$mf->AddField(t('Eingecheckt'), 'checkin', '', '', FIELD_OPTIONAL);
-          #$mf->AddField(t('Ausgecheckt'), 'checkout', '', '', FIELD_OPTIONAL);
-          #$mf->AddField(t('Anmeldedatum'), 'signondate', '', '', FIELD_OPTIONAL);
-        #}
-        #else
                 $mf->AddFix('signondate', 'NOW()');
 
                 if ($auth['type'] >= 2) {
-                    $mf->AddField(t('Mail versenden?') .'|'. t('Den Benutzer per Mail über die Änderung informieren'), 'sendmail', 'tinyint(1)', '', FIELD_OPTIONAL);
+                    $mf->AddField(t('Mail versenden?') .'|'. t('Den Benutzer per Mail über die Änderung informieren'), 'sendmail', 'tinyint(1)', '', masterform::FIELD_OPTIONAL);
                 }
                 $mf->SendButtonText = 'An-/Abmelden';
 

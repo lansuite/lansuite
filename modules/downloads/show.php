@@ -134,8 +134,8 @@ if (!$cfg['download_use_ftp']) {
             $dsp->AddFieldSetStart(t('Ordner Text und Einstellungen editieren'));
             $mf = new masterform();
 
-            $mf->AddField(t('Text'), 'text', '', LSCODE_BIG, FIELD_OPTIONAL);
-            $mf->AddField(t('Benutzer-Upload erlauben?'), 'allow_upload', '', '', FIELD_OPTIONAL);
+            $mf->AddField(t('Text'), 'text', '', masterform::LSCODE_BIG, masterform::FIELD_OPTIONAL);
+            $mf->AddField(t('Benutzer-Upload erlauben?'), 'allow_upload', '', '', masterform::FIELD_OPTIONAL);
             if (!$_GET['dirid']) {
                 $mf->AddFix('name', $_GET['dir']);
                 $mf->AddFix('userid', $auth['userid']);

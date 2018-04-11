@@ -80,12 +80,12 @@ switch ($_GET['step']) {
     
         // Name
         $mf->AddField(t('Orginal-Text'), 'org');
-        $mf->AddField($dsp->FetchIcon('', 'de'), 'de', '', '', FIELD_OPTIONAL);
-        $mf->AddField($dsp->FetchIcon('', 'en'), 'en', '', '', FIELD_OPTIONAL);
-        $mf->AddField($dsp->FetchIcon('', 'es'), 'es', '', '', FIELD_OPTIONAL);
-        $mf->AddField($dsp->FetchIcon('', 'nl'), 'nl', '', '', FIELD_OPTIONAL);
-        $mf->AddField($dsp->FetchIcon('', 'fr'), 'fr', '', '', FIELD_OPTIONAL);
-        $mf->AddField($dsp->FetchIcon('', 'it'), 'it', '', '', FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('', 'de'), 'de', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('', 'en'), 'en', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('', 'es'), 'es', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('', 'nl'), 'nl', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('', 'fr'), 'fr', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('', 'it'), 'it', '', '', masterform::FIELD_OPTIONAL);
     
         $mf->SendForm('index.php?mod=install&action=translation&step=3', 'translation', 'tid', $_GET['tid']);
         $dsp->AddBackButton('index.php?mod=install&action=translation');
@@ -266,13 +266,13 @@ function translate_all_empty(from, to) {
         $dsp->NewContent(t('Modul Übersetzen'), '');
 
         $mf = new masterform();
-        $mf->AddField(t('Orginal-Text'), 'org', IS_NOT_CHANGEABLE);
-        $mf->AddField(t('Deutsch'), 'de', '', '', FIELD_OPTIONAL);
-        $mf->AddField(t('Englisch'), 'en', '', '', FIELD_OPTIONAL);
-        $mf->AddField(t('Spanisch'), 'es', '', '', FIELD_OPTIONAL);
-        $mf->AddField(t('Französisch'), 'fr', '', '', FIELD_OPTIONAL);
-        $mf->AddField(t('Holländisch'), 'nl', '', '', FIELD_OPTIONAL);
-        $mf->AddField(t('Italienisch'), 'it', '', '', FIELD_OPTIONAL);
+        $mf->AddField(t('Orginal-Text'), 'org', masterform::IS_NOT_CHANGEABLE);
+        $mf->AddField(t('Deutsch'), 'de', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Englisch'), 'en', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Spanisch'), 'es', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Französisch'), 'fr', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Holländisch'), 'nl', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Italienisch'), 'it', '', '', masterform::FIELD_OPTIONAL);
         $mf->SendForm('index.php?mod=install&action=translation&step=40', 'translation', 'id', $_GET['id']);
 
         $dsp->AddBackButton('index.php?mod=install&action=translation');

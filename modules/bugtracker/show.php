@@ -231,13 +231,13 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
         $mf = new masterform();
         $mf->ManualUpdate = 1;
         if ($auth['type'] >= 2) {
-            $mf->AddField(t('Status'), 'state', IS_SELECTION, $bugtracker->stati);
+            $mf->AddField(t('Status'), 'state', masterform::IS_SELECTION, $bugtracker->stati);
         } elseif ($row['state'] == 0) {
-            $mf->AddField(t('Status'), 'state', IS_SELECTION, array('1' => $bugtracker->stati['1']));
+            $mf->AddField(t('Status'), 'state', masterform::IS_SELECTION, array('1' => $bugtracker->stati['1']));
         } elseif ($row['state'] == 4) {
-            $mf->AddField(t('Status'), 'state', IS_SELECTION, array('7' => $bugtracker->stati['7']));
+            $mf->AddField(t('Status'), 'state', masterform::IS_SELECTION, array('7' => $bugtracker->stati['7']));
         } elseif ($row['state'] == 3) {
-            $mf->AddField(t('Status'), 'state', IS_SELECTION, array('2' => $bugtracker->stati['2']));
+            $mf->AddField(t('Status'), 'state', masterform::IS_SELECTION, array('2' => $bugtracker->stati['2']));
         }
 
         if ($mf->SendForm('', 'bugtracker', 'bugid', $_GET['bugid'])) {

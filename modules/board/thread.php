@@ -222,8 +222,8 @@ if ($thread['closed']) {
     if ($thread['caption'] == '') {
         $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
     }
-    $mf->AddField(t('Text'), 'comment', '', LSCODE_BIG);
-    $mf->AddField(t('Bild / Datei anhängen'), 'file', IS_FILE_UPLOAD, 'ext_inc/board_upload/', FIELD_OPTIONAL);
+    $mf->AddField(t('Text'), 'comment', '', masterform::LSCODE_BIG);
+    $mf->AddField(t('Bild / Datei anhängen'), 'file', masterform::IS_FILE_UPLOAD, 'ext_inc/board_upload/', masterform::FIELD_OPTIONAL);
   
     $mf->AddFix('tid', $_GET['tid']);
     if ($_GET['pid'] == '') {
