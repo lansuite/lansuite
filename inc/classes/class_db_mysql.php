@@ -314,7 +314,7 @@ class db
             $this->query_id = $query_id;
         }
 
-        return mysqli_free_result($this->query_id);
+        mysqli_free_result($this->query_id);
     }
 
     /**
