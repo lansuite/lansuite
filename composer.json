@@ -31,6 +31,9 @@
         "ext-snmp": "Required to use the \"Network Operation Center\" module."
     },
     "autoload": {
+        "psr-4": {
+            "LanSuite\\Validator\\": "inc/classes/Validator"
+        },
         "classmap": [
             "inc/classes/class.crypt.php",
             "inc/classes/class_auth.php",
