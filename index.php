@@ -214,7 +214,7 @@ if (file_exists('inc/base/config.php')) {
 
 // Default config. Will be used only until the wizard has created the config file
 } else {
-    $config = array();
+    $config = [];
 
     $config['lansuite']['version'] = 'Nightly';
     $config['lansuite']['default_design'] = 'simple';
@@ -228,6 +228,10 @@ if (file_exists('inc/base/config.php')) {
     $config['database']['database'] = 'lansuite';
     $config['database']['prefix'] = 'ls_';
     $config['database']['charset'] = 'utf8';
+
+    $config['validation']['email']['mode'] = 'html5';
+    $config['validation']['email']['mx_check'] = 1;
+    $config['validation']['email']['host_check'] = 0;
 
     $config['environment']['configured'] = 0;
 }
