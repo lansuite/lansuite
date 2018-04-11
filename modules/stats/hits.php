@@ -7,7 +7,12 @@ $dsp->AddDoubleRow(t('Besucher (Visits)'), $visits["insg"]);
 
 $hits = $db->qry_first("SELECT SUM(hits) AS insg FROM %prefix%stats_usage");
 $dsp->AddDoubleRow(t('Seitenaufrufe (Hits)'), $hits["insg"]);
-$dsp->AddDoubleRow(t('Seiten pro Besucher'), round($hits["insg"] / $visits["insg"], 2));
+
+$pagesPerUser = 0;
+if ($visits['insg'] > 0) {
+    $pagesPerUser = round($hits["insg"] / $visits["insg"], 2);
+}
+$dsp->AddDoubleRow(t('Seiten pro Besucher'), strval($pagesPerUser));
 
 $visit_timeout = time() - 60*60;
 $online = $db->qry_first("SELECT SUM(visits) AS insg FROM %prefix%stats_auth WHERE (lasthit > %int%)", $visit_timeout);
