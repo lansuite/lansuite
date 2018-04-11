@@ -58,4 +58,3 @@ $framework->AddToPageTitle('V'. (int)$_GET['versionid']);
 
 $dsp->NewContent($row['name'] . $links_main, $links);
 $dsp->AddSingleRow($func->Text2Wiki($row['text']), '', 'textContent');
-$dsp->AddContent();

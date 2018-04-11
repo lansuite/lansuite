@@ -70,10 +70,9 @@ switch ($_GET["step"]) {
             $dsp->AddTextFieldRow("device_read", t('Read-Community'), $device_read, $noc_error['device_read']);
             $dsp->AddTextFieldRow("device_write", t('Write-Community'), $device_write, $noc_error['device_write']);
         
-            $dsp->AddFormSubmitRow(t('Ändern'));
+            $dsp->AddFormSubmitRow(t('ï¿½ndern'));
             $dsp->AddBackButton("index.php?mod=noc", "noc");
-            $dsp->AddContent();
-    
+
             unset($noc_error);
         } else {
             $func->error(t('Das gew&auml;hlte Device existiert nicht'));

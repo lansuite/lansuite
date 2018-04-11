@@ -54,7 +54,6 @@ switch ($_GET["step"]) {
             $dsp->SetForm("index.php?mod=faq&object=cat&action=change_cat&catid={$_GET['catid']}&step=3");
             $dsp->AddTextFieldRow("cat_caption", t('Frage ändern'), $_POST['cat_caption'], $faq_error['cat_caption']);
             $dsp->AddFormSubmitRow("edit");
-            $dsp->AddContent();
         } else {
                 $func->error(t('Diese Kategorie existiert nicht'));
         }

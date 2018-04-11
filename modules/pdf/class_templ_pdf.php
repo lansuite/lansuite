@@ -35,7 +35,6 @@ class pdf_tmpl
         }
         $dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=" . $_GET['action'] . "&act=new\">".t('Neue Vorlage erstellen')."</a>");
         $dsp->AddBackButton("index.php?mod=pdf", "pdf/template");
-        $dsp->AddContent();
     }
     
     // Daten einfügen
@@ -146,7 +145,6 @@ class pdf_tmpl
         $dsp->AddDropDownFieldRow('type', t('Wahl des Feldes'), $type, "");
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action, "pdf/change_template");
-        $dsp->AddContent();
     }
     
     
@@ -241,7 +239,6 @@ class pdf_tmpl
         }
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action, $help);
-        $dsp->AddContent();
     }
     
     // Maske um Einträge ändern anzeigen
@@ -349,7 +346,6 @@ class pdf_tmpl
         }
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id, $help);
-        $dsp->AddContent();
     }
 
     
@@ -450,6 +446,5 @@ class pdf_tmpl
         $dsp->AddTextFieldRow("rand_y", t('Rand in y-Richtung'), '', '');
         $dsp->AddCheckBoxRow("landscape", t('Querformat'), '', '');
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
-        $dsp->AddContent();
     }
 }

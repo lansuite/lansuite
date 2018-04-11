@@ -57,4 +57,3 @@ while ($row = $db->fetch_array($res)) {
 }
 $dsp->AddFieldsetEnd();
 $db->free_result($res);
-$dsp->AddContent();

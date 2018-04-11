@@ -19,7 +19,6 @@ if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_sel
     $mf->AddField('Sonstiges', 'sonstiges', text, '', FIELD_OPTIONAL);
     $mf->AddFix('userid', $_GET['userid']);
     $mf->SendForm('index.php?mod=hardware&action=edit&userid='.$_GET['userid'], 'hardware', 'hardwareid', $_GET['hardwareid']);
-    $dsp->AddContent();
 } else {
     $func->error(t('Du hast keine Berechtigung diese Daten zu &auml;ndern'));
 }

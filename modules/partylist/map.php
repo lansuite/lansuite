@@ -22,4 +22,3 @@ while ($row = $db->fetch_array($res)) {
   $smarty->assign('apikey', $cfg['google_maps_api_key']);
   $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
 #}
-$dsp->AddContent();

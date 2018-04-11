@@ -251,7 +251,6 @@ switch ($_GET['step']) {
 
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton('index.php?mod=seating', 'seating/add');
-        $dsp->AddContent();
         break;
 
     case 3:
@@ -317,7 +316,6 @@ switch ($_GET['step']) {
         $dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=5&blockid={$_GET['blockid']}");
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=seating&action={$_GET['action']}&step=2&blockid={$_GET['blockid']}", 'seating/add');
-        $dsp->AddContent();
         break;
 
     // Seat-Selection
@@ -329,7 +327,6 @@ switch ($_GET['step']) {
         $dsp->AddFormSubmitRow(t('Speichern'));
         $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=seating&action={$_GET['action']}&step=7&blockid={$_GET['blockid']}"));
         $dsp->AddBackButton("index.php?mod=seating&action={$_GET['action']}&step=4&blockid={$_GET['blockid']}", 'seating/add');
-        $dsp->AddContent();
         break;
 
     // Finished

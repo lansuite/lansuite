@@ -20,7 +20,6 @@ switch ($_GET['step']) {
 
         $dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0));
         $dsp->AddBackButton('index.php?mod=seating', 'seating/show');
-        $dsp->AddContent();
         break;
 
 

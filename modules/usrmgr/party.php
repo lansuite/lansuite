@@ -201,5 +201,4 @@ if ($party->count == 0) {
     }
 
     $dsp->AddBackButton('index.php?mod='. $_GET['mod']);
-    $dsp->AddContent();
 }

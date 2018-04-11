@@ -186,5 +186,3 @@ switch ($_GET["step"]) {
         $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/teammgr_admin");
         break;
 }
-
-$dsp->AddContent();
