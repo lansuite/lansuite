@@ -70,7 +70,7 @@ switch ($_GET["step"]) {
             $dsp->AddTextFieldRow("device_read", t('Read-Community'), $device_read, $noc_error['device_read']);
             $dsp->AddTextFieldRow("device_write", t('Write-Community'), $device_write, $noc_error['device_write']);
         
-            $dsp->AddFormSubmitRow(t('�ndern'));
+            $dsp->AddFormSubmitRow(t('Ändern'));
             $dsp->AddBackButton("index.php?mod=noc", "noc");
 
             unset($noc_error);

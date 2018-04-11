@@ -219,7 +219,7 @@ if (!$row = $db->fetch_array()) {
 
             $ports .= "</tr>";
             $smarty->assign('ports', $ports);
-            $changebutton = $dsp->FetchSpanButton(t('Zur�ck'), "index.php?mod=noc&action=show_device");
+            $changebutton = $dsp->FetchSpanButton(t('Zurück'), "index.php?mod=noc&action=show_device");
             $changebutton .= $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=2");
             $smarty->assign('changebutton', $changebutton);
     
