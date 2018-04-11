@@ -710,7 +710,7 @@ class display
     }
 
     /**
-     * @param sting $name
+     * @param string $name
      * @param string $key
      * @param array $option_array
      * @param string $errortext
