@@ -19,7 +19,7 @@ class display
     /**
      * @var int
      */
-    public $formcount = 1;
+    private $formcount = 1;
 
     /**
      * @var string
@@ -34,22 +34,22 @@ class display
     /**
      * @var int
      */
-    public $FirstLine = 1;
+    private $FirstLine = 1;
 
     /**
      * @var int
      */
-    public $CurrentTab = 0;
+    private $CurrentTab = 0;
 
     /**
      * @var string
      */
-    public $TabsMainContentTmp = '';
+    private $TabsMainContentTmp = '';
 
     /**
      * @var array
      */
-    public $tabNames = [];
+    private $TabNames = [];
 
     public function __construct()
     {
@@ -326,7 +326,6 @@ class display
         } else {
             $checked = '';
         }
-
 
         if ($disabled) {
             $disabled = 'disabled';

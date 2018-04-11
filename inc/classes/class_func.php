@@ -234,7 +234,7 @@ class func
      * @param string $link_type
      * @return void
      */
-    public function GeneralDialog($type, $text, $link_target = '', $JustReturn = 0, $link_type = '')
+    private function GeneralDialog($type, $text, $link_target = '', $JustReturn = 0, $link_type = '')
     {
         global $smarty, $dsp, $FrameworkMessages;
 

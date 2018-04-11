@@ -17,7 +17,7 @@
  */
 class barcode_system
 {
-    public $class_barcode;
+    private $class_barcode;
     
     public function __construct()
     {
@@ -40,7 +40,7 @@ class barcode_system
      * @param int $userid
      * @return int
      */
-    public function gencode($userid)
+    private function gencode($userid)
     {
         $code = 768300000000;
         $code = $code + ($userid * 10000);
@@ -52,7 +52,7 @@ class barcode_system
      * @param int $userid
      * @return int
      */
-    public function getcode($userid)
+    private function getcode($userid)
     {
         global $db;
         

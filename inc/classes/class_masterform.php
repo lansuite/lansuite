@@ -25,42 +25,32 @@ class masterform
     /**
      * @var array
      */
-    public $FormFields = [];
+    private $FormFields = [];
 
     /**
      * @var array
      */
-    public $Groups = [];
+    private $Groups = [];
 
     /**
      * @var array
      */
-    public $SQLFields = [];
+    private $SQLFields = [];
 
     /**
      * @var array
      */
-    public $WYSIWYGFields = [];
+    private $WYSIWYGFields = [];
 
     /**
      * @var array
      */
-    public $SQLFieldTypes = [];
+    private $DependOn = [];
 
     /**
      * @var array
      */
-    public $SQLFieldUnique = [];
-
-    /**
-     * @var array
-     */
-    public $DependOn = [];
-
-    /**
-     * @var array
-     */
-    public $error = [];
+    private $error = [];
 
     /**
      * @var string
@@ -90,7 +80,7 @@ class masterform
     /**
      * @var int
      */
-    public $DependOnStarted = 0;
+    private $DependOnStarted = 0;
 
     /**
      * @var bool
@@ -100,12 +90,12 @@ class masterform
     /**
      * @var string
      */
-    public $FormEncType = '';
+    private $FormEncType = '';
 
     /**
      * @var int
      */
-    public $PWSecID = 0;
+    private $PWSecID = 0;
 
     /**
      * @var string
@@ -125,7 +115,7 @@ class masterform
     /**
      * @var int
      */
-    public $NumFields = 0;
+    private $NumFields = 0;
 
     /**
      * @var int
@@ -150,27 +140,27 @@ class masterform
     /**
      * @var int
      */
-    public $OptGroupOpen = 0;
+    private $OptGroupOpen = 0;
 
     /**
      * @var int
      */
-    public $MultiLineID = 0;
+    private $MultiLineID = 0;
 
     /**
      * @var array
      */
-    public $MultiLineIDs = [];
+    private $MultiLineIDs = [];
 
     /**
      * @var int
      */
-    public $FCKeditorID = 0;
+    private $FCKeditorID = 0;
 
     /**
      * @var array
      */
-    public $Pages = [];
+    private $Pages = [];
 
     public function __construct($MFID = 0)
     {
@@ -184,7 +174,7 @@ class masterform
      * @param string    $name
      * @return void
      */
-    public function AddToSQLFields($name)
+    private function AddToSQLFields($name)
     {
         if (!in_array($name, $this->SQLFields)) {
             $this->SQLFields[] = $name;
@@ -1152,7 +1142,7 @@ class masterform
      * @param string    $string     Fieldname ($field['type'] = "varchar(10))
      * @return int
      */
-    public function get_fieldlength($string)
+    private function get_fieldlength($string)
     {
         if (!(strrpos($string, "varchar") === false)) {
             preg_match("/(varchar\()(\\d{1,3})(\))/i", $string, $treffer);

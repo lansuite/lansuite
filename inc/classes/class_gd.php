@@ -10,27 +10,27 @@ class gd
     /**
      * @var int
      */
-    public $height;
+    private $height;
 
     /**
      * @var int
      */
-    public $width;
+    private $width;
 
     /**
      * @var string
      */
-    public $font;
+    private $font;
 
     /**
      * @var int
      */
-    public $font_size;
+    private $font_size;
 
     /**
      * @var int
      */
-    public $free_type = 0;
+    private $free_type = 0;
 
     /**
      * @var int
@@ -209,7 +209,7 @@ class gd
      * @param int $font_size
      * @return void
      */
-    public function SetFont($font = null, $font_size = null)
+    private function SetFont($font = null, $font_size = null)
     {
         global $cfg;
 
@@ -279,7 +279,7 @@ class gd
      * @param string $filename
      * @return int|resource
      */
-    public function OpenImage($filename)
+    private function OpenImage($filename)
     {
         if (!file_exists($filename)) {
             return 0;

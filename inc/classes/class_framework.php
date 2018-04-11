@@ -6,31 +6,26 @@ class framework
     /**
      * @var int|string
      */
-    public $timer = '';
+    private $timer = '';
 
     /**
      * @var array|string
      */
-    public $timer2 = '';
-
-    /**
-     * @var string
-     */
-    public $send_size = '0';
+    private $timer2 = '';
 
     /**
      * Checksum of Content
      *
      * @var string
      */
-    public $content_crc = '';
+    private $content_crc = '';
 
     /**
      * Size of Content
      *
      * @var string
      */
-    public $content_size = '';
+    private $content_size = '';
 
     /**
      * Clean URL-Query (keys : path, query, base)
@@ -44,7 +39,7 @@ class framework
      *
      * @var string
      */
-    public $design = "simple";
+    private $design = "simple";
 
     /**
      * Displaymodus (popup)
@@ -58,49 +53,49 @@ class framework
      *
      * @var string
      */
-    public $framework_messages = '';
+    private $framework_messages = '';
 
     /**
      * Content
      *
      * @var string
      */
-    public $main_content = '';
+    private $main_content = '';
 
     /**
      * Headercode for Meta Tags
      *
      * @var string
      */
-    public $main_header_metatags = '';
+    private $main_header_metatags = '';
 
     /**
      * Headercode for JS-Files
      *
      * @var string
      */
-    public $main_header_jsfiles = '';
+    private $main_header_jsfiles = '';
 
     /**
      * Headercode for JS-Code
      *
      * @var string
      */
-    public $main_header_jscode = '';
+    private $main_header_jscode = '';
 
     /**
      * Headercode for CSS-Files
      *
      * @var string
      */
-    public $main_header_cssfiles = '';
+    private $main_header_cssfiles = '';
 
     /**
      * Headercode for CSS-Code
      *
      * @var string
      */
-    public $main_header_csscode = '';
+    private $main_header_csscode = '';
 
     /**
      * @var bool
@@ -110,7 +105,7 @@ class framework
     /**
      * @var string
      */
-    public $pageTitle = '';
+    private $pageTitle = '';
 
     public function __construct()
     {
@@ -165,6 +160,7 @@ class framework
     {
         $this->design = $design;
     }
+
     /**
      * Set the display modus
      *
@@ -226,7 +222,7 @@ class framework
      * @param string $csspath
      * @return void
      */
-    public function add_css_path($csspath)
+    private function add_css_path($csspath)
     {
         $this->main_header_cssfiles .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$csspath."\" />\n";
     }
@@ -236,7 +232,7 @@ class framework
      *
      * @return string
      */
-    public function out_work()
+    private function out_work()
     {
         $timer = explode(' ', microtime());
         $worktime = $timer[1] - $this->timer2[1];
@@ -250,7 +246,7 @@ class framework
      *
      * @return int|string
      */
-    public function check_optimizer()
+    private function check_optimizer()
     {
         global $PHPErrors, $db;
 
