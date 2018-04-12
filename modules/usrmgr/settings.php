@@ -45,15 +45,15 @@ if ($cfg['user_design_change']) {
     }
     closedir($ResDesign);
 
-    $mf->AddField(t('Design'), 'design', IS_SELECTION, $selections, FIELD_OPTIONAL);
+    $mf->AddField(t('Design'), 'design', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
 }
 
-$mf->AddField(t('Mich auf der Karte zeigen') .'|'. t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', FIELD_OPTIONAL);
-$mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', FIELD_OPTIONAL);
+$mf->AddField(t('Mich auf der Karte zeigen') .'|'. t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', masterform::FIELD_OPTIONAL);
+$mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', masterform::FIELD_OPTIONAL);
 
 if ($cfg['user_avatarupload']) {
-    $mf->AddField(t('Avatar'), 'avatar_path', IS_FILE_UPLOAD, 'ext_inc/avatare/'. $auth['userid'] .'_', FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
+    $mf->AddField(t('Avatar'), 'avatar_path', masterform::IS_FILE_UPLOAD, 'ext_inc/avatare/'. $auth['userid'] .'_', masterform::FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
 }
-$mf->AddField(t('Signatur'), 'signature', '', LSCODE_ALLOWED, FIELD_OPTIONAL);
+$mf->AddField(t('Signatur'), 'signature', '', masterform::LSCODE_ALLOWED, masterform::FIELD_OPTIONAL);
 
 $mf->SendForm('', 'user', 'userid', $auth['userid']);

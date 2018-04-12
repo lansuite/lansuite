@@ -319,7 +319,7 @@ class party
         while ($res = $db->fetch_array($row)) {
             $selections[$res['price_id']] = $res['price_text'] .' / '. $res['price'] .' '. $cfg['sys_currency'];
         }
-        $mf->AddField(t('Preis auswählen'), 'price_id', IS_SELECTION, $selections);
+        $mf->AddField(t('Preis auswählen'), 'price_id', masterform::IS_SELECTION, $selections);
         $res = $db->free_result($res);
     }
 
@@ -546,7 +546,7 @@ class party
                 $selections[$row['group_id']] = $row['group_name'];
             }
         }
-        $mf->AddField(t('Benutzergruppe'), 'group_id', IS_SELECTION, $selections);
+        $mf->AddField(t('Benutzergruppe'), 'group_id', masterform::IS_SELECTION, $selections);
         return true;
     }
 

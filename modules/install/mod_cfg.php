@@ -136,7 +136,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                 $selections['3'] = t('Nur Superadminen');
                 $selections['4'] = t('Keine Admins');
                 $selections['5'] = t('Nur Ausgeloggte');
-                $mf->AddField(t('Zugriff'), 'requirement', IS_SELECTION, $selections, FIELD_OPTIONAL);
+                $mf->AddField(t('Zugriff'), 'requirement', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
 
                 $selections = array();
                 if ($MenuCallbacks) {
@@ -146,7 +146,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                 }
                       asort($selections);
                       $selections = array('' => t('Keine')) + $selections;
-                      $mf->AddField(t('Vorraussetzung'), 'needed_config', IS_SELECTION, $selections, FIELD_OPTIONAL);
+                      $mf->AddField(t('Vorraussetzung'), 'needed_config', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
 
                       $mf->AddGroup($row['caption'] .' ('. $row['link'] .')');
             }
@@ -325,7 +325,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                   $mf->AddDBLineID($row['id']);
                   $mf->AddField(t('Titel'), 'caption');
                   $mf->AddField(t('Link'), 'link');
-                  $mf->AddField(t('Popup-Hinweis'), 'hint', '', '', FIELD_OPTIONAL);
+                  $mf->AddField(t('Popup-Hinweis'), 'hint', '', '', masterform::FIELD_OPTIONAL);
                   $mf->AddGroup($row['caption']);
             }
                   $db->free_result($res);
