@@ -502,7 +502,7 @@ class auth {
      * Check user rights and add a error message if needed
      *
      * @param int $requirement
-     * @return int
+     * @return boolean
      */
     public function authorized($requirement)
     {
@@ -512,7 +512,7 @@ class auth {
             // Logged in
             case 1:
                 if ($this->auth['login']) {
-                    return 1;
+                    return true;
 
                 } else {
                     $func->information('NO_LOGIN');
@@ -522,7 +522,7 @@ class auth {
             // Type is Admin, or Superadmin
             case 2:
                 if ($this->auth['type'] > 1) {
-                    return 1;
+                    return true;
 
                 } elseif (!$this->auth['login']) {
                     $func->information('NO_LOGIN');
@@ -535,7 +535,7 @@ class auth {
             // Type is Superadmin
             case 3:
                 if ($this->auth['type'] > 2) {
-                    return 1;
+                    return true;
 
                 } elseif (!$this->auth['login']) {
                     $func->information('NO_LOGIN');
@@ -548,7 +548,7 @@ class auth {
             // Type is User, or less
             case 4:
                 if ($this->auth['type'] < 2) {
-                    return 1;
+                    return true;
 
                 } else {
                     $func->information('ACCESS_DENIED');
@@ -558,7 +558,7 @@ class auth {
             // Logged out
             case 5:
                 if (!$this->auth['login']) {
-                    return 1;
+                    return true;
 
                 } else {
                     $func->information('ACCESS_DENIED');
@@ -566,8 +566,10 @@ class auth {
                 break;
 
             default:
-                return 1;
+                return true;
         }
+
+        return false;
     }
 
     /**

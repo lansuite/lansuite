@@ -6,7 +6,7 @@ class pdf_tmpl
     public $tmpl_id;
     
     // Konstruktor
-    public function pdf_tmpl($action, $tmpl_id)
+    public function __construct($action, $tmpl_id)
     {
         $this->action = $action;
         $this->tmpl_id = $tmpl_id;

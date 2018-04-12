@@ -25,7 +25,7 @@ class MasterSearch2
     public $isExport = 0;
 
   // Constructor
-    public function MasterSearch2($module = '')
+    public function __construct($module = '')
     {
         global $ms_number;
 
