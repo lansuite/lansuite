@@ -14,7 +14,7 @@ class auth {
      *
      * @var array
      */
-    private $auth = [];
+    public $auth = [];
 
     /**
      * Time
@@ -634,7 +634,7 @@ class auth {
      * @param int $userid
      * @return void
      */
-    private function set_cookie_pw($userid)
+    public function set_cookie_pw($userid)
     {
         global $db;
 
