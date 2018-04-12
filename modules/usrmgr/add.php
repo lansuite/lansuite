@@ -194,7 +194,7 @@ function PersoInput($field, $mode, $error = '')
             return $smarty->fetch('modules/usrmgr/templates/row_perso.htm');
         break;
 
-        case CHECK_ERROR_PROC:
+        case masterform::CHECK_ERROR_PROC:
               $_POST[$field] = $_POST["perso_1"] . "<<" . $_POST["perso_2"] . "<". $_POST["perso_3"] . "<<<<<<<" . $_POST["perso_4"];
             if ($_POST[$field] == "aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d") {
                 $_POST[$field] = "";
@@ -234,7 +234,7 @@ function Addr1Input($field, $mode, $error = '')
             return false;
         break;
 
-        case CHECK_ERROR_PROC:
+        case masterform::CHECK_ERROR_PROC:
             if ($_POST['street|hnr'] != '' or FieldNeeded('street')) {
                 $pieces = explode(' ', $_POST['street|hnr']);
                 $_POST['hnr'] = array_pop($pieces);
@@ -262,7 +262,7 @@ function Addr2Input($field, $mode, $error = '')
             return false;
         break;
 
-        case CHECK_ERROR_PROC:
+        case masterform::CHECK_ERROR_PROC:
             if (($_POST['plz|city'] != '') || (FieldNeeded('city'))) {
                 $pieces = explode(' ', $_POST['plz|city']);
                 $_POST['plz'] = array_shift($pieces);
@@ -329,7 +329,7 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
             if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
                 $mf->AddField(t('Benutzername'), 'username', '', '', $optional);
             } else {
-                $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen Administrator.'));
+                $mf->AddField(t('Benutzername'), '', masterform::IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen Administrator.'));
             }
   
             if (!$quick_signon) {
@@ -350,7 +350,7 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
                     if ($auth['type'] >= 3) {
                         $selections['3'] = t('Superadmin');
                     }
-                    $mf->AddField(t('Benutzertyp'), 'type', IS_SELECTION, $selections, '', '', 1, array('2', '3'));
+                    $mf->AddField(t('Benutzertyp'), 'type', masterform::IS_SELECTION, $selections, '', '', 1, array('2', '3'));
   
                         // Module-Permissions
                         $selections = array();
@@ -376,9 +376,9 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
                               '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
                               '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
                               'permissions',
-                              IS_MULTI_SELECTION,
+                              masterform::IS_MULTI_SELECTION,
                               $selections,
-                              FIELD_OPTIONAL
+                              masterform::FIELD_OPTIONAL
                           );
   
                           $mf->AddDropDownFromTable(t('Gruppe'), 'group_id', 'group_id', 'group_name', 'party_usergroups', t('Keine'));
@@ -398,11 +398,11 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
                     $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
                     $mf->AddFix('password', md5($_SESSION['tmp_pass']));
                 } else {
-                    $mf->AddField(t('Passwort'), 'password', IS_NEW_PASSWORD);
+                    $mf->AddField(t('Passwort'), 'password', masterform::IS_NEW_PASSWORD);
                 }
   
                 if ($cfg['signon_captcha'] and !$_GET['userid']) {
-                    $mf->AddField('', 'captcha', IS_CAPTCHA);
+                    $mf->AddField('', 'captcha', masterform::IS_CAPTCHA);
                 }
             }
             $mf->AddGroup(t('Zugangsdaten'));
@@ -434,14 +434,14 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
                 }
                     $db->free_result($clans_query);
 
-                    $mf->AddField(t('Vorhandener Clan'), 'clan', IS_SELECTION, $selections, Optional('clan'), '', 1, $PWClans);
-                    $mf->AddField(t('Passwort'), 'clanpw', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
-                    $mf->AddField(t('Neuer Clan'), 'new_clan_select', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
-                    $mf->AddField(t('Name'), 'clan_new', '', '', FIELD_OPTIONAL, 'CheckClanNotExists');
+                    $mf->AddField(t('Vorhandener Clan'), 'clan', masterform::IS_SELECTION, $selections, Optional('clan'), '', 1, $PWClans);
+                    $mf->AddField(t('Passwort'), 'clanpw', masterform::IS_PASSWORD, '', masterform::FIELD_OPTIONAL, 'CheckClanPW');
+                    $mf->AddField(t('Neuer Clan'), 'new_clan_select', 'tinyint(1)', '', masterform::FIELD_OPTIONAL, '', 3);
+                    $mf->AddField(t('Name'), 'clan_new', '', '', masterform::FIELD_OPTIONAL, 'CheckClanNotExists');
                 if (ShowField('clanurl')) {
-                        $mf->AddField(t('Webseite'), 'clanurl', '', '', FIELD_OPTIONAL);
+                        $mf->AddField(t('Webseite'), 'clanurl', '', '', masterform::FIELD_OPTIONAL);
                 }
-                    $mf->AddField(t('Passwort'), 'newclanpw', IS_NEW_PASSWORD, '', FIELD_OPTIONAL);
+                    $mf->AddField(t('Passwort'), 'newclanpw', masterform::IS_NEW_PASSWORD, '', masterform::FIELD_OPTIONAL);
                     $mf->AddGroup(t('Clan'));
             }
 
@@ -461,10 +461,10 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
 
         // Address
             if (ShowField('street')) {
-                $mf->AddField('', 'street|hnr', IS_CALLBACK, 'Addr1Input', Optional('street'));
+                $mf->AddField('', 'street|hnr', masterform::IS_CALLBACK, 'Addr1Input', Optional('street'));
             }
             if (ShowField('city')) {
-                $mf->AddField('', 'plz|city', IS_CALLBACK, 'Addr2Input', Optional('city'));
+                $mf->AddField('', 'plz|city', masterform::IS_CALLBACK, 'Addr2Input', Optional('city'));
             }
 
             $list = array();
@@ -476,7 +476,7 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
                 $list[$row['cfg_value']] = $row['cfg_display'];
             }
             $db->free_result($res);
-            $mf->AddField(t('Land'), 'country', IS_SELECTION, $list, FIELD_OPTIONAL);
+            $mf->AddField(t('Land'), 'country', masterform::IS_SELECTION, $list, masterform::FIELD_OPTIONAL);
             $mf->AddGroup(t('Adresse'));
 
         // Contact
@@ -503,7 +503,7 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
         // Misc (Perso + Birthday + Gender + Newsletter)
             if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
                 if (ShowField('perso')) {
-                    $mf->AddField(t('Personalausweis'), 'perso', IS_CALLBACK, 'PersoInput', Optional('perso'));
+                    $mf->AddField(t('Personalausweis'), 'perso', masterform::IS_CALLBACK, 'PersoInput', Optional('perso'));
                 }
                 if (ShowField('birthday')) {
                     $mf->AddField(t('Geburtstag'), 'birthday', '', '-80/-8', Optional('birthday'), 'check_birthday');
@@ -514,7 +514,7 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
                 $selections['0'] = t('Keine Angabe');
                 $selections['1'] = t('Männlich');
                 $selections['2'] = t('Weiblich');
-                $mf->AddField(t('Geschlecht'), 'sex', IS_SELECTION, $selections, Optional('gender'), 'check_opt_gender');
+                $mf->AddField(t('Geschlecht'), 'sex', masterform::IS_SELECTION, $selections, Optional('gender'), 'check_opt_gender');
             }
             if (ShowField('newsletter')) {
                 $mf->AddField(t('Newsletter abonnieren'), 'newsletter', '', '', Optional('newsletter'));
@@ -522,8 +522,8 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
 
         // If Admin: Picture and Comment
             if (($auth['type'] >= 2)) {
-                $mf->AddField(t('Benutzerbild hochladen'), 'picture', IS_FILE_UPLOAD, 'ext_inc/user_pics/', Optional('picture'));
-                $mf->AddField(t('Kommentar'), 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
+                $mf->AddField(t('Benutzerbild hochladen'), 'picture', masterform::IS_FILE_UPLOAD, 'ext_inc/user_pics/', Optional('picture'));
+                $mf->AddField(t('Kommentar'), 'comment', '', masterform::HTML_ALLOWED, masterform::FIELD_OPTIONAL);
             }
 
         // AGB and Vollmacht, if new user
@@ -574,16 +574,16 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
                 }
                 closedir($ResDesign);
       
-                $mf->AddField(t('Design'), 'design', IS_SELECTION, $selections, FIELD_OPTIONAL);
+                $mf->AddField(t('Design'), 'design', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
             }
       
-            $mf->AddField(t('Mich auf der Karte zeigen') .'|'. t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', FIELD_OPTIONAL);
-            $mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', FIELD_OPTIONAL);
+            $mf->AddField(t('Mich auf der Karte zeigen') .'|'. t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', masterform::FIELD_OPTIONAL);
+            $mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', masterform::FIELD_OPTIONAL);
       
             if ($cfg['user_avatarupload']) {
-                $mf->AddField(t('Avatar'), 'avatar_path', IS_FILE_UPLOAD, 'ext_inc/avatare/'. $_GET['userid'] .'_', FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
+                $mf->AddField(t('Avatar'), 'avatar_path', masterform::IS_FILE_UPLOAD, 'ext_inc/avatare/'. $_GET['userid'] .'_', masterform::FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
             }
-            $mf->AddField(t('Signatur'), 'signature', '', LSCODE_ALLOWED, FIELD_OPTIONAL);
+            $mf->AddField(t('Signatur'), 'signature', '', masterform::LSCODE_ALLOWED, masterform::FIELD_OPTIONAL);
             $mf->AddGroup(t('Einstellungen'));
         }
     }

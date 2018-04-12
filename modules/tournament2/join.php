@@ -114,8 +114,6 @@ if ($tteam->SignonCheck($tournamentid)) {
 
             $dsp->AddFormSubmitRow(t('Beitreten'));
             $dsp->AddBackButton("index.php?mod=tournament2&action=details&tournamentid=$tournamentid", "tournament2/join");
-
-            $dsp->AddContent();
             break;
     }
 }

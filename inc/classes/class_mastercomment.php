@@ -73,9 +73,9 @@ class Mastercomment {
                 $mf = new masterform();
                 $mf->LogID = $id;
 
-                $mf->AddField(t('Kommentar'), 'text', '', LSCODE_BIG);
+                $mf->AddField(t('Kommentar'), 'text', '', masterform::LSCODE_BIG);
                 if (!$auth['login']) {
-                    $mf->AddField('', 'captcha', IS_CAPTCHA);
+                    $mf->AddField('', 'captcha', masterform::IS_CAPTCHA);
                 }
 
                 $mf->AddFix('relatedto_item', $mod);

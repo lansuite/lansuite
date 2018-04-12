@@ -182,9 +182,9 @@ switch ($_GET['step']) {
             $mf = new masterform();
 
             if ($auth['type'] < 2) {
-                $mf->AddField(t('Dezeitiges Passwort'), 'old_password', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
+                $mf->AddField(t('Dezeitiges Passwort'), 'old_password', masterform::IS_PASSWORD, '', masterform::FIELD_OPTIONAL, 'CheckClanPW');
             }
-            $mf->AddField(t('Neues Passwort'), 'password', IS_NEW_PASSWORD);
+            $mf->AddField(t('Neues Passwort'), 'password', masterform::IS_NEW_PASSWORD);
 
             if ($mf->SendForm('index.php?mod=clanmgr&action=clanmgr&step=10', 'clan', 'clanid', $_GET['clanid'])) {
                 include_once("modules/mail/class_mail.php");
@@ -228,10 +228,10 @@ switch ($_GET['step']) {
             $dsp->AddFieldsetStart(t('Clan-Daten'));
             $mf->AddField(t('Clanname'), 'name');
             if (!$_GET['clanid']) {
-                $mf->AddField(t('Beitritts Passwort'), 'password', IS_NEW_PASSWORD);
+                $mf->AddField(t('Beitritts Passwort'), 'password', masterform::IS_NEW_PASSWORD);
             }
-            $mf->AddField(t('Webseite'), 'url', '', '', FIELD_OPTIONAL);
-            $mf->AddField(t('Clanlogo'), 'clanlogo_path', IS_FILE_UPLOAD, 'ext_inc/clan/'. $auth['userid'] .'_', FIELD_OPTIONAL);
+            $mf->AddField(t('Webseite'), 'url', '', '', masterform::FIELD_OPTIONAL);
+            $mf->AddField(t('Clanlogo'), 'clanlogo_path', masterform::IS_FILE_UPLOAD, 'ext_inc/clan/'. $auth['userid'] .'_', masterform::FIELD_OPTIONAL);
       
       
       

@@ -17,5 +17,3 @@ switch ($_GET['step']) {
                 $func->information(t('Menu erfolgreich neu geschrieben'), "index.php?mod=install");
         break;
 }
-
-$dsp->AddContent();

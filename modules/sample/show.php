@@ -47,11 +47,6 @@ while ($user = $db->fetch_array($res)) {
 
     $dsp->AddSingleRow(t('Benutzer insgesamt') .": ". $user_insg);
 
-    // This will finaly output all the $dsp-Rows
-    $dsp->AddContent();
-    
-    
-    
     ### Mastersearch ###
     // There is a quite simple way in lansuite to list and search data within data base tables, called mastersearch
   // In this exapmle we will list all news
@@ -99,12 +94,12 @@ if ($auth['type'] >= 3) {
 
   // Define the db filds, which should be written. The second argument must be a valid db field, of the table supplied to SendForm
   $mf->AddField(t('Überschrift (Knappe Zusammenfassung für die Startseite)'), 'caption');
-  $mf->AddField(t('Kategorie / Icon'), 'icon', IS_PICTURE_SELECT, 'ext_inc/news_icons', FIELD_OPTIONAL);
-  $mf->AddField(t('Text'), 'text', '', LSCODE_ALLOWED);
+  $mf->AddField(t('Kategorie / Icon'), 'icon', masterform::IS_PICTURE_SELECT, 'ext_inc/news_icons', masterform::FIELD_OPTIONAL);
+  $mf->AddField(t('Text'), 'text', '', masterform::LSCODE_ALLOWED);
   $selections = array();
   $selections['0'] = t('Normal');
   $selections['1'] = t('Wichtig');
-  $mf->AddField(t('Priorität'), 'priority', IS_SELECTION, $selections, FIELD_OPTIONAL);
+  $mf->AddField(t('Priorität'), 'priority', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
 
   // Maybe some values should not be added by the user, but set to fix values
   $mf->AddFix('date', time());

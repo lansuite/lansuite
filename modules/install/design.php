@@ -71,5 +71,3 @@ switch ($_GET['step']) {
         $dsp->AddTextAreaRow('content', 'index.php', $FileCont, '', '', 40);
         break;
 }
-
-$dsp->AddContent();

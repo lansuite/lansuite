@@ -50,8 +50,7 @@ switch ($_GET["step"]) {
         $dsp->SetForm("index.php?mod=faq&object=cat&action=add_cat&step=2");
         $dsp->AddTextFieldRow("cat_caption", t('Neue Kategorie'), $_POST['cat_caption'], $faq_error['cat_caption']);
         $dsp->AddFormSubmitRow("add");
-        $dsp->AddContent();
-            
+
         break;
             
     case 2:

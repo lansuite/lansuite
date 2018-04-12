@@ -180,7 +180,6 @@ switch ($_GET['step']) {
         $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$_POST['search_dd_input'][2]}\">\n";
         
         $dsp->AddFormSubmitRow(t('Drucken'));
-        $dsp->AddContent();
         break;
     case 2:
         if ($_POST['action']) {
@@ -272,6 +271,5 @@ switch ($_GET['step']) {
         $dsp->SetForm("index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=4");
         $dsp->AddDropDownFieldRow("delcount", t('Anzahl'), $count_array, "");
         $dsp->AddFormSubmitRow(t('Weiter'));
-        $dsp->AddContent();
         break;
 }

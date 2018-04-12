@@ -79,4 +79,3 @@ $dsp->AddSmartyTpl('timetable', 'tournament2');
 
 $dsp->AddSingleRow(t('Achtung: Der Zeitraum eines Turnieres kann sich verlängern, wenn sich weitere Teams zu diesem Turnier anmelden.'));
 $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/timetable");
-$dsp->AddContent();

@@ -91,8 +91,6 @@ switch ($_GET['step']) {
 
         $dsp->AddFormSubmitRow(t('Editieren'));
         $dsp->AddBackButton("index.php?mod=tournament2&action=teammgr", "tournament2/teammgr");
-
-        $dsp->AddContent();
         break;
 
     // Edit Teamdetails (Action)
@@ -216,6 +214,5 @@ switch ($_GET['step']) {
         $dsp->AddSingleRow(t('Um ein neues Team zu erstellen / Dich zu einem Turnier anzumelden, wähle bitte in der Turnierübersicht das entsprechende Turnier aus und klicke am Ende der erscheinenden Detailansicht auf den Anmelde-Button.'));
 
         $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/teammgr");
-        $dsp->AddContent();
         break;
 } // Switch step

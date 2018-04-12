@@ -15,8 +15,8 @@ function CheckOldPW($old_password)
 $_GET['userid'] = $auth['userid'];
 $mf = new masterform();
 
-$mf->AddField(t('Derzeitiges Passwort'), 'old_password', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckOldPW');
-$mf->AddField(t('Neues Passwort'), 'password', IS_NEW_PASSWORD);
+$mf->AddField(t('Derzeitiges Passwort'), 'old_password', masterform::IS_PASSWORD, '', masterform::FIELD_OPTIONAL, 'CheckOldPW');
+$mf->AddField(t('Neues Passwort'), 'password', masterform::IS_NEW_PASSWORD);
 
 if ($mf->SendForm('index.php?mod=usrmgr&action=changepw', 'user', 'userid', $_GET['userid'])) {
     $authentication->set_cookie_pw($auth["userid"]);

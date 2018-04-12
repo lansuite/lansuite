@@ -9,4 +9,3 @@
     $smarty->assign('money', t('Total'));
     $smarty->assign('currency', $cfg['sys_currency']);
     $dsp->AddSmartyTpl('coincounter', 'foodcenter');
-    $dsp->AddContent();

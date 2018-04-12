@@ -27,4 +27,3 @@ $ms2->AddResultField(t('Benutzer'), 'u.username', 'UserNameAndIcon');
 // PrintSearch gibt deine Suche aus. Der erste Parameter ist der aktuelle Link.
 // Der zweite Parameter ist die ID an der sich die Suche orientiert. Hier suchen wir nach verschiedenen usern also gehts um die userid.
 $ms2->PrintSearch('index.php?mod=stats&action=lastlogin', 'u.userid');
-$dsp->AddContent();

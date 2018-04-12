@@ -315,7 +315,6 @@ if (!$tournamentid) {
             } else {
                   $dsp->AddBackButton("index.php?mod=tournament2&action=games&step=1", "tournament2/games");
             }
-                $dsp->AddContent();
             break;
     } // END: Switch Step
 }

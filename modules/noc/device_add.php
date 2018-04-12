@@ -63,8 +63,7 @@ switch ($_GET["step"]) {
         
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=noc", "noc");
-        $dsp->AddContent();
-    
+
         unset($noc_error);
         break;
     

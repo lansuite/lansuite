@@ -92,7 +92,6 @@ switch ($_GET["step"]) {
         $dsp->AddFieldSetEnd();
 
         $dsp->AddFormSubmitRow(t('Senden'));
-        $dsp->AddContent();
         break;
 
     case 2:
