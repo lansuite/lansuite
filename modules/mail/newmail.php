@@ -3,7 +3,6 @@
 $reply_message = '';
 
 $dsp->NewContent(t('Neue Mail verfassen'), '');
-$dsp->AddContent();
 
 function SendOnlineMail()
 {

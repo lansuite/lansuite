@@ -11,4 +11,3 @@ $mf->AddDropDownFromTable(t('Besitzer'), 'ownerid', 'userid', 'username', 'user'
 $mf->SendForm('index.php?mod=rent&action=add', 'rentstuff', 'stuffid', $_GET['stuffid']);
 
 $dsp->AddBackButton('index.php?mod=rent');
-$dsp->AddContent();

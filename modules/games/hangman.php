@@ -176,5 +176,3 @@ switch ($_GET["step"]) {
         $dsp->AddBackButton("index.php?mod=games", "games/hangman");
         break;
 }
-
-$dsp->AddContent();

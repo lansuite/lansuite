@@ -192,7 +192,6 @@ if (!$thread and $tid) {
     $_SESSION['threadview'] = $tid;
 
     $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
-    $dsp->AddContent();
 }
 
 if ($thread['closed']) {
@@ -337,4 +336,3 @@ if ($thread['caption'] != '') {
 }
 
 $dsp->AddBackButton("index.php?mod=board&action=forum&fid=$fid", "board/show_post");
-$dsp->AddContent();

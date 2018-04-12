@@ -382,10 +382,6 @@ elseif (!$akt_file) {
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
     }
 
-    $dsp->AddContent();
-
-
-
 // Details
 } else {
     if (!is_file($root_file)) {
@@ -517,7 +513,6 @@ elseif (!$akt_file) {
             }
 
             $dsp->AddBackButton("index.php?mod=picgallery&file=$akt_dir&page={$_GET["page"]}", "picgallery");
-            $dsp->AddContent();
         }
 
         // Mastercomment

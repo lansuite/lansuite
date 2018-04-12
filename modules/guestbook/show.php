@@ -25,5 +25,3 @@ if ($auth['type'] >= 3) {
 $ms2->PrintSearch('index.php?mod=guestbook', 'g.guestbookid');
 
 $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=guestbook&action=add'));
-
-$dsp->AddContent();

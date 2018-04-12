@@ -37,7 +37,6 @@ switch ($_GET['step']) {
         $ms2->PrintSearch('index.php?mod=usrmgr&action=user_fields', 'f.fieldid');
     
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=usrmgr&action=user_fields&step=10"));
-        $dsp->AddContent();
         break;
   
   // Add new entry

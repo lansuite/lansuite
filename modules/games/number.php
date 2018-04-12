@@ -128,5 +128,3 @@ switch ($step) {
         }
         break;
 }
-
-$dsp->AddContent();

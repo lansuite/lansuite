@@ -25,7 +25,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install", "install/import");
-        $dsp->AddContent();
         break;
 
     case 2:
@@ -126,7 +125,6 @@ switch ($_GET["step"]) {
 
                         $dsp->AddFormSubmitRow(t('Weiter'));
                         $dsp->AddBackButton("index.php?mod=install&action=import", "install/import");
-                        $dsp->AddContent();
                         break;
 
                     case 'tgz':
