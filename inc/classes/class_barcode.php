@@ -36,7 +36,6 @@ class barcode
     {
         if (!function_exists("imagecreate")) {
             die("This class needs GD library support.");
-            return false;
         }
 
         $this->_error="";
