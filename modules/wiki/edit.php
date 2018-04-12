@@ -29,7 +29,7 @@ $dsp->AddDoubleRow('', $smarty->fetch('modules/wiki/templates/add_page_link.htm'
 
 $mf = new masterform();
 
-$mf->AddField(t('Text'), 'text', '', HTML_ALLOWED);
+$mf->AddField(t('Text'), 'text', '', masterform::HTML_ALLOWED);
 $mf->AddFix('userid', $auth['userid']);
 
 $mf->AddFix('postid', $_GET['postid']);

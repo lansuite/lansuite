@@ -4,8 +4,8 @@ $dsp->NewContent(t('Party eintragen'), t('Hier kannst du deine Party der Liste h
 $mf = new masterform();
 
 $mf->AddField(t('Partyname'), 'name');
-$mf->AddField(t('Partymotto'), 'motto', '', '', FIELD_OPTIONAL);
-$mf->AddField(t('Zusätzliche Infos'), 'text', '', LSCODE_ALLOWED, FIELD_OPTIONAL);
+$mf->AddField(t('Partymotto'), 'motto', '', '', masterform::FIELD_OPTIONAL);
+$mf->AddField(t('Zusätzliche Infos'), 'text', '', masterform::LSCODE_ALLOWED, masterform::FIELD_OPTIONAL);
 $mf->AddGroup(t('Allgemeine Angaben'));
 
 $mf->AddField(t('Party-Start'), 'start');
@@ -28,4 +28,3 @@ if (!$_GET['partyid']) {
 
 $mf->SendForm('index.php?mod=partylist&action=add', 'partylist', 'partyid', $_GET['partyid']);
 $dsp->AddBackButton('index.php?mod=partylist');
-$dsp->AddContent();

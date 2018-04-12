@@ -7,7 +7,6 @@ switch ($_GET['step']) {
         $dsp->AddTextFieldRow('version', t('Version'), $config['lansuite']['version'], '');
         $dsp->AddTextFieldRow('url', t('URL'), $_SERVER['SERVER_NAME'], '');
         $dsp->AddFormSubmitRow('next');
-        $dsp->AddContent();
         break;
 
     case 2:

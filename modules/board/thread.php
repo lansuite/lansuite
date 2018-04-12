@@ -192,7 +192,6 @@ if (!$thread and $tid) {
     $_SESSION['threadview'] = $tid;
 
     $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
-    $dsp->AddContent();
 }
 
 if ($thread['closed']) {
@@ -222,8 +221,8 @@ if ($thread['closed']) {
     if ($thread['caption'] == '') {
         $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
     }
-    $mf->AddField(t('Text'), 'comment', '', LSCODE_BIG);
-    $mf->AddField(t('Bild / Datei anhängen'), 'file', IS_FILE_UPLOAD, 'ext_inc/board_upload/', FIELD_OPTIONAL);
+    $mf->AddField(t('Text'), 'comment', '', masterform::LSCODE_BIG);
+    $mf->AddField(t('Bild / Datei anhängen'), 'file', masterform::IS_FILE_UPLOAD, 'ext_inc/board_upload/', masterform::FIELD_OPTIONAL);
   
     $mf->AddFix('tid', $_GET['tid']);
     if ($_GET['pid'] == '') {
@@ -337,4 +336,3 @@ if ($thread['caption'] != '') {
 }
 
 $dsp->AddBackButton("index.php?mod=board&action=forum&fid=$fid", "board/show_post");
-$dsp->AddContent();

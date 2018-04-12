@@ -19,7 +19,6 @@ class beamer_display
                            '<p />');
         $dsp->AddSingleRow('<br />' . t('Das Modul arbeitet derzeit nur mit dem Template /\'/simple/\'/ und /\'/beamer/\'/ zusammen. F&uuml;r eine schnelle L&ouml;sung erstelle einen zus&auml;tzlichen Account der das Beamer-Template verwendet. Damit hast du die besten Ergebnisse im Fullscreen Mode. <p/>Damit es mit jedem anderen Template funktioniert, musst du in deinem Template im Bereich der Meta-Angaben folgende Codezeilen hinzuf&uuml;gen:<p/> if( $_GET[/\'/sitereload/\'/] ) { echo ... (Restlichen Anweisungsblock bitte as der Design-index.php entnehmen.)  } '));
         $dsp->AddSingleRow("<br />");
-        $dsp->AddContent();
     }
     
 
@@ -30,7 +29,6 @@ class beamer_display
         //$dsp->AddIFrame("localhost/pma/","1024","500");
         $dsp->AddSingleRow($func->AllowHTML($beamermodul->getCurrentContent($beamerid)));
         $dsp->AddSingleRow(HTML_NEWLINE."");
-        $dsp->AddContent();
     }
 
     
@@ -118,7 +116,6 @@ class beamer_display
         $dsp->AddSingleRow("<br/><div align=\"middle\">".
                            "Das Beamermodul zeigt immer den &auml;ltesten Eintrag von \"Zuletzt angezeigt\". Durch Klick auf das Icon <img src=\"design/images/icon_reset_timestamp.png\" alt=\"Set2First\" border=\"0\"> setzt man den Zeitstempel, wann das Element zuletzt angezeigt wurde, auf Null.</div>");
         $dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton(t('Inhalte hinzuf&uuml;gen'), 'index.php?mod=beamer&action=newcontent', 'Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));
-        $dsp->AddContent();
     }
 
 
@@ -153,7 +150,6 @@ class beamer_display
         $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">4.</font> ".t('Beamerfenster ').$btn4." - ".t('Aktive Inhalte: ').$a4."<p/><br/>");
         $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">5.</font> ".t('Beamerfenster ').$btn5." - ".t('Aktive Inhalte: ').$a5."<p/><br/>");
         $dsp->AddSingleRow(HTML_NEWLINE);
-        $dsp->AddContent();
     }
     
     
@@ -168,7 +164,6 @@ class beamer_display
         $dsp->AddRadioRow("ctype", t("<strong>Wrapper</strong><br /> (IFrame f&uuml;r Webseiten oder sonstigen Content)"), 'wrapper', $errortext = null, $optional = null, $checked = false, $disabled = null);
         $dsp->AddRadioRow("ctype", t("<strong>Turnierbaum</strong><br />"), 'turnier', $errortext = null, $optional = null, $checked = false, $disabled = null);
         $dsp->AddFormSubmitRow("next");
-        $dsp->AddContent();
     }
 
     public function viewAddNewContent2()
@@ -206,7 +201,6 @@ class beamer_display
         
         $dsp->AddBackButton();
         $dsp->AddFormSubmitRow("save");
-        $dsp->AddContent();
     }
 
     public function viewEditContent()
@@ -242,6 +236,5 @@ class beamer_display
         }
 
         $dsp->AddFormSubmitRow("save");
-        $dsp->AddContent();
     }
 }

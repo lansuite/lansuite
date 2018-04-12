@@ -55,5 +55,3 @@ if (!$cfg['sys_internet']) {
             break;
     }
 }
-
-$dsp->AddContent();

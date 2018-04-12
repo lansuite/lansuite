@@ -14,7 +14,6 @@ if (!$cfg["equipment_shopid"]) {
         $dsp->NewContent(t('Equipmentliste'), t('Hier siehst du eine Liste des LanParty-Equipment, dass wir vermieten'));
         $dsp->AddSmartyTpl('style', 'equipment');
         $dsp->AddSingleRow(ob_get_contents());
-        $dsp->AddContent();
     }
 }
 ob_end_clean();

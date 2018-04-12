@@ -19,9 +19,8 @@ $mf->AddField(t('Text für Eintrittspreis'), 'price_text');
 $mf->AddField(t('Preis'), 'price');
 
 $mf->AddDropDownFromTable(t('Gruppenname'), 'group_id', 'group_id', 'group_name', 'party_usergroups');
-$mf->AddField(t('Sichtbar für'), 'requirement', IS_SELECTION, $selectrequire, 1);
+$mf->AddField(t('Sichtbar für'), 'requirement', masterform::IS_SELECTION, $selectrequire, 1);
 $mf->AddField(t('Gültig bis'), 'enddate');
 
 $mf->SendForm('index.php?mod=party&action=price_edit&party_id='. $_GET['party_id'], 'party_prices', 'price_id', $_GET['price_id']);
 $dsp->AddBackButton('index.php?mod=party&action=price&party_id='. $_GET['party_id']);
-$dsp->AddContent();

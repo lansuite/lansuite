@@ -119,8 +119,6 @@ switch ($_GET['step']) {
                 $dsp->CloseForm();
             }
         }
-        
-        $dsp->AddContent();
         break;
     
     case 3:
@@ -141,7 +139,6 @@ switch ($_GET['step']) {
         $dsp->SetForm("index.php?mod=usrmgr&action=group&step=10");
         $party->get_user_group_dropdown();
         $dsp->AddFormSubmitRow(t('Weiter'));
-        $dsp->AddContent();
         break;
     
     case 10:
@@ -223,7 +220,6 @@ switch ($_GET['step']) {
         $db->free_result($groups);
 
         $dsp->AddBackButton("index.php?mod=usrmgr&action=group");
-        $dsp->AddContent();
         break;
     
     // Delete Group
@@ -237,7 +233,6 @@ switch ($_GET['step']) {
         $dsp->SetForm("index.php?mod=usrmgr&action=group&step=22&group_id={$_GET['group_id']}");
         $party->get_user_group_dropdown("NULL", 1);
         $dsp->AddFormSubmitRow(t('Weiter'));
-        $dsp->AddContent();
         break;
     
     case 22:

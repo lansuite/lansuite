@@ -8,9 +8,9 @@ if ($_POST['poster'] == '') {
 
 $mf->AddField(t('Autor'), 'poster', '', '');
 if (!$auth['login']) {
-    $mf->AddField('', 'captcha', IS_CAPTCHA);
+    $mf->AddField('', 'captcha', masterform::IS_CAPTCHA);
 }
-$mf->AddField(t('Eintrag'), 'text', '', LSCODE_ALLOWED);
+$mf->AddField(t('Eintrag'), 'text', '', masterform::LSCODE_ALLOWED);
 $mf->AddGroup(t('Eintrag'));
 
 $mf->AddFix('date', time());

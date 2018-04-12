@@ -29,5 +29,4 @@ if ($count_cat == 0) {
         $dsp->AddFieldsetEnd();
     }
     $dsp->AddSingleRow($faq_content, "class='menu'");
-    $dsp->AddContent();
 }

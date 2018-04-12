@@ -1081,16 +1081,6 @@ class display
     }
 
     /**
-     * TODO Remove this method from the code base at all. It has no functionality
-     *
-     * @param mixed $target
-     * @return void
-     */
-    public function AddContent($target = null)
-    {
-    }
-
-    /**
      * Should be called AddForm
      *
      * @param string $f_url

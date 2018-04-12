@@ -39,7 +39,6 @@ if ($overall_news == 0) {
         $smarty->assign('rows', $rows);
         $smarty->assign('pages', $pages["html"] ."<strong><a href=\"index.php?mod=news\">" .t('Zur&uuml;ck') ."</a></strong>");
         $dsp->AddSingleRow($smarty->fetch('modules/news/templates/show_case.htm'));
-        $dsp->AddContent();
     } else {
         if ($cfg["news_shorted"]== "0") {
             $dsp->NewContent(t('Neuigkeiten'), t('Hier siehst du aktuelle Neuigkeiten.'));
@@ -219,6 +218,5 @@ if ($overall_news == 0) {
 
         $smarty->assign('rows', $rows);
         $dsp->AddSingleRow($smarty->fetch("modules/news/templates/show_case.htm"));
-        $dsp->AddContent();
     }
 }

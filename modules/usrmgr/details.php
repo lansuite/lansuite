@@ -463,5 +463,4 @@ if (!$user_data['userid']) {
     }
 
     $dsp->AddDoubleRow('', $buttons);
-    $dsp->AddContent();
 }

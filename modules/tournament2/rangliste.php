@@ -71,7 +71,6 @@ if (!$_GET['tournamentid']) {
             } else {
                 $dsp->AddBackButton("index.php?mod=tournament2&action=rangliste&step=1", "tournament2/rangliste");
             }
-                $dsp->AddContent();
             break;
     } // Switch
 }
