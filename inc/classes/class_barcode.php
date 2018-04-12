@@ -36,7 +36,6 @@ class barcode
     {
         if (!function_exists("imagecreate")) {
             die("This class needs GD library support.");
-            return false;
         }
 
         $this->_error="";
@@ -234,10 +233,6 @@ class barcode
         "-" => "100101110",
         "." => "111010100",
         " " => "111010010",
-        "$" => "111001010",
-        "/" => "101101110",
-        "+" => "101110110",
-        "%" => "110101110",
         "$" => "100100110",
         "%" => "111011010",
         "/" => "111010110",
