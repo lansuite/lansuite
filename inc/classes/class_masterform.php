@@ -998,7 +998,6 @@ class masterform
                 } else {
                     $dsp->AddFormSubmitRow('Erstellen');
                 }
-                $dsp->AddContent();
                 break;
 
             // Update DB

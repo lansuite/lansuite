@@ -24,4 +24,3 @@ $mf->AddField(t('Gültig bis'), 'enddate');
 
 $mf->SendForm('index.php?mod=party&action=price_edit&party_id='. $_GET['party_id'], 'party_prices', 'price_id', $_GET['price_id']);
 $dsp->AddBackButton('index.php?mod=party&action=price&party_id='. $_GET['party_id']);
-$dsp->AddContent();

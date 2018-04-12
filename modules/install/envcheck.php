@@ -8,4 +8,3 @@ $dsp->NewContent(t('Webserverkonfiguration und Systemvorraussetzungen überprüf
 $install->envcheck();
 
 $dsp->AddBackButton("index.php?mod=install");
-$dsp->AddContent();

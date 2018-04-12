@@ -145,8 +145,6 @@ if (!$cfg['download_use_ftp']) {
             $dsp->AddFieldSetEnd();
         }
     }
-    $dsp->AddContent();
-
 
 // Try to connect to FTP-Server
 } elseif (!extension_loaded(ftp)) {
@@ -279,7 +277,6 @@ if (!$cfg['download_use_ftp']) {
             $dsp->AddSingleRow('<a href="index.php?mod=downloads&action=show&go_dir=up"><img src="design/'. $auth['design'] .'/images/downloads_goup.gif" border="0"></a> '. $dir .'/');
         }
         $dsp->AddTableRow($table);
-        $dsp->AddContent();
 
         $quit = ftp_quit($connect);
 

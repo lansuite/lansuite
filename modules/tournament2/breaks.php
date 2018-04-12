@@ -36,4 +36,3 @@ $buttons = "";
 $buttons .= $dsp->FetchSpanButton(t('Paarungen'), "index.php?mod=tournament2&action=games&step=2&tournamentid=". $_GET['tournamentid']);
 $buttons .= " ". $dsp->FetchSpanButton(t('Spielbaum'), "index.php?mod=tournament2&action=tree&step=2&tournamentid=". $_GET['tournamentid']);
 $dsp->AddDoubleRow("", $buttons);
-$dsp->AddContent();

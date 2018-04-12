@@ -28,4 +28,3 @@ if (!$_GET['partyid']) {
 
 $mf->SendForm('index.php?mod=partylist&action=add', 'partylist', 'partyid', $_GET['partyid']);
 $dsp->AddBackButton('index.php?mod=partylist');
-$dsp->AddContent();

@@ -112,7 +112,5 @@ class accounting
         } else {
             $dsp->AddSingleRow("<strong>" . t('Keine Kontobewegungen') . "</strong>");
         }
-
-        $dsp->AddContent();
     }
 }

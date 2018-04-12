@@ -221,4 +221,3 @@ if (!$_GET['partyid']) {
 
     $dsp->AddBackButton('index.php?mod=partylist&action='. $_GET['action']);
 }
-$dsp->AddContent();

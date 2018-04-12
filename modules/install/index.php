@@ -51,5 +51,3 @@ if (!$func->admin_exists()) {
         $func->information(t('Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:<br>%1', $mod_list), NO_LINK);
     }
 }
-
-$dsp->AddContent();

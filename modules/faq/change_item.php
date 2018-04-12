@@ -111,7 +111,6 @@ switch ($_GET["step"]) {
             $dsp->AddDropDownFieldRow("question_cat", t('Bestehende Kategorie'), $faq_cats, "");
             $dsp->AddTextFieldRow("question_new_cat", t('Neue Kategorie'), $_POST['question_new_cat'], $faq_error['question_cat']);
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
-            $dsp->AddContent();
         } else {
                 $func->error(t('Diese Frage existiert nicht'));
         }

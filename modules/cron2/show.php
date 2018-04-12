@@ -36,5 +36,3 @@ switch ($_GET['step']) {
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=cron2&action=add'));
         break;
 }
-
-$dsp->AddContent();

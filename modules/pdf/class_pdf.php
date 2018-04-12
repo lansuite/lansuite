@@ -305,7 +305,6 @@ class pdf
         // Knopf f�r erzeugen der PDF
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/usercards");
-        $dsp->AddContent();
     }
     
 
@@ -348,7 +347,6 @@ class pdf
             // Knopf f�r erzeugen der PDF
             $dsp->AddFormSubmitRow(t('Weiter'));
             $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/seatcards");
-            $dsp->AddContent();
         }
     }
     
@@ -400,7 +398,6 @@ class pdf
         $dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/userlist");
-        $dsp->AddContent();
     }
 
     // Erzeugung der PDF-Dateien ***********************************

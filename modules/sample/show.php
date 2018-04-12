@@ -47,11 +47,6 @@ while ($user = $db->fetch_array($res)) {
 
     $dsp->AddSingleRow(t('Benutzer insgesamt') .": ". $user_insg);
 
-    // This will finaly output all the $dsp-Rows
-    $dsp->AddContent();
-    
-    
-    
     ### Mastersearch ###
     // There is a quite simple way in lansuite to list and search data within data base tables, called mastersearch
   // In this exapmle we will list all news

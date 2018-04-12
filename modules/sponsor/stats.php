@@ -34,4 +34,3 @@ while ($sponsor = $db->fetch_array($sponsoren)) {
 }
 $db->free_result($sponsoren);
 $dsp->AddBackButton('index.php?mod=sponsor', 'sponsor/show');
-$dsp->AddContent();
