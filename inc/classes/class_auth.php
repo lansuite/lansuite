@@ -421,7 +421,7 @@ class auth {
         $this->auth["userpassword"] = "";
         $this->auth["type"] = 0;
 
-        $func->confirmation(t('Du wurdest erfolgreich ausgeloggt. Vielen dank für deinen Besuch.'), "", 1, FORWARD);
+        $func->confirmation(t('Du wurdest erfolgreich ausgeloggt. Vielen dank für deinen Besuch.'), "", 1, 'FORWARD');
         return $this->auth;
     }
 
