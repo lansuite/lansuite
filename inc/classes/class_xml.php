@@ -149,7 +149,7 @@ class xml {
      * @param int       $level
      * @return string
      */
-    public function level2tab($level) {
+    private function level2tab($level) {
         $tab = '';
         for ($i = 0; $i < $level; $i++) {
             $tab .= "\t";

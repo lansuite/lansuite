@@ -20,7 +20,7 @@ class AzDGCrypt
     /**
      * @var string
      */
-    public $k;
+    private $k;
 
     /**
      * @param string $m
@@ -34,7 +34,7 @@ class AzDGCrypt
      * @param string $t
      * @return string
      */
-    public function ed($t)
+    private function ed($t)
     {
         $r = md5($this->k);
         $c=0;

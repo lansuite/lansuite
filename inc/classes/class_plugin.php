@@ -11,32 +11,32 @@ class plugin
     /**
      * @var array
      */
-    public $modules = [];
+    private $modules = [];
 
     /**
      * @var array
      */
-    public $captions = [];
+    private $captions = [];
 
     /**
      * @var array
      */
-    public $icons = [];
+    private $icons = [];
 
     /**
      * @var int
      */
-    public $currentIndex = 0;
+    private $currentIndex = 0;
 
     /**
      * @var int
      */
-    public $count = 0;
+    private $count = 0;
 
     /**
      * @var string
      */
-    public $type = '';
+    private $type = '';
 
     public function __construct($type)
     {

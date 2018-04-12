@@ -21,63 +21,63 @@ class auth {
      *
      * @var int
      */
-    public $timestamp;
+    private $timestamp;
 
     /**
      * Cookie data
      *
      * @var array
      */
-    public $cookie_data = [];
+    private $cookie_data = [];
 
     /**
      * Cookie name
      *
      * @var string
      */
-    public $cookie_name = 'LSAUTH';
+    private $cookie_name = 'LSAUTH';
 
     /**
      * Cookie version
      *
      * @var string
      */
-    public $cookie_version = '1';
+    private $cookie_version = '1';
 
     /**
      * Domain
      *
      * @var string
      */
-    public $cookie_domain = '';
+    private $cookie_domain = '';
 
     /**
      * Duration in days
      *
      * @var string
      */
-    public $cookie_time = '30';
+    private $cookie_time = '30';
 
     /**
      * Cookie path
      *
      * @var string
      */
-    public $cookie_path = '';
+    private $cookie_path = '';
 
     /**
      * Crypt Cookie with AzDGCrypt
      *
      * @var bool
      */
-    public $cookie_crypt = true;
+    private $cookie_crypt = true;
 
     /**
      * Passphrase for AzDGCrypt
      *
      * @var string
      */
-    public $cookie_crypt_pw = "iD9ww32e";
+    private $cookie_crypt_pw = "iD9ww32e";
 
     /**
      * Array containing all users, currently online
@@ -379,7 +379,7 @@ class auth {
      * @param string $uniquekey
      * @return void
      */
-    public function login_cookie($userid, $uniquekey)
+    private function login_cookie($userid, $uniquekey)
     {
         global $func;
 
@@ -586,7 +586,7 @@ class auth {
      *
      * @return mixed
      */
-    public function loadAuthBySID()
+    private function loadAuthBySID()
     {
         global $db;
         // Put all User-Data into $auth-Array
@@ -610,7 +610,7 @@ class auth {
      * @param string $frmwrkmode
      * @return void
      */
-    public function update_visits($frmwrkmode = "")
+    private function update_visits($frmwrkmode = "")
     {
         global $db;
         if ($frmwrkmode != "ajax" && $frmwrkmode != "print" && $frmwrkmode != "popup" && $frmwrkmode != "base") {
@@ -654,7 +654,7 @@ class auth {
      *
      * @return int Return the Cookiestatus. 1=OK, 0=NOK
      */
-    public function cookie_read()
+    private function cookie_read()
     {
         $ok = 0;
 
@@ -679,7 +679,7 @@ class auth {
      *
      * @return void
      */
-    public function cookie_set()
+    private function cookie_set()
     {
         setcookie(
             $this->cookie_name,
@@ -695,7 +695,7 @@ class auth {
      *
      * @return void
      */
-    public function cookie_unset()
+    private function cookie_unset()
     {
         setcookie(
             $this->cookie_name,
@@ -711,7 +711,7 @@ class auth {
      *
      * @return string
      */
-    public function cookiedata_pack()
+    private function cookiedata_pack()
     {
         $data = array($this->cookie_data['userid'],
                       $this->cookie_data['uniqekey'],
@@ -735,7 +735,7 @@ class auth {
      * @param string $cookie
      * @return void
      */
-    public function cookiedata_unpack($cookie)
+    private function cookiedata_unpack($cookie)
     {
         // Crypt only via Config. See Construktor
         if ($this->cookie_crypt) {
@@ -756,7 +756,7 @@ class auth {
      * @param int $count
      * @return string
      */
-    public function gen_rnd_key($count)
+    private function gen_rnd_key($count)
     {
         $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
         $key = '';
