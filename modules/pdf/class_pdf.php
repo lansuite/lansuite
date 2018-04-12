@@ -108,7 +108,7 @@ class pdf
      * @param int $templ_id
      * @return pdf
      */
-    public function pdf($templ_id)
+    public function __construct($templ_id)
     {
         $this->templ_id = $templ_id;
         // Typen Array erstellen

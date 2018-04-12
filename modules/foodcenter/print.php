@@ -9,7 +9,7 @@ class foodcenter_print
     public $row_file = "";
     public $row_temp = "";
 
-    public function foodcenter_print()
+    public function __construct()
     {
         global $func, $auth;
         if (!file_exists($this->path . $_POST['file']) || $_POST['file'] == "") {
