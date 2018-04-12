@@ -361,7 +361,7 @@ class product
      * @param int $id
      * @return product
      */
-    public function product($id = null)
+    public function __construct($id = null)
     {
         if ($id != null && $id > 0) {
             $this->id = $id;
@@ -1109,7 +1109,7 @@ class product_option
      * @param int $type
      * @return product_option
      */
-    public function product_option($id = null, $type = null)
+    public function __construct($id = null, $type = null)
     {
         $this->parenttyp = $type;
         if ($id != null && $id > 0) {
@@ -1395,7 +1395,7 @@ class supp
      * @param int $id
      * @return supp
      */
-    public function supp($id = null)
+    public function __construct($id = null)
     {
         if ($id != null && $id > 0) {
             $this->supp_id = $id;
@@ -1569,7 +1569,7 @@ class cat
      * @param int $id
      * @return cat
      */
-    public function cat($id = null)
+    public function __construct($id = null)
     {
         if ($id != null && $id > 0) {
             $this->cat_id = $id;

@@ -641,7 +641,7 @@ class func
         }
 
         for ($i=0; $i<=3; $i++) {
-            if (ereg("[^0-9]", $IPParts[$i])) {
+            if (preg_match("[^0-9]", $IPParts[$i])) {
                 return 0;
             }
 

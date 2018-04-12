@@ -265,7 +265,7 @@ class gd
 
         } else {
             $ypos = $ypos - 3;
-            $text_parts = split("\r\n", $text);
+            $text_parts = preg_split("\r\n", $text);
             $i = 0;
 
             while (list($key, $val) = each($text_parts)) {

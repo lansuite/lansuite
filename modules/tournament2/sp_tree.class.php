@@ -16,7 +16,7 @@ class lansuiteTree extends TourneyTree
     public $tree = null;
     public $db = null;
 
-    public function lansuiteTree($id, $size, &$db)
+    public function __construct($id, $size, &$db)
     {
         $this->size = $size;
         $this->st = "SELECT games.round, teams.name, teams.teamid, games.leaderid, games.gameid, games.score, games.position

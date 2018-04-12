@@ -51,6 +51,11 @@ class display
      */
     private $TabNames = [];
 
+    /**
+     * @var string
+     */
+    private $form_name = '';
+
     public function __construct()
     {
         $this->errortext_prefix = HTML_NEWLINE . HTML_FONT_ERROR;
@@ -709,7 +714,7 @@ class display
     }
 
     /**
-     * @param sting $name
+     * @param string $name
      * @param string $key
      * @param array $option_array
      * @param string $errortext
