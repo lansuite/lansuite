@@ -7,7 +7,7 @@ class accounting
     public $balance;
     
     
-    public function accounting($user_id)
+    public function __construct($user_id)
     {
         global $db;
         
