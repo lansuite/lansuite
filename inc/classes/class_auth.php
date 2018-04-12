@@ -415,7 +415,6 @@ class auth {
         // Reset Sessiondata
         unset($this->auth);
         unset($_SESSION['auth']);
-        $this->auth['login'] == "0";
         $this->auth["userid"] = "";
         $this->auth["email"] = "";
         $this->auth["username"] = "";
