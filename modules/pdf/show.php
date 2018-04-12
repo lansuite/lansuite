@@ -5,4 +5,3 @@ $dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=guestcards\">".t('Ausweis
 $dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=seatcards\">".t('Sitzplatzkarten erstellen')."</a>");
 $dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=userlist\">".t('Besucherliste erstellen')."</a>");
 $party->get_party_dropdown_form(1, "index.php?mod=pdf");
-$dsp->AddContent();

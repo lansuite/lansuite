@@ -70,5 +70,3 @@ if ($auth['login']) {
     $info_line .= HTML_NEWLINE . '<a href="index.php?mod=board&action=forum&fid=&search_input[2]='. $auth['username'] .'&order_by=LastPost&order_dir=DESC">'. t('Threads, in denen ich mitgeschrieben habe, anzeigen') .'</a>';
 }
 $dsp->AddSingleRow($info_line);
-
-$dsp->AddContent();

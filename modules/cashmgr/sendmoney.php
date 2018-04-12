@@ -70,7 +70,7 @@ while ($row = $db->fetch_array($res)) {
 }
 $db->free_result($res);
 
-$mf->AddField(t('Empfänger'), 'toUserid', IS_SELECTION, $selections, FIELD_OPTIONAL);
+$mf->AddField(t('Empfänger'), 'toUserid', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
 
 $mf->AddField('Betreff', 'comment');
 $mf->AddField('Betrag', 'movement');

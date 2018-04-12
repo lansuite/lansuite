@@ -1,27 +1,42 @@
 <?php
 
-define('FIELD_OPTIONAL', 1);
-define('HTML_ALLOWED', 1);
-define('LSCODE_ALLOWED', 1);
-define('HTML_WYSIWYG', 2);
-define('LSCODE_BIG', 3);
-define('IS_PASSWORD', 1);
-define('IS_NEW_PASSWORD', 2);
-define('IS_SELECTION', 3);
-define('IS_MULTI_SELECTION', 4);
-define('IS_FILE_UPLOAD', 5);
-define('IS_PICTURE_SELECT', 6);
-define('IS_TEXT_MESSAGE', 7);
-define('IS_CAPTCHA', 8);
-define('IS_NOT_CHANGEABLE', 9);
-define('IS_CALLBACK', 10);
-
-define('CHECK_ERROR_PROC', 1);
-
 $mf_number = 0;
 
 class masterform
 {
+
+    const FIELD_OPTIONAL = 1;
+
+    const HTML_ALLOWED = 1;
+
+    const LSCODE_ALLOWED = 1;
+
+    const HTML_WYSIWYG = 2;
+
+    const LSCODE_BIG = 3;
+
+    const IS_PASSWORD = 1;
+
+    const IS_NEW_PASSWORD = 2;
+
+    const IS_SELECTION = 3;
+
+    const IS_MULTI_SELECTION = 4;
+
+    const IS_FILE_UPLOAD = 5;
+
+    const IS_PICTURE_SELECT = 6;
+
+    const IS_TEXT_MESSAGE = 7;
+
+    const IS_CAPTCHA = 8;
+
+    const IS_NOT_CHANGEABLE = 9;
+
+    const IS_CALLBACK = 10;
+
+    const CHECK_ERROR_PROC = 1;
+
     /**
      * @var array
      */
@@ -205,7 +220,7 @@ class masterform
      */
     public function AddField($caption, $name, $type = '', $selections = '', $optional = 0, $callback = '', $DependOnThis = 0, $DependOnCriteria = '')
     {
-        if ($type == IS_TEXT_MESSAGE || $type == IS_NOT_CHANGEABLE) {
+        if ($type == self::IS_TEXT_MESSAGE || $type == self::IS_NOT_CHANGEABLE) {
             $optional = 1;
         }
 
@@ -220,7 +235,7 @@ class masterform
             'page' => $this->currentPage
         ];
 
-        if ($type == IS_FILE_UPLOAD) {
+        if ($type == self::IS_FILE_UPLOAD) {
             $this->FormEncType = 'multipart/form-data';
         }
 
@@ -230,7 +245,7 @@ class masterform
 
         $this->FormFields[] = $arr;
         $this->AddToSQLFields($name);
-        if ($selections == HTML_WYSIWYG) {
+        if ($selections == self::HTML_WYSIWYG) {
             $this->WYSIWYGFields[] = $name;
         }
         $this->NumFields++;
@@ -303,7 +318,7 @@ class masterform
             }
         }
         $db->free_result($res);
-        $this->AddField($caption, $id1, IS_SELECTION, $selections, FIELD_OPTIONAL);
+        $this->AddField($caption, $id1, self::IS_SELECTION, $selections, self::FIELD_OPTIONAL);
     }
 
     /**
@@ -487,7 +502,7 @@ class masterform
                                             $err = false;
 
                                             // Copy WYSIWYG editor variable
-                                            if (($SQLFieldTypes[$field['name']] == 'text' || $SQLFieldTypes[$field['name']] == 'mediumtext' || $SQLFieldTypes[$field['name']] == 'longtext') && $field['selections'] == HTML_WYSIWYG) {
+                                            if (($SQLFieldTypes[$field['name']] == 'text' || $SQLFieldTypes[$field['name']] == 'mediumtext' || $SQLFieldTypes[$field['name']] == 'longtext') && $field['selections'] == self::HTML_WYSIWYG) {
                                                 $this->FCKeditorID++;
                                                 $_POST[$field['name']] = $_POST['FCKeditor'. $this->FCKeditorID];
                                             }
@@ -517,7 +532,7 @@ class masterform
                                                         }
                                                     }
 
-                                                } elseif ($field['type'] == IS_FILE_UPLOAD) {
+                                                } elseif ($field['type'] == self::IS_FILE_UPLOAD) {
                                                     if (substr($field['selections'], strlen($field['selections']) - 1, 1) == '_') {
                                                         $_POST[$field['name']] = $func->FileUpload($field['name'], substr($field['selections'], 0, strrpos($field['selections'], '/')), substr($field['selections'], strrpos($field['selections'], '/') + 1, strlen($field['selections'])));
 
@@ -528,8 +543,8 @@ class masterform
 
                                                 // -- Checks --
                                                 // Exec callback
-                                                if ($field['type'] == IS_CALLBACK) {
-                                                      $err = call_user_func($field['selections'], $field['name'], CHECK_ERROR_PROC);
+                                                if ($field['type'] == self::IS_CALLBACK) {
+                                                      $err = call_user_func($field['selections'], $field['name'], self::CHECK_ERROR_PROC);
                                                 }
                                                 if ($err) {
                                                     $this->error[$field['name']] = $err;
@@ -548,11 +563,11 @@ class masterform
                                                       $this->error[$field['name']] = t('Das eingegebene Datum ist nicht korrekt.');
 
                                                 // Check new passwords
-                                                } elseif ($field['type'] == IS_NEW_PASSWORD && $_POST[$field['name']] != $_POST[$field['name'].'2']) {
+                                                } elseif ($field['type'] == self::IS_NEW_PASSWORD && $_POST[$field['name']] != $_POST[$field['name'].'2']) {
                                                       $this->error[$field['name'].'2'] = t('Die beiden Kennworte stimmen nicht überein.');
 
                                                 // Check captcha
-                                                } elseif ($field['type'] == IS_CAPTCHA && ($_POST['captcha'] == '' || $_SESSION['captcha'] != strtoupper($_POST['captcha']))) {
+                                                } elseif ($field['type'] == self::IS_CAPTCHA && ($_POST['captcha'] == '' || $_SESSION['captcha'] != strtoupper($_POST['captcha']))) {
                                                       $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
 
                                                 // No \r \n \t \0 \x0B in Non-Multiline-Fields
@@ -685,13 +700,13 @@ class masterform
                                                 if (!$maxchar) {
                                                     $maxchar = 4294967295;
                                                 }
-                                                if ($field['selections'] == HTML_ALLOWED or $field['selections'] == LSCODE_ALLOWED) {
+                                                if ($field['selections'] == self::HTML_ALLOWED or $field['selections'] == self::LSCODE_ALLOWED) {
                                                     $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
 
-                                                } elseif ($field['selections'] == LSCODE_BIG) {
+                                                } elseif ($field['selections'] == self::LSCODE_BIG) {
                                                     $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], 70, 20, $field['optional'], $maxchar);
 
-                                                } elseif ($field['selections'] == HTML_WYSIWYG) {
+                                                } elseif ($field['selections'] == self::HTML_WYSIWYG) {
                                                     $this->FCKeditorID++;
                                                     ob_start();
                                                     include_once("ext_scripts/FCKeditor/fckeditor.php");
@@ -790,7 +805,7 @@ class masterform
                                                 break;
 
                                             // Password-Row
-                                            case IS_PASSWORD:
+                                            case self::IS_PASSWORD:
                                                 // Dont show MD5-sum, read from DB on change
                                                 if (strlen($_POST[$field['name']]) == 32) {
                                                     $_POST[$field['name']] = '';
@@ -800,7 +815,7 @@ class masterform
                                                 break;
 
                                             // New-Password-Row
-                                            case IS_NEW_PASSWORD:
+                                            case self::IS_NEW_PASSWORD:
                                                 // Dont show MD5-sum, read from DB on change
                                                 if (strlen($_POST[$field['name']]) == 32) {
                                                     $_POST[$field['name']] = '';
@@ -814,7 +829,7 @@ class masterform
                                                 break;
 
                                             // Captcha-Row
-                                            case IS_CAPTCHA:
+                                            case self::IS_CAPTCHA:
                                                 include_once('ext_scripts/ascii_captcha.class.php');
                                                 $captcha = new ASCII_Captcha();
                                                 $data = $captcha->create($text);
@@ -824,7 +839,7 @@ class masterform
                                                 break;
 
                                             // Pre-Defined Dropdown
-                                            case IS_SELECTION:
+                                            case self::IS_SELECTION:
                                                 if ($field['DependOnCriteria']) {
                                                     $addCriteria = ", Array('". implode("', '", $field['DependOnCriteria']) ."')";
 
@@ -862,7 +877,7 @@ class masterform
                                                 break;
 
                                             // Pre-Defined Multiselection
-                                            case IS_MULTI_SELECTION:
+                                            case self::IS_MULTI_SELECTION:
                                                 if (is_array($field['selections'])) {
                                                     $selections = array();
                                                     foreach ($field['selections'] as $key => $val) {
@@ -882,7 +897,7 @@ class masterform
                                                 break;
 
                                             // File Upload to path
-                                            case IS_FILE_UPLOAD:
+                                            case self::IS_FILE_UPLOAD:
                                                 $dsp->AddFileSelectRow($field['name'], $field['caption'], $this->error[$field['name']], '', '', $field['optional']);
                                                 if ($_POST[$field['name']]) {
                                                     $FileEnding = strtolower(substr($_POST[$field['name']], strrpos($_POST[$field['name']], '.'), 5));
@@ -898,13 +913,13 @@ class masterform
                                                 break;
 
                                             // Picture Dropdown from path
-                                            case IS_PICTURE_SELECT:
+                                            case self::IS_PICTURE_SELECT:
                                                 if (is_dir($field['selections'])) {
                                                     $dsp->AddPictureDropDownRow($field['name'], $field['caption'], $field['selections'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']]);
                                                 }
                                                 break;
 
-                                            case IS_TEXT_MESSAGE:
+                                            case self::IS_TEXT_MESSAGE:
                                                 if (!$field['selections']) {
                                                     $field['selections'] = $_POST[$field['name']];
                                                 }
@@ -915,7 +930,7 @@ class masterform
                                                 $dsp->AddDoubleRow($field['caption'], $field['selections']);
                                                 break;
 
-                                            case IS_CALLBACK:
+                                            case self::IS_CALLBACK:
                                                 $ret = call_user_func($field['selections'], $field['name'], OUTPUT_PROC, $this->error[$field['name']]);
                                                 if ($ret) {
                                                     $dsp->AddDoubleRow($field['caption'], $ret);
@@ -924,7 +939,7 @@ class masterform
 
                                             // Normal Textfield
                                             default:
-                                                if ($field['type'] == IS_NOT_CHANGEABLE) {
+                                                if ($field['type'] == self::IS_NOT_CHANGEABLE) {
                                                     $not_changeable = 1;
 
                                                 } else {
@@ -988,7 +1003,6 @@ class masterform
                 } else {
                     $dsp->AddFormSubmitRow('Erstellen');
                 }
-                $dsp->AddContent();
                 break;
 
             // Update DB
@@ -1006,7 +1020,7 @@ class masterform
                                     if ($group['fields']) {
                                         foreach ($group['fields'] as $field) {
                                             // Convert Passwords
-                                            if ($field['type'] == IS_NEW_PASSWORD && $_POST[$field['name']] != '') {
+                                            if ($field['type'] == self::IS_NEW_PASSWORD && $_POST[$field['name']] != '') {
                                                 $_POST[$field['name'] .'_original'] = $_POST[$field['name']];
                                                 $_POST[$field['name']] = md5($_POST[$field['name']]);
                                             }

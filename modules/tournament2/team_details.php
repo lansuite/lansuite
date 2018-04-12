@@ -77,5 +77,4 @@ if (!$_GET["teamid"]) {
 
     // Output
     $dsp->AddBackButton($func->internal_referer, "tournament2/team_details");
-    $dsp->AddContent();
 }

@@ -16,7 +16,7 @@ if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']
     $selections['3'] = t('Kleiner Fehler');
     $selections['4'] = t('Schwerer Fehler');
     $selections['5'] = t('Absturz');
-    $mf->AddField(t('Typ'), 'type', IS_SELECTION, $selections);
+    $mf->AddField(t('Typ'), 'type', masterform::IS_SELECTION, $selections);
 
     $mf->AddDropDownFromTable(t('Betrifft Modul'), 'module', 'name', 'name', 'modules', t('Nicht Modul-spezifisch'));
 
@@ -34,13 +34,13 @@ if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']
             $selections[$z] .= ' ('. t('Sehr gering') .')';
         }
     }
-    $mf->AddField(t('Priorität'), 'priority', IS_SELECTION, $selections, FIELD_OPTIONAL);
+    $mf->AddField(t('Priorität'), 'priority', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
 
   // Assign bug
     if ($auth['type'] >= 2) {
         $mf->AddDropDownFromTable(t('Bearbeiter'), 'agent', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
-        $mf->AddField(t('Preis'), 'price', '', '', FIELD_OPTIONAL);
-        $mf->AddField(t('Bereits gespendet'), 'price_payed', '', '', FIELD_OPTIONAL);
+        $mf->AddField(t('Preis'), 'price', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Bereits gespendet'), 'price_payed', '', '', masterform::FIELD_OPTIONAL);
     }
 
     if (!$_GET['bugid']) {
@@ -60,13 +60,13 @@ if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']
         $selections['4'] = t('Behoben');
         $selections['5'] = t('Aufgeschoben');
         $selections['6'] = t('Geschlossen');
-        $mf->AddField(t('Status'), 'state', IS_SELECTION, $selections);
-        $mf->AddField(t('Privat') .'|'. t('Nur Admins dürfen diesen Bugeintrag lesen.'), 'private', '', '', FIELD_OPTIONAL);
+        $mf->AddField(t('Status'), 'state', masterform::IS_SELECTION, $selections);
+        $mf->AddField(t('Privat') .'|'. t('Nur Admins dürfen diesen Bugeintrag lesen.'), 'private', '', '', masterform::FIELD_OPTIONAL);
     }
 
-    $mf->AddField(t('Text'), 'text', '', LSCODE_BIG);
+    $mf->AddField(t('Text'), 'text', '', masterform::LSCODE_BIG);
     if ($_SERVER['SERVER_NAME'] == 'lansuite.orgapage.de') {
-        $mf->AddField(t('Bild / Datei anhängen'), 'file', IS_FILE_UPLOAD, 'ext_inc/bugtracker_upload/', FIELD_OPTIONAL);
+        $mf->AddField(t('Bild / Datei anhängen'), 'file', masterform::IS_FILE_UPLOAD, 'ext_inc/bugtracker_upload/', masterform::FIELD_OPTIONAL);
     }
 
     $mf->SendForm('index.php?mod=bugtracker&action=add', 'bugtracker', 'bugid', $_GET['bugid']);

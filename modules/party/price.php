@@ -58,4 +58,3 @@ $ms2->PrintSearch('index.php?mod=party&action=price&party_id='. $_GET['party_id'
 $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=price_edit'));
 
 $dsp->AddBackButton('index.php?mod=party');
-$dsp->AddContent();

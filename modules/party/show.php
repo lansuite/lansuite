@@ -91,4 +91,3 @@ switch ($_GET['step']) {
         $dsp->AddBackButton('index.php?mod=party');
         break;
 }
-$dsp->AddContent();

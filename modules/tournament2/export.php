@@ -53,5 +53,3 @@ switch ($_GET["step"]) {
         $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/export");
         break;
 }
-
-$dsp->AddContent();

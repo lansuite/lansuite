@@ -84,7 +84,7 @@ if ($tournament["name"] == "") {
             
             if ($func->isModActive('server') and $auth['type'] >= 2) {
                 $mf = new masterform();
-                $mf->AddField(t('Server Zuweisen'), 'server_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
+                $mf->AddField(t('Server Zuweisen'), 'server_id', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
                 if ($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1)) {
                     $db->qry("UPDATE %prefix%t2_games SET server_id = %int% WHERE gameid = %int%", $_POST['server_id'], $gameid2);
                 }

@@ -58,7 +58,6 @@ switch ($_GET['act']) {
                 $dsp->AddTextFieldRow("amount", t('Betrag'), $_POST['amount'], $error['amount']);
                 $dsp->AddTextFieldRow("comment", t('Kommentar (Dein Name wird in Klammer angefügt)'), $_POST['comment'], $error['comment']);
                 $dsp->AddFormSubmitRow(t('Abschicken'));
-                $dsp->AddContent();
                 $account = new accounting($_GET['userid']);
                 $account->list_balance();
 

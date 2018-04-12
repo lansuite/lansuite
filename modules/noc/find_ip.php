@@ -19,7 +19,6 @@ switch ($_GET['step']) {
             $dsp->AddTextFieldRow("ip", t('IP-Adresse'), $_POST['ip'], $error_noc['ip']);
             $dsp->AddFormSubmitRow(t('Weiter'));
             $dsp->AddBackButton("index.php?mod=noc");
-            $dsp->AddContent();
         break;
     
     case "2":
@@ -28,7 +27,6 @@ switch ($_GET['step']) {
             $noc->IPtoMAC_arp($_POST['ip']);
             $dsp->AddSingleRow("<a href='index.php?mod=noc&action=find&step=3&ip={$_POST['ip']}'>Alle Ports Updaten</<a>");
             $dsp->AddBackButton("index.php?mod=noc&action=find&step=1");
-            $dsp->AddContent();
         break;
 
     case "3":
@@ -45,6 +43,5 @@ switch ($_GET['step']) {
             $dsp->AddDoubleRow(t('IP-Adresse'), $_GET['ip']);
             $noc->IPtoMAC_arp($_GET['ip']);
             $dsp->AddBackButton("index.php?mod=noc&action=find&step=1");
-            $dsp->AddContent();
         break;
 }

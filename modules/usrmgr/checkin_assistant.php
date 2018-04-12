@@ -147,7 +147,6 @@ if (!$party->party_id) {
             $dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0, "index.php?mod=usrmgr&action=entrance&step=9&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid={$_GET["blockid"]}"));
 
             $dsp->AddBackButton('index.php?mod=seating', 'seating/show');
-            $dsp->AddContent();
             break;
 
     // Belegten Sitzplatz tauschen / löschen?

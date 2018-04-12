@@ -82,7 +82,7 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
             $party_list[$res['party_id']] = $res['name'];
         }
         $db->free_result($row);
-        $mf->AddField(t('Party'), 'party_id', IS_SELECTION, $party_list, $party->party_id);
+        $mf->AddField(t('Party'), 'party_id', masterform::IS_SELECTION, $party_list, $party->party_id);
     }
 
     $selections = array();
@@ -92,7 +92,7 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     $selections['web'] = t('Web Server');
     $selections['proxy'] = t('Proxy Server');
     $selections['misc'] = t('Sonstiger Server');
-    $mf->AddField(t('Servertyp'), 'type', IS_SELECTION, $selections, FIELD_OPTIONAL);
+    $mf->AddField(t('Servertyp'), 'type', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
   
 
     if ($cfg['server_ip_auto_assign']) {
@@ -102,13 +102,13 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     }
   
     $mf->AddField(t('Port'), 'port', '', '', '', 'CheckPort');
-    $mf->AddField(t('MAC-Adresse'), 'mac', '', '', FIELD_OPTIONAL, 'CheckMAC');
-    $mf->AddField(t('Betriebssystem'), 'os', '', '', FIELD_OPTIONAL);
-    $mf->AddField(t('CPU (MHz)'), 'cpu', '', '', FIELD_OPTIONAL);
-    $mf->AddField(t('RAM (MB)'), 'ram', '', '', FIELD_OPTIONA);
-    $mf->AddField(t('HDD (GB)'), 'hdd', '', '', FIELD_OPTIONA);
-    $mf->AddField(t('Passwort geschützt'), 'pw', '', '', FIELD_OPTIONA);
-    $mf->AddField(t('Beschreibung'), 'text', '', LSCODE_ALLOWED, FIELD_OPTIONA);
+    $mf->AddField(t('MAC-Adresse'), 'mac', '', '', masterform::FIELD_OPTIONAL, 'CheckMAC');
+    $mf->AddField(t('Betriebssystem'), 'os', '', '', masterform::FIELD_OPTIONAL);
+    $mf->AddField(t('CPU (MHz)'), 'cpu', '', '', masterform::FIELD_OPTIONAL);
+    $mf->AddField(t('RAM (MB)'), 'ram', '', '', masterform::FIELD_OPTIONAL);
+    $mf->AddField(t('HDD (GB)'), 'hdd', '', '', masterform::FIELD_OPTIONAL);
+    $mf->AddField(t('Passwort geschützt'), 'pw', '', '', masterform::FIELD_OPTIONAL);
+    $mf->AddField(t('Beschreibung'), 'text', '', masterform::LSCODE_ALLOWED, masterform::FIELD_OPTIONAL);
 
     if ($mf->SendForm('index.php?mod=server&action=add', 'server', 'serverid', $_GET['serverid'])) {
         // Increase auto IP

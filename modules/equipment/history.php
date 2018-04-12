@@ -13,7 +13,6 @@ if (!$cfg["equipment_shopid"]) {
         $dsp->NewContent(t('Termin-History'), t('Dies ist eine Liste aller vergangen Termine, bei denen wir unser Equipment bereits vermietet hatten'));
         $dsp->AddSmartyTpl('style', 'equipment');
         $dsp->AddSingleRow(ob_get_contents());
-        $dsp->AddContent();
     }
     ob_end_clean();
 }
