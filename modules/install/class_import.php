@@ -805,7 +805,7 @@ class Import
                 $db->qry("INSERT INTO %prefix%usersettings SET userid=%int%", $id);
             }
 
-            switch (mysql_affected_rows($db->link_id)) {
+            switch ($db->get_affected_rows()) {
                 case "-1":
                     $import["error"]++;
                     break;

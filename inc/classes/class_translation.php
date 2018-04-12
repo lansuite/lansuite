@@ -17,7 +17,7 @@ class translation
      *
      * @var string
      */
-    public $transfile_name = 'translation.xml';
+    private $transfile_name = 'translation.xml';
 
     /**
      * @var array
@@ -50,14 +50,14 @@ class translation
      *
      * @var int
      */
-    public $cachemod_loaded_db = 0;
+    private $cachemod_loaded_db = 0;
 
     /**
      * Is cache for module loaded (xml)
      *
      * @var int
      */
-    public $cachemod_loaded_xml  = 0;
+    private $cachemod_loaded_xml  = 0;
 
     public function __construct()
     {
@@ -129,7 +129,7 @@ class translation
      * @param string $module    Module name or DB / System
      * @return void
      */
-    public function load_cache_bydb($module)
+    private function load_cache_bydb($module)
     {
         global $db;
 
@@ -159,7 +159,7 @@ class translation
      * @param string    $module     Module name or DB / System
      * @return void
      */
-    public function load_cache_byfile($module)
+    private function load_cache_byfile($module)
     {
         $xmldata = $this->xml_read_to_array($module);
         if (is_array($xmldata)) {
@@ -359,7 +359,7 @@ class translation
      * @param string    $module     Module name e.g. file-field
      * @return array
      */
-    public function xml_read_to_array($module) {
+    private function xml_read_to_array($module) {
         $records = [];
         $xml = new xml();
 
@@ -393,7 +393,7 @@ class translation
      * @param string    $module     Module name (System, DB, Module ...)
      * @return string
      */
-    public function get_trans_filename($module)
+    private function get_trans_filename($module)
     {
         switch ($module) {
             case 'DB':
