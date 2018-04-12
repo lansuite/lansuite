@@ -34,47 +34,47 @@ class debug
      *
      * @var string
      */
-    public $timer_first = '';
+    private $timer_first = '';
 
     /**
      * Helpvar Timer
      *
      * @var string
      */
-    public $timer_last = '';
+    private $timer_last = '';
 
     /**
      * Helpvar Timer (Outputstring)
      *
      * @var string
      */
-    public $timer_out = '';
+    private $timer_out = '';
 
     /**
      * @var string
      */
-    public $timer_all;
+    private $timer_all;
 
     /**
      * Uservars to show
      *
      * @var array
      */
-    public $debugvars = [];
+    private $debugvars = [];
 
     /**
      * Debug mode
      *
      * @var string
      */
-    public $mode = '';
+    private $mode = '';
 
     /**
      * Debugpath for Filedebug
      *
      * @var string
      */
-    public $debug_path = '';
+    private $debug_path = '';
 
     /**
      * debug constructor.
@@ -132,7 +132,7 @@ class debug
     /**
      * @return string
      */
-    public function timer_show()
+    private function timer_show()
     {
         if ($this->mode > 0) {
             return $this->timer_out;
@@ -164,7 +164,7 @@ class debug
      *
      * @return string
      */
-    public function query_fetchlist()
+    private function query_fetchlist()
     {
         if (($this->mode > 0) && is_array($this->sql_query_list)) {
             $this->sql_query_list = $this->sort_array_by_col($this->sql_query_list);
@@ -187,7 +187,7 @@ class debug
      * @param array $array
      * @return array
      */
-    public function sort_array_by_col($array)
+    private function sort_array_by_col($array)
     {
         function compare($wert_a, $wert_b) {
             $a = $wert_a[0];
@@ -207,7 +207,7 @@ class debug
      * @param string $name  Table heading
      * @return string       HTML-Row for table (<tr><td>...</td></tr>)
      */
-    public function row_top($name)
+    private function row_top($name)
     {
         $out = "<tr><td width=\"100%\" colspan=\"2\" bgcolor=\"#C0C0C0\">".$name."</td></tr>\n";
         return $out;
@@ -219,7 +219,7 @@ class debug
      * @param string $name  Text
      * @return string       HTML-Row for table (<tr><td>...</td></tr>)
      */
-    public function row_single($name)
+    private function row_single($name)
     {
         $out = "<tr><td width=\"100%\" colspan=\"2\" align=\"left\">".$name."</td></tr>";
         $out .= "<tr><td width=\"100%\" height=\"1\" bgcolor=\"#C0C0C0\" colspan=\"2\"></td></tr>\n";
@@ -233,7 +233,7 @@ class debug
      * @param string $value     Variable
      * @return string           HTML-Row for Table (<tr><td>...</td></tr>)
      */
-    public function row_double($key, $value)
+    private function row_double($key, $value)
     {
         $out = "<tr><td width=\"20%\" align=\"left\">".$key."</td><td width=\"80%\" align=\"left\">".wordwrap($value, 65, "<br />\n", true)."&nbsp;</td></tr>";
         $out .= "<tr><td width=\"100%\" height=\"1\" bgcolor=\"#C0C0C0\" colspan=\"2\"></td></tr>\n";
@@ -249,7 +249,7 @@ class debug
      * @param int       $array_level    For recursive calls
      * @return string
      */
-    public function row_array($array, $array_node = null, $array_level = 0)
+    private function row_array($array, $array_node = null, $array_level = 0)
     {
         $out = '';
         if ($array_level == 0) {

@@ -140,25 +140,4 @@ class TranslationTest extends TestCase
 
         $this->assertEquals('fr', $actual);
     }
-
-    public function dataProviderGetTranslationFilename() {
-        return array(
-            array('DB', 'inc/language/DB_translation.xml'),
-            array('System', 'inc/language/System_translation.xml'),
-            array('', 'modules//mod_settings/translation.xml'),
-            array('about', 'modules/about/mod_settings/translation.xml'),
-            array('seating', 'modules/seating/mod_settings/translation.xml')
-        );
-    }
-
-    /**
-     * @dataProvider dataProviderGetTranslationFilename
-     * @covers translation::get_trans_filename
-     */
-    public function testGetTranslationFilename($module, $expected) {
-        $translation = new \translation();
-        $actual = $translation->get_trans_filename($module);
-
-        $this->assertEquals($expected, $actual);
-    }
 }

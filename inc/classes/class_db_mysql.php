@@ -5,17 +5,17 @@ class db
     /**
      * @var int
      */
-    public $link_id = 0;
+    private $link_id = 0;
 
     /**
      * @var int
      */
-    public $query_id = 0;
+    private $query_id = 0;
 
     /**
      * @var array
      */
-    public $record = [];
+    private $record = [];
 
     /**
      * @var bool
@@ -30,7 +30,7 @@ class db
     /**
      * @var string
      */
-    public $errors = '';
+    private $errors = '';
 
     /**
      * @var int
@@ -49,14 +49,14 @@ class db
     /**
      * @var array
      */
-    public $QueryArgs = [];
+    private $QueryArgs = [];
 
     /**
      * @param string $msg
      * @param string $query_string_with_error
      * @return void
      */
-    public function print_error($msg, $query_string_with_error)
+    private function print_error($msg, $query_string_with_error)
     {
         global $config, $auth;
 
@@ -75,7 +75,7 @@ class db
      * @param array $match
      * @return int|mixed|string
      */
-    public function escape($match)
+    private function escape($match)
     {
         $CurrentArg = array_shift($this->QueryArgs);
 
@@ -359,7 +359,7 @@ class db
     /**
      * Returns the version of the MySQL server
      *
-     * @return string
+     * @return string|bool
      */
     public function getServerInfo() {
         if ($this->link_id) {

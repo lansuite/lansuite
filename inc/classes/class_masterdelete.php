@@ -10,11 +10,6 @@ class masterdelete
     /**
      * @var array
      */
-    public $SubReferences = [];
-
-    /**
-     * @var array
-     */
     public $DeleteIfEmpty = [];
 
     /**
@@ -28,7 +23,7 @@ class masterdelete
      * @param int       $id
      * @return bool|int|mysqli_result
      */
-    public function DoDelete($table, $idname, $id)
+    private function DoDelete($table, $idname, $id)
     {
         global $func, $db, $config;
     
