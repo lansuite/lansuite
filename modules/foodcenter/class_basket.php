@@ -11,7 +11,7 @@ class basket
     public $product;
     public $account;
     
-    public function basket($backlink = null)
+    public function __construct($backlink = null)
     {
         global $auth;
         
