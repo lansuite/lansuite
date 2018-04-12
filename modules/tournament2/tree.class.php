@@ -27,7 +27,7 @@ class TourneyTree
     public $lb_tbl = array();
     public $lb_indexes = array();
 
-    public function TourneyTree($size, $wb_teams, $lb_teams = false)
+    public function __construct($size, $wb_teams, $lb_teams = false)
     {
         // init vars !
         $this->size = $size;

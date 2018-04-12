@@ -22,7 +22,7 @@ class accounting
     /**
     * Konstruktor
     */
-    public function accounting($party_id = 0, $userid = null)
+    public function __construct($party_id = 0, $userid = null)
     {
         global $party, $auth;
         
