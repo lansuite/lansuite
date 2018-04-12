@@ -5,7 +5,6 @@ switch ($_GET['step']) {
         $dsp->SetForm('index.php?mod=bugtracker&action=import&step=2', '', '', 'multipart/form-data');
         $dsp->AddFileSelectRow("importdata", t('Import (.xml, .csv, .tgz)'), "");
         $dsp->AddFormSubmitRow('next');
-        $dsp->AddContent();
         break;
 
     case 2:

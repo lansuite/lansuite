@@ -63,7 +63,6 @@ switch ($_GET['step']) {
         $dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}"));
 
         $dsp->AddBackButton("index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}", 'seating/seatadmin');
-        $dsp->AddContent();
         break;
 
     // Reserve seat - questions

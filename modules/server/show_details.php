@@ -88,7 +88,6 @@ if ($server == "") {
         }
 
         $dsp->AddBackButton("index.php?mod=server&action=show", "server/show");
-        $dsp->AddContent();
     }
 
     // Including comment-engine

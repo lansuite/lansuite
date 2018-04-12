@@ -3,8 +3,6 @@ $mail_send_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messag
 $mail_read_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE FromUserID = %int% AND mail_status != 'disabled' AND des_status = 'read'", $auth['userid']);
 
 $dsp->NewContent(t('Postausgang'), t('Du hast <b>%1</b> Mail(s) versendet. Davon wurde(n) <b>%2</b> gelesen.', $mail_send_total["n"], $mail_read_total["n"]));
-$dsp->AddContent();
-
 
 if ($auth['userid']) {
     switch ($_GET['step']) {

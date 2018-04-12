@@ -276,4 +276,3 @@ while ($forum = $db->fetch_array($foren_liste)) {
 $smarty->assign('goto', $goto);
 $smarty->assign('forum_choise', t('Bitte auswählen'));
 $dsp->AddDoubleRow(t('Gehe zu Forum'), $smarty->fetch('modules/board/templates/forum_dropdown.htm'));
-$dsp->AddContent();

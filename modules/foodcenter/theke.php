@@ -68,9 +68,6 @@ if (!isset($_SESSION['foodcenter']['theke_userid'])) {
             $dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));
         }
     }
-    $dsp->AddContent();
-
-
 
     if ($_POST['calculate']) {
         $basket->change_basket($_SESSION['foodcenter']['theke_userid']);

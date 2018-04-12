@@ -286,8 +286,6 @@ if (!$tournament["tournamentid"]) {
             } // END: switch status
             $dsp->AddDoubleRow("", $buttons);
             $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/details");
-
-            $dsp->AddContent();
             break;
     } // END: Switch Step
 } // else

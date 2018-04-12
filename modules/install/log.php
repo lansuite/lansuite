@@ -69,7 +69,6 @@ switch ($_GET["step"]) {
         $dsp->AddDoubleRow(t('Script'), '<a href="'. $log['script'] .'">'. $log['script'] .'</a>');
         $dsp->AddDoubleRow(t('Auslöser'), $dsp->FetchUserIcon($log['userid'], $log['username']));
         $dsp->AddBackButton("index.php?mod=install&action=log", '');
-        $dsp->AddContent();
         break;
   
     case 10:

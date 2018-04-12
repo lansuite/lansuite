@@ -59,4 +59,3 @@ if (!$cfg['google_maps_api_key']) {
     $templ['guestmap']['apikey'] = $cfg['google_maps_api_key'];
     $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
 }
-$dsp->AddContent();
