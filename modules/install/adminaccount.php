@@ -25,7 +25,7 @@ switch ($_GET["step"]) {
 					type = '3'
 					", $_POST["email"], md5($_POST["password"]));
             $userid = $db->insert_id();
-            // Admin zur Party hinzuf�gen
+            // Admin zur Party hinzufügen
             $party->add_user_to_party($userid, 1, "1", "1");
 
             $func->confirmation(t('Der Adminaccount wurde erfolgreich angelegt.'), "index.php?mod=install&action=adminaccount");
