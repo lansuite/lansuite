@@ -22,7 +22,7 @@ if ($cfg["irc_server"] == "null" or $cfg["irc_server"] == "") {
     $dsp->AddTextFieldRow("firstname", t('Vorname'), $_POST["firstname"], "");
     $dsp->AddTextFieldRow("name", t('Nachname'), $_POST["name"], "");
 
-    $dsp->AddFormSubmitRow(t('Hinzuf�gen'));
+    $dsp->AddFormSubmitRow(t('Hinzufügen'));
 } else {
     if ($language == "en") {
         $lang_out = "english";
