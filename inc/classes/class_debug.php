@@ -77,6 +77,11 @@ class debug
     private $debug_path = '';
 
     /**
+     * @var array
+     */
+    private $sql_query_list = [];
+
+    /**
      * debug constructor.
      * @param string $mode          0 = off, 1 = normal, 2 = file
      * @param string $debug_path    Path for filedebug
