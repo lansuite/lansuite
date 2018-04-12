@@ -614,7 +614,7 @@ if ($_GET['mod'] == 'signon' and $auth['login']) {
     $_GET['mf_step'] = 1;
     $_GET['user_id'] = $auth['userid'];
 
-    $mf_number--;
+    $mf->DecrementNumber();
     include_once("modules/usrmgr/party.php");
 
   #$func->question(t("Wollen sie auch gleich zur Lan-Anmeldung weitergeleitet werden?"), "index.php?mod=signon", "index.php?mod=home");
