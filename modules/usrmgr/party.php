@@ -135,8 +135,7 @@ if ($party->count == 0) {
                 $mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&party_id='. $row['party_id'], 'party_user', 'user_id', $_GET['user_id']);
                 $dsp->AddFieldsetEnd();
             } else {
-                // Fucking bad Bugfix. $mf_number is a Globalvar in Masterform
-                $mf_number++;
+                $mf->IncrementNumber();
             }
             $MFID++;
         }
