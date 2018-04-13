@@ -35,6 +35,8 @@ class masterform
 
     const CHECK_ERROR_PROC = 1;
 
+    const OUTPUT_PROC = 2;
+
     /**
      * @var array
      */
@@ -961,7 +963,7 @@ class masterform
                                                 break;
 
                                             case self::IS_CALLBACK:
-                                                $ret = call_user_func($field['selections'], $field['name'], OUTPUT_PROC, $this->error[$field['name']]);
+                                                $ret = call_user_func($field['selections'], $field['name'], self::OUTPUT_PROC, $this->error[$field['name']]);
                                                 if ($ret) {
                                                     $dsp->AddDoubleRow($field['caption'], $ret);
                                                 }

@@ -962,8 +962,8 @@ class func
     /**
      * Check for a valid picture path
      *
-     * @param $imgpath  Path to test for validity
-     * @return int      Path OK an Picture exists
+     * @param   string    $imgpath  Path to test for validity
+     * @return  int                 Path OK an Picture exists
      */
     public function chk_img_path($imgpath)
     {
