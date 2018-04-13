@@ -52,6 +52,11 @@ class db
     private $QueryArgs = [];
 
     /**
+     * @var string
+     */
+    private $sql_error = '';
+
+    /**
      * @param string $msg
      * @param string $query_string_with_error
      * @return void
