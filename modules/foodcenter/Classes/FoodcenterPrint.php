@@ -24,6 +24,11 @@ class FoodcenterPrint
      */
     private $row_temp = '';
 
+    /**
+     * @var array
+     */
+    private $config = [];
+
     public function __construct()
     {
         global $func, $auth;
@@ -173,7 +178,7 @@ class FoodcenterPrint
     {
         global $func;
 
-        if ($this->config['datetime_format']=='') {
+        if ($this->config['datetime_format'] == '') {
             return $func->unixstamp2date($time, "datetime");
 
         } else {

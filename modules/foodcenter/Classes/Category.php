@@ -33,7 +33,6 @@ class Category
      * Constructor
      *
      * @param int $id
-     * @return Category
      */
     public function __construct($id = null)
     {
@@ -169,6 +168,6 @@ class Category
             $dsp->AddDropDownFieldRow("cat_id", t('Produktkategorie'), $cat_array, "");
         }
 
-        $dsp->AddTextFieldRow("cat_name", t('Neue Produktkategorie'), $_POST['cat_name'], $this->error_food['catname']);
+        $dsp->AddTextFieldRow("cat_name", t('Neue Produktkategorie'), $_POST['cat_name'], $this->error['cat_name']);
     }
 }

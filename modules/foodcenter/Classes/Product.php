@@ -28,7 +28,7 @@ class Product
     /**
      * Category
      *
-     * @var \Category
+     * @var Category
      */
     private $cat;
 
@@ -683,7 +683,7 @@ class Product
     /**
      * Comparision with a different product
      *
-     * @param \Product $prod
+     * @param Product $prod
      * @return bool
      */
     public function compare($prod)

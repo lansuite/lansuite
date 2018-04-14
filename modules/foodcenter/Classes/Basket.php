@@ -18,6 +18,11 @@ class Basket
      * @var Accounting
      */
     private $account;
+
+    /**
+     * @var int
+     */
+    private $balance = 0;
     
     public function __construct($backlink = null)
     {

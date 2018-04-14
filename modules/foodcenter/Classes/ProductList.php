@@ -19,7 +19,7 @@ class ProductList
     /**
      * List of products
      *
-     * @var \Product[]
+     * @var Product[]
      */
     private $product = [];
 

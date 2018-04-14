@@ -41,7 +41,6 @@ class Supplier
      * supp constructor.
      *
      * @param int $id
-     * @return Supplier
      */
     public function __construct($id = null)
     {
