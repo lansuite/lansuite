@@ -27,7 +27,7 @@ switch ($_GET['step']) {
 
             } else {
                 $price = 0;
-                $account = new accounting($prodrow['userid']);
+                $account = new Accounting($prodrow['userid']);
                 if (stristr($prodrow['opts'], "/")) {
                     $values = explode("/", $prodrow['opts']);
 
@@ -202,7 +202,7 @@ switch ($_GET['step']) {
                     $prodrow = $db->qry_first("SELECT * FROM %prefix%food_ordering WHERE id = %string%", $item);
                 
                     unset($account);
-                    $account = new accounting($prodrow['userid']);
+                    $account = new Accounting($prodrow['userid']);
                     $price = 0;
                     $tempdesc = "";
 

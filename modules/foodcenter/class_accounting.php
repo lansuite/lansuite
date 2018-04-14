@@ -1,7 +1,7 @@
 <?php
 
 
-class accounting
+class Accounting
 {
     /**
      * @var int

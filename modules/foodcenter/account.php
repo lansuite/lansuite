@@ -2,7 +2,7 @@
 
 include_once("modules/foodcenter/class_accounting.php");
 
-$account = new accounting($auth['userid']);
+$account = new Accounting($auth['userid']);
 
 if ($auth['type'] > 1 && !isset($_GET['act'])) {
     $_GET['act'] = "menu";
@@ -50,12 +50,12 @@ switch ($_GET['act']) {
                 $dsp->AddTextFieldRow("amount", t('Betrag'), $_POST['amount'], $error['amount']);
                 $dsp->AddTextFieldRow("comment", t('Kommentar (Dein Name wird in Klammer angefügt)'), $_POST['comment'], $error['comment']);
                 $dsp->AddFormSubmitRow(t('Abschicken'));
-                $account = new accounting($_GET['userid']);
+                $account = new Accounting($_GET['userid']);
                 $account->list_balance();
                 break;
 
             case "3":
-                $account = new accounting($_GET['userid']);
+                $account = new Accounting($_GET['userid']);
                 $account->change($_POST['amount'], $_POST['comment'] . " (" . $auth['username'] . ")", $_GET['userid']);
                 $account->list_balance();
                 break;
@@ -71,7 +71,7 @@ switch ($_GET['act']) {
     case "himbalance":
         switch ($step) {
             case "2":
-                $account = new accounting($_GET['userid']);
+                $account = new Accounting($_GET['userid']);
                 $account->list_balance();
                 break;
 
