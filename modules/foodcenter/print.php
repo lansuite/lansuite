@@ -1,8 +1,8 @@
 <?php
 
-$print = new foodcenter_print();
+$print = new FoodcenterPrint();
 
-class foodcenter_print
+class FoodcenterPrint
 {
     public $output = "";
     public $path = "ext_inc/foodcenter_templates/";
