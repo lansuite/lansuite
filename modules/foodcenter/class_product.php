@@ -1,7 +1,5 @@
 <?php
 
-$gd = new gd();
-
 /**
  * Class product_list
  *
@@ -671,7 +669,7 @@ class product
      */
     public function form_add_product($step)
     {
-        global $dsp, $gd, $smarty;
+        global $dsp, $smarty;
 
         $nextstep = $step + 1;
 
@@ -692,6 +690,7 @@ class product
 
         // Not functional now
         // Pic is only active with gd-Libary
+        $gd = new gd();
         if ($gd->available) {
             $dsp->AddFileSelectRow("file", t('Bild hochladen'), $this->error_food['file'], null, null, true);
             $dsp->AddPictureDropDownRow("pic", t('Bild hochladen'), "ext_inc/foodcenter", $this->error_food['file'], true, basename($this->pic));
