@@ -300,7 +300,7 @@ class Product
     /**
      * Category
      *
-     * @var \cat
+     * @var \Category
      */
     private $cat;
 
@@ -401,7 +401,7 @@ class Product
     {
         $this->caption    = $_POST['p_caption'];
         $this->desc       = $_POST['desc'];
-        $this->cat        = new cat($_POST['cat_id']);
+        $this->cat        = new Category($_POST['cat_id']);
         $this->supp       = new Supplier($_POST['supp_id']);
         $this->supp_infos = $_POST['supp_infos'];
         $this->mat        = (int)$_POST['mat'];
@@ -502,7 +502,7 @@ class Product
 
             $this->caption    = $row['caption'];
             $this->desc       = $row['p_desc'];
-            $this->cat        = new cat($row['cat_id']);
+            $this->cat        = new Category($row['cat_id']);
             $this->supp       = new Supplier($row['supp_id']);
             $this->supp_infos = $row['supp_infos'];
             $this->mat        = (int) $row['mat'];
@@ -698,7 +698,7 @@ class Product
 
         // Select Cat
         if (!is_object($this->cat)) {
-            $this->cat = new cat();
+            $this->cat = new Category();
         }
         $this->cat->cat_form();
 
@@ -1646,12 +1646,12 @@ class Supplier
 
 
 /**
- * Class cat
+ * Class Category
  *
  * Management of categories.
  * Used for menu cards.
  */
-class cat
+class Category
 {
     /**
      * Category ID
@@ -1676,7 +1676,7 @@ class cat
      * Constructor
      *
      * @param int $id
-     * @return cat
+     * @return Category
      */
     public function __construct($id = null)
     {
