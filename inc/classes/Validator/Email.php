@@ -118,7 +118,7 @@ class Email extends Validator
 
         $host = (string) substr($value, strrpos($value, '@') + 1);
 
-        // Check for host DNS resource records
+        // Check for host MX DNS resource records
         if ($this->isOptionEnabled(self::OPTION_MX_CHECK)) {
             if (!$this->checkMX($host)) {
                 $this->errorCode = self::MX_CHECK_FAILED_ERROR;
@@ -128,6 +128,7 @@ class Email extends Validator
             return true;
         }
 
+        // Check for host MX, A or AAAA DNS resource records
         if ($this->isOptionEnabled(self::OPTION_HOST_CHECK) && !$this->checkHost($host)) {
             $this->errorCode = self::HOST_CHECK_FAILED_ERROR;
             return false;
