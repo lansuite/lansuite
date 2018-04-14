@@ -33,10 +33,8 @@ function Check()
 
     // Check if the user has enough money for the transaction
     } else {
-        include_once("modules/cashmgr/class_accounting.php");
-
         // Party not needed for calculation...or is it?
-        $accounting = new accounting(0, $auth['userid']);
+        $accounting = new \LanSuite\Module\CashMgr\Accounting(0, $auth['userid']);
         $userbalance = $accounting->GetUserBalance();
 
         if ($userbalance<(float)$_POST['movement']) {

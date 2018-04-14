@@ -1,8 +1,5 @@
 <?php
 
-include_once("modules/cashmgr/class_accounting.php");
-
-
 if (!$_GET['step']) {
     switch ($auth['type']) {
         default:
@@ -33,7 +30,7 @@ switch ($_GET['step']) {
         } else {
             $dsp->NewContent(t('Kalkulation'), t('Zur aktuellen Lanparty zum derzeitigen Stand'));
     
-            $account = new accounting($party->party_id);
+            $account = new \LanSuite\Module\CashMgr\Accounting($party->party_id);
             $account->showCalculation();
         }
         break;

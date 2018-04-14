@@ -1,6 +1,8 @@
 <?php
 
-class accounting
+namespace LanSuite\Module\CashMgr;
+
+class Accounting
 {
     /**
      * Editor ID

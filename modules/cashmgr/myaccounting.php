@@ -1,5 +1,4 @@
 <?php
-include_once("modules/cashmgr/class_accounting.php");
 
 /**
  * getColor is used as a mastersearch callback function
