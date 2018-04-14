@@ -1,100 +1,128 @@
 <?php
 
-
 class beamer_display
 {
-    public function __construct()
-    {
-    }
 
-    
+    /**
+     * @return void
+     */
     public function viewModulMainPage()
     {
-        global $dsp, $lang, $beamermodul, $bcid, $beamerid;
+        global $dsp, $beamermodul;
     
         $dsp->NewContent(t('Beamer&uuml;bersicht'), "");
         $dsp->AddSingleRow('<br/>'.t('Mit diesem Modul kannst du Texte und anderen Daten f&uuml;r eine Beamerpr&auml;sentation aufbereiten.').'<br/><br/>'.
                            t('Aktive Inhalte: ').$beamermodul->countContent("1").'<br/>'.
                            t('Inhalte gesamt: ').$beamermodul->countContent().
-                           '<p />');
-        $dsp->AddSingleRow('<br />' . t('Das Modul arbeitet derzeit nur mit dem Template /\'/simple/\'/ und /\'/beamer/\'/ zusammen. F&uuml;r eine schnelle L&ouml;sung erstelle einen zus&auml;tzlichen Account der das Beamer-Template verwendet. Damit hast du die besten Ergebnisse im Fullscreen Mode. <p/>Damit es mit jedem anderen Template funktioniert, musst du in deinem Template im Bereich der Meta-Angaben folgende Codezeilen hinzuf&uuml;gen:<p/> if( $_GET[/\'/sitereload/\'/] ) { echo ... (Restlichen Anweisungsblock bitte as der Design-index.php entnehmen.)  } '));
+                           '<p></p>');
+        $dsp->AddSingleRow('<br />' . t('Das Modul arbeitet derzeit nur mit dem Template /\'/simple/\'/ und /\'/beamer/\'/ zusammen. F&uuml;r eine schnelle L&ouml;sung erstelle einen zus&auml;tzlichen Account der das Beamer-Template verwendet. Damit hast du die besten Ergebnisse im Fullscreen Mode. <p>Damit es mit jedem anderen Template funktioniert, musst du in deinem Template im Bereich der Meta-Angaben folgende Codezeilen hinzuf&uuml;gen:</p> if( $_GET[/\'/sitereload/\'/] ) { echo ... (Restlichen Anweisungsblock bitte as der Design-index.php entnehmen.)  } '));
         $dsp->AddSingleRow("<br />");
     }
-    
 
+    /**
+     * @return void
+     */
     public function viewCurrentContent()
     {
-        global $dsp, $lang, $beamermodul, $bcid, $beamerid, $func;
+        global $dsp, $beamermodul, $beamerid, $func;
+
         $dsp->NewContent("", "");
-        //$dsp->AddIFrame("localhost/pma/","1024","500");
         $dsp->AddSingleRow($func->AllowHTML($beamermodul->getCurrentContent($beamerid)));
         $dsp->AddSingleRow(HTML_NEWLINE."");
     }
 
-    
+    /**
+     * @return void
+     */
     public function viewContent()
     {
-        global $dsp, $lang, $beamermodul, $bcid, $beamerid;
+        global $dsp;
 
-        // private ms2 funktionen
+        /**
+         * @param string $var
+         * @return string
+         */
         function formatContentType($var)
         {
             if ($var == "text") {
                 return '<img src="design/images/icon_text.png" alt="Text" border="0">';
             }
+
             if ($var == "wrapper") {
                 return '<img src="design/images/icon_url.png" alt="Bild" border="0">';
             }
+
             if ($var == "turnier") {
                 return '<img src="design/images/icon_tree.png" alt="Bild" border="0">';
             }
+
+            return '';
         }
 
-
+        /**
+         * @param string    $var
+         * @param int       $bcid
+         * @param int       $beamerid
+         * @return string
+         */
         function formatBStatus($var, $bcid, $beamerid)
         {
             if ($var == "1") {
                 return '<a href="index.php?mod=beamer&action=togglebeameractive&bcid='.$bcid.'&beamerid='.$beamerid.'"><img src="design/images/icon_active_sm.png" alt="Aktiv" border="0"></a>';
             }
+
             if ($var == "0") {
                 return '<a href="index.php?mod=beamer&action=togglebeameractive&bcid='.$bcid.'&beamerid='.$beamerid.'"><img src="design/images/icon_deactive_sm.png" alt="Deaktiv" border="0"></a>';
             }
+
+            return '';
         }
     
         function formatBeamer1Status($var, $bcid)
         {
             return formatBStatus($var, $bcid, "1");
         }
+
         function formatBeamer2Status($var, $bcid)
         {
             return formatBStatus($var, $bcid, "2");
         }
+
         function formatBeamer3Status($var, $bcid)
         {
             return formatBStatus($var, $bcid, "3");
         }
+
         function formatBeamer4Status($var, $bcid)
         {
             return formatBStatus($var, $bcid, "4");
         }
+
         function formatBeamer5Status($var, $bcid)
         {
             return formatBStatus($var, $bcid, "5");
         }
 
+        /**
+         * @param int $var
+         * @param int $var2
+         * @return string
+         */
         function formatActiveStatus($var, $var2)
         {
             if ($var == "1") {
                 return '<a href="index.php?mod=beamer&action=toggleactive&bcid='.$var2.'"><img src="design/images/icon_active.png" alt="Aktiv" border="0"></a>';
             }
+
             if ($var == "0") {
                 return '<a href="index.php?mod=beamer&action=toggleactive&bcid='.$var2.'"><img src="design/images/icon_deactive.png" alt="Deaktiv" border="0"></a>';
             }
+
+            return '';
         }
     
         $dsp->NewContent(t('Auflistung der Inhalte'));
         $dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton(t('Inhalte hinzuf&uuml;gen'), 'index.php?mod=beamer&action=newcontent', 'Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));
-
   
         include_once('modules/mastersearch2/class_mastersearch2.php');
         $ms2 = new mastersearch2('beamer');
@@ -118,10 +146,13 @@ class beamer_display
         $dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton(t('Inhalte hinzuf&uuml;gen'), 'index.php?mod=beamer&action=newcontent', 'Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));
     }
 
-
+    /**
+     * @return void
+     */
     public function viewStartSite()
     {
-        global $dsp, $lang, $beamermodul, $bcid, $beamerid,$cfg;
+        global $dsp, $beamermodul, $cfg;
+
         $a1 = $beamermodul->countContent("1", "1");
         $a2 = $beamermodul->countContent("1", "2");
         $a3 = $beamermodul->countContent("1", "3");
@@ -129,34 +160,47 @@ class beamer_display
         $a5 = $beamermodul->countContent("1", "5");
         $dsp->NewContent(t('Beamerinhalte pr&auml;sentieren'), "");
         $dsp->AddDoubleRow('Seiteninterval in Sekunden: ', $cfg['beamer_duration_default']);
+
+        $btn1 = '';
         if ($a1 > 0) {
             $btn1 = $dsp->FetchSpanButton(t('Beamerfenster starten'), "index.php?mod=beamer&action=viewcontent&beamerid=1&design=beamer&sitereload=".$cfg['beamer_duration_default'].'" target="_blank');
         }
+
+        $btn2 = '';
         if ($a2 > 0) {
             $btn2 = $dsp->FetchSpanButton(t('Beamerfenster starten'), "index.php?mod=beamer&action=viewcontent&beamerid=2&design=beamer&sitereload=".$cfg['beamer_duration_default'].'" target="_blank');
         }
+
+        $btn3 = '';
         if ($a3 > 0) {
             $btn3 = $dsp->FetchSpanButton(t('Beamerfenster starten'), "index.php?mod=beamer&action=viewcontent&beamerid=3&design=beamer&sitereload=".$cfg['beamer_duration_default'].'" target="_blank');
         }
+
+        $btn4 = '';
         if ($a4 > 0) {
             $btn4 = $dsp->FetchSpanButton(t('Beamerfenster starten'), "index.php?mod=beamer&action=viewcontent&beamerid=4&design=beamer&sitereload=".$cfg['beamer_duration_default'].'" target="_blank');
         }
+
+        $btn5 = '';
         if ($a5 > 0) {
             $btn5 = $dsp->FetchSpanButton(t('Beamerfenster starten'), "index.php?mod=beamer&action=viewcontent&beamerid=5&design=beamer&sitereload=".$cfg['beamer_duration_default'].'" target="_blank');
         }
-        $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">1.</font> ".t('Beamerfenster ').$btn1." - ".t('Aktive Inhalte: ').$a1."<p/><br/>");
-        $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">2.</font> ".t('Beamerfenster ').$btn2." - ".t('Aktive Inhalte: ').$a2."<p/><br/>");
-        $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">3.</font> ".t('Beamerfenster ').$btn3." - ".t('Aktive Inhalte: ').$a3."<p/><br/>");
-        $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">4.</font> ".t('Beamerfenster ').$btn4." - ".t('Aktive Inhalte: ').$a4."<p/><br/>");
-        $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">5.</font> ".t('Beamerfenster ').$btn5." - ".t('Aktive Inhalte: ').$a5."<p/><br/>");
+
+        $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">1.</font> ".t('Beamerfenster ').$btn1." - ".t('Aktive Inhalte: ').$a1."<p></p><br/>");
+        $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">2.</font> ".t('Beamerfenster ').$btn2." - ".t('Aktive Inhalte: ').$a2."<p></p><br/>");
+        $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">3.</font> ".t('Beamerfenster ').$btn3." - ".t('Aktive Inhalte: ').$a3."<p></p><br/>");
+        $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">4.</font> ".t('Beamerfenster ').$btn4." - ".t('Aktive Inhalte: ').$a4."<p></p><br/>");
+        $dsp->AddSingleRow(HTML_NEWLINE." <font size=\"4\">5.</font> ".t('Beamerfenster ').$btn5." - ".t('Aktive Inhalte: ').$a5."<p></p><br/>");
         $dsp->AddSingleRow(HTML_NEWLINE);
     }
-    
-    
-    
+
+    /**
+     * @return void
+     */
     public function viewAddNewContent1()
     {
-        global $dsp, $lang, $beamermodul, $bcid, $beamerid;
+        global $dsp;
+
         $dsp->NewContent(t('Inhalte hinzuf&uuml;gen'));
         $dsp->AddSingleRow(HTML_NEWLINE.t("Bitte w&auml;hle einen Inhaltstyp aus:").HTML_NEWLINE.HTML_NEWLINE);
         $dsp->SetForm("index.php?mod=beamer&action=newcontent2");
@@ -166,14 +210,17 @@ class beamer_display
         $dsp->AddFormSubmitRow("next");
     }
 
+    /**
+     * @return void
+     */
     public function viewAddNewContent2()
     {
-        global $dsp, $lang, $beamermodul, $bcid, $beamerid, $ctype;
+        global $dsp, $beamermodul, $ctype;
     
         $dsp->NewContent(t('Inhalte hinzuf&uuml;gen') . " - 2");
         $dsp->SetForm("index.php?mod=beamer&action=savecontent&ctype=".$ctype);
 
-        if ($ctype=='text') {
+        if ($ctype == 'text') {
             $dsp->AddTextFieldRow("ccaption", t("Bezeichnung: "), "", "", '50');
             ob_start();
             include_once("ext_scripts/FCKeditor/fckeditor.php");
@@ -187,25 +234,28 @@ class beamer_display
             $dsp->AddSingleRow($fcke_content);
         }
         
-        if ($ctype=='wrapper') {
+        if ($ctype == 'wrapper') {
             $dsp->AddTextFieldRow("ccaption", t("Bezeichnung: "), "", "", '50');
             $dsp->AddTextFieldRow("curl", t("IFrame URL: "), "", "", '80');
             $dsp->AddTextFieldRow("choehe", t("IFrame H&ouml;he: "), "550", "", '4');
             $dsp->AddTextFieldRow("cbreite", t("IFrame Breite: "), "980", "", '4');
         }
         
-        if ($ctype=='turnier') {
-            $dsp->AddDropDownFieldRow("ctid", t("Turnier: "), $beamermodul->getAllTournamentsAsOptionList(), $errortext, $optional = null);
+        if ($ctype == 'turnier') {
+            $dsp->AddDropDownFieldRow("ctid", t("Turnier: "), $beamermodul->getAllTournamentsAsOptionList(), '', $optional = null);
         }
-        
-        
+
         $dsp->AddBackButton();
         $dsp->AddFormSubmitRow("save");
     }
 
+    /**
+     * @return void
+     */
     public function viewEditContent()
     {
-        global $dsp, $func, $lang, $beamermodul, $bcid, $beamerid, $ctype;
+        global $dsp, $func, $beamermodul, $bcid;
+
         $content = $beamermodul->getContent($bcid);
         $dsp->NewContent(t('Inhalt bearbeiten'));
         $dsp->SetForm("index.php?mod=beamer&action=savecontent&ctype={$content['contentType']}&bcid=".$bcid);
@@ -232,7 +282,7 @@ class beamer_display
         }
 
         if ($content['contentType']=='turnier') {
-            $dsp->AddDropDownFieldRow("ctid", t("Turnier: "), $beamermodul->getAllTournamentsAsOptionList(), $errortext, $optional = null);
+            $dsp->AddDropDownFieldRow("ctid", t("Turnier: "), $beamermodul->getAllTournamentsAsOptionList(), '');
         }
 
         $dsp->AddFormSubmitRow("save");
