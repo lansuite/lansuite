@@ -1,8 +1,5 @@
 <?php
 
-include_once("modules/cashmgr/class_accounting.php");
-
-
 if (!$_GET['step']) {
     switch ($auth['type']) {
         default:
@@ -12,7 +9,6 @@ if (!$_GET['step']) {
         case 1:
         case 2:
             $_GET['action'] = "myaccounting";
-    
             break;
     
         case 3:
@@ -34,10 +30,8 @@ switch ($_GET['step']) {
         } else {
             $dsp->NewContent(t('Kalkulation'), t('Zur aktuellen Lanparty zum derzeitigen Stand'));
     
-            $account = new accounting($party->party_id);
+            $account = new \LanSuite\Module\CashMgr\Accounting($party->party_id);
             $account->showCalculation();
         }
         break;
 }
-//$dsp->AddDoubleRow("Barausgaben insgesamt", $account->getCashTotalBudget());
-//$dsp->AddDoubleRow("Guthaben insgesamt", $account->getOnlineTotalBudget());
