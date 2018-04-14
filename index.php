@@ -214,7 +214,7 @@ if (file_exists('inc/base/config.php')) {
 
 // Default config. Will be used only until the wizard has created the config file
 } else {
-    $config = array();
+    $config = [];
 
     $config['lansuite']['version'] = 'Nightly';
     $config['lansuite']['default_design'] = 'simple';
