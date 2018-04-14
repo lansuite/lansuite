@@ -210,7 +210,7 @@ if (!$_GET['partyid']) {
     $dsp->NewContent($row['name'], $row['motto']);
     $dsp->AddDoubleRow(t('Datum'), $func->unixstamp2date($row['start'], 'datetime') .' bis '. $func->unixstamp2date($row['end'], 'datetime'));
     $dsp->AddDoubleRow(t('Adresse'), $row['street'] .' '. $row['hnr'] .', '. $row['plz'] .' '. $row['city']);
-    $dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> ' . $dsp->FetchIcon('nofollow.php?mod=partylist&step=10&design=base&partyid='. $_GET['partyid'], 'signon'));
+    $dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> ' . $dsp->FetchIcon('signon', 'nofollow.php?mod=partylist&step=10&design=base&partyid=' . $_GET['partyid']));
     $dsp->AddDoubleRow(t('Anmeldestatus'), AddSignonStatus($row['ls_url']));
     $dsp->AddDoubleRow(t('Zusätzliche Infos'), $func->text2html($row['text']));
     $dsp->AddDoubleRow(t('Eingetragen durch'), $dsp->FetchUserIcon($row['userid'], $row['username']));

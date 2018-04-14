@@ -17,9 +17,9 @@ function eveningPriceIdLink($evening_price_id)
     global $dsp, $templ, $lang, $line;
   
     if ($evening_price_id == $line['price_id']) {
-        return $dsp->FetchIcon('', 'yes', t('Ja'));
+        return $dsp->FetchIcon('yes', '', t('Ja'));
     } else {
-        return $dsp->FetchIcon('index.php?mod=party&action=price&step=11&party_id='. $_GET['party_id'] .'&evening_price_id='. $line['price_id'], 'no', t('Nein'));
+        return $dsp->FetchIcon('no', 'index.php?mod=party&action=price&step=11&party_id=' . $_GET['party_id'] . '&evening_price_id=' . $line['price_id'], t('Nein'));
     }
 }
 

@@ -8,18 +8,18 @@
 // ADD HERE MODULPUGINCODE
 //hardwareliste
 $hardware = $db->qry_first("SELECT * FROM %prefix%hardware WHERE userid=%int%", $_GET['userid']);
-$dsp->AddDoubleRow(t('CPU'), $dsp->FetchIcon('', 'cpu', '').' '.$hardware['cpu']);
-$dsp->AddDoubleRow(t('Ram'), $dsp->FetchIcon('', 'ram', '').' '.$hardware['ram']);
-$dsp->AddDoubleRow(t('Grafikkarte'), $dsp->FetchIcon('', 'graka', '').' '.$hardware['graka']);
-$dsp->AddDoubleRow(t('Festplatte 1'), $dsp->FetchIcon('', 'hdd', '').' '.$hardware['hdd1']);
-$dsp->AddDoubleRow(t('Festplatte 2'), $dsp->FetchIcon('', 'hdd', '').' '.$hardware['hdd2']);
-$dsp->AddDoubleRow(t('Optisches Laufwerk 1'), $dsp->FetchIcon('', 'cd', '').' '.$hardware['cd1']);
-$dsp->AddDoubleRow(t('Optisches Laufwerk 2'), $dsp->FetchIcon('', 'cd', '').' '.$hardware['cd2']);
-$dsp->AddDoubleRow(t('Maus'), $dsp->FetchIcon('', 'maus', '').' '.$hardware['maus']);
-$dsp->AddDoubleRow(t('Tastatur'), $dsp->FetchIcon('', 'tasta', '').' '.$hardware['tasta']);
-$dsp->AddDoubleRow(t('Monitor'), $dsp->FetchIcon('', 'screen', '').' '.$hardware['monitor']);
-$dsp->AddDoubleRow(t('Betriebssystem'), $dsp->FetchIcon('', 'os', '').' '.$hardware['os']);
-$dsp->AddDoubleRow(t('Computername'), $dsp->FetchIcon('', 'pc', '').' '.$hardware['name']);
+$dsp->AddDoubleRow(t('CPU'), $dsp->FetchIcon('cpu', '', '').' '.$hardware['cpu']);
+$dsp->AddDoubleRow(t('Ram'), $dsp->FetchIcon('ram', '', '').' '.$hardware['ram']);
+$dsp->AddDoubleRow(t('Grafikkarte'), $dsp->FetchIcon('graka', '', '').' '.$hardware['graka']);
+$dsp->AddDoubleRow(t('Festplatte 1'), $dsp->FetchIcon('hdd', '', '').' '.$hardware['hdd1']);
+$dsp->AddDoubleRow(t('Festplatte 2'), $dsp->FetchIcon('hdd', '', '').' '.$hardware['hdd2']);
+$dsp->AddDoubleRow(t('Optisches Laufwerk 1'), $dsp->FetchIcon('cd', '', '').' '.$hardware['cd1']);
+$dsp->AddDoubleRow(t('Optisches Laufwerk 2'), $dsp->FetchIcon('cd', '', '').' '.$hardware['cd2']);
+$dsp->AddDoubleRow(t('Maus'), $dsp->FetchIcon('maus', '', '').' '.$hardware['maus']);
+$dsp->AddDoubleRow(t('Tastatur'), $dsp->FetchIcon('tasta', '', '').' '.$hardware['tasta']);
+$dsp->AddDoubleRow(t('Monitor'), $dsp->FetchIcon('screen', '', '').' '.$hardware['monitor']);
+$dsp->AddDoubleRow(t('Betriebssystem'), $dsp->FetchIcon('os', '', '').' '.$hardware['os']);
+$dsp->AddDoubleRow(t('Computername'), $dsp->FetchIcon('pc', '', '').' '.$hardware['name']);
 $dsp->AddDoubleRow(t('Sonstiges'), $hardware['sonstiges']);
 
 if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])) {

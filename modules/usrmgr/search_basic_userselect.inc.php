@@ -16,9 +16,9 @@ function PaidIcon($paid)
     global $dsp;
 
     if ($paid) {
-        return $dsp->FetchIcon('', 'paid', t('Bezahlt'));
+        return $dsp->FetchIcon('paid', '', t('Bezahlt'));
     } else {
-        return $dsp->FetchIcon('', 'not_paid', t('Nicht bezahlt'));
+        return $dsp->FetchIcon('not_paid', '', t('Nicht bezahlt'));
     }
 }
 

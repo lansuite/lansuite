@@ -4,9 +4,9 @@ function YesNo($TargetLang)
     global $dsp;
 
     if ($TargetLang) {
-        return $dsp->FetchIcon('', 'yes');
+        return $dsp->FetchIcon('yes', '');
     } else {
-        return $dsp->FetchIcon('', 'no');
+        return $dsp->FetchIcon('no', '');
     }
 }
 
@@ -80,12 +80,12 @@ switch ($_GET['step']) {
     
         // Name
         $mf->AddField(t('Orginal-Text'), 'org');
-        $mf->AddField($dsp->FetchIcon('', 'de'), 'de', '', '', masterform::FIELD_OPTIONAL);
-        $mf->AddField($dsp->FetchIcon('', 'en'), 'en', '', '', masterform::FIELD_OPTIONAL);
-        $mf->AddField($dsp->FetchIcon('', 'es'), 'es', '', '', masterform::FIELD_OPTIONAL);
-        $mf->AddField($dsp->FetchIcon('', 'nl'), 'nl', '', '', masterform::FIELD_OPTIONAL);
-        $mf->AddField($dsp->FetchIcon('', 'fr'), 'fr', '', '', masterform::FIELD_OPTIONAL);
-        $mf->AddField($dsp->FetchIcon('', 'it'), 'it', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('de', ''), 'de', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('en', ''), 'en', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('es', ''), 'es', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('nl', ''), 'nl', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('fr', ''), 'fr', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField($dsp->FetchIcon('it', ''), 'it', '', '', masterform::FIELD_OPTIONAL);
     
         $mf->SendForm('index.php?mod=install&action=translation&step=3', 'translation', 'tid', $_GET['tid']);
         $dsp->AddBackButton('index.php?mod=install&action=translation');

@@ -21,9 +21,9 @@ function PaidIconLink($paid)
     }
   
     if ($paid) {
-        return $dsp->FetchIcon($link, 'paid', t('Bezahlt'));
+        return $dsp->FetchIcon('paid', $link, t('Bezahlt'));
     } else {
-        return $dsp->FetchIcon($link, 'not_paid', t('Nicht bezahlt'));
+        return $dsp->FetchIcon('not_paid', $link, t('Nicht bezahlt'));
     }
 }
 

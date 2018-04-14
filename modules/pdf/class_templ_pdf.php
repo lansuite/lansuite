@@ -123,8 +123,8 @@ class pdf_tmpl
             }
             $smarty->assign('description', $description);
 
-            $button_edit = $dsp->FetchIcon("index.php?mod=pdf&action=". $_GET['action'] ."&act=change_mask&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'edit', t('Editieren'));
-            $button_del = $dsp->FetchIcon("index.php?mod=pdf&action=". $_GET['action'] ."&act=change&delete_item=1&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'delete', t('Löschen'));
+            $button_edit = $dsp->FetchIcon('edit', "index.php?mod=pdf&action=" . $_GET['action'] . "&act=change_mask&id=" . $this->tmpl_id . "&itemid=" . $data_array['pdfid'], t('Editieren'));
+            $button_del = $dsp->FetchIcon('delete', "index.php?mod=pdf&action=" . $_GET['action'] . "&act=change&delete_item=1&id=" . $this->tmpl_id . "&itemid=" . $data_array['pdfid'], t('Löschen'));
             $smarty->assign('button_edit', $button_edit);
             $smarty->assign('button_del', $button_del);
 

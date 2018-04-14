@@ -32,7 +32,7 @@ function LastPostDetails($date)
         }
         return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&posts_page='. $page .'#pid'. $row['pid'] .'" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
     } else {
-        return $dsp->FetchIcon('', 'no', '-');
+        return $dsp->FetchIcon('no', '', '-');
     }
 }
 

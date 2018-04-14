@@ -100,11 +100,11 @@ if ($overall_news == 0) {
         // Buttons
                 $buttons = "";
                 if ($auth["type"] > 1) {
-                    $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid", "edit") . " ";
-                    $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid", "delete") . " ";
+                    $buttons .= $dsp->FetchIcon("edit", "index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid") . " ";
+                    $buttons .= $dsp->FetchIcon("delete", "index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid") . " ";
                 }
                 if ($cfg['news_comments_allowed']) {
-                    $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=comment&amp;newsid=$newsid", "quote") . " ";
+                    $buttons .= $dsp->FetchIcon("quote", "index.php?mod=news&amp;action=comment&amp;newsid=$newsid") . " ";
                 }
                 $smarty->assign('buttons', $buttons);
                 $rows .= $smarty->fetch("modules/news/templates/show_row_$type.htm");
@@ -164,11 +164,11 @@ if ($overall_news == 0) {
         // Buttons
                 $buttons = "";
                 if ($auth["type"] > 1) {
-                    $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid", "edit") . " ";
-                    $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid", "delete") . " ";
+                    $buttons .= $dsp->FetchIcon("edit", "index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid") . " ";
+                    $buttons .= $dsp->FetchIcon("delete", "index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid") . " ";
                 }
                 if ($cfg['news_comments_allowed']) {
-                    $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=comment&amp;newsid=$newsid", "quote") . " ";
+                    $buttons .= $dsp->FetchIcon("quote", "index.php?mod=news&amp;action=comment&amp;newsid=$newsid") . " ";
                 }
                 $smarty->assign('buttons', $buttons);
 

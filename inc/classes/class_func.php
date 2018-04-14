@@ -335,8 +335,8 @@ class func
         }
         $smarty->assign('question', $text);
         $smarty->assign('action', $link_target_yes);
-        $smarty->assign('yes', $dsp->FetchIcon($link_target_yes, 'yes'));
-        $smarty->assign('no', $dsp->FetchIcon($link_target_no, 'no'));
+        $smarty->assign('yes', $dsp->FetchIcon('yes', $link_target_yes));
+        $smarty->assign('no', $dsp->FetchIcon('no', $link_target_no));
 
         $dsp->AddContentLine($smarty->fetch('design/templates/question.htm'));
     }
