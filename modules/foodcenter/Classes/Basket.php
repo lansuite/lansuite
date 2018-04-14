@@ -1,5 +1,7 @@
 <?php
 
+namespace LanSuite\Module\Foodcenter;
+
 class Basket
 {
     /**

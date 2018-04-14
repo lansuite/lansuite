@@ -1,5 +1,7 @@
 <?php
 
+namespace LanSuite\Module\Foodcenter;
+
 class Product
 {
     /**
@@ -33,7 +35,7 @@ class Product
     /**
      * Supplier
      *
-     * @var \Supplier
+     * @var Supplier
      */
     private $supp;
 
@@ -87,7 +89,7 @@ class Product
     /**
      * Product options
      *
-     * @var \ProductOption[]
+     * @var ProductOption[]
      */
     private $option = [];
 
@@ -416,7 +418,7 @@ class Product
 
         // Not functional now
         // Pic is only active with gd-Libary
-        $gd = new gd();
+        $gd = new \gd();
         if ($gd->available) {
             $dsp->AddFileSelectRow("file", t('Bild hochladen'), $this->error_food['file'], null, null, true);
             $dsp->AddPictureDropDownRow("pic", t('Bild hochladen'), "ext_inc/foodcenter", $this->error_food['file'], true, basename($this->pic));

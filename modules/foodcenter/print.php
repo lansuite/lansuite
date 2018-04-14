@@ -1,3 +1,3 @@
 <?php
 
-$print = new FoodcenterPrint();
+$print = new LanSuite\Module\Foodcenter\FoodcenterPrint();

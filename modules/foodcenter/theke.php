@@ -1,9 +1,6 @@
 <?php
 
-include_once("modules/foodcenter/class_basket.php");
-include_once("modules/foodcenter/class_product.php");
-
-$basket = new Basket();
+$basket = new LanSuite\Module\Foodcenter\Basket();
 $basket->add_to_basket_from_global();
 
 // Get Barcode if exists and translate to userid
@@ -55,7 +52,7 @@ if (!isset($_SESSION['foodcenter']['theke_userid'])) {
     $user_theke = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $_SESSION['foodcenter']['theke_userid']);
     $dsp->AddDoubleRow(HTML_FONT_ERROR . t('Ausgewählter Benutzer:') . HTML_FONT_END, "<table border=\"0\" width=\"100%\"><tr><td>{$user_theke['username']}</td><td align=\"right\"><a href=\"index.php?mod=foodcenter&action=theke&step=del\">".t('Exit')."</a></td></tr></table>");
 
-    $product_list = new ProductList();
+    $product_list = new LanSuite\Module\Foodcenter\ProductList();
 
     if ($_GET['info']) {
         $product_list->load_cat($cat[$_GET['headermenuitem']]);

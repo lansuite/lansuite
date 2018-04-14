@@ -1,8 +1,6 @@
 <?php
 
-include_once("modules/foodcenter/class_basket.php");
-include_once("modules/foodcenter/class_product.php");
-$basket = new Basket();
+$basket = new LanSuite\Module\Foodcenter\Basket();
 
 // Check opening times
 $time = time();
@@ -43,7 +41,7 @@ if ($open == false && ($cfg['foodcenter_foodtime'] == 3 || $cfg['foodcenter_food
     $func->error($errormessage, "index.php?mod=home");
 
 } else {
-    $basket = new Basket();
+    $basket = new LanSuite\Module\Foodcenter\Basket();
 
     if ($open == false && $cfg['foodcenter_foodtime'] == 1) {
         $errormessage = t('Das Foodcenter ist geschlossen Bestellungen sind möglich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:'). HTML_NEWLINE;

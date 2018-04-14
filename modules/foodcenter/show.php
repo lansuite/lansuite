@@ -1,8 +1,5 @@
 <?php
 
-include_once("modules/foodcenter/class_product.php");
-include_once("modules/foodcenter/class_basket.php");
-
 // Check opening times
 $time = time();
 if ($cfg['foodcenter_foodtime'] == 4) {
@@ -39,7 +36,7 @@ if ($open == false && $cfg['foodcenter_foodtime'] == 3) {
     $func->error($errormessage, "index.php?mod=home");
 
 } else {
-    $basket = new Basket();
+    $basket = new LanSuite\Module\Foodcenter\Basket();
 
     // Info message
     if ($open == false && $cfg['foodcenter_foodtime'] == 1) {
@@ -72,7 +69,7 @@ if ($open == false && $cfg['foodcenter_foodtime'] == 3) {
     }
     $dsp->NewContent(t('Speiseliste'));
 
-    $product_list = new ProductList();
+    $product_list = new LanSuite\Module\Foodcenter\ProductList();
     
     if ($basket->count > 0) {
         $dsp->AddSingleRow("<b><a href='index.php?mod=foodcenter&action=basket'>" . $basket->count . t(' Produkt(e) im Warenkorb') . "</a></b>", " align=\"right\"");

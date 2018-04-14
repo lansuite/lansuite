@@ -1,8 +1,6 @@
 <?php
 
-include_once("modules/foodcenter/class_product.php");
-include_once("modules/foodcenter/class_accounting.php");
-$product_list = new ProductList();
+$product_list = new LanSuite\Module\Foodcenter\ProductList();
 
 if ($auth['type'] < 2) {
     unset($_GET['step']);
@@ -27,7 +25,7 @@ switch ($_GET['step']) {
 
             } else {
                 $price = 0;
-                $account = new Accounting($prodrow['userid']);
+                $account = new LanSuite\Module\Foodcenter\Accounting($prodrow['userid']);
                 if (stristr($prodrow['opts'], "/")) {
                     $values = explode("/", $prodrow['opts']);
 
@@ -202,7 +200,7 @@ switch ($_GET['step']) {
                     $prodrow = $db->qry_first("SELECT * FROM %prefix%food_ordering WHERE id = %string%", $item);
                 
                     unset($account);
-                    $account = new Accounting($prodrow['userid']);
+                    $account = new LanSuite\Module\Foodcenter\Accounting($prodrow['userid']);
                     $price = 0;
                     $tempdesc = "";
 

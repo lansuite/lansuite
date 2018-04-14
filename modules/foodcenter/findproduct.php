@@ -1,5 +1,4 @@
 <?php
-include_once("modules/foodcenter/class_product.php");
 include_once('modules/mastersearch2/class_mastersearch2.php');
 
 /**
@@ -21,7 +20,7 @@ function GetTitelName($id)
     return $return;
 }
 
-$product_list = new ProductList();
+$product_list = new LanSuite\Module\Foodcenter\ProductList();
 
 $dsp->NewContent(t('Produktsuche'), t('Hier findest du alles was das Herz begehrt'));
 

@@ -1,9 +1,8 @@
 <?php
 
-include_once("modules/foodcenter/class_product.php");
 include_once('modules/mastersearch2/class_mastersearch2.php');
 
-$product_list = new ProductList();
+$product_list = new LanSuite\Module\Foodcenter\ProductList();
 
 $dsp->NewContent(t('Bestellungen'), t('Auflistung deiner aktiven und abgeschlossenen Catering-Bestellungen'));
 
