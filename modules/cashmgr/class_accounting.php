@@ -1,17 +1,5 @@
 <?php
 
-function getMoneyColor($money)
-{
-    if ($money > 0) {
-        return "<font color='green'>+".number_format($money, 2, ',', '.') . " EUR</font>";
-    }
-        
-    if ($money < 0) {
-        return "<font color='red'>".number_format($money, 2, ',', '.') . " EUR</font>";
-    }
-}
-
-
 class accounting
 {
     /**
@@ -64,6 +52,23 @@ class accounting
     }
 
     /**
+     * @param float $money
+     * @return string
+     */
+    private function getMoneyColor($money)
+    {
+        if ($money > 0) {
+            return "<font color='green'>+".number_format($money, 2, ',', '.') . " EUR</font>";
+        }
+
+        if ($money < 0) {
+            return "<font color='red'>".number_format($money, 2, ',', '.') . " EUR</font>";
+        }
+
+        return '';
+    }
+
+    /**
      * @param string    $movement
      * @param string    $comment
      * @param int       $toUserid
@@ -93,7 +98,7 @@ class accounting
         );
                 
         if (!$silentMode) {
-            $func->confirmation("Betrag von " . getMoneyColor($movement) . " erfolgreich von Modul " . $this->modul ." gebucht.", "");
+            $func->confirmation("Betrag von " . $this->getMoneyColor($movement) . " erfolgreich von Modul " . $this->modul ." gebucht.", "");
         }
     }
 
@@ -130,7 +135,7 @@ class accounting
         $query = $db->qry("SELECT user_id FROM %prefix%party_user WHERE party_id = %int% AND paid != %int%", $this->partyid, $paid);
         $result = $db->num_rows($query);
 
-        return getMoneyColor($result * $cfg['cashmgr_kwhaverage_usage'] * $cfg['cashmgr_kwh'] * $partytime * (-1));
+        return $this->getMoneyColor($result * $cfg['cashmgr_kwhaverage_usage'] * $cfg['cashmgr_kwh'] * $partytime * (-1));
     }
 
     /**
@@ -159,7 +164,7 @@ class accounting
                 break;
         }
 
-        return getMoneyColor($result['total']);
+        return $this->getMoneyColor($result['total']);
     }
 
     /**
@@ -192,10 +197,10 @@ class accounting
         
         while ($res = $db->fetch_array($row)) {
             if (isset($res['subjekt'])) {
-                $arrobjekt = array($res['subjekt'], getMoneyColor($res['movement']));
+                $arrobjekt = array($res['subjekt'], $this->getMoneyColor($res['movement']));
 
             } else {
-                $arrobjekt = array($res['subjekt_m'], getMoneyColor($res['movement']));
+                $arrobjekt = array($res['subjekt_m'], $this->getMoneyColor($res['movement']));
             }
             $result_list[] = $arrobjekt;
         }
