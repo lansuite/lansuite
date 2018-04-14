@@ -229,10 +229,6 @@ if (file_exists('inc/base/config.php')) {
     $config['database']['prefix'] = 'ls_';
     $config['database']['charset'] = 'utf8';
 
-    $config['validation']['email']['mode'] = 'html5';
-    $config['validation']['email']['mx_check'] = 1;
-    $config['validation']['email']['host_check'] = 0;
-
     $config['environment']['configured'] = 0;
 }
 

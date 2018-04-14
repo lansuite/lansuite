@@ -10,11 +10,11 @@ use LanSuite\Validator\Email;
  */
 function CheckValidEmail($email)
 {
-    global $cfg, $config;
+    global $cfg;
 
     // Check which validation mode to validate
     // an email address is configured
-    switch ($config['validation']['email']['mode']) {
+    switch ($cfg['sys_email_regex_verification']) {
         case 'loose':
             $emailValidator = new Email(Email::VALIDATION_MODE_LOOSE);
         break;
@@ -23,12 +23,17 @@ function CheckValidEmail($email)
             $emailValidator = new Email(Email::VALIDATION_MODE_HTML5);
     }
 
-    // Enable features based on user configuration
-    if ($config['validation']['email']['mx_check']) {
-        $emailValidator->enableOption(Email::OPTION_MX_CHECK);
-    }
-    if ($config['validation']['email']['host_check']) {
-        $emailValidator->enableOption(Email::OPTION_HOST_CHECK);
+    // Enable dns verification features based on user configuration
+    switch ($cfg['sys_email_dns_verification']) {
+        case 'mx_check':
+            $emailValidator->enableOption(Email::OPTION_MX_CHECK);
+            break;
+        case 'host_check':
+            $emailValidator->enableOption(Email::OPTION_HOST_CHECK);
+            break;
+        case 'none':
+        default:
+            // Nothing to activate here
     }
 
     $email = trim($email);
