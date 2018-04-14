@@ -149,6 +149,7 @@ class Accounting
     {
         global $db;
 
+        $result = [];
         switch ($posneg) {
             // All negative
             case 0:
@@ -196,7 +197,7 @@ class Accounting
                 $row = $db->qry("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM %prefix%cashmgr_accounting AS a LEFT JOIN %prefix%cashmgr_group AS g ON a.groupid = g.id  WHERE partyid = %int% AND fix = %string% GROUP BY modul, caption", $this->partyid, $fix);
                 break;
         }
-        
+
         while ($res = $db->fetch_array($row)) {
             if (isset($res['subjekt'])) {
                 $arrobjekt = array($res['subjekt'], $this->getMoneyColor($res['movement']));
