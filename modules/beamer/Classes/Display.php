@@ -1,6 +1,8 @@
 <?php
 
-class beamer_display
+namespace LanSuite\Module\Beamer;
+
+class Display
 {
 
     /**
@@ -125,7 +127,7 @@ class beamer_display
         $dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton(t('Inhalte hinzuf&uuml;gen'), 'index.php?mod=beamer&action=newcontent', 'Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));
   
         include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('beamer');
+        $ms2 = new \mastersearch2('Beamer');
         $ms2->query['from'] = '%prefix%beamer_content';
         $ms2->AddResultField('-A-', 'active', 'formatActiveStatus', '', 35);
         $ms2->AddResultField(t('Typ'), 'contentType', 'formatContentType', "", 35);
@@ -224,7 +226,7 @@ class beamer_display
             $dsp->AddTextFieldRow("ccaption", t("Bezeichnung: "), "", "", '50');
             ob_start();
             include_once("ext_scripts/FCKeditor/fckeditor.php");
-            $oFCKeditor = new FCKeditor('FCKeditor1') ;
+            $oFCKeditor = new \FCKeditor('FCKeditor1') ;
             $oFCKeditor->BasePath    = 'ext_scripts/FCKeditor/';
             $oFCKeditor->Value = "";
             $oFCKeditor->Height = 380;
@@ -264,7 +266,7 @@ class beamer_display
             $dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", $content['caption'], "", '50');
             ob_start();
             include_once("ext_scripts/FCKeditor/fckeditor.php");
-            $oFCKeditor = new FCKeditor('FCKeditor1') ;
+            $oFCKeditor = new \FCKeditor('FCKeditor1') ;
             $oFCKeditor->BasePath    = 'ext_scripts/FCKeditor/';
             $oFCKeditor->Value = $func->AllowHTML($content['contentData']);
             $oFCKeditor->Height = 380;

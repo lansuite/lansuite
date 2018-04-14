@@ -1,6 +1,8 @@
 <?php
 
-class beamer
+namespace LanSuite\Module\Beamer;
+
+class Beamer
 {
     /**
      * @param string $where

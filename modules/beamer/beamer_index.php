@@ -28,10 +28,8 @@ if (isset($debug)) {
     echo "<br/>FCKeditor1-Data: " . $_POST['FCKeditor1'];
 }
 
-include_once('class/beamer.class.php');
-include_once('class/beamer_display.class.php');
-$beamermodul = new beamer();
-$beamerdisplay = new beamer_display();
+$beamermodul = new LanSuite\Module\Beamer\Beamer();
+$beamerdisplay = new LanSuite\Module\Beamer\Display();
 
 switch ($action) {
     case 'newcontent':
