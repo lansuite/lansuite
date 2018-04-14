@@ -21,7 +21,7 @@ switch ($_GET['step']) {
                 $count_array[] = "<option selected value=\"{$prodrow['pice']}\">".t('Alle')."</option>";
                 
                 for ($i = $prodrow['pice']; $i > 0; $i--) {
-                    $count_array[] .= "<option value=\"{$i}\">{$i}</option>";
+                    $count_array[] = "<option value=\"{$i}\">{$i}</option>";
                 }
                 $_GET['step'] = 10;
 
@@ -162,7 +162,7 @@ switch ($_GET['step']) {
         while ($file = readdir($handle)) {
             if (($file != ".") and ($file != "..") and ($file != ".svn") and (!is_dir($file))) {
                 if ((substr($file, -3, 3) == "htm") && (substr($file, -7, 7) != "row.htm") || (substr($file, -4, 4) == "html") && (substr($file, -8, 8) != "row.html")) {
-                    $file_array[] .= "<option value=\"$file\">$file</option>";
+                    $file_array[] = "<option value=\"$file\">$file</option>";
                 }
             }
         }

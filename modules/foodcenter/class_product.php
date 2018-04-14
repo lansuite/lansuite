@@ -120,7 +120,7 @@ class product_list
                 // and add the product
                 $this->product[$key] = new product($id);
                 $this->product[$key]->ordered++;
-                $this->product_list[] .= $id;
+                $this->product_list[] = $id;
                 
                 foreach ($opt as $cle => $value) {
                     $this->product[$key]->order_option($cle);
@@ -155,7 +155,7 @@ class product_list
             // Add the product
             $this->product[$key] = new product($id);
             $this->product[$key]->ordered++;
-            $this->product_list[] .= $id;
+            $this->product_list[] = $id;
             
             if (is_array($opt)) {
                 foreach ($opt as $cle => $value) {
@@ -716,6 +716,7 @@ class product
         // Hidden not Selected Option an List Product Options
         $add_product_prod_opt[1] = t('Normales Produkt');
         $add_product_prod_opt[2] = t('Erweitertes Produkt');
+        $opts = [];
         foreach ($add_product_prod_opt as $key => $value) {
             if ($key == $this->type) {
                 $selected = "selected";
@@ -724,7 +725,7 @@ class product
                 $selected = "";
                 $display[$key] = "none";
             }
-            $opts[] .= "<option $selected value=\"$key\">$value</option>";
+            $opts[] = "<option $selected value=\"$key\">$value</option>";
         }
         if ($_POST['product_opts'] == "") {
             $display[1] = "";
@@ -1027,7 +1028,7 @@ class product
             $opt_array = [];
             foreach ($this->option as $key => $value) {
                 if ($this->option[$key]->ordered > 0 || $this->option[$key]->fix == 1) {
-                    $opt_array[] .= $this->option[$key]->id;
+                    $opt_array[] = $this->option[$key]->id;
                     $price += $this->option[$key]->price;
                     if ($this->mat == 1) {
                         $tmp_rest1 = $this->option[$key]->pice - $this->option[$key]->ordered;

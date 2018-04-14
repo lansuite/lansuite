@@ -93,7 +93,7 @@ class basket
                 $delivered_array = [];
                 foreach ($fc_theke_delivered as $key => $value) {
                     ($key == 2) ? $selected = "selected" : $selected = "";
-                    $delivered_array[] .= "<option $selected value=\"$key\">$value</option>";
+                    $delivered_array[] = "<option $selected value=\"$key\">$value</option>";
                 }
                 $dsp->AddDropDownFieldRow("delivered", "", $delivered_array, "");
             }

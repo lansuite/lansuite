@@ -33,12 +33,12 @@ switch ($_GET['act']) {
 
     case "menu":
         $dsp->NewContent(t('Kontoverwaltung'), t('Hier kannst du Einzahlungen, Auszahlungen verwalten und Kontostände einsehen.'));
-        $dia_quest[] .= t('Zahlungen')    ;
-        $dia_quest[] .= t('Fremder Kontoauszug');
-        $dia_quest[] .= t('Eigener Kontoauszug');
-        $dia_link[] .= "index.php?mod=foodcenter&action=account&act=payment";
-        $dia_link[] .= "index.php?mod=foodcenter&action=account&act=himbalance";
-        $dia_link[] .= "index.php?mod=foodcenter&action=account&act=list";
+        $dia_quest[] = t('Zahlungen')    ;
+        $dia_quest[] = t('Fremder Kontoauszug');
+        $dia_quest[] = t('Eigener Kontoauszug');
+        $dia_link[] = "index.php?mod=foodcenter&action=account&act=payment";
+        $dia_link[] = "index.php?mod=foodcenter&action=account&act=himbalance";
+        $dia_link[] = "index.php?mod=foodcenter&action=account&act=list";
         $func->multiquestion($dia_quest, $dia_link, "");
         break;
     
