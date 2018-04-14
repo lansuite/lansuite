@@ -2,7 +2,7 @@
 
 include_once("modules/foodcenter/class_product.php");
 include_once("modules/foodcenter/class_accounting.php");
-$product_list = new product_list();
+$product_list = new ProductList();
 
 if ($auth['type'] < 2) {
     unset($_GET['step']);

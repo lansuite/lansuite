@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Class product_list
+ * Class ProductList
  *
  * Used to show the list of products (e.g. for the menu card)
  */
-class product_list
+class ProductList
 {
     /**
      * List of product numbers
@@ -31,7 +31,7 @@ class product_list
     {
         global $db;
         $products = $db->qry("SELECT id FROM %prefix%food_product WHERE cat_id=%string%", $cat);
-        
+
         $i = 0;
         while ($data = $db->fetch_array($products)) {
             $this->product_list[$i] .= $data['id'];
@@ -49,7 +49,7 @@ class product_list
     public function get_list($worklink)
     {
         global $dsp;
-        
+
         if (count($this->product) > 0) {
             for ($i = 0; $i < count($this->product); $i++) {
                 $this->product[$i]->order_form($worklink);
@@ -89,7 +89,7 @@ class product_list
             if (is_array($opt)) {
                 $temp_prod = new product($id);
                 $temp_prod->ordered++;
-                
+
                 foreach ($opt as $key => $value) {
                     $temp_prod->order_option($key);
                 }
@@ -114,12 +114,12 @@ class product_list
                 } else {
                     $key = $key_array[0] + 1;
                 }
-    
+
                 // and add the product
                 $this->product[$key] = new product($id);
                 $this->product[$key]->ordered++;
                 $this->product_list[] = $id;
-                
+
                 foreach ($opt as $cle => $value) {
                     $this->product[$key]->order_option($cle);
                 }
@@ -149,12 +149,12 @@ class product_list
             } else {
                 $key = $key_array[0] + 1;
             }
-    
+
             // Add the product
             $this->product[$key] = new product($id);
             $this->product[$key]->ordered++;
             $this->product_list[] = $id;
-            
+
             if (is_array($opt)) {
                 foreach ($opt as $cle => $value) {
                     if (!$this->product[$key]->order_option($cle)) {
@@ -164,7 +164,7 @@ class product_list
             } else {
                 $ret = $this->product[$key]->order_option($opt);
             }
-           
+
             return $ret;
         }
     }

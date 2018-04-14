@@ -10,7 +10,7 @@ class basket
     public $count = 0;
 
     /**
-     * @var product_list
+     * @var ProductList
      */
     private $product;
 
@@ -30,7 +30,7 @@ class basket
             $_SESSION['basket_item'] = array();
             $_SESSION['basket_count'] = 0;
             $this->count = 0;
-            $this->product = new product_list();
+            $this->product = new ProductList();
 
         } else {
             $this->product = unserialize($_SESSION['basket_item']['product']);
@@ -170,7 +170,7 @@ class basket
         $this->account->change(- $this->product->order_product($userid, $delivered), t('Bestellung Foodcenter') . "  (" . $auth['username'] . ") Artikel:".$this->product->order_productdesc($userid, $delivered), $userid);
         unset($this->product);
 
-        $this->product = new product_list();
+        $this->product = new ProductList();
 
         unset($_SESSION['basket_item']['product']);
         $_SESSION['basket_item']['product'] = serialize($this->product);

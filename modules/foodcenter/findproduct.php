@@ -21,7 +21,7 @@ function GetTitelName($id)
     return $return;
 }
 
-$product_list = new product_list();
+$product_list = new ProductList();
 
 $dsp->NewContent(t('Produktsuche'), t('Hier findest du alles was das Herz begehrt'));
 

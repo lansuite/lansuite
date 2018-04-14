@@ -72,7 +72,7 @@ if ($open == false && $cfg['foodcenter_foodtime'] == 3) {
     }
     $dsp->NewContent(t('Speiseliste'));
 
-    $product_list = new product_list();
+    $product_list = new ProductList();
     
     if ($basket->count > 0) {
         $dsp->AddSingleRow("<b><a href='index.php?mod=foodcenter&action=basket'>" . $basket->count . t(' Produkt(e) im Warenkorb') . "</a></b>", " align=\"right\"");
