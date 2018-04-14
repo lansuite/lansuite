@@ -307,7 +307,7 @@ class Product
     /**
      * Supplier
      *
-     * @var \supp
+     * @var \Supplier
      */
     private $supp;
 
@@ -402,7 +402,7 @@ class Product
         $this->caption    = $_POST['p_caption'];
         $this->desc       = $_POST['desc'];
         $this->cat        = new cat($_POST['cat_id']);
-        $this->supp       = new supp($_POST['supp_id']);
+        $this->supp       = new Supplier($_POST['supp_id']);
         $this->supp_infos = $_POST['supp_infos'];
         $this->mat        = (int)$_POST['mat'];
         $this->type       = $_POST['product_type'];
@@ -503,7 +503,7 @@ class Product
             $this->caption    = $row['caption'];
             $this->desc       = $row['p_desc'];
             $this->cat        = new cat($row['cat_id']);
-            $this->supp       = new supp($row['supp_id']);
+            $this->supp       = new Supplier($row['supp_id']);
             $this->supp_infos = $row['supp_infos'];
             $this->mat        = (int) $row['mat'];
             $this->type       = $row['p_type'];
@@ -704,7 +704,7 @@ class Product
 
         // Select Supplier
         if (!is_object($this->supp)) {
-            $this->supp = new supp();
+            $this->supp = new Supplier();
         }
         $this->supp->supp_form();
 
@@ -1459,11 +1459,11 @@ class ProductOption
 }
 
 /**
- * Class supp
+ * Class Supplier
  *
  * Management of suppliers
  */
-class supp
+class Supplier
 {
     /**
      * Supplier ID
@@ -1497,7 +1497,7 @@ class supp
      * supp constructor.
      *
      * @param int $id
-     * @return supp
+     * @return Supplier
      */
     public function __construct($id = null)
     {
