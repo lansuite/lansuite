@@ -1,4 +1,5 @@
 <?php
+
 include("modules/foodcenter/class_product.php");
 $food = new product($_GET['id']);
 
@@ -6,7 +7,6 @@ if (!isset($_GET['step'])) {
     $_GET['step'] = 1;
 }
 
-// Check for errors
 switch ($_GET['step']) {
     case 2:
         $food->read_post();
@@ -15,7 +15,6 @@ switch ($_GET['step']) {
         }
         break;
 }
-
 
 switch ($_GET['step']) {
     default:
