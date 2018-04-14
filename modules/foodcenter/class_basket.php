@@ -1,6 +1,5 @@
 <?php
 
-//include_once("modules/cashmgr/class_accounting.php");
 include_once("modules/foodcenter/class_accounting.php");
 
 

@@ -32,7 +32,8 @@
     },
     "autoload": {
         "psr-4": {
-            "LanSuite\\Module\\Beamer\\": "modules/beamer/Classes/"
+            "LanSuite\\Module\\Beamer\\": "modules/beamer/Classes/",
+            "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/"
         },
         "classmap": [
             "inc/classes/class.crypt.php",
