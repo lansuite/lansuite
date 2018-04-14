@@ -17,7 +17,7 @@ class ProductList
     /**
      * List of products
      *
-     * @var \product[]
+     * @var \Product[]
      */
     private $product = [];
 
@@ -35,7 +35,7 @@ class ProductList
         $i = 0;
         while ($data = $db->fetch_array($products)) {
             $this->product_list[$i] .= $data['id'];
-            $this->product[$i] = new product($data['id']);
+            $this->product[$i] = new Product($data['id']);
             $i++;
         }
     }
@@ -87,7 +87,7 @@ class ProductList
         if (in_array($id, $this->product_list)) {
 
             if (is_array($opt)) {
-                $temp_prod = new product($id);
+                $temp_prod = new Product($id);
                 $temp_prod->ordered++;
 
                 foreach ($opt as $key => $value) {
@@ -116,7 +116,7 @@ class ProductList
                 }
 
                 // and add the product
-                $this->product[$key] = new product($id);
+                $this->product[$key] = new Product($id);
                 $this->product[$key]->ordered++;
                 $this->product_list[] = $id;
 
@@ -151,7 +151,7 @@ class ProductList
             }
 
             // Add the product
-            $this->product[$key] = new product($id);
+            $this->product[$key] = new Product($id);
             $this->product[$key]->ordered++;
             $this->product_list[] = $id;
 
@@ -274,7 +274,7 @@ class ProductList
     }
 }
 
-class product
+class Product
 {
     /**
      * Product ID
@@ -955,7 +955,7 @@ class product
     /**
      * Comparision with a different product
      *
-     * @param \product $prod
+     * @param \Product $prod
      * @return bool
      */
     public function compare($prod)

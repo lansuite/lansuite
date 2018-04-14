@@ -1,7 +1,7 @@
 <?php
 
 include("modules/foodcenter/class_product.php");
-$food = new product($_GET['id']);
+$food = new Product($_GET['id']);
 
 if (!isset($_GET['step'])) {
     $_GET['step'] = 1;
