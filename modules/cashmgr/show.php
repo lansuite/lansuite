@@ -12,7 +12,6 @@ if (!$_GET['step']) {
         case 1:
         case 2:
             $_GET['action'] = "myaccounting";
-    
             break;
     
         case 3:
@@ -39,5 +38,3 @@ switch ($_GET['step']) {
         }
         break;
 }
-//$dsp->AddDoubleRow("Barausgaben insgesamt", $account->getCashTotalBudget());
-//$dsp->AddDoubleRow("Guthaben insgesamt", $account->getOnlineTotalBudget());

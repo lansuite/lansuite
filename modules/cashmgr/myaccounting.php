@@ -1,15 +1,11 @@
 <?php
-/*
- * Created on 22.03.2009
- * 
- * 
- * 
- * @package package_name
- * @author Maztah
- * 
- */
 include_once("modules/cashmgr/class_accounting.php");
 
+/**
+ * getColor is used as a mastersearch callback function
+ *
+ * @return string
+ */
 function getColor()
 {
     global $line;
@@ -22,21 +18,24 @@ function getColor()
     }
 }
 
-if ($_GET['act'] == "him" and $auth['type'] < 3) {
+if ($_GET['act'] == "him" && $auth['type'] < 3) {
     $func->information("ACCESS_DENIED");
-} elseif ($_GET['act'] == "him" and $auth['type'] = 3) {
+
+} elseif ($_GET['act'] == "him" && $auth['type'] = 3) {
     switch ($_GET['step']) {
+        case 2:
+            $userid = $_GET['userid'];
+            break;
+
         default:
             $current_url = 'index.php?mod=cashmgr&action=myaccounting&act=him';
             $target_url = 'index.php?mod=cashmgr&action=myaccounting&act=him&step=2&userid=';
             include_once('modules/usrmgr/search_basic_userselect.inc.php');
             break;
-        case 2:
-            $userid = $_GET['userid'];
-            break;
     }
 }
-if (!$_GET['act'] or ($_GET['act'] and $_GET['step'] == 2)) {
+
+if (!$_GET['act'] || ($_GET['act'] && $_GET['step'] == 2)) {
     if ($userid == null) {
         $userid = $auth['userid'];
     }

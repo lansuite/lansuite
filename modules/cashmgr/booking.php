@@ -1,14 +1,18 @@
 <?php
 
+/**
+ * @param string $key
+ * @return boolean
+ */
 function ShowField($key)
 {
     global $cfg;
 
-    if ($cfg["signon_show_".$key] > 0) {
-        return 1;
-    } else {
-        return 0;
+    if ($cfg["signon_show_" . $key] > 0) {
+        return true;
     }
+
+    return false;
 }
 
 $mf = new masterform();
@@ -19,7 +23,7 @@ $mf->AddField('Betreff', 'comment');
 $mf->AddField('Betrag (bei Negativen, minus davor)', 'movement');
 
 $user_list = array('' => '(keine Auswahl)');
-    $row = $db->qry("SELECT userid, username FROM %prefix%user");
+$row = $db->qry("SELECT userid, username FROM %prefix%user");
 while ($res = $db->fetch_array($row)) {
     $user_list[$res['userid']] = $res['username'];
 }
@@ -34,5 +38,4 @@ if (ShowField('fix')) {
     $dsp->AddSingleRow("Der zu buchende Betrag ist kein Fix-Betrag");
 }
 
-if ($mf->SendForm('index.php?mod=cashmgr&action=booking', 'cashmgr_accounting', 'ID', $_GET['cashid'])) {
-}
+$mf->SendForm('index.php?mod=cashmgr&action=booking', 'cashmgr_accounting', 'ID', $_GET['cashid']);
