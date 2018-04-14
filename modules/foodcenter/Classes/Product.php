@@ -1,279 +1,5 @@
 <?php
 
-/**
- * Class ProductList
- *
- * Used to show the list of products (e.g. for the menu card)
- */
-class ProductList
-{
-    /**
-     * List of product numbers
-     *
-     * @var array
-     */
-    private $product_list = [];
-
-    /**
-     * List of products
-     *
-     * @var \Product[]
-     */
-    private $product = [];
-
-    /**
-     * Load all products from a category
-     *
-     * @param string $cat
-     * @return void
-     */
-    public function load_cat($cat)
-    {
-        global $db;
-        $products = $db->qry("SELECT id FROM %prefix%food_product WHERE cat_id=%string%", $cat);
-
-        $i = 0;
-        while ($data = $db->fetch_array($products)) {
-            $this->product_list[$i] .= $data['id'];
-            $this->product[$i] = new Product($data['id']);
-            $i++;
-        }
-    }
-
-    /**
-     * Productlist for output
-     *
-     * @param string $worklink
-     * @return void
-     */
-    public function get_list($worklink)
-    {
-        global $dsp;
-
-        if (count($this->product) > 0) {
-            for ($i = 0; $i < count($this->product); $i++) {
-                $this->product[$i]->order_form($worklink);
-            }
-
-        } else {
-            $dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));
-        }
-    }
-
-    /**
-     * Detail view of product
-     *
-     * @param int $id
-     * @param string $worklink
-     * @return void
-     */
-    public function get_info($id, $worklink)
-    {
-        $data_array = array_flip($this->product_list);
-        $this->product[$data_array[$id]]->get_info($worklink);
-    }
-
-    /**
-     * Add a product to the list.
-     * Returns true once the product is added, false otherwise
-     *
-     * @param int       $id
-     * @param array|int $opt
-     * @return bool
-     */
-    public function add_product($id, $opt)
-    {
-        // Product already in the list?
-        if (in_array($id, $this->product_list)) {
-
-            if (is_array($opt)) {
-                $temp_prod = new Product($id);
-                $temp_prod->ordered++;
-
-                foreach ($opt as $key => $value) {
-                    $temp_prod->order_option($key);
-                }
-
-                // Search in the list for the same product
-                foreach ($this->product_list as $key => $value) {
-                    if ($value == $id) {
-                        // If the product is the same, just add it once
-                        if ($this->product[$key]->compare($temp_prod)) {
-                            $this->product[$key]->ordered++;
-
-                            return true;
-                        }
-                    }
-                }
-
-                // If it is not the same product, get the last key
-                end($this->product);
-                $key_array = each($this->product);
-                if (count($this->product) == 0) {
-                    $key = 0;
-                } else {
-                    $key = $key_array[0] + 1;
-                }
-
-                // and add the product
-                $this->product[$key] = new Product($id);
-                $this->product[$key]->ordered++;
-                $this->product_list[] = $id;
-
-                foreach ($opt as $cle => $value) {
-                    $this->product[$key]->order_option($cle);
-                }
-
-                return true;
-
-            } else {
-                // If the product is not given, search for it
-                foreach ($this->product_list as $key => $value) {
-                    if ($value == $id) {
-                        $this->product[$key]->order_option($opt, 0);
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-        // Product not in there yet, add it
-        } else {
-            $ret = true;
-
-            end($this->product);
-            $key_array = each($this->product);
-            if (count($this->product) == 0) {
-                $key = 0;
-            } else {
-                $key = $key_array[0] + 1;
-            }
-
-            // Add the product
-            $this->product[$key] = new Product($id);
-            $this->product[$key]->ordered++;
-            $this->product_list[] = $id;
-
-            if (is_array($opt)) {
-                foreach ($opt as $cle => $value) {
-                    if (!$this->product[$key]->order_option($cle)) {
-                        $ret = false;
-                    }
-                }
-            } else {
-                $ret = $this->product[$key]->order_option($opt);
-            }
-
-            return $ret;
-        }
-    }
-
-    /**
-     * Write new basket once something changed
-     *
-     * @param int       $listid
-     * @param array|int $opt
-     * @param int $value
-     * @return mixed
-     */
-    public function chanche_ordered($listid, $opt, $value)
-    {
-        if (!is_null($opt)) {
-            return $this->product[$listid]->order_option($opt, $value);
-        }
-
-        return $this->product[$listid]->set_ordered($value);
-    }
-
-    /**
-     * Remove empty products from the list
-     *
-     * @return void
-     */
-    public function check_list()
-    {
-        foreach ($this->product_list as $key => $value) {
-            if ($this->product[$key]->count_unit() == 0) {
-                unset($this->product[$key]);
-                unset($this->product_list[$key]);
-            }
-        }
-    }
-
-    /**
-     * Create form for the basket
-     * @return void
-     */
-    public function get_basket_form()
-    {
-        foreach ($this->product_list as $key => $value) {
-            $this->product[$key]->get_basket($key);
-        }
-    }
-
-    /**
-     * Count products
-     *
-     * @return int
-     */
-    public function count_products()
-    {
-        $count = 0;
-        foreach ($this->product_list as $key => $value) {
-            $count += $this->product[$key]->count_unit();
-        }
-
-        return $count;
-    }
-
-    /**
-     * Sum up product prices
-     *
-     * @return int
-     */
-    public function count_products_price()
-    {
-        $price = 0;
-        foreach ($this->product_list as $key => $value) {
-            $price += $this->product[$key]->count_price();
-        }
-        return $price;
-    }
-
-    /**
-     * Order product
-     *
-     * @param int $userid
-     * @param array $delivered
-     * @return int
-     */
-    public function order_product($userid, $delivered)
-    {
-        $price = 0;
-        foreach ($this->product_list as $key => $value) {
-            $price += $this->product[$key]->order($userid, $delivered);
-        }
-
-        return $price;
-    }
-
-    /**
-     * @param int $userid
-     * @param array $delivered
-     * @return string
-     */
-    public function order_productdesc($userid, $delivered)
-    {
-        $tempdesc = "";
-        foreach ($this->product_list as $key => $value) {
-            $tempdesc .= " ".$this->product[$key]->caption." *";
-        }
-
-        return $tempdesc;
-    }
-}
-
 class Product
 {
     /**
@@ -409,10 +135,10 @@ class Product
         $this->choise     = $_POST['chois'];
         $this->wait       = $_POST['wait'];
         $this->pic        = $_POST['pic'];
-                
+
         $this->cat->read_post();
         $this->supp->read_post();
-        
+
         if ($this->type == 1) {
             for ($i=0; $i < 3; $i++) {
                 if ($_POST['hidden'][$i] > 0) {
@@ -457,7 +183,7 @@ class Product
             $this->error_food['caption'] = t('Bitte geben sie einen Produknamen an.');
             $this->noerror = false;
         }
-        
+
         if ($_FILES['file']['error'] != 0 && $_FILES['file']['name'] != "") {
             $this->error_food['file']   = t('Datei konnte nicht hochgeladen werden');
             $this->noerror = false;
@@ -481,7 +207,7 @@ class Product
                 $this->noerror = false;
             }
         }
-    
+
         return $this->noerror;
     }
 
@@ -510,9 +236,9 @@ class Product
             $this->choise     = $row['chois'];
             $this->wait       = $row['wait'];
             $this->pic        = $row['p_file'];
-            
+
             $opt = $db->qry("SELECT id FROM %prefix%food_option WHERE parentid=%int%", $this->id);
-            
+
             $int = 0;
             while ($option = $db->fetch_array($opt)) {
                 $this->option[$int] = new ProductOption($option['id'], $this->type);
@@ -539,7 +265,7 @@ class Product
         if ($this->cat->cat_id == null) {
             $this->cat->write();
         }
-        
+
         if ($this->id == null || $this->id < 1) {
             $db->qry("INSERT INTO %prefix%food_product SET
                         caption = %string%,
@@ -682,7 +408,7 @@ class Product
             $dsp->NewContent(t('Produkt ändern'), t('Produkt ändern'));
             $dsp->SetForm("index.php?mod=foodcenter&action=addproduct&step=$nextstep", "food_add", "", "multipart/form-data");
         }
-        
+
         // Add Javascript Code
         $dsp->AddSmartyTpl('javascript', 'foodcenter');
         $dsp->AddTextFieldRow("p_caption", t('Produktname'), $this->caption, $this->error_food['caption']);
@@ -770,7 +496,7 @@ class Product
             }
             $dsp->AddSmartyTpl('hiddenbox_stop', 'foodcenter');
         }
-        
+
         if ($this->id != null) {
             $dsp->AddFormSubmitRow(t('Editieren'));
 
@@ -788,13 +514,13 @@ class Product
     public function order_form($worklink)
     {
         global $dsp, $cfg, $smarty;
-        
+
         switch ($this->type) {
             case 1:
                 unset($price_1);
                 unset($price_2);
                 unset($price_3);
-                
+
                 if (is_object($this->option[0])) {
                     $price_3 = "<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a>";
                     $price_3 .= "<a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
@@ -814,7 +540,7 @@ class Product
                 $smarty->assign('price_2', $price_2);
                 $smarty->assign('price_3', $price_3);
                 $dsp->AddDoubleRow("<a href='$worklink&info={$this->id}'><b>" . $this->caption . "</b><br />" . $this->desc . "</a>", $smarty->fetch('modules/foodcenter/templates/product_price_row.htm'));
-                
+
                 break;
             case 2:
                 if ($this->choise == 1) {
@@ -889,7 +615,7 @@ class Product
     public function get_info($worklink)
     {
         global $dsp, $auth, $cfg;
-                
+
         $dsp->NewContent(t('Produktebeschreibung'));
         $dsp->AddDoubleRow(t('Produktname'), "<b>" . $this->caption . "</b>");
 
@@ -901,7 +627,7 @@ class Product
             $dsp->AddDoubleRow("", "<img src=\"ext_inc/foodcenter/{$this->pic}\" border=\"0\" alt=\"{$this->caption}\" />");
         }
         $dsp->AddSingleRow(t('Auswahlmöglichkeiten'));
-            
+
         switch ($this->type) {
             case 1:
                 if (is_object($this->option[0])) {
@@ -917,7 +643,7 @@ class Product
                 }
 
                 break;
-                
+
             case 2:
                 if ($this->choise == 1) {
                     $dsp->SetForm("$worklink&add={$this->id}&opt=0");
@@ -972,7 +698,7 @@ class Product
                 return false;
             }
         }
-    
+
         return true;
     }
 
@@ -1059,7 +785,7 @@ class Product
                 return 0;
             }
 
-        // Simple product
+            // Simple product
         } else {
 
             foreach ($this->option as $key => $value) {
@@ -1092,726 +818,5 @@ class Product
 
             return $price;
         }
-    }
-}
-
-class ProductOption
-{
-    /**
-     * Product option ID
-     *
-     * @var int
-     */
-    public $id;
-
-    /**
-     * ID of the parent product
-     *
-     * @var int
-     */
-    private $parentid;
-
-    /**
-     * Type of the parent product
-     *
-     * @var int
-     */
-    private $parenttyp;
-
-    /**
-     * Barcode
-     *
-     * @var string
-     */
-    private $barcode;
-
-    /**
-     * Name of the product option
-     *
-     * @var string
-     */
-    public $caption;
-
-    /**
-     * Unit
-     *
-     * @var String
-     */
-    public $unit;
-
-    /**
-     * Number of products in stock
-     *
-     * @var int
-     */
-    public $pice;
-
-    /**
-     * Price to sell
-     *
-     * @var int
-     */
-    public $price;
-
-    /**
-     * Purchasing price
-     *
-     * @var int
-     */
-    private $eprice;
-
-    /**
-     * Required to order
-     *
-     * @var int
-     */
-    public $fix = 0;
-
-    /**
-     * Number of ordered products
-     *
-     * @var int
-     */
-    public $ordered = 0;
-
-    /**
-     * Error container
-     *
-     * @var array
-     */
-    public $error = [];
-
-    /**
-     * product_option constructor.
-     *
-     * @param int $id
-     * @param int $type
-     */
-    public function __construct($id = null, $type = null)
-    {
-        $this->parenttyp = $type;
-        if ($id != null && $id > 0) {
-            $this->id = $id;
-            $this->read();
-        }
-    }
-
-    /**
-     * Read information about the product option from formular
-     *
-     * @param int $parentid
-     * @param int $type
-     * @param int $nr
-     * @return void
-     */
-    public function read_post($parentid, $type, $nr)
-    {
-        if ($_POST['hidden'][$nr] > 0) {
-            $this->id = $_POST['hidden'][$nr];
-
-        } else {
-            $this->id = null;
-        }
-
-        $this->parentid = $parentid;
-        $this->parenttyp = $type;
-        $this->barcode  = $_POST['barcode'][$nr];
-        $this->caption  = $_POST['caption'][$nr];
-        $this->unit     = $_POST['unit'][$nr];
-        $this->price    = str_replace(',', '.', $_POST['price'][$nr]);
-        $this->eprice   = str_replace(',', '.', $_POST['eprice'][$nr]);
-        $this->pice     = $_POST['piece'][$nr];
-        $this->fix      = isset($_POST['fix'][$nr]) ? 1 : 0;
-    }
-
-    /**
-     * Read product option information from database
-     * @return void
-     */
-    private function read()
-    {
-        global $db;
-        
-        $row = $db->qry_first("SELECT * FROM %prefix%food_option WHERE id=%int%", $this->id);
-
-        $this->parentid = $row['parentid'];
-        $this->caption  = $row['caption'];
-        $this->barcode  = $row['barcode'];
-        $this->unit     = $row['unit'];
-        $this->price    = $row['price'];
-        $this->eprice   = $row['eprice'];
-        $this->pice     = $row['pice'];
-        $this->fix      = $row['fix'];
-    }
-
-    /**
-     * Write a new product option to database
-     *
-     * @param int $id
-     * @return void
-     */
-    public function write($id = 0)
-    {
-        global $db;
-
-        if ($this->parentid == null) {
-            $this->parentid = $id;
-        }
-
-        if ($this->id == null) {
-            $db->qry("INSERT INTO %prefix%food_option  SET 
-                                    parentid    = %int%,
-                                    barcode     = %string%,
-                                    caption     = %string%,
-                                    unit        = %string%,
-                                    price       = %string%,
-                                    eprice      = %string%,
-                                    fix         = %string%,
-                                    pice        = %string%", $this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->fix, $this->pice);
-            $this->id = $db->insert_id();
-
-        } else {
-            $db->qry("UPDATE %prefix%food_option  SET 
-                                    parentid    = %int%,
-                                    barcode     = %string%,
-                                    caption     = %string%,
-                                    unit        = %string%,
-                                    price       = %string%,
-                                    eprice      = %string%,
-                                    pice        = %string%,
-                                    fix         = %string%
-                                    WHERE id = %int%", $this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->pice, $this->fix, $this->id);
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function check()
-    {
-        if ($this->caption == "" && $this->parenttyp == 2) {
-            $this->error['caption'] = t('Bitte geben sie einen Artikelnamen ein');
-        }
-        
-        if ($this->unit == "") {
-            $this->error['price'] .= t('Bitte geben sie eine einheit an (Stk./dl/kg)');
-        }
-
-        if (!is_numeric($this->price) || $this->price == "") {
-            if ($this->error['price'] != "") {
-                $this->error['price'] .= HTML_NEWLINE;
-            }
-            $this->error['price'] .= t('Bitte geben sie einen Preis an');
-        }
-
-        if (count($this->error) > 0) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Return number of options ordered
-     *
-     * @return int
-     */
-    public function count_unit()
-    {
-        return $this->ordered;
-    }
-    
-    /**
-     * Count price
-     *
-     * @return int
-     */
-    public function count_price()
-    {
-        if ($this->fix) {
-            return $this->fix * $this->price;
-        }
-
-        return $this->ordered * $this->price;
-    }
-
-    /**
-     * Form to enter data
-     *
-     * @param int $nr
-     * @param bool $optional
-     * @param bool $big
-     * @param bool $multiselect
-     * @return void
-     */
-    public function option_form($nr, $optional = null, $big = false, $multiselect = false)
-    {
-        global $dsp, $smarty;
-
-        if ($multiselect) {
-            $display = "";
-
-        } else {
-            $display = "none";
-        }
-
-        if ($big) {
-            // display HTML for option 3
-            $smarty->assign('hidden_id', "opt_big_$nr");
-            $smarty->assign('hidden_display', $display);
-            $dsp->AddSmartyTpl('hiddenbox_start', 'foodcenter');
-            $dsp->AddCheckBoxRow("fix[$nr]", t('Option fixieren'), t('Dies ist ein Pflichtartikel'), "", $optional, $this->fix);
-            $dsp->AddSmartyTpl('hiddenbox_stop', 'foodcenter');
-            $dsp->AddTextFieldRow("caption[$nr]", t('Artikelname'), $this->caption, $this->error['caption'], null, $optional);
-        }
-
-        $this->_Add_Option_Row(t('Produktoption'), t('Einheit'), t('Preis'), t('Einkaufspreis'), t('Anzahl'), t('Barcode'), "unit[$nr]", "price[$nr]", "eprice[$nr]", "piece[$nr]", "barcode[$nr]", $this->unit, $this->price, $this->eprice, $this->pice, $this->barcode, "hidden[$nr]", $this->id, $this->error['price'], $optional);
-        $dsp->AddHRuleRow();
-    }
-
-    /**
-     * @param int       $listid
-     * @param string    $caption
-     * @param bool      $checkbox
-     * @return void
-     */
-    public function get_basket($listid, $caption, $checkbox = false)
-    {
-        global $dsp,$cfg;
-
-        if ($this->caption == "" && $checkbox == false) {
-            $text = $caption . " / " . $this->unit . " / " . $this->price . " " . $cfg['sys_currency'];
-
-        } elseif ($caption == "" || $checkbox == true) {
-            $text = $this->caption . " / " . $this->unit . " / " . $this->price . " " . $cfg['sys_currency'];
-
-        } else {
-            $text = $caption . " " .$this->caption . " / " . $this->unit . " / " . $this->price . " " . $cfg['sys_currency'];
-        }
-
-        if ($checkbox == false) {
-            $dsp->AddTextFieldRow("option_{$listid}_{$this->id}", $text, $this->ordered, $this->error['pice_error']);
-            $this->error['pice_error'] = "";
-
-        } else {
-            $dsp->AddCheckBoxRow("product[{$this->parentid}][{$this->id}]", "", $text, "", null, 1, 1);
-        }
-    }
-
-    /**
-     * Product option template
-     *
-     * @param string    $text
-     * @param string    $text_product
-     * @param string    $text_price
-     * @param string    $text_eprice
-     * @param string    $text_piece
-     * @param string    $text_barcode
-     * @param string    $name_product
-     * @param string    $name_price
-     * @param string    $name_eprice
-     * @param string    $name_piece
-     * @param string    $name_barcode
-     * @param int       $value_product
-     * @param int       $value_price
-     * @param int       $value_eprice
-     * @param int       $value_piece
-     * @param int       $value_barcode
-     * @param string    $hidden_name
-     * @param int       $hidden_id
-     * @param string    $errortext
-     * @param bool $optional
-     * @return void
-     */
-    public function _Add_Option_Row($text, $text_product, $text_price, $text_eprice, $text_piece, $text_barcode, $name_product, $name_price, $name_eprice, $name_piece, $name_barcode, $value_product, $value_price, $value_eprice, $value_piece, $value_barcode, $hidden_name, $hidden_id, $errortext, $optional = false)
-    {
-        global $dsp, $smarty;
-
-        $smarty->assign('text_row', $text);
-        $smarty->assign('text_product', $text_product);
-        $smarty->assign('name_product', $name_product);
-        $smarty->assign('value_name', $value_product);
-        $smarty->assign('text_price', $text_price);
-        $smarty->assign('name_price', $name_price);
-        $smarty->assign('value_price', $value_price);
-        $smarty->assign('text_eprice', $text_eprice);
-        $smarty->assign('name_eprice', $name_eprice);
-        $smarty->assign('value_eprice', $value_eprice);
-        $smarty->assign('text_piece', $text_piece);
-        $smarty->assign('name_piece', $name_piece);
-        $smarty->assign('value_piece', $value_piece);
-        $smarty->assign('text_barcode', $text_barcode);
-        $smarty->assign('name_barcode', $name_barcode);
-        $smarty->assign('value_barcode', $value_barcode);
-        $smarty->assign('hidden_name', $hidden_name);
-        $smarty->assign('hidden_id', $hidden_id);
-        
-        if ($errortext) {
-            $smarty->assign('errortext', $errortext);
-        }
-
-        if ($optional) {
-            $smarty->assign('optional', '_optional');
-        }
-
-        $dsp->AddDoubleRow($text, $smarty->fetch('modules/foodcenter/templates/productcontrol_price_row.htm'));
-    }
-}
-
-/**
- * Class Supplier
- *
- * Management of suppliers
- */
-class Supplier
-{
-    /**
-     * Supplier ID
-     *
-     * @var int
-     */
-    public $supp_id = null;
-
-    /**
-     * Supplier description
-     *
-     * @var string
-     */
-    private $supp_desc;
-
-    /**
-     * Name of the supplier
-     *
-     * @var string
-     */
-    private $supp_caption;
-
-    /**
-     * Error container
-     *
-     * @var array
-     */
-    private $error = [];
-
-    /**
-     * supp constructor.
-     *
-     * @param int $id
-     * @return Supplier
-     */
-    public function __construct($id = null)
-    {
-        if ($id != null && $id > 0) {
-            $this->supp_id = $id;
-            $this->read();
-        }
-    }
-
-    /**
-     * Returns a list of suppliers
-     *
-     * @param int       $select_id
-     * @param boolean   $new
-     * @return array|bool
-     */
-    private function get_supp_array($select_id, $new = null)
-    {
-        global $db;
-        
-        $row = $db->qry("SELECT * FROM %prefix%food_supp");
-
-        if ($db->num_rows($row) > 0) {
-            $tmp = array();
-        
-            if ($new != null) {
-                if ($select_id == 0) {
-                    $selected = "selected";
-                } else {
-                    $selected = "";
-                }
-                array_push($tmp, "<option $selected value='0'>".t('Neuer Lieferant')."</option>");
-            }
-            
-            while ($data = $db->fetch_array($row)) {
-                if ($select_id == $data['supp_id']) {
-                    $selected = "selected";
-                } else {
-                    $selected = "";
-                }
-                array_push($tmp, "<option $selected value='{$data['supp_id']}'>{$data['name']}</option>");
-            }
-            return $tmp;
-
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Reads global $_POST data
-     *
-     * @return void
-     */
-    public function read_post()
-    {
-        if (isset($_POST['supp_id']) && $_POST['supp_id'] > 0) {
-            $this->supp_id = $_POST['supp_id'];
-
-        } else {
-            $this->supp_id = null;
-        }
-
-        if ($_POST['supp_id'] == 0) {
-            $this->supp_caption = $_POST['supp_name'];
-            $this->supp_desc = $_POST["supp_desc"];
-        }
-    }
-
-    /**
-     * Reads supplier from database
-     *
-     * @return bool
-     */
-    private function read()
-    {
-        global $db;
-
-        if ($this->supp_id != null) {
-            $row = $db->qry_first("SELECT * FROM %prefix%food_supp WHERE supp_id=%int%", $this->supp_id);
-            if ($db->num_rows($row) > 0) {
-                $this->supp_caption = $row['name'];
-                $this->supp_desc    = $row['s_desc'];
-                return true;
-
-            } else {
-                return false;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Writes a supplier into database
-     *
-     * @return void
-     */
-    public function write()
-    {
-        global $db;
-
-        if ($this->supp_id == null) {
-            $db->qry("INSERT INTO %prefix%food_supp SET 
-                            name = %string%,
-                            s_desc = %string%", $this->supp_caption, $this->supp_desc);
-            $this->supp_id = $db->insert_id();
-
-        } else {
-            $db->qry("UPDADE %prefix%food_supp SET 
-                            name = %string%,
-                            s_desc = %string%
-                            WHERE supp_id = %int%", $this->supp_caption, $this->supp_desc, $this->supp_id);
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function check()
-    {
-        if ($this->supp_caption == "" && $this->supp_id == null) {
-            $this->error['supp_name']   = t('Bitte geben sie einen Lieferant an');
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Creates a form to create suppliers
-     *
-     * @return void
-     */
-    public function supp_form()
-    {
-        global $dsp;
-
-        $supp_array = $this->get_supp_array($this->supp_id, 1);
-        if ($supp_array) {
-            $dsp->AddDropDownFieldRow("supp_id", t('Lieferant'), $supp_array, "");
-        }
-        $dsp->AddTextFieldRow("supp_name", t('Neuer Lieferant'), $_POST['supp_name'], $this->error['supp_name']);
-    }
-}
-
-
-/**
- * Class Category
- *
- * Management of categories.
- * Used for menu cards.
- */
-class Category
-{
-    /**
-     * Category ID
-     *
-     * @var int
-     */
-    public $cat_id = null;
-
-    /**
-     * Category name
-     *
-     * @var string
-     */
-    private $name = "";
-
-    /**
-     * @var array
-     */
-    public $error = [];
-    
-    /**
-     * Constructor
-     *
-     * @param int $id
-     * @return Category
-     */
-    public function __construct($id = null)
-    {
-        if ($id != null && $id > 0) {
-            $this->cat_id = $id;
-            $this->read();
-        }
-    }
-    
-    /**
-     * Read category data from database.
-     *
-     * @return boolean
-     */
-    private function read()
-    {
-        global $db;
-        if ($this->cat_id != null) {
-            $row = $db->qry_first("SELECT * FROM %prefix%food_cat WHERE cat_id=%int%", $this->cat_id);
-            if ($db->num_rows($row) > 0) {
-                $this->name = $row['name'];
-                return true;
-
-            } else {
-                return false;
-            }
-
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Gibt ein Array mit allen Kategorieen zurück
-     *
-     * @param int       $select_id
-     * @param boolean   $new
-     * @return boolean
-     */
-    private function get_cat_array($select_id, $new = null)
-    {
-        global $db;
-        
-        $row = $db->qry("SELECT * FROM %prefix%food_cat");
-
-        if ($db->num_rows($row) > 0) {
-            $tmp = [];
-        
-            if ($new != null) {
-
-                if ($select_id == 0) {
-                    $selected = "selected";
-                } else {
-                    $selected = "";
-                }
-                array_push($tmp, "<option $selected value='0'>".t('Neue Kategorie')."</option>");
-            }
-            
-            while ($data = $db->fetch_array($row)) {
-                if ($select_id == $data['cat_id']) {
-                    $selected = "selected";
-                } else {
-                    $selected = "";
-                }
-                array_push($tmp, "<option $selected value='{$data['cat_id']}'>{$data['name']}</option>");
-            }
-            return $tmp;
-
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Reads global $_POST data for initialization
-     *
-     * @return void
-     */
-    public function read_post()
-    {
-        if (isset($_POST['cat_id']) && $_POST['cat_id'] > 0) {
-            $this->cat_id = $_POST['cat_id'];
-
-        } else {
-            $this->cat_id = null;
-        }
-
-        if ($_POST['cat_id'] == 0) {
-            $this->name = $_POST['cat_name'];
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function write()
-    {
-        global $db;
-
-        if ($this->cat_id == null) {
-            $db->qry("INSERT INTO %prefix%food_cat SET name = %string%", $this->name);
-            $this->cat_id = $db->insert_id();
-
-        } else {
-            $db->qry("UPDATE %prefix%food_cat SET name = %string% WHERE cat_id=%int%", $this->name, $this->cat_id);
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function check()
-    {
-        if ($this->name == "" && $this->cat_id == null) {
-            $this->error['cat_name'] = t('Bitte geben sie eine Kategorie an');
-            return false;
-
-        }
-        return true;
-    }
-
-    /**
-     * Create a text field for a category
-     * @return void
-     */
-    public function cat_form()
-    {
-        global $dsp;
-
-        // Check for existing categories
-        $cat_array = $this->get_cat_array($this->cat_id, 1);
-        if ($cat_array) {
-            $dsp->AddDropDownFieldRow("cat_id", t('Produktkategorie'), $cat_array, "");
-        }
-
-        $dsp->AddTextFieldRow("cat_name", t('Neue Produktkategorie'), $_POST['cat_name'], $this->error_food['catname']);
     }
 }
