@@ -1,8 +1,6 @@
 <?php
 
-include_once("modules/foodcenter/class_accounting.php");
-
-class basket
+class Basket
 {
     /**
      * @var int

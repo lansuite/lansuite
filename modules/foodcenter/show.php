@@ -39,7 +39,7 @@ if ($open == false && $cfg['foodcenter_foodtime'] == 3) {
     $func->error($errormessage, "index.php?mod=home");
 
 } else {
-    $basket = new basket();
+    $basket = new Basket();
 
     // Info message
     if ($open == false && $cfg['foodcenter_foodtime'] == 1) {

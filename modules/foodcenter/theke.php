@@ -3,7 +3,7 @@
 include_once("modules/foodcenter/class_basket.php");
 include_once("modules/foodcenter/class_product.php");
 
-$basket = new basket();
+$basket = new Basket();
 $basket->add_to_basket_from_global();
 
 // Get Barcode if exists and translate to userid
