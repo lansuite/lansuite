@@ -12,8 +12,8 @@ if ($_GET['mod'] == 'logout') {
 } else {
     $smarty->assign('action', 'index.php?mod=auth&action=login');
 }
-$smarty->assign('buttons_add', $dsp->FetchIcon('index.php?mod=signon', 'add_user', t('Registrieren')));
-$smarty->assign('buttons_pw', $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=pwrecover', 'pw_forgot', t('Passwort vergessen')));
+$smarty->assign('buttons_add', $dsp->FetchIcon('add_user', 'index.php?mod=signon', t('Registrieren')));
+$smarty->assign('buttons_pw', $dsp->FetchIcon('pw_forgot', 'index.php?mod=usrmgr&amp;action=pwrecover', t('Passwort vergessen')));
 $smarty->assign('buttons_login', '<input type="submit" class="Button" name="login" value="Einloggen" />');
 
 // 62.67.200.4 = Proxy IP of https://sslsites.de/lansuite.orgapage.de

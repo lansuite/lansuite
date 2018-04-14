@@ -41,9 +41,9 @@ function ShowActiveState($val)
     global $dsp, $templ, $lang, $line;
 
     if ($val) {
-        return $dsp->FetchIcon('', 'yes', t('Ja'));
+        return $dsp->FetchIcon('yes', '', t('Ja'));
     } else {
-        return $dsp->FetchIcon('', 'no', t('Nein'));
+        return $dsp->FetchIcon('no', '', t('Nein'));
     }
 }
 

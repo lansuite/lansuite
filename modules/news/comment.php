@@ -22,8 +22,8 @@ if ($check["caption"] != "") {
 
     $text = '';
     if ($auth["type"] > 1) {
-        $text .= $dsp->FetchIcon("index.php?mod=news&action=delete&came_from=2&step=2&newsid={$_GET["newsid"]}", "delete", '', '', 'right');
-        $text .= $dsp->FetchIcon("index.php?mod=news&action=change&came_from=1&step=2&newsid={$_GET["newsid"]}", "edit", '', '', 'right');
+        $text .= $dsp->FetchIcon("delete", "index.php?mod=news&action=delete&came_from=2&step=2&newsid={$_GET["newsid"]}", '', '', 'right');
+        $text .= $dsp->FetchIcon("edit", "index.php?mod=news&action=change&came_from=1&step=2&newsid={$_GET["newsid"]}", '', '', 'right');
     }
     if ($cfg["news_html"] == 1) {
         $get_news['text'] = $func->text2html($get_news['text']);

@@ -244,9 +244,9 @@ elseif (!$akt_file) {
                     $smarty->assign('clicks', $dsp->HelpText($pic['clicks'], 'Angesehen') .'/'. $dsp->HelpText($pic['comments'], 'Kommentare'));
                     $smarty->assign('galleryid', $gallery_id);
 
-                    $buttons = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "next", t('Bild anzeigen'));
+                    $buttons = $dsp->FetchIcon("next", "index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", t('Bild anzeigen'));
                     if ($auth["type"] > 1) {
-                        $buttons .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", t('Bild löschen'));
+                        $buttons .= " ". $dsp->FetchIcon("delete", "index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", t('Bild löschen'));
                     }
                     $smarty->assign('buttons', $buttons);
 
@@ -340,9 +340,9 @@ elseif (!$akt_file) {
                     $smarty->assign('clicks', $pic['clicks']);
                     $smarty->assign('galleryid', $gallery_id);
 
-                    $buttons = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", "download", t('Bild herrunterladen'));
+                    $buttons = $dsp->FetchIcon("download", "index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", t('Bild herrunterladen'));
                     if ($auth["type"] > 1) {
-                        $buttons .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", t('Bild l&ouml;schen'));
+                        $buttons .= " ". $dsp->FetchIcon("delete", "index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", t('Bild l&ouml;schen'));
                     }
                     $smarty->assign('buttons', $buttons);
 
@@ -432,11 +432,11 @@ elseif (!$akt_file) {
 
             // Define Buttons
             if (!IsPackage($extension)) {
-                $dl_button = $dsp->FetchIcon($js_full_link, "fullscreen", t('Vollbild'));
+                $dl_button = $dsp->FetchIcon("fullscreen", $js_full_link, t('Vollbild'));
             }
-            $full_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "download", t('Bild herrunterladen'));
-            ($auth[type] > "1") ? $del_button = $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", t('Bild l&ouml;schen')) : $del_button = "";
-            $note_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "add", t('Verlinkung hinzufügen'));
+            $full_button = $dsp->FetchIcon("download", "index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", t('Bild herrunterladen'));
+            ($auth[type] > "1") ? $del_button = $dsp->FetchIcon("delete", "index.php?mod=picgallery&action=delete&file={$_GET["file"]}", t('Bild l&ouml;schen')) : $del_button = "";
+            $note_button = $dsp->FetchIcon("add", "index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", t('Verlinkung hinzufügen'));
 
 
             // Scan Directory
@@ -457,12 +457,12 @@ elseif (!$akt_file) {
             $akt_file = array_keys($file_list, $akt_file);
 
             if ($file_list[$akt_file[0] - 1]) {
-                $prev_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] - 1], "back", t('Bild zur&uuml;ck'));
+                $prev_button = $dsp->FetchIcon("back", "index.php?mod=picgallery&file=$akt_dir" . $file_list[$akt_file[0] - 1], t('Bild zur&uuml;ck'));
             } else {
                 $prev_button = "";
             }
             if ($file_list[$akt_file[0] + 1]) {
-                $next_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] + 1], "next", t('Bild weiter'));
+                $next_button = $dsp->FetchIcon("next", "index.php?mod=picgallery&file=$akt_dir" . $file_list[$akt_file[0] + 1], t('Bild weiter'));
             } else {
                 $next_button = "";
             }

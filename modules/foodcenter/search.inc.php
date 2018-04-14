@@ -26,15 +26,16 @@ function SeatNameLink($userid)
 function PaidIconLink($paid)
 {
     global $dsp, $line, $party;
-  
+
     // Only link, if selected party is the current party
     if ($_POST["search_dd_input"][1] == $party->party_id) {
         $link = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
     }
-  
-    if ($paid) {
-        return $dsp->FetchIcon($link, 'paid', t('Bezahlt'));
 
+    if ($paid) {
+        return $dsp->FetchIcon('paid', $link, t('Bezahlt'));
+    } else {
+        return $dsp->FetchIcon('not_paid', $link, t('Nicht bezahlt'));
     }
 
     return $dsp->FetchIcon($link, 'not_paid', t('Nicht bezahlt'));
@@ -42,7 +43,7 @@ function PaidIconLink($paid)
 
 
 $ms2->AddTextSearchDropDown(t('Benutzertyp'), 'u.type', array('' => t('Alle'), '1' => t('Gast'), '!1' => 'Nicht Gast', '<0' => t('Gelöschte User'), '2' => t('Administrator'), '3' => t('Superadmin'), '2,3' => t('Orgas')));
-    
+
 $party_list = array('' => 'Alle');
 $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
 while ($res = $db->fetch_array($row)) {

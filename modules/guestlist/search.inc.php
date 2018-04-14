@@ -20,15 +20,15 @@ function PaidIconLink($paid)
 
     if ($auth['type'] > 1) {
         if ($paid) {
-            return $dsp->FetchIcon('index.php?mod=guestlist&step=11&userid='. $line['userid'], 'paid', t('Bezahlt'));
+            return $dsp->FetchIcon('paid', 'index.php?mod=guestlist&step=11&userid=' . $line['userid'], t('Bezahlt'));
         } else {
-            return $dsp->FetchIcon('index.php?mod=guestlist&step=10&userid='. $line['userid'], 'not_paid', t('Nicht bezahlt'));
+            return $dsp->FetchIcon('not_paid', 'index.php?mod=guestlist&step=10&userid=' . $line['userid'], t('Nicht bezahlt'));
         }
     } else {
         if ($paid) {
-            return $dsp->FetchIcon('', 'paid', t('Bezahlt'));
+            return $dsp->FetchIcon('paid', '', t('Bezahlt'));
         } else {
-            return $dsp->FetchIcon('', 'not_paid', t('Nicht bezahlt'));
+            return $dsp->FetchIcon('not_paid', '', t('Nicht bezahlt'));
         }
     }
 }

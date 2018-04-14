@@ -866,7 +866,7 @@ function MS2GetDate($time)
     if ($time > 0) {
         return '<span class="small">'. date('d.m.y', $time) .'<br />'. date('H:i', $time) .'</span>';
     } else {
-        return $dsp->FetchIcon('', 'no', '-');
+        return $dsp->FetchIcon('no', '', '-');
     }
 }
 
@@ -877,7 +877,7 @@ function MS2GetTime($time)
     if ($time > 0) {
         return date('H:i', $time);
     } else {
-        return $dsp->FetchIcon('', 'no', '-');
+        return $dsp->FetchIcon('no', '', '-');
     }
 }
 
@@ -886,9 +886,9 @@ function TrueFalse($val)
     global $dsp, $templ;
   
     if ($val) {
-        return $dsp->FetchIcon('', 'yes', t('Ja'));
+        return $dsp->FetchIcon('yes', '', t('Ja'));
     } else {
-        return $dsp->FetchIcon('', 'no', t('Nein'));
+        return $dsp->FetchIcon('no', '', t('Nein'));
     }
 }
 

@@ -625,14 +625,14 @@ class display
 
         $this->form_open = false;
         $buttons = $this->FetchSpanButton(t('Vorschau'), 'index.php?mod=popups&action=textareaplus_preview&design=popup&textareaname='. $name .'" onclick="javascript:OpenPreviewWindow(this.href, document.'. $this->form_name .'); return false;');
-        $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", 'bold', t('Fett'));
-        $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i]', '[/i]')", 'italic', t('Kursiv'));
-        $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u]', '[/u]')", 'underline', t('Unterstrichen'));
-        $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[s]', '[/s]')", 'strike', t('Durchstreichen'));
-        $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[sub]', '[/sub]')", 'sub', t('Tiefstellen'));
-        $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[sup]', '[/sup]')", 'sup', t('Hochstellen'));
-        $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[c]', '[/c]')", 'quote', t('Code'));
-        $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img]', '[/img]')", 'img', t('Bild'));
+        $buttons .= " ". $this->FetchIcon('bold', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", t('Fett'));
+        $buttons .= " ". $this->FetchIcon('italic', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[i]', '[/i]')", t('Kursiv'));
+        $buttons .= " ". $this->FetchIcon('underline', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[u]', '[/u]')", t('Unterstrichen'));
+        $buttons .= " ". $this->FetchIcon('strike', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[s]', '[/s]')", t('Durchstreichen'));
+        $buttons .= " ". $this->FetchIcon('sub', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[sub]', '[/sub]')", t('Tiefstellen'));
+        $buttons .= " ". $this->FetchIcon('sup', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[sup]', '[/sup]')", t('Hochstellen'));
+        $buttons .= " ". $this->FetchIcon('quote', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[c]', '[/c]')", t('Code'));
+        $buttons .= " ". $this->FetchIcon('img', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[img]', '[/img]')", t('Bild'));
         $this->form_open = true;
         $smarty->assign('buttons', $buttons);
 
@@ -1150,7 +1150,7 @@ class display
 
         }
 
-        return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon($file, 'download') .' ('. t('Angehängte Datei herunterladen').')';
+        return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon('download', $file) .' ('. t('Angehängte Datei herunterladen').')';
     }
 
     /**
@@ -1202,14 +1202,14 @@ class display
     }
 
     /**
-     * @param string $link
      * @param string $picname
+     * @param string $link
      * @param string $hint
      * @param string $target
      * @param string $align
      * @return string
      */
-    public function FetchIcon($link, $picname, $hint = null, $target = null, $align = 'left')
+    public function FetchIcon($picname, $link, $hint = null, $target = null, $align = 'left')
     {
         global $smarty;
 
@@ -1322,19 +1322,6 @@ class display
         }
 
         return '<a href="'.$link.'"'. $class . $target.'>'. $text .'</a>';
-    }
-
-    /**
-     * TODO Remove method, use FetchIcon instead
-     *
-     * @param string $name
-     * @param string $link
-     * @param string $title
-     * @return string
-     */
-    public function AddIcon($name, $link = '', $title = '')
-    {
-        return $this->FetchIcon($link, $name, $title);
     }
 
     /**

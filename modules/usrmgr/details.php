@@ -106,22 +106,22 @@ if (!$user_data['userid']) {
     }
     $name .= '['. $user_data['userid'] .']</td><td align="right">&nbsp;';
     if (IsAuthorizedAdmin()) {
-        ($user_data['locked'])? $name .= ' '. $dsp->AddIcon('locked', 'index.php?mod=usrmgr&step=11&userid='. $_GET['userid'], t('Account freigeben'))
-        : $name .= ' '. $dsp->AddIcon('unlocked', 'index.php?mod=usrmgr&step=10&userid='. $_GET['userid'], t('Account sperren'));
+        ($user_data['locked'])? $name .= ' '. $dsp->FetchIcon('locked', 'index.php?mod=usrmgr&step=11&userid=' . $_GET['userid'], t('Account freigeben'))
+        : $name .= ' '. $dsp->FetchIcon('unlocked', 'index.php?mod=usrmgr&step=10&userid=' . $_GET['userid'], t('Account sperren'));
     }
     if (IsAuthorizedAdmin()) {
-        $name .= ' '. $dsp->AddIcon('assign', 'index.php?mod=auth&action=switch_to&userid='. $_GET['userid'], t('Benutzer wechseln'));
+        $name .= ' '. $dsp->FetchIcon('assign', 'index.php?mod=auth&action=switch_to&userid=' . $_GET['userid'], t('Benutzer wechseln'));
     }
     if ($_GET['userid'] == $auth['userid']) {
-        $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', t('Passwort ändern'));
+        $name .= ' '. $dsp->FetchIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', t('Passwort ändern'));
     } elseif (IsAuthorizedAdmin()) {
-        $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid='. $_GET['userid'], t('Passwort ändern'));
+        $name .= ' '. $dsp->FetchIcon('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=' . $_GET['userid'], t('Passwort ändern'));
     }
     if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'])) { # and $cfg['user_self_details_change']
-        $name .= ' '. $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid='. $_GET['userid'], t('Editieren'));
+        $name .= ' '. $dsp->FetchIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=' . $_GET['userid'], t('Editieren'));
     }
     if ($auth['type'] >= 3) {
-        $name .= ' '. $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid='. $_GET['userid'], t('Löschen'));
+        $name .= ' '. $dsp->FetchIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=' . $_GET['userid'], t('Löschen'));
     }
     $name .= '</td></tr></table>';
     $dsp->AddDoubleRow(t('Benutzername'), $name);
@@ -145,8 +145,8 @@ if (!$user_data['userid']) {
         }
         $clan .= '</td><td align="right">&nbsp;';
         if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or ($user_data['clanid'] == $auth['clanid'] and $user_data['clanadmin'] == 1))) {
-            $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=clanmgr&action=clanmgr&step=10&clanid='. $user_data['clanid'], t('Passwort ändern')) .
-            $dsp->AddIcon('edit', 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $user_data['clanid'], t('Editieren'));
+            $clan .= $dsp->FetchIcon('change_pw', 'index.php?mod=clanmgr&action=clanmgr&step=10&clanid=' . $user_data['clanid'], t('Passwort ändern')) .
+            $dsp->FetchIcon('edit', 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid=' . $user_data['clanid'], t('Editieren'));
         }
         $clan .= '</td></tr></table>';
         $dsp->AddDoubleRow(t('Clan'), $clan);
@@ -163,7 +163,7 @@ if (!$user_data['userid']) {
             : $link = 'index.php?mod=guestlist&step=10&userid='. $_GET['userid'];
         }
         // Paid
-        ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link, t('Nicht bezahlt'));
+        ($user_party['paid'])? $party_row .= ', '. $dsp->FetchIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->FetchIcon('not_paid', $link, t('Nicht bezahlt'));
         if ($user_party['price_text']) {
             $party_row .= ' ['. $user_party['price_text'] .']';
         }
@@ -178,9 +178,9 @@ if (!$user_data['userid']) {
             $link = 'index.php?mod=guestlist&step=20&userid='. $_GET['userid'];
         }
         if ($user_party['checkin']) {
-            $party_row .= ' '. $dsp->AddIcon('in', $link, t('Eingecheckt')) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
+            $party_row .= ' '. $dsp->FetchIcon('in', $link, t('Eingecheckt')) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
         } else {
-            $party_row .= ' '.$dsp->AddIcon('not_in', $link, t('Nicht eingecheckt'));
+            $party_row .= ' '.$dsp->FetchIcon('not_in', $link, t('Nicht eingecheckt'));
         }
 
           $link = '';
@@ -188,13 +188,13 @@ if (!$user_data['userid']) {
             $link = 'index.php?mod=guestlist&step=21&userid='. $_GET['userid'];
         }
         if ($user_party['checkout']) {
-            $party_row .= ' '. $dsp->AddIcon('out', $link, t('Ausgecheckt')) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
+            $party_row .= ' '. $dsp->FetchIcon('out', $link, t('Ausgecheckt')) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
         } else {
-            $party_row .= ' '.$dsp->AddIcon('not_out', $link, t('Nicht ausgecheckt'));
+            $party_row .= ' '.$dsp->FetchIcon('not_out', $link, t('Nicht ausgecheckt'));
         }
 
         if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) {
-            $party_row .= $dsp->AddIcon('delete', 'index.php?mod=guestlist&step=22&userid='. $_GET['userid'], 'Reset Checkin');
+            $party_row .= $dsp->FetchIcon('delete', 'index.php?mod=guestlist&step=22&userid=' . $_GET['userid'], 'Reset Checkin');
         }
 
           $dsp->AddDoubleRow("Party '<i>". $_SESSION['party_info']['name'] ."</i>'", $party_row);
@@ -211,11 +211,11 @@ if (!$user_data['userid']) {
         } else {
             $seat = $seat2->SeatOfUser($_GET['userid'], 0, 2);
             if (IsAuthorizedAdmin()) {
-                $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=seatadmin&step=20&blockid={$user_data_seating['block']}&row={$user_data_seating['row']}&col={$user_data_seating['col']}&userid={$user_data['userid']}", t('Löschen'));
+                $seat .= ' '. $dsp->FetchIcon('delete', "index.php?mod=seating&action=seatadmin&step=20&blockid={$user_data_seating['block']}&row={$user_data_seating['row']}&col={$user_data_seating['col']}&userid={$user_data['userid']}", t('Löschen'));
             }
         }
         if (IsAuthorizedAdmin()) {
-            $seat .= ' '. $dsp->AddIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid='. $_GET['userid'], t('Editieren'));
+            $seat .= ' '. $dsp->FetchIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid=' . $_GET['userid'], t('Editieren'));
         }
         if ($cfg['sys_internet'] == 0 and $user_data_seating['ip']) {
             $seat .= ' IP:'. $user_data_seating['ip'];
@@ -233,7 +233,7 @@ if (!$user_data['userid']) {
         }
 
           $kontostand = round($amount, 2) . " " . $cfg['sys_currency'];
-          $kontostand .= ', '. t('Zahlung vornehmen') .': '.$dsp->AddIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid='.$_GET['userid']);
+          $kontostand .= ', '. t('Zahlung vornehmen') .': '.$dsp->FetchIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=' . $_GET['userid']);
           $dsp->AddDoubleRow(t('Aktueller Kontobetrag:'), $kontostand);
     }
 
@@ -253,10 +253,10 @@ if (!$user_data['userid']) {
   // Phone
     $phone = '';
     if ($user_data['telefon'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) {
-        $phone .= $dsp->AddIcon('phone', '', 'Phone'). ' '. $user_data['telefon'] . ' ';
+        $phone .= $dsp->FetchIcon('phone', '', 'Phone'). ' '. $user_data['telefon'] . ' ';
     }
     if ($user_data['handy'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) {
-        $phone .= $dsp->AddIcon('cellphone', '', 'Handy'). ' '. $user_data['handy'] . ' ';
+        $phone .= $dsp->FetchIcon('cellphone', '', 'Handy'). ' '. $user_data['handy'] . ' ';
     }
     $dsp->AddDoubleRow(t('Telefon'), $phone);
 
@@ -266,11 +266,11 @@ if (!$user_data['userid']) {
         $mail .= '<a href="mailto:'. $user_data['email'] .'">'. $user_data['email'] .'</a> ';
     }
     $mail .= '[Newsletter-Abo:';
-    ($user_data['newsletter']) ? $mail .= $dsp->AddIcon('yes') : $mail .= $dsp->AddIcon('no');
+    ($user_data['newsletter']) ? $mail .= $dsp->FetchIcon('yes', '') : $mail .= $dsp->FetchIcon('no', '');
     $mail .= ']';
     $mail .= '</td><td align="right">&nbsp;';
     if ($auth['login'] and $func->isModActive('mail')) {
-        $mail .= $dsp->AddIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID='. $_GET['userid'], t('LANSuite-Mail an den User senden')) .' ';
+        $mail .= $dsp->FetchIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=' . $_GET['userid'], t('LANSuite-Mail an den User senden')) .' ';
     }
     $mail .= '</td></tr></table>';
     $dsp->AddDoubleRow(t('Email'), $mail);
@@ -299,9 +299,9 @@ if (!$user_data['userid']) {
         }
     }
     $messenger .= '</td><td align="right">&nbsp;';
-    (in_array($_GET['userid'], $authentication->online_users))? $messenger .= $dsp->AddIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->AddIcon('no', '', t('Benutzer ist Offline'));
+    (in_array($_GET['userid'], $authentication->online_users))? $messenger .= $dsp->FetchIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->FetchIcon('no', '', t('Benutzer ist Offline'));
     if ($auth['login'] and $func->isModActive('msgsys')) {
-        $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], t('Den User zu deiner Buddyliste hinzufügen')) .' ';
+        $messenger .= $dsp->FetchIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid=' . $_GET['userid'], t('Den User zu deiner Buddyliste hinzufügen')) .' ';
     }
     $messenger .= '</td></tr></table>';
     $dsp->AddDoubleRow('Messenger', $messenger);

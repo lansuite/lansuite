@@ -24,7 +24,7 @@ function LastPostDetails($date)
         }
         return $ret;
     } else {
-        return $dsp->FetchIcon('', 'no', '-');
+        return $dsp->FetchIcon('no', '', '-');
     }
 }
 
@@ -34,10 +34,10 @@ function FormatTitle($title)
   
     $icon = '';
     if ($line['closed']) {
-        $icon = $dsp->FetchIcon('', 'locked', t('Nicht bezahlt!'));
+        $icon = $dsp->FetchIcon('locked', '', t('Nicht bezahlt!'));
     }
     if ($line['sticky']) {
-        $icon = $dsp->FetchIcon('', 'signon', t('Wichtig!'));
+        $icon = $dsp->FetchIcon('signon', '', t('Wichtig!'));
     }
     return $icon . "<a class=\"menu\" href=\"index.php?mod=board&action=thread&tid={$line['tid']}\">{$func->AllowHTML($title)}</a>";
 }
@@ -55,14 +55,14 @@ function NewPosts($last_read)
 
 if ($_GET['fid'] != '') {
     $row = $db->qry_first("SELECT name, need_type, need_group FROM %prefix%board_forums WHERE fid=%int%", $_GET["fid"]);
-    $new_thread = $dsp->FetchIcon("index.php?mod=board&action=thread&fid=". $_GET['fid'], "add");
+    $new_thread = $dsp->FetchIcon("add", "index.php?mod=board&action=thread&fid=" . $_GET['fid']);
 
   // Board Headline
     $hyperlink = '<a href="%s" class="menu">%s</a>';
     $overview_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board", t('Forum')).'</b>';
     $dsp->NewContent($row['name'], "<br />".t('Du bist hier » ').$overview_capt.' » '.$row['name']);
     $framework->AddToPageTitle($row['name']);
-    $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
+    $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("back", "index.php?mod=board"));
 }
 
 
@@ -233,7 +233,7 @@ if ($_GET['action'] != 'bookmark') {
 $ms2->PrintSearch('index.php?mod=board&action='. $_GET['action'] .'&fid='. $_GET['fid'], 't.tid');
 
 if ($_GET['fid'] != '') {
-    $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
+    $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("back", "index.php?mod=board"));
 }
 
 // Bookmarks and Auto-Mail
