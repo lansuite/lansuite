@@ -4,24 +4,39 @@ $print = new FoodcenterPrint();
 
 class FoodcenterPrint
 {
-    public $output = "";
-    public $path = "ext_inc/foodcenter_templates/";
-    public $row_file = "";
-    public $row_temp = "";
+    /**
+     * @var string
+     */
+    private $output = '';
+
+    /**
+     * @var string
+     */
+    private $path = 'ext_inc/foodcenter_templates/';
+
+    /**
+     * @var string
+     */
+    private $row_file = '';
+
+    /**
+     * @var string
+     */
+    private $row_temp = '';
 
     public function __construct()
     {
         global $func, $auth;
+
         if (!file_exists($this->path . $_POST['file']) || $_POST['file'] == "") {
             header("HTTP/1.0 404 Not Found");
             exit();
         }
 
-        $handle    = fopen($this->path . $_POST['file'], "rb");
-        $temp_file    = fread($handle, filesize($this->path . $_POST['file']));
+        $handle = fopen($this->path . $_POST['file'], "rb");
+        $temp_file = fread($handle, filesize($this->path . $_POST['file']));
         fclose($handle);
 
-        
         list($file, $ext) = explode(".", $_POST['file']);
         $this->row_file = $file . "_row." . $ext;
 
@@ -44,12 +59,14 @@ class FoodcenterPrint
         echo $this->output;
     }
 
-
-
-    public function fetch_row($temp)
+    /**
+     * @param $temp
+     * @return void
+     */
+    private function fetch_row($temp)
     {
-        $handle    = fopen($this->path . $this->row_file, "rb");
-        $tmp    = fread($handle, filesize($this->path . $this->row_file));
+        $handle = fopen($this->path . $this->row_file, "rb");
+        $tmp = fread($handle, filesize($this->path . $this->row_file));
         fclose($handle);
         
         $tmp = str_replace("\"", "\\\"", $tmp);
@@ -57,26 +74,32 @@ class FoodcenterPrint
         eval("\$this->row_temp .= \"" .$tmp. "\";");
     }
 
-
-    public function GetSupp($value)
+    /**
+     * @param int $value
+     * @return string
+     */
+    private function GetSupp($value)
     {
-        global $lang, $db;
+        global $db;
         
         if ($value == "") {
             return t('Verschiedene');
+
         } else {
             $supp = $db->qry_first("SELECT name FROM %prefix%food_supp WHERE supp_id = %int%", $value);
             return $supp['name'];
         }
     }
-    
-    
-    
-    public function GetFoodoption($value)
+
+    /**
+     * @param int $value
+     * @return string
+     */
+    private function GetFoodoption($value)
     {
-        global $func, $cfg, $db, $lang;
-        
-        
+        global $db;
+
+        $out = '';
         if (stristr($value, "/")) {
             $values = explode("/", $value);
 
@@ -85,38 +108,54 @@ class FoodcenterPrint
                     $data = $db->qry_first("SELECT caption, unit FROM %prefix%food_option WHERE id = %int%", $number);
                     if ($data['caption'] == "") {
                         $out .= $data['unit'] . "<br />";
+
                     } else {
                         $out .= $data['caption'] . "<br />";
                     }
                 }
             }
+
         } else {
             $data = $db->qry_first("SELECT caption,unit FROM %prefix%food_option WHERE id = %int%", $value);
             if ($data['caption'] == "") {
                 $out .= $data['unit'] . "<br />";
+
             } else {
                 $out .= $data['caption'] . "<br />";
             }
         }
+
         return $out;
     }
 
-    public function GetUsername($userid)
+    /**
+     * @param int $userid
+     * @return string
+     */
+    private function GetUsername($userid)
     {
-        global $db, $lang;
+        global $db;
+
         if ($userid == 'all') {
             return t('Verschiedene');
+
         } else {
             $get_username = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
             return $get_username["username"];
         }
     }
-    
-    public function GetUserdata($userid)
+
+    /**
+     * @param int $userid
+     * @return array|bool|null|string
+     */
+    private function GetUserdata($userid)
     {
-        global $db, $lang, $party;
+        global $db, $party;
+
         if ($userid == 'all') {
             return t('Verschiedene');
+
         } else {
             $get_userdata = $db->qry_first("SELECT u.*, s.ip FROM %prefix%user AS u
       								LEFT JOIN %prefix%seat_seats AS s ON s.userid = u.userid
@@ -125,22 +164,32 @@ class FoodcenterPrint
             return $get_userdata;
         }
     }
-        
-    public function GetDate($time)
+
+    /**
+     * @param int $time
+     * @return false|string
+     */
+    private function GetDate($time)
     {
         global $func;
 
         if ($this->config['datetime_format']=='') {
             return $func->unixstamp2date($time, "datetime");
+
         } else {
             return $func->unixstamp2date($time, $this->config['datetime_format']);
         }
     }
 
-    public function sql()
+    /**
+     * @return void
+     */
+    private function sql()
     {
         global $db;
-        // Suchstring erstellen
+
+        $search = '';
+        // Create search string
         if ($_POST['search_input'][0] != "") {
             $config['search_fields'][]  = "p.caption";
             $config['search_type'][]    = "like";
@@ -185,10 +234,8 @@ class FoodcenterPrint
                 $d ++;
             }
             $search = substr($search, 0, strlen($search) - 4);
-
             $search .= ") AND ";
         }
-
 
         if (strtolower($_POST['search_dd_input'][0]) != "") {
             $search .= "a.status = " . $_POST['search_dd_input'][0] . " AND ";
