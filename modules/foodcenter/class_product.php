@@ -361,7 +361,7 @@ class Product
     /**
      * Product options
      *
-     * @var \product_option[]
+     * @var \ProductOption[]
      */
     private $option = [];
 
@@ -420,7 +420,7 @@ class Product
 
                 } elseif ($_POST['price'][$i] != "") {
                     $x = count($this->option);
-                    $this->option[$x] = new product_option();
+                    $this->option[$x] = new ProductOption();
                     $this->option[$x]->read_post($this->id, $this->type, $i);
                 }
             }
@@ -439,7 +439,7 @@ class Product
 
                 } elseif ($_POST['caption'][$i] != "" || $i == $q) {
                     $x = count($this->option);
-                    $this->option[$x] = new product_option();
+                    $this->option[$x] = new ProductOption();
                     $this->option[$x]->read_post($this->id, $this->type, $i);
                 }
             }
@@ -515,7 +515,7 @@ class Product
             
             $int = 0;
             while ($option = $db->fetch_array($opt)) {
-                $this->option[$int] = new product_option($option['id'], $this->type);
+                $this->option[$int] = new ProductOption($option['id'], $this->type);
                 $int++;
             }
         }
@@ -747,7 +747,7 @@ class Product
                 ($i == 0) ? $optional = null : $optional = true;
 
                 if (!is_object($this->option[$i])) {
-                    $this->option[$i] = new product_option();
+                    $this->option[$i] = new ProductOption();
                 }
                 $this->option[$i]->option_form($i, $optional);
             }
@@ -764,7 +764,7 @@ class Product
             for ($i = $q; $i < ($q+8); $i++) {
                 ($i == $q) ? $optional = null : $optional = true;
                 if (!is_object($this->option[$i])) {
-                    $this->option[$i] = new product_option();
+                    $this->option[$i] = new ProductOption();
                 }
                 $this->option[$i]->option_form($i, $optional, true, $this->choise);
             }
@@ -1095,11 +1095,7 @@ class Product
     }
 }
 
-/**
- * Produktoptionen
- *
- */
-class product_option
+class ProductOption
 {
     /**
      * Product option ID
