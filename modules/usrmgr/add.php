@@ -160,7 +160,7 @@ function PersoInput($field, $mode, $error = '')
     global $dsp, $templ, $auth, $usrmgr, $smarty;
 
     switch ($mode) {
-        case OUTPUT_PROC:
+        case masterform::OUTPUT_PROC:
               $_POST[$field .'_1'] = substr($_POST[$field], 0, 11);
               $_POST[$field .'_2'] = substr($_POST[$field], 13, 7);
               $_POST[$field .'_3'] = substr($_POST[$field], 21, 7);
@@ -226,7 +226,7 @@ function Addr1Input($field, $mode, $error = '')
     global $dsp, $templ, $auth, $func;
 
     switch ($mode) {
-        case OUTPUT_PROC:
+        case masterform::OUTPUT_PROC:
             if ($_POST['street|hnr'] == '' and $_POST['street'] and $_POST['hnr']) {
                 $_POST['street|hnr'] = $_POST['street'] .' '. $_POST['hnr'];
             }
@@ -254,7 +254,7 @@ function Addr2Input($field, $mode, $error = '')
     global $dsp, $templ, $auth, $func;
 
     switch ($mode) {
-        case OUTPUT_PROC:
+        case masterform::OUTPUT_PROC:
             if ($_POST['plz|city'] == '' and $_POST['plz'] and $_POST['city']) {
                 $_POST['plz|city'] = $_POST['plz'] .' '. $_POST['city'];
             }
@@ -614,7 +614,7 @@ if ($_GET['mod'] == 'signon' and $auth['login']) {
     $_GET['mf_step'] = 1;
     $_GET['user_id'] = $auth['userid'];
 
-    $mf_number--;
+    $mf->DecrementNumber();
     include_once("modules/usrmgr/party.php");
 
   #$func->question(t("Wollen sie auch gleich zur Lan-Anmeldung weitergeleitet werden?"), "index.php?mod=signon", "index.php?mod=home");

@@ -1,7 +1,5 @@
 <?php
 
-$mf_number = 0;
-
 class masterform
 {
 
@@ -36,6 +34,8 @@ class masterform
     const IS_CALLBACK = 10;
 
     const CHECK_ERROR_PROC = 1;
+
+    const OUTPUT_PROC = 2;
 
     /**
      * @var array
@@ -177,12 +177,44 @@ class masterform
      */
     private $Pages = [];
 
+    /**
+     * Master form number
+     *
+     * @var int
+     */
+    private $number = 0;
+
     public function __construct($MFID = 0)
     {
-        global $mf_number;
-    
         $this->MFID = $MFID;
-        $mf_number++;
+        $this->IncrementNumber();
+    }
+
+    /**
+     * Returns the current masterform number
+     *
+     * @return int
+     */
+    public function GetNumber() {
+        return $this->number;
+    }
+
+    /**
+     * Increments the masterform number
+     *
+     * @return void
+     */
+    public function IncrementNumber() {
+        $this->number++;
+    }
+
+    /**
+     * Decrement the masterform  number
+     *
+     * @return void
+     */
+    public function DecrementNumber() {
+        $this->number--;
     }
 
     /**
@@ -339,7 +371,7 @@ class masterform
      */
     public function SendForm($BaseURL, $table, $idname = '', $id = 0)
     {
-        global $dsp, $db, $config, $func, $sec, $framework, $mf_number, $__POST, $smarty, $cfg;
+        global $dsp, $db, $config, $func, $sec, $framework, $__POST, $smarty, $cfg;
 
         // In freeze-mode there are no changes to the database allowed
         if ($cfg['sys_freeze']) {
@@ -349,7 +381,7 @@ class masterform
 
         // Break, if in wrong form
         $Step_Tmp = $_GET['mf_step'];
-        if ($_GET['mf_step'] == 2 && $_GET['mf_id'] != $mf_number) {
+        if ($_GET['mf_step'] == 2 && $_GET['mf_id'] != $this->GetNumber()) {
             $Step_Tmp = 1;
         }
 
@@ -374,7 +406,7 @@ class masterform
             }
         }
 
-        $this->LinkBack = $StartURL . '#MF'.$mf_number;
+        $this->LinkBack = $StartURL . '#MF' . $this->GetNumber();
         if ($id or $this->MultiLineID) {
             $this->isChange = true;
         }
@@ -442,7 +474,7 @@ class masterform
         // Error-Switch
         switch ($Step_Tmp) {
             default:
-                $_SESSION['mf_referrer'][$mf_number] = $func->internal_referer;
+                $_SESSION['mf_referrer'][$this->GetNumber()] = $func->internal_referer;
 
                 // Read current values, if change
                 if ($this->isChange) {
@@ -620,14 +652,14 @@ class masterform
                 break;
         }
 
-        $dsp->AddJumpToMark('MF' . $mf_number);
+        $dsp->AddJumpToMark('MF' . $this->GetNumber());
 
         // Form-Switch
         switch ($Step_Tmp) {
             // Output form
             default:
                 $sec->unlock($table);
-                $dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $mf_number .'#MF'. $mf_number, '', '', $this->FormEncType);
+                $dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $this->GetNumber() .'#MF' . $this->GetNumber(), '', '', $this->FormEncType);
 
                 // InsertControll check box - the table entry will only be created, if this check box is checked, otherwise the existing entry will be deleted
                 if ($this->AddInsertControllField != '') {
@@ -931,7 +963,7 @@ class masterform
                                                 break;
 
                                             case self::IS_CALLBACK:
-                                                $ret = call_user_func($field['selections'], $field['name'], OUTPUT_PROC, $this->error[$field['name']]);
+                                                $ret = call_user_func($field['selections'], $field['name'], self::OUTPUT_PROC, $this->error[$field['name']]);
                                                 if ($ret) {
                                                     $dsp->AddDoubleRow($field['caption'], $ret);
                                                 }
@@ -1125,7 +1157,7 @@ class masterform
 
                         if ($addUpdSuccess) {
                             if ($this->isChange) {
-                                $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer'][$mf_number]);
+                                $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer'][$this->GetNumber()]);
 
                             } else {
                                 $func->confirmation(t('Die Daten wurden erfolgreich eingefügt.'), $this->LinkBack);
@@ -1133,8 +1165,8 @@ class masterform
                         }
                     }
 
-                    if (isset($_SESSION['mf_referrer'][$mf_number])) {
-                        unset($_SESSION['mf_referrer'][$mf_number]);
+                    if (isset($_SESSION['mf_referrer'][$this->GetNumber()])) {
+                        unset($_SESSION['mf_referrer'][$this->GetNumber()]);
                     }
                     $sec->lock($table);
 
