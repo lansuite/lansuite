@@ -1,6 +1,8 @@
 <?php
 
-class masterform
+namespace LanSuite;
+
+class MasterForm
 {
 
     const FIELD_OPTIONAL = 1;

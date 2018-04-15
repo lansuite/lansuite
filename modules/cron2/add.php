@@ -1,7 +1,7 @@
 <?php
 $dsp->NewContent(t('Cronjob hinzufügen'), '');
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
 $mf->AddField(t('Name'), 'name');
 $mf->AddField(t('Statement'), 'function');

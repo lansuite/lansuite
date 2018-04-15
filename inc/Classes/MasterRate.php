@@ -1,6 +1,8 @@
 <?php
 
-class masterrate
+namespace LanSuite;
+
+class MasterRate
 {
 
     public function __construct($mod, $id, $caption = '')

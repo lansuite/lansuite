@@ -169,7 +169,7 @@ switch ($_GET['step']) {
 
         $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr');
 
-        new Mastercomment('Clan', $_GET['clanid'], '');
+        new \LanSuite\MasterComment('Clan', $_GET['clanid'], '');
         break;
 
   // Change clan password
@@ -179,12 +179,12 @@ switch ($_GET['step']) {
         } elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) {
             $func->information(t('Du bist nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
         } else {
-            $mf = new masterform();
+            $mf = new \LanSuite\MasterForm();
 
             if ($auth['type'] < 2) {
-                $mf->AddField(t('Dezeitiges Passwort'), 'old_password', masterform::IS_PASSWORD, '', masterform::FIELD_OPTIONAL, 'CheckClanPW');
+                $mf->AddField(t('Dezeitiges Passwort'), 'old_password', \LanSuite\MasterForm::IS_PASSWORD, '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckClanPW');
             }
-            $mf->AddField(t('Neues Passwort'), 'password', masterform::IS_NEW_PASSWORD);
+            $mf->AddField(t('Neues Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
 
             if ($mf->SendForm('index.php?mod=clanmgr&action=clanmgr&step=10', 'clan', 'clanid', $_GET['clanid'])) {
                 include_once("modules/mail/class_mail.php");
@@ -223,15 +223,15 @@ switch ($_GET['step']) {
         if ($_GET['clanid'] != '' and !($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < 2) {
             $func->information(t('Du bist nicht berechtigt diesen Clan zu ändern'), "index.php?mod=home");
         } else {
-            $mf = new masterform();
+            $mf = new \LanSuite\MasterForm();
 
             $dsp->AddFieldsetStart(t('Clan-Daten'));
             $mf->AddField(t('Clanname'), 'name');
             if (!$_GET['clanid']) {
-                $mf->AddField(t('Beitritts Passwort'), 'password', masterform::IS_NEW_PASSWORD);
+                $mf->AddField(t('Beitritts Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
             }
-            $mf->AddField(t('Webseite'), 'url', '', '', masterform::FIELD_OPTIONAL);
-            $mf->AddField(t('Clanlogo'), 'clanlogo_path', masterform::IS_FILE_UPLOAD, 'ext_inc/clan/'. $auth['userid'] .'_', masterform::FIELD_OPTIONAL);
+            $mf->AddField(t('Webseite'), 'url', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+            $mf->AddField(t('Clanlogo'), 'clanlogo_path', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/clan/'. $auth['userid'] .'_', \LanSuite\MasterForm::FIELD_OPTIONAL);
       
       
       

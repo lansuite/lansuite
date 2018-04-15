@@ -1,6 +1,6 @@
 <?php
 
-$xml = new xml();
+$xml = new \LanSuite\XML();
 
 $dsp->NewContent(t('Design Manager'), t('Editiere Design-Templates und setze das aktive Design'));
 

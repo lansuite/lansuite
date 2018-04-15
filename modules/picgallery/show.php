@@ -1,6 +1,6 @@
 <?php
 
-$gd = new gd();
+$gd = new \LanSuite\GD();
 
 # Forbid changedir to upper directories
 $_GET['file'] = str_replace('/..', '', $_GET['file']);
@@ -519,6 +519,6 @@ elseif (!$akt_file) {
         if ($_GET['picid']) {
             $pic['picid'] = $_GET['picid'];
         }
-        new Mastercomment('Picgallery', $pic['picid']);
+        new \LanSuite\MasterComment('Picgallery', $pic['picid']);
     }
 }

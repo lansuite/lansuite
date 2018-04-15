@@ -3,7 +3,7 @@
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
-$xml = new xml();
+$xml = new \LanSuite\XML();
 
 class t_league_export
 {

@@ -90,16 +90,16 @@ if ($auth['type'] >= 3) {
   // If you like to insert data to the database, you could use the masterform class
   $dsp->NewContent(t('News verwalten'), t('Mit Hilfe des folgenden Formulars kannst du Neuigkeiten auf deiner Seite ergänzen und bearbeiten'));
 
-  $mf = new masterform();
+  $mf = new \LanSuite\MasterForm();
 
   // Define the db filds, which should be written. The second argument must be a valid db field, of the table supplied to SendForm
   $mf->AddField(t('Überschrift (Knappe Zusammenfassung für die Startseite)'), 'caption');
-  $mf->AddField(t('Kategorie / Icon'), 'icon', masterform::IS_PICTURE_SELECT, 'ext_inc/news_icons', masterform::FIELD_OPTIONAL);
-  $mf->AddField(t('Text'), 'text', '', masterform::LSCODE_ALLOWED);
+  $mf->AddField(t('Kategorie / Icon'), 'icon', \LanSuite\MasterForm::IS_PICTURE_SELECT, 'ext_inc/news_icons', \LanSuite\MasterForm::FIELD_OPTIONAL);
+  $mf->AddField(t('Text'), 'text', '', \LanSuite\MasterForm::LSCODE_ALLOWED);
   $selections = array();
   $selections['0'] = t('Normal');
   $selections['1'] = t('Wichtig');
-  $mf->AddField(t('Priorität'), 'priority', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
+  $mf->AddField(t('Priorität'), 'priority', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
   // Maybe some values should not be added by the user, but set to fix values
   $mf->AddFix('date', time());
@@ -115,13 +115,13 @@ if ($mf->SendForm('index.php?mod=sample&action=show', 'news', 'newsid', $_GET['n
   ### Mastercomment ###
   // There are only two lines needed to add a comment function to the current table
     // Mastercomment: 1) which module should the comment belong to? 2) Which id should the comment referr to?
-    new Mastercomment('news', $_GET['newsid']);
+    new \LanSuite\MasterComment('news', $_GET['newsid']);
     
     
     
     ### Masterdelete ###
   // Use this, to delete entries from the data base
-  $md = new masterdelete();
+  $md = new \LanSuite\MasterDelete();
   // Will delete from the table 'news', where the fild 'newsid' is '$_GET['newsid']'
   // However a security question will be displayed first
   $md->Delete('news', 'newsid', $_GET['newsid']);

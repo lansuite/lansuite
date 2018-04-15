@@ -42,10 +42,10 @@ if ($_POST['action']) {
 
 if ($_GET['action'] == 'delete' and $auth['type'] >= 2) {
     if ($_GET['bugid'] != '') {
-        $md = new masterdelete();
+        $md = new \LanSuite\MasterDelete();
         $md->Delete('bugtracker', 'bugid', $_GET['bugid']);
     } else {
-        $md = new masterdelete();
+        $md = new \LanSuite\MasterDelete();
         $md->MultiDelete('bugtracker', 'bugid');
     }
 }
@@ -216,7 +216,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     }
 
     if ($auth['type'] >= 2) {
-        $mf = new masterform();
+        $mf = new \LanSuite\MasterForm();
         $mf->AddField(t('Fix in SVN-Revision'), 'revision');
         $mf->SendForm('', 'bugtracker', 'bugid', $_GET['bugid']);
     }
@@ -228,16 +228,16 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Editieren'), 'index.php?mod=bugtracker&action=add&bugid='.$row['bugid']) . $dsp->FetchSpanButton(t('Zurück zur Übersicht'), 'index.php?mod=bugtracker'));
 
     if ($auth['login']) {
-        $mf = new masterform();
+        $mf = new \LanSuite\MasterForm();
         $mf->ManualUpdate = 1;
         if ($auth['type'] >= 2) {
-            $mf->AddField(t('Status'), 'state', masterform::IS_SELECTION, $bugtracker->stati);
+            $mf->AddField(t('Status'), 'state', \LanSuite\MasterForm::IS_SELECTION, $bugtracker->stati);
         } elseif ($row['state'] == 0) {
-            $mf->AddField(t('Status'), 'state', masterform::IS_SELECTION, array('1' => $bugtracker->stati['1']));
+            $mf->AddField(t('Status'), 'state', \LanSuite\MasterForm::IS_SELECTION, array('1' => $bugtracker->stati['1']));
         } elseif ($row['state'] == 4) {
-            $mf->AddField(t('Status'), 'state', masterform::IS_SELECTION, array('7' => $bugtracker->stati['7']));
+            $mf->AddField(t('Status'), 'state', \LanSuite\MasterForm::IS_SELECTION, array('7' => $bugtracker->stati['7']));
         } elseif ($row['state'] == 3) {
-            $mf->AddField(t('Status'), 'state', masterform::IS_SELECTION, array('2' => $bugtracker->stati['2']));
+            $mf->AddField(t('Status'), 'state', \LanSuite\MasterForm::IS_SELECTION, array('2' => $bugtracker->stati['2']));
         }
 
         if ($mf->SendForm('', 'bugtracker', 'bugid', $_GET['bugid'])) {
@@ -246,7 +246,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
         }
     }
 
-    new Mastercomment('BugEintrag', $_GET['bugid'], array('bugtracker' => 'bugid'));
+    new \LanSuite\MasterComment('BugEintrag', $_GET['bugid'], array('bugtracker' => 'bugid'));
     $dsp->EndTab();
 
     $dsp->StartTab(t('Log'), 'save');

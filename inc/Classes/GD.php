@@ -1,6 +1,8 @@
 <?php
 
-class gd
+namespace LanSuite;
+
+class GD
 {
     /**
      * @var resource

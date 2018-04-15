@@ -1,6 +1,8 @@
 <?php
 
-class sec
+namespace LanSuite;
+
+class Security
 {
     /**
      * @return string

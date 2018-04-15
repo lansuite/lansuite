@@ -1,5 +1,7 @@
 <?php
 
+namespace LanSuite;
+
 /**
  * Class auth
  *
@@ -7,7 +9,7 @@
  *
  * @todo Change uniqkey from md5(password) to an extra Field
  */
-class auth {
+class Auth {
 
     /**
      * Userdata
@@ -722,7 +724,7 @@ class auth {
 
         // Crypt only via Config. See Construktor
         if ($this->cookie_crypt) {
-            $crypt= new AzDGCrypt(md5($this->cookie_crypt_pw));
+            $crypt= new \LanSuite\AzDGCrypt(md5($this->cookie_crypt_pw));
             $cookie = $crypt->crypt($cookie);
         }
 
@@ -739,7 +741,7 @@ class auth {
     {
         // Crypt only via Config. See Construktor
         if ($this->cookie_crypt) {
-            $crypt= new AzDGCrypt(md5($this->cookie_crypt_pw));
+            $crypt= new \LanSuite\AzDGCrypt(md5($this->cookie_crypt_pw));
             $cookie = $crypt->decrypt($cookie);
         }
 

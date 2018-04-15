@@ -92,9 +92,9 @@ if ($server == "") {
 
     // Including comment-engine
     if ($auth['login'] == 1) {
-        new masterrate('server', $_GET['serverid']);
+        new \LanSuite\MasterRate('server', $_GET['serverid']);
 
-        new Mastercomment('server', $_GET['serverid'], array('server' => 'serverid'));
+        new \LanSuite\MasterComment('server', $_GET['serverid'], array('server' => 'serverid'));
     }
     //End comment-engine
 }

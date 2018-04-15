@@ -1,6 +1,8 @@
 <?php
 
-class framework
+namespace LanSuite;
+
+class Framework
 {
 
     /**

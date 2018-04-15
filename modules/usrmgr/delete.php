@@ -1,6 +1,6 @@
 <?php
 
-$md = new masterdelete();
+$md = new \LanSuite\MasterDelete();
 
 /* Checks which MD does not perform */
 function CheckDeleteUser($userid)

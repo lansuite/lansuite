@@ -3,7 +3,7 @@ if ($_POST['action']) {
     foreach ($_POST['action'] as $key => $val) {
         switch ($_GET['mode']) {
             case 'del':
-                $md = new masterdelete();
+                $md = new \LanSuite\MasterDelete();
                 $md->MultiDelete('board_posts', 'pid');
                 break;
             case 'ban':

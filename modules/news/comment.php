@@ -52,7 +52,7 @@ if ($check["caption"] != "") {
     if ($cfg['news_comments_allowed'] == false) {
         $dsp->AddSingleRow(t('Kommentare wurden deaktiviert.'));
     } else {
-        new Mastercomment('news', $_GET['newsid'], array('news' => 'newsid'));
+        new \LanSuite\MasterComment('news', $_GET['newsid'], array('news' => 'newsid'));
     }
 } else {
     $func->error(t('Diese Newsmeldung existiert nicht'));

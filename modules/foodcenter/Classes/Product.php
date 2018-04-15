@@ -418,7 +418,7 @@ class Product
 
         // Not functional now
         // Pic is only active with gd-Libary
-        $gd = new \gd();
+        $gd = new \LanSuite\GD();
         if ($gd->available) {
             $dsp->AddFileSelectRow("file", t('Bild hochladen'), $this->error_food['file'], null, null, true);
             $dsp->AddPictureDropDownRow("pic", t('Bild hochladen'), "ext_inc/foodcenter", $this->error_food['file'], true, basename($this->pic));

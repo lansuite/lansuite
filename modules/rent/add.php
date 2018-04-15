@@ -1,10 +1,10 @@
 <?php
 $dsp->NewContent(t('Verleih'), t('Neuen Artikel zum Verleih eintragen'));
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
 $mf->AddField(t('Bezeichnung'), 'caption');
-$mf->AddField(t('Beschreibung'), 'comment', '', '', masterform::FIELD_OPTIONAL);
+$mf->AddField(t('Beschreibung'), 'comment', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
 $mf->AddField(t('Menge'), 'quantity');
 $mf->AddDropDownFromTable(t('Besitzer'), 'ownerid', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
 

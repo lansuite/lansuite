@@ -1,4 +1,7 @@
 <?php
+
+namespace LanSuite;
+
 //########################//
 //
 // Author :Harish Chauhan
@@ -19,7 +22,7 @@
 *
 * Reference : http://www.barcodeisland.com/symbolgy.phtml
 */
-class barcode
+class Barcode
 {
     public $_encode;
     public $_error;

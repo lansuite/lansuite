@@ -2,7 +2,7 @@
 
 switch ($_GET['step']) {
     case 10:
-        $md = new masterdelete();
+        $md = new \LanSuite\MasterDelete();
         $md->MultiDelete('comments', 'commentid');
         break;
 }

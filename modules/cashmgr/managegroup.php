@@ -20,7 +20,7 @@ switch ($_GET['step']) {
         break;
         
     case 1:
-        $mf = new masterform();
+        $mf = new \LanSuite\MasterForm();
         $dsp->NewContent(t('Gruppe anlegen/ editieren '), t(''));
         $mf->AddField('Bezeichnung', 'caption');
         $mf->SendForm('index.php?mod=cashmgr&action=managegroup&step=1', 'cashmgr_group', 'id', $_GET['id']);

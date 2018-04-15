@@ -16,37 +16,37 @@ switch ($_GET['step']) {
   
   // Edit
     case 20:
-        $mf = new masterform();
+        $mf = new \LanSuite\MasterForm();
 
         $mf->AddField(t('Titel'), 'name');
         $selections = array();
         $selections['0'] = t('Links');
         $selections['1'] = t('Rechts');
-        $mf->AddField(t('Seite'), 'place', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Seite'), 'place', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
         $mf->AddField(t('Position'), 'pos');
-        $mf->AddField(t('Aktiv'), 'active', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Aktiv'), 'active', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
         $selections = array();
         $selections['0'] = t('Egal');
         $selections['1'] = t('Nur in Intranet Version');
         $selections['2'] = t('Nur in Internet Verrsion');
-        $mf->AddField(t('Nur online / offline'), 'internet', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Nur online / offline'), 'internet', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
         $selections = array();
         $selections['0'] = t('Egal');
         $selections['1'] = t('Nur für ausgeloggte');
         $selections['2'] = t('Nur für eingeloggte');
         $selections['3'] = t('Nur für Admins + Superadmins');
         $selections['4'] = t('Nur für Superadmins');
-        $mf->AddField(t('Login benötigt'), 'login', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
-        $mf->AddField(t('Modul benötigt'), 'module', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Login benötigt'), 'login', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
+        $mf->AddField(t('Modul benötigt'), 'module', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
         $mf->AddField(t('Quelldatei'), 'source');
-        $mf->AddField(t('Callback'), 'callback', '', '', masterform::FIELD_OPTIONAL);
+        $mf->AddField(t('Callback'), 'callback', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
 
         $mf->SendForm('index.php?mod=boxes&amp;step=20', 'boxes', 'boxid', $_GET['boxid']);
         break;
   
   // Delete
     case 30:
-        $md = new masterdelete();
+        $md = new \LanSuite\MasterDelete();
         $md->Delete('boxes', 'boxid', $_GET['boxid']);
         break;
 }
