@@ -7,6 +7,7 @@
  */
 
 $discord = new \LanSuite\Module\Discord();
-$data = $discord->fetchServerData();
-$boxcontent = $discord->genBox($data);
+        $discordServerData = $discord->fetchServerData();
+        $discordGuildData = $discord->fetchGuildData();
+$boxcontent = $discord->genBox($discordServerData, $discordGuildData);
 $box->Row($boxcontent);

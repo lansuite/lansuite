@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Discord Serverkonfiguration</name>
+    </head>
+    <items>
+    	<item>
+    		<name>discord_server_id</name>
+    		<type>int</type>
+    		<default>0</default>
+    		<description>Discord server ID</description>
+    	</item>
+		<item>
+    		<name>discord_guild_id</name>
+    		<type>int</type>
+    		<default>0</default>
+    		<description>Discord guild ID</description>
+    	</item>
+    </items>
+  </group>
+</config>
