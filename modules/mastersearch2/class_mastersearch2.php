@@ -156,7 +156,7 @@ class MasterSearch2
 
     public function PrintSearch($working_link, $select_id_field, $multiaction = '')
     {
-        global $smarty, $db, $config, $dsp, $templ, $func, $auth, $line, $framework;
+        global $smarty, $db, $config, $dsp, $func, $auth, $line, $framework;
 
         $UrlParas = explode('&', substr($working_link, strpos($working_link, '?') + 1, strlen($working_link)));
         foreach ($UrlParas as $UrlPara) {
@@ -167,8 +167,7 @@ class MasterSearch2
 #    $working_link .= $this->post_in_get;
         $working_link .= '&ms_number='. $this->ms_number;
         $this->AddSelect($select_id_field);
-        $min_skipped_items = 99;
-   
+
         $this->query['from'] = str_replace('%prefix%', $config['database']['prefix'], $this->query['from']);
 
     ###### Generate Where
@@ -861,7 +860,7 @@ class MasterSearch2
 
 function MS2GetDate($time)
 {
-    global $dsp, $templ;
+    global $dsp;
   
     if ($time > 0) {
         return '<span class="small">'. date('d.m.y', $time) .'<br />'. date('H:i', $time) .'</span>';
@@ -872,7 +871,7 @@ function MS2GetDate($time)
 
 function MS2GetTime($time)
 {
-    global $dsp, $templ;
+    global $dsp;
   
     if ($time > 0) {
         return date('H:i', $time);
@@ -883,7 +882,7 @@ function MS2GetTime($time)
 
 function TrueFalse($val)
 {
-    global $dsp, $templ;
+    global $dsp;
   
     if ($val) {
         return $dsp->FetchIcon('yes', '', t('Ja'));
