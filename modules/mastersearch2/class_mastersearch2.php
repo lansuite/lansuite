@@ -154,7 +154,7 @@ class MasterSearch2
     {
         $this->query['select'] .= $sql_field .', ';
 
-    // cut of 'xxx as ', in front of alias name
+        // cut of 'xxx as ', in front of alias name
         $first_as = strpos(strtolower($sql_field), ' as ');
         if ($first_as > 0) {
             $sql_field = substr($sql_field, $first_as + 4, strlen($sql_field));
@@ -244,18 +244,16 @@ class MasterSearch2
             $this->HiddenGetFields[$key] .= $val;
         }
 
-#    $working_link .= $this->post_in_get;
         $working_link .= '&ms_number='. $this->ms_number;
         $this->AddSelect($select_id_field);
 
         $this->query['from'] = str_replace('%prefix%', $config['database']['prefix'], $this->query['from']);
 
-    ###### Generate Where
         if ($this->query['where'] == '') {
             $this->query['where'] = '1 = 1';
         }
     
-    // Generate where from input fields
+        // Generate where from input fields
         $z = 0;
         if ($this->search_fields) {
             foreach ($this->search_fields as $current_field_list) {
@@ -329,7 +327,7 @@ class MasterSearch2
             }
         }
 
-    // Generate additional where from dropdown fields
+        // Generate additional where from dropdown fields
         $z = 0;
         if ($this->search_dropdown) {
             foreach ($this->search_dropdown as $current_field_list) {
@@ -348,7 +346,7 @@ class MasterSearch2
                                 $sql_one_search_field .= ' OR ';
                             }
 
-            // Negation, greater than, less than
+                            // Negation, greater than, less than
                             $pre_eq = '';
                             $value = $func->AllowHTML($value); # Converts &lt; back to <
                             if (substr($value, 0, 1) == '!' or substr($value, 0, 1) == '<' or substr($value, 0, 1) == '>') {
@@ -365,7 +363,7 @@ class MasterSearch2
                             }
                             $x++;
                         }
-          // If COUNT function is used in select, write this variable in the having statement, otherwise in the where statement
+                        // If COUNT function is used in select, write this variable in the having statement, otherwise in the where statement
                         if (strpos($current_field_list['sql_field'], 'OUNT(') == 0) {
                             $this->query['where'] .= " AND ($sql_one_search_field)";
                         } else {
@@ -485,16 +483,6 @@ class MasterSearch2
       {$this->query['limit']}
       "
         );
-/*
-    echo "SELECT SQL_CALC_FOUND_ROWS {$this->query['select']}<br>
-      FROM {$this->query['from']}<br>
-      WHERE {$this->query['where']}<br>
-      GROUP BY {$this->query['group_by']}<br>
-      {$this->query['having']}<br>*
-      ORDER BY {$this->query['order_by']}<br>
-      {$this->query['limit']}
-      ";
-*/
 
         $this->HiddenGetFields['order_by'] = $_GET['order_by'];
         $this->HiddenGetFields['order_dir'] = $_GET['order_dir'];
@@ -578,7 +566,6 @@ class MasterSearch2
         $smarty->assign('EntsPerPage', $EntsPerPage);
         $smarty->assign('EntPerPage', $this->config['EntriesPerPage']);
         $smarty->assign('pages', $pages);
-    #$smarty->assign('EntPerPageAction', $working_link);
 
     ###### Output Search
     // Text Inputs
@@ -931,8 +918,8 @@ class MasterSearch2
                     break;
             }
         }
-    } // End: PrintSearch()
-} // End: Class
+    }
+}
 
 
 ###### Some global Callbacks
