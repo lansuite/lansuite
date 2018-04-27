@@ -3,28 +3,108 @@
 $ms_number = 0;
 class MasterSearch2
 {
-    public $query = array('select' => '', 'from' => '', 'where' => '', 'group_by' => '', 'order_by' => '', 'limit' => '',
-    'having' => '', 'default_order_by' => '', 'default_order_dir' => '', 'order_by_end' => '');
-    public $result_field = array();
-    public $search_fields = array();
-    public $search_dropdown = array();
-    public $icon_field = array();
-    public $multi_select_action = array();
-    public $config = array();
-    public $bgcolors = array();
-    public $bgcolor_attr = '';
-    public $orderByFieldFound = false;
-    public $post_in_get = '';
-    public $NoItemsText = '';
-    public $SQLFieldTypes = array();
-    public $HiddenGetFields = array();
-    public $ms_number = 0;
-    public $TargetPageField = '';
-    public $TargetPageCount = 0;
-    public $quicklinks = array();
-    public $isExport = 0;
 
-  // Constructor
+    /**
+     * @var array
+     */
+    public $query = [
+        'select' => '',
+        'from' => '',
+        'where' => '',
+        'group_by' => '',
+        'order_by' => '',
+        'limit' => '',
+        'having' => '',
+        'default_order_by' => '',
+        'default_order_dir' => '',
+        'order_by_end' => ''
+    ];
+
+    /**
+     * @var array
+     */
+    private $result_field = [];
+
+    /**
+     * @var array
+     */
+    private $search_fields = [];
+
+    /**
+     * @var array
+     */
+    private $search_dropdown = [];
+
+    /**
+     * @var array
+     */
+    private $icon_field = [];
+
+    /**
+     * @var array
+     */
+    private $multi_select_action = [];
+
+    /**
+     * @var array
+     */
+    public $config = [];
+
+    /**
+     * @var array
+     */
+    private $bgcolors = [];
+
+    /**
+     * @var string
+     */
+    private $bgcolor_attr = '';
+
+    /**
+     * @var bool
+     */
+    private $orderByFieldFound = false;
+
+    /**
+     * @var string
+     */
+    public $NoItemsText = '';
+
+    /**
+     * @var array
+     */
+    private $SQLFieldTypes = [];
+
+    /**
+     * @var array
+     */
+    private $HiddenGetFields = [];
+
+    /**
+     * @var int
+     */
+    private $ms_number = 0;
+
+    /**
+     * @var string
+     */
+    private $TargetPageField = '';
+
+    /**
+     * @var int
+     */
+    private $TargetPageCount = 0;
+
+    /**
+     * @var array
+     */
+    public $quicklinks = [];
+
+    /**
+     * @var int
+     */
+    private $isExport = 0;
+
     public function __construct($module = '')
     {
         global $ms_number;
