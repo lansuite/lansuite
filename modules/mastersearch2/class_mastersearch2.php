@@ -154,7 +154,7 @@ class MasterSearch2
         $this->TargetPageCount = $pages;
     }
 
-    public function PrintSearch($working_link, $select_id_field, $multiaction = '')
+    public function PrintSearch($working_link, $select_id_field)
     {
         global $smarty, $db, $config, $dsp, $func, $auth, $line, $framework;
 
