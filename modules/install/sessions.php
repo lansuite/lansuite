@@ -2,8 +2,7 @@
 
 switch ($_GET["step"]) {
     default:
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('install');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('install');
 
         $ms2->query['from'] = "%prefix%stats_auth AS a
       LEFT JOIN %prefix%user AS u ON a.userid = u.userid";

@@ -8,8 +8,7 @@
 
 $dsp->NewContent(t('Shoutbox'), t('Shoutbox History'));
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2('task');
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('task');
 
 $ms2->query['from'] = '%prefix%shoutbox';
 $ms2->query['default_order_by'] ="id DESC";

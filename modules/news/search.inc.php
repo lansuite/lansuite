@@ -1,6 +1,5 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2('news');
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
 $ms2->query['from'] = "%prefix%news n LEFT JOIN %prefix%user u ON n.poster=u.userid";
 $ms2->query['default_order_by'] = 'DATE DESC';

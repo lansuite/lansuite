@@ -1,5 +1,4 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
 
 /**
  * Used as callback function for mastersearch
@@ -24,7 +23,7 @@ $product_list = new LanSuite\Module\Foodcenter\ProductList();
 
 $dsp->NewContent(t('Produktsuche'), t('Hier findest du alles was das Herz begehrt'));
 
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 $ms2->query['from'] = "%prefix%food_product AS p
                        LEFT JOIN %prefix%food_option AS o ON o.parentid = p.id";

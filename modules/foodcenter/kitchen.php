@@ -1,5 +1,4 @@
 <?php
-include_once("modules/mastersearch2/class_mastersearch2.php");
 
 if (isset($_GET['autorefresh'])) {
     $autorefresh = $_GET['autorefresh'];
@@ -13,7 +12,7 @@ if ($autorefresh == 1) {
 }
 
 $dsp->NewContent(t('Küche'), t('Auflistung derzeitiger unbearbeiter Produktionsauftraege'));
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 $ms2->query['from'] = "%prefix%food_ordering AS o 
                        INNER JOIN %prefix%food_product AS p ON p.id = o.productid

@@ -354,8 +354,7 @@ if (!$user_data['userid']) {
             break;
     }
 
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2();
+    $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
     $ms2->query['from'] = "%prefix%comments_bookmark AS b";
     $ms2->query['where'] = 'b.userid = '. (int)$_GET['userid'];
@@ -415,8 +414,7 @@ if (!$user_data['userid']) {
     if ($auth['type'] >= 3) {
         $dsp->StartTab(t('Sessions'), 'generate');
 
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('usrmgr');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('usrmgr');
 
         $ms2->query['from'] = "%prefix%stats_auth a";
         $ms2->query['where'] = "a.userid = ". (int)$_GET['userid'];

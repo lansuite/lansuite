@@ -41,8 +41,7 @@ if (!$_GET['act'] || ($_GET['act'] && $_GET['step'] == 2)) {
     
     $dsp->NewContent(t('Buchhaltung'), t('Übersicht aller meiner Ein- und Ausgaben'));
 
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2('accounting');
+    $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('accounting');
 
     $ms2->query['from'] = "%prefix%cashmgr_accounting AS a
                             LEFT JOIN %prefix%user AS fu ON a.fromUserid = fu.userid

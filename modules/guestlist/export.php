@@ -39,13 +39,12 @@ switch ($_GET['step']) {
             foreach ($_POST['action'] as $key => $val) {
                 $guestlist->SetExported($key, $party->party_id);
             }
-            $func->confirmation(t('Die User wurden für die aktuelle Party als exportiert markiert.'));
+            $func->confirmation(t('Die User wurden fï¿½r die aktuelle Party als exportiert markiert.'));
         }
         break;
 }
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 function ClanURLLink($clan_name)
 {
