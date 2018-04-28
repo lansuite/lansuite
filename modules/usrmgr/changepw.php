@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @param string $old_password
+ * @return bool|string
+ */
 function CheckOldPW($old_password)
 {
     global $db, $auth;

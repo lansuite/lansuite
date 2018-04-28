@@ -7,6 +7,10 @@ $usrmgr = new UsrMgr();
 
 class UsrMgr
 {
+    /**
+     * @param int $id User ID
+     * @return int
+     */
     public function SendVerificationEmail($id)
     {
         global $cfg, $db, $mail, $func;
@@ -46,6 +50,10 @@ class UsrMgr
         return 1;
     }
 
+    /**
+     * @param int $userid User ID
+     * @return void
+     */
     public function LockAccount($userid)
     {
         global $db;
@@ -54,6 +62,10 @@ class UsrMgr
         $db->qry('DELETE FROM %prefix%stats_auth WHERE userid=%int%', $userid);
     }
 
+    /**
+     * @param int $userid User ID
+     * @return void
+     */
     public function UnlockAccount($userid)
     {
         global $db;
@@ -61,12 +73,18 @@ class UsrMgr
         $db->qry("UPDATE %prefix%user SET locked = 0 WHERE userid=%int%", $userid);
     }
 
+    /**
+     * @return int
+     */
     public function GeneratePassword()
     {
         return rand(10000, 99999);
     }
 
-
+    /**
+     * @param string $code
+     * @return int          1 = OK, 2 = Wrong length, 3 = Checksum error, 4 = Expired
+     */
     public function CheckPerso($code)
     {
         $perso_block = explode("<", $code);
@@ -121,20 +139,18 @@ class UsrMgr
             }
         }
         return 1;
-        // Return Values:
-        // 1 = OK
-        // 2 = Wrong length
-        // 3 = Checksum error
-        // 4 = Expired
     }
 
-
+    /**
+     * @param int $type
+     * @return bool
+     */
     public function SendSignonMail($type = 0)
     {
         global $cfg, $func, $mail, $db, $auth;
 
         switch ($type) {
-      // Register-Mail
+            // Register-Mail
             default:
                     $message = $cfg["signon_signonemail_text_register"];
 
@@ -158,7 +174,7 @@ class UsrMgr
                 }
                 break;
 
-      // Signon-Mail
+            // Signon-Mail
             case 1:
                 if ($_POST['InsertControll'.$_GET[mf_id]]) {
                     $message = $cfg["signon_signonemail_text"];
@@ -195,6 +211,9 @@ class UsrMgr
         }
     }
 
+    /**
+     * @return bool
+     */
     public function WriteXMLStatFile()
     {
         global $cfg, $db, $config;
