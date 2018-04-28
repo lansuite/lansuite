@@ -5,7 +5,7 @@ $md = new masterdelete();
 /* Checks which MD does not perform */
 function CheckDeleteUser($userid)
 {
-    global $db, $auth, $lang, $func;
+    global $db, $auth $func;
     
     $get_data = $db->qry_first("SELECT username, type FROM %prefix%user WHERE userid = %int%", $userid);
     $get_party_data = $db->qry_first('SELECT 1 AS found FROM %prefix%party_user AS pu

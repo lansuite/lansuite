@@ -6,7 +6,7 @@ $gd = new gd();
 
 function Update($id)
 {
-    global $mf, $db, $auth, $authentication, $party, $usrmgr, $func, $cfg, $signon;
+    global $mf, $db, $usrmgr, $func, $cfg;
 
   // Clan-Management
     include_once("modules/clanmgr/class_clan.php");
@@ -141,7 +141,7 @@ function CheckClanPW($clanpw)
 
 function CheckClanNotExists($ClanName)
 {
-    global $db, $auth;
+    global $db;
 
     $clan = $db->qry_first("SELECT 1 AS found FROM %prefix%clan WHERE name = %string%", $ClanName);
     if ($clan['found']) {
@@ -157,7 +157,7 @@ function CheckClanNotExists($ClanName)
 
 function PersoInput($field, $mode, $error = '')
 {
-    global $dsp, $templ, $auth, $usrmgr, $smarty;
+    global $dsp, $usrmgr, $smarty;
 
     switch ($mode) {
         case masterform::OUTPUT_PROC:
@@ -223,7 +223,7 @@ function PersoInput($field, $mode, $error = '')
 
 function Addr1Input($field, $mode, $error = '')
 {
-    global $dsp, $templ, $auth, $func;
+    global $dsp;
 
     switch ($mode) {
         case masterform::OUTPUT_PROC:
@@ -251,7 +251,7 @@ function Addr1Input($field, $mode, $error = '')
 
 function Addr2Input($field, $mode, $error = '')
 {
-    global $dsp, $templ, $auth, $func;
+    global $dsp;
 
     switch ($mode) {
         case masterform::OUTPUT_PROC:

@@ -9,7 +9,7 @@ class UsrMgr
 {
     public function SendVerificationEmail($id)
     {
-        global $cfg, $db, $mail, $func, $framework, $CurentURL;
+        global $cfg, $db, $mail, $func;
     
         $verification_code = '';
         for ($x=0; $x<=24; $x++) {
@@ -70,11 +70,7 @@ class UsrMgr
     public function CheckPerso($code)
     {
         $perso_block = explode("<", $code);
-        $perso_citycode = substr($perso_block[0], 0, 4);
-        $perso_id = substr($perso_block[0], 4, 5);
         $perso_cs1 = substr($perso_block[0], 9, 1);
-        $perso_country = substr($perso_block[0], 10, 1);
-        $perso_birth = substr($perso_block[2], 0, 6);
         $perso_cs2 = substr($perso_block[2], 6, 1);
         $perso_expiration = substr($perso_block[3], 0, 6);
         $perso_cs3 = substr($perso_block[3], 6, 1);
@@ -135,7 +131,7 @@ class UsrMgr
 
     public function SendSignonMail($type = 0)
     {
-        global $cfg, $func, $templ, $dsp, $mail, $db, $auth;
+        global $cfg, $func, $mail, $db, $auth;
 
         switch ($type) {
       // Register-Mail

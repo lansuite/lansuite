@@ -29,7 +29,7 @@ if ($party->count == 0) {
     if ($_GET['user_id'] == $auth['userid'] or $auth['type'] >= 2) {
         function ChangeAllowed($id)
         {
-            global $db, $row, $lang, $func, $auth, $seat2;
+            global $db, $row, $func, $auth, $seat2;
 
       // Do not allow changes, if party is over
             if ($row['enddate'] < time()) {

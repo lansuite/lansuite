@@ -17,8 +17,6 @@ function IsAuthorizedAdmin()
 
 function getCheckin($checkin)
 {
-    global $dsp;
-  
     if ($checkin) {
         return "<img src='design/images/icon_yes.png' border='0' alt='Ja' />";
     } else {
@@ -28,8 +26,6 @@ function getCheckin($checkin)
 
 function GetTypeDescription($type)
 {
-    global $lang;
-
     switch ($type) {
         case -2:
             return t('Organisator (gesperrt)');
