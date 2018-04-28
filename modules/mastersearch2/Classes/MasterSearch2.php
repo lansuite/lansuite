@@ -940,7 +940,7 @@ class MasterSearch2
             switch ($this->isExport) {
                 case 'csv':
                     include("modules/install/class_export.php");
-                    $export = new Export();
+                    $export = new \Export();
 
                     $output = '';
                     $y = 0;
