@@ -123,16 +123,18 @@ class MasterSearch2
         $this->query['default_order_dir'] = '';
         $this->query['order_by_end'] = '';
 
-        if ($_GET['design'] != 'plain' and $_GET['msExport'] != '') {
+        if ($_GET['design'] != 'plain' && $_GET['msExport'] != '') {
             $this->isExport = $_GET['msExport'];
         }
 
-        // Write Get to Post, for MF expects this for default values
+        // Write $_GET to $_POST
+        // MasterForm expects this for default values
         if ($_GET['search_input']) {
             foreach ($_GET['search_input'] as $key => $val) {
                 $_POST['search_input'][$key] = $val;
             }
         }
+
         if ($_GET['search_dd_input']) {
             foreach ($_GET['search_dd_input'] as $key => $val) {
                 if (is_array($val)) {
@@ -150,20 +152,30 @@ class MasterSearch2
         $this->NoItemsText = t('Es wurden keine Einträge gefunden');
     }
 
+    /**
+     * @param string $sql_field
+     * @return void
+     */
     public function AddSelect($sql_field)
     {
-        $this->query['select'] .= $sql_field .', ';
+        $this->query['select'] .= $sql_field . ', ';
 
-        // cut of 'xxx as ', in front of alias name
+        // Cut of 'xxx as ' in front of alias name
         $first_as = strpos(strtolower($sql_field), ' as ');
         if ($first_as > 0) {
             $sql_field = substr($sql_field, $first_as + 4, strlen($sql_field));
         }
+
         if ($sql_field == $_GET['order_by']) {
             $this->orderByFieldFound = true;
         }
     }
 
+    /**
+     * @param string $sql_field
+     * @param array $color_list
+     * @return void
+     */
     public function AddBGColor($sql_field, $color_list)
     {
         $this->AddSelect($sql_field);
@@ -171,69 +183,118 @@ class MasterSearch2
         $this->bgcolor_attr = $sql_field;
     }
 
+    /**
+     * @param string $caption
+     * @param array $sql_fields
+     * @return void
+     */
     public function AddTextSearchField($caption, $sql_fields)
     {
-        $arr = array();
-        $arr['caption'] = $caption;
-        $arr['sql_fields'] = $sql_fields;
+        $arr = [
+            'caption' => $caption,
+            'sql_fields' => $sql_fields
+        ];
         array_push($this->search_fields, $arr);
     }
 
+    /**
+     * @param string $caption
+     * @param string $sql_field
+     * @param string $selections
+     * @param string $default
+     * @param int $multiple
+     * @return void
+     */
     public function AddTextSearchDropDown($caption, $sql_field, $selections, $default = '', $multiple = 0)
     {
-        $arr = array();
-        $arr['caption'] = $caption;
-        $arr['sql_field'] = $sql_field;
-        $arr['selections'] = $selections;
-        $arr['multiple'] = $multiple;
+        $arr = [
+            'caption' => $caption,
+            'sql_field' => $sql_field,
+            'selections' => $selections,
+            'multiple' => $multiple
+        ];
 
         $curr_pos = count($this->search_dropdown);
-        if ($default != '' and !isset($_GET["search_dd_input"][$curr_pos])) {
+        if ($default != '' && !isset($_GET["search_dd_input"][$curr_pos])) {
             $_GET["search_dd_input"][$curr_pos] = $default;
         }
 
         array_push($this->search_dropdown, $arr);
     }
 
+    /**
+     * @param string $caption
+     * @param string $sql_field
+     * @param string $callback
+     * @param int $max_char
+     * @param int $width
+     * @return void
+     */
     public function AddResultField($caption, $sql_field, $callback = '', $max_char = 0, $width = 0)
     {
-        $arr = array();
-        $arr['caption'] = $caption;
-        $arr['sql_field'] = $sql_field;
-        $arr['callback'] = $callback;
-        $arr['max_char'] = $max_char;
-        $arr['width'] = $width;
+        $arr = [
+            'caption' => $caption,
+            'sql_field' => $sql_field,
+            'callback' => $callback,
+            'max_char' => $max_char,
+            'width' => $width
+        ];
         array_push($this->result_field, $arr);
 
         $this->AddSelect($sql_field);
     }
 
+    /**
+     * @param string $icon_name
+     * @param string $link
+     * @param string $tooltipp
+     * @param string $callback
+     * @return void
+     */
     public function AddIconField($icon_name, $link = '', $tooltipp = '', $callback = '')
     {
-        $arr = array();
-        $arr['icon_name'] = $icon_name;
-        $arr['link'] = $link;
-        $arr['tooltipp'] = $tooltipp;
-        $arr['callback'] = $callback;
+        $arr = [
+            'icon_name' => $icon_name,
+            'link' => $link,
+            'tooltipp' => $tooltipp,
+            'callback' => $callback
+        ];
         array_push($this->icon_field, $arr);
     }
 
+    /**
+     * @param $caption
+     * @param $action
+     * @param int $security_question
+     * @param string $icon
+     * @return void
+     */
     public function AddMultiSelectAction($caption, $action, $security_question = 0, $icon = '')
     {
-        $arr = array();
-        $arr['caption'] = $caption;
-        $arr['action'] = $action;
-        $arr['security_question'] = $security_question;
-        $arr['icon'] = $icon;
+        $arr = [
+            'caption' => $caption,
+            'action' => $action,
+            'security_question' => $security_question,
+            'icon' => $icon
+        ];
         array_push($this->multi_select_action, $arr);
     }
 
+    /**
+     * @param string $name
+     * @param int $pages
+     * @return void
+     */
     public function SetTargetPage($name, $pages)
     {
         $this->TargetPageField = $name;
         $this->TargetPageCount = $pages;
     }
 
+    /**
+     * @param $working_link
+     * @param $select_id_field
+     */
     public function PrintSearch($working_link, $select_id_field)
     {
         global $smarty, $db, $config, $dsp, $func, $auth, $line, $framework;
@@ -248,7 +309,6 @@ class MasterSearch2
         $this->AddSelect($select_id_field);
 
         $this->query['from'] = str_replace('%prefix%', $config['database']['prefix'], $this->query['from']);
-
         if ($this->query['where'] == '') {
             $this->query['where'] = '1 = 1';
         }
@@ -267,53 +327,53 @@ class MasterSearch2
                             }
                             switch ($compare_mode) {
                                 case 'aton':
-                                                      $sql_one_search_field .= "($sql_field = INET6_ATON('". $_GET["search_input"][$z] ."'))";
+                                    $sql_one_search_field .= "($sql_field = INET6_ATON('". $_GET["search_input"][$z] ."'))";
                                     break;
                                 case 'exact':
-                                                      $sql_one_search_field .= "($sql_field = '". $_GET["search_input"][$z] ."')";
+                                    $sql_one_search_field .= "($sql_field = '". $_GET["search_input"][$z] ."')";
                                     break;
                                 case 'fulltext':
-                                                      $sql_one_search_field .= "(MATCH ($sql_field) AGAINST ('{$_GET["search_input"][$z]}' IN BOOLEAN MODE))";
-                                                      $this->AddResultField(t('Score'), "ROUND(MATCH ($sql_field) AGAINST ('{$_GET["search_input"][$z]}' IN BOOLEAN MODE), 3) AS score");
+                                    $sql_one_search_field .= "(MATCH ($sql_field) AGAINST ('{$_GET["search_input"][$z]}' IN BOOLEAN MODE))";
+                                    $this->AddResultField(t('Score'), "ROUND(MATCH ($sql_field) AGAINST ('{$_GET["search_input"][$z]}' IN BOOLEAN MODE), 3) AS score");
                                     break;
                                 case '1337':
-                                                      $key_1337 = $_GET["search_input"][$z];
-                                                      $key_1337 = str_replace('?', '[?]', $key_1337);
-                                                      $key_1337 = str_replace('+', '[+]', $key_1337);
-                                                      $key_1337 = str_replace('*', '[*]', $key_1337);
-                                                      $key_1337 = str_replace('.', '[.]', $key_1337);
-                                                      $key_1337 = str_replace('|', '[|]', $key_1337);
-                                                      $key_1337 = str_replace('[', '[[]', $key_1337);
+                                    $key_1337 = $_GET["search_input"][$z];
+                                    $key_1337 = str_replace('?', '[?]', $key_1337);
+                                    $key_1337 = str_replace('+', '[+]', $key_1337);
+                                    $key_1337 = str_replace('*', '[*]', $key_1337);
+                                    $key_1337 = str_replace('.', '[.]', $key_1337);
+                                    $key_1337 = str_replace('|', '[|]', $key_1337);
+                                    $key_1337 = str_replace('[', '[[]', $key_1337);
 
-                                                      $key_1337 = str_replace("o", "(o|0)", $key_1337);
-                                                      $key_1337 = str_replace("O", "(O|0)", $key_1337);
-                                                      $key_1337 = str_replace("l", "(l|1|\\\\||!)", $key_1337);
-                                                      $key_1337 = str_replace("L", "(L|1|\\\\||!)", $key_1337);
-                                                      $key_1337 = str_replace("i", "(i|1|\\\\||!)", $key_1337);
-                                                      $key_1337 = str_replace("I", "(I|1|\\\\||!)", $key_1337);
-                                                      $key_1337 = str_replace("e", "(e|3|€)", $key_1337);
-                                                      $key_1337 = str_replace("E", "(E|3|€)", $key_1337);
-                                                      $key_1337 = str_replace("t", "(t|7)", $key_1337);
-                                                      $key_1337 = str_replace("T", "(T|7)", $key_1337);
-                                                      $key_1337 = str_replace("a", "(a|@)", $key_1337);
-                                                      $key_1337 = str_replace("A", "(A|@)", $key_1337);
-                                                      $key_1337 = str_replace("s", "(s|5|$)", $key_1337);
-                                                      $key_1337 = str_replace("S", "(S|5|$)", $key_1337);
-                                                      $key_1337 = str_replace("z", "(z|2)", $key_1337);
-                                                      $key_1337 = str_replace("Z", "(Z|2)", $key_1337);
+                                    $key_1337 = str_replace("o", "(o|0)", $key_1337);
+                                    $key_1337 = str_replace("O", "(O|0)", $key_1337);
+                                    $key_1337 = str_replace("l", "(l|1|\\\\||!)", $key_1337);
+                                    $key_1337 = str_replace("L", "(L|1|\\\\||!)", $key_1337);
+                                    $key_1337 = str_replace("i", "(i|1|\\\\||!)", $key_1337);
+                                    $key_1337 = str_replace("I", "(I|1|\\\\||!)", $key_1337);
+                                    $key_1337 = str_replace("e", "(e|3|€)", $key_1337);
+                                    $key_1337 = str_replace("E", "(E|3|€)", $key_1337);
+                                    $key_1337 = str_replace("t", "(t|7)", $key_1337);
+                                    $key_1337 = str_replace("T", "(T|7)", $key_1337);
+                                    $key_1337 = str_replace("a", "(a|@)", $key_1337);
+                                    $key_1337 = str_replace("A", "(A|@)", $key_1337);
+                                    $key_1337 = str_replace("s", "(s|5|$)", $key_1337);
+                                    $key_1337 = str_replace("S", "(S|5|$)", $key_1337);
+                                    $key_1337 = str_replace("z", "(z|2)", $key_1337);
+                                    $key_1337 = str_replace("Z", "(Z|2)", $key_1337);
 
-                                                      $key_1337 = str_replace(']', '[[.right-square-bracket.]]', $key_1337);
-                                                      $sql_one_search_field .= "($sql_field REGEXP '$key_1337')";
+                                    $key_1337 = str_replace(']', '[[.right-square-bracket.]]', $key_1337);
+                                    $sql_one_search_field .= "($sql_field REGEXP '$key_1337')";
                                     break;
                                 case 'multiword':
-                                                      // Split at ' ' and use each term as correkt one
-                                                      $words = explode(' ', $_GET['search_input'][$z]);
-                                                      $sql_one_search_field .= "($sql_field LIKE '%";
-                                                      $sql_one_search_field .= implode("%') OR ($sql_field LIKE '%", $words);
-                                                      $sql_one_search_field .= "%')";
+                                    // Split at ' ' and use each term as correkt one
+                                    $words = explode(' ', $_GET['search_input'][$z]);
+                                    $sql_one_search_field .= "($sql_field LIKE '%";
+                                    $sql_one_search_field .= implode("%') OR ($sql_field LIKE '%", $words);
+                                    $sql_one_search_field .= "%')";
                                     break;
                                 default:
-                                                      $sql_one_search_field .= "($sql_field LIKE '%". $_GET["search_input"][$z] ."%')";
+                                    $sql_one_search_field .= "($sql_field LIKE '%". $_GET["search_input"][$z] ."%')";
                                     break;
                             }
                             $x++;
@@ -363,6 +423,7 @@ class MasterSearch2
                             }
                             $x++;
                         }
+
                         // If COUNT function is used in select, write this variable in the having statement, otherwise in the where statement
                         if (strpos($current_field_list['sql_field'], 'OUNT(') == 0) {
                             $this->query['where'] .= " AND ($sql_one_search_field)";
@@ -375,7 +436,7 @@ class MasterSearch2
             }
         }
 
-    ###### Modificate Having
+        // Modofy HAVING
         if ($this->query['having'] != '') {
             // Cut off trailing AND, if exists
             if (substr($this->query['having'], strlen($this->query['having']) - 5, 5) == ' AND ') {
@@ -385,28 +446,29 @@ class MasterSearch2
               $this->query['having'] = 'HAVING '.$this->query['having'];
         }
 
-    ###### Generate Select
+        // Generate SELECT
         $this->query['select'] = substr($this->query['select'], 0, strlen($this->query['select']) - 2);
 
-    ###### Generate Group By
+        // Generate GROUP BY
         $this->query['group_by'] .= $select_id_field;
 
-    ###### Generate Order By
+        // Generate ORDER BY
         if (strpos($_GET['order_by'], "\'") > 0) {
             $_GET['order_by'] = '';
-        } # Important for FIND_IN_SET ranking
+        }
 
-    // Is $_GET['order_by'] defined in select statement? if not set to default order by value
-        if ($_GET['order_by'] and !$this->orderByFieldFound) {
+        // Is $_GET['order_by'] defined in select statement?
+        // If not set to default order by value
+        if ($_GET['order_by'] && !$this->orderByFieldFound) {
             $func->information(t('Sortieren nach "%1" nicht möglich. Es wird statt dessen nach "%2" sortiert', $_GET['order_by'], $this->query['default_order_by']), NO_LINK);
             $_GET['order_by'] = '';
         }
 
-    // Order by user selection
+        // Order by user selection
         if ($_GET['order_by']) {
             $this->query['order_by'] = $_GET['order_by'];
 
-              // Order direction given by user?
+            // Order direction given by user?
             if ($_GET['order_dir']) {
                 if (strtolower($_GET['order_dir']) != 'desc') {
                     $_GET['order_dir'] = 'asc';
@@ -414,7 +476,7 @@ class MasterSearch2
                     $this->query['order_by'] .= ' '. $_GET['order_dir'];
                 }
 
-                // Get default order direction by sql-field type
+            // Get default order direction by sql-field type
             } else {
                 if (strpos($this->query['from'], ' ')) {
                     $FirstTable = substr($this->query['from'], 0, strpos($this->query['from'], ' '));
@@ -422,21 +484,21 @@ class MasterSearch2
                     $FirstTable = $this->query['from'];
                 }
         
-                    $res = $db->qry("DESCRIBE %plain%", $FirstTable);
+                $res = $db->qry("DESCRIBE %plain%", $FirstTable);
                 while ($row = $db->fetch_array($res)) {
                     $this->SQLFieldTypes[$row['Field']] = $row['Type'];
                 }
-                    $db->free_result($res);
+                $db->free_result($res);
         
                 if ($this->SQLFieldTypes[$this->query['order_by']] == 'datetime'
-                    or $this->SQLFieldTypes[$this->query['order_by']] == 'date'
-                    or $this->SQLFieldTypes[$this->query['order_by']] == 'time'
-                    or $this->SQLFieldTypes[$this->query['order_by']] == 'timestamp') {
+                    || $this->SQLFieldTypes[$this->query['order_by']] == 'date'
+                    || $this->SQLFieldTypes[$this->query['order_by']] == 'time'
+                    || $this->SQLFieldTypes[$this->query['order_by']] == 'timestamp') {
                     $this->query['order_by'] .= ' DESC';
                 }
             }
       
-            // Default order by (if non given per URL)
+        // Default order by (if non given per URL)
         } elseif ($this->query['default_order_by']) {
             $this->query['order_by'] = $this->query['default_order_by'];
             if ($this->query['default_order_dir']) {
@@ -450,16 +512,15 @@ class MasterSearch2
         if ($this->query['order_by_end']) {
             $this->query['order_by'] .= ', '. $this->query['order_by_end'];
         }
-
         if ($_GET['EntsPerPage'] != '') {
             $this->config['EntriesPerPage'] = $_GET['EntsPerPage'];
         }
 
-    ###### Generate Limit
-        if (!$this->config['EntriesPerPage'] or $this->isExport) {
+        // Generate Limit
+        if (!$this->config['EntriesPerPage'] || $this->isExport) {
             $this->query['limit'] = '';
         } else {
-            if ($_GET['ms_page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $this->ms_number)) {
+            if ($_GET['ms_page'] != '' && (!$_GET['ms_number'] || $_GET['ms_number'] == $this->ms_number)) {
                 $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
             } else {
                 $page_start = 0;
@@ -467,29 +528,26 @@ class MasterSearch2
             if ($page_start < 0) {
                 $page_start = 0;
             }
-                $this->query['limit'] = 'LIMIT '. (int)$page_start .', '. (int)$this->config['EntriesPerPage'];
+            $this->query['limit'] = 'LIMIT '. (int)$page_start .', '. (int)$this->config['EntriesPerPage'];
         }
-        
-    
-    ###### Execute SQL
+
+        // Execute SQL
         $res = $db->qry(
             '%plain%',
             "SELECT SQL_CALC_FOUND_ROWS {$this->query['select']}
-      FROM {$this->query['from']}
-      WHERE {$this->query['where']}
-      GROUP BY {$this->query['group_by']}
-      {$this->query['having']}
-      ORDER BY {$this->query['order_by']}
-      {$this->query['limit']}
-      "
-        );
+              FROM {$this->query['from']}
+              WHERE {$this->query['where']}
+              GROUP BY {$this->query['group_by']}
+              {$this->query['having']}
+              ORDER BY {$this->query['order_by']}
+              {$this->query['limit']}");
 
         $this->HiddenGetFields['order_by'] = $_GET['order_by'];
         $this->HiddenGetFields['order_dir'] = $_GET['order_dir'];
         $this->HiddenGetFields['EntsPerPage'] = $_GET['EntsPerPage'];
         $smarty->assign('action', $working_link);
 
-    ###### Generate Page-Links
+        // Generate Page-Links
         $count_rows = $db->qry_first('SELECT FOUND_ROWS() AS count');
         if ($this->config['EntriesPerPage'] > 0) {
             $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
@@ -505,12 +563,13 @@ class MasterSearch2
             $pages = t('Seite') .': ';
             $link_start = ' <a href="index.php?';
             $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
-      // Previous page link
+
+            // Previous page link
             if ((int)$_GET['ms_page'] > 0) {
                 $pages .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
             }
       
-      // First page link
+            // First page link
             if ($_GET['ms_page'] > 4) {
                 $pages .= $link_start . $link . '0' . $link_end .'<b>1</b></a> ... ';
                 $i = $_GET['ms_page'] - 3;
@@ -518,7 +577,7 @@ class MasterSearch2
                 $i = 0;
             }
 
-      // Direct page link
+            // Direct page link
             while ($i < $count_pages and $i < ($_GET['ms_page'] + 4)) {
                 if ($_GET['ms_page'] == $i) {
                     $pages .= (" " . ($i + 1));
@@ -528,7 +587,7 @@ class MasterSearch2
                       $i++;
             }
       
-      // Last page link
+            // Last page link
             if ($i < $count_pages) {
                 if ($i < $count_pages - 1) {
                     $pages .= ' ... ';
@@ -536,7 +595,7 @@ class MasterSearch2
                 $pages .= $link_start . $link . ($count_pages - 1) . $link_end .'<b>'. $count_pages .'</b></a>';
             }
       
-      // Next page link
+            // Next page link
             if (($_GET['ms_page'] + 1) < $count_pages) {
                 $pages .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
             }
@@ -567,8 +626,8 @@ class MasterSearch2
         $smarty->assign('EntPerPage', $this->config['EntriesPerPage']);
         $smarty->assign('pages', $pages);
 
-    ###### Output Search
-    // Text Inputs
+        // Output Search
+        // Text Inputs
         $SearchInputs = array();
         $z = 0;
         $x = 0;
@@ -598,7 +657,7 @@ class MasterSearch2
             }
         }
 
-    // Dropdown Inputs
+        // Dropdown Inputs
         $z = 0;
         if ($this->search_dropdown) {
             foreach ($this->search_dropdown as $current_field) {
@@ -625,7 +684,7 @@ class MasterSearch2
             }
         }
 
-    // If odd number of input fields, add the last one in a single row
+        // If odd number of input fields, add the last one in a single row
         if ($y == 1) {
             $SearchInputs[$x][$y]['type'] = 'space';
             $SearchInputs[$x][$y]['caption'] = '&nbsp;';
@@ -640,7 +699,7 @@ class MasterSearch2
             }
         }
 
-    // Hidden Fields for EntPerPage Box
+        // Hidden Fields for EntPerPage Box
         $this->HiddenGetFields = array();
         $UrlParas = explode('&', $_SERVER['QUERY_STRING']);
         foreach ($UrlParas as $UrlPara) {
@@ -653,24 +712,24 @@ class MasterSearch2
         }
         $smarty->assign('HiddenGetFields', $this->HiddenGetFields);
 
-    ###### Output Result
-    // When no Items were found
+        // Output Result
+        // When no Items were found
         if ($db->num_rows($res) == 0) {
             if ($this->NoItemsText) {
                 $func->information($this->NoItemsText, NO_LINK);
             }
         } else {
-              #### Generate Result Head
-              $head = array();
+            // Generate Result Head
+            $head = array();
 
-              // Checkbox Headline (Empty field)
+            // Checkbox Headline (Empty field)
             if (count($this->multi_select_action) > 0) {
                 $head[0]['width'] = '16';
                 $head[0]['entry'] = '&nbsp;';
                 $head[0]['type'] = 'input';
             }
 
-              // Normal headline
+            // Normal headline
             foreach ($this->result_field as $current_field) {
                 // Cut out AS
                 $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
@@ -678,22 +737,22 @@ class MasterSearch2
                     $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
                 }
 
-                  // Order Link and Image
-                    ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
-                    $order_dir = 'asc';
+                // Order Link and Image
+                ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
+                $order_dir = 'asc';
                 if ($_GET['order_by'] == $current_field['sql_field']) {
                     if ($this->SQLFieldTypes[$current_field['sql_field']] == 'datetime'
-                    or $this->SQLFieldTypes[$current_field['sql_field']] == 'date'
-                    or $this->SQLFieldTypes[$current_field['sql_field']] == 'time'
-                    or $this->SQLFieldTypes[$current_field['sql_field']] == 'timestamp') {
+                        || $this->SQLFieldTypes[$current_field['sql_field']] == 'date'
+                        || $this->SQLFieldTypes[$current_field['sql_field']] == 'time'
+                        || $this->SQLFieldTypes[$current_field['sql_field']] == 'timestamp') {
                         ($_GET['order_dir'] != 'asc')? $order_dir = 'asc' : $order_dir = 'desc';
                     } else {
                         ($_GET['order_dir'] != 'desc')? $order_dir = 'desc' : $order_dir = 'asc';
                     }
                 }
 
-                  // Generate Headlines
-                    $arr = array();
+                // Generate Headlines
+                $arr = array();
                 if ($current_field['caption']) {
                     $arr['entry'] = $current_field['caption'];
                     $arr['link'] = $_SERVER['QUERY_STRING'];
@@ -713,21 +772,21 @@ class MasterSearch2
                         }
                     }
                 }
-                    $head[] = $arr;
+                $head[] = $arr;
             }
 
-              #### Generate Result Body
-              $body = array();
-                $x = 0;
-                $maxIcons = 0;
-            while ($line = $db->fetch_array($res)) { // Start: Row
+            // Generate Result Body
+            $body = array();
+            $x = 0;
+            $maxIcons = 0;
+            while ($line = $db->fetch_array($res)) {
                 $y = 0;
 
                 if ($this->bgcolor_attr) {
                     $body[$x]['bgcolor'] = 'style="background-color:'. $this->bgcolors[$line[$this->bgcolor_attr]] .'" ';
                 }
 
-                // cut of 'table.', befor field name
+                // Cut of 'table.', befor field name
                 if (strpos($select_id_field, '.') > 0) {
                         $select_id_field = substr($select_id_field, strpos($select_id_field, '.') + 1, strlen($select_id_field));
                 }
@@ -743,8 +802,8 @@ class MasterSearch2
                 foreach ($this->result_field as $k => $current_field) {
                     $arr = array();
 
-                      // cut of 'table.', in front of field name
-                      $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
+                    // cut of 'table.', in front of field name
+                    $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
                     $first_dot = strpos($current_field['sql_field'], '.');
                     if ($first_as > 0) {
                         $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
@@ -752,19 +811,19 @@ class MasterSearch2
                         $current_field['sql_field'] = substr($current_field['sql_field'], $first_dot + 1, strlen($current_field['sql_field']));
                     }
 
-                      // Exec Callback
+                    // Exec Callback
                     if ($current_field['callback']) {
                           $arr['entry'] = call_user_func($current_field['callback'], $line[$current_field['sql_field']], $line[$select_id_field]);
                     } else {
                           $arr['entry'] = $line[$current_field['sql_field']];
                     }
 
-                      // Cut of oversize chars
+                    // Cut of oversize chars
                     if ($current_field['max_char'] and strlen($arr['entry']) > $current_field['max_char']) {
                           $arr['entry'] = substr($arr['entry'], 0, $current_field['max_char'] - 2) .'...';
                     }
 
-                      // Link first row to same target as first icon
+                    // Link first row to same target as first icon
                     if ($k == 0 and !$this->config['dont_link_first_line'] and $this->icon_field[0]['link']) {
                         if ($this->TargetPageCount) {
                             $TargetPage = floor($line[$this->TargetPageField] / $this->TargetPageCount);
@@ -782,18 +841,18 @@ class MasterSearch2
                         }
                     }
 
-                      // Width?
+                    // Width?
                     if ($current_field['width']) {
                           $arr['width'] = $current_field['width'];
                     }
 
-                      // Output from template
+                    // Output from template
                     if ($arr['entry'] == '') {
                           $arr['entry'] = '&nbsp;';
                     }
 
-                        $body[$x]['line'][$y] = $arr;
-                        $y++;
+                    $body[$x]['line'][$y] = $arr;
+                    $y++;
                 }
 
                 // Icon fields
@@ -833,14 +892,14 @@ class MasterSearch2
                     $maxIcons = $y;
                 }
                 $x++;
-            } // End: Row
+            }
       
-              $smarty->assign('maxIcons', $maxIcons);
-                $smarty->assign('head', $head);
-                $smarty->assign('body', $body);
+            $smarty->assign('maxIcons', $maxIcons);
+            $smarty->assign('head', $head);
+            $smarty->assign('body', $body);
 
-              // Multi-Select Dropdown
-              $MultiOptions = array();
+            // Multi-Select Dropdown
+            $MultiOptions = array();
             if (count($this->multi_select_action) > 0) {
                 $smarty->assign('MultiCaption', t('Bitte auswählen'));
                 $z = 0;
@@ -867,23 +926,23 @@ class MasterSearch2
                 $smarty->assign('security_questions', $security_questions);
                 $smarty->assign('MultiOptions', $MultiOptions);
             }
-                $db->free_result($res);
+            $db->free_result($res);
 
-                $smarty->assign('ms_number', $this->ms_number);
+            $smarty->assign('ms_number', $this->ms_number);
             if (!$this->isExport) {
                 $dsp->AddContentLine($smarty->fetch('modules/mastersearch2/templates/result_case.htm'));
             }
         }
 
-    // Generate Exports
+        // Generate Exports
         if ($this->isExport) {
             switch ($this->isExport) {
                 case 'csv':
-                        include("modules/install/class_export.php");
-                        $export = new Export();
+                    include("modules/install/class_export.php");
+                    $export = new Export();
 
-                        $output = '';
-                        $y = 0;
+                    $output = '';
+                    $y = 0;
                     foreach ($head as $field) {
                         if ($field['type'] != 'input' and $field['type'] != 'space') {
                             $y++;
@@ -898,8 +957,8 @@ class MasterSearch2
                     }
 
                     foreach ($body as $row) {
-                          $y = 0;
-                          $output .= "\n";
+                        $y = 0;
+                        $output .= "\n";
                         foreach ($row['line'] as $field) {
                             if ($field['type'] != 'input' and $field['type'] != 'space') {
                                 $y++;
@@ -914,8 +973,8 @@ class MasterSearch2
                         }
                     }
 
-                          $export->SendExport($output, 'lansuite-'. $_GET['mod'] .'.csv');
-                    break;
+                    $export->SendExport($output, 'lansuite-'. $_GET['mod'] .'.csv');
+                break;
             }
         }
     }
