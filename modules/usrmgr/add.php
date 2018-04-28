@@ -600,7 +600,6 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
         // Log in new user
         if (!$auth['login']) {
             $_POST['login'] = 1;
-            $_POST['email'] = $_POST['email'];
             $_POST['password'] = $_POST['password_original'];
             $auth = $authentication->login($_POST['email'], $_POST['password_original'], 0);
             initializeDesign();
