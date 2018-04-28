@@ -7,7 +7,7 @@ class stats
     // Constructor
     public function __construct()
     {
-        global $db, $auth, $cfg;
+        global $db, $cfg;
 
     // Try not to count search engine bots
     // Bad Examples:

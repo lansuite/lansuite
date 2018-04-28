@@ -179,7 +179,7 @@ class Export
 
     public function ExportMod($mod, $e_struct = null, $e_cont = null, $e_trans = null)
     {
-        global $xml, $db;
+        global $xml;
 
         if (is_dir("modules/$mod/mod_settings/")) {
             // Read DB-Names from db.xml
@@ -231,8 +231,6 @@ class Export
 
     public function SendExport($out, $name)
     {
-        global $func;
-
         header('Content-Type: application/octetstream; charset=utf-8');
         header("Content-Disposition: attachment; filename=\"$name\"");
         header('Content-Length: '. strlen($out));

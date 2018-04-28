@@ -6,7 +6,7 @@
  *
  *
  *	Maintainer: Joachim Garth <josch@one-network.org>
- *  Author: 	Marco Müller <marco@chuchi.tv>
+ *  Author: 	Marco Mï¿½ller <marco@chuchi.tv>
  */
 
 /* NOC CLASS -- Contains important functions
@@ -42,12 +42,10 @@ class noc
                 }
 
                 $IP = $tmp;
-                $MAC = $value;
 
-                if ($MAC = $SearchMAC) {
+                if ($value == $SearchMAC) {
                     break;
                 } else {
-                    unset($MAC);
                     unset($IP);
                 }
 
@@ -83,14 +81,14 @@ class noc
             $SNMPValue = $SNMPAnswer;
         } else {
             $tmp = strtok($SNMPAnswer, "=");
-            $tmp = strtok("=");
+            $tmp = strtok($tmp, "=");
 
             $SNMPValue = $tmp;
         }
         
         if (stristr($SNMPValue, "counter") || stristr($SNMPValue, "gauge") || stristr($SNMPValue, "string") || stristr($SNMPValue, "integer") ||  stristr($SNMPValue, "OID")) {
             $tmp = strtok($SNMPValue, ":");
-            $tmp = ltrim(strtok(":"));
+            $tmp = ltrim(strtok($tmp,":"));
 
             while ($tmp2 = strtok(":")) {
                 $tmp .= $tmp2;
@@ -101,7 +99,7 @@ class noc
 
         if (stristr($SNMPValue, "timeticks")) {
             $tmp = strtok($SNMPValue, "\)");
-            $tmp = ltrim(strtok("\)"));
+            $tmp = ltrim(strtok($tmp, "\)"));
         
             $SNMPValue = $tmp;
         }
@@ -139,13 +137,13 @@ class noc
         $ports = $this->getSNMPwalk($Device, $ReadComunity, ".1.3.6.1.2.1.17.4.3.1.2");
         $Addresses = $this->getSNMPwalk($Device, $ReadComunity, ".1.3.6.1.2.1.17.4.3.1.1");
 
-        //Umrechnung der Portnummer für 3Com
+        //Umrechnung der Portnummer fï¿½r 3Com
         if (stristr($modell, "3com")) {
             for ($i = 0; $i < count($ports); $i++) {
                 $ports[$i] = 100 + $ports[$i];
             }
         }
-        // Array mit Ports und Adressen zusammenfügen
+        // Array mit Ports und Adressen zusammenfï¿½gen
         for ($i = 0; $i < count($ports); $i++) {
             if ($data[$ports[$i]] == "") {
                 $data[$ports[$i]] = $Addresses[$i];
@@ -154,10 +152,10 @@ class noc
             }
         }
         
-        // Alle MAC-Addressen für den Switch neu Setzen
+        // Alle MAC-Addressen fï¿½r den Switch neu Setzen
     
         if (is_array($data)) {
-            // Alte Adressen löschen
+            // Alte Adressen lï¿½schen
             $db->qry("UPDATE %prefix%noc_ports SET mac='0' WHERE deviceid =%int%", $device_id);
             // Neue Adresse setzen
             foreach ($data as $key => $value) {
@@ -168,7 +166,7 @@ class noc
         
     public function IPtoMAC_arp($ip)
     {
-        global $db,$dsp,$lang,$func;
+        global $db, $dsp ,$func;
         // Host anpingen um seine MAC-Adresse in den Speicher zu laden.
         $func->ping($ip);
         if (stristr(strtolower($_SERVER['SERVER_SOFTWARE']), "win") == "") {

@@ -4,8 +4,6 @@ $ms2 = new mastersearch2();
 
 function TTStatus($status)
 {
-    global $lang;
-
     switch ($status) {
         default:
             return t('Überprüft am/um');

@@ -6,7 +6,6 @@ $dsp->NewContent(t('Papierkorb'), t('Du hast <b>%1</b> Mail(s) in ihrem Papierko
 
 function MailStatus($status)
 {
-    global $lang;
     if ($status == "new") {
         return t('Ungelesen');
     }

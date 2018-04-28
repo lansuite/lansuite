@@ -47,8 +47,7 @@ class Import
     // See: http://lansuite.orgapage.de/index.php?mod=bugtracker&bugid=1059
     #$this->xml_content = str_replace("''", "'", $this->xml_content);
 
-        ## Get Header-Tag
-        $header = "";
+        // Get Header-Tag
         $this->xml_content_lansuite = $xml->getFirstTagContent("LANsurfer", $this->xml_content, 0);
         if ($this->xml_content_lansuite) {
             $header = $xml->getFirstTagContent("LANsurfer_header", $this->xml_content_lansuite, 0);
@@ -661,13 +660,11 @@ class Import
                         $party->delete_user_from_party($id);
                     }
 
-                    $default_design = $config['lansuite']['default_design'];
                     $db->qry("INSERT INTO %prefix%usersettings SET userid=%int%", $id);
 
                     $userids[$email] = $id;
                 }
             } // foreach - $users_to_import
-            $confirmation .= HTML_NEWLINE . HTML_NEWLINE ."- User eintragen beendet";
         } // is array
         else {
             echo "FEHLER: USER NICHT EINGETRAGEN" .HTML_NEWLINE;
@@ -789,7 +786,7 @@ class Import
             }
 
             if (!$skip) {
-                $replace_user = $db->qry(
+                $db->qry(
                     "REPLACE INTO %prefix%user SET username = %string%, clan = %string%, firstname = %string%, name = %string%, email = %string%, paid = %int%,
   type = '1', signon = %string%, comment = %string%",
                     $user[0],

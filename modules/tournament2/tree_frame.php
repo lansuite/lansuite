@@ -140,7 +140,7 @@ elseif ($team_anz == 0) {
 
         function write_pairs2($bracket, $max_pos)
         {
-            global $auth, $templ, $func, $t, $width, $x_start, $height, $height_menu, $box_height, $box_width, $dsp, $db, $tournamentid, $akt_round, $max_round, $color, $team_anz, $dg, $img_height, $lang, $map, $tfunc;
+            global $auth, $templ, $func, $t, $x_start, $height, $height_menu, $box_height, $box_width, $db, $tournamentid, $akt_round, $max_round, $color, $dg, $img_height, $map, $tfunc;
   
             $dg++;
             if ($akt_round > 0) {
@@ -232,41 +232,12 @@ elseif ($team_anz == 0) {
                     } else {
                         $line_start = $ypos;
                     }
-  
-                        // Write Player1
-                    if (!$known_game1) {
-                          $t_color = $color["unknown"];
-                    } elseif ($spielerid1 == 0) {
-                        $t_color = $color["freilos"];
-                    } elseif ($score1 > $score2 and $known_game2) {
-                        $t_color = $color["winner"];
-                    } elseif ($score1 < $score2 and $known_game2) {
-                        $t_color = $color["loser"];
-                    } elseif ($spielerid2 == 0 and $known_game2) {
-                        $t_color = $color["winner"];
-                    } else {
-                        $t_color = $color["text"];
-                    }
-  
+
                         $templ['index']['info']['content'] .= "CreateText('". addslashes($spieler1) ."', ". ($xpos +4) .", ". ($ypos +11) .", '$link');";
                         $templ['index']['info']['content'] .= "CreateText('$score1', ". ($xpos + $box_width - 16) .", ". ($ypos +11) .", '$link');";
   
                         $templ['index']['info']['content'] .= "CreateText('vs', ". ($xpos + ($box_width / 2) - 10) .", ". ($ypos +23) .", '$link');";
-  
-                        // Write Player2
-                    if (!$known_game2) {
-                        $t_color = $color["unknown"];
-                    } elseif ($spielerid2 == 0) {
-                        $t_color = $color["freilos"];
-                    } elseif ($score1 < $score2 and $known_game1) {
-                        $t_color = $color["winner"];
-                    } elseif ($score1 > $score2 and $known_game1) {
-                        $t_color = $color["loser"];
-                    } elseif ($spielerid1 == 0 and $known_game1) {
-                        $t_color = $color["winner"];
-                    } else {
-                        $t_color = $color["text"];
-                    }
+
                         $templ['index']['info']['content'] .= "CreateText('". addslashes($spieler2) ."', ". ($xpos +4) .", ". ($ypos +36) .", '$link');";
                         $templ['index']['info']['content'] .= "CreateText('$score2', ". ($xpos + $box_width -16) .", ". ($ypos +36) .", '$link');";
   

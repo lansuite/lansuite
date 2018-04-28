@@ -4,7 +4,7 @@ $ms2 = new mastersearch2();
 
 function PWIcon($pw)
 {
-    global $dsp, $templ;
+    global $dsp;
   
     if ($pw) {
         return $dsp->FetchIcon('locked', '', t('Geschützt'));

@@ -1,7 +1,7 @@
 <?php
 function LastPostDetails($date)
 {
-    global $db, $line, $dsp, $templ, $cfg;
+    global $db, $line, $dsp, $cfg;
 
     if ($date) {
         $row = $db->qry_first("SELECT p.userid, p.pid, p.tid, u.username FROM %prefix%board_posts AS p
@@ -30,7 +30,7 @@ function LastPostDetails($date)
 
 function FormatTitle($title)
 {
-    global $dsp, $templ, $line, $func;
+    global $dsp, $line, $func;
   
     $icon = '';
     if ($line['closed']) {

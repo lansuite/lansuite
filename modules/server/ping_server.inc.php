@@ -20,7 +20,7 @@ function ping_server($host, $port)
         $available = $success;
 
         $special_info = "";
-        // Weitere Daten für FTPs herrausfinden
+        // Weitere Daten fï¿½r FTPs herrausfinden
         if (($success) && ($server_daten["type"] == "ftp")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
                 socket_set_blocking($fp, false);
@@ -85,7 +85,7 @@ function ping_server($host, $port)
         } // END: If Type=FTP
 
 
-        // Weitere Daten für IRCs herrausfinden
+        // Weitere Daten fï¿½r IRCs herrausfinden
         if (($success) && ($server_daten["type"] == "irc")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
                 socket_set_blocking($fp, false);
@@ -98,8 +98,6 @@ function ping_server($host, $port)
                 fputs($fp, "list\r\n");
             //Verabschieden
                 fputs($fp, "quit done\r\n");
-                $channel_num=0;
- 
                 $res = fread($fp, 1000);
 
             // Channel ausgeben

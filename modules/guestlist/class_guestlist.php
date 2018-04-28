@@ -8,7 +8,7 @@ class guestlist
 {
     public function SetPaid($userid, $partyid)
     {
-        global $db, $cfg, $func, $auth, $seat2, $usrmgr;
+        global $db, $cfg, $func, $seat2, $usrmgr;
 
         include_once("modules/mail/class_mail.php");
         $mail = new mail();
@@ -52,7 +52,7 @@ class guestlist
 
     public function SetNotPaid($userid, $partyid)
     {
-        global $db, $cfg, $func, $auth, $seat2, $usrmgr;
+        global $db, $cfg, $func, $seat2, $usrmgr;
 
         include_once("modules/mail/class_mail.php");
         $mail = new mail();
@@ -137,14 +137,14 @@ class guestlist
     
     public function SetExported($userid, $partyid)
     {
-        global $db, $func;
+        global $db;
         
         $db->qry('UPDATE %prefix%party_user SET exported = 1 WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
     }
     
     public function Export($userid, $partyid)
     {
-        global $db, $func;
+        global $db;
         
         $row = $db->qry_first('SELECT pu.user_id "user_id", u.username "username", u.firstname "firstname", u.name "secondname", c.name "clan"
 			FROM %prefix%party_user pu
