@@ -1,5 +1,7 @@
 <?php
 
+namespace LanSuite\Module\MasterSearch2;
+
 $ms_number = 0;
 class MasterSearch2
 {

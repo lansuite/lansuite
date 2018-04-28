@@ -35,7 +35,8 @@
             "LanSuite\\Validator\\": "inc/classes/Validator",
             "LanSuite\\Module\\Beamer\\": "modules/beamer/Classes/",
             "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/",
-            "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/"
+            "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/",
+            "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/"
         },
         "files": [
             "modules/mastersearch2/Functions/MS2GetDate.php",
