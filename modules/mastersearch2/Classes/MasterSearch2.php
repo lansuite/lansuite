@@ -549,11 +549,13 @@ class MasterSearch2
         $smarty->assign('action', $working_link);
 
         // Generate Page-Links
+        $count_pages = 0;
         $count_rows = $db->qry_first('SELECT FOUND_ROWS() AS count');
         if ($this->config['EntriesPerPage'] > 0) {
             $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
         }
 
+        $pages = '';
         if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {
             $framework->AddToPageTitle(t('Seite') .' '. ((int)$_GET['ms_page'] + 1));
 
@@ -713,6 +715,8 @@ class MasterSearch2
         }
         $smarty->assign('HiddenGetFields', $this->HiddenGetFields);
 
+        $head = [];
+        $body = [];
         // Output Result
         // When no Items were found
         if ($db->num_rows($res) == 0) {
@@ -721,8 +725,6 @@ class MasterSearch2
             }
         } else {
             // Generate Result Head
-            $head = array();
-
             // Checkbox Headline (Empty field)
             if (count($this->multi_select_action) > 0) {
                 $head[0]['width'] = '16';
@@ -777,7 +779,6 @@ class MasterSearch2
             }
 
             // Generate Result Body
-            $body = array();
             $x = 0;
             $maxIcons = 0;
             while ($line = $db->fetch_array($res)) {
@@ -882,7 +883,6 @@ class MasterSearch2
                         }
                         $arr['name'] = $current_field['icon_name'];
                         $arr['title'] = $current_field['tooltipp'];
-                        $displayed++;
 
                         $body[$x]['icons'][$y] = $arr;
                         $y++;
@@ -904,6 +904,8 @@ class MasterSearch2
             if (count($this->multi_select_action) > 0) {
                 $smarty->assign('MultiCaption', t('Bitte auswählen'));
                 $z = 0;
+                $multi_select_actions = '';
+                $security_questions = '';
                 foreach ($this->multi_select_action as $current_action) {
                     $arr = array();
                     if ($z == 0) {
