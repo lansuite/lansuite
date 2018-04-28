@@ -14,7 +14,7 @@
 *	Module: 			Install
 *	Author:				Genesis (marco@chuchi.tv)
 *	Last change: 		24.02.05
-*	Description: 		Klasse um update durchzuf�hren
+*	Description: 		Klasse um update durchzuführen
 *	Remarks:
 *
 **************************************************************************/

@@ -6,7 +6,7 @@
  *
  *
  *	Maintainer: Joachim Garth <josch@one-network.org>
- *  Author: 	Marco M�ller <marco@chuchi.tv>
+ *  Author: 	Marco Müller <marco@chuchi.tv>
  */
 
 /* NOC CLASS -- Contains important functions
@@ -137,13 +137,13 @@ class noc
         $ports = $this->getSNMPwalk($Device, $ReadComunity, ".1.3.6.1.2.1.17.4.3.1.2");
         $Addresses = $this->getSNMPwalk($Device, $ReadComunity, ".1.3.6.1.2.1.17.4.3.1.1");
 
-        //Umrechnung der Portnummer f�r 3Com
+        //Umrechnung der Portnummer für 3Com
         if (stristr($modell, "3com")) {
             for ($i = 0; $i < count($ports); $i++) {
                 $ports[$i] = 100 + $ports[$i];
             }
         }
-        // Array mit Ports und Adressen zusammenf�gen
+        // Array mit Ports und Adressen zusammenfügen
         for ($i = 0; $i < count($ports); $i++) {
             if ($data[$ports[$i]] == "") {
                 $data[$ports[$i]] = $Addresses[$i];
@@ -152,10 +152,10 @@ class noc
             }
         }
         
-        // Alle MAC-Addressen f�r den Switch neu Setzen
+        // Alle MAC-Addressen für den Switch neu Setzen
     
         if (is_array($data)) {
-            // Alte Adressen l�schen
+            // Alte Adressen löschen
             $db->qry("UPDATE %prefix%noc_ports SET mac='0' WHERE deviceid =%int%", $device_id);
             // Neue Adresse setzen
             foreach ($data as $key => $value) {
