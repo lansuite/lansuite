@@ -14,17 +14,16 @@ switch ($_GET['step']) {
 
 function eveningPriceIdLink($evening_price_id)
 {
-    global $dsp, $templ, $lang, $line;
+    global $dsp, $line;
   
     if ($evening_price_id == $line['price_id']) {
-        return $dsp->FetchIcon('', 'yes', t('Ja'));
+        return $dsp->FetchIcon('yes', '', t('Ja'));
     } else {
-        return $dsp->FetchIcon('index.php?mod=party&action=price&step=11&party_id='. $_GET['party_id'] .'&evening_price_id='. $line['price_id'], 'no', t('Nein'));
+        return $dsp->FetchIcon('no', 'index.php?mod=party&action=price&step=11&party_id=' . $_GET['party_id'] . '&evening_price_id=' . $line['price_id'], t('Nein'));
     }
 }
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2('party');
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('party');
 
 $ms2->query['from'] = "%prefix%partys AS party LEFT JOIN %prefix%party_prices AS p ON p.party_id = party.party_id";
 $ms2->query['default_order_by'] = 'p.price_text DESC';
@@ -58,4 +57,3 @@ $ms2->PrintSearch('index.php?mod=party&action=price&party_id='. $_GET['party_id'
 $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=price_edit'));
 
 $dsp->AddBackButton('index.php?mod=party');
-$dsp->AddContent();

@@ -27,7 +27,6 @@ if (!$cfg["equipment_shopid"]) {
         $dsp->NewContent(t('Bestellformular'), t('Hier kannst du Equipment für deine Party mieten.'));
         $dsp->AddSmartyTpl('style', 'equipment');
         $dsp->AddSingleRow(ob_get_contents());
-        $dsp->AddContent();
     }
 }
 ob_end_clean();

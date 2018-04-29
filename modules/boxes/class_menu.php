@@ -38,7 +38,7 @@ class menu
    */
     public function FetchItem($item)
     {
-        global $cfg, $func;
+        global $cfg;
 
         $item['caption'] = t($item['caption']);
         $item['hint'] = t($item['hint']);
@@ -47,10 +47,12 @@ class menu
         if ($item['caption'] == '--hr--') {
             switch ($item['level']) {
                 default:
-                    return $this->box->HRuleRow();
+                    $this->box->HRuleRow();
+                    return;
                 break;
                 case 1:
-                    return $this->box->HRuleEngagedRow();
+                    $this->box->HRuleEngagedRow();
+                    return;
                 break;
             }
         } else {
@@ -81,7 +83,7 @@ class menu
    */
     public function get_menu_items()
     {
-        global $cfg, $func, $auth, $db;
+        global $auth, $db;
 
         if (!$_GET['menu_group']) {
             $_GET['menu_group'] = 0;

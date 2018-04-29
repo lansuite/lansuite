@@ -1,11 +1,8 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 function TTStatus($status)
 {
-    global $lang;
-
     switch ($status) {
         default:
             return t('Überprüft am/um');

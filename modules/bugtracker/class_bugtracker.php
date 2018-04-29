@@ -4,7 +4,7 @@ class Bugtracker
     public $stati = array();
 
   // Constructor
-    public function Bugtracker()
+    public function __construct()
     {
         $this->stati[0] = t('Neu');
         $this->stati[1] = t('Bestätigt');

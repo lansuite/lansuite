@@ -12,7 +12,7 @@ class team
     // To Check if one can still signon to a tournament
     public function SignonCheck($tid)
     {
-        global $db, $func, $lang;
+        global $db, $func;
 
         if ($tid == "") {
             $func->error(t('Du musst zuerst ein Turnier auswählen!'));
@@ -24,7 +24,6 @@ class team
         if ($t["teamplayer"] == 1 or $t["blind_draw"]) {
             $c_teams = $db->qry_first("SELECT COUNT(*) AS teams FROM %prefix%t2_teams WHERE tournamentid = %int%", $tid);
             $completed_teams = $c_teams["teams"];
-            $waiting_teams = 0;
         } else {
             $waiting_teams = 0;
             $completed_teams = 0;
@@ -65,7 +64,7 @@ class team
     // To Check if a user may signon to a tournament
     public function SignonCheckUser($tid, $userid)
     {
-        global $db, $lang, $func, $party, $cfg, $seat2;
+        global $db, $func, $party, $cfg, $seat2;
 
         $t = $db->qry_first("SELECT groupid, maxteams, over18, status, coins FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tid);
         $user = $db->qry_first("SELECT p.paid, u.username
@@ -142,7 +141,7 @@ class team
     // To join an existing Team
     public function join($teamid, $userid, $password = null)
     {
-        global $db, $auth, $lang, $func, $mail;
+        global $db, $auth, $func, $mail;
 
         if ($teamid == "") {
             $func->error(t('Du hast kein Team ausgeählt!'));
@@ -194,7 +193,7 @@ class team
     // To create a new Team
     public function create($tournamentid, $leaderid, $name = null, $password = null, $comment = null, $banner = null)
     {
-        global $db, $auth, $lang, $func;
+        global $db, $auth, $func;
 
         if ($this->SignonCheck($tournamentid) and $this->SignonCheckUser($tournamentid, $leaderid)) {
             $t = $db->qry_first("SELECT name, teamplayer, maxteams FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
@@ -237,7 +236,7 @@ class team
                     $user = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $leaderid);
                     $name = $func->escape_sql($user["username"]);
                 }
-                $query = $db->qry("INSERT INTO %prefix%t2_teams 
+                $db->qry("INSERT INTO %prefix%t2_teams 
      SET tournamentid = %int%,
      name = %string%,
      leaderid = %int%,
@@ -259,7 +258,7 @@ class team
     // Edits the details of a team
     public function edit($teamid, $name = null, $password = null, $comment = null, $banner = null)
     {
-        global $db, $auth, $lang, $func;
+        global $db, $auth, $func;
 
         $t = $db->qry_first("SELECT t.name, t.teamplayer FROM %prefix%tournament_tournaments AS t
    LEFT JOIN %prefix%t2_teams AS team ON t.tournamentid = team.tournamentid
@@ -297,7 +296,7 @@ class team
     // Deletes a whole team
     public function delete($teamid)
     {
-        global $db, $lang, $func, $mail;
+        global $db, $func, $mail;
 
         if ($teamid == "") {
             $func->error(t('Du hast kein Team ausgeählt!'));
@@ -336,7 +335,7 @@ class team
     // Kicks one player out of the team
     public function kick($teamid, $userid)
     {
-        global $db, $lang, $func, $mail;
+        global $db, $func, $mail;
 
         if ($teamid == "") {
             $func->error(t('Du hast kein Team ausgeählt!'));
@@ -375,7 +374,7 @@ class team
     // To set new League IDs
     public function UpdateLeagueIDs($userid, $wwclid = null, $wwclclanid = null, $nglid = null, $nglclanid = null, $lgzid = null, $lgzclanid = null)
     {
-        global $db, $auth;
+        global $db;
 
         if ($wwclid != "") {
             $db->qry('UPDATE %prefix%user SET wwclid = %string% WHERE userid = %int%', $wwclid, $userid);

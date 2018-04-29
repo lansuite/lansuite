@@ -73,5 +73,3 @@ if ($where_back) {
     WHERE DATE_FORMAT(time, %string%) = %string%", $where_back, $where, $_GET['timeframe']);
     $dsp->AddBackButton('index.php?mod=stats&action=usage&time='. $back .'&timeframe='. $row_back['back_time'], "stats/usage");
 }
-
-$dsp->AddContent();

@@ -4,7 +4,7 @@ include_once("modules/seating/class_seat.php");
 $seat2 = new seat2();
 
 include_once("modules/pdf/class_fpdf.php");
-$barcode     = new barcode_system();  // Load Barcode System
+$barcode     = new \LanSuite\BarcodeSystem();  // Load Barcode System
 
 /**
  * Klasse um die Menus und die PDF-Dateien im Modul PDF  zu erzeugen.
@@ -108,7 +108,7 @@ class pdf
      * @param int $templ_id
      * @return pdf
      */
-    public function pdf($templ_id)
+    public function __construct($templ_id)
     {
         $this->templ_id = $templ_id;
         // Typen Array erstellen
@@ -305,7 +305,6 @@ class pdf
         // Knopf f�r erzeugen der PDF
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/usercards");
-        $dsp->AddContent();
     }
     
 
@@ -348,7 +347,6 @@ class pdf
             // Knopf f�r erzeugen der PDF
             $dsp->AddFormSubmitRow(t('Weiter'));
             $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/seatcards");
-            $dsp->AddContent();
         }
     }
     
@@ -400,7 +398,6 @@ class pdf
         $dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/userlist");
-        $dsp->AddContent();
     }
 
     // Erzeugung der PDF-Dateien ***********************************

@@ -3,7 +3,7 @@
 switch ($_GET['step']) {
   // Delete
     case 10:
-        $md = new masterdelete();
+        $md = new \LanSuite\MasterDelete();
         $md->MultiDelete('cron', 'jobid');
         break;
 
@@ -17,8 +17,7 @@ switch ($_GET['step']) {
         break;
   
     default:
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('cron2');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('cron2');
 
         $ms2->query['from'] = "%prefix%cron AS c";
 
@@ -36,5 +35,3 @@ switch ($_GET['step']) {
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=cron2&action=add'));
         break;
 }
-
-$dsp->AddContent();

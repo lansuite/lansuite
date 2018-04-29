@@ -68,13 +68,6 @@ function create_csv_file($file, $data)
     //remove the last comma from string
         $csv=substr($csv, 0, -1);
 
-    //check for existence of file
-        if (file_exists($file) && is_writeable($file)) {
-            $mode="a";
-        } else {
-            $mode="w";
-        }
-
     //create file pointer
         $fp=fopen($file, "a");
 
@@ -208,7 +201,6 @@ switch ($_GET['step']) {
 									<input type=\"hidden\" name=\"donation\" value=\"" . $_POST['donation'] . "\">");
             $dsp->AddFormSubmitRow(t('Weiter'));
             $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
-            $dsp->AddContent();
         }
             
             
@@ -254,8 +246,7 @@ switch ($_GET['step']) {
 					<input type=\"hidden\" name=\"item_number\" value=\"$item_number\">
 					<input type=\"hidden\" name=\"amount\" value=\"{$_POST['price_text']}\">");
         $dsp->CloseForm();
-        $dsp->AddContent();
-            
+
         break;
 
     case 3:
@@ -290,7 +281,6 @@ switch ($_GET['step']) {
             $dsp->AddDoubleRow(t('Zahlungsnummer'), $_POST['txn_id']);
             $dsp->AddDoubleRow(t('Zahlungsdatum'), $_POST['payment_date']);
             $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
-            $dsp->AddContent();
         } else {
             $dsp->NewContent(t('Transaktionsfehler oder unerlaubter Zugriff'));
             $dsp->AddSmartyTpl('javascript', 'paypal');
@@ -301,7 +291,6 @@ switch ($_GET['step']) {
             $dsp->AddDoubleRow(t('Zahlungsnummer'), $_POST['txn_id']);
             $dsp->AddDoubleRow(t('Zahlungsdatum'), $_POST['payment_date']);
             $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
-            $dsp->AddContent();
         }
         break;
         
@@ -320,8 +309,7 @@ switch ($_GET['step']) {
         $dsp->NewContent(t('Fehler'));
         $dsp->AddSingleRow(t('Die Transaktion konnte nicht durchgef&uuml;hrt werden.'));
         $dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
-        $dsp->AddContent();
-        
+
         break;
 }
     

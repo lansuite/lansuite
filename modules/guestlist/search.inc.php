@@ -1,6 +1,5 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 if ($func->isModActive('seating')) {
     include_once("modules/seating/class_seat.php");
@@ -16,19 +15,19 @@ function SeatNameLink($userid)
 
 function PaidIconLink($paid)
 {
-    global $dsp, $templ, $line, $auth;
+    global $dsp, $line, $auth;
 
     if ($auth['type'] > 1) {
         if ($paid) {
-            return $dsp->FetchIcon('index.php?mod=guestlist&step=11&userid='. $line['userid'], 'paid', t('Bezahlt'));
+            return $dsp->FetchIcon('paid', 'index.php?mod=guestlist&step=11&userid=' . $line['userid'], t('Bezahlt'));
         } else {
-            return $dsp->FetchIcon('index.php?mod=guestlist&step=10&userid='. $line['userid'], 'not_paid', t('Nicht bezahlt'));
+            return $dsp->FetchIcon('not_paid', 'index.php?mod=guestlist&step=10&userid=' . $line['userid'], t('Nicht bezahlt'));
         }
     } else {
         if ($paid) {
-            return $dsp->FetchIcon('', 'paid', t('Bezahlt'));
+            return $dsp->FetchIcon('paid', '', t('Bezahlt'));
         } else {
-            return $dsp->FetchIcon('', 'not_paid', t('Nicht bezahlt'));
+            return $dsp->FetchIcon('not_paid', '', t('Nicht bezahlt'));
         }
     }
 }

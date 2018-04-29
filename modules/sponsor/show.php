@@ -49,4 +49,3 @@ $out .= "</table>";
 
 $dsp->AddSingleRow($out);
 $dsp->AddBackButton("index.php?mod=sponsor", "sponsor/show");
-$dsp->AddContent();

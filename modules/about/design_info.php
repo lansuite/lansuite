@@ -1,5 +1,5 @@
 <?php
-$xml = new xml();
+$xml = new \LanSuite\XML();
 
 $xml_file = @fopen("design/" . $auth["design"] . "/design.xml", "r");
 $xml_content = @fread($xml_file, filesize("design/".$auth["design"]."/design.xml"));
@@ -15,4 +15,3 @@ $dsp->AddDoubleRow("Kontakt", $xml->get_tag_content("contact", $xml_content));
 $dsp->AddDoubleRow("Website", $xml->get_tag_content("website", $xml_content));
 $dsp->AddDoubleRow("Kommentar", $xml->get_tag_content("comments", $xml_content));
 $dsp->AddBackButton("index.php?mod=about", "about/design");
-$dsp->AddContent();

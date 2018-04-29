@@ -6,7 +6,7 @@ class Clan
   // Create new clan
     public function Add($name, $userid, $url = '', $password = '')
     {
-        global $db, $func, $lang;
+        global $db;
 
         if ($name == '') {
             return false;
@@ -57,7 +57,7 @@ class Clan
   //Check Clan Passwort
     public function CheckClanPW($clanid, $clanpw)
     {
-        global $db, $auth;
+        global $db;
 
         $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $clanid);
         if ($clan['password'] and $clan['password'] == md5($clanpw)) {

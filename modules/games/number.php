@@ -57,8 +57,7 @@ switch ($step) {
     case 3:
         $dsp->AddSingleRow(t('Highscoreliste'));
 
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('games');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('games');
 
         //Anzeige der Aufgaben
         $ms2->query['from'] = "%prefix%game_hs AS g";
@@ -120,7 +119,7 @@ switch ($step) {
             $dsp->AddSingleRow(t('Hier kannst du dich in die Highscoreliste eintragen'));
             $dsp->AddDoubleRow(t('Versuche'), $score);
             $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "", "", "", $auth['login']);
-            $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", FIELD_OPTIONAL);
+            $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", \LanSuite\MasterForm::FIELD_OPTIONAL);
             
             $dsp->AddFormSubmitRow(t('Weiter'));
 
@@ -128,5 +127,3 @@ switch ($step) {
         }
         break;
 }
-
-$dsp->AddContent();

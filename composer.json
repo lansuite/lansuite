@@ -31,25 +31,26 @@
         "ext-snmp": "Required to use the \"Network Operation Center\" module."
     },
     "autoload": {
-        "classmap": [
-            "inc/classes/class.crypt.php",
-            "inc/classes/class_auth.php",
-            "inc/classes/class_barcode.php",
-            "inc/classes/class_barcode_system.php",
-            "inc/classes/class_db_mysql.php",
-            "inc/classes/class_debug.php",
-            "inc/classes/class_display.php",
-            "inc/classes/class_framework.php",
-            "inc/classes/class_func.php",
-            "inc/classes/class_gd.php",
-            "inc/classes/class_mastercomment.php",
-            "inc/classes/class_masterdelete.php",
-            "inc/classes/class_masterform.php",
-            "inc/classes/class_masterrate.php",
-            "inc/classes/class_plugin.php",
-            "inc/classes/class_sec.php",
-            "inc/classes/class_translation.php",
-            "inc/classes/class_xml.php"
+        "psr-4": {
+            "LanSuite\\Module\\Beamer\\": "modules/beamer/Classes/",
+            "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/",
+            "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/",
+            "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
+            "LanSuite\\": "inc/Classes"
+        },
+        "files": [
+            "inc/Functions/T.php",
+            "inc/Functions/FetchDataRow.php",
+            "inc/Functions/FetchPostRow.php",
+            "inc/Functions/MasterCommentEditAllowed.php",
+            "inc/Functions/CheckValidEmail.php",
+            "inc/Functions/Debug.php",
+            "inc/Functions/DependencyPreCheck.php",
+            "modules/mastersearch2/Functions/MS2GetDate.php",
+            "modules/mastersearch2/Functions/MS2GetTime.php",
+            "modules/mastersearch2/Functions/Text2LSCode.php",
+            "modules/mastersearch2/Functions/TrueFalse.php",
+            "modules/mastersearch2/Functions/UserNameAndIcon.php"
         ]
     }
 }

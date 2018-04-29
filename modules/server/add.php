@@ -62,7 +62,7 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
 } else {
     $dsp->NewContent(t('Server'), t('Hinzufügen und Aendern der Server'));
 
-    $mf = new masterform();
+    $mf = new \LanSuite\MasterForm();
 
     if (!$_GET['serverid']) {
         if ($auth['type'] > 1) {
@@ -82,7 +82,7 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
             $party_list[$res['party_id']] = $res['name'];
         }
         $db->free_result($row);
-        $mf->AddField(t('Party'), 'party_id', IS_SELECTION, $party_list, $party->party_id);
+        $mf->AddField(t('Party'), 'party_id', \LanSuite\MasterForm::IS_SELECTION, $party_list, $party->party_id);
     }
 
     $selections = array();
@@ -92,7 +92,7 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     $selections['web'] = t('Web Server');
     $selections['proxy'] = t('Proxy Server');
     $selections['misc'] = t('Sonstiger Server');
-    $mf->AddField(t('Servertyp'), 'type', IS_SELECTION, $selections, FIELD_OPTIONAL);
+    $mf->AddField(t('Servertyp'), 'type', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
   
 
     if ($cfg['server_ip_auto_assign']) {
@@ -102,13 +102,13 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     }
   
     $mf->AddField(t('Port'), 'port', '', '', '', 'CheckPort');
-    $mf->AddField(t('MAC-Adresse'), 'mac', '', '', FIELD_OPTIONAL, 'CheckMAC');
-    $mf->AddField(t('Betriebssystem'), 'os', '', '', FIELD_OPTIONAL);
-    $mf->AddField(t('CPU (MHz)'), 'cpu', '', '', FIELD_OPTIONAL);
-    $mf->AddField(t('RAM (MB)'), 'ram', '', '', FIELD_OPTIONA);
-    $mf->AddField(t('HDD (GB)'), 'hdd', '', '', FIELD_OPTIONA);
-    $mf->AddField(t('Passwort geschützt'), 'pw', '', '', FIELD_OPTIONA);
-    $mf->AddField(t('Beschreibung'), 'text', '', LSCODE_ALLOWED, FIELD_OPTIONA);
+    $mf->AddField(t('MAC-Adresse'), 'mac', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckMAC');
+    $mf->AddField(t('Betriebssystem'), 'os', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+    $mf->AddField(t('CPU (MHz)'), 'cpu', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+    $mf->AddField(t('RAM (MB)'), 'ram', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+    $mf->AddField(t('HDD (GB)'), 'hdd', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+    $mf->AddField(t('Passwort geschützt'), 'pw', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+    $mf->AddField(t('Beschreibung'), 'text', '', \LanSuite\MasterForm::LSCODE_ALLOWED, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
     if ($mf->SendForm('index.php?mod=server&action=add', 'server', 'serverid', $_GET['serverid'])) {
         // Increase auto IP

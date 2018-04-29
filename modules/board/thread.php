@@ -99,11 +99,11 @@ if (!$thread and $tid) {
     $buttons = '';
     if ($auth["type"] > 1) {
         if ($thread['closed']) {
-            $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=thread&step=11&tid=$tid", "unlocked");
+            $buttons .= ' '. $dsp->FetchIcon("unlocked", "index.php?mod=board&action=thread&step=11&tid=$tid");
         } else {
-            $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=thread&step=10&tid=$tid", "locked");
+            $buttons .= ' '. $dsp->FetchIcon("locked", "index.php?mod=board&action=thread&step=10&tid=$tid");
         }
-        $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=delete&tid=$tid", "delete");
+        $buttons .= ' '. $dsp->FetchIcon("delete", "index.php?mod=board&action=delete&tid=$tid");
     }
 
     $query = $db->qry("SELECT pid, comment, userid, UNIX_TIMESTAMP(date) AS date, INET6_NTOA(ip) AS ip, file FROM %prefix%board_posts WHERE tid=%int% ORDER BY date", $tid);
@@ -170,12 +170,12 @@ if (!$thread and $tid) {
 
         $edit = '';
         if ($auth['type'] > 1) {
-            $edit .= $dsp->FetchIcon("index.php?mod=board&action=delete&pid=$pid&posts_page=".$_GET['posts_page'], "delete", '', '', 'right');
+            $edit .= $dsp->FetchIcon("delete", "index.php?mod=board&action=delete&pid=$pid&posts_page=" . $_GET['posts_page'], '', '', 'right');
         }
         if ($auth['type'] > 1 or $row["userid"] == $auth["userid"]) {
-            $edit .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&posts_page=".$_GET['posts_page'], "edit", '', '', 'right');
+            $edit .= $dsp->FetchIcon("edit", "index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&posts_page=" . $_GET['posts_page'], '', '', 'right');
         }
-        $edit .= $dsp->FetchIcon("javascript:InsertCode(document.dsp_form1.comment, '[quote]". str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["comment"]))) ."[/quote]')", "quote", '', '', 'right');
+        $edit .= $dsp->FetchIcon("quote", "javascript:InsertCode(document.dsp_form1.comment, '[quote]" . str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["comment"]))) . "[/quote]')", '', '', 'right');
         ;
         $smarty->assign('edit', $edit);
 
@@ -192,7 +192,6 @@ if (!$thread and $tid) {
     $_SESSION['threadview'] = $tid;
 
     $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
-    $dsp->AddContent();
 }
 
 if ($thread['closed']) {
@@ -217,13 +216,13 @@ if ($thread['closed']) {
         $dsp->AddFieldsetStart(t('Thread erstellen'));
     }
 
-    $mf = new masterform();
+    $mf = new \LanSuite\MasterForm();
   
     if ($thread['caption'] == '') {
         $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
     }
-    $mf->AddField(t('Text'), 'comment', '', LSCODE_BIG);
-    $mf->AddField(t('Bild / Datei anhängen'), 'file', IS_FILE_UPLOAD, 'ext_inc/board_upload/', FIELD_OPTIONAL);
+    $mf->AddField(t('Text'), 'comment', '', \LanSuite\MasterForm::LSCODE_BIG);
+    $mf->AddField(t('Bild / Datei anhängen'), 'file', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/board_upload/', \LanSuite\MasterForm::FIELD_OPTIONAL);
   
     $mf->AddFix('tid', $_GET['tid']);
     if ($_GET['pid'] == '') {
@@ -337,4 +336,3 @@ if ($thread['caption'] != '') {
 }
 
 $dsp->AddBackButton("index.php?mod=board&action=forum&fid=$fid", "board/show_post");
-$dsp->AddContent();

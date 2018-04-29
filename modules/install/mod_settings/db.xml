@@ -211,7 +211,7 @@
             </field>
             <field>
                 <name>cfg_type</name>
-                <type>varchar(16)</type>
+                <type>varchar(50)</type>
                 <null></null>
                 <key></key>
                 <default>integer</default>
@@ -268,7 +268,7 @@
             </field>
             <field>
                 <name>cfg_key</name>
-                <type>char(16)</type>
+                <type>varchar(50)</type>
                 <null></null>
                 <key>IND</key>
                 <default></default>

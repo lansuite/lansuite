@@ -7,9 +7,13 @@ $usrmgr = new UsrMgr();
 
 class UsrMgr
 {
+    /**
+     * @param int $id User ID
+     * @return int
+     */
     public function SendVerificationEmail($id)
     {
-        global $cfg, $db, $mail, $func, $framework, $CurentURL;
+        global $cfg, $db, $mail, $func;
     
         $verification_code = '';
         for ($x=0; $x<=24; $x++) {
@@ -46,6 +50,10 @@ class UsrMgr
         return 1;
     }
 
+    /**
+     * @param int $userid User ID
+     * @return void
+     */
     public function LockAccount($userid)
     {
         global $db;
@@ -54,6 +62,10 @@ class UsrMgr
         $db->qry('DELETE FROM %prefix%stats_auth WHERE userid=%int%', $userid);
     }
 
+    /**
+     * @param int $userid User ID
+     * @return void
+     */
     public function UnlockAccount($userid)
     {
         global $db;
@@ -61,20 +73,22 @@ class UsrMgr
         $db->qry("UPDATE %prefix%user SET locked = 0 WHERE userid=%int%", $userid);
     }
 
+    /**
+     * @return int
+     */
     public function GeneratePassword()
     {
         return rand(10000, 99999);
     }
 
-
+    /**
+     * @param string $code
+     * @return int          1 = OK, 2 = Wrong length, 3 = Checksum error, 4 = Expired
+     */
     public function CheckPerso($code)
     {
         $perso_block = explode("<", $code);
-        $perso_citycode = substr($perso_block[0], 0, 4);
-        $perso_id = substr($perso_block[0], 4, 5);
         $perso_cs1 = substr($perso_block[0], 9, 1);
-        $perso_country = substr($perso_block[0], 10, 1);
-        $perso_birth = substr($perso_block[2], 0, 6);
         $perso_cs2 = substr($perso_block[2], 6, 1);
         $perso_expiration = substr($perso_block[3], 0, 6);
         $perso_cs3 = substr($perso_block[3], 6, 1);
@@ -125,20 +139,18 @@ class UsrMgr
             }
         }
         return 1;
-        // Return Values:
-        // 1 = OK
-        // 2 = Wrong length
-        // 3 = Checksum error
-        // 4 = Expired
     }
 
-
+    /**
+     * @param int $type
+     * @return bool
+     */
     public function SendSignonMail($type = 0)
     {
-        global $cfg, $func, $templ, $dsp, $mail, $db, $auth;
+        global $cfg, $func, $mail, $db, $auth;
 
         switch ($type) {
-      // Register-Mail
+            // Register-Mail
             default:
                     $message = $cfg["signon_signonemail_text_register"];
 
@@ -162,7 +174,7 @@ class UsrMgr
                 }
                 break;
 
-      // Signon-Mail
+            // Signon-Mail
             case 1:
                 if ($_POST['InsertControll'.$_GET[mf_id]]) {
                     $message = $cfg["signon_signonemail_text"];
@@ -199,11 +211,14 @@ class UsrMgr
         }
     }
 
+    /**
+     * @return bool
+     */
     public function WriteXMLStatFile()
     {
         global $cfg, $db, $config;
 
-        $xml = new xml();
+        $xml = new \LanSuite\XML();
         $output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
 
         $system = $xml->write_tag('version', $config['lansuite']['version'], 2);

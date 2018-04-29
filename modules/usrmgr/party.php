@@ -6,6 +6,9 @@ $usrmgr = new UsrMgr();
 include_once("modules/seating/class_seat.php");
 $seat2 = new seat2();
 
+/**
+ * @return bool
+ */
 function PartyMail()
 {
     global $usrmgr, $func, $mail, $auth;
@@ -29,24 +32,24 @@ if ($party->count == 0) {
     if ($_GET['user_id'] == $auth['userid'] or $auth['type'] >= 2) {
         function ChangeAllowed($id)
         {
-            global $db, $row, $lang, $func, $auth, $seat2;
+            global $db, $row, $func, $auth, $seat2;
 
-      // Do not allow changes, if party is over
+            // Do not allow changes, if party is over
             if ($row['enddate'] < time()) {
                 return t('Du kannst dich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist');
             }
 
-      // Signon started?
+            // Signon started?
             if ($row['sstartdate'] > time()) {
                 return t('Die Anmeldung öffnet am'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['sstartdate'], 'daydatetime'). '</strong>';
             }
 
-      // Signon ended?
+            // Signon ended?
             if ($row['senddate'] < time() and $auth['type'] < 2) {
                 return t('Die Anmeldung ist beendet seit'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['senddate'], 'daydatetime'). '</strong>';
             }
 
-      // Do not allow changes, if user has paid
+            // Do not allow changes, if user has paid
             if ($auth['type'] <= 1) {
                 $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
                 if ($row2['paid']!= 0) {
@@ -54,7 +57,7 @@ if ($party->count == 0) {
                 }
             }
 
-      // Check age
+            // Check age
             if (isset($_POST['InsertControll1']) && $_POST['InsertControll1']) {
                 $res = $db->qry("SELECT %prefix%partys.minage FROM %prefix%user, %prefix%partys
                             WHERE %prefix%partys.party_id = %int%
@@ -78,27 +81,26 @@ if ($party->count == 0) {
             return false;
         }
 
-
-    // Show Upcomming
+        // Show Upcomming
         $MFID = 1;
 
         $res = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys WHERE UNIX_TIMESTAMP(enddate) >= UNIX_TIMESTAMP(NOW()) ORDER BY startdate");
         while ($row = $db->fetch_array($res)) {
             if ($_GET['mf_step'] != 2 or $row['party_id'] == $_GET['party_id']) {
                 $dsp->AddFieldsetStart($row['name'] .' ('. $func->unixstamp2date($row['startdate'], 'datetime') .' - '. $func->unixstamp2date($row['enddate'], 'datetime') .')');
-                $mf = new masterform($MFID);
+                $mf = new \LanSuite\MasterForm($MFID);
                 $mf->AdditionalKey = 'party_id = '. $row['party_id'];
 
-        // Signon
+                // Signon
                 $mf->AddInsertControllField = t('Angemeldet').'|'.t('Wenn dieses Häckchen gesetzt ist, bist du zu dieser Party angemeldet');
                 $mf->AddChangeCondition = 'ChangeAllowed';
 
-        // Paid
+                // Paid
                 if ($auth['type'] >= 2) {
                     $selections = array();
                     $selections['0'] = t('Nicht bezahlt');
                     $selections['1'] = t('Bezahlt');
-                    $mf->AddField(t('Bezahltstatus'), 'paid', IS_SELECTION, $selections);
+                    $mf->AddField(t('Bezahltstatus'), 'paid', \LanSuite\MasterForm::IS_SELECTION, $selections);
                 } elseif ($cfg['signon_autopaid']) {
                     $mf->AddFix('paid', '1');
                 }
@@ -107,16 +109,16 @@ if ($party->count == 0) {
                     $mf->AddFix('paiddate', 'NOW()');
                 }
 
-        // Prices
+                // Prices
                 $selections = array();
                 $res2 = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND requirement <= %string%", $row['party_id'], $auth['type']);
                 while ($row2 = $db->fetch_array($res2)) {
                     $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']&nbsp;&nbsp;'.t('Gültig bis : ').date_format(date_create($row2['enddate']), 'd.m.Y');
                 }
                 if ($selections) {
-                    $mf->AddField(t('Eintrittspreis'), 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
+                    $mf->AddField(t('Eintrittspreis'), 'price_id', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
                 } else {
-                    $mf->AddField(t('Eintrittspreis'), 'price_id', IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
+                    $mf->AddField(t('Eintrittspreis'), 'price_id', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
                 }
                 $db->free_result($res2);
 
@@ -124,18 +126,10 @@ if ($party->count == 0) {
                     $mf->AddFix('checkin', 'NOW()');
                 }
 
-        #if ($auth['type'] >= 2) {
-          //$mf->AddField('Seatcontrol', 'seatcontrol', IS_TEXT_MESSAGE, '', FIELD_OPTIONAL);
-          #$mf->AddField(t('Bezahltdatum'), 'paiddate', '', '', FIELD_OPTIONAL);
-          #$mf->AddField(t('Eingecheckt'), 'checkin', '', '', FIELD_OPTIONAL);
-          #$mf->AddField(t('Ausgecheckt'), 'checkout', '', '', FIELD_OPTIONAL);
-          #$mf->AddField(t('Anmeldedatum'), 'signondate', '', '', FIELD_OPTIONAL);
-        #}
-        #else
                 $mf->AddFix('signondate', 'NOW()');
 
                 if ($auth['type'] >= 2) {
-                    $mf->AddField(t('Mail versenden?') .'|'. t('Den Benutzer per Mail über die Änderung informieren'), 'sendmail', 'tinyint(1)', '', FIELD_OPTIONAL);
+                    $mf->AddField(t('Mail versenden?') .'|'. t('Den Benutzer per Mail über die Änderung informieren'), 'sendmail', 'tinyint(1)', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
                 }
                 $mf->SendButtonText = 'An-/Abmelden';
 
@@ -143,15 +137,13 @@ if ($party->count == 0) {
                 $mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&party_id='. $row['party_id'], 'party_user', 'user_id', $_GET['user_id']);
                 $dsp->AddFieldsetEnd();
             } else {
-                // Fucking bad Bugfix. $mf_number is a Globalvar in Masterform
-                $mf_number++;
+                $mf->IncrementNumber();
             }
             $MFID++;
         }
         $db->free_result($res);
 
-
-    // ShowHistory
+        // ShowHistory
         $dsp->AddFieldsetStart(t('Vergangene Partys'));
         $res = $db->qry("SELECT
           p.*
@@ -201,5 +193,4 @@ if ($party->count == 0) {
     }
 
     $dsp->AddBackButton('index.php?mod='. $_GET['mod']);
-    $dsp->AddContent();
 }

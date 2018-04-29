@@ -85,6 +85,5 @@ switch ($_GET["step"]) {
 
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install", "install/ls_conf");
-        $dsp->AddContent();
         break;
 }

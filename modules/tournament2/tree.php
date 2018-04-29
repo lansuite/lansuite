@@ -65,8 +65,18 @@ if (!$_GET['tournamentid']) {
                     $dsp->SetForm("index.php?mod=tournament2&action=tree&step=2&tournamentid=". $_GET['tournamentid']);
                     $dsp->AddDropDownFieldRow("group", t('Gruppenauswahl'), $t_array, "");
                     $dsp->AddFormSubmitRow(t('Weiter'));
+
                 } else {
-                    $dsp->AddSingleRow('<iframe src="index.php?mod=tournament2&action=tree_frame&design=popup&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'" width="100%" height="'. (int)$height .'" style="width:100%; min-width:600px;"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'">Tree</a></iframe>');
+                    // If specific games of a group was chosen
+                    // pass this to the tree frame, otherwise keep it at the final games
+                    $groupQueryParam = '';
+                    $groupID = (int) $_POST['group'];
+                    if ($groupID > 0) {
+                        $groupQueryParam = '&group='. $groupID;
+                    }
+
+                    $iFrameURL = 'index.php?mod=tournament2&action=tree_frame&design=popup&tournamentid='. (int) $_GET['tournamentid'] . $groupQueryParam;
+                    $dsp->AddSingleRow('<iframe src="' . $iFrameURL . '" width="100%" height="'. (int)$height .'" style="width:100%; min-width:600px;"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'">Tree</a></iframe>');
                 }
 
               /*
@@ -92,7 +102,6 @@ if (!$_GET['tournamentid']) {
                 } else {
                     $dsp->AddBackButton("index.php?mod=tournament2&action=tree&step=1", "tournament2/games");
                 }
-                  $dsp->AddContent();
             }
     } // Switch
 }

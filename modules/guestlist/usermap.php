@@ -170,4 +170,3 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
     $db->free_result($res);
 }
-$dsp->AddContent();

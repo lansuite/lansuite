@@ -76,7 +76,7 @@ switch ($_GET['step']) {
             }
             $func->confirmation(t('Checkin wurde durchgeführt'));
             if ($func->isModActive('foodcenter')) {
-                $dsp->AddSingleRow(t('Zahlung vornehmen'). ': '.$dsp->AddIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid='.$_GET['userid']));
+                $dsp->AddSingleRow(t('Zahlung vornehmen'). ': '.$dsp->FetchIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=' . $_GET['userid']));
             }
         }
         break;
@@ -95,7 +95,7 @@ switch ($_GET['step']) {
             }
             $func->confirmation(t('Checkout wurde durchgeführt'));
             if ($func->isModActive('foodcenter')) {
-                $dsp->AddSingleRow(t('Zahlung vornehmen') .': '.$dsp->AddIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid='.$_GET['userid']));
+                $dsp->AddSingleRow(t('Zahlung vornehmen') .': '.$dsp->FetchIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=' . $_GET['userid']));
             }
         }
         break;

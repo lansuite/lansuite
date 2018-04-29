@@ -44,7 +44,6 @@ if ($auth['userid']) {
   
     function MailStatus($status)
     {
-        global $lang;
         if ($status == "new") {
             return t('Ungelesen');
         }
@@ -60,9 +59,7 @@ if ($auth['userid']) {
     $mail_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active'", $auth['userid']);
     $dsp->NewContent(t('Posteingang'), t('Du hast <b>%1</b> Mail(s) empfangen. Davon sind <b>%2</b> ungelesen.', array($mail_total['n'], $mail_new_total['n'])));
     
-  
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2();
+    $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
     $ms2->query['from'] = "%prefix%mail_messages AS m LEFT JOIN %prefix%user AS u ON m.FromUserID = u.userid";
     $ms2->query['where'] = "m.toUserID = '{$auth['userid']}' AND m.mail_status = 'active'";

@@ -117,7 +117,7 @@ if (!$cfg['download_use_ftp']) {
 
           // URL Upload Box
             $dsp->AddFieldSetStart(t('URL verlinken'));
-            $mf = new masterform();
+            $mf = new \LanSuite\MasterForm();
             $mf->AddField(t('URL'), 'link');
             $mf->AddFix('dir', $_GET['dir']);
             $mf->SendForm('index.php?mod=downloads&dir='. $_GET['dir'], 'download_urls', 'urlid', $row['urlid']);
@@ -126,16 +126,16 @@ if (!$cfg['download_use_ftp']) {
 
         // Comments
         if ($_GET['mf_step'] != 2 or $_GET['step'] != 10) {
-              new Mastercomment('downloads', $row['dirid']);
+              new \LanSuite\MasterComment('downloads', $row['dirid']);
         }
 
         // Admin functions for dir
         if ($auth['type'] >= 2 and ($_GET['mf_step'] != 2 or $_GET['step'] == 10)) {
             $dsp->AddFieldSetStart(t('Ordner Text und Einstellungen editieren'));
-            $mf = new masterform();
+            $mf = new \LanSuite\MasterForm();
 
-            $mf->AddField(t('Text'), 'text', '', LSCODE_BIG, FIELD_OPTIONAL);
-            $mf->AddField(t('Benutzer-Upload erlauben?'), 'allow_upload', '', '', FIELD_OPTIONAL);
+            $mf->AddField(t('Text'), 'text', '', \LanSuite\MasterForm::LSCODE_BIG, \LanSuite\MasterForm::FIELD_OPTIONAL);
+            $mf->AddField(t('Benutzer-Upload erlauben?'), 'allow_upload', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
             if (!$_GET['dirid']) {
                 $mf->AddFix('name', $_GET['dir']);
                 $mf->AddFix('userid', $auth['userid']);
@@ -145,8 +145,6 @@ if (!$cfg['download_use_ftp']) {
             $dsp->AddFieldSetEnd();
         }
     }
-    $dsp->AddContent();
-
 
 // Try to connect to FTP-Server
 } elseif (!extension_loaded(ftp)) {
@@ -279,9 +277,8 @@ if (!$cfg['download_use_ftp']) {
             $dsp->AddSingleRow('<a href="index.php?mod=downloads&action=show&go_dir=up"><img src="design/'. $auth['design'] .'/images/downloads_goup.gif" border="0"></a> '. $dir .'/');
         }
         $dsp->AddTableRow($table);
-        $dsp->AddContent();
 
-        $quit = ftp_quit($connect);
+        ftp_quit($connect);
 
         $debugFTP[] = "FTP> Quit connection " . $connect. HTML_NEWLINE;
     } else {

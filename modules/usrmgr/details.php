@@ -3,6 +3,9 @@
 include_once("modules/usrmgr/class_usrmgr.php");
 $usrmgr = new UsrMgr;
 
+/**
+ * @return bool
+ */
 function IsAuthorizedAdmin()
 {
     global $auth, $user_data, $link;
@@ -15,10 +18,12 @@ function IsAuthorizedAdmin()
     }
 }
 
+/**
+ * @param boolean $checkin
+ * @return string
+ */
 function getCheckin($checkin)
 {
-    global $dsp;
-  
     if ($checkin) {
         return "<img src='design/images/icon_yes.png' border='0' alt='Ja' />";
     } else {
@@ -26,10 +31,12 @@ function getCheckin($checkin)
     }
 }
 
+/**
+ * @param int $type
+ * @return string
+ */
 function GetTypeDescription($type)
 {
-    global $lang;
-
     switch ($type) {
         case -2:
             return t('Organisator (gesperrt)');
@@ -52,14 +59,12 @@ function GetTypeDescription($type)
     }
 }
 
-//Get Barcode if exists and translate to userid
+// Get Barcode if exists and translate to userid
 if ($_POST['barcodefield']) {
     $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
     $_GET['userid']=$row['userid'];
 }
 
-// Select from table_user
-// username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment
 $user_data = $db->qry_first(
     "SELECT u.*, g.*, UNIX_TIMESTAMP(u.birthday) AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, u.avatar_path, u.signature, clan.name AS clan, clan.url AS clanurl, UNIX_TIMESTAMP(lastlogin) AS lastlogin
     FROM %prefix%user AS u
@@ -91,7 +96,7 @@ if (!$user_data['userid']) {
 
     $dsp->StartTab(t('Spieler'), 'assign');
 
-  // First name, last name, username, user ID
+    // First name, last name, username, user ID
     $name = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
     if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['userid'] == $_GET['userid']) {
         if ($user_data['firstname']) {
@@ -106,34 +111,34 @@ if (!$user_data['userid']) {
     }
     $name .= '['. $user_data['userid'] .']</td><td align="right">&nbsp;';
     if (IsAuthorizedAdmin()) {
-        ($user_data['locked'])? $name .= ' '. $dsp->AddIcon('locked', 'index.php?mod=usrmgr&step=11&userid='. $_GET['userid'], t('Account freigeben'))
-        : $name .= ' '. $dsp->AddIcon('unlocked', 'index.php?mod=usrmgr&step=10&userid='. $_GET['userid'], t('Account sperren'));
+        ($user_data['locked'])? $name .= ' '. $dsp->FetchIcon('locked', 'index.php?mod=usrmgr&step=11&userid=' . $_GET['userid'], t('Account freigeben'))
+        : $name .= ' '. $dsp->FetchIcon('unlocked', 'index.php?mod=usrmgr&step=10&userid=' . $_GET['userid'], t('Account sperren'));
     }
     if (IsAuthorizedAdmin()) {
-        $name .= ' '. $dsp->AddIcon('assign', 'index.php?mod=auth&action=switch_to&userid='. $_GET['userid'], t('Benutzer wechseln'));
+        $name .= ' '. $dsp->FetchIcon('assign', 'index.php?mod=auth&action=switch_to&userid=' . $_GET['userid'], t('Benutzer wechseln'));
     }
     if ($_GET['userid'] == $auth['userid']) {
-        $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', t('Passwort ändern'));
+        $name .= ' '. $dsp->FetchIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', t('Passwort ändern'));
     } elseif (IsAuthorizedAdmin()) {
-        $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid='. $_GET['userid'], t('Passwort ändern'));
+        $name .= ' '. $dsp->FetchIcon('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=' . $_GET['userid'], t('Passwort ändern'));
     }
     if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'])) { # and $cfg['user_self_details_change']
-        $name .= ' '. $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid='. $_GET['userid'], t('Editieren'));
+        $name .= ' '. $dsp->FetchIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=' . $_GET['userid'], t('Editieren'));
     }
     if ($auth['type'] >= 3) {
-        $name .= ' '. $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid='. $_GET['userid'], t('Löschen'));
+        $name .= ' '. $dsp->FetchIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=' . $_GET['userid'], t('Löschen'));
     }
     $name .= '</td></tr></table>';
     $dsp->AddDoubleRow(t('Benutzername'), $name);
 
-  // User group
+    // User group
     if (!$user_data['group_name']) {
         $dsp->AddDoubleRow(t('Benutzergruppe'), t('Keiner Gruppe zugeordnet'));
     } else {
         $dsp->AddDoubleRow(t('Benutzergruppe'), $user_data['group_name'] .' ['. $user_data['group_id'] .']');
     }
 
-  // Clan
+    // Clan
     if ($cfg['signon_show_clan']) {
         $clan = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
         $clan .= '<a href="index.php?mod=clanmgr&step=2&clanid='.$user_data["clanid"].'">'.$user_data["clan"].'</a>';
@@ -145,14 +150,14 @@ if (!$user_data['userid']) {
         }
         $clan .= '</td><td align="right">&nbsp;';
         if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or ($user_data['clanid'] == $auth['clanid'] and $user_data['clanadmin'] == 1))) {
-            $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=clanmgr&action=clanmgr&step=10&clanid='. $user_data['clanid'], t('Passwort ändern')) .
-            $dsp->AddIcon('edit', 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $user_data['clanid'], t('Editieren'));
+            $clan .= $dsp->FetchIcon('change_pw', 'index.php?mod=clanmgr&action=clanmgr&step=10&clanid=' . $user_data['clanid'], t('Passwort ändern')) .
+            $dsp->FetchIcon('edit', 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid=' . $user_data['clanid'], t('Editieren'));
         }
         $clan .= '</td></tr></table>';
         $dsp->AddDoubleRow(t('Clan'), $clan);
     }
 
-  // Party Checkin, paid, ...
+    // Party Checkin, paid, ...
     if ($party->count > 0) {
         $clan = '<table width="100%"><tr><td>';
         $party_row = '';
@@ -163,7 +168,7 @@ if (!$user_data['userid']) {
             : $link = 'index.php?mod=guestlist&step=10&userid='. $_GET['userid'];
         }
         // Paid
-        ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link, t('Nicht bezahlt'));
+        ($user_party['paid'])? $party_row .= ', '. $dsp->FetchIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->FetchIcon('not_paid', $link, t('Nicht bezahlt'));
         if ($user_party['price_text']) {
             $party_row .= ' ['. $user_party['price_text'] .']';
         }
@@ -178,9 +183,9 @@ if (!$user_data['userid']) {
             $link = 'index.php?mod=guestlist&step=20&userid='. $_GET['userid'];
         }
         if ($user_party['checkin']) {
-            $party_row .= ' '. $dsp->AddIcon('in', $link, t('Eingecheckt')) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
+            $party_row .= ' '. $dsp->FetchIcon('in', $link, t('Eingecheckt')) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
         } else {
-            $party_row .= ' '.$dsp->AddIcon('not_in', $link, t('Nicht eingecheckt'));
+            $party_row .= ' '.$dsp->FetchIcon('not_in', $link, t('Nicht eingecheckt'));
         }
 
           $link = '';
@@ -188,19 +193,19 @@ if (!$user_data['userid']) {
             $link = 'index.php?mod=guestlist&step=21&userid='. $_GET['userid'];
         }
         if ($user_party['checkout']) {
-            $party_row .= ' '. $dsp->AddIcon('out', $link, t('Ausgecheckt')) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
+            $party_row .= ' '. $dsp->FetchIcon('out', $link, t('Ausgecheckt')) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
         } else {
-            $party_row .= ' '.$dsp->AddIcon('not_out', $link, t('Nicht ausgecheckt'));
+            $party_row .= ' '.$dsp->FetchIcon('not_out', $link, t('Nicht ausgecheckt'));
         }
 
         if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) {
-            $party_row .= $dsp->AddIcon('delete', 'index.php?mod=guestlist&step=22&userid='. $_GET['userid'], 'Reset Checkin');
+            $party_row .= $dsp->FetchIcon('delete', 'index.php?mod=guestlist&step=22&userid=' . $_GET['userid'], 'Reset Checkin');
         }
 
           $dsp->AddDoubleRow("Party '<i>". $_SESSION['party_info']['name'] ."</i>'", $party_row);
     }
 
-  // Seating
+    // Seating
     if ($func->isModActive('seating')) {
         include_once("modules/seating/class_seat.php");
         $seat2 = new seat2();
@@ -211,11 +216,11 @@ if (!$user_data['userid']) {
         } else {
             $seat = $seat2->SeatOfUser($_GET['userid'], 0, 2);
             if (IsAuthorizedAdmin()) {
-                $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=seatadmin&step=20&blockid={$user_data_seating['block']}&row={$user_data_seating['row']}&col={$user_data_seating['col']}&userid={$user_data['userid']}", t('Löschen'));
+                $seat .= ' '. $dsp->FetchIcon('delete', "index.php?mod=seating&action=seatadmin&step=20&blockid={$user_data_seating['block']}&row={$user_data_seating['row']}&col={$user_data_seating['col']}&userid={$user_data['userid']}", t('Löschen'));
             }
         }
         if (IsAuthorizedAdmin()) {
-            $seat .= ' '. $dsp->AddIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid='. $_GET['userid'], t('Editieren'));
+            $seat .= ' '. $dsp->FetchIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid=' . $_GET['userid'], t('Editieren'));
         }
         if ($cfg['sys_internet'] == 0 and $user_data_seating['ip']) {
             $seat .= ' IP:'. $user_data_seating['ip'];
@@ -223,7 +228,7 @@ if (!$user_data['userid']) {
           $dsp->AddDoubleRow(t('Sitzplatz'), $seat);
     }
 
-  //kontostand
+    // Kontostand
     if ($func->isModActive('foodcenter')) {
         $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int%", $_GET['userid']);
         if ($result['total'] == "") {
@@ -233,12 +238,12 @@ if (!$user_data['userid']) {
         }
 
           $kontostand = round($amount, 2) . " " . $cfg['sys_currency'];
-          $kontostand .= ', '. t('Zahlung vornehmen') .': '.$dsp->AddIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid='.$_GET['userid']);
+          $kontostand .= ', '. t('Zahlung vornehmen') .': '.$dsp->FetchIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=' . $_GET['userid']);
           $dsp->AddDoubleRow(t('Aktueller Kontobetrag:'), $kontostand);
     }
 
     $dsp->AddFieldsetStart(t('Kontakt'));
-  // Address
+    // Address
     $address = '';
     if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
         $address .= $user_data['street'] .' '. $user_data['hnr'] .', ';
@@ -250,33 +255,32 @@ if (!$user_data['userid']) {
         $dsp->AddDoubleRow(t('Adresse'), $address);
     }
 
-  // Phone
+    // Phone
     $phone = '';
     if ($user_data['telefon'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) {
-        $phone .= $dsp->AddIcon('phone', '', 'Phone'). ' '. $user_data['telefon'] . ' ';
+        $phone .= $dsp->FetchIcon('phone', '', 'Phone'). ' '. $user_data['telefon'] . ' ';
     }
     if ($user_data['handy'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) {
-        $phone .= $dsp->AddIcon('cellphone', '', 'Handy'). ' '. $user_data['handy'] . ' ';
+        $phone .= $dsp->FetchIcon('cellphone', '', 'Handy'). ' '. $user_data['handy'] . ' ';
     }
     $dsp->AddDoubleRow(t('Telefon'), $phone);
 
-  // Mail
+    // Mail
     $mail = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
     if ((!$cfg['sys_internet'] and $cfg['user_showmail4all']) or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']) {
         $mail .= '<a href="mailto:'. $user_data['email'] .'">'. $user_data['email'] .'</a> ';
     }
     $mail .= '[Newsletter-Abo:';
-    ($user_data['newsletter']) ? $mail .= $dsp->AddIcon('yes') : $mail .= $dsp->AddIcon('no');
+    ($user_data['newsletter']) ? $mail .= $dsp->FetchIcon('yes', '') : $mail .= $dsp->FetchIcon('no', '');
     $mail .= ']';
     $mail .= '</td><td align="right">&nbsp;';
     if ($auth['login'] and $func->isModActive('mail')) {
-        $mail .= $dsp->AddIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID='. $_GET['userid'], t('LANSuite-Mail an den User senden')) .' ';
+        $mail .= $dsp->FetchIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=' . $_GET['userid'], t('LANSuite-Mail an den User senden')) .' ';
     }
     $mail .= '</td></tr></table>';
     $dsp->AddDoubleRow(t('Email'), $mail);
-    
 
-  // Messenger
+    // Messenger
     $messenger = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
     if ($user_data['icq']) {
         if ($cfg['sys_internet']) {
@@ -299,9 +303,9 @@ if (!$user_data['userid']) {
         }
     }
     $messenger .= '</td><td align="right">&nbsp;';
-    (in_array($_GET['userid'], $authentication->online_users))? $messenger .= $dsp->AddIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->AddIcon('no', '', t('Benutzer ist Offline'));
+    (in_array($_GET['userid'], $authentication->online_users))? $messenger .= $dsp->FetchIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->FetchIcon('no', '', t('Benutzer ist Offline'));
     if ($auth['login'] and $func->isModActive('msgsys')) {
-        $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], t('Den User zu deiner Buddyliste hinzufügen')) .' ';
+        $messenger .= $dsp->FetchIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid=' . $_GET['userid'], t('Den User zu deiner Buddyliste hinzufügen')) .' ';
     }
     $messenger .= '</td></tr></table>';
     $dsp->AddDoubleRow('Messenger', $messenger);
@@ -309,35 +313,35 @@ if (!$user_data['userid']) {
 
     $dsp->AddFieldsetStart(t('Verschiedenes'));
 
-  // User-Type
+    // User-Type
     $dsp->AddDoubleRow(t('Benutzertyp'), GetTypeDescription($user_data['type']));
 
-  // Perso
+    // Perso
     if ($user_data['perso'] and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
         $dsp->AddDoubleRow(t('Passnummer / Sonstiges'), $user_data['perso'] .'<br>'. t('Hinweis: Die Angaben zu Straße und Passnummer sind nur für dich und die Organisatoren sichtbar.'));
     }
 
-  // Birthday
+    // Birthday
     if ($cfg['sys_internet'] == 0 or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']) {
         $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], 'date') .' ('. $user_data['age']  .')' : t('Nicht angegeben'));
     }
 
-  // Gender
+    // Gender
     $geschlecht[0] = t('Nicht angegeben');
     $geschlecht[1] = t('Männlich');
     $geschlecht[2] = t('Weiblich');
     $dsp->AddDoubleRow(t('Geschlecht'), $geschlecht[$user_data['sex']]);
 
-  // Picture
+    // Picture
     if ($func->chk_img_path($user_data['picture'])) {
         $dsp->AddDoubleRow(t('Benutzerbild'), '<img src="'. $user_data['picture'] .'">');
     }
 
-  // Comment
+    // Comment
     $dsp->AddDoubleRow(t('Kommentar'), ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
     $dsp->AddFieldsetEnd();
   
-    $plugin = new plugin('usrmgr_details_main');
+    $plugin = new \LanSuite\Plugin('usrmgr_details_main');
     while (list($caption, $inc) = $plugin->fetch()) {
         $dsp->AddFieldsetStart($caption);
         include_once($inc);
@@ -349,13 +353,12 @@ if (!$user_data['userid']) {
     $dsp->AddFieldsetStart(t('In Kommentaren'));
     switch ($_GET['step']) {
         case 10:
-            $md = new masterdelete();
+            $md = new \LanSuite\MasterDelete();
             $md->MultiDelete('comments_bookmark', 'bid');
             break;
     }
 
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2();
+    $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
     $ms2->query['from'] = "%prefix%comments_bookmark AS b";
     $ms2->query['where'] = 'b.userid = '. (int)$_GET['userid'];
@@ -376,7 +379,7 @@ if (!$user_data['userid']) {
     $dsp->EndTab();
   
     $dsp->StartTab(t('Sonstiges'));
-  // logins, last login
+    // logins, last login
     if ($auth['type'] >= 2) {
         $lastLoginTS = $db->qry_first("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", $_GET['userid']);
         $dsp->AddDoubleRow(t('Logins'), $user_data['logins']);
@@ -388,18 +391,18 @@ if (!$user_data['userid']) {
           $dsp->AddDoubleRow(t('Letzter Login'), $loginTime);
     }
 
-  // signature
+    // signature
     $dsp->AddDoubleRow(t('Signatur'), $func->text2html($user_data['signature']));
 
-  // avatar
+    // avatar
     ($user_data['avatar_path'] != "" and $user_data['avatar_path'] != "0") ?
       $avatar = "<img border=\"0\" src=\"". $user_data['avatar_path'] . "\">"
       : $avatar = t('Dieser Benutzer hat keinen Avatar ausgewählt.');
     $dsp->AddDoubleRow(t('Avatar'), $avatar);
 
-  // Including comment-engine
+    // Including comment-engine
     if ($auth["login"] == 1) {
-        new Mastercomment('User', $_GET['userid']);
+        new \LanSuite\MasterComment('User', $_GET['userid']);
     }
 
     $dsp->EndTab();
@@ -415,8 +418,7 @@ if (!$user_data['userid']) {
     if ($auth['type'] >= 3) {
         $dsp->StartTab(t('Sessions'), 'generate');
 
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('usrmgr');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('usrmgr');
 
         $ms2->query['from'] = "%prefix%stats_auth a";
         $ms2->query['where'] = "a.userid = ". (int)$_GET['userid'];
@@ -425,10 +427,8 @@ if (!$user_data['userid']) {
 
         $ms2->AddResultField(t('Session-ID'), 'a.sessid');
         $ms2->AddResultField(t('IP'), 'a.ip');
-    #$ms2->AddResultField(t('Login?'), 'a.login');
         $ms2->AddResultField(t('Hits'), 'a.hits');
         $ms2->AddResultField(t('Visits'), 'a.visits');
-    #$ms2->AddResultField(t('Letzter Aufruf'), 'a.logtime', 'MS2GetDate');
         $ms2->AddResultField(t('Eingeloggt'), 'a.logintime', 'MS2GetDate');
         $ms2->AddResultField(t('Letzter Aufruf'), 'a.lasthit', 'MS2GetDate');
 
@@ -437,7 +437,7 @@ if (!$user_data['userid']) {
         $dsp->EndTab();
     }
 
-    $plugin = new plugin('usrmgr_details_tab');
+    $plugin = new \LanSuite\Plugin('usrmgr_details_tab');
     while (list($caption, $inc, $icon) = $plugin->fetch()) {
         $dsp->StartTab($caption, $icon);
         include_once($inc);
@@ -463,5 +463,4 @@ if (!$user_data['userid']) {
     }
 
     $dsp->AddDoubleRow('', $buttons);
-    $dsp->AddContent();
 }

@@ -131,5 +131,3 @@ switch ($_GET["step"]) {
         $dsp->AddBackButton("index.php?mod=games", "games/minesweeper");
         break;
 }
-
-$dsp->AddContent();

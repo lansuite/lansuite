@@ -14,7 +14,6 @@ if (!$cfg["equipment_shopid"]) {
         $dsp->NewContent(t('Termin-Liste'), t('Dies ist eine Liste aller kommenden Termine, an denen wir unser Equipment vermieten'));
         $dsp->AddSmartyTpl('style', 'equipment');
         $dsp->AddSingleRow(ob_get_contents());
-        $dsp->AddContent();
     }
 }
 ob_end_clean();

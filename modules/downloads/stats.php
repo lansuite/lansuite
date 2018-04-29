@@ -3,15 +3,14 @@ $dsp->NewContent(t('Statistiken'), $_GET['file']);
 
 // Delete
 if ($_GET['delfile'] and $auth['type'] >= 3) {
-    $md = new masterdelete();
+    $md = new \LanSuite\MasterDelete();
     $md->Delete('download_stats', 'file', $_GET['delfile']);
 }
 
 
 // List
 if (!$_GET['file']) {
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2('news');
+    $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
     $ms2->query['from'] = "%prefix%download_stats AS s";
     $ms2->query['default_order_by'] = 's.file';

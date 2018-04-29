@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @param string $key
+ * @return bool
+ */
 function Needed($key)
 {
     global $cfg;
@@ -24,8 +28,6 @@ foreach ($auth as $key => $val) {
 
 if ($missing_fields) {
     $dsp->NewContent(t('Unvollständiges Benutzerprofil'), t('Es gibt noch unausgefüllte Pflichtfelder in deinem Benutzerprofil. Bitte pflege diese nach'));
-    $dsp->AddContent();
-
     $_GET['userid'] = $auth['userid'];
 
     include_once('modules/usrmgr/add.php');

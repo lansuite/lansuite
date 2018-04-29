@@ -4,6 +4,10 @@ include_once('modules/usrmgr/search_main.inc.php');
 include_once("modules/seating/class_seat.php");
 $seat2 = new seat2();
 
+/**
+ * @param int $userid
+ * @return string
+ */
 function SeatNameLink($userid)
 {
     global $seat2;
@@ -11,17 +15,25 @@ function SeatNameLink($userid)
     return $seat2->SeatNameLink($userid);
 }
 
+/**
+ * @param boolean $paid
+ * @return string
+ */
 function PaidIcon($paid)
 {
     global $dsp;
 
     if ($paid) {
-        return $dsp->FetchIcon('', 'paid', t('Bezahlt'));
+        return $dsp->FetchIcon('paid', '', t('Bezahlt'));
     } else {
-        return $dsp->FetchIcon('', 'not_paid', t('Nicht bezahlt'));
+        return $dsp->FetchIcon('not_paid', '', t('Nicht bezahlt'));
     }
 }
 
+/**
+ * @param string $clan_name
+ * @return string
+ */
 function ClanURLLink($clan_name)
 {
     global $line;
@@ -36,6 +48,10 @@ function ClanURLLink($clan_name)
     }
 }
 
+/**
+ * @param string $price_text
+ * @return string
+ */
 function p_price($price_text)
 {
     global $line, $cfg;
@@ -46,7 +62,6 @@ function p_price($price_text)
         return $price_text;
     }
 }
-
 
 $ms2->query['where'] = $additional_where;
 

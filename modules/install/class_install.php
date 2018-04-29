@@ -111,7 +111,7 @@ class Install
   // Puts the results to the screen, by using $dsp->AddSingleRow for each table, if $display_to_screen = 1
     public function CreateNewTables($display_to_screen = 1)
     {
-        global $dsp, $config, $db, $func;
+        global $dsp, $func;
 
         $tablecreate = array("anz" => 0, "created" => 0, "exist" => 0, "failed" => "");
         if ($display_to_screen) {
@@ -581,8 +581,20 @@ class Install
 
         // MySQL Server version
         $minMysqlVersion = '5.6.3';
+        $minMariaDBVersion = '10.0';
         $currentMysqlVersion = $db->getServerInfo();
-        if (version_compare($currentMysqlVersion, '5.6.3') >= 0) {
+        if (!$currentMysqlVersion){
+            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (root@localhost) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %1 benutzt.' , $minMysqlVersion);
+
+        } elseif (strpos($currentMysqlVersion, 'MariaDB') !== false) {
+            $currentMariaDBVersion = substr($currentMysqlVersion,strpos($currentMysqlVersion,'-')+1);
+            if (version_compare($currentMariaDBVersion, $minMariaDBVersion) >= 0) {
+                $mysqlVersionCheck = $optimize . t('MariaDB Version %1 gefunden. <br/>Bitte beachte, das LanSuite primär für MySQL entwickelt wurde und es daher zu unerwarteten Problemen mit MariaDB kommen kann!',$currentMariaDBVersion);
+            } else {
+                $mysqlVersionCheck = $failed . t('Die verwendete MariaDB-Version %1 ist leider zu alt. Vorrausgesetzt ist mindestens MariaDB version %2! <br/> Bitte beachte, das LanSuite primär für MySQL entwickelt wurde und es daher zu unerwarteten Problemen mit MariaDB kommen kann!', $currentMariaDBVersion, $minMariaDBVersion);
+            }
+            
+        } elseif (version_compare($currentMysqlVersion, $minMysqlVersion) >= 0) {
             $mysqlVersionCheck = $ok . $currentMysqlVersion;
         } else {
             $mysqlVersionCheck = $failed . t('LanSuite ist zu einer Datenbank mit der Version %1 verbunden. LanSuite benötigt mindestens eine MySQL Datenbank mit der Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.mysql.com\' target=\'_blank\'>MySQL.com</a>.', $currentMysqlVersion, $minMysqlVersion);
@@ -734,10 +746,6 @@ class Install
         $dsp->AddDoubleRow('Max. Script-Execution-Time', (float)ini_get('max_execution_time') .' Sec');
         $dsp->AddDoubleRow('Max. Data-Input-Zeit', (float)ini_get('max_input_time') .' Sec');
         $dsp->AddDoubleRow('Memory Limit', (float)ini_get('memory_limit') .' MB');
-        $post_max_size = (float)ini_get('post_max_size');
-        if ($post_max_size > 1000) {
-            $post_max_size = $post_max_size / 1024;
-        } // For some PHP-Versions use KB, instead of MB
         $dsp->AddDoubleRow('Max. Post-Form Size', (float)ini_get('post_max_size') .' MB');
         $dsp->AddFieldSetEnd();
 
@@ -906,7 +914,7 @@ class Install
             $smarty->assign('db_link', $db_link);
 
             if (file_exists("modules/{$row["name"]}/docu/{$language}_help.php")) {
-                $help_link = " | <a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&module={$row["name"]}&helpletid=help','_blank','width=700,height=500,resizable=no,scrollbars=yes');\" class=\"Help\">?</a>";
+                $help_link = " | <a href=\"#\" onclick=\"var w=window.open('index.php?mod=helplet&action=helplet&design=base&module={$row["name"]}&helpletid=help','_blank','width=700,height=500,resizable=no,scrollbars=yes');\" class=\"Help\">?</a>";
             } else {
                 $help_link = '';
             }

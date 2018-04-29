@@ -2,8 +2,7 @@
 
 $dsp->NewContent(t('Suchmaschinen'), t('Hier siehst du, &uuml;ber welche Suchbegriffe Besucher &uuml;ber Suchmaschinenen auf deiner Seite gelandet sind'));
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 $ms2->query['from'] = "%prefix%stats_se";
 $ms2->query['default_order_by'] = 'hits DESC';
@@ -25,11 +24,6 @@ $ms2->AddResultField(t('Anzahl'), 'hits');
 $ms2->AddResultField(t('Erstmalig'), 'UNIX_TIMESTAMP(first) AS first', 'MS2GetDate');
 $ms2->AddResultField(t('Zuletzt'), 'UNIX_TIMESTAMP(last) AS last', 'MS2GetDate');
 
-#$ms2->AddIconField('details', 'index.php?mod=news&action=comment&newsid=', t('Details'));
-#if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
-#if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
-
 $ms2->PrintSearch('index.php?mod=stats&action=search_engines', '1');
 
 $dsp->AddBackButton("index.php?mod=stats", "stats/se");
-$dsp->AddContent();

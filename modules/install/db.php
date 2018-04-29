@@ -71,5 +71,4 @@ if ($_GET["quest"]) {
     $db->qry_first('DELETE FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
 
     $dsp->AddBackButton("index.php?mod=install", "install/db");
-    $dsp->AddContent();
 }

@@ -38,7 +38,6 @@ if (!$cfg['google_maps_api_key']) {
     $res = $db->qry("SELECT u.* FROM %prefix%user AS u
 		WHERE u.plz > 0 AND u.type > 0
     ");
-    # AND u.show_me_in_map = 1
 
     $templ['addresses'] = '';
     while ($row = $db->fetch_array($res)) {
@@ -51,12 +50,9 @@ if (!$cfg['google_maps_api_key']) {
         }
 
         $templ['guestmap']['adresses'] .= "showAddress('$GCountry', '{$row['city']}', '{$row['plz']}', '{$row['street']}', '{$row['hnr']}', '$text');\r\n";
-#      if ($row['street']) $templ['guestmap']['adresses'] .= "showAddress('{$row['street']}, {$row['plz']}, Germany', \"$text\");\r\n";
-#      elseif ($row['plz']) $templ['guestmap']['adresses'] .= "showAddress('{$row['plz']}, Germany', \"$text\");\r\n";
     }
     $db->free_result($haus_data);
 
     $templ['guestmap']['apikey'] = $cfg['google_maps_api_key'];
     $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
 }
-$dsp->AddContent();

@@ -37,7 +37,7 @@ class poll
         $db->free_result($res);
 
         if (!$boxmode and $auth["login"] == 1) {
-            new Mastercomment('Poll', $pollid, array('polls' => 'pollid'));
+            new \LanSuite\MasterComment('Poll', $pollid, array('polls' => 'pollid'));
         }
     }
 }

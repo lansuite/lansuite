@@ -6,7 +6,6 @@ $dsp->NewContent(t('Papierkorb'), t('Du hast <b>%1</b> Mail(s) in ihrem Papierko
 
 function MailStatus($status)
 {
-    global $lang;
     if ($status == "new") {
         return t('Ungelesen');
     }
@@ -39,8 +38,7 @@ if ($auth['userid']) {
     }
 }
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 $ms2->query['from'] = "%prefix%mail_messages AS m LEFT JOIN %prefix%user AS u ON m.FromUserID = u.userid";
 $ms2->query['where'] = "m.toUserID = '{$auth['userid']}' AND m.mail_status = 'delete' AND rx_deleted = 0";

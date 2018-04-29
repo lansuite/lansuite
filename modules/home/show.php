@@ -18,7 +18,7 @@ switch ($home_page) {
 
         $z = 0;
 
-        $plugin = new plugin('home');
+        $plugin = new \LanSuite\Plugin('home');
         while (list($caption, $inc) = $plugin->fetch()) {
             if ($caption == 'install') {
                 $caption = 'comments';

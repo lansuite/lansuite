@@ -3,7 +3,6 @@
 $reply_message = '';
 
 $dsp->NewContent(t('Neue Mail verfassen'), '');
-$dsp->AddContent();
 
 function SendOnlineMail()
 {
@@ -53,7 +52,7 @@ function SendOnlineMail()
     }
 }
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
 if ($_GET['userID']) {
     $_POST['toUserID'] = $_GET['userID'];
@@ -128,7 +127,7 @@ while ($row = $db->fetch_array($res)) {
 }
 $db->free_result($res);
 
-$mf->AddField(t('Empfänger'), 'toUserID', IS_SELECTION, $selections, FIELD_OPTIONAL);
+$mf->AddField(t('Empfänger'), 'toUserID', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
 if ($auth['userid']) {
     $selections = array();
@@ -136,14 +135,14 @@ if ($auth['userid']) {
     if ($cfg['sys_internet']) {
         $selections[1] = t('An die Email-Adresse. Hinweis: Kein LS-Code möglich!');
     }
-    $mf->AddField(t('Mail-Typ'), 'type', IS_SELECTION, $selections, FIELD_OPTIONAL);
+    $mf->AddField(t('Mail-Typ'), 'type', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 } else {
-    $mf->AddField('', 'captcha', IS_CAPTCHA);
+    $mf->AddField('', 'captcha', \LanSuite\MasterForm::IS_CAPTCHA);
     $mf->AddField(t('Absender E-Mail'), 'SenderMail', '', '', '', CheckValidEmail);
 }
 
 $mf->AddField(t('Betreff'), 'Subject');
-$mf->AddField(t('Nachricht'), 'msgbody', '', LSCODE_BIG);
+$mf->AddField(t('Nachricht'), 'msgbody', '', \LanSuite\MasterForm::LSCODE_BIG);
 
 $mf->AddFix('mail_status', 'active');
 $mf->AddFix('des_status', 'new');

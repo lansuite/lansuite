@@ -38,7 +38,7 @@ switch ($_GET["step"]) {
                   $userid = $db->insert_id();
             }
 
-            $authentication = new auth();
+            $authentication = new \LanSuite\Auth();
             $authentication->login($_POST["email"], $_POST["password"]);
         }
       // No break!
@@ -78,7 +78,6 @@ switch ($_GET["step"]) {
         if ($continue) {
             $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=2"));
         }
-        $dsp->AddContent();
         break;
 
 
@@ -115,7 +114,7 @@ switch ($_GET["step"]) {
         $designPath = 'design' . DIRECTORY_SEPARATOR;
         $designDir = opendir($designPath);
 
-        $xml = new xml();
+        $xml = new \LanSuite\XML();
 
         // Check all Subdirs of $designDir for valid design-xml-files
         $t_array = array();
@@ -141,7 +140,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=1", "install/ls_conf");
-        $dsp->AddContent();
         break;
 
 
@@ -213,7 +211,6 @@ switch ($_GET["step"]) {
             $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=4"));
         }
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=2", "install/db");
-        $dsp->AddContent();
         break;
 
 
@@ -243,7 +240,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=3", "install/import");
-        $dsp->AddContent();
         break;
 
 
@@ -279,7 +275,6 @@ switch ($_GET["step"]) {
 
                 $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
                 $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/import");
-                $dsp->AddContent();
                 break;
 
             case "csv":
@@ -290,7 +285,6 @@ switch ($_GET["step"]) {
 
                 $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
                 $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/import");
-                $dsp->AddContent();
                 break;
 
             default:
@@ -317,7 +311,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=8"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/admin");
-        $dsp->AddContent();
         break;
 
 
@@ -338,7 +331,6 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/admin");
-        $dsp->AddContent();
         break;
 
     // Set main config-variables
@@ -405,7 +397,6 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=8", "install/vars");
-        $dsp->AddContent();
         break;
 
 
@@ -429,7 +420,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Login'), "index.php?mod=install"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=9", "install/admin");
-        $dsp->AddContent();
 
         $config["environment"]["configured"] = 1;
         $install->WriteConfig();

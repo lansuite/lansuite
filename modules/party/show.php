@@ -34,8 +34,7 @@ function GetGuests($max_guest)
 $dsp->NewContent(t('Unsere Partys'), t('Hier siehst du eine Liste aller geplanten Partys'));
 switch ($_GET['step']) {
     default:
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('party');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('party');
     
         $ms2->query['from'] = "%prefix%partys AS p";
         $ms2->query['default_order_by'] = 'p.startdate DESC';
@@ -91,4 +90,3 @@ switch ($_GET['step']) {
         $dsp->AddBackButton('index.php?mod=party');
         break;
 }
-$dsp->AddContent();

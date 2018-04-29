@@ -2,8 +2,7 @@
 
 switch ($_GET["step"]) {
     default:
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2();
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
         $ms2->query['from'] = "%prefix%log AS l
       LEFT JOIN %prefix%user AS u ON u.userid = l.userid";
@@ -69,11 +68,10 @@ switch ($_GET["step"]) {
         $dsp->AddDoubleRow(t('Script'), '<a href="'. $log['script'] .'">'. $log['script'] .'</a>');
         $dsp->AddDoubleRow(t('Auslöser'), $dsp->FetchUserIcon($log['userid'], $log['username']));
         $dsp->AddBackButton("index.php?mod=install&action=log", '');
-        $dsp->AddContent();
         break;
   
     case 10:
-        $md = new masterdelete();
+        $md = new \LanSuite\MasterDelete();
         $md->MultiDelete('log', 'logid');
         break;
 }

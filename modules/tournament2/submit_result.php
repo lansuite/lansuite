@@ -1,6 +1,6 @@
 <?php
 
-$gd = new gd();
+$gd = new \LanSuite\GD();
 
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
@@ -83,8 +83,8 @@ if ($tournament["name"] == "") {
             }
             
             if ($func->isModActive('server') and $auth['type'] >= 2) {
-                $mf = new masterform();
-                $mf->AddField(t('Server Zuweisen'), 'server_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
+                $mf = new \LanSuite\MasterForm();
+                $mf->AddField(t('Server Zuweisen'), 'server_id', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
                 if ($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1)) {
                     $db->qry("UPDATE %prefix%t2_games SET server_id = %int% WHERE gameid = %int%", $_POST['server_id'], $gameid2);
                 }
@@ -135,8 +135,7 @@ if ($tournament["name"] == "") {
             $dsp->AddFormSubmitRow(t('Ergebnis'));
 
             $dsp->AddFieldsetStart('Log');
-            include_once('modules/mastersearch2/class_mastersearch2.php');
-            $ms2 = new mastersearch2('t2_games');
+            $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('t2_games');
 
             $ms2->query['from'] = "%prefix%log AS l LEFT JOIN %prefix%user AS u ON l.userid = u.userid";
             $ms2->query['where'] = "(sort_tag = 'Turnier Ergebnise' AND target_id = ". (int)$_GET['gameid1'] .')';

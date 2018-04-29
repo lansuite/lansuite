@@ -52,7 +52,6 @@ switch ($_GET['step']) {
     
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=troubleticket&action=cat&act=add&step=2"));
         $dsp->AddBackButton("index.php?mod=troubleticket");
-        $dsp->AddContent();
         break;
     
     
@@ -87,8 +86,6 @@ switch ($_GET['step']) {
             $dsp->AddDropDownFieldRow("orga", t('Zuständiger Admin'), $user_row_option, "");
             $dsp->AddFormSubmitRow(t('Ändern'));
         }
-        $dsp->AddContent();
-    
         break;
     
     case 3:

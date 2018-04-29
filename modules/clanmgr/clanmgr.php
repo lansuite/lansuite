@@ -19,7 +19,7 @@ function ShowRole($role)
 
 function CheckClanPW($clanpw)
 {
-    global $db, $auth;
+    global $db;
 
     $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
     if ($clan['password'] and $clan['password'] == md5($clanpw)) {
@@ -42,7 +42,7 @@ function CheckExistingClan()
 
 function CountAdmins()
 {
-    global $auth, $db, $func;
+    global $db;
     
     $query_admins = $db->qry("SELECT * FROM %prefix%user WHERE clanid = %int% AND clanadmin = 1", $_GET['clanid']);
     return $db->num_rows($query_admins);
@@ -73,8 +73,7 @@ function link_to_clan($clan_url)
 
 switch ($_GET['step']) {
     default:
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('clanmgr');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('clanmgr');
     
         $ms2->query['from'] = "%prefix%clan AS c
         LEFT JOIN %prefix%user AS u ON c.clanid = u.clanid";
@@ -141,8 +140,7 @@ switch ($_GET['step']) {
     
 
         $dsp->AddFieldSetStart(t('Mitglieder'));
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('clanmgr');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('clanmgr');
     
         $ms2->query['from'] = "%prefix%user AS u";
         $ms2->query['where'] = "u.clanid = ". (int)$_GET['clanid'];
@@ -169,7 +167,7 @@ switch ($_GET['step']) {
 
         $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr');
 
-        new Mastercomment('Clan', $_GET['clanid'], '');
+        new \LanSuite\MasterComment('Clan', $_GET['clanid'], '');
         break;
 
   // Change clan password
@@ -179,12 +177,12 @@ switch ($_GET['step']) {
         } elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) {
             $func->information(t('Du bist nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
         } else {
-            $mf = new masterform();
+            $mf = new \LanSuite\MasterForm();
 
             if ($auth['type'] < 2) {
-                $mf->AddField(t('Dezeitiges Passwort'), 'old_password', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
+                $mf->AddField(t('Dezeitiges Passwort'), 'old_password', \LanSuite\MasterForm::IS_PASSWORD, '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckClanPW');
             }
-            $mf->AddField(t('Neues Passwort'), 'password', IS_NEW_PASSWORD);
+            $mf->AddField(t('Neues Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
 
             if ($mf->SendForm('index.php?mod=clanmgr&action=clanmgr&step=10', 'clan', 'clanid', $_GET['clanid'])) {
                 include_once("modules/mail/class_mail.php");
@@ -223,15 +221,15 @@ switch ($_GET['step']) {
         if ($_GET['clanid'] != '' and !($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < 2) {
             $func->information(t('Du bist nicht berechtigt diesen Clan zu ändern'), "index.php?mod=home");
         } else {
-            $mf = new masterform();
+            $mf = new \LanSuite\MasterForm();
 
             $dsp->AddFieldsetStart(t('Clan-Daten'));
             $mf->AddField(t('Clanname'), 'name');
             if (!$_GET['clanid']) {
-                $mf->AddField(t('Beitritts Passwort'), 'password', IS_NEW_PASSWORD);
+                $mf->AddField(t('Beitritts Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
             }
-            $mf->AddField(t('Webseite'), 'url', '', '', FIELD_OPTIONAL);
-            $mf->AddField(t('Clanlogo'), 'clanlogo_path', IS_FILE_UPLOAD, 'ext_inc/clan/'. $auth['userid'] .'_', FIELD_OPTIONAL);
+            $mf->AddField(t('Webseite'), 'url', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+            $mf->AddField(t('Clanlogo'), 'clanlogo_path', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/clan/'. $auth['userid'] .'_', \LanSuite\MasterForm::FIELD_OPTIONAL);
       
       
       
@@ -246,8 +244,7 @@ switch ($_GET['step']) {
         
             if ($_GET['clanid'] != '') {
                 $dsp->AddFieldsetStart(t('Mitglieder'));
-                include_once('modules/mastersearch2/class_mastersearch2.php');
-                $ms2 = new mastersearch2('clanmgr');
+                $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('clanmgr');
 
                 $ms2->query['from'] = "%prefix%user AS u";
                 $ms2->query['where'] = 'u.clanid = '. (int)$_GET['clanid'];

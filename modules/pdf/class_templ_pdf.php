@@ -6,7 +6,7 @@ class pdf_tmpl
     public $tmpl_id;
     
     // Konstruktor
-    public function pdf_tmpl($action, $tmpl_id)
+    public function __construct($action, $tmpl_id)
     {
         $this->action = $action;
         $this->tmpl_id = $tmpl_id;
@@ -15,7 +15,7 @@ class pdf_tmpl
     // Alle Vorlagen zu bestimmtem Thema auslesen
     public function read_List()
     {
-        global $db,$dsp,$lang,$templ, $smarty;
+        global $db,$dsp,$smarty;
         
         $data = $db->qry("SELECT * FROM %prefix%pdf_list WHERE template_type = %string%", $this->action);
         
@@ -35,13 +35,12 @@ class pdf_tmpl
         }
         $dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=" . $_GET['action'] . "&act=new\">".t('Neue Vorlage erstellen')."</a>");
         $dsp->AddBackButton("index.php?mod=pdf", "pdf/template");
-        $dsp->AddContent();
     }
     
     // Daten einfügen
     public function add_templ()
     {
-        global $db,$dsp,$lang,$templ;
+        global $db;
         // In Liste einfügen
         $db->qry("INSERT INTO %prefix%pdf_list ( `template_id` , `template_type` , `name` ) VALUES ('', %string%, %string%)", $this->action, $_POST['template_name']);
         $this->tmpl_id = $db->insert_id();
@@ -61,7 +60,7 @@ class pdf_tmpl
     // Daten auslesen
     public function display_data()
     {
-        global $db,$dsp,$lang,$templ,$gd, $smarty;
+        global $db,$dsp,$templ, $smarty;
                   
         // Name ausgeben
         $template = $db->qry_first("SELECT * FROM %prefix%pdf_list WHERE template_id= %int%", $this->tmpl_id);
@@ -124,8 +123,8 @@ class pdf_tmpl
             }
             $smarty->assign('description', $description);
 
-            $button_edit = $dsp->FetchIcon("index.php?mod=pdf&action=". $_GET['action'] ."&act=change_mask&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'edit', t('Editieren'));
-            $button_del = $dsp->FetchIcon("index.php?mod=pdf&action=". $_GET['action'] ."&act=change&delete_item=1&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'delete', t('Löschen'));
+            $button_edit = $dsp->FetchIcon('edit', "index.php?mod=pdf&action=" . $_GET['action'] . "&act=change_mask&id=" . $this->tmpl_id . "&itemid=" . $data_array['pdfid'], t('Editieren'));
+            $button_del = $dsp->FetchIcon('delete', "index.php?mod=pdf&action=" . $_GET['action'] . "&act=change&delete_item=1&id=" . $this->tmpl_id . "&itemid=" . $data_array['pdfid'], t('Löschen'));
             $smarty->assign('button_edit', $button_edit);
             $smarty->assign('button_del', $button_del);
 
@@ -146,7 +145,6 @@ class pdf_tmpl
         $dsp->AddDropDownFieldRow('type', t('Wahl des Feldes'), $type, "");
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action, "pdf/change_template");
-        $dsp->AddContent();
     }
     
     
@@ -154,7 +152,7 @@ class pdf_tmpl
     // Es müss das Objekt das erstellt werden soll übergreben werden
     public function insert_mask($object)
     {
-        global $db,$dsp,$lang,$templ;
+        global $dsp;
         
         $pdf_export = new pdf($this->tmpl_id);
                               
@@ -241,13 +239,12 @@ class pdf_tmpl
         }
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action, $help);
-        $dsp->AddContent();
     }
     
     // Maske um Einträge ändern anzeigen
     public function change_mask($item_id)
     {
-        global $db,$dsp,$lang,$templ;
+        global $db,$dsp;
         $pdf_export = new pdf($this->tmpl_id);
         
         $data = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE pdfid= %int%", $item_id);
@@ -349,22 +346,14 @@ class pdf_tmpl
         }
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id, $help);
-        $dsp->AddContent();
     }
 
     
     // ein Objekt einfügen
     public function insert_item($object)
     {
-        global $db,$dsp,$lang,$templ,$func;
-        
-        
-        if ($_POST['visible'] == "checked") {
-            $visible = 1;
-        } else {
-            $visible = 0;
-        }
-        
+        global $db,$func;
+
         if ($db->qry("INSERT INTO %prefix%pdf_data ( `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` , `sort` ) 
           VALUES %plain%", "('$this->tmpl_id' , '" . $_POST['visible'] . "' , '$object', '" . $_POST['pos_x'] . "', '" . $_POST['pos_y'] . "', '" . $_POST['end_x'] . "', '" . $_POST['end_y'] . "', '" . $_POST['fontsize'] . "', '" . $_POST['font'] . "', '" . $_POST['red'] . "', '" . $_POST['green'] . "', '" . $_POST['blue'] . "', '" . $_POST['text'] . "', '" . $_POST['user_type'] . "', '" . $_POST['sort'] . "')")) {
             $func->confirmation(t('Die Daten wurden hinzugef&uuml;gt'), "index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
@@ -376,16 +365,8 @@ class pdf_tmpl
     // Objekt ändern
     public function change_item($item_id)
     {
-        global $db,$dsp,$lang,$templ,$func;
-        
-        
-        if ($_POST['visible'] == "checked") {
-            $visible = 1;
-        } else {
-            $visible = 0;
-        }
+        global $db,$func;
 
-    
         if ($db->qry("UPDATE %prefix%pdf_data SET %plain%", "  
              `visible`='" . $_POST['visible'] .
                "', `pos_x`='" . $_POST['pos_x'] .
@@ -410,7 +391,7 @@ class pdf_tmpl
         // Sortierung ändern
     public function sortorder($direction, $item_id)
     {
-        global $db,$dsp,$lang,$templ,$func;
+        global $db;
         
         if ($direction == "minus") {
             $sort = "-1";
@@ -422,7 +403,7 @@ class pdf_tmpl
     // Daten löschen
     public function delete_templ()
     {
-        global $db,$dsp,$lang,$templ;
+        global $db;
         
         $db->qry("DELETE FROM %prefix%pdf_list WHERE template_id = %int%", $this->tmpl_id);
         $db->qry("DELETE FROM %prefix%pdf_data WHERE template_id = %int%", $this->tmpl_id);
@@ -430,14 +411,14 @@ class pdf_tmpl
     
     public function delete_item($itemid)
     {
-        global $db,$dsp,$lang,$templ;
+        global $db;
         
         $db->qry("DELETE FROM %prefix%pdf_data WHERE pdfid = %int%", $itemid);
     }
     
     public function new_templ_mask()
     {
-        global $dsp,$lang;
+        global $dsp;
         // Array für Seitengrössen
         $page_size = array("<option selected value=\"A4\">A4</option>","<option value=\"A3\">A3</option>","<option value=\"A5\">A5</option>");
         
@@ -450,6 +431,5 @@ class pdf_tmpl
         $dsp->AddTextFieldRow("rand_y", t('Rand in y-Richtung'), '', '');
         $dsp->AddCheckBoxRow("landscape", t('Querformat'), '', '');
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
-        $dsp->AddContent();
     }
 }

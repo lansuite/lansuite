@@ -3,8 +3,6 @@ $mail_send_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messag
 $mail_read_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE FromUserID = %int% AND mail_status != 'disabled' AND des_status = 'read'", $auth['userid']);
 
 $dsp->NewContent(t('Postausgang'), t('Du hast <b>%1</b> Mail(s) versendet. Davon wurde(n) <b>%2</b> gelesen.', $mail_send_total["n"], $mail_read_total["n"]));
-$dsp->AddContent();
-
 
 if ($auth['userid']) {
     switch ($_GET['step']) {
@@ -27,8 +25,7 @@ if ($auth['userid']) {
     }
 }
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 $ms2->query['from'] = "%prefix%mail_messages AS m LEFT JOIN %prefix%user AS u ON m.ToUserID = u.userid";
 $ms2->query['where'] = "m.FromUserID = '{$auth['userid']}' AND m.mail_status != 'disabled' AND tx_deleted = 0";

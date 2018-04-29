@@ -22,42 +22,22 @@ class XMLTest extends TestCase {
 	<comments></comments>
 </design>';
 
-        $xml = new \xml();
+        $xml = new \LanSuite\XML();
         $actual = $xml->get_tag_content($tagToGrab, $input);
 
         $this->assertEquals('simple', $actual);
-    }
-
-    public function dataProviderLevel2Tab() {
-        return array(
-            array(0, ''),
-            array(1, "\t"),
-            array(5, "\t\t\t\t\t"),
-            array(10, "\t\t\t\t\t\t\t\t\t\t")
-        );
-    }
-
-    /**
-     * @dataProvider dataProviderLevel2Tab
-     * @covers xml::level2tab
-     */
-    public function testLevel2Tab($level, $expected) {
-        $xml = new \xml();
-        $actual = $xml->level2tab($level);
-
-        $this->assertEquals($expected, $actual);
     }
 
     /**
      * @covers xml::write_tag
      */
     public function testWriteTag() {
-        $GLOBALS['func'] = new \func();
+        $GLOBALS['func'] = new \LanSuite\Func();
 
         $content = 'Super news. Now now now.';
         $expected = "\t\t\t<title>$content</title>\r\n";
 
-        $xml = new \xml();
+        $xml = new \LanSuite\XML();
         $actual = $xml->write_tag('title', $content, 3);
 
         $this->assertEquals($expected, $actual);
@@ -80,7 +60,7 @@ class XMLTest extends TestCase {
 			<pubDate>Sat, 17 Mar 2018 19:45:11 +0000</pubDate>
 			<link>http://localhost:80/index.php?mod=news&action=comment&newsid=4</link>\t\t</item>\r\n";
 
-        $xml = new \xml();
+        $xml = new \LanSuite\XML();
         $actual = $xml->write_master_tag("item", $content, 2);
 
         $this->assertEquals($expected, $actual);
@@ -101,7 +81,7 @@ class XMLTest extends TestCase {
      * @covers xml::convertinputstr
      */
     public function testConvertInputString($string, $expected) {
-        $xml = new \xml();
+        $xml = new \LanSuite\XML();
         $actual = $xml->convertinputstr($string);
 
         $this->assertEquals($expected, $actual);

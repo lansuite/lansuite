@@ -99,7 +99,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/add");
-        $dsp->AddContent();
         break;
 
     case 2:

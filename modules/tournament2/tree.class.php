@@ -27,7 +27,7 @@ class TourneyTree
     public $lb_tbl = array();
     public $lb_indexes = array();
 
-    public function TourneyTree($size, $wb_teams, $lb_teams = false)
+    public function __construct($size, $wb_teams, $lb_teams = false)
     {
         // init vars !
         $this->size = $size;
@@ -300,8 +300,6 @@ class TourneyTree
                 if ($x > 1 && $x == $this->lb_num_cols-2) {
                     $tmp = $this->getPrevCoords($round, $this->lb_indexes);
                     if ($this->calcMW($tmp[0][1], $tmp[1][1]) == $y) {
-                        $max_lb = count($this->lb_teams)-1;
-                        $max_lb = count($this->wb_teams)-1;
                         $final = ($this->lb_teams[$this->lb_rounds-1]);
                         $this->lb_tbl[$x][$y] = array_shift($final);
                         $this->lb_tbl[$x][$y+2] = array_shift($final);

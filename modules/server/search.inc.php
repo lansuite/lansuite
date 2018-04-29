@@ -1,15 +1,14 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 function PWIcon($pw)
 {
-    global $dsp, $templ;
+    global $dsp;
   
     if ($pw) {
-        return $dsp->FetchIcon('', 'locked', t('Geschützt'));
+        return $dsp->FetchIcon('locked', '', t('Geschützt'));
     } else {
-        return $dsp->FetchIcon('', 'unlocked', t('Nicht geschützt'));
+        return $dsp->FetchIcon('unlocked', '', t('Nicht geschützt'));
     }
 }
 

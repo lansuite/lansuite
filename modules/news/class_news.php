@@ -8,7 +8,7 @@ class News
     {
         global $db, $cfg, $func;
 
-        $xml = new xml();
+        $xml = new \LanSuite\XML();
 
         $output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
   

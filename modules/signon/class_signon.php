@@ -80,10 +80,9 @@ class signon
             fclose($handle);
 
             // Log out
-            $handle = fopen("http://lansurfer.com/user.phtml?action=logout?LS_Session=$LS_Session", 'r', false, stream_context_create($opts));
+            fopen("http://lansurfer.com/user.phtml?action=logout?LS_Session=$LS_Session", 'r', false, stream_context_create($opts));
 
             // HTML-Daten auswerten
-            $input_start = 2;
             $input_end = 2;
             $lansurfer_data = array();
             for ($z = 0; $z < 30; $z++) {
@@ -95,7 +94,6 @@ class signon
                 $input_end = strpos($lansurfer_site, ">", $input_start) - 1;
 
                 $line = substr($lansurfer_site, $input_start, $input_end - $input_start);
-                $name = "";
                 if (strpos($line, "name=") > 0) {
                     $name = substr($line, strpos($line, "name=") + 6, strlen($line));
                     if (strpos($name, " ") > 0) {

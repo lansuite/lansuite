@@ -1,7 +1,7 @@
 <?php
 function LastPostDetails($date)
 {
-    global $db, $line, $dsp, $templ, $cfg;
+    global $db, $line, $dsp, $cfg;
 
     if ($date) {
         $row = $db->qry_first("SELECT p.userid, p.pid, p.tid, u.username FROM %prefix%board_posts AS p
@@ -24,20 +24,20 @@ function LastPostDetails($date)
         }
         return $ret;
     } else {
-        return $dsp->FetchIcon('', 'no', '-');
+        return $dsp->FetchIcon('no', '', '-');
     }
 }
 
 function FormatTitle($title)
 {
-    global $dsp, $templ, $line, $func;
+    global $dsp, $line, $func;
   
     $icon = '';
     if ($line['closed']) {
-        $icon = $dsp->FetchIcon('', 'locked', t('Nicht bezahlt!'));
+        $icon = $dsp->FetchIcon('locked', '', t('Nicht bezahlt!'));
     }
     if ($line['sticky']) {
-        $icon = $dsp->FetchIcon('', 'signon', t('Wichtig!'));
+        $icon = $dsp->FetchIcon('signon', '', t('Wichtig!'));
     }
     return $icon . "<a class=\"menu\" href=\"index.php?mod=board&action=thread&tid={$line['tid']}\">{$func->AllowHTML($title)}</a>";
 }
@@ -55,14 +55,14 @@ function NewPosts($last_read)
 
 if ($_GET['fid'] != '') {
     $row = $db->qry_first("SELECT name, need_type, need_group FROM %prefix%board_forums WHERE fid=%int%", $_GET["fid"]);
-    $new_thread = $dsp->FetchIcon("index.php?mod=board&action=thread&fid=". $_GET['fid'], "add");
+    $new_thread = $dsp->FetchIcon("add", "index.php?mod=board&action=thread&fid=" . $_GET['fid']);
 
   // Board Headline
     $hyperlink = '<a href="%s" class="menu">%s</a>';
     $overview_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board", t('Forum')).'</b>';
     $dsp->NewContent($row['name'], "<br />".t('Du bist hier » ').$overview_capt.' » '.$row['name']);
     $framework->AddToPageTitle($row['name']);
-    $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
+    $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("back", "index.php?mod=board"));
 }
 
 
@@ -71,7 +71,7 @@ switch ($_GET['step']) {
     case 10:
         if ($auth['type'] >= 2) {
             $dsp->AddFieldsetStart(t('Thread bearbeiten'));
-            $mf = new masterform();
+            $mf = new \LanSuite\MasterForm();
             $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
             $pid = $mf->SendForm('index.php?mod=board&action=forum&step=10&fid='. $_GET['fid'] .'&tid='. $_GET['tid'], 'board_threads', 'tid', $_GET['tid']);
             $dsp->AddFieldsetEnd();
@@ -144,8 +144,7 @@ if ($_POST['search_input'][1] != '' or $_POST['search_input'][2] != '' or $_GET[
     $dsp->AddSingleRow('<b>'.t('Achtung: du hast als Suche einen Autor, bzw. Text angegeben. Die Ergebnis-Felder Antworten, sowie erster und letzter Beitrag beziehen sich daher nur noch auf Posts, in denen diese Eingaben gefunden wurden, nicht mehr auf den ganzen Thread!').'</b>');
 }
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 $ms2->query['from'] = "%prefix%board_threads AS t
     LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
@@ -233,7 +232,7 @@ if ($_GET['action'] != 'bookmark') {
 $ms2->PrintSearch('index.php?mod=board&action='. $_GET['action'] .'&fid='. $_GET['fid'], 't.tid');
 
 if ($_GET['fid'] != '') {
-    $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
+    $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("back", "index.php?mod=board"));
 }
 
 // Bookmarks and Auto-Mail
@@ -276,4 +275,3 @@ while ($forum = $db->fetch_array($foren_liste)) {
 $smarty->assign('goto', $goto);
 $smarty->assign('forum_choise', t('Bitte auswählen'));
 $dsp->AddDoubleRow(t('Gehe zu Forum'), $smarty->fetch('modules/board/templates/forum_dropdown.htm'));
-$dsp->AddContent();

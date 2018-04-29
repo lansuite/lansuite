@@ -2,7 +2,7 @@
 
 function Update($id)
 {
-    global $db, $cfg, $row, $func;
+    global $db, $cfg;
 
     if ($id != '') {
         $menu_intem = $db->qry_first('SELECT active, caption, shorttext FROM %prefix%info WHERE infoID = %int%', $id);
@@ -38,18 +38,17 @@ function Update($id)
 
 function ShowActiveState($val)
 {
-    global $dsp, $templ, $lang, $line;
+    global $dsp;
 
     if ($val) {
-        return $dsp->FetchIcon('', 'yes', t('Ja'));
+        return $dsp->FetchIcon('yes', '', t('Ja'));
     } else {
-        return $dsp->FetchIcon('', 'no', t('Nein'));
+        return $dsp->FetchIcon('no', '', t('Nein'));
     }
 }
 
 if ($auth['type'] <= 1) {
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new MasterSearch2();
+    $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
     $ms2->query['from'] = "%prefix%info AS i";
     $ms2->query['where'] = "i.active";
@@ -71,8 +70,7 @@ if ($auth['type'] <= 1) {
               $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Info-Seiten editieren.'));
               $dsp->AddSingleRow($dsp->FetchSpanButton('Neuen Infotext hinzufügen', 'index.php?mod=info2&action=change&step=2'));
 
-              include_once('modules/mastersearch2/class_mastersearch2.php');
-              $ms2 = new MasterSearch2();
+              $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
               $ms2->query['from'] = "%prefix%info AS i";
               $ms2->query['where'] = "i.link = ''";
@@ -108,7 +106,7 @@ if ($auth['type'] <= 1) {
 
               $dsp->AddSingleRow($dsp->FetchSpanButton('Externen Link erstellen', 'index.php?mod=info2&action=change&step=30'));
 
-              $ms2 = new MasterSearch2();
+              $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
               $ms2->query['from'] = "%prefix%info AS i";
               $ms2->query['where'] = "i.link != ''";
@@ -152,22 +150,22 @@ if ($auth['type'] <= 1) {
 
             $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Seite editieren.'));
 
-              $mf = new masterform();
+              $mf = new \LanSuite\MasterForm();
 
             foreach ($translation->valid_lang as $val) {
                 $_POST[$language] = 1;
-                #$mf->AddField(t($translation->lang_names[$val]).'|'.t('Einen Text für die Sprache "%1" definieren', t($translation->lang_names[$val])), $val, 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+
                 if ($val == 'de') {
                     $valkey = '';
                     $optional = 0;
                 } else {
                       $valkey = '_'. $val;
-                      $optional = FIELD_OPTIONAL;
+                      $optional = \LanSuite\MasterForm::FIELD_OPTIONAL;
                 }
                   $mf->AddField(t('Seitentitel'), 'caption'. $valkey, '', '', $optional);
                   $mf->AddField(t('Untertitel'), 'shorttext'. $valkey, '', '', $optional);
                 if ($cfg['info2_use_fckedit']) {
-                    $mf->AddField(t('Text'), 'text'. $valkey, '', HTML_WYSIWYG, $optional);
+                    $mf->AddField(t('Text'), 'text'. $valkey, '', \LanSuite\MasterForm::HTML_WYSIWYG, $optional);
                 } else {
                     $mf->AddField(t('Text'), 'text'. $valkey, '', '', $optional);
                 }
@@ -288,12 +286,12 @@ if ($auth['type'] <= 1) {
         case 30:
               $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du einen externen Link definieren.'));
 
-              $mf = new masterform();
+              $mf = new \LanSuite\MasterForm();
 
               $mf->AddField(t('Link'), 'link');
             foreach ($translation->valid_lang as $val) {
                 $_POST[$language] = 1;
-                $mf->AddField(t($translation->lang_names[$val]).'|'.t('Einen Text für die Sprache "%1" definieren', t($translation->lang_names[$val])), $val, 'tinyint(1)', '', FIELD_OPTIONAL, '', 2);
+                $mf->AddField(t($translation->lang_names[$val]).'|'.t('Einen Text für die Sprache "%1" definieren', t($translation->lang_names[$val])), $val, 'tinyint(1)', '', \LanSuite\MasterForm::FIELD_OPTIONAL, '', 2);
                 if ($val == 'de') {
                     $val = '';
                 } else {

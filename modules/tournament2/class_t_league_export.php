@@ -3,13 +3,13 @@
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
-$xml = new xml();
+$xml = new \LanSuite\XML();
 
 class t_league_export
 {
     public function wwcl_export($pid, $pvdid)
     {
-        global $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
+        global $db, $xml, $i, $tourney, $data_email, $party, $tfunc;
 
         $output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
 
@@ -103,7 +103,7 @@ class t_league_export
 
     public function ngl_export($eventid)
     {
-        global $cfg, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
+        global $db, $xml, $party, $tfunc;
 
         $output = '<?xml version="1.0" encoding="ISO-8859-15"?'.'>'."\r\n";
 
@@ -261,7 +261,7 @@ class t_league_export
 
     public function lgz_export($eventid)
     {
-        global $cfg, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
+        global $db, $xml, $party, $tfunc;
 
         $output = '<?xml version="1.0"?'.'>'."\r\n";
 
