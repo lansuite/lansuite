@@ -39,6 +39,13 @@
             "LanSuite\\": "inc/Classes"
         },
         "files": [
+            "inc/Functions/T.php",
+            "inc/Functions/FetchDataRow.php",
+            "inc/Functions/FetchPostRow.php",
+            "inc/Functions/MasterCommentEditAllowed.php",
+            "inc/Functions/CheckValidEmail.php",
+            "inc/Functions/Debug.php",
+            "inc/Functions/DependencyPreCheck.php",
             "modules/mastersearch2/Functions/MS2GetDate.php",
             "modules/mastersearch2/Functions/MS2GetTime.php",
             "modules/mastersearch2/Functions/Text2LSCode.php",
