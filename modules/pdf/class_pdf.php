@@ -950,6 +950,14 @@ class pdf
                             $this->pdf->Text($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y, $templ[$i]['text']);
                         }
                         break;
+
+                    case 'multicell':
+                        $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
+                        $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
+                        $this->pdf->SetXY($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y);
+                        $this->pdf->MultiCell($templ[$i]['end_x'], $templ[$i]['end_y'], $templ[$i]['text'], "0", $templ[$i]["align"]);
+                        break;
+
                     case 'rect':
                         $this->pdf->SetDrawColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
                         if ($templ[$i]['fontsize'] == "1") {
@@ -969,13 +977,13 @@ class pdf
                     case 'image':
                         $this->pdf->Image(IMAGE_PATH . $templ[$i]['text'], $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y']);
                         break;
-                    
+
                     case 'barcode':
                         $imagename = mt_rand(100000, 999999);
                         $barcode->get_image($data['userid'], static::BARCODE_PATH . $imagename);
                         $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y);
                         $barcode->kill_image(static::BARCODE_PATH . $imagename);
-                    
+
 
                         // no break
                     case 'data':
