@@ -3,8 +3,7 @@
 switch ($_GET['step']) {
     default:
         $dsp->NewContent(t('Gruppen verwalten'), t('Uebersicht'));
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('cashmgr');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('cashmgr');
 
         $ms2->query['from'] = "%prefix%cashmgr_group AS g
                                LEFT JOIN %prefix%cashmgr_accounting AS a ON g.id = a.groupid";

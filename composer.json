@@ -35,7 +35,8 @@
             "LanSuite\\Validator\\": "inc/classes/Validator",
             "LanSuite\\Module\\Beamer\\": "modules/beamer/Classes/",
             "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/",
-            "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/"
+            "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/",
+            "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/"
         },
         "files": [
             "inc/Functions/T.php",
@@ -44,7 +45,12 @@
             "inc/Functions/MasterCommentEditAllowed.php",
             "inc/Functions/CheckValidEmail.php",
             "inc/Functions/Debug.php",
-            "inc/Functions/DependencyPreCheck.php"
+            "inc/Functions/DependencyPreCheck.php",
+            "modules/mastersearch2/Functions/MS2GetDate.php",
+            "modules/mastersearch2/Functions/MS2GetTime.php",
+            "modules/mastersearch2/Functions/Text2LSCode.php",
+            "modules/mastersearch2/Functions/TrueFalse.php",
+            "modules/mastersearch2/Functions/UserNameAndIcon.php"
         ],
         "classmap": [
             "inc/classes/class.crypt.php",

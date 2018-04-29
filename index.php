@@ -249,6 +249,9 @@ if (isset($debug)) {
     $debug->tracker("Include and Init Smarty");
 }
 
+// Global counter for \LanSuite\Module\MasterSearch2\MasterSearch2 class
+$ms_number = 0;
+
 // Display Functions (to load the lansuite-templates)
 $dsp = new display();
 
