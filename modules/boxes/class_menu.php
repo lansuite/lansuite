@@ -52,7 +52,7 @@ class menu
                 break;
                 case 1:
                     $this->box->HRuleEngagedRow();
-                    return
+                    return;
                 break;
             }
         } else {
