@@ -278,7 +278,7 @@ if (!$cfg['download_use_ftp']) {
         }
         $dsp->AddTableRow($table);
 
-        $quit = ftp_quit($connect);
+        ftp_quit($connect);
 
         $debugFTP[] = "FTP> Quit connection " . $connect. HTML_NEWLINE;
     } else {

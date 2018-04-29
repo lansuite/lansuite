@@ -5,7 +5,7 @@ $variable = $db->qry("SELECT shortcut, title FROM %prefix%variables");
 $out = '';
 $z = 0;
 while ($variables = $db->fetch_array($variable)) {
-    $out .= '<a href="#" onclick="javascript:InsertCode(opener.document.'. $_GET['form'] .'.'. $_GET['textarea'] .', \''. $variables['shortcut'] .'\'); return false">'.$variables['title'].'</a>';
+    $out .= '<a href="#" onclick="InsertCode(opener.document.'. $_GET['form'] .'.'. $_GET['textarea'] .', \''. $variables['shortcut'] .'\'); return false">'.$variables['title'].'</a>';
     $z++;
     if ($z % 1 == 0) {
         $out .= '<br />';

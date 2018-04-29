@@ -1,6 +1,10 @@
 <?php
 include_once('modules/usrmgr/search_main.inc.php');
 
+/**
+ * @param string $clan_name
+ * @return string
+ */
 function ClanURLLink($clan_name)
 {
     global $line, $func;
@@ -19,6 +23,10 @@ function ClanURLLink($clan_name)
     }
 }
 
+/**
+ * @param int $userid
+ * @return bool
+ */
 function IfLowerUserlevel($userid)
 {
     global $line, $auth;
@@ -30,6 +38,10 @@ function IfLowerUserlevel($userid)
     }
 }
 
+/**
+ * @param int $userid
+ * @return bool
+ */
 function IfLowerOrEqualUserlevel($userid)
 {
     global $line, $auth;
@@ -41,6 +53,10 @@ function IfLowerOrEqualUserlevel($userid)
     }
 }
 
+/**
+ * @param int $userid
+ * @return bool
+ */
 function IfLocked($userid)
 {
     global $line;
@@ -52,6 +68,10 @@ function IfLocked($userid)
     }
 }
 
+/**
+ * @param int $userid
+ * @return bool
+ */
 function IfUnlocked($userid)
 {
     global $line;
@@ -62,7 +82,6 @@ function IfUnlocked($userid)
         return false;
     }
 }
-
 
 $ms2->AddTextSearchField(t('Clan'), array('c.name' => 'like'));
 
@@ -97,7 +116,6 @@ if ($auth['type'] >= 2) {
 }
 if ($auth['type'] >= 3 and $func->isModActive('foodcenter')) {
     $ms2->AddIconField('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=', t('Geld auf Konto buchen'));
-#  $ms2->AddIconField('paid', 'index.php?mod=foodcenter&action=account&act=himbalance&step=2&userid=', t('Kontostand zeigen'));
 }
 $ms2->AddIconField('locked', 'index.php?mod=usrmgr&step=11&userid=', t('Account freigeben'), 'IfLocked');
 $ms2->AddIconField('unlocked', 'index.php?mod=usrmgr&step=10&userid=', t('Account sperren'), 'IfUnlocked');
@@ -114,7 +132,6 @@ if ($auth['type'] >= 2) {
 if ($auth['type'] >= 3) {
     $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', t('Löschen'));
 }
-
 
 if ($auth['type'] >= 2) {
     $res = $db->qry("SELECT * FROM %prefix%party_usergroups");

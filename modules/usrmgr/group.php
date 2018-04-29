@@ -1,20 +1,5 @@
 <?php
 
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0.3
-*	File Version:		1.0
-*	Filename: 			group.php
-*	Module: 			usrmgr
-*	Main editor: 		Genesis marco@chuchi.tv
-*	Last change: 		25.02.05
-*	Description: 		Editieren der Preise für die Partys
-*	Remarks:
-*
-**************************************************************************/
-
 $usrmgr_selection[0] = t('Keine zuweisung');
 $usrmgr_selection[1] = t('Alter');
 $usrmgr_selection[2] = t('Weiblich');
@@ -43,7 +28,7 @@ switch ($_GET['step']) {
         }
         break;
     
-        // Move Up
+    // Move Up
     case 16:
         $db->qry("UPDATE %prefix%party_usergroups SET pos = 0 WHERE pos = %int%", ($_GET["pos"] - 1));
         $db->qry("UPDATE %prefix%party_usergroups SET pos = pos - 1 WHERE pos = %int%", $_GET["pos"]);
@@ -66,7 +51,6 @@ switch ($_GET['step']) {
         break;
 }
 
-
 switch ($_GET['step']) {
     default:
         $dsp->NewContent(t('Gruppenverwaltung'), t('Erstelle Benutzergruppen um unterschiedliche Preise zu verlangen.'));
@@ -85,15 +69,7 @@ switch ($_GET['step']) {
                     
         $dsp->AddTextFieldRow("group_name", t('Gruppenname'), $_POST['group_name'], $error_usrmgr['group']);
         $dsp->AddTextFieldRow("description", t('Benutzergruppenbeschreibung'), $_POST['description'], $error_usrmgr['group_desc']);
-        // Dropdown für auswahl der Automatischen einstufung
-#		$selection_array = array();
-#		foreach ($usrmgr_selection as $key => $value){
-#			($key == $_POST['selection']) ? $selected = "selected" : $selected = "";
-#			array_push($selection_array,"<option $selected value='$key'>" . $value . "</option>");
-#		}
-#		$dsp->AddDropDownFieldRow("selection",t('Automatische Zuweisung'),$selection_array,$error_usrmgr['selection']);
-#		$dsp->AddTextFieldRow("select_opts",t('Zuweisungsbegriff (für Alter z.b. 18+, 16-18, -18)'),$_POST['select_opts'],$error_usrmgr['select_opts']);
-        
+
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         
         if ($_GET['var'] != "update") {
@@ -193,7 +169,6 @@ switch ($_GET['step']) {
 
         $func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgeführt'), "index.php?mod=usrmgr&action=group&group_id={$_GET['group_id']}");
         break;
-    
     
     // Sort Groups
     case 15:

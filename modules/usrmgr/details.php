@@ -3,6 +3,9 @@
 include_once("modules/usrmgr/class_usrmgr.php");
 $usrmgr = new UsrMgr;
 
+/**
+ * @return bool
+ */
 function IsAuthorizedAdmin()
 {
     global $auth, $user_data, $link;
@@ -15,10 +18,12 @@ function IsAuthorizedAdmin()
     }
 }
 
+/**
+ * @param boolean $checkin
+ * @return string
+ */
 function getCheckin($checkin)
 {
-    global $dsp;
-  
     if ($checkin) {
         return "<img src='design/images/icon_yes.png' border='0' alt='Ja' />";
     } else {
@@ -26,10 +31,12 @@ function getCheckin($checkin)
     }
 }
 
+/**
+ * @param int $type
+ * @return string
+ */
 function GetTypeDescription($type)
 {
-    global $lang;
-
     switch ($type) {
         case -2:
             return t('Organisator (gesperrt)');
@@ -52,14 +59,12 @@ function GetTypeDescription($type)
     }
 }
 
-//Get Barcode if exists and translate to userid
+// Get Barcode if exists and translate to userid
 if ($_POST['barcodefield']) {
     $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
     $_GET['userid']=$row['userid'];
 }
 
-// Select from table_user
-// username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment
 $user_data = $db->qry_first(
     "SELECT u.*, g.*, UNIX_TIMESTAMP(u.birthday) AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, u.avatar_path, u.signature, clan.name AS clan, clan.url AS clanurl, UNIX_TIMESTAMP(lastlogin) AS lastlogin
     FROM %prefix%user AS u
@@ -91,7 +96,7 @@ if (!$user_data['userid']) {
 
     $dsp->StartTab(t('Spieler'), 'assign');
 
-  // First name, last name, username, user ID
+    // First name, last name, username, user ID
     $name = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
     if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['userid'] == $_GET['userid']) {
         if ($user_data['firstname']) {
@@ -126,14 +131,14 @@ if (!$user_data['userid']) {
     $name .= '</td></tr></table>';
     $dsp->AddDoubleRow(t('Benutzername'), $name);
 
-  // User group
+    // User group
     if (!$user_data['group_name']) {
         $dsp->AddDoubleRow(t('Benutzergruppe'), t('Keiner Gruppe zugeordnet'));
     } else {
         $dsp->AddDoubleRow(t('Benutzergruppe'), $user_data['group_name'] .' ['. $user_data['group_id'] .']');
     }
 
-  // Clan
+    // Clan
     if ($cfg['signon_show_clan']) {
         $clan = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
         $clan .= '<a href="index.php?mod=clanmgr&step=2&clanid='.$user_data["clanid"].'">'.$user_data["clan"].'</a>';
@@ -152,7 +157,7 @@ if (!$user_data['userid']) {
         $dsp->AddDoubleRow(t('Clan'), $clan);
     }
 
-  // Party Checkin, paid, ...
+    // Party Checkin, paid, ...
     if ($party->count > 0) {
         $clan = '<table width="100%"><tr><td>';
         $party_row = '';
@@ -200,7 +205,7 @@ if (!$user_data['userid']) {
           $dsp->AddDoubleRow("Party '<i>". $_SESSION['party_info']['name'] ."</i>'", $party_row);
     }
 
-  // Seating
+    // Seating
     if ($func->isModActive('seating')) {
         include_once("modules/seating/class_seat.php");
         $seat2 = new seat2();
@@ -223,7 +228,7 @@ if (!$user_data['userid']) {
           $dsp->AddDoubleRow(t('Sitzplatz'), $seat);
     }
 
-  //kontostand
+    // Kontostand
     if ($func->isModActive('foodcenter')) {
         $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int%", $_GET['userid']);
         if ($result['total'] == "") {
@@ -238,7 +243,7 @@ if (!$user_data['userid']) {
     }
 
     $dsp->AddFieldsetStart(t('Kontakt'));
-  // Address
+    // Address
     $address = '';
     if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
         $address .= $user_data['street'] .' '. $user_data['hnr'] .', ';
@@ -250,7 +255,7 @@ if (!$user_data['userid']) {
         $dsp->AddDoubleRow(t('Adresse'), $address);
     }
 
-  // Phone
+    // Phone
     $phone = '';
     if ($user_data['telefon'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) {
         $phone .= $dsp->FetchIcon('phone', '', 'Phone'). ' '. $user_data['telefon'] . ' ';
@@ -260,7 +265,7 @@ if (!$user_data['userid']) {
     }
     $dsp->AddDoubleRow(t('Telefon'), $phone);
 
-  // Mail
+    // Mail
     $mail = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
     if ((!$cfg['sys_internet'] and $cfg['user_showmail4all']) or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']) {
         $mail .= '<a href="mailto:'. $user_data['email'] .'">'. $user_data['email'] .'</a> ';
@@ -274,9 +279,8 @@ if (!$user_data['userid']) {
     }
     $mail .= '</td></tr></table>';
     $dsp->AddDoubleRow(t('Email'), $mail);
-    
 
-  // Messenger
+    // Messenger
     $messenger = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
     if ($user_data['icq']) {
         if ($cfg['sys_internet']) {
@@ -309,31 +313,31 @@ if (!$user_data['userid']) {
 
     $dsp->AddFieldsetStart(t('Verschiedenes'));
 
-  // User-Type
+    // User-Type
     $dsp->AddDoubleRow(t('Benutzertyp'), GetTypeDescription($user_data['type']));
 
-  // Perso
+    // Perso
     if ($user_data['perso'] and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
         $dsp->AddDoubleRow(t('Passnummer / Sonstiges'), $user_data['perso'] .'<br>'. t('Hinweis: Die Angaben zu Straße und Passnummer sind nur für dich und die Organisatoren sichtbar.'));
     }
 
-  // Birthday
+    // Birthday
     if ($cfg['sys_internet'] == 0 or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']) {
         $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], 'date') .' ('. $user_data['age']  .')' : t('Nicht angegeben'));
     }
 
-  // Gender
+    // Gender
     $geschlecht[0] = t('Nicht angegeben');
     $geschlecht[1] = t('Männlich');
     $geschlecht[2] = t('Weiblich');
     $dsp->AddDoubleRow(t('Geschlecht'), $geschlecht[$user_data['sex']]);
 
-  // Picture
+    // Picture
     if ($func->chk_img_path($user_data['picture'])) {
         $dsp->AddDoubleRow(t('Benutzerbild'), '<img src="'. $user_data['picture'] .'">');
     }
 
-  // Comment
+    // Comment
     $dsp->AddDoubleRow(t('Kommentar'), ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
     $dsp->AddFieldsetEnd();
   
@@ -376,7 +380,7 @@ if (!$user_data['userid']) {
     $dsp->EndTab();
   
     $dsp->StartTab(t('Sonstiges'));
-  // logins, last login
+    // logins, last login
     if ($auth['type'] >= 2) {
         $lastLoginTS = $db->qry_first("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", $_GET['userid']);
         $dsp->AddDoubleRow(t('Logins'), $user_data['logins']);
@@ -388,16 +392,16 @@ if (!$user_data['userid']) {
           $dsp->AddDoubleRow(t('Letzter Login'), $loginTime);
     }
 
-  // signature
+    // signature
     $dsp->AddDoubleRow(t('Signatur'), $func->text2html($user_data['signature']));
 
-  // avatar
+    // avatar
     ($user_data['avatar_path'] != "" and $user_data['avatar_path'] != "0") ?
       $avatar = "<img border=\"0\" src=\"". $user_data['avatar_path'] . "\">"
       : $avatar = t('Dieser Benutzer hat keinen Avatar ausgewählt.');
     $dsp->AddDoubleRow(t('Avatar'), $avatar);
 
-  // Including comment-engine
+    // Including comment-engine
     if ($auth["login"] == 1) {
         new \LanSuite\MasterComment('User', $_GET['userid']);
     }
@@ -425,10 +429,8 @@ if (!$user_data['userid']) {
 
         $ms2->AddResultField(t('Session-ID'), 'a.sessid');
         $ms2->AddResultField(t('IP'), 'a.ip');
-    #$ms2->AddResultField(t('Login?'), 'a.login');
         $ms2->AddResultField(t('Hits'), 'a.hits');
         $ms2->AddResultField(t('Visits'), 'a.visits');
-    #$ms2->AddResultField(t('Letzter Aufruf'), 'a.logtime', 'MS2GetDate');
         $ms2->AddResultField(t('Eingeloggt'), 'a.logintime', 'MS2GetDate');
         $ms2->AddResultField(t('Letzter Aufruf'), 'a.lasthit', 'MS2GetDate');
 

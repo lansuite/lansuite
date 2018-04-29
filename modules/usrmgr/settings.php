@@ -2,11 +2,10 @@
 
 $gd = new \LanSuite\GD();
 
-// Create user in user_settings, if not pressent
-// (in some installations this was not created automatically)
-#$row = $db->qry_first("SELECT 1 AS found FROM %prefix%user WHERE userid = %int%", $auth['userid']);
-#if (!$row['found']) $db->qry("INSERT INTO %prefix%user SET userid = %int%", $auth['userid']);
-
+/**
+ * @param string $AvatarName
+ * @return bool|string
+ */
 function CheckAndResizeUploadPic($AvatarName)
 {
     global $gd;
