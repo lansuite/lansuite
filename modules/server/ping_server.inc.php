@@ -123,7 +123,6 @@ function ping_server($host, $port)
         if ($special_info =="") {
             $special_info=$server_daten["special_info"];
         }
-        $special_info = $special_info;
         $db->qry('UPDATE %prefix%server SET special_info=%string%, available=%string%, scans=scans+1, success=success+%int%, lastscan=NOW() WHERE ((ip = %string%) AND (port=%int%));', $special_info, $available, $success, $host, $port);
     }
 }

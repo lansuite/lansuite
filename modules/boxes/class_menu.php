@@ -47,10 +47,12 @@ class menu
         if ($item['caption'] == '--hr--') {
             switch ($item['level']) {
                 default:
-                    return $this->box->HRuleRow();
+                    $this->box->HRuleRow();
+                    return;
                 break;
                 case 1:
-                    return $this->box->HRuleEngagedRow();
+                    $this->box->HRuleEngagedRow();
+                    return;
                 break;
             }
         } else {

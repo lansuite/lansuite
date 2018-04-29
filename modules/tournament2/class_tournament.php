@@ -920,6 +920,5 @@ class tfunc
                                     WHERE ((teams.leaderid = %int%) OR (members.userid = %int%)) AND teams.tournamentid=%int%
                                 ", $userid, $userid, $tournamentid);
         return $teamid['teamid'];
-        $db->free_result($teamid);
     } // END: get_user_in_tournament
 } // END: Class

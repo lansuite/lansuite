@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @param string $key
+ * @return bool
+ */
 function Needed($key)
 {
     global $cfg;

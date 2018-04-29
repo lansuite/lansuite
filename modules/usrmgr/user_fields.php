@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @param int $id
+ * @return bool
+ */
 function Update($id)
 {
     global $db;
@@ -9,6 +13,10 @@ function Update($id)
     return true;
 }
 
+/**
+ * @param string $val
+ * @return bool|string
+ */
 function check_no_space($val)
 {
     if (strpos($val, ' ') !== false) {
@@ -39,7 +47,7 @@ switch ($_GET['step']) {
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=usrmgr&action=user_fields&step=10"));
         break;
   
-  // Add new entry
+    // Add new entry
     case 10:
         $mf = new masterform();
 
@@ -56,7 +64,7 @@ switch ($_GET['step']) {
         $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $_GET['fieldid']);
         break;
   
-  // Delete entry
+    // Delete entry
     case 20:
         $fild_row = $db->qry_first("SELECT name FROM %prefix%user_fields WHERE fieldid = %int%", $_GET['fieldid']);
         $db->qry("ALTER TABLE %prefix%user DROP %plain%", $fild_row['name']);
