@@ -192,11 +192,17 @@ class pdf
             case 'seatcards':
                 $this->_menuSeatcards($action);
                 break;
-            default:
-                $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action);
-                break;
+
             case 'userlist':
                 $this->_menuUserlist($action);
+                break;
+
+            case 'certificate':
+                $this->_menuCertificate($action);
+                break;
+
+            default:
+                $func->error(t('Die von dir gew&uuml;nschte Funktion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action);
                 break;
         }
     }
@@ -220,13 +226,18 @@ class pdf
             case 'userlist':
                 $this->_makeUserlist($_POST['paid'], $_POST['guest'], $_POST['op'], $_POST['orga'], $_POST['order']);
                 break;
-            default:
-                $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action);
+
+            case 'certificate':
+                $this->_makeCertificate($_POST['guest'], $_POST['user']);
                 break;
             case 'ticket':
-                if ($auth["userid"] == $_GET['userid'] || $auth["type"] > 2) {
+                if($auth["userid"] == $_GET['userid'] || $auth["type"] > 2){
                     $this->_makeUserCard(1, 1, 1, 1, $_GET['userid']);
                 }
+                break;
+
+            default:
+                $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action);
                 break;
         }
     }
@@ -401,6 +412,54 @@ class pdf
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/userlist");
     }
+
+
+    /**
+
+    * Menu f�r Urkunden
+    *
+    * @param string $action
+    */
+    public function _menuCertificate($action)
+    {
+        global $lang,$dsp,$db,$party,$func;
+
+
+        $dsp->NewContent(t('Urkunden erstellen.'), t('Hier kannst du Gewinnerurkunden f&uuml;r die Teilnehmer erstellen.'));
+        $dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
+        $dsp->AddSingleRow(t('Die Bl&auml;tter werden nach folgenden Kriterien erstellt:'));
+
+        // Checkboken f�r Benutzer
+
+        $dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'), "", "", "1", "1", "0");
+
+        // Array f�r Sortierung
+        $sort_array = array("username" =>   t('Nickname'),
+                                "name" =>   t('Nachname'),
+                            "firstname" =>  t('Vorname'),
+                                "clan" =>   t('Clan'),
+                                "plz" =>    t('PLZ'),
+                                "city" =>   t('Ortschaft')
+                            );
+
+        $s_array = array();
+
+
+
+        while (list($key, $val) = each($sort_array)) {
+            array_push($s_array, "<option $selected value=\"$key\">$val</option>");
+        }
+
+        // Knopf f�r erzeugen der PDF
+
+        $dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);
+
+        // Knopf f�r erzeugen der PDF
+        $dsp->AddFormSubmitRow(t('Weiter'));
+        $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/certificate");
+        $dsp->AddContent();
+    }
+
 
     // Erzeugung der PDF-Dateien ***********************************
 
@@ -815,9 +874,124 @@ class pdf
 
         $this->pdf->Output("Userlist.pdf", "D");
     }
-    
+
     // erstellen der ersten Seite
 
+    /**
+     * PDF erzeugen für Urkunden
+     *
+     * @param string $pdf_normal
+     * @param string $pdf_user
+     */
+    public function _makeCertificate($pdf_normal, $pdf_user)
+    {
+        define('IMAGE_PATH', 'ext_inc/pdf_templates/');
+        global $db, $func,$party, $seat2;
+
+        // abfrage String erstellen
+
+        $pdf_sqlstring = "";
+
+        // Auf Party Pr�fen
+
+        if ($_POST['party'] == '1' or $pdf_paid) {
+            $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id";
+        }
+
+        $pdf_sqlstring .= ' WHERE user.type > -1';
+
+        if ($_POST['party'] == '1' or $pdf_paid) {
+            $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
+        }
+
+
+
+        $pdf_sqlstring = $pdf_sqlstring . " ORDER BY username, name ASC";
+
+        $query = $db->qry("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
+
+      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid %plain%", $pdf_sqlstring);
+
+
+        $user_numusers = $db->num_rows($query);
+
+        // erste Seite erstellen
+        $this->_make_page();
+
+        // Datenbank abfragen f�r momentans Template
+
+        $templ_data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $this->templ_id);
+        $templ = array();
+
+        while ($templ_data_array = $db->fetch_array($templ_data)) {
+            $templ[] = array_merge($templ_data_array, $templ);
+        }
+
+        // Gr�sse einstellen
+
+        $this->_get_size($templ);
+
+        // Anzahl Spallten und Reihen ermitteln
+
+        $this->max_col = floor(($this->total_x - $this->start_x)/($this->start_x + $this->object_width));
+        $this->max_row = floor(($this->total_y - (2 * $this->start_y))/($this->object_high));
+
+        // Seite f�llen
+
+        $nr = 0;
+
+        while ($row = $db->fetch_array($query)) {
+            $nr = $nr + 1;
+            unset($data);
+
+            $data['user_nickname']  = $func->AllowHTML($row["username"]);
+            $data['party_name']     = $_SESSION['party_info']['name'];
+            $data['nr']             = $nr;
+            $data['userid']         = $row["userid"];
+            $data['lastname']       = $row["name"];
+            $data['firstname']      = $row["firstname"];
+            $data['fullname']       = $row["firstname"] . " " . $row["name"];
+            $data['clan']           = $func->AllowHTML($row["clan"]);
+            $data['plz']            = $row['plz'];
+            $data['city']           = $row['city'];
+            $data['birthday']       = $row['birthday'];
+
+            // Spallte und Zelle anw�hlen
+
+            $this->x = (($this->col - 1) * ($this->start_x + $this->object_width)) + $this->start_x;
+            $this->y = (($this->row - 1) * ($this->object_high)) + $this->start_y;
+
+            // Neue Seite Anlegen wenn die letze voll ist
+
+            if ($new_page) {
+                $this->pdf->AddPage();
+                $new_page = false;
+            }
+
+            $this->_write_object($templ, $data);
+
+            // Nextes Feld ausw�hlen
+
+            if ($this->col < $this->max_col) {
+                $this->col++;
+            } else {
+                $this->col = 1;
+
+                if ($this->row < $this->max_row) {
+                    $this->row++;
+                } else {
+                    $this->row = 1;
+
+                    $new_page = true;
+                }
+            }
+        } // end while
+
+        $this->pdf->Output("Certificate.pdf", "D");
+    }
+
+
+    // Erstellen der ersten Seite
     /**
      * Funktionen um PDF-Dateien zu erzeugen
      * aufrufen.
