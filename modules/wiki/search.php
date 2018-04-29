@@ -1,6 +1,5 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2('wiki');
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('wiki');
 
 $ms2->query['from'] = "%prefix%wiki AS w
   LEFT JOIN %prefix%wiki_versions AS v ON w.postid = v.postid

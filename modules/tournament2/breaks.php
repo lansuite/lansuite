@@ -10,8 +10,7 @@ switch ($_GET['step']) {
         break;
     
     default:
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('tournament');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('tournament');
         $ms2->query['from'] = '%prefix%t2_breaks';
         $ms2->query['where'] = 'tournamentid = '. (int)$_GET['tournamentid'];
         $ms2->AddResultField(t('Start'), 'start');

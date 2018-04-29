@@ -2,7 +2,7 @@
 /*
  * Created on 12.02.2009
  *
- * Gibt zufällig ausgewählte Benutzer aus. Nützlich für Gewinnspiele etc.
+ * Gibt zufÃ¤llig ausgewÃ¤hlte Benutzer aus. NÃ¼tzlich fÃ¼r Gewinnspiele etc.
  *
  * @package lansuite_core
  * @author Maztah
@@ -11,8 +11,7 @@
  
  $dsp->NewContent(t('Zufallsuser'));
 
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('random_user');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('random_user');
         
         //Anzeige User
         $ms2->query['from'] = "%prefix%user AS u

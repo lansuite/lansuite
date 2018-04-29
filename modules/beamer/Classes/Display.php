@@ -2,6 +2,8 @@
 
 namespace LanSuite\Module\Beamer;
 
+use LanSuite\Module\MasterSearch2\MasterSearch2;
+
 class Display
 {
 
@@ -125,9 +127,8 @@ class Display
     
         $dsp->NewContent(t('Auflistung der Inhalte'));
         $dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton(t('Inhalte hinzuf&uuml;gen'), 'index.php?mod=beamer&action=newcontent', 'Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));
-  
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new \mastersearch2('Beamer');
+
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('Beamer');
         $ms2->query['from'] = '%prefix%beamer_content';
         $ms2->AddResultField('-A-', 'active', 'formatActiveStatus', '', 35);
         $ms2->AddResultField(t('Typ'), 'contentType', 'formatContentType', "", 35);

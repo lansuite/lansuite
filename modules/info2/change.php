@@ -48,8 +48,7 @@ function ShowActiveState($val)
 }
 
 if ($auth['type'] <= 1) {
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new MasterSearch2();
+    $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
     $ms2->query['from'] = "%prefix%info AS i";
     $ms2->query['where'] = "i.active";
@@ -71,8 +70,7 @@ if ($auth['type'] <= 1) {
               $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Info-Seiten editieren.'));
               $dsp->AddSingleRow($dsp->FetchSpanButton('Neuen Infotext hinzufügen', 'index.php?mod=info2&action=change&step=2'));
 
-              include_once('modules/mastersearch2/class_mastersearch2.php');
-              $ms2 = new MasterSearch2();
+              $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
               $ms2->query['from'] = "%prefix%info AS i";
               $ms2->query['where'] = "i.link = ''";
@@ -108,7 +106,7 @@ if ($auth['type'] <= 1) {
 
               $dsp->AddSingleRow($dsp->FetchSpanButton('Externen Link erstellen', 'index.php?mod=info2&action=change&step=30'));
 
-              $ms2 = new MasterSearch2();
+              $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
               $ms2->query['from'] = "%prefix%info AS i";
               $ms2->query['where'] = "i.link != ''";

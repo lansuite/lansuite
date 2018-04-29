@@ -28,8 +28,7 @@ function check_no_space($val)
 
 switch ($_GET['step']) {
     default:
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('usrmgr');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('usrmgr');
     
         $ms2->query['from'] = "%prefix%user_fields AS f";
     

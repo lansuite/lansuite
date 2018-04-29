@@ -17,8 +17,7 @@ switch ($_GET['step']) {
         break;
   
     default:
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('cron2');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('cron2');
 
         $ms2->query['from'] = "%prefix%cron AS c";
 

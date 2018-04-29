@@ -27,8 +27,7 @@ switch ($_GET['step']) {
         }
 
         $dsp->AddFieldSetStart(t('Module übersetzen'));
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('install');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('install');
         $ms2->query['from'] = "%prefix%translation";
         $ms2->config['EntriesPerPage'] = 100;
         $ms2->AddResultField(t('Modul'), 'file');
@@ -41,8 +40,7 @@ switch ($_GET['step']) {
     case 2:
         $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
 
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('install');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('install');
 
         $ms2->query['from'] = "%prefix%translation";
         $ms2->config['EntriesPerPage'] = 50;
