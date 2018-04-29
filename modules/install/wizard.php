@@ -216,7 +216,7 @@ switch ($_GET["step"]) {
 
     // Display import form
     case 4:
-        $dsp->NewContent(t('Datenimport'), t('Hier kannst du die XML- oder CSV-Datei mit den Benutzerdaten ihrer Gäste importieren. Diese erhälst du z.B. bei LanSurfer, oder über den Export-Link einer anderen Lansuite-Version oder von jedem anderen System, das das Lansuite XML-Benutzerformat unterstützt.<br />Du kannst den Import auch überspringen (auf <b>\'Weiter\'</b> klicken). In diesem Fall solltest du im nächsten Schritt einen Adminaccount anlegen.'));
+        $dsp->NewContent(t('Datenimport'), t('Hier kannst du die XML- oder CSV-Datei mit den Benutzerdaten ihrer Gäste importieren. Diese erhälst du z.B. über den Export-Link einer anderen LanSuite-Version oder von jedem anderen System, das das LanSuite XML-Benutzerformat unterstützt.<br />Du kannst den Import auch überspringen (auf <b>\'Weiter\'</b> klicken). In diesem Fall solltest du im nächsten Schritt einen Adminaccount anlegen.'));
 
         $dsp->SetForm("index.php?mod=install&action=wizard&step=5", "", "", "multipart/form-data");
 
@@ -232,8 +232,6 @@ switch ($_GET["step"]) {
         $dsp->AddCheckBoxRow("replace", t('Vorhandene Einträge überschreiben'), "", "", 1, 1);
         $dsp->AddCheckBoxRow("signon", t('Benutzer zur aktuellen Party anmelden'), "", "", 1, 1);
         $dsp->AddHRuleRow();
-        $dsp->AddSingleRow("<b>".t('LanSurfer-XML-Export')."</b>");
-        $dsp->AddCheckBoxRow("noseat", t('Sitzplan NICHT importieren'), "", "", 1, "");
 
         $dsp->AddSingleRow(t('ACHTUNG: Wird mit den importierten Daten auch ein Adminaccount importiert, wirst du ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.'));
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
@@ -251,9 +249,8 @@ switch ($_GET["step"]) {
                 $dsp->NewContent(t('wizard_importupload_caption'), t('wizard_importupload_subcaption')); // FIXME
 
                 switch ($header["filetype"]) {
-                    case "LANsurfer_export":
                     case "lansuite_import":
-                        $import->ImportLanSurfer($_POST["deldb"], $_POST["replace"], $_POST["noseat"], $_POST["signon"], $_POST["comment"]);
+                        $import->ImportLanSuite($_POST["deldb"], $_POST["replace"], $_POST["noseat"], $_POST["signon"], $_POST["comment"]);
 
                         $dsp->AddSingleRow(t('Datei-Import erfolgreich.'));
                         $dsp->AddDoubleRow(t('Dateityp'), $header["filetype"]);
