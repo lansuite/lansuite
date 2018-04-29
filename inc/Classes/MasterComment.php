@@ -37,8 +37,7 @@ class MasterComment {
 
         // List current comments
         // TODO Remove dependency to module. LanSuite core classes should not have dependencies to modules.
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('bugtracker');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('bugtracker');
 
         $ms2->query['from'] = "%prefix%comments AS c LEFT JOIN %prefix%user AS u ON c.creatorid = u.userid ";
         $ms2->query['where'] = "c.relatedto_item = '$mod' AND c.relatedto_id = '$id'";

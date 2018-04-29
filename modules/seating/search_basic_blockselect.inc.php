@@ -1,6 +1,5 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2('seating');
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('seating');
 
 // Get number of seats in block
 function SeatsAvailable($blockid)

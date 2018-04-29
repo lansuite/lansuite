@@ -73,8 +73,7 @@ function link_to_clan($clan_url)
 
 switch ($_GET['step']) {
     default:
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('clanmgr');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('clanmgr');
     
         $ms2->query['from'] = "%prefix%clan AS c
         LEFT JOIN %prefix%user AS u ON c.clanid = u.clanid";
@@ -141,8 +140,7 @@ switch ($_GET['step']) {
     
 
         $dsp->AddFieldSetStart(t('Mitglieder'));
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('clanmgr');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('clanmgr');
     
         $ms2->query['from'] = "%prefix%user AS u";
         $ms2->query['where'] = "u.clanid = ". (int)$_GET['clanid'];
@@ -246,8 +244,7 @@ switch ($_GET['step']) {
         
             if ($_GET['clanid'] != '') {
                 $dsp->AddFieldsetStart(t('Mitglieder'));
-                include_once('modules/mastersearch2/class_mastersearch2.php');
-                $ms2 = new mastersearch2('clanmgr');
+                $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('clanmgr');
 
                 $ms2->query['from'] = "%prefix%user AS u";
                 $ms2->query['where'] = 'u.clanid = '. (int)$_GET['clanid'];

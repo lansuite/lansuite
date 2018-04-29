@@ -1,6 +1,5 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 if ($func->isModActive('seating')) {
     include_once("modules/seating/class_seat.php");

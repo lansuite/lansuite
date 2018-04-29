@@ -135,8 +135,7 @@ if ($tournament["name"] == "") {
             $dsp->AddFormSubmitRow(t('Ergebnis'));
 
             $dsp->AddFieldsetStart('Log');
-            include_once('modules/mastersearch2/class_mastersearch2.php');
-            $ms2 = new mastersearch2('t2_games');
+            $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('t2_games');
 
             $ms2->query['from'] = "%prefix%log AS l LEFT JOIN %prefix%user AS u ON l.userid = u.userid";
             $ms2->query['where'] = "(sort_tag = 'Turnier Ergebnise' AND target_id = ". (int)$_GET['gameid1'] .')';

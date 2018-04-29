@@ -144,8 +144,7 @@ if ($_POST['search_input'][1] != '' or $_POST['search_input'][2] != '' or $_GET[
     $dsp->AddSingleRow('<b>'.t('Achtung: du hast als Suche einen Autor, bzw. Text angegeben. Die Ergebnis-Felder Antworten, sowie erster und letzter Beitrag beziehen sich daher nur noch auf Posts, in denen diese Eingaben gefunden wurden, nicht mehr auf den ganzen Thread!').'</b>');
 }
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 $ms2->query['from'] = "%prefix%board_threads AS t
     LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid

@@ -9,8 +9,7 @@
 $dsp->NewContent(t('Admin Loginübersicht'), '');
 
 // Einbinden der MasterSearch2 (Eigene Engine zum Suchen in Lansuite)
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2('lastlogin');
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('lastlogin');
 
 // Normale Queryabfrage in MS2, prefix wird automatisch durch den tabellen-Vornamen ersetzt. Bei uns "lansuite_"
 // Es wird also lansuite_user in MySQL aufgerufen

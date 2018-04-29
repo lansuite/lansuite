@@ -50,8 +50,7 @@ while ($user = $db->fetch_array($res)) {
     ### Mastersearch ###
     // There is a quite simple way in lansuite to list and search data within data base tables, called mastersearch
   // In this exapmle we will list all news
-  include_once('modules/mastersearch2/class_mastersearch2.php');
-  $ms2 = new mastersearch2('news');
+  $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
   // Define the source table and join all tables, which should be attached
   $ms2->query['from'] = "%prefix%news n LEFT JOIN %prefix%user u ON n.poster=u.userid";

@@ -1,8 +1,7 @@
 <?php
 switch ($_GET['step']) {
     default:
-        include_once('modules/mastersearch2/class_mastersearch2.php');
-        $ms2 = new mastersearch2('news');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
         $ms2->query['from'] = "%prefix%rentuser AS r
       LEFT JOIN %prefix%user AS u ON u.userid = r.userid

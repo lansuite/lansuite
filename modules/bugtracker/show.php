@@ -70,8 +70,7 @@ function FetchType($type)
 if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     $dsp->NewContent(t('Bugtracker'), t('Hier kannst du Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
 
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2('bugtracker');
+    $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('bugtracker');
 
     $quicklink = array();
     $quicklink['name'] = 'Fehler (offen)';
@@ -250,8 +249,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     $dsp->EndTab();
 
     $dsp->StartTab(t('Log'), 'save');
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2('bugtracker');
+    $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('bugtracker');
 
     $ms2->query['from'] = "%prefix%log AS l LEFT JOIN %prefix%user AS u ON l.userid = u.userid";
     $ms2->query['where'] = "(sort_tag = 'bugtracker' AND target_id = ". (int)$_GET['bugid'] .')';
