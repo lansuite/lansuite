@@ -20,7 +20,7 @@ function ping_server($host, $port)
         $available = $success;
 
         $special_info = "";
-        // Weitere Daten für FTPs herrausfinden
+        // Weitere Daten fÃ¼r FTPs herrausfinden
         if (($success) && ($server_daten["type"] == "ftp")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
                 socket_set_blocking($fp, false);
@@ -85,7 +85,7 @@ function ping_server($host, $port)
         } // END: If Type=FTP
 
 
-        // Weitere Daten für IRCs herrausfinden
+        // Weitere Daten fÃ¼r IRCs herrausfinden
         if (($success) && ($server_daten["type"] == "irc")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
                 socket_set_blocking($fp, false);
@@ -125,7 +125,6 @@ function ping_server($host, $port)
         if ($special_info =="") {
             $special_info=$server_daten["special_info"];
         }
-        $special_info = $special_info;
         $db->qry('UPDATE %prefix%server SET special_info=%string%, available=%string%, scans=scans+1, success=success+%int%, lastscan=NOW() WHERE ((ip = %string%) AND (port=%int%));', $special_info, $available, $success, $host, $port);
     }
 }
