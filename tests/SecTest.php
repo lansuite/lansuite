@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class SecTest extends TestCase
 {
     /**
-     * @covers sec::check_blacklist
+     * @covers \LanSuite\Security::check_blacklist
      */
     public function testCheckBlacklist_InGlobalBlacklist()
     {
@@ -16,7 +16,7 @@ class SecTest extends TestCase
         $_SERVER['REMOTE_ADDR'] = '1.2.3.4';
         $GLOBALS['cfg']['ip_blacklist'] = '1.2.3.4';
 
-        $sec = new \sec();
+        $sec = new \LanSuite\Security();
         $actual = $sec->check_blacklist();
         $this->assertEquals($expected, $actual);
 

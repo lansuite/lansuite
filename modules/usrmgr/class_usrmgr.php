@@ -218,7 +218,7 @@ class UsrMgr
     {
         global $cfg, $db, $config;
 
-        $xml = new xml();
+        $xml = new \LanSuite\XML();
         $output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
 
         $system = $xml->write_tag('version', $config['lansuite']['version'], 2);

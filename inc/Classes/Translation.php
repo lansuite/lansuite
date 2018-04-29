@@ -1,9 +1,11 @@
 <?php
 
+namespace LanSuite;
+
 /**
  * Global translation
  */
-class translation
+class Translation
 {
     /**
      * Global language

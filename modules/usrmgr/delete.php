@@ -1,6 +1,6 @@
 <?php
 
-$md = new masterdelete();
+$md = new \LanSuite\MasterDelete();
 
 /**
  * Checks which MasterDetele doesn't perform.

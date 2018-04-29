@@ -3,7 +3,7 @@ $dsp->NewContent(t('Statistiken'), $_GET['file']);
 
 // Delete
 if ($_GET['delfile'] and $auth['type'] >= 3) {
-    $md = new masterdelete();
+    $md = new \LanSuite\MasterDelete();
     $md->Delete('download_stats', 'file', $_GET['delfile']);
 }
 

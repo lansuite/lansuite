@@ -5,7 +5,7 @@ $dsp->NewContent(t('Turnier - Pausenverwaltung'), t('Trage Startzeitpunkt und da
 switch ($_GET['step']) {
     // Delete
     case 10:
-        $md = new masterdelete();
+        $md = new \LanSuite\MasterDelete();
         $md->Delete('t2_breaks', 'breakid', $_GET['breakid']);
         break;
     
@@ -22,7 +22,7 @@ switch ($_GET['step']) {
         $t = $db->qry_first('SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $_GET['tournamentid']);
           
         $dsp->AddFieldSetStart(t('Pause für Turnier %1 festlegen', $t['name']));
-        $mf = new masterform();
+        $mf = new \LanSuite\MasterForm();
         $mf->AddFix('tournamentid', $_GET['tournamentid']);
         $mf->AddField(t('Pause beginnen um'), 'start');
         $mf->AddField(t('Dauer der Pause (in Minuten)'), 'duration');

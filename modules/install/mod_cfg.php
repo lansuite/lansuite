@@ -123,7 +123,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                 $dsp->EndTab();
 
                 $dsp->StartTab(t('Zugriff'), 'delete_group');
-                  $mf = new masterform();
+                  $mf = new \LanSuite\MasterForm();
 
                   $res = $db->qry('SELECT * FROM %prefix%menu WHERE module = %string% AND caption != \'\' ORDER BY level, requirement, pos', $_GET['module']);
             while ($row = $db->fetch_array($res)) {
@@ -136,7 +136,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                 $selections['3'] = t('Nur Superadminen');
                 $selections['4'] = t('Keine Admins');
                 $selections['5'] = t('Nur Ausgeloggte');
-                $mf->AddField(t('Zugriff'), 'requirement', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
+                $mf->AddField(t('Zugriff'), 'requirement', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
                 $selections = array();
                 if ($MenuCallbacks) {
@@ -146,7 +146,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                 }
                       asort($selections);
                       $selections = array('' => t('Keine')) + $selections;
-                      $mf->AddField(t('Vorraussetzung'), 'needed_config', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
+                      $mf->AddField(t('Vorraussetzung'), 'needed_config', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
                       $mf->AddGroup($row['caption'] .' ('. $row['link'] .')');
             }
@@ -318,14 +318,14 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                 $db->qry("INSERT INTO %prefix%menu SET caption = 'Neuer Eintrag', requirement = '0', hint = '', link = 'index.php?mod=', needed_config = '', module=%string%, level = 1", $_GET["module"]);
             }
 
-                  $mf = new masterform();
+                  $mf = new \LanSuite\MasterForm();
 
                     $res = $db->qry('SELECT * FROM %prefix%menu WHERE module = %string% AND caption != \'\' ORDER BY level, requirement, pos', $_GET['module']);
             while ($row = $db->fetch_array($res)) {
                   $mf->AddDBLineID($row['id']);
                   $mf->AddField(t('Titel'), 'caption');
                   $mf->AddField(t('Link'), 'link');
-                  $mf->AddField(t('Popup-Hinweis'), 'hint', '', '', masterform::FIELD_OPTIONAL);
+                  $mf->AddField(t('Popup-Hinweis'), 'hint', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
                   $mf->AddGroup($row['caption']);
             }
                   $db->free_result($res);

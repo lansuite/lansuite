@@ -1,7 +1,9 @@
 <?php
 
+namespace LanSuite;
+
 /**
- * Class debug
+ * Class Debug
  *
  * Class to provide functions like timer, debugvar output, servervar output.
  *
@@ -13,7 +15,7 @@
  * By using the filemode you have to protect the output directory.
  *
  * Example:
- *      $debug = new debug(1);
+ *      $debug = new \LanSuite\Debug(1);
  *      $debug->tracker("BEFOREINCLUDE");            // Set Timerpoint
  *      $debug->addvar('$cfg Serverconfig',$cfg);    // Add an Debugvar (Arrays posible)
  *      $debug->timer_start('function sortarray');
@@ -27,7 +29,7 @@
  * @todo Improve HTML-Output (Use just 1 function for better overview)
  * @todo Improve File-Output (write during runtime for better debugging)
  */
-class debug
+class Debug
 {
     /**
      * Helpvar Timer

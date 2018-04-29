@@ -48,7 +48,7 @@ switch ($_GET['step']) {
   
     // Add new entry
     case 10:
-        $mf = new masterform();
+        $mf = new \LanSuite\MasterForm();
 
         $mf->AddField('Feldname', 'name', '', '', '', 'check_no_space');
         $mf->AddField('Bezeichnung', 'caption');
@@ -57,7 +57,7 @@ switch ($_GET['step']) {
         $selections['0'] = t('Ausblenden');
         $selections['1'] = t('Optional');
         $selections['2'] = t('Pflichtfeld');
-        $mf->AddField(t('Optional'), 'optional', masterform::IS_SELECTION, $selections);
+        $mf->AddField(t('Optional'), 'optional', \LanSuite\MasterForm::IS_SELECTION, $selections);
 
         $mf->AdditionalDBUpdateFunction = 'Update';
         $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $_GET['fieldid']);

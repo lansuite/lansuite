@@ -1,6 +1,6 @@
 <?php
 
-$md = new masterdelete();
+$md = new \LanSuite\MasterDelete();
 
 // Delete post
 if ($_GET['pid']) {

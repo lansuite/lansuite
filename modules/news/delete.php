@@ -5,7 +5,7 @@ switch ($_GET['step']) {
         break;
 
     case 2:
-        $md = new masterdelete();
+        $md = new \LanSuite\MasterDelete();
         $md->Delete('news', 'newsid', $_GET['newsid']);
 
         include_once('modules/news/class_news.php');

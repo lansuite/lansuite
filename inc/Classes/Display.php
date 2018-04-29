@@ -1,7 +1,9 @@
 <?php
 
+namespace LanSuite;
+
 /**
- * Class display
+ * Class Display
  *
  * When handling own templates, the prefered way is to use $smarty->fetch().
  * However, at some point, you have to append these fetched content to $MainContent
@@ -9,7 +11,7 @@
  * Instead: Use either $dsp->AddSmartyTpl(), or $dsp->AddContentLine()
  * to attach your content to the LS-output.
  */
-class display
+class Display
 {
     /**
      * @var int

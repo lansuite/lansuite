@@ -1,6 +1,6 @@
 <?php
 
-$gd = new gd();
+$gd = new \LanSuite\GD();
 
 /**
  * @param string $AvatarName
@@ -22,14 +22,14 @@ function CheckAndResizeUploadPic($AvatarName)
     return false;
 }
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
 // Designs
 if ($cfg['user_design_change']) {
     $selections = array();
     $selections[''] = t('System-Vorgabe');
 
-    $xml = new xml();
+    $xml = new \LanSuite\XML();
 
     $ResDesign = opendir('design/');
     while ($dir = readdir($ResDesign)) {
@@ -44,15 +44,15 @@ if ($cfg['user_design_change']) {
     }
     closedir($ResDesign);
 
-    $mf->AddField(t('Design'), 'design', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
+    $mf->AddField(t('Design'), 'design', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 }
 
-$mf->AddField(t('Mich auf der Karte zeigen') .'|'. t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', masterform::FIELD_OPTIONAL);
-$mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', masterform::FIELD_OPTIONAL);
+$mf->AddField(t('Mich auf der Karte zeigen') .'|'. t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+$mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
 
 if ($cfg['user_avatarupload']) {
-    $mf->AddField(t('Avatar'), 'avatar_path', masterform::IS_FILE_UPLOAD, 'ext_inc/avatare/'. $auth['userid'] .'_', masterform::FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
+    $mf->AddField(t('Avatar'), 'avatar_path', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/avatare/'. $auth['userid'] .'_', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
 }
-$mf->AddField(t('Signatur'), 'signature', '', masterform::LSCODE_ALLOWED, masterform::FIELD_OPTIONAL);
+$mf->AddField(t('Signatur'), 'signature', '', \LanSuite\MasterForm::LSCODE_ALLOWED, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
 $mf->SendForm('', 'user', 'userid', $auth['userid']);

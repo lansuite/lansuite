@@ -1,6 +1,8 @@
 <?php
 
-class xml {
+namespace LanSuite;
+
+class XML {
 
     /**
      * Get the contents of the first occurrence of a specific XML-tag.

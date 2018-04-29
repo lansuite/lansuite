@@ -38,7 +38,7 @@ switch ($_GET["step"]) {
                   $userid = $db->insert_id();
             }
 
-            $authentication = new auth();
+            $authentication = new \LanSuite\Auth();
             $authentication->login($_POST["email"], $_POST["password"]);
         }
       // No break!
@@ -114,7 +114,7 @@ switch ($_GET["step"]) {
         $designPath = 'design' . DIRECTORY_SEPARATOR;
         $designDir = opendir($designPath);
 
-        $xml = new xml();
+        $xml = new \LanSuite\XML();
 
         // Check all Subdirs of $designDir for valid design-xml-files
         $t_array = array();

@@ -1,6 +1,6 @@
 <?php
 
-$gd = new gd();
+$gd = new \LanSuite\GD();
 
 $tournamentid = $_GET["tournamentid"];
 if ($_GET["group"] == "") {

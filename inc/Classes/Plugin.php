@@ -1,11 +1,13 @@
 <?php
 
+namespace LanSuite;
+
 /**
- * Class plugin
+ * Class Plugin
  *
  * This class generates the needed data array to load the plugin files.
  */
-class plugin
+class Plugin
 {
 
     /**

@@ -119,7 +119,7 @@ switch ($step) {
             $dsp->AddSingleRow(t('Hier kannst du dich in die Highscoreliste eintragen'));
             $dsp->AddDoubleRow(t('Versuche'), $score);
             $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "", "", "", $auth['login']);
-            $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", masterform::FIELD_OPTIONAL);
+            $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", \LanSuite\MasterForm::FIELD_OPTIONAL);
             
             $dsp->AddFormSubmitRow(t('Weiter'));
 

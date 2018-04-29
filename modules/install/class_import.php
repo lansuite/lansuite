@@ -1,6 +1,6 @@
 <?php
 
-$xml = new xml();
+$xml = new \LanSuite\XML();
 
 class Import
 {

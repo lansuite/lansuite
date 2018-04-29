@@ -1,6 +1,6 @@
 <?php
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
 function CheckEndDate($enddate)
 {

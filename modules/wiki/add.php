@@ -1,6 +1,6 @@
 <?php
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
 $mf->AddField(t('Titel'), 'name');
 if ($_GET['postid'] = $mf->SendForm('index.php?mod=wiki&action=add', 'wiki', 'postid', $_GET['postid'])) {
