@@ -14,7 +14,6 @@ if (isset($_GET['id'])) {
     $templ_id = $_GET['id'];
 }
 
-
 $pdf_tmpl = new pdf_tmpl($_GET['action'], $templ_id);
 $pdf_export = new pdf($templ_id);
 
@@ -35,6 +34,7 @@ switch ($_GET['act']) {
     case 'add':
         $pdf_tmpl->add_templ();
         
+        // no break
     case 'change':
         // Eintrag löschen
         if (isset($_GET['delete_item'])) {

@@ -19,7 +19,7 @@ class pdf_tmpl
         
         $data = $db->qry("SELECT * FROM %prefix%pdf_list WHERE template_type = %string%", $this->action);
         
-        $dsp->NewContent(t('Besucherausweise erstellen'), t('Bitte eine Formatierungsform ausw&auml;hlen oder eine Neue erstellen'));
+        $dsp->NewContent(t('PDF erstellen'), t('Bitte eine Formatierungsform ausw&auml;hlen oder eine Neue erstellen'));
         // Liste mit möglichen Vorlagen ausgeben
         $out = "";
         if ($db->num_rows($data) > 0) {
@@ -82,7 +82,7 @@ class pdf_tmpl
         $out = "";
         while ($data_array = $db->fetch_array($data)) {
             $smarty->assign('action', $_GET['action']);
-            $smarty->assign('name', t($data_array['type']));
+            $smarty->assign('typename', t($data_array['type']));
             $smarty->assign('itemid', $data_array['pdfid']);
             $smarty->assign('id', $this->tmpl_id);
             if ($data_array['type'] == "rect") {
@@ -108,6 +108,15 @@ class pdf_tmpl
                 $description .= t('Schriftgr&ouml;sse') . " : " . $data_array['fontsize']. " , ";
                 $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
                 $description .= t('Farbe (r/g/b)') . " : " . $data_array['red'] . "/". $data_array['green'] . "/". $data_array['blue'];
+            } elseif ($data_array['type'] == "multicell" || $data_array['type'] == "data") {
+                $description = t('Text') . " : " . $data_array['text']. HTML_NEWLINE;
+                $description .= t('Xo') . " : " . $data_array['pos_x']. " , ";
+                $description .= t('Yo') . " : " . $data_array['pos_y']. " , ";
+                $description .= t('Ausrichtung') . " : " . $data_array['align']. " , ";
+                $description .= t('Schriftart') . " : " . $data_array['font']. " , ";
+                $description .= t('Schriftgr&ouml;sse') . " : " . $data_array['fontsize']. " , ";
+                $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
+                $description .= t('Farbe (r/g/b)') . " : " . $data_array['red'] . "/". $data_array['green'] . "/". $data_array['blue'];
             } elseif ($data_array['type'] == "image") {
                 $description = t('Xo') . " : " . $data_array['pos_x']. " , ";
                 $description .= t('Yo') . " : " . $data_array['pos_y']. " , ";
@@ -122,9 +131,8 @@ class pdf_tmpl
                 $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
             }
             $smarty->assign('description', $description);
-
-            $button_edit = $dsp->FetchIcon('edit', "index.php?mod=pdf&action=" . $_GET['action'] . "&act=change_mask&id=" . $this->tmpl_id . "&itemid=" . $data_array['pdfid'], t('Editieren'));
-            $button_del = $dsp->FetchIcon('delete', "index.php?mod=pdf&action=" . $_GET['action'] . "&act=change&delete_item=1&id=" . $this->tmpl_id . "&itemid=" . $data_array['pdfid'], t('Löschen'));
+            $button_edit = $dsp->FetchIcon("index.php?mod=pdf&action=". $_GET['action'] ."&act=change_mask&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'edit', t('Editieren'));
+            $button_del = $dsp->FetchIcon("index.php?mod=pdf&action=". $_GET['action'] ."&act=change&delete_item=1&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'delete', t('Löschen'));
             $smarty->assign('button_edit', $button_edit);
             $smarty->assign('button_del', $button_del);
 
@@ -135,6 +143,7 @@ class pdf_tmpl
         // Array erzeugen für mögliche Einträge
         $type = array("<option selected value=\"rect\">" . t('Rechteck') . "</option>",
                       "<option value=\"text\">" . t('Text') . "</option>",
+                      "<option value=\"multicell\">" . t('Multicell') . "</option>",
                       "<option value=\"line\">" . t('Linie') . "</option>",
                       "<option value=\"image\">" . t('Bild') . "</option>",
                       "<option value=\"data\">" . t('Daten') . "</option>",
@@ -205,11 +214,29 @@ class pdf_tmpl
             $dsp->AddCheckBoxRow("visible", t('Sichtbar'), '', '', 'NULL', '1');
             $dsp->AddTextFieldRow("sort", t('Reihenfolge'), '', '');
             $help = "pdf/item_text";
+        } elseif ($object == "multicell") {
+            $dsp->AddTextFieldRow("text", t('Text'), '', '');
+            $dsp->AddTextFieldRow("pos_x", t('Xo'), '', '');
+            $dsp->AddTextFieldRow("pos_y", t('Yo'), '', '');
+            $dsp->AddTextFieldRow("end_x", t('Breite'), '', '');
+            $dsp->AddTextFieldRow("end_y", t('H&ouml;he'), '', '');
+            $dsp->AddTextFieldRow("align", t('Ausrichtung'), 'L', '');
+            $dsp->AddTextFieldRow("font", t('Schriftart'), 'Arial', '');
+            $dsp->AddTextFieldRow("fontsize", t('Schriftgr&ouml;sse'), '12', '');
+            $dsp->AddTextFieldRow("red", t('Rot Anteil'), '0', '');
+            $dsp->AddTextFieldRow("green", t('Gr&uuml;n Anteil'), '0', '');
+            $dsp->AddTextFieldRow("blue", t('Blau Anteil'), '0', '');
+            $dsp->AddDropDownFieldRow('user_type', t('Angezeigt bei:'), $user_type, "");
+            $dsp->AddCheckBoxRow("visible", t('Sichtbar'), '', '', 'NULL', '1');
+            $dsp->AddTextFieldRow("sort", t('Reihenfolge'), '', '');
+            $help = "pdf/item_text";
         } elseif ($object == "data") {
             $dsp->AddDropDownFieldRow('text', t('Daten'), $pdf_export->get_data_array($this->action), "");
             $dsp->AddTextFieldRow("pos_x", t('Xo'), '', '');
             $dsp->AddTextFieldRow("pos_y", t('Yo'), '', '');
-            $dsp->AddCheckBoxRow("end_x", t('Rechtsb&uuml;ndig'), '', '');
+            $dsp->AddTextFieldRow("end_x", t('Breite'), '', '');
+            $dsp->AddTextFieldRow("end_y", t('H&ouml;he'), '', '');
+            $dsp->AddTextFieldRow("align", t('Ausrichtung'), 'L', '');
             $dsp->AddTextFieldRow("font", t('Schriftart'), 'Arial', '');
             $dsp->AddTextFieldRow("fontsize", t('Schriftgr&ouml;sse'), '12', '');
             $dsp->AddTextFieldRow("red", t('Rot Anteil'), '0', '');
@@ -312,11 +339,29 @@ class pdf_tmpl
             $dsp->AddCheckBoxRow("visible", t('Sichtbar'), '', '', 'NULL', $data['visible']);
             $dsp->AddTextFieldRow("sort", t('Reihenfolge'), $data['sort'], '');
             $help = "pdf/item_text";
+        } elseif ($object == "multicell") {
+            $dsp->AddTextFieldRow("text", t('Text'), $data['text'], '');
+            $dsp->AddTextFieldRow("pos_x", t('Xo'), $data['pos_x'], '');
+            $dsp->AddTextFieldRow("pos_y", t('Yo'), $data['pos_y'], '');
+            $dsp->AddTextFieldRow("end_x", t('Breite'), $data['end_x'], '');
+            $dsp->AddTextFieldRow("end_y", t('H&ouml;he'), $data['end_y'], '');
+            $dsp->AddTextFieldRow("align", t('Ausrichtung'), $data['align'], '');
+            $dsp->AddTextFieldRow("font", t('Schriftart'), $data['font'], '');
+            $dsp->AddTextFieldRow("fontsize", t('Schriftgr&ouml;sse'), $data['fontsize'], '');
+            $dsp->AddTextFieldRow("red", t('Rot Anteil'), $data['red'], '');
+            $dsp->AddTextFieldRow("green", t('Gr&uuml;n Anteil'), $data['green'], '');
+            $dsp->AddTextFieldRow("blue", t('Blau Anteil'), $data['blue'], '');
+            $dsp->AddDropDownFieldRow('user_type', t('Angezeigt bei:'), $user_type, "");
+            $dsp->AddCheckBoxRow("visible", t('Sichtbar'), '', '', 'NULL', $data['visible']);
+            $dsp->AddTextFieldRow("sort", t('Reihenfolge'), $data['sort'], '');
+            $help = "pdf/item_text";
         } elseif ($object == "data") {
             $dsp->AddDropDownFieldRow('text', t('Daten'), $pdf_export->get_data_array($this->action, $data['text']), "");
             $dsp->AddTextFieldRow("pos_x", t('Xo'), $data['pos_x'], '');
             $dsp->AddTextFieldRow("pos_y", t('Yo'), $data['pos_y'], '');
-            $dsp->AddCheckBoxRow("end_x", t('Rechtsb&uuml;ndig'), '', '', 'NULL', $data['end_x']);
+            $dsp->AddTextFieldRow("end_x", t('Breite'), $data['end_x'], '');
+            $dsp->AddTextFieldRow("end_y", t('H&ouml;he'), $data['end_y'], '');
+            $dsp->AddTextFieldRow("align", t('Ausrichtung'), $data['align'], '');
             $dsp->AddTextFieldRow("font", t('Schriftart'), $data['font'], '');
             $dsp->AddTextFieldRow("fontsize", t('Schriftgr&ouml;sse'), $data['fontsize'], '');
             $dsp->AddTextFieldRow("red", t('Rot Anteil'), $data['red'], '');
@@ -344,7 +389,7 @@ class pdf_tmpl
             $dsp->AddTextFieldRow("sort", t('Reihenfolge'), $data['sort'], '');
             $help = "pdf/item_img";
         }
-        $dsp->AddFormSubmitRow(t('Hinzufügen'));
+        $dsp->AddFormSubmitRow(t('&Auml;ndern'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id, $help);
     }
 
@@ -352,10 +397,17 @@ class pdf_tmpl
     // ein Objekt einfügen
     public function insert_item($object)
     {
-        global $db,$func;
+        global $db,$dsp,$lang,$templ,$func;
 
-        if ($db->qry("INSERT INTO %prefix%pdf_data ( `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` , `sort` ) 
-          VALUES %plain%", "('$this->tmpl_id' , '" . $_POST['visible'] . "' , '$object', '" . $_POST['pos_x'] . "', '" . $_POST['pos_y'] . "', '" . $_POST['end_x'] . "', '" . $_POST['end_y'] . "', '" . $_POST['fontsize'] . "', '" . $_POST['font'] . "', '" . $_POST['red'] . "', '" . $_POST['green'] . "', '" . $_POST['blue'] . "', '" . $_POST['text'] . "', '" . $_POST['user_type'] . "', '" . $_POST['sort'] . "')")) {
+
+        if ($_POST['visible'] == "checked") {
+            $visible = 1;
+        } else {
+            $visible = 0;
+        }
+
+        if ($db->qry("INSERT INTO %prefix%pdf_data ( `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `align` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` , `sort` ) 
+          VALUES %plain%", "('$this->tmpl_id' , '" . $_POST['visible'] . "' , '$object', '" . $_POST['pos_x'] . "', '" . $_POST['pos_y'] . "', '" . $_POST['end_x'] . "', '" . $_POST['end_y'] . "', '" . $_POST['align'] . "', '" . $_POST['fontsize'] . "', '" . $_POST['font'] . "', '" . $_POST['red'] . "', '" . $_POST['green'] . "', '" . $_POST['blue'] . "', '" . $_POST['text'] . "', '" . $_POST['user_type'] . "', '" . $_POST['sort'] . "')")) {
             $func->confirmation(t('Die Daten wurden hinzugef&uuml;gt'), "index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
         } else {
             $func->error(t('Die Daten konnten nicht hinzugef&uuml;gt werden'), "index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
@@ -365,7 +417,14 @@ class pdf_tmpl
     // Objekt ändern
     public function change_item($item_id)
     {
-        global $db,$func;
+        global $db,$dsp,$lang,$templ,$func;
+
+
+        if ($_POST['visible'] == "checked") {
+            $visible = 1;
+        } else {
+            $visible = 0;
+        }
 
         if ($db->qry("UPDATE %prefix%pdf_data SET %plain%", "  
              `visible`='" . $_POST['visible'] .
@@ -375,6 +434,7 @@ class pdf_tmpl
                "', `end_y`='" . $_POST['end_y'] .
                "', `fontsize`='" . $_POST['fontsize'] .
                "', `font`='" . $_POST['font'] .
+               "', `align`='" . $_POST['align'] .
                "', `red`='" . $_POST['red'] .
                "', `green`='" . $_POST['green'] .
                "', `blue`='" . $_POST['blue'] .
@@ -388,7 +448,7 @@ class pdf_tmpl
         }
     }
         
-        // Sortierung ändern
+    // Sortierung ändern
     public function sortorder($direction, $item_id)
     {
         global $db;
