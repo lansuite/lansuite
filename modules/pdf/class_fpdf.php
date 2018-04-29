@@ -78,7 +78,7 @@ if (!class_exists('FPDF')) {
 *                               Public methods                                 *
 *                                                                              *
 *******************************************************************************/
-        public function FPDF($orientation = 'P', $unit = 'mm', $format = 'A4')
+        public function __construct($orientation = 'P', $unit = 'mm', $format = 'A4')
         {
             //Some checks
             $this->_dochecks();
@@ -122,7 +122,7 @@ if (!class_exists('FPDF')) {
             } else {
                 $this->Error('Incorrect unit: '.$unit);
             }
-                    //Page format
+            //Page format
             if (is_string($format)) {
                 $format=strtolower($format);
                 if ($format=='a3') {
@@ -144,14 +144,14 @@ if (!class_exists('FPDF')) {
                 $this->fwPt=$format[0]*$this->k;
                 $this->fhPt=$format[1]*$this->k;
             }
-                    $this->fw=$this->fwPt/$this->k;
-                    $this->fh=$this->fhPt/$this->k;
-                    //Page orientation
-                    $orientation=strtolower($orientation);
+            $this->fw=$this->fwPt/$this->k;
+            $this->fh=$this->fhPt/$this->k;
+            //Page orientation
+            $orientation=strtolower($orientation);
             if ($orientation=='p' or $orientation=='portrait') {
                 $this->DefOrientation='P';
-                        $this->wPt=$this->fwPt;
-                        $this->hPt=$this->fhPt;
+                $this->wPt=$this->fwPt;
+                $this->hPt=$this->fhPt;
             } elseif ($orientation=='l' or $orientation=='landscape') {
                 $this->DefOrientation='L';
                 $this->wPt=$this->fhPt;
@@ -159,22 +159,22 @@ if (!class_exists('FPDF')) {
             } else {
                 $this->Error('Incorrect orientation: '.$orientation);
             }
-                    $this->CurOrientation=$this->DefOrientation;
-                    $this->w=$this->wPt/$this->k;
-                    $this->h=$this->hPt/$this->k;
-                    //Page margins (1 cm)
-                    $margin=28.35/$this->k;
-                    $this->SetMargins($margin, $margin);
-                    //Interior cell margin (1 mm)
-                    $this->cMargin=$margin/10;
-                    //Line width (0.2 mm)
-                    $this->LineWidth=.567/$this->k;
-                    //Automatic page break
-                    $this->SetAutoPageBreak(true, 2*$margin);
-                    //Full width display mode
-                    $this->SetDisplayMode('fullwidth');
-                    //Compression
-                    $this->SetCompression(true);
+            $this->CurOrientation=$this->DefOrientation;
+            $this->w=$this->wPt/$this->k;
+            $this->h=$this->hPt/$this->k;
+            //Page margins (1 cm)
+            $margin=28.35/$this->k;
+            $this->SetMargins($margin, $margin);
+            //Interior cell margin (1 mm)
+            $this->cMargin=$margin/10;
+            //Line width (0.2 mm)
+            $this->LineWidth=.567/$this->k;
+            //Automatic page break
+            $this->SetAutoPageBreak(true, 2*$margin);
+            //Full width display mode
+            $this->SetDisplayMode('fullwidth');
+            //Compression
+            $this->SetCompression(true);
         }
 
         public function SetMargins($left, $top, $right = -1)
@@ -301,13 +301,13 @@ if (!class_exists('FPDF')) {
             if ($this->page==0) {
                 $this->AddPage();
             }
-    //Page footer
+            //Page footer
             $this->InFooter=true;
             $this->Footer();
             $this->InFooter=false;
-    //Close page
+            //Close page
             $this->_endpage();
-    //Close document
+            //Close document
             $this->_enddoc();
         }
 
@@ -330,21 +330,21 @@ if (!class_exists('FPDF')) {
                 $this->InFooter=true;
                 $this->Footer();
                 $this->InFooter=false;
-        //Close page
+                //Close page
                 $this->_endpage();
             }
-    //Start new page
+            //Start new page
             $this->_beginpage($orientation);
-    //Set line cap style to square
+            //Set line cap style to square
             $this->_out('2 J');
-    //Set line width
+            //Set line width
             $this->LineWidth=$lw;
             $this->_out(sprintf('%.2f w', $lw*$this->k));
-    //Set font
+            //Set font
             if ($family) {
                 $this->SetFont($family, $style, $size);
             }
-    //Set colors
+            //Set colors
             $this->DrawColor=$dc;
             if ($dc!='0 G') {
                 $this->_out($dc);
@@ -355,18 +355,18 @@ if (!class_exists('FPDF')) {
             }
             $this->TextColor=$tc;
             $this->ColorFlag=$cf;
-    //Page header
+            //Page header
             $this->Header();
-    //Restore line width
+            //Restore line width
             if ($this->LineWidth!=$lw) {
                 $this->LineWidth=$lw;
                 $this->_out(sprintf('%.2f w', $lw*$this->k));
             }
-    //Restore font
+            //Restore font
             if ($family) {
                 $this->SetFont($family, $style, $size);
             }
-    //Restore colors
+            //Restore colors
             if ($this->DrawColor!=$dc) {
                 $this->DrawColor=$dc;
                 $this->_out($dc);
@@ -552,11 +552,11 @@ if (!class_exists('FPDF')) {
             if ($size==0) {
                 $size=$this->FontSizePt;
             }
-    //Test if font is already selected
+            //Test if font is already selected
             if ($this->FontFamily==$family and $this->FontStyle==$style and $this->FontSizePt==$size) {
                 return;
             }
-    //Test if used for the first time
+            //Test if used for the first time
             $fontkey=$family.$style;
             if (!isset($this->fonts[$fontkey])) {
                 //Check if one of the standard fonts
@@ -582,7 +582,7 @@ if (!class_exists('FPDF')) {
                     $this->Error('Undefined font: '.$family.' '.$style);
                 }
             }
-    //Select it
+            //Select it
             $this->FontFamily=$family;
             $this->FontStyle=$style;
             $this->FontSizePt=$size;
@@ -830,7 +830,7 @@ if (!class_exists('FPDF')) {
                     $i++;
                 }
             }
-    //Last chunk
+            //Last chunk
             if ($this->ws>0) {
                 $this->ws=0;
                 $this->_out('0 Tw');
@@ -911,7 +911,7 @@ if (!class_exists('FPDF')) {
                     $i++;
                 }
             }
-    //Last chunk
+            //Last chunk
             if ($i!=$j) {
                 $this->Cell($l/1000*$this->FontSize, $h, substr($s, $j), 0, 0, '', 0, $link);
             }
@@ -950,7 +950,7 @@ if (!class_exists('FPDF')) {
             } else {
                 $info=$this->images[$file];
             }
-    //Automatic width and height calculation if needed
+            //Automatic width and height calculation if needed
             if ($w==0 and $h==0) {
                 //Put image at 72 dpi
                 $w=$info['w']/$this->k;
@@ -1024,11 +1024,11 @@ if (!class_exists('FPDF')) {
             //Output PDF to some destination
             global $HTTP_SERVER_VARS;
 
-    //Finish document if necessary
+            //Finish document if necessary
             if ($this->state<3) {
                 $this->Close();
             }
-    //Normalize parameters
+            //Normalize parameters
             if (is_bool($dest)) {
                 $dest=$dest ? 'D' : 'F';
             }
@@ -1065,9 +1065,9 @@ if (!class_exists('FPDF')) {
                     if (headers_sent()) {
                         $this->Error('Some data has already been output to browser, can\'t send PDF file');
                     }
-                            Header('Content-Length: '.strlen($this->buffer));
-                            Header('Content-disposition: attachment; filename='.$name);
-                            echo $this->buffer;
+                    Header('Content-Length: '.strlen($this->buffer));
+                    Header('Content-disposition: attachment; filename='.$name);
+                    echo $this->buffer;
                     break;
                 case 'F':
                     //Save to local file
@@ -1155,14 +1155,14 @@ if (!class_exists('FPDF')) {
                 }
                 $this->_out('/Contents '.($this->n+1).' 0 R>>');
                 $this->_out('endobj');
-        //Page content
+                //Page content
                 $p=($this->compress) ? gzcompress($this->pages[$n]) : $this->pages[$n];
                 $this->_newobj();
                 $this->_out('<<'.$filter.'/Length '.strlen($p).'>>');
                 $this->_putstream($p);
                 $this->_out('endobj');
             }
-    //Pages root
+            //Pages root
             $this->offsets[1]=strlen($this->buffer);
             $this->_out('1 0 obj');
             $this->_out('<</Type /Pages');
@@ -1315,7 +1315,7 @@ if (!class_exists('FPDF')) {
                 $this->_putstream($info['data']);
                 unset($this->images[$file]['data']);
                 $this->_out('endobj');
-        //Palette
+                //Palette
                 if ($info['cs']=='Indexed') {
                     $this->_newobj();
                     $pal=($this->compress) ? gzcompress($info['pal']) : $info['pal'];
@@ -1330,7 +1330,7 @@ if (!class_exists('FPDF')) {
         {
             $this->_putfonts();
             $this->_putimages();
-    //Resource dictionary
+            //Resource dictionary
             $this->offsets[2]=strlen($this->buffer);
             $this->_out('2 0 obj');
             $this->_out('<</ProcSet [/PDF /Text /ImageB /ImageC /ImageI]');
@@ -1404,19 +1404,19 @@ if (!class_exists('FPDF')) {
         {
             $this->_putpages();
             $this->_putresources();
-    //Info
+            //Info
             $this->_newobj();
             $this->_out('<<');
             $this->_putinfo();
             $this->_out('>>');
             $this->_out('endobj');
-    //Catalog
+            //Catalog
             $this->_newobj();
             $this->_out('<<');
             $this->_putcatalog();
             $this->_out('>>');
             $this->_out('endobj');
-    //Cross-ref
+            //Cross-ref
             $o=strlen($this->buffer);
             $this->_out('xref');
             $this->_out('0 '.($this->n+1));
@@ -1424,7 +1424,7 @@ if (!class_exists('FPDF')) {
             for ($i=1; $i<=$this->n; $i++) {
                 $this->_out(sprintf('%010d 00000 n ', $this->offsets[$i]));
             }
-    //Trailer
+            //Trailer
             $this->_out('trailer');
             $this->_out('<<');
             $this->_puttrailer();
@@ -1443,7 +1443,7 @@ if (!class_exists('FPDF')) {
             $this->x=$this->lMargin;
             $this->y=$this->tMargin;
             $this->FontFamily='';
-    //Page orientation
+            //Page orientation
             if (!$orientation) {
                 $orientation=$this->DefOrientation;
             } else {
@@ -1511,7 +1511,7 @@ if (!class_exists('FPDF')) {
                 $colspace='DeviceGray';
             }
             $bpc=isset($a['bits']) ? $a['bits'] : 8;
-    //Read whole file
+            //Read whole file
             $f=fopen($file, 'rb');
             $data='';
             while (!feof($f)) {
@@ -1528,11 +1528,11 @@ if (!class_exists('FPDF')) {
             if (!$f) {
                 $this->Error('Can\'t open image file: '.$file);
             }
-    //Check signature
+            //Check signature
             if (fread($f, 8)!=chr(137).'PNG'.chr(13).chr(10).chr(26).chr(10)) {
                 $this->Error('Not a PNG file: '.$file);
             }
-    //Read header chunk
+            //Read header chunk
             fread($f, 4);
             if (fread($f, 4)!='IHDR') {
                 $this->Error('Incorrect PNG file: '.$file);
@@ -1564,7 +1564,7 @@ if (!class_exists('FPDF')) {
             }
             fread($f, 4);
             $parms='/DecodeParms <</Predictor 15 /Colors '.($ct==2 ? 3 : 1).' /BitsPerComponent '.$bpc.' /Columns '.$w.'>>';
-    //Scan chunks looking for palette, transparency and image data
+            //Scan chunks looking for palette, transparency and image data
             $pal='';
             $trns='';
             $data='';
@@ -1644,10 +1644,10 @@ if (!class_exists('FPDF')) {
                 $this->buffer.=$s."\n";
             }
         }
-//End of class
+        //End of class
     }
 
-//Handle special IE contype request
+    //Handle special IE contype request
     if (isset($HTTP_SERVER_VARS['HTTP_USER_AGENT']) and $HTTP_SERVER_VARS['HTTP_USER_AGENT']=='contype') {
         Header('Content-Type: application/pdf');
         exit;

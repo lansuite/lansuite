@@ -146,11 +146,43 @@ class seat2
         return $out;
     }
 
+    public function CoordinateToNameCol($x, $orientation)
+    {
+        $out = '';
+        if ($orientation) {
+            if ($x > -1) {
+                $out .= str_replace('@', '', chr(64 + floor(($x) / 26))) . chr(65 + ($x) % 26);
+            }
+        } else {
+            if ($x > -1) {
+                $out .= ($x + 1);
+            }
+        }
+
+        return $out;
+    }
+
+    public function CoordinateToNameRow($y, $orientation)
+    {
+        $out = '';
+        if ($orientation) {
+            if ($y > -1) {
+                $out = ($y + 1);
+            }
+        } else {
+            if ($y > -1) {
+                $out = str_replace('@', '', chr(64 + floor(($y) / 26))) . chr(65 + ($y) % 26);
+            }
+        }
+
+        return $out;
+    }
+
     public function U18Block($id, $idtype)
     {
         global $db;
         /*
-        $id 	can be a userid or blockid
+        $id     can be a userid or blockid
         $idtype can be
             "u" for userid (standard)
             "b" for blockid or
