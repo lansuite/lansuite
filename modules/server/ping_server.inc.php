@@ -98,8 +98,6 @@ function ping_server($host, $port)
                 fputs($fp, "list\r\n");
             //Verabschieden
                 fputs($fp, "quit done\r\n");
-                $channel_num=0;
- 
                 $res = fread($fp, 1000);
 
             // Channel ausgeben

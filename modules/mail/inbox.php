@@ -44,7 +44,6 @@ if ($auth['userid']) {
   
     function MailStatus($status)
     {
-        global $lang;
         if ($status == "new") {
             return t('Ungelesen');
         }

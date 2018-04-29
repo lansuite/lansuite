@@ -136,10 +136,8 @@ function AddSignonStatus($lsurl, $show_history = 0)
             $guests = $xml->get_tag_content('guests', $content);
             $paid_guests = $xml->get_tag_content('paid_guests', $content);
             $max_guests = $xml->get_tag_content('max_guests', $content);
-            $signon_start = $xml->get_tag_content('signon_start', $content);
-            $signon_end = $xml->get_tag_content('signon_end', $content);
 
-            return $func->CreateSignonBar($registered, $paid, $max_guest);
+            return $func->CreateSignonBar($guests, $paid_guests, $max_guests);
         }
     }
 }
@@ -157,7 +155,7 @@ function EditAllowed()
 
 function NameAndMotto($name)
 {
-    global $line, $auth;
+    global $line;
 
     return $name .HTML_NEWLINE. $line['motto'];
 }

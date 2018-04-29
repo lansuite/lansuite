@@ -51,15 +51,16 @@ class boxes
         if ($highlighted) {
             $class .= "_active";
         }
+        if (strip_tags($caption) == $caption) {
+            $caption = wordwrap($caption, 18, "<br />\n", 1);
+        }
         if ($link != "") {
             if ($hint) {
                 $box_row_hint = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
             }
             $tmp_link = '<a href="'.$func->AllowHTML($link).'" class="'.$link_class.'">'.$caption.$box_row_hint.'</a>';
         }
-        if (strip_tags($caption) == $caption) {
-            $caption = wordwrap($caption, 18, "<br />\n", 1);
-        }
+
         if ($id) {
             $id = ' id="'. $id .'"';
         }
@@ -266,7 +267,6 @@ class boxes
    */
     public function AddTemplate($template)
     {
-        global $dsp;
         $this->Row($template);
     }
 

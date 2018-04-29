@@ -19,7 +19,7 @@ function ShowRole($role)
 
 function CheckClanPW($clanpw)
 {
-    global $db, $auth;
+    global $db;
 
     $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
     if ($clan['password'] and $clan['password'] == md5($clanpw)) {
@@ -42,7 +42,7 @@ function CheckExistingClan()
 
 function CountAdmins()
 {
-    global $auth, $db, $func;
+    global $db;
     
     $query_admins = $db->qry("SELECT * FROM %prefix%user WHERE clanid = %int% AND clanadmin = 1", $_GET['clanid']);
     return $db->num_rows($query_admins);

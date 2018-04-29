@@ -3,7 +3,7 @@ $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 function GetTournamentName($name)
 {
-    global $line, $auth, $lang;
+    global $line, $auth;
 
     $return = '';
     // Game Icon
@@ -50,7 +50,6 @@ function GetTournamentTeamAnz($maxteams)
 
 function GetTournamentStatus($status)
 {
-    global $lang;
     $status_descriptor["open"]    = t('Anmeldung offen');
     $status_descriptor["locked"]    = t('Anmeldung geschlossen');
     $status_descriptor["invisible"]    = t('Unsichtbar');

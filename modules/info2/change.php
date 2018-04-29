@@ -2,7 +2,7 @@
 
 function Update($id)
 {
-    global $db, $cfg, $row, $func;
+    global $db, $cfg;
 
     if ($id != '') {
         $menu_intem = $db->qry_first('SELECT active, caption, shorttext FROM %prefix%info WHERE infoID = %int%', $id);
@@ -38,7 +38,7 @@ function Update($id)
 
 function ShowActiveState($val)
 {
-    global $dsp, $templ, $lang, $line;
+    global $dsp;
 
     if ($val) {
         return $dsp->FetchIcon('yes', '', t('Ja'));

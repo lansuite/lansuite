@@ -7,7 +7,7 @@ class Mail
 
     public function create_mail($from_userid, $to_userid, $subject_text, $msgbody_text)
     {
-        global $db, $func;
+        global $db;
 
         if ($from_userid == "") {
             $this->error = t('Sys-Mail Fehler: Kein Absender angegeben');
@@ -18,7 +18,7 @@ class Mail
             return false;
         }
 
-        $c_mail = $db->qry("INSERT INTO %prefix%mail_messages SET mail_status = 'active', des_status = 'new', fromUserID = %int%, toUserID = %int%, Subject= %string%, msgbody= %string%, tx_date= NOW()", $from_userid, $to_userid, $subject_text, $msgbody_text);
+        $db->qry("INSERT INTO %prefix%mail_messages SET mail_status = 'active', des_status = 'new', fromUserID = %int%, toUserID = %int%, Subject= %string%, msgbody= %string%, tx_date= NOW()", $from_userid, $to_userid, $subject_text, $msgbody_text);
         $this->error = 'OK';
         
         // Send Info-Mail to receiver

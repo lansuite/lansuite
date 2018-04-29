@@ -186,7 +186,7 @@ class seat2
 
     public function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false)
     {
-        global $db, $dsp, $templ, $auth, $lang, $cfg, $party, $smarty, $framework, $func;
+        global $db, $templ, $auth, $cfg, $party, $smarty, $framework, $func;
         // $mode:
         // 0 = Normal display mode
         // 1 = With seperators
@@ -744,7 +744,7 @@ class seat2
 
     public function MarkSeat($userid, $blockid, $row, $col)
     {
-        global $db, $party;
+        global $db;
 
         $db->qry("UPDATE %prefix%seat_seats SET userid = %int%, status = 3
    WHERE blockid = %int% AND row = %string% AND col = %string%", $userid, $blockid, $row, $col);

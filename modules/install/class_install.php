@@ -111,7 +111,7 @@ class Install
   // Puts the results to the screen, by using $dsp->AddSingleRow for each table, if $display_to_screen = 1
     public function CreateNewTables($display_to_screen = 1)
     {
-        global $dsp, $config, $db, $func;
+        global $dsp, $func;
 
         $tablecreate = array("anz" => 0, "created" => 0, "exist" => 0, "failed" => "");
         if ($display_to_screen) {
@@ -746,10 +746,6 @@ class Install
         $dsp->AddDoubleRow('Max. Script-Execution-Time', (float)ini_get('max_execution_time') .' Sec');
         $dsp->AddDoubleRow('Max. Data-Input-Zeit', (float)ini_get('max_input_time') .' Sec');
         $dsp->AddDoubleRow('Memory Limit', (float)ini_get('memory_limit') .' MB');
-        $post_max_size = (float)ini_get('post_max_size');
-        if ($post_max_size > 1000) {
-            $post_max_size = $post_max_size / 1024;
-        } // For some PHP-Versions use KB, instead of MB
         $dsp->AddDoubleRow('Max. Post-Form Size', (float)ini_get('post_max_size') .' MB');
         $dsp->AddFieldSetEnd();
 

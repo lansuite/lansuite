@@ -3,7 +3,7 @@ $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 function PWIcon($pw)
 {
-    global $dsp, $templ;
+    global $dsp;
   
     if ($pw) {
         return $dsp->FetchIcon('locked', '', t('Geschützt'));

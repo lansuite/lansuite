@@ -1,7 +1,7 @@
 <?php
 function NameAndDesc($name)
 {
-    global $line, $auth, $func;
+    global $line, $auth;
 
     if ($line['board_group']) {
         $group = '<b>'. $line['board_group'] .'</b> - ';
@@ -12,7 +12,7 @@ function NameAndDesc($name)
 
 function LastPostDetails($date)
 {
-    global $db, $line, $dsp, $templ, $cfg;
+    global $db, $line, $dsp, $cfg;
 
     if ($date) {
         $row = $db->qry_first("SELECT t.caption, p.userid, p.tid, p.pid FROM %prefix%board_posts AS p

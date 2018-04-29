@@ -20,16 +20,7 @@ function RewriteFields()
 
 function UploadFiles()
 {
-    global $func, $gd;
-    // Check for errors
-    if ($_POST['name'] == '') {
-        $name_error = t('Bitte gib einen Namen ein');
-        $_GET['step'] = 1;
-    }
-    if (strlen($_POST['text']) > 5000) {
-        $text_error = t('Der Text darf nicht mehr als 5000 Zeichen enthalten');
-        $_GET['step'] = 1;
-    }
+    global $gd;
 
     // --- Sponsor Page Banner ---
     // 1) Was a picture uploaded?

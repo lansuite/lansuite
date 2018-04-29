@@ -15,7 +15,7 @@ function SeatNameLink($userid)
 
 function PaidIconLink($paid)
 {
-    global $dsp, $templ, $line, $auth;
+    global $dsp, $line, $auth;
 
     if ($auth['type'] > 1) {
         if ($paid) {

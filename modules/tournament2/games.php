@@ -8,7 +8,7 @@ $tfunc = new tfunc;
 
 function WriteGame()
 {
-    global $spieler1, $gameid1, $score1, $spieler1_id, $i, $tournamentid, $game, $dsp, $auth, $lang;
+    global $spieler1, $gameid1, $score1, $spieler1_id, $i, $tournamentid, $game, $dsp, $auth;
 
     if ($spieler1 == "") {
         $spieler1 = $game['name'];
@@ -63,7 +63,7 @@ function WriteGame()
 
 function WriteRoundHeadline($headline, $akt_round)
 {
-    global $tournament, $dsp, $func, $lang, $map, $tfunc;
+    global $tournament, $dsp, $func, $map, $tfunc;
 
     $round_start = $func->unixstamp2date($tfunc->GetGameStart($tournament, $akt_round), "time");
     $round_end = $func->unixstamp2date($tfunc->GetGameEnd($tournament, $akt_round), "time");
@@ -76,11 +76,10 @@ function WriteRoundHeadline($headline, $akt_round)
 
 function WritePairs($bracket, $max_pos)
 {
-    global $dsp, $db, $tournamentid, $tfunc, $akt_round, $lang, $func, $map, $tournament, $i, $game;
+    global $db, $tournamentid, $tfunc, $akt_round, $i, $game;
 
     WriteRoundHeadline("$bracket-Bracket - ", $akt_round);
 
-    $spieler1 = "";
     $i = 0;
 
     for ($akt_pos = 0; $akt_pos <= $max_pos-1; $akt_pos++) {

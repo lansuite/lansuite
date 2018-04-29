@@ -68,13 +68,6 @@ function create_csv_file($file, $data)
     //remove the last comma from string
         $csv=substr($csv, 0, -1);
 
-    //check for existence of file
-        if (file_exists($file) && is_writeable($file)) {
-            $mode="a";
-        } else {
-            $mode="w";
-        }
-
     //create file pointer
         $fp=fopen($file, "a");
 

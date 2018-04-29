@@ -401,7 +401,7 @@ class tfunc
     // Generate the next position in a KO-Tournament, if a score is submitted
     public function GenerateNewPosition($player1, $player2)
     {
-        global $lang, $db, $func, $tournamentid, $round, $pos, $score, $tournamentid, $leaderid, $num_rounds, $team_anz;
+        global $db, $round, $pos, $score, $tournamentid, $leaderid, $num_rounds, $team_anz;
 
         $team_round[$player1] = $round;
         $team_pos[$player1] = $pos[$player1];
@@ -511,7 +511,7 @@ class tfunc
      WHERE (tournamentid = %int%) AND (round = -1) AND (position = %int%) AND (group_nr = 0)
      ", $tournamentid, (floor($team_pos[$player1]/2)*2 + 1));
 
-                $query = $db->qry("INSERT INTO %prefix%t2_games
+                $db->qry("INSERT INTO %prefix%t2_games
      SET tournamentid = %int%,
      leaderid = %int%,
      round = -1,
@@ -539,7 +539,7 @@ class tfunc
      WHERE (tournamentid = %int%) AND (round = -1.5) AND (position = %int%) AND (group_nr = 0)
      ", $tournamentid, (floor($team_pos[$player1]/2)));
 
-                $query = $db->qry("INSERT INTO %prefix%t2_games
+                $db->qry("INSERT INTO %prefix%t2_games
      SET tournamentid = %int%,
      leaderid = %int%,
      round = -1.5,
@@ -554,7 +554,7 @@ class tfunc
     // Sumbit Score $score1:$score2 in the tournament $tournamentid, for the game $gameid1 vs. $gameid2
     public function SubmitResult($ttid, $gameid1, $gameid2, $score1, $score2, $comment)
     {
-        global $lang, $db, $func, $tournamentid, $round, $pos, $score, $leaderid, $num_rounds, $team_anz;
+        global $db, $func, $tournamentid, $round, $pos, $score, $leaderid, $num_rounds, $team_anz;
         $tournamentid = $ttid;
         $score[1] = $score1;
         $score[2] = $score2;
@@ -588,12 +588,12 @@ class tfunc
 
 
         // Write Score for current game
-        $query = $db->qry("UPDATE %prefix%t2_games 
+        $db->qry("UPDATE %prefix%t2_games 
          SET score = %string%,
       comment = %string%
       WHERE gameid = %int%
       ", $score1, $comment, $gameid1);
-        $query = $db->qry("UPDATE %prefix%t2_games 
+        $db->qry("UPDATE %prefix%t2_games 
          SET score = %string%
       WHERE gameid = %int%
       ", $score2, $gameid2);
@@ -641,7 +641,7 @@ class tfunc
        WHERE teamid = %int%
        ", $ranking_data->tid[0]);
 
-                        $query = $db->qry("INSERT INTO %prefix%t2_games
+                        $db->qry("INSERT INTO %prefix%t2_games
        SET tournamentid = %int%,
        leaderid = %int%,
        round = 0,
@@ -656,7 +656,7 @@ class tfunc
        WHERE teamid = %int%
        ", $ranking_data->tid[1]);
 
-                        $query = $db->qry("INSERT INTO %prefix%t2_games
+                        $db->qry("INSERT INTO %prefix%t2_games
        SET tournamentid = %int%,
        leaderid = %int%,
        round = 0,
@@ -730,7 +730,7 @@ class tfunc
     // Functions for CheckTimeExceed
     public function CheckRound($max_pos)
     {
-        global $team_anz, $akt_round, $tournament, $db, $tournamentid, $lang, $func, $game, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
+        global $akt_round, $tournament, $db, $tournamentid, $game, $first;
 
         $round_end = $this->GetGameEnd($tournament, $akt_round);
 
@@ -749,7 +749,7 @@ class tfunc
 
     public function WriteResult()
     {
-        global $game, $first, $score1, $gameid1, $name1, $leaderid1, $tournamentid, $lang, $func, $tournament, $mail, $cfg;
+        global $game, $first, $score1, $gameid1, $name1, $leaderid1, $tournamentid, $func, $tournament, $mail, $cfg;
 
         if ($first) {
             $first = 0;
@@ -801,7 +801,7 @@ class tfunc
 
     public function CheckTimeExceed($tournamentid)
     {
-        global $team_anz, $akt_round, $tournament, $db, $lang, $func, $game, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
+        global $team_anz, $akt_round, $tournament, $db, $game, $first;
 
         $tournament = $db->qry_first("SELECT mode, defwin_on_time_exceed, name,
    break_duration, max_games, game_duration, UNIX_TIMESTAMP(starttime) AS starttime, tournamentid

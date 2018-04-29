@@ -14,7 +14,7 @@ switch ($_GET['step']) {
 
 function eveningPriceIdLink($evening_price_id)
 {
-    global $dsp, $templ, $lang, $line;
+    global $dsp, $line;
   
     if ($evening_price_id == $line['price_id']) {
         return $dsp->FetchIcon('yes', '', t('Ja'));
