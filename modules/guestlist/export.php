@@ -39,7 +39,7 @@ switch ($_GET['step']) {
             foreach ($_POST['action'] as $key => $val) {
                 $guestlist->SetExported($key, $party->party_id);
             }
-            $func->confirmation(t('Die User wurden f�r die aktuelle Party als exportiert markiert.'));
+            $func->confirmation(t('Die User wurden für die aktuelle Party als exportiert markiert.'));
         }
         break;
 }

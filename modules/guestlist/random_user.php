@@ -2,7 +2,7 @@
 /*
  * Created on 12.02.2009
  *
- * Gibt zuf�llig ausgew�hlte Benutzer aus. N�tzlich f�r Gewinnspiele etc.
+ * Gibt zufällig ausgewählte Benutzer aus. Nützlich für Gewinnspiele etc.
  *
  * @package lansuite_core
  * @author Maztah
