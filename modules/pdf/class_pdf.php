@@ -573,23 +573,24 @@ class pdf
         if ($block == "null") {
             $query = $db->qry("SELECT * FROM %prefix%seat_seats AS s
         LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid
-        WHERE b.party_id=%int% ORDER BY 's.blockid' %plain%", $party->party_id, $sql_order);
+
+        WHERE b.party_id=%int% AND status > 0 AND status < 7 ORDER BY 's.blockid' %plain%", $party->party_id, $sql_order);
         } else {
             $query = $db->qry("SELECT * FROM %prefix%seat_seats
-      WHERE blockid=%string% ORDER BY 'blockid' %plain%", $block, $sql_order);
+			 WHERE blockid=%string% AND status > 0 AND status < 7 ORDER BY 'blockid' %plain%", $block, $sql_order);
         }
-        
-        $seat_numusers = $db->num_rows($query);
+
+
         // erste Seite erstellen
         $this->_make_page();
-        
+
         // Datenbank abfragen für momentans Template
         $templ_data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $this->templ_id);
         $templ = array();
         while ($templ_data_array = $db->fetch_array($templ_data)) {
             $templ[] = array_merge($templ_data_array, $templ);
         }
-    
+
         // Grösse ermitteln
         $this->_get_size($templ);
 
@@ -601,14 +602,15 @@ class pdf
             unset($data);
 
             // Block abfragen und Sitzplatz abfragen
-            $row_block            = $db->qry_first("SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%", $row['blockid']);
-            $userid               = $row["userid"];
-            $data['col']          = $row["col"];
-            $data['row']          = $row["row"];
-            $data['seat_block']   = $row_block['name'];
-            $data['seat']         = $seat2->CoordinateToName($data['col'] + 1, $data['row'], $row_block['orientation']);
-            $data['party_name']    = $_SESSION['party_info']['name'];
-            
+
+            $row_block              = $db->qry_first("SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%", $row['blockid']);
+            $userid                 = $row["userid"];
+            $data['col']            = $seat2->CoordinateToNameCol($row["col"], $row_block['orientation']);
+            $data['row']            = $seat2->CoordinateToNameRow($row["row"], $row_block['orientation']);
+            $data['seat_block']     = $row_block['name'];
+            $data['seat']           = $seat2->CoordinateToName($row['col'] + 1, $row['row'], $row_block['orientation']);
+            $data['party_name']     = $_SESSION['party_info']['name'];
+
             $row_user = $db->qry_first("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
         LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid
         WHERE userid=%int%", $userid);
