@@ -118,7 +118,6 @@ class pdf
      * Enter description here...
      *
      * @param int $templ_id
-     * @return pdf
      */
     public function __construct($templ_id)
     {
@@ -404,7 +403,7 @@ class pdf
         $s_array = array();
 
         while (list($key, $val) = each($sort_array)) {
-            array_push($s_array, "<option $selected value=\"$key\">$val</option>");
+            array_push($s_array, "<option value=\"$key\">$val</option>");
         }
         
         // Knopf für erzeugen der PDF
@@ -416,24 +415,22 @@ class pdf
 
     /**
 
-    * Menu f�r Urkunden
+    * Menu für Urkunden
     *
     * @param string $action
     */
     public function _menuCertificate($action)
     {
-        global $lang,$dsp,$db,$party,$func;
-
+        global $dsp;
 
         $dsp->NewContent(t('Urkunden erstellen.'), t('Hier kannst du Gewinnerurkunden f&uuml;r die Teilnehmer erstellen.'));
         $dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
         $dsp->AddSingleRow(t('Die Bl&auml;tter werden nach folgenden Kriterien erstellt:'));
 
-        // Checkboken f�r Benutzer
-
+        // Checkboxen für Benutzer
         $dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'), "", "", "1", "1", "0");
 
-        // Array f�r Sortierung
+        // Array für Sortierung
         $sort_array = array("username" =>   t('Nickname'),
                                 "name" =>   t('Nachname'),
                             "firstname" =>  t('Vorname'),
@@ -447,17 +444,15 @@ class pdf
 
 
         while (list($key, $val) = each($sort_array)) {
-            array_push($s_array, "<option $selected value=\"$key\">$val</option>");
+            array_push($s_array, "<option value=\"$key\">$val</option>");
         }
 
-        // Knopf f�r erzeugen der PDF
-
+        // Knopf für erzeugen der PDF
         $dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);
 
-        // Knopf f�r erzeugen der PDF
+        // Knopf für erzeugen der PDF
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/certificate");
-        $dsp->AddContent();
     }
 
 
@@ -892,19 +887,17 @@ class pdf
 
         $pdf_sqlstring = "";
 
-        // Auf Party Pr�fen
+        // Auf Party Prüfen
 
-        if ($_POST['party'] == '1' or $pdf_paid) {
+        if ($_POST['party'] == '1') {
             $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id";
         }
 
         $pdf_sqlstring .= ' WHERE user.type > -1';
 
-        if ($_POST['party'] == '1' or $pdf_paid) {
+        if ($_POST['party'] == '1') {
             $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
         }
-
-
 
         $pdf_sqlstring = $pdf_sqlstring . " ORDER BY username, name ASC";
 
@@ -912,13 +905,12 @@ class pdf
 
       LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid %plain%", $pdf_sqlstring);
 
-
         $user_numusers = $db->num_rows($query);
 
         // erste Seite erstellen
         $this->_make_page();
 
-        // Datenbank abfragen f�r momentans Template
+        // Datenbank abfragen für momentans Template
 
         $templ_data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $this->templ_id);
         $templ = array();
@@ -927,7 +919,7 @@ class pdf
             $templ[] = array_merge($templ_data_array, $templ);
         }
 
-        // Gr�sse einstellen
+        // Grösse einstellen
 
         $this->_get_size($templ);
 
@@ -936,7 +928,7 @@ class pdf
         $this->max_col = floor(($this->total_x - $this->start_x)/($this->start_x + $this->object_width));
         $this->max_row = floor(($this->total_y - (2 * $this->start_y))/($this->object_high));
 
-        // Seite f�llen
+        // Seite füllen
 
         $nr = 0;
 
@@ -956,7 +948,7 @@ class pdf
             $data['city']           = $row['city'];
             $data['birthday']       = $row['birthday'];
 
-            // Spallte und Zelle anw�hlen
+            // Spallte und Zelle anwählen
 
             $this->x = (($this->col - 1) * ($this->start_x + $this->object_width)) + $this->start_x;
             $this->y = (($this->row - 1) * ($this->object_high)) + $this->start_y;
@@ -970,7 +962,7 @@ class pdf
 
             $this->_write_object($templ, $data);
 
-            // Nextes Feld ausw�hlen
+            // Nextes Feld auswählen
 
             if ($this->col < $this->max_col) {
                 $this->col++;

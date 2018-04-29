@@ -85,6 +85,7 @@ class pdf_tmpl
             $smarty->assign('typename', t($data_array['type']));
             $smarty->assign('itemid', $data_array['pdfid']);
             $smarty->assign('id', $this->tmpl_id);
+            $description = '';
             if ($data_array['type'] == "rect") {
                 $description = t('Xo') . " : " . $data_array['pos_x']. " , ";
                 $description .= t('Yo') . " : " . $data_array['pos_y']. " , ";
@@ -175,6 +176,7 @@ class pdf_tmpl
         $dsp->NewContent(t('Objekt'), t('Neues Objekt erstellen'));
         $dsp->AddSingleRow(t('Erstelle ') . t($object));
         $dsp->SetForm("index.php?mod=pdf&action=" . $this->action ."&act=insert_item&object=$object&id=$this->tmpl_id");
+        $help = '';
         if ($object == "rect") {
             $dsp->AddTextFieldRow("pos_x", t('Xo'), '', '');
             $dsp->AddTextFieldRow("pos_y", t('Yo'), '', '');
@@ -279,6 +281,7 @@ class pdf_tmpl
         $user_type_list = array( "0" =>  t('Alle') ,"1" =>  t('Besucher ist normaler Gast') ,"2" =>  t('Administrator') ,"3" =>  t('Superadmin') );
         
         // Liste für Datenfeld erzeugen
+        $user_type = [];
         foreach ($user_type_list as $key => $value) {
             if ($key == $data['user_type']) {
                 $user_type[$key] = "<option selected value=\"$key\">$value</option>";
@@ -300,6 +303,7 @@ class pdf_tmpl
         $dsp->NewContent(t('Objekt'), t('Objekt &auml;ndern'));
         $dsp->AddSingleRow(t('Ändere ') . " " . t($object));
         $dsp->SetForm("index.php?mod=pdf&action=" . $this->action ."&act=change_item&object=$object&id=$this->tmpl_id&itemid=$item_id");
+        $help = '';
         if ($object == "rect") {
             $dsp->AddTextFieldRow("pos_x", t('Xo'), $data['pos_x'], '');
             $dsp->AddTextFieldRow("pos_y", t('Yo'), $data['pos_y'], '');
