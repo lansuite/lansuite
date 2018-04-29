@@ -71,7 +71,7 @@ switch ($_GET["step"]) {
         break;
   
     case 10:
-        $md = new masterdelete();
+        $md = new \LanSuite\MasterDelete();
         $md->MultiDelete('log', 'logid');
         break;
 }

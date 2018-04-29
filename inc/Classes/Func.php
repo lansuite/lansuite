@@ -1,6 +1,8 @@
 <?php
 
-class func
+namespace LanSuite;
+
+class Func
 {
     /**
      * @var array

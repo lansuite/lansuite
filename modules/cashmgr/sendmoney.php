@@ -46,7 +46,7 @@ function Check()
     return $ret;
 }
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
 $dsp->NewContent(t('Geld überweisen'), t('Hier kannst du anderen Benutzern Geld überweisen'));
 
@@ -78,7 +78,7 @@ while ($row = $db->fetch_array($res)) {
 }
 $db->free_result($res);
 
-$mf->AddField(t('Empfänger'), 'toUserid', masterform::IS_SELECTION, $selections, masterform::FIELD_OPTIONAL);
+$mf->AddField(t('Empfänger'), 'toUserid', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 $mf->AddField('Betreff', 'comment');
 $mf->AddField('Betrag', 'movement');
 $mf->AddFix('fromUserid', $auth['userid']);

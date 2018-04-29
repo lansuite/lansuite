@@ -341,7 +341,7 @@ if (!$user_data['userid']) {
     $dsp->AddDoubleRow(t('Kommentar'), ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
     $dsp->AddFieldsetEnd();
   
-    $plugin = new plugin('usrmgr_details_main');
+    $plugin = new \LanSuite\Plugin('usrmgr_details_main');
     while (list($caption, $inc) = $plugin->fetch()) {
         $dsp->AddFieldsetStart($caption);
         include_once($inc);
@@ -353,7 +353,7 @@ if (!$user_data['userid']) {
     $dsp->AddFieldsetStart(t('In Kommentaren'));
     switch ($_GET['step']) {
         case 10:
-            $md = new masterdelete();
+            $md = new \LanSuite\MasterDelete();
             $md->MultiDelete('comments_bookmark', 'bid');
             break;
     }
@@ -402,7 +402,7 @@ if (!$user_data['userid']) {
 
     // Including comment-engine
     if ($auth["login"] == 1) {
-        new Mastercomment('User', $_GET['userid']);
+        new \LanSuite\MasterComment('User', $_GET['userid']);
     }
 
     $dsp->EndTab();
@@ -437,7 +437,7 @@ if (!$user_data['userid']) {
         $dsp->EndTab();
     }
 
-    $plugin = new plugin('usrmgr_details_tab');
+    $plugin = new \LanSuite\Plugin('usrmgr_details_tab');
     while (list($caption, $inc, $icon) = $plugin->fetch()) {
         $dsp->StartTab($caption, $icon);
         include_once($inc);

@@ -15,7 +15,7 @@ function ShowField($key)
     return false;
 }
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
 $dsp->NewContent(t('Betrag Buchen'), t('Fixbetrag (z.B Miete oder Sponsoring) oder Geldschiebungen'));
 
@@ -30,7 +30,7 @@ while ($res = $db->fetch_array($row)) {
 
 $mf->AddDropDownFromTable(t('Party'), 'partyid', 'party_id', 'name', 'partys');
 $mf->AddDropDownFromTable(t('Betrifft Benutzer'), 'userid', 'userid', 'username', 'user', t('keine Auswahl'));
-$mf->AddField('Fix Betrag', 'fix', 'tinyint(1)', masterform::FIELD_OPTIONAL);
+$mf->AddField('Fix Betrag', 'fix', 'tinyint(1)', \LanSuite\MasterForm::FIELD_OPTIONAL);
 $mf->AddFix('editorid', $auth['userid']);
 $mf->AddFix('modul', 'cashmgr');
 

@@ -1,6 +1,6 @@
 <?php
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
 $dsp->NewContent(t('Betrag Buchen'), t('Fixbetrag (z.B Miete oder Sponsoring) oder Geldschiebungen'));
 

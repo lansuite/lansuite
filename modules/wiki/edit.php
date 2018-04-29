@@ -27,9 +27,9 @@ $framework->add_js_code($jscode);
 $smarty->assign('define_url_options', $define_url_options);
 $dsp->AddDoubleRow('', $smarty->fetch('modules/wiki/templates/add_page_link.htm'));
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
-$mf->AddField(t('Text'), 'text', '', masterform::HTML_ALLOWED);
+$mf->AddField(t('Text'), 'text', '', \LanSuite\MasterForm::HTML_ALLOWED);
 $mf->AddFix('userid', $auth['userid']);
 
 $mf->AddFix('postid', $_GET['postid']);

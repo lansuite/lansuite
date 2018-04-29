@@ -1,6 +1,8 @@
 <?php
 
-class Mastercomment {
+namespace LanSuite;
+
+class MasterComment {
 
     /**
      * Mastercomment constructor.

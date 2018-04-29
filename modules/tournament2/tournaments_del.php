@@ -1,6 +1,6 @@
 <?php
 
-$md = new masterdelete();
+$md = new \LanSuite\MasterDelete();
 
 $md->References['t2_teams'] = '';
 $md->References['t2_teammembers'] = '';

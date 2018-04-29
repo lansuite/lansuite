@@ -7,11 +7,11 @@ use PHPUnit\Framework\TestCase;
 class MasterformTest extends TestCase
 {
     /**
-     * @covers \masterform::IncrementNumber
+     * @covers \LanSuite\MasterForm::IncrementNumber
      */
     public function testIncrementNumber()
     {
-        $mf = new \masterform();
+        $mf = new \LanSuite\MasterForm();
 
         $this->assertEquals(1, $mf->GetNumber());
         $mf->IncrementNumber();
@@ -19,11 +19,11 @@ class MasterformTest extends TestCase
     }
 
     /**
-     * @covers \masterform::DecrementNumber
+     * @covers \LanSuite\MasterForm::DecrementNumber
      */
     public function testDecrementNumber()
     {
-        $mf = new \masterform();
+        $mf = new \LanSuite\MasterForm();
 
         $this->assertEquals(1, $mf->GetNumber());
         $mf->DecrementNumber();
@@ -31,12 +31,12 @@ class MasterformTest extends TestCase
     }
 
     /**
-     * @covers \masterform::IncrementNumber
-     * @covers \masterform::DecrementNumber
+     * @covers \LanSuite\MasterForm::IncrementNumber
+     * @covers \LanSuite\MasterForm::DecrementNumber
      */
     public function testIncrementAndDecrementNumber()
     {
-        $mf = new \masterform();
+        $mf = new \LanSuite\MasterForm();
 
         $mf->IncrementNumber();
         $mf->IncrementNumber();

@@ -3,7 +3,7 @@
 switch ($_GET['step']) {
   // Delete
     case 10:
-        $md = new masterdelete();
+        $md = new \LanSuite\MasterDelete();
         $md->MultiDelete('cron', 'jobid');
         break;
 

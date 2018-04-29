@@ -1,6 +1,8 @@
 <?php
 
-class masterdelete
+namespace LanSuite;
+
+class MasterDelete
 {
     /**
      * @var array

@@ -1,5 +1,7 @@
 <?php
 
+namespace LanSuite;
+
 /**
  * Class barcode_system
  *
@@ -15,7 +17,7 @@
  *
  * Reference: http://www.barcodeisland.com/symbolgy.phtml
  */
-class barcode_system
+class BarcodeSystem
 {
     private $class_barcode;
     
@@ -23,7 +25,7 @@ class barcode_system
     {
         global $cfg, $db;
         
-        $this->class_barcode = new barcode($cfg['sys_barcode_typ']);
+        $this->class_barcode = new \LanSuite\Barcode($cfg['sys_barcode_typ']);
 
         $this->class_barcode->setHeight(50);
         $this->class_barcode->setScale(1);

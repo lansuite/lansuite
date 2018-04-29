@@ -121,7 +121,7 @@ $ms2->AddIconField('locked', 'index.php?mod=usrmgr&step=11&userid=', t('Account 
 $ms2->AddIconField('unlocked', 'index.php?mod=usrmgr&step=10&userid=', t('Account sperren'), 'IfUnlocked');
 
 // Add icons depending on other modules
-$plugin = new plugin('usrmgr_search');
+$plugin = new \LanSuite\Plugin('usrmgr_search');
 while (list($caption, $inc) = $plugin->fetch()) {
     include_once($inc);
 }

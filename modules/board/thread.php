@@ -216,13 +216,13 @@ if ($thread['closed']) {
         $dsp->AddFieldsetStart(t('Thread erstellen'));
     }
 
-    $mf = new masterform();
+    $mf = new \LanSuite\MasterForm();
   
     if ($thread['caption'] == '') {
         $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
     }
-    $mf->AddField(t('Text'), 'comment', '', masterform::LSCODE_BIG);
-    $mf->AddField(t('Bild / Datei anhängen'), 'file', masterform::IS_FILE_UPLOAD, 'ext_inc/board_upload/', masterform::FIELD_OPTIONAL);
+    $mf->AddField(t('Text'), 'comment', '', \LanSuite\MasterForm::LSCODE_BIG);
+    $mf->AddField(t('Bild / Datei anhängen'), 'file', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/board_upload/', \LanSuite\MasterForm::FIELD_OPTIONAL);
   
     $mf->AddFix('tid', $_GET['tid']);
     if ($_GET['pid'] == '') {

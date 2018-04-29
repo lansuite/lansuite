@@ -1,6 +1,8 @@
 <?php
 
-class db
+namespace LanSuite;
+
+class DB
 {
     /**
      * @var int

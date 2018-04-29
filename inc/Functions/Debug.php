@@ -20,7 +20,7 @@ function d() {
 
     $arg_vars = func_get_args();
     if (!isset($debug)) {
-        $debug = new debug(1);
+        $debug = new \LanSuite\Debug(1);
     }
 
     if ($arg_vars[1]) {

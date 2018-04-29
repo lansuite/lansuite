@@ -120,7 +120,7 @@ set_error_handler("myErrorHandler");
 session_start();
 
 // Initialise Frameworkclass for Basic output
-$framework = new framework();
+$framework = new \LanSuite\Framework();
 if (isset($_GET['fullscreen'])) {
     $framework->fullscreen($_GET['fullscreen']);
 }
@@ -148,7 +148,7 @@ $framework->IsMobileBrowser = mobile_device_detect();
 @ini_set('arg_separator.output', '&amp;');
 
 // Base Functions (anything that doesnt belong elsewere)
-$func = new func();
+$func = new \LanSuite\Func();
 
 // Prevent XSS
 foreach ($_GET as $key => $val) {
@@ -231,11 +231,12 @@ $lang = [];
 
 // Debug initialisieren
 if ($config['lansuite']['debugmode'] > 0) {
-    $debug = new debug($config['lansuite']['debugmode']);
+    require_once('inc/Functions/Debug.php');
+    $debug = new \LanSuite\Debug($config['lansuite']['debugmode']);
 }
 
 // Load Translationclass. No t()-Function before this point!
-$translation = new translation();
+$translation = new \LanSuite\Translation();
 
 $smarty = new Smarty();
 $smarty->template_dir = '.';
@@ -253,13 +254,13 @@ if (isset($debug)) {
 $ms_number = 0;
 
 // Display Functions (to load the lansuite-templates)
-$dsp = new display();
+$dsp = new \LanSuite\Display();
 
 // DB Functions (to work with the databse)
-$db = new db();
+$db = new \LanSuite\DB();
 
 // Security Functions (to lock pages)
-$sec = new sec();
+$sec = new \LanSuite\Security();
 
 if (isset($debug)) {
     $debug->tracker("Include and Init Base Classes");
@@ -323,7 +324,7 @@ if ($config['environment']['configured'] == 0) {
     }
 
     // Start authentication, just if LS is working
-    $authentication = new auth($frmwrkmode);
+    $authentication = new \LanSuite\Auth($frmwrkmode);
     // Test Cookie / Session if user is logged in
     $auth = $authentication->check_logon();
     // Olduserid for Switback on Boxes

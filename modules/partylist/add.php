@@ -1,11 +1,11 @@
 <?php
 $dsp->NewContent(t('Party eintragen'), t('Hier kannst du deine Party der Liste hinzufügen'));
 
-$mf = new masterform();
+$mf = new \LanSuite\MasterForm();
 
 $mf->AddField(t('Partyname'), 'name');
-$mf->AddField(t('Partymotto'), 'motto', '', '', masterform::FIELD_OPTIONAL);
-$mf->AddField(t('Zusätzliche Infos'), 'text', '', masterform::LSCODE_ALLOWED, masterform::FIELD_OPTIONAL);
+$mf->AddField(t('Partymotto'), 'motto', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+$mf->AddField(t('Zusätzliche Infos'), 'text', '', \LanSuite\MasterForm::LSCODE_ALLOWED, \LanSuite\MasterForm::FIELD_OPTIONAL);
 $mf->AddGroup(t('Allgemeine Angaben'));
 
 $mf->AddField(t('Party-Start'), 'start');
