@@ -989,12 +989,8 @@ class pdf
                     case 'data':
                         $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
                         $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                        if ($templ[$i]['end_x'] == "1") {
-                            $this->pdf->Text(($templ[$i]["pos_x"] - $this->pdf->GetStringWidth($data[$templ[$i]['text']])) + $this->x, $templ[$i]["pos_y"] + $this->y, $data[$templ[$i]['text']]);
-                        } else {
-                            $this->pdf->Text($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y, $data[$templ[$i]['text']]);
-                        }
-
+                        $this->pdf->SetXY($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y);
+                        $this->pdf->MultiCell($templ[$i]['end_x'], $templ[$i]['end_y'], $data[$templ[$i]['text']], "0", $templ[$i]["align"]);
                         break;
                 }
             }
