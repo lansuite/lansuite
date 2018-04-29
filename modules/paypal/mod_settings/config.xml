@@ -31,16 +31,16 @@
     </head>
     <items>
     	<item>
-    		<name>paypal_business</name>
+    		<name>paypal_client_ID</name>
     		<type>string</type>
-    		<default>pay@mybiz.com</default>
-    		<description>E-Mail PayPal-Kontobesitzer</description>
+    		<default></default>
+    		<description>PayPaL API client ID</description>
     	</item>
-    	<item>
-    		<name>paypal_site_url</name>
+        <item>
+    		<name>paypal_client_secret</name>
     		<type>string</type>
-    		<default>http://www.one-network.org/</default>
-    		<description>Homepage Konto-Besitzer</description>
+    		<default></default>
+    		<description>PayPaL API client secret</description>
     	</item>
     	<item>
     		<name>paypal_currency_code</name>
@@ -55,10 +55,10 @@
     		<description>Zahlungsgrund</description>
     	</item>
     	<item>
-    		<name>paypal_url</name>
+    		<name>paypal_mode</name>
     		<type>string</type>
-    		<default>https://www.sandbox.paypal.com/cgi-bin/webscr</default>
-    		<description>PayPal URL</description>
+    		<default>sandbox</default>
+    		<description>sandbox/live?</description>
     	</item>
     </items>
   </group>
