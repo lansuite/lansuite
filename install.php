@@ -3,9 +3,6 @@
 // Raise error reporting - could be interesting and this is automatically reset when index.php is executed
 error_reporting(E_ALL);
 
-// Include check function required for this
-require_once ('inc/Functions/DependencyPreCheck.php');
-
 // Execute install.php only if dependencies are met
 $preCheckResult = dependencyPreCheck();
 if ($preCheckResult){

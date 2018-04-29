@@ -2,14 +2,6 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
-// Load global functions
-// TODO Switch to function autoloading later on
-require_once('inc/Functions/T.php');
-require_once('inc/Functions/FetchDataRow.php');
-require_once('inc/Functions/FetchPostRow.php');
-require_once('inc/Functions/MasterCommentEditAllowed.php');
-require_once('inc/Functions/CheckValidEmail.php');
-
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise
 // LanSuite might not work properly anymore.
@@ -239,7 +231,6 @@ $lang = [];
 
 // Debug initialisieren
 if ($config['lansuite']['debugmode'] > 0) {
-    require_once('inc/Functions/Debug.php');
     $debug = new debug($config['lansuite']['debugmode']);
 }
 
