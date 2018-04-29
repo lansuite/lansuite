@@ -6,8 +6,8 @@
  * and open the template in the editor.
  */
 
-$discord = new \LanSuite\Module\Discord();
-        $discordServerData = $discord->fetchServerData();
-        $discordGuildData = $discord->fetchGuildData();
-$boxcontent = $discord->genBox($discordServerData, $discordGuildData);
+$discord = new \LanSuite\Module\Discord\Discord();
+$discordServerData = $discord->fetchServerData();
+$discordGuildData = $discord->fetchGuildData();
+$boxcontent = $discord->genBoxContent($discordServerData, $discordGuildData);
 $box->Row($boxcontent);

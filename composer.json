@@ -36,7 +36,8 @@
             "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/",
             "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/",
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
-            "LanSuite\\": "inc/Classes"
+            "LanSuite\\Module\\Discord\\": "modules/discord/Classes/",
+            "LanSuite\\": "inc/Classes/"
         },
         "files": [
             "inc/Functions/T.php",

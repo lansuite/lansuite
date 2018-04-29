@@ -23,23 +23,31 @@ class Discord {
     
     public function __construct($discordServerId = 0,$discordGuildId = 0){
         global $cfg,$func;
-        //Check if server id was passed via constructor, use configuration value otherwise
-        if ($discordServerId){
-            $this->discordServerId = $disordServerId;
-        } elseif (isset($cfg['discord_server_id'])) {
-            $this ->discordServerId =  $cfg['discord_server_id'];
-        } else {
-            $func->error(t('Es wurde keine Discord server ID konfiguriert oder übergeben'));
-        } 
+        
+        //Have a look first, if OpenSSL is enabled as module...
+       if (extension_loaded('openssl'))
+       {
+            //Check if server id was passed via constructor, use configuration value otherwise
+            if ($discordServerId){
+                $this->discordServerId = $disordServerId;
+            } elseif (isset($cfg['discord_server_id'])) {
+                $this ->discordServerId =  $cfg['discord_server_id'];
+            } else {
+                $func->error(t('Es wurde keine Discord server ID konfiguriert oder übergeben'));
+            } 
 
-        //Check if guild id was passed via constructor, use configuration value otherwise
-        if ($discordGuildId){
-            $this->discordGuildId = $disordGuildId;
-        } elseif (isset($cfg['discord_guild_id'])) {
-            $this ->discordServerId =  $cfg['discord_guild_id'];
-        } else {
-            $func->error(t('Es wurde keine Discord guild ID konfiguriert oder übergeben'));
-        } 
+            //Check if guild id was passed via constructor, use configuration value otherwise
+            if ($discordGuildId){
+                $this->discordGuildId = $disordGuildId;
+            } elseif (isset($cfg['discord_guild_id'])) {
+                $this ->discordGuildId =  $cfg['discord_guild_id'];
+            } else {
+                $func->error(t('Es wurde keine Discord guild ID konfiguriert oder übergeben'));
+            } 
+       }
+        else {
+            $func->error('OpenSSL-Modul nicht geladen!');
+        }
     }
     
     /**
@@ -50,13 +58,13 @@ class Discord {
      */
     public function fetchGuildData(){
         $APIurl = 'https://discordapp.com/api/guilds/'.$this->discordGuildId .'/widget.json';
-        $JsonReturnData = file_get_contents('$APIurl');
+        $JsonReturnData = file_get_contents($APIurl);
         return json_decode($JsonReturnData, true);
     }
     
     public function fetchServerData(){
         $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
-        $JsonReturnData = file_get_contents('$APIurl');
+        $JsonReturnData = file_get_contents($APIurl);
         return json_decode($JsonReturnData, true);
     }
 
@@ -110,10 +118,10 @@ class Discord {
                     $boxContent .= '</ul>';
                 }
                 $boxContent .= "</li>";
-            }
-            $boxContent .= "<input class=\"btn-join\" type=button onClick=\"parent.open('https://discordapp.com/invite/*********')\" value='Join'>";
-            $boxContent .= '</ul>';
-			return $boxContent;
+            }  
         }
+        $boxContent .= "<input class=\"btn-join\" type=button onClick=\"parent.open('". $discordServerData['instant_invite'] ." ')\" value='Join'>";
+        $boxContent .= '</ul>';
+        return $boxContent;
     }
 }

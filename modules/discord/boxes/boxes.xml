@@ -2,7 +2,7 @@
 <lansuite>
 	<box>
 		<name>Discord</name>
-		<place>0</place>
+		<place>1</place>
 		<pos>6</pos>
 		<active>0</active>
 		<internet>0</internet>

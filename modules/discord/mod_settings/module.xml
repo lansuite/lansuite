@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite-module>
+	<name>discord</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
+	<caption>Discord</caption>		<!-- The modulname displayed to the user -->
+	<description>Integration von Discord as Box</description>		<!-- A short description of the module -->
+	<active>0</active>				<!-- Is the module activated by default? 0/1 -->
+	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
+	<author>MaLuZ</author>				<!-- The author of this module -->
+	<email></email>					<!-- The E-Mail-Adress of the modules author -->
+	<version>0.1</version>			<!-- The version of this module -->
+	<state>in development</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
+</lansuite-module>
