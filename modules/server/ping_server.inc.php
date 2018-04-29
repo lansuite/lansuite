@@ -20,7 +20,7 @@ function ping_server($host, $port)
         $available = $success;
 
         $special_info = "";
-        // Weitere Daten f�r FTPs herrausfinden
+        // Weitere Daten für FTPs herrausfinden
         if (($success) && ($server_daten["type"] == "ftp")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
                 socket_set_blocking($fp, false);
