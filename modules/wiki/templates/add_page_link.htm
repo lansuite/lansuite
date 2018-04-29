@@ -1,4 +1,4 @@
-<select name="wikipage" onChange="javascript:if (this.options[this.selectedIndex].value != '') InsertCode(document.dsp_form1.text, '[url=' + UrlAuswahl[this.options[this.selectedIndex].value]['url'] + ']' + UrlAuswahl[this.options[this.selectedIndex].value]['name'] + '[/url]')" class="form">
+<select name="wikipage" onChange="if (this.options[this.selectedIndex].value != '') InsertCode(document.dsp_form1.text, '[url=' + UrlAuswahl[this.options[this.selectedIndex].value]['url'] + ']' + UrlAuswahl[this.options[this.selectedIndex].value]['name'] + '[/url]')" class="form">
   <option value="" selected>Seite verlinken</option>
   {$define_url_options}
 </select>

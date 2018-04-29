@@ -267,7 +267,7 @@ class boxes
     public function AddTemplate($template)
     {
         global $dsp;
-        $this->box_rows .= $this->Row($template);
+        $this->Row($template);
     }
 
   /**

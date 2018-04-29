@@ -918,7 +918,7 @@ class Install
             $smarty->assign('db_link', $db_link);
 
             if (file_exists("modules/{$row["name"]}/docu/{$language}_help.php")) {
-                $help_link = " | <a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&module={$row["name"]}&helpletid=help','_blank','width=700,height=500,resizable=no,scrollbars=yes');\" class=\"Help\">?</a>";
+                $help_link = " | <a href=\"#\" onclick=\"var w=window.open('index.php?mod=helplet&action=helplet&design=base&module={$row["name"]}&helpletid=help','_blank','width=700,height=500,resizable=no,scrollbars=yes');\" class=\"Help\">?</a>";
             } else {
                 $help_link = '';
             }
