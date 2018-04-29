@@ -36,27 +36,15 @@ class Import
     {
         global $xml;
 
-        ## Open XML-File
-        $xml_file    = fopen($tmp_file_name, "r");
-#		$this->xml_content = utf8_encode(fread($xml_file, filesize($tmp_file_name)));
+        $xml_file = fopen($tmp_file_name, "r");
         $this->xml_content = fread($xml_file, filesize($tmp_file_name));
         fclose($xml_file);
 
-    // Due to a bug in PHP "5.2.4-2ubuntu5.7", fread seams to replace all ' with ''. So lets fix this:
-    // 120428: Removed Fix again, since it cause Bugs with new MySQL Versions
-    // See: http://lansuite.orgapage.de/index.php?mod=bugtracker&bugid=1059
-    #$this->xml_content = str_replace("''", "'", $this->xml_content);
-
         // Get Header-Tag
-        $this->xml_content_lansuite = $xml->getFirstTagContent("LANsurfer", $this->xml_content, 0);
-        if ($this->xml_content_lansuite) {
-            $header = $xml->getFirstTagContent("LANsurfer_header", $this->xml_content_lansuite, 0);
-        } else {
-            $this->xml_content_lansuite = $xml->getFirstTagContent("lansuite", $this->xml_content, 0);
-            $header = $xml->getFirstTagContent("lansuite_header", $this->xml_content_lansuite, 0);
-            if (!$header) {
-                $header = $xml->getFirstTagContent("header", $this->xml_content_lansuite, 0);
-            }
+        $this->xml_content_lansuite = $xml->getFirstTagContent("lansuite", $this->xml_content, 0);
+        $header = $xml->getFirstTagContent("lansuite_header", $this->xml_content_lansuite, 0);
+        if (!$header) {
+            $header = $xml->getFirstTagContent("header", $this->xml_content_lansuite, 0);
         }
 
         if ($header) {
@@ -509,8 +497,14 @@ class Import
         }
     }
 
-
-    public function ImportLanSurfer($del_db, $replace, $no_seat, $signon, $comment)
+    /**
+     * @param boolean $del_db
+     * @param boolean $replace
+     * @param boolean $no_seat
+     * @param boolean $signon
+     * @param string $comment
+     */
+    public function ImportLanSuite($del_db, $replace, $no_seat, $signon, $comment)
     {
         global $xml, $db, $config, $party, $cfg;
 

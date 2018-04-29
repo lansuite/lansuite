@@ -13,9 +13,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddFieldsetStart(t('Lansuite-XML-Export'));
         $dsp->AddCheckBoxRow("rewrite", t('Vorhandene Einträge ersetzen'), "", "", 1, "");
-        $dsp->AddFieldsetEnd();
-
-        $dsp->AddFieldsetStart(t('LanSurfer-XML-Export'));
         $dsp->AddTextFieldRow("comment", t('Kommentar für alle setzen'), "", "", "", 1);
         $dsp->AddCheckBoxRow("deldb", t('Alte Benutzerdaten löschen'), "", "", 1, "");
         $dsp->AddCheckBoxRow("replace", t('Vorhandene Einträge überschreiben'), "", "", 1, 1);
@@ -56,9 +53,8 @@ switch ($_GET["step"]) {
                     case "xml":
                         $header = $import->GetImportHeader($_FILES['importdata']['tmp_name']);
                         switch ($header["filetype"]) {
-                            case "LANsurfer_export":
                             case "lansuite_import":
-                                $import->ImportLanSurfer($_POST["deldb"], $_POST["replace"], $_POST["noseat"], $_POST["signon"], $_POST["comment"]);
+                                $import->ImportLanSuite($_POST["deldb"], $_POST["replace"], $_POST["noseat"], $_POST["signon"], $_POST["comment"]);
 
                                 $func->confirmation(t('Datei-Import erfolgreich.') . HTML_NEWLINE . HTML_NEWLINE
                                 . t('Dateityp') . ": " . $header["filetype"] . HTML_NEWLINE
