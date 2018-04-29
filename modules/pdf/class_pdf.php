@@ -484,7 +484,7 @@ class pdf
         }
         $pdf_sqlstring .= ' WHERE user.type > -1';
         if ($_POST['party'] == '1' or $pdf_paid) {
-            $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
+            $pdf_sqlstring .= ' AND party.party_id = '. intval($party->party_id);
         }
 
         // Bezahlstatus abfragen
@@ -513,11 +513,11 @@ class pdf
         //Userabfragen
 
         if ($pdf_guestid > 0) {
-            $pdf_sqlstring .= ' AND user.userid = '.$pdf_guestid.'';
+            $pdf_sqlstring .= ' AND user.userid = ' . intval($pdf_guestid);
         }
 
         $query = $db->qry('SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
-      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid %plain%', $pdf_sqlstring);
+      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid ' . $pdf_sqlstring);
 
         $user_numusers = $db->num_rows($query);
         // erste Seite erstellen
@@ -734,7 +734,7 @@ class pdf
         }
         $pdf_sqlstring .= ' WHERE user.type > -1';
         if ($_POST['party'] == '1' or $pdf_paid) {
-            $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
+            $pdf_sqlstring .= ' AND party.party_id = ' . intval($party->party_id);
         }
 
         // Bezahlstatus abfragen
@@ -785,7 +785,7 @@ class pdf
         }
 
         $query = $db->qry("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
-      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid %plain%", $pdf_sqlstring);
+      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid " . $pdf_sqlstring);
 
         $user_numusers = $db->num_rows($query);
         // erste Seite erstellen
@@ -896,14 +896,14 @@ class pdf
         $pdf_sqlstring .= ' WHERE user.type > -1';
 
         if ($_POST['party'] == '1') {
-            $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
+            $pdf_sqlstring .= ' AND party.party_id = ' . intval($party->party_id);
         }
 
         $pdf_sqlstring = $pdf_sqlstring . " ORDER BY username, name ASC";
 
         $query = $db->qry("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
 
-      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid %plain%", $pdf_sqlstring);
+      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid " . $pdf_sqlstring);
 
         $user_numusers = $db->num_rows($query);
 
