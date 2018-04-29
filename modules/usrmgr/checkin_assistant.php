@@ -28,16 +28,15 @@ if (!$party->party_id) {
             $questionarr[2] = t('Bereits <b>zu einer vergangenen Party angemeldeten Gast einchecken</b>');
             $questionarr[3] = t('Neuer Gast. Einen <b>Account erstellen</b><br /><i>Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.</i>');
             $questionarr[4] = t('Neuer Gast. Einen <b>erweiterten Account erstellen</b><br /><i>Hier liegst du direkt am Einlass alle Benutzerdaten fest.</i>');
-            $linkarr[1]    = "index.php?mod=usrmgr&action=entrance&step=2&signon=1";
-            $linkarr[2]    = "index.php?mod=usrmgr&action=entrance&step=2&signon=0";
-            $linkarr[3]    = "index.php?mod=usrmgr&action=entrance&step=3&quick_signon=1";
-            $linkarr[4]    = "index.php?mod=usrmgr&action=entrance&step=3&quick_signon=0";
+            $linkarr[1] = "index.php?mod=usrmgr&action=entrance&step=2&signon=1";
+            $linkarr[2] = "index.php?mod=usrmgr&action=entrance&step=2&signon=0";
+            $linkarr[3] = "index.php?mod=usrmgr&action=entrance&step=3&quick_signon=1";
+            $linkarr[4] = "index.php?mod=usrmgr&action=entrance&step=3&quick_signon=0";
             $func->multiquestion($questionarr, $linkarr, "");
             break;
 
         // Wenn Angemeldet: Benutzerauswahl
         case 2:
-      #      if ($_GET['signon']) $additional_where = "(p.checkin = '0' OR p.checkout != '0') AND u.type > 0 AND p.party_id = {$party->party_id}";
             if ($_GET['signon']) {
                 $additional_where = "(!p.checkin OR p.checkout) AND u.type > 0 AND p.party_id = {$party->party_id}";
             } else {
@@ -90,9 +89,9 @@ if (!$party->party_id) {
                 if (!$_GET['userid']) {
                     $_GET['userid'] = $mf->insert_id;
                 }
-                    $_GET['step']++;
+                $_GET['step']++;
 
-                    $row = $db->qry_first('SELECT evening_price_id FROM %prefix%partys WHERE party_id = %int%', $party->party_id);
+                $row = $db->qry_first('SELECT evening_price_id FROM %prefix%partys WHERE party_id = %int%', $party->party_id);
         
                 if ($row2['paid']) {
                     $db->qry('UPDATE %prefix%party_user SET
@@ -114,16 +113,16 @@ if (!$party->party_id) {
     }
 
     switch ($_GET["step"]) {
-    // Platzpfand prüfen
+        // Platzpfand prüfen
         case 4:
-            // Passwort ausgeben
+        // Passwort ausgeben
         case 5:
-            // Neuen Sitzplatz auswählen?
+        // Neuen Sitzplatz auswählen?
         case 6:
             $func->question(t('Willst du diesem Benutzer einen Sitzplatz zuweisen?<br />Er sitzt aktuell auf:<br />%1', $seat2->SeatNameLink($_GET["userid"])), "index.php?mod=usrmgr&action=entrance&step=7&umode=". $_GET["umode"] ."&userid=". $_GET["userid"], "index.php?mod=usrmgr&action=entrance&step=11&umode=". $_GET["umode"] ."&userid=". $_GET["userid"]);
             break;
 
-    // Sitzblock auswählen
+        // Sitzblock auswählen
         case 7:
             if ($_GET['next_userid']) {
                 $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
@@ -131,12 +130,12 @@ if (!$party->party_id) {
                 $_GET['userid'] = $_GET['next_userid'];
             }
 
-              $current_url = "index.php?mod=usrmgr&action=entrance&step=7&umode={$_GET["umode"]}&userid={$_GET["userid"]}";
-              $target_url = "index.php?mod=usrmgr&action=entrance&step=8&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid=";
-              include_once('modules/seating/search_basic_blockselect.inc.php');
+            $current_url = "index.php?mod=usrmgr&action=entrance&step=7&umode={$_GET["umode"]}&userid={$_GET["userid"]}";
+            $target_url = "index.php?mod=usrmgr&action=entrance&step=8&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid=";
+            include_once('modules/seating/search_basic_blockselect.inc.php');
             break;
 
-    // Sitzplatz auswählen
+        // Sitzplatz auswählen
         case 8:
             $dsp->NewContent('Sitzplatz - Informationen', 'Fahre mit der Maus über einen Sitzplatz um weitere Informationen zu erhalten.');
 
@@ -149,7 +148,7 @@ if (!$party->party_id) {
             $dsp->AddBackButton('index.php?mod=seating', 'seating/show');
             break;
 
-    // Belegten Sitzplatz tauschen / löschen?
+        // Belegten Sitzplatz tauschen / löschen?
         case 9:
             $seat = $db->qry_first("SELECT s.userid, s.status, u.username, u.firstname, u.name FROM %prefix%seat_seats AS s
   			LEFT JOIN %prefix%user AS u ON s.userid = u.userid
@@ -184,7 +183,7 @@ if (!$party->party_id) {
         case 10:
             $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
 
-            // Erfolgsmeldung zeigen
+        // Erfolgsmeldung zeigen
         case 11:
             $func->confirmation(t('Der Benutzer <b>%1</b> wurde erfolgreich eingecheckt', $user_data["username"]), "index.php?mod=usrmgr&action=entrance");
             break;
