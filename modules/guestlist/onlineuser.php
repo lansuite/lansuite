@@ -37,8 +37,7 @@ function getTimeDiffAsName($last)
 
 $dsp->NewContent(t("Online User"));
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2('games');
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('games');
 
         //Anzeige der Aufgaben
         $ms2->query['from'] = "%prefix%stats_auth AS s LEFT JOIN %prefix%user AS u on s.userid = u.userid";

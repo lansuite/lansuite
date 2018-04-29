@@ -53,8 +53,7 @@ switch ($_GET['step']) {
 
 $dsp->NewContent(t('Box-Manager'), t('Hier kannst du die Anzeige und Position der Boxen verwalten'));
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2('');
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('');
 
 $ms2->query['from'] = "%prefix%boxes AS b";
 $ms2->query['default_order_by'] = 'place ASC, pos ASC, name ASC';

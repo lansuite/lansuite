@@ -10,7 +10,6 @@ require_once('inc/Functions/FetchPostRow.php');
 require_once('inc/Functions/MasterCommentEditAllowed.php');
 require_once('inc/Functions/CheckValidEmail.php');
 
-
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise
 // LanSuite might not work properly anymore.
@@ -258,6 +257,9 @@ $smarty->cache_lifetime = 0;
 if (isset($debug)) {
     $debug->tracker("Include and Init Smarty");
 }
+
+// Global counter for \LanSuite\Module\MasterSearch2\MasterSearch2 class
+$ms_number = 0;
 
 // Display Functions (to load the lansuite-templates)
 $dsp = new display();

@@ -9,8 +9,7 @@ function get_modullink($modul)
 $dsp->NewContent('Suche Configschl&uuml;ssel', 'Zum bearbeiten auf den Modullink klicken');
 
 // Init Mastersearch
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 $ms2->query['from'] = "%prefix%config l";
 
 // Add Searchfields
