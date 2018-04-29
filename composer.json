@@ -37,6 +37,15 @@
             "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/",
             "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/"
         },
+        "files": [
+            "inc/Functions/T.php",
+            "inc/Functions/FetchDataRow.php",
+            "inc/Functions/FetchPostRow.php",
+            "inc/Functions/MasterCommentEditAllowed.php",
+            "inc/Functions/CheckValidEmail.php",
+            "inc/Functions/Debug.php",
+            "inc/Functions/DependencyPreCheck.php"
+        ],
         "classmap": [
             "inc/classes/class.crypt.php",
             "inc/classes/class_auth.php",
