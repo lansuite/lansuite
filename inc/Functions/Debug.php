@@ -37,7 +37,7 @@ function d() {
     }
 
     $information = $title . ':<br>"' . nl2br(str_replace(' ', '&nbsp;', htmlentities(print_r($val, true)))) . '"';
-    $func->information(information, NO_LINK);
+    $func->information($information, NO_LINK);
 
     if ($title == 'Variable') {
         if (is_numeric($val)) {
