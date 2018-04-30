@@ -1,6 +1,4 @@
 <?php
-include_once("modules/pdf/class_templ_pdf.php");
-include_once("modules/pdf/class_pdf.php");
 
 if (isset($_GET['userid'])) {
     $_POST['user'] = $_GET['userid'];
@@ -14,8 +12,8 @@ if (isset($_GET['id'])) {
     $templ_id = $_GET['id'];
 }
 
-$pdf_tmpl = new pdf_tmpl($_GET['action'], $templ_id);
-$pdf_export = new pdf($templ_id);
+$pdf_tmpl = new PDFTemplate($_GET['action'], $templ_id);
+$pdf_export = new PDF($templ_id);
 
 switch ($_GET['act']) {
     default:

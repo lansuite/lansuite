@@ -1,6 +1,6 @@
 <?php
 
-class pdf_tmpl
+class PDFTemplate
 {
     /**
      * @var string
@@ -188,7 +188,7 @@ class pdf_tmpl
     {
         global $dsp;
         
-        $pdf_export = new pdf($this->tmpl_id);
+        $pdf_export = new PDF($this->tmpl_id);
                               
         // Create new user type
         $user_type = [
@@ -305,7 +305,7 @@ class pdf_tmpl
     {
         global $db, $dsp;
 
-        $pdf_export = new pdf($this->tmpl_id);
+        $pdf_export = new PDF($this->tmpl_id);
         $data = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE pdfid= %int%", $item_id);
                                   
         $user_type_list = [

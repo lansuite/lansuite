@@ -3,13 +3,12 @@
 include_once("modules/seating/class_seat.php");
 $seat2 = new seat2();
 
-include_once("modules/pdf/class_fpdf.php");
 $barcode = new \LanSuite\BarcodeSystem();
 
 /**
- * Class pdf
+ * Class PDF
  */
-class pdf
+class PDF
 {
 
     /**
