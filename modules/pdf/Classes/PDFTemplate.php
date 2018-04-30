@@ -2,6 +2,8 @@
 
 namespace LanSuite\Module\PDF;
 
+use LanSuite\BarcodeSystem;
+
 class PDFTemplate
 {
     /**
@@ -189,8 +191,9 @@ class PDFTemplate
     public function insert_mask($object)
     {
         global $dsp;
-        
-        $pdf_export = new PDF($this->tmpl_id);
+
+        $barcodeSystem = new BarcodeSystem();
+        $pdf_export = new PDF($this->tmpl_id, $barcodeSystem);
                               
         // Create new user type
         $user_type = [
@@ -307,7 +310,8 @@ class PDFTemplate
     {
         global $db, $dsp;
 
-        $pdf_export = new PDF($this->tmpl_id);
+        $barcodeSystem = new BarcodeSystem();
+        $pdf_export = new PDF($this->tmpl_id, $barcodeSystem);
         $data = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE pdfid= %int%", $item_id);
                                   
         $user_type_list = [

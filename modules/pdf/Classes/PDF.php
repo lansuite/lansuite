@@ -5,7 +5,7 @@ namespace LanSuite\Module\PDF;
 include_once("modules/seating/class_seat.php");
 $seat2 = new \seat2();
 
-$barcode = new \LanSuite\BarcodeSystem();
+use \LanSuite\BarcodeSystem;
 
 /**
  * Class PDF
@@ -122,11 +122,17 @@ class PDF
     private $templ_id;
 
     /**
+     * @var BarcodeSystem
+     */
+    private $barcodeSystem = null;
+
+    /**
      * @param int $templ_id
      */
-    public function __construct($templ_id)
+    public function __construct($templ_id, BarcodeSystem $barcodeSystem)
     {
         $this->templ_id = $templ_id;
+        $this->barcodeSystem = $barcodeSystem;
 
         $this->data_type_array['guestcards']['user_nickname']   = "Nickname";
         $this->data_type_array['guestcards']['name']            = "Name";
@@ -1053,8 +1059,6 @@ class PDF
      */
     private function _get_size($templ)
     {
-        global $barcode;
-
         // Determine the size of all objects
         for ($i = 0; $i < count($templ); $i++) {
             switch ($templ[$i]['type']) {
@@ -1097,7 +1101,7 @@ class PDF
 
                 case 'barcode':
                     $imagename = mt_rand(100000, 999999);
-                    $barcode->get_image($_SESSION['userid'], static::BARCODE_PATH .$imagename);
+                    $this->barcodeSystem->get_image($_SESSION['userid'], static::BARCODE_PATH .$imagename);
                     $image = getimagesize(static::BARCODE_PATH .$imagename . ".png");
                     if (($image[0]/2) > $this->object_width) {
                         $this->object_width = $image[0];
@@ -1105,7 +1109,7 @@ class PDF
                     if (($image[1]/2) > $this->object_high) {
                         $this->object_high = $image[1];
                     }
-                    $barcode->kill_image(static::BARCODE_PATH . $imagename);
+                    $this->barcodeSystem->kill_image(static::BARCODE_PATH . $imagename);
                     
                     // no break
                 case 'data':
@@ -1130,8 +1134,6 @@ class PDF
      */
     private function _write_object($templ, $data)
     {
-        global $barcode;
-
         for ($i = 0; $i < count($templ); $i++) {
             if ($templ[$i]['user_type'] == $row['type'] || $templ[$i]['user_type'] == "0") {
                 switch ($templ[$i]['type']) {
@@ -1174,10 +1176,9 @@ class PDF
 
                     case 'barcode':
                         $imagename = mt_rand(100000, 999999);
-                        $barcode->get_image($data['userid'], static::BARCODE_PATH . $imagename);
+                        $this->barcodeSystem->get_image($data['userid'], static::BARCODE_PATH . $imagename);
                         $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y);
-                        $barcode->kill_image(static::BARCODE_PATH . $imagename);
-
+                        $this->barcodeSystem->kill_image(static::BARCODE_PATH . $imagename);
 
                         // no break
                     case 'data':

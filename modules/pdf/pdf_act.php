@@ -1,5 +1,6 @@
 <?php
 
+use LanSuite\BarcodeSystem;
 use LanSuite\Module\PDF\PDF;
 use LanSuite\Module\PDF\PDFTemplate;
 
@@ -16,7 +17,8 @@ if (isset($_GET['id'])) {
 }
 
 $pdf_tmpl = new PDFTemplate($_GET['action'], $templ_id);
-$pdf_export = new PDF($templ_id);
+$barcodeSystem = new BarcodeSystem();
+$pdf_export = new PDF($templ_id, $barcodeSystem);
 
 switch ($_GET['act']) {
     default:
