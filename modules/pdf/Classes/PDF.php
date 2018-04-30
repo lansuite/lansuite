@@ -1,7 +1,9 @@
 <?php
 
+namespace LanSuite\Module\PDF;
+
 include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
+$seat2 = new \seat2();
 
 $barcode = new \LanSuite\BarcodeSystem();
 

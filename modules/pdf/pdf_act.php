@@ -1,5 +1,8 @@
 <?php
 
+use LanSuite\Module\PDF\PDF;
+use LanSuite\Module\PDF\PDFTemplate;
+
 if (isset($_GET['userid'])) {
     $_POST['user'] = $_GET['userid'];
 }
