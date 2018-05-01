@@ -1139,7 +1139,7 @@ class PDF
     private function _write_object($templ, $data)
     {
         for ($i = 0; $i < count($templ); $i++) {
-            if ($templ[$i]['user_type'] == $row['type'] || $templ[$i]['user_type'] == "0") {
+            if ($templ[$i]['user_type'] == $templ[$i]['type'] || $templ[$i]['user_type'] == "0") {
                 switch ($templ[$i]['type']) {
                     case 'text':
                         $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
