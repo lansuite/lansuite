@@ -46,6 +46,26 @@ After everything started you should be able to visit http://`<Your-Docker-IP>`:8
 
 *Warning*: This Docker setup should not be used for production. It contains a debugging setup like [Xdebug](https://xdebug.org/).
 
+### Docker with a database dump
+
+If you have already a running website based on LanSuite, you can also start a docker based setup with a copy of your database.
+It comes handy to test the new features with your dataset.
+
+This guide assumes that you have already a copy of your database in a single SQL file.
+If you don't have one, you can create one with tools like [mysqldump](https://dev.mysql.com/doc/refman/5.7/en/mysqldump-sql-format.html), [PHPMyAdmin](https://www.phpmyadmin.net/) or ask your hoster for a copy.
+
+Move your database dump into the root folder of LanSuite and name it `database-dump.sql`:
+
+```
+$ mv /your/db/dump.sql /lansuite/copy/database-dump.sql
+```
+
+After this, you can start the [docker-compose](https://docs.docker.com/compose/) setup via
+
+```
+$ docker-compose -f docker-compose.yml -f docker-compose.dump.yml up
+```
+
 ### Configuration file
 
 An example configuration file looks like:
