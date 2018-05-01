@@ -1,5 +1,7 @@
 <?php
 
+use LanSuite\Module\Seating\Seat2;
+
 $xml = new \LanSuite\XML();
 
 class Export
@@ -246,8 +248,7 @@ class Export
     {
         global $db, $config, $func, $party;
 
-        include_once("modules/seating/class_seat.php");
-        $seat2 = new seat2();
+        $seat2 = new Seat2();
 
         $user_export = $config['lansuite']['version']." CSV Export\r\nParty: ". $_SESSION['party_info']['name'] ."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
 
@@ -320,8 +321,7 @@ class Export
     {
         global $db, $config, $func, $party;
 
-        include_once("modules/seating/class_seat.php");
-        $seat2 = new seat2();
+        $seat2 = new Seat2();
 
         $user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
 
@@ -367,8 +367,7 @@ class Export
     {
         global $db, $config, $func, $party;
 
-        include_once("modules/seating/class_seat.php");
-        $seat2 = new seat2();
+        $seat2 = new Seat2();
 
         $user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
 

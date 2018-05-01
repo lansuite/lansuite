@@ -2,10 +2,8 @@
 
 namespace LanSuite\Module\PDF;
 
-include_once("modules/seating/class_seat.php");
-$seat2 = new \seat2();
-
 use \LanSuite\BarcodeSystem;
+use LanSuite\Module\Seating\Seat2;
 
 /**
  * Class PDF
@@ -127,12 +125,18 @@ class PDF
     private $barcodeSystem = null;
 
     /**
+     * @var Seat2
+     */
+    private $seating = null;
+
+    /**
      * @param int $templ_id
      */
-    public function __construct($templ_id, BarcodeSystem $barcodeSystem)
+    public function __construct($templ_id, BarcodeSystem $barcodeSystem, Seat2 $seating)
     {
         $this->templ_id = $templ_id;
         $this->barcodeSystem = $barcodeSystem;
+        $this->seating = $seating;
 
         $this->data_type_array['guestcards']['user_nickname']   = "Nickname";
         $this->data_type_array['guestcards']['name']            = "Name";
@@ -463,7 +467,7 @@ class PDF
      */
     private function _makeUserCard($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $pdf_guestid)
     {
-        global $db, $func, $party, $seat2;
+        global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
 
@@ -569,7 +573,7 @@ class PDF
                 $data['orientation']  = $row_block["orientation"];
                 $data['col']          = $row_seat["col"];
                 $data['row']          = $row_seat["row"];
-                $data['user_seat']    = $seat2->CoordinateToName($row_seat['col'] + 1, $row_seat['row'], $row_block['orientation']);
+                $data['user_seat']    = $this->seating->CoordinateToName($row_seat['col'] + 1, $row_seat['row'], $row_block['orientation']);
                 $data['user_block']   = $row_block["name"];
             }
 
@@ -619,7 +623,7 @@ class PDF
      */
     private function _makeSeatCard($block, $order)
     {
-        global $db, $func,$party, $seat2;
+        global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
 
@@ -672,10 +676,10 @@ class PDF
 
             $row_block              = $db->qry_first("SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%", $row['blockid']);
             $userid                 = $row["userid"];
-            $data['col']            = $seat2->CoordinateToNameCol($row["col"], $row_block['orientation']);
-            $data['row']            = $seat2->CoordinateToNameRow($row["row"], $row_block['orientation']);
+            $data['col']            = $this->seating->CoordinateToNameCol($row["col"], $row_block['orientation']);
+            $data['row']            = $this->seating->CoordinateToNameRow($row["row"], $row_block['orientation']);
             $data['seat_block']     = $row_block['name'];
-            $data['seat']           = $seat2->CoordinateToName($row['col'] + 1, $row['row'], $row_block['orientation']);
+            $data['seat']           = $this->seating->CoordinateToName($row['col'] + 1, $row['row'], $row_block['orientation']);
             $data['party_name']     = $_SESSION['party_info']['name'];
 
             $row_user = $db->qry_first("
@@ -739,7 +743,7 @@ class PDF
      */
     private function _makeUserlist($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $order)
     {
-        global $db, $func,$party, $seat2;
+        global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
 
@@ -868,7 +872,7 @@ class PDF
                 $data['orientation']  = $row_block["orientation"];
                 $data['col']          = $row_seat["col"];
                 $data['row']          = $row_seat["row"];
-                $data['user_seat']    = $seat2->CoordinateToName($data['col'] + 1, $data['row'], $data['orientation']);
+                $data['user_seat']    = $this->seating->CoordinateToName($data['col'] + 1, $data['row'], $data['orientation']);
                 $data['user_block']   = $row_block["name"];
             }
 
@@ -911,7 +915,7 @@ class PDF
      */
     private function _makeCertificate($pdf_normal, $pdf_user)
     {
-        global $db, $func,$party, $seat2;
+        global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
 

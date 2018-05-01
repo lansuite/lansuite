@@ -1,8 +1,10 @@
 <?php
-include_once('modules/usrmgr/search_main.inc.php');
-include_once("modules/seating/class_seat.php");
 
-$seat2 = new seat2();
+use LanSuite\Module\Seating\Seat2;
+
+include_once('modules/usrmgr/search_main.inc.php');
+
+$seat2 = new Seat2();
 
 /**
  * Used as callback function in mastersearch

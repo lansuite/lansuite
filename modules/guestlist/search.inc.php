@@ -1,9 +1,11 @@
 <?php
+
+use LanSuite\Module\Seating\Seat2;
+
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 if ($func->isModActive('seating')) {
-    include_once("modules/seating/class_seat.php");
-    $seat2 = new seat2();
+    $seat2 = new Seat2();
 }
 
 function SeatNameLink($userid)

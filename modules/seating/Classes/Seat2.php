@@ -1,6 +1,8 @@
 <?php
 
-class seat2
+namespace LanSuite\Module\Seating;
+
+class Seat2
 {
     public function FlipVertical($text)
     {

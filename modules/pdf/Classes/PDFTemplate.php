@@ -3,6 +3,7 @@
 namespace LanSuite\Module\PDF;
 
 use LanSuite\BarcodeSystem;
+use LanSuite\Module\Seating\Seat2;
 
 class PDFTemplate
 {
@@ -193,7 +194,8 @@ class PDFTemplate
         global $dsp;
 
         $barcodeSystem = new BarcodeSystem();
-        $pdf_export = new PDF($this->tmpl_id, $barcodeSystem);
+        $seating = new Seat2();
+        $pdf_export = new PDF($this->tmpl_id, $barcodeSystem, $seating);
                               
         // Create new user type
         $user_type = [
@@ -311,7 +313,8 @@ class PDFTemplate
         global $db, $dsp;
 
         $barcodeSystem = new BarcodeSystem();
-        $pdf_export = new PDF($this->tmpl_id, $barcodeSystem);
+        $seating = new Seat2();
+        $pdf_export = new PDF($this->tmpl_id, $barcodeSystem, $seating);
         $data = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE pdfid= %int%", $item_id);
                                   
         $user_type_list = [

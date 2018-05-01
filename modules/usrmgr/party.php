@@ -1,10 +1,11 @@
 <?php
 
+use LanSuite\Module\Seating\Seat2;
+
 include_once("modules/usrmgr/class_usrmgr.php");
 $usrmgr = new UsrMgr();
 
-include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
+$seat2 = new Seat2();
 
 /**
  * @return bool

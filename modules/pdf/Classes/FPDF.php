@@ -1,4 +1,7 @@
 <?php
+
+namespace LanSuite\Module\PDF;
+
 /*******************************************************************************
 * Software: FPDF                                                               *
 * Version:  1.52                                                               *

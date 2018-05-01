@@ -3,6 +3,7 @@
 use LanSuite\BarcodeSystem;
 use LanSuite\Module\PDF\PDF;
 use LanSuite\Module\PDF\PDFTemplate;
+use LanSuite\Module\Seating\Seat2;
 
 if (isset($_GET['userid'])) {
     $_POST['user'] = $_GET['userid'];
@@ -18,7 +19,8 @@ if (isset($_GET['id'])) {
 
 $pdf_tmpl = new PDFTemplate($_GET['action'], $templ_id);
 $barcodeSystem = new BarcodeSystem();
-$pdf_export = new PDF($templ_id, $barcodeSystem);
+$seating = new Seat2();
+$pdf_export = new PDF($templ_id, $barcodeSystem, $seating);
 
 switch ($_GET['act']) {
     default:

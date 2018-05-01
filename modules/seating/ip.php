@@ -1,4 +1,7 @@
 <?php
+
+use LanSuite\Module\Seating\Seat2;
+
 $blockid = $_GET['blockid'];
 $seating_ip = $_POST['seating_ip'];
 
@@ -43,8 +46,7 @@ switch ($_GET['step']) {
         break;
 
     case 2:
-        include_once("modules/seating/class_seat.php");
-        $seat2 = new seat2();
+        $seat2 = new Seat2();
 
         $dsp->NewContent(t('Sitzplatz - IP-Verteilung'), t('Hier siehst du die einzelnen Sitzpl&auml;tze und die jeweils zugewiesene IP-Nummer. Diese k&ouml;nnen einzeln von Hand neu eingetragen oder ge&auml;ndert werden.'));
 
