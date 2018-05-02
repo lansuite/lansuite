@@ -1,5 +1,7 @@
 <?php
 
+use LanSuite\Module\Seating\Seat2;
+
 $product_list = new LanSuite\Module\Foodcenter\ProductList();
 
 if ($auth['type'] < 2) {
@@ -175,8 +177,7 @@ switch ($_GET['step']) {
         break;
     case 2:
         if ($_POST['action']) {
-            include_once("modules/seating/class_seat.php");
-            $seat2 = new seat2();
+            $seat2 = new Seat2();
 
             $time = time();
             $totprice = 0;

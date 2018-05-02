@@ -1,18 +1,14 @@
 <?php
 
-include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
+namespace LanSuite\Module\PDF;
 
-include_once("modules/pdf/class_fpdf.php");
-$barcode     = new \LanSuite\BarcodeSystem();  // Load Barcode System
+use \LanSuite\BarcodeSystem;
+use LanSuite\Module\Seating\Seat2;
 
 /**
- * Klasse um die Menus und die PDF-Dateien im Modul PDF  zu erzeugen.
- * Author:          Genesis marco@chuchi.tv
- * Letzte Änderung: 5.4.2005
- *
+ * Class PDF
  */
-class pdf
+class PDF
 {
 
     /**
@@ -21,110 +17,127 @@ class pdf
     const BARCODE_PATH ='ext_inc/barcodes/';
 
     /**
-     * Daten Array um Möglich Daten anzuzeigen
+     * Data array
      *
      * @var array
      */
-    public $data_type_array = array();
+    private $data_type_array = [];
 
     /**
-     * PDF Klasse um Daten zu erzeugen
-     *
-     * @var fpdf
+     * @var \FPDF
      */
-    public $pdf;
+    private $pdf;
 
     /**
-     * Momentane Position
+     * Current position on the x axis
      *
      * @var int
      */
-    public $x;
-    public $y = 0;
+    private $x = 0;
 
     /**
-     * Start Position x-Richtung
+     * Current position on the y axis
      *
      * @var int
      */
-    public $start_x;
+    private $y = 0;
 
     /**
-     * Start Position y-Richtung
+     * Start position on the x axis
      *
      * @var int
      */
-    public $start_y;
+    private $start_x;
 
     /**
-     * End Position x-Richtung
+     * Start position on the y axis
      *
      * @var int
      */
-    public $total_x;
+    private $start_y;
 
     /**
-     * End Position y-Richtung
+     * End position on the x axis
      *
      * @var int
      */
-    public $total_y;
+    private $total_x;
 
     /**
-     * Breite des zu zeichnenden Objekts
+     * End position on the y axis
      *
      * @var int
      */
-    public $object_width = 0;
+    private $total_y;
 
     /**
-     * Höhe des zu zeichnenden Objekts
+     * Width of the object to draw
      *
      * @var int
      */
-    public $object_high = 0;
+    private $object_width = 0;
 
     /**
-     * Momentane Spalten
+     * Height of the object to draw
      *
      * @var int
      */
-    public $col = 1;
+    private $object_high = 0;
 
     /**
-     * Momentane Zeile
+     * Corrent column
      *
      * @var int
      */
-    public $row = 1;
+    private $col = 1;
 
     /**
-     * Maximale Anzahl möglicher Spalten
+     * Current row
      *
      * @var int
      */
-    public $max_col = 0;
+    private $row = 1;
 
     /**
-     * Maximale Anzahl möglicher Zeilen
+     * Maximum number of possible columns
      *
      * @var int
      */
-    public $max_row = 0;
-
-    public $templ_id;
+    private $max_col = 0;
 
     /**
-     * Enter description here...
+     * Maximum number of possible rows
      *
+     * @var int
+     */
+    private $max_row = 0;
+
+    /**
+     * Template ID
+     *
+     * @var int
+     */
+    private $templ_id;
+
+    /**
+     * @var BarcodeSystem
+     */
+    private $barcodeSystem = null;
+
+    /**
+     * @var Seat2
+     */
+    private $seating = null;
+
+    /**
      * @param int $templ_id
      */
-    public function __construct($templ_id)
+    public function __construct($templ_id, BarcodeSystem $barcodeSystem, Seat2 $seating)
     {
         $this->templ_id = $templ_id;
+        $this->barcodeSystem = $barcodeSystem;
+        $this->seating = $seating;
 
-        // Typen Array erstellen
-        // Für Eintrittskarten
         $this->data_type_array['guestcards']['user_nickname']   = "Nickname";
         $this->data_type_array['guestcards']['name']            = "Name";
         $this->data_type_array['guestcards']['firstname']       = "Vorname";
@@ -174,11 +187,11 @@ class pdf
         $this->data_type_array['userlist']['birthday']          = "Geburtstag";
     }
 
-    // Menu anzeigen
     /**
-     * Menu erzeugen für PDF-Daten
+     * Create menu for PDF data
      *
      * @param string $action
+     * @return void
      */
     public function pdf_menu($action)
     {
@@ -188,6 +201,7 @@ class pdf
             case 'guestcards':
                 $this->_menuUsercards($action);
                 break;
+
             case 'seatcards':
                 $this->_menuSeatcards($action);
                 break;
@@ -205,23 +219,26 @@ class pdf
                 break;
         }
     }
-    
-    // PDF erstellen
+
     /**
-     * PDF-Dateien erzeugen
+     * Create PDF file
      *
      * @param string $action
+     * @return void
      */
     public function pdf_make($action)
     {
         global $func, $auth;
+
         switch ($action) {
             case 'guestcards':
                 $this->_makeUserCard($_POST['paid'], $_POST['guest'], $_POST['op'], $_POST['orga'], $_POST['user']);
                 break;
+
             case 'seatcards':
                 $this->_makeSeatCard($_POST['block'], $_POST['order']);
                 break;
+
             case 'userlist':
                 $this->_makeUserlist($_POST['paid'], $_POST['guest'], $_POST['op'], $_POST['orga'], $_POST['order']);
                 break;
@@ -229,6 +246,7 @@ class pdf
             case 'certificate':
                 $this->_makeCertificate($_POST['guest'], $_POST['user']);
                 break;
+
             case 'ticket':
                 if($auth["userid"] == $_GET['userid'] || $auth["type"] > 2){
                     $this->_makeUserCard(1, 1, 1, 1, $_GET['userid']);
@@ -242,15 +260,13 @@ class pdf
     }
 
     /**
-     * Mögliche Daten für diese Funktion zurückgeben
-     *
      * @param string $action
      * @param string $selected
      * @return array
      */
     public function get_data_array($action, $selected = "")
     {
-        $data[] = array();
+        $data[] = [];
         foreach ($this->data_type_array[$action] as $key => $value) {
             if ($key == $selected) {
                 $data[] .= "<option selected value=\"$key\">$value</option>";
@@ -258,48 +274,43 @@ class pdf
                 $data[] .= "<option value=\"$key\">$value</option>";
             }
         }
+
         return $data;
     }
 
-    // Interne Funktionen ***********************************************
-
-    // Menus *************************
-
     /**
-     * Menu für Besucherausweise
+     * Menu for visitor cards
      *
      * @param string $action
+     * @return void
      */
-    public function _menuUsercards($action)
+    private function _menuUsercards($action)
     {
         global $dsp, $db;
-
 
         $dsp->NewContent(t('Besucherausweise erstellen.'), t('Hier k&ouml;nnen Karten erstellt werden die beim Einlass an die G&auml;ste ausgeh&auml;ndigt werden.'));
         $dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
         $dsp->AddSingleRow(t('Die Bl&auml;tter werden nach folgenden Kriterien erstellt:'));
 
-        // Array für Zahlungsstatus
-        $type_array = array("null" => t('Egal'),
-                                "1" => t('Ja'),
-                                "0" => t('Nein')
-                            );
-        $t_array = array();
+        // Payment status
+        $type_array = [
+            "null"  => t('Egal'),
+            "1"     => t('Ja'),
+            "0"     => t('Nein')
+        ];
+        $t_array = [];
 
         while (list($key, $val) = each($type_array)) {
             array_push($t_array, "<option value=\"$key\">$val</option>");
         }
 
-        // Checkboxen für Benutzer
         $dsp->AddDropDownFieldRow("paid", t('Besucher hat bezahlt'), $t_array, "", 1);
         $dsp->AddCheckBoxRow("guest", t('Besucher ist normaler Gast'), "", "", "1", "1", "0");
         $dsp->AddCheckBoxRow("op", t('Besucher ist Superadmin'), "", "", "1", "0", "0");
         $dsp->AddCheckBoxRow("orga", t('Besucher ist Orga'), "", "", "1", "0", "0");
         $dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'), "", "", "1", "1", "0");
-        
 
-        // Array mit Benutzern
-        $t_array = array();
+        $t_array = [];
         array_push($t_array, "<option value=\"null\">Alle</option>");
         $query = $db->qry('SELECT * FROM %prefix%user AS user WHERE user.type > 0');
 
@@ -314,26 +325,25 @@ class pdf
         $dsp->AddSingleRow(t('Benutzer mit Stern wurden schon gedruckt'));
         $dsp->AddDropDownFieldRow("user", t('Bestimmter Besucher'), $t_array, "", 1);
 
-        // Knopf für erzeugen der PDF
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/usercards");
     }
 
     /**
-     * Menu für Sitzplatzkarten
+     * Menu for seating cards
      *
      * @param string $action
+     * @return void
      */
-    public function _menuSeatcards($action)
+    private function _menuSeatcards($action)
     {
-        global $dsp,$db,$party,$func;
+        global $dsp, $db, $party, $func;
 
         $dsp->NewContent(t('Sitzplatzkarten erstellen.'), t('Hier k&ouml;nnen sie Karten f&uuml;r die Sitzpl&auml;tze erstellen.'));
         $dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
         $dsp->AddSingleRow(t('Die Bl&auml;tter werden nach folgenden Kriterien erstellt:'));
 
-        // Array mit Sitzen
-        $block = array();
+        $block = [];
         array_push($block, "<option value=\"null\"></option>");
         $query = $db->qry('SELECT * FROM %prefix%seat_block WHERE party_id=%int% ORDER BY blockid', $party->party_id);
 
@@ -346,27 +356,25 @@ class pdf
                 }
             }
 
-            // Dropdown für Blöcke
             $dsp->AddDropDownFieldRow("block", t('Block'), $block, "", 1);
+            $order = [
+                "<option selected value=\"row\">". t('Reihen') . "</option>",
+                "<option value=\"col\">". t('Spalten') . "</option>"
+            ];
 
-            // Array für Sortierung
-            $order = array("<option selected value=\"row\">". t('Reihen') . "</option>",
-                             "<option value=\"col\">". t('Spalten') . "</option>");
-        
-            // Dropdown für Sortierung
             $dsp->AddDropDownFieldRow("order", t('Sortierung'), $order, "", 1);
-            // Knopf für erzeugen der PDF
             $dsp->AddFormSubmitRow(t('Weiter'));
             $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/seatcards");
         }
     }
-    
+
     /**
-     * Menu für Besucherliste
+     * Menu for the visitor list
      *
      * @param string $action
+     * @return void
      */
-    public function _menuUserlist($action)
+    private function _menuUserlist($action)
     {
         global $dsp;
 
@@ -374,52 +382,51 @@ class pdf
         $dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
         $dsp->AddSingleRow(t('Die Bl&auml;tter werden nach folgenden Kriterien erstellt:'));
         
-        // Array für Zahlungsstatus
-        $type_array = array("null" => t('Egal'),
-                                "1" => t('Ja'),
-                                "0" => t('Nein')
-                            );
-        $t_array = array();
+        // Payment status
+        $type_array = [
+            "null"  => t('Egal'),
+            "1"     => t('Ja'),
+            "0"     => t('Nein')
+        ];
+        $t_array = [];
 
         while (list($key, $val) = each($type_array)) {
             array_push($t_array, "<option value=\"$key\">$val</option>");
         }
-        // Checkboken für Benutzer
+
         $dsp->AddDropDownFieldRow("paid", t('Besucher hat bezahlt'), $t_array, "", 1);
         $dsp->AddCheckBoxRow("guest", t('Besucher ist normaler Gast'), "", "", "1", "1", "0");
         $dsp->AddCheckBoxRow("op", t('Besucher ist Superadmin'), "", "", "1", "0", "0");
         $dsp->AddCheckBoxRow("orga", t('Besucher ist Orga'), "", "", "1", "0", "0");
         $dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'), "", "", "1", "1", "0");
 
-        // Array für Sortierung
-        $sort_array = array("username" =>   t('Nickname'),
-                                "name" =>   t('Nachname'),
-                            "firstname" =>  t('Vorname'),
-                                "clan" =>   t('Clan'),
-                                "plz" =>    t('PLZ'),
-                                "city" =>   t('Ortschaft')
-                            );
-
-        $s_array = array();
+        // Sorting
+        $sort_array = [
+            "username"  => t('Nickname'),
+            "name"      => t('Nachname'),
+            "firstname" => t('Vorname'),
+            "clan"      => t('Clan'),
+            "plz"       => t('PLZ'),
+            "city"      => t('Ortschaft')
+        ];
+        $s_array = [];
 
         while (list($key, $val) = each($sort_array)) {
             array_push($s_array, "<option value=\"$key\">$val</option>");
         }
-        
-        // Knopf für erzeugen der PDF
+
         $dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/userlist");
     }
 
-
     /**
-
-    * Menu für Urkunden
-    *
-    * @param string $action
-    */
-    public function _menuCertificate($action)
+     * Menu for certificates
+     *
+     * @param string $action
+     * @return void
+     */
+    private function _menuCertificate($action)
     {
         global $dsp;
 
@@ -427,40 +434,30 @@ class pdf
         $dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
         $dsp->AddSingleRow(t('Die Bl&auml;tter werden nach folgenden Kriterien erstellt:'));
 
-        // Checkboxen für Benutzer
         $dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'), "", "", "1", "1", "0");
 
-        // Array für Sortierung
-        $sort_array = array("username" =>   t('Nickname'),
-                                "name" =>   t('Nachname'),
-                            "firstname" =>  t('Vorname'),
-                                "clan" =>   t('Clan'),
-                                "plz" =>    t('PLZ'),
-                                "city" =>   t('Ortschaft')
-                            );
-
-        $s_array = array();
-
-
+        // Sorting
+        $sort_array = [
+            "username"  => t('Nickname'),
+            "name"      => t('Nachname'),
+            "firstname" => t('Vorname'),
+            "clan"      => t('Clan'),
+            "plz"       => t('PLZ'),
+            "city"      => t('Ortschaft')
+        ];
+        $s_array = [];
 
         while (list($key, $val) = each($sort_array)) {
             array_push($s_array, "<option value=\"$key\">$val</option>");
         }
 
-        // Knopf für erzeugen der PDF
         $dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);
-
-        // Knopf für erzeugen der PDF
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action", "pdf/certificate");
     }
 
-
-    // Erzeugung der PDF-Dateien ***********************************
-
-    //
     /**
-     * PDF erzeugen für Benutzerausweise
+     * Create PDF for visitor cards
      *
      * @param string $pdf_paid
      * @param string $pdf_normal
@@ -468,26 +465,26 @@ class pdf
      * @param string $pdf_orga
      * @param string $pdf_guestid
      */
-    public function _makeUserCard($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $pdf_guestid)
+    private function _makeUserCard($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $pdf_guestid)
     {
+        global $db, $func, $party;
+
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
-        global $db, $func, $party, $seat2;
 
         $date = date('U');
 
-        // abfrage String erstellen
         $pdf_sqlstring = "";
 
-        // Auf Party Prüfen
-        if ($_POST['party'] == '1' or $pdf_paid) {
+        // Check for parties
+        if ($_POST['party'] == '1' || $pdf_paid) {
             $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id";
         }
         $pdf_sqlstring .= ' WHERE user.type > -1';
-        if ($_POST['party'] == '1' or $pdf_paid) {
+        if ($_POST['party'] == '1' || $pdf_paid) {
             $pdf_sqlstring .= ' AND party.party_id = '. intval($party->party_id);
         }
 
-        // Bezahlstatus abfragen
+        // Check for payment status
         if ($pdf_paid == '0') {
             $pdf_sqlstring .= ' AND party.paid = 0';
         } elseif ($pdf_paid == '1') {
@@ -510,34 +507,49 @@ class pdf
             $pdf_sqlstring .= ')';
         }
 
-        //Userabfragen
-
+        // Check for the user
         if ($pdf_guestid > 0) {
             $pdf_sqlstring .= ' AND user.userid = ' . intval($pdf_guestid);
         }
 
-        $query = $db->qry('SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
-      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid ' . $pdf_sqlstring);
+        $query = $db->qry('
+          SELECT 
+            user.*, 
+            clan.name AS clan, 
+            clan.url AS clanurl 
+          FROM %prefix%user AS user
+          LEFT JOIN %prefix%clan AS clan 
+            ON user.clanid = clan.clanid ' . $pdf_sqlstring);
 
         $user_numusers = $db->num_rows($query);
-        // erste Seite erstellen
+
+        // Create first page
         $this->_make_page();
 
-        // Datenbank abfragen für momentans Template
-        $templ_data = $db->qry('SELECT * FROM %prefix%pdf_data WHERE template_id=%int% AND type != \'config\' AND type != \'header\' AND type != \'footer\' AND visible = \'1\' ORDER BY sort ASC', $this->templ_id);
-        $templ = array();
+        // Get current templates
+        $templ_data = $db->qry('
+          SELECT * 
+          FROM %prefix%pdf_data 
+          WHERE 
+            template_id=%int% 
+            AND type != \'config\' 
+            AND type != \'header\' 
+            AND type != \'footer\' 
+            AND visible = \'1\' 
+        ORDER BY sort ASC', $this->templ_id);
+        $templ = [];
         while ($templ_data_array = $db->fetch_array($templ_data)) {
             $templ[] = array_merge($templ_data_array, $templ);
         }
 
-        // Grösse ermitteln
+        // Determine size
         $this->_get_size($templ);
 
-        // Anzahl Spallten und Reihen ermitteln
+        // Determine number of columns and rows
         $this->max_col = floor(($this->total_x - $this->start_x)/($this->start_x + $this->object_width));
         $this->max_row = floor(($this->total_y - $this->start_y)/($this->start_y + $this->object_high));
 
-        // Seite füllen
+        // Fill the page
         while ($row = $db->fetch_array($query)) {
             unset($data);
 
@@ -553,7 +565,7 @@ class pdf
             $data['city']           = $row['city'];
             $data['birthday']       = $row['birthday'];
 
-            // seat
+            // Seating
             $row_seat = $db->qry_first('SELECT s.blockid, col, row, ip FROM %prefix%seat_seats AS s LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid WHERE b.party_id=%int% AND s.userid=%int%', $party->party_id, $row["userid"]);
             $blockid  = $row_seat["blockid"];
             if ($blockid != "") {
@@ -561,26 +573,25 @@ class pdf
                 $data['orientation']  = $row_block["orientation"];
                 $data['col']          = $row_seat["col"];
                 $data['row']          = $row_seat["row"];
-                $data['user_seat']    = $seat2->CoordinateToName($row_seat['col'] + 1, $row_seat['row'], $row_block['orientation']);
+                $data['user_seat']    = $this->seating->CoordinateToName($row_seat['col'] + 1, $row_seat['row'], $row_block['orientation']);
                 $data['user_block']   = $row_block["name"];
             }
 
             $data['user_ip'] = $row_seat["ip"];
 
-            // Neue Seite Anlegen wenn die letze voll ist
+            // Create a new page once the previous one is full
             if ($new_page) {
                 $this->pdf->AddPage();
                 $new_page = false;
             }
 
-            // Spallte und Zelle anwählen
+            // Select column and row
             $this->x = (($this->col - 1) * ($this->start_x + $this->object_width)) + $this->start_x;
             $this->y = (($this->row - 1) * ($this->start_y + $this->object_high)) + $this->start_y;
 
-            // Objekte schreiben.
             $this->_write_object($templ, $data);
-            // Nextes Feld auswählen
 
+            // Select next field
             if ($this->col < $this->max_col) {
                 $this->col++;
             } else {
@@ -593,29 +604,28 @@ class pdf
                 }
             }
 
-            // Wenn neue Daten ausgedruckt werden Daten eintragen
             if ($row['template_id'] == "") {
                 $db->qry_first('INSERT %prefix%pdf_printed SET template_id = %string%, item_id = %int%, time = %string%', $this->templ_id, $row['userid'], $date);
             } else {
                 $db->qry_first('UPDATE %prefix%pdf_printed SET time = %string WHERE template_id = %string% AND item_id = %int%', $date, $this->templ_id, $row['userid']);
             }
-        } // end while
+        }
 
         $this->pdf->Output("UserCards.pdf", "D");
     }
 
-
-    // PDF erzeugen für Sitzplatzkarten
     /**
-     * Sitzplatzkarten erzeugen
+     * Create PDF for seating cards
      *
      * @param int $block
      * @param string $order
+     * @return void
      */
-    public function _makeSeatCard($block, $order)
+    private function _makeSeatCard($block, $order)
     {
+        global $db, $func, $party;
+
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
-        global $db, $func,$party, $seat2;
 
         if ($order == "row") {
             $sql_order = ", 'row', 'col'";
@@ -623,51 +633,64 @@ class pdf
             $sql_order = ", 'col', 'row'";
         }
 
-        //Daten der Sitzreihen auslesen
         if ($block == "null") {
-            $query = $db->qry("SELECT * FROM %prefix%seat_seats AS s
-        LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid
-
-        WHERE b.party_id=%int% AND status > 0 AND status < 7 ORDER BY 's.blockid' %plain%", $party->party_id, $sql_order);
+            $query = $db->qry("
+              SELECT * 
+              FROM %prefix%seat_seats AS s
+              LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid
+              WHERE 
+                b.party_id=%int% 
+                AND status > 0 
+                AND status < 7 
+            ORDER BY 's.blockid' %plain%", $party->party_id, $sql_order);
         } else {
-            $query = $db->qry("SELECT * FROM %prefix%seat_seats
-			 WHERE blockid=%string% AND status > 0 AND status < 7 ORDER BY 'blockid' %plain%", $block, $sql_order);
+            $query = $db->qry("
+              SELECT * 
+              FROM %prefix%seat_seats
+              WHERE blockid=%string% 
+                AND status > 0 
+                AND status < 7 
+            ORDER BY 'blockid' %plain%", $block, $sql_order);
         }
 
-
-        // erste Seite erstellen
+        // Create first page
         $this->_make_page();
 
-        // Datenbank abfragen für momentans Template
+        // Get current templates
         $templ_data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $this->templ_id);
-        $templ = array();
+        $templ = [];
         while ($templ_data_array = $db->fetch_array($templ_data)) {
             $templ[] = array_merge($templ_data_array, $templ);
         }
 
-        // Grösse ermitteln
+        // Determine size
         $this->_get_size($templ);
 
-        // Anzahl Spallten und Reihen ermitteln
+        // Determine columns and rows
         $this->max_col = floor(($this->total_x - $this->start_x)/($this->start_x + $this->object_width));
         $this->max_row = floor(($this->total_y - $this->start_y)/($this->start_y + $this->object_high));
-        // Seite füllen
+
+        // Fill the page
         while ($row = $db->fetch_array($query)) {
             unset($data);
 
-            // Block abfragen und Sitzplatz abfragen
-
             $row_block              = $db->qry_first("SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%", $row['blockid']);
             $userid                 = $row["userid"];
-            $data['col']            = $seat2->CoordinateToNameCol($row["col"], $row_block['orientation']);
-            $data['row']            = $seat2->CoordinateToNameRow($row["row"], $row_block['orientation']);
+            $data['col']            = $this->seating->CoordinateToNameCol($row["col"], $row_block['orientation']);
+            $data['row']            = $this->seating->CoordinateToNameRow($row["row"], $row_block['orientation']);
             $data['seat_block']     = $row_block['name'];
-            $data['seat']           = $seat2->CoordinateToName($row['col'] + 1, $row['row'], $row_block['orientation']);
+            $data['seat']           = $this->seating->CoordinateToName($row['col'] + 1, $row['row'], $row_block['orientation']);
             $data['party_name']     = $_SESSION['party_info']['name'];
 
-            $row_user = $db->qry_first("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
-        LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid
-        WHERE userid=%int%", $userid);
+            $row_user = $db->qry_first("
+              SELECT 
+                user.*, 
+                clan.name AS clan, 
+                clan.url AS clanurl 
+            FROM %prefix%user AS user
+            LEFT JOIN %prefix%clan AS clan 
+              ON user.clanid = clan.clanid
+            WHERE userid=%int%", $userid);
 
             $data['user_nickname']  = $func->AllowHTML($row_user['username']);
             $data['userid']         = $row_user["userid"];
@@ -680,19 +703,17 @@ class pdf
             $data['birthday']       = $row['birthday'];
             $data['seat_ip']        = $row["ip"];
     
-            // Neue Seite Anlegen wenn die letze voll ist
+            // Create a new page once the previous one is full
             if ($new_page) {
                 $this->pdf->AddPage();
                 $new_page = false;
             }
 
-            // Spallte und Zelle anwählen
+            // Select column and row
             $this->x = (($this->col - 1) * ($this->start_x + $this->object_width)) + $this->start_x;
             $this->y = (($this->row - 1) * ($this->start_y + $this->object_high)) + $this->start_y;
 
-            // Objekte schreiben
             $this->_write_object($templ, $data);
-            // Nextes Feld auswählen
 
             if ($this->col < $this->max_col) {
                 $this->col++;
@@ -705,30 +726,30 @@ class pdf
                     $new_page = true;
                 }
             }
-        } // end while
+        }
 
         $this->pdf->Output("SeatCards.pdf", "D");
     }
 
-
     /**
-     * PDF erzeugen für Besucherlisten
+     * Create PDF for visitor lists
      *
      * @param string $pdf_paid
      * @param string $pdf_normal
      * @param string $pdf_op
      * @param string $pdf_orga
      * @param string $order
+     * @return void
      */
-    public function _makeUserlist($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $order)
+    private function _makeUserlist($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $order)
     {
-        define('IMAGE_PATH', 'ext_inc/pdf_templates/');
-        global $db, $func,$party, $seat2;
+        global $db, $func, $party;
 
-        // abfrage String erstellen
+        define('IMAGE_PATH', 'ext_inc/pdf_templates/');
+
         $pdf_sqlstring = "";
 
-        // Auf Party Prüfen
+        // Check for parties
         if ($_POST['party'] == '1' or $pdf_paid) {
             $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id";
         }
@@ -737,7 +758,7 @@ class pdf
             $pdf_sqlstring .= ' AND party.party_id = ' . intval($party->party_id);
         }
 
-        // Bezahlstatus abfragen
+        // Check for payment status
         if ($pdf_paid == '0') {
             $pdf_sqlstring .= ' AND party.paid = 0';
         } elseif ($pdf_paid == '1') {
@@ -760,52 +781,72 @@ class pdf
             $pdf_sqlstring .= ')';
         }
 
-        // Sortierung einstellen
+        // Create sorting
         switch ($order) {
             case 'username':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY username, name ASC";
                 break;
+
             case 'name':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY name, firstname ASC";
                 break;
+
             case 'firstname':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY firstname, name ASC";
                 break;
+
             case 'clan':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY clan, name ASC";
                 break;
+
             case 'plz':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY plz, name ASC";
                 break;
+
             case 'city':
                 $pdf_sqlstring = $pdf_sqlstring . " ORDER BY city, name ASC";
                 break;
-            default:
-                break;
         }
 
-        $query = $db->qry("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
-      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid " . $pdf_sqlstring);
+        $query = $db->qry("
+          SELECT 
+            user.*, 
+            clan.name AS clan, 
+            clan.url AS clanurl 
+          FROM %prefix%user AS user
+          LEFT JOIN %prefix%clan AS clan 
+            ON user.clanid = clan.clanid " . $pdf_sqlstring);
 
         $user_numusers = $db->num_rows($query);
-        // erste Seite erstellen
+
+        // Create first page
         $this->_make_page();
 
-        // Datenbank abfragen für momentans Template
-        $templ_data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $this->templ_id);
-        $templ = array();
+        // Get current templates
+        $templ_data = $db->qry("
+          SELECT * 
+          FROM %prefix%pdf_data 
+          WHERE 
+            template_id = %int% 
+            AND type != 'config' 
+            AND type != 'header' 
+            AND type != 'footer' 
+            AND visible = '1' 
+          ORDER BY sort ASC", $this->templ_id);
+
+        $templ = [];
         while ($templ_data_array = $db->fetch_array($templ_data)) {
             $templ[] = array_merge($templ_data_array, $templ);
         }
 
-        // Grösse einstellen
+        // Determine the size
         $this->_get_size($templ);
 
-        // Anzahl Spallten und Reihen ermitteln
+        // Determine the columns and rows
         $this->max_col = floor(($this->total_x - $this->start_x)/($this->start_x + $this->object_width));
         $this->max_row = floor(($this->total_y - (2 * $this->start_y))/($this->object_high));
 
-        // Seite füllen
+        // Fill the pages
         $nr = 0;
         while ($row = $db->fetch_array($query)) {
             $nr = $nr + 1;
@@ -823,7 +864,7 @@ class pdf
             $data['city']           = $row['city'];
             $data['birthday']       = $row['birthday'];
 
-            // seat
+            // Seating
             $row_seat = $db->qry_first('SELECT s.blockid, col, row, ip FROM %prefix%seat_seats AS s LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid WHERE b.party_id=%int% AND s.userid=%int%', $party->party_id, $row["userid"]);
             $blockid  = $row_seat["blockid"];
             if ($blockid != "") {
@@ -831,27 +872,22 @@ class pdf
                 $data['orientation']  = $row_block["orientation"];
                 $data['col']          = $row_seat["col"];
                 $data['row']          = $row_seat["row"];
-                $data['user_seat']    = $seat2->CoordinateToName($data['col'] + 1, $data['row'], $data['orientation']);
+                $data['user_seat']    = $this->seating->CoordinateToName($data['col'] + 1, $data['row'], $data['orientation']);
                 $data['user_block']   = $row_block["name"];
             }
 
             $data['user_ip'] = $row_seat["ip"];
 
-            // Spallte und Zelle anwählen
-
             $this->x = (($this->col - 1) * ($this->start_x + $this->object_width)) + $this->start_x;
             $this->y = (($this->row - 1) * ($this->object_high)) + $this->start_y;
 
-            // Neue Seite Anlegen wenn die letze voll ist
-
+            // Create a new page once the previous one is full
             if ($new_page) {
                 $this->pdf->AddPage();
                 $new_page = false;
             }
 
             $this->_write_object($templ, $data);
-
-            // Nextes Feld auswählen
 
             if ($this->col < $this->max_col) {
                 $this->col++;
@@ -865,73 +901,76 @@ class pdf
                     $new_page = true;
                 }
             }
-        } // end while
+        }
 
         $this->pdf->Output("Userlist.pdf", "D");
     }
 
-    // erstellen der ersten Seite
-
     /**
-     * PDF erzeugen für Urkunden
+     * Create PDF for certificates
      *
      * @param string $pdf_normal
      * @param string $pdf_user
+     * @return void
      */
-    public function _makeCertificate($pdf_normal, $pdf_user)
+    private function _makeCertificate($pdf_normal, $pdf_user)
     {
-        define('IMAGE_PATH', 'ext_inc/pdf_templates/');
-        global $db, $func,$party, $seat2;
+        global $db, $func, $party;
 
-        // abfrage String erstellen
+        define('IMAGE_PATH', 'ext_inc/pdf_templates/');
 
         $pdf_sqlstring = "";
 
-        // Auf Party Prüfen
-
+        // Check for parties
         if ($_POST['party'] == '1') {
             $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id";
         }
-
         $pdf_sqlstring .= ' WHERE user.type > -1';
-
         if ($_POST['party'] == '1') {
             $pdf_sqlstring .= ' AND party.party_id = ' . intval($party->party_id);
         }
-
         $pdf_sqlstring = $pdf_sqlstring . " ORDER BY username, name ASC";
 
-        $query = $db->qry("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
-
-      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid " . $pdf_sqlstring);
+        $query = $db->qry("
+          SELECT 
+            user.*, 
+            clan.name AS clan, 
+            clan.url AS clanurl 
+          FROM %prefix%user AS user
+          LEFT JOIN %prefix%clan AS clan 
+            ON user.clanid = clan.clanid " . $pdf_sqlstring);
 
         $user_numusers = $db->num_rows($query);
 
-        // erste Seite erstellen
+        // Create first page
         $this->_make_page();
 
-        // Datenbank abfragen für momentans Template
+        // Get current templates
+        $templ_data = $db->qry("
+          SELECT * 
+          FROM %prefix%pdf_data 
+          WHERE 
+            template_id = %int% 
+            AND type != 'config' 
+            AND type != 'header' 
+            AND type != 'footer' 
+            AND visible = '1' 
+          ORDER BY sort ASC", $this->templ_id);
 
-        $templ_data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $this->templ_id);
-        $templ = array();
-
+        $templ = [];
         while ($templ_data_array = $db->fetch_array($templ_data)) {
             $templ[] = array_merge($templ_data_array, $templ);
         }
 
-        // Grösse einstellen
-
+        // Determine size
         $this->_get_size($templ);
 
-        // Anzahl Spallten und Reihen ermitteln
-
+        // Determine columns and rows
         $this->max_col = floor(($this->total_x - $this->start_x)/($this->start_x + $this->object_width));
         $this->max_row = floor(($this->total_y - (2 * $this->start_y))/($this->object_high));
 
-        // Seite füllen
-
+        // Fill pages
         $nr = 0;
-
         while ($row = $db->fetch_array($query)) {
             $nr = $nr + 1;
             unset($data);
@@ -948,21 +987,16 @@ class pdf
             $data['city']           = $row['city'];
             $data['birthday']       = $row['birthday'];
 
-            // Spallte und Zelle anwählen
-
             $this->x = (($this->col - 1) * ($this->start_x + $this->object_width)) + $this->start_x;
             $this->y = (($this->row - 1) * ($this->object_high)) + $this->start_y;
 
-            // Neue Seite Anlegen wenn die letze voll ist
-
+            // Create a new page once the previous one is full
             if ($new_page) {
                 $this->pdf->AddPage();
                 $new_page = false;
             }
 
             $this->_write_object($templ, $data);
-
-            // Nextes Feld auswählen
 
             if ($this->col < $this->max_col) {
                 $this->col++;
@@ -977,33 +1011,35 @@ class pdf
                     $new_page = true;
                 }
             }
-        } // end while
+        }
 
         $this->pdf->Output("Certificate.pdf", "D");
     }
 
-
-    // Erstellen der ersten Seite
     /**
-     * Funktionen um PDF-Dateien zu erzeugen
-     * aufrufen.
+     * Create a page
      *
+     * @return void
      */
-    public function _make_page()
+    private function _make_page()
     {
         global $db;
 
-
-        $page_data = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE template_id= %int% AND type = 'config' ORDER BY sort ASC", $this->templ_id);
-
         define('FPDF_FONTPATH', 'ext_inc/pdf_fonts/');
+
+        $page_data = $db->qry_first("
+          SELECT * 
+          FROM %prefix%pdf_data 
+          WHERE 
+            template_id= %int% 
+            AND type = 'config' 
+          ORDER BY sort ASC", $this->templ_id);
 
         if ($page_data['visible'] == 1) {
             $orientation = 'l';
         } else {
             $orientation = 'p';
         }
-
 
         $this->pdf = new FPDF($orientation, 'mm', $page_data['text']);
         $this->start_x = $page_data['pos_x'];
@@ -1020,15 +1056,14 @@ class pdf
     }
 
     /**
-     * Grösse der zu Zeichnenden Objekte ermitteln
+     * Determine the size of the objects to draw
      *
      * @param array $templ
+     * @return void
      */
-    public function _get_size($templ)
+    private function _get_size($templ)
     {
-        global $barcode;
-
-        // Grösse aller Objekte ermitteln
+        // Determine the size of all objects
         for ($i = 0; $i < count($templ); $i++) {
             switch ($templ[$i]['type']) {
                 case 'text':
@@ -1070,7 +1105,7 @@ class pdf
 
                 case 'barcode':
                     $imagename = mt_rand(100000, 999999);
-                    $barcode->get_image($_SESSION['userid'], static::BARCODE_PATH .$imagename);
+                    $this->barcodeSystem->get_image($_SESSION['userid'], static::BARCODE_PATH .$imagename);
                     $image = getimagesize(static::BARCODE_PATH .$imagename . ".png");
                     if (($image[0]/2) > $this->object_width) {
                         $this->object_width = $image[0];
@@ -1078,7 +1113,7 @@ class pdf
                     if (($image[1]/2) > $this->object_high) {
                         $this->object_high = $image[1];
                     }
-                    $barcode->kill_image(static::BARCODE_PATH . $imagename);
+                    $this->barcodeSystem->kill_image(static::BARCODE_PATH . $imagename);
                     
                     // no break
                 case 'data':
@@ -1095,17 +1130,16 @@ class pdf
     }
 
     /**
-     * Objekte auf PDF zeichnen
+     * Draw object to PDF
      *
      * @param array $templ
      * @param array $data
+     * @return void
      */
-    public function _write_object($templ, $data)
+    private function _write_object($templ, $data)
     {
-        global $barcode;
-
         for ($i = 0; $i < count($templ); $i++) {
-            if ($templ[$i]['user_type'] == $row['type'] || $templ[$i]['user_type'] == "0") {
+            if ($templ[$i]['user_type'] == $templ[$i]['type'] || $templ[$i]['user_type'] == "0") {
                 switch ($templ[$i]['type']) {
                     case 'text':
                         $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
@@ -1146,10 +1180,9 @@ class pdf
 
                     case 'barcode':
                         $imagename = mt_rand(100000, 999999);
-                        $barcode->get_image($data['userid'], static::BARCODE_PATH . $imagename);
+                        $this->barcodeSystem->get_image($data['userid'], static::BARCODE_PATH . $imagename);
                         $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y);
-                        $barcode->kill_image(static::BARCODE_PATH . $imagename);
-
+                        $this->barcodeSystem->kill_image(static::BARCODE_PATH . $imagename);
 
                         // no break
                     case 'data':

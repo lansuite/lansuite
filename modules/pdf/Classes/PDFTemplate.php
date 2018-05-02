@@ -1,26 +1,45 @@
 <?php
 
-class pdf_tmpl
+namespace LanSuite\Module\PDF;
+
+use LanSuite\BarcodeSystem;
+use LanSuite\Module\Seating\Seat2;
+
+class PDFTemplate
 {
-    public $action;
-    public $tmpl_id;
-    
-    // Konstruktor
+    /**
+     * @var string
+     */
+    private $action;
+
+    /**
+     * @var int
+     */
+    private $tmpl_id;
+
+    /**
+     * pdf_tmpl constructor.
+     * @param string $action
+     * @param int $tmpl_id
+     */
     public function __construct($action, $tmpl_id)
     {
         $this->action = $action;
         $this->tmpl_id = $tmpl_id;
     }
-    
-    // Alle Vorlagen zu bestimmtem Thema auslesen
+
+    /**
+     * Get all templates for a topic
+     *
+     * @return void
+     */
     public function read_List()
     {
-        global $db,$dsp,$smarty;
-        
+        global $db, $dsp, $smarty;
+
         $data = $db->qry("SELECT * FROM %prefix%pdf_list WHERE template_type = %string%", $this->action);
-        
         $dsp->NewContent(t('PDF erstellen'), t('Bitte eine Formatierungsform ausw&auml;hlen oder eine Neue erstellen'));
-        // Liste mit möglichen Vorlagen ausgeben
+
         $out = "";
         if ($db->num_rows($data) > 0) {
             while ($data_array = $db->fetch_array($data)) {
@@ -33,19 +52,24 @@ class pdf_tmpl
         } else {
             $dsp->AddSingleRow(t('Keine Vorlagen gefunden'));
         }
+
         $dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=" . $_GET['action'] . "&act=new\">".t('Neue Vorlage erstellen')."</a>");
         $dsp->AddBackButton("index.php?mod=pdf", "pdf/template");
     }
-    
-    // Daten einfügen
+
+    /**
+     * Insert data
+     *
+     * @return void
+     */
     public function add_templ()
     {
         global $db;
-        // In Liste einfügen
+
         $db->qry("INSERT INTO %prefix%pdf_list ( `template_id` , `template_type` , `name` ) VALUES ('', %string%, %string%)", $this->action, $_POST['template_name']);
         $this->tmpl_id = $db->insert_id();
         
-        // Config anlegen
+        // Create config
         $db->qry(
             "INSERT INTO %prefix%pdf_data ( `pdfid` , `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` ) VALUES
   ('', %int%, %string%, 'config', %string%, %string%,'0','0','0','','0','0','0', %string%, '')",
@@ -56,27 +80,30 @@ class pdf_tmpl
             $_POST['pagesize']
         );
     }
-    
-    // Daten auslesen
+
+    /**
+     * Read data
+     *
+     * @return void
+     */
     public function display_data()
     {
-        global $db,$dsp,$templ, $smarty;
+        global $db, $dsp, $templ, $smarty;
                   
-        // Name ausgeben
+        // Display the name
         $template = $db->qry_first("SELECT * FROM %prefix%pdf_list WHERE template_id= %int%", $this->tmpl_id);
         $dsp->NewContent(t('Vorlagen'), t('Vorlage &auml;ndern'));
         $dsp->AddDoubleRow(t('Vorlagenname'), $template['name']);
         
-        // Konfiguration ausgeben
+        // Display the configuration
         $template_config = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE template_id= %int% AND type='config'", $this->tmpl_id);
         
         $dsp->AddDoubleRow(t('Rand in x-Richtung'), $template_config['pos_x']);
         $dsp->AddDoubleRow(t('Rand in y-Richtung'), $template_config['pos_y']);
         $dsp->AddDoubleRow(t('Seitengr&ouml;sse'), $template_config['text']);
 
-        // Daten ausgeben
+        // Display the data
         $data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id= %int% AND type != 'config' ORDER BY sort ASC", $this->tmpl_id);
-        
         $templ['pdf']['action'] = $this->action;
         
         $out = "";
@@ -121,16 +148,15 @@ class pdf_tmpl
             } elseif ($data_array['type'] == "image") {
                 $description = t('Xo') . " : " . $data_array['pos_x']. " , ";
                 $description .= t('Yo') . " : " . $data_array['pos_y']. " , ";
-                ;
                 $description .= t('Breite') . " : " . $data_array['end_x']. " , ";
                 $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
                 $description .= t('H&ouml;he') . " : " . $data_array['end_y'];
             } elseif ($data_array['type'] == "barcode") {
                 $description = t('Xo') . " : " . $data_array['pos_x']. " , ";
                 $description .= t('Yo') . " : " . $data_array['pos_y']. " , ";
-                ;
                 $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
             }
+
             $smarty->assign('description', $description);
             $button_edit = $dsp->FetchIcon("index.php?mod=pdf&action=". $_GET['action'] ."&act=change_mask&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'edit', t('Editieren'));
             $button_del = $dsp->FetchIcon("index.php?mod=pdf&action=". $_GET['action'] ."&act=change&delete_item=1&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'delete', t('Löschen'));
@@ -140,39 +166,45 @@ class pdf_tmpl
             $out .= $smarty->fetch('modules/pdf/templates/edit_liste.htm');
         }
         $dsp->AddSingleRow($out);
-        
-        // Array erzeugen für mögliche Einträge
-        $type = array("<option selected value=\"rect\">" . t('Rechteck') . "</option>",
-                      "<option value=\"text\">" . t('Text') . "</option>",
-                      "<option value=\"multicell\">" . t('Multicell') . "</option>",
-                      "<option value=\"line\">" . t('Linie') . "</option>",
-                      "<option value=\"image\">" . t('Bild') . "</option>",
-                      "<option value=\"data\">" . t('Daten') . "</option>",
-                      "<option value=\"barcode\">" . t('Strichcode') . "</option>");
 
-        // Formular für hinzufügen von Einträgen
+        $type = [
+            "<option selected value=\"rect\">" . t('Rechteck') . "</option>",
+            "<option value=\"text\">" . t('Text') . "</option>",
+            "<option value=\"multicell\">" . t('Multicell') . "</option>",
+            "<option value=\"line\">" . t('Linie') . "</option>",
+            "<option value=\"image\">" . t('Bild') . "</option>",
+            "<option value=\"data\">" . t('Daten') . "</option>",
+            "<option value=\"barcode\">" . t('Strichcode') . "</option>"
+        ];
+
         $dsp->SetForm("index.php?mod=pdf&action=" . $this->action . "&act=insert_mask&id=" . $this->tmpl_id);
         $dsp->AddDropDownFieldRow('type', t('Wahl des Feldes'), $type, "");
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action, "pdf/change_template");
     }
-    
-    
-    // Eintrag erstellungs Maske anzeigen
-    // Es müss das Objekt das erstellt werden soll übergreben werden
+
+    /**
+     * Show mask to create a new entry.
+     *
+     * @param string $object
+     * @return void
+     */
     public function insert_mask($object)
     {
         global $dsp;
-        
-        $pdf_export = new pdf($this->tmpl_id);
+
+        $barcodeSystem = new BarcodeSystem();
+        $seating = new Seat2();
+        $pdf_export = new PDF($this->tmpl_id, $barcodeSystem, $seating);
                               
-        // Benutzertypen erzeugen
-        $user_type = array("<option selected value=\"0\">" . t('Alle') . "</option>",
-                      "<option value=\"1\">" . t('Besucher ist normaler Gast') . "</option>",
-                      "<option value=\"2\">" . t('Administrator') . "</option>",
-                      "<option value=\"3\">" . t('Superadmin') . "</option>");
-                      
-        // Maske ausgeben für entsprechenden eintrag
+        // Create new user type
+        $user_type = [
+            "<option selected value=\"0\">" . t('Alle') . "</option>",
+            "<option value=\"1\">" . t('Besucher ist normaler Gast') . "</option>",
+            "<option value=\"2\">" . t('Administrator') . "</option>",
+            "<option value=\"3\">" . t('Superadmin') . "</option>"
+        ];
+
         $dsp->NewContent(t('Objekt'), t('Neues Objekt erstellen'));
         $dsp->AddSingleRow(t('Erstelle ') . t($object));
         $dsp->SetForm("index.php?mod=pdf&action=" . $this->action ."&act=insert_item&object=$object&id=$this->tmpl_id");
@@ -269,18 +301,29 @@ class pdf_tmpl
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action, $help);
     }
-    
-    // Maske um Einträge ändern anzeigen
+
+    /**
+     * Create edit mask
+     *
+     * @param int $item_id
+     * @return void
+     */
     public function change_mask($item_id)
     {
-        global $db,$dsp;
-        $pdf_export = new pdf($this->tmpl_id);
-        
+        global $db, $dsp;
+
+        $barcodeSystem = new BarcodeSystem();
+        $seating = new Seat2();
+        $pdf_export = new PDF($this->tmpl_id, $barcodeSystem, $seating);
         $data = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE pdfid= %int%", $item_id);
                                   
-        $user_type_list = array( "0" =>  t('Alle') ,"1" =>  t('Besucher ist normaler Gast') ,"2" =>  t('Administrator') ,"3" =>  t('Superadmin') );
-        
-        // Liste für Datenfeld erzeugen
+        $user_type_list = [
+            "0" =>  t('Alle'),
+            "1" =>  t('Besucher ist normaler Gast'),
+            "2" =>  t('Administrator'),
+            "3" =>  t('Superadmin')
+        ];
+
         $user_type = [];
         foreach ($user_type_list as $key => $value) {
             if ($key == $data['user_type']) {
@@ -289,8 +332,8 @@ class pdf_tmpl
                 $user_type[$key] = "<option value=\"$key\">$value</option>";
             }
         }
-        
-        // Liste für Benutzer
+
+        // List for users
         foreach ($user_type_list as $key => $value) {
             if ($key == $data['user_type']) {
                 $user_type[$key] = "<option selected value=\"$key\">$value</option>";
@@ -397,12 +440,15 @@ class pdf_tmpl
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id, $help);
     }
 
-    
-    // ein Objekt einfügen
+    /**
+     * Insert an object
+     *
+     * @param string $object
+     * @return void
+     */
     public function insert_item($object)
     {
-        global $db,$dsp,$lang,$templ,$func;
-
+        global $db, $func;
 
         if ($_POST['visible'] == "checked") {
             $visible = 1;
@@ -417,12 +463,16 @@ class pdf_tmpl
             $func->error(t('Die Daten konnten nicht hinzugef&uuml;gt werden'), "index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
         }
     }
-    
-    // Objekt ändern
+
+    /**
+     * Change object
+     *
+     * @param int $item_id
+     * @return void
+     */
     public function change_item($item_id)
     {
-        global $db,$dsp,$lang,$templ,$func;
-
+        global $db, $func;
 
         if ($_POST['visible'] == "checked") {
             $visible = 1;
@@ -451,8 +501,14 @@ class pdf_tmpl
             $func->error(t('Die Daten konnten nicht hinzugef&uuml;gt werden'), "index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
         }
     }
-        
-    // Sortierung ändern
+
+    /**
+     * Change sorting
+     *
+     * @param $direction
+     * @param $item_id
+     * @return void
+     */
     public function sortorder($direction, $item_id)
     {
         global $db;
@@ -462,9 +518,15 @@ class pdf_tmpl
         } else {
             $sort = "+1";
         }
+
         $db->qry("UPDATE %prefix%pdf_data SET sort=sort%plain% WHERE pdfid = %int%", $sort, $item_id);
     }
-    // Daten löschen
+
+    /**
+     * Delete template
+     *
+     * @return void
+     */
     public function delete_templ()
     {
         global $db;
@@ -472,21 +534,36 @@ class pdf_tmpl
         $db->qry("DELETE FROM %prefix%pdf_list WHERE template_id = %int%", $this->tmpl_id);
         $db->qry("DELETE FROM %prefix%pdf_data WHERE template_id = %int%", $this->tmpl_id);
     }
-    
+
+    /**
+     * Delete item
+     *
+     * @param int $itemid
+     * @return void
+     */
     public function delete_item($itemid)
     {
         global $db;
         
         $db->qry("DELETE FROM %prefix%pdf_data WHERE pdfid = %int%", $itemid);
     }
-    
+
+    /**
+     * New mask for templates
+     *
+     * @return void
+     */
     public function new_templ_mask()
     {
         global $dsp;
-        // Array für Seitengrössen
-        $page_size = array("<option selected value=\"A4\">A4</option>","<option value=\"A3\">A3</option>","<option value=\"A5\">A5</option>");
+
+        $page_size = [
+            "<option selected value=\"A4\">A4</option>",
+            "<option value=\"A3\">A3</option>",
+            "<option value=\"A5\">A5</option>"
+        ];
         
-        // Formular für neues Template
+        // Form for new templates
         $dsp->NewContent(t('Vorlagen'), t('Neue Vorlage erstellen'));
         $dsp->SetForm("index.php?mod=pdf&action=" . $this->action . "&act=add");
         $dsp->AddTextFieldRow("template_name", t('Vorlagenname'), '', '');

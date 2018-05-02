@@ -1,5 +1,7 @@
 <?php
 
+use LanSuite\Module\Seating\Seat2;
+
 $gd = new \LanSuite\GD();
 
 include_once("modules/tournament2/class_tournament.php");
@@ -56,8 +58,7 @@ if ($tournament["name"] == "") {
 } else {
     switch ($_GET["step"]) {
         default:
-            include_once("modules/seating/class_seat.php");
-            $seat2 = new seat2();
+            $seat2 = new Seat2();
 
             unset($_SESSION['tournament_submit_result_blocker']);
             
