@@ -7,5 +7,9 @@ database-dump.sql
 # Installed by vendors
 bin/phpunit
 
+# Release archives
+LanSuite-*.tar.gz
+LanSuite-*_checksums.txt
+
 # Generated folder/files
 /vendor/
