@@ -48,6 +48,8 @@
             "inc/Functions/CheckValidEmail.php",
             "inc/Functions/Debug.php",
             "inc/Functions/DependencyPreCheck.php",
+            "modules/about/Functions/GetTheLinesAndChars.php",
+            "modules/about/Functions/LetsOpenTheDir.php",
             "modules/mastersearch2/Functions/MS2GetDate.php",
             "modules/mastersearch2/Functions/MS2GetTime.php",
             "modules/mastersearch2/Functions/Text2LSCode.php",
