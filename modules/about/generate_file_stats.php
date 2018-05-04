@@ -2,16 +2,16 @@
 
 $dir = ".";
 
-lets_open_the_dir($dir);
+LetsOpenTheDir($dir);
     
 foreach ($files as $file) {
     if (preg_match(".php", $file)) {
-        $data = get_the_lines_and_chars($file);
+        $data = GetTheLinesAndChars($file);
         $php_lines += $data[0];
         $php_chars += $data[1];
     }
     if (preg_match(".htm", $file)) {
-        $data = get_the_lines_and_chars($file);
+        $data = GetTheLinesAndChars($file);
         $html_lines += $data[0];
         $html_chars += $data[1];
     }

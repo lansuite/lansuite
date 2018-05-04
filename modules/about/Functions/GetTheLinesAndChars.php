@@ -4,7 +4,7 @@
  * @param string $file
  * @return array
  */
-function get_the_lines_and_chars($file)
+function GetTheLinesAndChars($file)
 {
     $file_content = file($file);
     $data[0] = count($file_content);

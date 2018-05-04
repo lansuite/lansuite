@@ -4,7 +4,7 @@
  * @param string $dir
  * @return void
  */
-function lets_open_the_dir($dir)
+function LetsOpenTheDir($dir)
 {
     global $files;
 
@@ -12,7 +12,7 @@ function lets_open_the_dir($dir)
     while (false !== ($content = readdir($thedir))) {
         if ($content != "." and $content != "..") {
             if (is_dir($dir."/".$content)) {
-                lets_open_the_dir($dir."/".$content);
+                LetsOpenTheDir($dir."/".$content);
             }
             if (file_exists($dir."/".$content)) {
                 $files[] = $dir."/".$content;
