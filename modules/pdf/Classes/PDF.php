@@ -1025,8 +1025,6 @@ class PDF
     {
         global $db;
 
-        define('FPDF_FONTPATH', 'ext_inc/pdf_fonts/');
-
         $page_data = $db->qry_first("
           SELECT * 
           FROM %prefix%pdf_data 
@@ -1041,7 +1039,7 @@ class PDF
             $orientation = 'p';
         }
 
-        $this->pdf = new FPDF($orientation, 'mm', $page_data['text']);
+        $this->pdf = new \FPDF($orientation, 'mm', $page_data['text']);
         $this->start_x = $page_data['pos_x'];
         $this->start_y = $page_data['pos_y'];
         $this->pdf->AddPage();
