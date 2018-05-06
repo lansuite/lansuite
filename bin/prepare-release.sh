@@ -83,14 +83,14 @@ if [ $# -eq 0 ]; then
     log "INFO" "Running in snapshot mode with commit ${COMMIT_SHA}."
     RELEASE_VERSION="snapshot-$COMMIT_SHA"
 else
-    log "INFO" "Argument $1 given. Checking is tag exists ..."
+    log "INFO" "Argument $1 given. Checking if tag exists ..."
     git show-ref --verify refs/tags/$1
     if [ $? -eq 0 ]; then
-        log "INFO" "Argument $1 given. Checking is tag exists ... Done."
+        log "INFO" "Argument $1 given. Checking if tag exists ... Done."
         log "INFO" "Running in release mode with tag $1."
         RELEASE_VERSION=$1
     else
-        log "ERROR" "Argument $1 given. Checking is tag exists ... Failed"
+        log "ERROR" "Argument $1 given. Checking if tag exists ... Failed"
         log "ERROR" "Git tag $1 doesn\'t exists."
         log "ERROR" "If you want to release a new LanSuite version based on a release, please create a new git tag for it."
         exit 1;
