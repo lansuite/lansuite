@@ -1,8 +1,8 @@
 <?php
 $xml = new \LanSuite\XML();
 
-$xml_file = @fopen("design/" . $auth["design"] . "/design.xml", "r");
-$xml_content = @fread($xml_file, filesize("design/".$auth["design"]."/design.xml"));
+$xml_file = fopen("design/" . $auth["design"] . "/design.xml", "r");
+$xml_content = fread($xml_file, filesize("design/".$auth["design"]."/design.xml"));
 
 $design_name = $xml->get_tag_content("name", $xml_content);
 
