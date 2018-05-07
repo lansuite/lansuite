@@ -4,14 +4,28 @@ $smarty->assign('caption', t('Aktuelles im Board') . ' <span class="small">[<a h
 $content = "";
 
 $authtyp = $auth['type'] + 1;
-$query = $db->qry("SELECT t.tid, MAX(p.pid) AS pid, t.caption, UNIX_TIMESTAMP(MAX(p.date)) AS LastPost, (COUNT(p.pid) - 1) AS posts, t.closed
-	FROM %prefix%board_threads AS t
-	LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
-	LEFT JOIN %prefix%board_posts AS p ON p.tid = t.tid
-	WHERE (f.need_type <= %int% AND (!f.need_group OR f.need_group = %int%))
-	GROUP BY t.tid
-	ORDER BY LastPost DESC
-	LIMIT 0, %int%", $authtyp, $auth['group_id'], $cfg['home_item_cnt_board']);
+$query = $db->qry("
+    SELECT
+      t.tid,
+      MAX(p.pid) AS pid,
+      t.caption,
+      UNIX_TIMESTAMP(MAX(p.date)) AS LastPost,
+      (COUNT(p.pid) - 1) AS posts,
+      t.closed
+    FROM
+      %prefix%board_threads AS t
+      LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
+      LEFT JOIN %prefix%board_posts AS p ON p.tid = t.tid
+    WHERE
+      (
+        f.need_type <= %int% AND (
+          !f.need_group
+          OR f.need_group = %int%
+        )
+      )
+    GROUP BY t.tid
+    ORDER BY LastPost DESC
+    LIMIT 0, %int%", $authtyp, $auth['group_id'], $cfg['home_item_cnt_board']);
 
 if ($db->num_rows($query) > 0) {
     while ($row = $db->fetch_array($query)) {
