@@ -32,4 +32,3 @@ function LastPostDetails($date)
         return $dsp->FetchIcon('no', '', '-');
     }
 }
-
