@@ -1,64 +1,16 @@
 <?php
-function getboardrank($posts)
-{
-    global $cfg;
-  
-    $lines = explode("\n", $cfg['board_rank']);
-    foreach ($lines as $line) {
-        list($num, $name) = explode("->", $line);
-        if ($num > $posts) {
-            break;
-        }
-        $rank = $name;
-    }
-    return $rank;
-}
-
-function getuserinfo($userid)
-{
-    global $db, $cfg, $func;
-
-    $row_poster = $db->qry_first("SELECT username, type, avatar_path, signature FROM %prefix%user WHERE userid=%int%", $userid);
-    $count_rows = $db->qry_first("SELECT COUNT(*) AS posts FROM %prefix%board_posts WHERE userid = %int%", $userid);
-
-    $html_image= '<img src="%s" alt="%s" border="0">';
-
-    $user["username"]   =$row_poster["username"];
-    $user["avatar"]     =($func->chk_img_path($row_poster["avatar_path"])) ? sprintf($html_image, $row_poster["avatar_path"], "") : "";
-    $user["signature"]   = $row_poster["signature"];
-
-    if ($cfg['board_ranking'] == true) {
-        $user["rank"] = getboardrank($count_rows["posts"]);
-    }
-    $user["posts"] = $count_rows["posts"];
-
-    switch ($row_poster["type"]) {
-        case 1:
-            $user["type"] = t('Benutzer');
-            break;
-        case 2:
-            $user["type"] = t('Organisator');
-            break;
-        case 3:
-            $user["type"] = t('Superadmin');
-            break;
-    }
-
-    return $user;
-}
-
 
 // Exec Admin-Functions
 if ($auth['type'] >= 2) {
     switch ($_GET['step']) {
-  // Close Thread
+        // Close Thread
         case 10:
-                $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $_GET['tid']);
+            $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $_GET['tid']);
             break;
 
-  // Open Thread
+        // Open Thread
         case 11:
-                $db->qry("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = %int%", $_GET['tid']);
+            $db->qry("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = %int%", $_GET['tid']);
             break;
     }
 }
@@ -66,11 +18,25 @@ if ($auth['type'] >= 2) {
 $tid = (int)$_GET["tid"];
 $list_type = $auth['type'] + 1;
 
-//Show Thread or create new
+// Show Thread or create new
 if ($tid) {
-    $thread = $db->qry_first("SELECT t.fid, t.caption, t.closed, f.name AS ForumName, f.need_type, f.need_group FROM %prefix%board_threads AS t
-	  LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
-	  WHERE t.tid=%int% AND f.need_type <= %string% AND (!f.need_group OR f.need_group = %int%)", $tid, $list_type, $auth['group_id']);
+    $thread = $db->qry_first("
+      SELECT
+        t.fid,
+        t.caption,
+        t.closed,
+        f.name AS ForumName,
+        f.need_type,
+        f.need_group
+      FROM %prefix%board_threads AS t
+        LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
+      WHERE
+        t.tid=%int%
+        AND f.need_type <= %string%
+        AND (
+          !f.need_group
+          OR f.need_group = %int%
+        )", $tid, $list_type, $auth['group_id']);
       
     if ($_GET['pid'] != '') {
         $current_post = $db->qry_first("SELECT userid FROM %prefix%board_posts WHERE pid = %int%", $_GET['pid']);
@@ -89,7 +55,7 @@ if (!$thread and $tid) {
     // Mark thread read
     $func->SetRead('board', $tid);
 
-  // Tread Headline
+    // Tread Headline
     $hyperlink = '<a href="%s" class="menu">%s</a>';
     $overview_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board", t('Forum')).'</b>';
     $forum_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board&action=forum&fid=$fid", $thread['ForumName']).'</b>';
@@ -106,13 +72,35 @@ if (!$thread and $tid) {
         $buttons .= ' '. $dsp->FetchIcon("delete", "index.php?mod=board&action=delete&tid=$tid");
     }
 
-    $query = $db->qry("SELECT pid, comment, userid, UNIX_TIMESTAMP(date) AS date, INET6_NTOA(ip) AS ip, file FROM %prefix%board_posts WHERE tid=%int% ORDER BY date", $tid);
+    $query = $db->qry("
+      SELECT
+        pid,
+        comment,
+        userid,
+        UNIX_TIMESTAMP(date) AS date,
+        INET6_NTOA(ip) AS ip,
+        file
+      FROM %prefix%board_posts
+      WHERE tid=%int%
+      ORDER BY date", $tid);
     $count_entrys = $db->num_rows($query);
     
-  // Page select
+    // Page select
     if ($count_entrys > $cfg['board_max_posts']) {
         $pages = $func->page_split($_GET['posts_page'], $cfg['board_max_posts'], $count_entrys, "index.php?mod=board&action=thread&tid=$tid", "posts_page");
-        $query = $db->qry("SELECT pid, comment, userid, UNIX_TIMESTAMP(date) AS date, UNIX_TIMESTAMP(changedate) AS changedate, changecount, INET6_NTOA(ip) AS ip, file FROM %prefix%board_posts WHERE tid=%int% order by date %plain%", $tid, $pages['sql']);
+        $query = $db->qry("
+          SELECT
+            pid,
+            comment,
+            userid,
+            UNIX_TIMESTAMP(date) AS date,
+            UNIX_TIMESTAMP(changedate) AS changedate,
+            changecount,
+            INET6_NTOA(ip) AS ip,
+            file
+          FROM %prefix%board_posts
+          WHERE tid=%int%
+          ORDER BY date %plain%", $tid, $pages['sql']);
     }
     $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
 
@@ -144,7 +132,7 @@ if (!$thread and $tid) {
             $userdata["posts"] = "";
             $userdata["signature"] = "";
         } else {
-            $userdata = getuserinfo($row["userid"]);
+            $userdata = GetUserInfo($row["userid"]);
         }
 
         $smarty->assign('username', $dsp->FetchUserIcon($row['userid'], $userdata["username"]));
@@ -209,7 +197,7 @@ if ($thread['closed']) {
 } elseif ($_GET['pid'] != '' and $auth['type'] <= 1 and $current_post['userid'] != $auth['userid']) {
     $func->error('Du darfst nur deine eigenen Beiträge editieren!', NO_LINK);
 } elseif ($thread) {
-    //Topic erstellen oder auf Topic antworten
+    // Topic erstellen oder auf Topic antworten
     if ($_GET['tid']) {
         $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));
     } else {
@@ -237,7 +225,7 @@ if ($thread['closed']) {
     if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $_GET['fid'] .'&tid='. $_GET['tid'].'&posts_page='.$_GET['posts_page'], 'board_posts', 'pid', $_GET['pid'])) {
         $tid = (int)$_GET['tid'];
   
-    // Update thread-table, if new thread
+        // Update thread-table, if new thread
         if (!$_GET['tid'] and $_POST['caption'] != '') {
             $db->qry("INSERT INTO %prefix%board_threads SET
   				fid = %int%,
@@ -245,11 +233,11 @@ if ($thread['closed']) {
   				", $_GET['fid'], $_POST['caption']);
                 $tid = $db->insert_id();
   
-              // Assign just created post to this new thread
+                // Assign just created post to this new thread
                 $db->qry("UPDATE %prefix%board_posts SET tid = %int% WHERE pid = %int%", $tid, $pid);
         }
 
-    // Send email-notifications to thread-subscribers
+        // Send email-notifications to thread-subscribers
         $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
         include_once("modules/mail/class_mail.php");
@@ -258,11 +246,21 @@ if ($thread['closed']) {
         if (!$_GET['fid']) {
             $_GET['fid'] = $thread['fid'];
         }
-    // Internet-Mail
-        $subscribers = $db->qry("SELECT b.userid, u.firstname, u.name, u.email FROM %prefix%board_bookmark AS b
-  		LEFT JOIN %prefix%user AS u ON b.userid = u.userid
-  		WHERE b.email = 1 and (b.tid = %int% or b.fid = %int%)
-  		", $tid, $_GET['fid']);
+        // Internet-Mail
+        $subscribers = $db->qry("
+          SELECT
+            b.userid,
+            u.firstname,
+            u.name,
+            u.email
+          FROM %prefix%board_bookmark AS b
+            LEFT JOIN %prefix%user AS u ON b.userid = u.userid
+          WHERE
+            b.email = 1
+            AND (
+              b.tid = %int%
+              OR b.fid = %int%
+            )", $tid, $_GET['fid']);
         while ($subscriber = $db->fetch_array($subscribers)) {
             if ($subscriber['userid'] != $auth['userid']) {
                 $mail->create_inet_mail($subscriber["firstname"]." ".$subscriber["name"], $subscriber["email"], $cfg["board_subscribe_subject"], str_replace("%URL%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=board&action=thread&tid=$tid", $cfg["board_subscribe_text"]), $cfg["sys_party_mail"]);
@@ -270,10 +268,16 @@ if ($thread['closed']) {
         }
         $db->free_result($subscribers);
   
-    // Sys-Mail
-        $subscribers = $db->qry("SELECT userid FROM %prefix%board_bookmark AS b
-      WHERE b.sysemail = 1 and (b.tid = %int% or b.fid = %int%)
-      ", $tid, $_GET['fid']);
+        // Sys-Mail
+        $subscribers = $db->qry("
+          SELECT userid
+          FROM %prefix%board_bookmark AS b
+          WHERE
+            b.sysemail = 1
+            AND (
+              b.tid = %int%
+              OR b.fid = %int%
+            )", $tid, $_GET['fid']);
         while ($subscriber = $db->fetch_array($subscribers)) {
             if ($subscriber['userid'] != $auth['userid']) {
                 $mail->create_sys_mail($subscriber["userid"], $cfg["board_subscribe_subject"], str_replace("%URL%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=board&action=thread&tid=$tid", $cfg["board_subscribe_text"]));
@@ -283,7 +287,6 @@ if ($thread['closed']) {
     }
     $dsp->AddFieldsetEnd();
 }
-
 
 if ($thread['caption'] != '') {
     // Bookmarks and Auto-Mail
@@ -323,9 +326,18 @@ if ($thread['caption'] != '') {
         $dsp->AddFieldsetEnd();
     }
   
-  // Generate Boardlist-Dropdown
-    $foren_liste = $db->qry("SELECT fid, name FROM %prefix%board_forums
-    WHERE need_type <= %string% AND (!need_group OR need_group = %int%)", $list_type, $auth['group_id']);
+    // Generate Boardlist-Dropdown
+    $foren_liste = $db->qry("
+      SELECT
+        fid,
+        name
+      FROM %prefix%board_forums
+      WHERE
+        need_type <= %string%
+        AND (
+          !need_group
+          OR need_group = %int%
+      )", $list_type, $auth['group_id']);
     $goto = '';
     while ($forum = $db->fetch_array($foren_liste)) {
         $goto .= "<option value=\"{$forum["fid"]}\">{$forum["name"]}</option>";

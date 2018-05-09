@@ -1,63 +1,10 @@
 <?php
-function LastPostDetails($date)
-{
-    global $db, $line, $dsp, $cfg;
-
-    if ($date) {
-        $row = $db->qry_first("SELECT p.userid, p.pid, p.tid, u.username FROM %prefix%board_posts AS p
-      LEFT JOIN %prefix%user AS u ON p.userid = u.userid
-      WHERE UNIX_TIMESTAMP(p.date) = %string% AND p.tid = %int%", $date, $line['tid']);
-
-        $row2 = $db->qry_first(
-            "SELECT COUNT(*) AS cnt FROM %prefix%board_posts AS p
-        WHERE p.tid = %int%
-        GROUP BY p.tid",
-            $line['tid']
-        );
-        $page = floor(($row2['cnt'] - 1) / $cfg['board_max_posts']);
-
-        $ret = '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&posts_page='. $page .'#pid'. $row['pid'] .'" class="menu">'. date('d.m.y H:i', $date);
-        if ($row['userid']) {
-            $ret .= '<br /></a> '. $dsp->FetchUserIcon($row['userid'], $row['username']);
-        } else {
-            $ret .= '<br />Gast_';
-        }
-        return $ret;
-    } else {
-        return $dsp->FetchIcon('no', '', '-');
-    }
-}
-
-function FormatTitle($title)
-{
-    global $dsp, $line, $func;
-  
-    $icon = '';
-    if ($line['closed']) {
-        $icon = $dsp->FetchIcon('locked', '', t('Nicht bezahlt!'));
-    }
-    if ($line['sticky']) {
-        $icon = $dsp->FetchIcon('signon', '', t('Wichtig!'));
-    }
-    return $icon . "<a class=\"menu\" href=\"index.php?mod=board&action=thread&tid={$line['tid']}\">{$func->AllowHTML($title)}</a>";
-}
-
-function NewPosts($last_read)
-{
-    global $func, $line, $auth;
-
-    if ($func->CheckNewPosts($line['LastPost'], 'board', $line['tid'])) {
-        return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&tid={$line['tid']}\"><img src=\"design/{$auth["design"]}/images/forum_new.png\" alt=\"".t('Neue Beiträge')."\" border=\"0\"></a>";
-    } else {
-        return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&tid={$line['tid']}\"><img src=\"design/{$auth["design"]}/images/forum_old.png\" alt=\"".t('Kein neuer Beitrag')."\" border=\"0\"></a>";
-    }
-}
 
 if ($_GET['fid'] != '') {
     $row = $db->qry_first("SELECT name, need_type, need_group FROM %prefix%board_forums WHERE fid=%int%", $_GET["fid"]);
     $new_thread = $dsp->FetchIcon("add", "index.php?mod=board&action=thread&fid=" . $_GET['fid']);
 
-  // Board Headline
+    // Board Headline
     $hyperlink = '<a href="%s" class="menu">%s</a>';
     $overview_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board", t('Forum')).'</b>';
     $dsp->NewContent($row['name'], "<br />".t('Du bist hier » ').$overview_capt.' » '.$row['name']);
@@ -65,9 +12,8 @@ if ($_GET['fid'] != '') {
     $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("back", "index.php?mod=board"));
 }
 
-
 switch ($_GET['step']) {
-  // Edit headline
+    // Edit headline
     case 10:
         if ($auth['type'] >= 2) {
             $dsp->AddFieldsetStart(t('Thread bearbeiten'));
@@ -86,15 +32,16 @@ switch ($_GET['step']) {
         }
         break;
   
-  // Delete Bookmark
+    // Delete Bookmark
     case 30:
         $GetFid = $db->qry_first('SELECT fid FROM %prefix%board_threads WHERE tid = %int%', $_GET['tid']);
         $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = 0 AND tid = %int% AND userid = %int%', $_GET['tid'], $auth['userid']);
         $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = %int% AND tid = 0 AND userid = %int%', $GetFid['fid'], $auth['userid']);
         break;
 
-  // Lable
-    case 40:  // None
+    // Label
+    // None
+    case 40:
     case 41:
     case 42:
     case 43:
@@ -107,22 +54,25 @@ switch ($_GET['step']) {
         }
         break;
 
-  // Sticky
-    case 50: // Add
+    // Sticky
+    // Add
+    case 50:
         if ($auth['type'] >= 2) {
             foreach ($_POST['action'] as $key => $val) {
                 $db->qry('UPDATE %prefix%board_threads SET sticky = 1 WHERE tid = %int%', $key);
             }
         }
         break;
-    case 51: // Remove
+    // Remove
+    case 51:
         if ($auth['type'] >= 2) {
             foreach ($_POST['action'] as $key => $val) {
                 $db->qry('UPDATE %prefix%board_threads SET sticky = 0 WHERE tid = %int%', $key);
             }
         }
         break;
-    case 52: //Close Threads
+    // Close Threads
+    case 52:
         if ($auth['type'] >= 2) {
             foreach ($_POST['action'] as $key => $val) {
                 $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $key);
@@ -131,21 +81,20 @@ switch ($_GET['step']) {
         break;
 }
 
-$colors = array();
-$colors[0] = '';
-$colors[1] = 'red';
-$colors[2] = 'blue';
-$colors[3] = 'green';
-$colors[4] = 'yellow';
-$colors[5] = 'purple';
+$colors = [
+    0 => '',
+    1 => 'red',
+    2 => 'blue',
+    3 => 'green',
+    4 => 'yellow',
+    5 => 'purple',
 
-
+];
 if ($_POST['search_input'][1] != '' or $_POST['search_input'][2] != '' or $_GET['search_input'][1] != '' or $_GET['search_input'][2] != '') {
     $dsp->AddSingleRow('<b>'.t('Achtung: du hast als Suche einen Autor, bzw. Text angegeben. Die Ergebnis-Felder Antworten, sowie erster und letzter Beitrag beziehen sich daher nur noch auf Posts, in denen diese Eingaben gefunden wurden, nicht mehr auf den ganzen Thread!').'</b>');
 }
 
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
-
 $ms2->query['from'] = "%prefix%board_threads AS t
     LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
     LEFT JOIN %prefix%board_posts AS p ON t.tid = p.tid
@@ -163,14 +112,13 @@ if ($_GET['action'] == 'bookmark') {
 $ms2->query['default_order_by'] = 't.sticky DESC, LastPost DESC';
 
 $ms2->AddBGColor('label', $colors);
-#$ms2->AddBGColor('sticky', array('', 'red'));
 
 if ($_GET['fid'] == '') {
     $ms2->AddTextSearchField(t('Titel'), array('t.caption' => 'like'));
     $ms2->AddTextSearchField(t('Text'), array('p.comment' => 'fulltext'));
     $ms2->AddTextSearchField(t('Autor'), array('u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
 
-    $list = array();
+    $list = [];
     $list[''] = t('Alle');
     $res = $db->qry("SELECT fid, name FROM %prefix%board_forums");
     while ($row = $db->fetch_array($res)) {
@@ -190,7 +138,6 @@ if ($_GET['fid'] != '') {
 }
 $ms2->AddResultField(t('Aufrufe'), 't.views');
 $ms2->AddResultField(t('Antworten'), '(COUNT(p.pid) - 1) AS posts');
-//$ms2->AddResultField(t('Erster Beitrag'), 'UNIX_TIMESTAMP(MIN(p.date)) AS FirstPost', 'LastPostDetails');
 $ms2->AddResultField(t('Letzter Beitrag'), 'UNIX_TIMESTAMP(MAX(p.date)) AS LastPost', 'LastPostDetails');
 
 if ($_GET['action'] == 'bookmark') {
