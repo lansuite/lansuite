@@ -23,5 +23,6 @@ script:
   - find . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 php -lf
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/about
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/beamer
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/board
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --ignore="/ext_scripts/*,/ext_inc/*,/vendor/*" . || true # Allow failures for now
   - bin/phpunit
