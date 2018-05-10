@@ -55,7 +55,6 @@ $BoxRes = $db->qry("
 while ($BoxRow = $db->fetch_array($BoxRes)) {
     if (($BoxRow['module'] == '' or $func->isModActive($BoxRow['module'])) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
         if ($BoxRow['source'] == 'menu') {
-
             if (is_array($MenuCallbacks) && count($MenuCallbacks) > 0) {
                 $MenuCallbacks = array();
                 $MenuCallbacks[] = 'ShowSignon';
