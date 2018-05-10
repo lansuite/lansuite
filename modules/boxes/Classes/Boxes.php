@@ -184,8 +184,8 @@ class Boxes
      * @param string $title
      * @param string $module
      * @return string
-     * @throws Exception
-     * @throws SmartyException
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function CreateBox($boxid, $caption = '', $title = '', $module = '')
     {
