@@ -36,6 +36,7 @@ class Boxes
                 break;
         }
 
+        $class = '';
         switch ($level) {
             case 0:
                 $class = "box_entry";
@@ -52,7 +53,10 @@ class Boxes
         if (strip_tags($caption) == $caption) {
             $caption = wordwrap($caption, 18, "<br />\n", 1);
         }
+
+        $tmp_link = '';
         if ($link != "") {
+            $box_row_hint = '';
             if ($hint) {
                 $box_row_hint = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
             }
@@ -76,6 +80,7 @@ class Boxes
     {
         global $func;
         if ($link != "") {
+            $box_row_hint = '';
             if ($hint) {
                 $box_row_hint = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
             }
@@ -140,6 +145,7 @@ class Boxes
      */
     public function DotRow($caption, $link = "", $hint = "", $class = "", $highlighted = "")
     {
+        $item = '';
         if ($highlighted) {
             $item = "_active";
         }
@@ -246,7 +252,7 @@ class Boxes
         if ($title) {
             $out = $smarty->fetch($file, 'box'.$title.$auth['type']);
         } else {
-            $smarty->fetch($file);
+            $out = $smarty->fetch($file);
         }
         return $out;
     }

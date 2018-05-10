@@ -20,6 +20,11 @@ class Menu
     public $box;
 
     /**
+     * @var string
+     */
+    private $title = '';
+
+    /**
      * @param $id
      * @param $caption
      * @param string $title
@@ -56,6 +61,8 @@ class Menu
                 break;
             }
         } else {
+            $info2_id = '';
+
             // Scan for ID in info2 Link
             if ($_GET['mod'] == 'info2') {
                 preg_match('/(id=)(\\d{1,4})/', $item['link'], $treffer);
@@ -77,8 +84,8 @@ class Menu
 
     /**
      * @return string
-     * @throws Exception
-     * @throws SmartyException
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function get_menu_items()
     {
@@ -150,8 +157,8 @@ class Menu
 
                     // If Admin add general Management-Links
                     if ($auth['type'] > 2) {
-                        $AdminIcons .= $this->box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
-                        $this->box->Row('<span class="AdminIcons">'. $AdminIcons .'</span>');
+                        $adminIcons = $this->box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
+                        $this->box->Row('<span class="AdminIcons">'. $adminIcons .'</span>');
                     }
                 }
             }
