@@ -1,5 +1,8 @@
 <?php
 
+use LanSuite\Module\Boxes\Boxes;
+use LanSuite\Module\Boxes\Menu;
+
 // In LogOff state all boxes are visible (no ability to minimize them)
 if ($auth['login'] == "1") {
     // Change state, when Item is clicked
@@ -11,8 +14,6 @@ if ($auth['login'] == "1") {
         }
     }
 }
-
-include_once('modules/boxes/class_boxes.php');
 
 // Fetch Boxes
 $MenuActive = 0;
@@ -54,8 +55,17 @@ $BoxRes = $db->qry("
 while ($BoxRow = $db->fetch_array($BoxRes)) {
     if (($BoxRow['module'] == '' or $func->isModActive($BoxRow['module'])) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
         if ($BoxRow['source'] == 'menu') {
-            include_once('modules/boxes/class_menu.php');
-            $menu = new menu($BoxRow['boxid'], $BoxRow['name'], $BoxRow['source']);
+
+            if (is_array($MenuCallbacks) && count($MenuCallbacks) > 0) {
+                $MenuCallbacks = array();
+                $MenuCallbacks[] = 'ShowSignon';
+                $MenuCallbacks[] = 'ShowGuestMap';
+                $MenuCallbacks[] = 'sys_internet';
+                $MenuCallbacks[] = 'snmp';
+                $MenuCallbacks[] = 'DokuWikiNotInstalled';
+            }
+
+            $menu = new Menu($BoxRow['boxid'], $BoxRow['name'], $BoxRow['source']);
             if ($BoxRow['place'] == 0 or $framework->IsMobileBrowser) {
                 $templ['index']['control']['boxes_letfside'] .= $menu->get_menu_items();
             } elseif ($BoxRow['place'] == 1) {
@@ -66,7 +76,7 @@ while ($BoxRow = $db->fetch_array($BoxRes)) {
             }
             unset($menu);
         } else {
-            $box = new boxes();
+            $box = new Boxes();
 
             if (!$BoxRow['module']) {
                 $BoxRow['module'] = 'install';
@@ -90,7 +100,7 @@ unset($BoxRes);
 // Add Link to boxmanager, if menu is missing and loginbox, if not logged in
 if (!$MenuActive) {
     if ($auth['type'] >= 2) {
-        $box = new boxes();
+        $box = new Boxes();
         $box->Row(t('Keine Navigation gefunden. Bitte korrekte zuweisung Box / Navigation prüfen (BoxID). Temporäre Links aktiviert.'));
         $box->EmptyRow();
         $box->DotRow('Boxmanager', 'index.php?mod=boxes');

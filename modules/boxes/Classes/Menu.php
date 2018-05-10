@@ -1,6 +1,8 @@
 <?php
 
-class menu
+namespace LanSuite\Module\Boxes;
+
+class Menu
 {
     /**
      * @var int|mixed
@@ -13,17 +15,9 @@ class menu
     private $caption = '';
 
     /**
-     * @var boxes
+     * @var Boxes
      */
     public $box;
-
-  /**
-   * menu::menu()
-   *
-   * @param mixed $id
-   * @param mixed $caption
-   * @return
-   */
 
     /**
      * @param $id
@@ -35,7 +29,7 @@ class menu
         $this->caption = $caption;
         $this->boxid = $id;
         $this->title = $title;
-        $this->box = new boxes();
+        $this->box = new Boxes();
     }
 
     /**
@@ -170,10 +164,3 @@ class menu
         }
     }
 }
-
-$MenuCallbacks = array();
-$MenuCallbacks[] = 'ShowSignon';
-$MenuCallbacks[] = 'ShowGuestMap';
-$MenuCallbacks[] = 'sys_internet';
-$MenuCallbacks[] = 'snmp';
-$MenuCallbacks[] = 'DokuWikiNotInstalled';

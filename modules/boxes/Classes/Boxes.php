@@ -1,6 +1,8 @@
 <?php
 
-class boxes
+namespace LanSuite\Module\Boxes;
+
+class Boxes
 {
     /**
      * @var string
