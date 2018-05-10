@@ -1,5 +1,7 @@
 <?php
 
+namespace LanSuite\Module\ClanMgr;
+
 class Clan
 {
 
