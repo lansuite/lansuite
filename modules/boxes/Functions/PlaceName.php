@@ -13,4 +13,6 @@ function PlaceName($place)
     } elseif ($place == 1) {
         return t('Rechte Seite');
     }
+
+    return '';
 }

@@ -34,7 +34,7 @@ class Menu
 
     /**
      * @param array $item
-     * @return string|void
+     * @return void
      */
     private function FetchItem($item)
     {
@@ -73,8 +73,6 @@ class Menu
             }
             $this->box->add_menuitem($item['caption'], $item['link'], $item['hint'], $item['level'], $item['requirement'], $highlighted);
         }
-
-        return '';
     }
 
     /**
@@ -162,5 +160,7 @@ class Menu
         if ($this->box->box_rows) {
             return $this->box->CreateBox($this->boxid, t($this->caption), $this->title);
         }
+
+        return '';
     }
 }
