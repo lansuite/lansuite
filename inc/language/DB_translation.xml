@@ -153,16 +153,6 @@
 				<file>DB</file>
 			</entry>
 			<entry>
-				<id>dc174832ee875280b9cd0ffae60585f0</id>
-				<org>Equipmentshop</org>
-				<en>Equipment Shop</en>
-				<es>Equipo de la tienda</es>
-				<fr>Equipement de magasins</fr>
-				<nl>Equipment Shop</nl>
-				<it>Apparecchiature Shop</it>
-				<file>DB</file>
-			</entry>
-			<entry>
 				<id>35e631552f95b3c1015e33404df2e0ff</id>
 				<org>Bestellen</org>
 				<en>Order</en>
@@ -2864,7 +2854,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>5ee5e61ee8641c8dbff1b4a0c44c2057</id>
-				<org>Sollen Bestellungen auch ohne Guthaben m�glich sein?</org>
+				<org>Sollen Bestellungen auch ohne Guthaben m�glich sein?</org>
 				<en>Orders should be mglich without credit?</en>
 				<es>Los pedidos deben mglich sin crédito?</es>
 				<fr>Les commandes doivent être mglich sans crédit?</fr>
@@ -3594,7 +3584,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>369a2137306d18cc929b966f0fda96f5</id>
-				<org>Eine �bersicht der Programmierer von LanSuite</org>
+				<org>Eine �bersicht der Programmierer von LanSuite</org>
 				<en>An verview of the programmers of LanSuite</en>
 				<es>Un esumen de los programadores de LanSuite</es>
 				<fr>PERÇU un des programmeurs de LanSuite</fr>
@@ -3604,7 +3594,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>0f9f7d570e61c0bd6a1d01adab84ce26</id>
-				<org>Ein Forum - G�ste k�nnen hier Nachrichten hinterlassen, worauf andere antworten k�nnen</org>
+				<org>Ein Forum - G�ste k�nnen hier Nachrichten hinterlassen, worauf andere antworten k�nnen</org>
 				<en>A Forum - gste here may submit leave messages to which others may submit reply</en>
 				<es>Foro - gste aquí podrá presentar dejar mensajes en los que otros pueden presentar respuesta</es>
 				<fr>Un Forum - gste ici mai soumettre laisser des messages que les autres présenter la réponse de mai</fr>
@@ -3614,7 +3604,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>e2190eb5467afbbf9efe841154cd5c47</id>
-				<org>Orgas k�nnen h�ufig gestellte Fragen mit ihren Antworten niederschreiben</org>
+				<org>Orgas k�nnen h�ufig gestellte Fragen mit ihren Antworten niederschreiben</org>
 				<en>Orgas may submit common questions with their answers down</en>
 				<es>Astunómous podrán presentar las preguntas más frecuentes con sus respuestas por</es>
 				<fr>Orgas mai soumettre des questions communes avec ses réponses</fr>
@@ -3624,7 +3614,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>8cf028eb0a2f3fc9514a916d7d788dea</id>
-				<org>Besucher k�nnen hier eine kurze Nachricht hinterlassen</org>
+				<org>Besucher k�nnen hier eine kurze Nachricht hinterlassen</org>
 				<en>Visitors may submit leave a brief message here</en>
 				<es>Los visitantes pueden presentar dejar un breve mensaje aquí</es>
 				<fr>Visiteurs mai soumettre laisser un court message ici</fr>
@@ -3634,7 +3624,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>4ec49617e0771d59f88a223cbac5bbfb</id>
-				<org>Dies ist eine Liste aller angemeldeter G�ste</org>
+				<org>Dies ist eine Liste aller angemeldeter G�ste</org>
 				<en>This is a list of all registered gste</en>
 				<es>Esta es una lista de todos los gste registrados</es>
 				<fr>Ceci est une liste de tous les gste enregistré</fr>
@@ -3644,7 +3634,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>0683914166314f53a7abab742e50ffb8</id>
-				<org>Erm�glicht das einfache hinzuf�gen weiterer statischer Webseiten</org>
+				<org>Erm�glicht das einfache hinzuf�gen weiterer statischer Webseiten</org>
 				<en>Ermglicht the simple static websites ADD TO further</en>
 				<es>Ermglicht los sitios web estática simple AÑADIR A más</es>
 				<fr>Ermglicht les simples sites Internet statiques AJOUTER À plus</fr>
@@ -3654,7 +3644,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>56087b594fb1bfe0aa44b752f9062fbc</id>
-				<org>Benutzer k�nnen andere zu ihren Kontakten hinzuf�gen, sehen ob diese online sind und k�nnen ihnen Nachrichten schreiben</org>
+				<org>Benutzer k�nnen andere zu ihren Kontakten hinzuf�gen, sehen ob diese online sind und k�nnen ihnen Nachrichten schreiben</org>
 				<en>ADD TO other users may submit to their contacts to see whether they are online, and may submit them to write messages</en>
 				<es>AÑADIR A los demás usuarios pueden enviar a sus contactos para ver si están en línea, y presentar a escribir mensajes</es>
 				<fr>D&amp;#39;autres utilisateurs d&amp;#39;ajouter mai se soumettre à leurs contacts pour voir si elles sont en ligne, mai et les soumettre à écrire des messages</fr>
@@ -3664,7 +3654,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>68be51eb7749eafbc29fd856083b2a2b</id>
-				<org>Pr�sentiert Bekanntmachungen der Orgas</org>
+				<org>Pr�sentiert Bekanntmachungen der Orgas</org>
 				<en>Prsentiert notices Orgas</en>
 				<es>Avisos Prsentiert astunómous</es>
 				<fr>Prsentiert Avis Orgas</fr>
@@ -3674,7 +3664,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>54b0d8405ada135b2b3eacfb932b56f3</id>
-				<org>Mit diesem Modul k�nnen die Benutzer einzahlungen machen</org>
+				<org>Mit diesem Modul k�nnen die Benutzer einzahlungen machen</org>
 				<en>With this module, users may submit receipts to</en>
 				<es>Con este módulo, los usuarios pueden presentar los recibos de</es>
 				<fr>Avec ce module, les utilisateurs de soumettre des reçus pour mai</fr>
@@ -3684,7 +3674,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>bd0c4f61fc3adfed466afdf060d68f69</id>
-				<org>Bietete die M�glichkeit Bilder hochzuladen und stellt diese in Kleinansicht in einer Liste dar</org>
+				<org>Bietete die M�glichkeit Bilder hochzuladen und stellt diese in Kleinansicht in einer Liste dar</org>
 				<en>Provides pictures and upload the Possibility of small displays this view in a list</en>
 				<es>Ofrece fotos y cargar la posibilidad de la pequeña muestra este punto de vista en una lista de</es>
 				<fr>Fournit des images et télécharger les Possibilité de petits écrans ce point de vue dans une liste</fr>
@@ -3694,7 +3684,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>d55d74ce01d01ba70801ea0785b932ec</id>
-				<org>Orgas k�nnen hier eintragen, welche Gegenst�ndig sie welchen Benutzer f�r die LAN geliehen haben</org>
+				<org>Orgas k�nnen hier eintragen, welche Gegenst�ndig sie welchen Benutzer f�r die LAN geliehen haben</org>
 				<en>Orgas may submit here, adding that she borrowed what Gegenstndig searching fr the LAN have</en>
 				<es>Astunómous puede presentar aquí, y agregó que lo que pidió prestado Gegenstndig la búsqueda de la LAN han fr</es>
 				<fr>Orgas mai ici présenter, en ajoutant qu&amp;#39;elle a emprunté ce Gegenstndig recherche en réseau local ont</fr>
@@ -3704,7 +3694,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>e5a2916a7ce58d4a2a0f3b52da008598</id>
-				<org>Dieses Modul ist nur f�r Entwickler gedacht und demonstriert an einem Beispiel den Aufbau eines Modules</org>
+				<org>Dieses Modul ist nur f�r Entwickler gedacht und demonstriert an einem Beispiel den Aufbau eines Modules</org>
 				<en>This module is intended only for developers and demonstrated with an example to build a module</en>
 				<es>Este módulo está destinado únicamente para los desarrolladores y demostró con un ejemplo para construir un módulo</es>
 				<fr>Ce module est destiné uniquement aux développeurs et démontrés avec un exemple de construire un module</fr>
@@ -3714,7 +3704,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>985a6894a416bc12a0981a43ee1a90f1</id>
-				<org>Bezahlte Benutzer k�nnen sich hier Sitzpl�tze reservieren. So kann jeder nachschauen, wo eine gesuchte Person sitzt</org>
+				<org>Bezahlte Benutzer k�nnen sich hier Sitzpl�tze reservieren. So kann jeder nachschauen, wo eine gesuchte Person sitzt</org>
 				<en>Paid users can spend their time here Reserve Seating. So everyone can see where a wanted person is seated</en>
 				<es>Los usuarios de pago pueden pasar su tiempo de reserva de estar aquí. Así que todo el mundo puede ver donde está sentado a una persona buscada</es>
 				<fr>Les utilisateurs payants peuvent passer leur temps ici Réserve Seating. Ainsi, chacun peut voir où une personne recherchée est assis</fr>
@@ -3724,7 +3714,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>10a047b3f4c2f8da5d22121300339b02</id>
-				<org>Eine �ffentliche Liste aller Server auf der Lan, in der jeder eingeloggt Benutzer seinen Server eintragen kann</org>
+				<org>Eine �ffentliche Liste aller Server auf der Lan, in der jeder eingeloggt Benutzer seinen Server eintragen kann</org>
 				<en>A Public list of all servers on the LAN, where each logged in user can enter his server</en>
 				<es>Una lista pública de todos los servidores de la LAN, donde cada usuario registrado puede entrar en su servidor de</es>
 				<fr>Une liste publique de tous les serveurs sur le réseau local, où chaque utilisateur connecté peut entrer son serveur</fr>
@@ -3734,7 +3724,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>353d0d0489fdccca6352ea4a96b1e970</id>
-				<org>Durch dieses Modul k�nnen sich Benutzer zu der Party anmelden und Partys k�nnen verwaltet werden.</org>
+				<org>Durch dieses Modul k�nnen sich Benutzer zu der Party anmelden und Partys k�nnen verwaltet werden.</org>
 				<en>This module can spend their time users log on to the party and parties may submit will be maintained.</en>
 				<es>En este módulo se pueden pasar su tiempo a los usuarios iniciar sesión en el partido y las partes pueden presentar se mantendrá.</es>
 				<fr>Ce module peut passer leur temps les utilisateurs se connecter à la partie et les parties soumettent mai sera maintenue.</fr>
@@ -3744,7 +3734,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>87fee142e6764297ca47844c2e2e39e5</id>
-				<org>Benutzer k�nnen hier ihre Probleme posten, Orgas k�nnen sie beheben, oder anderen Orgas zuweisen</org>
+				<org>Benutzer k�nnen hier ihre Probleme posten, Orgas k�nnen sie beheben, oder anderen Orgas zuweisen</org>
 				<en>Users may submit here post their problems, may submit Orgas fix them, or assign to other Orgas</en>
 				<es>Los usuarios podrán presentar aquí después de sus problemas, podrá presentar astunómous solucionarlos, o asignar a otros astunómous</es>
 				<fr>Les utilisateurs mai ici présenter après leurs problèmes, mai Orgas présenter les fixer, ou de céder à d&amp;#39;autres Orgas</fr>
@@ -3794,7 +3784,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>9fa292b23dacf35bd45d4cdc625e9eb5</id>
-				<org>Gast Pr�fix</org>
+				<org>Gast Pr�fix</org>
 				<en>Guest Prfix</en>
 				<es>Resultado Prfix</es>
 				<fr>Guest Prfix</fr>
@@ -3804,7 +3794,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>2333a10a7cefd7524a419ad50ae36d9d</id>
-				<org>Anzahl der angezeigten Eintr�ge</org>
+				<org>Anzahl der angezeigten Eintr�ge</org>
 				<en>Number of displayed Eintrge</en>
 				<es>Número de muestra Eintrge</es>
 				<fr>Nombre de affichées Eintrge</fr>
@@ -3814,7 +3804,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>129cdf7d8a0f1497d7781e842569359f</id>
-				<org>Wie soll sich das Modul ausserhalb der �ffnungszeiten verhalten.</org>
+				<org>Wie soll sich das Modul ausserhalb der �ffnungszeiten verhalten.</org>
 				<en>How should the module behave outside of the opening time.</en>
 				<es>¿Cómo debe comportarse el módulo fuera del horario de apertura.</es>
 				<fr>Comment doit se comporter à l&amp;#39;extérieur du module de l&amp;#39;heure d&amp;#39;ouverture.</fr>
@@ -3824,7 +3814,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>bbd7738e1e62da4c1536c148df8518a6</id>
-				<org>Start der �ffungszeit 1</org>
+				<org>Start der �ffungszeit 1</org>
 				<en>Start the ffungszeit 1</en>
 				<es>Consulta la ffungszeit 1</es>
 				<fr>Soit l&amp;#39;ffungszeit 1</fr>
@@ -3834,7 +3824,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>7c558f3ec3857c2ff23780a8d3299537</id>
-				<org>Ende der �ffungszeit 1</org>
+				<org>Ende der �ffungszeit 1</org>
 				<en>End of ffungszeit 1</en>
 				<es>Fin de ffungszeit 1</es>
 				<fr>Fin de ffungszeit 1</fr>
@@ -3844,7 +3834,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>8a99901162368710b61621bfef001c47</id>
-				<org>Start der �ffungszeit 2</org>
+				<org>Start der �ffungszeit 2</org>
 				<en>Start the ffungszeit 2</en>
 				<es>Consulta la ffungszeit 2</es>
 				<fr>Soit l&amp;#39;ffungszeit 2</fr>
@@ -3854,7 +3844,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>1359d132689c2caf697c6a297be517fc</id>
-				<org>Ende der �ffungszeit 2</org>
+				<org>Ende der �ffungszeit 2</org>
 				<en>End of ffungszeit 2</en>
 				<es>Fin de ffungszeit 2</es>
 				<fr>Fin de ffungszeit 2</fr>
@@ -3864,7 +3854,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>a228116556959159d0d12b8a8a87d5e2</id>
-				<org>Start der �ffungszeit 3</org>
+				<org>Start der �ffungszeit 3</org>
 				<en>Start the ffungszeit 3</en>
 				<es>Consulta la ffungszeit 3</es>
 				<fr>Soit l&amp;#39;ffungszeit 3</fr>
@@ -3874,7 +3864,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>7029a2287bde257e059b53693f5ddb70</id>
-				<org>Ende der �ffungszeit 3</org>
+				<org>Ende der �ffungszeit 3</org>
 				<en>End of ffungszeit 3</en>
 				<es>Fin de ffungszeit 3</es>
 				<fr>Fin de ffungszeit 3</fr>
@@ -3884,7 +3874,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>8aef7e5a7bb3f83fc247c3492dd98d97</id>
-				<org>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der G�ste) anzeigen?</org>
+				<org>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der G�ste) anzeigen?</org>
 				<en>Profile Visitor Map (map of Germany with the guests' Mark of Origin)?</en>
 				<es>Perfil de los visitantes Map (mapa de Alemania con la marca de la de los clientes de origen)?</es>
 				<fr>Profil des visiteurs Plan (la carte de l&amp;#39;Allemagne avec Mark les hôtes d&amp;#39;origine)?</fr>
@@ -3894,7 +3884,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>3139a4891ba31afcab4838315c355946</id>
-				<org>Sollen Orgas mit in der G�steliste angezeigt werden.</org>
+				<org>Sollen Orgas mit in der G�steliste angezeigt werden.</org>
 				<en>Should Orgas are displayed with the Gsteliste.</en>
 				<es>Astunómous Si se muestran con el Gsteliste.</es>
 				<fr>Si Orgas sont affichés avec le Gsteliste.</fr>
@@ -3914,7 +3904,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>c730db99e88b2b905e2fe8ff12e8584c</id>
-				<org>Eingabe �ber den WYSIWYG-Editor FCKedit?</org>
+				<org>Eingabe �ber den WYSIWYG-Editor FCKedit?</org>
 				<en>Enter via the WYSIWYG editor FCKedit?</en>
 				<es>Entrar por el editor WYSIWYG FCKedit?</es>
 				<fr>Entrez via l&amp;#39;éditeur WYSIWYG FCKedit?</fr>
@@ -3924,7 +3914,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>2a721d41fa18d1c7487fdfa841953341</id>
-				<org>Sollen neue Men�punkte Unterpunkte des Info2-Modules sein?</org>
+				<org>Sollen neue Men�punkte Unterpunkte des Info2-Modules sein?</org>
 				<en>Should be the new Menpunkte sub Info2 module?</en>
 				<es>Debe ser el nuevo Info2 Menpunkte sub módulo?</es>
 				<fr>Devrait être le nouveau Info2 Menpunkte sous module?</fr>
@@ -3934,7 +3924,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>536edb0ae1cc44fd554460e0f518e8c0</id>
-				<org>F�gt den Text als weitere Fooderzeile unter dem bestehendem hinzu. (html-code)</org>
+				<org>F�gt den Text als weitere Fooderzeile unter dem bestehendem hinzu. (html-code)</org>
 				<en>Fgt the text added a further Fooderzeile under the existing. (html code)</en>
 				<es>FGT el texto añadido un Fooderzeile al amparo de las existentes. (código HTML)</es>
 				<fr>TGC le texte ajouté un Fooderzeile supplémentaires en vertu de l&amp;#39;existant. (code html)</fr>
@@ -3944,7 +3934,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>805674ec534c85cab47efece18da5545</id>
-				<org>L�uft diese Version im Internet (Anmeldesystem)?</org>
+				<org>L�uft diese Version im Internet (Anmeldesystem)?</org>
 				<en>Air this version on the Internet (Registration System)?</en>
 				<es>Aire esta versión en Internet (Sistema de Registro)?</es>
 				<fr>L&amp;#39;air, cette version sur l&amp;#39;Internet (Registration System)?</fr>
@@ -3964,7 +3954,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>b1af1e2a6bf69c70445f67d55abcf03d</id>
-				<org>St�rke der Seitenkompression: 0 = Kompression deaktiviert, 1 = schwach, 9 = stark</org>
+				<org>St�rke der Seitenkompression: 0 = Kompression deaktiviert, 1 = schwach, 9 = stark</org>
 				<en>Strke page compression: Compression 0 = off, 1 = weak, 9 = strongly</en>
 				<es>La compresión de página Strke: Compresión 0 = apagado, 1 = débil, 9 = muy</es>
 				<fr>Strke page compression: La compression 0 = off, 1 = faible, 9 = fortement</fr>
@@ -3974,7 +3964,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>d9e6647552cd2ed80d2879147b72b641</id>
-				<org>W�hrung des Systems</org>
+				<org>W�hrung des Systems</org>
 				<en>Whrung system</en>
 				<es>Sistema Whrung</es>
 				<fr>Whrung système</fr>
@@ -3984,7 +3974,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>85d8ec88c601759b341e5ca8242d647f</id>
-				<org>IRC Server auf dem der Chat l�uft?</org>
+				<org>IRC Server auf dem der Chat l�uft?</org>
 				<en>Air IRC server on the chat?</en>
 				<es>Aire servidor de IRC en el chat?</es>
 				<fr>Air serveur IRC sur le chat?</fr>
@@ -3994,7 +3984,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>6ae5a327257287db92500d4d2687504b</id>
-				<org>H�he des Chatfensters</org>
+				<org>H�he des Chatfensters</org>
 				<en>Height of the chat window</en>
 				<es>Altura de la ventana de chat</es>
 				<fr>Hauteur de la fenêtre de chat</fr>
@@ -4004,7 +3994,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>7c8e9d8d66700b5b2b5c396b46d832e5</id>
-				<org>Sollen sich bei neuen Meils ein PopUp �ffnen?</org>
+				<org>Sollen sich bei neuen Meils ein PopUp �ffnen?</org>
 				<en>Open in new league will be a popup?</en>
 				<es>Abrir en nueva liga será un popup?</es>
 				<fr>Ouvert dans la nouvelle ligue sera une popup?</fr>
@@ -4024,7 +4014,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>cd4a189e8c4b19e11c24ab9d2cdd3f76</id>
-				<org>Stra�e</org>
+				<org>Stra�e</org>
 				<en>Straße</en>
 				<es>Straße</es>
 				<fr>Straße</fr>
@@ -4044,7 +4034,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>b305d01b9c2e916f9c747978ca30705d</id>
-				<org>Soll ein POPUP ge�ffnet werden bei einer neuen Nachricht?</org>
+				<org>Soll ein POPUP ge�ffnet werden bei einer neuen Nachricht?</org>
 				<en>Should be a POPUP Pe when a new message?</en>
 				<es>Debe ser un Pe emergente cuando un mensaje nuevo?</es>
 				<fr>Devrait être un Pe popup quand un nouveau message?</fr>
@@ -4064,7 +4054,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>d5fca2bda1e702b32ee47c2dd93ac54f</id>
-				<org>Soll der Besucher auch gleich das Depot zahlen k�nnen?</org>
+				<org>Soll der Besucher auch gleich das Depot zahlen k�nnen?</org>
 				<en>If the visitors may submit and pay equal to the depot?</en>
 				<es>Si los visitantes pueden presentar y pagar igual a la estación?</es>
 				<fr>Si les visiteurs mai soumettre et l&amp;#39;égalité de rémunération à l&amp;#39;entrepôt?</fr>
@@ -4074,7 +4064,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>f44be16409925ea49cddbc7d511ff266</id>
-				<org>Sollen die Besucher Geld f�r das Catering einzahlen k�nnen?'</org>
+				<org>Sollen die Besucher Geld f�r das Catering einzahlen k�nnen?'</org>
 				<en>Should the visitors may submit deposit money fr the catering? &quot;</en>
 				<es>En caso de que los visitantes podrán presentar fr depositar el dinero de catering?</es>
 				<fr>Si le présenter en mai les visiteurs déposent de l&amp;#39;argent de la restauration?</fr>
@@ -4084,7 +4074,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>c29a67114926c8bc0abc7310e064a9dc</id>
-				<org>Sollen die Besucher Spenden einzahlen k�nnen?</org>
+				<org>Sollen die Besucher Spenden einzahlen k�nnen?</org>
 				<en>Should the visitors may submit to deposit donations?</en>
 				<es>En caso de que los visitantes podrán presentar a las donaciones de depósito?</es>
 				<fr>Si le visiteur mai se soumettre à des dons de dépôt?</fr>
@@ -4094,7 +4084,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>b7f8bf562e48774d7f75fdaace078946</id>
-				<org>W�hrung (USD,GBP,JPY,CAD,EUR)</org>
+				<org>W�hrung (USD,GBP,JPY,CAD,EUR)</org>
 				<en>Whrung (USD, GBP, JPY, CAD, EUR)</en>
 				<es>Whrung (USD, GBP, JPY, CAD, EUR)</es>
 				<fr>Whrung (USD, GBP, JPY, CAD, EUR)</fr>
@@ -4104,7 +4094,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>3dad7d0808465b3e1a64bd658ddf67a3</id>
-				<org>Maximalh�he eines Thumbnails</org>
+				<org>Maximalh�he eines Thumbnails</org>
 				<en>Maximalhhe a thumbnail</en>
 				<es>Maximalhhe una imagen en miniatura</es>
 				<fr>Maximalhhe une vignette</fr>
@@ -4114,7 +4104,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>4c4f1c79896b8261dc8a7c5476854208</id>
-				<org>Bilder in der �bersicht pro Reihe</org>
+				<org>Bilder in der �bersicht pro Reihe</org>
 				<en>Pictures in the bersicht per row</en>
 				<es>Fotos en el bersicht por fila</es>
 				<fr>Images dans la bersicht par rangée</fr>
@@ -4124,7 +4114,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>7f7e255fd3bd65c05b275b9bb057f207</id>
-				<org>Reihen mit Bildern in der �bersicht</org>
+				<org>Reihen mit Bildern in der �bersicht</org>
 				<en>Rows of images in the verview</en>
 				<es>Filas de imágenes en el esumen</es>
 				<fr>Rangées d&amp;#39;images dans la résentation</fr>
@@ -4134,7 +4124,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>0c7747340b448fadefa50dfd022b49e7</id>
-				<org>Anzahl an Pl�tzen, die jeder Benutzer f�r Freunde vormerken darf</org>
+				<org>Anzahl an Pl�tzen, die jeder Benutzer f�r Freunde vormerken darf</org>
 				<en>Number of seats, YOM, which each user can mark friends fr</en>
 				<es>Número de asientos, Kippur, que cada usuario puede marcar los amigos de fr</es>
 				<fr>Nombre de sièges, Yom, chaque utilisateur peut marquer les amis fr</fr>
@@ -4144,7 +4134,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>5e63ef91f65587c1c54aa5acefb3a5d0</id>
-				<org>D�rfen NICHT bezahlte G�ste EINEN Sitzplatz vormerken?</org>
+				<org>D�rfen NICHT bezahlte G�ste EINEN Sitzplatz vormerken?</org>
 				<en>Drfen NOT paid gste A notepad seats?</en>
 				<es>Drfen No pagado gste Un escaños Bloc de notas?</es>
 				<fr>Drfen Non payé gste Un sièges bloc-notes?</fr>
@@ -4154,7 +4144,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>edaf2698f81d1de44ac23de3baea241e</id>
-				<org>D�rfen nur als bezahlt markierte G�ste einen Sitzplatz ausw�hlen?</org>
+				<org>D�rfen nur als bezahlt markierte G�ste einen Sitzplatz ausw�hlen?</org>
 				<en>Drfen only as paid auswhlen marked gste a seat?</en>
 				<es>Auswhlen Drfen sólo como pagado marcada gste un asiento?</es>
 				<fr>Drfen auswhlen seulement comme payé marquée gste un siège?</fr>
@@ -4164,7 +4154,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>84b60aefd414e1916b5fea7b34156527</id>
-				<org>Nur Admins d�rfen Server hinzuf�gen</org>
+				<org>Nur Admins d�rfen Server hinzuf�gen</org>
 				<en>Only Server Admins drfen SIZE INFO</en>
 				<es>Sólo Administradores de servidor drfen TAMAÑO INFO</es>
 				<fr>Seuls Server drfen Admins TAILLE D&amp;#39;INFO</fr>
@@ -4204,7 +4194,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>ed8c2813888873f2a4c371896d56c134</id>
-				<org>Nur Verlierer d�rfen das Ergebnis eintragen</org>
+				<org>Nur Verlierer d�rfen das Ergebnis eintragen</org>
 				<en>Only losers drfen enter the result</en>
 				<es>Sólo los perdedores drfen introduce el resultado</es>
 				<fr>Seuls drfen perdants entrez le résultat</fr>
@@ -4214,7 +4204,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>c963246a6add1c73c817d46f2a6091c6</id>
-				<org>Die Anzahl an Coins, die jedem Turnierteilnehmer von Beginn an zur Verf�gung stehen</org>
+				<org>Die Anzahl an Coins, die jedem Turnierteilnehmer von Beginn an zur Verf�gung stehen</org>
 				<en>The number of coins that are each tournament participant from the beginning to Verfgung</en>
 				<es>El número de monedas que cada participante del torneo desde el principio a Verfgung</es>
 				<fr>Le nombre de pièces qui sont à chaque participant du tournoi du début à Verfgung</fr>
@@ -4224,7 +4214,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>0efbbd5e7aac165cde5581eb09baafee</id>
-				<org>Sieg-Punkte bei einem Sieg in einem Liga-Turnier (Verlierer bekommen 0, Unentschieden gibt einen Punkt f�r beide)</org>
+				<org>Sieg-Punkte bei einem Sieg in einem Liga-Turnier (Verlierer bekommen 0, Unentschieden gibt einen Punkt f�r beide)</org>
 				<en>Victory points for a victory in a league tournament to get (Losers 0, draw a dot fr are both)</en>
 				<es>Los puntos de victoria para una victoria en un torneo de liga para conseguir (Perdedores 0, dibujar un punto son fr)</es>
 				<fr>Points de victoire pour une victoire dans un tournoi de ligue pour obtenir (perdants 0, dessiner un point en sont à la fois)</fr>
@@ -4234,7 +4224,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>e4ca1619de3788e3f48e2103ffde9b20</id>
-				<org>Punkte, die dem Sieger vergeben werden, bei Zeit�berschreitung, oder Disqualifizierung des Gegners</org>
+				<org>Punkte, die dem Sieger vergeben werden, bei Zeit�berschreitung, oder Disqualifizierung des Gegners</org>
 				<en>Points awarded to the winner, with Zeitberschreitung, or disqualification of the opponent</en>
 				<es>Puntos adjudicados al ganador, con Zeitberschreitung, o la descalificación del adversario</es>
 				<fr>Les points attribués au vainqueur, avec Zeitberschreitung, ou la disqualification de l&amp;#39;adversaire</fr>
@@ -4244,7 +4234,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>72ffd69ba33eeffb7f0086c2ae631beb</id>
-				<org>Der Pfad zu der zu verwendenen Schriftart f�r den Turnierbaum</org>
+				<org>Der Pfad zu der zu verwendenen Schriftart f�r den Turnierbaum</org>
 				<en>The path to the font to be used fr the tournament tree</en>
 				<es>El camino a la fuente que se utiliza el árbol del torneo fr</es>
 				<fr>Le chemin vers la police à utiliser en l&amp;#39;arbre du tournoi</fr>
@@ -4254,7 +4244,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>f0cb668f331f5fb1743031f1a3f7ae44</id>
-				<org>Die Schriftgr��e der zu verwendenen Schriftart f�r den Turnierbaum</org>
+				<org>Die Schriftgr��e der zu verwendenen Schriftart f�r den Turnierbaum</org>
 				<en>The Font The font to be used fr the tournament tree</en>
 				<es>La fuente La fuente a utilizar fr el árbol del torneo</es>
 				<fr>La Police La police à utiliser en l&amp;#39;arbre du tournoi</fr>
@@ -4264,7 +4254,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>a0f38c7f495441794b74b575690a8a8d</id>
-				<org>Sollen dem Benutzer SEINE Stra�e/Passnummer/Sonstiges angezeigt werden? (Orga sieht diese Felder immer)</org>
+				<org>Sollen dem Benutzer SEINE Stra�e/Passnummer/Sonstiges angezeigt werden? (Orga sieht diese Felder immer)</org>
 				<en>Should the user HIS Strasse / passport number / Other are displayed? (Orga sees these fields forever)</en>
 				<es>Si el usuario SU Strasse / número de pasaporte / otro se muestran? (Orga ve estos campos para siempre)</es>
 				<fr>Si l&amp;#39;utilisateur HIS Strasse / numéro de passeport / autres sont affichés? (Orga voit dans ces domaines pour toujours)</fr>
@@ -4274,7 +4264,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>8ee640ab1d392d2ed0d78ffbf3a23af6</id>
-				<org>Darf der Benutzer das Design ausw�hlen?</org>
+				<org>Darf der Benutzer das Design ausw�hlen?</org>
 				<en>The user can auswhlen the design?</en>
 				<es>El usuario puede auswhlen el diseño?</es>
 				<fr>L&amp;#39;utilisateur peut auswhlen la conception?</fr>
@@ -4284,7 +4274,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>6fa6123d2ce3e409fe3465538af7d736</id>
-				<org>Sollen die User ihre Details im Nachhinein selbst �ndern d�rfen?</org>
+				<org>Sollen die User ihre Details im Nachhinein selbst �ndern d�rfen?</org>
 				<en>Should the user change their details drfen even in hindsight?</en>
 				<es>Si el usuario cambiar sus datos drfen incluso en retrospectiva?</es>
 				<fr>L&amp;#39;utilisateur doit changer de détails drfen même en recul?</fr>
@@ -4294,7 +4284,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>6189e293e758ccc45f833165eef5d0d3</id>
-				<org>Name des PDF-Templates f�r Eintrittskarte</org>
+				<org>Name des PDF-Templates f�r Eintrittskarte</org>
 				<en>Name of PDF templates fr ticket</en>
 				<es>Nombre de PDF plantillas de billete fr</es>
 				<fr>Nom de modèles PDF billet fr</fr>
@@ -4354,7 +4344,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>ae7bcd68ae0adfbda8157614c8b6c23a</id>
-				<org>UDP Port f�r Teamspeak der auch hinter der IP Adresse genutzt wird (Standard 8767)</org>
+				<org>UDP Port f�r Teamspeak der auch hinter der IP Adresse genutzt wird (Standard 8767)</org>
 				<en>Fr Teamspeak UDP port which is also used behind the IP address (default 8767)</en>
 				<es>P. Teamspeak puerto UDP que se utiliza también detrás de la dirección IP (por defecto 8767)</es>
 				<fr>Fr Teamspeak port UDP, qui est également utilisé derrière l&amp;#39;adresse IP (par défaut 8767)</fr>
