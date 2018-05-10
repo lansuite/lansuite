@@ -4,10 +4,19 @@ use LanSuite\Module\Seating\Seat2;
 
 include_once("modules/usrmgr/class_usrmgr.php");
 
-$seat2 = new Seat2();
-
-class guestlist
+class GuestList
 {
+
+    /**
+     * @var Seat2
+     */
+    private $seating;
+
+    public function __construct(Seat2 $seating)
+    {
+        $this->seating = $seating;
+    }
+
     /**
      * @param int $userid
      * @param int $partyid
@@ -15,7 +24,7 @@ class guestlist
      */
     public function SetPaid($userid, $partyid)
     {
-        global $db, $cfg, $func, $seat2, $usrmgr;
+        global $db, $cfg, $func, $usrmgr;
 
         include_once("modules/mail/class_mail.php");
         $mail = new mail();
@@ -49,7 +58,7 @@ class guestlist
         }
 
         // Reserve Seat
-        $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
+        $this->seating->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
 
         $usrmgr->WriteXMLStatFile();
 
@@ -64,7 +73,7 @@ class guestlist
      */
     public function SetNotPaid($userid, $partyid)
     {
-        global $db, $cfg, $func, $seat2, $usrmgr;
+        global $db, $cfg, $func, $usrmgr;
 
         include_once("modules/mail/class_mail.php");
         $mail = new mail();
@@ -91,7 +100,7 @@ class guestlist
         }
 
         // Switch seat back to "marked"
-        $seat2->MarkSeatIfNotPaidAndSeatReserved($userid);
+        $this->seating->MarkSeatIfNotPaidAndSeatReserved($userid);
 
         $usrmgr->WriteXMLStatFile();
 

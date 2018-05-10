@@ -1,7 +1,8 @@
 <?php
 
 include_once('modules/guestlist/class_guestlist.php');
-$guestlist = new guestlist;
+$seating = new Seat2();
+$guestlist = new GuestList($seating);
 
 switch ($_GET['step']) {
     // Export CSV
