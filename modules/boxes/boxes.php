@@ -1,53 +1,5 @@
 <?php
 
-/**
- * @return int
- */
-function PartyAvailible()
-{
-    global $party;
-
-    if ($party->count > 0) {
-        return 1;
-    }
-
-    return 0;
-}
-
-/**
- * @return int
- */
-function MsgInIntMode()
-{
-    global $cfg;
-
-    if (!$cfg['sys_internet'] || $cfg['msgsys_alwayson']) {
-        return 1;
-    }
-
-    return 0;
-}
-
-/**
- * @return int
- */
-function IsWWCLT()
-{
-    global $db, $party;
-
-    if ($_GET['mod'] != 'tournament2') {
-        return 0;
-    }
-
-    $row = $db->qry_first("SELECT 1 AS found FROM %prefix%tournament_tournaments WHERE wwcl_gameid > 0 AND party_id = %int%", $party->party_id);
-    if ($row['found']) {
-        return 1;
-    } else {
-        return 0;
-    }
-
-}
-
 // In LogOff state all boxes are visible (no ability to minimize them)
 if ($auth['login'] == "1") {
     // Change state, when Item is clicked
