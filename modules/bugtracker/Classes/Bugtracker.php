@@ -146,6 +146,8 @@ class Bugtracker
         } else {
             $this->SetBugStateInternal($bugid, 2);
         }
+
+        return true;
     }
 
     /**
@@ -168,5 +170,7 @@ class Bugtracker
         if ($state == 2 or $state == 4 or $state == 6) {
             $this->AssignBugToUserInternal($bugid, $auth['userid']);
         }
+
+        return true;
     }
 }
