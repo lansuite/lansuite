@@ -35,6 +35,7 @@
         "psr-4": {
             "LanSuite\\Module\\Beamer\\": "modules/beamer/Classes/",
             "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/",
+            "LanSuite\\Module\\Cron2\\": "modules/cron2/Classes/",
             "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/",
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
