@@ -1,47 +1,5 @@
 <?php
 
-/**
- * @param int $last
- * @return false|string
- */
-function getTimeDiff($last)
-{
-    return date("i:s", time()-$last);
-}
-
-/**
- * @param string $lasturl
- * @return string
- */
-function getLastHitUrl($lasturl)
-{
-    return '<a href="'.$lasturl.'">'.substr(stristr($lasturl, '.php'), 5).'</a>';
-}
-
-/**
- * @param string $url
- * @return mixed
- */
-function getModul($url)
-{
-    $ret=array();
-    parse_str(substr(stristr($url, '.php'), 5), $ret);
-    return $ret['mod'];
-}
-
-/**
- * @param int $last
- * @return string
- */
-function getTimeDiffAsName($last)
-{
-    if ((time()-$last) < 60*10) {
-        return t("Online");
-    } else {
-        return t("Untätig");
-    }
-}
-
 $dsp->NewContent(t("Online User"));
 
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('games');
