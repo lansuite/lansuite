@@ -1,16 +1,16 @@
 <?php
 /*************************************************************************
 *
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	 2.0
-*	File Version:		 1.0
-*	Filename: 		database.php
-*	Module: 			Statistics
-*	Main editor: 		christian@one-network.org
-*	Last change: 		2002-12-15
-*	Description: 		Shows informations about database.
-*	Remarks:
+*   Lansuite - Webbased LAN-Party Management System
+*   -------------------------------------------------------------------
+*   Lansuite Version:    2.0
+*   File Version:        1.0
+*   Filename:       database.php
+*   Module:             Statistics
+*   Main editor:        christian@one-network.org
+*   Last change:        2002-12-15
+*   Description:        Shows informations about database.
+*   Remarks:
 *
 **************************************************************************/
 

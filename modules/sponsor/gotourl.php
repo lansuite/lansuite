@@ -1,16 +1,16 @@
 <?php
 /*************************************************************************
 *
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			show.php
-*	Module: 			Sponsorpresentation
-*	Main editor: 		jochen@one-network.org
-*	Last change: 		29.05.2004
-*	Description: 		show a list of sponsors
-*	Remarks:
+*   Lansuite - Webbased LAN-Party Management System
+*   -------------------------------------------------------------------
+*   Lansuite Version:   2.0
+*   File Version:       2.1
+*   Filename:           show.php
+*   Module:             Sponsorpresentation
+*   Main editor:        jochen@one-network.org
+*   Last change:        29.05.2004
+*   Description:        show a list of sponsors
+*   Remarks:
 *
 **************************************************************************/
 

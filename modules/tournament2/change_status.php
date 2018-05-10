@@ -1,16 +1,16 @@
 <?php
 /*************************************************************************
 *
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			join.php
-*	Module: 			Tournamentsystem
-*	Main editor: 		jochen@one-network.org
-*	Last change: 		26.04.2004
-*	Description: 		Undo status changing
-*	Remarks:
+*   Lansuite - Webbased LAN-Party Management System
+*   -------------------------------------------------------------------
+*   Lansuite Version:   2.0
+*   File Version:       2.1
+*   Filename:           join.php
+*   Module:             Tournamentsystem
+*   Main editor:        jochen@one-network.org
+*   Last change:        26.04.2004
+*   Description:        Undo status changing
+*   Remarks:
 *
 **************************************************************************/
 

@@ -2,16 +2,16 @@
 
 /*************************************************************************
 *
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		remove.php
-*	Module: 		Msgsys
-*	Main editor: 		johannes@one-network.org
-*	Last change: 		04.01.2003 17:32
-*	Description:
-*	Remarks:
+*   Lansuite - Webbased LAN-Party Management System
+*   -----------------------------------------------
+*   Lansuite Version:   2.0
+*   File Version:       2.0
+*   Filename:       remove.php
+*   Module:         Msgsys
+*   Main editor:        johannes@one-network.org
+*   Last change:        04.01.2003 17:32
+*   Description:
+*   Remarks:
 *
 **************************************************************************/
 

@@ -13,8 +13,7 @@ function Update($id)
     global $mf, $db, $usrmgr, $func, $cfg;
 
     // Clan-Management
-    include_once("modules/clanmgr/class_clan.php");
-    $clan = new Clan();
+    $clan = new \LanSuite\Module\ClanMgr\Clan();
     if (ShowField('clan')) {
         if ($_POST['new_clan_select']) {
             $clan->Add($_POST['clan_new'], $id, $_POST["clanurl"], $_POST["newclanpw"]);
@@ -413,13 +412,13 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                     }
 
                     $mf->AddField(
-                      t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
-                      '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
-                      '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
-                      'permissions',
-                      \LanSuite\MasterForm::IS_MULTI_SELECTION,
-                      $selections,
-                      \LanSuite\MasterForm::FIELD_OPTIONAL
+                        t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
+                        '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
+                        '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
+                        'permissions',
+                        \LanSuite\MasterForm::IS_MULTI_SELECTION,
+                        $selections,
+                        \LanSuite\MasterForm::FIELD_OPTIONAL
                     );
 
                     $mf->AddDropDownFromTable(t('Gruppe'), 'group_id', 'group_id', 'group_name', 'party_usergroups', t('Keine'));
@@ -434,7 +433,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             }
   
             $mf->AddField(t('E-Mail'), 'email', '', '', '', CheckValidEmail);
-            $mf->AddField(t('E-Mail wiederholen'),'email2','','','');	
+            $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', '');
             if (($_GET['action'] != 'change' && $_GET['action'] != 'entrance') || ($_GET['action'] == 'entrance' && !$_GET['userid'])) {
                 if ($cfg['signon_autopw']) {
                     $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();

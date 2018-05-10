@@ -1,16 +1,16 @@
 <?php
 /*************************************************************************
 *
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	 2.0
-*	File Version:		 2.0
-*	Filename: 			cat.php
-*	Module: 			Troubleticket
-*	Main editor: 		marco@chuchi.tv
-*	Last change:
-*	Description: 		edit categories
-*	Remarks:
+*   Lansuite - Webbased LAN-Party Management System
+*   -------------------------------------------------------------------
+*   Lansuite Version:    2.0
+*   File Version:        2.0
+*   Filename:           cat.php
+*   Module:             Troubleticket
+*   Main editor:        marco@chuchi.tv
+*   Last change:
+*   Description:        edit categories
+*   Remarks:
 *
 **************************************************************************
 */

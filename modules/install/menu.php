@@ -119,7 +119,7 @@ switch ($_GET["step"]) {
                         $link .= "[<a href=\"index.php?mod=install&action=menu&step=4&pos=$z&onlyactive={$_GET["onlyactive"]}\">".t('Trennzeile')."</a>] ";
                     }
                 }
-#				$link .= "[<a href=\"index.php?mod=install&action=menu&step=8&pos=$z&onlyactive={$_GET["onlyactive"]}\">".t('Gruppe')." ({$menu["group_nr"]})</a>] ";
+#               $link .= "[<a href=\"index.php?mod=install&action=menu&step=8&pos=$z&onlyactive={$_GET["onlyactive"]}\">".t('Gruppe')." ({$menu["group_nr"]})</a>] ";
                 if ($z > 1) {
                     $link .= "[<a href=\"index.php?mod=install&action=menu&step=2&pos=$z&onlyactive={$_GET["onlyactive"]}\">^</a>] ";
                 }

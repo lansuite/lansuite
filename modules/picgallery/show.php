@@ -27,9 +27,9 @@ function IsSupportedType($ext)
     or ($ext == "wbmp" and (ImageTypes() & IMG_WBMP))
     or ($ext == "bmp")
     or (IsSupportedVideo($ext))
-#	or ($ext == "ico")		// Problem: "Die" in target-function + most Browsers can not display this type
-#	or ($ext == "cur")		// Problem: "Die" in target-function + most Browsers can not display this type
-#	or ($ext == "ani")		// Problem: "Die" in target-function + most Browsers can not display this type
+#   or ($ext == "ico")      // Problem: "Die" in target-function + most Browsers can not display this type
+#   or ($ext == "cur")      // Problem: "Die" in target-function + most Browsers can not display this type
+#   or ($ext == "ani")      // Problem: "Die" in target-function + most Browsers can not display this type
     ) {
         return true;
     } else {
@@ -424,7 +424,7 @@ elseif (!$akt_file) {
 
                 $js_full_link = "javascript:var w=window.open('$root_file','_blank','width=". ($picinfo['0'] + 10) .",height=". ($picinfo['1'] + 10) .",resizable=yes,scrollbars=yes')";
 
-                  //					JPG						PNG						GIF						BMP
+                  //                    JPG                     PNG                     GIF                     BMP
                 if ($picinfo['2'] == "1" or $picinfo['2'] == "2" or $picinfo['2'] == "3" or $picinfo['2'] == "6") {
                     $dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
                 }

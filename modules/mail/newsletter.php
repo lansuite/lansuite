@@ -34,7 +34,7 @@ switch ($_GET["step"]) {
 
         $dsp->AddFieldSetStart('Zielgruppen-Einschränkung');
         $dsp->AddCheckBoxRow("onlynewsletter", t('Nur Newsletter'), t('Nur an Benutzer, die den Newsletter bei der Anmeldung bestellt haben'), "", 1, $_POST["onlynewsletter"]);
-#		$dsp->AddCheckBoxRow("onlysignon", t('Nur Angemeldete'), t('Nur an Benutzer, die zur aktuellen Party angemeldet sind'), "", 1, $_POST["onlysignon"]);
+#       $dsp->AddCheckBoxRow("onlysignon", t('Nur Angemeldete'), t('Nur an Benutzer, die zur aktuellen Party angemeldet sind'), "", 1, $_POST["onlysignon"]);
 
         $t_array = array();
         array_push($t_array, '<option $selected value="0">'. t('An alle Benutzer') .'</option>');

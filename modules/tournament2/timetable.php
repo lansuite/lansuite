@@ -47,7 +47,7 @@ $tournaments = $db->qry("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime
   FROM %prefix%tournament_tournaments
   WHERE party_id = %int% AND (%int% > 1 OR status != 'invisible')", $party->party_id, $auth['type']);
 while ($tournament = $db->fetch_array($tournaments)) {
-    #	echo "Zeit {$tournament["starttime"]}<br>";
+    #   echo "Zeit {$tournament["starttime"]}<br>";
 
     $team_anz = $tfunc->GetTeamAnz($tournament["tournamentid"], $tournament["mode"]);
     $max_round = 1;

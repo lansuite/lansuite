@@ -134,7 +134,7 @@ switch ($_GET["step"]) {
                 $noc->getSNMPValue($row["ip"], $row["readcommunity"], ".1.3.6.1.2.1.2.2.1.7." . $ports[$ActualPort]);
 
             //$Port[$ActualPort]["MACAddress"] =
-            //	$noc->getSNMPValue( $row["ip"], $row["readcommunity"], ".1.3.6.1.2.1.2.2.1.6." . $ports[$ActualPort]);
+            //  $noc->getSNMPValue( $row["ip"], $row["readcommunity"], ".1.3.6.1.2.1.2.2.1.6." . $ports[$ActualPort]);
 
             $Port[$ActualPort]["Type"] =
                 $noc->getSNMPValue($row["ip"], $row["readcommunity"], ".1.3.6.1.2.1.2.2.1.3." . $ports[$ActualPort]);
@@ -143,7 +143,7 @@ switch ($_GET["step"]) {
                 $noc->getSNMPValue($row["ip"], $row["readcommunity"], ".1.3.6.1.2.1.2.2.1.2." . $ports[$ActualPort]);
 
             //$Port[$ActualPort]["IPAddress"] =
-            //	$noc->MACtoIP( $Port[$ActualPort]["MACAddress"], $row["ip"], $row["readcommunity"] );
+            //  $noc->MACtoIP( $Port[$ActualPort]["MACAddress"], $row["ip"], $row["readcommunity"] );
             
             $Port[$ActualPort]["ifSpecific"] =
                 $noc->getSNMPValue($row["ip"], $row["readcommunity"], ".1.3.6.1.2.1.2.2.1.22." . $ports[$ActualPort]);

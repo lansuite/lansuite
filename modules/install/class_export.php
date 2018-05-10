@@ -282,7 +282,7 @@ class Export
             $user_export .= $row["password"].$sep;
             $user_export .= $row["type"].$sep;
             $user_export .= $row["paid"].$sep;
-#			$user_export .= $row["paidcash"].$sep;
+#           $user_export .= $row["paidcash"].$sep;
             $user_export .= $row["seatcontrol"].$sep;
 
             $user_export .= $row["clan"].$sep;

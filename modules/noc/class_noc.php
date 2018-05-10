@@ -1,6 +1,6 @@
 <?php
 
-/*	Network Operations Centre
+/*  Network Operations Centre
  *
  *	originally based on phpSMITH
  *
@@ -88,7 +88,7 @@ class noc
         
         if (stristr($SNMPValue, "counter") || stristr($SNMPValue, "gauge") || stristr($SNMPValue, "string") || stristr($SNMPValue, "integer") ||  stristr($SNMPValue, "OID")) {
             $tmp = strtok($SNMPValue, ":");
-            $tmp = ltrim(strtok($tmp,":"));
+            $tmp = ltrim(strtok($tmp, ":"));
 
             while ($tmp2 = strtok(":")) {
                 $tmp .= $tmp2;

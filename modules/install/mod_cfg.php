@@ -195,7 +195,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         break;
 
                     default:
-                      #			$dsp->NewContent(t('Datenbank - Modul') .": ". $_GET["module"], t('Hier kannst du die Datenbankeinträge zu diesem Modul verwalten'));
+                      #         $dsp->NewContent(t('Datenbank - Modul') .": ". $_GET["module"], t('Hier kannst du die Datenbankeinträge zu diesem Modul verwalten'));
 
                             $mod_tables = '';
                             $mod_tables_arr = array();
