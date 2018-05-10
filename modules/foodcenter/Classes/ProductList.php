@@ -56,7 +56,6 @@ class ProductList
             for ($i = 0; $i < count($this->product); $i++) {
                 $this->product[$i]->order_form($worklink);
             }
-
         } else {
             $dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));
         }
@@ -87,7 +86,6 @@ class ProductList
     {
         // Product already in the list?
         if (in_array($id, $this->product_list)) {
-
             if (is_array($opt)) {
                 $temp_prod = new Product($id);
                 $temp_prod->ordered++;
@@ -127,7 +125,6 @@ class ProductList
                 }
 
                 return true;
-
             } else {
                 // If the product is not given, search for it
                 foreach ($this->product_list as $key => $value) {

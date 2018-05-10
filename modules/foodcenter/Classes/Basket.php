@@ -36,7 +36,6 @@ class Basket
             $_SESSION['basket_count'] = 0;
             $this->count = 0;
             $this->product = new ProductList();
-
         } else {
             $this->product = unserialize($_SESSION['basket_item']['product']);
             $this->count = $_SESSION['basket_count'];
@@ -58,7 +57,6 @@ class Basket
                 if ($this->product->add_product($_GET['add'], $_GET['opt'])) {
                     $this->count ++;
                 }
-
             } else {
                 if (!is_array($_POST['option'])) {
                     $_POST['option'] = array();
@@ -104,7 +102,6 @@ class Basket
             }
         
             $dsp->AddFormSubmitRow(t('Bestellen'));
-
         } else {
             $func->information(t('Keine Artikel im Warenkorb'), NO_LINK);
         }
@@ -145,19 +142,16 @@ class Basket
         
             if ($result['total'] == "") {
                 $this->balance = 0;
-
             } else {
                 $this->balance = $result['total'];
             }
 
             if ($this->product->count_products_price() <= $this->balance) {
                 return $ok;
-
             } else {
                 $func->error(t('Nicht genügend Geld auf dem Konto.'), "index.php?mod=foodcenter&action={$_GET['action']}");
                 return false;
             }
-
         } else {
             return $ok;
         }
