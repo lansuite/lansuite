@@ -1,5 +1,7 @@
 <?php
 
+namespace LanSuite\Module\GuestList;
+
 use LanSuite\Module\Seating\Seat2;
 
 include_once("modules/usrmgr/class_usrmgr.php");

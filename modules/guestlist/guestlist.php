@@ -1,8 +1,7 @@
 <?php
 
-include_once('modules/guestlist/class_guestlist.php');
 $seating = new Seat2();
-$guestlist = new GuestList($seating);
+$guestlist = new LanSuite\Module\GuestList\GuestList($seating);
 
 switch ($_GET['step']) {
     // Paid

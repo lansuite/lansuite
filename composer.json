@@ -36,6 +36,7 @@
             "LanSuite\\Module\\Beamer\\": "modules/beamer/Classes/",
             "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/",
             "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/",
+            "LanSuite\\Module\\GuestList\\": "modules/guestlist/Classes/",
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
