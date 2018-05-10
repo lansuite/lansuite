@@ -19,7 +19,6 @@ function getColor()
 
 if ($_GET['act'] == "him" && $auth['type'] < 3) {
     $func->information("ACCESS_DENIED");
-
 } elseif ($_GET['act'] == "him" && $auth['type'] = 3) {
     switch ($_GET['step']) {
         case 2:
