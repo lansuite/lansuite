@@ -2,14 +2,14 @@
 include_once('modules/bugtracker/class_bugtracker.php');
 $bugtracker = new Bugtracker();
 
-$types = array();
+$types = [];
 $types['1'] = t('Feature Wunsch');
 $types['2'] = t('Schreibfehler');
 $types['3'] = t('Kleiner Fehler');
 $types['4'] = t('Schwerer Fehler');
 $types['5'] = t('Absturz');
 
-$colors = array();
+$colors = [];
 $colors[0] = '#bc851b';
 $colors[1] = '#dc5656';
 $colors[2] = '#e19501';
@@ -27,7 +27,7 @@ if ($_POST['action']) {
                 $bugtracker->SetBugState($key, $_GET['state']);
             }
 
-    // Assign to new user
+            // Assign to new user
             if ($_GET['userid'] != '') {
                 $bugtracker->AssignBugToUser($key, $_GET['userid']);
             }
@@ -50,12 +50,21 @@ if ($_GET['action'] == 'delete' and $auth['type'] >= 2) {
     }
 }
 
+/**
+ * @param int $state
+ * @return mixed
+ */
 function FetchState($state)
 {
     global $bugtracker;
+
     return $bugtracker->stati[$state];
 }
 
+/**
+ * @param string $type
+ * @return string
+ */
 function FetchType($type)
 {
     global $types, $line;
@@ -86,7 +95,6 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     LEFT JOIN %prefix%comments AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
     ";
     $ms2->query['where'] = '(!private OR '. (int)$auth['type'] .' >= 2)';
-#  $ms2->query['default_order_by'] = 'FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
     $ms2->query['default_order_by'] = 'changedate DESC, FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
     $ms2->config['EntriesPerPage'] = 50;
     $ms2->AddBGColor('state', $colors);
@@ -128,12 +136,6 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 
     $ms2->AddTextSearchDropDown('Status', 'b.state', $bugtracker->stati, '', 8);
     $ms2->AddTextSearchDropDown('Typ', 'b.type', $types, '', 5);
-
-/*
-  $list = array('' => 'Alle'));
-  $list += $types;
-  $ms2->AddTextSearchDropDown('Typ', 'b.type', $list);
-*/
 
     $ms2->AddResultField(t('Titel'), 'b.caption');
     $ms2->AddSelect('r.userid');
@@ -183,10 +185,22 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 } else {
     $func->SetRead('bugtracker', $_GET['bugid']);
 
-    $row = $db->qry_first("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, UNIX_TIMESTAMP(b.date) AS date, r.username AS reporter_name, a.username AS agent_name FROM %prefix%bugtracker AS b
-    LEFT JOIN %prefix%user AS r ON b.reporter = r.userid
-    LEFT JOIN %prefix%user AS a ON b.agent = a.userid
-    WHERE bugid = %int% AND (!private OR ". (int)$auth['type'] ." >= 2)", $_GET['bugid']);
+    $row = $db->qry_first("
+      SELECT
+        b.*,
+        UNIX_TIMESTAMP(b.changedate) AS changedate,
+        UNIX_TIMESTAMP(b.date) AS date,
+        r.username AS reporter_name,
+        a.username AS agent_name
+      FROM %prefix%bugtracker AS b
+      LEFT JOIN %prefix%user AS r ON b.reporter = r.userid
+      LEFT JOIN %prefix%user AS a ON b.agent = a.userid
+      WHERE
+        bugid = %int%
+        AND (
+          !private
+          OR ". (int)$auth['type'] ." >= 2
+        )", $_GET['bugid']);
 
     $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
     $dsp->StartTabs();

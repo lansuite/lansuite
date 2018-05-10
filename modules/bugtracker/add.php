@@ -36,7 +36,7 @@ if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']
     }
     $mf->AddField(t('Priorität'), 'priority', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-  // Assign bug
+    // Assign bug
     if ($auth['type'] >= 2) {
         $mf->AddDropDownFromTable(t('Bearbeiter'), 'agent', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
         $mf->AddField(t('Preis'), 'price', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
