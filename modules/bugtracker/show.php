@@ -1,5 +1,7 @@
 <?php
-include_once('modules/bugtracker/class_bugtracker.php');
+
+use LanSuite\Module\Bugtracker\Bugtracker;
+
 $bugtracker = new Bugtracker();
 
 $types = [];
