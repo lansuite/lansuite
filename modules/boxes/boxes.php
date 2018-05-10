@@ -1,57 +1,54 @@
 <?php
 
 /**
-* PartyAvailible()
-*
-* @return
-*/
+ * @return int
+ */
 function PartyAvailible()
 {
     global $party;
+
     if ($party->count > 0) {
         return 1;
-    } else {
-        return 0;
     }
+
+    return 0;
 }
 
 /**
-* MsgInIntMode()
-*
-* @return
-*/
+ * @return int
+ */
 function MsgInIntMode()
 {
     global $cfg;
-    if (!$cfg['sys_internet'] or $cfg['msgsys_alwayson']) {
+
+    if (!$cfg['sys_internet'] || $cfg['msgsys_alwayson']) {
+        return 1;
+    }
+
+    return 0;
+}
+
+/**
+ * @return int
+ */
+function IsWWCLT()
+{
+    global $db, $party;
+
+    if ($_GET['mod'] != 'tournament2') {
+        return 0;
+    }
+
+    $row = $db->qry_first("SELECT 1 AS found FROM %prefix%tournament_tournaments WHERE wwcl_gameid > 0 AND party_id = %int%", $party->party_id);
+    if ($row['found']) {
         return 1;
     } else {
         return 0;
     }
+
 }
 
-/**
-* IsWWCLT()
-*
-* @return
-*/
-function IsWWCLT()
-{
-    global $db, $party;
-    if ($_GET['mod'] != 'tournament2') {
-        return 0;
-    } else {
-        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%tournament_tournaments WHERE wwcl_gameid > 0 AND party_id = %int%", $party->party_id);
-        if ($row['found']) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-}
-
-### In LogOff state all boxes are visible (no ability to minimize them)
-
+// In LogOff state all boxes are visible (no ability to minimize them)
 if ($auth['login'] == "1") {
     // Change state, when Item is clicked
     if ($_GET['box_action'] == 'change' and $_GET['boxid'] != "") {
@@ -63,17 +60,44 @@ if ($auth['login'] == "1") {
     }
 }
 
-### Generate Boxes
 include_once('modules/boxes/class_boxes.php');
 
 // Fetch Boxes
 $MenuActive = 0;
-$BoxRes = $db->qry("SELECT boxid, name, place, source, module, callback, login, internet FROM %prefix%boxes
-  WHERE active = 1
-    AND (internet = 0 OR internet = %int% + 1)
-    AND (login = 0 OR (login = 1 AND %int% = 0) OR (login = 2 AND %int% = 1) OR (login > 2 AND login <= %int% + 1))
-  ORDER BY pos
-  ", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
+$BoxRes = $db->qry("
+  SELECT
+    boxid,
+    name,
+    place,
+    source,
+    module,
+    callback,
+    login,
+    internet
+  FROM %prefix%boxes
+  WHERE
+    active = 1
+    AND (
+      internet = 0
+      OR internet = %int% + 1
+    )
+    AND (
+      login = 0
+      OR (
+        login = 1
+        AND %int% = 0
+      )
+      OR (
+        login = 2
+        AND %int% = 1
+      )
+      OR (
+        login > 2
+        AND
+        login <= %int% + 1
+      )
+    )
+  ORDER BY pos", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
 
 while ($BoxRow = $db->fetch_array($BoxRes)) {
     if (($BoxRow['module'] == '' or $func->isModActive($BoxRow['module'])) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
@@ -97,13 +121,12 @@ while ($BoxRow = $db->fetch_array($BoxRes)) {
             }
             if (file_exists('modules/'. $BoxRow['module'] .'/boxes/'. $BoxRow['source'] .'.php')) {
                 include_once('modules/'. $BoxRow['module'] .'/boxes/'. $BoxRow['source'] .'.php');
-#        if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) {
+
                 if ($BoxRow['place'] == 0 or $framework->IsMobileBrowser) {
                     $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']), t($BoxRow['name']), $BoxRow['module']);
                 } elseif ($BoxRow['place'] == 1) {
                     $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']), t($BoxRow['name']), $BoxRow['module']);
                 }
-#        }
             }
         }
     }
