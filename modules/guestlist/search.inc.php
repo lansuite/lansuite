@@ -8,6 +8,10 @@ if ($func->isModActive('seating')) {
     $seat2 = new Seat2();
 }
 
+/**
+ * @param int $userid
+ * @return string
+ */
 function SeatNameLink($userid)
 {
     global $seat2;
@@ -15,6 +19,10 @@ function SeatNameLink($userid)
     return $seat2->SeatNameLink($userid);
 }
 
+/**
+ * @param boolean $paid
+ * @return string
+ */
 function PaidIconLink($paid)
 {
     global $dsp, $line, $auth;
@@ -34,6 +42,10 @@ function PaidIconLink($paid)
     }
 }
 
+/**
+ * @param string $clan_name
+ * @return string
+ */
 function ClanURLLink($clan_name)
 {
     global $line, $func;
@@ -52,6 +64,10 @@ function ClanURLLink($clan_name)
     }
 }
 
+/**
+ * @param string $price_text
+ * @return string
+ */
 function p_price($price_text)
 {
     global $line, $cfg;

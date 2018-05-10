@@ -46,6 +46,10 @@ switch ($_GET['step']) {
 
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
+/**
+ * @param string $clan_name
+ * @return string
+ */
 function ClanURLLink($clan_name)
 {
     global $line, $func;
@@ -68,8 +72,8 @@ if (!$party->party_id) {
     $func->information(t('Bitte setzte zuerst eine aktive Party.'));
 } else {
     $ms2->query['from'] = "%prefix%party_user pu
-	INNER JOIN %prefix%user u ON u.userid = pu.user_id
-	LEFT JOIN %prefix%clan c ON c.clanid = u.clanid";
+    INNER JOIN %prefix%user u ON u.userid = pu.user_id
+    LEFT JOIN %prefix%clan c ON c.clanid = u.clanid";
 
     $ms2->query['where'] = 'pu.party_id = '. (int)$party->party_id . ' AND (exported IS NULL OR exported = 0)';
 

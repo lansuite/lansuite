@@ -8,6 +8,11 @@ $seat2 = new Seat2();
 
 class guestlist
 {
+    /**
+     * @param int $userid
+     * @param int $partyid
+     * @return array
+     */
     public function SetPaid($userid, $partyid)
     {
         global $db, $cfg, $func, $seat2, $usrmgr;
@@ -43,7 +48,7 @@ class guestlist
                 $Messages['error'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE;
         }
 
-    // Reserve Seat
+        // Reserve Seat
         $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
 
         $usrmgr->WriteXMLStatFile();
@@ -52,6 +57,11 @@ class guestlist
         return $Messages;
     }
 
+    /**
+     * @param int $userid
+     * @param int $partyid
+     * @return array
+     */
     public function SetNotPaid($userid, $partyid)
     {
         global $db, $cfg, $func, $seat2, $usrmgr;
@@ -80,7 +90,7 @@ class guestlist
                 : $Messages['error'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE;
         }
 
-    // Switch seat back to "marked"
+        // Switch seat back to "marked"
         $seat2->MarkSeatIfNotPaidAndSeatReserved($userid);
 
         $usrmgr->WriteXMLStatFile();
@@ -89,11 +99,16 @@ class guestlist
         return $Messages;
     }
 
+    /**
+     * @param int $userid
+     * @param int $partyid
+     * @return int
+     */
     public function CheckIn($userid, $partyid)
     {
         global $db, $func;
 
-    // Check paid
+        // Check paid
         $row = $db->qry_first('SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
         if (!$row['paid']) {
             return 1;
@@ -101,17 +116,22 @@ class guestlist
 
         $db->qry('UPDATE %prefix%party_user SET checkin = NOW() WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
 
-    // Log
+        // Log
         $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
         $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
         $func->log_event(t('Benutzer "%1" wurde für die Party "%2" eingecheckt', $row['username'], $row2['name']), 1, '', 'Checkin');
     }
 
+    /**
+     * @param int $userid
+     * @param int $partyid
+     * @return int
+     */
     public function CheckOut($userid, $partyid)
     {
         global $db, $func;
 
-    // Check checkin
+        // Check checkin
         $row = $db->qry_first('SELECT checkin FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
         if (!$row['checkin']) {
             return 1;
@@ -119,40 +139,65 @@ class guestlist
 
         $db->qry('UPDATE %prefix%party_user SET checkout = NOW() WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
 
-    // Log
+        // Log
         $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
         $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
         $func->log_event(t('Benutzer "%1" wurde für die Party "%2" ausgecheckt', $row['username'], $row2['name']), 1, '', 'Checkin');
     }
 
+    /**
+     * @param int $userid
+     * @param int $partyid
+     * @return void
+     */
     public function UndoCheckInOut($userid, $partyid)
     {
         global $db, $func;
 
         $db->qry('UPDATE %prefix%party_user SET checkin = 0, checkout = 0 WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
 
-    // Log
+        // Log
         $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
         $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
         $func->log_event(t('Einceck- und Auscheckstatus des Benutzers "%1" wurde für die Party "%2" zurückgesetzt', $row['username'], $row2['name']), 1, '', 'Checkin');
     }
-    
+
+    /**
+     * @param int $userid
+     * @param int $partyid
+     * @return void
+     */
     public function SetExported($userid, $partyid)
     {
         global $db;
         
         $db->qry('UPDATE %prefix%party_user SET exported = 1 WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
     }
-    
+
+    /**
+     * @param int $userid
+     * @param int $partyid
+     * @return string
+     */
     public function Export($userid, $partyid)
     {
         global $db;
         
-        $row = $db->qry_first('SELECT pu.user_id "user_id", u.username "username", u.firstname "firstname", u.name "secondname", c.name "clan"
-			FROM %prefix%party_user pu
-			INNER JOIN %prefix%user u ON u.userid = pu.user_id
-			LEFT JOIN %prefix%clan c ON c.clanid = u.clanid
-			WHERE pu.user_id = %int% AND pu.party_id = %int% LIMIT 1', $userid, $partyid);
+        $row = $db->qry_first('
+          SELECT
+            pu.user_id "user_id",
+            u.username "username",
+            u.firstname "firstname",
+            u.name "secondname",
+            c.name "clan"
+          FROM
+            %prefix%party_user pu
+            INNER JOIN %prefix%user u ON u.userid = pu.user_id
+            LEFT JOIN %prefix%clan c ON c.clanid = u.clanid
+          WHERE
+            pu.user_id = %int%
+            AND pu.party_id = %int%
+          LIMIT 1', $userid, $partyid);
             
         return $row['user_id'] . ';' . $row['username'] . ';' . $row['firstname'] . ';' . $row['secondname'] . ';' . $row['clan'];
     }
