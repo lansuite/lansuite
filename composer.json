@@ -59,6 +59,8 @@
             "modules/board/Functions/NameAndDesc.php",
             "modules/board/Functions/NewPosts.php",
             "modules/board/Functions/Update.php",
+            "modules/bugtracker/Functions/FetchState.php",
+            "modules/bugtracker/Functions/FetchType.php",
             "modules/mastersearch2/Functions/MS2GetDate.php",
             "modules/mastersearch2/Functions/MS2GetTime.php",
             "modules/mastersearch2/Functions/Text2LSCode.php",

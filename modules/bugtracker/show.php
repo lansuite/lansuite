@@ -50,32 +50,6 @@ if ($_GET['action'] == 'delete' and $auth['type'] >= 2) {
     }
 }
 
-/**
- * @param int $state
- * @return mixed
- */
-function FetchState($state)
-{
-    global $bugtracker;
-
-    return $bugtracker->stati[$state];
-}
-
-/**
- * @param string $type
- * @return string
- */
-function FetchType($type)
-{
-    global $types, $line;
-
-    $ret = $types[$type];
-    if ($line['price']) {
-        $ret .= '<br /><span style="white-space:nowrap;">'. (int)$line['price_payed'] .'&euro; / '. $line['price'] .'&euro; ['. (round((((int)$line['price_payed'] / (int)$line['price']) * 100), 1)) .'%]</span>';
-    }
-    return $ret;
-}
-
 if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     $dsp->NewContent(t('Bugtracker'), t('Hier kannst du Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
 
