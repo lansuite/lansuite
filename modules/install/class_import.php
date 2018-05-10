@@ -408,7 +408,7 @@ class Import
                     // Set Table-Charset to UTF-8
                     # Needed??
                     // Do not use, for some old MySQL-Versions are causing trouble, with that statement.
-#          			$db->qry_first("ALTER TABLE %prefix%%plain% DEFAULT CHARACTER SET utf8", $table_name);
+#                   $db->qry_first("ALTER TABLE %prefix%%plain% DEFAULT CHARACTER SET utf8", $table_name);
 
                     // Add to installed tables
                     array_push($this->installed_tables, $config["database"]["prefix"]. $table_name);
@@ -594,7 +594,7 @@ class Import
 
         /* DB INPUT */
         if (is_array($users_to_import) == true) {
-            #			$db->qry("DELETE FROM lansuite_usersettings");
+            #           $db->qry("DELETE FROM lansuite_usersettings");
 
             foreach ($users_to_import as $user) {
                 $email        = $user['email'];

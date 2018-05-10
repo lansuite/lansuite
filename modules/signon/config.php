@@ -1,16 +1,16 @@
 <?php
 /*************************************************************************
 *
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		0.3
-*	Filename: 			add.php
-*	Module: 			anmeldung
-*	Main editor: 		webmaster@ewep.de
-*	Last change: 		10.09.2003 13:31
-*	Description: 		Anmeldung für neue Benutzer
-*	Remarks:
+*   Lansuite - Webbased LAN-Party Management System
+*   -------------------------------------------------------------------
+*   Lansuite Version:   2.0
+*   File Version:       0.3
+*   Filename:           add.php
+*   Module:             anmeldung
+*   Main editor:        webmaster@ewep.de
+*   Last change:        10.09.2003 13:31
+*   Description:        Anmeldung für neue Benutzer
+*   Remarks:
 *
 **************************************************************************/
 

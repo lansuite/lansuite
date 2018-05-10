@@ -29,7 +29,7 @@ if (!$_GET['tournamentid']) {
                   $modus = t('Alle in einem');
             }
   
-              /*	$games = $db->qry("SELECT gameid FROM %prefix%t2_games WHERE (tournamentid = %int%) AND (round=0)", $_GET['tournamentid']);
+              /*    $games = $db->qry("SELECT gameid FROM %prefix%t2_games WHERE (tournamentid = %int%) AND (round=0)", $_GET['tournamentid']);
                 $team_anz = $db->num_rows($games);
                 $db->free_result($games);*/
                 include_once("modules/tournament2/class_tournament.php");
@@ -65,7 +65,6 @@ if (!$_GET['tournamentid']) {
                     $dsp->SetForm("index.php?mod=tournament2&action=tree&step=2&tournamentid=". $_GET['tournamentid']);
                     $dsp->AddDropDownFieldRow("group", t('Gruppenauswahl'), $t_array, "");
                     $dsp->AddFormSubmitRow(t('Weiter'));
-
                 } else {
                     // If specific games of a group was chosen
                     // pass this to the tree frame, otherwise keep it at the final games

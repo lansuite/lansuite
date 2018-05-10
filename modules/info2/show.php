@@ -39,7 +39,6 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
         }
         $dsp->AddSingleRow($buttons);
     }
-
 } else {
     $func->error(t('Du hast keine Seite ausgewählt'));
 }

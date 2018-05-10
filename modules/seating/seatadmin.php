@@ -78,7 +78,7 @@ switch ($_GET['step']) {
             case 3:
                 if (!$_GET['quest']) {
                 //$User = $db->qry_first("SELECT username FROM %prefix%user
-                 //		WHERE userid = %int%", $_GET['userid']);
+                 //     WHERE userid = %int%", $_GET['userid']);
                     
                     $questionarray = array();
                     $linkarray = array();

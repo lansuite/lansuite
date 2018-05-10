@@ -1,10 +1,10 @@
 <?php
 /*
  * Created on 16.05.2010 02:50
- * 
+ *
  * @package lansuite_core
  * @author Mexz
- * 
+ *
  */
 $dsp->NewContent(t('Admin Loginübersicht'), '');
 

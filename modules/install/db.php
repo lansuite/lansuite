@@ -65,7 +65,7 @@ if ($_GET["quest"]) {
     $dsp->NewContent(t('Datenbank-Initialisierung'), t('<br><b>Deine Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht</b>. Zusätzlich kannst du unterhalb einzelne Modul-Datenbanken zurücksetzen'));
     $install->CreateNewTables(1);
     $install->InsertPLZs();
-#	$install->InsertTranslations();
+#   $install->InsertTranslations();
 
   // Delete Log eintries which indicate a broken DB-Structure, for they are most likely fixed by now
     $db->qry_first('DELETE FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');

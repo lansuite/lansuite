@@ -1,12 +1,12 @@
 <?php
 /*
  * Created on 03.03.2009
- * 
- * 
- * 
+ *
+ *
+ *
  * @package package_name
  * @author Maztah
- * 
+ *
  */
 if (isset($_GET['autorefresh'])) {
     $autorefresh = $_GET['autorefresh'];

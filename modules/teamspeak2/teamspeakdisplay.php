@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
 Teamspeak Display Preview Release 3
 Copyright (C) 2005  Guido van Biemen (aka MrGuide@NL)
 

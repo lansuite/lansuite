@@ -29,7 +29,7 @@ function fsockPost($url, $data)
     if (!$fp) {
         echo "$errnum: $errstr";
     } else {
-	//Post Data
+    //Post Data
         fputs($fp, "POST $web[path] HTTP/1.1\r\n");
         fputs($fp, "Host: $web[host]\r\n");
         fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");

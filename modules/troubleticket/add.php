@@ -1,16 +1,16 @@
 <?php
 /*************************************************************************
 *
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	 2.0
-*	File Version:		 2.0
-*	Filename: 			add.php
-*	Module: 			Troubleticket
-*	Main editor: 		denny@esa-box.de
-*	Last change:
-*	Description: 		Adds a troubleticket by user to the system
-*	Remarks:
+*   Lansuite - Webbased LAN-Party Management System
+*   -------------------------------------------------------------------
+*   Lansuite Version:    2.0
+*   File Version:        2.0
+*   Filename:           add.php
+*   Module:             Troubleticket
+*   Main editor:        denny@esa-box.de
+*   Last change:
+*   Description:        Adds a troubleticket by user to the system
+*   Remarks:
 *
 **************************************************************************
 *
