@@ -79,8 +79,20 @@ class PayPal{
         //Set the URLS to return after payment authorisation
         //@TODO: Build dynamically from configuration
         $redirectUrls = new \PayPal\Api\RedirectUrls();
-        $redirectUrls->setReturnUrl("http://localhost/berglan/index.php?mod=paypal&action=executepayment");
-        $redirectUrls->setCancelUrl("http://localhost/berglan/index.php?mod=paypal&action=executepayment&failed=1");
+        //use the same link as the user currently has to avoid to return to a variant where the user is not logged in
+        //e.g. HTTP vs. HTTPS or http://www.something vs. http://something.de
+            if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+                    $proto = 'https://';
+                }
+                else {
+                    $proto = 'http://';
+                }
+                $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
+                $verification_link = $proto . $_SERVER['SERVER_NAME']. ":" . $_SERVER['SERVER_PORT'].$path;
+        
+        
+        $redirectUrls->setReturnUrl($verification_link. "index.php?mod=paypal&action=executepayment");
+        $redirectUrls->setCancelUrl($verification_link. "index.php?mod=paypal&action=executepayment&failed=1");
 
         $this->payment = new \PayPal\Api\Payment();
         $this->payment->setIntent("sale");
