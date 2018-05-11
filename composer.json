@@ -35,6 +35,7 @@
         "psr-4": {
             "LanSuite\\Module\\Beamer\\": "modules/beamer/Classes/",
             "LanSuite\\Module\\Boxes\\": "modules/boxes/Classes/",
+            "LanSuite\\Module\\Bugtracker\\": "modules/bugtracker/Classes/",
             "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/",
             "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/",
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
@@ -69,6 +70,8 @@
             "modules/boxes/Functions/ShowSignon.php",
             "modules/boxes/Functions/SNMP.php",
             "modules/boxes/Functions/SysInternet.php",
+            "modules/bugtracker/Functions/FetchState.php",
+            "modules/bugtracker/Functions/FetchType.php",
             "modules/mastersearch2/Functions/MS2GetDate.php",
             "modules/mastersearch2/Functions/MS2GetTime.php",
             "modules/mastersearch2/Functions/Text2LSCode.php",
