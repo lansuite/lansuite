@@ -17,15 +17,13 @@ function GetPriceDetails($priceid){
 }
 /*
  * We stored the party_id and the price_id inside the PayPal SKU, so we need to extract it from the string again
- * We may even have an user ID if this is a payment for someone else
  */
 function SKUtoParty($SKU){
     $SKUarray=explode('-',$SKU);
     if ($SKUarray[0]=='PARTY'){
         return array(
             'party_id' => $SKUarray[1],
-            'price_id' => $SKUarray[2],
-            'user_id' => $SKUarray[3]
+            'price_id' => $SKUarray[2] 
             );
     } else return false;
 }
@@ -68,9 +66,7 @@ if ($PayPalObj->payment->getState()=='created' && !isset($_GET['failed'])){
                            require 'modules/guestlist/class_guestlist.php';
                            $data = SKUtoParty($item->sku);
                            $GuestList = new guestlist();
-                           if ($data['user_id']>0) { //paid for another user, set him as paid
-                           $GuestList->SetPaid($data['user_id'], $data['party_id']); }
-                           else $GuestList->SetPaid($auth['userid'], $data['party_id']);
+                           $GuestList->SetPaid($auth['userid'], $data['party_id']);
                            break;
                    }
                }
