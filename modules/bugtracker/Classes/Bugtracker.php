@@ -1,9 +1,14 @@
 <?php
+
+namespace LanSuite\Module\Bugtracker;
+
 class Bugtracker
 {
-    public $stati = array();
+    /**
+     * @var array
+     */
+    public $stati = [];
 
-  // Constructor
     public function __construct()
     {
         $this->stati[0] = t('Neu');
@@ -16,12 +21,24 @@ class Bugtracker
         $this->stati[7] = t('Wiedereröffnet');
     }
 
-    public function SetBugStateInternal($bugid, $state)
+    /**
+     * @param int $bugid
+     * @param int $state
+     * @return void
+     */
+    private function SetBugStateInternal($bugid, $state)
     {
         global $db, $func, $auth;
 
         if ($auth['type'] <= 1) {
-            $row = $db->qry_first("SELECT reporter, caption, state FROM %prefix%bugtracker WHERE bugid = %int%", $bugid);
+            $row = $db->qry_first("
+              SELECT
+                reporter,
+                caption,
+                state
+              FROM %prefix%bugtracker
+              WHERE
+                bugid = %int%", $bugid);
             if (!(($row['state'] == 0 and $state == 1) or ($row['state'] == 4 and $state == 7) or ($row['state'] == 3 and $state == 2))) {
                 $func->information(t('Der Status des Bugreports <b>"%1"</b> konnte nicht geändert werden, da du nur von <b>"Neu" auf "Bestätigt"</b>, von <b>"Feedback benötigt" auf "In Bearbeitung"</b> und von <b>"Behoben" auf "Wiedereröffnet"</b> wechseln darfst.', array($row['caption'])));
                 return;
@@ -40,7 +57,7 @@ class Bugtracker
             $db->qry("UPDATE %prefix%bugtracker SET state = %int% WHERE bugid = %int%", $state, $bugid);
             $func->log_event(t('Bugreport auf Status "%1" geändert', array($this->stati[$state])), 1, '', $bugid);
 
-      // Mails
+            // Mails
             $AddLink = '
 
 [url=index.php?mod=bugtracker&bugid=%2]'. t('Zum Bug-Eintrag') .'[/url]';
@@ -87,7 +104,12 @@ class Bugtracker
         }
     }
 
-    public function AssignBugToUserInternal($bugid, $userid)
+    /**
+     * @param int $bugid
+     * @param int $userid
+     * @return void
+     */
+    private function AssignBugToUserInternal($bugid, $userid)
     {
         global $db, $func, $auth;
 
@@ -106,6 +128,11 @@ class Bugtracker
         }
     }
 
+    /**
+     * @param int $bugid
+     * @param int $userid
+     * @return bool
+     */
     public function AssignBugToUser($bugid, $userid)
     {
         if (!$bugid) {
@@ -119,8 +146,15 @@ class Bugtracker
         } else {
             $this->SetBugStateInternal($bugid, 2);
         }
+
+        return true;
     }
 
+    /**
+     * @param int $bugid
+     * @param int $state
+     * @return bool
+     */
     public function SetBugState($bugid, $state)
     {
         global $auth;
@@ -136,5 +170,7 @@ class Bugtracker
         if ($state == 2 or $state == 4 or $state == 6) {
             $this->AssignBugToUserInternal($bugid, $auth['userid']);
         }
+
+        return true;
     }
 }
