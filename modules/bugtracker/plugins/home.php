@@ -3,13 +3,25 @@
 $smarty->assign('caption', t('Neue Bugs und Feature Wünsche'));
 $content = "";
 
-$query = $db->qry("SELECT b.*, MAX(UNIX_TIMESTAMP(b.changedate)) AS changedate, COUNT(c.relatedto_id) AS comments FROM %prefix%bugtracker AS b
-  LEFT JOIN %prefix%comments AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
-  WHERE b.state <= 3 AND (!private OR ". (int)$auth['type'] ." >= 2)
+$query = $db->qry("
+  SELECT
+    b.*,
+    MAX(UNIX_TIMESTAMP(b.changedate)) AS changedate,
+    COUNT(c.relatedto_id) AS comments
+  FROM %prefix%bugtracker AS b
+  LEFT JOIN %prefix%comments AS c ON (
+    c.relatedto_id = b.bugid
+    AND c.relatedto_item = 'BugEintrag'
+  )
+  WHERE
+    b.state <= 3
+    AND (
+      !private
+      OR ". (int)$auth['type'] ." >= 2
+    )
   GROUP BY b.bugid
   ORDER BY changedate DESC
-  LIMIT 0, %int%
-  ", $cfg['home_item_cnt_bugtracker']);
+  LIMIT 0, %int%", $cfg['home_item_cnt_bugtracker']);
 
 if ($db->num_rows($query) > 0) {
     while ($row = $db->fetch_array($query)) {

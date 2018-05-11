@@ -54,10 +54,14 @@ switch ($_GET['time']) {
 }
 
 // Select max
-$res = $db->qry("SELECT SUM(hits) AS hits FROM %prefix%download_stats
-  WHERE file = %string% AND DATE_FORMAT(time, %string%) = %string%
-  GROUP BY DATE_FORMAT(time, %string%)
-  ", $_GET['file'], $where, $_GET['timeframe'], $group_by);
+$res = $db->qry("
+  SELECT
+    SUM(hits) AS hits
+  FROM %prefix%download_stats
+  WHERE
+    file = %string%
+    AND DATE_FORMAT(time, %string%) = %string%
+  GROUP BY DATE_FORMAT(time, %string%)", $_GET['file'], $where, $_GET['timeframe'], $group_by);
 while ($row = $db->fetch_array($res)) {
     if ($row_max['hits'] < $row['hits']) {
         $row_max['hits'] = $row['hits'];
@@ -75,24 +79,26 @@ for ($x = 0 + ((700 - 80) / $XSteps); $x < 660; $x += ((700 - 80) / $XSteps)) {
     $z++;
 }
 
-#$z = $row_max['visits'];
 $z2 = $row_max['hits'];
 for ($y = 0; $y < 280; $y+= (280 / 14)) {
     echo '<polyline points="0 '. $y .' 8  '. $y .'" fill="none" stroke="black" stroke-width="3px" />';
     echo '<polyline points="652 '. $y .' 660  '. $y .'" fill="none" stroke="black" stroke-width="3px" />';
-#  echo '<text x="0" y="'. $y .'" fill="#990000">'. round($z, 0) .'</text>';
-#  $z -= $row_max['visits'] / 14;
     echo '<text x="662" y="'. $y .'" fill="#009900">'. round($z2, 0) .'</text>';
     $z2 -= $row_max['hits'] / 14;
 }
 
-
 // Select hits
-$res = $db->qry("SELECT DATE_FORMAT(time, %string%) AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits FROM %prefix%download_stats
-  WHERE file = %string% AND DATE_FORMAT(time, %string%) = %string%
+$res = $db->qry("
+  SELECT 
+    DATE_FORMAT(time, %string%) AS group_by_time,
+    UNIX_TIMESTAMP(time) AS display_time,
+    SUM(hits) AS hits
+  FROM %prefix%download_stats
+  WHERE
+    file = %string%
+    AND DATE_FORMAT(time, %string%) = %string%
   GROUP BY DATE_FORMAT(time, %string%)
-  ORDER BY DATE_FORMAT(time, %string%)
-", $group_by, $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
+  ORDER BY DATE_FORMAT(time, %string%)", $group_by, $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
 $X = 0;
 $Y = 280;
 $Y2 = 280;
@@ -101,12 +107,8 @@ while ($row = $db->fetch_array($res)) {
     $lastY = $Y;
     $lastY2 = $Y2;
     $X = (0 + ((700 - 80) / $XSteps) * date($multiply, $row['display_time']));
-#  $Y = 280 - (($row["visits"] / $row_max['visits']) * 280);
     $Y2 = 280 - (($row["hits"] / $row_max['hits']) * 280);
-#  echo '<polyline points="'. $lastX .' '. $lastY .'  '. $X .' '. $Y .'" stroke="#990000" stroke-width="3px"/>';
     echo '<polyline points="'. $lastX .' '. $lastY2 .'  '. $X .' '. $Y2 .'" stroke="#009900" stroke-width="3px"/>';
-
-#  echo '<text x="400" y="20" fill="blue">Debug: '. $row_max['hits'] .'</text>';
 }
 $db->free_result($res);
 
