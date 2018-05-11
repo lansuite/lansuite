@@ -26,18 +26,19 @@ switch ($_GET['step']) {
                 $type = $xml->get_tag_content("type", $main[0]);
                 $module = $xml->get_tag_content("module", $main[0]);
                 $state = $xml->get_tag_content("state", $main[0]);
-                $db->qry("INSERT INTO %prefix%bugtracker SET
-        caption = '$caption',
-        text = '$text',
-        version = '$version',
-        url = '$url',
-        priority = ". (int)$priority .",
-        date = '$date',
-        type = ". (int)$type .",
-        module = '$module',
-        state = ". (int)$state .",
-        reporter = ". (int)$auth['userid'] ."
-        ");
+                $db->qry("
+                  INSERT INTO %prefix%bugtracker
+                  SET
+                    caption = '$caption',
+                    text = '$text',
+                    version = '$version',
+                    url = '$url',
+                    priority = ". (int)$priority .",
+                    date = '$date',
+                    type = ". (int)$type .",
+                    module = '$module',
+                    state = ". (int)$state .",
+                    reporter = ". (int)$auth['userid'] ."");
                 $bugid = $db->insert_id();
 
                 $comments = $xml->get_tag_content_array("comments", $entry_val);
@@ -46,14 +47,15 @@ switch ($_GET['step']) {
                     foreach ($comment as $comment_val) {
                         $text = $xml->get_tag_content("text", $comment_val);
                         $date = $xml->get_tag_content("date", $comment_val);
-                        $db->qry("INSERT INTO %prefix%comments SET
-          caption = %string%,
-          text = %string%,
-          date = %string%,
-          relatedto_id = %int%,
-          relatedto_item = 'BugEintrag',
-          creatorid = %int%
-          ", $caption, $text, $date, $bugid, $auth['userid']);
+                        $db->qry("
+                          INSERT INTO %prefix%comments
+                          SET
+                            caption = %string%,
+                            text = %string%,
+                            date = %string%,
+                            relatedto_id = %int%,
+                            relatedto_item = 'BugEintrag',
+                            creatorid = %int%", $caption, $text, $date, $bugid, $auth['userid']);
                     }
                 }
             }
