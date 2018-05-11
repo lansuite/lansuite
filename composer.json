@@ -74,7 +74,7 @@
             "modules/bugtracker/Functions/FetchType.php",
             "modules/cashmgr/Functions/Check.php",
             "modules/cashmgr/Functions/GetColor.php",
-            "modules/cashmgr/Functions/ShowField.php"
+            "modules/cashmgr/Functions/ShowField.php",
             "modules/mastersearch2/Functions/MS2GetDate.php",
             "modules/mastersearch2/Functions/MS2GetTime.php",
             "modules/mastersearch2/Functions/Text2LSCode.php",
