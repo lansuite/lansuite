@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+ <typedefinition>
+    <head>
+      <name>paypalmode</name>
+    </head>
+    <entries>
+  		<entry>
+  			<value>sandbox</value>
+  			<description>Sandbox-Mode (zum Testen)</description>
+  		</entry>
+  		<entry>
+  			<value>live</value>
+  			<description>Live-Modus - Mit echten Geld!</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Allgemein</name>
@@ -56,9 +71,9 @@
     	</item>
     	<item>
     		<name>paypal_mode</name>
-    		<type>string</type>
+    		<type>paypalmode</type>
     		<default>sandbox</default>
-    		<description>sandbox/live?</description>
+    		<description>Soll das PayPal-Modul gegen den Sandbox-Server oder Produktiv laufen?</description>
     	</item>
     </items>
   </group>
