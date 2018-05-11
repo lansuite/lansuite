@@ -1,35 +1,31 @@
 <?php
 
+namespace LanSuite\Module\Boxes;
 
-/**
- * boxes
- *
- * @package lansuite_core
- * @author bytekilla, knox
- * @copyright 2008
- * @version $Id$
- * @access public
- */
-class boxes
+class Boxes
 {
+    /**
+     * @var string
+     */
     public $box_rows = '';
 
-  /**
-   * Add a Menueitem to Navibar
-   *
-   * @param mixed Linktext
-   * @param string Link
-   * @param string Hinttext for Popup
-   * @param integer Navigationslevel (0=Main, 1=Sub, etc)
-   * @param integer Accesslevel (depend on auth['type'])
-   * @param integer Highligt active Menueitem (0=off, 1=on)
-   * @return void
-   */
+    /**
+     * Add a menu item to navigation bar
+     *
+     * @param string $caption
+     * @param string $link
+     * @param string $hint
+     * @param int $level
+     * @param int $requirement
+     * @param int $highlighted
+     * @param string $id
+     * @return void
+     */
     public function add_menuitem($caption, $link = '', $hint = '', $level = 0, $requirement = 0, $highlighted = 0, $id = '')
     {
         global $func;
 
-      // Set Item-Class
+        // Set Item-Class
         switch ($requirement) {
             default:
                 $link_class = 'menu';
@@ -39,6 +35,8 @@ class boxes
                 $link_class = 'admin';
                 break;
         }
+
+        $class = '';
         switch ($level) {
             case 0:
                 $class = "box_entry";
@@ -51,10 +49,14 @@ class boxes
         if ($highlighted) {
             $class .= "_active";
         }
+
         if (strip_tags($caption) == $caption) {
             $caption = wordwrap($caption, 18, "<br />\n", 1);
         }
+
+        $tmp_link = '';
         if ($link != "") {
+            $box_row_hint = '';
             if ($hint) {
                 $box_row_hint = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
             }
@@ -67,19 +69,18 @@ class boxes
         $this->box_rows .= '<li'. $id .' class="'. $class .'">'. $tmp_link ."</li>\n";
     }
 
-  /**
-   * boxes::LinkItem()
-   *
-   * @param mixed $link
-   * @param mixed $caption
-   * @param string $class
-   * @param string $hint
-   * @return
-   */
+    /**
+     * @param string $link
+     * @param string $caption
+     * @param string $class
+     * @param string $hint
+     * @return string
+     */
     public function LinkItem($link, $caption, $class = "", $hint = '')
     {
         global $func;
         if ($link != "") {
+            $box_row_hint = '';
             if ($hint) {
                 $box_row_hint = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
             }
@@ -90,17 +91,15 @@ class boxes
         }
     }
 
-  /**
-   * boxes::ItemRow()
-   *
-   * @param mixed $item
-   * @param mixed $caption
-   * @param string $link
-   * @param string $hint
-   * @param string $class
-   * @return
-   */
-    public function ItemRow($item, $caption, $link = "", $hint = "", $class = "")
+    /**
+     * @param string $item
+     * @param string $caption
+     * @param string $link
+     * @param string $hint
+     * @param string $class
+     * @return void
+     */
+    private function ItemRow($item, $caption, $link = "", $hint = "", $class = "")
     {
         if (strip_tags($caption) == $caption) {
             $caption = wordwrap($caption, 18, "<br />\n", 1);
@@ -108,79 +107,11 @@ class boxes
         $this->box_rows .= "<li class=\"box_entry".$item."\">".$this->LinkItem($link, $caption, $class, $hint)."</li>\n";
     }
 
-    public function StartHidden($id, $hide = 0, $class = '')
-    {
-        if ($hide) {
-            $hide = ' style="display:none"';
-        }
-        if ($class) {
-            $class = ' class="'. $class .'"';
-        }
-        $this->box_rows .= "<ul id=\"$id\"$class$hide>";
-    }
-
-    public function StopHidden()
-    {
-        $this->box_rows .= "</ul>";
-    }
-    
-    public function AddJQueryTabsStart($id, $dynamic = null)
-    {
-        global $framework;
-    
-        if ($dynamic) {
-            $framework->add_js_code("
-				$(document).ready(function(){
-					$('#".$id."').tabs();
-				});");
-        }
-        $this->box_rows .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='".$id."'>\n";
-    }
-    
-    public function AddJQueryTabNavStart()
-    {
-        $this->box_rows .= "  <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>\n";
-    }
-    
-    public function AddJQueryTab($content, $link, $title = null, $selected = null)
-    {
-    
-#		if($selected) $additional = " ui-tabs-selected ui-state-active";
-#		$this->box_rows .= "    <li class='ui-state-default ui-corner-top".$additional."'><a href='".$link."' title='".$title."'><em>".$content."</em></a></li>\n";
-    }
-    
-    public function AddJQueryTabNavStop()
-    {
-        $this->box_rows .= "  </ul>\n";
-    }
-    
-    public function AddJQueryTabContentStart()
-    {
-        $this->box_rows .= "  <div class='ui-content'>\n";
-    }
-    
-    public function AddJQueryTabContent($id, $content)
-    {
-        $this->box_rows .= "    <div id='".$id."'>\n";
-        $this->box_rows .= "      ".$content."\n";
-        $this->box_rows .= "    </div>\n";
-    }
-    
-    public function AddJQueryTabContentStop()
-    {
-        $this->box_rows .= "  </div>\n";
-    }
-    
-    public function AddJQueryTabsStop()
-    {
-        $this->box_rows .= "</div>\n";
-    }
-  /**
-   * boxes::Row()
-   *
-   * @param mixed $row
-   * @return
-   */
+    /**
+     * @param string $row
+     * @param string $name
+     * @return void
+     */
     public function Row($row, $name = '')
     {
         if ($name) {
@@ -188,69 +119,54 @@ class boxes
         }
         $this->box_rows .= "<li$name>".$row."</li>\n";
     }
-    
-    public function RowClean($row)
-    {
-        $this->box_rows .= $row."\n";
-    }
 
-  /**
-   * boxes::HRuleRow()
-   *
-   * @return
-   */
+    /**
+     * @return void
+     */
     public function HRuleRow()
     {
         $this->box_rows .= "<hr class=\"hrule\" width=\"100%\" />\n";
     }
 
-  /**
-   * boxes::HRuleEngagedRow()
-   *
-   * @return
-   */
+    /**
+     * @return void
+     */
     public function HRuleEngagedRow()
     {
         $this->box_rows .= "<hr class=\"hrule\" width=\"90%\" align=\"right\" />";
     }
 
-  /**
-   * boxes::DotRow()
-   *
-   * @param mixed $caption
-   * @param string $link
-   * @param string $hint
-   * @param string $class
-   * @param string $highlighted
-   * @return
-   */
+    /**
+     * @param string $caption
+     * @param string $link
+     * @param string $hint
+     * @param string $class
+     * @param string $highlighted
+     */
     public function DotRow($caption, $link = "", $hint = "", $class = "", $highlighted = "")
     {
+        $item = '';
         if ($highlighted) {
             $item = "_active";
         }
         $this->ItemRow($item, $caption, $link, $hint, $class);
     }
 
-  /**
-   * boxes::EmptyRow()
-   *
-   * @return
-   */
+    /**
+     * @return void
+     */
     public function EmptyRow()
     {
         $this->box_rows .= '<br />';
     }
 
-  /**
-   * boxes::EngangedRow()
-   *
-   * @param mixed $caption
-   * @param string $link
-   * @param string $hint
-   * @param string $class
-   * @return
-   */
+    /**
+     * @param string $caption
+     * @param string $link
+     * @param string $hint
+     * @param string $class
+     * @return void
+     */
     public function EngangedRow($caption, $link = "", $hint = "", $class = "")
     {
         if (strip_tags($caption) == $caption) {
@@ -259,30 +175,32 @@ class boxes
         $this->box_rows .= "<li class=\"engaged\" title=\"".$hint."\">".$this->LinkItem($link, $caption, $class)."</li>\n";
     }
 
-  /**
-   * boxes::AddTemplate()
-   *
-   * @param mixed $template
-   * @return
-   */
+    /**
+     * @param string $template
+     * @return void
+     */
     public function AddTemplate($template)
     {
         $this->Row($template);
     }
 
-  /**
-   * boxes::CreateBox()
-   *
-   * @param mixed $boxid
-   * @param string $caption
-   * @return
-   */
+    /**
+     * @param int $boxid
+     * @param string $caption
+     * @param string $title
+     * @param string $module
+     * @return string
+     * @throws \Exception
+     * @throws \SmartyException
+     */
     public function CreateBox($boxid, $caption = '', $title = '', $module = '')
     {
         global $smarty, $auth;
+
         if ($this->box_rows != '') {
             $smarty->assign('content', $this->box_rows);
         }
+
         if (!$title) {
             switch ((int)$boxid) {
                 case 1:
@@ -324,6 +242,7 @@ class boxes
         $smarty->assign('caption', $caption);
         $smarty->assign('module', $module);
         $smarty->assign('link_open_close', "index.php?box_action=change&amp;boxid=$boxid");
+
         // Open or closed Box
         if (!$_SESSION['box_'. $boxid .'_active']) {
             $file = 'design/'. $auth['design'] .'/templates/box_case.htm';
@@ -333,7 +252,7 @@ class boxes
         if ($title) {
             $out = $smarty->fetch($file, 'box'.$title.$auth['type']);
         } else {
-            $smarty->fetch($file);
+            $out = $smarty->fetch($file);
         }
         return $out;
     }
