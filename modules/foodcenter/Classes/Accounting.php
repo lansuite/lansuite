@@ -27,7 +27,6 @@ class Accounting
         
         if ($result['total'] == "") {
             $this->balance = 0;
-
         } else {
             $this->balance = $result['total'];
         }
@@ -52,7 +51,6 @@ class Accounting
         
         if ($result['total'] == "") {
             $this->balance = 0;
-
         } else {
             $this->balance = $result['total'];
         }
@@ -76,7 +74,6 @@ class Accounting
 								<tr><td align=\"right\" width=\"33%\"><strong><font color='green'>" . round($deposit['total'], 2) . " " . $cfg['sys_currency'] ."</font></strong></td>
 								<td align=\"right\" width=\"33%\"><strong><font color='red'>" . round($disbursement['total'], 2) . " " . $cfg['sys_currency'] ."</font></strong></td>
 								<td align=\"right\" width=\"34%\"><strong><font color='green'>" . round($this->balance, 2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");
-
         } else {
             $dsp->AddDoubleRow("<strong>" . t('Total') . "</strong>", "<table width=\"100%\">
 								<tr><td align=\"right\" width=\"33%\"><strong><font color='green'>" . round($deposit['movement'], 2) . " " . $cfg['sys_currency'] ."</font></strong></td>
@@ -93,21 +90,18 @@ class Accounting
 							<tr><td align=\"right\" width=\"33%\"><font color='green'>" . round($row['movement'], 2) . " " . $cfg['sys_currency'] ."</font></td>
 							<td align=\"right\" width=\"33%\"><font color='red'>&nbsp;</font></td>
 							<td align=\"right\" width=\"34%\"><strong><font color='green'>" . round($total, 2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");
-
                     } else {
                         $dsp->AddDoubleRow($row['time'] . "  " . $row['comment'], "<table width=\"100%\">
 							<tr><td align=\"right\" width=\"33%\"><font color='green'>" . round($row['movement'], 2) . " " . $cfg['sys_currency'] ."</font></td>
 							<td align=\"right\" width=\"33%\"><font color='red'>&nbsp;</font></td>
 							<td align=\"right\" width=\"34%\"><strong><font color='red'>" . round($total, 2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");
                     }
-
                 } else {
                     if ($total > 0) {
                         $dsp->AddDoubleRow($row['time'] . "  " . $row['comment'], "<table width=\"100%\">
 							<tr><td align=\"right\" width=\"33%\"><font color='green'>&nbsp;</font></td>
 							<td align=\"right\" width=\"33%\"><font color='red'>" . round($row['movement'], 2) . " " . $cfg['sys_currency'] ."</font></td>
 							<td align=\"right\" width=\"34%\"><strong><font color='green'>" . round($total, 2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");
-
                     } else {
                         $dsp->AddDoubleRow($row['time'] . "  " . $row['comment'], "<table width=\"100%\">
 							<tr><td align=\"right\" width=\"33%\"><font color='green'>&nbsp;</font></td>
@@ -117,7 +111,6 @@ class Accounting
                 }
                 $total = $total - $row['movement'];
             }
-
         } else {
             $dsp->AddSingleRow("<strong>" . t('Keine Kontobewegungen') . "</strong>");
         }

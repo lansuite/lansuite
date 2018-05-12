@@ -1,22 +1,9 @@
 <?php
 
 $product_list = new LanSuite\Module\Foodcenter\ProductList();
-
 $dsp->NewContent(t('Bestellungen'), t('Auflistung deiner aktiven und abgeschlossenen Catering-Bestellungen'));
 
-/**
- * Used as callback function in mastersearch
- *
- * @param float $price
- * @return string
- */
-function GetPriceFormat($price)
-{
-    return number_format($price, 2, ",", ".") . " EUR";
-}
-
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
-
 $ms2->query['from'] = "%prefix%food_ordering AS a
                        LEFT JOIN %prefix%food_status AS s ON a.status = s.id 
                        LEFT JOIN %prefix%food_product AS p ON a.productid = p.id 
