@@ -1,7 +1,13 @@
 <?php
 
-class cron2
+namespace LanSuite\Module\Cron2;
+
+class Cron2
 {
+    /**
+     * @param int $jobid
+     * @return bool
+     */
     public function Run($jobid)
     {
         global $db, $func;
@@ -24,13 +30,19 @@ class cron2
         return $row['function'];
     }
 
+    /**
+     * @return void
+     */
     public function CheckJobs()
     {
         global $db;
 
-        $row = $db->qry_first("SELECT jobid FROM %prefix%cron
-      WHERE UNIX_TIMESTAMP(NOW()) > UNIX_TIMESTAMP(DATE_ADD(DATE(lastrun), INTERVAL 1 DAY)) + TIME_TO_SEC(runat)
-      ");
+        $row = $db->qry_first("
+          SELECT
+            jobid
+          FROM %prefix%cron
+          WHERE
+            UNIX_TIMESTAMP(NOW()) > UNIX_TIMESTAMP(DATE_ADD(DATE(lastrun), INTERVAL 1 DAY)) + TIME_TO_SEC(runat)");
         if ($row['jobid']) {
             $this->Run($row['jobid']);
         }

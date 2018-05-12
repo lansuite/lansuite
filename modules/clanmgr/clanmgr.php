@@ -1,76 +1,5 @@
 <?php
 
-function ShowRole($role)
-{
-    global $auth, $line;
-
-    if ($role) {
-        $ret = t('Clan-Admin');
-    } else {
-        $ret = t('Clan-Mitglied');
-    }
-  
-    if (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > 1) {
-        $ret = '<a href="index.php?mod=clanmgr&action=clanmgr&step=50&clanid='. $_GET['clanid'] .'&userid='. $line['userid'] .'">'. $ret .'</a>';
-    }
-  
-    return $ret;
-}
-
-function CheckClanPW($clanpw)
-{
-    global $db;
-
-    $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
-    if ($clan['password'] and $clan['password'] == md5($clanpw)) {
-        return true;
-    }
-    return false;
-}
-
-function CheckExistingClan()
-{
-    global $auth, $db, $func;
-    $clanuser = $db->qry_first("SELECT clanid FROM %prefix%user WHERE userid=%int%", $auth['userid']);
-    if ($clanuser["clanid"] == null | $clanuser["clanid"] == 0) {
-        return true;
-    } else {
-        $func->error(t('Bevor du einen neuen Clan anlegen kannst, musst du aus deinem aktuellen Clan austreten.'), "index.php?mod=clanmgr");
-        return false;
-    }
-}
-
-function CountAdmins()
-{
-    global $db;
-    
-    $query_admins = $db->qry("SELECT * FROM %prefix%user WHERE clanid = %int% AND clanadmin = 1", $_GET['clanid']);
-    return $db->num_rows($query_admins);
-}
-
-function Update($id)
-{
-    global $auth, $db, $func;
-    
-    if (!$_GET['clanid']) {
-        $func->log_event(t('Clan %1 erstellt', $_POST['name']), 1, t('clanmgr'));
-        if ($db->qry("UPDATE %prefix%user SET clanid = %int%, clanadmin = 1 WHERE userid =%int%", $id, $auth["userid"])) {
-            $func->confirmation(t('Der Clan wurde erfolgreich angelegt. Als Ersteller hast du die Rolle Admin in diesem Clan.'), "index.php?mod=clanmgr");
-        }
-    }
-}
-    
-function link_to_clan($clan_url)
-{
-    if ($clan_url== '') {
-        return '';
-    }
-    if (substr($clan_url, 0, 7) != 'http://' and substr($clan_url, 0, 8) != 'https://') {
-        $clan_url = "http://".$clan_url;
-    }
-    return '<a href="'. $clan_url .'" target="_blank">'. $clan_url .'</a>';
-}
-
 switch ($_GET['step']) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('clanmgr');
@@ -79,13 +8,11 @@ switch ($_GET['step']) {
         LEFT JOIN %prefix%user AS u ON c.clanid = u.clanid";
     
         $ms2->config['EntriesPerPage'] = 20;
-        #$ms2->AddBGColor('c.clanid', array($auth['clanid'] => 'ff0000'));
-    
         $ms2->AddTextSearchField(t('Clanname'), array('c.name' => '1337', 'c.url' => 'like'));
         $ms2->AddTextSearchDropDown(t('Mitglieder'), 'COUNT(u.clanid)', array('' => t('Alle'), '0' => t('Ohne Mitglieder'), '>1' => t('Mit Mitglieder')));
     
         $ms2->AddResultField(t('Clanname'), 'c.name');
-        $ms2->AddResultField(t('Webseite'), 'c.url', 'link_to_clan');
+        $ms2->AddResultField(t('Webseite'), 'c.url', 'LinkToClan');
         $ms2->AddResultField(t('Mitglieder'), 'COUNT(u.clanid) AS members');
 
         $ms2->AddIconField('details', 'index.php?mod=clanmgr&step=2&clanid=', t('Clan-Details'));
@@ -110,7 +37,7 @@ switch ($_GET['step']) {
     
         break;
 
-  // Details
+    // Details
     case 2:
         $row = $db->qry_first('SELECT name, url, clanlogo_path FROM %prefix%clan WHERE clanid = %int%', $_GET['clanid']);
     
@@ -137,7 +64,6 @@ switch ($_GET['step']) {
             $buttons .= $dsp->FetchSpanButton(t('Passwort ändern'), 'index.php?mod='. $_GET['mod'] .'&step=10&clanid='. $_GET['clanid']).' ';
         }
         $dsp->AddDoubleRow('', $buttons);
-    
 
         $dsp->AddFieldSetStart(t('Mitglieder'));
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('clanmgr');
@@ -170,7 +96,7 @@ switch ($_GET['step']) {
         new \LanSuite\MasterComment('Clan', $_GET['clanid'], '');
         break;
 
-  // Change clan password
+    // Change clan password
     case 10:
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
@@ -188,7 +114,7 @@ switch ($_GET['step']) {
                 include_once("modules/mail/class_mail.php");
                 $mail = new mail();
 
-            // Send information mail to all clan members
+                // Send information mail to all clan members
                 $clanuser = $db->qry("SELECT userid, username, email FROM %prefix%user WHERE clanid=%int%", $_GET['clanid']);
                 while ($data = $db->fetch_array($clanuser)) {
                     $mail->create_mail($auth['userid'], $data['userid'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])));
@@ -199,7 +125,7 @@ switch ($_GET['step']) {
         }
         break;
 
-  // Delete
+    // Delete
     case 20:
         if ($auth['type'] >= 3) {
             if ($_GET['clanid']) {
@@ -215,9 +141,8 @@ switch ($_GET['step']) {
         }
         break;
   
-  // Add - Edit
+    // Add - Edit
     case 30:
-       // if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
         if ($_GET['clanid'] != '' and !($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < 2) {
             $func->information(t('Du bist nicht berechtigt diesen Clan zu ändern'), "index.php?mod=home");
         } else {
@@ -230,15 +155,12 @@ switch ($_GET['step']) {
             }
             $mf->AddField(t('Webseite'), 'url', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
             $mf->AddField(t('Clanlogo'), 'clanlogo_path', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/clan/'. $auth['userid'] .'_', \LanSuite\MasterForm::FIELD_OPTIONAL);
-      
-      
-      
+
             if (!$_GET['clanid']) {
                 $mf->CheckBeforeInserFunction = 'CheckExistingClan';
             }
-            $mf->AdditionalDBUpdateFunction = 'Update';
+            $mf->AdditionalDBUpdateFunction = 'UpdateClanMgr';
             $mf->SendForm('index.php?mod=clanmgr&step='. $_GET['step'], 'clan', 'clanid', $_GET['clanid']);
-          
 
             $dsp->AddFieldsetEnd();
         
@@ -263,7 +185,7 @@ switch ($_GET['step']) {
         }
         break;
   
-  // Delete Member
+    // Delete Member
     case 40:
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
@@ -277,7 +199,7 @@ switch ($_GET['step']) {
         }
         break;
 
-  // Change role
+    // Change role
     case 50:
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
@@ -297,7 +219,7 @@ switch ($_GET['step']) {
         }
         break;
   
-  //Clan beitreten
+    // Enter a new clan
     case 60:
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");

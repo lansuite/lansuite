@@ -12,7 +12,6 @@ switch ($_GET['step']) {
     case 2:
         include_once('modules/install/class_export.php');
         $export = new export();
-
         $export->LSTableHead('bugs.xml');
 
         $entrys = '';
