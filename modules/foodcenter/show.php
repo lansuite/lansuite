@@ -4,16 +4,12 @@
 $time = time();
 if ($cfg['foodcenter_foodtime'] == 4) {
     $open = true;
-
 } elseif ($cfg['foodcenter_s_time_1'] < $time && $cfg['foodcenter_e_time_1'] > $time) {
     $open = true;
-
 } elseif ($cfg['foodcenter_s_time_2'] < $time && $cfg['foodcenter_e_time_2'] > $time) {
     $open = true;
-
 } elseif ($cfg['foodcenter_s_time_3'] < $time && $cfg['foodcenter_e_time_3'] > $time) {
     $open = true;
-
 } else {
     $open = false;
     $timemessage = $func->unixstamp2date($cfg['foodcenter_s_time_1'], 'datetime') . " - ";
@@ -34,7 +30,6 @@ if ($open == false && $cfg['foodcenter_foodtime'] == 3) {
     $errormessage .= $timemessage;
     
     $func->error($errormessage, "index.php?mod=home");
-
 } else {
     $basket = new LanSuite\Module\Foodcenter\Basket();
 
@@ -50,7 +45,6 @@ if ($open == false && $cfg['foodcenter_foodtime'] == 3) {
         $errormessage = t('Das Foodcenter ist geschlossen. Die Produkte werden nicht im Warenkorb abgelegt. Die Öffnungszeigen sind:'). HTML_NEWLINE;
         $errormessage .= $timemessage;
         $func->error($errormessage, "index.php?mod=home");
-
     } else {
         $basket->add_to_basket_from_global();
     }
@@ -78,13 +72,11 @@ if ($open == false && $cfg['foodcenter_foodtime'] == 3) {
     if ($_GET['info']) {
         $product_list->load_cat($cat[$_GET['headermenuitem']]);
         $product_list->get_info($_GET['info'], "index.php?mod=foodcenter&action=showfood&headermenuitem={$_GET['headermenuitem']}");
-
     } else {
         if (is_numeric($cat[$_GET['headermenuitem']])) {
             $dsp->AddHeaderMenu($menus, "index.php?mod=foodcenter", $_GET['headermenuitem']);
             $product_list->load_cat($cat[$_GET['headermenuitem']]);
             $product_list->get_list("index.php?mod=foodcenter&action=showfood&headermenuitem={$_GET['headermenuitem']}");
-
         } else {
             $dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));
         }

@@ -3,10 +3,10 @@
 if (!$cfg['download_use_ftp']) {
     $BaseDir = 'ext_inc/downloads/';
 
-  // Don't allow directories above base!
+    // Don't allow directories above base!
     $_GET['dir'] = str_replace('..', '', $_GET['dir']);
 
-  // Download dialoge, if file is selected
+    // Download dialog, if file is selected
     if (is_file($BaseDir.$_GET['dir'])) {
         $row = $db->qry_first("SELECT 1 AS found FROM %prefix%download_stats WHERE file = %string% AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
         if ($row['found']) {
@@ -15,12 +15,8 @@ if (!$cfg['download_use_ftp']) {
             $db->qry("INSERT INTO %prefix%download_stats SET file = %string%, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
         }
 
-    #    header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
-    #    header('Content-Disposition: attachment; filename="'. substr($_GET['dir'], strrpos($_GET['dir'], '/') + 1, strlen($_GET['dir'])) .'"');
-    #    header("Content-Length: " .(string)(filesize($BaseDir.$_GET['dir'])));
-    #    readfile($BaseDir.$_GET['dir']);
         header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $_GET['dir']);
-          exit;
+        exit;
 
       // Display directory
     } else {
@@ -82,11 +78,11 @@ if (!$cfg['download_use_ftp']) {
                 }
 
                 if ($CurFilePath != 'info.txt' and $CurFilePath != '.svn') {
-          // Dir
+                    // Directory
                     if (is_dir($BaseDir.'/'.$CurFilePath)) {
                         $dsp->AddSingleRow('<a href="index.php?mod=downloads&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_folder.gif" border="0" /> '. $CurFile .'</a>');
 
-                              // File
+                    // File
                     } else {
                         $Size = filesize($BaseDir.'/'.$CurFilePath);
                         $dsp->AddSingleRow('<a href="index.php?mod=downloads&design=base&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $CurFile .' ['. $func->FormatFileSize($Size) .']'.'</a>');
@@ -115,7 +111,7 @@ if (!$cfg['download_use_ftp']) {
             $dsp->AddFormSubmitRow('add');
             $dsp->AddFieldSetEnd();
 
-          // URL Upload Box
+            // URL Upload Box
             $dsp->AddFieldSetStart(t('URL verlinken'));
             $mf = new \LanSuite\MasterForm();
             $mf->AddField(t('URL'), 'link');
@@ -147,16 +143,14 @@ if (!$cfg['download_use_ftp']) {
     }
 
 // Try to connect to FTP-Server
-} elseif (!extension_loaded(ftp)) {
+} elseif (!extension_loaded('ftp')) {
     $func->error(t('Die PHP-Erweiterung <b>FTP</b> konnte nicht geladen werden. &Uuml;berpr&uuml;fe, ob diese in PHP einkompiliert bzw. aktiviert ist'));
 } else {
-    session_register("downloads_dir");
-
-    $server     = $cfg['download_server'];
-    $port       = $cfg['download_port'];
-    $loginuser    = $cfg['download_username'];
+    $server         = $cfg['download_server'];
+    $port           = $cfg['download_port'];
+    $loginuser      = $cfg['download_username'];
     $loginpassword  = $cfg['download_password'];
-    $subdir     = $cfg['download_subdir'];
+    $subdir         = $cfg['download_subdir'];
 
     $connect = @ftp_connect($server, $port, "2");
     $login   = @ftp_login($connect, $loginuser, $loginpassword);
@@ -169,18 +163,18 @@ if (!$cfg['download_use_ftp']) {
     }
 
     if ($connect != false and $login != false) {
-        if ($_GET[go_dir] == "up") {
+        if ($_GET['go_dir'] == "up") {
             array_pop($_SESSION['downloads_dir']);
-        } elseif ($_GET[go_dir]) {
+        } elseif ($_GET['go_dir']) {
             if (count($_SESSION['downloads_dir']) > "0") {
                 foreach ($_SESSION['downloads_dir'] as $dir_entry) {
                     $set_dir .= "/" . $dir_entry;
                 }
             }
       
-            $join_dir = @ftp_chdir($connect, $subdir . $set_dir . "/" . $_GET[go_dir]);
-            if ($join_dir == true and $_GET[go_dir] != "." and $_GET[go_dir] != "..") {
-                $_SESSION['downloads_dir'][] = $_GET[go_dir];
+            $join_dir = @ftp_chdir($connect, $subdir . $set_dir . "/" . $_GET['go_dir']);
+            if ($join_dir == true and $_GET['go_dir'] != "." and $_GET['go_dir'] != "..") {
+                $_SESSION['downloads_dir'][] = $_GET['go_dir'];
             }
 
             unset($set_dir);
@@ -217,7 +211,7 @@ if (!$cfg['download_use_ftp']) {
                     $debugFTP[] = "FTP> " . $cur_line . HTML_NEWLINE;
                 }
 
-                if (ereg("([-d])([rwxst-]{9}).* ([0-9]*) ([a-zA-Z]+[0-9: ]* [0-9]{2}:?[0-9]{2}) (.+)", $cur_line, $regs)) {
+                if (preg_match("([-d])([rwxst-]{9}).* ([0-9]*) ([a-zA-Z]+[0-9: ]* [0-9]{2}:?[0-9]{2}) (.+)", $cur_line, $regs)) {
                     if ($regs[1] == "d") {
                         $lineinfo['folder'] = true;
                     } else {

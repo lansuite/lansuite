@@ -4,7 +4,6 @@ $account = new LanSuite\Module\Foodcenter\Accounting($auth['userid']);
 
 if ($auth['type'] > 1 && !isset($_GET['act'])) {
     $_GET['act'] = "menu";
-
 } elseif ($auth['type'] < 2) {
     $_GET['act'] = "";
 }

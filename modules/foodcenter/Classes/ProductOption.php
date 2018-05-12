@@ -115,7 +115,6 @@ class ProductOption
     {
         if ($_POST['hidden'][$nr] > 0) {
             $this->id = $_POST['hidden'][$nr];
-
         } else {
             $this->id = null;
         }
@@ -176,7 +175,6 @@ class ProductOption
                                     fix         = %string%,
                                     pice        = %string%", $this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->fix, $this->pice);
             $this->id = $db->insert_id();
-
         } else {
             $db->qry("UPDATE %prefix%food_option  SET 
                                     parentid    = %int%,
@@ -250,6 +248,8 @@ class ProductOption
      * @param bool $big
      * @param bool $multiselect
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function option_form($nr, $optional = null, $big = false, $multiselect = false)
     {
@@ -257,7 +257,6 @@ class ProductOption
 
         if ($multiselect) {
             $display = "";
-
         } else {
             $display = "none";
         }
@@ -272,7 +271,7 @@ class ProductOption
             $dsp->AddTextFieldRow("caption[$nr]", t('Artikelname'), $this->caption, $this->error['caption'], null, $optional);
         }
 
-        $this->_Add_Option_Row(t('Produktoption'), t('Einheit'), t('Preis'), t('Einkaufspreis'), t('Anzahl'), t('Barcode'), "unit[$nr]", "price[$nr]", "eprice[$nr]", "piece[$nr]", "barcode[$nr]", $this->unit, $this->price, $this->eprice, $this->pice, $this->barcode, "hidden[$nr]", $this->id, $this->error['price'], $optional);
+        $this->addOptionRow(t('Produktoption'), t('Einheit'), t('Preis'), t('Einkaufspreis'), t('Anzahl'), t('Barcode'), "unit[$nr]", "price[$nr]", "eprice[$nr]", "piece[$nr]", "barcode[$nr]", $this->unit, $this->price, $this->eprice, $this->pice, $this->barcode, "hidden[$nr]", $this->id, $this->error['price'], $optional);
         $dsp->AddHRuleRow();
     }
 
@@ -288,10 +287,8 @@ class ProductOption
 
         if ($this->caption == "" && $checkbox == false) {
             $text = $caption . " / " . $this->unit . " / " . $this->price . " " . $cfg['sys_currency'];
-
         } elseif ($caption == "" || $checkbox == true) {
             $text = $this->caption . " / " . $this->unit . " / " . $this->price . " " . $cfg['sys_currency'];
-
         } else {
             $text = $caption . " " .$this->caption . " / " . $this->unit . " / " . $this->price . " " . $cfg['sys_currency'];
         }
@@ -299,7 +296,6 @@ class ProductOption
         if ($checkbox == false) {
             $dsp->AddTextFieldRow("option_{$listid}_{$this->id}", $text, $this->ordered, $this->error['pice_error']);
             $this->error['pice_error'] = "";
-
         } else {
             $dsp->AddCheckBoxRow("product[{$this->parentid}][{$this->id}]", "", $text, "", null, 1, 1);
         }
@@ -308,29 +304,31 @@ class ProductOption
     /**
      * Product option template
      *
-     * @param string    $text
-     * @param string    $text_product
-     * @param string    $text_price
-     * @param string    $text_eprice
-     * @param string    $text_piece
-     * @param string    $text_barcode
-     * @param string    $name_product
-     * @param string    $name_price
-     * @param string    $name_eprice
-     * @param string    $name_piece
-     * @param string    $name_barcode
-     * @param int       $value_product
-     * @param int       $value_price
-     * @param int       $value_eprice
-     * @param int       $value_piece
-     * @param int       $value_barcode
-     * @param string    $hidden_name
-     * @param int       $hidden_id
-     * @param string    $errortext
+     * @param string $text
+     * @param string $text_product
+     * @param string $text_price
+     * @param string $text_eprice
+     * @param string $text_piece
+     * @param string $text_barcode
+     * @param string $name_product
+     * @param string $name_price
+     * @param string $name_eprice
+     * @param string $name_piece
+     * @param string $name_barcode
+     * @param int $value_product
+     * @param int $value_price
+     * @param int $value_eprice
+     * @param int $value_piece
+     * @param int $value_barcode
+     * @param string $hidden_name
+     * @param int $hidden_id
+     * @param string $errortext
      * @param bool $optional
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
-    public function _Add_Option_Row($text, $text_product, $text_price, $text_eprice, $text_piece, $text_barcode, $name_product, $name_price, $name_eprice, $name_piece, $name_barcode, $value_product, $value_price, $value_eprice, $value_piece, $value_barcode, $hidden_name, $hidden_id, $errortext, $optional = false)
+    private function addOptionRow($text, $text_product, $text_price, $text_eprice, $text_piece, $text_barcode, $name_product, $name_price, $name_eprice, $name_piece, $name_barcode, $value_product, $value_price, $value_eprice, $value_piece, $value_barcode, $hidden_name, $hidden_id, $errortext, $optional = false)
     {
         global $dsp, $smarty;
 
