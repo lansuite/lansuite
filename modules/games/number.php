@@ -1,23 +1,5 @@
 <?php
 
-/*************************************************************************
-*
-*   Lansuite - Webbased LAN-Party Management System
-*   -----------------------------------------------
-*
-*   (c) 2001-2003 by One-Network.Org
-*
-*   Lansuite Version:   2.0
-*   File Version:       2.0
-*   Filename:           Number
-*   Module:             Games
-*   Main editor:        jochen@one-network.org
-*   Last change:        25.05.2004 19:34
-*   Description:        Number Guessing
-*   Remarks:
-*
-**************************************************************************/
-
 $headermenuitem = $_GET["headermenuitem"];
 $action = $_GET["action"];
 $step = $_GET["step"];
@@ -83,7 +65,7 @@ switch ($step) {
         }
 
         if (!isset($_SESSION["zahl"])) {
-            srand(date(U));
+            srand(date('U'));
             $_SESSION["zahl"] = rand(1, 1000);
             $_POST['eingabe'] = "0";
         }
