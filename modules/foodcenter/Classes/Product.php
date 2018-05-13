@@ -145,16 +145,13 @@ class Product
             for ($i=0; $i < 3; $i++) {
                 if ($_POST['hidden'][$i] > 0) {
                     $this->option[$i]->read_post($this->id, $this->type, $i);
-
                 } elseif ($_POST['price'][$i] != "") {
                     $x = count($this->option);
                     $this->option[$x] = new ProductOption();
                     $this->option[$x]->read_post($this->id, $this->type, $i);
                 }
             }
-
         } elseif ($this->type == 2) {
-
             if (isset($_POST['caption'][0])) {
                 $q = 0;
             } else {
@@ -164,7 +161,6 @@ class Product
             for ($i=$q; $i < ($q + 8); $i++) {
                 if ($_POST['hidden'][$i] > 0) {
                     $this->option[$i]->read_post($this->id, $this->type, $i);
-
                 } elseif ($_POST['caption'][$i] != "" || $i == $q) {
                     $x = count($this->option);
                     $this->option[$x] = new ProductOption();
@@ -189,7 +185,6 @@ class Product
         if ($_FILES['file']['error'] != 0 && $_FILES['file']['name'] != "") {
             $this->error_food['file']   = t('Datei konnte nicht hochgeladen werden');
             $this->noerror = false;
-
         } elseif ($_FILES['file']['name'] != "") {
             $func->FileUpload("file", "ext_inc/foodcenter/", $_FILES['file']['name']);
             $_POST['pic'] = $_FILES['file']['name'];
@@ -224,7 +219,6 @@ class Product
 
         if ($this->id == null) {
             return false;
-
         } else {
             $row = $db->qry_first("SELECT * FROM %prefix%food_product WHERE id=%int%", $this->id);
 
@@ -281,7 +275,6 @@ class Product
                         wait = %int%,
                         chois = %int%", $this->caption, $this->desc, $this->cat->cat_id, $this->supp->supp_id, $this->supp_infos, $this->pic, $this->mat, $this->type, $this->wait, $this->choise);
             $this->id = $db->insert_id();
-
         } else {
             $db->qry("UPDATE %prefix%food_product SET
                         caption = %string%,
@@ -318,7 +311,6 @@ class Product
                 }
             }
             return  $this->ordered * $tot_price;
-
         } else {
             for ($i=0; $i<count($this->option); $i++) {
                 if (is_object($this->option[$i])) {
@@ -348,11 +340,9 @@ class Product
             if ($this->option[$i]->id == $id) {
                 if ($value == null) {
                     $this->option[$i]->ordered++;
-
                 } else {
                     if ($this->mat == 0 || $this->option[$i]->pice >= $value) {
                         $this->option[$i]->ordered = $value;
-
                     } else {
                         $this->option[$i]->ordered = $this->option[$i]->pice;
                         $this->option[$i]->error['pice_error'] = t('Das Produkt ist nicht in dieser Menge vorhanden.');
@@ -375,7 +365,6 @@ class Product
     {
         if ($this->type == 2) {
             return $this->ordered;
-
         } else {
             $count = 0;
 
@@ -405,7 +394,6 @@ class Product
         if ($this->id != null) {
             $dsp->NewContent(t('Produkt hinzufügen'), t('Hier können sie ein Produkt hinzufügen'));
             $dsp->SetForm("index.php?mod=foodcenter&action=addproduct&step=$nextstep&id={$this->id}", "food_add", "", "multipart/form-data");
-
         } else {
             $dsp->NewContent(t('Produkt ändern'), t('Produkt ändern'));
             $dsp->SetForm("index.php?mod=foodcenter&action=addproduct&step=$nextstep", "food_add", "", "multipart/form-data");
@@ -460,7 +448,6 @@ class Product
 
         if ($this->type != null) {
             $dsp->AddDropDownFieldRow("product_type\" disabled onchange=\"change_option(this.options[this.options.selectedIndex].value)\"", "<input type=\"hidden\" name=\"product_type\" value=\"{$this->type}\" />" . t('Produktart'), $opts, $this->error_food['product_opts']);
-
         } else {
             $dsp->AddDropDownFieldRow("product_type\" onchange=\"change_option(this.options[this.options.selectedIndex].value)\"", t('Produktart'), $opts, $this->error_food['product_opts']);
         }
@@ -501,7 +488,6 @@ class Product
 
         if ($this->id != null) {
             $dsp->AddFormSubmitRow(t('Editieren'));
-
         } else {
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
         }
@@ -512,6 +498,8 @@ class Product
      *
      * @param string $worklink
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function order_form($worklink)
     {
@@ -555,16 +543,13 @@ class Product
                         if ($this->choise == 0) {
                             $dsp->AddHRuleRow();
                             $dsp->AddDoubleRow("<a href='$worklink&info={$this->id}'>" . $this->caption . "</a>", $this->option[$i]->caption . " " . $this->option[$i]->unit . " <a href='$worklink&add={$this->id}&opt={$this->option[$i]->id}'>" . $this->option[$i]->price . " " . $cfg['sys_currency'] . "</a>");
-
                         } else {
                             $dsp->AddHRuleRow();
                             $dsp->AddCheckBoxRow("option[{$this->id}]", "<a href='$worklink&info={$this->id}'>" . $this->caption . "</a>", $this->option[$i]->caption . " " . $this->option[$i]->unit . " "  . $this->option[$i]->price . " " . $cfg['sys_currency'], "", null, $this->option[$i]->fix, $this->option[$i]->fix);
                         }
-
                     } else {
                         if ($this->choise == 0) {
                             $dsp->AddDoubleRow("", $this->option[$i]->caption . " " . $this->option[$i]->unit . "   <a href='$worklink&add={$this->id}&opt={$this->option[$i]->id}'>" . $this->option[$i]->price . " " . $cfg['sys_currency'] . "</a>");
-
                         } else {
                             $dsp->AddCheckBoxRow("option[{$this->option[$i]->id}]", "", $this->option[$i]->caption . " " . $this->option[$i]->unit . " "  . $this->option[$i]->price . " " . $cfg['sys_currency'], "", null, $this->option[$i]->fix, $this->option[$i]->fix);
                         }
@@ -596,7 +581,6 @@ class Product
                     $this->option[$i]->get_basket($listid, $show_caption, false);
                 }
             }
-
         } else {
             $dsp->AddTextFieldRow("option_$listid", $this->caption, $this->ordered, $this->error_food['order_error']);
             $this->error_food['order_error'] = "";
@@ -655,14 +639,12 @@ class Product
                     if ($i==0) {
                         if ($this->choise == 0) {
                             $dsp->AddDoubleRow("<b>" . $this->caption . "</b>", $this->option[$i]->caption . " " . $this->option[$i]->unit . " <a href='$worklink&add={$this->id}&opt={$this->option[$i]->id}'>" . $this->option[$i]->price . " " . $cfg['sys_currency'] . "</a>");
-
                         } else {
                             $dsp->AddCheckBoxRow("option[{$this->id}]", "<b>" . $this->caption . "</b>", $this->option[$i]->caption . " " . $this->option[$i]->unit . " "  . $this->option[$i]->price . " " . $cfg['sys_currency'], "", null, $this->option[$i]->fix, $this->option[$i]->fix);
                         }
                     } else {
                         if ($this->choise == 0) {
                             $dsp->AddDoubleRow("", $this->option[$i]->caption . " " . $this->option[$i]->unit . "   <a href='$worklink&add={$this->id}&opt={$this->option[$i]->id}'>" . $this->option[$i]->price . " " . $cfg['sys_currency'] . "</a>");
-
                         } else {
                             $dsp->AddCheckBoxRow("option[{$this->option[$i]->id}]", "", $this->option[$i]->caption . " " . $this->option[$i]->unit . " "  . $this->option[$i]->price . " " . $cfg['sys_currency'], "", null, $this->option[$i]->fix, $this->option[$i]->fix);
                         }
@@ -694,7 +676,6 @@ class Product
                     return false;
                 }
             }
-
         } else {
             if ($this->id != $prod->id) {
                 return false;
@@ -714,7 +695,6 @@ class Product
     {
         $error = -1;
         foreach ($this->option as $key => $value) {
-
             // Check all product options if they are available
             if (($val * $this->option[$key]->ordered) <  $this->option[$key]->pice) {
                 if ($error == -1 || $error > $this->option[$key]->pice) {
@@ -727,7 +707,6 @@ class Product
             $this->error_food['order_error'] = t('Das Produkt ist nicht in dieser Menge vorhanden.');
             $this->ordered = $error;
             return false;
-
         } else {
             $this->ordered = $val;
         }
@@ -751,7 +730,6 @@ class Product
 
         // Extended product
         if ($this->type == 2) {
-
             $opt_array = [];
             foreach ($this->option as $key => $value) {
                 if ($this->option[$key]->ordered > 0 || $this->option[$key]->fix == 1) {
@@ -782,14 +760,12 @@ class Product
                     lastchange = %string%,
                     supplytime = '0'", $userid, $this->id, $party->party_id, $opt_string, $this->ordered, $status, $time, $time)) {
                 return $price * $this->ordered;
-
             } else {
                 return 0;
             }
 
             // Simple product
         } else {
-
             foreach ($this->option as $key => $value) {
                 if ($this->option[$key]->ordered > 0 || $this->option[$key]->fix == 1) {
                     if ($this->wait == 1) {

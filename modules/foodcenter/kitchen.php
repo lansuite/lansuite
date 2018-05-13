@@ -2,7 +2,6 @@
 
 if (isset($_GET['autorefresh'])) {
     $autorefresh = $_GET['autorefresh'];
-
 } else {
     $autorefresh = 0;
 }
@@ -34,7 +33,6 @@ if ($_GET['step'] == 1) {
 // Display autorefresh status and control link
 if ($autorefresh == 0) {
     $dsp->AddSingleRow("<img src=\"ext_inc/teamspeak2/refresh_off.gif\"> <b>Autorefresh:</b> <font color=red><b>". t('AUS') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "index.php?mod=foodcenter&action=kitchen&autorefresh=1\">". t('Aktivieren') ."</a>)<br>\n");
-
 } elseif ($autorefresh == 1) {
     $dsp->AddSingleRow("<img src=\"ext_inc/teamspeak2/refresh_on.gif\"> <b>Autorefresh:</b> <font color=green><b>". t('AN') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "index.php?mod=foodcenter&action=kitchen&autorefresh=0\">". t('Deaktivieren') ."</a>)<br>\n");
 }

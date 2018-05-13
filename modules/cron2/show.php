@@ -1,16 +1,15 @@
 <?php
 
 switch ($_GET['step']) {
-  // Delete
+    // Delete
     case 10:
         $md = new \LanSuite\MasterDelete();
         $md->MultiDelete('cron', 'jobid');
         break;
 
-  // Run now
+    // Run now
     case 20:
-        include_once("modules/cron2/class_cron2.php");
-        $cron2 = new cron2();
+        $cron2 = new LanSuite\Module\Cron2\Cron2();
 
         $dsp->AddDoubleRow(t('Folgender SQL-Befehl wurde ausgeführt'), $cron2->Run($_GET['jobid']));
         $dsp->AddBackButton('index.php?mod=cron2');

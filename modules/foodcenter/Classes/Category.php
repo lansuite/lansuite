@@ -55,11 +55,9 @@ class Category
             if ($db->num_rows($row) > 0) {
                 $this->name = $row['name'];
                 return true;
-
             } else {
                 return false;
             }
-
         } else {
             return false;
         }
@@ -82,7 +80,6 @@ class Category
             $tmp = [];
 
             if ($new != null) {
-
                 if ($select_id == 0) {
                     $selected = "selected";
                 } else {
@@ -100,7 +97,6 @@ class Category
                 array_push($tmp, "<option $selected value='{$data['cat_id']}'>{$data['name']}</option>");
             }
             return $tmp;
-
         } else {
             return false;
         }
@@ -115,7 +111,6 @@ class Category
     {
         if (isset($_POST['cat_id']) && $_POST['cat_id'] > 0) {
             $this->cat_id = $_POST['cat_id'];
-
         } else {
             $this->cat_id = null;
         }
@@ -135,7 +130,6 @@ class Category
         if ($this->cat_id == null) {
             $db->qry("INSERT INTO %prefix%food_cat SET name = %string%", $this->name);
             $this->cat_id = $db->insert_id();
-
         } else {
             $db->qry("UPDATE %prefix%food_cat SET name = %string% WHERE cat_id=%int%", $this->name, $this->cat_id);
         }
@@ -149,7 +143,6 @@ class Category
         if ($this->name == "" && $this->cat_id == null) {
             $this->error['cat_name'] = t('Bitte geben sie eine Kategorie an');
             return false;
-
         }
         return true;
     }

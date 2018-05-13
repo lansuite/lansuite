@@ -89,7 +89,6 @@ class FoodcenterPrint
 
         if ($value == "") {
             return t('Verschiedene');
-
         } else {
             $supp = $db->qry_first("SELECT name FROM %prefix%food_supp WHERE supp_id = %int%", $value);
             return $supp['name'];
@@ -113,18 +112,15 @@ class FoodcenterPrint
                     $data = $db->qry_first("SELECT caption, unit FROM %prefix%food_option WHERE id = %int%", $number);
                     if ($data['caption'] == "") {
                         $out .= $data['unit'] . "<br />";
-
                     } else {
                         $out .= $data['caption'] . "<br />";
                     }
                 }
             }
-
         } else {
             $data = $db->qry_first("SELECT caption,unit FROM %prefix%food_option WHERE id = %int%", $value);
             if ($data['caption'] == "") {
                 $out .= $data['unit'] . "<br />";
-
             } else {
                 $out .= $data['caption'] . "<br />";
             }
@@ -143,7 +139,6 @@ class FoodcenterPrint
 
         if ($userid == 'all') {
             return t('Verschiedene');
-
         } else {
             $get_username = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
             return $get_username["username"];
@@ -160,7 +155,6 @@ class FoodcenterPrint
 
         if ($userid == 'all') {
             return t('Verschiedene');
-
         } else {
             $get_userdata = $db->qry_first("SELECT u.*, s.ip FROM %prefix%user AS u
       								LEFT JOIN %prefix%seat_seats AS s ON s.userid = u.userid
@@ -180,7 +174,6 @@ class FoodcenterPrint
 
         if ($this->config['datetime_format'] == '') {
             return $func->unixstamp2date($time, "datetime");
-
         } else {
             return $func->unixstamp2date($time, $this->config['datetime_format']);
         }
