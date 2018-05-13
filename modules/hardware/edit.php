@@ -1,4 +1,5 @@
 <?php
+
 // Edit Hardwareinfos for User
 if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])) {
     $mf = new \LanSuite\MasterForm();
