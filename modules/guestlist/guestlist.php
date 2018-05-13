@@ -1,7 +1,11 @@
 <?php
 
 $seating = new Seat2();
-$guestlist = new LanSuite\Module\GuestList\GuestList($seating);
+
+include_once("modules/usrmgr/class_usrmgr.php");
+$userManager = new UsrMgr();
+
+$guestlist = new LanSuite\Module\GuestList\GuestList($seating, $userManager);
 
 switch ($_GET['step']) {
     // Paid

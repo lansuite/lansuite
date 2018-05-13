@@ -4,8 +4,6 @@ namespace LanSuite\Module\GuestList;
 
 use LanSuite\Module\Seating\Seat2;
 
-include_once("modules/usrmgr/class_usrmgr.php");
-
 class GuestList
 {
 
@@ -14,9 +12,15 @@ class GuestList
      */
     private $seating;
 
-    public function __construct(Seat2 $seating)
+    /**
+     * @var \UsrMgr
+     */
+    private $userManager;
+
+    public function __construct(Seat2 $seating, \UsrMgr $userManager)
     {
         $this->seating = $seating;
+        $this->userManager = $userManager;
     }
 
     /**
@@ -26,7 +30,7 @@ class GuestList
      */
     public function SetPaid($userid, $partyid)
     {
-        global $db, $cfg, $func, $usrmgr;
+        global $db, $cfg, $func;
 
         include_once("modules/mail/class_mail.php");
         $mail = new mail();
@@ -62,7 +66,7 @@ class GuestList
         // Reserve Seat
         $this->seating->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
 
-        $usrmgr->WriteXMLStatFile();
+        $this->userManager->WriteXMLStatFile();
 
         $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "bezahlt" gesetzt', $row['username'], $row2['name']), 1, '', 'Zahlstatus');
         return $Messages;
@@ -75,7 +79,7 @@ class GuestList
      */
     public function SetNotPaid($userid, $partyid)
     {
-        global $db, $cfg, $func, $usrmgr;
+        global $db, $cfg, $func;
 
         include_once("modules/mail/class_mail.php");
         $mail = new mail();
@@ -104,7 +108,7 @@ class GuestList
         // Switch seat back to "marked"
         $this->seating->MarkSeatIfNotPaidAndSeatReserved($userid);
 
-        $usrmgr->WriteXMLStatFile();
+        $this->userManager->WriteXMLStatFile();
 
         $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "nicht bezahlt" gesetzt', $row['username'], $row2['name']), 1, '', 'Zahlstatus');
         return $Messages;
