@@ -96,6 +96,8 @@
             "modules/guestlist/Functions/PaidIconLink.php",
             "modules/guestlist/Functions/PPrice.php",
             "modules/guestlist/Functions/SeatNameLink.php",
+            "modules/info2/Functions/ShowActiveState.php",
+            "modules/info2/Functions/UpdateInfo2.php",
             "modules/mastersearch2/Functions/MS2GetDate.php",
             "modules/mastersearch2/Functions/MS2GetTime.php",
             "modules/mastersearch2/Functions/Text2LSCode.php",
