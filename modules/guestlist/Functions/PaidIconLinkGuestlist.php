@@ -4,7 +4,7 @@
  * @param boolean $paid
  * @return string
  */
-function PaidIconLink($paid)
+function PaidIconLinkGuestlist($paid)
 {
     global $dsp, $line, $auth;
 

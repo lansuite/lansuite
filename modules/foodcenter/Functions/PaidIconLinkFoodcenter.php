@@ -6,7 +6,7 @@
  * @param boolean $paid
  * @return string
  */
-function PaidIconLink($paid)
+function PaidIconLinkFoodcenter($paid)
 {
     global $dsp, $line, $party;
 

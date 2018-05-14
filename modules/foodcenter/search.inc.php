@@ -23,7 +23,7 @@ $ms2->AddSelect('u.type');
 
 // If party is selected
 if ($_POST["search_dd_input"][1] != '' || $_GET["search_dd_input"][1] != '') {
-    $ms2->AddResultField(t('Bez.'), 'p.paid', 'PaidIconLink');
+    $ms2->AddResultField(t('Bez.'), 'p.paid', 'PaidIconLinkFoodcenter');
     $ms2->AddResultField('In', 'p.checkin', 'MS2GetDate');
     $ms2->AddResultField('Out', 'p.checkout', 'MS2GetDate');
 }

@@ -46,7 +46,7 @@ $ms2->AddSelect('c.clanid AS clanid');
 $ms2->AddResultField('Clan', 'c.name AS clan', 'ClanURLLink');
 
 if ($party->party_id) {
-    $ms2->AddResultField(t('Bez.'), 'p.paid', 'PaidIconLink');
+    $ms2->AddResultField(t('Bez.'), 'p.paid', 'PaidIconLinkGuestlist');
     $ms2->AddSelect('i.price');
     $ms2->AddResultField(t('Preis'), 'i.price_text', 'p_price');
     if ($func->isModActive('seating')) {
