@@ -1,10 +1,14 @@
 <?php
 
-include_once('modules/guestlist/class_guestlist.php');
-$guestlist = new guestlist;
+$seating = new Seat2();
+
+include_once("modules/usrmgr/class_usrmgr.php");
+$userManager = new UsrMgr();
+
+$guestlist = new LanSuite\Module\GuestList\GuestList($seating, $userManager);
 
 switch ($_GET['step']) {
-  // Paid
+    // Paid
     case 10:
         if (!$_POST['action'] and $_GET['userid']) {
             $_POST['action'][$_GET['userid']] = 1;
@@ -33,7 +37,7 @@ switch ($_GET['step']) {
         }
         break;
 
-  // Not paid
+    // Not paid
     case 11:
         if (!$_POST['action'] and $_GET['userid']) {
             $_POST['action'][$_GET['userid']] = 1;
@@ -62,7 +66,7 @@ switch ($_GET['step']) {
         }
         break;
 
-  // Check in
+    // Check in
     case 20:
         if (!$_POST['action'] and $_GET['userid']) {
             $_POST['action'][$_GET['userid']] = 1;
@@ -81,7 +85,7 @@ switch ($_GET['step']) {
         }
         break;
 
-  // Check out
+    // Check out
     case 21:
         if (!$_POST['action'] and $_GET['userid']) {
             $_POST['action'][$_GET['userid']] = 1;
@@ -100,7 +104,7 @@ switch ($_GET['step']) {
         }
         break;
 
-  // Delete check in + out
+    // Delete check in + out
     case 22:
         if (!$_POST['action'] and $_GET['userid']) {
             $_POST['action'][$_GET['userid']] = 1;

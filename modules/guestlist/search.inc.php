@@ -8,68 +8,6 @@ if ($func->isModActive('seating')) {
     $seat2 = new Seat2();
 }
 
-function SeatNameLink($userid)
-{
-    global $seat2;
-
-    return $seat2->SeatNameLink($userid);
-}
-
-function PaidIconLink($paid)
-{
-    global $dsp, $line, $auth;
-
-    if ($auth['type'] > 1) {
-        if ($paid) {
-            return $dsp->FetchIcon('paid', 'index.php?mod=guestlist&step=11&userid=' . $line['userid'], t('Bezahlt'));
-        } else {
-            return $dsp->FetchIcon('not_paid', 'index.php?mod=guestlist&step=10&userid=' . $line['userid'], t('Nicht bezahlt'));
-        }
-    } else {
-        if ($paid) {
-            return $dsp->FetchIcon('paid', '', t('Bezahlt'));
-        } else {
-            return $dsp->FetchIcon('not_paid', '', t('Nicht bezahlt'));
-        }
-    }
-}
-
-function ClanURLLink($clan_name)
-{
-    global $line, $func;
-
-    if ($clan_name == '') {
-        return '';
-    } elseif ($func->isModActive('clanmgr')) {
-        return '<a href="index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $line['clanid'] .'">'. $clan_name .'</a>';
-    } elseif ($clan_name != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
-        if (substr($line['clanurl'], 0, 7) != 'http://') {
-            $line['clanurl'] = 'http://'. $line['clanurl'];
-        }
-        return '<a href="'. $line['clanurl'] .'" target="_blank">'. $clan_name .'</a>';
-    } else {
-        return $clan_name;
-    }
-}
-
-function p_price($price_text)
-{
-    global $line, $cfg;
-  
-    if ($line['price']) {
-        $ret = $price_text .' ('. $line['price'] .' '. $cfg['sys_currency'] .')';
-    } else {
-        $ret = $price_text;
-    }
-
-    if ($ret) {
-        return '<a href="index.php?mod=usrmgr&action=party&user_id='. $line['userid'] .'">'. $ret .'</a>';
-    } else {
-        return '';
-    }
-}
-
-
 $ms2->query['from'] = "%prefix%user AS u
     LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
     LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
@@ -108,7 +46,7 @@ $ms2->AddSelect('c.clanid AS clanid');
 $ms2->AddResultField('Clan', 'c.name AS clan', 'ClanURLLink');
 
 if ($party->party_id) {
-    $ms2->AddResultField(t('Bez.'), 'p.paid', 'PaidIconLink');
+    $ms2->AddResultField(t('Bez.'), 'p.paid', 'PaidIconLinkGuestlist');
     $ms2->AddSelect('i.price');
     $ms2->AddResultField(t('Preis'), 'i.price_text', 'p_price');
     if ($func->isModActive('seating')) {
