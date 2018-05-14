@@ -941,8 +941,8 @@ class MasterSearch2
         if ($this->isExport) {
             switch ($this->isExport) {
                 case 'csv':
-                    include("modules/install/class_export.php");
-                    $export = new \Export();
+                    $xmlExport = new \LanSuite\XML();
+                    $export = new \LanSuite\Module\Install\Export($xmlExport);
 
                     $output = '';
                     $y = 0;
