@@ -5,7 +5,7 @@
  */
 function SendOnlineMail()
 {
-    global $db, $func, $__POST, $auth;
+    global $db, $cfg, $func, $__POST, $auth;
 
     $mail = new \LanSuite\Module\Mail\Mail();
 

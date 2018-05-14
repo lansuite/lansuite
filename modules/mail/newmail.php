@@ -4,8 +4,6 @@ $reply_message = '';
 
 $dsp->NewContent(t('Neue Mail verfassen'), '');
 
-
-
 $mf = new \LanSuite\MasterForm();
 
 if ($_GET['userID']) {
@@ -115,7 +113,7 @@ if ($auth['userid']) {
     $mf->AddField(t('Mail-Typ'), 'type', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 } else {
     $mf->AddField('', 'captcha', \LanSuite\MasterForm::IS_CAPTCHA);
-    $mf->AddField(t('Absender E-Mail'), 'SenderMail', '', '', '', CheckValidEmail);
+    $mf->AddField(t('Absender E-Mail'), 'SenderMail', '', '', '', 'CheckValidEmail');
 }
 
 $mf->AddField(t('Betreff'), 'Subject');

@@ -23,7 +23,7 @@ class Mail
      */
     public function create_mail($from_userid, $to_userid, $subject_text, $msgbody_text)
     {
-        global $db;
+        global $db, $cfg;
 
         if ($from_userid == "") {
             $this->error = t('Sys-Mail Fehler: Kein Absender angegeben');
