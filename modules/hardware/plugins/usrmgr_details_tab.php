@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * This file is part of the LS-Pluginsystem. It will be included in
+ * modules/usrmgr/details.php to generate a module specific header menue
+ * for user details
+ */
+
 $hardware = $db->qry_first("SELECT * FROM %prefix%hardware WHERE userid=%int%", $_GET['userid']);
 $dsp->AddDoubleRow(t('CPU'), $dsp->FetchIcon('cpu').' '.$hardware['cpu']);
 $dsp->AddDoubleRow(t('Ram'), $dsp->FetchIcon('ram').' '.$hardware['ram']);
@@ -14,6 +20,11 @@ $dsp->AddDoubleRow(t('Monitor'), $dsp->FetchIcon('screen').' '.$hardware['monito
 $dsp->AddDoubleRow(t('Betriebssystem'), $dsp->FetchIcon('os').' '.$hardware['os']);
 $dsp->AddDoubleRow(t('Computername'), $dsp->FetchIcon('pc').' '.$hardware['name']);
 $dsp->AddDoubleRow(t('Sonstiges'), $hardware['sonstiges']);
+
+/** 
+ * Allow edits of profile if user is admin or if it is the logged in user 
+ * and change of details is allowed via $cfg['user_self_details_change']
+ */
 
 if ($auth['type'] >= 2 || ($_GET['userid'] == $auth['userid'] && $cfg['user_self_details_change'])) {
     if ($hardware['hardwareid']) {
