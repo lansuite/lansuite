@@ -1,12 +1,11 @@
 <?php
-// This File is a Part of the LS-Pluginsystem. It will be included in
-// modules/usrmgr/details.php to generate Modulspezific Headermenue
-// for Userdetails
 
-// ADD HERE MODULSPECIFIC INCLUDES
+/**
+ * This file is part of the LS-Pluginsystem. It will be included in
+ * modules/usrmgr/details.php to generate a module specific header menue
+ * for user details
+ */
 
-// ADD HERE MODULPUGINCODE
-//hardwareliste
 $hardware = $db->qry_first("SELECT * FROM %prefix%hardware WHERE userid=%int%", $_GET['userid']);
 $dsp->AddDoubleRow(t('CPU'), $dsp->FetchIcon('cpu').' '.$hardware['cpu']);
 $dsp->AddDoubleRow(t('Ram'), $dsp->FetchIcon('ram').' '.$hardware['ram']);
@@ -22,7 +21,12 @@ $dsp->AddDoubleRow(t('Betriebssystem'), $dsp->FetchIcon('os').' '.$hardware['os'
 $dsp->AddDoubleRow(t('Computername'), $dsp->FetchIcon('pc').' '.$hardware['name']);
 $dsp->AddDoubleRow(t('Sonstiges'), $hardware['sonstiges']);
 
-if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])) {
+/**
+ * Allow edits of profile if user is admin or if it is the logged in user
+ * and change of details is allowed via $cfg['user_self_details_change']
+ */
+
+if ($auth['type'] >= 2 || ($_GET['userid'] == $auth['userid'] && $cfg['user_self_details_change'])) {
     if ($hardware['hardwareid']) {
         $plug_bttn_hw = $dsp->FetchSpanButton(t('Editieren'), 'index.php?mod=hardware&action=edit&userid='. $_GET['userid'].'&hardwareid='.$hardware['hardwareid']);
     } else {
