@@ -1,17 +1,37 @@
 <?php
 
-$query = $db->qry("UPDATE %prefix%messages SET new = '0' WHERE senderid = %int% AND receiverid = %int%", $_GET['queryid'], $auth['userid']);
-$query = $db->qry("SELECT text, timestamp, senderid FROM %prefix%messages
-  WHERE (senderid = %int% AND receiverid = %int%) OR (senderid = %int%  AND receiverid = %int%)
-  ORDER BY timestamp
-  ", $auth['userid'], $_GET['queryid'], $_GET['queryid'], $auth['userid']);
+$query = $db->qry("
+  UPDATE %prefix%messages
+  SET
+    new = '0'
+  WHERE
+    senderid = %int%
+    AND receiverid = %int%", $_GET['queryid'], $auth['userid']);
+
+$query = $db->qry("
+  SELECT
+    text,
+    timestamp,
+    senderid
+  FROM %prefix%messages
+  WHERE 
+    (
+      senderid = %int%
+      AND receiverid = %int%
+    )
+    OR
+    (
+      senderid = %int%
+      AND receiverid = %int%
+    )
+  ORDER BY timestamp", $auth['userid'], $_GET['queryid'], $_GET['queryid'], $auth['userid']);
 
 $row2 = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $_GET[queryid]);
 
 while ($row = $db->fetch_array($query)) {
-    $senderid    = $row["senderid"];
-    $timestamp    = $row["timestamp"];
-    $text        = $row["text"];
+    $senderid   = $row["senderid"];
+    $timestamp  = $row["timestamp"];
+    $text       = $row["text"];
             
     $text = $func->text2html($text);
     $date = $func->unixstamp2date($timestamp, "time");
