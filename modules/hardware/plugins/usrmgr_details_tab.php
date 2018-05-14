@@ -21,8 +21,8 @@ $dsp->AddDoubleRow(t('Betriebssystem'), $dsp->FetchIcon('os').' '.$hardware['os'
 $dsp->AddDoubleRow(t('Computername'), $dsp->FetchIcon('pc').' '.$hardware['name']);
 $dsp->AddDoubleRow(t('Sonstiges'), $hardware['sonstiges']);
 
-/** 
- * Allow edits of profile if user is admin or if it is the logged in user 
+/**
+ * Allow edits of profile if user is admin or if it is the logged in user
  * and change of details is allowed via $cfg['user_self_details_change']
  */
 
