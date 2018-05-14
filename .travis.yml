@@ -36,6 +36,7 @@ script:
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/games
   - phpcs --standard=PSR1,PSR2 --extensions=php -s modules/guestbook
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude="Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName" modules/guestlist
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/hardware
   - phpcs --standard=PSR1,PSR2 --extensions=php -s modules/helplet
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/home
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/info2
