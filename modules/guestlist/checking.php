@@ -1,4 +1,5 @@
 <?php
+
 $link_target_yes = "index.php?mod=guestlist&action=checked";
 $link_target_no = "index.php?mod=guestlist&action=guestlist";
 

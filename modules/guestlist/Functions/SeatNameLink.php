@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Used as callback function in mastersearch
- *
  * @param int $userid
  * @return string
  */
