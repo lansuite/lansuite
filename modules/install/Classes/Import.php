@@ -354,7 +354,8 @@ class Import
                                 $foreign_key_name
                             );
                             if ($row['on_delete'] != $on_delete) {
-                                $db->qry('
+                                $db->qry(
+                                    '
                                   DELETE FROM %prefix%ref
                                   WHERE
                                     pri_table = %string%
@@ -369,7 +370,8 @@ class Import
                                     $row['found'] = 0;
                             }
                             if (!$row['found']) {
-                                $db->qry('
+                                $db->qry(
+                                    '
                                   INSERT INTO %prefix%ref
                                   SET
                                     pri_table = %string%,
@@ -388,7 +390,8 @@ class Import
                         if ($reference) {
                             list($reference_table, $reference_key) = explode('.', $reference, 2);
 
-                            $row = $db->qry_first('
+                            $row = $db->qry_first(
+                                '
                               SELECT
                                 1 AS found
                               FROM %prefix%ref
@@ -405,7 +408,8 @@ class Import
                                 $reference_condition
                             );
                             if (!$row['found']) {
-                                $db->qry('
+                                $db->qry(
+                                    '
                                   INSERT INTO %prefix%ref
                                   SET
                                     pri_table = %string%,
@@ -645,7 +649,6 @@ class Import
 
         /* DB INPUT */
         if (is_array($users_to_import) == true) {
-
             foreach ($users_to_import as $user) {
                 $email      = $user['email'];
                 $username   = $this->xml->convertinputstr($user['username']);
@@ -681,7 +684,8 @@ class Import
                             $clan_id = $db->insert_id();
                         }
                     }
-                    $db->qry("
+                    $db->qry(
+                        "
                       REPLACE INTO %prefix%user
                       SET
                         email = %string%,
@@ -743,7 +747,8 @@ class Import
                 $text_bc        = $block['text_bc'];
                 $text_br        = $block['text_br'];
 
-                $db->qry("
+                $db->qry(
+                    "
                   REPLACE INTO %prefix%seat_block
                   SET
                     name=%string%,
@@ -862,7 +867,8 @@ class Import
             }
 
             if (!$skip) {
-                $db->qry("
+                $db->qry(
+                    "
                   REPLACE INTO %prefix%user
                   SET
                     username = %string%,

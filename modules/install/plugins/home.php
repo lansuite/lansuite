@@ -43,8 +43,7 @@ $query = $db->qry('
     AND relatedto_item != \'news\' %plain%
   GROUP BY relatedto_item, relatedto_id
   ORDER BY date DESC
-  LIMIT 0, %int%', $exclude, $cfg['home_item_cnt_comments']
-);
+  LIMIT 0, %int%', $exclude, $cfg['home_item_cnt_comments']);
 
 if ($db->num_rows($query) > 0) {
     while ($row = $db->fetch_array($query)) {

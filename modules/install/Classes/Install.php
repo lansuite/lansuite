@@ -269,7 +269,8 @@ class Install
 
                     if ($name) {
                         if (!$mod_found["found"]) {
-                            $db->qry_first("
+                            $db->qry_first(
+                                "
                               REPLACE INTO %prefix%modules
                               SET
                                 name=%string%,
@@ -293,9 +294,11 @@ class Install
                                 $version,
                                 $state,
                                 $reqPhp,
-                                $reqMysql);
+                                $reqMysql
+                            );
                         } elseif ($rewrite) {
-                            $db->qry_first("
+                            $db->qry_first(
+                                "
                               REPLACE INTO %prefix%modules
                               SET
                                 name=%string%,
@@ -317,7 +320,8 @@ class Install
                                 $version,
                                 $state,
                                 $reqPhp,
-                                $reqMysql);
+                                $reqMysql
+                            );
                         }
                     }
                 }

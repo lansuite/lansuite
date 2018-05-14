@@ -55,7 +55,8 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         $dsp->AddFieldsetStart($rowGroup['cfg_group']);
 
                         // Get items in group
-                        $res = $db->qry('
+                        $res = $db->qry(
+                            '
                           SELECT
                             cfg_key,
                             cfg_value,
@@ -161,10 +162,10 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
             $db->free_result($res);
 
             $mf->SendForm(
-              'index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&id='. $_GET['id'] .'&tab=1',
-              'menu',
-              'id',
-              "module = '". $_GET['module'] ."' AND caption != ''"
+                'index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&id='. $_GET['id'] .'&tab=1',
+                'menu',
+                'id',
+                "module = '". $_GET['module'] ."' AND caption != ''"
             );
             $dsp->EndTab();
 
