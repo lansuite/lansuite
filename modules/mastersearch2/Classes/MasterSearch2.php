@@ -541,7 +541,8 @@ class MasterSearch2
               GROUP BY {$this->query['group_by']}
               {$this->query['having']}
               ORDER BY {$this->query['order_by']}
-              {$this->query['limit']}");
+              {$this->query['limit']}"
+        );
 
         $this->HiddenGetFields['order_by'] = $_GET['order_by'];
         $this->HiddenGetFields['order_dir'] = $_GET['order_dir'];
@@ -977,7 +978,7 @@ class MasterSearch2
                     }
 
                     $export->SendExport($output, 'lansuite-'. $_GET['mod'] .'.csv');
-                break;
+                    break;
             }
         }
     }
