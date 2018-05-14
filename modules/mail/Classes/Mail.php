@@ -123,7 +123,7 @@ class Mail
             $board_config["board_email"] = $from;
 
             include_once("modules/mail/smtp.php");
-            if (smtpmail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) {
+            if (SMTPMail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) {
                 return true;
             }
 

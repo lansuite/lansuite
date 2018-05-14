@@ -42,23 +42,6 @@ if ($auth['userid']) {
     $colors[4] = 'yellow';
     $colors[5] = 'purple';
 
-    /**
-     * @param string $status
-     * @return string
-     */
-    function MailStatus($status)
-    {
-        if ($status == "new") {
-            return t('Ungelesen');
-        }
-        if ($status == "read") {
-            return t('Gelesen');
-        }
-        if ($status == "reply") {
-            return t('Beantwortet');
-        }
-    }
-
     $mail_new_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active' AND des_status = 'new'", $auth['userid']);
     $mail_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active'", $auth['userid']);
     $dsp->NewContent(t('Posteingang'), t('Du hast <b>%1</b> Mail(s) empfangen. Davon sind <b>%2</b> ungelesen.', array($mail_total['n'], $mail_new_total['n'])));

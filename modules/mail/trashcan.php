@@ -18,23 +18,6 @@ $mail_unread_total = $db->qry_first("
 
 $dsp->NewContent(t('Papierkorb'), t('Du hast <b>%1</b> Mail(s) in ihrem Papierkorb. Davon wurde(n) <b>%2</b> nicht von dir gelesen.', $mail_total["n"], $mail_unread_total["n"]));
 
-/**
- * @param string $status
- * @return string
- */
-function MailStatus($status)
-{
-    if ($status == "new") {
-        return t('Ungelesen');
-    }
-    if ($status == "read") {
-        return t('Gelesen');
-    }
-    if ($status == "reply") {
-        return t('Beantwortet');
-    }
-}
-
 if ($auth['userid']) {
     switch ($_GET['step']) {
         // check if it can delete from Database and delete
