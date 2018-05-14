@@ -1,7 +1,8 @@
 <?php
 
-include_once('modules/install/class_install.php');
-$install = new Install();
+$importXml = new \LanSuite\XML();
+$installImport = new \LanSuite\Module\Install\Import($importXml);
+$install = new \LanSuite\Module\Install\Install($installImport);
 
 switch ($_GET["step"]) {
     // Move Up
@@ -45,7 +46,7 @@ switch ($_GET["step"]) {
         $menu = $db->qry("UPDATE %prefix%menu SET group_nr = %int% WHERE pos = %string%", $_POST["group"], $_GET["pos"]);
         break;
 
-    // Set Possition
+    // Set Position
     case 10:
         if ($_POST['pos']) {
             foreach ($_POST['pos'] as $key => $val) {
@@ -100,9 +101,16 @@ switch ($_GET["step"]) {
         }
         $db->free_result($res);
 
-        $menus = $db->qry("SELECT module.active, menu.* FROM %prefix%menu AS menu
-			LEFT JOIN %prefix%modules AS module ON (menu.module = module.name)
-			WHERE (menu.level = 0) and (menu.caption != '') ORDER BY menu.boxid, menu.pos");
+        $menus = $db->qry("
+          SELECT
+            module.active,
+            menu.*
+          FROM %prefix%menu AS menu
+          LEFT JOIN %prefix%modules AS module ON (menu.module = module.name)
+          WHERE
+            (menu.level = 0)
+            AND (menu.caption != '')
+          ORDER BY menu.boxid, menu.pos");
         $z = 0;
         while ($menu = $db->fetch_array($menus)) {
             $z++;
@@ -119,7 +127,6 @@ switch ($_GET["step"]) {
                         $link .= "[<a href=\"index.php?mod=install&action=menu&step=4&pos=$z&onlyactive={$_GET["onlyactive"]}\">".t('Trennzeile')."</a>] ";
                     }
                 }
-#				$link .= "[<a href=\"index.php?mod=install&action=menu&step=8&pos=$z&onlyactive={$_GET["onlyactive"]}\">".t('Gruppe')." ({$menu["group_nr"]})</a>] ";
                 if ($z > 1) {
                     $link .= "[<a href=\"index.php?mod=install&action=menu&step=2&pos=$z&onlyactive={$_GET["onlyactive"]}\">^</a>] ";
                 }

@@ -1,21 +1,22 @@
 <?php
 
-include("modules/install/class_export.php");
-$export = new Export();
+$xmlExport = new \LanSuite\XML();
+$export = new \LanSuite\Module\Install\Export($xmlExport);
 
 switch ($_GET["step"]) {
     default:
         $dsp->NewContent(t('Daten exportieren'), t('Hier kannst du Benutzerdaten exportieren. Diese kannst du später wieder in Lansuite importieren.'));
         $dsp->SetForm("index.php?mod=install&action=export&step=2", "", "", "");
 
-        $type_array = array("xml" => t('XML: Komplette Datenbank Exportieren (Empfohlen)'),
-            "xml_modules" => t('XML: Nur ausgewählte Module exportiern'),
-            "xml_tables" => t('XML: Nur ausgewählte Tabellen exportieren (für Experten)'),
-            "csv_complete" => t('CSV: Userdaten komplett (inkl. Sitzplatz und IP)'),
-            "csv_sticker" => t('CSV: Userdaten \'Aufkleber\' (Name, Username, Clan, Sitzplatz und IP)'),
-            "csv_card" => t('CSV: Sitzplatzkarten (Name, Username, Clan, Sitzplatz und IP)'),
-            "ext_inc_data" => t('DATA: Daten-Ordner herunterladen (Avatare, Bildergallerie, Banner, ...)')
-            );
+        $type_array = array(
+            "xml"           => t('XML: Komplette Datenbank Exportieren (Empfohlen)'),
+            "xml_modules"   => t('XML: Nur ausgewählte Module exportiern'),
+            "xml_tables"    => t('XML: Nur ausgewählte Tabellen exportieren (für Experten)'),
+            "csv_complete"  => t('CSV: Userdaten komplett (inkl. Sitzplatz und IP)'),
+            "csv_sticker"   => t('CSV: Userdaten \'Aufkleber\' (Name, Username, Clan, Sitzplatz und IP)'),
+            "csv_card"      => t('CSV: Sitzplatzkarten (Name, Username, Clan, Sitzplatz und IP)'),
+            "ext_inc_data"  => t('DATA: Daten-Ordner herunterladen (Avatare, Bildergallerie, Banner, ...)')
+        );
         $t_array = array();
         while (list($key, $val) = each($type_array)) {
             array_push($t_array, "<option $selected value=\"$key\">$val</option>");
