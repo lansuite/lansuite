@@ -1,5 +1,5 @@
 <?php
-// if logged out
+// If logged out
 if (!$auth['userid']) {
     $dsp->NewContent(t('Posteingang'));
     $func->information(t('Um deinen Posteingang sehen zu können, musst du dich zuerst einloggen. Nutzen kannst du das <a href="index.php?mod=mail&action=newmail">Kontaktformular</a> um Mails zu versenden. Dies ist auch im ausgeloggten Zustand möglich.'));
@@ -8,8 +8,9 @@ if (!$auth['userid']) {
 // If logged in
 if ($auth['userid']) {
     switch ($_GET['step']) {
-    // Lable
-        case 10:  // None
+        // Label
+        // None
+        case 10:
         case 11:
         case 12:
         case 13:
@@ -20,7 +21,7 @@ if ($auth['userid']) {
             }
             break;
 
-    // Move to trashcan
+        // Move to trashcan
         case 20:
             if (!$_POST['action'] and $_GET['mailid']) {
                 $_POST['action'][$_GET['mailid']] = 1;
@@ -40,20 +41,6 @@ if ($auth['userid']) {
     $colors[3] = 'green';
     $colors[4] = 'yellow';
     $colors[5] = 'purple';
-
-  
-    function MailStatus($status)
-    {
-        if ($status == "new") {
-            return t('Ungelesen');
-        }
-        if ($status == "read") {
-            return t('Gelesen');
-        }
-        if ($status == "reply") {
-            return t('Beantwortet');
-        }
-    }
 
     $mail_new_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active' AND des_status = 'new'", $auth['userid']);
     $mail_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active'", $auth['userid']);

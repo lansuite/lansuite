@@ -111,8 +111,7 @@ switch ($_GET['step']) {
             $mf->AddField(t('Neues Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
 
             if ($mf->SendForm('index.php?mod=clanmgr&action=clanmgr&step=10', 'clan', 'clanid', $_GET['clanid'])) {
-                include_once("modules/mail/class_mail.php");
-                $mail = new mail();
+                $mail = new \LanSuite\Module\Mail\Mail();
 
                 // Send information mail to all clan members
                 $clanuser = $db->qry("SELECT userid, username, email FROM %prefix%user WHERE clanid=%int%", $_GET['clanid']);
