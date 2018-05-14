@@ -42,6 +42,7 @@
             "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/",
             "LanSuite\\Module\\GuestList\\": "modules/guestlist/Classes/",
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
+            "LanSuite\\Module\\News\\": "modules/news/Classes/",
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
             "LanSuite\\": "inc/Classes"

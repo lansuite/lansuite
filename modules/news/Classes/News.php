@@ -1,6 +1,6 @@
 <?php
 
-$news = new News();
+namespace LanSuite\Module\News;
 
 class News
 {
