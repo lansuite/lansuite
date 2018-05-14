@@ -71,8 +71,6 @@ function WriteMenuEntries()
     $db->free_result($res);
 }
 
-
-
 switch ($_GET["step"]) {
     // Update Modules
     case 2:
@@ -199,11 +197,11 @@ switch ($_GET["step"]) {
             $find_config = $db->qry_first("DELETE FROM %prefix%config WHERE (cfg_group = %string%) OR (cfg_key LIKE %string%)", $_GET["rewrite"], $_GET["rewrite"].'%');
         }
 
-      // Auto-Load Modules from XML-Files
+        // Auto-Load Modules from XML-Files
         $install->InsertModules(0);
         $install->InsertMenus($rewrite_all);
 
-      // Output Module-List
+        // Output Module-List
         $dsp->NewContent(t('Modulverwaltung'), t('Hier kannst du Module de-/aktivieren, sowie deren Einstellungen verändern.'));
 
         $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&step=3\">".t('Alle Module zurücksetzen')."</a>");
@@ -220,4 +218,4 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install", "install/modules");
         break;
-} // Switch Action
+}

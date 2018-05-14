@@ -52,7 +52,7 @@ switch ($_GET["step"]) {
             $_POST["prefix"] = $config['database']['prefix'];
         }
 
-        #### Database Access
+        // Database Access
         $dsp->AddSingleRow("<b>". t('Datenbank-Zugangsdaten') ."</b>");
         $dsp->AddTextFieldRow("host", t('Host (Server-IP)'), $_POST["host"], "");
         $dsp->AddTextFieldRow("user", t('Benutzername'), $_POST["user"], "");
@@ -60,7 +60,7 @@ switch ($_GET["step"]) {
         $dsp->AddTextFieldRow("database", t('Datenbank'), $_POST["database"], "");
         $dsp->AddTextFieldRow("prefix", t('Tabellen-Prefix'), $_POST["prefix"], "");
 
-        #### Default Design
+        // Default Design
         // Open the design-dir
         $design_dir = opendir("design/");
 
@@ -70,7 +70,7 @@ switch ($_GET["step"]) {
             if ($akt_design != "." and $akt_design != ".." and $akt_design != ".svn" and $akt_design != "templates" and $akt_design != "style.css") {
                 $file = "design/$akt_design/design.xml";
                 if (file_exists($file)) {
-                // Read Names from design.xml
+                    // Read Names from design.xml
                     $xml_file = fopen($file, "r");
                     $xml_content = fread($xml_file, filesize($file));
                     if ($xml_content != "") {

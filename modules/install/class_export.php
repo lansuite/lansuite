@@ -6,11 +6,25 @@ $xml = new \LanSuite\XML();
 
 class Export
 {
-    public $output;
-    public $filename;
+    /**
+     * @var string
+     */
+    private $output;
+
+    /**
+     * @var string
+     */
+    private $filename;
+
+    /**
+     * @var string
+     */
     public $lansuite;
 
-
+    /**
+     * @param string $filename
+     * @return void
+     */
     public function LSTableHead($filename = null)
     {
         global $xml;
@@ -33,7 +47,9 @@ class Export
         $this->lansuite = $xml->write_master_tag("header", $header, 1);
     }
 
-
+    /**
+     * @return void
+     */
     public function LSTableFoot()
     {
         global $xml;
@@ -50,9 +66,11 @@ class Export
         echo $this->output;
     }
 
-
-    // Export Translations
-    public function ExportTranslation($mod)
+    /**
+     * @param string $mod
+     * @return void
+     */
+    private function ExportTranslation($mod)
     {
         global $xml, $db;
 
@@ -92,17 +110,22 @@ class Export
         $this->lansuite .= $xml->write_master_tag("table", $tables, 1);
     }
 
-
+    /**
+     * @param string $table
+     * @param boolean $e_struct
+     * @param boolean $e_cont
+     * @return void
+     */
     public function ExportTable($table, $e_struct = null, $e_cont = null)
     {
         global $db, $xml;
 
-        if ($e_struct or $e_cont) {
-            /* Table-Head */
+        if ($e_struct || $e_cont) {
+            // Table-Head
             $table_head = $xml->write_tag("name", $table, 3);
             $tables = $xml->write_master_tag("table_head", $table_head, 2);
 
-            /* Structure */
+            // Structure
             if ($e_struct) {
                 $structure = "";
 
@@ -152,8 +175,8 @@ class Export
                 }
             }
 
-            /* Content */
-            if ($e_cont and $table != "locations") {
+            // Content
+            if ($e_cont && $table != "locations") {
                 $content = "";
                 $query = $db->qry("SELECT * FROM %prefix%$table");
                 while ($row = $db->fetch_array($query)) {
@@ -178,7 +201,13 @@ class Export
         }
     }
 
-
+    /**
+     * @param string $mod
+     * @param boolean $e_struct
+     * @param boolean $e_cont
+     * @param boolean $e_trans
+     * @return void
+     */
     public function ExportMod($mod, $e_struct = null, $e_cont = null, $e_trans = null)
     {
         global $xml;
@@ -214,7 +243,11 @@ class Export
         }
     }
 
-
+    /**
+     * @param boolean $e_struct
+     * @param boolean $e_cont
+     * @return void
+     */
     public function ExportAllTables($e_struct = null, $e_cont = null)
     {
         global $db;
@@ -230,7 +263,11 @@ class Export
         $this->LSTableFoot();
     }
 
-
+    /**
+     * @param string $out
+     * @param string $name
+     * @return void
+     */
     public function SendExport($out, $name)
     {
         header('Content-Type: application/octetstream; charset=utf-8');
@@ -243,7 +280,10 @@ class Export
         echo $out;
     }
 
-
+    /**
+     * @param string $sep
+     * @return string
+     */
     public function ExportCSVComplete($sep)
     {
         global $db, $config, $func, $party;
@@ -254,12 +294,23 @@ class Export
 
         $user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;md5pwd;usertype;paid;seatcontrol;clan;clanurl;wwclid;nglid;checkin;checkout;signondate;paiddate;birthday;seatblock;seat;ip;comment\r\n";
 
-        $query = $db->qry("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol, p.paiddate
-			FROM %prefix%user AS u
-			LEFT JOIN %prefix%party_user AS p ON p.user_id = u.userid
-			LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
-			WHERE p.party_id = %int%
-			", $party->party_id);
+        $query = $db->qry("
+          SELECT
+            u.*,
+            c.name AS clan,
+            c.url AS clanurl,
+            p.paid,
+            p.checkin,
+            p.checkout,
+            p.signondate,
+            p.seatcontrol,
+            p.paiddate
+          FROM
+            %prefix%user AS u
+            LEFT JOIN %prefix%party_user AS p ON p.user_id = u.userid
+            LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
+            WHERE
+              p.party_id = %int%", $party->party_id);
         while ($row = $db->fetch_array($query)) {
             $user_export .= $row["userid"].$sep;
             $user_export .= $row["email"].$sep;
@@ -282,7 +333,6 @@ class Export
             $user_export .= $row["password"].$sep;
             $user_export .= $row["type"].$sep;
             $user_export .= $row["paid"].$sep;
-#			$user_export .= $row["paidcash"].$sep;
             $user_export .= $row["seatcontrol"].$sep;
 
             $user_export .= $row["clan"].$sep;
@@ -295,7 +345,7 @@ class Export
             $user_export .= $row["paiddate"].$sep;
             $user_export .= $row["birthday"].$sep;
 
-            // seat
+            // Seat
             $row_seat = $db->qry_first("SELECT blockid, col, row, ip FROM %prefix%seat_seats WHERE userid=%int% AND status = 2", $row["userid"]);
             $blockid  = $row_seat["blockid"];
             if ($blockid != "") {
@@ -315,8 +365,10 @@ class Export
         return $user_export;
     }
 
-
-
+    /**
+     * @param string $sep
+     * @return string
+     */
     public function ExportCSVSticker($sep)
     {
         global $db, $config, $func, $party;
@@ -326,12 +378,20 @@ class Export
         $user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
 
         $user_export .= "username;name;firstname;clan;seatblock;seat;ip\r\n";
-        $query = $db->qry("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
-			FROM %prefix%user AS u
-			LEFT JOIN %prefix%party_user AS p ON p.user_id = u.userid
-			LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
-			WHERE p.party_id = %int%
-			", $party->party_id);
+        $query = $db->qry("
+          SELECT
+            u.*,
+            c.name AS clan,
+            c.url AS clanurl,
+            p.paid,
+            p.checkin,
+            p.checkout,
+            p.signondate,
+            p.seatcontrol
+          FROM %prefix%user AS u
+            LEFT JOIN %prefix%party_user AS p ON p.user_id = u.userid
+            LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
+          WHERE p.party_id = %int%", $party->party_id);
 
         while ($row = $db->fetch_array($query)) {
             $username = str_replace("&gt;", "", $row["username"]);
@@ -345,7 +405,7 @@ class Export
             $user_export .= $row["firstname"].$sep;
             $user_export .= $row["clan"].$sep;
 
-            // seat
+            // Seat
             $row_seat = $db->qry_first("SELECT blockid, col, row, ip FROM %string% WHERE userid=%int% AND status = 2'", $GLOBALS['config']['tables']['seat_seats'], $row["userid"]);
             $blockid  = $row_seat["blockid"];
             if ($blockid != "") {
@@ -357,12 +417,15 @@ class Export
 
             $user_export .= $row_seat["ip"].$sep;
             $user_export .= "\r\n";
-        } // end while
+        }
 
         return $user_export;
     }
 
-
+    /**
+     * @param string $sep
+     * @return string
+     */
     public function ExportCSVCard($sep)
     {
         global $db, $config, $func, $party;
@@ -370,22 +433,35 @@ class Export
         $seat2 = new Seat2();
 
         $user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
-
         $user_export .= "username;name;firstname;clan;seatblock;col;row;seat;ip\n";
     
-        $query = $db->qry("SELECT s.* FROM %prefix%seat_seats AS s
-      LEFT JOIN %prefix%seat_block AS b ON s.blockid = b.blockid
-      WHERE b.party_id = %int% AND s.status = 2
-      ORDER BY s.blockid", $party->party_id);
+        $query = $db->qry("
+          SELECT
+            s.*
+          FROM %prefix%seat_seats AS s
+          LEFT JOIN %prefix%seat_block AS b ON s.blockid = b.blockid
+          WHERE
+            b.party_id = %int%
+            AND s.status = 2
+          ORDER BY s.blockid", $party->party_id);
+
         while ($row_seat = $db->fetch_array($query)) {
             $userid = $row_seat["userid"];
 
-            $row = $db->qry_first("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
-        FROM %prefix%user AS u
-        LEFT JOIN %prefix%party_user AS p ON p.user_id = u.userid
-  			LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
-        WHERE u.userid=%int%
-        ", $userid);
+            $row = $db->qry_first("
+              SELECT
+                u.*,
+                c.name AS clan,
+                c.url AS clanurl,
+                p.paid,
+                p.checkin,
+                p.checkout,
+                p.signondate,
+                p.seatcontrol
+              FROM %prefix%user AS u
+              LEFT JOIN %prefix%party_user AS p ON p.user_id = u.userid
+              LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
+              WHERE u.userid=%int%", $userid);
       
             $username = str_replace("&gt;", "", $row["username"]);
             $username = str_replace("&lt;", "", $username);
@@ -407,11 +483,15 @@ class Export
             $user_export .= $row_seat["ip"];
       
             $user_export .= "\r\n";
-        } // end while
+        }
+
         return $user_export;
     }
 
-
+    /**
+     * @param string $filename
+     * @return bool
+     */
     public function ExportExtInc($filename)
     {
         include_once('ext_scripts/archive.php');
@@ -419,7 +499,6 @@ class Export
         $zip = new gzip_file($filename);
         $zip->set_options(array('basedir' => '.', 'overwrite' => 1, 'level' => 1, 'inmemory' => 1));
         $zip->add_files(array('ext_inc'));
-        #$zip->exclude_files("ext_inc/.svn/*");
         $zip->create_archive();
 
         header('Content-Type: application/octetstream; charset=utf-8');
@@ -429,16 +508,7 @@ class Export
         if (count($zip->errors) > 0) {
             return false;
         }
+
         return true;
     }
-    
-    public function SaveExport($path)
-    {
-        global $xml;
-        
-        $this->output .= $xml->write_master_tag("lansuite", $this->lansuite, 0);
-        $file = fopen($path, 'w');
-        fwrite($file, $this->output);
-        fclose($file);
-    }
-} // END CLASS
+}

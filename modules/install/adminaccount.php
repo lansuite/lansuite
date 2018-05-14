@@ -18,14 +18,16 @@ switch ($_GET["step"]) {
         } elseif ($_POST["password"] != $_POST["password2"]) {
             $func->error(t('Das Passwort und seine Verifizierung stimmen nicht überein!'), "index.php?mod=install&action=adminaccount");
         } else {
-            $db->qry("INSERT INTO %prefix%user SET
-					username = 'ADMIN',
-					email=%string%,
-					password = %string%,
-					type = '3'
-					", $_POST["email"], md5($_POST["password"]));
+            $db->qry("
+              INSERT INTO %prefix%user
+              SET
+                username = 'ADMIN',
+                email=%string%,
+                password = %string%,
+                type = '3'", $_POST["email"], md5($_POST["password"]));
             $userid = $db->insert_id();
-            // Admin zur Party hinzufügen
+
+            // Add administrator to party
             $party->add_user_to_party($userid, 1, "1", "1");
 
             $func->confirmation(t('Der Adminaccount wurde erfolgreich angelegt.'), "index.php?mod=install&action=adminaccount");

@@ -1,4 +1,8 @@
 <?php
+/**
+ * @param boolean $TargetLang
+ * @return string
+ */
 function YesNo($TargetLang)
 {
     global $dsp;
@@ -90,7 +94,7 @@ switch ($_GET['step']) {
         break;
 
 
-  // Search all files for strings in t()-functions and synchronize to DB
+    // Search all files for strings in t()-functions and synchronize to DB
     case 10:
         $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
 
@@ -139,7 +143,7 @@ switch ($_GET['step']) {
         }
         break;
   
-  // Translate Module
+    // Translate Module
     case 20:
         // If Write2File
         if ($_GET['subact'] == 'writetofile') {
@@ -178,39 +182,39 @@ function translate_all_empty(from, to) {
             $_SESSION['target_language'] = 'en';
         }
 
-            $dsp->SetForm('index.php', '', 'GET');
-            $dsp->AddSingleRow('<input type="hidden" name="mod" value="install" />
+        $dsp->SetForm('index.php', '', 'GET');
+        $dsp->AddSingleRow('<input type="hidden" name="mod" value="install" />
           <input type="hidden" name="action" value="translation" />
           <input type="hidden" name="step" value="20" />');
 
-          $list = array();
-          $res = $db->qry("SELECT cfg_value, cfg_display FROM %prefix%config_selections WHERE cfg_key = 'language'");
+        $list = array();
+        $res = $db->qry("SELECT cfg_value, cfg_display FROM %prefix%config_selections WHERE cfg_key = 'language'");
         while ($row = $db->fetch_array($res)) {
             ($_SESSION['target_language'] == $row['cfg_value'])? $selected = 'selected' : $selected = '';
             $list[] = "<option $selected value='{$row['cfg_value']}'>{$row['cfg_display']}</option>";
         }
-            $db->free_result($res);
-            $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
+        $db->free_result($res);
+        $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
 
-            $list = array('' => "<option value=''>Alle zeigen</option>");
-            $res = $db->qry("SELECT file FROM %prefix%translation GROUP BY file ORDER BY file");
+        $list = array('' => "<option value=''>Alle zeigen</option>");
+        $res = $db->qry("SELECT file FROM %prefix%translation GROUP BY file ORDER BY file");
         while ($row = $db->fetch_array($res)) {
             ($_GET['file'] == $row['file'])? $selected = 'selected' : $selected = '';
             $list[] = "<option $selected value='{$row['file']}'>{$row['file']}</option>";
         }
-            $db->free_result($res);
-            $dsp->AddDropDownFieldRow('file', t('Modul'), $list, '');
+        $db->free_result($res);
+        $dsp->AddDropDownFieldRow('file', t('Modul'), $list, '');
 
-            $dsp->AddFormSubmitRow(t('Ändern'));
+        $dsp->AddFormSubmitRow(t('Ändern'));
 
-            $tmp_link_write = "index.php?mod=install&action=translation&step=20&file=".$_GET['file']."&subact=writetofile";
-            $dsp->AddDoubleRow(t('Schreibe Modulübersetzung in translation.xml'), $dsp->FetchSpanButton(t('Schreibe'), $tmp_link_write));
+        $tmp_link_write = "index.php?mod=install&action=translation&step=20&file=".$_GET['file']."&subact=writetofile";
+        $dsp->AddDoubleRow(t('Schreibe Modulübersetzung in translation.xml'), $dsp->FetchSpanButton(t('Schreibe'), $tmp_link_write));
         $dsp->AddFieldSetEnd();
 
         // Start Tanslation
         $dsp->AddFieldSetStart(t('Texte editieren.'));
-            $dsp->SetForm('index.php?mod=install&action=translation&step=21&file='. $_GET['file']);
-            $dsp->AddDoubleRow('', '<a href="javascript:translate_all_empty(\'de\', \''. $_SESSION['target_language'] .'\')">'. t('Alle leeren Felder mit Google-Translate-Übersetzungen füllen') .'</a>');
+        $dsp->SetForm('index.php?mod=install&action=translation&step=21&file='. $_GET['file']);
+        $dsp->AddDoubleRow('', '<a href="javascript:translate_all_empty(\'de\', \''. $_SESSION['target_language'] .'\')">'. t('Alle leeren Felder mit Google-Translate-Übersetzungen füllen') .'</a>');
 
         if ($_GET['file']) {
             $res = $db->qry("SELECT DISTINCT id, org, file, %plain% FROM %prefix%translation WHERE file = %string% AND obsolete = 0", $_SESSION['target_language'], $_GET['file']);
@@ -218,7 +222,6 @@ function translate_all_empty(from, to) {
             $res = $db->qry("SELECT DISTINCT id, org, file, %plain% FROM %prefix%translation WHERE obsolete = 0 GROUP BY id", $_SESSION['target_language']);
         }
         while ($row = $db->fetch_array($res)) {
-            #$trans_link_google ="http://translate.google.com/translate_t?langpair=de|".$_SESSION['target_language']."&hl=de&ie=UTF8&text=".$row['org'];
             $trans_link_google = 'javascript:translate(\'id['. $row['id'] .']\', \'de\', \''. $_SESSION['target_language'] .'\');';
             $trans_link_google =" <a href=\"".$trans_link_google."\" target=\"_blank\"><img src=\"design/".$auth['design']."/images/arrows_transl.gif\" width=\"12\" height=\"13\" border=\"0\" /></a>";
             
@@ -228,14 +231,14 @@ function translate_all_empty(from, to) {
                 $dsp->AddTextAreaRow("id[{$row['id']}]", $row['org'].$trans_link_google, $row[$_SESSION['target_language']], '', 50, 5);
             }
         }
-            $db->free_result($res);
-            $dsp->AddFormSubmitRow(t('Editieren'));
+        $db->free_result($res);
+        $dsp->AddFormSubmitRow(t('Editieren'));
         $dsp->AddFieldSetEnd();
         $dsp->AddBackButton('index.php?mod=install&action=translation');
 
         break;
 
-  // Translate Module - DB Insert
+    // Translate Module - DB Insert
     case 21:
         foreach ($_POST['id'] as $key => $value) {
             if ($_GET['file']) {
@@ -248,7 +251,7 @@ function translate_all_empty(from, to) {
         $func->confirmation('Module-Übersetzung wurde erfolgreich upgedatet');
         break;
 
-  // Export Module Translations
+    // Export Module Translations
     case 30:
         include("modules/install/class_export.php");
         $export = new Export();
@@ -258,8 +261,7 @@ function translate_all_empty(from, to) {
         $export->LSTableFoot();
         break;
 
-
-  // Translate Item
+    // Translate Item
     case 40:
         $dsp->NewContent(t('Modul Übersetzen'), '');
 
@@ -276,7 +278,7 @@ function translate_all_empty(from, to) {
         $dsp->AddBackButton('index.php?mod=install&action=translation');
         break;
       
-  // Export Translation to Files
+    // Export Translation to Files
     case 50:
         if (!$_GET['confirm']=="yes") {
             $func->question(
@@ -302,7 +304,7 @@ function translate_all_empty(from, to) {
         }
         break;
 
-  // Import Translation to DB from mod_translation.xml
+    // Import Translation to DB from mod_translation.xml
     case 60:
         if (!$_GET['confirm']=="yes") {
             $func->question(
@@ -322,7 +324,7 @@ function translate_all_empty(from, to) {
         }
         break;
 
-  // Search for Old Text and New Entrys
+    // Search for Old Text and New Entrys
     case 70:
         $output = '';
 
@@ -336,29 +338,28 @@ function translate_all_empty(from, to) {
         if ($_SESSION['target_file'] == '') {
             $_SESSION['target_file'] = 'System';
         }
-          $dsp->SetForm('index.php?mod=install&action=translation&step=70');
+        $dsp->SetForm('index.php?mod=install&action=translation&step=70');
 
-          $modules = array();
-          $res = $db->qry("SELECT name FROM %prefix%modules");
+        $modules = array();
+        $res = $db->qry("SELECT name FROM %prefix%modules");
         while ($row = $db->fetch_array($res)) {
             $modules[] = $row['name'];
         }
-          $db->free_result($res);
-          // Add Systemtranslations
-          $modules[] = "DB";
-          $modules[] = "System";
-          $list = array();
+        $db->free_result($res);
+        // Add Systemtranslations
+        $modules[] = "DB";
+        $modules[] = "System";
+        $list = array();
         foreach ($modules as $modul) {
             ($_SESSION['target_file'] == $modul)? $selected = 'selected' : $selected = '';
             $list[] = "<option $selected value='{$modul}'>{$modul}</option>";
         }
 
-          $dsp->AddDropDownFieldRow('target_file', t('Ziel Modul/File'), $list, '');
-          $db->free_result($res);
-          $dsp->AddFormSubmitRow(t('Ändern'));
+        $dsp->AddDropDownFieldRow('target_file', t('Ziel Modul/File'), $list, '');
+        $db->free_result($res);
+        $dsp->AddFormSubmitRow(t('Ändern'));
         $dsp->AddFieldSetEnd();
 
-      
         $res1 = $db->qry("SELECT tid, id, org, en, file, obsolete FROM %prefix%translation WHERE obsolete = '1' AND file=%string%", $_SESSION['target_file']);
         while ($row1 = $db->fetch_array($res1)) {
             $res2 = $db->qry("SELECT tid, id, en, org, file, obsolete FROM %prefix%translation WHERE obsolete != '1' AND file=%string%", $_SESSION['target_file']);
