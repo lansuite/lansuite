@@ -1,10 +1,19 @@
 <?php
 
-include_once("modules/install/class_import.php");
-$import = new Import();
+namespace LanSuite\Module\Install;
 
 class Install
 {
+    /**
+     * @var Import
+     */
+    private $import;
+
+    public function __construct(Import $import)
+    {
+        $this->import = $import;
+    }
+
     /**
      * @param string $dir
      * @return string
@@ -112,15 +121,15 @@ class Install
      */
     public function WriteTableFromXMLFile($mod, $rewrite = null)
     {
-        global $db, $config, $import;
+        global $db, $config;
 
         // Delete references, if table exists, for they will be recreated in ImportXML()
-        if (in_array($config['database']['prefix'] .'ref', $import->installed_tables)) {
+        if (in_array($config['database']['prefix'] .'ref', $this->import->installed_tables)) {
             $db->qry('TRUNCATE TABLE %prefix%ref');
         }
 
-        $import->GetImportHeader("modules/$mod/mod_settings/db.xml");
-        $import->ImportXML($rewrite);
+        $this->import->GetImportHeader("modules/$mod/mod_settings/db.xml");
+        $this->import->ImportXML($rewrite);
         if ($mod == 'install') {
             $this->InsertModules($rewrite);
             $this->InsertMenus($rewrite);

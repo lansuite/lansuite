@@ -1,7 +1,7 @@
 <?php
 
-include("modules/install/class_export.php");
-$export = new Export();
+$xmlExport = new \LanSuite\XML();
+$export = new \LanSuite\Module\Install\Export($xmlExport);
 
 switch ($_GET["step"]) {
     default:

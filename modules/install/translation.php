@@ -253,8 +253,8 @@ function translate_all_empty(from, to) {
 
     // Export Module Translations
     case 30:
-        include("modules/install/class_export.php");
-        $export = new Export();
+        $xmlExport = new \LanSuite\XML();
+        $export = new \LanSuite\Module\Install\Export($xmlExport);
 
         $export->LSTableHead();
         $export->ExportMod($_GET['file'], 0, 0, 1);
@@ -316,8 +316,9 @@ function translate_all_empty(from, to) {
             $db->qry("TRUNCATE %prefix%translation");
             $db->qry("TRUNCATE %prefix%translation_long");
 
-            include_once("modules/install/class_install.php");
-            $install = new install;
+            $importXml = new \LanSuite\XML();
+            $installImport = new \LanSuite\Module\Install\Import($importXml);
+            $install = new \LanSuite\Module\Install\Install($installImport);
             $install->InsertModules();
 
             $func->confirmation(t('Die Übersetzungen wurden in die Datenbank eingelesen'), 'index.php?mod=install&action=translation');

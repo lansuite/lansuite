@@ -1,8 +1,8 @@
 <?php
 
-use LanSuite\Module\Seating\Seat2;
+namespace LanSuite\Module\Install;
 
-$xml = new \LanSuite\XML();
+use LanSuite\Module\Seating\Seat2;
 
 class Export
 {
@@ -22,15 +22,21 @@ class Export
     public $lansuite;
 
     /**
+     * @var \LanSuite\XML
+     */
+    private $xml;
+
+    public function __construct(\LanSuite\XML $xml)
+    {
+        $this->xml = $xml;
+    }
+
+    /**
      * @param string $filename
      * @return void
      */
     public function LSTableHead($filename = null)
     {
-        global $xml;
-
-        $xml = new xml();
-
         if ($filename) {
             $this->filename = $filename;
         } else {
@@ -40,11 +46,11 @@ class Export
         $this->output = '<?xml version="1.0" encoding="UTF-8"?'.">\r\n\r\n";
 
         /* Header */
-        $header = $xml->write_tag("filetype", "LanSuite", 2);
-        $header .= $xml->write_tag("version", "2.0", 2);
-        $header .= $xml->write_tag("source", "http://www.lansuite.de", 2);
-        $header .= $xml->write_tag("date", date("Y-m-d h:i"), 2);
-        $this->lansuite = $xml->write_master_tag("header", $header, 1);
+        $header = $this->xml->write_tag("filetype", "LanSuite", 2);
+        $header .= $this->xml->write_tag("version", "2.0", 2);
+        $header .= $this->xml->write_tag("source", "http://www.lansuite.de", 2);
+        $header .= $this->xml->write_tag("date", date("Y-m-d h:i"), 2);
+        $this->lansuite = $this->xml->write_master_tag("header", $header, 1);
     }
 
     /**
@@ -52,9 +58,7 @@ class Export
      */
     public function LSTableFoot()
     {
-        global $xml;
-
-        $this->output .= $xml->write_master_tag("lansuite", $this->lansuite, 0);
+        $this->output .= $this->xml->write_master_tag("lansuite", $this->lansuite, 0);
 
         header('Content-Type: application/octetstream; charset=utf-8');
         header("Content-Disposition: attachment; filename=\"{$this->filename}\"");
@@ -72,42 +76,42 @@ class Export
      */
     private function ExportTranslation($mod)
     {
-        global $xml, $db;
+        global $db;
 
-        $table_head = $xml->write_tag('name', 'translation', 3);
-        $tables = $xml->write_master_tag("table_head", $table_head, 2);
+        $table_head = $this->xml->write_tag('name', 'translation', 3);
+        $tables = $this->xml->write_master_tag("table_head", $table_head, 2);
 
         $content = '';
         $res = $db->qry("SELECT * FROM %prefix%translation WHERE file = %string%", $mod);
         while ($row = $db->fetch_array($res)) {
-            $entry = $xml->write_tag('id', $row['id'], 4);
-            $entry .= $xml->write_tag('tid', $row['tid'], 4);
-            $entry .= $xml->write_tag('org', $row['org'], 4);
+            $entry = $this->xml->write_tag('id', $row['id'], 4);
+            $entry .= $this->xml->write_tag('tid', $row['tid'], 4);
+            $entry .= $this->xml->write_tag('org', $row['org'], 4);
             if ($row['de']) {
-                $entry .= $xml->write_tag('de', $row['de'], 4);
+                $entry .= $this->xml->write_tag('de', $row['de'], 4);
             }
             if ($row['en']) {
-                $entry .= $xml->write_tag('en', $row['en'], 4);
+                $entry .= $this->xml->write_tag('en', $row['en'], 4);
             }
             if ($row['es']) {
-                $entry .= $xml->write_tag('es', $row['es'], 4);
+                $entry .= $this->xml->write_tag('es', $row['es'], 4);
             }
             if ($row['fr']) {
-                $entry .= $xml->write_tag('fr', $row['fr'], 4);
+                $entry .= $this->xml->write_tag('fr', $row['fr'], 4);
             }
             if ($row['nl']) {
-                $entry .= $xml->write_tag('nl', $row['nl'], 4);
+                $entry .= $this->xml->write_tag('nl', $row['nl'], 4);
             }
             if ($row['it']) {
-                $entry .= $xml->write_tag('it', $row['it'], 4);
+                $entry .= $this->xml->write_tag('it', $row['it'], 4);
             }
-            $entry .= $xml->write_tag('file', $mod, 4);
-            $content .= $xml->write_master_tag("entry", $entry, 3);
+            $entry .= $this->xml->write_tag('file', $mod, 4);
+            $content .= $this->xml->write_master_tag("entry", $entry, 3);
         }
         $db->free_result($res);
 
-        $tables .= $xml->write_master_tag("content", $content, 2);
-        $this->lansuite .= $xml->write_master_tag("table", $tables, 1);
+        $tables .= $this->xml->write_master_tag("content", $content, 2);
+        $this->lansuite .= $this->xml->write_master_tag("table", $tables, 1);
     }
 
     /**
@@ -118,12 +122,12 @@ class Export
      */
     public function ExportTable($table, $e_struct = null, $e_cont = null)
     {
-        global $db, $xml;
+        global $db;
 
         if ($e_struct || $e_cont) {
             // Table-Head
-            $table_head = $xml->write_tag("name", $table, 3);
-            $tables = $xml->write_master_tag("table_head", $table_head, 2);
+            $table_head = $this->xml->write_tag("name", $table, 3);
+            $tables = $this->xml->write_master_tag("table_head", $table_head, 2);
 
             // Structure
             if ($e_struct) {
@@ -152,26 +156,26 @@ class Export
 
                 $query = $db->qry("DESCRIBE %prefix%$table");
                 while ($row = $db->fetch_array($query)) {
-                    $field = $xml->write_tag("name", $row["Field"], 4);
-                    $field .= $xml->write_tag("type", $row["Type"], 4);
-                    $field .= $xml->write_tag("null", $row["Null"], 4);
-                    $field .= $xml->write_tag("default", $row["Default"], 4);
-                    $field .= $xml->write_tag("extra", $row["Extra"], 4);
+                    $field = $this->xml->write_tag("name", $row["Field"], 4);
+                    $field .= $this->xml->write_tag("type", $row["Type"], 4);
+                    $field .= $this->xml->write_tag("null", $row["Null"], 4);
+                    $field .= $this->xml->write_tag("default", $row["Default"], 4);
+                    $field .= $this->xml->write_tag("extra", $row["Extra"], 4);
                     if ($row["Field"] == $DBPrimaryKey) {
-                        $field .= $xml->write_tag("key", 'PRI', 4);
+                        $field .= $this->xml->write_tag("key", 'PRI', 4);
                     } elseif (in_array($row["Field"], $DBUniqueKeys)) {
-                        $field .= $xml->write_tag("key", 'UNI', 4);
+                        $field .= $this->xml->write_tag("key", 'UNI', 4);
                     } elseif (in_array($row["Field"], $DBIndizes)) {
-                        $field .= $xml->write_tag("key", 'IND', 4);
+                        $field .= $this->xml->write_tag("key", 'IND', 4);
                     } elseif (in_array($row["Field"], $DBFulltext)) {
-                        $field .= $xml->write_tag("key", 'FUL', 4);
+                        $field .= $this->xml->write_tag("key", 'FUL', 4);
                     }
-                    $structure .= $xml->write_master_tag("field", $field, 3);
+                    $structure .= $this->xml->write_master_tag("field", $field, 3);
                 }
                 $db->free_result($query);
 
                 if ($structure) {
-                    $tables .= $xml->write_master_tag("structure", $structure, 2);
+                    $tables .= $this->xml->write_master_tag("structure", $structure, 2);
                 }
             }
 
@@ -184,20 +188,20 @@ class Export
                     for ($z = 0; $z < $db->num_fields(); $z++) {
                         $field_name = $db->field_name($z);
                         if ($row[$field_name] != "") {
-                            $entry .= $xml->write_tag($field_name, $row[$field_name], 4);
+                            $entry .= $this->xml->write_tag($field_name, $row[$field_name], 4);
                         }
                     }
                     if ($entry) {
-                        $content .= $xml->write_master_tag("entry", $entry, 3);
+                        $content .= $this->xml->write_master_tag("entry", $entry, 3);
                     }
                 }
                 $db->free_result($query);
                 if ($content) {
-                    $tables .= $xml->write_master_tag("content", $content, 2);
+                    $tables .= $this->xml->write_master_tag("content", $content, 2);
                 }
             }
 
-            $this->lansuite .= $xml->write_master_tag("table", $tables, 1);
+            $this->lansuite .= $this->xml->write_master_tag("table", $tables, 1);
         }
     }
 
@@ -210,8 +214,6 @@ class Export
      */
     public function ExportMod($mod, $e_struct = null, $e_cont = null, $e_trans = null)
     {
-        global $xml;
-
         if (is_dir("modules/$mod/mod_settings/")) {
             // Read DB-Names from db.xml
             $file = "modules/$mod/mod_settings/db.xml";
@@ -220,12 +222,12 @@ class Export
                 $xml_content = fread($xml_file, filesize($file));
                 fclose($xml_file);
 
-                $lansuite = $xml->get_tag_content("lansuite", $xml_content);
-                $tables = $xml->get_tag_content_array("table", $lansuite);
+                $lansuite = $this->xml->get_tag_content("lansuite", $xml_content);
+                $tables = $this->xml->get_tag_content_array("table", $lansuite);
                 foreach ($tables as $table) {
-                    $table_head = $xml->get_tag_content("table_head", $table);
-                    $table_name = $xml->get_tag_content("name", $table_head);
-                    $table_structure = $xml->get_tag_content("structure", $table);
+                    $table_head = $this->xml->get_tag_content("table_head", $table);
+                    $table_name = $this->xml->get_tag_content("name", $table_head);
+                    $table_structure = $this->xml->get_tag_content("structure", $table);
                     if ($table_structure != '') {
                         $this->ExportTable($table_name, $e_struct, $e_cont);
                     }

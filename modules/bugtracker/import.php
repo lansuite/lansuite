@@ -8,8 +8,9 @@ switch ($_GET['step']) {
         break;
 
     case 2:
-        include_once('modules/install/class_import.php');
-        $import = new import();
+        $importXml = new \LanSuite\XML();
+        $import = new \LanSuite\Module\Install\Import($importXml);
+
         $import->GetImportHeader($_FILES['importdata']['tmp_name']);
 
         $entrys = $xml->get_tag_content_array("entrys", $import->xml_content_lansuite);

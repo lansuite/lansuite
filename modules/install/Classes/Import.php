@@ -1,6 +1,6 @@
 <?php
 
-$xml = new \LanSuite\XML();
+namespace LanSuite\Module\Install;
 
 class Import
 {
@@ -24,9 +24,16 @@ class Import
      */
     public $installed_tables = [];
 
-    public function __construct()
+    /**
+     * @var \LanSuite\XML
+     */
+    private $xml;
+
+    public function __construct(\LanSuite\XML $xml)
     {
         global $db;
+
+        $this->xml = $xml;
 
         // Get Array of installed tables
         if ($db->success) {
@@ -54,25 +61,23 @@ class Import
      */
     public function GetImportHeader($tmp_file_name)
     {
-        global $xml;
-
         $xml_file = fopen($tmp_file_name, "r");
         $this->xml_content = fread($xml_file, filesize($tmp_file_name));
         fclose($xml_file);
 
         // Get Header-Tag
-        $this->xml_content_lansuite = $xml->getFirstTagContent("lansuite", $this->xml_content, 0);
-        $header = $xml->getFirstTagContent("lansuite_header", $this->xml_content_lansuite, 0);
+        $this->xml_content_lansuite = $this->xml->getFirstTagContent("lansuite", $this->xml_content, 0);
+        $header = $this->xml->getFirstTagContent("lansuite_header", $this->xml_content_lansuite, 0);
         if (!$header) {
-            $header = $xml->getFirstTagContent("header", $this->xml_content_lansuite, 0);
+            $header = $this->xml->getFirstTagContent("header", $this->xml_content_lansuite, 0);
         }
 
         if ($header) {
-            $import["version"]    = $xml->getFirstTagContent("version", $header);
-            $import["filetype"] = $xml->getFirstTagContent("filetype", $header);
-            $import["source"]    = $xml->getFirstTagContent("source", $header);
-            $import["date"]    = $xml->getFirstTagContent("date", $header);
-            $import["event"]    = $xml->getFirstTagContent("event", $header);
+            $import["version"]  = $this->xml->getFirstTagContent("version", $header);
+            $import["filetype"] = $this->xml->getFirstTagContent("filetype", $header);
+            $import["source"]   = $this->xml->getFirstTagContent("source", $header);
+            $import["date"]     = $this->xml->getFirstTagContent("date", $header);
+            $import["event"]    = $this->xml->getFirstTagContent("event", $header);
         }
 
         return $import;
@@ -84,13 +89,13 @@ class Import
      */
     public function ImportXML($rewrite = null)
     {
-        global $xml, $db, $config, $func;
+        global $db, $config, $func;
 
-        $tables = $xml->getTagContentArray("table", $this->xml_content_lansuite);
+        $tables = $this->xml->getTagContentArray("table", $this->xml_content_lansuite);
         foreach ($tables as $table) {
             // Get Table-Head-Data from XML-File
-            $table_head = $xml->getFirstTagContent("table_head", $table, 0);
-            $table_name = $xml->getFirstTagContent("name", $table_head);
+            $table_head = $this->xml->getFirstTagContent("table_head", $table, 0);
+            $table_name = $this->xml->getFirstTagContent("name", $table_head);
 
             $table_found = false;
 
@@ -141,9 +146,9 @@ class Import
 
             // Import Table-Structure
             $field_names = array();
-            $structure = $xml->getFirstTagContent("structure", $table, 0);
+            $structure = $this->xml->getFirstTagContent("structure", $table, 0);
             if ($structure) {
-                $fields = $xml->getTagContentArray("field", $structure);
+                $fields = $this->xml->getTagContentArray("field", $structure);
                 $mysql_fields = "";
                 $primary_key = "";
                 $unique_key = "";
@@ -152,17 +157,17 @@ class Import
                 if ($fields) {
                     foreach ($fields as $field) {
                         // Read XML-Entries
-                        $name = $xml->getFirstTagContent("name", $field);
-                        $type = $xml->getFirstTagContent("type", $field);
-                        $null_xml = $xml->getFirstTagContent("null", $field);
+                        $name = $this->xml->getFirstTagContent("name", $field);
+                        $type = $this->xml->getFirstTagContent("type", $field);
+                        $null_xml = $this->xml->getFirstTagContent("null", $field);
                         ($null_xml != 'NULL' and $null_xml != 'YES')? $null = "NOT NULL" : $null = "NULL";
-                        $key = $xml->getFirstTagContent("key", $field);
-                        $default_xml = $xml->getFirstTagContent("default", $field);
-                        $extra = $xml->getFirstTagContent("extra", $field);
-                        $foreign_key = $xml->getFirstTagContent("foreign_key", $field);
-                        $on_delete = $xml->getFirstTagContent("on_delete", $field);
-                        $reference = $xml->getFirstTagContent("reference", $field);
-                        $reference_condition = $xml->getFirstTagContent("reference_condition", $field);
+                        $key = $this->xml->getFirstTagContent("key", $field);
+                        $default_xml = $this->xml->getFirstTagContent("default", $field);
+                        $extra = $this->xml->getFirstTagContent("extra", $field);
+                        $foreign_key = $this->xml->getFirstTagContent("foreign_key", $field);
+                        $on_delete = $this->xml->getFirstTagContent("on_delete", $field);
+                        $reference = $this->xml->getFirstTagContent("reference", $field);
+                        $reference_condition = $this->xml->getFirstTagContent("reference_condition", $field);
 
                         // Set default value to 0 or '', if NOT NULL and not autoincrement
                         if ($null == 'NOT NULL' and $extra == '') {
@@ -444,8 +449,8 @@ class Import
             }
 
             // Import Table-Content
-            $content = $xml->getFirstTagContent("content", $table, 0);
-            $entrys = $xml->getTagContentArray("entry", $content);
+            $content = $this->xml->getFirstTagContent("content", $table, 0);
+            $entrys = $this->xml->getTagContentArray("entry", $content);
 
             if ($entrys) {
                 // Update Content only, if no row exists, or table has PrimKey set
@@ -466,7 +471,7 @@ class Import
                         } // Get names from DB, if not in XML-Structure
                         if ($field_names) {
                             foreach ($field_names as $field_name) {
-                                $value = $xml->getFirstTagContent($field_name, $entry, 1);
+                                $value = $this->xml->getFirstTagContent($field_name, $entry, 1);
                                 if ($value != '') {
                                     $mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
                                 }
@@ -545,7 +550,7 @@ class Import
      */
     public function ImportLanSuite($del_db, $replace, $no_seat, $signon, $comment)
     {
-        global $xml, $db, $party, $cfg;
+        global $db, $party, $cfg;
 
         // Delete User-Table
         if ($del_db) {
@@ -555,29 +560,29 @@ class Import
 
         // Getting all data in Usertags
         // Merging all <users>-Blocks togheter
-        $users_blocks = $xml->get_tag_content_combine("users", $this->xml_content_lansuite);
-        $users        = $xml->getTagContentArray("user", $users_blocks);
+        $users_blocks = $this->xml->get_tag_content_combine("users", $this->xml_content_lansuite);
+        $users        = $this->xml->getTagContentArray("user", $users_blocks);
 
         // now transforming the array and reading the user-specific data in sub-<user> tags like name, clan etc.
         foreach ($users as $xml_user) {
             $users_to_import[] = [
-                'username'      => $xml->getFirstTagContent("username", $xml_user),
-                'firstname'     => $xml->getFirstTagContent("firstname", $xml_user),
-                'name'          => $xml->getFirstTagContent("name", $xml_user),
-                'clan'          => $xml->getFirstTagContent("clan", $xml_user),
-                'type'          => $xml->getFirstTagContent("type", $xml_user),
-                'paid'          => $xml->getFirstTagContent("paid", $xml_user),
-                'password'      => $xml->getFirstTagContent("password", $xml_user),
-                'email'         => $xml->getFirstTagContent("email", $xml_user),
-                'wwclid'        => $xml->getFirstTagContent("wwclid", $xml_user),
-                'wwclclanid'    => $xml->getFirstTagContent("wwclclanid", $xml_user),
-                'clanurl'       => $xml->getFirstTagContent("homepage", $xml_user)
+                'username'      => $this->xml->getFirstTagContent("username", $xml_user),
+                'firstname'     => $this->xml->getFirstTagContent("firstname", $xml_user),
+                'name'          => $this->xml->getFirstTagContent("name", $xml_user),
+                'clan'          => $this->xml->getFirstTagContent("clan", $xml_user),
+                'type'          => $this->xml->getFirstTagContent("type", $xml_user),
+                'paid'          => $this->xml->getFirstTagContent("paid", $xml_user),
+                'password'      => $this->xml->getFirstTagContent("password", $xml_user),
+                'email'         => $this->xml->getFirstTagContent("email", $xml_user),
+                'wwclid'        => $this->xml->getFirstTagContent("wwclid", $xml_user),
+                'wwclclanid'    => $this->xml->getFirstTagContent("wwclclanid", $xml_user),
+                'clanurl'       => $this->xml->getFirstTagContent("homepage", $xml_user)
             ];
         }
 
         // Putting all <seat_blocks>-tags into an array
-        $seat_blocks_blocks = $xml->get_tag_content_combine("seat_blocks", $this->xml_content_lansuite);
-        $blocks             = $xml->getTagContentArray("block", $seat_blocks_blocks);
+        $seat_blocks_blocks = $this->xml->get_tag_content_combine("seat_blocks", $this->xml_content_lansuite);
+        $blocks             = $this->xml->getTagContentArray("block", $seat_blocks_blocks);
 
         if ($blocks) {
             foreach ($blocks as $xml_block) {
@@ -585,53 +590,53 @@ class Import
                 unset($seats_to_import);
 
                 // Seats in this block
-                $seats_in_this_block = $xml->get_tag_content_combine("seat_seats", $xml_block);
-                $seats               = $xml->getTagContentArray("seat", $seats_in_this_block);
+                $seats_in_this_block = $this->xml->get_tag_content_combine("seat_seats", $xml_block);
+                $seats               = $this->xml->getTagContentArray("seat", $seats_in_this_block);
 
                 if (is_array($seats)) {
                     foreach ($seats as $xml_seat) {
                         $seats_to_import[] = [
-                            'col'       => $xml->getFirstTagContent("col", $xml_seat),
-                            'row'       => $xml->getFirstTagContent("row", $xml_seat),
-                            'status'    => $xml->getFirstTagContent("status", $xml_seat),
-                            'owner'     => $xml->getFirstTagContent("owner", $xml_seat),
-                            'ipaddress' => $xml->getFirstTagContent("ipaddress", $xml_seat)
+                            'col'       => $this->xml->getFirstTagContent("col", $xml_seat),
+                            'row'       => $this->xml->getFirstTagContent("row", $xml_seat),
+                            'status'    => $this->xml->getFirstTagContent("status", $xml_seat),
+                            'owner'     => $this->xml->getFirstTagContent("owner", $xml_seat),
+                            'ipaddress' => $this->xml->getFirstTagContent("ipaddress", $xml_seat)
                         ];
                     }
                 }
 
                 // Seperators in this block
-                $seps_in_this_block = $xml->get_tag_content_combine("seat_sep", $xml_block);
-                $seps               = $xml->getTagContentArray("sep", $seps_in_this_block);
+                $seps_in_this_block = $this->xml->get_tag_content_combine("seat_sep", $xml_block);
+                $seps               = $this->xml->getTagContentArray("sep", $seps_in_this_block);
 
                 if (is_array($seps)) {
                     foreach ($seps as $xml_sep) {
                         $seps_to_import[] = [
-                            'orientation' => $xml->getFirstTagContent("orientation", $xml_sep),
-                            'value' => $xml->getFirstTagContent("value", $xml_sep)
+                            'orientation' => $this->xml->getFirstTagContent("orientation", $xml_sep),
+                            'value' => $this->xml->getFirstTagContent("value", $xml_sep)
                         ];
                     }
                 }
 
                 // Seatblockdata
                 $seat_blocks_to_import[] = [
-                    'name'          => $xml->getFirstTagContent("name", $xml_block),
-                    'rows'          => $xml->getFirstTagContent("rows", $xml_block),
-                    'cols'          => $xml->getFirstTagContent("cols", $xml_block),
-                    'orientation'   => $xml->getFirstTagContent("orientation", $xml_block),
-                    'remark'        => $xml->getFirstTagContent("remark", $xml_block),
-                    'text_tl'       => $xml->getFirstTagContent("text_tl", $xml_block),
-                    'text_tc'       => $xml->getFirstTagContent("text_tc", $xml_block),
-                    'text_tr'       => $xml->getFirstTagContent("text_tr", $xml_block),
-                    'text_lt'       => $xml->getFirstTagContent("text_lt", $xml_block),
-                    'text_lc'       => $xml->getFirstTagContent("text_lc", $xml_block),
-                    'text_lb'       => $xml->getFirstTagContent("text_lb", $xml_block),
-                    'text_rt'       => $xml->getFirstTagContent("text_rt", $xml_block),
-                    'text_rc'       => $xml->getFirstTagContent("text_rc", $xml_block),
-                    'text_rb'       => $xml->getFirstTagContent("text_rb", $xml_block),
-                    'text_bl'       => $xml->getFirstTagContent("text_bl", $xml_block),
-                    'text_bc'       => $xml->getFirstTagContent("text_bc", $xml_block),
-                    'text_br'       => $xml->getFirstTagContent("text_br", $xml_block),
+                    'name'          => $this->xml->getFirstTagContent("name", $xml_block),
+                    'rows'          => $this->xml->getFirstTagContent("rows", $xml_block),
+                    'cols'          => $this->xml->getFirstTagContent("cols", $xml_block),
+                    'orientation'   => $this->xml->getFirstTagContent("orientation", $xml_block),
+                    'remark'        => $this->xml->getFirstTagContent("remark", $xml_block),
+                    'text_tl'       => $this->xml->getFirstTagContent("text_tl", $xml_block),
+                    'text_tc'       => $this->xml->getFirstTagContent("text_tc", $xml_block),
+                    'text_tr'       => $this->xml->getFirstTagContent("text_tr", $xml_block),
+                    'text_lt'       => $this->xml->getFirstTagContent("text_lt", $xml_block),
+                    'text_lc'       => $this->xml->getFirstTagContent("text_lc", $xml_block),
+                    'text_lb'       => $this->xml->getFirstTagContent("text_lb", $xml_block),
+                    'text_rt'       => $this->xml->getFirstTagContent("text_rt", $xml_block),
+                    'text_rc'       => $this->xml->getFirstTagContent("text_rc", $xml_block),
+                    'text_rb'       => $this->xml->getFirstTagContent("text_rb", $xml_block),
+                    'text_bl'       => $this->xml->getFirstTagContent("text_bl", $xml_block),
+                    'text_bc'       => $this->xml->getFirstTagContent("text_bc", $xml_block),
+                    'text_br'       => $this->xml->getFirstTagContent("text_br", $xml_block),
                     'seats'         => $seats_to_import,
                     'seps'          => $seps_to_import
                 ];
@@ -643,16 +648,16 @@ class Import
 
             foreach ($users_to_import as $user) {
                 $email      = $user['email'];
-                $username   = $xml->convertinputstr($user['username']);
-                $name       = $xml->convertinputstr($user['name']);
-                $firstname  = $xml->convertinputstr($user['firstname']);
-                $clan       = $xml->convertinputstr($user['clan']);
+                $username   = $this->xml->convertinputstr($user['username']);
+                $name       = $this->xml->convertinputstr($user['name']);
+                $firstname  = $this->xml->convertinputstr($user['firstname']);
+                $clan       = $this->xml->convertinputstr($user['clan']);
                 $type       = $user['type'];
                 $paid       = $user['paid'];
                 $password   = $user['password'];
 
-                $wwclid     = $xml->convertinputstr($user['wwclid']);
-                $wwclclanid = $xml->convertinputstr($user['wwclclanid']);
+                $wwclid     = $this->xml->convertinputstr($user['wwclid']);
+                $wwclclanid = $this->xml->convertinputstr($user['wwclclanid']);
 
                 $checkin = ($type > 1) ? "1" : "0";
 
@@ -720,7 +725,7 @@ class Import
 
         if (is_array($seat_blocks_to_import) == true and !$no_seat) {
             foreach ($seat_blocks_to_import as $block) {
-                $name           = $xml->convertinputstr($block['name']);
+                $name           = $this->xml->convertinputstr($block['name']);
                 $rows           = $block['rows'];
                 $cols           = $block['cols'];
                 $orientation    = $block['orientation'];

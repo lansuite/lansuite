@@ -1,7 +1,8 @@
 <?php
 
-include_once('modules/install/class_install.php');
-$install = new Install();
+$importXml = new \LanSuite\XML();
+$installImport = new \LanSuite\Module\Install\Import($importXml);
+$install = new \LanSuite\Module\Install\Install($installImport);
 
 $CurrentMod = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name=%string%', $_GET['module']);
 
@@ -191,8 +192,8 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
 
                     // Export Module-DB
                     case 43:
-                        include_once('modules/install/class_export.php');
-                        $export = new Export();
+                        $xmlExport = new \LanSuite\XML();
+                        $export = new \LanSuite\Module\Install\Export($xmlExport);
 
                         if ($_GET['module']) {
                             $export->LSTableHead('lansuite_'. $_GET['module'] .'_'. date('ymd') .'.xml');

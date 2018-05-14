@@ -1,7 +1,8 @@
 <?php
 
-include_once('modules/install/class_install.php');
-$install = new Install();
+$importXml = new \LanSuite\XML();
+$installImport = new \LanSuite\Module\Install\Import($importXml);
+$install = new \LanSuite\Module\Install\Install($installImport);
 
 switch ($_GET["step"]) {
     case 2:
