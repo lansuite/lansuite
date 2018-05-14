@@ -87,7 +87,7 @@
             "modules/foodcenter/Functions/GetPriceFormat.php",
             "modules/foodcenter/Functions/GetTitelName.php",
             "modules/foodcenter/Functions/PaidIconLinkFoodcenter.php",
-            "modules/foodcenter/Functions/SeatNameLink.php",
+            "modules/foodcenter/Functions/SeatNameLinkFoodcenter.php",
             "modules/guestlist/Functions/ClanURLLink.php",
             "modules/guestlist/Functions/GetLastHitUrl.php",
             "modules/guestlist/Functions/GetModul.php",

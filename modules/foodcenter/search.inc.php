@@ -28,6 +28,6 @@ if ($_POST["search_dd_input"][1] != '' || $_GET["search_dd_input"][1] != '') {
     $ms2->AddResultField('Out', 'p.checkout', 'MS2GetDate');
 }
 
-$ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLink');
+$ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLinkFoodcenter');
 $ms2->AddIconField('assign', $target_url, t('Zuweisen'));
 $ms2->PrintSearch($current_url, 'u.userid');

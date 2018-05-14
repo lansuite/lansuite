@@ -6,7 +6,7 @@
  * @param int $userid
  * @return string
  */
-function SeatNameLink($userid)
+function SeatNameLinkFoodcenter($userid)
 {
     global $seat2;
 
