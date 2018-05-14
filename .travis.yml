@@ -40,6 +40,9 @@ script:
   - phpcs --standard=PSR1,PSR2 --extensions=php -s modules/helplet
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/home
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/info2
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/install
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/irc
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/mail
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/mastersearch2
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --ignore="/ext_scripts/*,/ext_inc/*,/vendor/*" . || true # Allow failures for now
   - bin/phpunit

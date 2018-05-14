@@ -4,14 +4,20 @@ if ($auth['login']) {
     $smarty->assign('caption', t('Neue Mails'));
     $content = "";
 
-    $query = $db->qry(
-        'SELECT m.des_Status, m.mailID, m.subject, u.username FROM %prefix%mail_messages AS m LEFT JOIN %prefix%user AS u ON m.FromUserID = u.userid
-    WHERE m.toUserID = %int% AND m.mail_status = \'active\'
-    ORDER BY m.tx_date DESC
-    LIMIT 0, %int%',
-        $auth['userid'],
-        $cfg['home_item_cnt_mail']
-    );
+    $query = $db->qry('
+      SELECT
+        m.des_Status,
+        m.mailID,
+        m.subject,
+        u.username
+      FROM
+        %prefix%mail_messages AS m
+        LEFT JOIN %prefix%user AS u ON m.FromUserID = u.userid
+      WHERE
+        m.toUserID = %int%
+        AND m.mail_status = \'active\'
+      ORDER BY m.tx_date DESC
+      LIMIT 0, %int%', $auth['userid'], $cfg['home_item_cnt_mail']);
 
     if ($db->num_rows($query) > 0) {
         while ($row = $db->fetch_array($query)) {
