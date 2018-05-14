@@ -1,9 +1,27 @@
 <?php
-$mail_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'delete'", $auth['userid']);
-$mail_unread_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'delete' AND des_status = 'new'", $auth['userid']);
+$mail_total = $db->qry_first("
+  SELECT
+    COUNT(*) as n
+  FROM %prefix%mail_messages
+  WHERE
+    ToUserID = %int%
+    AND mail_status = 'delete'", $auth['userid']);
+
+$mail_unread_total = $db->qry_first("
+  SELECT
+    COUNT(*) as n
+  FROM %prefix%mail_messages
+  WHERE
+    ToUserID = %int%
+    AND mail_status = 'delete'
+    AND des_status = 'new'", $auth['userid']);
 
 $dsp->NewContent(t('Papierkorb'), t('Du hast <b>%1</b> Mail(s) in ihrem Papierkorb. Davon wurde(n) <b>%2</b> nicht von dir gelesen.', $mail_total["n"], $mail_unread_total["n"]));
 
+/**
+ * @param string $status
+ * @return string
+ */
 function MailStatus($status)
 {
     if ($status == "new") {
@@ -19,7 +37,7 @@ function MailStatus($status)
 
 if ($auth['userid']) {
     switch ($_GET['step']) {
-    // check if it can delete from Database and delete
+        // check if it can delete from Database and delete
         case 20:
             if (!$_POST['action'] and $_GET['mailid']) {
                 $_POST['action'][$_GET['mailid']] = 1;
@@ -62,6 +80,5 @@ $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=trash&mail
 $ms2->AddIconField('delete', 'index.php?mod=mail&action=trashcan&step=20&mailid=', t('Entgültig löschen'), '', 10);
 
 $ms2->AddMultiSelectAction(t('Entgültig löschen'), 'index.php?mod=mail&action=trashcan&step=20', 1, 'delete');
-
 
 $ms2->PrintSearch('index.php?mod=mail&action=trash', 'm.mailid');

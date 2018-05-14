@@ -1,31 +1,13 @@
 <?php
-/***************************************************************************
-* smtp.php
-* -------------------
-* begin : Wed May 09 2001
-* copyright : (C) 2001 The phpBB Group
-* email : support@phpbb.com
-*
-* $Id$
-*
-***************************************************************************/
-
-/***************************************************************************
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-***************************************************************************/
 
 define('SMTP_INCLUDED', 1);
 
-//
-// This function has been modified as provided
-// by SirSir to allow multiline responses when
-// using SMTP Extensions
-//
+/**
+ * @param resource $socket
+ * @param string $response
+ * @param int $line
+ * @return bool
+ */
 function server_parse($socket, $response, $line = __LINE__)
 {
     while (substr($server_response, 3, 1) != ' ') {
@@ -42,7 +24,15 @@ function server_parse($socket, $response, $line = __LINE__)
     }
 }
 
-// Replacement or substitute for PHP's mail command
+/**
+ * Replacement or substitute for PHP's mail command
+ *
+ * @param string $mail_to
+ * @param string $subject
+ * @param string $message
+ * @param string $headers
+ * @return bool
+ */
 function smtpmail($mail_to, $subject, $message, $headers = '')
 {
     global $board_config;
@@ -178,5 +168,6 @@ function smtpmail($mail_to, $subject, $message, $headers = '')
         echo "Could not connect to smtp host : $errno : $errstr";
         return false;
     }
+
     return true;
 }

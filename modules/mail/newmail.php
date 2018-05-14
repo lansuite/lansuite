@@ -4,6 +4,9 @@ $reply_message = '';
 
 $dsp->NewContent(t('Neue Mail verfassen'), '');
 
+/**
+ * @return bool
+ */
 function SendOnlineMail()
 {
     global $db, $func, $__POST, $auth;
@@ -16,7 +19,7 @@ function SendOnlineMail()
         $_SESSION['tmpmsgsubject'] = $_POST['Subject'];
         $func->information(t("Bitte gib einen Empfänger für deine Mail an"), "index.php?mod=mail&action=".$_GET['action']."&step=2&replyto=".$_GET['replyto']."&back=1");
 
-  // To additional recipients from cfg
+    // To additional recipients from cfg
     } elseif (substr($_POST['toUserID'], 1, 7) == '-mail-') {
         $to = substr($_POST['toUserID'], 8, strlen($_POST['toUserID']));
         $mail->create_inet_mail('', $to, $__POST['Subject'], $__POST['msgbody'], $_POST['SenderMail']);
@@ -24,7 +27,7 @@ function SendOnlineMail()
         unset($_SESSION['tmpmsgbody']);
         unset($_SESSION['tmpmsgsubject']);
 
-  // System-Mail: Insert will be done, by MF
+    // System-Mail: Insert will be done, by MF
     } elseif ($auth['userid'] and $_POST['type'] == 0) {
         // Send Info-Mail to receiver
         if ($cfg['sys_internet']) {
@@ -35,7 +38,7 @@ function SendOnlineMail()
         }
         return true;
 
-  // Inet-Mail
+    // Inet-Mail
     } else {
         $row = $db->qry_first("SELECT name, firstname, email FROM %prefix%user WHERE userid = %int%", $_POST['toUserID']);
         if ($auth['userid']) {
@@ -58,10 +61,20 @@ if ($_GET['userID']) {
     $_POST['toUserID'] = $_GET['userID'];
 }
 if ($_GET['replyto']) {
-    $row = $db->qry_first("SELECT m.mailID, m.Subject, m.msgbody, UNIX_TIMESTAMP(m.tx_date) AS tx_date, u.username FROM %prefix%mail_messages AS m
-    LEFT JOIN %prefix%user AS u ON m.fromUserID = u.userid
-    WHERE m.mailID = %int%", $_GET['replyto']);
-    $reply_message = $row[mailID];
+    $row = $db->qry_first("
+      SELECT
+        m.mailID,
+        m.Subject,
+        m.msgbody,
+        UNIX_TIMESTAMP(m.tx_date) AS tx_date,
+        u.username
+      FROM
+        %prefix%mail_messages AS m
+        LEFT JOIN %prefix%user AS u ON m.fromUserID = u.userid
+      WHERE
+        m.mailID = %int%", $_GET['replyto']);
+
+    $reply_message = $row['mailID'];
     if (!$_POST['toUserID'] and $_GET['replyto']) {
         $_POST['Subject'] = 'WG: '.$row['Subject'];
     } elseif (substr($row['Subject'], 0, 4) == 'Re: ') {
@@ -78,9 +91,11 @@ Betreff: '. $row['Subject'] .'
 
 '.$row['msgbody'];
 }
+
 if ($_SESSION['tmpmsgbody'] and $_GET['back']) {
     $_POST['msgbody'] = $_SESSION['tmpmsgbody'];
 }
+
 if ($_SESSION['tmpmsgsubject'] and $_GET['back']) {
     $_POST['Subject'] = $_SESSION['tmpmsgsubject'];
 }
@@ -105,10 +120,21 @@ if ($auth['userid']) {
 } else {
     $WhereMinType = 2;
 }
-$res = $db->qry("SELECT type, userid, username, firstname, name FROM %prefix%user WHERE type >= %string% ORDER BY type DESC, username", $WhereMinType);
+$res = $db->qry("
+  SELECT
+    type,
+    userid,
+    username,
+    firstname,
+    name
+  FROM %prefix%user
+  WHERE type >= %string%
+  ORDER BY type DESC, username", $WhereMinType);
+
 if (!$_POST['toUserID']) {
     $selections[-1] = "- Bitte wählen -";
 }
+
 while ($row = $db->fetch_array($res)) {
     if (!$AdminFound and $row['type'] > 1) {
         $selections['-OptGroup-1'] = t('Admins');
