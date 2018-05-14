@@ -111,12 +111,12 @@ if ($party->count == 0) {
                 }
 
                 // Prices
-				 $qrytmp = "SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND requirement <= %string%";
-				// Show all prices for administrators and only the one not ended for normal users
-				if ($auth['type'] <= 1) {
-					$qrytmp.=" AND enddate > now()";
-				}
-				$res2 = $db->qry($qrytmp, $row['party_id'], $auth['type']);
+                $qrytmp = "SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND requirement <= %string%";
+                // Show all prices for administrators and only the one not ended for normal users
+                if ($auth['type'] <= 1) {
+                    $qrytmp.=" AND enddate > now()";
+                }
+                $res2 = $db->qry($qrytmp, $row['party_id'], $auth['type']);
                 $selections = [];
                 while ($row2 = $db->fetch_array($res2)) {
                     $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']&nbsp;&nbsp;'.t('Gültig bis : ').date_format(date_create($row2['enddate']), 'd.m.Y');
