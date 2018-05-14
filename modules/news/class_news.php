@@ -4,6 +4,9 @@ $news = new News();
 
 class News
 {
+    /**
+     * @return void
+     */
     public function GenerateNewsfeed()
     {
         global $db, $cfg, $func;
@@ -25,9 +28,16 @@ class News
             $channel .= $xml->write_master_tag("image", $image, 2);
         }
 
-        $get_news = $db->qry("SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.name, u.firstname, u.username FROM  %prefix%news n
-      LEFT JOIN %prefix%user u ON u.userid = n.poster
-      ORDER BY n.date DESC");
+        $get_news = $db->qry("
+          SELECT
+            n.*,
+            UNIX_TIMESTAMP(n.date) AS date,
+            u.name,
+            u.firstname,
+            u.username
+          FROM  %prefix%news n
+          LEFT JOIN %prefix%user u ON u.userid = n.poster
+          ORDER BY n.date DESC");
         while ($news = $db->fetch_array($get_news)) {
             $item = $xml->write_tag("title", $news["caption"], 3);
             $item .= $xml->write_tag("description", $func->Entity2Uml(strip_tags($news["text"])), 3);
