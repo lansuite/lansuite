@@ -11,8 +11,7 @@ function SendOnlineMail()
 {
     global $db, $func, $__POST, $auth;
 
-    include_once("modules/mail/class_mail.php");
-    $mail = new mail();
+    $mail = new \LanSuite\Module\Mail\Mail();
 
     if ($_POST['toUserID'] == -1) {
         $_SESSION['tmpmsgbody'] = $_POST['msgbody'];

@@ -1,7 +1,6 @@
 <?php
 
-include_once("modules/mail/class_mail.php");
-$mail = new mail();
+$mail = new \LanSuite\Module\Mail\Mail();
 
 switch ($_GET["step"]) {
     case 2:
