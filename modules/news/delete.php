@@ -8,7 +8,7 @@ switch ($_GET['step']) {
         $md = new \LanSuite\MasterDelete();
         $md->Delete('news', 'newsid', $_GET['newsid']);
 
-        include_once('modules/news/class_news.php');
+        $news = new \LanSuite\Module\News\News();
         $news->GenerateNewsfeed();
         break;
 }

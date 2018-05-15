@@ -4,8 +4,7 @@ use LanSuite\Module\Seating\Seat2;
 
 $seat2 = new Seat2();
 
-include_once("modules/mail/class_mail.php");
-$mail = new mail();
+$mail = new \LanSuite\Module\Mail\Mail();
 
 class team
 {

@@ -1,11 +1,24 @@
 <?php
 
-include_once("modules/install/class_import.php");
-$import = new Import();
+namespace LanSuite\Module\Install;
 
 class Install
 {
-    public function IsWriteableRec($dir)
+    /**
+     * @var Import
+     */
+    private $import;
+
+    public function __construct(Import $import)
+    {
+        $this->import = $import;
+    }
+
+    /**
+     * @param string $dir
+     * @return string
+     */
+    private function IsWriteableRec($dir)
     {
         $ret = '';
         if ($dh = opendir($dir)) {
@@ -24,7 +37,11 @@ class Install
         return $ret;
     }
 
-  // Write $config into file (/inc/base/config.php)
+    /**
+     * Write $config into file /inc/base/config.php
+     *
+     * @return bool|int
+     */
     public function WriteConfig()
     {
         global $config;
@@ -45,19 +62,32 @@ class Install
     }
 
 
-  // Connect to DB and create Database, if not exist
+    /**
+     * Connect to DB and create Database, if not exist
+     *
+     * Return-Values:
+     *      0 = Server not available
+     *      1 = DB already exists
+     *      2 = Create failed (i.e. insufficient rights)
+     *      3 = Create success
+     *      4 = no Database
+     *      5 = DB overwrite
+     *
+     * @param boolean $createnew
+     * @return int
+     */
     public function TryCreateDB($createnew = null)
     {
         global $config, $db;
 
         if (!$db->connect(1)) {
-            //No success connection
+            // No success connection
             if ($db->connectfailure == 1) {
                 $ret_val = 0;
             } elseif ($db->connectfailure == 2 and $config['database']['database'] == '') {
                 $ret_val = 4;
             } elseif ($db->connectfailure == 2 and $config['database']['database'] != '') {
-                //Try to create DB
+                // Try to create DB
                 $db->set_charset();
                 $query_id = $db->qry('CREATE DATABASE '. $config['database']['database'] .' CHARACTER SET utf8');
                 if ($query_id) {
@@ -78,37 +108,41 @@ class Install
             }
         }
 
-        // Return-Values:
-        // 0 = Server not available
-        // 1 = DB already exists
-        // 2 = Create failed (i.e. insufficient rights)
-        // 3 = Create successe
-        // 4 = no Database
-        // 5 = DB overwrite
         return $ret_val;
     }
 
-  // Creates a DB-table using the file $table, located in the mod_settings-directory of the module $mod
+    /**
+     * Creates a DB-table using the file $table,
+     * located in the mod_settings-directory of the module $mod
+     *
+     * @param string $mod
+     * @param boolean $rewrite
+     * @return void
+     */
     public function WriteTableFromXMLFile($mod, $rewrite = null)
     {
-        global $db, $config, $import;
+        global $db, $config;
 
         // Delete references, if table exists, for they will be recreated in ImportXML()
-        if (in_array($config['database']['prefix'] .'ref', $import->installed_tables)) {
+        if (in_array($config['database']['prefix'] .'ref', $this->import->installed_tables)) {
             $db->qry('TRUNCATE TABLE %prefix%ref');
         }
 
-        $import->GetImportHeader("modules/$mod/mod_settings/db.xml");
-        $import->ImportXML($rewrite);
+        $this->import->GetImportHeader("modules/$mod/mod_settings/db.xml");
+        $this->import->ImportXML($rewrite);
         if ($mod == 'install') {
             $this->InsertModules($rewrite);
             $this->InsertMenus($rewrite);
         }
     }
 
-
-  // Scans 'install/db_skeleton/' for non-existand tables and creates them
-  // Puts the results to the screen, by using $dsp->AddSingleRow for each table, if $display_to_screen = 1
+    /**
+     * Scans 'install/db_skeleton/' for non-existing tables and creates them.
+     * Puts the results to the screen, by using $dsp->AddSingleRow for each table, if $display_to_screen = 1
+     *
+     * @param int $display_to_screen
+     * @return array
+     */
     public function CreateNewTables($display_to_screen = 1)
     {
         global $dsp, $func;
@@ -130,7 +164,7 @@ class Install
                 }
             }
 
-        // Try to find and import db.xml-Files
+            // Try to find and import db.xml-Files
             foreach ($func->ActiveModules as $module => $caption) {
                 if ($module != 'install' and file_exists("modules/$module/mod_settings/db.xml")) {
                     $this->WriteTableFromXMLFile($module);
@@ -148,7 +182,16 @@ class Install
         return $tablecreate;
     }
 
-  // Insert PLZ-Entrys in DB, if not exist
+    /**
+     * Insert PLZ-Entrys in DB, if not exist.
+     *
+     * Return values:
+     *      0 = At least one create failed
+     *      1 = Alreday existing
+     *      2 = Create success
+     *
+     * @return int
+     */
     public function InsertPLZs()
     {
         global $db, $cfg;
@@ -159,14 +202,7 @@ class Install
             if ($db->num_rows($find) == 0) {
                 $return_val = 2;
                 $file = "modules/install/db_insert_locations.php";
-    //          $file = "modules/install/db_insert_locations.sql";
                 if (file_exists($file)) {
-                    /*
-                    $fp = fopen($file, "r");
-                    $contents = fread($fp, filesize($file));
-                    fclose($fp);
-                    $querys = explode(";", trim($contents));
-        */
                     include_once($file);
                     foreach ($querys as $val) {
                         if ($val) {
@@ -182,15 +218,15 @@ class Install
             $return_val = 1;
         }
 
-          return $return_val;
-          // 0 = At least one create failed
-          // 1 = Alreday existing
-          // 2 = Create success
+        return $return_val;
     }
 
-
-  // Auto-Load Modules from XML-Files
-  // And boxes
+    /**
+     * Autoload modules and boxes from XML-files
+     *
+     * @param bool $rewrite
+     * @return void
+     */
     public function InsertModules($rewrite = false)
     {
         global $db, $xml, $func;
@@ -205,7 +241,7 @@ class Install
         $modules_dir = opendir("modules/");
         while ($module = readdir($modules_dir)) {
             if ($module != "." and $module != ".." and $module != ".svn" and is_dir("modules/$module")) {
-        // module.xml
+                // module.xml
                 $file = "modules/$module/mod_settings/module.xml";
                 $ModActive = 0;
                 if (file_exists($file)) {
@@ -215,18 +251,18 @@ class Install
 
                     array_push($mod_list, $module);
 
-                    $name = $xml->get_tag_content("name", $xml_file);
-                    $caption = $xml->get_tag_content("caption", $xml_file);
-                    $description = $xml->get_tag_content("description", $xml_file);
-                    $author = $xml->get_tag_content("author", $xml_file);
-                    $email = $xml->get_tag_content("email", $xml_file);
-                    $active = $xml->get_tag_content("active", $xml_file);
-                    $changeable = $xml->get_tag_content("changeable", $xml_file);
-                    $version = $xml->get_tag_content("version", $xml_file);
-                    $state = $xml->get_tag_content("state", $xml_file);
-                    $requires = $xml->get_tag_content("requires", $xml_file);
-                    $reqPhp = $xml->get_tag_content("php", $requires);
-                    $reqMysql = $xml->get_tag_content("mysql", $requires);
+                    $name           = $xml->get_tag_content("name", $xml_file);
+                    $caption        = $xml->get_tag_content("caption", $xml_file);
+                    $description    = $xml->get_tag_content("description", $xml_file);
+                    $author         = $xml->get_tag_content("author", $xml_file);
+                    $email          = $xml->get_tag_content("email", $xml_file);
+                    $active         = $xml->get_tag_content("active", $xml_file);
+                    $changeable     = $xml->get_tag_content("changeable", $xml_file);
+                    $version        = $xml->get_tag_content("version", $xml_file);
+                    $state          = $xml->get_tag_content("state", $xml_file);
+                    $requires       = $xml->get_tag_content("requires", $xml_file);
+                    $reqPhp         = $xml->get_tag_content("php", $requires);
+                    $reqMysql       = $xml->get_tag_content("mysql", $requires);
 
                     $ModActive = $active;
                     $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%modules WHERE name = %string%", $module);
@@ -234,8 +270,20 @@ class Install
                     if ($name) {
                         if (!$mod_found["found"]) {
                             $db->qry_first(
-                                "REPLACE INTO %prefix%modules
-            SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, active=%string%, changeable=%string%, version=%string%, state=%string%, reqphp=%string%, reqmysql=%string%",
+                                "
+                              REPLACE INTO %prefix%modules
+                              SET
+                                name=%string%,
+                                caption=%string%,
+                                description=%string%,
+                                author=%string%,
+                                email=%string%,
+                                active=%string%,
+                                changeable=%string%,
+                                version=%string%,
+                                state=%string%,
+                                reqphp=%string%,
+                                reqmysql=%string%",
                                 $name,
                                 $caption,
                                 $description,
@@ -250,8 +298,19 @@ class Install
                             );
                         } elseif ($rewrite) {
                             $db->qry_first(
-                                "REPLACE INTO %prefix%modules
-            SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, changeable=%string%, version=%string%, state=%string%, reqphp=%string%, reqmysql=%string%",
+                                "
+                              REPLACE INTO %prefix%modules
+                              SET
+                                name=%string%,
+                                caption=%string%,
+                                description=%string%,
+                                author=%string%,
+                                email=%string%,
+                                changeable=%string%,
+                                version=%string%,
+                                state=%string%,
+                                reqphp=%string%,
+                                reqmysql=%string%",
                                 $name,
                                 $caption,
                                 $description,
@@ -268,7 +327,7 @@ class Install
                 }
 
                 if ($ModActive or $func->isModActive($module)) {
-          // config.xml
+                    // config.xml
                     $file = "modules/$module/mod_settings/config.xml";
                     if (file_exists($file)) {
                         $handle = fopen($file, "r");
@@ -278,7 +337,7 @@ class Install
                         $SettingList = array();
 
                         $xml_config = $xml->get_tag_content('config', $xml_file);
-            // Read types
+                        // Read types
                         $xml_types = $xml->get_tag_content_array('typedefinition', $xml_config);
                         if ($xml_types) {
                             while ($xml_type = array_shift($xml_types)) {
@@ -305,7 +364,7 @@ class Install
                             }
                         }
 
-            // Read settings
+                        // Read settings
                         $xml_groups = $xml->get_tag_content_array('group', $xml_config);
                         if ($xml_groups) {
                             while ($xml_group = array_shift($xml_groups)) {
@@ -322,7 +381,7 @@ class Install
                                         $pos = $xml->get_tag_content('pos', $xml_item);
                                         array_push($SettingList, $name);
 
-                // Insert into DB, if not exists
+                                        // Insert into DB, if not exists
                                         $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
                                         if (!$found['cfg_key']) {
                                             $db->qry(
@@ -341,7 +400,7 @@ class Install
                             }
                         }
 
-            // Delete Settings from DB, which are no longer in the modules config.sql
+                        // Delete Settings from DB, which are no longer in the modules config.sql
                         $settings_db = $db->qry("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $module);
                         while ($setting_db = $db->fetch_array($settings_db)) {
                             if (!in_array($setting_db["cfg_key"], $SettingList)) {
@@ -350,7 +409,7 @@ class Install
                         }
                     }
 
-          // boxes.xml
+                    // boxes.xml
                     $file = "modules/$module/boxes/boxes.xml";
                     if (file_exists($file)) {
                         $handle = fopen($file, "r");
@@ -390,7 +449,7 @@ class Install
                         }
                     }
 
-          // plugins.xml
+                    // plugins.xml
                     $file = "modules/$module/plugins/plugins.xml";
                     if (file_exists($file)) {
                         $handle = fopen($file, "r");
@@ -407,7 +466,7 @@ class Install
                         }
                     }
 
-          // translation.xml
+                    // translation.xml
                     $file = "modules/$module/mod_settings/translation.xml";
                     if (file_exists($file)) {
                         $handle = fopen($file, "r");
@@ -432,7 +491,7 @@ class Install
                                 $long = '';
                             }
 
-              // Insert only, if id-file combination does not exist
+                            // Insert only, if id-file combination does not exist
                             $db->qry(
                                 'INSERT INTO %prefix%translation%plain% SET
               id=%string%, file=%string%, org=%string%, de=%string%, en=%string%, es=%string%, fr=%string%, nl=%string%, it=%string%
@@ -463,12 +522,16 @@ class Install
         }
         $db->free_result($mods);
 
-        // Generate module table, so Lansuite knows, which modules need to be written
+        // Generate module table, so LanSuite knows, which modules need to be written
         $func->getActiveModules();
     }
 
-
-  // Auto-Load Menuentries from XML-Files
+    /**
+     * Autload menu entries from XML files
+     *
+     * @param bool $rewrite
+     * @return void
+     */
     public function InsertMenus($rewrite = false)
     {
         global $db, $xml, $func;
@@ -539,7 +602,11 @@ class Install
     }
 
 
-  // System prüfen
+    /**
+     * Check the general env for installation.
+     *
+     * @return int
+     */
     public function envcheck()
     {
         global $db, $dsp, $func;
@@ -583,17 +650,15 @@ class Install
         $minMysqlVersion = '5.6.3';
         $minMariaDBVersion = '10.0';
         $currentMysqlVersion = $db->getServerInfo();
-        if (!$currentMysqlVersion){
-            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (root@localhost) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %1 benutzt.' , $minMysqlVersion);
-
+        if (!$currentMysqlVersion) {
+            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (root@localhost) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %1 benutzt.', $minMysqlVersion);
         } elseif (strpos($currentMysqlVersion, 'MariaDB') !== false) {
-            $currentMariaDBVersion = substr($currentMysqlVersion,strpos($currentMysqlVersion,'-')+1);
+            $currentMariaDBVersion = substr($currentMysqlVersion, strpos($currentMysqlVersion, '-')+1);
             if (version_compare($currentMariaDBVersion, $minMariaDBVersion) >= 0) {
-                $mysqlVersionCheck = $optimize . t('MariaDB Version %1 gefunden. <br/>Bitte beachte, das LanSuite primär für MySQL entwickelt wurde und es daher zu unerwarteten Problemen mit MariaDB kommen kann!',$currentMariaDBVersion);
+                $mysqlVersionCheck = $optimize . t('MariaDB Version %1 gefunden. <br/>Bitte beachte, das LanSuite primär für MySQL entwickelt wurde und es daher zu unerwarteten Problemen mit MariaDB kommen kann!', $currentMariaDBVersion);
             } else {
                 $mysqlVersionCheck = $failed . t('Die verwendete MariaDB-Version %1 ist leider zu alt. Vorrausgesetzt ist mindestens MariaDB version %2! <br/> Bitte beachte, das LanSuite primär für MySQL entwickelt wurde und es daher zu unerwarteten Problemen mit MariaDB kommen kann!', $currentMariaDBVersion, $minMariaDBVersion);
             }
-            
         } elseif (version_compare($currentMysqlVersion, $minMysqlVersion) >= 0) {
             $mysqlVersionCheck = $ok . $currentMysqlVersion;
         } else {
@@ -655,13 +720,14 @@ class Install
         }
         $dsp->AddDoubleRow("GD Library", $gd_check);
 
-        //PHP-XML-Lib (required for utf8_en/decode
+        // PHP-XML-Lib (required for utf8_en/decode
         if (extension_loaded('xml')) {
             $xml_check = $ok;
         } else {
             $xml_check = $warning . t('Das PHP-Modul XML wurde nicht gefunden. Dies wird für (UTF-8 encodierte) eMails und CSV-Datenexporte benötigt');
         }
         $dsp->AddDoubleRow("XML Modul", $xml_check);
+
         // Test Safe-Mode
         if (!ini_get("safe_mode")) {
             $safe_mode = $ok;
@@ -673,6 +739,7 @@ class Install
         // Testing Safe-Mode and execution of system-programs
         if (!ini_get("safe_mode")) {
             if (stristr(strtolower($_SERVER['SERVER_SOFTWARE']), "win") == "") {
+                $env_stats = '';
                 if (@shell_exec("cat /proc/uptime") == "") {
                     $env_stats .= "<strong>/proc/uptime</strong>" . HTML_NEWLINE;
                 }
@@ -708,11 +775,6 @@ class Install
               $dsp->AddDoubleRow("Server Stats", $server_stats);
         }
 
-    #    // Debug Backtrace
-    #    if (function_exists('debug_backtrace')) $debug_bt_check = $ok;
-    #    else $debug_bt_check = $warning . t('Die Funktion "Debug Backtrace" ist auf deinem System nicht vorhanden. Diese wird jedoch benötigt, um Übersetzungs-Texte einem bestimmten Modul zuzuordnen. Solange du lansuite nur in Deutsch verwenden willst, sollte dies keine Auswirkung haben');
-    #    $dsp->AddDoubleRow('Debug Backtrace', $debug_bt_check);
-
         // SNMP-Lib
         if (extension_loaded('snmp')) {
             $snmp_check = $ok;
@@ -731,8 +793,7 @@ class Install
 
         $dsp->AddFieldSetEnd();
 
-
-        #### Information ####
+        // Information
         $dsp->AddFieldSetStart(t('Informationen - Interesante Server-Einstellungen im Überblick'));
 
         // Display System-Variables
@@ -752,7 +813,7 @@ class Install
         if ($db->success) {
             $dsp->AddFieldSetStart(t('MySQL'));
 
-        // key_buffer_size
+            // key_buffer_size
             $dsp->AddFieldSetStart(t('Key buffer size -  MySQL empfiehlt für optimale Performance: 25% des Arbeitsspeichers. Oft reicht weniger.'));
             $res = $db->qry('SHOW variables LIKE "key_buffer_size"');
             while ($row = $db->fetch_array($res)) {
@@ -761,7 +822,7 @@ class Install
             $db->free_result($res);
             $dsp->AddFieldSetEnd();
 
-        // Key_blocks
+            // Key_blocks
             $dsp->AddFieldSetStart(t('Key blocks - Performance: Key_blocks_unused sollte niemals 0 erreichen! Wenn der Wert nahe 0 ist: key_buffer_size erhöhen'));
             $res = $db->qry('SHOW status LIKE "Key_blocks%"');
             while ($row = $db->fetch_array($res)) {
@@ -770,7 +831,7 @@ class Install
             $db->free_result($res);
             $dsp->AddFieldSetEnd();
 
-        // Query cache
+            // Query cache
             $dsp->AddFieldSetStart(t('Query cache - Beschleunigt MySQL-Abfragen. Sollte aktiv sein'));
             $res = $db->qry('SHOW VARIABLES LIKE \'have_query_cache\'');
             while ($row = $db->fetch_array($res)) {
@@ -790,7 +851,7 @@ class Install
         $dsp->AddFieldSetEnd();
 
 
-        #### Information ####
+        // Information
         $dsp->AddFieldSetStart(t('Sicherheit - Diese Einstellungen sollten aus Security-Gründen vorgenommen werden'));
 
         // Session Use Only Cookies
@@ -813,10 +874,14 @@ class Install
         return $continue;
     }
 
-  // Scans all db.xml-files and deletes all tables listed in them
-  // This meens lansuite is not able to clean up tables, which changed their name during versions
-  // But this is much safer than DROP DATABASE, for this clean methode would drop other web-systems using the same DB table, too
-    public function DeleteAllTables()
+    /**
+     * Scans all db.xml-files and deletes all tables listed in them.
+     * This means LanSuite is not able to clean up tables, which changed their name during versions.
+     * But this is much safer than DROP DATABASE, for this clean method would drop other web-systems using the same DB table, too.
+     *
+     * @return void
+     */
+    private function DeleteAllTables()
     {
         global $xml, $db;
 
@@ -841,6 +906,13 @@ class Install
         }
     }
 
+    /**
+     * @param array $row
+     * @param int $showLinks
+     * @return string
+     * @throws Exception
+     * @throws SmartyException
+     */
     public function getModConfigLine($row, $showLinks = 1)
     {
         global $smarty, $db;

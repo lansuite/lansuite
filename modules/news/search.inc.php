@@ -1,4 +1,5 @@
 <?php
+
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
 $ms2->query['from'] = "%prefix%news n LEFT JOIN %prefix%user u ON n.poster=u.userid";
