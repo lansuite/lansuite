@@ -1,7 +1,8 @@
 <?php
 
-include_once('modules/install/class_install.php');
-$install = new Install();
+$importXml = new \LanSuite\XML();
+$installImport = new \LanSuite\Module\Install\Import($importXml);
+$install = new \LanSuite\Module\Install\Install($installImport);
 
 $CurrentMod = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name=%string%', $_GET['module']);
 
@@ -14,7 +15,6 @@ while ($row = $db->fetch_array($res)) {
 }
 $db->free_result($res);
 
-// First switch
 switch ($_GET['step']) {
     case 31:
         $db->qry("INSERT INTO %prefix%menu SET caption = 'Neuer Eintrag', requirement = '0', hint = '', link = 'index.php?mod=', needed_config = '', module=%string%, level = 1", $_GET["module"]);
@@ -27,10 +27,10 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
 } else {
     switch ($_GET['step']) {
         default:
-                $dsp->StartTabs();
+            $dsp->StartTabs();
 
-                $dsp->StartTab(t('Konfiguration'), 'config');
-                $resGroup = $db->qry('SELECT cfg_group FROM %prefix%config WHERE cfg_module = %string% GROUP BY cfg_group ORDER BY cfg_group', $_GET['module']);
+            $dsp->StartTab(t('Konfiguration'), 'config');
+            $resGroup = $db->qry('SELECT cfg_group FROM %prefix%config WHERE cfg_module = %string% GROUP BY cfg_group ORDER BY cfg_group', $_GET['module']);
             if ($db->num_rows($resGroup) == 0) {
                 $func->information(t('Zu diesem Modul sind keine Einstellungen vorhanden'), NO_LINK);
             } else {
@@ -56,20 +56,29 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
 
                         // Get items in group
                         $res = $db->qry(
-                            'SELECT cfg_key, cfg_value, cfg_desc, cfg_type, cfg_group FROM %prefix%config
-            WHERE cfg_module = %string% and cfg_group = %string%
-            ORDER BY cfg_pos, cfg_desc',
+                            '
+                          SELECT
+                            cfg_key,
+                            cfg_value,
+                            cfg_desc,
+                            cfg_type,
+                            cfg_group
+                          FROM %prefix%config
+                          WHERE
+                            cfg_module = %string%
+                            AND cfg_group = %string%
+                          ORDER BY cfg_pos, cfg_desc',
                             $_GET["module"],
                             $rowGroup['cfg_group']
                         );
                         while ($row = $db->fetch_array($res)) {
-                                    $row['cfg_desc'] = t($row['cfg_desc']);
+                            $row['cfg_desc'] = t($row['cfg_desc']);
                             if ($row['cfg_type'] == 'string') {
                                 $row['cfg_value'] = t($row['cfg_value']);
                             }
 
-                                    // Get Selections
-                                    $get_cfg_selection = $db->qry('SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = %string% ORDER BY cfg_value', $row['cfg_type']);
+                            // Get Selections
+                            $get_cfg_selection = $db->qry('SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = %string% ORDER BY cfg_value', $row['cfg_type']);
                             if ($db->num_rows($get_cfg_selection) > 0) {
                                 $t_array = array();
                                 while ($selection = $db->fetch_array($get_cfg_selection)) {
@@ -81,7 +90,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                                 }
                                 $dsp->AddDropDownFieldRow($row['cfg_key'], $row['cfg_desc'], $t_array, '', 1);
 
-                                // Show Edit-Fields for Settings
+                            // Show Edit-Fields for Settings
                             } else {
                                 switch ($row['cfg_type']) {
                                     case 'password':
@@ -113,19 +122,19 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                                 }
                             }
                         }
-                            $db->free_result($res);
-                            $dsp->AddFieldsetEnd();
+                        $db->free_result($res);
+                        $dsp->AddFieldsetEnd();
                     }
-                        $db->free_result($resGroup);
-                        $dsp->AddFormSubmitRow(t('Weiter'));
+                    $db->free_result($resGroup);
+                    $dsp->AddFormSubmitRow(t('Weiter'));
                 }
             }
-                $dsp->EndTab();
+            $dsp->EndTab();
 
-                $dsp->StartTab(t('Zugriff'), 'delete_group');
-                  $mf = new \LanSuite\MasterForm();
+            $dsp->StartTab(t('Zugriff'), 'delete_group');
+            $mf = new \LanSuite\MasterForm();
 
-                  $res = $db->qry('SELECT * FROM %prefix%menu WHERE module = %string% AND caption != \'\' ORDER BY level, requirement, pos', $_GET['module']);
+            $res = $db->qry('SELECT * FROM %prefix%menu WHERE module = %string% AND caption != \'\' ORDER BY level, requirement, pos', $_GET['module']);
             while ($row = $db->fetch_array($res)) {
                 $mf->AddDBLineID($row['id']);
 
@@ -144,30 +153,30 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         $selections[$MenuCallback] = $MenuCallback;
                     }
                 }
-                      asort($selections);
-                      $selections = array('' => t('Keine')) + $selections;
-                      $mf->AddField(t('Vorraussetzung'), 'needed_config', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
+                asort($selections);
+                $selections = array('' => t('Keine')) + $selections;
+                $mf->AddField(t('Vorraussetzung'), 'needed_config', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-                      $mf->AddGroup($row['caption'] .' ('. $row['link'] .')');
+                $mf->AddGroup($row['caption'] .' ('. $row['link'] .')');
             }
-                  $db->free_result($res);
+            $db->free_result($res);
 
-                  $mf->SendForm(
-                      'index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&id='. $_GET['id'] .'&tab=1',
-                      'menu',
-                      'id',
-                      "module = '". $_GET['module'] ."' AND caption != ''"
-                  );
-                $dsp->EndTab();
+            $mf->SendForm(
+                'index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&id='. $_GET['id'] .'&tab=1',
+                'menu',
+                'id',
+                "module = '". $_GET['module'] ."' AND caption != ''"
+            );
+            $dsp->EndTab();
 
-                $dsp->StartTab(t('Datenbank'), 'database');
+            $dsp->StartTab(t('Datenbank'), 'database');
             if (!file_exists('modules/'. $_GET['module'] .'/mod_settings/db.xml')) {
                 $func->information(t('Dieses Modul benötigt keine Datenbank Tabellen'), NO_LINK);
             } elseif (!$func->isModActive($_GET['module'])) {
                 $func->information(t('Dieses Modul ist nicht aktiv.'));
             } else {
                 switch ($_GET['step']) {
-                // Rewrite specific Module-DB - Question
+                    // Rewrite specific Module-DB - Question
                     case 41:
                         $func->question(
                             t('Bist du sicher, dass du die Datenbank des Moduls "%1" zurücksetzen möchtest? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!', array($_GET['module'])),
@@ -176,16 +185,16 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         );
                         break;
 
-                // Rewrite specific Module-DB
+                    // Rewrite specific Module-DB
                     case 42:
                         $install->WriteTableFromXMLFile($_GET['module'], 1);
                         $func->confirmation(t('Tabelle wurde erfolgreich neu geschrieben'), 'index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&tab=2');
                         break;
 
-                // Export Module-DB
+                    // Export Module-DB
                     case 43:
-                        include_once('modules/install/class_export.php');
-                        $export = new Export();
+                        $xmlExport = new \LanSuite\XML();
+                        $export = new \LanSuite\Module\Install\Export($xmlExport);
 
                         if ($_GET['module']) {
                             $export->LSTableHead('lansuite_'. $_GET['module'] .'_'. date('ymd') .'.xml');
@@ -195,10 +204,8 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         break;
 
                     default:
-                      #			$dsp->NewContent(t('Datenbank - Modul') .": ". $_GET["module"], t('Hier kannst du die Datenbankeinträge zu diesem Modul verwalten'));
-
-                            $mod_tables = '';
-                            $mod_tables_arr = array();
+                        $mod_tables = '';
+                        $mod_tables_arr = array();
                         if (is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                             $file = 'modules/'. $_GET['module'] .'/mod_settings/db.xml';
                             if (file_exists($file)) {
@@ -229,11 +236,11 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                                 }
                             }
                         }
-                            $mod_tables = substr($mod_tables, 0, strlen($mod_tables) - 5);
-                            $dsp->AddDoubleRow(t('DB-Tabellen dieses Moduls'), $mod_tables);
+                        $mod_tables = substr($mod_tables, 0, strlen($mod_tables) - 5);
+                        $dsp->AddDoubleRow(t('DB-Tabellen dieses Moduls'), $mod_tables);
 
-                            $dsp->AddFieldsetStart(t('Abhängigkeiten'));
-                            $where = '';
+                        $dsp->AddFieldsetStart(t('Abhängigkeiten'));
+                        $where = '';
                         foreach ($mod_tables_arr as $table) {
                             $where .= ' OR pri_table = \''. $table .'\'';
                         }
@@ -261,16 +268,16 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                             }
                             $dsp->AddDoubleRow('<font color="'. $color .'">'. $row['pri_table'] .'.'. $row['pri_key'] .'</font>', $row['foreign_table'] .'.'. $row['foreign_key']);
                         }
-                            $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
-                            $dsp->AddSingleRow('<font color="#008800">'. t('Grün: Rechts kann kein Eintrag gelöscht werden, solange links nocht mindestens ein Wert auf diesen referenziert') .'</font>');
-                            $dsp->AddFieldsetEnd();
+                        $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
+                        $dsp->AddSingleRow('<font color="#008800">'. t('Grün: Rechts kann kein Eintrag gelöscht werden, solange links nocht mindestens ein Wert auf diesen referenziert') .'</font>');
+                        $dsp->AddFieldsetEnd();
 
-                            $dsp->AddFieldsetStart(t('Tabellen, die Tabellen dieses Moduls vorraussetzen'));
-                            $where = '';
+                        $dsp->AddFieldsetStart(t('Tabellen, die Tabellen dieses Moduls vorraussetzen'));
+                        $where = '';
                         foreach ($mod_tables_arr as $table) {
                             $where .= ' OR foreign_table = \''. $table .'\'';
                         }
-                            $res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
+                        $res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
                         while ($row = $db->fetch_array($res)) {
                             switch ($row['on_delete']) {
                                 case 'DELETE':
@@ -294,68 +301,68 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                             }
                             $dsp->AddDoubleRow('<font color="'. $color .'">'. $row['pri_table'] .'.'. $row['pri_key'] .'</font>', $row['foreign_table'] .'.'. $row['foreign_key']);
                         }
-                            $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
-                            $dsp->AddSingleRow('<font color="#008800">'. t('Grün: Rechts kann kein Eintrag gelöscht werden, solange links nocht mindestens ein Wert auf diesen referenziert') .'</font>');
-                            $dsp->AddFieldsetEnd();
+                        $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
+                        $dsp->AddSingleRow('<font color="#008800">'. t('Grün: Rechts kann kein Eintrag gelöscht werden, solange links nocht mindestens ein Wert auf diesen referenziert') .'</font>');
+                        $dsp->AddFieldsetEnd();
 
-                            $dsp->AddFieldsetStart(t('Modul-Datenbank exportieren'));
-                            $dsp->SetForm('index.php?mod=install&action=mod_cfg&design=base&step=43&module='. $_GET['module'] .'&tab=2', '', '', '');
-                            $dsp->AddCheckBoxRow('e_struct', t('Struktur exportieren'), '', '', 1, 1);
-                            $dsp->AddCheckBoxRow('e_cont', t('Inhalt exportieren'), '', '', 1, 1);
-                            $dsp->AddFormSubmitRow(t('DB exportieren'));
-                            $dsp->AddFieldsetEnd();
+                        $dsp->AddFieldsetStart(t('Modul-Datenbank exportieren'));
+                        $dsp->SetForm('index.php?mod=install&action=mod_cfg&design=base&step=43&module='. $_GET['module'] .'&tab=2', '', '', '');
+                        $dsp->AddCheckBoxRow('e_struct', t('Struktur exportieren'), '', '', 1, 1);
+                        $dsp->AddCheckBoxRow('e_cont', t('Inhalt exportieren'), '', '', 1, 1);
+                        $dsp->AddFormSubmitRow(t('DB exportieren'));
+                        $dsp->AddFieldsetEnd();
 
-                            $dsp->AddFieldsetStart(t('Weitere Aktionen'));
-                            $dsp->AddDoubleRow('', $dsp->FetchSpanButton('Modul-Datenbank zurücksetzen', 'index.php?mod=install&action=mod_cfg&step=41&module='. $_GET['module'] .'&tab=2'));
-                            $dsp->AddFieldsetEnd();
+                        $dsp->AddFieldsetStart(t('Weitere Aktionen'));
+                        $dsp->AddDoubleRow('', $dsp->FetchSpanButton('Modul-Datenbank zurücksetzen', 'index.php?mod=install&action=mod_cfg&step=41&module='. $_GET['module'] .'&tab=2'));
+                        $dsp->AddFieldsetEnd();
                         break;
                 }
             }
-                $dsp->EndTab();
+            $dsp->EndTab();
 
-                $dsp->StartTab(t('Menü'), 'tree');
+            $dsp->StartTab(t('Menü'), 'tree');
             if ($_GET['step'] == 31) {
                 $db->qry("INSERT INTO %prefix%menu SET caption = 'Neuer Eintrag', requirement = '0', hint = '', link = 'index.php?mod=', needed_config = '', module=%string%, level = 1", $_GET["module"]);
             }
 
-                  $mf = new \LanSuite\MasterForm();
+            $mf = new \LanSuite\MasterForm();
 
-                    $res = $db->qry('SELECT * FROM %prefix%menu WHERE module = %string% AND caption != \'\' ORDER BY level, requirement, pos', $_GET['module']);
+            $res = $db->qry('SELECT * FROM %prefix%menu WHERE module = %string% AND caption != \'\' ORDER BY level, requirement, pos', $_GET['module']);
             while ($row = $db->fetch_array($res)) {
-                  $mf->AddDBLineID($row['id']);
-                  $mf->AddField(t('Titel'), 'caption');
-                  $mf->AddField(t('Link'), 'link');
-                  $mf->AddField(t('Popup-Hinweis'), 'hint', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
-                  $mf->AddGroup($row['caption']);
+                $mf->AddDBLineID($row['id']);
+                $mf->AddField(t('Titel'), 'caption');
+                $mf->AddField(t('Link'), 'link');
+                $mf->AddField(t('Popup-Hinweis'), 'hint', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+                $mf->AddGroup($row['caption']);
             }
-                  $db->free_result($res);
+            $db->free_result($res);
 
-                  $mf->SendForm('', 'menu', 'id', "module = '". $_GET['module'] ."' AND caption != ''");
-                  $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Link hinzufügen'), 'index.php?mod=install&action=mod_cfg&step=31&module='. $_GET['module'] .'&tab=3'));
-                $dsp->EndTab();
+            $mf->SendForm('', 'menu', 'id', "module = '". $_GET['module'] ."' AND caption != ''");
+            $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Link hinzufügen'), 'index.php?mod=install&action=mod_cfg&step=31&module='. $_GET['module'] .'&tab=3'));
+            $dsp->EndTab();
 
-                $dsp->StartTab(t('Übersetzung'), 'translate');
-                  $dsp->AddFieldSetStart(t('Sprache wechseln. Achtung, nicht gesicherte &Auml;nderungen gehen verloren.'));
+            $dsp->StartTab(t('Übersetzung'), 'translate');
+            $dsp->AddFieldSetStart(t('Sprache wechseln. Achtung, nicht gesicherte &Auml;nderungen gehen verloren.'));
             if ($_POST['target_language']) {
                 $_SESSION['target_language'] = $_POST['target_language'];
             }
             if ($_SESSION['target_language'] == '') {
                 $_SESSION['target_language'] = 'en';
             }
-                    $dsp->SetForm('index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&tab=4');
-                    $list = array();
-                    $res = $db->qry("SELECT cfg_value, cfg_display FROM %prefix%config_selections WHERE cfg_key = 'language'");
+            $dsp->SetForm('index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&tab=4');
+            $list = array();
+            $res = $db->qry("SELECT cfg_value, cfg_display FROM %prefix%config_selections WHERE cfg_key = 'language'");
             while ($row = $db->fetch_array($res)) {
                 ($_SESSION['target_language'] == $row['cfg_value'])? $selected = 'selected' : $selected = '';
                 $list[] = "<option $selected value='{$row['cfg_value']}'>{$row['cfg_display']}</option>";
             }
-                    $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
-                    $db->free_result($res);
-                    $dsp->AddFormSubmitRow(t('Ändern'));
-                  $dsp->AddFieldSetEnd();
+            $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
+            $db->free_result($res);
+            $dsp->AddFormSubmitRow(t('Ändern'));
+            $dsp->AddFieldSetEnd();
 
-                  // Start Tanslation
-                  $dsp->AddFieldSetStart(t('Texte editieren.'));
+            // Start Tanslation
+            $dsp->AddFieldSetStart(t('Texte editieren.'));
             if ($_POST['id']) {
                 foreach ($_POST['id'] as $key => $value) {
                     $db->qry("UPDATE %prefix%translation SET %plain% = %string% WHERE file = %string% AND id = %string%", $_SESSION['target_language'], $value, $_GET['file'], $key);
@@ -382,27 +389,15 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                     $dsp->AddFormSubmitRow(t('Editieren'));
                 }
             }
-                  $dsp->AddFieldSetEnd();
-                $dsp->EndTab();
+            $dsp->AddFieldSetEnd();
+            $dsp->EndTab();
 
-                $dsp->StartTab('Modul-Info', 'help');
-                  $_GET['helpletid'] = 'help';
-                  include('modules/helplet/helplet.php');
-                $dsp->EndTab();
+            $dsp->StartTab('Modul-Info', 'help');
+            $_GET['helpletid'] = 'help';
+            include('modules/helplet/helplet.php');
+            $dsp->EndTab();
 
-                $dsp->EndTabs();
-
-            /*
-                $dsp->AddFieldsetStart(t('Verwaltungs-Werkzeuge'));
-                $find_config = $db->qry_first('SELECT cfg_key FROM %prefix%config WHERE cfg_module = %string%', $_GET['module']);
-                if ($find_config['cfg_key']) $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=10&module='. $_GET['module'] .'"><img src="design/images/icon_config.png" border="0"> '. t('Konfiguration') .'</a>', t('Hier kannst du Konfigurationen zu diesem Modul vornehmen'));
-                $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=20&module='. $_GET['module'] .'"><img src="design/images/icon_delete_group.png" border="0"> '. t('Berechtigungen') .'</a>', t('Lege fest, welche Benutzer Berechtigungen zu welchem Menüpunkt erhalten'));
-                $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=30&module='. $_GET['module'] .'"><img src="design/images/icon_tree.png" border="0"> '. t('Menü') .'</a>', t('Definiere eigene Menüpunkte'));
-                $dsp->AddDoubleRow('<a href="index.php?mod=misc&action=translation&step=20&file='. $_GET['module'] .'"><img src="design/images/icon_translate.png" border="0"> '. t('Übersetzung') .'</a>', t('Übersetze Texte dieses Moduls in andere Sprachen, oder definiere einen deutschen Text, um einen Text umzuformulieren'));
-                if (file_exists('modules/'. $_GET['module'] .'/mod_settings/db.xml')) $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=40&module='. $_GET['module'] .'"><img src="design/images/icon_database.png" border="0"> '. t('Datenbank') .'</a>', t('Verwalte die Datenbanktabellen, die diesem Modul zugeordnet sind'));
-                if (file_exists('modules/'. $_GET['module'] .'/docu/'. $language .'_help.php')) $dsp->AddDoubleRow('<a href="#" onclick="javascript:var w=window.open(\'index.php?mod=helplet&action=helplet&design=base&module='. $_GET['module'] .'&helpletid=help\',\'_blank\',\'width=700,height=500,resizable=no,scrollbars=yes\');"><img src="design/images/icon_help.png" border="0"> '. t('Modul-Info') .'</a>', t('Hilfe und Informationen zu diesem Modul aufrufen'));
-                $dsp->AddFieldsetEnd();
-            */
+            $dsp->EndTabs();
             break;
     }
 }

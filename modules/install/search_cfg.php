@@ -1,10 +1,5 @@
 <?php
-// Searchform for all Configsettings
-
-function get_modullink($modul)
-{
-    return "<a href=\"index.php?mod=install&action=mod_cfg&step=10&module=".$modul."\">".$modul."</a>";
-}
+// Searchform for all Config settings
 
 $dsp->NewContent('Suche Configschl&uuml;ssel', 'Zum bearbeiten auf den Modullink klicken');
 
@@ -27,13 +22,9 @@ $ms2->AddTextSearchDropDown('Modul', 'l.cfg_module', $list);
 
 // Which columns should be displayed?
 $ms2->AddResultField(t('Key'), 'l.cfg_key');
-$ms2->AddResultField(t('Modul'), 'l.cfg_module', 'get_modullink');
+$ms2->AddResultField(t('Modul'), 'l.cfg_module', 'GetModulLink');
 $ms2->AddResultField(t('Value'), 'l.cfg_value');
 $ms2->AddResultField(t('Beschreibung'), 'l.cfg_desc');
-
-// Functionbuttons
-// Einzeledit muss noch integriert werden.
-//if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=install&action=mod_cfg&step=10&cfg_key=', t('Editieren'));
 
 // Final Output
 $ms2->PrintSearch('index.php?mod=install&action=search_cfg', 'l.cfg_key');

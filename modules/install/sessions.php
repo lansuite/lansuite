@@ -11,9 +11,13 @@ switch ($_GET["step"]) {
         $ms2->query['default_order_by'] = 'a.lasthit DESC';
 
         $list = array('' => t('Alle'), '0' => t('System'));
-        $res = $db->qry("SELECT l.userid, u.username FROM %prefix%log AS l
-      LEFT JOIN %prefix%user AS u ON u.userid = l.userid
-      GROUP BY l.userid");
+        $res = $db->qry("
+          SELECT
+            l.userid,
+            u.username
+          FROM %prefix%log AS l
+          LEFT JOIN %prefix%user AS u ON u.userid = l.userid
+          GROUP BY l.userid");
         while ($row = $db->fetch_array($res)) {
             if ($row['userid']) {
                 $list[$row['userid']] = $row['username'];
@@ -36,10 +40,8 @@ switch ($_GET["step"]) {
         $ms2->AddResultField(t('Session-ID'), 'a.sessid');
         $ms2->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
         $ms2->AddResultField(t('IP'), 'a.ip');
-    #$ms2->AddResultField(t('Login?'), 'a.login');
         $ms2->AddResultField(t('Hits'), 'a.hits');
         $ms2->AddResultField(t('Visits'), 'a.visits');
-    #$ms2->AddResultField(t('Letzter Aufruf'), 'a.logtime', 'MS2GetDate');
         $ms2->AddResultField(t('Eingeloggt'), 'a.logintime', 'MS2GetDate');
         $ms2->AddResultField(t('Letzter Aufruf'), 'a.lasthit', 'MS2GetDate');
 

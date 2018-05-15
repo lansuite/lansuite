@@ -13,9 +13,13 @@ switch ($_GET["step"]) {
         $ms2->AddTextSearchField(t('IP'), array('ip' => 'aton'));
 
         $list = array('' => t('Alle'), '0' => t('System'));
-        $res = $db->qry("SELECT l.userid, u.username FROM %prefix%log AS l
-      LEFT JOIN %prefix%user AS u ON u.userid = l.userid
-      GROUP BY l.userid");
+        $res = $db->qry("
+          SELECT
+            l.userid,
+            u.username
+          FROM %prefix%log AS l
+          LEFT JOIN %prefix%user AS u ON u.userid = l.userid
+          GROUP BY l.userid");
         while ($row = $db->fetch_array($res)) {
             if ($row['userid']) {
                 $list[$row['userid']] = $row['username'];
@@ -53,12 +57,20 @@ switch ($_GET["step"]) {
         break;
 
     case 2:
-        $log = $db->qry_first("SELECT l.type, l.sort_tag, l.description, l.script, l.referer, l.userid, UNIX_TIMESTAMP(l.date) AS date,
-      INET6_NTOA(l.ip) AS ip, u.username
-      FROM %prefix%log AS l
-      LEFT JOIN %prefix%user AS u ON l.userid = u.userid
-      WHERE l.logid = %int%
-      ", $_GET['logid']);
+        $log = $db->qry_first("
+          SELECT
+            l.type,
+            l.sort_tag,
+            l.description,
+            l.script,
+            l.referer,
+            l.userid,
+            UNIX_TIMESTAMP(l.date) AS date,
+            INET6_NTOA(l.ip) AS ip,
+            u.username
+        FROM %prefix%log AS l
+        LEFT JOIN %prefix%user AS u ON l.userid = u.userid
+        WHERE l.logid = %int%", $_GET['logid']);
         $dsp->NewContent($log['sort_tag']);
         $dsp->AddDoubleRow(t('Meldung'), $log['description']);
         $dsp->AddDoubleRow(t('Zeitpunkt'), $func->unixstamp2date($log['date'], 'datetime'));

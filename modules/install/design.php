@@ -5,7 +5,7 @@ $xml = new \LanSuite\XML();
 $dsp->NewContent(t('Design Manager'), t('Editiere Design-Templates und setze das aktive Design'));
 
 switch ($_GET['step']) {
-  // List designs
+    // List designs
     default:
         // Open design-dir
         $design_dir = opendir("design/");
@@ -21,13 +21,13 @@ switch ($_GET['step']) {
                     $xml_file = fread($handle, filesize($file));
                     fclose($handle);
 
-                    $name = $xml->get_tag_content('name', $xml_file);
-                    $description = $xml->get_tag_content('description', $xml_file);
-                    $version = $xml->get_tag_content('version', $xml_file);
-                    $author = $xml->get_tag_content('author', $xml_file);
-                    $contact = $xml->get_tag_content('contact', $xml_file);
-                    $website = $xml->get_tag_content('website', $xml_file);
-                    $comments = $xml->get_tag_content('comments', $xml_file);
+                    $name           = $xml->get_tag_content('name', $xml_file);
+                    $description    = $xml->get_tag_content('description', $xml_file);
+                    $version        = $xml->get_tag_content('version', $xml_file);
+                    $author         = $xml->get_tag_content('author', $xml_file);
+                    $contact        = $xml->get_tag_content('contact', $xml_file);
+                    $website        = $xml->get_tag_content('website', $xml_file);
+                    $comments       = $xml->get_tag_content('comments', $xml_file);
 
                     $dsp->AddDoubleRow("<a href=\"index.php?mod=install&action=design&step=10&des=$akt_design\">$name (Version: $version)<br />$description</a>", "$author [$contact]<br /><a href=\"http://$website\" target=\"_blank\">$website</a>");
                 }
@@ -35,7 +35,7 @@ switch ($_GET['step']) {
         }
         break;
 
-  // List designs templates
+    // List designs templates
     case 10:
         $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=index\">index.php</a>");
         $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=index_fullscreen\">index_fullscreen.htm</a>");
@@ -43,7 +43,7 @@ switch ($_GET['step']) {
         $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=box_case_closed\">box_case_closed.htm</a>");
         break;
 
-  // Edit template
+    // Edit template
     case 11:
         if (!$_POST['content']) {
             switch ($_GET['file']) {
