@@ -5,7 +5,6 @@
 // for Userdetails
 
 if ($auth['type'] >= 1) {
-
     $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('usrmgr');
     $ms2->query['from'] = "%prefix%partys p
     LEFT JOIN %prefix%party_user u ON p.party_id = u.party_id AND u.user_id = ". (int)$_GET['userid'] ."
