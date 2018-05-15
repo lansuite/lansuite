@@ -3,8 +3,9 @@
 if ($_POST["resetdb"]) {
     $db->success = 0;
 }
-include_once('modules/install/class_install.php');
-$install = new Install();
+$importXml = new \LanSuite\XML();
+$installImport = new \LanSuite\Module\Install\Import($importXml);
+$install = new \LanSuite\Module\Install\Install($installImport);
 
 $_SESSION['auth']['design'] = 'simple';
 
@@ -35,7 +36,7 @@ switch ($_GET["step"]) {
                     $_POST["email"],
                     md5($_POST["password"])
                 );
-                  $userid = $db->insert_id();
+                $userid = $db->insert_id();
             }
 
             $authentication = new \LanSuite\Auth();
@@ -80,7 +81,6 @@ switch ($_GET["step"]) {
         }
         break;
 
-
     // Setting up ls_conf
     case 2:
         // Reset DB-Config, for when reinstalling in new DB, the next step would connect to existing, old tables
@@ -97,12 +97,11 @@ switch ($_GET["step"]) {
         if ($_POST["user"] == "") {
             $_POST["user"] = $config['database']['user'];
         }
-#        if ($_POST["database"] == "") $_POST["database"] = $config['database']['database'];
         if ($_POST["prefix"] == "") {
             $_POST["prefix"] = $config['database']['prefix'];
         }
 
-        #### Database Access
+        // Database Access
         $dsp->AddSingleRow("<b>". t('Datenbank-Zugangsdaten') ."</b>");
         $dsp->AddTextFieldRow("host", t('Host (Server-IP)'), $_POST["host"], "");
         $dsp->AddTextFieldRow("user", t('Benutzername'), $_POST["user"], "");
@@ -141,7 +140,6 @@ switch ($_GET["step"]) {
         $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=1", "install/ls_conf");
         break;
-
 
     // Writing ls_conf & try to create DB-Strukture
     case 3:
@@ -192,15 +190,9 @@ switch ($_GET["step"]) {
             if ($res == 1 or $res == 3 or $res == 5) {
                 $db->connect();
 
-                // Check for Updates
-#               if($res == 1){
-#                   $install->check_updates();
-#               }
                 // Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
                 $install->CreateNewTables(0);
                 $output .= t('Die Tabellenstruktur wurde erfolgreich angepasst'). HTML_NEWLINE . HTML_NEWLINE;
-                // Insert translations of DB-items
-                //$install->InsertTranslations();
             }
         }
 
@@ -212,7 +204,6 @@ switch ($_GET["step"]) {
         }
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=2", "install/db");
         break;
-
 
     // Display import form
     case 4:
@@ -239,7 +230,6 @@ switch ($_GET["step"]) {
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=3", "install/import");
         break;
-
 
     // Import uploaded file
     case 5:
@@ -290,7 +280,6 @@ switch ($_GET["step"]) {
         }
         break;
 
-
     // Display form to create Adminaccount
     case 6:
         $dsp->NewContent(t('Adminaccount anlegen'), t('Hier kannst du einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, kannst du diesen Schritt auch überspringen (auf <b>\'Weiter\'</b> klicken).'));
@@ -310,11 +299,9 @@ switch ($_GET["step"]) {
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/admin");
         break;
 
-
     // Create Adminaccount
     case 7:
     // No break!
-
 
     // Load modules
     case 8:
@@ -395,7 +382,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=8", "install/vars");
         break;
-
 
     // Display final hints
     case 10:

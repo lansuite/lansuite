@@ -240,8 +240,7 @@ if ($thread['closed']) {
         // Send email-notifications to thread-subscribers
         $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
-        include_once("modules/mail/class_mail.php");
-        $mail = new mail();
+        $mail = new \LanSuite\Module\Mail\Mail();
 
         if (!$_GET['fid']) {
             $_GET['fid'] = $thread['fid'];
