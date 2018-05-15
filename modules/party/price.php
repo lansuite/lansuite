@@ -12,16 +12,7 @@ switch ($_GET['step']) {
         break;
 }
 
-function eveningPriceIdLink($evening_price_id)
-{
-    global $dsp, $line;
-  
-    if ($evening_price_id == $line['price_id']) {
-        return $dsp->FetchIcon('yes', '', t('Ja'));
-    } else {
-        return $dsp->FetchIcon('no', 'index.php?mod=party&action=price&step=11&party_id=' . $_GET['party_id'] . '&evening_price_id=' . $line['price_id'], t('Nein'));
-    }
-}
+
 
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('party');
 
@@ -33,7 +24,7 @@ $ms2->config['EntriesPerPage'] = 20;
 
 $ms2->AddResultField(t('Text für Eintrittspreis'), 'p.price_text');
 $ms2->AddResultField(t('Preis'), 'p.price');
-$ms2->AddResultField(t('Abendkasse-Preis?'), 'party.evening_price_id', 'eveningPriceIdLink');
+$ms2->AddResultField(t('Abendkasse-Preis?'), 'party.evening_price_id', 'EveningPriceIdLink');
 $ms2->AddResultField('Party', 'party.name');
 
 if ($auth['type'] >= 2) {
