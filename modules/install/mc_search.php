@@ -17,7 +17,11 @@ $ms2->config['EntriesPerPage'] = 30;
 $ms2->AddTextSearchField(t('Kommentar'), array('c.text' => 'like'));
 
 $list = array('' => t('Alle'), '0' => t('System'));
-$res = $db->qry('SELECT u.userid, u.username FROM %prefix%comments AS c
+$res = $db->qry('
+  SELECT
+    u.userid,
+    u.username
+  FROM %prefix%comments AS c
   LEFT JOIN %prefix%user AS u ON u.userid = c.creatorid
   GROUP BY c.creatorid');
 while ($row = $db->fetch_array($res)) {

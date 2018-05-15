@@ -1,13 +1,29 @@
 <?php
 
+namespace LanSuite\Module\Mail;
+
 class Mail
 {
-    public $inet_headers;
+    /**
+     * @var string
+     */
+    private $inet_headers;
+
+    /**
+     * @var string
+     */
     public $error;
 
+    /**
+     * @param int $from_userid
+     * @param int $to_userid
+     * @param string $subject_text
+     * @param string $msgbody_text
+     * @return bool
+     */
     public function create_mail($from_userid, $to_userid, $subject_text, $msgbody_text)
     {
-        global $db;
+        global $db, $cfg;
 
         if ($from_userid == "") {
             $this->error = t('Sys-Mail Fehler: Kein Absender angegeben');
@@ -18,7 +34,16 @@ class Mail
             return false;
         }
 
-        $db->qry("INSERT INTO %prefix%mail_messages SET mail_status = 'active', des_status = 'new', fromUserID = %int%, toUserID = %int%, Subject= %string%, msgbody= %string%, tx_date= NOW()", $from_userid, $to_userid, $subject_text, $msgbody_text);
+        $db->qry("
+          INSERT INTO %prefix%mail_messages
+          SET
+            mail_status = 'active',
+            des_status = 'new',
+            fromUserID = %int%,
+            toUserID = %int%,
+            Subject= %string%,
+            msgbody= %string%,
+            tx_date= NOW()", $from_userid, $to_userid, $subject_text, $msgbody_text);
         $this->error = 'OK';
         
         // Send Info-Mail to receiver
@@ -32,15 +57,29 @@ class Mail
         return true;
     }
 
+    /**
+     * @param int $to_userid
+     * @param string $subject_text
+     * @param string $msgbody_text
+     * @return bool
+     */
     public function create_sys_mail($to_userid, $subject_text, $msgbody_text)
     {
         if ($this->create_mail("0", $to_userid, $subject_text, $msgbody_text)) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
+    /**
+     * @param string $to_user_name
+     * @param string $to_user_email
+     * @param string $subject_text
+     * @param string $msgbody_text
+     * @param string $from
+     * @return bool
+     */
     public function create_inet_mail($to_user_name, $to_user_email, $subject_text, $msgbody_text, $from = '')
     {
         global $cfg, $board_config;
@@ -51,16 +90,16 @@ class Mail
             $from = $cfg['sys_party_mail'];
         }
 
-    // No special charachters in Username!
+        // No special characters in Username!
         $to_user_name = preg_replace('#[^a-zA-Z ]#', '', $to_user_name);
 
-    // Do not send, when in intranet mode
+        // Do not send, when in intranet mode
         if (!$cfg['sys_internet']) {
             $this->error = t('Um Internet-Mails zu versenden, muss sich Lansuite im Internet-Modus befinden');
             return false;
         }
 
-    // Set Charset
+        // Set Charset
         if ($cfg['mail_utf8']) {
             $CharsetStr = ' charset=utf-8';
         } else {
@@ -73,7 +112,7 @@ class Mail
         $this->inet_headers .= "Content-type: text/plain;$CharsetStr\n";
         $this->inet_headers .= "From: $from\n";
 
-    // Cut out double line breaks
+        // Cut out double line breaks
         $msgbody_text = str_replace("\r", '', $msgbody_text);
 
         // SMTP-Mail
@@ -84,19 +123,19 @@ class Mail
             $board_config["board_email"] = $from;
 
             include_once("modules/mail/smtp.php");
-            if (smtpmail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) {
+            if (SMTPMail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) {
                 return true;
-            } else {
-                return false;
             }
+
+            return false;
 
         // PHP-Mail
         } else {
             if (@mail("$to_user_name <$to_user_email>", $subject_text, $msgbody_text, $this->inet_headers)) {
                 return true;
-            } else {
-                return false;
             }
+
+            return false;
         }
     }
 }

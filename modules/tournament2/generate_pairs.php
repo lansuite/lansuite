@@ -1,7 +1,6 @@
 <?php
 
-include_once("modules/mail/class_mail.php");
-$mail = new mail();
+$mail = new \LanSuite\Module\Mail\Mail();
 
 $teams = $db->qry("SELECT teamid, leaderid, seeding_mark FROM %prefix%t2_teams WHERE (tournamentid = %int%) ORDER BY RAND()", $_GET["tournamentid"]);
 $team_anz = $db->num_rows($teams);
