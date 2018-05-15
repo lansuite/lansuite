@@ -1,46 +1,41 @@
 <?php
 /**
- * Generate Signonstatus. Show Counter and Bar
- *
- * @package lansuite_core
- * @author knox
- * @version $Id: signonstatus.php 1956 2009-08-14 14:07:05Z johannes.pieringer@gmail.com $
+ * Generate Signonstatus. Show Counter and Bar.
  */
 
-// mit oder ohne orgas
+// Number with or without orga team
 if ($cfg["guestlist_showorga"] == 0) {
     $querytype = "type = 1";
 } else {
     $querytype = "type >= 1";
 }
 
-// Ermittle die Anzahl der registrierten Usern
-$get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user WHERE %plain%', $querytype);
+// Number of registered users
+$get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user WHERE %plain%', $querytype);
 $reg = $get_cur["n"];
 
-// Ermittle die Anzahl der derzeit angemeldeten Usern
-$get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, $querytype);
+// Number of users who signed up for the party
+$get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, $querytype);
 $cur = $get_cur["n"];
 
-// Wieviele davon haben bezahlt
-$get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE (%plain%) AND (party.paid > 0) AND party_id=%int%', $querytype, $party->party_id);
+// Number of users who have signed up and payed
+$get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE (%plain%) AND (party.paid > 0) AND party_id=%int%', $querytype, $party->party_id);
 $paid = $get_cur["n"];
 
-// Anzahl der max. Teilnehmer
+// Max. attenteed
 $max = $_SESSION['party_info']['max_guest'];
 
-// Sicher ist sicher
 if ($paid > $cur) {
     $paid = $cur;
 }
 
-// Max werden 112 Pixel(Bars) angezeigt
+// 112 pixel (bars) will be shown max.
 $max_bars = 112;
 
-// 2 Pixel werden abgezogen da diese schon links und rechts vorhanden sind.
+// -2, becuase those are left and right available
 $max_bars = $max_bars - 2;
 
-// Angemeldet länge ausrechnen.
+// Calculate length of signed up bar
 if ($max * $cur == 0) {
     $curuser = 0;
 } else {
@@ -50,7 +45,7 @@ if ($max * $cur == 0) {
     }
 }
 
-// Bezahlt länge ausrechnen.
+// Calculate length of payed up bar
 if ($max * $paid == 0) {
     $gesamtpaid = 0;
 } else {
@@ -60,12 +55,11 @@ if ($max * $paid == 0) {
     }
 }
 
-// Wirkliche Bildanzahl ausrechenn
 $pixelges = $max_bars - $curuser;
 $pixelcuruser = $curuser - $gesamtpaid;
 $pixelpaid = $gesamtpaid;
 
-// Bar erzeugen
+// Create bar
 if ($pixelpaid > 0) {
     $bar = '<ul class="BarOccupied infolink" style="width:'. $pixelpaid .'px;">&nbsp;<span class="infobox">'. t('Angemeldet und Bezahlt') .': '. $paid .'</span></ul>';
 }
@@ -78,8 +72,6 @@ if ($pixelges > 0) {
 $bar .= '<ul class="BarClear">&nbsp;</ul>';
 
 if ($cfg['sys_internet']) {
-    #if (strlen($_SESSION['party_info']['name']) > 16) $party_name = substr($_SESSION['party_info']['name'], 0, 14) .'...';
-  #else
     $options = '';
     $res = $db->qry('SELECT party_id, name FROM %prefix%partys');
     if ($db->num_rows($res) > 1 && $cfg['display_change_party']) {
@@ -106,16 +98,30 @@ $box->EngangedRow(t('Bezahlt').': '. $paid);
 $box->EngangedRow(t('Frei').': '. ($max - $paid));
 
 if (!$cfg['sys_internet']) {
-    $checkedin = $db->qry_first('SELECT COUNT(p.user_id) as n FROM %prefix%user AS u LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
-    WHERE (%plain%) AND (p.checkin > 0) AND p.party_id = %int%', $querytype, $party->party_id);
+    $checkedin = $db->qry_first('
+      SELECT
+        COUNT(p.user_id) as n
+      FROM %prefix%user AS u
+      LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
+      WHERE
+        (%plain%)
+        AND (p.checkin > 0)
+        AND p.party_id = %int%', $querytype, $party->party_id);
     $box->EngangedRow(t('Eingecheckt').': '. ($checkedin['n']));
 
-    $checkedout = $db->qry_first('SELECT COUNT(p.user_id) as n FROM %prefix%user AS u LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
-    WHERE (%plain%) AND (p.checkout > 0) AND p.party_id = %int%', $querytype, $party->party_id);
+    $checkedout = $db->qry_first('
+      SELECT
+        COUNT(p.user_id) as n
+      FROM %prefix%user AS u
+      LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
+      WHERE
+        (%plain%)
+        AND (p.checkout > 0)
+        AND p.party_id = %int%', $querytype, $party->party_id);
     $box->EngangedRow(t('Ausgecheckt').': '. ($checkedout['n']));
 }
 
-## Counter
+// Counter
 if ($cfg['sys_internet']) {
     $box->EmptyRow();
     $box->ItemRow("data", '<b>'. t('Counter') .'</b>');

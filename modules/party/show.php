@@ -62,8 +62,6 @@ switch ($_GET['step']) {
             $ms2->AddIconField('paid', 'index.php?mod=party&action=price&step=2&party_id=');
         }
 
-    #if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=party&action=delete', 1);
-
         $ms2->PrintSearch('index.php?mod=party', 'p.party_id');
 
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=edit'));

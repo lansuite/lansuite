@@ -3,10 +3,9 @@
 // modules/usrmgr/details.php to generate Modulspezific Headermenue
 // for Userdetails
 
-// ADD HERE MODULSPECIFIC INCLUDES
-
-// ADD HERE MODULPUGINCODE
 if ($auth['type'] >= 1) {
+
+
     function p_getactive($name)
     {
         global $line, $cfg;

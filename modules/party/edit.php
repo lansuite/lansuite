@@ -60,14 +60,6 @@ $mf->AddField(t('Party endet am'), 'enddate', '', '', '', 'CheckEndDate');
 $mf->AddField(t('Anmeldung startet am'), 'sstartdate', '', '', '', 'CheckSignonStartDate');
 $mf->AddField(t('Anmeldung endet am'), 'senddate', '', '', '', 'CheckSignonEndDate');
 
-/*
-        // erster Preis einfügen
-        if($_GET['var'] == "new"){
-            $dsp->AddTextFieldRow("price_text",t('Text für Eintrittspreis'),$_POST['price_text'],$signon_error['price_text']);
-            $dsp->AddTextFieldRow("price",t('Preis'),$_POST['price'],$signon_error['price']);
-        }
-*/
-
 $mf->AdditionalDBUpdateFunction = 'UpdatePartyID';
 $mf->SendForm('index.php?mod=party&action=edit', 'partys', 'party_id', $_GET['party_id']);
 

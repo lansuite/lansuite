@@ -1,13 +1,15 @@
 <?php
+
 // This File is a Part of the LS-Pluginsystem. It will be included in
 // modules/usrmgr/details.php to generate Modulspezific Headermenue
 // for Userdetails
 
-$dsp->AddSingleRow('test');
-// ADD HERE MODULSPECIFIC INCLUDES
-
-// ADD HERE MODULPUGINCODE
 if ($auth['type'] >= 1) {
+
+    /**
+     * @param string $name
+     * @return string
+     */
     function p_getactive($name)
     {
         global $line, $cfg;
@@ -18,7 +20,11 @@ if ($auth['type'] >= 1) {
             return $name;
         }
     }
-  
+
+    /**
+     * @param int $tid
+     * @return bool
+     */
     function active($tid)
     {
         global $line, $party;
@@ -30,6 +36,10 @@ if ($auth['type'] >= 1) {
         }
     }
 
+    /**
+     * @param string $price_text
+     * @return string
+     */
     function p_price($price_text)
     {
         global $line, $cfg;
