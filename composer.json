@@ -44,6 +44,7 @@
             "LanSuite\\Module\\Install\\": "modules/install/Classes/",
             "LanSuite\\Module\\Mail\\": "modules/mail/Classes/",
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
+            "LanSuite\\Module\\News\\": "modules/news/Classes/",
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
             "LanSuite\\": "inc/Classes"
