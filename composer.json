@@ -112,7 +112,10 @@
             "modules/mastersearch2/Functions/MS2GetTime.php",
             "modules/mastersearch2/Functions/Text2LSCode.php",
             "modules/mastersearch2/Functions/TrueFalse.php",
-            "modules/mastersearch2/Functions/UserNameAndIcon.php"
+            "modules/mastersearch2/Functions/UserNameAndIcon.php",
+            "modules/paypal/Functions/CheckTransaction.php",
+            "modules/paypal/Functions/CreateCSVFile.php",
+            "modules/paypal/Functions/FSockPost.php"
         ]
     }
 }

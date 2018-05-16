@@ -1,5 +1,7 @@
 <?php
-    // GET FORM TO SEE WHAT YOU MUS PAY
+/**
+ * Get form to see what you have to pay
+ */
     
 if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
     $func->error(t('Du kannst nichts einzahlen wenn du nicht eingeloggt bist.'), "index.php?mod=home");
@@ -8,9 +10,17 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
     $dsp->AddSmartyTpl('javascript', 'paypal');
     $dsp->SetForm("index.php?mod=paypal&action=paying&design=base\" target=\"PopWnd\" onsubmit=\"submitpaypal(); return false;", "paypal");
 
-    // LIST ALL PARTYS
+    // List all parties
     if ($auth['userid'] != 0) {
-        $pay_partys = $db->qry("SELECT * FROM %prefix%party_user AS pu LEFT JOIN %prefix%partys AS p USING(party_id) LEFT JOIN %prefix%party_prices AS price ON price.price_id=pu.price_id WHERE user_id=%int% AND paid = '0'", $auth['userid']);
+        $pay_partys = $db->qry("
+          SELECT
+            *
+          FROM %prefix%party_user AS pu
+          LEFT JOIN %prefix%partys AS p USING(party_id)
+          LEFT JOIN %prefix%party_prices AS price ON price.price_id=pu.price_id
+          WHERE
+            user_id=%int%
+            AND paid = '0'", $auth['userid']);
 
         if ($db->num_rows($pay_partys) > 0) {
             while ($pay = $db->fetch_array($pay_partys)) {
