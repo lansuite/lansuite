@@ -17,11 +17,9 @@ class Discord {
     // Storage for the discord server id
     private $discordServerId = 0;
     
-    // Storage for the discord guild id
-    private $discordGuildId = 0;
 
     
-    public function __construct($discordServerId = 0,$discordGuildId = 0){
+    public function __construct($discordServerId = 0){
         global $cfg,$func;
         
         //Have a look first, if OpenSSL is enabled as module...
@@ -35,15 +33,6 @@ class Discord {
             } else {
                 $func->error(t('Es wurde keine Discord server ID konfiguriert oder übergeben'));
             } 
-
-            //Check if guild id was passed via constructor, use configuration value otherwise
-            if ($discordGuildId){
-                $this->discordGuildId = $disordGuildId;
-            } elseif (isset($cfg['discord_guild_id'])) {
-                $this ->discordGuildId =  $cfg['discord_guild_id'];
-            } else {
-                $func->error(t('Es wurde keine Discord guild ID konfiguriert oder übergeben'));
-            } 
        }
         else {
             $func->error('OpenSSL-Modul nicht geladen!');
@@ -54,18 +43,13 @@ class Discord {
      * Retrieves JSON widget data from the Discord server via the public API
      * Data is being returned as multi-dimensional array
      * 
-     * @return string[] Multi-dimensional array containing decoded JSON content, FALSE on error 
+     * @return stdClass decoded JSON content as object of stdClass, FALSE on error 
      */
-    public function fetchGuildData(){
-        $APIurl = 'https://discordapp.com/api/guilds/'.$this->discordGuildId .'/widget.json';
-        $JsonReturnData = file_get_contents($APIurl);
-        return json_decode($JsonReturnData, true);
-    }
     
     public function fetchServerData(){
         $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
         $JsonReturnData = file_get_contents($APIurl);
-        return json_decode($JsonReturnData, true);
+        return json_decode($JsonReturnData, false);
     }
 
     /**
@@ -75,22 +59,22 @@ class Discord {
      * @version $Id: discord.php 1673 2018-04-04 08:13:47Z CCG*Centurio $
      * @return string Box content ready for output
      */
-    public function genBoxContent($discordServerData, $discordGuildData){
-        $boxContent ="<li class='discord_server_name'>{$discordGuildData['name']}<br>";
+    public function genBoxContent($discordServerData){
+        $boxContent ="<li class='discord_server_name'>{$discordServerData->name}<br>";
         // -------------------------------- MEMBERS ---------------------------------------- // 
-        if (count($discordGuildData['members']) > 0) {
-            $boxContent .= '<span class="online_users badge green">' . count($discordGuildData['members']) . '</span>';
+        if (count($discordServerData->members) > 0) {
+            $boxContent .= '<span class="online_users badge green">' . count($discordServerData->members) . '</span>';
         }
         else {
-            $boxContent .= '<span class="online_users badge red">' . count($discordGuildData['members']) . '</span>';
+            $boxContent .= '<span class="online_users badge red">' . count($discordServerData->members) . '</span>';
         } 
         $boxContent .= '<ul class="online_sidebar">';
-        foreach($discordGuildData['members'] as $member){
+        foreach($discordServerData->members as $member){
             if (array_key_exists('nick', $member)) {
-                $boxContent .= '<li><img src="'. $member['avatar_url'] .'" class="'. $member['status'] .' discord_avatar">' . $member['nick'] . '</li>';
+                $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->nick . '</li>';
             }
             else {
-                $boxContent .= '<li><img src="'. $member['avatar_url'] .'" class="'. $member['status'] .' discord_avatar">' . $member['username'] . '</li>';
+                $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->username . '</li>';
             }
         }
         $boxContent .= '</ul>';
@@ -120,7 +104,7 @@ class Discord {
                 $boxContent .= "</li>";
             }  
         }
-        $boxContent .= "<input class=\"btn-join\" type=button onClick=\"parent.open('". $discordServerData['instant_invite'] ." ')\" value='Join'>";
+        $boxContent .= "<input class=\"btn-join\" type=button onClick=\"parent.open('". $discordServerData->instant_invite ." ')\" value='Join'>";
         $boxContent .= '</ul>';
         return $boxContent;
     }
