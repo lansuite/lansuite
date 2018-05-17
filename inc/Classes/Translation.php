@@ -363,7 +363,7 @@ class Translation
      */
     private function xml_read_to_array($module) {
         $records = [];
-        $xml = new xml();
+        $xml = new XML();
 
         $lang_file = $this->get_trans_filename($module);
         if (file_exists($lang_file)) {
