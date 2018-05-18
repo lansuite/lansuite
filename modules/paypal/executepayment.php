@@ -32,8 +32,7 @@ function SKUtoParty($SKU){
 if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
 	$func->error(t('Du kannst nichts einzahlen wenn du nicht eingeloggt bist.'),"index.php?mod=home");
 }else{
-    include 'modules/paypal/class_paypal.php';
-    $PayPalObj = new PayPal();
+    $PayPalObj = new \LanSuite\Module\PayPal\PayPal();
     $PayPalObj->GetAccessToken();
     $PayPalObj->GetPayment($_SESSION['paypal_payment_id']);
         

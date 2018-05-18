@@ -3,7 +3,6 @@
 /* 
  * Process all submitted items and get a payment link and ID from PayPal
  */
-include 'modules/paypal/class_paypal.php';
 
 function GetPriceDetails($priceID){
     global $db, $auth;
@@ -28,7 +27,7 @@ if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
     
     //Get a payment link from PayPal
 
-    $PayPalObj = new PayPal();
+    $PayPalObj = new \LanSuite\Module\PayPal\PayPal();
     $PayPalObj->GetAccessToken();
     //add items for all submitted party prices...
     if (!empty($_POST['price'])){

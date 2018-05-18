@@ -28,7 +28,8 @@
         "bin-dir": "bin"
     },
     "suggest": {
-        "ext-snmp": "Required to use the \"Network Operation Center\" module."
+        "ext-snmp": "Required to use the \"Network Operation Center\" module.",
+        "paypal/rest-api-sdk-php": "Required to use the PayPal module"
     },
     "autoload": {
         "psr-4": {
@@ -36,6 +37,7 @@
             "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/",
             "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/",
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
+            "LanSuite\\Module\\PayPal\\": "modules/paypal/Classes/",
             "LanSuite\\": "inc/Classes"
         },
         "files": [
