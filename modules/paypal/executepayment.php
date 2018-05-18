@@ -52,19 +52,16 @@ if ($PayPalObj->payment->getState()=='created' && !isset($_GET['failed'])){
                    switch($item->sku){
                        case 'DONATION':
                            ////add a transaction for this...
-                           //require 'modules/cashmgr/class_accounting.php';
-                           //$accounting = new accounting(0,$auth['userid']);
-                           //$accounting->booking($item->value, t('Spende von').' '.$auth['username'], 0, true);
+                           $accounting = new \LanSuite\Module\CashMgr\Accounting(0,$auth['userid']);
+                           $accounting->booking($item->value, t('Spende von').' '.$auth['username'], 0, true);
                            break;
                        case 'CATERING':
-                           require 'modules/foodcenter/class_accounting.php';
-                           $accounting = new accounting($auth['userid']);
+                           $accounting = new \LanSuite\Module\Foodcenter\Accounting($auth['userid']);
                            $accounting->change($item->value,t('Einzahlung via PayPal'),$auth['userid']); //this is misleading. Account value is not changed, but a transaction added
                            break;
                        default:
-                           require 'modules/guestlist/class_guestlist.php';
                            $data = SKUtoParty($item->sku);
-                           $GuestList = new guestlist();
+                           $GuestList = new \LanSuite\Module\Guestlist\GuestList();
                            $GuestList->SetPaid($auth['userid'], $data['party_id']);
                            break;
                    }
