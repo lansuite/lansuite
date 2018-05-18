@@ -228,9 +228,9 @@ if ($thread['closed']) {
         // Update thread-table, if new thread
         if (!$_GET['tid'] and $_POST['caption'] != '') {
             $db->qry("INSERT INTO %prefix%board_threads SET
-  				fid = %int%,
-  				caption = %string%
-  				", $_GET['fid'], $_POST['caption']);
+                fid = %int%,
+                caption = %string%
+                ", $_GET['fid'], $_POST['caption']);
                 $tid = $db->insert_id();
   
                 // Assign just created post to this new thread

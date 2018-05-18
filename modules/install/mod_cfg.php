@@ -4,6 +4,9 @@ $importXml = new \LanSuite\XML();
 $installImport = new \LanSuite\Module\Install\Import($importXml);
 $install = new \LanSuite\Module\Install\Install($installImport);
 
+// XML is a global requirement during installation
+$xml = new \LanSuite\XML();
+
 $CurrentMod = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name=%string%', $_GET['module']);
 
 $dsp->NewContent(t('Modul-Konfiguration') .' - '. $CurrentMod['caption'], t('Hier kannst du dieses Modul deinen Bedürfnissen anpassen'));
