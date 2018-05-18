@@ -1,5 +1,7 @@
 <?php
 
+use LanSuite\Module\Seating\Seat2;
+
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
@@ -29,8 +31,7 @@ if (!$_GET["teamid"]) {
     }
 
     // Leader
-    include_once("modules/seating/class_seat.php");
-    $seat2 = new seat2();
+    $seat2 = new Seat2();
     $dsp->AddDoubleRow(t('Teamleiter'), $dsp->FetchUserIcon($team['userid'], $team['username']) . " (Platz: ". $seat2->SeatNameLink($team['userid'], '', '') .")");
 
     // Members

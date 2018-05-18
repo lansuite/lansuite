@@ -10,9 +10,8 @@ switch ($_GET['step']) {
         break;
 
     case 2:
-        include_once('modules/install/class_export.php');
-        $export = new export();
-
+        $xmlExport = new \LanSuite\XML();
+        $export = new \LanSuite\Module\Install\Export($xmlExport);
         $export->LSTableHead('bugs.xml');
 
         $entrys = '';

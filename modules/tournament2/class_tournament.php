@@ -1,10 +1,10 @@
 <?php
 
-include_once("modules/mail/class_mail.php");
-$mail = new mail();
+use LanSuite\Module\Seating\Seat2;
 
-include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
+$mail = new \LanSuite\Module\Mail\Mail();
+
+$seat2 = new Seat2();
 
 class ranking_data
 {

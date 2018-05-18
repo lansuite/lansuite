@@ -231,7 +231,6 @@ $lang = [];
 
 // Debug initialisieren
 if ($config['lansuite']['debugmode'] > 0) {
-    require_once('inc/Functions/Debug.php');
     $debug = new \LanSuite\Debug($config['lansuite']['debugmode']);
 }
 
@@ -458,8 +457,7 @@ if ($db->success) {
     // Check Cronjobs
     if ($_GET['mod'] != 'install') {
         if (!isset($cron2)) {
-            include_once('modules/cron2/class_cron2.php');
-            $cron2 = new cron2();
+            $cron2 = new LanSuite\Module\Cron2\Cron2();
         }
         $cron2->CheckJobs();
         unset($cron2);

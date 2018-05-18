@@ -24,13 +24,12 @@ switch ($home_page) {
                 $caption = 'comments';
             }
             if ($cfg['home_item_cnt_'.$caption]
-            or ($caption == 'party' and $party->count > 0)
-            or ($caption == 'troubleticket' and $auth['type'] >= 2)
-            or ($caption == 'rent' and $auth['type'] >= 2)
-            or ($caption == 'task' and $auth['type'] >= 2)
-                ) {
-                    $content = '';
-                    include($inc);
+                || ($caption == 'party' && $party->count > 0)
+                || ($caption == 'troubleticket' && $auth['type'] >= 2)
+                || ($caption == 'rent' && $auth['type'] >= 2)
+                || ($caption == 'task' && $auth['type'] >= 2)) {
+                $content = '';
+                include($inc);
                 if ($content) {
                     if ($z % 2 == 0) {
                         $MainContent .= '<ul class="Line">';
@@ -38,10 +37,12 @@ switch ($home_page) {
                     } else {
                         $MainContent .= '<li class="LineRightHalf">';
                     }
-                        $smarty->assign('text2', '');
-                        $smarty->assign('content', $content);
-                        $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
-                        $MainContent .= '</li>';
+
+                    $smarty->assign('text2', '');
+                    $smarty->assign('content', $content);
+                    $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
+                    $MainContent .= '</li>';
+
                     if ($z % 2 == 1) {
                         $MainContent .= '</ul>';
                     }

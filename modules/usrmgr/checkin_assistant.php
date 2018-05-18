@@ -1,7 +1,8 @@
 <?php
 
-include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
+use LanSuite\Module\Seating\Seat2;
+
+$seat2 = new Seat2();
 
 $timestamp    = time();
 

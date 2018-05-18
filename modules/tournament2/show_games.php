@@ -1,5 +1,7 @@
 <?php
 
+use LanSuite\Module\Seating\Seat2;
+
 function array_to_table($a)
 {
     if (!empty($a)) {
@@ -26,8 +28,7 @@ function array_to_table($a)
     return $t;
 }
 
-include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
+$seat2 = new Seat2();
 
 $tgames = $db->qry("SELECT games1.gameid AS gid1, games2.gameid AS gid2, teams1.name AS name1, 
         teams2.name AS name2, teams1.leaderid AS leaderid1, teams2.leaderid AS leaderid2, t.name AS tuname, 

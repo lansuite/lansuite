@@ -3,9 +3,14 @@
 if ($_GET['step'] == 2 and $_POST['text'] != '') {
     $time = time();
 
-    $insert = $db->qry("INSERT INTO %prefix%messages
-    SET text=%string%, timestamp=%string%, new='1', senderid=%int%, receiverid=%int%
-    ", $_POST['text'], $time, $auth['userid'], $_GET['queryid']);
+    $insert = $db->qry("
+      INSERT INTO %prefix%messages
+      SET
+        text=%string%,
+        timestamp=%string%,
+        new='1',
+        senderid=%int%,
+        receiverid=%int%", $_POST['text'], $time, $auth['userid'], $_GET['queryid']);
 }
 
 $buttons = " ". $dsp->FetchIcon('bold', "javascript:InsertCode(document.form.text, '[b]', '[/b]')", t('Fett'));

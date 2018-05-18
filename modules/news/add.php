@@ -26,6 +26,6 @@ $mf->AddField(t('Link 2'), 'link_2', '', '', \LanSuite\MasterForm::FIELD_OPTIONA
 $mf->AddField(t('Link 3'), 'link_3', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
 
 if ($mf->SendForm('index.php?mod=news&action='. $_GET['action'], 'news', 'newsid', $_GET['newsid'])) {
-    include_once('modules/news/class_news.php');
+    $news = new \LanSuite\Module\News\News();
     $news->GenerateNewsfeed();
 }

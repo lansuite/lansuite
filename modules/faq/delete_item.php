@@ -1,18 +1,4 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		delete_item.php
-*	Module: 		FAQ
-*	Main editor: 		Micheal@one-network.org
-*	Last change: 		01.04.2003 13:58
-*	Description: 		Removes FAQ Items
-*	Remarks:
-*
-**************************************************************************/
 
 switch ($_GET["step"]) {
     case 2:
@@ -22,7 +8,7 @@ switch ($_GET["step"]) {
         if ($caption != "") {
             $func->question(t('Bist du sicher, dass die Frage <b> %1 </b> löschen willst ?', $caption), "index.php?mod=faq&object=item&action=delete_item&itemid={$_GET['itemid']}&step=3", "index.php?mod=faq&object=cat&action=delete_cat");
         } else {
-                $func->error(t('Diese Frage existiert nicht'));
+            $func->error(t('Diese Frage existiert nicht'));
         }
 
         break;
@@ -39,11 +25,9 @@ switch ($_GET["step"]) {
             } else {
                 $func->error("DB_ERROR");
             }
-        } // close if caption
-        
-        else {
+        } else {
             $func->error(t('Diese Frage existiert nicht'));
         }
     
         break;
-} // close switch step
+}

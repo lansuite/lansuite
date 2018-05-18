@@ -7,7 +7,6 @@ if ($_GET['delfile'] and $auth['type'] >= 3) {
     $md->Delete('download_stats', 'file', $_GET['delfile']);
 }
 
-
 // List
 if (!$_GET['file']) {
     $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
@@ -24,7 +23,6 @@ if (!$_GET['file']) {
     }
 
     $ms2->PrintSearch('index.php?mod=downloads&action=stats', 's.file');
-
 
 // Details
 } else {
@@ -63,15 +61,21 @@ if (!$_GET['file']) {
     $dsp->AddSingleRow('<object data="index.php?mod=downloads&action=stats_grafik&design=base&file='. $_GET['file'] .'&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
     Dein Browser kann das Objekt leider nicht anzeigen!
   </object>');
-#  #  <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'>
 
     $dsp->AddDoubleRow("<b>Time</b>", "<b>Hits</b>");
 
-    $res = $db->qry("SELECT DATE_FORMAT(time, %string%) AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits FROM %prefix%download_stats
-    WHERE file = %string% AND DATE_FORMAT(time, %string%) = %string%
-    GROUP BY DATE_FORMAT(time, %string%)
-    ORDER BY DATE_FORMAT(time, %string%)
-  ", $group_by, $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
+    $res = $db->qry("
+      SELECT 
+        DATE_FORMAT(time, %string%) AS group_by_time,
+        UNIX_TIMESTAMP(time) AS display_time,
+        SUM(hits) AS hits
+      FROM %prefix%download_stats
+      WHERE
+        file = %string%
+        AND DATE_FORMAT(time, %string%) = %string%
+      GROUP BY DATE_FORMAT(time, %string%)
+        ORDER BY DATE_FORMAT(time, %string%)", $group_by, $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
+
     while ($row = $db->fetch_array($res)) {
         switch ($_GET['time']) {
             default:

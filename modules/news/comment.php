@@ -1,11 +1,12 @@
 <?php
-// CHECK IF NEWSID IS VALID
+
+// Check if news id is valid
 $check = $db->qry_first('SELECT caption FROM %prefix%news WHERE newsid = %int%', $_GET['newsid']);
 if ($check["caption"] != "") {
     $framework->AddToPageTitle($check["caption"]);
     $func->SetRead('news', $_GET['newsid']);
   
-  // GET NEWS DATA
+    // Get news data
     $get_news = $db->qry_first('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news n LEFT JOIN %prefix%user u ON u.userid = n.poster WHERE n.newsid = %int%', $_GET['newsid']);
     $templ_news_single_row_priority = $get_news["priority"];
     
@@ -42,7 +43,6 @@ if ($check["caption"] != "") {
     }
     $smarty->assign('text', $text);
 
-    // SELECT ACTION TYPE
     if ($_GET["mcact"] == "" or $_GET["mcact"] == "show") {
         $dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier kannst du diese News kommentieren'));
         $dsp->AddSingleRow($smarty->fetch("modules/news/templates/show_single_row_$news_type.htm"));

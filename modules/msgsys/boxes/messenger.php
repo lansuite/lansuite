@@ -1,24 +1,20 @@
 <?php
-/**
- * Generate Box for Messenger
- *
- * @package lansuite_core
- * @author knox
- * @version $Id: messenger.php 2028 2009-11-23 15:23:32Z jochen.jung $
- */
- 
+
 // Check for valid login
 if ($auth['login']) {
     // Buddylist
     $box->EngangedRow('<span class="copyright">-- Buddy List --</span>');
 
-    $query = $db->qry("SELECT b.buddyid, u.username
-		FROM %prefix%buddys AS b
-		LEFT JOIN %prefix%user AS u ON b.buddyid = u.userid
-		WHERE b.userid = %int%
-		GROUP BY b.buddyid
-		ORDER BY u.username
-		", $auth['userid']);
+    $query = $db->qry("
+      SELECT
+        b.buddyid,
+        u.username
+      FROM %prefix%buddys AS b
+        LEFT JOIN %prefix%user AS u ON b.buddyid = u.userid
+      WHERE
+        b.userid = %int%
+      GROUP BY b.buddyid
+      ORDER BY u.username", $auth['userid']);
 
     while ($row = $db->fetch_array($query)) {
         // Is user online, or offline?
@@ -41,14 +37,14 @@ if ($auth['login']) {
             $item = "message_blink";
             if ($cfg['msgsys_popup']) {
                 $caption = "<script type=\"text/javascript\" language=\"JavaScript\"> 
-								var link = \"index.php?mod=msgsys&amp;action=query&amp;design=base&amp;queryid={$row["buddyid"]}$msg_sid\";
-								var suche = /&amp;/;
+                                var link = \"index.php?mod=msgsys&amp;action=query&amp;design=base&amp;queryid={$row["buddyid"]}$msg_sid\";
+                                var suche = /&amp;/;
 
-								while(suche.exec(link)){
-									link = link.replace(suche, \"&\");
-								}
-					   			window.open(link,'_blank','width=600,height=400,resizable=no');
-							</script>";
+                                while(suche.exec(link)){
+                                    link = link.replace(suche, \"&\");
+                                }
+                                window.open(link,'_blank','width=600,height=400,resizable=no');
+                            </script>";
             } else {
                 $caption = "";
             }
@@ -70,12 +66,14 @@ if ($auth['login']) {
     }
 
     // Users not in buddylist
-    $querynotinlist = $db->qry("SELECT m.senderid, u.username
-		FROM %prefix%messages m
-		LEFT JOIN %prefix%user u ON u.userid = m.senderid
-		WHERE m.receiverid = %int% AND m.new = 1
-		ORDER BY u.username
-		", $auth['userid']);
+    $querynotinlist = $db->qry("
+      SELECT
+        m.senderid,
+        u.username
+      FROM %prefix%messages m
+        LEFT JOIN %prefix%user u ON u.userid = m.senderid
+      WHERE m.receiverid = %int% AND m.new = 1
+      ORDER BY u.username", $auth['userid']);
     while ($row=$db->fetch_array($querynotinlist)) {
         // Session ID
         $msg_sid = "&" . session_name() . "=" . session_id();

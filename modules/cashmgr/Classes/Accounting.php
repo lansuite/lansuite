@@ -40,14 +40,12 @@ class Accounting
         
         if ($userid) {
             $this->editorid = $userid;
-
         } else {
             $this->editorid = $auth['userid'];
         }
         
         if ($party_id = 0) {
             $this->partyid = $party->party_id;
-
         } else {
             $this->partyid = $party_id;
         }
@@ -201,7 +199,6 @@ class Accounting
         while ($res = $db->fetch_array($row)) {
             if (isset($res['subjekt'])) {
                 $arrobjekt = array($res['subjekt'], $this->getMoneyColor($res['movement']));
-
             } else {
                 $arrobjekt = array($res['subjekt_m'], $this->getMoneyColor($res['movement']));
             }
@@ -214,6 +211,8 @@ class Accounting
 
     /**
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function showCalculation()
     {
