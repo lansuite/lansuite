@@ -1,6 +1,6 @@
 <?php
 
-$seating = new Seat2();
+$seating = new \LanSuite\Module\Seating\Seat2();
 
 include_once("modules/usrmgr/class_usrmgr.php");
 $userManager = new UsrMgr();

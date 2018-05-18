@@ -29,7 +29,7 @@ if ($auth['type'] >= 1) {
         }
     }
 
-    function p_price($price_text)
+    function p_priceUsrMgfDetails($price_text)
     {
         global $line, $cfg;
     
@@ -53,7 +53,7 @@ if ($auth['type'] >= 1) {
     $ms2->AddResultField(t('Party'), 'p.name', 'p_getactive');
     $ms2->AddResultField(t('Angemeldet'), 'u.user_id', 'TrueFalse');
     $ms2->AddSelect('i.price');
-    $ms2->AddResultField(t('Preis'), 'i.price_text', 'p_price');
+    $ms2->AddResultField(t('Preis'), 'i.price_text', 'p_priceUsrMgfDetails');
     $ms2->AddResultField(t('Bezahlt'), 'u.paid', 'TrueFalse');
     $ms2->AddResultField(t('Bezahltdatum'), 'UNIX_TIMESTAMP(u.paiddate) AS paiddate', 'MS2GetDate');
     $ms2->AddResultField(t('Eingecheckt'), 'UNIX_TIMESTAMP(u.checkin) AS checkin', 'MS2GetDate');

@@ -2,6 +2,8 @@
 
 namespace LanSuite\Module\Install;
 
+use LanSuite\XML;
+
 class Install
 {
     /**
@@ -229,8 +231,9 @@ class Install
      */
     public function InsertModules($rewrite = false)
     {
-        global $db, $xml, $func;
+        global $db, $func;
 
+        $xml = new XML();
         // Tabelle Modules leeren um Module zu deinstallieren
         if ($_GET["action"] == "wizard" and $_GET['step'] < 9) {
             $db->qry("TRUNCATE TABLE %prefix%modules");

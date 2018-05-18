@@ -99,7 +99,7 @@ class Boxes
      * @param string $class
      * @return void
      */
-    private function ItemRow($item, $caption, $link = "", $hint = "", $class = "")
+    public function ItemRow($item, $caption, $link = "", $hint = "", $class = "")
     {
         if (strip_tags($caption) == $caption) {
             $caption = wordwrap($caption, 18, "<br />\n", 1);
