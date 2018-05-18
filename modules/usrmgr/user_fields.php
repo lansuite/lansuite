@@ -4,7 +4,7 @@
  * @param int $id
  * @return bool
  */
-function Update($id)
+function UpdateUsrMgrUserFields($id)
 {
     global $db;
   
@@ -59,7 +59,7 @@ switch ($_GET['step']) {
         $selections['2'] = t('Pflichtfeld');
         $mf->AddField(t('Optional'), 'optional', \LanSuite\MasterForm::IS_SELECTION, $selections);
 
-        $mf->AdditionalDBUpdateFunction = 'Update';
+        $mf->AdditionalDBUpdateFunction = 'UpdateUsrMgrUserFields';
         $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $_GET['fieldid']);
         break;
   

@@ -1,11 +1,9 @@
 <?php
 
-use LanSuite\Module\Seating\Seat2;
-
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
 if ($func->isModActive('seating')) {
-    $seat2 = new Seat2();
+    $seat2 = \LanSuite\Module\Seating\Seat2();
 }
 
 $ms2->query['from'] = "%prefix%user AS u

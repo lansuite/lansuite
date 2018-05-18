@@ -5,7 +5,7 @@ include_once('modules/usrmgr/search_main.inc.php');
  * @param string $clan_name
  * @return string
  */
-function ClanURLLink($clan_name)
+function ClanURLLinkUsrMgrSearchInc($clan_name)
 {
     global $line, $func;
 
@@ -106,7 +106,7 @@ $ms2->AddSelect('u.locked');
 if ($cfg['signon_show_clan']) {
     $ms2->AddSelect('c.url AS clanurl');
     $ms2->AddSelect('c.clanid AS clanid');
-    $ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLink');
+    $ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLinkUsrMgrSearchInc');
 }
 $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Details'));
 $ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', t('Mail senden'));
