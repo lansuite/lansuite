@@ -7,6 +7,9 @@ $importXml = new \LanSuite\XML();
 $installImport = new \LanSuite\Module\Install\Import($importXml);
 $install = new \LanSuite\Module\Install\Install($installImport);
 
+// XML is a global requirement during installation
+$xml = new \LanSuite\XML();
+
 $_SESSION['auth']['design'] = 'simple';
 
 // Error-Switch

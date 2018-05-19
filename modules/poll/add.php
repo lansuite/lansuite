@@ -1,6 +1,6 @@
 <?php
 
-function Update($id)
+function UpdatePoll($id)
 {
     global $db;
 
@@ -58,5 +58,5 @@ for ($z = 1; $z <= 20; $z++) {
     $mf->AddField(t('Option') ." $z", "poll_option[$z]", 'varchar(80)', '', $optional);
 }
 
-$mf->AdditionalDBUpdateFunction = 'Update';
+$mf->AdditionalDBUpdateFunction = 'UpdatePoll';
 $mf->SendForm('index.php?mod=poll&action=change&step=2&pollid='. $_GET['pollid'], 'polls', 'pollid', $_GET['pollid']);
