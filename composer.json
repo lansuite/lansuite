@@ -124,7 +124,7 @@
             "modules/party/Functions/GetMinimumAgeString.php",
             "modules/party/Functions/PGetActive.php",
             "modules/party/Functions/PPrice.php",
-            "modules/party/Functions/UpdatePartyID.php"
+            "modules/party/Functions/UpdatePartyID.php",
             "modules/partylist/Functions/AddSignonStatus.php",
             "modules/partylist/Functions/EditAllowed.php",
             "modules/partylist/Functions/GetSite.php",
