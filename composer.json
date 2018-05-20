@@ -136,7 +136,8 @@
             "modules/picgallery/Functions/RecursiveRemoveDirectory.php",
             "modules/poll/Functions/GetPollStatus.php",
             "modules/poll/Functions/UpdatePoll.php",
-            "modules/popups/Functions/GetLinks.php"
+            "modules/popups/Functions/GetLinks.php",
+            "modules/rent/Functions/RentCount.php"
         ]
     }
 }
