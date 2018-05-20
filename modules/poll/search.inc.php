@@ -1,14 +1,5 @@
 <?php
 
-function GetPollStatus($endtime)
-{
-    if ($endtime == 0 or $endtime > time()) {
-        return "offen";
-    } else {
-        return "geschlossen";
-    }
-}
-
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
 $ms2->query['from'] = "%prefix%polls AS p

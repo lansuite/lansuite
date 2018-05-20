@@ -1,15 +1,30 @@
 <?php
+
 $smarty->assign('caption', t('Aktuelle Umfragen'));
 $content = "";
 
-$query = $db->qry('SELECT UNIX_TIMESTAMP(p.endtime) AS endtime, p.pollid, p.caption, COUNT(v.polloptionid) AS votes, MAX(UNIX_TIMESTAMP(p.changedate)) AS changedate FROM %prefix%polls AS p
+$query = $db->qry('
+  SELECT
+    UNIX_TIMESTAMP(p.endtime) AS endtime,
+    p.pollid,
+    p.caption,
+    COUNT(v.polloptionid) AS votes,
+    MAX(UNIX_TIMESTAMP(p.changedate)) AS changedate
+  FROM %prefix%polls AS p
   LEFT JOIN %prefix%polloptions AS o on p.pollid = o.pollid
   LEFT JOIN %prefix%pollvotes AS v on o.polloptionid = v.polloptionid
-  WHERE (!p.group_id OR p.group_id = %int%) AND (p.endtime <= \'1970-01-01 01:00:00\' OR p.endtime > %string%)
+  WHERE
+    (
+      !p.group_id
+      OR p.group_id = %int%
+    )
+    AND (
+      p.endtime <= \'1970-01-01 01:00:00\'
+      OR p.endtime > %string%
+    )
   GROUP BY p.pollid
   ORDER BY changedate DESC
-  LIMIT 0, %int%
-  ', $auth['group_id'], date("Y-m-d 00:00:00"), $cfg['home_item_cnt_poll']);
+  LIMIT 0, %int%', $auth['group_id'], date("Y-m-d 00:00:00"), $cfg['home_item_cnt_poll']);
 
 if ($db->num_rows($query) > 0) {
     while ($row = $db->fetch_array($query)) {
