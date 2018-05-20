@@ -45,7 +45,9 @@
             "LanSuite\\Module\\Mail\\": "modules/mail/Classes/",
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
             "LanSuite\\Module\\News\\": "modules/news/Classes/",
+            "LanSuite\\Module\\Party\\": "modules/party/Classes/",
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
+            "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
             "LanSuite\\": "inc/Classes"
         },
@@ -113,10 +115,29 @@
             "modules/mastersearch2/Functions/Text2LSCode.php",
             "modules/mastersearch2/Functions/TrueFalse.php",
             "modules/mastersearch2/Functions/UserNameAndIcon.php",
+            "modules/party/Functions/Active.php",
+            "modules/party/Functions/CheckEndDate.php",
+            "modules/party/Functions/CheckSignonEndDate.php",
+            "modules/party/Functions/CheckSignonStartDate.php",
+            "modules/party/Functions/EveningPriceIdLink.php",
+            "modules/party/Functions/GetActiveState.php",
+            "modules/party/Functions/GetGuests.php",
+            "modules/party/Functions/GetMinimumAgeString.php",
+            "modules/party/Functions/PGetActive.php",
+            "modules/party/Functions/PPrice.php",
+            "modules/party/Functions/UpdatePartyID.php",
             "modules/partylist/Functions/AddSignonStatus.php",
             "modules/partylist/Functions/EditAllowed.php",
             "modules/partylist/Functions/GetSite.php",
-            "modules/partylist/Functions/NameAndMotto.php"
+            "modules/partylist/Functions/NameAndMotto.php",
+            "modules/picgallery/Functions/IsPackage.php",
+            "modules/picgallery/Functions/IsSupportedType.php",
+            "modules/picgallery/Functions/IsSupportedVideo.php",
+            "modules/picgallery/Functions/RecursiveRemoveDirectory.php",
+            "modules/poll/Functions/GetPollStatus.php",
+            "modules/poll/Functions/UpdatePoll.php",
+            "modules/popups/Functions/GetLinks.php",
+            "modules/rent/Functions/RentCount.php"
         ]
     }
 }
