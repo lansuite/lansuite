@@ -116,7 +116,8 @@
             "modules/partylist/Functions/AddSignonStatus.php",
             "modules/partylist/Functions/EditAllowed.php",
             "modules/partylist/Functions/GetSite.php",
-            "modules/partylist/Functions/NameAndMotto.php"
+            "modules/partylist/Functions/NameAndMotto.php",
+            "modules/rent/Functions/RentCount.php"
         ]
     }
 }
