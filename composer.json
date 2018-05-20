@@ -46,6 +46,7 @@
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
             "LanSuite\\Module\\News\\": "modules/news/Classes/",
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
+            "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
             "LanSuite\\": "inc/Classes"
         },
@@ -116,7 +117,9 @@
             "modules/partylist/Functions/AddSignonStatus.php",
             "modules/partylist/Functions/EditAllowed.php",
             "modules/partylist/Functions/GetSite.php",
-            "modules/partylist/Functions/NameAndMotto.php"
+            "modules/partylist/Functions/NameAndMotto.php",
+            "modules/poll/Functions/GetPollStatus.php",
+            "modules/poll/Functions/UpdatePoll.php"
         ]
     }
 }
