@@ -47,6 +47,7 @@
             "LanSuite\\Module\\News\\": "modules/news/Classes/",
             "LanSuite\\Module\\Party\\": "modules/party/Classes/",
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
+            "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
             "LanSuite\\": "inc/Classes"
         },
@@ -132,7 +133,9 @@
             "modules/picgallery/Functions/IsPackage.php",
             "modules/picgallery/Functions/IsSupportedType.php",
             "modules/picgallery/Functions/IsSupportedVideo.php",
-            "modules/picgallery/Functions/RecursiveRemoveDirectory.php"
+            "modules/picgallery/Functions/RecursiveRemoveDirectory.php",
+            "modules/poll/Functions/GetPollStatus.php",
+            "modules/poll/Functions/UpdatePoll.php"
         ]
     }
 }
