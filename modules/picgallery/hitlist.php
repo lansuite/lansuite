@@ -41,8 +41,14 @@ $MainContent .= '<li class="LineLeftHalf">';
 
 $smarty->assign('caption', t('Die neusten Kommentare'));
 $content = '';
-$res = $db->qry('SELECT name, UNIX_TIMESTAMP(date) as date FROM %prefix%picgallery AS p
-  LEFT JOIN %prefix%comments AS c ON p.picid = c.relatedto_id AND c.relatedto_item = \'Picgallery\'
+$res = $db->qry('
+  SELECT
+    name,
+    UNIX_TIMESTAMP(date) AS date
+  FROM %prefix%picgallery AS p
+  LEFT JOIN %prefix%comments AS c ON
+    p.picid = c.relatedto_id
+    AND c.relatedto_item = \'Picgallery\'
   ORDER BY c.date DESC
   LIMIT 10');
 while ($row = $db->fetch_array($res)) {
@@ -60,8 +66,14 @@ $MainContent .= '<li class="LineRightHalf">';
 
 $smarty->assign('caption', t('Die meisten Kommentare'));
 $content = '';
-$res = $db->qry('SELECT name, COUNT(*) AS count FROM %prefix%picgallery AS p
-  LEFT JOIN %prefix%comments AS c ON p.picid = c.relatedto_id AND c.relatedto_item = \'Picgallery\'
+$res = $db->qry('
+  SELECT
+    name,
+    COUNT(*) AS count
+  FROM %prefix%picgallery AS p
+  LEFT JOIN %prefix%comments AS c ON
+    p.picid = c.relatedto_id
+    AND c.relatedto_item = \'Picgallery\'
   GROUP BY c.relatedto_id
   ORDER BY count DESC
   LIMIT 10');
