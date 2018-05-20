@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
 Teamspeak Display Preview Release 3
 Copyright (C) 2005  Guido van Biemen (aka MrGuide@NL)
 
@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-class teamspeakDisplayClass
+class TeamspeakDisplayClass
 {
     // Removes subsequent end of line charachter from the right part of a string
     public function _stripEOL($evalString)
@@ -469,7 +469,7 @@ class teamspeakDisplayClass
             echo("	}\n");
             echo("	serveraddress = serveraddress + \"/nickname=\" + escape(nickname);\n");
             if (($serverInfo["serverinfo"]["server_password"] == "1") and ($cfg['serverpassword'] == null)) {
-                echo("	var password=window.prompt('".t('Teamspeak Server Passwort eintragen für')." " . $serverInfo["serverinfo"]["server_name"] . "', '');\n");
+                echo("	var password=window.prompt('".t('Teamspeak Server Passwort eintragen fï¿½r')." " . $serverInfo["serverinfo"]["server_name"] . "', '');\n");
                 echo("	if (password == null) {\n");
                 echo("		return;\n");
                 echo("	} else if (password == \"\") {\n");
@@ -487,7 +487,7 @@ class teamspeakDisplayClass
             }
             echo("	if (channelName != null) { serveraddress = serveraddress + \"?channel=\" + escape(channelName); }\n");
             echo("	if (channelPassworded) {\n");
-            echo("		var channelpassword=window.prompt('".t('Channel Passwort eintragen für')." ' + channelName, '');\n");
+            echo("		var channelpassword=window.prompt('".t('Channel Passwort eintragen fï¿½r')." ' + channelName, '');\n");
             echo("		if (channelpassword == null) {\n");
             echo("			return;\n");
             echo("		} else if (channelpassword == \"\") {\n");
