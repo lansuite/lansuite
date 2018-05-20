@@ -135,7 +135,8 @@
             "modules/picgallery/Functions/IsSupportedVideo.php",
             "modules/picgallery/Functions/RecursiveRemoveDirectory.php",
             "modules/poll/Functions/GetPollStatus.php",
-            "modules/poll/Functions/UpdatePoll.php"
+            "modules/poll/Functions/UpdatePoll.php",
+            "modules/popups/Functions/GetLinks.php"
         ]
     }
 }
