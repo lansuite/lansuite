@@ -333,8 +333,7 @@ if ($config['environment']['configured'] == 0) {
 // Initialize party
 // Needed also, when not configured for LanSuite Import
 if ($func->isModActive('party')) {
-    include_once("modules/party/class_party.php");
-    $party = new party();
+    $party = new \LanSuite\Module\Party\Party();
 
 // If without party-module: Just give a fake ID, for many modules need it
 } else {
