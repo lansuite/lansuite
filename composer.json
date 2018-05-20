@@ -137,7 +137,9 @@
             "modules/poll/Functions/GetPollStatus.php",
             "modules/poll/Functions/UpdatePoll.php",
             "modules/popups/Functions/GetLinks.php",
-            "modules/rent/Functions/RentCount.php"
+            "modules/rent/Functions/RentCount.php",
+            "modules/sponsor/Functions/RewriteFields.php",
+            "modules/sponsor/Functions/UploadFiles.php"
         ]
     }
 }
