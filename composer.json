@@ -137,7 +137,14 @@
             "modules/poll/Functions/GetPollStatus.php",
             "modules/poll/Functions/UpdatePoll.php",
             "modules/popups/Functions/GetLinks.php",
-            "modules/rent/Functions/RentCount.php"
+            "modules/rent/Functions/RentCount.php",
+            "modules/server/Functions/CheckIP.php",
+            "modules/server/Functions/CheckMAC.php",
+            "modules/server/Functions/CheckPort.php",
+            "modules/server/Functions/PingServer.php",
+            "modules/server/Functions/PWIcon.php",
+            "modules/server/Functions/ServerStatus.php",
+            "modules/server/Functions/ServerType.php"
         ]
     }
 }
