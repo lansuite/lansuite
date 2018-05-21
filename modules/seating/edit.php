@@ -20,8 +20,14 @@ switch ($_GET['step']) {
         } elseif ($_POST['cols'] >= 60) {
             $error['cols'] = t('Bitte gib eine kleinere Zahl als 60 ein');
         } else {
-            $row = $db->qry_first("SELECT count(*) AS number FROM %prefix%seat_seats
-    WHERE blockid = %int% AND status = 2 AND col >= %int%", $_GET['blockid'], $_POST['cols']);
+            $row = $db->qry_first("
+              SELECT
+                COUNT(*) AS number
+              FROM %prefix%seat_seats
+              WHERE
+                blockid = %int%
+                AND status = 2
+                AND col >= %int%", $_GET['blockid'], $_POST['cols']);
             if ($row["number"] != 0) {
                 $error['cols'] = t('Bitte gib eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entferne bitte die betroffenen Benutzer.');
             }
@@ -35,8 +41,14 @@ switch ($_GET['step']) {
         } elseif ($_POST['rows'] >= 100) {
             $error['rows'] = t('Bitte gib eine kleinere Zahl als 100 ein');
         } else {
-            $row = $db->qry_first("SELECT count(*) AS number FROM %prefix%seat_seats
-    WHERE blockid = %int% AND status = 2 AND row >= %int%", $_GET['blockid'], $_POST['rows']);
+            $row = $db->qry_first("
+              SELECT
+                COUNT(*) AS number
+              FROM %prefix%seat_seats
+              WHERE
+                blockid = %int%
+                AND status = 2
+                AND row >= %int%", $_GET['blockid'], $_POST['rows']);
             if ($row["number"] != 0) {
                 $error['rows'] = t('Bitte gib eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entferne bitte die betroffenen Benutzer.');
             }
@@ -58,56 +70,92 @@ switch ($_GET['step']) {
     // Update Seperators
     case 4:
         if ($_GET['change_sep_row'] > 0) {
-            $seperator = $db->qry_first("SELECT value FROM %prefix%seat_sep
-    WHERE blockid = %int% AND orientation = '1' AND value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
+            $seperator = $db->qry_first("
+              SELECT
+                value
+              FROM %prefix%seat_sep
+              WHERE
+                blockid = %int%
+                AND orientation = '1'
+                AND value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
+
             if ($seperator['value']) {
-                $db->qry("DELETE FROM %prefix%seat_sep
-    WHERE blockid = %int% AND orientation = '1' AND value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
+                $db->qry("
+                  DELETE FROM %prefix%seat_sep
+                  WHERE
+                    blockid = %int%
+                    AND orientation = '1'
+                    AND value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
             } else {
-                $db->qry("INSERT INTO %prefix%seat_sep SET blockid = %int%, orientation = '1', value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
+                $db->qry("
+                  INSERT INTO %prefix%seat_sep
+                  SET
+                    blockid = %int%,
+                    orientation = '1',
+                    value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
             }
         }
         if ($_GET['change_sep_col'] > 0) {
-            $seperator = $db->qry_first("SELECT value FROM %prefix%seat_sep
-    WHERE blockid = %int% AND orientation = '0' AND value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
+            $seperator = $db->qry_first("
+              SELECT value
+              FROM %prefix%seat_sep
+              WHERE
+                blockid = %int%
+                AND orientation = '0'
+                AND value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
             if ($seperator['value']) {
-                $db->qry("DELETE FROM %prefix%seat_sep
-    WHERE blockid = %int% AND orientation = '0' AND value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
+                $db->qry("
+                  DELETE FROM %prefix%seat_sep
+                  WHERE
+                    blockid = %int%
+                    AND orientation = '0'
+                    AND value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
             } else {
-                $db->qry("INSERT INTO %prefix%seat_sep SET blockid = %int%, orientation = '0', value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
+                $db->qry("
+                  INSERT INTO %prefix%seat_sep
+                  SET
+                    blockid = %int%,
+                    orientation = '0',
+                    value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
             }
         }
         break;
 
     case 6:
-         // $icon_nr = (int) substr($_POST['icon'], 0, 3);
         if ($_POST['cell']) {
             foreach ($_POST['cell'] as $cur_cell => $value) {
                 $col = floor($cur_cell / 100);
                 $row = $cur_cell % 100;
                 $value = (int)$value;
 
-                $seats_qry = $db->qry_first("SELECT seatid FROM %prefix%seat_seats
-   WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $row, $col);
+                $seats_qry = $db->qry_first("
+                  SELECT
+                    seatid
+                  FROM %prefix%seat_seats
+                  WHERE
+                    blockid = %int%
+                    AND row = %string%
+                    AND col = %string%", $_GET['blockid'], $row, $col);
 
                 if (!$seats_qry['seatid']) {
-                    $db->qry("INSERT INTO %prefix%seat_seats SET
-     blockid = %int%,
-     row = %int%,
-     col = %int%,
-     status = %string%
-     ", $_GET['blockid'], $row, $col, $value);
+                    $db->qry("
+                      INSERT INTO %prefix%seat_seats
+                      SET
+                        blockid = %int%,
+                        row = %int%,
+                        col = %int%,
+                        status = %string%", $_GET['blockid'], $row, $col, $value);
                 } else {
-                    $db->qry("UPDATE %prefix%seat_seats SET
-     status = %string%
-     WHERE seatid = %int%
-     ", $value, $seats_qry['seatid']);
+                    $db->qry("
+                      UPDATE %prefix%seat_seats
+                      SET
+                        status = %string%
+                      WHERE seatid = %int%", $value, $seats_qry['seatid']);
                 }
             }
         }
         break;
 }
-
 
 // Form-Switch
 switch ($_GET['step']) {
@@ -214,7 +262,7 @@ switch ($_GET['step']) {
 
         $dsp->AddCheckBoxRow('u18', t('U18 Block'), '', '', 0, $_POST['u18']);
 
-                $t_array = array();
+        $t_array = array();
         array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
         $res = $db->qry("SELECT group_id, group_name FROM %prefix%party_usergroups");
         while ($row = $db->fetch_array($res)) {
@@ -225,14 +273,14 @@ switch ($_GET['step']) {
         $dsp->AddDropDownFieldRow("group_id", t('Nur für Benutzer dieser Gruppe'), $t_array, '');
 
         $t_array = array();
-                array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
-                $res = $db->qry("SELECT price_id, price_text FROM %prefix%party_prices WHERE party_id = %int%", $party->party_id);
+        array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
+        $res = $db->qry("SELECT price_id, price_text FROM %prefix%party_prices WHERE party_id = %int%", $party->party_id);
         while ($row = $db->fetch_array($res)) {
             ($_POST['price_id'] == $row['price_id'])? $selected = 'selected' : $selected = '';
             array_push($t_array, '<option '. $selected .' value="'. $row['price_id'] .'">'. $row['price_text'] .'</option>');
         }
         $db->free_result($res);
-                $dsp->AddDropDownFieldRow("price_id", t('Nur für diesen Eintrittspreis'), $t_array, '');
+        $dsp->AddDropDownFieldRow("price_id", t('Nur für diesen Eintrittspreis'), $t_array, '');
 
         $dsp->AddTextAreaPlusRow('remark', t('Bemerkung'), $_POST['remark'], $error['remark'], '', 4, 1);
         $dsp->AddDoubleRow(t('Sitzblockbeschriftung'), $smarty->fetch('modules/seating/templates/plan_labels.htm'));
@@ -257,55 +305,57 @@ switch ($_GET['step']) {
     case 3:
         // Save block settings
         if ($_GET['action'] == 'add') {
-            $db->qry("INSERT INTO %prefix%seat_block SET
-    party_id = %int%,
-    group_id = %int%,
-    price_id = %int%,
-    name = %string%,
-    rows = %int%,
-    cols = %int%,
-    orientation = %string%,
-    u18 = %string%,
-    remark = %string%,
-    text_tl = %string%,
-    text_tc = %string%,
-    text_tr = %string%,
-    text_lt = %string%,
-    text_lc = %string%,
-    text_lb = %string%,
-    text_rt = %string%,
-    text_rc = %string%,
-    text_rb = %string%,
-    text_bl = %string%,
-    text_bc = %string%,
-    text_br = %string%
-    ", $party->party_id, $_POST['group_id'], $_POST['price_id'], $_POST['name'], ($_POST['rows'] - 1), ($_POST['cols'] - 1), $_POST['orientation'], $_POST['u18'], $_POST['remark'], $_POST['text_tl'], $_POST['text_tc'], $_POST['text_tr'], $_POST['text_lt'], $_POST['text_lc'], $_POST['text_lb'], $_POST['text_rt'], $_POST['text_rc'], $_POST['text_rb'], $_POST['text_bl'], $_POST['text_bc'], $_POST['text_br']);
+            $db->qry("
+              INSERT INTO %prefix%seat_block
+              SET
+                party_id = %int%,
+                group_id = %int%,
+                price_id = %int%,
+                name = %string%,
+                rows = %int%,
+                cols = %int%,
+                orientation = %string%,
+                u18 = %string%,
+                remark = %string%,
+                text_tl = %string%,
+                text_tc = %string%,
+                text_tr = %string%,
+                text_lt = %string%,
+                text_lc = %string%,
+                text_lb = %string%,
+                text_rt = %string%,
+                text_rc = %string%,
+                text_rb = %string%,
+                text_bl = %string%,
+                text_bc = %string%,
+                text_br = %string%", $party->party_id, $_POST['group_id'], $_POST['price_id'], $_POST['name'], ($_POST['rows'] - 1), ($_POST['cols'] - 1), $_POST['orientation'], $_POST['u18'], $_POST['remark'], $_POST['text_tl'], $_POST['text_tc'], $_POST['text_tr'], $_POST['text_lt'], $_POST['text_lc'], $_POST['text_lb'], $_POST['text_rt'], $_POST['text_rc'], $_POST['text_rb'], $_POST['text_bl'], $_POST['text_bc'], $_POST['text_br']);
             $_GET['blockid'] = $db->insert_id();
         } else {
-            $db->qry("UPDATE %prefix%seat_block SET
-    party_id = %int%,
-    group_id = %int%,
-    price_id = %int%,
-    name = %string%,
-    rows = %int%,
-    cols = %int%,
-    orientation = %string%,
-    u18 = %string%,
-    remark = %string%,
-    text_tl = %string%,
-    text_tc = %string%,
-    text_tr = %string%,
-    text_lt = %string%,
-    text_lc = %string%,
-    text_lb = %string%,
-    text_rt = %string%,
-    text_rc = %string%,
-    text_rb = %string%,
-    text_bl = %string%,
-    text_bc = %string%,
-    text_br = %string%
-    WHERE blockid = %int%
-    ", $party->party_id, $_POST['group_id'], $_POST['price_id'], $_POST['name'], ($_POST['rows'] - 1), ($_POST['cols'] - 1), $_POST['orientation'], $_POST['u18'], $_POST['remark'], $_POST['text_tl'], $_POST['text_tc'], $_POST['text_tr'], $_POST['text_lt'], $_POST['text_lc'], $_POST['text_lb'], $_POST['text_rt'], $_POST['text_rc'], $_POST['text_rb'], $_POST['text_bl'], $_POST['text_bc'], $_POST['text_br'], $_GET['blockid']);
+            $db->qry("
+              UPDATE %prefix%seat_block
+              SET
+                party_id = %int%,
+                group_id = %int%,
+                price_id = %int%,
+                name = %string%,
+                rows = %int%,
+                cols = %int%,
+                orientation = %string%,
+                u18 = %string%,
+                remark = %string%,
+                text_tl = %string%,
+                text_tc = %string%,
+                text_tr = %string%,
+                text_lt = %string%,
+                text_lc = %string%,
+                text_lb = %string%,
+                text_rt = %string%,
+                text_rc = %string%,
+                text_rb = %string%,
+                text_bl = %string%,
+                text_bc = %string%,
+                text_br = %string%
+              WHERE blockid = %int%", $party->party_id, $_POST['group_id'], $_POST['price_id'], $_POST['name'], ($_POST['rows'] - 1), ($_POST['cols'] - 1), $_POST['orientation'], $_POST['u18'], $_POST['remark'], $_POST['text_tl'], $_POST['text_tc'], $_POST['text_tr'], $_POST['text_lt'], $_POST['text_lc'], $_POST['text_lb'], $_POST['text_rt'], $_POST['text_rc'], $_POST['text_rb'], $_POST['text_bl'], $_POST['text_bc'], $_POST['text_br'], $_GET['blockid']);
         }
     // No Break!
     case 4:
