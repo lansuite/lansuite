@@ -6,7 +6,6 @@ switch ($_GET["step"]) {
     
     case 2:
         $server = $db->qry_first("SELECT caption FROM %prefix%server WHERE serverid = %int%", $_GET["serverid"]);
-        
         $servername = $server["caption"];
 
         if ($server) {
@@ -15,11 +14,15 @@ switch ($_GET["step"]) {
             $func->error(t('Dieser Server existiert nicht'), "index.php?mod=server&action=delete");
         }
         break;
-    
-    
+
     case 3:
-        $server = $db->qry_first("SELECT caption, owner FROM %prefix%server
-  WHERE serverid = %int%", $_GET["serverid"]);
+        $server = $db->qry_first("
+          SELECT
+            caption,
+            owner
+          FROM %prefix%server
+          WHERE
+            serverid = %int%", $_GET["serverid"]);
 
         if ($server) {
             if ($server["owner"] != $auth["userid"] and $auth["type"] <= 1) {
