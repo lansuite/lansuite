@@ -1,4 +1,5 @@
 <?php
+
 $dsp->NewContent(t('Verleih'), t('Neuen Artikel zum Verleih eintragen'));
 
 $mf = new \LanSuite\MasterForm();

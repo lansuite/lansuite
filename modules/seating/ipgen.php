@@ -52,19 +52,24 @@ switch ($_GET['step']) {
         } else {
             $order = "row ".$s_row.",col ".$s_col;
         }
-        $query_sub = $db->qry("SELECT seatid, row, col FROM %prefix%seat_seats WHERE %plain% blockid=%int% ORDER BY %plain%", $check_status, $block_id, $order);
+        $query_sub = $db->qry("
+          SELECT
+            seatid,
+            row,
+            col
+          FROM %prefix%seat_seats
+          WHERE
+            %plain%
+            blockid=%int%
+          ORDER BY %plain%", $check_status, $block_id, $order);
         while ($row_seat_ids = $db->fetch_array($query_sub)) {
             $seat_ids[$count] = $row_seat_ids["seatid"];
             $seat_row[$count] = $row_seat_ids["row"];
             $seat_col[$count] = $row_seat_ids["col"];
             $count++;
-        } // while
+        }
 
-
-        // Marco Müller
-        // $ip_d = 0;
         $ip_d = ($ip_offset - 1);
-
         $durchg = 0;
 
         // zähle das array und update db
@@ -88,7 +93,6 @@ switch ($_GET['step']) {
             if ($ip_d>254) {
                 $ip_c++;
                 $ip_d = 1;
-                // echo "<font color=red>normaler Überlauf</font><br><br>";
             }
 
             // seat_id aus array ermitteln
@@ -100,16 +104,6 @@ switch ($_GET['step']) {
             // db updaten
             $db->qry("UPDATE %prefix%seat_seats SET ip=%string% WHERE seatid=%int%", $ip, $seat_id);
 
-            /*
-            echo $i." zähler<br>";
-            echo $ip." ip<br>";
-            echo $seat_id." seatid<br>";
-            echo $seat_row[$i-1]." seat row<br>";
-            echo $seat_col[$i-1]." seat col<br>";
-            echo $max_row_durchg . " max Rows Durchg.<br>";
-            echo $max_col_durchg . " max Cols Durchg.<br>";
-            */
-
             switch ($br) {
                 case "rowcol":
                     if ($sort=="row") {
@@ -117,7 +111,6 @@ switch ($_GET['step']) {
                             $ip_c++;
                             $ip_d = 0;
                             $durchg = 0;
-                            // echo "<font color=red>Max COL = SEAT COL (Überlauf)</font><br><br>";
                         }
                     }
 
@@ -126,12 +119,9 @@ switch ($_GET['step']) {
                             $ip_c++;
                             $ip_d = 0;
                             $durchg = 0;
-                            // echo "<font color=red>Max ROW = SEAT ROW (Überlauf)</font><br><br>";
                         }
                     }
-
                     break;
-
 
                 case "rowcol2":
                     if ($sort=="row") {
@@ -145,7 +135,6 @@ switch ($_GET['step']) {
                                 $durchg = 0;
                                 $sp2 = false;
                             }
-                            // echo "<font color=red>Max COL = SEAT COL (Überlauf)</font><br><br>";
                         }
                     }
 
@@ -160,17 +149,16 @@ switch ($_GET['step']) {
                                 $durchg = 0;
                                 $sp2 = false;
                             }
-                            // echo "<font color=red>Max ROW = SEAT ROW (Überlauf)</font><br><br>";
                         }
                     }
                     break;
-            } // switch
-        } //for loop
+            }
+        }
 
         $func->confirmation(t('Die IP Adressen wurden erfolgreich eingetragen.'), "index.php?mod=seating");
         break;
 
-  // Delete IPs
+    // Delete IPs
     case 20:
         $func->question(t('IPs dieses Sitzblocks wirklich alle löschen?'), 'index.php?mod=seating&action=ipgen&step=21&blockid=' .$_GET['blockid'], 'index.php?mod=seating');
         break;
@@ -179,4 +167,4 @@ switch ($_GET['step']) {
         $db->qry('UPDATE %prefix%seat_seats SET ip = \'\' WHERE blockid = %int%', $_GET['blockid']);
         $func->confirmation(t('Die IPs dieses Plans wurden erfolgreich gelöscht'), 'index.php?mod=seating');
         break;
-} // switch
+}
