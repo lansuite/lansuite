@@ -1,10 +1,6 @@
 <?php
 /**
- * Show all new Servers in a Box
- *
- * @package lansuite_core
- * @author knox
- * @version $Id$
+ * Show all new servers in a box
  */
  
 include('modules/home/server.inc.php');

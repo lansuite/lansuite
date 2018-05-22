@@ -1,12 +1,17 @@
 <?php
 
 // 62.67.200.4 = Proxy IP of https://sslsites.de/lansuite.orgapage.de
-if ($_SERVER['HTTPS'] == 'on' or getenv(REMOTE_ADDR) == "62.67.200.4") {
+if ($_SERVER['HTTPS'] == 'on' || getenv(REMOTE_ADDR) == "62.67.200.4") {
     $where = "rotation AND ((pic_path != '' AND pic_path != 'http://') OR pic_path_banner != '') AND !ssl_hide_banner";
 } else {
     $where = "rotation AND ((pic_path != '' AND pic_path != 'http://') OR pic_path_banner != '')";
 }
-$banner = $db->qry_first("SELECT sponsorid, pic_path_banner, url, name
+$banner = $db->qry_first("
+  SELECT
+    sponsorid,
+    pic_path_banner,
+    url,
+    name
   FROM %prefix%sponsor
   WHERE %plain%
   ORDER BY RAND()", $where);
@@ -37,7 +42,7 @@ if (substr($file_name, 0, 12) == 'html-code://') {
 
     $code = '<img src="'. $file_name .'" border="1" width="468" height="60" class="img_border" title="'. $banner['name'] .'" alt="Sponsor Banner"/>';
 
-  // Link banner, if in online mode
+    // Link banner, if in online mode
     if ($cfg['sys_internet'] and $banner["sponsorid"]) {
         $code = '<a href="index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=banner&amp;sponsorid='. $banner["sponsorid"] .'" target="_blank">'. $code .'</a>';
     }

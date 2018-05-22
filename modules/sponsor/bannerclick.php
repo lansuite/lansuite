@@ -1,4 +1,5 @@
 <?php
+
 $get_banner = $db->qry_first("SELECT url FROM %prefix%sponsor WHERE sponsorid = %int%", $_GET['sponsorid']);
 
 if ($get_banner) {

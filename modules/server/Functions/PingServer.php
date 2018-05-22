@@ -1,15 +1,26 @@
 <?php
 
-function ping_server($host, $port)
+/**
+ * @param string $host
+ * @param int $port
+ * @return void
+ */
+function PingServer($host, $port)
 {
-    global $db, $func;
+    global $db, $func, $cfg;
 
     $cfg["server_ping_refresh"] = (int) $cfg["server_ping_refresh"];
-    $server_daten = $db->qry_first("SELECT UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(lastscan) AS idle, type, available, special_info
-   FROM %prefix%server
-   WHERE (ip = %string%) AND (port = %string%)
-   HAVING (idle > %int%)
-   ", $host, $port, $cfg["server_ping_refresh"]);
+    $server_daten = $db->qry_first("
+      SELECT
+        UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(lastscan) AS idle,
+        type,
+        available,
+        special_info
+      FROM %prefix%server
+      WHERE
+        (ip = %string%)
+        AND (port = %string%)
+      HAVING (idle > %int%)", $host, $port, $cfg["server_ping_refresh"]);
 
     if (rand(0, 2) == 0) {
         // Erreichbarkeit testen
@@ -20,27 +31,27 @@ function ping_server($host, $port)
         $available = $success;
 
         $special_info = "";
+
         // Weitere Daten für FTPs herrausfinden
         if (($success) && ($server_daten["type"] == "ftp")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
                 socket_set_blocking($fp, false);
                 socket_set_timeout($fp, 1, 500);
-            //Benutzernamen senden
+                // Benutzernamen senden
                 fputs($fp, "USER anonymous\r\n");
-            //Passwort senden
+                // Passwort senden
                 fputs($fp, "PASS erreichbarkeitstest@lansuite.de\r\n");
-            //In Pasivmode wechseln
+                // In Passivmode wechseln
                 fputs($fp, "PASV\r\n");
-            //System abfragen
+                // System abfragen
                 fputs($fp, "SYST\r\n");
-            //Verzeichnis auflisten
+                // Verzeichnis auflisten
                 fputs($fp, "LIST\r\n");
-            //Quit senden
+                // Quit senden
                 fputs($fp, "QUIT\r\n");
 
                 $res = fread($fp, 1000);
 
-            //Antwort auswerten
                 if ((strpos($res, "logged in") != 0) && (strpos($res, "230") != 0)) {
                     $special_info .= "<div class=\"tbl_green\">".t('Login als Anonymous erfolgreich')."</div>";
                 } else {
@@ -76,31 +87,26 @@ function ping_server($host, $port)
                 }
                 fclose($fp);
 
-                // Wenn Socketverbindung fehlgeschlagen
+            // Wenn Socketverbindung fehlgeschlagen
             } else {
                 $available=2;
                 $success=0;
-            // echo "$errstr ($errno)<br>\n";
             }
-        } // END: If Type=FTP
-
+        }
 
         // Weitere Daten für IRCs herrausfinden
         if (($success) && ($server_daten["type"] == "irc")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
                 socket_set_blocking($fp, false);
                 socket_set_timeout($fp, 1, 500);
-            //Ident senden
-            #fputs ($fp, "identify lansuite\r\n");
-            //Nick setzen
-            #fputs ($fp, "nick ls_script\r\n");
-            //Liste anfordern
+
+                // Liste anfordern
                 fputs($fp, "list\r\n");
-            //Verabschieden
+                // Verabschieden
                 fputs($fp, "quit done\r\n");
                 $res = fread($fp, 1000);
 
-            // Channel ausgeben
+                // Channel ausgeben
                 $special_info .= "<div class=\"tbl_black\"><u>".t('Channels').":</u></div>";
                 $channel=$res;
                 for ($channel_num=0; $channel_num<10; $channel_num++) {
@@ -111,13 +117,12 @@ function ping_server($host, $port)
                 }
                 fclose($fp);
 
-                // Wenn Socketverbindung fehlgeschlagen
+            // Wenn Socketverbindung fehlgeschlagen
             } else {
-                $available=2;
-                $success=0;
-            //echo "$errstr ($errno)<br>\n";
+                $available = 2;
+                $success = 0;
             }
-        } // END: If Type=IRC
+        }
 
         // Ergebins speichern
         if ($special_info =="") {
