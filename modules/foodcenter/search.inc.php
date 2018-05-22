@@ -1,10 +1,8 @@
 <?php
 
-use LanSuite\Module\Seating\Seat2;
-
 include_once('modules/usrmgr/search_main.inc.php');
 
-$seat2 = new Seat2();
+$seat2 = new \LanSuite\Module\Seating\Seat2();
 
 $ms2->AddTextSearchDropDown(t('Benutzertyp'), 'u.type', array('' => t('Alle'), '1' => t('Gast'), '!1' => 'Nicht Gast', '<0' => t('Gelöschte User'), '2' => t('Administrator'), '3' => t('Superadmin'), '2,3' => t('Orgas')));
 

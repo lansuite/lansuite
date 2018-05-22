@@ -333,8 +333,7 @@ if ($config['environment']['configured'] == 0) {
 // Initialize party
 // Needed also, when not configured for LanSuite Import
 if ($func->isModActive('party')) {
-    include_once("modules/party/class_party.php");
-    $party = new party();
+    $party = new \LanSuite\Module\Party\Party();
 
 // If without party-module: Just give a fake ID, for many modules need it
 } else {
@@ -450,8 +449,7 @@ unset($dsp);
 // Statistics will be updated only at scriptend, so pagesize and loadtime can be inserted
 if ($db->success) {
     // Statistic Functions (for generating server- and usage-statistics)
-    include_once("modules/stats/class_stats.php");
-    $stats = new stats();
+    $stats = new LanSuite\Module\Stats\Stats();
     unset($stats);
 
     // Check Cronjobs

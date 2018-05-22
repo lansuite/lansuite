@@ -8,7 +8,7 @@ $gd = new \LanSuite\GD();
  * @param int $id
  * @return bool
  */
-function Update($id)
+function UpdateUsrMgr($id)
 {
     global $mf, $db, $usrmgr, $func, $cfg;
 
@@ -132,7 +132,7 @@ function check_birthday($date)
  * @param string $clanpw
  * @return bool|string
  */
-function CheckClanPW($clanpw)
+function CheckClanPWUsrMgr($clanpw)
 {
     global $db, $auth;
 
@@ -343,7 +343,7 @@ function FieldNeeded($key)
  * @param string $key
  * @return int
  */
-function ShowField($key)
+function ShowFieldUsrMgr($key)
 {
     global $cfg;
 
@@ -374,10 +374,10 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             }
   
             if (!$quick_signon) {
-                if (ShowField('firstname')) {
+                if (ShowFieldUsrMgr('firstname')) {
                     $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
                 }
-                if (ShowField('lastname')) {
+                if (ShowFieldUsrMgr('lastname')) {
                     $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
                 }
                 $mf->AddGroup(t('Namen'));
@@ -452,7 +452,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
   
         if (!$DoSignon && !$quick_signon) {
             // Clan Options
-            if (ShowField('clan')) {
+            if (ShowFieldUsrMgr('clan')) {
                 if (!isset($_POST['clan'])) {
                     $users_clan = $db->qry_first("SELECT clanid FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
                     $_POST['clan'] = $users_clan['clanid'];
@@ -476,10 +476,10 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $db->free_result($clans_query);
 
                 $mf->AddField(t('Vorhandener Clan'), 'clan', \LanSuite\MasterForm::IS_SELECTION, $selections, Optional('clan'), '', 1, $PWClans);
-                $mf->AddField(t('Passwort'), 'clanpw', \LanSuite\MasterForm::IS_PASSWORD, '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckClanPW');
+                $mf->AddField(t('Passwort'), 'clanpw', \LanSuite\MasterForm::IS_PASSWORD, '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckClanPWUsrMgr');
                 $mf->AddField(t('Neuer Clan'), 'new_clan_select', 'tinyint(1)', '', \LanSuite\MasterForm::FIELD_OPTIONAL, '', 3);
                 $mf->AddField(t('Name'), 'clan_new', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckClanNotExists');
-                if (ShowField('clanurl')) {
+                if (ShowFieldUsrMgr('clanurl')) {
                     $mf->AddField(t('Webseite'), 'clanurl', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
                 }
                 $mf->AddField(t('Passwort'), 'newclanpw', \LanSuite\MasterForm::IS_NEW_PASSWORD, '', \LanSuite\MasterForm::FIELD_OPTIONAL);
@@ -488,23 +488,23 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
             // Leagues
             if ($func->isModActive('tournament2')) {
-                if (ShowField('wwcl_id')) {
+                if (ShowFieldUsrMgr('wwcl_id')) {
                     $mf->AddField(t('WWCL ID'), 'wwclid', '', '', Optional('wwclid'));
                 }
-                if (ShowField('ngl_id')) {
+                if (ShowFieldUsrMgr('ngl_id')) {
                     $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('nglid'));
                 }
-                if (ShowField('lgz_id')) {
+                if (ShowFieldUsrMgr('lgz_id')) {
                     $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgzid'));
                 }
                 $mf->AddGroup(t('Ligen'));
             }
 
             // Address
-            if (ShowField('street')) {
+            if (ShowFieldUsrMgr('street')) {
                 $mf->AddField('', 'street|hnr', \LanSuite\MasterForm::IS_CALLBACK, 'Addr1Input', Optional('street'));
             }
-            if (ShowField('city')) {
+            if (ShowFieldUsrMgr('city')) {
                 $mf->AddField('', 'plz|city', \LanSuite\MasterForm::IS_CALLBACK, 'Addr2Input', Optional('city'));
             }
 
@@ -521,43 +521,43 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             $mf->AddGroup(t('Adresse'));
 
             // Contact
-            if (ShowField('telefon')) {
+            if (ShowFieldUsrMgr('telefon')) {
                 $mf->AddField(t('Telefon'), 'telefon', '', '', Optional('telefon'));
             }
-            if (ShowField('handy')) {
+            if (ShowFieldUsrMgr('handy')) {
                 $mf->AddField(t('Handy'), 'handy', '', '', Optional('telefon'));
             }
-            if (ShowField('icq')) {
+            if (ShowFieldUsrMgr('icq')) {
                 $mf->AddField('ICQ', 'icq', '', '', Optional('icq'));
             }
-            if (ShowField('msn')) {
+            if (ShowFieldUsrMgr('msn')) {
                 $mf->AddField('MSN', 'msn', '', '', Optional('msn'));
             }
-            if (ShowField('xmpp')) {
+            if (ShowFieldUsrMgr('xmpp')) {
                 $mf->AddField('XMPP', 'xmpp', '', '', Optional('xmpp'));
             }
-            if (ShowField('skype')) {
+            if (ShowFieldUsrMgr('skype')) {
                 $mf->AddField('Skype', 'skype', '', '', Optional('skype'));
             }
             $mf->AddGroup(t('Kontakt'));
 
             // Misc (Perso + Birthday + Gender + Newsletter)
             if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
-                if (ShowField('perso')) {
+                if (ShowFieldUsrMgr('perso')) {
                     $mf->AddField(t('Personalausweis'), 'perso', \LanSuite\MasterForm::IS_CALLBACK, 'PersoInput', Optional('perso'));
                 }
-                if (ShowField('birthday')) {
+                if (ShowFieldUsrMgr('birthday')) {
                     $mf->AddField(t('Geburtstag'), 'birthday', '', '-80/-8', Optional('birthday'), 'check_birthday');
                 }
             }
-            if (ShowField('gender')) {
+            if (ShowFieldUsrMgr('gender')) {
                 $selections = array();
                 $selections['0'] = t('Keine Angabe');
                 $selections['1'] = t('Männlich');
                 $selections['2'] = t('Weiblich');
                 $mf->AddField(t('Geschlecht'), 'sex', \LanSuite\MasterForm::IS_SELECTION, $selections, Optional('gender'), 'check_opt_gender');
             }
-            if (ShowField('newsletter')) {
+            if (ShowFieldUsrMgr('newsletter')) {
                 $mf->AddField(t('Newsletter abonnieren'), 'newsletter', '', '', Optional('newsletter'));
             }
 
@@ -569,10 +569,10 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
             // AGB and Vollmacht, if new user
             if ((!$_GET['userid'] or $DoSignon) and $auth['type'] <= 1) {
-                if (ShowField('voll')) {
+                if (ShowFieldUsrMgr('voll')) {
                     $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich, die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.', "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name']), 'vollmacht', 'tinyint(1)');
                 }
-                if (ShowField('agb')) {
+                if (ShowFieldUsrMgr('agb')) {
                     ($cfg['signon_agb_targetblank']) ? $target = ' target="_blank"' : $target = '';
                     $mf->AddField(t('AGB bestätigen') .'|'. t('Hiermit bestätige ich die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und stimme ihnen zu.', '<a href="'. urldecode($cfg["signon_agblink"]) .'"'. $target .'>'. t('AGB') .'</a>', $_SESSION['party_info']['name']), 'agb', 'tinyint(1)');
                 }
@@ -636,7 +636,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
     }
 
     $AddUserSuccess = 0;
-    $mf->AdditionalDBUpdateFunction = 'Update';
+    $mf->AdditionalDBUpdateFunction = 'UpdateUsrMgr';
     if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $_GET['step'] .'&signon='. $_GET['signon'], 'user', 'userid', $_GET['userid'])) {
         // Log in new user
         if (!$auth['login']) {

@@ -1,7 +1,7 @@
 <?php
 
-$HANDLE["POLLID"]    = $_GET["pollid"];
-$HANDLE["STEP"]        = $_GET["step"];
+$HANDLE["POLLID"] = $_GET["pollid"];
+$HANDLE["STEP"]   = $_GET["step"];
 
 switch ($HANDLE["STEP"]) {
     default:
@@ -10,10 +10,9 @@ switch ($HANDLE["STEP"]) {
 
     case 2:
             $POLL = $db->qry_first("
-   SELECT caption
-   FROM %prefix%polls
-   WHERE pollid = %string%
-   ", $HANDLE[POLLID]);
+              SELECT caption
+              FROM %prefix%polls
+              WHERE pollid = %string%", $HANDLE['POLLID']);
 
         if (isset($POLL['caption'])) {
             $func->question(t('Wollen sie den Poll <b>%1</b> wirklich l&ouml;schen?', $POLL['caption']), "index.php?mod=poll&action=delete&step=3&pollid=" . $HANDLE["POLLID"], "index.php?mod=poll&action=delete");
@@ -23,10 +22,10 @@ switch ($HANDLE["STEP"]) {
         break;
 
     case 3:
-        $POLL = $db->qry_first("SELECT caption FROM %prefix%polls WHERE pollid = %string%", $HANDLE[POLLID]);
+        $POLL = $db->qry_first("SELECT caption FROM %prefix%polls WHERE pollid = %string%", $HANDLE['POLLID']);
 
         if (isset($POLL['caption'])) {
-            $DELETE = $db->qry("DELETE FROM %prefix%polls WHERE pollid = %string%", $HANDLE[POLLID]);
+            $DELETE = $db->qry("DELETE FROM %prefix%polls WHERE pollid = %string%", $HANDLE['POLLID']);
             if ($DELETE) {
                 $func->confirmation(t('Der Poll <b>%1</b> wurde gel&ouml;scht', $POLL['caption']), "index.php?mod=poll&action=delete");
             }

@@ -12,12 +12,10 @@ switch ($_GET["info"]) {
     case "sign_guest":
         $get_cur = $db->qry_first("SELECT count(userid) as n FROM %prefix%user WHERE type = 1");
         die($get_cur["n"]);
-
     break;
     
     case "paid_guest":
         $get_cur = $db->qry_first("SELECT count(userid) as n FROM %prefix%user WHERE type = 1 AND paid = 1");
         die($get_cur["n"]);
-    
     break;
 }

@@ -10,7 +10,7 @@ $seat2 = new Seat2();
  * @param int $userid
  * @return string
  */
-function SeatNameLink($userid)
+function SeatNameLinkUsrMgr($userid)
 {
     global $seat2;
 
@@ -36,7 +36,7 @@ function PaidIcon($paid)
  * @param string $clan_name
  * @return string
  */
-function ClanURLLink($clan_name)
+function ClanURLLinkUsrMgrSearch($clan_name)
 {
     global $line;
 
@@ -54,7 +54,7 @@ function ClanURLLink($clan_name)
  * @param string $price_text
  * @return string
  */
-function p_price($price_text)
+function p_priceUsrMgrUserSelect($price_text)
 {
     global $line, $cfg;
   
@@ -75,12 +75,12 @@ $ms2->AddTextSearchDropDown(t('Bezahltstatus'), 'p.paid', array('' => t('Alle'),
 $ms2->AddTextSearchDropDown(t('Geschlecht'), 'u.sex', array('' => t('Alle'), '0' => t('Geschlecht unbekannt'), '1' => t('ist männlich'), '2' => t('ist weiblich')));
 
 $ms2->AddSelect('c.url AS clanurl');
-$ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLink');
+$ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLinkUsrMgrSearch');
 $ms2->AddResultField('Bez.', 'p.paid', 'PaidIcon');
 $ms2->AddSelect('i.price');
-$ms2->AddResultField(t('Preis'), 'i.price_text', 'p_price');
+$ms2->AddResultField(t('Preis'), 'i.price_text', 'p_priceUsrMgrUserSelect');
 
-$ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLink');
+$ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLinkUsrMgr');
 
 $ms2->AddIconField('assign', $target_url, t('Zuweisen'));
 

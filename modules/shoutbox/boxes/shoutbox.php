@@ -1,11 +1,6 @@
 <?php
 /**
  * Ajax Shoutbox
- *
- * @package lansuite_core
- * @author maztah
- * @version $Id$
- * @todo Show picture without Comments
  */
 $framework->add_js_path("ext_scripts/jquery-plugins/jquery.form.js");
 if (!$auth['userid']) {
@@ -15,8 +10,8 @@ if (!$auth['userid']) {
 }
     
 $framework->add_js_code('var shoutdelay = '.$cfg['shout_delay'].';
-						 var maxcount = '.$cfg['shout_entries'].';');
-                         
+                        var maxcount = '.$cfg['shout_entries'].';');
+
 $smarty->assign("shoutuserid", $auth['userid']);
 $smarty->assign("shoutlength", $cfg['shout_length']);
 
