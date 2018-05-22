@@ -449,8 +449,7 @@ unset($dsp);
 // Statistics will be updated only at scriptend, so pagesize and loadtime can be inserted
 if ($db->success) {
     // Statistic Functions (for generating server- and usage-statistics)
-    include_once("modules/stats/class_stats.php");
-    $stats = new stats();
+    $stats = new LanSuite\Module\Stats\Stats();
     unset($stats);
 
     // Check Cronjobs

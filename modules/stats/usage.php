@@ -37,15 +37,20 @@ switch ($_GET['time']) {
 $dsp->AddSingleRow('<object data="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
   Dein Browser kann das Objekt leider nicht anzeigen!
 </object>');
-#  <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'>
 
 $dsp->AddDoubleRow("<b>Time</b>", "<b>Visits (Hits)</b>");
 
-$res = $db->qry("SELECT DATE_FORMAT(time, %string%) AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits, SUM(visits) AS visits FROM %prefix%stats_usage
-  WHERE DATE_FORMAT(time, %string%) = %string%
+$res = $db->qry("
+  SELECT
+    DATE_FORMAT(time, %string%) AS group_by_time,
+    UNIX_TIMESTAMP(time) AS display_time,
+    SUM(hits) AS hits,
+    SUM(visits) AS visits
+  FROM %prefix%stats_usage
+  WHERE
+    DATE_FORMAT(time, %string%) = %string%
   GROUP BY DATE_FORMAT(time, %string%)
-  ORDER BY DATE_FORMAT(time, %string%)
-", $group_by, $where, $_GET['timeframe'], $group_by, $group_by);
+  ORDER BY DATE_FORMAT(time, %string%)", $group_by, $where, $_GET['timeframe'], $group_by, $group_by);
 while ($row = $db->fetch_array($res)) {
     switch ($_GET['time']) {
         default:
@@ -69,7 +74,11 @@ while ($row = $db->fetch_array($res)) {
 $db->free_result($res);
 
 if ($where_back) {
-    $row_back = $db->qry_first("SELECT DATE_FORMAT(time, %string%) AS back_time FROM %prefix%stats_usage
-    WHERE DATE_FORMAT(time, %string%) = %string%", $where_back, $where, $_GET['timeframe']);
+    $row_back = $db->qry_first("
+      SELECT
+        DATE_FORMAT(time, %string%) AS back_time
+      FROM %prefix%stats_usage
+      WHERE
+        DATE_FORMAT(time, %string%) = %string%", $where_back, $where, $_GET['timeframe']);
     $dsp->AddBackButton('index.php?mod=stats&action=usage&time='. $back .'&timeframe='. $row_back['back_time'], "stats/usage");
 }

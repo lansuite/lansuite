@@ -15,13 +15,23 @@ if ($visits['insg'] > 0) {
 $dsp->AddDoubleRow(t('Seiten pro Besucher'), strval($pagesPerUser));
 
 $visit_timeout = time() - 60*60;
-$online = $db->qry_first("SELECT SUM(visits) AS insg FROM %prefix%stats_auth WHERE (lasthit > %int%)", $visit_timeout);
-$user_online = $db->qry("SELECT user.username
+$online = $db->qry_first("
+  SELECT
+    SUM(visits) AS insg
+  FROM %prefix%stats_auth
+  WHERE
+    (lasthit > %int%)", $visit_timeout);
+
+$user_online = $db->qry("
+  SELECT
+    user.username
   FROM %prefix%stats_auth AS auth
   LEFT JOIN %prefix%user AS user ON user.userid = auth.userid
-  WHERE (auth.lasthit > %int%)
+  WHERE
+    (auth.lasthit > %int%)
   ORDER BY auth.lasthit
   ", $visit_timeout);
+
 $user_list = "";
 while ($user = $db->fetch_array($user_online)) {
     $user_list .= $user["username"] . ", ";

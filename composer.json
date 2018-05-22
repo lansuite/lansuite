@@ -49,6 +49,7 @@
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
             "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
+            "LanSuite\\Module\\Stats\\": "modules/stats/Classes/",
             "LanSuite\\": "inc/Classes"
         },
         "files": [
