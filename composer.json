@@ -147,7 +147,9 @@
             "modules/server/Functions/PingServer.php",
             "modules/server/Functions/PWIcon.php",
             "modules/server/Functions/ServerStatus.php",
-            "modules/server/Functions/ServerType.php"
+            "modules/server/Functions/ServerType.php",
+            "modules/sponsor/Functions/RewriteFields.php",
+            "modules/sponsor/Functions/UploadFiles.php"
         ]
     }
 }
