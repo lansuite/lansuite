@@ -53,7 +53,7 @@ MultiSelectSecurityQuest = new Array({$security_questions});
 
 {if $MultiOptions != '' }
 <div class="content_head" align="left">
-<select name="action_select" onChange="javascript:change_selection(this, {$ms_number});">
+<select name="action_select" onChange="change_selection(this, {$ms_number});">
   <option value="">{$MultiCaption}</option>
   <optgroup label="Auswahl">
     <option value="select_all" style="background-image: url(design/images/icon_selection_all.png); background-repeat: no-repeat; height:16px;">Alle auswählen</option>

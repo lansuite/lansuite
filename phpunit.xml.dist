@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Settings that might be useful for the future
+
+ convertErrorsToExceptions="true"
+ convertNoticesToExceptions="true"
+ convertWarningsToExceptions="true"
+ -->
+<phpunit backupGlobals="true"
+         backupStaticAttributes="false"
+         colors="true"
+         bootstrap="vendor/autoload.php"
+         failOnRisky="true"
+         failOnWarning="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         syntaxCheck="true"
+         verbose="true"
+>
+    <testsuites>
+        <testsuite name="LanSuite Test Suite">
+            <directory suffix="Test.php">./tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <directory>./Tests</directory>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

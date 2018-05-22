@@ -6,5 +6,3 @@ $helplet['info'] = 'Hier können von den organisatoren Abstimmungen angelegt wer
 
 $helplet['key'][1] = '';
 $helplet['value'][1] = '';
-
-?>

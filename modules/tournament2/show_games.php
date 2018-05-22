@@ -1,25 +1,34 @@
 <?php
 
-function array_to_table($a){  
+use LanSuite\Module\Seating\Seat2;
+
+function array_to_table($a)
+{
     if (!empty($a)) {
-        function remove($var) { if ($var=='cellstyle') return FALSE; else return TRUE; }
+        function remove($var)
+        {
+            if ($var=='cellstyle') {
+                return false;
+            } else {
+                return true;
+            }
+        }
         $colums=array_filter(array_keys($a[0]), "remove");
-        $t='<div overflow:auto;"><table style="width:100%;" border="0" cellspacing="0" cellpadding="2">';  
-        $t.='<tr><th class="mastersearch2_result_row_key" style="border-bottom: 1px solid #000000;">'.implode('</th><th class="mastersearch2_result_row_key" style="border-bottom: 1px solid #000000;">', $colums).'</th></tr>';  
-        foreach($a as $row){  
+        $t='<div overflow:auto;"><table style="width:100%;" border="0" cellspacing="0" cellpadding="2">';
+        $t.='<tr><th class="mastersearch2_result_row_key" style="border-bottom: 1px solid #000000;">'.implode('</th><th class="mastersearch2_result_row_key" style="border-bottom: 1px solid #000000;">', $colums).'</th></tr>';
+        foreach ($a as $row) {
             $cellstyle = $row['cellstyle'];
             unset($row['cellstyle']);
-            $t.= '<tr><td style="border-bottom: 1px solid #000000;'.$cellstyle.'">'.implode('</td><td style="border-bottom: 1px solid #000000;'.$cellstyle.'">', $row).'</td></tr>';  
+            $t.= '<tr><td style="border-bottom: 1px solid #000000;'.$cellstyle.'">'.implode('</td><td style="border-bottom: 1px solid #000000;'.$cellstyle.'">', $row).'</td></tr>';
         }
         $t.='</table></div>';
     } else {
         $t = '';
     }
     return $t;
-}  
+}
 
-include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
+$seat2 = new Seat2();
 
 $tgames = $db->qry("SELECT games1.gameid AS gid1, games2.gameid AS gid2, teams1.name AS name1, 
         teams2.name AS name2, teams1.leaderid AS leaderid1, teams2.leaderid AS leaderid2, t.name AS tuname, 
@@ -49,10 +58,10 @@ WHERE ((games1.position / 2) = FLOOR(games1.position / 2))
     ORDER BY lastactivity ASC 
 ", $party->party_id);
 
-while ($tgamesrow = $db->fetch_array($tgames,1,MYSQLI_ASSOC)){
+while ($tgamesrow = $db->fetch_array($tgames, 1, MYSQLI_ASSOC)) {
     //d($tgamesrow);
     //$outputrow['Begegnung'] = "<b>".$tgamesrow['name1']."</b> vs <b>".$tgamesrow['name2']."</b>";
-    if (!($tgamesrow['modus']=="single" AND $tgamesrow['round']<0) AND !($tgamesrow['modus']=="all")) { // Workaround wegen Looserbraketeinträgen bei SingleElimination
+    if (!($tgamesrow['modus']=="single" and $tgamesrow['round']<0) and !($tgamesrow['modus']=="all")) { // Workaround wegen Looserbraketeinträgen bei SingleElimination
         $outall[] = $tgamesrow;
         //$outputrow['Spieler 1'] = $tgamesrow['name1'];
         $outputrow['Spieler/Team 1'] = $dsp->FetchUserIcon($tgamesrow['leaderid1'], "<b>".$tgamesrow['name1']."</b>") . " </br>". $seat2->SeatNameLink($tgamesrow['leaderid1'], '', '') ."";
@@ -62,30 +71,29 @@ while ($tgamesrow = $db->fetch_array($tgames,1,MYSQLI_ASSOC)){
         //$outputrow['Startzeit'] = $tgamesrow['lastactivity'];
         $tage = array("So", "Mo", "Di", "Mi", "Do", "Fr", "Sa");
         $outputrow['Startzeit'] = $tage[date('w', strtotime($tgamesrow['lastactivity']))]." ".date('H:i', strtotime($tgamesrow['lastactivity']));
-        $outputrow['Spielzeit+</br>Pause'] = $tgamesrow[game_duration]."+".$tgamesrow[break_duration]."min";        
+        $outputrow['Spielzeit+</br>Pause'] = $tgamesrow[game_duration]."+".$tgamesrow[break_duration]."min";
         $delay = (($tgamesrow['overtime2'])-($tgamesrow['overtime']))/60;
-        if ($delay>=120){
+        if ($delay>=120) {
             $outputrow['cellstyle'] = "background-color:#FF1000;";
             $outputrow['Überfällig'] = (floor($delay/60))."Std ".(floor($delay%60))."Min";
-        } elseif ($delay>=0 AND $delay<120){
+        } elseif ($delay>=0 and $delay<120) {
             $outputrow['cellstyle'] = "background-color:#BD7C85;";
             $outputrow['Überfällig'] = (floor($delay/60))."Std ".(floor($delay%60))."Min";
         } else {
             $outputrow['Überfällig'] = (ceil($delay/60))."Std ".(ceil($delay%60))."Min";
             $outputrow['cellstyle'] = "background-color:#00814A;";
         }
-        $outputrow['Akt.'] ="<div style=\"text-align:right;\">".$dsp->AddIcon('search', 'index.php?mod=tournament2&action=submit_result&step=1&tournamentid='.$tgamesrow['tid'].'&gameid1='.$tgamesrow['gid1'].'&gameid2='.$tgamesrow['gid2'])."</div>";
+        $outputrow['Akt.'] ="<div style=\"text-align:right;\">".$dsp->FetchIcon('search', 'index.php?mod=tournament2&action=submit_result&step=1&tournamentid=' . $tgamesrow['tid'] . '&gameid1=' . $tgamesrow['gid1'] . '&gameid2=' . $tgamesrow['gid2'])."</div>";
         $tgamestable[] = $outputrow;
     }
 }
 
 $dsp->NewContent(t('Aktuelle Turnierbegegnungen'), t('Aktuelle Turnierbegegnungen sortiert nach Zeit. Überfällige werden Rot markiert.'));
 
-if ($tgamestable==NULL){
-    $dsp->AddSingleRow("Aktuell keine Paarungen vorhanden."); 
+if ($tgamestable==null) {
+    $dsp->AddSingleRow("Aktuell keine Paarungen vorhanden.");
 } else {
-    $dsp->AddSingleRow(array_to_table($tgamestable)); 
+    $dsp->AddSingleRow(array_to_table($tgamestable));
 }
 
-$db->free_result($tgames);    
-?>
+$db->free_result($tgames);

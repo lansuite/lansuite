@@ -1,6 +1,6 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2('news');
+
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
 $ms2->query['from'] = "%prefix%news n LEFT JOIN %prefix%user u ON n.poster=u.userid";
 $ms2->query['default_order_by'] = 'DATE DESC';
@@ -17,8 +17,11 @@ $ms2->AddResultField(t('Autor'), 'u.username', 'UserNameAndIcon');
 $ms2->AddResultField(t('Datum'), 'UNIX_TIMESTAMP(n.date) AS date', 'MS2GetDate');
 
 $ms2->AddIconField('details', 'index.php?mod=news&action=comment&newsid=', t('Details'));
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
+if ($auth['type'] >= 2) {
+    $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
+}
+if ($auth['type'] >= 3) {
+    $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
+}
 
 $ms2->PrintSearch('index.php?mod=news&action=search', 'n.newsid');
-?>

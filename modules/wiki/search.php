@@ -1,6 +1,5 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2('wiki');
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('wiki');
 
 $ms2->query['from'] = "%prefix%wiki AS w
   LEFT JOIN %prefix%wiki_versions AS v ON w.postid = v.postid
@@ -18,7 +17,8 @@ $ms2->AddResultField(t('Letzer Autor'), 'u.username', 'UserNameAndIcon');
 $ms2->AddResultField(t('Letzte Änderung'), 'UNIX_TIMESTAMP(v.date) AS date', 'MS2GetDate');
 
 $ms2->AddIconField('details', 'index.php?mod=wiki&action=show&postid=', t('Details'));
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=wiki&action=delete&step=2&postid=', t('Löschen'));
+if ($auth['type'] >= 3) {
+    $ms2->AddIconField('delete', 'index.php?mod=wiki&action=delete&step=2&postid=', t('Löschen'));
+}
 
 $ms2->PrintSearch('index.php?mod=wiki&action=search', 'w.postid');
-?>

@@ -6,5 +6,3 @@ $helplet['info'] = 'Hier kannst du mit Stichworten nach Themen, bzw. Eintr&auml;
 
 $helplet['key'][1] = '';
 $helplet['value'][1] = '';
-
-?>

@@ -9,8 +9,8 @@ Class ASCII_Captcha
 		var $repset = array('*', "!", "~");
 		var $repset_count = 10;
 		var $parent;
-		
-		function ASCII_Captcha()
+
+		function __construct()
 			{
 				$fonts[0]['A'] = 
 "   ###    
@@ -437,19 +437,19 @@ Class ASCII_Captcha
 				return $return;
 			}
 		
-		function str_replace_left($search, $replace, $subject)
-			{
-          if ($serach == '') return $subject;
-			    if (($pos = @strpos($subject, $search)) !== FALSE)
-			 		{
-			     	   $ret = substr($subject, 0, $pos).$replace.substr($subject, $pos + strlen($search));
-					}
-			    else
-					{
-			     	   $ret = $subject;
-			   		};
-			    return $ret;
+		function str_replace_left($search, $replace, $subject) {
+			if ($search == '') {
+				return $subject;
 			}
+
+			if (($pos = @strpos($subject, $search)) !== FALSE) {
+				$ret = substr($subject, 0, $pos).$replace.substr($subject, $pos + strlen($search));
+			} else {
+				$ret = $subject;
+			}
+
+			return $ret;
+		}
 		
 		function str_replace_right($search, $replace, $subject)
 			{

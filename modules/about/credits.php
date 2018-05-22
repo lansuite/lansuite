@@ -33,7 +33,6 @@ $dsp->AddSingleRow('an alle aktiven User im Board<br />
 <a href="http://blog.one-network.org" target="_blank">OpenSource Intranet Blog (http://blog.one-network.org</a>)<br />
 an alle Dokuschreiber<br />
 <a href="http://lansuite-docu.orgapage.de" target="_blank">OpenSource Intranet Blog (http://lansuite-docu.orgapage.de</a>)<br />
-Lansurfer.com<br />
 Gigahertz Rent GmbH <br />
 WWCL (http://www.wwcl.de) <br />
 MySQL-Crew<br />
@@ -67,5 +66,3 @@ $dsp->AddSingleRow('PHP: <!--PHP-LINES-START-->51268<!--PHP-LINES-STOP--> php-co
 HTML: <!--HTML-LINES-START-->12156<!--HTML-LINES-STOP--> html-code lines and <!--HTML-CHARS-START-->455622<!--HTML-CHARS-STOP--> chars', 'align="center"');
 
 $dsp->AddBackButton("index.php?mod=about", "about/credits");
-$dsp->AddContent();
-?>

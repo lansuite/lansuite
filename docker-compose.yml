@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "8080:80"
+        volumes:
+            - .:/code
+            - ./.docker/nginx-development.conf:/etc/nginx/conf.d/default.conf
+    php:
+        image: lansuite/lansuite:latest
+        build:
+            context: .
+        volumes:
+            - .:/code
+            - ./.docker/nginx-php-flags.conf:/usr/local/etc/php-fpm.d/php-flags.conf
+    mysql:
+        image: mysql:5.6
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_DATABASE=lansuite
+

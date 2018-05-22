@@ -1,87 +1,121 @@
+# LANSuite - Web based LAN-Party Management System
 
-	Lansuite - Webbased LAN-Party Management System
-	-----------------------------------------------
-		
-	(c) 2001-2006 by One-Network.Org
-	
-	
-INSTALLATION
-============
-	
-	(1) Um Lansuite zu installieren stellen Sie zunächst sicher dass ein Webserver (z.B. Apache), 
-	ein MySQL-Server (Ab Version 4.0) sowie PHP (Ab Version 4.3) installiert sind. 
-	
-	(2) Danach kopieren Sie bitte alle Lansuite-Dateien in den "DocumentRoot" Ihres Webservers (oder einen Unterordner darin).
-	Bei den meisten Webservern heisst dieser Ordner "htdocs".
-	
-	(3) Nun öffnen Sie einen Browser und geben als Adresse die IP Nummer des Servers an, auf dem
-	Lansuite installiert wurde. Sollten dies der gleiche Rechner sein, an dem Sie den Browser geöffnet haben,
-	geben Sie bitte "http://127.0.0.1" ein.
-	
-	(4) Da Lansuite noch nicht konfiguriert ist,  werden Sie direkt zu einem Setup Assistenten weiter-
-	geleitet, der Sie durch die Konfiguration von Lansuite führt.
-	
-	Halten Sie dazu bitte die Daten Ihres MySQL-Servers (Server-Adresse - meist 127.0.0.1 -, Benutzername,
-	Passwort und Datenbank) bereit.
-	Wärend der Installation werden Sie des weiteren dazu aufgefordert, den Daten-Export aus LANsurfer
-	anzugeben, der anschließend importiert wird. Diesen können Sie direkt von der LANsurfer Website 
-	(http://www.lansurfer.de) kopieren.
-	
-	(5) Sowie die Installation abgeschlossen ist, kann Lansuite benutzt werden.
-	Jeder Gast/Orga dessen Rechner nun über ein Netzwerk mit dem Server verbunden ist, kann auf Lansuite 
-	zugreifen, indem er in einem Browser die IP Nummer des Server eingibt (z.B. http://192.168.1.1).
-	
+[![Build Status](https://travis-ci.org/lansuite/lansuite.svg?branch=master)](https://travis-ci.org/lansuite/lansuite)
 
-WEITERE HILFEN - ONLINE
-=======================
-	
-	Sollten Sie Probleme mit der Installation haben, oder weitere Fragen zum Arbeiten mit Lansuite haben, schauen Sie doch mal
-	im Online-Doku-Wiki unter http://lansuite-docu.orgapage.de vorbei. Hier steht dir eine inzwischen sehr ausführliche und
-	ständig aktuallisierte Dokumentation zu Lansuite bereit.
+LANSuite is a administration system for LAN-Parties based.
 
-	Falls Sie Fehler im System finden, oder Feature-Wünsche äußern möchten, so verwenden Sie dazu bitte unseren Bugtracker:
-  http://bugtracking.one-network.org
+*German version of this README*: Can be found at [README-DE.md](./README-DE.md).
 
-	Für Diskussionen und sonstige Fragen steht dir unser Board unter http://board.one-network.org zur Verfügung.
+## Features
 
+* Organisation of tournaments
+* Registration for parties
+* News- and messaging system
+* Projector support
+* Cash / Money management
+* Foodcenter
+* Hardware / Server inventory
+* Picture gallery
+* Seat plans
+* and many more ...
 
-SYSTEMVORAUSSETZUNGEN
-=====================
+## Requirements
 
-	Hardware
-	--------
-	
-		Je nach Anzahl der User variiert die Hardwarevoraussetzung.
-		Hier einge empfohlene Richtlinien:
-		
-		unter 100 User:	486 100 Mhz	 + (od. kompatibel)	- 64  MB Ram
-		ab 100 User:	Pentium 200 Mhz	 + (od. kompatibel)	- 64  MB Ram
-		ab 200 User:	Pentium 500 Mhz	 + (od. kompatibel)	- 128 MB Ram
-		ab 500 User:	Pentium 1000 Mhz + (od. kompatibel)	- 256 MB Ram
-		ab 1000 User:	Dual Pentium 800 Mhz + (od. kompatibel)	- 1024 MB Ram
-		
-		Diese Wert sind reine Schätzungen und beruhen noch nicht auf Messwerten! Es kann daher keinerlei 
-		Verantwortung für diese Empfehlungen übernommen werden.
-		
-		! Ab einer Usergrenze von 500 Usern ist es dringend empfehlenswert die Datenbank (MySQL-Server) 
-		! auf einen seperaten Server auszulagern.
-	
-	Software
-	--------
-	
-		Empfohlene Betriebssysteme: Linux, FreeBSD, OpenBSD, Solaris9+, Microsoft Windows NT 4.0+, Windows 2000,  
-								Windows .net Server, 
-		
-		- PHP kompatibler Webserver. Empfohlen: Apache ab Version 1.3
-		- MySQL ab Version 3.2
-		- PHP ab Version 4.3+
-		- PHP Module: 
-			- FTP
-			- SNMP
-			- GD-LIBRARY (mit Freetype2-Support)
-	
-	Sonstiges
-	---------
-	
-		Um das Lansuite Modul "Downloads" nutzen zu können muss ein FTP-Server auf einem von dem Webserver 
-		verschiedenen Server installiert sein.
+* >= PHP 7 (with `mysqli`, `snmp` and `gd` extensions)
+* >= MySQL 5.6.3
+
+## Installation
+
+### Docker
+
+We assume that you have a running [Docker Community Edition](https://www.docker.com/community-edition) installed.
+
+```
+$ git clone https://github.com/lansuite/lansuite.git
+$ cd lansuite
+$ touch ./inc/base/config.php
+$ # Add the content of the example configuration file below into ./inc/base/config.php
+$ chmod 0777 ./inc/base/config.php
+$ chmod -R 0777 ./ext_inc/
+$ docker-compose up
+$ docker-compose run php composer install
+```
+
+This will start a [Nginx webserver](https://nginx.org/) with a [php-fpm](https://secure.php.net/manual/en/install.fpm.php) configuration and a [MySQL database](https://www.mysql.com/) for you.
+After everything started you should be able to visit http://`<Your-Docker-IP>`:8080/ and see a running LanSuite-System.
+
+*Warning*: This Docker setup should not be used for production. It contains a debugging setup like [Xdebug](https://xdebug.org/).
+
+### Docker with a database dump
+
+If you have already a running website based on LanSuite, you can also start a docker based setup with a copy of your database.
+It comes handy to test the new features with your dataset.
+
+This guide assumes that you have already a copy of your database in a single SQL file.
+If you don't have one, you can create one with tools like [mysqldump](https://dev.mysql.com/doc/refman/5.7/en/mysqldump-sql-format.html), [PHPMyAdmin](https://www.phpmyadmin.net/) or ask your hoster for a copy.
+
+Move your database dump into the root folder of LanSuite and name it `database-dump.sql`:
+
+```
+$ mv /your/db/dump.sql /lansuite/copy/database-dump.sql
+```
+
+After this, you can start the [docker-compose](https://docs.docker.com/compose/) setup via
+
+```
+$ docker-compose -f docker-compose.yml -f docker-compose.dump.yml up
+```
+
+### Configuration file
+
+An example configuration file looks like:
+
+```ini
+[lansuite]
+version=Nightly
+default_design=simple
+chmod_dir=777
+chmod_file=666
+debugmode=0
+
+[database]
+server=mysql
+user=root
+passwd=
+database=lansuite
+prefix=ls_
+charset=utf8
+```
+
+**Warning**: Setting directories to `0777` is not suggested for production. Only your webserver user should be able to write into this directory.
+
+## Development
+
+### Contribution Guide
+
+Checkout how to contribute in our [Contribution Guide](./CONTRIBUTING.md).
+
+### Language
+
+Main language of this project is english.
+We also support issues and pull requests in german.
+The reason is that LANSuite is a quite old system and a massive userbase only speaks german.
+To not loose them, we will support both languages.
+See [Switch language of documentation, development, communication to english #2](https://github.com/lansuite/lansuite/issues/2) for more details.
+
+### Coding style guide
+
+This project follows the coding guideline standards:
+
+* [PSR-1: Basic Coding Standard](http://www.php-fig.org/psr/psr-1/)
+* [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/)
+
+### Generating API docs
+
+Former versions of LANSuite bundled an API documentation in the `docs/` folder.
+To generate an API documentation in a HTML-Version you can use [phpDocumentor](https://www.phpdoc.org/):
+
+```
+$ composer install
+$ bin/phpdoc run --progressbar -t ./docs/
+```

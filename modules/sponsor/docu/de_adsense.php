@@ -54,5 +54,3 @@ google_cpa_choice = "CAAQ1cHz_gEaCHQrpbiHwtdkKKGJ4YcB";
 </script>
 <br>
 <br>';
-
-?>

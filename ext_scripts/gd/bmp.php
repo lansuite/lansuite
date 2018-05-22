@@ -22,7 +22,7 @@
 *           Returns: if $file specified - true if OK
                      if $file not specified - image data
 */
-function imagebmp($img,$file="",$RLE=0)
+function imagebmpLanSuite($img,$file="",$RLE=0)
 {
 
 
@@ -200,7 +200,7 @@ $ret.=$retd;
 *            Returns: Image ID
 */
 
-function imagecreatefrombmp($file)
+function imagecreatefrombmpLanSuite($file)
 {
 global  $CurrentBit, $echoMode;
 

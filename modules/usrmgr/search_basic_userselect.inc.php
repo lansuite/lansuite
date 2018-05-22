@@ -1,38 +1,69 @@
 <?php
+
+use LanSuite\Module\Seating\Seat2;
+
 include_once('modules/usrmgr/search_main.inc.php');
 
-include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
+$seat2 = new Seat2();
 
-function SeatNameLink($userid){
-  global $seat2;
+/**
+ * @param int $userid
+ * @return string
+ */
+function SeatNameLinkUsrMgr($userid)
+{
+    global $seat2;
 
-  return $seat2->SeatNameLink($userid);
+    return $seat2->SeatNameLink($userid);
 }
 
-function PaidIcon($paid){
-  global $dsp;
+/**
+ * @param boolean $paid
+ * @return string
+ */
+function PaidIcon($paid)
+{
+    global $dsp;
 
-  if ($paid) return $dsp->FetchIcon('', 'paid', t('Bezahlt'));
-  else return $dsp->FetchIcon('', 'not_paid', t('Nicht bezahlt'));
+    if ($paid) {
+        return $dsp->FetchIcon('paid', '', t('Bezahlt'));
+    } else {
+        return $dsp->FetchIcon('not_paid', '', t('Nicht bezahlt'));
+    }
 }
 
-function ClanURLLink($clan_name) {
-  global $line;
+/**
+ * @param string $clan_name
+ * @return string
+ */
+function ClanURLLinkUsrMgrSearch($clan_name)
+{
+    global $line;
 
-  if ($clan_name != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
-    if (substr($line['clanurl'], 0, 7) != 'http://') $line['clanurl'] = 'http://'. $line['clanurl'];
-    return '<a href="'. $line['clanurl'] .'" target="_blank">'. $clan_name .'</a>';
-  } else return $clan_name;
+    if ($clan_name != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
+        if (substr($line['clanurl'], 0, 7) != 'http://') {
+            $line['clanurl'] = 'http://'. $line['clanurl'];
+        }
+        return '<a href="'. $line['clanurl'] .'" target="_blank">'. $clan_name .'</a>';
+    } else {
+        return $clan_name;
+    }
 }
 
-function p_price($price_text) {
-  global $line, $cfg;
+/**
+ * @param string $price_text
+ * @return string
+ */
+function p_priceUsrMgrUserSelect($price_text)
+{
+    global $line, $cfg;
   
-  if ($line['price']) return $price_text .' ('. $line['price'] .' '. $cfg['sys_currency'] .')';
-  else return $price_text;
+    if ($line['price']) {
+        return $price_text .' ('. $line['price'] .' '. $cfg['sys_currency'] .')';
+    } else {
+        return $price_text;
+    }
 }
-
 
 $ms2->query['where'] = $additional_where;
 
@@ -44,14 +75,13 @@ $ms2->AddTextSearchDropDown(t('Bezahltstatus'), 'p.paid', array('' => t('Alle'),
 $ms2->AddTextSearchDropDown(t('Geschlecht'), 'u.sex', array('' => t('Alle'), '0' => t('Geschlecht unbekannt'), '1' => t('ist männlich'), '2' => t('ist weiblich')));
 
 $ms2->AddSelect('c.url AS clanurl');
-$ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLink');
+$ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLinkUsrMgrSearch');
 $ms2->AddResultField('Bez.', 'p.paid', 'PaidIcon');
 $ms2->AddSelect('i.price');
-$ms2->AddResultField(t('Preis'), 'i.price_text', 'p_price');
+$ms2->AddResultField(t('Preis'), 'i.price_text', 'p_priceUsrMgrUserSelect');
 
-$ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLink');
+$ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLinkUsrMgr');
 
 $ms2->AddIconField('assign', $target_url, t('Zuweisen'));
 
 $ms2->PrintSearch($current_url, 'u.userid');
-?>
