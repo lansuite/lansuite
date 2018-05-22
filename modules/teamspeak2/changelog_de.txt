@@ -1,9 +1,0 @@
-Version 0.2 Beta - 15.05.2007
-- Server Infos hinzugefügt (Traffic, Uptime, User online)
-- Serverpasswort kann wieder in der Modul-Konfig eingetragen werden
-
-Version 0.1 Beta - 25.04.2007
-- SubChannels werden nun dort angezeigt, wo sie hingehören
-- Hintergrundfarbe der TeamSpeak Tabelle kann angepasst werden
-- beim klick auf einen Channel kann direkt auf den Server connectet werden (incl. Nickname eintragen, Channel PW und/oder Server PW)
-- Autorefresh-Funktion an-/abschaltbar für jeden User
