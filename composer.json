@@ -49,7 +49,9 @@
             "LanSuite\\Module\\Party\\": "modules/party/Classes/",
             "LanSuite\\Module\\PayPal\\": "modules/paypal/Classes/",
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
+            "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
+            "LanSuite\\Module\\Stats\\": "modules/stats/Classes/",
             "LanSuite\\": "inc/Classes"
         },
         "files": [
@@ -130,7 +132,27 @@
             "modules/partylist/Functions/AddSignonStatus.php",
             "modules/partylist/Functions/EditAllowed.php",
             "modules/partylist/Functions/GetSite.php",
-            "modules/partylist/Functions/NameAndMotto.php"
+            "modules/partylist/Functions/NameAndMotto.php",
+            "modules/picgallery/Functions/IsPackage.php",
+            "modules/picgallery/Functions/IsSupportedType.php",
+            "modules/picgallery/Functions/IsSupportedVideo.php",
+            "modules/picgallery/Functions/RecursiveRemoveDirectory.php",
+            "modules/poll/Functions/GetPollStatus.php",
+            "modules/poll/Functions/UpdatePoll.php",
+            "modules/popups/Functions/GetLinks.php",
+            "modules/rent/Functions/RentCount.php",
+            "modules/seating/Functions/SeatLoad.php",
+            "modules/seating/Functions/SeatsAvailable.php",
+            "modules/seating/Functions/SeatsOccupied.php",
+            "modules/server/Functions/CheckIP.php",
+            "modules/server/Functions/CheckMAC.php",
+            "modules/server/Functions/CheckPort.php",
+            "modules/server/Functions/PingServer.php",
+            "modules/server/Functions/PWIcon.php",
+            "modules/server/Functions/ServerStatus.php",
+            "modules/server/Functions/ServerType.php",
+            "modules/sponsor/Functions/RewriteFields.php",
+            "modules/sponsor/Functions/UploadFiles.php"
         ]
     }
 }

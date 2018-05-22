@@ -1,27 +1,5 @@
 <?php
 
-function recursiveRemoveDirectory($dir)
-{
-    $dir = str_replace('\\', '/', $dir);
-    $dir = str_replace('/..', '', $dir);
-
-    if (is_dir($dir)) {
-        $ResDir = opendir($dir);
-        while ($file = readdir($ResDir)) {
-            if ($file != '.' and $file != '..') {
-                if (is_dir("$dir/$file")) {
-                    recursiveRemoveDirectory("$dir/$file");
-                } elseif (file_exists("$dir/$file")) {
-                    unlink("$dir/$file");
-                }
-            }
-        }
-        closedir($ResDir);
-    }
-    rmdir($dir);
-}
-
-
 if (!$_GET["file"]) {
     $_GET["file"] = "/";
 }
@@ -30,7 +8,6 @@ $db_dir = substr($_GET["file"], 1, strlen($_GET["file"]));
 $akt_file = substr($_GET["file"], strrpos($_GET["file"], '/') + 1, strlen($_GET["file"]));
 $root_dir = "ext_inc/picgallery". $akt_dir;
 $root_file = "ext_inc/picgallery". $_GET["file"];
-
 
 $pic = $db->qry_first("SELECT caption FROM %prefix%picgallery WHERE name = %string%", $db_dir);
 if (!$pic['caption']) {
@@ -53,7 +30,7 @@ switch ($_GET["step"]) {
         $func->confirmation(t('Das Bild <b>%1 (%2)</b> wurde gel&ouml;scht', $pic['caption'], $_GET["file"]), "index.php?mod=picgallery&file=$akt_dir");
         break;
     
-  // Delete directory
+    // Delete directory
     case 10:
         $func->question(
             t('Möchtest du dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!'),

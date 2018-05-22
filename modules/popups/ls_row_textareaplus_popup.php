@@ -1,4 +1,5 @@
 <?php
+
 $dsp->NewContent('Zeichen anklicken, um es ins Textfeld einzufügen');
 
 $smilie = $db->qry("SELECT shortcut, image FROM %prefix%smilies");

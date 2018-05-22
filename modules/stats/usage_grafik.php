@@ -54,10 +54,14 @@ switch ($_GET['time']) {
 }
 
 // Select max
-$res = $db->qry("SELECT SUM(hits) AS hits, SUM(visits) AS visits FROM %prefix%stats_usage
-  WHERE DATE_FORMAT(time, %string%) = %string%
-  GROUP BY DATE_FORMAT(time, %string%)
-    ", $where, $_GET['timeframe'], $group_by);
+$res = $db->qry("
+  SELECT
+    SUM(hits) AS hits,
+    SUM(visits) AS visits
+  FROM %prefix%stats_usage
+  WHERE
+    DATE_FORMAT(time, %string%) = %string%
+  GROUP BY DATE_FORMAT(time, %string%)", $where, $_GET['timeframe'], $group_by);
 while ($row = $db->fetch_array($res)) {
     if ($row_max['hits'] < $row['hits']) {
         $row_max['hits'] = $row['hits'];
@@ -91,11 +95,18 @@ for ($y = 0; $y < 280; $y+= (280 / 14)) {
 
 
 // Select hits + visits
-$res = $db->qry("SELECT DATE_FORMAT(time, %string%) AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits, SUM(visits) AS visits FROM %prefix%stats_usage
-  WHERE DATE_FORMAT(time, %string%) = %string%
+$res = $db->qry("
+  SELECT
+    DATE_FORMAT(time, %string%) AS group_by_time,
+    UNIX_TIMESTAMP(time) AS display_time,
+    SUM(hits) AS hits,
+    SUM(visits) AS visits
+  FROM %prefix%stats_usage
+  WHERE
+    DATE_FORMAT(time, %string%) = %string%
   GROUP BY DATE_FORMAT(time, %string%)
-  ORDER BY DATE_FORMAT(time, %string%)
-", $group_by, $where, $_GET['timeframe'], $group_by, $group_by);
+  ORDER BY DATE_FORMAT(time, %string%)", $group_by, $where, $_GET['timeframe'], $group_by, $group_by);
+
 $X = 50;
 $Y = 280;
 $Y2 = 280;
@@ -108,11 +119,7 @@ while ($row = $db->fetch_array($res)) {
     $Y2 = 280 - (($row["hits"] / $row_max['hits']) * 280);
     echo '<polyline points="'. $lastX .' '. $lastY .'  '. $X .' '. $Y .'" stroke="#990000" stroke-width="3px"/>';
     echo '<polyline points="'. $lastX .' '. $lastY2 .'  '. $X .' '. $Y2 .'" stroke="#009900" stroke-width="3px"/>';
-
-#  echo '<text x="400" y="20" fill="blue">Debug: '. $row_max['hits'] .'</text>';
 }
 $db->free_result($res);
-
-
 ?>
 </svg>

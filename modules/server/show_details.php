@@ -1,18 +1,22 @@
 <?php
 $serverid = $_GET["serverid"];
 
-$server = $db->qry_first("SELECT a.*, b.userid, b.username
+$server = $db->qry_first("
+  SELECT
+    a.*,
+    b.userid,
+    b.username
   FROM %prefix%server AS a
   LEFT JOIN %prefix%user AS b ON a.owner = b.userid
-  WHERE serverid = %int%
-  ", $serverid);
+  WHERE
+    serverid = %int%", $serverid);
      
 if ($server == "") {
     $func->error(t('Der von dir aufgerufene Server existiert nicht'), "index.php?mod=server&action=show");
 } else {
     $func->SetRead('server', $_GET["serverid"]);
 
-    //Just show details if the user is not adding, deleting or chaning his comment
+    // Just show details if the user is not adding, deleting or chaning his comment
     if ($_GET["mcact"] == "" || $_GET["mcact"] == "show") {
         $dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite diehst du alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangst du zur Übersicht zur&uuml;ck', $server["caption"]));
 
@@ -29,11 +33,18 @@ if ($server == "") {
 
         // Wenn Intranetversion, Servererreichbarkeit testen
         if ($cfg["sys_internet"] == 0 and (!get_cfg_var("safe_mode"))) {
-            include_once("modules/server/ping_server.inc.php");
-            ping_server($server["ip"], $server["port"]);
+            PingServer($server["ip"], $server["port"]);
 
             // Gescannte Daten neu auslesen
-            $server_scan = $db->qry_first('SELECT special_info, available, success, scans, UNIX_TIMESTAMP(lastscan) AS lastscan from %prefix%server WHERE serverid = %int%', $serverid);
+            $server_scan = $db->qry_first('
+              SELECT
+                special_info,
+                available,
+                success,
+                scans,
+                UNIX_TIMESTAMP(lastscan) AS lastscan
+              FROM %prefix%server
+              WHERE serverid = %int%', $serverid);
 
             ($server_scan["available"] == 1) ?
                 $serverstatus = "<div class=\"tbl_green\">".t('Dienst erreichbar')."</div>" : $serverstatus = "<div class=\"tbl_red\">".t('Dienst nicht ereichbar')."</div>";
@@ -90,11 +101,8 @@ if ($server == "") {
         $dsp->AddBackButton("index.php?mod=server&action=show", "server/show");
     }
 
-    // Including comment-engine
     if ($auth['login'] == 1) {
         new \LanSuite\MasterRate('server', $_GET['serverid']);
-
         new \LanSuite\MasterComment('server', $_GET['serverid'], array('server' => 'serverid'));
     }
-    //End comment-engine
 }

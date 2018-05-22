@@ -1,23 +1,6 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		0.3
-*	Filename: 			add.php
-*	Module: 			anmeldung
-*	Main editor: 		webmaster@ewep.de
-*	Last change: 		10.09.2003 13:31
-*	Description: 		Anmeldung für neue Benutzer
-*	Remarks:
-*
-**************************************************************************/
 
-// DEFINE GET/POST VARS:
-$step        = $_GET['step'];
-
-
+$step = $_GET['step'];
 switch ($step) {
     default:
         $dsp->NewContent(t('Zur LAN-Party <b>%1</b> anmelden', $cfg["sys_lanpartyname"]), str_replace("%NAME%", $cfg["sys_lanpartyname"], t('Bitte fülle die folgenden Felder sorgfälltig aus')));
