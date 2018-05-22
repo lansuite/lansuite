@@ -29,7 +29,8 @@
         "bin-dir": "bin"
     },
     "suggest": {
-        "ext-snmp": "Required to use the \"Network Operation Center\" module."
+        "ext-snmp": "Required to use the \"Network Operation Center\" module.",
+		"planetteamspeak/ts3-php-framework":"Required to use the TeamSpeak3 module"
     },
     "autoload": {
         "psr-4": {
@@ -50,6 +51,7 @@
             "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
             "LanSuite\\Module\\Stats\\": "modules/stats/Classes/",
+			"LanSuite\\Module\\TeamSpeak3\\": "modules/teamspeak3/Classes/",
             "LanSuite\\": "inc/Classes"
         },
         "files": [

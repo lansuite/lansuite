@@ -66,8 +66,6 @@ function TS3BuildServerLink($channel_ID='',$channel_password=''){
  */
 function TS3GenerateCacheFile($cache_file){
     global $cfg;
-    // Load the Teamspeak3 PHP Framework:
-    include_once("ext_scripts/teamspeak3/libraries/TeamSpeak3/TeamSpeak3.php");
     //create object
     $TS3 = TeamSpeak3::factory("serverquery://" . /*$settings['serverqueryuser'].':'.$settings['serverquerypassword'].'@'.*/ $cfg['ts3_serveraddress']. ':' . $cfg['ts3_serverqueryport']/* . '/?server_port=' . $settings["serverudpport"]*/);
     $TS3->serverSelectById(1); //select VirtualServer
@@ -92,11 +90,6 @@ function TS3ShowOverview(){
     $dsp->AddContent();
     $dsp->AddSingleRow(ob_get_contents());
     ob_end_clean(); 
-    
-    
-    //   $TS3_server= $TS3->serverGetSelected();
-    //    $TS3_tournament_channel = $TS3_server->channelGetByName($settings["tournamentchannel"]);
-    //    echo $TS3_tournament_channel->getUniqueId();
 }    
 
 TS3ShowOverview();
