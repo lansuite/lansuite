@@ -469,7 +469,7 @@ class TeamspeakDisplayClass
             echo("	}\n");
             echo("	serveraddress = serveraddress + \"/nickname=\" + escape(nickname);\n");
             if (($serverInfo["serverinfo"]["server_password"] == "1") and ($cfg['serverpassword'] == null)) {
-                echo("	var password=window.prompt('".t('Teamspeak Server Passwort eintragen f�r')." " . $serverInfo["serverinfo"]["server_name"] . "', '');\n");
+                echo("	var password=window.prompt('".t('Teamspeak Server Passwort eintragen für')." " . $serverInfo["serverinfo"]["server_name"] . "', '');\n");
                 echo("	if (password == null) {\n");
                 echo("		return;\n");
                 echo("	} else if (password == \"\") {\n");
@@ -487,7 +487,7 @@ class TeamspeakDisplayClass
             }
             echo("	if (channelName != null) { serveraddress = serveraddress + \"?channel=\" + escape(channelName); }\n");
             echo("	if (channelPassworded) {\n");
-            echo("		var channelpassword=window.prompt('".t('Channel Passwort eintragen f�r')." ' + channelName, '');\n");
+            echo("		var channelpassword=window.prompt('".t('Channel Passwort eintragen für')." ' + channelName, '');\n");
             echo("		if (channelpassword == null) {\n");
             echo("			return;\n");
             echo("		} else if (channelpassword == \"\") {\n");
