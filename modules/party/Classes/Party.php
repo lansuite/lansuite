@@ -7,17 +7,17 @@ class Party
     /**
      * @var int
      */
-    private $party_id = 0;
+    public $party_id = 0;
 
     /**
      * @var int
      */
-    private $count = 0;
+    public $count = 0;
 
     /**
      * @var array
      */
-    private $data = [];
+    public $data = [];
 
     public function __construct()
     {
