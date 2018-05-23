@@ -81,8 +81,7 @@ class GuestList
     {
         global $db, $cfg, $func;
 
-        include_once("modules/mail/class_mail.php");
-        $mail = new mail();
+        $mail = new \LanSuite\Module\Mail\Mail();
 
         $Messages = array('success' => '', 'error' => '');
         $db->qry('UPDATE %prefix%party_user SET paid = 0, paiddate = "" WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);

@@ -744,7 +744,7 @@ class MasterForm
                                                     $this->FCKeditorID++;
                                                     ob_start();
                                                     include_once("ext_scripts/FCKeditor/fckeditor.php");
-                                                    $oFCKeditor = new FCKeditor('FCKeditor'. $this->FCKeditorID) ;
+                                                    $oFCKeditor = new \FCKeditor('FCKeditor'. $this->FCKeditorID) ;
                                                     $oFCKeditor->BasePath = 'ext_scripts/FCKeditor/';
                                                     $oFCKeditor->Config["CustomConfigurationsPath"] = "../myconfig.js"  ;
                                                     $oFCKeditor->Value = $func->AllowHTML($_POST[$field['name']]);
