@@ -92,9 +92,7 @@ class MasterComment {
                 if ($mf->SendForm('', 'comments', 'commentid', $_GET['commentid'])) {
                     // Send email-notifications to thread-subscribers
                     // TODO Remove dependency to module. LanSuite core classes should not have dependencies to modules.
-                    include_once("modules/mail/class_mail.php");
-                    $mail = new mail();
-
+                    $mail = new \LanSuite\Module\Mail\Mail();
                     // Internet-Mail
                     $subscribers = $db->qry('
                       SELECT b.userid, u.firstname, u.name, u.email

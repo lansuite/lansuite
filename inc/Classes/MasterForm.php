@@ -865,7 +865,7 @@ class MasterForm
                                             // Captcha-Row
                                             case self::IS_CAPTCHA:
                                                 include_once('ext_scripts/ascii_captcha.class.php');
-                                                $captcha = new ASCII_Captcha();
+                                                $captcha = new \ASCII_Captcha();
                                                 $data = $captcha->create($text);
                                                 $_SESSION['captcha'] = $text;
                                                 $dsp->AddDoubleRow(t('Bitte gib diesen Text unterhalb ein'), "<pre style='font-size:8px;'>$data</pre>");
