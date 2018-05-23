@@ -379,15 +379,18 @@ class Party
         $db->qry("DELETE FROM %prefix%party_usergroups WHERE group_id=%string%", $del_group);
     }
 
-    public function getPartyId() {
+    public function getPartyId()
+    {
         return $this->party_id;
     }
 
-    public function getRegistrationCount() {
+    public function getRegistrationCount()
+    {
         return $this->count;
     }
 
-    public function getPartyData($field = null) {
+    public function getPartyData($field = null)
+    {
         if (isset($field)) {
             return $this->data[$field];
         }
