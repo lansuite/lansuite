@@ -19,7 +19,7 @@ class MasterComment {
 
         // Delete comments
         if ($_GET['mc_step'] == 10) {
-            $md = new masterdelete();
+            $md = new MasterDelete();
             $md->LogID = $id;
             $md->Delete('comments', 'commentid', $_GET['commentid']);
             unset($_GET['commentid']);
@@ -71,7 +71,7 @@ class MasterComment {
             }
 
             if (!$_GET['commentid'] || ($row['creatorid'] && $row['creatorid'] == $auth['userid']) || $auth['type'] >= 2) {
-                $mf = new masterform();
+                $mf = new MasterForm();
                 $mf->LogID = $id;
 
                 $mf->AddField(t('Kommentar'), 'text', '', masterform::LSCODE_BIG);
