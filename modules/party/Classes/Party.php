@@ -12,12 +12,12 @@ class Party
     /**
      * @var int
      */
-    public $count = 0;
+    private $count = 0;
 
     /**
      * @var array
      */
-    public $data = [];
+    private $data = [];
 
     public function __construct()
     {
@@ -230,7 +230,7 @@ class Party
             $query .= "seatcontrol = {$seatcontrol},";
         }
 
-        $query .= "	checkin = {$checkin},
+        $query .= " checkin = {$checkin},
                     checkout = {$checkout}
                     WHERE user_id = {$user_id} AND
                     party_id = {$this->party_id}";
@@ -377,5 +377,19 @@ class Party
         global $db;
         $db->qry("UPDATE %prefix%user  SET group_id=%string% WHERE group_id=%string%", $set_group, $del_group);
         $db->qry("DELETE FROM %prefix%party_usergroups WHERE group_id=%string%", $del_group);
+    }
+    
+    public function getPartyId(){
+        return $this->party_id;
+    }
+    
+    public function getRegistrationCount(){
+        return $this->count;
+    }
+    public function getPartyData($field=NULL){
+        if (isset($field)){
+            return $this->data[$field];
+        }
+        return $this->data;
     }
 }

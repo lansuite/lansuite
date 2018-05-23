@@ -160,7 +160,7 @@ if (!$user_data['userid']) {
     }
 
     // Party Checkin, paid, ...
-    if ($party->count > 0) {
+    if ($party->getRegistrationCount() > 0) {
         $clan = '<table width="100%"><tr><td>';
         $party_row = '';
         $link = '';

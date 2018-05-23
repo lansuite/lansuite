@@ -7,7 +7,7 @@ function PartyAvailible()
 {
     global $party;
 
-    if ($party->count > 0) {
+    if ($party->getRegistrationCount() > 0) {
         return 1;
     }
 

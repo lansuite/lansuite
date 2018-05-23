@@ -3,7 +3,7 @@
 if (!$_GET['party_id']) {
     $_GET['party_id'] = $party->party_id;
 }
-$dsp->AddDoubleRow('Party', $party->data['name']);
+$dsp->AddDoubleRow('Party', $party->getPartyData('name'));
 
 switch ($_GET['step']) {
     case 11:

@@ -24,7 +24,7 @@ switch ($home_page) {
                 $caption = 'comments';
             }
             if ($cfg['home_item_cnt_'.$caption]
-                || ($caption == 'party' && $party->count > 0)
+                || ($caption == 'party' && $party->getRegistrationCount() > 0)
                 || ($caption == 'troubleticket' && $auth['type'] >= 2)
                 || ($caption == 'rent' && $auth['type'] >= 2)
                 || ($caption == 'task' && $auth['type'] >= 2)) {
@@ -55,7 +55,7 @@ switch ($home_page) {
             $MainContent .= '<li class="LineRightHalf">&nbsp;</li></ul>';
         }
 
-        if ($party->count > 1 && $cfg['display_change_party']) {
+        if ($party->getRegistrationCount() > 1 && $cfg['display_change_party']) {
             $party->get_party_dropdown_form();
         }
         break;
@@ -63,7 +63,7 @@ switch ($home_page) {
     // Show News
     case 1:
         include("modules/news/show.php");
-        if ($party->count > 1 && $cfg['display_change_party']) {
+        if ($party->getRegistrationCount() > 1 && $cfg['display_change_party']) {
             $party->get_party_dropdown_form();
         }
         break;
@@ -84,7 +84,7 @@ switch ($home_page) {
         }
         $db->free_result($get_news_caption);
 
-        if ($party->count > 1 && $cfg['display_change_party']) {
+        if ($party->getRegistrationCount() > 1 && $cfg['display_change_party']) {
             $party->get_party_dropdown_form();
         }
         break;

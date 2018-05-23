@@ -16,7 +16,7 @@ $user_party = $db->qry_first('
 
 $party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $user_party['price_id']);
 
-if ($party->count > 0) {
+if ($party->getRegistrationCount() > 0) {
     $clan = '<table width="100%"><tr><td>';
     $party_row = '';
     $link = '';

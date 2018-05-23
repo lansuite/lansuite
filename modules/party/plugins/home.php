@@ -2,7 +2,7 @@
 $smarty->assign('caption', t('Party') . " " . $_SESSION['party_info']['name']);
 $content = '';
   
-if ($party->count > 0) {
+if ($party->getRegistrationCount() > 0) {
     // With or without admins?
     if ($cfg['guestlist_showorga'] == 0) {
         $querytype = 'type = 1';

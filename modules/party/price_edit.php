@@ -13,7 +13,7 @@ $mf = new \LanSuite\MasterForm();
 
 $mf->AdditionalKey = 'party_id = '. (int)$_GET['party_id'];
 
-$dsp->AddDoubleRow('Party', $party->data['name']);
+$dsp->AddDoubleRow('Party', $party->getPartyData('name'));
 
 $mf->AddField(t('Text für Eintrittspreis'), 'price_text');
 $mf->AddField(t('Preis'), 'price');

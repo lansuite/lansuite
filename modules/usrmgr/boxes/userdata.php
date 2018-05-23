@@ -77,7 +77,7 @@ if ($cfg["user_show_ticket"]) {
 }
 
 // Zeige Anmeldestatus
-if ($party->count > 0 and $_SESSION['party_info']['partyend'] > time()) {
+if ($party->getRegistrationCount() > 0 and $_SESSION['party_info']['partyend'] > time()) {
     $query_signstat = $db->qry_first("SELECT * FROM %prefix%party_user AS pu
 		WHERE pu.user_id = %int% AND pu.party_id = %int%", $auth["userid"], $party->party_id);
     if ($query_signstat == null) {

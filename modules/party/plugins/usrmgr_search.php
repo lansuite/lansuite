@@ -3,6 +3,6 @@
 // modules/usrmgr/details.php to generate Modulspezific Headermenue for Userdetails
 
 // Show Editbutton for Signonstatus
-if ($party->count > 0) {
+if ($party->getRegistrationCount() > 0) {
     $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action=party&user_id=', t('Partyanmeldung'));
 }
