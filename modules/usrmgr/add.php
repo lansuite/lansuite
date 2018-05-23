@@ -13,8 +13,7 @@ function UpdateUsrMgr($id)
     global $mf, $db, $usrmgr, $func, $cfg;
 
     // Clan-Management
-    include_once("modules/clanmgr/class_clan.php");
-    $clan = new Clan();
+    $clan = new \LanSuite\Module\ClanMgr\Clan();
     if (ShowField('clan')) {
         if ($_POST['new_clan_select']) {
             $clan->Add($_POST['clan_new'], $id, $_POST["clanurl"], $_POST["newclanpw"]);
