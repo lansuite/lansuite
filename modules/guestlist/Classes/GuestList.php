@@ -32,8 +32,7 @@ class GuestList
     {
         global $db, $cfg, $func;
 
-        include_once("modules/mail/class_mail.php");
-        $mail = new mail();
+        $mail = new Lansuite\Module\Mail\Mail();
 
         if (!$userid) {
             $func->error(t('Keinen Benutzer ausgewählt'));

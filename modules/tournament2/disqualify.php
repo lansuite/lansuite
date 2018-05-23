@@ -3,7 +3,7 @@
 $teamid = $_GET["teamid"];
 
 include_once("modules/mail/class_mail.php");
-$mail = new mail();
+$mail = new Lansuite\Module\Mail\Mail();
 
 $team = $db->qry_first("SELECT teams.name, t.name AS t_name, teams.leaderid, teams.tournamentid
   FROM %prefix%t2_teams AS teams
