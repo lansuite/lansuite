@@ -3,7 +3,7 @@
 $teamid = $_GET["teamid"];
 
 include_once("modules/mail/class_mail.php");
-$mail = new mail();
+$mail = new Lansuite\Module\Mail\Mail();
 
 $team = $db->qry_first("SELECT teams.name, t.name AS t_name, teams.leaderid, teams.tournamentid
   FROM %prefix%t2_teams AS teams
@@ -23,7 +23,7 @@ else switch ($_GET["step"]){
         $db->qry("UPDATE %prefix%t2_teams SET disqualified='1' WHERE (teamid = %int%)", $teamid);
 
         include_once("modules/tournament2/class_tournament.php");
-        $tfunc = new tfunc;
+        $tfunc = new \tfunc();
 
         $team2['teamid'] = 1;
         while ($team2['teamid']){

@@ -8,7 +8,7 @@ if ($_GET["group"] == "") {
 }
 
 include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$tfunc = new \tfunc();
 
 ######## Check if roundtime has exceeded and set awaiting scores randomly
 $tfunc->CheckTimeExceed($tournamentid);
