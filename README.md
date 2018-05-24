@@ -40,6 +40,10 @@ $ chmod -R 0777 ./ext_inc/
 $ docker-compose up
 $ docker-compose run php composer install
 ```
+Note: 
+Some distributions (e.g. Fedora) restrict access to the docker daemon socket to user `root` only .
+This results in a error message as `ERROR: Couldn't connect to Docker daemon at http+docker://localunixsocket - is it running?` 
+Run the two `docker-compose` commands as user `root` (via `su`or `sudo`) in that case.
 
 This will start a [Nginx webserver](https://nginx.org/) with a [php-fpm](https://secure.php.net/manual/en/install.fpm.php) configuration and a [MySQL database](https://www.mysql.com/) for you.
 After everything started you should be able to visit http://`<Your-Docker-IP>`:8080/ and see a running LanSuite-System.
