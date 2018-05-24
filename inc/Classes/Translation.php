@@ -250,7 +250,7 @@ class Translation
     {
         global $db;
 
-        $xml = new xml();
+        $xml = new XML();
 
         $output = '<?xml version="1.0" encoding="UTF-8"?'.">\r\n\r\n";
         $header = $xml->write_tag('filetype', 'LanSuite', 2);

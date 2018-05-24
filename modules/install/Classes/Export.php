@@ -498,7 +498,7 @@ class Export
     {
         include_once('ext_scripts/archive.php');
 
-        $zip = new gzip_file($filename);
+        $zip = new \gzip_file($filename);
         $zip->set_options(array('basedir' => '.', 'overwrite' => 1, 'level' => 1, 'inmemory' => 1));
         $zip->add_files(array('ext_inc'));
         $zip->create_archive();

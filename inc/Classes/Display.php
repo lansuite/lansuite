@@ -1139,7 +1139,7 @@ class Display
      */
     public function FetchAttachmentRow($file)
     {
-        $gd = new gd();
+        $gd = new GD();
 
         $FileEnding = strtolower(substr($file, strrpos($file, '.'), 5));
 

@@ -1,7 +1,7 @@
 <?php
 
 include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$tfunc = new \tfunc();
 
 $tournamentid        = $_GET["tournamentid"];
 $fullscreen        = $_SESSION['lansuite']['fullscreen'];

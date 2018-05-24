@@ -12,7 +12,7 @@ switch ($_GET['shout']) {
         if (!$auth['login'] or !$captchaCheck) {
             // No Login -> Captcha
             include_once('ext_scripts/ascii_captcha.class.php');
-            $captcha = new ASCII_Captcha();
+            $captcha = new \ASCII_Captcha();
             $cap = $captcha->create($text);
             $_SESSION['captcha'] = $text;
             $data['response'] = 'captcha';
