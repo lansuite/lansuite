@@ -4,7 +4,6 @@ $tfunc = new tfunc;
 include_once("modules/tournament2/class_t_league_export.php");
 $t_league_export = new t_league_export;
 
-
 $dsp->NewContent(t('Exporte'), t('Hier stehen die Turnier-Exports der verschiedenen Ligen zum download bereit.'));
 
 switch ($_GET["step"]) {
@@ -38,7 +37,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddBackButton("index.php?mod=tournament2&action=export", "tournament2/export");
         break;
-
 
     default:
         $dsp->SetForm("index.php?mod=tournament2&action=export&step=2");

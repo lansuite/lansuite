@@ -117,12 +117,18 @@ switch ($_GET["step"]) {
         $db->free_result($teams);
 
         // Team löschen Auswahl
-        $teams = $db->qry("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer
-   FROM %prefix%t2_teams AS teams
-   LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
-   WHERE t.status = 'open' AND t.party_id = %int%
-   ORDER BY t.name, teams.name
-   ", $party->party_id);
+        $teams = $db->qry("
+          SELECT
+            teams.teamid,
+            teams.name,
+            t.name AS tname,
+            t.teamplayer
+          FROM %prefix%t2_teams AS teams
+          LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
+          WHERE
+            t.status = 'open'
+            AND t.party_id = %int%
+          ORDER BY t.name, teams.name", $party->party_id);
         if ($db->num_rows($teams) == 0) {
             $dsp->AddDoubleRow(t('Komplettes Team löschen<br />(Nur in Anmeldephase möglich)'), t('Es haben sich noch keine Spieler zu Turnieren angemeldet, welche noch nicht bereits laufen'));
         } else {
@@ -137,12 +143,19 @@ switch ($_GET["step"]) {
         $db->free_result($teams);
 
         // Spieler hinzufügen Auswahl
-        $teams = $db->qry("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer
-   FROM %prefix%t2_teams AS teams
-   LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
-   WHERE t.teamplayer > 1 AND t.status != 'closed' AND t.party_id = %int%
-   ORDER BY t.name, teams.name
-   ", $party->party_id);
+        $teams = $db->qry("
+          SELECT
+            teams.teamid,
+            teams.name,
+            t.name AS tname,
+            t.teamplayer
+          FROM %prefix%t2_teams AS teams
+          LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
+          WHERE
+            t.teamplayer > 1
+            AND t.status != 'closed'
+            AND t.party_id = %int%
+          ORDER BY t.name, teams.name", $party->party_id);
         if ($db->num_rows($teams) == 0) {
             $dsp->AddDoubleRow(t('Spieler einem Team hinzufügen'), t('Es existieren keine Teams, die noch auf weitere Spieler warten'));
         } else {
@@ -162,14 +175,22 @@ switch ($_GET["step"]) {
         $db->free_result($teams);
 
         // Member aus Team löschen - Auswahl
-        $teams = $db->qry("SELECT teams.teamid, teams.name, t.name AS tname, users.username AS mname, t.teamplayer, members.userid AS userid
-   FROM %prefix%t2_teams AS teams
-   LEFT JOIN %prefix%t2_teammembers AS members ON teams.teamid = members.teamid
-   LEFT JOIN %prefix%user AS users ON members.userid = users.userid
-   LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
-   WHERE t.teamplayer > 1 AND t.party_id = %int%
-   ORDER BY t.name, teams.name
-   ", $party->party_id);
+        $teams = $db->qry("
+          SELECT
+            teams.teamid,
+            teams.name,
+            t.name AS tname,
+            users.username AS mname,
+            t.teamplayer,
+            members.userid AS userid
+          FROM %prefix%t2_teams AS teams
+          LEFT JOIN %prefix%t2_teammembers AS members ON teams.teamid = members.teamid
+          LEFT JOIN %prefix%user AS users ON members.userid = users.userid
+          LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
+          WHERE
+            t.teamplayer > 1
+            AND t.party_id = %int%
+          ORDER BY t.name, teams.name", $party->party_id);
         if ($db->num_rows($teams) == 0) {
             $dsp->AddDoubleRow(t('Spieler aus einem Team löschen'), t('Es haben sich noch keine Mitglieder zu Teams angemeldet'));
         } else {

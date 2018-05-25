@@ -7,10 +7,16 @@ if (!$_GET['tournamentid']) {
         case 1:
               include_once('modules/tournament2/search.inc.php');
             break;
-  
-  
+
         default:
-            $tournament = $db->qry_first("SELECT name, mode, status FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $_GET['tournamentid']);
+            $tournament = $db->qry_first("
+              SELECT
+                name,
+                mode,
+                status
+              FROM %prefix%tournament_tournaments
+              WHERE
+                tournamentid = %int%", $_GET['tournamentid']);
   
             if ($tournament['mode'] == "single") {
                 $modus = t('Single-Elimination');
@@ -39,7 +45,7 @@ if (!$_GET['tournamentid']) {
   
             $dsp->NewContent(t('Turnier %1 (%2) - Rangliste', $tournament['name'], $modus), t('Hier siehst du das Ergebnis dieses Turniers'));
 
-              $rows = '';
+            $rows = '';
             $anz_elements = count($ranking_data->tid);
             for ($i = 0; $i < $anz_elements; $i++) {
                 $akt_pos = $ranking_data->tid[$i];
@@ -72,5 +78,5 @@ if (!$_GET['tournamentid']) {
                 $dsp->AddBackButton("index.php?mod=tournament2&action=rangliste&step=1", "tournament2/rangliste");
             }
             break;
-    } // Switch
+    }
 }

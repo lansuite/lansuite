@@ -5,14 +5,37 @@ $tteam = new team;
 
 $tournamentid    = $_GET["tournamentid"];
 
-$tournament = $db->qry_first("SELECT name, teamplayer, over18, status, groupid, coins, wwcl_gameid, ngl_gamename, lgz_gamename, maxteams FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
+$tournament = $db->qry_first("
+  SELECT
+    name,
+    teamplayer,
+    over18,
+    status,
+    groupid,
+    coins,
+    wwcl_gameid,
+    ngl_gamename,
+    lgz_gamename,
+    maxteams
+  FROM %prefix%tournament_tournaments
+  WHERE
+    tournamentid = %int%", $tournamentid);
 
 if ($auth["userid"] == "") {
     $auth["userid"] = 0;
 }
 
-$user = $db->qry_first("SELECT wwclid, wwclclanid, nglid, nglclanid, lgzid, lgzclanid FROM %prefix%user WHERE userid = %int%", $auth["userid"]);
-
+$user = $db->qry_first("
+  SELECT
+    wwclid,
+    wwclclanid,
+    nglid,
+    nglclanid,
+    lgzid,
+    lgzclanid
+  FROM %prefix%user
+  WHERE
+    userid = %int%", $auth["userid"]);
 
 if ($tteam->SignonCheck($tournamentid)) {
     switch ($_GET["step"]) {
@@ -20,11 +43,11 @@ if ($tteam->SignonCheck($tournamentid)) {
             if (!$sec->locked("t_join")) {
                 $error = array();
 
-        // If joining an existing team
+                // If joining an existing team
                 if (($_POST['existing_team_name'] != "") and ($tournament['teamplayer'] > 1)) {
                     $success = $tteam->join($_POST["existing_team_name"], $auth["userid"], $_POST["password"]);
 
-        // If creating a new team
+                // If creating a new team
                 } else {
                     if ($tournament['teamplayer'] == 1) {
                         $_POST['team_name'] = "";
@@ -44,7 +67,6 @@ if ($tteam->SignonCheck($tournamentid)) {
                 if (count($error) == 0 and $success) {
                     // Update-League-IDs
                     $tteam->UpdateLeagueIDs($auth["userid"], $_POST["wwclid"], $_POST["wwclclanid"], $_POST["nglid"], $_POST["nglclanid"], $_POST["lgzid"], $_POST["lgzclanid"]);
-
                     $func->confirmation(t('Du wurdest zum Turnier %1 erfolgreich hinzugefügt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
                 }
                 $sec->lock("t_join");
@@ -61,7 +83,6 @@ if ($tteam->SignonCheck($tournamentid)) {
             $sec->unlock("t_join");
 
             $dsp->NewContent(t('Zum Turnier %1 anmelden', $tournament['name']), t('Mit Hilfe des folgenden Formulars kannst du ein Team zu einem Turnier anmelden.'));
-
             $dsp->SetForm("index.php?mod=tournament2&action=join&step=3&tournamentid=$tournamentid", "", "", "multipart/form-data");
 
             if ($tournament['teamplayer'] == 1 or $tournament['blind_draw'] == 1) {

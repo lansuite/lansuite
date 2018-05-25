@@ -137,7 +137,23 @@
             "modules/poll/Functions/GetPollStatus.php",
             "modules/poll/Functions/UpdatePoll.php",
             "modules/popups/Functions/GetLinks.php",
-            "modules/rent/Functions/RentCount.php"
+            "modules/rent/Functions/RentCount.php",
+            "modules/tournament2/Functions/ArrayToTable.php",
+            "modules/tournament2/Functions/CheckDateInFuture.php",
+            "modules/tournament2/Functions/CheckModeChangeAllowed.php",
+            "modules/tournament2/Functions/CheckModeForLeague.php",
+            "modules/tournament2/Functions/CheckModeForWWCLLeague.php",
+            "modules/tournament2/Functions/CheckStateChangeAllowed.php",
+            "modules/tournament2/Functions/GetTournamentName.php",
+            "modules/tournament2/Functions/GetTournamentStatus.php",
+            "modules/tournament2/Functions/GetTournamentTeamAnz.php",
+            "modules/tournament2/Functions/GetTournamentUserIcon.php",
+            "modules/tournament2/Functions/IfFinished.php",
+            "modules/tournament2/Functions/IfGenerated.php",
+            "modules/tournament2/Functions/IfNotGenerated.php",
+            "modules/tournament2/Functions/WriteGame.php",
+            "modules/tournament2/Functions/WritePairs.php",
+            "modules/tournament2/Functions/WriteRoundHeadline.php"
         ]
     }
 }
