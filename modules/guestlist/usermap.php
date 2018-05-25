@@ -54,7 +54,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
                     $GCountry = 'Germany';
                     break;
             }
-
+			
             // Show detailed map to admins only, otherwise stick to user settings
             if ($row['show_me_in_map'] == 1 || $auth['type'] >= 2) {
                 $text = "<b>{$row['username']}</b>";
