@@ -5,7 +5,7 @@ use LanSuite\Module\Seating\Seat2;
 $gd = new \LanSuite\GD();
 
 include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$tfunc = new \tfunc();
 
 $qacc           = $_GET["qacc"];
 $tournamentid   = $_GET["tournamentid"];

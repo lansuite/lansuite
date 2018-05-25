@@ -1,7 +1,7 @@
 <?php
 
 include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$tfunc = new \tfunc();
 
 $dsp->NewContent(t('Turnier-Zeitplan'), t('Hier siehst du, welches Turnier zu welcher Zeit stattfindet.'));
 

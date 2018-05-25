@@ -40,7 +40,7 @@ if (!$_GET['tournamentid']) {
             }
   
             include_once("modules/tournament2/class_tournament.php");
-            $tfunc = new tfunc;
+            $tfunc = new \tfunc();
             $ranking_data = $tfunc->get_ranking($_GET['tournamentid']);
   
             $dsp->NewContent(t('Turnier %1 (%2) - Rangliste', $tournament['name'], $modus), t('Hier siehst du das Ergebnis dieses Turniers'));

@@ -3,7 +3,7 @@
 $tournamentid = (int)$_GET["tournamentid"];
 
 include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$tfunc = new \tfunc();
 
 if (!$tournamentid) {
     $func->error(t('Du hast kein Turnier ausgewählt!'));

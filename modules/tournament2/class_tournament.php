@@ -258,7 +258,7 @@ class tfunc
     {
         global $db, $akt_round, $num, $cfg, $array_id;
 
-        $ranking_data = new ranking_data;
+        $ranking_data = new \ranking_data();
 
         $tournament = $db->qry_first("
           SELECT

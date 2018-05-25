@@ -36,7 +36,7 @@ $dsp->AddDoubleRow(t('LGZ-ID').' (Clan-ID)', $lgz);
 $dsp->AddFieldsetEnd();
 
 include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$tfunc = new \tfunc();
 
 // Own Teams
 $dsp->AddFieldsetStart(t('Benutzer hat folgende Teams er&ouml;ffnet'));

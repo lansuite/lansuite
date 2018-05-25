@@ -1,7 +1,7 @@
 <?php
 
 include("modules/tournament2/class_team.php");
-$tteam = new team;
+$tteam = new \team();
 
 ($_GET['tournamentid'])? $tournamentid = $_GET['tournamentid'] : $tournamentid = $_POST['tournamentid'];
 ($_GET['userid'])? $userid = $_GET['userid'] : $userid = $_POST['userid'];
