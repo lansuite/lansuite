@@ -538,8 +538,8 @@ class Install
     public function InsertMenus($rewrite = false)
     {
         global $db, $func;
-		$xml = new XML();
 
+        $xml = new XML();
         if ($rewrite) {
             $db->qry("TRUNCATE TABLE %prefix%menu");
         }
