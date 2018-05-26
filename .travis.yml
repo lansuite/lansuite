@@ -49,6 +49,7 @@ script:
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/party
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/partylist
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR2.Methods.MethodDeclaration,PSR1.Methods.CamelCapsMethodName modules/pdf
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/paypal
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/picgallery
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/poll
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/popups
