@@ -167,6 +167,8 @@
             "modules/tournament2/Functions/IfNotGenerated.php",
             "modules/tournament2/Functions/WriteGame.php",
             "modules/tournament2/Functions/WritePairs.php",
+            "modules/tournament2/Functions/WritePairs2.php",
+            "modules/tournament2/Functions/WritePairs3.php",
             "modules/tournament2/Functions/WriteRoundHeadline.php"
         ]
     }
