@@ -30,7 +30,7 @@ class LanSuiteTree extends TourneyTree
     private $tree = null;
 
     /**
-     * @var LanSuite\DB
+     * @var \LanSuite\DB
      */
     private $db = null;
 
