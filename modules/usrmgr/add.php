@@ -36,7 +36,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 // If Admin: Usertype, Group and Module-Permissions
                 if ($auth['type'] >= 2) {
                     // Usertype
-                    $selections = array();
+                    $selections = [];
                     $selections['1'] = t('Benutzer');
                     $selections['2'] = t('Administrator');
                     if ($auth['type'] >= 3) {
@@ -45,7 +45,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                     $mf->AddField(t('Benutzertyp'), 'type', \LanSuite\MasterForm::IS_SELECTION, $selections, '', '', 1, array('2', '3'));
   
                     // Module-Permissions
-                    $selections = array();
+                    $selections = [];
                     $res = $db->qry("
                       SELECT
                         module.name,
@@ -114,9 +114,9 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                     $_POST['clan'] = $users_clan['clanid'];
                 }
 
-                $selections = array();
+                $selections = [];
                 $selections[''] = '---';
-                $PWClans = array();
+                $PWClans = [];
                 $clans_query = $db->qry("
                   SELECT
                     c.clanid,
@@ -172,7 +172,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $mf->AddField('', 'plz|city', \LanSuite\MasterForm::IS_CALLBACK, 'Addr2Input', Optional('city'));
             }
 
-            $list = array();
+            $list = [];
             if (!isset($_POST['country'])) {
                 $_POST['country'] = $cfg['sys_country'];
             }
@@ -215,7 +215,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 }
             }
             if (ShowFieldUsrMgr('gender')) {
-                $selections = array();
+                $selections = [];
                 $selections['0'] = t('Keine Angabe');
                 $selections['1'] = t('Männlich');
                 $selections['2'] = t('Weiblich');
@@ -261,7 +261,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
         // Settings
         if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
             if ($cfg['user_design_change']) {
-                $selections = array();
+                $selections = [];
                 $selections[''] = t('System-Vorgabe');
 
                 $xml = new \LanSuite\XML();
