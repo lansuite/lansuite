@@ -1,20 +1,5 @@
 <?php
 
-/**
- * @param string $key
- * @return bool
- */
-function Needed($key)
-{
-    global $cfg;
-
-    if ($cfg['signon_show_'. $key] == 2) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 // Check, if all required user data fields, are known and force user to add them, if not.
 $auth['lastname'] = $auth['name'];
 $auth['gender'] = $auth['sex'];

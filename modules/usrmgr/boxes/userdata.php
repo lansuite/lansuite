@@ -31,11 +31,15 @@ $box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?
 $box->EngangedRow($dsp->FetchUserIcon($auth['userid'], $username));
 
 // Show last log in and login count
-$user_lg = $db->qry_first("SELECT user.logins, max(auth.logintime) AS logintime
-	FROM %prefix%user AS user
-	LEFT JOIN %prefix%stats_auth AS auth ON auth.userid = user.userid
-	WHERE user.userid = %int%
-	GROUP BY auth.userid", $auth["userid"]);
+$user_lg = $db->qry_first("
+  SELECT
+    user.logins,
+    MAX(auth.logintime) AS logintime
+  FROM %prefix%user AS user
+  LEFT JOIN %prefix%stats_auth AS auth ON auth.userid = user.userid
+  WHERE
+    user.userid = %int%
+  GROUP BY auth.userid", $auth["userid"]);
 
 if (isset($_POST['login']) and isset($_POST['password'])) {
     $box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] .'</b>');
@@ -51,10 +55,14 @@ if (($auth['clanid'] != null and $auth['clanid'] > 0) and $func->isModActive('cl
 
 // New-Mail Notice
 if ($func->isModActive('mail')) {
-    $mails_new = $db->qry("SELECT mailID
-		FROM %prefix%mail_messages
-		WHERE ToUserID = %int% AND mail_status = 'active' AND rx_date IS NULL
-		", $auth['userid']);
+    $mails_new = $db->qry("
+      SELECT
+        mailID
+      FROM %prefix%mail_messages
+      WHERE
+        ToUserID = %int%
+        AND mail_status = 'active'
+        AND rx_date IS NULL", $auth['userid']);
 
     if ($cfg['mail_popup_on_new_mails'] and $db->num_rows($mails_new) > 0) {
         $found_not_popped_up_mail = false;
@@ -78,8 +86,13 @@ if ($cfg["user_show_ticket"]) {
 
 // Zeige Anmeldestatus
 if ($party->count > 0 and $_SESSION['party_info']['partyend'] > time()) {
-    $query_signstat = $db->qry_first("SELECT * FROM %prefix%party_user AS pu
-		WHERE pu.user_id = %int% AND pu.party_id = %int%", $auth["userid"], $party->party_id);
+    $query_signstat = $db->qry_first("
+      SELECT
+        *
+      FROM %prefix%party_user AS pu
+      WHERE
+        pu.user_id = %int%
+        AND pu.party_id = %int%", $auth["userid"], $party->party_id);
     if ($query_signstat == null) {
         $signstat = '<font color="red">'. t('Nein') .'!</font>';
         $signstat_info = '<a href="index.php?mod=signon"><i> '. t('Hier anmelden') .'</i></a>';
