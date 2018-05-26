@@ -25,7 +25,7 @@ switch ($_GET["step"]) {
                 username = 'ADMIN',
                 email=%string%,
                 password = %string%,
-                type = '3'", $_POST["email"], PasswordHash::hash($_POST["password"]));
+                type = '3'", $_POST["email"], \LanSuite\PasswordHash::hash($_POST["password"]));
             $userid = $db->insert_id();
 
             // Add administrator to party

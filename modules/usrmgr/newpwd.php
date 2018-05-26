@@ -13,7 +13,7 @@ switch ($_GET['step']) {
 
     case 3:
         $password = rand(1000, 9999);
-        $hash = PasswordHash::hash($password);
+        $hash = \LanSuite\PasswordHash::hash($password);
 
         if ($_SESSION["auth"]["type"] < $userdata["type"]) {
             $func->information(t('Du verfügst über ein geringeres Benutzerlevel, als derjenige, auf den du diese Funktion anwenden möchten. Es wurde kein neues Passwort generiert'));

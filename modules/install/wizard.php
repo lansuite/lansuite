@@ -29,7 +29,7 @@ switch ($_GET["step"]) {
             if ($row['email']) {
                 $db->qry(
                     "UPDATE %prefix%user SET password = %string%, type = '3' WHERE email=%string%",
-                    PasswordHash::hash($_POST["password"]),
+                    \LanSuite\PasswordHash::hash($_POST["password"]),
                     $_POST["email"]
                 );
             } // If not found, insert
@@ -37,7 +37,7 @@ switch ($_GET["step"]) {
                 $db->qry(
                     "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
                     $_POST["email"],
-                    PasswordHash::hash($_POST["password"])
+                    \LanSuite\PasswordHash::hash($_POST["password"])
                 );
                 $userid = $db->insert_id();
             }

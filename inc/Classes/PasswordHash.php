@@ -1,7 +1,14 @@
 <?php
 
+namespace LanSuite;
+
 class PasswordHash
 {
+    /**
+     * @param string $password
+     * @return string
+     * @throws \Exception
+     */
     public static function hash($password)
     {
         $algo_cfg = self::getAlgoCfg();
@@ -32,15 +39,21 @@ class PasswordHash
                 $b64salt = base64_encode($rawsalt);
                 $b64hash = base64_encode($rawhash);
                 if ($b64salt === false || $b64hash === false) {
-                    throw new Exception('Unexpected base64_encode error');
+                    throw new \Exception('Unexpected base64_encode error');
                 }
 
                 return '$pbkdf2-sha1$'.$iterations.'$'.$b64salt.'$'.$b64hash;
         }
 
-        throw new Exception('Unsupported password hashing algorithm');
+        throw new \Exception('Unsupported password hashing algorithm');
     }
 
+    /**
+     * @param string $password
+     * @param string $hash
+     * @return bool
+     * @throws \Exception
+     */
     public static function verify($password, $hash)
     {
         $info = self::getInfo($hash);
@@ -57,10 +70,13 @@ class PasswordHash
         return false;
     }
 
+    /**
+     * @param string $hash
+     * @return bool
+     * @throws \Exception
+     */
     public static function needsRehash($hash)
     {
-        global $config;
-
         $algo_cfg = self::getAlgoCfg();
 
         $info = self::getInfo($hash);
@@ -78,30 +94,46 @@ class PasswordHash
         return false;
     }
 
+    /**
+     * @param string $hash
+     * @return array
+     * @throws \Exception
+     */
     private static function getInfo($hash)
     {
         if ($hash[0] === '$') {
             $parts = explode('$', $hash);
             if (count($parts) !== 5) {
-                throw new Exception('Unexpected hash format');
+                throw new \Exception('Unexpected hash format');
             }
             list($dummy, $algo, $iterations, $b64salt, $b64hash) = $parts;
 
             if (!is_numeric($iterations) || $iterations < 1) {
-                throw new Exception('Unexpected iterations value');
+                throw new \Exception('Unexpected iterations value');
             }
             $rawsalt = base64_decode($b64salt, true);
             $rawhash = base64_decode($b64hash, true);
             if ($rawsalt === false || $rawhash === false) {
-                throw new Exception('Unexpected base64_decode error');
+                throw new \Exception('Unexpected base64_decode error');
             }
 
-            return array('algo' => $algo, 'iterations' => $iterations, 'hash' => $rawhash, 'salt' => $rawsalt);
+            return [
+                'algo' => $algo,
+                'iterations' => $iterations,
+                'hash' => $rawhash,
+                'salt' => $rawsalt
+            ];
         } else {
-            return array('algo' => 'md5', 'hash' => $hash);
+            return [
+                'algo' => 'md5',
+                'hash' => $hash
+            ];
         }
     }
 
+    /**
+     * @return string
+     */
     private static function getAlgo()
     {
         global $cfg;
@@ -119,19 +151,29 @@ class PasswordHash
         return $pwhash_algo;
     }
 
+    /**
+     * @param string $algo
+     * @return array
+     */
     private static function getDefaultAlgoCfg($algo)
     {
         switch ($algo) {
             case 'pbkdf2-sha1':
-                return array('iterations' => '500000');
+                return [
+                    'iterations' => '500000'
+                ];
         }
 
-        return array();
+        return [];
     }
 
+    /**
+     * @param string $algo_cfg_str
+     * @return array
+     */
     private static function parseAlgoCfg($algo_cfg_str)
     {
-        $algo_cfg = array();
+        $algo_cfg = [];
 
         $pairs = explode(',', $algo_cfg_str);
 
@@ -152,6 +194,9 @@ class PasswordHash
         return $algo_cfg;
     }
 
+    /**
+     * @return array
+     */
     private static function getAlgoCfg()
     {
         global $cfg;
