@@ -1,7 +1,9 @@
 <?php
 
-include("modules/tournament2/class_team.php");
-$tteam = new team;
+$seat2 = new \LanSuite\Module\Seating\Seat2();
+$mail = new \LanSuite\Module\Mail\Mail();
+
+$tteam = new \LanSuite\Module\Tournament2\Team($mail, $seat2);
 
 ($_GET['tournamentid'])? $tournamentid = $_GET['tournamentid'] : $tournamentid = $_POST['tournamentid'];
 ($_GET['userid'])? $userid = $_GET['userid'] : $userid = $_POST['userid'];

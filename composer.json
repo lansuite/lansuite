@@ -50,6 +50,7 @@
             "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
             "LanSuite\\Module\\Stats\\": "modules/stats/Classes/",
+            "LanSuite\\Module\\Tournament2\\": "modules/tournament2/Classes/",
             "LanSuite\\": "inc/Classes"
         },
         "files": [

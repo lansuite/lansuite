@@ -1,7 +1,9 @@
 <?php
 
-include_once("modules/tournament2/class_tournament.php");
-$tfunc = new \tfunc();
+$mail = new \LanSuite\Module\Mail\Mail();
+$seat2 = new \LanSuite\Module\Seating\Seat2();
+
+$tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
 $tournamentid = $_GET["tournamentid"];
 $fullscreen   = $_SESSION['lansuite']['fullscreen'];
@@ -52,9 +54,7 @@ if ($t['status'] != "process" and $t['status'] != "closed") {
     if ($cfg['t_text_tree']) {
         $ret = '';
 
-        include_once("modules/tournament2/tree.class.php");
-        include_once("modules/tournament2/sp_tree.class.php");
-        $t2 = new lansuiteTree($tournamentid, $team_anz, $db);
+        $t2 = new \LanSuite\Module\Tournament2\LanSuiteTree($tournamentid, $team_anz, $db);
         $t2->prepareWB();
 
         if ($t['mode'] == "double") {

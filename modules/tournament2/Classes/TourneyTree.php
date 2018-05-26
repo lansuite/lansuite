@@ -1,5 +1,7 @@
 <?php
 
+namespace LanSuite\Module\Tournament2;
+
 /**
  * Class TourneyTree
  *

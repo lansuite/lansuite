@@ -1,72 +1,26 @@
 <?php
 
-use LanSuite\Module\Seating\Seat2;
+namespace LanSuite\Module\Tournament2;
 
-$mail = new \LanSuite\Module\Mail\Mail();
-
-$seat2 = new Seat2();
-
-class ranking_data
+class TournamentFunction
 {
-    /**
-     * @var array
-     */
-    public $id = [];
 
     /**
-     * @var array
+     * @var \LanSuite\Module\Mail\Mail
      */
-    public $pos = [];
+    private $mail = null;
 
     /**
-     * @var array
+     * @var \LanSuite\Module\Seating\Seat2
      */
-    public $tid = [];
+    private $seating = null;
 
-    /**
-     * @var array
-     */
-    public $name = [];
+    public function __construct(\LanSuite\Module\Mail\Mail $mail, \LanSuite\Module\Seating\Seat2 $seating)
+    {
+        $this->mail = $mail;
+        $this->seating = $seating;
+    }
 
-    /**
-     * @var array
-     */
-    public $win = [];
-
-    /**
-     * @var array
-     */
-    public $score = [];
-
-    /**
-     * @var array
-     */
-    public $score_en = [];
-
-    /**
-     * @var array
-     */
-    public $score_dif = [];
-
-    /**
-     * @var array
-     */
-    public $games = [];
-
-    /**
-     * @var array
-     */
-    public $disqualified = [];
-
-    /**
-     * @var array
-     */
-    public $reached_finales = [];
-}
-
-
-class tfunc
-{
     /**
      * Generates a string to output a memberlist of one team
      *
@@ -252,13 +206,13 @@ class tfunc
     /**
      * @param int $tournamentid
      * @param int $group_nr
-     * @return ranking_data
+     * @return \LanSuite\Module\Tournament2\RankingData
      */
     public function get_ranking($tournamentid, $group_nr = null)
     {
         global $db, $akt_round, $num, $cfg, $array_id;
 
-        $ranking_data = new \ranking_data();
+        $ranking_data = new \LanSuite\Module\Tournament2\RankingData();
 
         $tournament = $db->qry_first("
           SELECT

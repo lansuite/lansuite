@@ -1,9 +1,11 @@
 <?php
 
-include("modules/tournament2/class_team.php");
-$tteam = new team;
+$seat2 = new \LanSuite\Module\Seating\Seat2();
+$mail = new \LanSuite\Module\Mail\Mail();
 
-$tournamentid    = $_GET["tournamentid"];
+$tteam = new \LanSuite\Module\Tournament2\Team($mail, $seat2);
+
+$tournamentid = $_GET["tournamentid"];
 
 $tournament = $db->qry_first("
   SELECT

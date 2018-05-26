@@ -1,8 +1,13 @@
 <?php
-include_once("modules/tournament2/class_tournament.php");
-$tfunc = new \tfunc();
-include_once("modules/tournament2/class_t_league_export.php");
-$t_league_export = new \t_league_export();
+
+$mail = new \LanSuite\Module\Mail\Mail();
+$seat2 = new \LanSuite\Module\Seating\Seat2();
+
+$tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
+
+$xml = new \LanSuite\XML();
+
+$t_league_export = new \LanSuite\Module\Tournament2\TournamentLeagueExport($xml, $tfunc);
 
 $dsp->NewContent(t('Exporte'), t('Hier stehen die Turnier-Exports der verschiedenen Ligen zum download bereit.'));
 

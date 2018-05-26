@@ -4,8 +4,10 @@ use LanSuite\Module\Seating\Seat2;
 
 $gd = new \LanSuite\GD();
 
-include_once("modules/tournament2/class_tournament.php");
-$tfunc = new \tfunc();
+$mail = new \LanSuite\Module\Mail\Mail();
+$seat2 = new \LanSuite\Module\Seating\Seat2();
+
+$tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
 $qacc           = $_GET["qacc"];
 $tournamentid   = $_GET["tournamentid"];

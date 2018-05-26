@@ -1,6 +1,8 @@
 <?php
 
-class lansuiteTree extends TourneyTree
+namespace LanSuite\Module\Tournament2;
+
+class LanSuiteTree extends TourneyTree
 {
     /**
      * @var array
