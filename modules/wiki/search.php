@@ -1,4 +1,5 @@
 <?php
+
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('wiki');
 
 $ms2->query['from'] = "%prefix%wiki AS w

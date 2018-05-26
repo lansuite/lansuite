@@ -2,8 +2,8 @@
 
 $seating = new \LanSuite\Module\Seating\Seat2();
 
-include_once("modules/usrmgr/class_usrmgr.php");
-$userManager = new UsrMgr();
+$mail = new \LanSuite\Module\Mail\Mail();
+$userManager = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
 $guestlist = new LanSuite\Module\GuestList\GuestList($seating, $userManager);
 
