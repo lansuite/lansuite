@@ -152,6 +152,8 @@
             "modules/server/Functions/ServerType.php",
             "modules/sponsor/Functions/RewriteFields.php",
             "modules/sponsor/Functions/UploadFiles.php",
+            "modules/troubleticket/Functions/OptionRow.php",
+            "modules/troubleticket/Functions/TTStatus.php",
             "modules/usrmgr/Functions/Addr1Input.php",
             "modules/usrmgr/Functions/Addr2Input.php",
             "modules/usrmgr/Functions/CheckAndResizeUploadPic.php",
