@@ -1,4 +1,4 @@
-<?php // by denny@esa-box.de
+<?php
 
 switch ($_GET["step"]) {
     default:
