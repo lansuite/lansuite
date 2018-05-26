@@ -626,6 +626,7 @@ class Func
     /**
      * @param string $ip
      * @return int
+     * @TODO: Extend to cover IPv6 functionality
      */
     public function checkIP($ip)
     {

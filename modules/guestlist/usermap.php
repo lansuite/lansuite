@@ -18,74 +18,78 @@ if ($cfg['guestlist_guestmap'] == 2) {
       u.plz > 0
       AND u.type > 0 %plain%
     ORDER BY u.city, u.country, u.username ASC", $where_pid);
-
-    $templ['addresses'] = '';
-    $adresses = 'var adresses = [';
-    $last_city='';
-    $aggregated_text='';
-    while ($row = $db->fetch_array($res)) {
-        ($row['country'])? $country = $row['country'] : $country = $cfg['sys_country'];
-        switch ($country) {
-            case 'de':
-                $GCountry = 'Germany';
-                break;
-            case 'at':
-                $GCountry = 'Austria';
-                break;
-            case 'ch':
-                $GCountry = 'Swiss';
-                break;
-            case 'en':
-                $GCountry = 'England';
-                break;
-            case 'nl':
-                $GCountry = 'Netherlands';
-                break;
-            case 'es':
-                $GCountry = 'Spain';
-                break;
-            case 'it':
-                $GCountry = 'Italy';
-                break;
-            case 'fr':
-                $GCountry = 'France';
-                break;
-            default:
-                $GCountry = 'Germany';
-                break;
-        }
-
-        // Show detailed map to admins only, otherwise stick to user settings
-        if ($row['show_me_in_map'] == 1 || $auth['type'] >= 2) {
-            $text = "<b>{$row['username']}</b>";
-            if ($cfg['guestlist_shownames']|| $auth['type'] >= 2) {
-                $text .= " {$row['firstname']} {$row['name']}";
+    if ($res->num_rows > 0) {
+        $templ['addresses'] = '';
+        $adresses = 'var adresses = [';
+        $last_city='';
+        $aggregated_text='';
+        while ($row = $db->fetch_array($res)) {
+            ($row['country'])? $country = $row['country'] : $country = $cfg['sys_country'];
+            switch ($country) {
+                case 'de':
+                    $GCountry = 'Germany';
+                    break;
+                case 'at':
+                    $GCountry = 'Austria';
+                    break;
+                case 'ch':
+                    $GCountry = 'Swiss';
+                    break;
+                case 'en':
+                    $GCountry = 'England';
+                    break;
+                case 'nl':
+                    $GCountry = 'Netherlands';
+                    break;
+                case 'es':
+                    $GCountry = 'Spain';
+                    break;
+                case 'it':
+                    $GCountry = 'Italy';
+                    break;
+                case 'fr':
+                    $GCountry = 'France';
+                    break;
+                default:
+                    $GCountry = 'Germany';
+                    break;
             }
-        } else {
-            $text = "<i><b>anonymous</b></i>";
-        }
-        if ($func->chk_img_path($row['avatar_path'])) {
-            $text .= sprintf('<br/><img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\"></br></br>', $row["avatar_path"], '');
-        }
-        if ($row['city']!=$last_city) {
-            //next (or first) area, flush current entry and prepare for the next one
-            if (!empty($aggregated_text)) {
-                $adresses .= $aggregated_text . "'},\r\n";
-            }
-            $aggregated_text = "{'country':'$GCountry', 'city':'{$row['city']}', 'plz':'{$row['plz']}', 'street':'', 'hnr':'', 'text':'<h3>{$row['city']}</h3> $text";
-            $last_city = $row['city'];
-        } else {
-            $aggregated_text  .= "<hr>$text";
-        }
-    }
-    $adresses .= '];';
-    $db->free_result($res);
-    if (!empty($cfg['google_analytics_id'])) {
-        $smarty->assign('apikey', 'key='. $cfg['google_analytics_id']);
-    }
-    $smarty->assign('adresses', $adresses);
-    $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
 
+            // Show detailed map to admins only, otherwise stick to user settings
+            if ($row['show_me_in_map'] == 1 || $auth['type'] >= 2) {
+                $text = "<b>{$row['username']}</b>";
+                if ($cfg['guestlist_shownames']|| $auth['type'] >= 2) {
+                    $text .= " {$row['firstname']} {$row['name']}";
+                }
+            } else {
+                $text = "<i><b>anonymous</b></i>";
+            }
+            if ($func->chk_img_path($row['avatar_path'])) {
+                $text .= sprintf('<br/><img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\"></br></br>', $row["avatar_path"], '');
+            }
+            if ($row['city']!=$last_city) {
+                //next (or first) area, flush current entry and prepare for the next one
+                if (!empty($aggregated_text)) {
+                    $adresses .= $aggregated_text . "'},\r\n";
+                }
+                $aggregated_text = "{'country':'$GCountry', 'city':'{$row['city']}', 'plz':'{$row['plz']}', 'street':'', 'hnr':'', 'text':'<h3>{$row['city']}</h3> $text";
+                $last_city = $row['city'];
+            } else {
+                $aggregated_text  .= "<hr>$text";
+            }
+        }
+        $adresses .= '];';
+        $db->free_result($res);
+        if (!empty($cfg['google_analytics_id'])) {
+            $smarty->assign('apikey', 'key='. $cfg['google_analytics_id']);
+            $smarty->assign('adresses', $adresses);
+            $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
+        } else {
+            $func->error(t('Die Google Analytics ID wurde nicht konfiguriert, ist aber notwendig zur Benutzung von Google Maps-Diensten.'));
+        }
+    } else {
+        $func->error(t('Es hat sich noch niemand für die aktuelle Party registriert, daher ist eine Anzeige der Karte nicht möglich'));
+    }
 // Use Geofreedb
 } else {
     $res = $db->qry("SELECT plz FROM %prefix%user LEFT JOIN %prefix%party_user ON userid = user_id WHERE (plz > 0) AND (party_id = %int%)", $party->party_id);
@@ -93,7 +97,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
     $pi = pi();
 
     if ($db->num_rows($res) == 0) {
-        $func->information(t('Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben. Das Bestimmen der Position ist daher nicht m&ouml;glich.'), "index.php?mod=home");
+        $func->information(t('Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben oder es hat sich noch niemand für die Party registriert. Das Bestimmen der Position ist daher nicht m&ouml;glich.'), "index.php?mod=home");
     } else {
         $map_out = '<script type="text/javascript" src="ext_scripts/overlib421/Mini/overlib_mini.js"><!-- overLIB (c) Erik Bosrup --></script>
 <div id="tooltip" class="tooltip" style="position: absolute; width: auto; height: auto; z-index: 100; visibility: hidden; left: 0; top: 0;"></div><script src="modules/guestlist/templates/map.js" type="text/javascript"></script><map name="deutschland">';
