@@ -50,6 +50,7 @@
             "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
             "LanSuite\\Module\\Stats\\": "modules/stats/Classes/",
+            "LanSuite\\Module\\UsrMgr\\": "modules/usrmgr/Classes/",
             "LanSuite\\": "inc/Classes"
         },
         "files": [
@@ -150,7 +151,39 @@
             "modules/server/Functions/ServerStatus.php",
             "modules/server/Functions/ServerType.php",
             "modules/sponsor/Functions/RewriteFields.php",
-            "modules/sponsor/Functions/UploadFiles.php"
+            "modules/sponsor/Functions/UploadFiles.php",
+            "modules/troubleticket/Functions/OptionRow.php",
+            "modules/troubleticket/Functions/TTStatus.php",
+            "modules/usrmgr/Functions/Addr1Input.php",
+            "modules/usrmgr/Functions/Addr2Input.php",
+            "modules/usrmgr/Functions/CheckAndResizeUploadPic.php",
+            "modules/usrmgr/Functions/CheckBirthday.php",
+            "modules/usrmgr/Functions/CheckClanNotExists.php",
+            "modules/usrmgr/Functions/CheckClanPWUsrMgr.php",
+            "modules/usrmgr/Functions/CheckDeleteUser.php",
+            "modules/usrmgr/Functions/CheckNoSpace.php",
+            "modules/usrmgr/Functions/CheckOldPW.php",
+            "modules/usrmgr/Functions/CheckOptGender.php",
+            "modules/usrmgr/Functions/ClanURLLinkUsrMgrSearch.php",
+            "modules/usrmgr/Functions/ClanURLLinkUsrMgrSearchInc.php",
+            "modules/usrmgr/Functions/FieldNeeded.php",
+            "modules/usrmgr/Functions/GetCheckin.php",
+            "modules/usrmgr/Functions/GetTypeDescription.php",
+            "modules/usrmgr/Functions/IfLocked.php",
+            "modules/usrmgr/Functions/IfLowerOrEqualUserlevel.php",
+            "modules/usrmgr/Functions/IfLowerUserlevel.php",
+            "modules/usrmgr/Functions/IfUnlocked.php",
+            "modules/usrmgr/Functions/IsAuthorizedAdmin.php",
+            "modules/usrmgr/Functions/Needed.php",
+            "modules/usrmgr/Functions/Optional.php",
+            "modules/usrmgr/Functions/PaidIcon.php",
+            "modules/usrmgr/Functions/PartyMail.php",
+            "modules/usrmgr/Functions/PersoInput.php",
+            "modules/usrmgr/Functions/PPriceUsrMgrUserSelect.php",
+            "modules/usrmgr/Functions/SeatNameLinkUsrMgr.php",
+            "modules/usrmgr/Functions/ShowFieldUsrMgr.php",
+            "modules/usrmgr/Functions/UpdateUsrMgr.php",
+            "modules/usrmgr/Functions/UpdateUsrMgrUserFields.php"
         ]
     }
 }

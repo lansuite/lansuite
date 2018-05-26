@@ -15,8 +15,8 @@ switch ($_GET['step']) {
         break;
   
     case 2:
-        include_once("modules/usrmgr/class_usrmgr.php");
-        $usrmgr = new UsrMgr();
+        $mail = new \LanSuite\Module\Mail\Mail();
+        $usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
         if ($usrmgr->SendVerificationEmail($_GET['userid'])) {
             $func->confirmation(t('Die Verifikations-Email ist versandt worden.'));
         }
