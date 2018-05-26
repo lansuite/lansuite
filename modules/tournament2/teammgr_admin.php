@@ -116,7 +116,7 @@ switch ($_GET["step"]) {
             $dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmelden<br />(Nur in Anmeldephase möglich)'), $t_array, "");
             $dsp->AddFormSubmitRow(t('Abschicken'));
         }
-        $db->free_result($teams);
+        $db->free_result($tourneys);
 
         // Team löschen Auswahl
         $teams = $db->qry("
