@@ -8,7 +8,7 @@ $gd = new \LanSuite\GD();
 if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
     $party_user = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id= %int%", $_GET["userid"], $party->party_id);
     $mf = new \LanSuite\MasterForm();
-  
+
     if ($cfg['signon_def_locked'] && !$_GET['userid']) {
         $mf->AddFix('locked', 1);
     }
@@ -23,7 +23,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             } else {
                 $mf->AddField(t('Benutzername'), '', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen Administrator.'));
             }
-  
+
             if (!$quick_signon) {
                 if (ShowFieldUsrMgr('firstname')) {
                     $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
@@ -32,7 +32,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                     $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
                 }
                 $mf->AddGroup(t('Namen'));
-  
+
                 // If Admin: Usertype, Group and Module-Permissions
                 if ($auth['type'] >= 2) {
                     // Usertype
@@ -43,7 +43,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                         $selections['3'] = t('Superadmin');
                     }
                     $mf->AddField(t('Benutzertyp'), 'type', \LanSuite\MasterForm::IS_SELECTION, $selections, '', '', 1, array('2', '3'));
-  
+
                     // Module-Permissions
                     $selections = [];
                     $res = $db->qry("
@@ -56,10 +56,10 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                         menu.file != ''
                       GROUP BY menu.module");
                     while ($row = $db->fetch_array($res)) {
-                          $selections[$row['name']] = $row['caption'];
+                        $selections[$row['name']] = $row['caption'];
                     }
                     $db->free_result($res);
-  
+
                     if (!$_GET['mf_step'] and $_GET['userid']) {
                         $res = $db->qry("SELECT module FROM %prefix%user_permissions WHERE userid = %int%", $_GET['userid']);
                         while ($row = $db->fetch_array($res)) {
@@ -88,7 +88,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             if ($quick_signon or ($auth['type'] < 2 && !$_GET['userid'])) {
                 $mf->AddFix('type', 1);
             }
-  
+
             $mf->AddField(t('E-Mail'), 'email', '', '', '', CheckValidEmail);
             $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', '');
             if (($_GET['action'] != 'change' && $_GET['action'] != 'entrance') || ($_GET['action'] == 'entrance' && !$_GET['userid'])) {
@@ -98,14 +98,14 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 } else {
                     $mf->AddField(t('Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
                 }
-  
+
                 if ($cfg['signon_captcha'] && !$_GET['userid']) {
                     $mf->AddField('', 'captcha', \LanSuite\MasterForm::IS_CAPTCHA);
                 }
             }
             $mf->AddGroup(t('Zugangsdaten'));
         }
-  
+
         if (!$DoSignon && !$quick_signon) {
             // Clan Options
             if (ShowFieldUsrMgr('clan')) {
@@ -278,13 +278,13 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                     }
                 }
                 closedir($ResDesign);
-      
+
                 $mf->AddField(t('Design'), 'design', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
             }
-      
+
             $mf->AddField(t('Mich auf der Karte zeigen') .'|'. t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
             $mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
-      
+
             if ($cfg['user_avatarupload']) {
                 $mf->AddField(t('Avatar'), 'avatar_path', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/avatare/'. $_GET['userid'] .'_', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
             }
@@ -309,7 +309,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             $auth = $authentication->login($_POST['email'], $_POST['password_original'], 0);
             initializeDesign();
         }
-    
+
         $AddUserSuccess = 1;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 $db->connect();
 
 $dsp->NewContent(t('Adminaccount anlegen'), t('Lege hier einen Adminaccount an, über welchen du Zugriff auf diese Admin-Seite erh�lst. Wenn du bereits Benutzer-Daten importiert hast musst du hier keinen weiteren Account anlegen.'));
@@ -24,7 +25,7 @@ switch ($_GET["step"]) {
                 username = 'ADMIN',
                 email=%string%,
                 password = %string%,
-                type = '3'", $_POST["email"], md5($_POST["password"]));
+                type = '3'", $_POST["email"], PasswordHash::hash($_POST["password"]));
             $userid = $db->insert_id();
 
             // Add administrator to party
