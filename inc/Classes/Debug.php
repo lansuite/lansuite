@@ -159,7 +159,6 @@ class Debug
         if ($this->mode > 0) {
             if (is_string($key)) {
                 $this->debugvars[$key] = $value;
-
             } else {
                 $this->debugvars["debugvar_".count($this->debugvars)] = $value;
             }
@@ -196,7 +195,8 @@ class Debug
      */
     private function sort_array_by_col($array)
     {
-        function compare($wert_a, $wert_b) {
+        function compare($wert_a, $wert_b)
+        {
             $a = $wert_a[0];
             $b = $wert_b[0];
             if ($a == $b) {
@@ -268,7 +268,6 @@ class Debug
 
             if ($array_level==0) {
                 $caption = $key;
-
             } else {
                 $caption = "[".$key."]";
             };
@@ -276,14 +275,11 @@ class Debug
             if (is_array($value)) {
                 $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")");
                 $out .= $this->row_array($value, $array_node.$caption, $array_level+1);
-
             } elseif (is_object($value)) {
                 $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;");
                 $out .= $this->row_array(get_object_vars($value), $array_node.$caption, $array_level+1);
-
             } elseif (is_scalar($value)) {
                 $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;".htmlentities($value));
-
             } else {
                 $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;Error: Can not display Debug- Value!!!");
             }

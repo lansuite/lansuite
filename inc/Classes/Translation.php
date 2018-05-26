@@ -79,7 +79,6 @@ class Translation
             // System is configured, Language will be loaded from DB
             $this->load_cache_bydb($akt_modul);
             $this->cachemod_loaded_db = 1;
-
         } elseif ($mode == 'xml') {
             // System is on Install, Language will be loaded from XML
             $this->load_cache_byfile('System');
@@ -102,17 +101,14 @@ class Translation
 
         if (isset($_POST['language']) && $_POST['language']) {
             $_SESSION['language'] = $_POST['language'];
-
         } elseif (isset($_GET['language']) && $_GET['language']) {
             $_SESSION['language'] = $_GET['language'];
         }
 
         if (isset($_SESSION['language']) && $_SESSION['language']) {
             $this->language = $_SESSION['language'];
-
         } elseif ($cfg['sys_language']) {
             $this->language = $cfg['sys_language'];
-
         } else {
             $this->language = 'de';
         }
@@ -143,8 +139,7 @@ class Translation
                     file = %string% 
                     OR file = \'DB\' 
                     OR file = \'System\' 
-                ORDER BY FIELD(file, \'System,DB,'. $module .'\')', $module
-            );
+                ORDER BY FIELD(file, \'System,DB,'. $module .'\')', $module);
             while ($row = $db->fetch_array($res, 0)) {
                 if ($row[$this->language] != '') {
                     if ($this->lang_cache[$module][$row['id']] == '') {
@@ -219,7 +214,6 @@ class Translation
 
         if ($this->lang_cache[$module][$hashkey]) {
             $translated = $this->lang_cache[$module][$hashkey];
-
         } else {
             $row = $db->qry_first('
                 SELECT id, org, ' . $this->language . ' 
@@ -228,7 +222,6 @@ class Translation
 
             if ($row[$this->language]) {
                 $translated = $row[$this->language];
-
             } else {
                 $translated = '';
             }
@@ -361,7 +354,8 @@ class Translation
      * @param string    $module     Module name e.g. file-field
      * @return array
      */
-    private function xml_read_to_array($module) {
+    private function xml_read_to_array($module)
+    {
         $records = [];
         $xml = new XML();
 
@@ -470,7 +464,6 @@ class Translation
         if (strpos($CurrentFile, 'modules/') !== false) {
             $CurrentFile = substr($CurrentFile, strpos($CurrentFile, 'modules/') + 8, strlen($CurrentFile));
             $CurrentFile = substr($CurrentFile, 0, strpos($CurrentFile, '/'));
-
         } else {
             $CurrentFile = 'System';
         }
@@ -496,7 +489,6 @@ class Translation
                         $key = md5($CurrentTrans);
                         if (strlen($CurrentTrans) > 255) {
                             $long = '_long';
-
                         } else {
                             $long = '';
                         }
@@ -513,7 +505,6 @@ class Translation
                             )', $long, $key, $CurrentFile);
                         if ($row['found']) {
                             $output .= $CurrentFile . '@' . $CurrentPos . ': ' . $CurrentTrans .'<br />';
-
                         } else {
                             // New -> Insert to DB
                             $db->qry("
@@ -530,7 +521,6 @@ class Translation
                         }
                     }
                 }
-
             } elseif ($file != '.' && $file != '..' && $file != '.svn' && is_dir($FilePath)) {
                 $output .= $this->TUpdateFromFiles($FilePath, $sub++);
             }
