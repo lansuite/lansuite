@@ -13,11 +13,11 @@ class GuestList
     private $seating;
 
     /**
-     * @var \UsrMgr
+     * @var \LanSuite\Module\UsrMgr\UserManager
      */
     private $userManager;
 
-    public function __construct(Seat2 $seating, \UsrMgr $userManager)
+    public function __construct(Seat2 $seating, \LanSuite\Module\UsrMgr\UserManager $userManager)
     {
         $this->seating = $seating;
         $this->userManager = $userManager;

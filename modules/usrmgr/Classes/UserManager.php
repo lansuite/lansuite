@@ -1,11 +1,20 @@
 <?php
 
-$mail = new \LanSuite\Module\Mail\Mail();
+namespace LanSuite\Module\UsrMgr;
 
-$usrmgr = new UsrMgr();
-
-class UsrMgr
+class UserManager
 {
+
+    /**
+     * @var \LanSuite\Module\Mail\Mail
+     */
+    private $mail = null;
+
+    public function __construct(\LanSuite\Module\Mail\Mail $mail)
+    {
+        $this->mail = $mail;
+    }
+
     /**
      * @param int $id User ID
      * @return int
@@ -244,14 +253,25 @@ class UsrMgr
             $party .= $xml->write_tag('sstartdate', $row['sstartdate'], 3);
             $party .= $xml->write_tag('senddate', $row['senddate'], 3);
 
-            $row2 = $db->qry_first("SELECT count(userid) as anz FROM %prefix%user AS user
-        LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
-        WHERE party_id=%int% AND (type >= 1)", $row['party_id']);
+            $row2 = $db->qry_first("
+              SELECT
+                COUNT(userid) AS anz
+              FROM %prefix%user AS user
+              LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
+              WHERE
+                party_id=%int%
+                AND (type >= 1)", $row['party_id']);
             $party .= $xml->write_tag('registered', $row2['anz'], 3);
 
-            $row2 = $db->qry_first("SELECT count(userid) as anz FROM %prefix%user AS user
-        LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
-        WHERE (party.paid > 0) AND party_id=%int% AND (type >= 1)", $row['party_id']);
+            $row2 = $db->qry_first("
+              SELECT
+                COUNT(userid) AS anz
+              FROM %prefix%user AS user
+              LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
+              WHERE
+                (party.paid > 0)
+                AND party_id=%int%
+                AND (type >= 1)", $row['party_id']);
             $party .= $xml->write_tag('paid', $row2['anz'], 3);
         
             $partys .= $xml->write_master_tag('party', $party, 2);
