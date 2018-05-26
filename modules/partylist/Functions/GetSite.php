@@ -3,6 +3,7 @@
 /**
  * @param string $url
  * @return bool|string
+ * @todo fix this to use fopen or similar to handle HTTPS and redirects
  */
 function GetSite($url)
 {

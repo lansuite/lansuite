@@ -1,8 +1,8 @@
 <?php
 include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$tfunc = new \tfunc();
 include_once("modules/tournament2/class_t_league_export.php");
-$t_league_export = new t_league_export;
+$t_league_export = new \t_league_export();
 
 
 $dsp->NewContent(t('Exporte'), t('Hier stehen die Turnier-Exports der verschiedenen Ligen zum download bereit.'));
