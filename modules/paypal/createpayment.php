@@ -1,64 +1,49 @@
 <?php
 
-/* 
+/**
  * Process all submitted items and get a payment link and ID from PayPal
  */
 
-function GetPriceDetails($priceID){
-    global $db, $auth;
-    $result = $db->qry_first('SELECT pu.party_id,pu.user_id,pu.price_id,p.name,price_text,price.price FROM %prefix%party_user AS pu LEFT JOIN %prefix%partys AS p USING(party_id) LEFT JOIN %prefix%party_prices AS price ON price.price_id=pu.price_id WHERE user_id=%int% and pu.price_id=%int%',$auth['userid'],$priceID);
-    $result['price']=  SanitizeVal($result['price']); //make sure that we only get the value, not the currency items
-    return $result;
-}
+use LanSuite\Module\PayPal\PayPalItem;
 
-function SanitizeVal($string){
-    //convert comma to decimal point
-    $string = str_replace(',','.',$string);
-    //just return the float value
-    return doubleval($string);
-}
-
-
-
-if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
-	$func->error(t('Du kannst nichts einzahlen wenn du nicht eingeloggt bist.'),"index.php?mod=home");
-}else{
+if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
+    $func->error(t('Du kannst nichts einzahlen wenn du nicht eingeloggt bist.'), "index.php?mod=home");
+} else {
     $dsp->NewContent(t('Übersicht der Zahlung'), t('Folgend alle Artikel und Kosten'));
     
-    //Get a payment link from PayPal
+    // Get a payment link from PayPal
+    $paypalObj = new \LanSuite\Module\PayPal\PayPal();
+    $paypalObj->initAccessToken();
 
-    $PayPalObj = new \LanSuite\Module\PayPal\PayPal();
-    $PayPalObj->GetAccessToken();
-    //add items for all submitted party prices...
-    if (!empty($_POST['price'])){
-        foreach ($_POST['price'] as $priceID){
+    // Add items for all submitted party prices...
+    if (!empty($_POST['price'])) {
+        foreach ($_POST['price'] as $priceID) {
             $details = GetPriceDetails($priceID);
-            $paypalitem = new PayPalItem($details['name']. ' '.$details['price_text'],  $details['price'], 'PARTY-'.$details['party_id'].'-'.$priceID, 1);
-            $dsp->AddDoubleRow($details['name']. ' '.$details['price_text'],$details['price']. ' €');
-            $PayPalObj->AddItem($paypalitem);
+            $paypalitem = new PayPalItem($details['name']. ' '.$details['price_text'], $details['price'], 'PARTY-'.$details['party_id'].'-'.$priceID, 1);
+            $dsp->AddDoubleRow($details['name']. ' '.$details['price_text'], $details['price']. ' €');
+            $paypalObj->addItem($paypalitem);
         }
     }
-    //add foodorder item...
+    // Add foodorder item...
     if ($_POST['catering']>0) {
-        $paypalitem = new PayPalItem(t('Guthaben Catering'), SanitizeVal($_POST['catering']),'CATERING',1);
-        $dsp->AddDoubleRow(t('Guthaben Catering'),SanitizeVal($_POST['catering']). '€');
-        $PayPalObj->AddItem($paypalitem);
+        $paypalitem = new PayPalItem(t('Guthaben Catering'), SanitizeVal($_POST['catering']), 'CATERING', 1);
+        $dsp->AddDoubleRow(t('Guthaben Catering'), SanitizeVal($_POST['catering']). '€');
+        $paypalObj->addItem($paypalitem);
     }
-    //add donation item
+
+    // Add donation item
     if ($_POST['donation']>0) {
-        $paypalitem = new PayPalItem(t('Spende'), SanitizeVal($_POST['donation']),'DONATION',1);
-        $dsp->AddDoubleRow(t('Spende'),SanitizeVal($_POST['donation']). '€');
-        $PayPalObj->AddItem($paypalitem);
+        $paypalitem = new PayPalItem(t('Spende'), SanitizeVal($_POST['donation']), 'DONATION', 1);
+        $dsp->AddDoubleRow(t('Spende'), SanitizeVal($_POST['donation']). '€');
+        $paypalObj->addItem($paypalitem);
     }
-    //Total
-    if (!empty($_POST['price']) || $_POST['donation']>0 || $_POST['catering']>0){
-        $dsp->AddDoubleRow(t('Gesamtsumme'),$PayPalObj->CalcItemsTotal(). '€');
-        $PaymentLink = $PayPalObj->CreatePaymentLink();
-        $dsp->AddSingleRow($dsp->FetchSpanButton(t('Mit PayPal Bezahlen'),$PaymentLink));
-    }
-    else {
+
+    // Total
+    if (!empty($_POST['price']) || $_POST['donation']>0 || $_POST['catering']>0) {
+        $dsp->AddDoubleRow(t('Gesamtsumme'), $paypalObj->calcItemsTotal(). '€');
+        $PaymentLink = $paypalObj->createPaymentLink();
+        $dsp->AddSingleRow($dsp->FetchSpanButton(t('Mit PayPal Bezahlen'), $PaymentLink));
+    } else {
         $func->error(t('Du hast keine Option zum Bezahlen ausgewählt'));
     }
 }
-
-?>
