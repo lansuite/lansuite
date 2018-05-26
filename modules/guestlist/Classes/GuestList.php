@@ -13,11 +13,11 @@ class GuestList
     private $seating;
 
     /**
-     * @var \UsrMgr
+     * @var \LanSuite\Module\UsrMgr\UserManager
      */
     private $userManager;
 
-    public function __construct(Seat2 $seating, \UsrMgr $userManager)
+    public function __construct(Seat2 $seating, \LanSuite\Module\UsrMgr\UserManager $userManager)
     {
         $this->seating = $seating;
         $this->userManager = $userManager;
@@ -32,8 +32,7 @@ class GuestList
     {
         global $db, $cfg, $func;
 
-        include_once("modules/mail/class_mail.php");
-        $mail = new mail();
+        $mail = new Lansuite\Module\Mail\Mail();
 
         if (!$userid) {
             $func->error(t('Keinen Benutzer ausgewählt'));
@@ -81,8 +80,7 @@ class GuestList
     {
         global $db, $cfg, $func;
 
-        include_once("modules/mail/class_mail.php");
-        $mail = new mail();
+        $mail = new \LanSuite\Module\Mail\Mail();
 
         $Messages = array('success' => '', 'error' => '');
         $db->qry('UPDATE %prefix%party_user SET paid = 0, paiddate = "" WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);

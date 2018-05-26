@@ -4,7 +4,6 @@ switch ($_GET["step"]) {
         include_once('modules/troubleticket/search.inc.php');
         break;
 
-
     case 2:
         include_once('modules/usrmgr/search_main.inc.php');
     
@@ -28,13 +27,17 @@ switch ($_GET["step"]) {
         $target_userid_old = $get_ticket["target_userid"];
 
         // Zuweisen, Status setzen, Comment setzen, Zeiten setzen, assign_by setzen, old_target_user setzen
-        $assign_ticket = $db->qry("UPDATE %prefix%troubleticket SET target_userid = %int%,
-    target_userid_old = %int%,
-    status = '2',
-    publiccomment = '',
-    verified = %int%,
-    assignby_userid = %int%
-    WHERE ttid = %int%", $t_userid, $target_userid_old, time(), $auth["userid"], $tt_id);
+        $assign_ticket = $db->qry("
+          UPDATE %prefix%troubleticket
+          SET
+            target_userid = %int%,
+            target_userid_old = %int%,
+            status = '2',
+            publiccomment = '',
+            verified = %int%,
+            assignby_userid = %int%
+          WHERE
+            ttid = %int%", $t_userid, $target_userid_old, time(), $auth["userid"], $tt_id);
 
         // Wenn Update erfolgreich folgende Funktionen ausführen
         if ($assign_ticket) {

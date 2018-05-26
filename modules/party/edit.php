@@ -17,6 +17,7 @@ $mf->SendForm('index.php?mod=party&action=edit', 'partys', 'party_id', $_GET['pa
 
 // Write ext_inc/party_infos/infos.xml on Change
 if ($_GET['mf_step'] == '2') {
-    include_once("modules/usrmgr/class_usrmgr.php");
+    $mail = new \LanSuite\Module\Mail\Mail();
+    $usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
     $usrmgr->WriteXMLStatFile();
 }

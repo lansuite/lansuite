@@ -33,7 +33,7 @@ if (!$_GET['tournamentid']) {
                 $team_anz = $db->num_rows($games);
                 $db->free_result($games);*/
                 include_once("modules/tournament2/class_tournament.php");
-                $tfunc = new tfunc;
+                $tfunc = new \tfunc();
                 $team_anz = $tfunc->GetTeamAnz($_GET['tournamentid'], $tournament['mode'], $_POST['group']);
   
                 $dsp->NewContent(t('Turnierbaum zum Turnier %1 (%2)', $tournament['name'], $modus), t('Hier siehst du grafisch dargestellt, wer gegen wen spielt und kannst Ergebnisse melden'));

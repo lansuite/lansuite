@@ -1,10 +1,9 @@
-<?php // by denny@esa-box.de
+<?php
 
 switch ($_GET["step"]) {
     default:
         include_once('modules/troubleticket/search.inc.php');
         break;
-
 
     case 2:
         $tt_id = $_GET['ttid'];
