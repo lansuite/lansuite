@@ -174,16 +174,16 @@ class PayPal
         
             $this->payment->setTransactions(array($transaction));
 
-            $this->payment->create($this->apiContext);
-            // store essential information in session...
-            $_SESSION['paypal_payment_id'] = $this->payment->getId();
+            try {
+                $this->payment->create($this->apiContext);
+                // store essential information in session...
+                $_SESSION['paypal_payment_id'] = $this->payment->getId();
 
-            $approval_link = $this->payment->getApprovalLink();
-            if (!$approval_link) {
+                $approval_link = $this->payment->getApprovalLink();
+                return $approval_link;
+            } catch (\Exception $e) {
                 $func->error(t('Fehler bei der Übermittlung an PayPal'));
-                return;
             }
-            return $approval_link;
         } else {
             // Error handling if no items have been added
             $func->error(t('Du hast keine Option zum Bezahlen ausgewählt'));
