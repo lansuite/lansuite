@@ -1,7 +1,7 @@
 <?php
 
-include_once('modules/usrmgr/class_usrmgr.php');
-$UsrMgr = new UsrMgr;
+$mail = new \LanSuite\Module\Mail\Mail();
+$UsrMgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
 switch ($_GET['step']) {
     case 10:

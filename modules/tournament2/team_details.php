@@ -3,7 +3,7 @@
 use LanSuite\Module\Seating\Seat2;
 
 include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$tfunc = new \tfunc();
 
 if (!$_GET["teamid"]) {
     $func->error(t('Es wurde kein Team ausgewählt! Die Anzeige der Team-Details ist daher nicht möglich'));
