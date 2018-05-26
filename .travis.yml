@@ -62,5 +62,6 @@ script:
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/stats
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR2.Methods.MethodDeclaration,PSR1.Classes.ClassDeclaration modules/teamspeak2
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/troubleticket
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/wiki
   - phpcs --standard=PSR1,PSR2 --extensions=php -s --ignore="/ext_scripts/*,/ext_inc/*,/vendor/*" . || true # Allow failures for now
   - bin/phpunit
