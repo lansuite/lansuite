@@ -97,7 +97,6 @@ class Display
             $smarty->assign('content', $content);
             $MainContent .= $smarty->fetch('design/templates/ls_row_firstline.htm');
             $this->FirstLine = 0;
-
         } else {
             $smarty->assign('content', $content);
             $MainContent .= $smarty->fetch('design/templates/ls_row_line.htm');
@@ -492,13 +491,11 @@ class Display
         $rows = '';
         if (!is_array($table)) {
             $func->error(t('AddTableRow: First argument needs to be array'));
-
         } else {
             foreach ($table as $y => $row) {
                 $cells = '';
                 if (!is_array($row)) {
                     $func->error(t('AddTableRow: First argument needs to be 2-dimension-array'));
-
                 } else {
                     foreach ($row as $x => $cell) {
                         if ($cell['link']) {
@@ -864,14 +861,12 @@ class Display
             $year = date("Y", $time);
             $hour = date("H", $time);
             $min = date("i", $time);
-
         } elseif ($values['day'] != "" and $values['month'] != "" and $values['year'] != "") {
             $day = $values['day'];
             $month = $values['month'];
             $year = $values['year'];
             $hour = $values['hour'];
             $min = $values['min'];
-
         } else {
             $day = date("d");
             $month = date("m");
@@ -1036,10 +1031,8 @@ class Display
         $maxfilesize = ini_get('upload_max_filesize');
         if (strpos($maxfilesize, 'M') > 0) {
             $maxfilesize = (int)$maxfilesize * 1024 * 1024;
-
         } elseif (strpos($maxfilesize, 'K') > 0) {
             $maxfilesize = (int)$maxfilesize * 1024;
-
         } else {
             $maxfilesize = (int)$maxfilesize;
         }
@@ -1149,7 +1142,6 @@ class Display
 
             $gd->CreateThumb($file, $FileThumb, '300', '300');
             return HTML_NEWLINE . HTML_NEWLINE. '<a href="'. $file .'" target="_blank"><img src="'. $FileThumb .'" border="0" /></a>';
-
         }
 
         return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon('download', $file) .' ('. t('Angehängte Datei herunterladen').')';

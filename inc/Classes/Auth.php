@@ -9,7 +9,8 @@ namespace LanSuite;
  *
  * @todo Change uniqkey from md5(password) to an extra Field
  */
-class Auth {
+class Auth
+{
 
     /**
      * Userdata
@@ -99,7 +100,8 @@ class Auth {
      * auth constructor.
      * @param string $frmwrkmode Frameworkmode for switch Stats
      */
-    public function __construct($frmwrkmode = "") {
+    public function __construct($frmwrkmode = "")
+    {
         global $db;
 
         $this->auth["sessid"] = session_id();
@@ -141,7 +143,6 @@ class Auth {
             // and there the user is active, it will count as an online user.
             if ($row['online'] > 0) {
                 $this->online_users[] = $row['userid'];
-
             } else {
                 $this->away_users[] = $row['userid'];
             }
@@ -221,15 +222,12 @@ class Auth {
 
         if ($tmp_login_email == "") {
             $func->information(t('Bitte gib deine E-Mail-Adresse oder deine Lansuite-ID ein.'), '', 1);
-
         } elseif ($tmp_login_pass == "") {
             $func->information(t('Bitte gib dein Kennwort ein.'), '', 1);
-
         } else {
             $is_email = strstr($tmp_login_email, '@');
             if (!$is_email) {
                 $is_email = 0;
-
             } else {
                 $is_email = 1;
             }
@@ -387,10 +385,8 @@ class Auth {
 
         if ($userid == "") {
             $func->information(t('Keine Userid beim Login via Cookie erkannt.'), '', 1);
-
         } elseif ($uniquekey == "") {
             $func->information(t('Kein Uniquekey beim Login via Cookie erkannt.'), '', 1);
-
         } else {
             $this->login($userid, $uniquekey, 0);
         }
@@ -456,7 +452,6 @@ class Auth {
             $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $target_id, $this->auth["sessid"]);
 
             $func->confirmation(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), '', 1);  //FIX meldungen auserhalb/standart?!?
-
         } else {
             $func->error(t('Dein Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), '', 1); //FIX meldungen auserhalb/standart?!
         }
@@ -489,11 +484,9 @@ class Auth {
                 $this->cookie_set();
 
                 $func->confirmation(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), '', 1);
-
             } else {
                 $func->information(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), '', 1);
             }
-
         } else {
             $func->information(t('Fehler: Keine Switchbackdaten gefunden! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), '', 1);
         }
@@ -514,7 +507,6 @@ class Auth {
             case 1:
                 if ($this->auth['login']) {
                     return true;
-
                 } else {
                     $func->information('NO_LOGIN');
                 }
@@ -524,10 +516,8 @@ class Auth {
             case 2:
                 if ($this->auth['type'] > 1) {
                     return true;
-
                 } elseif (!$this->auth['login']) {
                     $func->information('NO_LOGIN');
-
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
@@ -537,10 +527,8 @@ class Auth {
             case 3:
                 if ($this->auth['type'] > 2) {
                     return true;
-
                 } elseif (!$this->auth['login']) {
                     $func->information('NO_LOGIN');
-
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
@@ -550,7 +538,6 @@ class Auth {
             case 4:
                 if ($this->auth['type'] < 2) {
                     return true;
-
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
@@ -560,7 +547,6 @@ class Auth {
             case 5:
                 if (!$this->auth['login']) {
                     return true;
-
                 } else {
                     $func->information('ACCESS_DENIED');
                 }
