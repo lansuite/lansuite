@@ -80,7 +80,6 @@ class MasterDelete
             if ($table != 'log') {
                 $func->log_event(t('Eintrag #%1 aus Tabelle "%2" gelöscht', array($id, $config['database']['prefix'] . $table)), 1, '', $this->LogID);
             }
-
         } elseif ($table != 'log') {
             $func->log_event(t('Fehler beim Löschen von #%1 aus Tabelle "%2"', array($id, $config['database']['prefix'] . $table)), 3, '', $this->LogID);
         }
@@ -118,16 +117,12 @@ class MasterDelete
                 if ($row2['cnt']) {
                     if ($row['on_delete'] == 'ASK_DELETE') {
                         $refFieldsDelete .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
-
                     } elseif ($row['on_delete'] == 'ASK_SET0') {
                         $refFieldsSet0 .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
-
                     } elseif ($row['on_delete'] == 'DELETE') {
                         // No additional question needed
-
                     } elseif ($row['on_delete'] == 'SET0') {
                         // No additional question needed
-
                     } else {
                         $refFieldsDeny .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
                     }
@@ -137,7 +132,6 @@ class MasterDelete
             if ($refFieldsDeny) {
                 $func->information(t('Dieser Eintrag kann momentan leider nicht gelöscht werden, da Einträge aus folgenden Tabellen noch darauf referenzieren') .
                 ': '. HTML_NEWLINE . HTML_NEWLINE . $refFieldsDeny, $_SESSION['md_referrer']);
-
             } else {
                 $q = t('Bist du sicher, dass du diesen Eintrag löschen möchtest?');
                 if ($refFieldsDelete) {
@@ -164,7 +158,6 @@ class MasterDelete
 
             if ($res) {
                 $func->confirmation(t('Der Eintrag wurde erfolgreich gelöscht'), $_SESSION['md_referrer']);
-
             } else {
                 $func->information(t('Der Eintrag konnte nicht gelöscht werden'), $_SESSION['md_referrer']);
             }
@@ -198,7 +191,6 @@ class MasterDelete
 
             if ($failed != '') {
                 $func->information(t('Die folgenden Einträge konnte nicht gelöscht werden').':'.$failed);
-
             } else {
                 $func->confirmation(t('Die Einträge wurde erfolgreich gelöscht'));
             }

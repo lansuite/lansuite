@@ -28,5 +28,4 @@ class SecTest extends TestCase
         $actual = $sec->check_blacklist();
         $this->assertEquals($expected, $actual);
     }
-
 }

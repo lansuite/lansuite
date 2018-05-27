@@ -2,7 +2,8 @@
 
 namespace LanSuite;
 
-class XML {
+class XML
+{
 
     /**
      * Get the contents of the first occurrence of a specific XML-tag.
@@ -12,7 +13,8 @@ class XML {
      * @param bool      $save   Should --lt-- and --gt-- be replaced? Costs performance, but needed for text-fields. Attention: Use save only in most inner calls, containing text only
      * @return string
      */
-    public function getFirstTagContent($tag, $input, $save = false) {
+    public function getFirstTagContent($tag, $input, $save = false)
+    {
         $start = strpos($input, '<' . $tag . '>') + strlen($tag) + 2;
 
         // If the tag has attributes, remove them, for the end tag won't contain them
@@ -27,7 +29,9 @@ class XML {
 
         if ($save) {
             return trim(
-                str_replace('--lt--', '<',
+                str_replace(
+                    '--lt--',
+                    '<',
                     str_replace('--gt--', '>', substr($input, $start, $end))
                 )
             );
@@ -56,8 +60,12 @@ class XML {
         while ($i < sizeof($content)) {
             // Copy till end-tag
             if ($save) {
-                $output[] = str_replace('--lt--', '<',
-                    str_replace('--gt--', '>',
+                $output[] = str_replace(
+                    '--lt--',
+                    '<',
+                    str_replace(
+                        '--gt--',
+                        '>',
                         substr($content[$i], 0, strpos($content[$i], '</' . $tag . '>'))
                     )
                 );
@@ -78,7 +86,8 @@ class XML {
      * @param string    $input
      * @return string
      */
-    public function get_tag_content_combine($tag_to_grab, $input) {
+    public function get_tag_content_combine($tag_to_grab, $input)
+    {
         $output = '';
         $tag_content = preg_split("/\<$tag_to_grab\>/i", $input, 0);
         $i = 1;
@@ -105,7 +114,8 @@ class XML {
      * @param string    $input
      * @return array
      */
-    public function get_tag_content_array($tag_to_grab, $input) {
+    public function get_tag_content_array($tag_to_grab, $input)
+    {
         $output = [];
         $tag_content = preg_split("/\<$tag_to_grab\>/i", $input, 0);
         $i = 1;
@@ -131,7 +141,8 @@ class XML {
      * @param bool      $replace_html
      * @return string
      */
-    public function get_tag_content($tag_to_grab, $input, $replace_html = true) {
+    public function get_tag_content($tag_to_grab, $input, $replace_html = true)
+    {
         $tag_content = preg_split("/\<$tag_to_grab\>/i", $input, 0);
         if (strpos($tag_to_grab, ' ') > 0) {
             $tag_to_grab = substr($tag_to_grab, 0, strpos($tag_to_grab, ' '));
@@ -151,7 +162,8 @@ class XML {
      * @param int       $level
      * @return string
      */
-    private function level2tab($level) {
+    private function level2tab($level)
+    {
         $tab = '';
         for ($i = 0; $i < $level; $i++) {
             $tab .= "\t";
@@ -168,7 +180,8 @@ class XML {
      * @param int       $level
      * @return string
      */
-    public function write_master_tag($tag, $content, $level) {
+    public function write_master_tag($tag, $content, $level)
+    {
         $tab = $this->level2tab($level);
         $brackets = $tab . "<%s>\r\n" . '%s' . $tab . "</%s>\r\n";
 
@@ -188,7 +201,8 @@ class XML {
      * @param int       $level
      * @return string
      */
-    public function write_tag($tag, $content, $level) {
+    public function write_tag($tag, $content, $level)
+    {
         global $func;
 
         $tab = $this->level2tab($level);
@@ -212,7 +226,8 @@ class XML {
      * @param string    $string
      * @return string
      */
-    public function convertinputstr($string) {
+    public function convertinputstr($string)
+    {
         $string = str_replace('"', '', $string);
         $string = str_replace('\\', '', $string);
         $string = str_replace('\'', '', $string);
