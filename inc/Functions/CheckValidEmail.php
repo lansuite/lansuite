@@ -17,7 +17,7 @@ function CheckValidEmail($email)
     switch ($cfg['sys_email_regex_verification']) {
         case 'loose':
             $emailValidator = new Email(Email::VALIDATION_MODE_LOOSE);
-        break;
+            break;
         case 'html5':
         default:
             $emailValidator = new Email(Email::VALIDATION_MODE_HTML5);

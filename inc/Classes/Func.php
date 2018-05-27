@@ -142,7 +142,6 @@ class Func
     {
         if ((int)$func_timestamp == 0) {
             return '---';
-
         } else {
             switch ($func_art) {
                 case 'year':
@@ -221,7 +220,6 @@ class Func
 
         if ($priority != "0" && $priority != "1" && $priority != "2") {
             echo(t('Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)'));
-
         } else {
             $date = date("U");
             $db->qry("INSERT INTO %prefix%infobox SET userid=%int%, class=%string%, id_in_class = %int%, text=%string%, date=%string%, priority=%string%", $userid, $item, $itemid, $text, $date, $priority);
@@ -243,7 +241,6 @@ class Func
         // Link
         if ($link_target == NO_LINK) {
             $smarty->assign('link', '');
-
         } else {
             switch ($link_type) {
                 case 'FORWARD':
@@ -279,7 +276,6 @@ class Func
 
         if ($JustReturn) {
             $FrameworkMessages .= $smarty->fetch('design/templates/'. $type .'.htm');
-
         } else {
             $dsp->AddContentLine($smarty->fetch('design/templates/'. $type .'.htm'));
         }
@@ -388,7 +384,6 @@ class Func
                 '<' => '&lt;',
                 '>' => '&gt;'
             ];
-
         } else {
             $aTransSpecchar = [
                 '&' => '&amp;',
@@ -669,7 +664,6 @@ class Func
 
         if ($message == '') {
             echo("Function log_event needs message defined! - Invalid arguments supplied!");
-
         } else {
             if ($sort_tag == '') {
                 $sort_tag = $_GET['mod'];
@@ -710,7 +704,6 @@ class Func
                 $page_sql = "";
                 $page_a = 0;
                 $page_b = $overall_entries;
-
             } else {
                 $page_sql = ("LIMIT " . ($current_page * $max_entries_per_page) . ", " . (int)($max_entries_per_page));
                 $page_a = ($current_page * $max_entries_per_page);
@@ -727,7 +720,6 @@ class Func
                 while ($i < ($overall_entries / $max_entries_per_page)) {
                     if ($current_page == $i && $current_page != "all") {
                         $page_output .= (" " . ($i + 1));
-
                     } else {
                         $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
                     }
@@ -756,7 +748,6 @@ class Func
             ];
 
             return($output);
-
         } else {
             echo("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
         }
@@ -807,7 +798,6 @@ class Func
                         $name .= substr($_FILES[$source_var]['name'], strrpos($_FILES[$source_var]['name'], "."), 5);
                     }
                     $target = $path . $name;
-
                 } else {
                       $target = $path . $_FILES[$source_var]['name'];
                 }
@@ -855,12 +845,10 @@ class Func
                 if (move_uploaded_file($_FILES[$source_var]['tmp_name'], $targetUniq)) {
                       chmod($targetUniq, octdec($config["lansuite"]["chmod_file"]));
                       return $targetUniq;
-
                 } else {
                       echo "Fehler: Datei konnte nicht hochgeladen werden." . HTML_NEWLINE;
                       print_r($_FILES);
                       return 0;
-
                 }
                 break;
         }
@@ -891,7 +879,6 @@ class Func
         $handle = fsockopen('udp://'.$host, 7, $errno, $errstr);
         if (!$handle) {
             return false;
-
         } else {
             // Set read timeout
             socket_set_timeout($handle, 0, $timeout);
@@ -915,7 +902,6 @@ class Func
             if (($laptime * 1000000) > ($timeout * 0.9)) {
                 fclose($handle);
                 return false;
-
             } else {
                 fclose($handle);
                 return true;
@@ -973,7 +959,6 @@ class Func
         if ($imgpath != '' && $imgpath != 'none' && $imgpath != '0') {
             if (is_file($imgpath)) {
                 return 1;
-
             } else {
                 return 0;
             }
@@ -993,14 +978,12 @@ class Func
             $res = $db->qry("SELECT userid FROM %prefix%user WHERE type = 3 LIMIT 1");
             if ($db->num_rows($res) > 0) {
                 $found = 1;
-
             } else {
                 $found = 0;
             }
 
             $db->free_result($res);
             return $found;
-
         } else {
             return 0;
         }
@@ -1020,11 +1003,9 @@ class Func
 
         if ($HardLimit && strlen($str) > $HardLimit) {
             return substr($str, 0, $HardLimit - 2) . '...';
-
         } elseif (strlen($str) > $SoftLimit) {
             preg_match('/[^a-zA-Z0-9]/', substr($str, $SoftLimit, strlen($str)), $ret, PREG_OFFSET_CAPTURE);
             return substr($str, 0, $SoftLimit + $ret[0][1]) . '...';
-
         } else {
             return $str;
         }
@@ -1053,7 +1034,6 @@ class Func
 
         if (!$userid) {
             return 1;
-
         } else {
             $last_read = $db->qry_first('
             SELECT UNIX_TIMESTAMP(date) AS date 
@@ -1062,7 +1042,7 @@ class Func
 
             // Older, than one week
             if ($last_change < (time() - 60 * 60 * 24 * 7)) {
-              return 0;
+                return 0;
 
             // No entry -> Thread completely new
             } elseif (!$last_read['date']) {
@@ -1099,7 +1079,6 @@ class Func
         $search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%lastread WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
         if ($search_read["found"]) {
             $db->qry_first("UPDATE %prefix%lastread SET date = NOW() WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
-
         } else {
             $db->qry_first("INSERT INTO %prefix%lastread SET date = NOW(), tab = %string%, entryid = %int%, userid = %int%", $table, $entryid, $userid);
         }
@@ -1178,7 +1157,8 @@ class Func
      * @param string $caption
      * @return bool
      */
-    public function isModActive($mod, &$caption = '') {
+    public function isModActive($mod, &$caption = '')
+    {
         if (array_key_exists($mod, $this->ActiveModules)) {
             $caption = $this->ActiveModules[$mod];
         }

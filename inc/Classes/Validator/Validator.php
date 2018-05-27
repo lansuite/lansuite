@@ -23,14 +23,16 @@ abstract class Validator implements ValidatorInterface
     /**
      * {@inheritdoc}
      */
-    public function getErrorCode() {
+    public function getErrorCode()
+    {
         return $this->errorCode;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isOptionEnabled($option) {
+    public function isOptionEnabled($option)
+    {
         return $this->options[$option];
     }
 

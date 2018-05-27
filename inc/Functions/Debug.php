@@ -15,7 +15,8 @@
  *
  * @return void
  */
-function d() {
+function d()
+{
     global $debug, $func;
 
     $arg_vars = func_get_args();
@@ -26,11 +27,9 @@ function d() {
     if ($arg_vars[1]) {
         $title = $arg_vars[0];
         $val = $arg_vars[1];
-
     } elseif (is_string($arg_vars[0]) && substr($arg_vars[0], 0, 1) == '$') {
         $title = $arg_vars[0];
         eval('global '. $arg_vars[0] .'; $val = '. $arg_vars[0] .';');
-
     } else {
         $title = 'Variable';
         $val = $arg_vars[0];
@@ -42,10 +41,8 @@ function d() {
     if ($title == 'Variable') {
         if (is_numeric($val)) {
             $title = $val;
-
         } elseif (is_string($val)) {
             $title = substr($val, 0, 10);
-
         } else {
             $title = 'No title given';
         }
