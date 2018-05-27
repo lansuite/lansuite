@@ -2,7 +2,8 @@
 
 namespace LanSuite;
 
-class MasterComment {
+class MasterComment
+{
 
     /**
      * Mastercomment constructor.
@@ -64,7 +65,6 @@ class MasterComment {
         // Add new comments
         if ($cfg['mc_only_logged_in'] && !$auth['login']) {
             $func->information(t('Bitte loggen dich ein, bevor du einen Kommentar verfasst'), NO_LINK);
-
         } else {
             if ($_GET['commentid']) {
                 $row = $db->qry_first('SELECT creatorid FROM %prefix%comments WHERE commentid = %int%', $_GET['commentid']);
@@ -145,7 +145,8 @@ class MasterComment {
             if ($_GET['set_bm']) {
                 $db->qry_first('DELETE FROM %prefix%comments_bookmark WHERE relatedto_id = %int% AND relatedto_item = %string%', $id, $mod);
                 if ($_POST["check_bookmark"]) {
-                    $db->qry('
+                    $db->qry(
+                        '
                       INSERT INTO %prefix%comments_bookmark
                       SET
                         relatedto_id = %int%,
