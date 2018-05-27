@@ -4,7 +4,8 @@
  * @param string $text
  * @return string
  */
-function FetchPostRow($text) {
+function FetchPostRow($text)
+{
     global $func, $line;
 
     $ret = '<span id="post' . $line['commentid'] . '">' . $func->text2html($text) . '</span>';
