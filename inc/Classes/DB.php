@@ -94,6 +94,8 @@ class DB
         } elseif ($match[0] == '%plain%') {
             return $CurrentArg;
         }
+
+        return '';
     }
 
     /**

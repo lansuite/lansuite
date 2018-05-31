@@ -747,10 +747,12 @@ class Func
                 'b' => $page_b,
             ];
 
-            return($output);
+            return $output;
         } else {
             echo("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
         }
+
+        return [];
     }
 
     /**
@@ -963,6 +965,8 @@ class Func
                 return 0;
             }
         }
+
+        return 0;
     }
 
     /**
