@@ -264,7 +264,7 @@ class GD
             $text_parts = preg_split("\r\n", $text);
             $i = 0;
 
-            while (list($key, $val) = each($text_parts)) {
+            foreach ($text_parts as $val) {
                 ImageString($this->img, 2, $xpos, $ypos + $i, $val, $color);
                 $i += ($this->font_size + 2);
             }

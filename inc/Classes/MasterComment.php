@@ -129,7 +129,8 @@ class MasterComment
             
                     // Update LastChange in $update_table, if $update_table is set
                     if ($update_table) {
-                        list($key, $val) = each($update_table);
+                        $key = key($update_table);
+                        $val = current($update_table);
                         $db->qry('UPDATE %prefix%'. $key .' SET changedate=NOW() WHERE '. $val .' = %int%', $id);
                     }
                 }
