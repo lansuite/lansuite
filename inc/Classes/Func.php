@@ -233,6 +233,8 @@ class Func
      * @param int $JustReturn
      * @param string $link_type
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     private function GeneralDialog($type, $text, $link_target = '', $JustReturn = 0, $link_type = '')
     {
@@ -319,10 +321,12 @@ class Func
     }
 
     /**
-     * @param string    $text
-     * @param string    $link_target_yes
-     * @param string    $link_target_no
+     * @param string $text
+     * @param string $link_target_yes
+     * @param string $link_target_no
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function question($text, $link_target_yes, $link_target_no = '')
     {
@@ -340,10 +344,12 @@ class Func
     }
 
     /**
-     * @param array     $questionarray
-     * @param array     $linkarray
-     * @param string    $text
+     * @param array $questionarray
+     * @param array $linkarray
+     * @param string $text
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function multiquestion($questionarray, $linkarray, $text = '')
     {
