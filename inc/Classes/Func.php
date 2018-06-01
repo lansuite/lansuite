@@ -699,21 +699,27 @@ class Func
      */
     public function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name)
     {
+        // $current_page is passed as an string, because the source is a GET parameter
+        // it seems that it can contain a string 'all' or a number.
+        // In this function we add numbers to $current_page which
+        // can lead to different results as expected
+        // To avoid this, we cast it to int
+        $currentPageInt = intval($current_page);
         if ($max_entries_per_page > 0 and $overall_entries >= 0 and $working_link != "" and $var_page_name != "") {
             if ($current_page == "all") {
                 $page_sql = "";
                 $page_a = 0;
                 $page_b = $overall_entries;
             } else {
-                $page_sql = ("LIMIT " . ($current_page * $max_entries_per_page) . ", " . (int)($max_entries_per_page));
-                $page_a = ($current_page * $max_entries_per_page);
+                $page_sql = ("LIMIT " . ($currentPageInt * $max_entries_per_page) . ", " . (int)($max_entries_per_page));
+                $page_a = ($currentPageInt * $max_entries_per_page);
                 $page_b = ($max_entries_per_page);
             }
 
             if ($overall_entries > $max_entries_per_page) {
                 $page_output = ("Seiten: ");
-                if ($current_page != "all" && ($current_page + 1) > 1) {
-                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($current_page - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
+                if ($current_page != "all" && ($currentPageInt + 1) > 1) {
+                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($currentPageInt - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
                 }
 
                 $i = 0;
@@ -727,8 +733,8 @@ class Func
                     $i++;
                 }
 
-                if ($current_page != "all" && ($current_page + 1) < ($overall_entries/$max_entries_per_page)) {
-                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
+                if ($current_page != "all" && ($currentPageInt + 1) < ($overall_entries/$max_entries_per_page)) {
+                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($currentPageInt + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
                 }
 
                 if ($current_page != "all") {
