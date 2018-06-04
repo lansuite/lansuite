@@ -117,7 +117,7 @@ class Barcode
     public function error($asimg = false)
     {
         if (empty($this->_error)) {
-            return "";
+            return '';
         }
         if (!$asimg) {
             return $this->_error;
@@ -130,6 +130,7 @@ class Barcode
         @imagettftext($im, 10, 0, 5, 50, $color, $this->_font, wordwrap($this->_error, 40, "\n", 1));
         @imagepng($im);
         @imagedestroy($im);
+        return '';
     }
 
     public function genBarCode($barnumber, $format = "gif", $file = "")
@@ -183,6 +184,8 @@ class Barcode
         } elseif ($this->_encode=="CODE93") {
             $this->_c93Barcode($barnumber, $this->_scale, $file);
         }
+
+        return true;
     }
 
     /// Start function for code93
@@ -914,8 +917,6 @@ class Barcode
             $xpos+=2*$scale;
         }
 
-
-
         if ($this->_format=="png") {
             if (!empty($file)) {
                 @imagepng($im, $file.".".$this->_format);
@@ -940,7 +941,8 @@ class Barcode
             }
         }
 
-            @imagedestroy($im);
+        @imagedestroy($im);
+        return true;
     }
     // End Function for POSTNET
 
