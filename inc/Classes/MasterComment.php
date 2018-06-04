@@ -2,6 +2,9 @@
 
 namespace LanSuite;
 
+use LanSuite\Module\Mail\Mail;
+use LanSuite\Module\MasterSearch2\MasterSearch2;
+
 class MasterComment
 {
 
@@ -11,6 +14,8 @@ class MasterComment
      * @param $mod
      * @param $id
      * @param array $update_table
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function __construct($mod, $id, $update_table = [])
     {
@@ -38,7 +43,7 @@ class MasterComment
 
         // List current comments
         // TODO Remove dependency to module. LanSuite core classes should not have dependencies to modules.
-        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('bugtracker');
+        $ms2 = new MasterSearch2('bugtracker');
 
         $ms2->query['from'] = "%prefix%comments AS c LEFT JOIN %prefix%user AS u ON c.creatorid = u.userid ";
         $ms2->query['where'] = "c.relatedto_item = '$mod' AND c.relatedto_id = '$id'";
@@ -92,7 +97,7 @@ class MasterComment
                 if ($mf->SendForm('', 'comments', 'commentid', $_GET['commentid'])) {
                     // Send email-notifications to thread-subscribers
                     // TODO Remove dependency to module. LanSuite core classes should not have dependencies to modules.
-                    $mail = new \LanSuite\Module\Mail\Mail();
+                    $mail = new Mail();
                     // Internet-Mail
                     $subscribers = $db->qry('
                       SELECT b.userid, u.firstname, u.name, u.email

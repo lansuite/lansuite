@@ -95,6 +95,8 @@ function t_no_html()
     $input = (string) array_shift($args);
     $translation_no_html_replace = true;
 
-    return t($input, $args);
+    $output = t($input, $args);
     $translation_no_html_replace = false;
+
+    return $output;
 }

@@ -83,6 +83,7 @@ class GD
         }
 
         ImageInterlace($this->img, $interlace);
+        return '';
     }
 
     /**
@@ -201,6 +202,8 @@ class GD
         if ($destroy) {
             ImageDestroy($this->img);
         }
+
+        return '';
     }
 
     /**
@@ -330,14 +333,14 @@ class GD
      * @param string    $new_file
      * @param int       $max_width
      * @param int       $max_height
-     * @return bool|void
+     * @return bool
      */
     public function CreateThumb($old_file, $new_file, $max_width, $max_height)
     {
         global $func;
 
         if (($old_file != $new_file) and file_exists($new_file)) {
-            return;
+            return false;
         }
 
         $imgsrc_old = $this->OpenImage($old_file);

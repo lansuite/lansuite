@@ -373,6 +373,8 @@ class MasterForm
      * @param string    $idname
      * @param int       $id
      * @return bool|int|mixed|string
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function SendForm($BaseURL, $table, $idname = '', $id = 0)
     {
@@ -381,7 +383,7 @@ class MasterForm
         // In freeze-mode there are no changes to the database allowed
         if ($cfg['sys_freeze']) {
             $func->information(t('Diese Webseite ist Momentan im "Freeze-Mode".[br]D.h. es können keine neuen Daten in die Datenbank geschrieben werden.[br][br]Bitte versuche es zu einem Späteren Zeitpunkt nocheinmal.'));
-            return;
+            return false;
         }
 
         // Break, if in wrong form
@@ -721,11 +723,13 @@ class MasterForm
                                             // Textarea
                                             case 'text':
                                                 $maxchar = 65535;
+                                                // No break statement here on purpose
 
                                             case 'mediumtext':
                                                 if (!$maxchar) {
                                                     $maxchar = 16777215;
                                                 }
+                                                // No break statement here on purpose
 
                                             case 'longtext':
                                                 if (!$maxchar) {
