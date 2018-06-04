@@ -832,16 +832,16 @@ class Barcode
     Check digit, encoded using encoding table below.
     Final frame bar, encoded as a single 1.
 
-    0		 11000
-    1		 00011
-    2		 00101
-    3		 00110
-    4		 01001
-    5		 01010
-    6		 01100
-    7		 10001
-    8		 10010
-    9		 10100
+    0        11000
+    1        00011
+    2        00101
+    3        00110
+    4        01001
+    5        01010
+    6        01100
+    7        10001
+    8        10010
+    9        10100
     */
 
     public function _postEncode($barnumber)
@@ -952,17 +952,17 @@ class Barcode
     Data characters properly encoded (see encoding table below).
     Stop character, encoded as 11010110.
 
-    ASCII	BARCODE
-    0		 NNWWN
-    1		 WNNNW
-    2		 NWNNW
-    3		 WWNNN
-    4		 NNWNW
-    5		 WNWNN
-    6		 NWWNN
-    7		 NNNWW
-    8		 WNNWN
-    9		 NWNWN
+    ASCII   BARCODE
+    0        NNWWN
+    1        WNNNW
+    2        NWNNW
+    3        WWNNN
+    4        NNWNW
+    5        WNWNN
+    6        NWWNN
+    7        NNNWW
+    8        WNNWN
+    9        NWNWN
     */
 
     public function _i25Encode($barnumber)
@@ -1089,17 +1089,17 @@ class Barcode
     Data characters properly encoded (see encoding table below).
     Stop character, encoded as 11010110.
 
-    ASCII	BARCODE
-    0		 NNWWN
-    1		 WNNNW
-    2		 NWNNW
-    3		 WWNNN
-    4		 NNWNW
-    5		 WNWNN
-    6		 NWWNN
-    7		 NNNWW
-    8		 WNNWN
-    9		 NWNWN
+    ASCII   BARCODE
+    0        NNWWN
+    1        WNNNW
+    2        NWNNW
+    3        WWNNN
+    4        NNWNW
+    5        WNWNN
+    6        NWWNN
+    7        NNNWW
+    8        WNNWN
+    9        NWNWN
     */
 
     public function _so25Encode($barnumber)
@@ -1577,17 +1577,17 @@ class Barcode
     SYSTEM DIGIT PARITY TO ENCODE WITH
     SECOND NUMBER
     SYSTEM DIGIT MANUFACTURER CODE CHARACTERS
-    1	2	3	 4	5
-    0 (UPC-A)	Odd	Odd	Odd	Odd	Odd	Odd
-    1			Odd Odd Even Odd Even Even
-    2			Odd Odd Even Even Odd Even
-    3			Odd Odd Even Even Even Odd
-    4			Odd Even Odd Odd Even Even
-    5			Odd Even Even Odd Odd Even
-    6			Odd Even Even Even Odd Odd
-    7			Odd Even Odd Even Odd Even
-    8			Odd Even Odd Even Even Odd
-    9			Odd Even Even Odd Even Odd
+    1   2   3    4  5
+    0 (UPC-A)   Odd Odd Odd Odd Odd Odd
+    1           Odd Odd Even Odd Even Even
+    2           Odd Odd Even Even Odd Even
+    3           Odd Odd Even Even Even Odd
+    4           Odd Even Odd Odd Even Even
+    5           Odd Even Even Odd Odd Even
+    6           Odd Even Even Even Odd Odd
+    7           Odd Even Odd Even Odd Even
+    8           Odd Even Odd Even Even Odd
+    9           Odd Even Even Odd Even Odd
 
 
     */

@@ -79,7 +79,8 @@ class TranslationTest extends TestCase
     /**
      * @covers \LanSuite\Translation::get_lang
      */
-    public function testGetLanguage_Invalid() {
+    public function testGetLanguage_Invalid()
+    {
         $_GET['language'] = 'foo';
         $translation = new \LanSuite\Translation();
         $actual = $translation->get_lang();
@@ -90,7 +91,8 @@ class TranslationTest extends TestCase
     /**
      * @covers \LanSuite\Translation::get_lang
      */
-    public function testGetLanguage_FromConfig() {
+    public function testGetLanguage_FromConfig()
+    {
         $GLOBALS['cfg']['sys_language'] = 'it';
         $translation = new \LanSuite\Translation();
         $actual = $translation->get_lang();
@@ -101,7 +103,8 @@ class TranslationTest extends TestCase
     /**
      * @covers \LanSuite\Translation::get_lang
      */
-    public function testGetLanguage_FromSession() {
+    public function testGetLanguage_FromSession()
+    {
         $_SESSION['language'] = 'nl';
         $translation = new \LanSuite\Translation();
         $actual = $translation->get_lang();
@@ -112,7 +115,8 @@ class TranslationTest extends TestCase
     /**
      * @covers \LanSuite\Translation::get_lang
      */
-    public function testGetLanguage_FromGET() {
+    public function testGetLanguage_FromGET()
+    {
         $_GET['language'] = 'es';
         $translation = new \LanSuite\Translation();
         $actual = $translation->get_lang();
@@ -123,7 +127,8 @@ class TranslationTest extends TestCase
     /**
      * @covers \LanSuite\Translation::get_lang
      */
-    public function testGetLanguage_Default() {
+    public function testGetLanguage_Default()
+    {
         $translation = new \LanSuite\Translation();
         $actual = $translation->get_lang();
 
@@ -133,7 +138,8 @@ class TranslationTest extends TestCase
     /**
      * @covers \LanSuite\Translation::get_lang
      */
-    public function testGetLanguage_FromPOST() {
+    public function testGetLanguage_FromPOST()
+    {
         $_POST['language'] = 'fr';
         $translation = new \LanSuite\Translation();
         $actual = $translation->get_lang();

@@ -5,14 +5,14 @@ namespace LanSuite;
 class DB
 {
     /**
-     * @var int
+     * @var \mysqli
      */
-    private $link_id = 0;
+    private $link_id;
 
     /**
-     * @var int
+     * @var \mysqli_result
      */
-    private $query_id = 0;
+    private $query_id;
 
     /**
      * @var array
@@ -88,11 +88,9 @@ class DB
 
         if ($match[0] == '%int%') {
             return (int)$CurrentArg;
-
         } elseif ($match[0] == '%string%') {
             $CurrentArg = stripslashes($CurrentArg);
             return "'". mysqli_real_escape_string($this->link_id, (string)$CurrentArg) ."'";
-
         } elseif ($match[0] == '%plain%') {
             return $CurrentArg;
         }
@@ -121,7 +119,6 @@ class DB
                 $this->connectfailure = 1;
                 $this->success = false;
                 return false;
-
             } else {
                 echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen. Zurückgegebener MySQL-Fehler: ' . mysqli_connect_error()) . HTML_FONT_END;
                 exit();
@@ -145,7 +142,6 @@ class DB
         // Set encoding based on config file
         if (!empty($charset)) {
               $this->link_id->set_charset($charset);
-
         } else {
             $this->link_id->set_charset('utf8');
         }
@@ -359,7 +355,8 @@ class DB
     /**
      * @return string
      */
-    public function client_info() {
+    public function client_info()
+    {
         return mysqli_get_client_info();
     }
 
@@ -368,7 +365,8 @@ class DB
      *
      * @return string|bool
      */
-    public function getServerInfo() {
+    public function getServerInfo()
+    {
         if ($this->link_id) {
             return mysqli_get_server_info($this->link_id);
         }
