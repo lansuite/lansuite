@@ -1,6 +1,7 @@
 <?php
 
 namespace LanSuite;
+use LanSuite\AzDGCrypt;
 
 /**
  * Class auth
@@ -710,7 +711,7 @@ class Auth
 
         // Crypt only via Config. See Construktor
         if ($this->cookie_crypt) {
-            $crypt= new \LanSuite\AzDGCrypt(md5($this->cookie_crypt_pw));
+            $crypt= new AzDGCrypt(md5($this->cookie_crypt_pw));
             $cookie = $crypt->crypt($cookie);
         }
 
@@ -727,7 +728,7 @@ class Auth
     {
         // Crypt only via Config. See Construktor
         if ($this->cookie_crypt) {
-            $crypt= new \LanSuite\AzDGCrypt(md5($this->cookie_crypt_pw));
+            $crypt= new AzDGCrypt(md5($this->cookie_crypt_pw));
             $cookie = $crypt->decrypt($cookie);
         }
 
