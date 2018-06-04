@@ -254,13 +254,10 @@ class Framework
 
         if (headers_sent() || connection_aborted() || $PHPErrors || (isset($db) && $db->errorsFound)) {
             return 0;
-
         } elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip') !== false) {
             return "x-gzip";
-
         } elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip') !== false) {
             return "gzip";
-
         }
 
         return 0;
@@ -277,7 +274,6 @@ class Framework
         if (isset($fullscreen)) {
             if ($fullscreen == 'yes') {
                 $_SESSION['lansuite']['fullscreen'] = true;
-
             } elseif ($fullscreen == 'no') {
                 $_SESSION['lansuite']['fullscreen'] = false;
             }
@@ -304,7 +300,6 @@ class Framework
         if ($add) {
             if ($this->pageTitle == '') {
                 $this->pageTitle = $add;
-
             } else {
                 $this->pageTitle .= ' - '. $add;
             }
@@ -315,6 +310,8 @@ class Framework
      * Display/output all HTML new version
      *
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function html_out()
     {
@@ -380,7 +377,6 @@ ga('send', 'pageview');
                     $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
                     echo $index;
                     echo pack('V', $this->content_crc) . pack('V', $this->content_size);
-
                 } else {
                     $smarty->display("design/{$this->design}/templates/main.htm");
                 }
@@ -444,7 +440,6 @@ ga('send', 'pageview');
                     if ($auth['type'] >= 2 and isset($debug)) { // and $cfg['sys_showdebug'] (no more, for option now in inc/base/config)
                         $smarty->assign('MainDebug', $debug->show());
                     }
-
                 } elseif ($_SESSION['lansuite']['fullscreen']) {
                     // Ausgabe Vollbildmodus
                     $smarty->assign('CloseFullscreen', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span> Lansuite - Vollbildmodus</a>');
@@ -455,7 +450,6 @@ ga('send', 'pageview');
                     header("Content-Encoding: $compression_mode");
                     echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
                     echo gzcompress($smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- Compressed by $compression_mode -->", $cfg['sys_compress_level']);
-
                 } else {
                     $smarty->display("design/{$this->design}/templates/main.htm");
                 }

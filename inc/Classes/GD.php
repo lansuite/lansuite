@@ -70,7 +70,6 @@ class GD
 
         if (function_exists('imagecreatetruecolor')) {
             $this->img = imagecreatetruecolor($this->width, $this->height);
-
         } else {
             $this->img = imagecreate($this->width, $this->height);
         }
@@ -84,6 +83,7 @@ class GD
         }
 
         ImageInterlace($this->img, $interlace);
+        return '';
     }
 
     /**
@@ -112,7 +112,6 @@ class GD
             if (!is_writable($path)) {
                 return t('Unable to write in directory /\'/%1/\'/', $path);
             }
-
         } else {
             Header("Content-type: image/$type");
         }
@@ -161,7 +160,6 @@ class GD
             if (filesize($file) == 0) {
                 unlink($file);
             }
-
         } else {
             switch (strtolower($type)) {
                 case 'jpeg':
@@ -204,6 +202,8 @@ class GD
         if ($destroy) {
             ImageDestroy($this->img);
         }
+
+        return '';
     }
 
     /**
@@ -217,7 +217,6 @@ class GD
 
         if ($font) {
             $this->font = $font;
-
         } else {
             $this->font = $cfg["t_font_path"];
         }
@@ -228,7 +227,6 @@ class GD
 
         if ($font_size) {
             $this->font_size = $font_size;
-
         } else {
             $this->font_size = $cfg["t_font_size"];
         }
@@ -264,13 +262,12 @@ class GD
 
         if ($this->free_type) {
             ImageTtfText($this->img, $this->font_size, $angle, $xpos, $ypos + $this->font_size, $color, $this->font, $text);
-
         } else {
             $ypos = $ypos - 3;
             $text_parts = preg_split("\r\n", $text);
             $i = 0;
 
-            while (list($key, $val) = each($text_parts)) {
+            foreach ($text_parts as $val) {
                 ImageString($this->img, 2, $xpos, $ypos + $i, $val, $color);
                 $i += ($this->font_size + 2);
             }
@@ -336,21 +333,20 @@ class GD
      * @param string    $new_file
      * @param int       $max_width
      * @param int       $max_height
-     * @return bool|void
+     * @return bool
      */
     public function CreateThumb($old_file, $new_file, $max_width, $max_height)
     {
         global $func;
 
         if (($old_file != $new_file) and file_exists($new_file)) {
-            return;
+            return false;
         }
 
         $imgsrc_old = $this->OpenImage($old_file);
         if (!$imgsrc_old) {
             $func->error("Could not open source file '$old_file'", NO_LINK);
             return false;
-
         } else {
             // Calculate new size
             $old_width = imagesx($imgsrc_old);
@@ -362,15 +358,12 @@ class GD
             if ($old_width <= $max_width && $old_height <= $max_height) {
                 $new_width = $old_width;
                 $new_height = $old_height;
-
             } elseif ($ratio_x > $ratio_y && $ratio_x > 0) {
                 $new_width = $max_width;
                 $new_height = $old_height / $ratio_x;
-
             } elseif ($ratio_y > 0) {
                 $new_width = $old_width / $ratio_y;
                 $new_height = $max_height;
-
             } else {
                 $func->error("Source file '$old_file' has 0x0 pixel", NO_LINK);
                 return false;

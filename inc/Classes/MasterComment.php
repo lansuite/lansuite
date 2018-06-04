@@ -2,7 +2,11 @@
 
 namespace LanSuite;
 
-class MasterComment {
+use LanSuite\Module\Mail\Mail;
+use LanSuite\Module\MasterSearch2\MasterSearch2;
+
+class MasterComment
+{
 
     /**
      * Mastercomment constructor.
@@ -10,6 +14,8 @@ class MasterComment {
      * @param $mod
      * @param $id
      * @param array $update_table
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function __construct($mod, $id, $update_table = [])
     {
@@ -37,7 +43,7 @@ class MasterComment {
 
         // List current comments
         // TODO Remove dependency to module. LanSuite core classes should not have dependencies to modules.
-        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('bugtracker');
+        $ms2 = new MasterSearch2('bugtracker');
 
         $ms2->query['from'] = "%prefix%comments AS c LEFT JOIN %prefix%user AS u ON c.creatorid = u.userid ";
         $ms2->query['where'] = "c.relatedto_item = '$mod' AND c.relatedto_id = '$id'";
@@ -64,7 +70,6 @@ class MasterComment {
         // Add new comments
         if ($cfg['mc_only_logged_in'] && !$auth['login']) {
             $func->information(t('Bitte loggen dich ein, bevor du einen Kommentar verfasst'), NO_LINK);
-
         } else {
             if ($_GET['commentid']) {
                 $row = $db->qry_first('SELECT creatorid FROM %prefix%comments WHERE commentid = %int%', $_GET['commentid']);
@@ -92,7 +97,7 @@ class MasterComment {
                 if ($mf->SendForm('', 'comments', 'commentid', $_GET['commentid'])) {
                     // Send email-notifications to thread-subscribers
                     // TODO Remove dependency to module. LanSuite core classes should not have dependencies to modules.
-                    $mail = new \LanSuite\Module\Mail\Mail();
+                    $mail = new Mail();
                     // Internet-Mail
                     $subscribers = $db->qry('
                       SELECT b.userid, u.firstname, u.name, u.email
@@ -129,7 +134,8 @@ class MasterComment {
             
                     // Update LastChange in $update_table, if $update_table is set
                     if ($update_table) {
-                        list($key, $val) = each($update_table);
+                        $key = key($update_table);
+                        $val = current($update_table);
                         $db->qry('UPDATE %prefix%'. $key .' SET changedate=NOW() WHERE '. $val .' = %int%', $id);
                     }
                 }
@@ -145,7 +151,8 @@ class MasterComment {
             if ($_GET['set_bm']) {
                 $db->qry_first('DELETE FROM %prefix%comments_bookmark WHERE relatedto_id = %int% AND relatedto_item = %string%', $id, $mod);
                 if ($_POST["check_bookmark"]) {
-                    $db->qry('
+                    $db->qry(
+                        '
                       INSERT INTO %prefix%comments_bookmark
                       SET
                         relatedto_id = %int%,
