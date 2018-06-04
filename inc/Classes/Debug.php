@@ -144,6 +144,8 @@ class Debug
         if ($this->mode > 0) {
             return $this->timer_out;
         }
+
+        return '';
     }
 
     /**
@@ -185,6 +187,8 @@ class Debug
 
             return $sql_query_debug;
         }
+
+        return '';
     }
 
     /**
