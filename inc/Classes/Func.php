@@ -443,10 +443,11 @@ class Func
             if ($mode != 1) {
                 preg_replace_callback(
                     '#\[c\]((.)*)\[\/c\]#sUi',
-                    create_function(
-                        '$treffer',
-                        'global $HighlightCode, $HighlightCount; $HighlightCount++; $HighlightCode[$HighlightCount] = $treffer[1];'
-                    ),
+                    function ($treffer) {
+                        global $HighlightCode, $HighlightCount;
+                        $HighlightCount++;
+                        $HighlightCode[$HighlightCount] = $treffer[1];
+                    },
                     $string
                 );
             }
@@ -491,20 +492,19 @@ class Func
             if ($mode != 1) {
                 $string = preg_replace_callback(
                     '#\[c\](.)*\[\/c\]#sUi',
-                    create_function(
-                        '$treffer',
-                        'global $func, $HighlightCode, $HighlightCount2;
+                    function ($treffer) {
+                        global $HighlightCode, $HighlightCount2;
                         $HighlightCount2++;
-                        $geshi = new GeSHi($HighlightCode[$HighlightCount2], \'php\');
+                        $geshi = new GeSHi($HighlightCode[$HighlightCount2], 'php');
                         $geshi->set_header_type(GESHI_HEADER_NONE);
-                        return \'
+                        return '
                             <blockquote>
                                 <div class="tbl_small">Code:</div>
                                 <div class="tbl_7">
                                     \'. $func->AllowHTML(\'<code>\' . $geshi->parse_code() . \'</code>\') .\'
                                 </div>
-                            </blockquote>\';'
-                    ),
+                            </blockquote>';
+                    },
                     $string
                 );
             }
