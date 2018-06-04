@@ -1262,8 +1262,6 @@ class Barcode
         }
 
         $mfcStr="";
-        $prodStr="";
-        $checkdigit;
         $encTable[$checkdigit];
 
         for ($i=0; $i<strlen($barnumber); $i++) {

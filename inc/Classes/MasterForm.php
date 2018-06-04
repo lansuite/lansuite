@@ -723,11 +723,13 @@ class MasterForm
                                             // Textarea
                                             case 'text':
                                                 $maxchar = 65535;
+                                                // No break statement here on purpose
 
                                             case 'mediumtext':
                                                 if (!$maxchar) {
                                                     $maxchar = 16777215;
                                                 }
+                                                // No break statement here on purpose
 
                                             case 'longtext':
                                                 if (!$maxchar) {
