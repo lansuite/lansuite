@@ -21,6 +21,7 @@ switch ($_GET['step']) {
         $ms2->query['from'] = "%prefix%cron AS c";
 
         $ms2->AddResultField(t('Name'), 'c.name');
+        $ms2->AddResultField(t('Typ'), 'c.type');
         $ms2->AddResultField(t('Geplant um'), 'runat');
         $ms2->AddResultField(t('Aktiv'), 'active', 'TrueFalse');
         $ms2->AddResultField(t('Letzte Ausführung'), 'UNIX_TIMESTAMP(c.lastrun) AS lastrun', 'MS2GetDate');
