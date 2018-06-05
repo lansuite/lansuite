@@ -29,7 +29,7 @@ class Cron2
                 // Script should set $status and $message at the end to be able to set this in the DB
             } else {
                 $status = false;
-                $message = 'Could not execute PHP script "'. $row['function'] 
+                $message = 'Could not execute PHP script "'. $row['function']
                 . '". Check that it exists in ext_scripts and is accessible by the PHP user';
             }
         }
