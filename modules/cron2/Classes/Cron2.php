@@ -29,10 +29,19 @@ class Cron2
                 // Script should set $status and $message at the end to be able to set this in the DB
             } else {
                 $status = false;
-                $message = 'Could not execute PHP script "'. $row['function'] . '". Check that it exists in ext_scripts and is accessible by the PHP user';
+                $message = 'Could not execute PHP script "'. $row['function'] 
+                . '". Check that it exists in ext_scripts and is accessible by the PHP user';
             }
         }
-        $db->qry("UPDATE %prefix%cron SET lastrun = NOW(), laststate=%bool%, lastmessage=%text% WHERE jobid = %int%", $jobid, $status, $message);
+        $db->qry("
+        UPDATE 
+            %prefix%cron
+        SET 
+            lastrun = NOW(), 
+            laststate=%bool%, 
+            lastmessage=%text% 
+        WHERE
+            jobid = %int%", $jobid, $status, $message);
 
         $func->log_event(t('Cronjob "%1" wurde ausgeführt', array($row['name'])), 1);
 
