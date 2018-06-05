@@ -321,3 +321,4 @@ if ($_GET['mod'] == 'signon' && $auth['login']) {
     $mf->DecrementNumber();
     include_once("modules/usrmgr/party.php");
 }
+

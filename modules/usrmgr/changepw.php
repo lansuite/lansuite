@@ -9,3 +9,4 @@ $mf->AddField(t('Neues Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASS
 if ($mf->SendForm('index.php?mod=usrmgr&action=changepw', 'user', 'userid', $_GET['userid'])) {
     $authentication->set_cookie_pw($auth["userid"]);
 }
+
