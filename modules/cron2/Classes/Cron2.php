@@ -17,16 +17,16 @@ class Cron2
         }
         // Initialize status variable to be used as return value.
         $status = false;
-        // Fetch job data 
+        // Fetch job data
         $row = $db->qry_first("SELECT name, type, function FROM %prefix%cron WHERE jobid = %int%", $jobid);
     
         if ($row['type'] == 'sql') {
             $db->qry('%plain%', $func->AllowHTML($row['function']));
             // @TODO: Add return status once DB class allows access to error data
         } elseif ($row['type'] == "php") {
-            if (is_readable('ext_scripts/'.$row['function'])){
-            require_once 'ext_scripts/'.$row['function'];
-            // Script should set $status and $message at the end to be able to set this in the DB
+            if (is_readable('ext_scripts/'.$row['function'])) {
+                require_once 'ext_scripts/'.$row['function'];
+                // Script should set $status and $message at the end to be able to set this in the DB
             } else {
                 $status = false;
                 $message = 'Could not execute PHP script "'. $row['function'] . '". Check that it exists in ext_scripts and is accessible by the PHP user';
