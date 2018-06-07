@@ -160,7 +160,9 @@ if (!$config['lansuite']['debugmode']) {
 // This component shows the error in a nice stack trace.
 // More information here: https://symfony.com/components/Debug
 } elseif ($config['lansuite']['debugmode'] > 0) {
-    Debug::enable();
+    // TODO Once LanSuite is notice free, we set the $errorReportingLevel back to E_ALL
+    $errorReportingLevel = E_ALL & ~E_NOTICE;
+    Debug::enable($errorReportingLevel);
 }
 
 // Start session-management
