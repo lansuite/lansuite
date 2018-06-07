@@ -119,7 +119,7 @@ class Supplier
 
         if ($this->supp_id != null) {
             $row = $db->qry_first("SELECT * FROM %prefix%food_supp WHERE supp_id=%int%", $this->supp_id);
-            if ($db->num_rows($row) > 0) {
+            if (is_array($row)) {
                 $this->supp_caption = $row['name'];
                 $this->supp_desc    = $row['s_desc'];
                 return true;
