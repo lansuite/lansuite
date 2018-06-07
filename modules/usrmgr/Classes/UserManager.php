@@ -106,8 +106,8 @@ class UserManager
         if ((strlen($code) != 36) ||
             (strlen($perso_block[0]) != 11) || (strlen($perso_block[2]) != 7) || (strlen($perso_block[3]) != 7) || (strlen($perso_block[10]) != 1)) {
             return 2;
-        } // Chechsum Check
-        else {
+        // Chechsum Check
+        } else {
             $multiplier = array("7", "3", "1");
 
             $cs1 = 0;
