@@ -74,11 +74,11 @@ class Team
         // Is the tournament finished?
         if ($t["status"] != "open") {
             $func->information(t('Dieses Turnier befindet sich momentan nicht in der Anmeldephase!'));
-        } // Is the tournament allready full?
-        elseif ($completed_teams >= $t["maxteams"]) {
+        // Is the tournament already full?
+        } elseif ($completed_teams >= $t["maxteams"]) {
             $func->information(t('Es haben sich bereits %1 von %2 Teams zu diesem Turnier angemeldet. Das Turnier ist damit ausgebucht.', $completed_teams, $t["maxteams"]));
-        } // Everything fine
-        else {
+        // Everything fine
+        } else {
             return true;
         }
 
