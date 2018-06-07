@@ -5,11 +5,11 @@ error_reporting(E_ALL);
 
 // Execute install.php only if dependencies are met
 $preCheckResult = dependencyPreCheck();
-if ($preCheckResult){
-	// Issue(s) found, show text to user
-	echo $preCheckResult;
+if ($preCheckResult) {
+    // Issue(s) found, show text to user
+    echo $preCheckResult;
 } else {
-	// No issues found, continue execution
-	$_GET["mod"] = "install";
-	include_once("index.php");
+    // No issues found, continue execution
+    $_GET["mod"] = "install";
+    include_once("index.php");
 }

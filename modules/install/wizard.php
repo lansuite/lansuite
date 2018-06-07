@@ -32,8 +32,8 @@ switch ($_GET["step"]) {
                     md5($_POST["password"]),
                     $_POST["email"]
                 );
-            } // If not found, insert
-            else {
+            // If not found, insert
+            } else {
                 $db->qry(
                     "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
                     $_POST["email"],
