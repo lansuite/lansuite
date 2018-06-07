@@ -75,7 +75,12 @@ switch ($_GET["step"]) {
                     $xml_file = fopen($file, "r");
                     $xml_content = fread($xml_file, filesize($file));
                     if ($xml_content != "") {
-                        ($config['lansuite']['default_design'] == $akt_design) ? $selected = "selected" : $selected = "";
+                        if ($config['lansuite']['default_design'] == $akt_design) {
+                            $selected = 'selected';
+                        } else {
+                            $selected = '';
+                        }
+                        $xml = new \LanSuite\XML();
                         array_push($t_array, "<option $selected value=\"$akt_design\">". $xml->get_tag_content("name", $xml_content) ."</option>");
                     }
                     fclose($xml_file);
