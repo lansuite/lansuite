@@ -232,7 +232,7 @@ class Debug
      */
     private function sort_array_by_col($array)
     {
-        function compare($wert_a, $wert_b)
+        $compare = function ($wert_a, $wert_b)
         {
             $a = $wert_a[0];
             $b = $wert_b[0];
@@ -240,8 +240,8 @@ class Debug
                 return 0;
             }
             return ($a > $b) ? -1 : +1;
-        }
-        usort($array, 'compare');
+        };
+        usort($array, $compare);
         return $array;
     }
 
