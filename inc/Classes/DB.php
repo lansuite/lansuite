@@ -5,14 +5,14 @@ namespace LanSuite;
 class DB
 {
     /**
-     * @var int
+     * @var \mysqli
      */
-    private $link_id = 0;
+    private $link_id;
 
     /**
-     * @var int
+     * @var \mysqli_result
      */
-    private $query_id = 0;
+    private $query_id;
 
     /**
      * @var array
@@ -94,6 +94,8 @@ class DB
         } elseif ($match[0] == '%plain%') {
             return $CurrentArg;
         }
+
+        return '';
     }
 
     /**

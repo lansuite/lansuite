@@ -310,6 +310,8 @@ class Framework
      * Display/output all HTML new version
      *
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function html_out()
     {
