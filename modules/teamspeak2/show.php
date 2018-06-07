@@ -44,23 +44,23 @@ if ($settings["serveraddress"] == "*.*.*.*") {
 <table border="0" width="<?php echo $cfg['tabellenbreite'] ?>" bgcolor = "<?php echo $cfg['hintergrund'] ?>">
  <tr>
   <td>
-<?php
+    <?php
 
 // Display the Teamspeak server
-$teamspeakDisplay->displayTeamspeakEx($settings);
-echo('<br />');
+    $teamspeakDisplay->displayTeamspeakEx($settings);
+    echo('<br />');
 
 // Display autorefresh status and control link:
-if ($autorefresh == 0) {
-    echo('<img src="ext_inc/teamspeak2/refresh_off.gif"><b>Autorefresh:</b> <font color=red><b>'. t('AUS') .'</b></font> (<a href="'. $_SERVER["PHP_SELF"] . '?mod=teamspeak2&autorefresh=1">'. t('Aktivieren') .'</a>)');
-} else {
-    echo('<img src="ext_inc/teamspeak2/refresh_on.gif"><b>Autorefresh:</b> <font color=green><b>'. t('AN') .'</b></font> (<a href="'. $_SERVER["PHP_SELF"] . '?mod=teamspeak2&autorefresh=0">'. t('Deaktivieren') .'</a>)');
-} ?>
+    if ($autorefresh == 0) {
+        echo('<img src="ext_inc/teamspeak2/refresh_off.gif"><b>Autorefresh:</b> <font color=red><b>'. t('AUS') .'</b></font> (<a href="'. $_SERVER["PHP_SELF"] . '?mod=teamspeak2&autorefresh=1">'. t('Aktivieren') .'</a>)');
+    } else {
+        echo('<img src="ext_inc/teamspeak2/refresh_on.gif"><b>Autorefresh:</b> <font color=green><b>'. t('AN') .'</b></font> (<a href="'. $_SERVER["PHP_SELF"] . '?mod=teamspeak2&autorefresh=0">'. t('Deaktivieren') .'</a>)');
+    } ?>
   </td>
  </tr>
 </table>
-<?php
-$dsp->AddSingleRow(ob_get_contents());
-ob_end_clean();
+    <?php
+    $dsp->AddSingleRow(ob_get_contents());
+    ob_end_clean();
 }
 ?>

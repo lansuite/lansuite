@@ -14,7 +14,8 @@ if (function_exists('ini_set')) {
     ini_set('url_rewriter.tags', '');
 }
 
-function myErrorHandler($errno, $errstr, $errfile, $errline) {
+function myErrorHandler($errno, $errstr, $errfile, $errline)
+{
     global $PHPErrors, $PHPErrorsFound, $db, $auth;
 
     // Only show errors, which sould be reported according to error_reporting
@@ -97,7 +98,8 @@ function myErrorHandler($errno, $errstr, $errfile, $errline) {
 
     // Write to DB-Log
     if (isset($db) and $db->success) {
-        $db->qry('
+        $db->qry(
+            '
             INSERT INTO %prefix%log
             SET date = NOW(),
                 userid = %int%,
@@ -154,7 +156,6 @@ $func = new \LanSuite\Func();
 foreach ($_GET as $key => $val) {
     if (!is_array($_GET[$key])) {
         $_GET[$key] = $func->NoHTML($_GET[$key], 1);
-
     } else {
         foreach ($_GET[$key] as $key2 => $val2) {
             if (!is_array($_GET[$key][$key2])) {
@@ -292,7 +293,6 @@ if ($config['environment']['configured'] == 0) {
     if ($_GET["action"] == "wizard" && isset($_GET["step"]) && $_GET["step"] > 3) {
         $cfg = $func->read_db_config();
     }
-
 } else {
     // Normal auth cycle and Database-init
     $db->connect(0);
