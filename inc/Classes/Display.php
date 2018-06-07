@@ -71,6 +71,8 @@ class Display
      * @param string $name
      * @param string $mod
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddSmartyTpl($name, $mod = '')
     {
@@ -88,6 +90,8 @@ class Display
      *
      * @param $content
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddContentLine($content)
     {
@@ -106,10 +110,12 @@ class Display
     /**
      * Writes the headline of a page
      *
-     * @param string    $caption
-     * @param string    $text
-     * @param string    $helplet_id
+     * @param string $caption
+     * @param string $text
+     * @param string $helplet_id
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function NewContent($caption, $text = null, $helplet_id = 'help')
     {
@@ -267,6 +273,8 @@ class Display
      * @param string $parm
      * @param string $class
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddSingleRow($text, $parm = null, $class = '')
     {
@@ -289,6 +297,8 @@ class Display
      * @param string $value
      * @param string $id
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddDoubleRow($key, $value, $id = null)
     {
@@ -483,6 +493,8 @@ class Display
     /**
      * @param array $table
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddTableRow($table)
     {
@@ -610,6 +622,8 @@ class Display
      * @param boolean $optional
      * @param string $maxchar
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddTextAreaPlusRow($name, $key, $value, $errortext, $cols = null, $rows = null, $optional = null, $maxchar = null)
     {
@@ -831,18 +845,20 @@ class Display
     }
 
     /**
-     * @param string    $name
-     * @param string    $key
-     * @param int       $time
-     * @param string    $errortext
-     * @param array     $values
-     * @param array     $disableds
-     * @param int       $start_year
-     * @param int       $end_year
-     * @param int       $hidetime       0 =  All visible / 1 = Hide Time / 2 = Hide Date
-     * @param boolean   $optional
-     * @param string    $additional
+     * @param string $name
+     * @param string $key
+     * @param int $time
+     * @param string $errortext
+     * @param array $values
+     * @param array $disableds
+     * @param int $start_year
+     * @param int $end_year
+     * @param int $hidetime 0 =  All visible / 1 = Hide Time / 2 = Hide Date
+     * @param boolean $optional
+     * @param string $additional
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddDateTimeRow($name, $key, $time, $errortext, $values = null, $disableds = null, $start_year = null, $end_year = null, $hidetime = null, $optional = null, $additional = null)
     {
@@ -1202,6 +1218,8 @@ class Display
      * @param string $target
      * @param string $align
      * @return string
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function FetchIcon($picname, $link, $hint = null, $target = null, $align = 'left')
     {
@@ -1270,6 +1288,8 @@ class Display
      * @param int $userid
      * @param string $username
      * @return string
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function FetchUserIcon($userid, $username = '')
     {
