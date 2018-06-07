@@ -18,9 +18,7 @@ namespace LanSuite;
  *      $debug = new \LanSuite\Debug(1);
  *      $debug->tracker("BEFOREINCLUDE");            // Set Timerpoint
  *      $debug->addvar('$cfg Serverconfig',$cfg);    // Add an Debugvar (Arrays posible)
- *      $debug->timer_start('function sortarray');
  *      $array = sortarray($array)
- *      $debug->timer_stop('function sortarray');
  *      echo $sys_debug->show();                     // Show() generates simple HTML-Output
  *
  * @todo Add percentual display for Tracker/Timer
@@ -84,7 +82,13 @@ class Debug
     private $sql_query_list = [];
 
     /**
-     * debug constructor.
+     * @var bool
+     */
+    private $sql_query_running = false;
+
+    /**
+     * Debug constructor.
+     *
      * @param string $mode          0 = off, 1 = normal, 2 = file
      * @param string $debug_path    Path for filedebug
      */
@@ -164,6 +168,35 @@ class Debug
             } else {
                 $this->debugvars["debugvar_".count($this->debugvars)] = $value;
             }
+        }
+    }
+
+    /**
+     * Start Timer for Querys.
+     * Always use with query_stop()
+     *
+     * @param string $query Executed query string
+     * @return void
+     */
+    public function query_start($query){
+        if (($this->mode > 0) && (!$this->sql_query_running)) {
+            $this->sql_query_running = true;
+            $this->sql_query_start = microtime(true);
+            $this->sql_query_string = $query;
+        }
+    }
+
+    /**
+     * @param string $error
+     * @return void
+     */
+    public function query_stop($error = null){
+        if (($this->mode > 0) && ($this->sql_query_running)) {
+            $this->sql_query_running = false;
+            $sql_query_end = microtime(true);
+            $this->sql_query_list[] = [
+                round(($sql_query_end - $this->sql_query_start) * 1000, 4), $this->sql_query_string, $error
+            ];
         }
     }
 
