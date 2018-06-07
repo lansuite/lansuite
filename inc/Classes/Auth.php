@@ -1,6 +1,7 @@
 <?php
 
 namespace LanSuite;
+
 use LanSuite\AzDGCrypt;
 
 /**
