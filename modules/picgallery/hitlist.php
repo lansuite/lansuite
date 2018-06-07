@@ -14,7 +14,7 @@ while ($row = $db->fetch_array($res)) {
     $smarty->assign('text2', '');
     $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
-$db->free_result($row);
+$db->free_result($res);
 $smarty->assign('content', $content);
 $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
 
@@ -30,7 +30,7 @@ while ($row = $db->fetch_array($res)) {
     $smarty->assign('text2', '');
     $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
-$db->free_result($row);
+$db->free_result($res);
 $smarty->assign('content', $content);
 $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
 
@@ -57,7 +57,7 @@ while ($row = $db->fetch_array($res)) {
     $smarty->assign('text2', '');
     $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
-$db->free_result($row);
+$db->free_result($res);
 $smarty->assign('content', $content);
 $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
 
@@ -83,7 +83,7 @@ while ($row = $db->fetch_array($res)) {
     $smarty->assign('text2', '');
     $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
-$db->free_result($row);
+$db->free_result($res);
 $smarty->assign('content', $content);
 $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
 
