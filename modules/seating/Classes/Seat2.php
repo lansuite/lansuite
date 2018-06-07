@@ -658,14 +658,14 @@ class Seat2
                                     // If free and user has not paid-> Possibility to mark this seat
                                     if ($seat_state[$y][$x] == 1 and !$user_paid['paid']) {
                                         $link = "index.php?mod=seating&action=show&step=12&blockid=$blockid&row=$y&col=$x";
-                                    } // If free, or marked for another one -> Possibility to reserve this seat
-                                    elseif ($seat_state[$y][$x] == 1 or ($seat_state[$y][$x] == 3 and $seat_userid[$y][$x] != $auth['userid'])) {
+                                    // If free, or marked for another one -> Possibility to reserve this seat
+                                    } elseif ($seat_state[$y][$x] == 1 or ($seat_state[$y][$x] == 3 and $seat_userid[$y][$x] != $auth['userid'])) {
                                         $link = "index.php?mod=seating&action=show&step=10&blockid=$blockid&row=$y&col=$x";
-                                    } // If assigned to me, or marked for me -> Possibility to free this seat again
-                                    elseif (($seat_state[$y][$x] == 2 or $seat_state[$y][$x] == 3) and $seat_userid[$y][$x] == $auth['userid']) {
+                                    // If assigned to me, or marked for me -> Possibility to free this seat again
+                                    } elseif (($seat_state[$y][$x] == 2 or $seat_state[$y][$x] == 3) and $seat_userid[$y][$x] == $auth['userid']) {
                                         $link = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
-                                    } // If assigned and user is admin -> Possibility to free this seat
-                                    elseif ($seat_state[$y][$x] == 2 and $auth['type'] > 1) {
+                                    // If assigned and user is admin -> Possibility to free this seat
+                                    } elseif ($seat_state[$y][$x] == 2 and $auth['type'] > 1) {
                                         #$link = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
                                     }
                                 }
@@ -757,14 +757,14 @@ class Seat2
                                 
                                 if ($seat_userid[$y][$x] == $userid) {
                                     $seat_state[$y][$x] = 4;
-                                } // My Seat
-                                elseif (in_array($seat_userid[$y][$x], $my_clanmates)) {
+                                // My Seat
+                                } elseif (in_array($seat_userid[$y][$x], $my_clanmates)) {
                                     $seat_state[$y][$x] = 5;
-                                } // Clanmate
-                                elseif ($seat_user_checkout[$y][$x] and $seat_user_checkout[$y][$x] != '0000-00-00 00:00:00') {
+                                // Clanmate
+                                } elseif ($seat_user_checkout[$y][$x] and $seat_user_checkout[$y][$x] != '0000-00-00 00:00:00') {
                                     $seat_state[$y][$x] = 6;
-                                } // Checked out
-                                elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') {
+                                    // Checked out
+                                } elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') {
                                     $seat_state[$y][$x] = 8;
                                 } // Checked in
                                     // else = 2 -> Normal occupied seat
