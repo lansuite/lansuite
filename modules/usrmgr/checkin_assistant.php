@@ -187,8 +187,8 @@ if (!$party->party_id) {
 
             if ($seat['status'] == 1 or $seat['status'] == 3) {
                 $_GET['step'] = 10;
-            } //Status vorreserviert oder frei
-            elseif ($seat['status'] == 2) {
+            // Status pre reserverd or free
+            } elseif ($seat['status'] == 2) {
                 $questionarray = array();
                 $linkarray = array();
 

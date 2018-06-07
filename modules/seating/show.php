@@ -47,14 +47,14 @@ switch ($_GET['step']) {
         // Check paid
         if (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) {
             $func->information(t('Du musst zuerst für diese Party bezahlen, bevor du dir einen Sitzplatz reservieren darfst.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-        } // Check seat availability
-        elseif ($seat_user['status'] == 2) {
+        // Check seat availability
+        } elseif ($seat_user['status'] == 2) {
             $func->error(t('Dieser Sitzplatz ist bereits vergeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-        } // Check seat availability
-        elseif ($seat_user['status'] == 0 or $seat_user['status'] > 9) {
+        // Check seat availability
+        } elseif ($seat_user['status'] == 0 or $seat_user['status'] > 9) {
             $func->error(t('Dieser Sitzplatz existiert nicht'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-        } // No errors
-        else {
+        // No errors
+        } else {
             // Get number of marked seats of this user
             $marked_seats = $db->qry_first("
               SELECT COUNT(*) AS anz
@@ -166,20 +166,20 @@ switch ($_GET['step']) {
         // Check paid
         if (!$user_data['paid'] and $cfg['seating_paid_only']) {
             $func->information(t('Du musst zuerst für diese Party bezahlen, bevor du dir einen Sitzplatz reservieren darfst.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-        } // Check Group ID
-        elseif ($block_data['group_id'] and $user['group_id'] != $block_data['group_id']) {
+        // Check Group ID
+        } elseif ($block_data['group_id'] and $user['group_id'] != $block_data['group_id']) {
             $func->information(t('Du gehörst nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-        } // Check Price ID
-        elseif ($block_data['price_id'] and $user_data['price_id'] != $block_data['price_id']) {
+        // Check Price ID
+        } elseif ($block_data['price_id'] and $user_data['price_id'] != $block_data['price_id']) {
             $func->information(t('Du bist nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-        } // Check seat availability
-        elseif ($seat_user['status'] == 2) {
+        // Check seat availability
+        } elseif ($seat_user['status'] == 2) {
             $func->error(t('Dieser Sitzplatz ist bereits vergeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-        } // Check is a seat
-        elseif ($seat_user['status'] == 0 or $seat_user['status'] > 9) {
+        // Check is a seat
+        } elseif ($seat_user['status'] == 0 or $seat_user['status'] > 9) {
             $func->error(t('Dieser Sitzplatz existiert nicht'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-        } // No errors
-        else {
+        // No errors
+        } else {
             $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
             $func->confirmation(t('Der Sitzplatz wurde erfolgreich reserviert'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
         }
