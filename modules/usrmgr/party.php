@@ -24,9 +24,9 @@ if ($party->count == 0) {
             UNIX_TIMESTAMP(enddate) >= UNIX_TIMESTAMP(NOW())
           ORDER BY startdate");
         while ($row = $db->fetch_array($res)) {
-            if ($_GET['mf_step'] != 2 or $row['party_id'] == $_GET['party_id']) {
+            $mf = new \LanSuite\MasterForm($MFID);
+            if ($_GET['mf_step'] != 2 || $row['party_id'] == $_GET['party_id']) {
                 $dsp->AddFieldsetStart($row['name'] .' ('. $func->unixstamp2date($row['startdate'], 'datetime') .' - '. $func->unixstamp2date($row['enddate'], 'datetime') .')');
-                $mf = new \LanSuite\MasterForm($MFID);
                 $mf->AdditionalKey = 'party_id = '. $row['party_id'];
 
                 // Signon
