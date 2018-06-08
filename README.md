@@ -1,125 +1,62 @@
-# LANSuite - Web based LAN-Party Management System
+# LANSuite &middot;  [![Build Status](https://travis-ci.org/lansuite/lansuite.svg?branch=master)](https://travis-ci.org/lansuite/lansuite) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 
-[![Build Status](https://travis-ci.org/lansuite/lansuite.svg?branch=master)](https://travis-ci.org/lansuite/lansuite)
+LANSuite is a Content Management System designed primarily for the needs of LAN-Parties
 
-LANSuite is a administration system for LAN-Parties based.
+> *German version of this README* can be found at [README-DE.md](./README-DE.md).
 
-*German version of this README*: Can be found at [README-DE.md](./README-DE.md).
+LANSuite has features like ...
 
-## Features
+* **Registration for parties** Announce a new LAN-Party and enable people to sign up with a direct payment flow and several follow up actions like Clan creation and more.
+* **Seat plans** Define a seating plan with several rooms and areas and let LAN Party attendees choose their seat in advance. This enables clans to sit together to facilitate better team play.
+* **Organisation of tournaments** Manage tournaments for multiple games with different modes like single- and double-elimination, league or group games with KO strategy.
+* **Projector support** Show the latest content like news messages, the current state of a tournament or a timetable at a wall via the projector mode during the party to inform attendees.
+* **Cash- and Money management** Manage the cash flow of your organization team and don't lose the overview.
+* **News system** Announce updates and inform all party guests about the latest news with a simple to use news system.
+* **and many more ...** Other features like a picture gallery, a hall of fame and more are included. Give LANSuite a try, install and test it.
 
-* Organisation of tournaments
-* Registration for parties
-* News- and messaging system
-* Projector support
-* Cash / Money management
-* Foodcenter
-* Hardware / Server inventory
-* Picture gallery
-* Seat plans
-* and many more ...
+## Getting started
 
-## Requirements
+See our documentation on [lansuite.github.io/lansuite](https://lansuite.github.io/lansuite/docs/installation.html).
+There you will find information on how to install it, what the requirements are, how to configure the system and more.
 
-* >= PHP 7 (with `mysqli`, `snmp` and `gd` extensions)
-* >= MySQL 5.6.3
+If you still struggle with getting started, feel free to [open an issue](https://github.com/lansuite/lansuite/issues/new) and tell us your challenge.
+With such feedback, we can help you and improve the documentation.
 
-## Installation
+## Call out for users
 
-### Docker
+Are you using LANSuite?
+If yes, let us know in [Who is using LANSuite? #312](https://github.com/lansuite/lansuite/issues/312).
 
-We assume that you have a running [Docker Community Edition](https://www.docker.com/community-edition) installed.
+## Contributing
 
-```
-$ git clone https://github.com/lansuite/lansuite.git
-$ cd lansuite
-$ touch ./inc/base/config.php
-$ # Add the content of the example configuration file below into ./inc/base/config.php
-$ chmod 0777 ./inc/base/config.php
-$ chmod -R 0777 ./ext_inc/
-$ docker-compose up
-$ docker-compose run php composer install
-```
-Note: 
-Some distributions (e.g. Fedora) restrict access to the docker daemon socket to user `root` only .
-This results in a error message as `ERROR: Couldn't connect to Docker daemon at http+docker://localunixsocket - is it running?` 
-Run the two `docker-compose` commands as user `root` (via `su`or `sudo`) in that case.
+Every helping hand is welcomed.
+You don't need to be able to write source code.
+Actions like ...
 
-This will start a [Nginx webserver](https://nginx.org/) with a [php-fpm](https://secure.php.net/manual/en/install.fpm.php) configuration and a [MySQL database](https://www.mysql.com/) for you.
-After everything started you should be able to visit http://`<Your-Docker-IP>`:8080/ and see a running LanSuite-System.
+* Improve the documentation
+* Fixing typos
+* Translating texts into another language
+* Welcome newcomers
+* Helping out with support in the issue tracker
+* Talking about LANSuite at events like meetups or LANParties
+* And similar activities
 
-*Warning*: This Docker setup should not be used for production. It contains a debugging setup like [Xdebug](https://xdebug.org/).
+are also highly valuable.
+So feel free, get started and help us to build a better community and system.
 
-### Docker with a database dump
+### Contributing Guide
 
-If you have already a running website based on LanSuite, you can also start a docker based setup with a copy of your database.
-It comes handy to test the new features with your dataset.
+Read our [contributing guide](https://github.com/lansuite/lansuite/blob/master/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to LanSuite.
 
-This guide assumes that you have already a copy of your database in a single SQL file.
-If you don't have one, you can create one with tools like [mysqldump](https://dev.mysql.com/doc/refman/5.7/en/mysqldump-sql-format.html), [PHPMyAdmin](https://www.phpmyadmin.net/) or ask your hoster for a copy.
+### Beginner Friendly Bugs
 
-Move your database dump into the root folder of LanSuite and name it `database-dump.sql`:
+To help you get your feet wet and get you familiar with our contribution process, we have a list of [beginner friendly bugs](https://github.com/LanSuite/LanSuite/labels/good%20first%20issue) that contain bugs which are fairly easy to fix. This is a great place to get started.
 
-```
-$ mv /your/db/dump.sql /lansuite/copy/database-dump.sql
-```
+## Contact
 
-After this, you can start the [docker-compose](https://docs.docker.com/compose/) setup via
+The best way to get in contact with us is via [GitHub Issues](https://github.com/lansuite/lansuite/issues).
+Over this way, it is transparent to the community, and all team members and contributors are informed and have the chance to respond.
 
-```
-$ docker-compose -f docker-compose.yml -f docker-compose.dump.yml up
-```
+## License
 
-### Configuration file
-
-An example configuration file looks like:
-
-```ini
-[lansuite]
-version=Nightly
-default_design=simple
-chmod_dir=777
-chmod_file=666
-debugmode=0
-
-[database]
-server=mysql
-user=root
-passwd=
-database=lansuite
-prefix=ls_
-charset=utf8
-```
-
-**Warning**: Setting directories to `0777` is not suggested for production. Only your webserver user should be able to write into this directory.
-
-## Development
-
-### Contribution Guide
-
-Checkout how to contribute in our [Contribution Guide](./CONTRIBUTING.md).
-
-### Language
-
-Main language of this project is english.
-We also support issues and pull requests in german.
-The reason is that LANSuite is a quite old system and a massive userbase only speaks german.
-To not loose them, we will support both languages.
-See [Switch language of documentation, development, communication to english #2](https://github.com/lansuite/lansuite/issues/2) for more details.
-
-### Coding style guide
-
-This project follows the coding guideline standards:
-
-* [PSR-1: Basic Coding Standard](http://www.php-fig.org/psr/psr-1/)
-* [PSR-2: Coding Style Guide](http://www.php-fig.org/psr/psr-2/)
-
-### Generating API docs
-
-Former versions of LANSuite bundled an API documentation in the `docs/` folder.
-To generate an API documentation in a HTML-Version you can use [phpDocumentor](https://www.phpdoc.org/):
-
-```
-$ composer install
-$ bin/phpdoc run --progressbar -t ./docs/
-```
+LanSuite is [GPL v2 licensed](./LICENSE).
