@@ -50,9 +50,10 @@ class Category
     private function read()
     {
         global $db;
+
         if ($this->cat_id != null) {
             $row = $db->qry_first("SELECT * FROM %prefix%food_cat WHERE cat_id=%int%", $this->cat_id);
-            if ($db->num_rows($row) > 0) {
+            if (is_array($row)) {
                 $this->name = $row['name'];
                 return true;
             } else {
