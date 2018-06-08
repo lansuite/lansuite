@@ -1,33 +1,67 @@
 <?php
-/**
- * lansuite tourney tree class
- *
- * author: sparkY <sparky@splatterworld.de>
- * description: special wrapper class fo lansuite tourney module. Actually uses TourneyTree class
- *
- */
 
-class lansuiteTree extends TourneyTree
+namespace LanSuite\Module\Tournament2;
+
+class LanSuiteTree extends TourneyTree
 {
-    public $wb_teams = array();
-    public $lb_teams = array();
-    public $size = null;
-    public $st = null;
-    public $tree = null;
-    public $db = null;
+    /**
+     * @var array
+     */
+    private $wb_teams = [];
+
+    /**
+     * @var array
+     */
+    private $lb_teams = [];
+
+    /**
+     * @var int
+     */
+    private $size = null;
+
+    /**
+     * @var string
+     */
+    private $st = null;
+
+    /**
+     * @var TourneyTree
+     */
+    private $tree = null;
+
+    /**
+     * @var \LanSuite\DB
+     */
+    private $db = null;
 
     public function __construct($id, $size, &$db)
     {
         $this->size = $size;
-        $this->st = "SELECT games.round, teams.name, teams.teamid, games.leaderid, games.gameid, games.score, games.position
-				FROM %prefix%t2_games AS games
-				LEFT JOIN %prefix%t2_teams AS teams ON ( games.tournamentid = teams.tournamentid )
-					AND ( games.leaderid = teams.leaderid)
-				WHERE (games.tournamentid = '".(int)$id."')
-				AND (games.group_nr = 0) AND (games.round = %s) GROUP BY games.gameid ORDER BY games.position DESC";
+        $this->st = "
+          SELECT
+            games.round,
+            teams.name,
+            teams.teamid,
+            games.leaderid,
+            games.gameid,
+            games.score,
+            games.position
+          FROM %prefix%t2_games AS games
+          LEFT JOIN %prefix%t2_teams AS teams ON
+            (games.tournamentid = teams.tournamentid)
+            AND ( games.leaderid = teams.leaderid)
+          WHERE
+            (games.tournamentid = '".(int)$id."')
+            AND (games.group_nr = 0)
+            AND (games.round = %s)
+          GROUP BY games.gameid
+          ORDER BY games.position DESC";
         $this->db = $db;
     }
 
+    /**
+     * @return void
+     */
     public function prepareWB()
     {
         for ($i=0; $i <= TourneyTree::numWBRounds($this->size); $i++) {
@@ -37,7 +71,7 @@ class lansuiteTree extends TourneyTree
             }
         }
 
-        // determine winner of each match
+        // Determine winner of each match
         foreach ($this->wb_teams as $round => $teams) {
             for ($i=0; $i<count($teams); $i++) {
                 $t1 = $this->wb_teams[$round][$i];
@@ -66,6 +100,9 @@ class lansuiteTree extends TourneyTree
         }
     }
 
+    /**
+     * @return void
+     */
     public function prepareLB()
     {
         $x=0;
@@ -112,6 +149,9 @@ class lansuiteTree extends TourneyTree
         }
     }
 
+    /**
+     * @return void
+     */
     public function mkTree()
     {
         if ($this->tree) {
@@ -120,6 +160,9 @@ class lansuiteTree extends TourneyTree
         $this->tree = new TourneyTree($this->size, $this->wb_teams, $this->lb_teams);
     }
 
+    /**
+     * @return string
+     */
     public function getWBString()
     {
         if (!$this->tree) {
@@ -128,6 +171,9 @@ class lansuiteTree extends TourneyTree
         return $this->tree->printWB();
     }
 
+    /**
+     * @return string
+     */
     public function getLBString()
     {
         if (!$this->tree) {
