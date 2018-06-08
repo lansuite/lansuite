@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+ <typedefinition>
+    <head>
+      <name>paypalmode</name>
+    </head>
+    <entries>
+  		<entry>
+  			<value>sandbox</value>
+  			<description>Sandbox-Mode (zum Testen)</description>
+  		</entry>
+  		<entry>
+  			<value>live</value>
+  			<description>Live-Modus - Mit echten Geld!</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Allgemein</name>
@@ -31,16 +46,16 @@
     </head>
     <items>
     	<item>
-    		<name>paypal_business</name>
+    		<name>paypal_client_ID</name>
     		<type>string</type>
-    		<default>pay@mybiz.com</default>
-    		<description>E-Mail PayPal-Kontobesitzer</description>
+    		<default></default>
+    		<description>PayPaL API client ID</description>
     	</item>
-    	<item>
-    		<name>paypal_site_url</name>
+        <item>
+    		<name>paypal_client_secret</name>
     		<type>string</type>
-    		<default>http://www.one-network.org/</default>
-    		<description>Homepage Konto-Besitzer</description>
+    		<default></default>
+    		<description>PayPaL API client secret</description>
     	</item>
     	<item>
     		<name>paypal_currency_code</name>
@@ -55,10 +70,10 @@
     		<description>Zahlungsgrund</description>
     	</item>
     	<item>
-    		<name>paypal_url</name>
-    		<type>string</type>
-    		<default>https://www.sandbox.paypal.com/cgi-bin/webscr</default>
-    		<description>PayPal URL</description>
+    		<name>paypal_mode</name>
+    		<type>paypalmode</type>
+    		<default>sandbox</default>
+    		<description>Soll das PayPal-Modul gegen den Sandbox-Server oder Produktiv laufen?</description>
     	</item>
     </items>
   </group>

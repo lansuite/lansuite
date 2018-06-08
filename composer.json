@@ -19,6 +19,7 @@
         "smarty/smarty": "^3.1",
         "geshi/geshi": "^1.0.9",
         "setasign/fpdf": "^1.8",
+        "paypal/rest-api-sdk-php": "^1.13",
         "symfony/debug": "^3.4"
     },
     "require-dev": {
@@ -30,7 +31,8 @@
         "bin-dir": "bin"
     },
     "suggest": {
-        "ext-snmp": "Required to use the \"Network Operation Center\" module."
+        "ext-snmp": "Required to use the \"Network Operation Center\" module.",
+        "paypal/rest-api-sdk-php": "Required to use the PayPal module"
     },
     "autoload": {
         "psr-4": {
@@ -47,6 +49,7 @@
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
             "LanSuite\\Module\\News\\": "modules/news/Classes/",
             "LanSuite\\Module\\Party\\": "modules/party/Classes/",
+            "LanSuite\\Module\\PayPal\\": "modules/paypal/Classes/",
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
             "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
@@ -134,6 +137,9 @@
             "modules/partylist/Functions/EditAllowed.php",
             "modules/partylist/Functions/GetSite.php",
             "modules/partylist/Functions/NameAndMotto.php",
+            "modules/paypal/Functions/GetPriceDetails.php",
+            "modules/paypal/Functions/SanitizeVal.php",
+            "modules/paypal/Functions/SKUtoParty.php",
             "modules/picgallery/Functions/IsPackage.php",
             "modules/picgallery/Functions/IsSupportedType.php",
             "modules/picgallery/Functions/IsSupportedVideo.php",
