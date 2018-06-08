@@ -1,35 +1,84 @@
 <?php
-/*
- * class: TourneyTree
- * source: http://www.spYders.de
- * File: tree.class.php
- * Author: sparkY <sparky@splatterworld.de>
- * License: GPL (general public license)
- * Description: basic class for tree generation of double/single elimination tournaments.
- * 				This is more like a proof-of-concept implementation, since it will get slow if you
- *				want to generate a grid of size 512+ on-the-fly - recommend to use kinda caching for bigger brackets!
+
+namespace LanSuite\Module\Tournament2;
+
+/**
+ * Class TourneyTree
  *
- *				Feel free to contact me or contribute.
-*/
+ * Basic class for tree generation of double/single elimination tournaments.
+ * This is more like a proof-of-concept implementation, since it will get slow if you
+ * want to generate a grid of size 512+ on-the-fly.
+ * Recommend to use kinda caching for bigger brackets!
+ */
 class TourneyTree
 {
-    public $lb_teams = array();
-    public $wb_teams = array();
-    public $size;
-    public $wb_rounds;
-    public $wb_num_rows ;
-    public $wb_num_cols;
-    public $wb_tbl = array();
-    public $wb_indexes = array();
-    public $lb_rounds;
-    public $lb_num_rows;
-    public $lb_num_cols;
-    public $lb_tbl = array();
-    public $lb_indexes = array();
+    /**
+     * @var array|bool
+     */
+    private $lb_teams = [];
+
+    /**
+     * @var array
+     */
+    private $wb_teams = [];
+
+    /**
+     * @var int
+     */
+    private $size;
+
+    /**
+     * @var float|int
+     */
+    private $wb_rounds;
+
+    /**
+     * @var float|int
+     */
+    private $wb_num_rows;
+
+    /**
+     * @var float|int
+     */
+    private $wb_num_cols;
+
+    /**
+     * @var array
+     */
+    private $wb_tbl = [];
+
+    /**
+     * @var array
+     */
+    private $wb_indexes = [];
+
+    /**
+     * @var float|int
+     */
+    private $lb_rounds;
+
+    /**
+     * @var float|int
+     */
+    private $lb_num_rows;
+
+    /**
+     * @var float|int
+     */
+    private $lb_num_cols;
+
+    /**
+     * @var array
+     */
+    private $lb_tbl = [];
+
+    /**
+     * @var array
+     */
+    private $lb_indexes = [];
 
     public function __construct($size, $wb_teams, $lb_teams = false)
     {
-        // init vars !
         $this->size = $size;
         $this->wb_rounds = TourneyTree::log2($size);
         $this->wb_num_rows = $this->size * 2;
@@ -53,32 +102,50 @@ class TourneyTree
         }
     }
 
+    /**
+     * @param float $size
+     * @return float|int
+     */
     public function numWBRounds($size)
     {
         return TourneyTree::log2($size);
     }
 
+    /**
+     * @param float $size
+     * @return float|int
+     */
     public function numLBRounds($size)
     {
         return (2*TourneyTree::log2($size))-1;
     }
 
-    public function calcMW($x, $y)
+    /**
+     * @param int $x
+     * @param int $y
+     * @return float|int
+     */
+    private function calcMW($x, $y)
     {
         return (($x+$y)/2);
     }
 
-    public function calcGauss($x)
-    {
-        return ((int)$x);
-    }
-
+    /**
+     * @param float $x
+     * @return float|int
+     */
     public function log2($x)
     {
         return (log($x)/log(2));
     }
 
-    public function getPrevCoords($round, $indexes, $offset = 2)
+    /**
+     * @param int $round
+     * @param array $indexes
+     * @param int $offset
+     * @return array
+     */
+    private function getPrevCoords($round, $indexes, $offset = 2)
     {
         $tmp = $indexes;
         $tmp2 = $round-$offset;
@@ -87,12 +154,22 @@ class TourneyTree
         return array($r1, $r2);
     }
 
-    public function generateBar($x, $y, &$tbl)
+    /**
+     * @param int $x
+     * @param int $y
+     * @param array $tbl
+     * @return void
+     */
+    private function generateBar($x, $y, &$tbl)
     {
         $tbl[$x][$y] = true;
     }
 
-    public function generateArrows(&$tbl)
+    /**
+     * @param array $tbl
+     * @return void
+     */
+    private function generateArrows(&$tbl)
     {
         for ($i=1; $i < count($tbl);) {
             $t = $s = 0;
@@ -113,6 +190,11 @@ class TourneyTree
         }
     }
 
+    /**
+     * @param int $round
+     * @param int $size
+     * @return bool|float|int
+     */
     public function LBTeamsInRound($round, $size)
     {
         $i = (2*TourneyTree::log2($size))-1;
@@ -127,6 +209,11 @@ class TourneyTree
         return $ret;
     }
 
+    /**
+     * @param int $round
+     * @param int $size
+     * @return bool|float|int
+     */
     public function WBTeamsInRound($round, $size)
     {
         $max_rounds = TourneyTree::log2($size);
@@ -136,7 +223,12 @@ class TourneyTree
         return pow(2, ($max_rounds - ($round - 1)));
     }
 
-    public function generateFakeTeams(&$wb, &$lb)
+    /**
+     * @param array $wb
+     * @param array $lb
+     * @return bool
+     */
+    private function generateFakeTeams(&$wb, &$lb)
     {
         $wb = $lb = array();
         $sz = TourneyTree::log2($this->size);
@@ -161,7 +253,10 @@ class TourneyTree
         return true;
     }
 
-    public function makeWBTable()
+    /**
+     * @return void
+     */
+    private function makeWBTable()
     {
         for ($x=0; $x <= $this->wb_num_cols; $x++) {
             if ((($x+1) % 2) == 1) {
@@ -174,7 +269,10 @@ class TourneyTree
         }
     }
 
-    public function makeLBTable()
+    /**
+     * @return void
+     */
+    private function makeLBTable()
     {
         for ($x=0; $x < $this->lb_num_cols; $x++) {
             if ((($x+1) % 2) == 1) {
@@ -187,7 +285,10 @@ class TourneyTree
         }
     }
 
-    public function fillWBTable()
+    /**
+     * @return void
+     */
+    private function fillWBTable()
     {
         for ($x=0; $x <= $this->wb_num_cols; $x++) {
             $round = $x+1;
@@ -207,9 +308,9 @@ class TourneyTree
                     }
                 }
 
-                    // rounds > 1 < max
-                    // $x / 2 is the actual round!
-                    // $round-2 is the actual previous round
+                // rounds > 1 < max
+                // $x / 2 is the actual round!
+                // $round-2 is the actual previous round
                 if ($x > 0 && $x < $this->wb_num_cols && ($x % 2) == 0) {
                     if ((count($this->wb_teams[$x/2]) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->wb_tbl);
@@ -225,7 +326,7 @@ class TourneyTree
                     }
                 }
 
-                    // final round
+                // final round
                 if ($x == $this->wb_num_cols) {
                     if (($y*2)+2 == $this->wb_num_rows) {
                         $tmp = array_shift($this->wb_teams[($x/2)]);
@@ -238,14 +339,17 @@ class TourneyTree
         }
     }
 
-    public function fillLBTable()
+    /**
+     * @return void
+     */
+    private function fillLBTable()
     {
         for ($x=0; $x < $this->lb_num_cols; $x++) {
             $round = $x+1;
             for ($y=0; $y < $this->lb_num_rows; $y++) {
                 $row = $y+1;
 
-                    // first round
+                // first round
                 if ($x == 0) {
                     if ((count($this->lb_teams[$x]) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->lb_tbl);
@@ -264,7 +368,7 @@ class TourneyTree
                     }
                 }
 
-                    // rounds > 1
+                // rounds > 1
                 if ($x > 0 && $x < ($this->lb_num_cols-2) && ($x % 2) == 0) {
                     if ((count($this->lb_teams[$x/2]) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->lb_tbl);
@@ -296,7 +400,7 @@ class TourneyTree
                     }
                 }
 
-                    // this is the overall-final
+                // this is the overall-final
                 if ($x > 1 && $x == $this->lb_num_cols-2) {
                     $tmp = $this->getPrevCoords($round, $this->lb_indexes);
                     if ($this->calcMW($tmp[0][1], $tmp[1][1]) == $y) {
@@ -309,7 +413,10 @@ class TourneyTree
         }
     }
 
-    public function RenderBar()
+    /**
+     * @return string
+     */
+    private function RenderBar()
     {
         $ret = sprintf('<table height="100%%" border="0" cellspacing="0" cellpadding="2">');
         $ret .= sprintf('<tr>');
@@ -318,10 +425,14 @@ class TourneyTree
         $ret .= sprintf('    <td width="5">&nbsp;</td>');
         $ret .= sprintf('</tr>');
         $ret .= sprintf('</table>');
+
         return $ret;
     }
 
-    public function RenderArrow()
+    /**
+     * @return string
+     */
+    private function RenderArrow()
     {
         $ret = sprintf('<table height="100%%" border="0" cellspacing="0" cellpadding="2">');
         $ret .= sprintf('<tr>');
@@ -330,10 +441,15 @@ class TourneyTree
         $ret .= sprintf('    <td width="5">&nbsp;</td>');
         $ret .= sprintf('</tr>');
         $ret .= sprintf('</table>');
+
         return $ret;
     }
 
-    public function RenderTeam($team)
+    /**
+     * @param array $team
+     * @return string
+     */
+    private function RenderTeam($team)
     {
         if ($team['iswinner'] == 1) {
             $col = '00FF00';
@@ -345,19 +461,20 @@ class TourneyTree
             $team['score']    = 0;
             $col = '808080';
         }
-    //echo '<pre>';
-    //print_r($this);
-    //echo '</pre>';
+
         $ret = sprintf('<table border="0" cellspacing="0" cellpadding="2">');
         $ret .= sprintf('<tr>');
         $ret .= sprintf('    <td width="100%%"><b>%s</b></td>', (count($team) > 3 ? $team['name'] : 'Joker'));
         $ret .= sprintf('    <td bgcolor="#DDDDDD" width="15" align="center" style="color: #%s"><small><font color="#%s">%d</font></small></td>', $col, $col, $team['score']);
         $ret .= sprintf('</tr>');
         $ret .= sprintf('</table>');
+
         return $ret;
     }
 
-
+    /**
+     * @return string
+     */
     public function printWB()
     {
         $this->makeWBTable();
@@ -390,6 +507,9 @@ class TourneyTree
         return $ret;
     }
 
+    /**
+     * @return string
+     */
     public function printLB()
     {
         $this->makeLBTable();

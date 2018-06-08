@@ -1,25 +1,20 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			join.php
-*	Module: 			Tournamentsystem
-*	Main editor: 		jochen@one-network.org
-*	Last change: 		26.04.2004
-*	Description: 		Undo status changing
-*	Remarks:
-*
-**************************************************************************/
 
 $tournamentid    = $_GET["tournamentid"];
 
 if ($tournamentid == "") {
     $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
 } else {
-    $tournament = $db->qry_first("SELECT status, teamplayer, name, mode, blind_draw FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
+    $tournament = $db->qry_first("
+      SELECT
+        status,
+        teamplayer,
+        name,
+        mode,
+        blind_draw
+      FROM %prefix%tournament_tournaments
+      WHERE
+        tournamentid = %int%", $tournamentid);
 
     switch ($_GET["action"]) {
         case "undo_generate":
@@ -29,16 +24,23 @@ if ($tournamentid == "") {
                     break;
 
                 case 2:
-                    ## Blind-Draw Teas auflösen
+                    // Blind-Draw Teas auflösen
                     if ($tournament["blind_draw"]) {
                         $bd_teams = $db->qry("SELECT * FROM %prefix%t2_teammembers WHERE tournamentid = %int%", $_GET["tournamentid"]);
                         while ($bd_team = $db->fetch_array($bd_teams)) {
-                            $leader = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $bd_team["userid"]);
-                            $db->qry("INSERT INTO %prefix%t2_teams 
-        SET tournamentid = %int%,
-        name = %string%,
-        leaderid = %int%
-        ", $_GET["tournamentid"], $leader["username"], $bd_team["userid"]);
+                            $leader = $db->qry_first("
+                              SELECT
+                                username
+                              FROM %prefix%user
+                              WHERE userid = %int%", $bd_team["userid"]);
+
+                            $db->qry("
+                              INSERT INTO %prefix%t2_teams 
+                              SET
+                                tournamentid = %int%,
+                                name = %string%,
+                                leaderid = %int%", $_GET["tournamentid"], $leader["username"], $bd_team["userid"]);
+
                             $db->qry("DELETE FROM %prefix%t2_teammembers WHERE teamid = %int% AND userid = %int%", $bd_team["teamid"], $bd_team["userid"]);
                         }
                     }
