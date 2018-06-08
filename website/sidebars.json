@@ -1,0 +1,17 @@
+{
+  "docs": {
+    "Getting Started": [
+      "requirements",
+      "installation",
+      "configuration"
+    ],
+    "Guides": [
+      "upgrade"
+    ],
+    "Development": [
+      "api-docs",
+      "coding-style-guide",
+      "documentation"
+    ]
+  }
+}

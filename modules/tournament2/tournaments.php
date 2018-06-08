@@ -1,64 +1,6 @@
 <?php
 
 $xml = new \LanSuite\XML();
-
-function CheckModeForWWCLLeague($league)
-{
-    if ($league and $_POST['mode'] != 'single' and $_POST['mode'] != 'double' and $_POST['mode'] != 'groups') {
-        return t('WWCL-Turniere müssen im SE, DE oder Gruppenspiele Modus ausgetragen werden');
-    } else {
-        return false;
-    }
-}
-
-function CheckModeForLeague($league)
-{
-    if ($league and $_POST['mode'] != 'single' and $_POST['mode'] != 'double') {
-        return t('Diese Liga ist nur im SE und DE Modus möglich');
-    } else {
-        return false;
-    }
-}
-
-function CheckDateInFuture($date)
-{
-    global $lang, $func, $mf;
-
-    if (!$mf->isChange and $func->str2time($date) < time()) {
-        return t('Dieses Datum liegt in der Vergangenheit');
-    } else {
-        return false;
-    }
-}
-
-function CheckModeChangeAllowed($mode)
-{
-    global $mf, $db, $lang;
-
-    $t = $db->qry_first('SELECT mode, status FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $_GET['tournamentid']);
-    if ($mf->isChange and $t['status'] != 'open' and $t['mode'] != $mode) {
-        if ($t['mode'] == 'single' or $t['mode'] == 'double') {
-            if ($mode != 'single' and $mode != 'double') {
-                return t('Bei bereits generierten Turnieren darf der Modus nur noch zwischen Single-Elimintation und Double-Elimination geändert werden');
-            }
-        } else {
-            return t('Bei bereits generierten Turnieren ist das ändern des Modus nur noch bei Single-Elimintation und Double-Elimination erlaubt');
-        }
-    }
-    return false;
-}
-
-function CheckStateChangeAllowed($state)
-{
-    if ($state == 'process') {
-        return t('Dieser Status kann nicht manuell gesetzt werden. Zum setzen, bitte "Generieren" verwenden');
-    }
-    if ($state == 'closed') {
-        return t('Dieser Status kann nicht manuell gesetzt werden. Er wird automatisch gesetzt, sobald das letzte Ergebnis im Turnier eingetragen wurde');
-    }
-    return false;
-}
-
 $mf = new \LanSuite\MasterForm();
 
 // Name
@@ -87,7 +29,6 @@ if ($t_state['status'] == 'process') {
     $mf->AddField(t('Status'), 'status', \LanSuite\MasterForm::IS_SELECTION, $selections, '', 'CheckStateChangeAllowed');
 }
 $mf->AddGroup('Allgemein');
-
 
 // Mode
 $selections = array();
@@ -119,7 +60,6 @@ $mf->AddField(t('Spiel-Modus'), 'mode', \LanSuite\MasterForm::IS_SELECTION, $sel
 $mf->AddField(t('Blind Draw').'|'.t('Teammitglieder werden zugelost'), 'blind_draw', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
 $mf->AddGroup(t('Turniermodus'));
 
-
 // Limits
 $selections = array();
 $selections[0] = t('Keine');
@@ -136,7 +76,6 @@ $mf->AddField(t('Coin-Kosten'), 'coins', \LanSuite\MasterForm::IS_SELECTION, $se
 
 $mf->AddField(t('U18-Sperre').'|'.t('Keine Spieler aus Unter-18-Sitzblöcken zulassen'), 'over18', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
 $mf->AddGroup(t('Anmeldeeinschränkungen'));
-
 
 // Times
 if (!$_POST['starttime']) {
@@ -200,7 +139,6 @@ $xml_file = fread($handle, filesize($file));
 fclose($handle);
 
 $selections = array();
-# and $cfg["sys_country"] != "at" and $cfg["sys_country"] != "ch"
 if ($cfg["sys_country"] != "de") {
     $mf->AddField(t('NGL-Support ist nur für Partys in Deutschland möglich. Das Land deiner Party kannst du auf der Adminseite einstellen'), 'ngl_gamename', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('NGL-Support ist nur in Deutschland, Österreich, oder der Schweiz möglich. Das Land deiner Party kannst du auf der Adminseite einstellen'));
 } else {
@@ -213,7 +151,6 @@ if ($cfg["sys_country"] != "de") {
         }
 
         $game_xml = $xml->get_tag_content_array("game", $akt_liga);
-
         if (is_array($game_xml)) {
             while ($game_xml_id = array_shift($game_xml)) {
                 $akt_game_id = $xml->get_tag_content("short", $game_xml_id);
