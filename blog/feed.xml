@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>LANSuite Blog</title>
+        <link>https://lansuite.github.io/lansuite/blog</link>
+        <description>The best place to stay up-to-date with the latest LANSuite news and events.</description>
+        <lastBuildDate>Fri, 01 Jun 2018 06:00:00 GMT</lastBuildDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <generator>Feed for Node.js</generator>
+        <image>
+            <title>LANSuite Blog</title>
+            <url>https://lansuite.github.io/lansuite/img/docusaurus.svg</url>
+            <link>https://lansuite.github.io/lansuite/blog</link>
+        </image>
+        <copyright>Copyright © 2018 LANSuite team and contributors</copyright>
+        <item>
+            <title><![CDATA[Launch of the documentation]]></title>
+            <link>https://lansuite.github.io/lansuite/blog/2018/06/01/documentation-launch.html</link>
+            <guid>https://lansuite.github.io/lansuite/blog/2018/06/01/documentation-launch.html</guid>
+            <pubDate>Fri, 01 Jun 2018 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>In April 2017 we kicked off the development of LANSuite again.
+Since then more than 900 commits including tons of bug fixes were done.</p>
+<p>During the development, various people opened issues in our GitHub issue tracker and reported bugs, contributed to discussions, requested features and asked questions related to LANSuite.</p>
+<p>Especially the last point, asking questions, will be tackled with this announcement. <strong>Today we are launching the new documentation of LANSuite</strong>.</p>
+]]></description>
+        </item>
+    </channel>
+</rss>
