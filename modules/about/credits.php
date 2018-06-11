@@ -1,5 +1,5 @@
 <?php
-$dsp->NewContent($config['lansuite']['version'], 'A web based lanparty administration tool');
+$dsp->NewContent(LANSUITE_VERSION, 'A web based lanparty administration tool');
 
 $dsp->AddSingleRow('<b>Contact</b>', 'align="center"');
 $dsp->AddSingleRow('internet: <a href="http://www.lansuite.de" target="_blank">http://www.lansuite.de</a><br />
