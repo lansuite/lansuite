@@ -38,7 +38,7 @@
 			</field>	
 			<field>
 				<name>type</name>
-				<type>varchar(3)</type>
+				<type>enum('sql','php')</type>
 				<null></null>
 				<key></key>
 				<default>sql</default>
