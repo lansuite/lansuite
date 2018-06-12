@@ -106,8 +106,8 @@ class UserManager
         if ((strlen($code) != 36) ||
             (strlen($perso_block[0]) != 11) || (strlen($perso_block[2]) != 7) || (strlen($perso_block[3]) != 7) || (strlen($perso_block[10]) != 1)) {
             return 2;
-        } // Chechsum Check
-        else {
+        // Chechsum Check
+        } else {
             $multiplier = array("7", "3", "1");
 
             $cs1 = 0;
@@ -229,7 +229,7 @@ class UserManager
         $xml = new \LanSuite\XML();
         $output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
 
-        $system = $xml->write_tag('version', $config['lansuite']['version'], 2);
+        $system = $xml->write_tag('version', LANSUITE_VERSION, 2);
         $system .= $xml->write_tag('name', $cfg['feed_partyname'], 2);
         $system .= $xml->write_tag('link', $cfg['sys_partyurl'], 2);
         $system .= $xml->write_tag('language', 'de-de', 2);

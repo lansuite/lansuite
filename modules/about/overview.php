@@ -1,5 +1,5 @@
 <?php
-$dsp->NewContent($config['lansuite']['version'], 'A web based lanparty administration tool');
+$dsp->NewContent(LANSUITE_VERSION, 'A web based lanparty administration tool');
 
 $dsp->AddFieldsetStart(t('Information'));
 $dsp->AddDoubleRow('', '<a href="index.php?mod=about&action=credits">credits</a>');

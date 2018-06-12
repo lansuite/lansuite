@@ -18,7 +18,9 @@
 
         "smarty/smarty": "^3.1",
         "geshi/geshi": "^1.0.9",
-        "setasign/fpdf": "^1.8"
+        "setasign/fpdf": "^1.8",
+        "paypal/rest-api-sdk-php": "^1.13",
+        "symfony/debug": "^3.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.5",
@@ -29,7 +31,8 @@
         "bin-dir": "bin"
     },
     "suggest": {
-        "ext-snmp": "Required to use the \"Network Operation Center\" module."
+        "ext-snmp": "Required to use the \"Network Operation Center\" module.",
+        "paypal/rest-api-sdk-php": "Required to use the PayPal module"
     },
     "autoload": {
         "psr-4": {
@@ -46,10 +49,12 @@
             "LanSuite\\Module\\MasterSearch2\\": "modules/mastersearch2/Classes/",
             "LanSuite\\Module\\News\\": "modules/news/Classes/",
             "LanSuite\\Module\\Party\\": "modules/party/Classes/",
+            "LanSuite\\Module\\PayPal\\": "modules/paypal/Classes/",
             "LanSuite\\Module\\PDF\\": "modules/pdf/Classes/",
             "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
             "LanSuite\\Module\\Stats\\": "modules/stats/Classes/",
+            "LanSuite\\Module\\Tournament2\\": "modules/tournament2/Classes/",
             "LanSuite\\Module\\UsrMgr\\": "modules/usrmgr/Classes/",
             "LanSuite\\": "inc/Classes"
         },
@@ -132,6 +137,9 @@
             "modules/partylist/Functions/EditAllowed.php",
             "modules/partylist/Functions/GetSite.php",
             "modules/partylist/Functions/NameAndMotto.php",
+            "modules/paypal/Functions/GetPriceDetails.php",
+            "modules/paypal/Functions/SanitizeVal.php",
+            "modules/paypal/Functions/SKUtoParty.php",
             "modules/picgallery/Functions/IsPackage.php",
             "modules/picgallery/Functions/IsSupportedType.php",
             "modules/picgallery/Functions/IsSupportedVideo.php",
@@ -152,6 +160,24 @@
             "modules/server/Functions/ServerType.php",
             "modules/sponsor/Functions/RewriteFields.php",
             "modules/sponsor/Functions/UploadFiles.php",
+            "modules/tournament2/Functions/ArrayToTable.php",
+            "modules/tournament2/Functions/CheckDateInFuture.php",
+            "modules/tournament2/Functions/CheckModeChangeAllowed.php",
+            "modules/tournament2/Functions/CheckModeForLeague.php",
+            "modules/tournament2/Functions/CheckModeForWWCLLeague.php",
+            "modules/tournament2/Functions/CheckStateChangeAllowed.php",
+            "modules/tournament2/Functions/GetTournamentName.php",
+            "modules/tournament2/Functions/GetTournamentStatus.php",
+            "modules/tournament2/Functions/GetTournamentTeamAnz.php",
+            "modules/tournament2/Functions/GetTournamentUserIcon.php",
+            "modules/tournament2/Functions/IfFinished.php",
+            "modules/tournament2/Functions/IfGenerated.php",
+            "modules/tournament2/Functions/IfNotGenerated.php",
+            "modules/tournament2/Functions/WriteGame.php",
+            "modules/tournament2/Functions/WritePairs.php",
+            "modules/tournament2/Functions/WritePairs2.php",
+            "modules/tournament2/Functions/WritePairs3.php",
+            "modules/tournament2/Functions/WriteRoundHeadline.php",
             "modules/troubleticket/Functions/OptionRow.php",
             "modules/troubleticket/Functions/TTStatus.php",
             "modules/usrmgr/Functions/Addr1Input.php",

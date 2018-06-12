@@ -30,11 +30,11 @@ switch ($_GET["step"]) {
         $rowtest = $db->qry_first("SELECT COUNT(*) AS n FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);
         $numrows = $rowtest["n"];
 
-        // Prüfen ob ticketid leer ist
+        // Check if ticketid is empty
         if ($tt_id == "") {
             $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
-        } // Prüfen ob ticketid gültig ist
-        elseif ($numrows == "") {
+        // Check if ticket is is valid
+        } elseif ($numrows == "") {
             $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
         } else {
             $dsp->NewContent(t('Troubleticket bearbeiten'), "");

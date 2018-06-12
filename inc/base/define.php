@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Version of LANSuite
+ */
+define('LANSUITE_VERSION', '5.0-dev');
+
 define('VALID_LS', true);
 
 define('HTML_NEWLINE', '<br/>');

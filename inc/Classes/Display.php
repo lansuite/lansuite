@@ -1221,7 +1221,7 @@ class Display
      * @throws \Exception
      * @throws \SmartyException
      */
-    public function FetchIcon($picname, $link, $hint = null, $target = null, $align = 'left')
+    public function FetchIcon($picname, $link = '', $hint = null, $target = null, $align = 'left')
     {
         global $smarty;
 
