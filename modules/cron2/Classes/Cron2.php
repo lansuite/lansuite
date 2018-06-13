@@ -38,8 +38,8 @@ class Cron2
             %prefix%cron
         SET 
             lastrun = NOW(), 
-            laststate=%bool%, 
-            lastmessage=%text% 
+            laststate=%plain%, 
+            lastmessage=%string% 
         WHERE
             jobid = %int%", $jobid, $status, $message);
 

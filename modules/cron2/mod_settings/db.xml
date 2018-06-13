@@ -55,9 +55,9 @@
 			<field>
 				<name>lastrun</name>
 				<type>datetime</type>
-				<null></null>
+				<null>NOT NULL</null>
 				<key></key>
-				<default></default>
+				<default>CURRENT_TIMESTAMP</default>
 				<extra></extra>
 			</field>
 			<field>
