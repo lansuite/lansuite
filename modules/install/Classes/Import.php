@@ -175,13 +175,13 @@ class Import
                             or substr($type, 0, 8) == 'smallint' or substr($type, 0, 6) == 'bigint'
                             or substr($type, 0, 7) == 'decimal' or substr($type, 0, 5) == 'float' or substr($type, 0, 6) == 'double') {
                                     $default = 'default '. (int)$default_xml;
-                            } elseif ($type == 'timestamp') {
+                            } elseif (($type == 'timestamp') && empty($default_xml)) {
                                 $default = 'default CURRENT_TIMESTAMP';
                                 $default_xml = 'CURRENT_TIMESTAMP';
                                 $extra = 'on update CURRENT_TIMESTAMP';
-                            } elseif ($type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') {
+                            } elseif (($type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') && empty($default_xml)) {
                                 $default = '';
-                            } elseif ($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext') {
+                            } elseif (($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext') && empty($default_xml)) {
                                 $default = '';
                             } else {
                                 $default = "default '$default_xml'";
@@ -202,16 +202,16 @@ class Import
                         // Safe Field-Names to know which fields to import content for, in the next step.
                         $field_names[] = $name;
 
-                        // If table exists, compare XML-File with DB and check weather the DB has to be updated
+                        // If table exists, compare XML-File with DB and check whether the DB has to be updated
                         $found_in_db = 0;
                         if ($table_found) {
-                            // Search for fiels, which exist in the XML-File, but dont exist in the DB yet.
+                            // Search for fiels, which exist in the XML-File, but don't exist in the DB yet.
                             if ($db_fields) {
                                 foreach ($db_fields as $db_field) {
                                     if ($db_field["Field"] == $name) {
                                         $found_in_db = 1;
 
-                                        // Check wheather the field in the DB differs from the one in the XML-File
+                                        // Check whether the field in the DB differs from the one in the XML-File
                                         // Change it
                                         if ($db_field['Null'] == 'NO') {
                                             $db_field['Null'] = 'NOT NULL';
