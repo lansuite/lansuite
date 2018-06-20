@@ -177,9 +177,17 @@ class Import
                                     $default = 'default '. (int)$default_xml;
                             } elseif (($type == 'timestamp') && empty($default_xml)) {
                                 $default = 'default CURRENT_TIMESTAMP';
-                                $default_xml = 'CURRENT_TIMESTAMP';
+                                $default_xml = 'default CURRENT_TIMESTAMP';
                                 $extra = 'on update CURRENT_TIMESTAMP';
-                            } elseif (($type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') && empty($default_xml)) {
+                            } elseif ($type == 'datetime') {
+                                // Seperate case as SQL standard does not allow datetime fields set to NOT NULL without default value (although MySQL is still OK with it)
+                                if (!empty($default_xml) && $default_xml == 'CURRENT_TIMESTAMP') {
+                                        $default = 'CURRENT_TIMESTAMP';
+                                    } else {
+                                        // Default value either empty or a custom datetime value. Works for both cases
+                                        $default = "'$default_xml'";
+                                    }
+                            } elseif (($type == 'date' or $type == 'time' or $type == 'blob') && empty($default_xml)) {
                                 $default = '';
                             } elseif (($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext') && empty($default_xml)) {
                                 $default = '';
