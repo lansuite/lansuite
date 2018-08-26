@@ -229,7 +229,7 @@ class UserManager
         $xml = new \LanSuite\XML();
         $output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
 
-        $system = $xml->write_tag('version', $config['lansuite']['version'], 2);
+        $system = $xml->write_tag('version', LANSUITE_VERSION, 2);
         $system .= $xml->write_tag('name', $cfg['feed_partyname'], 2);
         $system .= $xml->write_tag('link', $cfg['sys_partyurl'], 2);
         $system .= $xml->write_tag('language', 'de-de', 2);

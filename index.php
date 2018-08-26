@@ -125,6 +125,9 @@ function myErrorHandler($errno, $errstr, $errfile, $errline)
 
 $PHPErrors = '';
 
+// Read definition file
+include_once('inc/base/define.php');
+
 // Read Config and Definitionfiles
 // Load Basic Config
 if (file_exists('inc/base/config.php')) {
@@ -134,7 +137,6 @@ if (file_exists('inc/base/config.php')) {
 } else {
     $config = [];
 
-    $config['lansuite']['version'] = 'Nightly';
     $config['lansuite']['default_design'] = 'simple';
     $config['lansuite']['chmod_dir'] = '777';
     $config['lansuite']['chmod_file'] = '666';
@@ -245,9 +247,6 @@ if (!get_magic_quotes_gpc()) {
         }
     }
 }
-
-// Read definition file
-include_once('inc/base/define.php');
 
 // Include and Initialize base classes
 $lang = [];

@@ -25,8 +25,8 @@ const siteConfig = {
   baseUrl: '/lansuite/',
 
   // Used for publishing and more
-  projectName: 'LANSuite',
-  organizationName: 'LANSuite',
+  projectName: 'lansuite',
+  organizationName: 'lansuite',
 
   headerLinks: [
     {doc: 'installation', label: 'Docs'},
