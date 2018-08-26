@@ -182,6 +182,7 @@
             "modules/troubleticket/Functions/TTStatus.php",
             "modules/usrmgr/Functions/Addr1Input.php",
             "modules/usrmgr/Functions/Addr2Input.php",
+            "modules/usrmgr/Functions/ChangeAllowed.php",
             "modules/usrmgr/Functions/CheckAndResizeUploadPic.php",
             "modules/usrmgr/Functions/CheckBirthday.php",
             "modules/usrmgr/Functions/CheckClanNotExists.php",
