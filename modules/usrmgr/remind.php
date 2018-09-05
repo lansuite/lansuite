@@ -44,7 +44,10 @@ if (!$cfg['sys_internet']) {
                 $pwrecoverytxt = str_replace("%PARTYNAME%", $cfg['sys_page_title'], $pwrecoverytxt); //replace party name
                 //now assemble it all into a mail
                 $mail->create_inet_mail(
-                        $user_data['username'], $_POST['pwr_mail'], $cfg['usrmgr_pwrecovery_subject'], $pwrecoverytxt
+                        $user_data['username'],
+                        $_POST['pwr_mail'],
+                        $cfg['usrmgr_pwrecovery_subject'],
+                        $pwrecoverytxt
                 );
 
 
