@@ -22,8 +22,36 @@ if (!$cfg['sys_internet']) {
                 $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
                 $mail = new \LanSuite\Module\Mail\Mail();
-                $mail->create_inet_mail($user_data['username'], $_POST['pwr_mail'], $cfg['usrmgr_pwrecovery_subject'], str_replace("%USERNAME%", $user_data['username'], str_replace("%PATH%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode", $cfg['usrmgr_pwrecovery_text'])));
-
+                //Build the Party-URL based on the settings or the client URL, whatever is available
+                //Try HTTPS first...
+                if (!empty($cfg['sys_partyurl_ssl'])){
+                    $verification_link = $cfg['sys_partyurl_ssl'];
+                    if (substr($cfg['sys_partyurl_ssl'],-1,1) !='/') {$verification_link .= '/';} //make sure that it ends with a slash
+                    $verification_link .= "index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode"; 
+                } else { // fallback to old version, 
+                    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+                        $proto = 'https://';
+                    } else {
+                        $proto = 'http://';
+                    }
+                    $verification_link = $proto . $_SERVER['SERVER_NAME']. ":" . $_SERVER['SERVER_PORT'].$path . "index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode";
+                }
+            // Now build the email subject with text replacements...
+            $pwrecoverytxt = str_replace("%PATH%", $verification_link, $cfg['usrmgr_pwrecovery_text']); // Replace pw-reset link
+            $pwrecoverytxt = str_replace("%USERNAME%", $user_data['username'], $pwrecoverytxt); // replace username
+            $pwrecoverytxt = str_replace("%PARTYNAME%", $cfg['sys_page_title'], $pwrecoverytxt); //replace party name
+            
+            //now assemble it all into a mail
+            $mail->create_inet_mail(
+                $user_data['username'], 
+                $_POST['pwr_mail'], 
+                $cfg['usrmgr_pwrecovery_subject'], 
+                $pwrecoverytxt
+            );
+                
+                
+                
+                
                 $func->confirmation(t('Dir wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit dem Aufruf dieser URL wird dir neues Passwort generiert werden.'), "index.php");
             } else {
                 $func->information(t('Die von dir eigegebene Email existiert nicht in der Datenbank'), "index.php?mod=usrmgr&action=pwrecover&step=1");
