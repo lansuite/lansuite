@@ -31,14 +31,20 @@ class UserManager
             
         $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
-        if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'
-        || $_SERVER['SERVER_PORT'] == 443) {
-            $proto = 'https';
-        } else {
-            $proto = 'http';
+        //Use the HTTPS party URL if defined, otherwise check what the user is currently using
+        if (!empty($cfg['sys_partyurl_ssl'])){
+		$verification_link = $cfg['sys_partyurl_ssl'];
+		//make sure that it ends with a slash
+		if (substr($cfg['sys_partyurl_ssl'],-1,1) !='/') $verification_link .= '/';
+		$verification_link .= "index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
+        } else {//No HTTPS URL defined, but maybe the user is already using it?
+            if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) { 
+                $proto = 'https';
+            } else {
+                $proto = 'http';
+            }
+            $verification_link = "{$proto}://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
         }
-        $verification_link = "{$proto}://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
-
         $row = $db->qry_first('SELECT firstname, name, email FROM %prefix%user WHERE userid = %int%', $id);
         if (!$_POST['firstname']) {
             $_POST['firstname'] = $row['firstname'];
