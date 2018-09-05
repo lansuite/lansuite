@@ -32,8 +32,9 @@ class UserManager
         if (!empty($cfg['sys_partyurl_ssl'])) {
             $verification_link = $cfg['sys_partyurl_ssl'];
             //make sure that it ends with a slash
-            if (substr($cfg['sys_partyurl_ssl'], -1, 1) != '/')
+            if (substr($cfg['sys_partyurl_ssl'], -1, 1) != '/') {
                 $verification_link .= '/';
+            }
             $verification_link .= "index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
         } else {//No HTTPS URL defined, but maybe the user is already using it?
             if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {

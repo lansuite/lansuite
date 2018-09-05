@@ -29,7 +29,7 @@ if (!$cfg['sys_internet']) {
                         $verification_link .= '/';
                     } //make sure that it ends with a slash
                     $verification_link .= "index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode";
-                } else { // fallback to old version, 
+                } else { // fallback to old version
                     if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
                         $proto = 'https://';
                     } else {
@@ -42,9 +42,7 @@ if (!$cfg['sys_internet']) {
                 $pwrecoverytxt = str_replace("%USERNAME%", $user_data['username'], $pwrecoverytxt); // replace username
                 $pwrecoverytxt = str_replace("%PARTYNAME%", $cfg['sys_page_title'], $pwrecoverytxt); //replace party name
                 //now assemble it all into a mail
-                $mail->create_inet_mail(
-                    $user_data['username'], $_POST['pwr_mail'], $cfg['usrmgr_pwrecovery_subject'], $pwrecoverytxt
-                );
+                $mail->create_inet_mail($user_data['username'], $_POST['pwr_mail'], $cfg['usrmgr_pwrecovery_subject'], $pwrecoverytxt);
                 $func->confirmation(t('Dir wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit dem Aufruf dieser URL wird dir neues Passwort generiert werden.'), "index.php");
             } else {
                 $func->information(t('Die von dir eigegebene Email existiert nicht in der Datenbank'), "index.php?mod=usrmgr&action=pwrecover&step=1");
