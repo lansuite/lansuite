@@ -1,15 +1,16 @@
 <?php
-
 namespace LanSuite\Module\UsrMgr;
 
-class UserManager {
+class UserManager
+{
 
     /**
      * @var \LanSuite\Module\Mail\Mail
      */
     private $mail = null;
 
-    public function __construct(\LanSuite\Module\Mail\Mail $mail) {
+    public function __construct(\LanSuite\Module\Mail\Mail $mail)
+    {
         $this->mail = $mail;
     }
 
@@ -17,7 +18,8 @@ class UserManager {
      * @param int $id User ID
      * @return int
      */
-    public function SendVerificationEmail($id) {
+    public function SendVerificationEmail($id)
+    {
         global $cfg, $db, $mail, $func;
 
         $verification_code = '';
@@ -62,7 +64,8 @@ class UserManager {
      * @param int $userid User ID
      * @return void
      */
-    public function LockAccount($userid) {
+    public function LockAccount($userid)
+    {
         global $db;
 
         $db->qry("UPDATE %prefix%user SET locked = 1 WHERE userid=%int%", $userid);
@@ -73,7 +76,8 @@ class UserManager {
      * @param int $userid User ID
      * @return void
      */
-    public function UnlockAccount($userid) {
+    public function UnlockAccount($userid)
+    {
         global $db;
 
         $db->qry("UPDATE %prefix%user SET locked = 0 WHERE userid=%int%", $userid);
@@ -82,7 +86,8 @@ class UserManager {
     /**
      * @return int
      */
-    public function GeneratePassword() {
+    public function GeneratePassword()
+    {
         return rand(10000, 99999);
     }
 
@@ -90,7 +95,8 @@ class UserManager {
      * @param string $code
      * @return int          1 = OK, 2 = Wrong length, 3 = Checksum error, 4 = Expired
      */
-    public function CheckPerso($code) {
+    public function CheckPerso($code)
+    {
         $perso_block = explode("<", $code);
         $perso_cs1 = substr($perso_block[0], 9, 1);
         $perso_cs2 = substr($perso_block[2], 6, 1);
@@ -100,7 +106,7 @@ class UserManager {
 
         // Length Check
         if ((strlen($code) != 36) ||
-                (strlen($perso_block[0]) != 11) || (strlen($perso_block[2]) != 7) || (strlen($perso_block[3]) != 7) || (strlen($perso_block[10]) != 1)) {
+            (strlen($perso_block[0]) != 11) || (strlen($perso_block[2]) != 7) || (strlen($perso_block[3]) != 7) || (strlen($perso_block[10]) != 1)) {
             return 2;
             // Chechsum Check
         } else {
@@ -149,7 +155,8 @@ class UserManager {
      * @param int $type
      * @return bool
      */
-    public function SendSignonMail($type = 0) {
+    public function SendSignonMail($type = 0)
+    {
         global $cfg, $func, $mail, $db, $auth;
 
         switch ($type) {
@@ -217,7 +224,8 @@ class UserManager {
     /**
      * @return bool
      */
-    public function WriteXMLStatFile() {
+    public function WriteXMLStatFile()
+    {
         global $cfg, $db, $config;
 
         $xml = new \LanSuite\XML();
@@ -289,5 +297,4 @@ class UserManager {
         }
         return true;
     }
-
 }
