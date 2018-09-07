@@ -260,7 +260,7 @@ class TournamentFunction
      ", $tournamentid, $tournamentid);
 
                 // Array schreiben
-                while ($team = $db->fetch_array($teams))
+                while ($team = $db->fetch_array($teams)) {
                     if ($team['teamid'] && !in_array($team['teamid'], $ranking_data->tid)) {
                         $array_id++;
                         array_push($ranking_data->id, $array_id);
@@ -269,6 +269,7 @@ class TournamentFunction
                         array_push($ranking_data->pos, $num++);
                         array_push($ranking_data->disqualified, $team['disqualified']);
                     }
+                }
                 $db->free_result($teams);
                 break;
 
@@ -309,7 +310,7 @@ class TournamentFunction
                 }
 
                 // Array schreiben
-                while ($team = $db->fetch_array($teams))
+                while ($team = $db->fetch_array($teams)) {
                     if ($team['teamid'] && !in_array($team['teamid'], $ranking_data->tid)) {
                         $array_id++;
                         array_push($ranking_data->id, $array_id);
@@ -318,6 +319,7 @@ class TournamentFunction
                         array_push($ranking_data->pos, $num++);
                         array_push($ranking_data->disqualified, $team['disqualified']);
                     }
+                }
                 $db->free_result($teams);
 
                 /* array_multisort ($ranking_data->disqualified, SORT_ASC, SORT_NUMERIC,
@@ -418,7 +420,33 @@ class TournamentFunction
                     $i++;
                 }
                 array_multisort(
-                    $ranking_data->disqualified, SORT_ASC, SORT_NUMERIC, $ranking_data->reached_finales, SORT_DESC, SORT_NUMERIC, $ranking_data->win, SORT_DESC, SORT_NUMERIC, $ranking_data->score_dif, SORT_DESC, SORT_NUMERIC, $ranking_data->score, SORT_DESC, SORT_NUMERIC, $ranking_data->score_en, SORT_ASC, SORT_NUMERIC, $ranking_data->tid, SORT_ASC, SORT_NUMERIC, $ranking_data->name, SORT_ASC, SORT_STRING, $ranking_data->games, SORT_ASC, SORT_NUMERIC
+                    $ranking_data->disqualified,
+                    SORT_ASC,
+                    SORT_NUMERIC,
+                    $ranking_data->reached_finales,
+                    SORT_DESC,
+                    SORT_NUMERIC,
+                    $ranking_data->win,
+                    SORT_DESC,
+                    SORT_NUMERIC,
+                    $ranking_data->score_dif,
+                    SORT_DESC,
+                    SORT_NUMERIC,
+                    $ranking_data->score,
+                    SORT_DESC,
+                    SORT_NUMERIC,
+                    $ranking_data->score_en,
+                    SORT_ASC,
+                    SORT_NUMERIC,
+                    $ranking_data->tid,
+                    SORT_ASC,
+                    SORT_NUMERIC,
+                    $ranking_data->name,
+                    SORT_ASC,
+                    SORT_STRING,
+                    $ranking_data->games,
+                    SORT_ASC,
+                    SORT_NUMERIC
                 );
                 break;
         }
@@ -687,7 +715,7 @@ class TournamentFunction
 
         // Write Score for current game
         $db->qry("
-          UPDATE %prefix%t2_games 
+          UPDATE %prefix%t2_games
           SET
             score = %string%,
             comment = %string%
@@ -695,7 +723,7 @@ class TournamentFunction
             gameid = %int%", $score1, $comment, $gameid1);
 
         $db->qry("
-          UPDATE %prefix%t2_games 
+          UPDATE %prefix%t2_games
           SET
             score = %string%
           WHERE
@@ -937,7 +965,9 @@ class TournamentFunction
                 // Log action and send mail
                 $func->log_event(t('Das Ergebnis des Spieles %1 gegen %2 im Turnier %3 wurde automatisch gelost, da die Zeit überschritten wurde', $name1, $name2, $tournament['name']), 1, t('Turnier Ergebnise'));
                 $mail->create_sys_mail(
-                    $leaderid1, t_no_html('Zeitüberschreitung im Turnier %1', $tournament['name']), t_no_html('Das Ergebnis deines Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls du denkst diese Entscheidung wurde zu Unrecht getroffen, melden dich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
+                    $leaderid1,
+                    t_no_html('Zeitüberschreitung im Turnier %1', $tournament['name']),
+                    t_no_html('Das Ergebnis deines Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls du denkst diese Entscheidung wurde zu Unrecht getroffen, melden dich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
                 );
                 $mail->create_sys_mail(
                     $leaderid2, t_no_html('Zeitüberschreitung im Turnier %1', $tournament['name']), t_no_html('Das Ergebnis deines Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls du denkst diese Entscheidung wurde zu Unrecht getroffen, melden dich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
