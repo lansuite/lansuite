@@ -249,9 +249,12 @@ if ($tournament["name"] == "") {
             } else {
                 // Upload Screenshot
                 $old_file = $func->FileUpload('screenshot', 'ext_inc/tournament_screenshots/');
-                if ($old_file) {
-                    unlink('ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png');
-                    $gd->CreateThumb($old_file, 'ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png', 800, 600);
+                if ($old_file) { //if we have a file to store...
+                    $filePath='ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png';
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                    $gd->CreateThumb($old_file, $filePath, 800, 600);
                 }
         
                 if (($not_new) && ($qacc != 1)) {
