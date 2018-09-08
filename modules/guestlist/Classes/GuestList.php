@@ -2,6 +2,7 @@
 
 namespace LanSuite\Module\GuestList;
 
+use Lansuite\Module\Mail\Mail;
 use LanSuite\Module\Seating\Seat2;
 
 class GuestList
@@ -32,7 +33,7 @@ class GuestList
     {
         global $db, $cfg, $func;
 
-        $mail = new Lansuite\Module\Mail\Mail();
+        $mail = new Mail();
 
         if (!$userid) {
             $func->error(t('Keinen Benutzer ausgewählt'));

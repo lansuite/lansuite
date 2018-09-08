@@ -292,7 +292,7 @@ class Export
 
         $seat2 = new Seat2();
 
-        $user_export = $config['lansuite']['version']." CSV Export\r\nParty: ". $_SESSION['party_info']['name'] ."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
+        $user_export = LANSUITE_VERSION." CSV Export\r\nParty: ". $_SESSION['party_info']['name'] ."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
 
         $user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;md5pwd;usertype;paid;seatcontrol;clan;clanurl;wwclid;nglid;checkin;checkout;signondate;paiddate;birthday;seatblock;seat;ip;comment\r\n";
 
@@ -377,7 +377,7 @@ class Export
 
         $seat2 = new Seat2();
 
-        $user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
+        $user_export = LANSUITE_VERSION." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
 
         $user_export .= "username;name;firstname;clan;seatblock;seat;ip\r\n";
         $query = $db->qry("
@@ -434,7 +434,7 @@ class Export
 
         $seat2 = new Seat2();
 
-        $user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
+        $user_export = LANSUITE_VERSION." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
         $user_export .= "username;name;firstname;clan;seatblock;col;row;seat;ip\n";
     
         $query = $db->qry("
