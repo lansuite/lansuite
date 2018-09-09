@@ -11,4 +11,5 @@ To self-generate the API documentation in the meantime you can use [phpDocumento
 $ composer install
 $ bin/phpdoc run --progressbar -t ./docs/
 ```
-This will generate the documenation in a HTML-format below the `docs`-Folder
+
+This will generate the documentation in an HTML-format below the `docs`-Folder.
