@@ -20,6 +20,10 @@
 This results in a error message as <code>ERROR: Couldn't connect to Docker daemon at http+docker://localunixsocket - is it running?</code>
 Run the two <code>docker-compose</code> commands as user <code>root</code> (via <code>su</code>or <code>sudo</code>) in that case.</p>
 </blockquote>
+<blockquote>
+<p>A different issue exists in Docker for Windows: If you get an error like: <code>ERROR: for web Cannot start service web: OCI runtime create failed: container_linux.go:348: starting container process caused &quot;process_linux.go:402: container init caused \&quot;rootfs_linux.go:58: mounting \\\&quot;/c/xampp/htdocs/lansuite/.docker/nginx-development.conf\\\&quot; to rootfs \\\&quot;/mnt/sda1/var/lib/docker/aufs/mnt/a302993ced4b16d16c0ab56c001d97fbdb9742f2f5beff079b18be797e95ff2a\\\&quot; at \\\&quot;/mnt/sda1/var/lib/docker/aufs/mnt/a302993ced4b16d16c0ab56c001d97fbdb9742f2f5beff079b18be797e95ff2a/etc/nginx/conf.d/default.conf\\\&quot; caused \\\&quot;not a directory\\\&quot;\&quot;&quot;: unknown: Are you trying to mount a directory onto a file (or vice-versa)? Check if the specified host path exists and is the expected type</code>
+Then you need to enable drive sharing for the host drive the docker image is stored on as described on <a href="http://peterjohnlightfoot.com/docker-for-windows-on-hyper-v-fix-the-host-volume-sharing-issue/">Fix the Host Volume Sharing issue</a>.</p>
+</blockquote>
 <p>This will start a <a href="https://nginx.org/">Nginx webserver</a> with a <a href="https://secure.php.net/manual/en/install.fpm.php">php-fpm</a> configuration and a <a href="https://www.mysql.com/">MySQL database</a> for you.
 After everything started you should be able to visit http://<code>&lt;Your-Docker-IP&gt;</code>:8080/ and see a running LanSuite-System.</p>
 <p><em>Warning</em>: This Docker setup should not be used for production. It contains a debugging setup like <a href="https://xdebug.org/">Xdebug</a>.</p>
