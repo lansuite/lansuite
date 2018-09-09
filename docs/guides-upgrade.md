@@ -15,6 +15,7 @@ title: Upgrade to a newer version
 * A fair bit of time
 
 ## Preparation
+
 ### Plan
 In order to avoid surprising anyone with the upgrade, it is recommended to tell your users (and fellow administrators) in advance that LanSuite won't be available.
 That should be well done in advance if you run a larger installation, for smaller ones noone may notice. But better be safe than sorry...
@@ -56,10 +57,12 @@ Backup using `mysqldump` is recommended, as both LS and PHPMyAdmin may hit serve
 * Download the whole folder with (S)FTP or any other remote access tool you have available
 
 ## Upgrade
+
 ### Copy over files from old installation
-Two things are of relevance here:
+Things of relevance here:
 * The base configuration file from `inc/base/config.php`
 * Anything under `ext_inc`
+* Custom designs from `designs/`
 
 Copy them to the same place on the new installation, overwriting everything there.
 
