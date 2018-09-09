@@ -35,9 +35,13 @@ if (!$cfg['google_maps_api_key']) {
             break;
     }
 
-    $res = $db->qry("SELECT u.* FROM %prefix%user AS u
-		WHERE u.plz > 0 AND u.type > 0
-    ");
+    $res = $db->qry("
+      SELECT
+        u.*
+      FROM %prefix%user AS u
+      WHERE
+        u.plz > 0
+        AND u.type > 0");
 
     $templ['addresses'] = '';
     while ($row = $db->fetch_array($res)) {

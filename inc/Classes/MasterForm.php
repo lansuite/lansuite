@@ -197,7 +197,8 @@ class MasterForm
      *
      * @return int
      */
-    public function GetNumber() {
+    public function GetNumber()
+    {
         return $this->number;
     }
 
@@ -206,7 +207,8 @@ class MasterForm
      *
      * @return void
      */
-    public function IncrementNumber() {
+    public function IncrementNumber()
+    {
         $this->number++;
     }
 
@@ -215,7 +217,8 @@ class MasterForm
      *
      * @return void
      */
-    public function DecrementNumber() {
+    public function DecrementNumber()
+    {
         $this->number--;
     }
 
@@ -370,6 +373,8 @@ class MasterForm
      * @param string    $idname
      * @param int       $id
      * @return bool|int|mixed|string
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function SendForm($BaseURL, $table, $idname = '', $id = 0)
     {
@@ -378,7 +383,7 @@ class MasterForm
         // In freeze-mode there are no changes to the database allowed
         if ($cfg['sys_freeze']) {
             $func->information(t('Diese Webseite ist Momentan im "Freeze-Mode".[br]D.h. es können keine neuen Daten in die Datenbank geschrieben werden.[br][br]Bitte versuche es zu einem Späteren Zeitpunkt nocheinmal.'));
-            return;
+            return false;
         }
 
         // Break, if in wrong form
@@ -397,7 +402,6 @@ class MasterForm
         $this->AddPage();
         if ($BaseURL) {
             $StartURL = $BaseURL . '&' . $idname . '=' . $id;
-
         } else {
             $StartURL = $framework->get_clean_url_query('base');
             $StartURL = str_replace('&mf_step=2', '', $StartURL);
@@ -443,7 +447,6 @@ class MasterForm
 
             if ($row['Key'] == 'PRI' || $row['Key'] == 'UNI') {
                 $SQLFieldUnique[$row['Field']] = true;
-
             } else {
                 $SQLFieldUnique[$row['Field']] = false;
             }
@@ -506,7 +509,6 @@ class MasterForm
                             foreach ($this->SQLFields as $key => $val) {
                                 if (!in_array($key, $this->WYSIWYGFields)) {
                                     $_POST[$val] = $row[$val];
-
                                 } else {
                                     $_POST[$val] = $row[$val];
                                 }
@@ -543,7 +545,6 @@ class MasterForm
 
                                             // If not in DependOn-Group, or DependOn-Group is active
                                             if (!$this->DependOnStarted or $_POST[$this->DependOnField]) {
-
                                                 // -- Convertions --
                                                 // Convert Post-date to unix-timestap
                                                 if ($SQLFieldTypes[$field['name']] == 'datetime') {
@@ -565,11 +566,9 @@ class MasterForm
                                                             unset($this->SQLFields[$key]);
                                                         }
                                                     }
-
                                                 } elseif ($field['type'] == self::IS_FILE_UPLOAD) {
                                                     if (substr($field['selections'], strlen($field['selections']) - 1, 1) == '_') {
                                                         $_POST[$field['name']] = $func->FileUpload($field['name'], substr($field['selections'], 0, strrpos($field['selections'], '/')), substr($field['selections'], strrpos($field['selections'], '/') + 1, strlen($field['selections'])));
-
                                                     } else {
                                                         $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
                                                     }
@@ -724,11 +723,13 @@ class MasterForm
                                             // Textarea
                                             case 'text':
                                                 $maxchar = 65535;
+                                                // No break statement here on purpose
 
                                             case 'mediumtext':
                                                 if (!$maxchar) {
                                                     $maxchar = 16777215;
                                                 }
+                                                // No break statement here on purpose
 
                                             case 'longtext':
                                                 if (!$maxchar) {
@@ -736,15 +737,13 @@ class MasterForm
                                                 }
                                                 if ($field['selections'] == self::HTML_ALLOWED or $field['selections'] == self::LSCODE_ALLOWED) {
                                                     $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
-
                                                 } elseif ($field['selections'] == self::LSCODE_BIG) {
                                                     $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], 70, 20, $field['optional'], $maxchar);
-
                                                 } elseif ($field['selections'] == self::HTML_WYSIWYG) {
                                                     $this->FCKeditorID++;
                                                     ob_start();
                                                     include_once("ext_scripts/FCKeditor/fckeditor.php");
-                                                    $oFCKeditor = new FCKeditor('FCKeditor'. $this->FCKeditorID) ;
+                                                    $oFCKeditor = new \FCKeditor('FCKeditor'. $this->FCKeditorID) ;
                                                     $oFCKeditor->BasePath = 'ext_scripts/FCKeditor/';
                                                     $oFCKeditor->Config["CustomConfigurationsPath"] = "../myconfig.js"  ;
                                                     $oFCKeditor->Value = $func->AllowHTML($_POST[$field['name']]);
@@ -757,7 +756,6 @@ class MasterForm
                                                     if ($this->error[$field['name']]) {
                                                         $dsp->AddDoubleRow($field['caption'], $dsp->errortext_prefix . $this->error[$field['name']] . $dsp->errortext_suffix);
                                                     }
-
                                                 } else {
                                                       $dsp->AddTextAreaRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional']);
                                                 }
@@ -865,7 +863,7 @@ class MasterForm
                                             // Captcha-Row
                                             case self::IS_CAPTCHA:
                                                 include_once('ext_scripts/ascii_captcha.class.php');
-                                                $captcha = new ASCII_Captcha();
+                                                $captcha = new \ASCII_Captcha();
                                                 $data = $captcha->create($text);
                                                 $_SESSION['captcha'] = $text;
                                                 $dsp->AddDoubleRow(t('Bitte gib diesen Text unterhalb ein'), "<pre style='font-size:8px;'>$data</pre>");
@@ -876,7 +874,6 @@ class MasterForm
                                             case self::IS_SELECTION:
                                                 if ($field['DependOnCriteria']) {
                                                     $addCriteria = ", Array('". implode("', '", $field['DependOnCriteria']) ."')";
-
                                                 } else {
                                                       $addCriteria = '';
                                                 }
@@ -894,7 +891,6 @@ class MasterForm
                                                             }
                                                             $selections[] = '<optgroup label="'. $val .'">';
                                                             $this->OptGroupOpen = 1;
-
                                                         } else {
                                                             ($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
                                                             $selections[] = "<option$selected value=\"$key\">$val</option>";
@@ -937,7 +933,6 @@ class MasterForm
                                                     $FileEnding = strtolower(substr($_POST[$field['name']], strrpos($_POST[$field['name']], '.'), 5));
                                                     if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') {
                                                         $img = HTML_NEWLINE.'<img src="'. $_POST[$field['name']] .'" />';
-
                                                     } else {
                                                         $img = '';
                                                     }
@@ -975,7 +970,6 @@ class MasterForm
                                             default:
                                                 if ($field['type'] == self::IS_NOT_CHANGEABLE) {
                                                     $not_changeable = 1;
-
                                                 } else {
                                                     $not_changeable = 0;
                                                 }
@@ -984,7 +978,6 @@ class MasterForm
 
                                                 if ($maxlength > 0 && $maxlength < 70) {
                                                     $length = $maxlength + (5 - ($maxlength % 5));
-
                                                 } else {
                                                     $length = 70;
                                                 }
@@ -1030,10 +1023,8 @@ class MasterForm
         
                 if ($this->SendButtonText) {
                     $dsp->AddFormSubmitRow($this->SendButtonText);
-
                 } elseif ($id || $this->MultiLineID) {
                     $dsp->AddFormSubmitRow('Editieren');
-
                 } else {
                     $dsp->AddFormSubmitRow('Erstellen');
                 }
@@ -1082,7 +1073,6 @@ class MasterForm
 
                     if ($ChangeError) {
                         $func->information($ChangeError);
-
                     } else {
                         $addUpdSuccess = true;
 
@@ -1099,24 +1089,18 @@ class MasterForm
                                     $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% = %int%", $table, $db_query, $idname, $value2);
                                     $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($value2, $config['database']['prefix'] . $table)), 1, '', $this->LogID);
                                 }
-
                             } else {
                                 foreach ($this->SQLFields as $key => $val) {
                                     if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') {
                                         $db_query .= "$val = NOW(), ";
-
                                     } elseif ($SQLFieldTypes[$val] == 'tinyint(1)') {
                                         $db_query .= $val .' = '. (int)$_POST[$val] .', ';
-
                                     } elseif ($SQLFieldTypes[$val] == 'varbinary(16)' and $val == 'ip') {
                                         $db_query .= $val .' = INET6_ATON(\''. $_POST[$val] .'\'), ';
-
                                     } elseif ($_POST[$val] == '++' and strpos($SQLFieldTypes[$val], 'int') !== false) {
                                         $db_query .= "$val = $val + 1, ";
-
                                     } elseif ($_POST[$val] == '--' and strpos($SQLFieldTypes[$val], 'int') !== false) {
                                         $db_query .= "$val = $val - 1, ";
-
                                     } else {
                                         $db_query .= "$val = '{$_POST[$val]}', ";
                                     }
@@ -1133,7 +1117,6 @@ class MasterForm
                                         $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% %plain% = %int%", $table, $db_query, $AddKey, $idname, $id);
                                         $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['database']['prefix'] . $table)), 1, '', $this->LogID);
                                         $addUpdSuccess = $id;
-
                                     } else {
                                         $DBInsertQuery = $db_query;
                                         if ($this->AdditionalKey != '') {
@@ -1160,7 +1143,6 @@ class MasterForm
                         if ($addUpdSuccess) {
                             if ($this->isChange) {
                                 $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer'][$this->GetNumber()]);
-
                             } else {
                                 $func->confirmation(t('Die Daten wurden erfolgreich eingefügt.'), $this->LinkBack);
                             }

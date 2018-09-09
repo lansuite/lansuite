@@ -20,12 +20,12 @@ namespace LanSuite;
 class BarcodeSystem
 {
     private $class_barcode;
-    
+
     public function __construct()
     {
         global $cfg, $db;
         
-        $this->class_barcode = new \LanSuite\Barcode($cfg['sys_barcode_typ']);
+        $this->class_barcode = new Barcode($cfg['sys_barcode_typ']);
 
         $this->class_barcode->setHeight(50);
         $this->class_barcode->setScale(1);

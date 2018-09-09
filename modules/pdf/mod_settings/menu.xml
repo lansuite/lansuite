@@ -32,6 +32,11 @@
 		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 	</entry>
 	<entry>
+		<action>certificate</action>
+		<file>pdf_act</file>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+	</entry>
+	<entry>
 		<requirement>1</requirement>
 		<needed_config>user_show_ticket</needed_config>
 		<action>ticket</action>

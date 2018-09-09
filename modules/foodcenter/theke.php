@@ -34,7 +34,6 @@ if (!isset($_SESSION['foodcenter']['theke_userid'])) {
     $current_url = 'index.php?mod=foodcenter&action=theke';
     $target_url = 'index.php?mod=foodcenter&action=theke&userid=';
     include_once('modules/foodcenter/search.inc.php');
-
 } else {
     // Product groups
     $row = $db->qry("SELECT * FROM %prefix%food_cat");
@@ -57,7 +56,6 @@ if (!isset($_SESSION['foodcenter']['theke_userid'])) {
     if ($_GET['info']) {
         $product_list->load_cat($cat[$_GET['headermenuitem']]);
         $product_list->get_info($_GET['info'], "index.php?mod=foodcenter&action=theke&headermenuitem={$_GET['headermenuitem']}");
-
     } else {
         if (is_numeric($cat[$_GET['headermenuitem']])) {
             $dsp->AddHeaderMenu($menus, "index.php?mod=foodcenter&action=theke", $_GET['headermenuitem']);
@@ -76,11 +74,9 @@ if (!isset($_SESSION['foodcenter']['theke_userid'])) {
         if ($basket->change_basket($_SESSION['foodcenter']['theke_userid'])) {
             $basket->order_basket($_SESSION['foodcenter']['theke_userid'], $_POST['delivered']);
             $func->information(t('Die Bestellung wurde aufgenommen'), "index.php?mod=foodcenter&action=theke");
-
         } else {
             $basket->show_basket();
         }
-
     } else {
         $basket->show_basket();
     }

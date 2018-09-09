@@ -1,68 +1,116 @@
 <?php
 
+use LanSuite\Module\Seating\Seat2;
+
 $gd = new \LanSuite\GD();
 
-include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$mail = new \LanSuite\Module\Mail\Mail();
+$seat2 = new \LanSuite\Module\Seating\Seat2();
 
-$qacc        = $_GET["qacc"];
-$tournamentid    = $_GET["tournamentid"];
+$tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
+
+$qacc           = $_GET["qacc"];
+$tournamentid   = $_GET["tournamentid"];
 $gameid1        = $_GET["gameid1"];
 $gameid2        = $_GET["gameid2"];
 $score_team1    = $_POST["score_team1"];
 $score_team2    = $_POST["score_team2"];
-$score_comment    = $_POST["score_comment"];
+$score_comment  = $_POST["score_comment"];
 
-## Ueberschreibungsabfrage
+// Ueberschreibungsabfrage
 if ($_GET["qacc"] == 1) {
     $score_team1 = $_GET["score_team1"];
     $score_team2 = $_GET["score_team2"];
     $score_comment = $_GET["score_comment"];
 }
 
-
-########## Infos holen
-$tournament = $db->qry_first("SELECT name, teamplayer, over18, status, mode, mapcycle, UNIX_TIMESTAMP(starttime) AS starttime, max_games, game_duration, break_duration, tournamentid FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
+// Infos holen
+$tournament = $db->qry_first("
+  SELECT
+    name,
+    teamplayer,
+    over18,
+    status,
+    mode,
+    mapcycle,
+    UNIX_TIMESTAMP(starttime) AS starttime,
+    max_games,
+    game_duration,
+    break_duration,
+    tournamentid
+  FROM %prefix%tournament_tournaments
+  WHERE
+    tournamentid = %int%", $tournamentid);
 $map = explode("\n", $tournament["mapcycle"]);
 if ($map[0] == "") {
     $map[0] = t('unbekannt');
 }
 
-$games = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%t2_games WHERE (tournamentid = %int%) AND (round=0) GROUP BY round", $tournamentid);
+$games = $db->qry_first("
+  SELECT
+    COUNT(*) AS anz
+  FROM %prefix%t2_games
+  WHERE
+    (tournamentid = %int%)
+    AND (round=0)
+  GROUP BY round", $tournamentid);
 $team_anz = $games["anz"];
 
-$team1 = $db->qry_first("SELECT games.group_nr, games.round, games.position, games.score, games.comment, games.server_id, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
+$team1 = $db->qry_first("
+  SELECT
+    games.group_nr,
+    games.round,
+    games.position,
+    games.score,
+    games.comment,
+    games.server_id,
+    teams.name,
+    teams.teamid,
+    teams.disqualified,
+    user.userid,
+    user.username
   FROM %prefix%t2_games AS games
   LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
   LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
-  WHERE (teams.tournamentid = %int%) AND (games.gameid = %int%)
-  ", $tournamentid, $gameid1);
+  WHERE
+    (teams.tournamentid = %int%)
+    AND (games.gameid = %int%)", $tournamentid, $gameid1);
 
-$team2 = $db->qry_first("SELECT games.round, games.position, games.score, games.comment, games.server_id, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
+$team2 = $db->qry_first("
+  SELECT
+    games.round,
+    games.position,
+    games.score,
+    games.comment,
+    games.server_id,
+    teams.name,
+    teams.teamid,
+    teams.disqualified,
+    user.userid,
+    user.username
   FROM %prefix%t2_games AS games
   LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
   LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
-  WHERE (teams.tournamentid = %int%) AND (games.gameid = %int%)
-  ", $tournamentid, $gameid2);
+  WHERE
+    (teams.tournamentid = %int%)
+    AND (games.gameid = %int%)", $tournamentid, $gameid2);
 
-
-########## Einschränkungen prüfen
+// Einschränkungen prüfen
 if ($tournament["name"] == "") {
     $func->error(t('Du musst zuerst ein Turnier auswählen!'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
 } elseif (abs($team1['position'] - $team2['position']) != 1) {
     $func->error(t('Diese Spielkonstellation existiert nicht!'. $team1['position']. $team2['position']));
 
-########## Keine Einschränkungen gefunden
+// Keine Einschränkungen gefunden
 } else {
     switch ($_GET["step"]) {
         default:
-            include_once("modules/seating/class_seat.php");
-            $seat2 = new seat2();
+            $seat2 = new Seat2();
 
             unset($_SESSION['tournament_submit_result_blocker']);
             
             if ($func->isModActive('server')) {
-                //Server auslesen
+                // Server auslesen
                 $selections = array();
                 $selections['0'] = t('Kein Server zugewiesen');
                 $res = $db->qry("SELECT * FROM %prefix%server WHERE party_id = %int%", $party->party_id);
@@ -96,12 +144,6 @@ if ($tournament["name"] == "") {
 
             // Write Team 1
             $disqualify_link = "";
-/*  // Disquallifiy droped, due to errors
-            if ($auth["type"] > 1 and $tournament['status'] == "process") {
-                if ($team1['disqualified']) $disqualify_link = "<font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchSpanButton(t('Disqualifizieren rückgängig'), "index.php?mod=tournament2&action=disqualify&teamid={$team1['teamid']}&step=10");
-                else $disqualify_link = $dsp->FetchSpanButton(t('Disqualifizieren'), "index.php?mod=tournament2&action=disqualify&teamid={$team1['teamid']}");
-            }
-*/
             $dsp->AddFieldSetStart(t('Team'). ' 1'. $tfunc->button_team_details($team1['teamid'], $tournamentid) . " ". $disqualify_link);
             $dsp->AddDoubleRow(t('Teamleiter'), $dsp->FetchUserIcon($team1['userid'], $team1['username']) . " (".t('Platz').": ". $seat2->SeatNameLink($team1['userid'], '', '') .")");
             $dsp->AddTextFieldRow("score_team1", t('Punktzahl'), (int) $team1["score"], "");
@@ -109,12 +151,6 @@ if ($tournament["name"] == "") {
 
             // Write Team 2
             $disqualify_link = "";
-/*  // Disquallifiy droped, due to errors
-            if ($auth["type"] > 1 and $tournament['status'] == "process") {
-                if ($team2['disqualified']) $disqualify_link = "<font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchSpanButton(t('Disqualifizieren rückgängig'), "index.php?mod=tournament2&action=disqualify&teamid={$team2['teamid']}&step=10");
-                else $disqualify_link = $dsp->FetchSpanButton(t('Disqualifizieren'), "index.php?mod=tournament2&action=disqualify&teamid={$team2['teamid']}");
-            }
-*/
             $dsp->AddFieldSetStart(t('Team'). ' 2'. $tfunc->button_team_details($team2['teamid'], $tournamentid) . " ". $disqualify_link);
             $dsp->AddDoubleRow(t('Teamleiter'), $dsp->FetchUserIcon($team2['userid'], $team2['username']) . " (".t('Platz').": ". $seat2->SeatNameLink($team2['userid'], '', '') .")");
             $dsp->AddTextFieldRow("score_team2", t('Punktzahl'), (int) $team2["score"], "");
@@ -155,7 +191,7 @@ if ($tournament["name"] == "") {
 
         // Formular in Datenbank eintragen
         case 2:
-            ## Berechtigungsprüfung
+            // Berechtigungsprüfung
             $berechtigt = 0;
             if ($auth["type"] > 1) {
                 $berechtigt = 1;
@@ -178,7 +214,7 @@ if ($tournament["name"] == "") {
                 }
             }
 
-            ## Wurde Ergebnis schon eingetragen?
+            // Wurde Ergebnis schon eingetragen?
             $not_new = 0;
             if (($tournament["mode"] == "single") || ($tournament["mode"] == "double")) {
                 $score = $db->qry_first("SELECT score FROM %prefix%t2_games WHERE (gameid = %int% OR gameid = %int%) AND score != 0", $gameid1, $gameid2);
@@ -213,32 +249,25 @@ if ($tournament["name"] == "") {
             } else {
                 // Upload Screenshot
                 $old_file = $func->FileUpload('screenshot', 'ext_inc/tournament_screenshots/');
-                if ($old_file) {
-                    unlink('ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png');
-                    $gd->CreateThumb($old_file, 'ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png', 800, 600);
+                if ($old_file) { //if we have a file to store...
+                    $filePath='ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png';
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                    $gd->CreateThumb($old_file, $filePath, 800, 600);
                 }
         
                 if (($not_new) && ($qacc != 1)) {
                     $func->question(t('ACHTUNG: Zu diesem Turnier wurde bereits ein Ergebnis eingetragen. Wurde noch keine der Folgepartien dieses Spieles gespielt, so kann ohne Probleme fortgefahren werden. Wurden diese hingegen bereits gespielt, so solltest du dir im Klaren darüber sein, dass die beiden Folgepartien dadurch teilweise überschrieben werden und das Ergebnis dort auf 0 (noch nicht gespielt) gesetzt wird, sodass du alle aus dieser Partie resultierenden Partien erneut eintragen musst!'), "index.php?mod=tournament2&action=submit_result&step=2&gameid1=$gameid1&gameid2=$gameid2&tournamentid=$tournamentid&qacc=1&score_team1=$score_team1&score_team2=$score_team2&score_comment=$score_comment", "index.php?mod=tournament2&action=submit_result&step=1&gameid1=$gameid1&gameid2=$gameid2&tournamentid=$tournamentid");
                 } else {
                     $_SESSION["tournament_submit_result_blocker"] = true;
-                    
                     $tfunc->SubmitResult($tournamentid, $gameid1, $gameid2, $score_team1, $score_team2, $score_comment);
-
                     $func->confirmation(t('Danke! Das Ergebnis wurde erfolgreich gemeldet.'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
-/*
-                    $cronjob->load_job("cron_tmod");
-                    if($tournament['mode'] == "groups"){
-                        $cronjob->loaded_class->add_job($_GET["tournamentid"],$team1["group_nr"]);
-                    }else{
-                        $cronjob->loaded_class->add_job($_GET["tournamentid"],"");
-                    }
-*/
                 }
             }
             break;
         
         case 3:
             break;
-    } // Switch
+    }
 }

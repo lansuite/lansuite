@@ -1,16 +1,33 @@
 <?php
 
-include_once('modules/poll/class_poll.php');
-$poll = new poll;
+$poll = new LanSuite\Module\Poll\Poll();
 
 if ($_GET['step'] >= 2) {
-    $pollrow = $db->qry_first('SELECT caption, comment, UNIX_TIMESTAMP(endtime) AS endtime, multi, anonym, requirement FROM %prefix%polls
-    WHERE	pollid = %int% AND (!group_id OR group_id = %int%)', $_GET['pollid'], $auth['group_id']);
+    $pollrow = $db->qry_first('
+      SELECT
+        caption,
+        comment,
+        UNIX_TIMESTAMP(endtime) AS endtime,
+        multi,
+        anonym,
+        requirement
+      FROM %prefix%polls
+      WHERE
+        pollid = %int%
+        AND (
+          !group_id
+          OR group_id = %int%
+        )', $_GET['pollid'], $auth['group_id']);
     $dsp->NewContent(t('Poll') .': '. $pollrow["caption"], $func->text2html($pollrow['comment']));
 
-    $voted = $db->qry_first('SELECT 1 AS found FROM %prefix%polloptions AS o
-    INNER JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
-    WHERE o.pollid = %int% AND v.userid = %int%', $_GET['pollid'], $auth['userid']);
+    $voted = $db->qry_first('
+      SELECT
+        1 AS found
+      FROM %prefix%polloptions AS o
+      INNER JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
+      WHERE
+        o.pollid = %int%
+        AND v.userid = %int%', $_GET['pollid'], $auth['userid']);
     if (!$pollrow['caption']) {
         $func->error(t('Dieser Poll existiert nicht, oder du hast keine Berechtigung ihn zu sehen'), NO_LINK);
         $_GET['step'] = 1;
@@ -46,8 +63,9 @@ switch ($_GET['step']) {
         // Has voted? -> Show results
         if ($voted['found'] or ($pollrow['endtime'] and $pollrow['endtime'] < time())) {
             $poll->ShowResult($_GET['pollid'], $pollrow['anonym']);
-        } // Has not voted? -> Show form
-        else {
+
+        // Has not voted? -> Show form
+        } else {
             $dsp->SetForm('index.php?mod=poll&action=show&step=3&pollid='. $_GET['pollid']);
   
             $res = $db->qry('SELECT polloptionid, caption FROM %prefix%polloptions WHERE pollid = %int% ORDER BY polloptionid', $_GET['pollid']);

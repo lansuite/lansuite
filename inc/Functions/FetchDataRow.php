@@ -4,7 +4,8 @@
  * @param string $username
  * @return string
  */
-function FetchDataRow($username) {
+function FetchDataRow($username)
+{
     global $func, $dsp, $line;
 
     $html_image= '<img src="%s" alt="%s" border="0">';
@@ -12,7 +13,6 @@ function FetchDataRow($username) {
 
     if ($line['userid']) {
         $ret = $dsp->FetchUserIcon($line['userid'], $username);
-
     } else {
         $ret = '<i>'. t('Gast') .'</i>';
     }

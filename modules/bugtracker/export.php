@@ -4,15 +4,14 @@ switch ($_GET['step']) {
         $dsp->NewContent(t('Bugtracker Export'), t('Nutze diese Funktion um einen Export der Bugtracker-Einträge zu erstellen, den sie auf lansuite.de importieren können'));
         $dsp->AddDoubleRow('', t('Bitte versuche Fehler zunächst selbst zu beheben und filter vor dem Export Probleme aus, die nicht von generellem Interesse für Lansuite sind. Es werden nur Probleme mit Status offen, oder bestätigt exportiert. Ergänze unvollständige Angaben, so gut du kannst. Danke, für die Hilfe!'));
         $dsp->SetForm('index.php?mod=bugtracker&action=export&step=2');
-        $dsp->AddTextFieldRow('version', t('Version'), $config['lansuite']['version'], '');
+        $dsp->AddTextFieldRow('version', t('Version'), LANSUITE_VERSION, '');
         $dsp->AddTextFieldRow('url', t('URL'), $_SERVER['SERVER_NAME'], '');
         $dsp->AddFormSubmitRow('next');
         break;
 
     case 2:
-        include_once('modules/install/class_export.php');
-        $export = new export();
-
+        $xmlExport = new \LanSuite\XML();
+        $export = new \LanSuite\Module\Install\Export($xmlExport);
         $export->LSTableHead('bugs.xml');
 
         $entrys = '';

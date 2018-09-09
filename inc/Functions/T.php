@@ -15,7 +15,8 @@ $translation_no_html_replace = false;
  *
  * @return string
  */
-function t() {
+function t()
+{
     global $db, $translation, $func, $translation_no_html_replace;
 
     // Prepare function parameters
@@ -26,7 +27,6 @@ function t() {
         // If second Parameter is Array (old Style)
         if (!is_array($CurrentArg)) {
             $parameters[] = $CurrentArg;
-
         } else {
             $parameters = $CurrentArg;
         }
@@ -52,13 +52,11 @@ function t() {
     if (array_key_exists($module, $translation->lang_cache) && $translation->lang_cache[$module][$key] != '') {
         // Already in memory cache ($this->lang_cache[key])
         $output = $translation->ReplaceParameters($translation->lang_cache[$module][$key], $parameters, $key);
-
     } else {
         // Try to read from DB
         if ($translation->language == 'de') {
             // All texts in source are in german at the moment
             $output = $translation->ReplaceParameters($input, $parameters, $key);
-
         } else {
             if ($db->success) {
                 $trans_text = $translation->get_trans_db($key, $_GET['mod'], $long);
@@ -89,13 +87,16 @@ function t() {
     return $output;
 }
 
-function t_no_html() {
+function t_no_html()
+{
     global $translation_no_html_replace;
 
     $args = func_get_args();
     $input = (string) array_shift($args);
     $translation_no_html_replace = true;
 
-    return t($input, $args);
+    $output = t($input, $args);
     $translation_no_html_replace = false;
+
+    return $output;
 }

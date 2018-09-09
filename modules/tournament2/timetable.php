@@ -1,17 +1,25 @@
 <?php
 
-include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$mail = new \LanSuite\Module\Mail\Mail();
+$seat2 = new \LanSuite\Module\Seating\Seat2();
 
+$tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
 $dsp->NewContent(t('Turnier-Zeitplan'), t('Hier siehst du, welches Turnier zu welcher Zeit stattfindet.'));
 
 // Generate Table-head
 $mintime = 9999999999;
 $maxtime = 0;
-$tournaments = $db->qry("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime
+$tournaments = $db->qry("
+  SELECT *,
+  UNIX_TIMESTAMP(starttime) AS starttime
   FROM %prefix%tournament_tournaments
-  WHERE party_id = %int% AND (%int% > 1 OR status != 'invisible')", $party->party_id, $auth['type']);
+  WHERE
+    party_id = %int%
+    AND (
+      %int% > 1
+      OR status != 'invisible'
+    )", $party->party_id, $auth['type']);
 while ($tournament = $db->fetch_array($tournaments)) {
     // Calc Min-Time
     if ($tournament["starttime"] < $mintime) {
@@ -43,12 +51,18 @@ $smarty->assign('head', $head);
 
 // Generate Table-foot
 $rows = "";
-$tournaments = $db->qry("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime
+$tournaments = $db->qry("
+  SELECT
+    *,
+    UNIX_TIMESTAMP(starttime) AS starttime
   FROM %prefix%tournament_tournaments
-  WHERE party_id = %int% AND (%int% > 1 OR status != 'invisible')", $party->party_id, $auth['type']);
+  WHERE
+    party_id = %int%
+    AND (
+      %int% > 1
+      OR status != 'invisible'
+    )", $party->party_id, $auth['type']);
 while ($tournament = $db->fetch_array($tournaments)) {
-    #	echo "Zeit {$tournament["starttime"]}<br>";
-
     $team_anz = $tfunc->GetTeamAnz($tournament["tournamentid"], $tournament["mode"]);
     $max_round = 1;
     for ($z = $team_anz/2; $z >= 2; $z/=2) {
@@ -75,7 +89,6 @@ $db->free_result($tournaments);
 
 $smarty->assign('rows', $rows);
 $dsp->AddSmartyTpl('timetable', 'tournament2');
-
 
 $dsp->AddSingleRow(t('Achtung: Der Zeitraum eines Turnieres kann sich verlängern, wenn sich weitere Teams zu diesem Turnier anmelden.'));
 $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/timetable");

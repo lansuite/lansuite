@@ -1,26 +1,20 @@
 <?php
 /**
- * Show Sponsorpictures
- *
- * @package lansuite_core
- * @author knox, bytekilla
- * @version $Id: sponsor.php 1535 2008-07-27 22:36:01Z bytekilla $
+ * Show sponsor pictures
  */
 
 $box->DotRow(t('Wir danken').':');
-
 if (!$cfg["sponsor_picwidth"]) {
     $cfg["sponsor_picwidth"] = 120;
 }
 
-$sponsoren = $db->qry("SELECT * FROM %prefix%sponsor
-                        		WHERE active
-                        		ORDER BY pos, sponsorid");
+$sponsoren = $db->qry("
+  SELECT *
+  FROM %prefix%sponsor
+  WHERE active
+  ORDER BY pos, sponsorid");
 
 $db->qry('UPDATE %prefix%sponsor SET views_box = views_box + 1 WHERE active');
-
-### Loop Sponsors
-
 while ($sponsor = $db->fetch_array($sponsoren)) {
     $out = '';
 
@@ -30,11 +24,6 @@ while ($sponsor = $db->fetch_array($sponsoren)) {
 
     // Else add Image-Tag
     } else {
-        #$file_name = '';
-        #$old_file_name = 'ext_inc/banner/button_'. substr($sponsor['pic_path'], strrpos($sponsor["pic_path"], 'ext_inc/banner/') + 15, strlen($sponsor['pic_path']));
-            #if (file_exists($sponsor['pic_path_button'])) $file_name = $sponsor['pic_path_button'];
-            #elseif (file_exists($old_file_name)) $file_name = $old_file_name;
-        #else
         $file_name = $sponsor['pic_path_button'];
         if ($file_name != '') {
             if (is_file($file_name)) {

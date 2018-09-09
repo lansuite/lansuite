@@ -1,12 +1,27 @@
 <?php
-$mail_send_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE FromUserID = %int% AND mail_status != 'disabled'", $auth['userid']);
-$mail_read_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE FromUserID = %int% AND mail_status != 'disabled' AND des_status = 'read'", $auth['userid']);
+
+$mail_send_total = $db->qry_first("
+  SELECT
+    COUNT(*) as n
+  FROM %prefix%mail_messages
+  WHERE
+    FromUserID = %int%
+    AND mail_status != 'disabled'", $auth['userid']);
+
+$mail_read_total = $db->qry_first("
+  SELECT
+    COUNT(*) as n
+  FROM %prefix%mail_messages
+  WHERE
+    FromUserID = %int%
+    AND mail_status != 'disabled'
+    AND des_status = 'read'", $auth['userid']);
 
 $dsp->NewContent(t('Postausgang'), t('Du hast <b>%1</b> Mail(s) versendet. Davon wurde(n) <b>%2</b> gelesen.', $mail_send_total["n"], $mail_read_total["n"]));
 
 if ($auth['userid']) {
     switch ($_GET['step']) {
-    // check if it can delete from Database and delete
+        // Check if it can delete from Database and delete
         case 20:
             if (!$_POST['action'] and $_GET['mailid']) {
                 $_POST['action'][$_GET['mailid']] = 1;
@@ -14,7 +29,7 @@ if ($auth['userid']) {
             foreach ($_POST['action'] as $key => $val) {
                   $rx_status = $db->qry_first("SELECT rx_deleted FROM %prefix%mail_messages WHERE mailID = %int%", $key);
           
-                  // Ist eMail vom Sender gelöscht? JA: Lösche aus DB, NEIN: Setze rx flag
+                // Ist eMail vom Sender gelöscht? JA: Lösche aus DB, NEIN: Setze rx flag
                 if ($rx_status['rx_deleted']) {
                     $db->qry("DELETE FROM %prefix%mail_messages WHERE mailID = %int%", $key);
                 } else {
@@ -46,8 +61,6 @@ $ms2->AddResultField(t('Gelesen'), 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2G
 $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=out&mailID=', t('Details'));
 $ms2->AddIconField('delete', 'index.php?mod=mail&action=outbox&step=20&mailid=', t('Entgültig löschen'));
 
-
 $ms2->AddMultiSelectAction(t('Entgültig löschen'), 'index.php?mod=mail&action=outbox&step=20', 1, 'delete');
-
 
 $ms2->PrintSearch('index.php?mod=mail&action=outbox', 'm.mailid');

@@ -17,26 +17,28 @@ switch ($_GET['step']) {
     case 2:
         $row = $db->qry_first('SELECT * FROM %prefix%seat_block WHERE blockid = %int%', $_GET['blockid']);
         $db->qry(
-            'INSERT INTO %prefix%seat_block SET
-      party_id = %int%,
-      rows = %int%,
-      cols = %int%,
-      name = %string%,
-      orientation = %int%,
-      u18 = %int%,
-      remark = %string%,
-      text_tl = %string%,
-      text_tc = %string%,
-      text_tr = %string%,
-      text_lt = %string%,
-      text_lc = %string%,
-      text_lb = %string%,
-      text_rt = %string%,
-      text_rc = %string%,
-      text_rb = %string%,
-      text_bl = %string%,
-      text_bc = %string%,
-      text_br = %string%',
+            '
+          INSERT INTO %prefix%seat_block
+          SET
+            party_id = %int%,
+            rows = %int%,
+            cols = %int%,
+            name = %string%,
+            orientation = %int%,
+            u18 = %int%,
+            remark = %string%,
+            text_tl = %string%,
+            text_tc = %string%,
+            text_tr = %string%,
+            text_lt = %string%,
+            text_lc = %string%,
+            text_lb = %string%,
+            text_rt = %string%,
+            text_rc = %string%,
+            text_rb = %string%,
+            text_bl = %string%,
+            text_bc = %string%,
+            text_br = %string%',
             $row['party_id'],
             $row['rows'],
             $row['cols'],
@@ -63,31 +65,37 @@ switch ($_GET['step']) {
         while ($row = $db->fetch_array($res)) {
             if ($row['status'] > 1 and $row['status'] < 5) {
                 $row['status'] = 1;
-            } // Mark all seats free
-              $db->qry(
-                  'INSERT INTO %prefix%seat_seats SET
-        blockid = %int%,
-        col = %int%,
-        row = %int%,
-        status = %int%,
-        ip = %string%,
-        userid = 0',
-                  $blockid,
-                  $row['col'],
-                  $row['row'],
-                  $row['status'],
-                  $row['ip']
-              );
+            }
+
+            // Mark all seats free
+            $db->qry(
+                '
+              INSERT INTO %prefix%seat_seats
+              SET
+                blockid = %int%,
+                col = %int%,
+                row = %int%,
+                status = %int%,
+                ip = %string%,
+                userid = 0',
+                $blockid,
+                $row['col'],
+                $row['row'],
+                $row['status'],
+                $row['ip']
+            );
         }
         $db->free_result($res);
 
         $res = $db->qry('SELECT * FROM %prefix%seat_sep WHERE blockid = %int%', $_GET['blockid']);
         while ($row = $db->fetch_array($res)) {
                 $db->qry(
-                    'INSERT INTO %prefix%seat_sep SET
-        blockid = %int%,
-        orientation = %int%,
-        value = %int%',
+                    '
+                  INSERT INTO %prefix%seat_sep
+                  SET
+                    blockid = %int%,
+                    orientation = %int%,
+                    value = %int%',
                     $blockid,
                     $row['orientation'],
                     $row['value']

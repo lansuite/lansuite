@@ -84,7 +84,6 @@ class Supplier
                 array_push($tmp, "<option $selected value='{$data['supp_id']}'>{$data['name']}</option>");
             }
             return $tmp;
-
         } else {
             return false;
         }
@@ -99,7 +98,6 @@ class Supplier
     {
         if (isset($_POST['supp_id']) && $_POST['supp_id'] > 0) {
             $this->supp_id = $_POST['supp_id'];
-
         } else {
             $this->supp_id = null;
         }
@@ -121,11 +119,10 @@ class Supplier
 
         if ($this->supp_id != null) {
             $row = $db->qry_first("SELECT * FROM %prefix%food_supp WHERE supp_id=%int%", $this->supp_id);
-            if ($db->num_rows($row) > 0) {
+            if (is_array($row)) {
                 $this->supp_caption = $row['name'];
                 $this->supp_desc    = $row['s_desc'];
                 return true;
-
             } else {
                 return false;
             }
@@ -148,7 +145,6 @@ class Supplier
                             name = %string%,
                             s_desc = %string%", $this->supp_caption, $this->supp_desc);
             $this->supp_id = $db->insert_id();
-
         } else {
             $db->qry("UPDADE %prefix%food_supp SET 
                             name = %string%,

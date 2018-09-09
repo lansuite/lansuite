@@ -3,7 +3,8 @@
 /**
  * @return bool
  */
-function MasterCommentEditAllowed() {
+function MasterCommentEditAllowed()
+{
     global $line, $auth;
 
     if ($line['creatorid'] == $auth['userid'] || $auth['type'] >= 2) {

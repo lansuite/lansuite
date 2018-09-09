@@ -1,12 +1,15 @@
 <?php
-include_once("modules/pdf/class_templ_pdf.php");
-include_once("modules/pdf/class_pdf.php");
+
+use LanSuite\BarcodeSystem;
+use LanSuite\Module\PDF\PDF;
+use LanSuite\Module\PDF\PDFTemplate;
+use LanSuite\Module\Seating\Seat2;
 
 if (isset($_GET['userid'])) {
     $_POST['user'] = $_GET['userid'];
 }
 
-//Template ID Laden
+// Get template ID
 if (isset($_POST['id'])) {
     $templ_id = $_POST['id'];
 }
@@ -14,17 +17,19 @@ if (isset($_GET['id'])) {
     $templ_id = $_GET['id'];
 }
 
-
-$pdf_tmpl = new pdf_tmpl($_GET['action'], $templ_id);
-$pdf_export = new pdf($templ_id);
+$pdf_tmpl = new PDFTemplate($_GET['action'], $templ_id);
+$barcodeSystem = new BarcodeSystem();
+$seating = new Seat2();
+$pdf_export = new PDF($templ_id, $barcodeSystem, $seating);
 
 switch ($_GET['act']) {
     default:
-        // Eintrag l�schen
+        // Delete an entry
         if (isset($_GET['delete'])) {
             $pdf_tmpl->delete_templ();
         }
-        // Vorlagen ausgeben
+
+        // Show the templates
         $pdf_tmpl->read_List();
         break;
     
@@ -35,31 +40,33 @@ switch ($_GET['act']) {
     case 'add':
         $pdf_tmpl->add_templ();
         
+        // no break
     case 'change':
-        // Eintrag l�schen
+        // Delete an entry
         if (isset($_GET['delete_item'])) {
             $pdf_tmpl->delete_item($_GET['itemid']);
         }
-        // Reihenfolge �ndern
+
+        // Change the sorting
         if (isset($_GET['direction'])) {
             $pdf_tmpl->sortorder($_GET['direction'], $_GET['itemid']);
         }
         
-        // Eintr�ge anzeigen
+        // Show the entries
         $pdf_tmpl->display_data();
         break;
     
-    // Neues Feld anlegen
+    // Create a new field mask
     case 'insert_mask':
         $pdf_tmpl->insert_mask($_POST['type']);
         break;
     
-    // Neues Feld eintragen
+    // Insert a new item
     case 'insert_item':
         $pdf_tmpl->insert_item($_GET['object']);
         break;
     
-    // Feld �ndern
+    // Change a field mask
     case 'change_mask':
         $pdf_tmpl->change_mask($_GET['itemid']);
         break;
@@ -67,8 +74,7 @@ switch ($_GET['act']) {
     case 'change_item':
         $pdf_tmpl->change_item($_GET['itemid']);
         break;
-    
-    // Ausgabe vorbereiten
+
     case 'start':
         $pdf_export->pdf_menu($_GET['action']);
         break;

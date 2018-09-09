@@ -1,22 +1,7 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		add_item.php
-*	Module: 		FAQ
-*	Main editor: 		Micheal@one-network.org
-*	Last change: 		29.03.2003 20:17
-*	Description: 		Adds FAQ Items
-*	Remarks:
-*
-**************************************************************************/
 
 switch ($_GET["step"]) {
     case 2:
-    //  ERRORS
         $get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
 
         while ($row=$db->fetch_array($get_cat_names)) {
@@ -35,7 +20,6 @@ switch ($_GET["step"]) {
             $_GET["step"] = 1;
         }
 
-
         if ($_POST["question_new_cat"] == "" and $_POST["question_cat"] == "new") {
             $faq_error['cat_name']    = t('Bitte gib einen Namen für die neue Kategorie ein');
             $_GET["step"] = 1;
@@ -45,7 +29,6 @@ switch ($_GET["step"]) {
             $faq_error['question_caption']    = t('Bitte gib eine Frage ein');
             $_GET["step"] = 1;
         }
-
 
         if ($_POST["question_text"] == "") {
             $faq_error['question_text']    = t('Bitte gib einen Text ein');
@@ -61,10 +44,8 @@ switch ($_GET["step"]) {
             $faq_error['question_cat']    = t('Bitte wähle eine Kategorie aus <b> ODER </b> erstelle eine neue Kategorie');
             $_GET["step"] = 1;
         }
-
         break;
-} // close switch
-
+}
 
 switch ($_GET["step"]) {
     default:
@@ -87,28 +68,27 @@ switch ($_GET["step"]) {
         $dsp->AddTextFieldRow("question_new_cat", t('Neue Kategorie'), $_POST['question_new_cat'], $faq_error['question_cat']);
         $dsp->AddFormSubmitRow("add");
 
-        break; // BREAK DEFAULT
+        break;
 
     case 2:
         $courent_date = date("U");
 
         if ($_POST["question_cat"] == 0 and $_POST["question_new_cat"] != "" and $_SESSION['add_blocker_faqitem'] != 1) {
-            $add_it = $db->qry("INSERT INTO %prefix%faq_cat SET
-								name = %string%,
-								poster = %int%,
-								date = %string%
-								", $_POST["question_new_cat"], $_SESSION["auth"]["userid"], $courent_date);
-
+            $add_it = $db->qry("
+              INSERT INTO %prefix%faq_cat
+              SET
+                name = %string%,
+                poster = %int%,
+                date = %string%", $_POST["question_new_cat"], $_SESSION["auth"]["userid"], $courent_date);
                 $catid = $db->insert_id();
-
-
-                $add_it = $db->qry("INSERT INTO %prefix%faq_item SET
-								caption = %string%,
-								text = %string%,
-								poster = %int%,
-								date = %string%,
-								catid = %int%
-								", $_POST["question_caption"], $_POST["question_text"], $_SESSION["auth"]["userid"], $courent_date, $catid);
+                $add_it = $db->qry("
+                  INSERT INTO %prefix%faq_item
+                  SET
+                    caption = %string%,
+                    text = %string%,
+                    poster = %int%,
+                    date = %string%,
+                    catid = %int%", $_POST["question_caption"], $_POST["question_text"], $_SESSION["auth"]["userid"], $courent_date, $catid);
 
             if ($add_it == 1) {
                 $func->confirmation(t('Die Frage und die Kategorie wurden erfolgreich eingetragen'), "");
@@ -119,19 +99,18 @@ switch ($_GET["step"]) {
             }
         } else {
             if ($_SESSION["add_blocker_faqitem"] != 1) {
-                $add_it = $db->qry("INSERT INTO %prefix%faq_item SET
-								caption = %string%,
-								text = %string%,
-								poster = %int%,
-								date = %string%,
-								catid = %string%
-								", $_POST["question_caption"], $_POST["question_text"], $_SESSION["auth"]["userid"], $courent_date, $_POST["question_cat"]);
+                $add_it = $db->qry("
+                  INSERT INTO %prefix%faq_item
+                  SET
+                    caption = %string%,
+                    text = %string%,
+                    poster = %int%,
+                    date = %string%,
+                    catid = %string%", $_POST["question_caption"], $_POST["question_text"], $_SESSION["auth"]["userid"], $courent_date, $_POST["question_cat"]);
 
                 if ($add_it == 1) {
                     $func->confirmation(t('Die Frage wurde erfolgreich eingetragen'), "");
-
                     $add_blocker_faqitem = 1;
-
                     $_SESSION['add_blocker_faqitem'] = 1;
                 }
             } else {
@@ -139,5 +118,5 @@ switch ($_GET["step"]) {
             }
         }
 
-        break; // BREAK CASE 2
-} // close switch step
+        break;
+}

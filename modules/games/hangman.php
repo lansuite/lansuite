@@ -1,22 +1,4 @@
 <?php
-//
-/*************************************************************************
-*
-*   Lansuite - Webbased LAN-Party Management System
-*   -----------------------------------------------
-*
-*   (c) 2001-2003 by One-Network.Org
-*
-*   Lansuite Version:   2.0
-*   File Version:       2.0
-*   Filename:           minesweeper
-*   Module:             Minesweeper
-*   Main editor:        jochen@one-network.org
-*   Last change:        24.05.2004 13:35
-*   Description:        The Classic Minesweeper Game, you all know
-*   Remarks:
-*
-**************************************************************************/
 
 $dsp->NewContent(t('Hangman'), t('Versuche durch Buchstaben tippen ein Wort zu erraten'));
 
@@ -30,7 +12,6 @@ if ($_GET["headermenuitem"] == 1) {
 if ($_GET["headermenuitem"] == 2) {
     $_GET["step"] = 5;
 }
-
 
 if (!$_GET["sieg"]) {
     $_POST["buchstabe"] = strtoupper($_POST["buchstabe"]);

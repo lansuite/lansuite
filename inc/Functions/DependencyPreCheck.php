@@ -4,10 +4,11 @@
 * Check for common failures
 *
 * Small function to check against a number of dependencies that cause install.php to fail without showing any error details
-* 
+*
 * @return bool check result. True if error found, false if all OK
 */
-function dependencyPreCheck(){
+function dependencyPreCheck()
+{
     $errmsg = '';
 
     // __DIR__ will result in something like /code/inc/Functions

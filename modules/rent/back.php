@@ -1,4 +1,5 @@
 <?php
+
 switch ($_GET['step']) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');

@@ -1,22 +1,23 @@
 <?php
-/**
- * Generate Infobox
- *
- * @package lansuite_core
- * @author knox
- * @version $Id: infobox.php 1535 2008-07-27 22:36:01Z bytekilla $
- */
- 
+
 if ($auth['login'] == 1) {
     // Checkout infos
     $halfanhour = date("U") - 30*60;
 
-    $query = $db->qry("SELECT userid, text, priority, date
-		FROM %prefix%infobox
-		WHERE userid = %int% AND date > %int%
-		ORDER BY priority DESC, date DESC
-		LIMIT 0,3
-		", $_SESSION["auth"]["userid"], $halfanhour);
+    $query = $db->qry("
+      SELECT
+        userid,
+        text,
+        priority,
+        date
+      FROM %prefix%infobox
+      WHERE
+        userid = %int%
+        AND date > %int%
+      ORDER BY
+        priority DESC,
+        date DESC
+      LIMIT 0,3", $_SESSION["auth"]["userid"], $halfanhour);
 
     while ($row=$db->fetch_array()) {
         if ($row["priority"] == "1") {

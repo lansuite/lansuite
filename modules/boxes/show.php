@@ -1,20 +1,20 @@
 <?php
 switch ($_GET['step']) {
-  // Activate
+    // Activate
     case 10:
         foreach ($_POST['action'] as $key => $val) {
             $db->qry("UPDATE %prefix%boxes SET active = 1 WHERE boxid = %int%", $key);
         }
         break;
   
-  // Deactivate
+    // Deactivate
     case 11:
         foreach ($_POST['action'] as $key => $val) {
             $db->qry("UPDATE %prefix%boxes SET active = 0 WHERE boxid = %int%", $key);
         }
         break;
   
-  // Edit
+    // Edit
     case 20:
         $mf = new \LanSuite\MasterForm();
 
@@ -44,7 +44,7 @@ switch ($_GET['step']) {
         $mf->SendForm('index.php?mod=boxes&amp;step=20', 'boxes', 'boxid', $_GET['boxid']);
         break;
   
-  // Delete
+    // Delete
     case 30:
         $md = new \LanSuite\MasterDelete();
         $md->Delete('boxes', 'boxid', $_GET['boxid']);
@@ -60,15 +60,6 @@ $ms2->query['default_order_by'] = 'place ASC, pos ASC, name ASC';
 
 $ms2->AddTextSearchDropDown(t('Internet-Modus'), 'b.internet', array('' => t('Egal'), '1' => t('Nur im Intranet-Modus'), '2' => t('Nur im Internet-Modus')));
 $ms2->AddTextSearchDropDown(t('Login'), 'b.login', array('' => t('Egal'), '1' => t('Nur für ausgeloggte'), '2' => t('Nur für eingeloggte'), '3' => t('Nur für Admins + Superadminen'), '4' => t('Nur für Superadminen')));
-
-function PlaceName($place)
-{
-    if ($place == 0) {
-        return t('Linke Seite');
-    } elseif ($place == 1) {
-        return t('Rechte Seite');
-    }
-}
 
 $ms2->AddResultField(t('Titel'), 'b.name');
 $ms2->AddResultField(t('Boxid'), 'boxid');

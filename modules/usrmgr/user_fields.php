@@ -1,31 +1,5 @@
 <?php
 
-/**
- * @param int $id
- * @return bool
- */
-function Update($id)
-{
-    global $db;
-  
-    $db->qry("ALTER TABLE %prefix%user ADD %plain% VARCHAR(255) NOT NULL;", $_POST['name']);
-  
-    return true;
-}
-
-/**
- * @param string $val
- * @return bool|string
- */
-function check_no_space($val)
-{
-    if (strpos($val, ' ') !== false) {
-        return t('Der Feldname darf kein Leerzeichen enthalten');
-    } else {
-        return false;
-    }
-}
-
 switch ($_GET['step']) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('usrmgr');
@@ -59,7 +33,7 @@ switch ($_GET['step']) {
         $selections['2'] = t('Pflichtfeld');
         $mf->AddField(t('Optional'), 'optional', \LanSuite\MasterForm::IS_SELECTION, $selections);
 
-        $mf->AdditionalDBUpdateFunction = 'Update';
+        $mf->AdditionalDBUpdateFunction = 'UpdateUsrMgrUserFields';
         $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $_GET['fieldid']);
         break;
   

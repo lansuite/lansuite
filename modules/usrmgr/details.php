@@ -1,63 +1,9 @@
 <?php
 
-include_once("modules/usrmgr/class_usrmgr.php");
-$usrmgr = new UsrMgr;
+use LanSuite\Module\Seating\Seat2;
 
-/**
- * @return bool
- */
-function IsAuthorizedAdmin()
-{
-    global $auth, $user_data, $link;
-  
-    $link = '';
-    if ($auth['type'] >= 2 and $auth['type'] >= $user_data['type']) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-/**
- * @param boolean $checkin
- * @return string
- */
-function getCheckin($checkin)
-{
-    if ($checkin) {
-        return "<img src='design/images/icon_yes.png' border='0' alt='Ja' />";
-    } else {
-        return "<img src='design/images/icon_no.png' border='0' alt='Ja' />";
-    }
-}
-
-/**
- * @param int $type
- * @return string
- */
-function GetTypeDescription($type)
-{
-    switch ($type) {
-        case -2:
-            return t('Organisator (gesperrt)');
-        break;
-        case -1:
-            return t('Gast (gesperrt)');
-        break;
-        default:
-            return t('Gast (deaktiviert)');
-        break;
-        case 1:
-            return t('Gast');
-        break;
-        case 2:
-            return t('Organisator');
-        break;
-        case 3:
-            return t('Superadmin');
-        break;
-    }
-}
+$mail = new \LanSuite\Module\Mail\Mail();
+$usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
 // Get Barcode if exists and translate to userid
 if ($_POST['barcodefield']) {
@@ -65,14 +11,22 @@ if ($_POST['barcodefield']) {
     $_GET['userid']=$row['userid'];
 }
 
-$user_data = $db->qry_first(
-    "SELECT u.*, g.*, UNIX_TIMESTAMP(u.birthday) AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, u.avatar_path, u.signature, clan.name AS clan, clan.url AS clanurl, UNIX_TIMESTAMP(lastlogin) AS lastlogin
-    FROM %prefix%user AS u
-    LEFT JOIN %prefix%party_usergroups AS g ON u.group_id = g.group_id
-    LEFT JOIN %prefix%clan AS clan ON u.clanid = clan.clanid
-    WHERE u.userid = %int%",
-    $_GET['userid']
-);
+$user_data = $db->qry_first("
+  SELECT
+    u.*,
+    g.*,
+    UNIX_TIMESTAMP(u.birthday) AS birthday,
+    DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age,
+    u.avatar_path,
+    u.signature,
+    clan.name AS clan,
+    clan.url AS clanurl,
+    UNIX_TIMESTAMP(lastlogin) AS lastlogin
+  FROM %prefix%user AS u
+  LEFT JOIN %prefix%party_usergroups AS g ON u.group_id = g.group_id
+  LEFT JOIN %prefix%clan AS clan ON u.clanid = clan.clanid
+  WHERE
+    u.userid = %int%", $_GET['userid']);
 
 // If exists
 if (!$user_data['userid']) {
@@ -80,11 +34,18 @@ if (!$user_data['userid']) {
 } else {
     $framework->AddToPageTitle($user_data['username']);
 
-    $user_party = $db->qry_first("SELECT u.*, p.*, UNIX_TIMESTAMP(u.checkin) AS checkin, UNIX_TIMESTAMP(u.checkout) AS checkout FROM %prefix%party_user AS u
-    LEFT JOIN %prefix%party_prices AS p ON u.price_id = p.price_id
-    WHERE user_id = %int% AND u.party_id = %int%
-    GROUP BY u.user_id
-    ", $_GET['userid'], $party->party_id);
+    $user_party = $db->qry_first("
+      SELECT
+        u.*,
+        p.*,
+        UNIX_TIMESTAMP(u.checkin) AS checkin,
+        UNIX_TIMESTAMP(u.checkout) AS checkout
+      FROM %prefix%party_user AS u
+      LEFT JOIN %prefix%party_prices AS p ON u.price_id = p.price_id
+      WHERE
+        user_id = %int%
+        AND u.party_id = %int%
+      GROUP BY u.user_id", $_GET['userid'], $party->party_id);
     $count_rows = $db->qry_first('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = %int%', $_GET['userid']);
     $party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $user_party['price_id']);
 
@@ -207,8 +168,7 @@ if (!$user_data['userid']) {
 
     // Seating
     if ($func->isModActive('seating')) {
-        include_once("modules/seating/class_seat.php");
-        $seat2 = new seat2();
+        $seat2 = new Seat2();
 
         $user_data_seating = $seat2->SeatOfUserArray($_GET['userid']);
         if ($user_data_seating['block'] == '') {
