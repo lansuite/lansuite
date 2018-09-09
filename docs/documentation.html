@@ -59,7 +59,8 @@ yarn start
 While publishing we generate static HTML and push it to the <a href="https://github.com/lansuite/lansuite/tree/gh-pages">LANSuite repositories <code>gh-pages</code> branch</a>.
 This branch is responsible for the content behind <a href="https://lansuite.github.io/lansuite/">https://lansuite.github.io/lansuite/</a>.
 Now let's publish:</p>
-<pre><code class="hljs css bash">GIT_USER=&lt;GIT_USER&gt; \
+<pre><code class="hljs css bash"><span class="hljs-built_in">cd</span> website/
+GIT_USER=&lt;GIT_USER&gt; \
   CURRENT_BRANCH=master \
   USE_SSH=<span class="hljs-literal">true</span> \
   yarn run publish-gh-pages
