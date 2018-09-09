@@ -29,7 +29,7 @@ The most straightforward header would be the following, where `id` is the link n
   > If you do not add your documentation to the `sidebars.json` file, the docs will be rendered, but they can only be linked to from other documentation and visited with the known URL.
 
 3. Place assets, such as images, in the `website/static/` folder.
-4. Run the site to see the results of your changes.  
+4. Run the site to see the results of your changes.
 
   ```bash
   cd website/
@@ -76,6 +76,7 @@ This branch is responsible for the content behind [https://lansuite.github.io/la
 Now let's publish:
 
 ```bash
+cd website/
 GIT_USER=<GIT_USER> \
   CURRENT_BRANCH=master \
   USE_SSH=true \
