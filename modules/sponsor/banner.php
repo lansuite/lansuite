@@ -1,7 +1,8 @@
 <?php
 
 // 62.67.200.4 = Proxy IP of https://sslsites.de/lansuite.orgapage.de
-if ($_SERVER['HTTPS'] == 'on' || getenv(REMOTE_ADDR) == "62.67.200.4") {
+// @TODO: Rework this!
+if ($_SERVER['HTTPS'] == 'on' || getenv('REMOTE_ADDR') == "62.67.200.4") {
     $where = "rotation AND ((pic_path != '' AND pic_path != 'http://') OR pic_path_banner != '') AND !ssl_hide_banner";
 } else {
     $where = "rotation AND ((pic_path != '' AND pic_path != 'http://') OR pic_path_banner != '')";
