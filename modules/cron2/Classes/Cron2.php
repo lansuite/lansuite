@@ -17,17 +17,17 @@ class Cron2
         }
 
         $row = $db->qry_first("SELECT name, type, function FROM %prefix%cron WHERE jobid = %int%", $jobid);
-    
-        if ($row['type'] == 'sql') {
-            $db->qry('%plain%', $func->AllowHTML($row['function']));
-        } elseif ($row['type'] == "php") {
-            require_once 'ext_scripts/'.$row['function'];
+        if ($row != false) {
+            if ($row['type'] == 'sql') {
+                $db->qry('%plain%', $func->AllowHTML($row['function']));
+            } elseif ($row['type'] == "php") {
+                require_once 'ext_scripts/'.$row['function'];
+            }
+            $db->qry("UPDATE %prefix%cron SET lastrun = NOW() WHERE jobid = %int%", $jobid);
+            $func->log_event(t('Cronjob "%1" wurde ausgeführt', array($row['name'])), 1);
+            return $row['function'];
         }
-        $db->qry("UPDATE %prefix%cron SET lastrun = NOW() WHERE jobid = %int%", $jobid);
-
-        $func->log_event(t('Cronjob "%1" wurde ausgeführt', array($row['name'])), 1);
-
-        return $row['function'];
+        return false;
     }
 
     /**
