@@ -43,7 +43,7 @@
 				<key></key>
 				<default>sql</default>
 				<extra></extra>
-			</field>		
+			</field>
 			<field>
 				<name>active</name>
 				<type>tinyint(1)</type>
