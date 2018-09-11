@@ -1,6 +1,6 @@
 <?php
 // This could run a long time, so avoid running into a timeout
-ini_set('max_execution_time',0);
+ini_set('max_execution_time', 0);
 set_time_limit(0);
 
 // And now continue with the fun stuff...
