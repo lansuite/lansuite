@@ -1,22 +1,4 @@
 <?php
-//
-/*************************************************************************
-*
-*   Lansuite - Webbased LAN-Party Management System
-*   -----------------------------------------------
-*
-*   (c) 2001-2003 by One-Network.Org
-*
-*   Lansuite Version:   2.0
-*   File Version:       2.0
-*   Filename:           minesweeper
-*   Module:             Minesweeper
-*   Main editor:        jochen@one-network.org
-*   Last change:        24.05.2004 13:35
-*   Description:        The Classic Minesweeper Game, you all know
-*   Remarks:
-*
-**************************************************************************/
 
 $headermenuitem = $_GET["headermenuitem"];
 $action = $_GET["action"];
@@ -34,7 +16,6 @@ if ($headermenuitem == 2) {
     $_GET["step"] = 5;
 }
 
-
 switch ($_GET["step"]) {
     case 2:
         if ($_POST["rows"] > 20) {
@@ -48,9 +29,12 @@ switch ($_GET["step"]) {
         } else {
             $tmp_nick = rand(0, 100000);
 
-            $db->qry("REPLACE INTO %prefix%game_hs
-                SET game = 'mw_tmp', nick = %string%, score = %int%
-                ", $tmp_nick, time());
+            $db->qry("
+              REPLACE INTO %prefix%game_hs
+              SET
+                game = 'mw_tmp',
+                nick = %string%,
+                score = %int%", $tmp_nick, time());
 
             $generate_field = "";
             for ($i=0; $i< $_POST["rows"]; $i++) {
@@ -82,10 +66,15 @@ switch ($_GET["step"]) {
         $dsp->AddSingleRow("<b>". t('Du hast Gewonnen! Herzlichen Glückwunsch!') ."</b>");
         $dsp->AddHRuleRow();
 
-        $db->qry("UPDATE %prefix%game_hs
-            SET score = %int% - score
-            WHERE (nick = %string% AND game = 'mw_tmp')
-            ", time(), $_GET["tmp_nick"]);
+        $db->qry("
+          UPDATE %prefix%game_hs
+          SET
+            score = %int% - score
+          WHERE
+            (
+              nick = %string%
+              AND game = 'mw_tmp'
+            )", time(), $_GET["tmp_nick"]);
 
         $dsp->SetForm("index.php?mod=games&action=minesweeper&step=4&tmp_nick={$_GET["tmp_nick"]}");
         $dsp->AddSingleRow(t('Hier kannst du dich in die Highscoreliste eintragen'));
@@ -97,10 +86,16 @@ switch ($_GET["step"]) {
         break;
 
     case 4:
-        $db->qry("UPDATE %prefix%game_hs
-            SET game = 'mw', nick = %string%
-            WHERE (nick = %string% AND game = 'mw_tmp')
-            ", $_POST["nick"], $_GET["tmp_nick"]);
+        $db->qry("
+          UPDATE %prefix%game_hs
+          SET
+            game = 'mw',
+            nick = %string%
+          WHERE
+            (
+              nick = %string%
+              AND game = 'mw_tmp'
+            )", $_POST["nick"], $_GET["tmp_nick"]);
 
         if ($db->get_affected_rows() > 0) {
             $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=minesweeper&headermenuitem=2");

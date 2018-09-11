@@ -134,7 +134,6 @@ class Beamer
                 $lastview,
                 $c['text']
             );
-
         } else {
             $caption_sql = '';
             if ($c['caption'] != "") {

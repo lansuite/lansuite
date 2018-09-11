@@ -1,20 +1,4 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	 2.0
-*	File Version:		 2.0
-*	Filename: 			cat.php
-*	Module: 			Troubleticket
-*	Main editor: 		marco@chuchi.tv
-*	Last change:
-*	Description: 		edit categories
-*	Remarks:
-*
-**************************************************************************
-*/
-
 
 switch ($_GET['step']) {
     case 2:
@@ -31,6 +15,7 @@ switch ($_GET['step']) {
         }
         break;
 }
+
 switch ($_GET['step']) {
     default:
         $dsp->NewContent(t('Kategorie'));
@@ -53,8 +38,7 @@ switch ($_GET['step']) {
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=troubleticket&action=cat&act=add&step=2"));
         $dsp->AddBackButton("index.php?mod=troubleticket");
         break;
-    
-    
+
     case 2:
         $dsp->NewContent(t('Kategorie'));
         $user_row = $db->qry('SELECT * FROM %prefix%user WHERE type > 1');
@@ -90,19 +74,22 @@ switch ($_GET['step']) {
     
     case 3:
         if ($_GET['act'] == "add") {
-            if ($db->qry("INSERT INTO %prefix%troubleticket_cat SET
-     cat_text = %string%,
-     orga = %string%", $_POST['name'], $_POST['orga'])) {
+            if ($db->qry("
+              INSERT INTO %prefix%troubleticket_cat
+              SET
+                cat_text = %string%,
+                orga = %string%", $_POST['name'], $_POST['orga'])) {
                 $func->confirmation(t('Kategorie erfolgreich hinzugefügt/geändert'), "index.php?mod=troubleticket&action=cat");
             } else {
                 $func->error(t('Kategorie konnte nicht hinzugefügt/geändert werden'), "index.php?mod=troubleticket&action=cat");
             }
         } else {
-            if ($db->qry("UPDATE %prefix%troubleticket_cat SET
-     cat_text = %string%,
-     orga = %string%
-     WHERE cat_id = %int%
-   ", $_POST['name'], $_POST['orga'], $_GET['cat_id'])) {
+            if ($db->qry("
+              UPDATE %prefix%troubleticket_cat
+              SET
+                cat_text = %string%,
+                orga = %string%
+              WHERE cat_id = %int%", $_POST['name'], $_POST['orga'], $_GET['cat_id'])) {
                 $func->confirmation(t('Kategorie erfolgreich hinzugefügt/geändert'), "index.php?mod=troubleticket&action=cat");
             } else {
                 $func->error(t('Kategorie konnte nicht hinzugefügt/geändert werden'), "index.php?mod=troubleticket&action=cat");

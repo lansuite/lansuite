@@ -1,358 +1,9 @@
 <?php
-include_once("modules/usrmgr/class_usrmgr.php");
-$usrmgr = new UsrMgr();
+
+$mail = new \LanSuite\Module\Mail\Mail();
+$usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
 $gd = new \LanSuite\GD();
-
-/**
- * @param int $id
- * @return bool
- */
-function Update($id)
-{
-    global $mf, $db, $usrmgr, $func, $cfg;
-
-    // Clan-Management
-    include_once("modules/clanmgr/class_clan.php");
-    $clan = new Clan();
-    if (ShowField('clan')) {
-        if ($_POST['new_clan_select']) {
-            $clan->Add($_POST['clan_new'], $id, $_POST["clanurl"], $_POST["newclanpw"]);
-        } elseif ($_POST['clan']) {
-            $clan->AddMember($_POST['clan'], $id);
-        } elseif (isset($_POST['clan'])) {
-            $clan->RemoveMember($id);
-        }
-    }
-
-    // Update User-Perissions
-    if ($id) {
-        $db->qry("DELETE FROM %prefix%user_permissions WHERE userid = %int%", $id);
-        if ($_POST["permissions"]) {
-            foreach ($_POST["permissions"] as $perm) {
-                $db->qry("INSERT INTO %prefix%user_permissions SET module = %string%, userid = %int%", $perm, $id);
-            }
-        }
-    }
-
-    // If new user has been added
-    if (!$mf->isChange) {
-        $usrmgr->WriteXMLStatFile();
-
-        // If auto generated PW, use PW stored in session, else use PW send by POST field
-        if ($_POST['password_original']) {
-            $_SESSION['tmp_pass'] = $_POST['password_original'];
-        }
-
-        if ($cfg["signon_password_mail"]) {
-            if ($usrmgr->SendSignonMail(0)) {
-                $func->confirmation(t('Dein Passwort und weitere Informationen wurden an deine angegebene E-Mail-Adresse gesendet.'), NO_LINK);
-            } elseif ($cfg['sys_internet']) {
-                $func->error(t('Es ist ein Fehler beim Versand der Informations-Email aufgetreten.') .'<br />'. t('Dein Passwort lautet: <b>%1</b>', array($_SESSION['tmp_pass'])), NO_LINK);
-            }
-        }
-
-        // Send email-verification link
-        if ($cfg['sys_login_verified_mail_only']) {
-            $usrmgr->SendVerificationEmail($id);
-        }
-
-        // Show passwort, if wanted, or has mail failed
-        if ($cfg['signon_password_view']) {
-            $func->information(t('Dein Passwort lautet: <b>%1</b>', array($_SESSION['tmp_pass'])), NO_LINK);
-        }
-        $_SESSION['tmp_pass'] = '';
-    }
-
-    return true;
-}
-
-/**
- * @param string $AvatarName
- * @return bool|string
- */
-function CheckAndResizeUploadPic($AvatarName)
-{
-    global $gd;
-
-    if ($AvatarName == '') {
-        return false;
-    }
-    $FileEnding = strtolower(substr($AvatarName, strrpos($AvatarName, '.'), 5));
-    if ($FileEnding != '.png' and $FileEnding != '.gif' and $FileEnding != '.jpg' and $FileEnding != '.jpeg') {
-        return t('Bitte eine Grafikdatei auswählen');
-    }
-
-    $gd->CreateThumb($AvatarName, $AvatarName, 100, 100);
-    return false;
-}
-
-/**
- * Check for optional gender selection
- *
- * @param int $gender   From Inputfield 0=None, 1=Male, 2=Female
- * @return bool|string  Returns Message on error else false
- */
-function check_opt_gender($gender)
-{
-    global $cfg;
-
-    if ($cfg["signon_show_gender"] == 2) {
-        if ($gender == 0) {
-            return t("Bitte wählen sie ein Geschlecht aus.");
-        } else {
-            return false;
-        }
-    }
-}
-
-/**
- * Check for optional birthday selection
- * If Date is (DateNow - 80 years) the Date is the present value.
- * From the display::AddDateTimeRow() function. Not the perfect way.
- *
- * @param string $date  From Inputfield like 2000-01-02
- * @return bool|string  Returns Message on error else false
- */
-function check_birthday($date)
-{
-    global $cfg;
-
-    if ($cfg["signon_show_birthday"] == 2) {
-        $ref_date = (date("Y")-80)."-".date("n")."-".date("d");
-        if ($date == $ref_date or ($date=="0000-00-00")) {
-            return t("Bitte das korrekte Geburtsdatum eingeben.");
-        } else {
-            return false;
-        }
-    }
-}
-
-/**
- * @param string $clanpw
- * @return bool|string
- */
-function CheckClanPW($clanpw)
-{
-    global $db, $auth;
-
-    if (!$_POST['new_clan_select'] and $auth['type'] <= 1 and $auth['clanid'] != $_POST['clan']) {
-        $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_POST['clan']);
-        if ($clan['password'] and $clan['password'] != md5($clanpw)) {
-            return t('Passwort falsch!');
-        }
-    }
-    return false;
-}
-
-/**
- * @param string $ClanName
- * @return bool|string
- */
-function CheckClanNotExists($ClanName)
-{
-    global $db;
-
-    $clan = $db->qry_first("SELECT 1 AS found FROM %prefix%clan WHERE name = %string%", $ClanName);
-    if ($clan['found']) {
-        return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn du diesem beitreten möchten, wähle ihn oberhalb aus dem Dropdownmenü aus.');
-    }
-
-    if (preg_match("/([.^\"\'`´]+)/", $ClanName)) {
-        return t('Du verwendest nicht zugelassene Sonderzeichen in deinem Clannamen.');
-    }
-
-    return false;
-}
-
-/**
- * @param string $field
- * @param int $mode
- * @param string $error
- * @return bool|string
- */
-function PersoInput($field, $mode, $error = '')
-{
-    global $dsp, $usrmgr, $smarty;
-
-    switch ($mode) {
-        case \LanSuite\MasterForm::OUTPUT_PROC:
-              $_POST[$field .'_1'] = substr($_POST[$field], 0, 11);
-              $_POST[$field .'_2'] = substr($_POST[$field], 13, 7);
-              $_POST[$field .'_3'] = substr($_POST[$field], 21, 7);
-              $_POST[$field .'_4'] = substr($_POST[$field], 35, 1);
-
-            if ($_POST[$field .'_1'] == '') {
-                $_POST[$field .'_1'] = "aaaaaaaaaaD";
-            }
-            if ($_POST[$field .'_2'] == '') {
-                  $_POST[$field .'_2'] = "bbbbbbb";
-            }
-            if ($_POST[$field .'_3'] == '') {
-                  $_POST[$field .'_3'] = "ccccccc";
-            }
-            if ($_POST[$field .'_4'] == '') {
-                  $_POST[$field .'_4'] = "d";
-            }
-
-              $smarty->assign('name', $field);
-              $smarty->assign('value1', $_POST[$field .'_1']);
-              $smarty->assign('value2', $_POST[$field .'_2']);
-              $smarty->assign('value3', $_POST[$field .'_3']);
-              $smarty->assign('value4', $_POST[$field .'_4']);
-            if ($error) {
-                  $smarty->assign('errortext', $dsp->errortext_prefix . $error . $dsp->errortext_suffix);
-            }
-            if (Optional("perso")) {
-                  $smarty->assign('optional', "_optional");
-            }
-
-            return $smarty->fetch('modules/usrmgr/templates/row_perso.htm');
-        break;
-
-        case \LanSuite\MasterForm::CHECK_ERROR_PROC:
-              $_POST[$field] = $_POST["perso_1"] . "<<" . $_POST["perso_2"] . "<". $_POST["perso_3"] . "<<<<<<<" . $_POST["perso_4"];
-            if ($_POST[$field] == "aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d") {
-                $_POST[$field] = "";
-            }
-            if ($_POST[$field] == "<<<<<<<<<<") {
-                  $_POST[$field] = "";
-            }
-            if ($_POST[$field] != '') {
-                  $perso_res = $usrmgr->CheckPerso($_POST[$field]);
-                switch ($perso_res) {
-                    case 2:
-                        return str_replace("<", "&lt;", t('Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: \'aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d\''));
-                    break;
-                    case 3:
-                        return t('Prüfsummenfehler. Bitte überprüfen deine Angaben. Sehr wahrscheinlich hast du eine oder mehrere Zahlen falsch abgeschrieben.');
-                    break;
-                    case 4:
-                        return t('Dieser Personalausweis ist leider bereits abgelaufen.');
-                    break;
-                }
-            }
-            return false; // -> Means no error
-        break;
-    }
-}
-
-/**
- * @param string $field
- * @param int $mode
- * @param string $error
- * @return bool|string
- */
-function Addr1Input($field, $mode, $error = '')
-{
-    global $dsp;
-
-    switch ($mode) {
-        case \LanSuite\MasterForm::OUTPUT_PROC:
-            if ($_POST['street|hnr'] == '' and $_POST['street'] and $_POST['hnr']) {
-                $_POST['street|hnr'] = $_POST['street'] .' '. $_POST['hnr'];
-            }
-            $dsp->AddTextFieldRow('street|hnr', t('Straße und Hausnummer'), $_POST['street|hnr'], $error, '', Optional('street'));
-            return false;
-        break;
-
-        case \LanSuite\MasterForm::CHECK_ERROR_PROC:
-            if ($_POST['street|hnr'] != '' or FieldNeeded('street')) {
-                $pieces = explode(' ', $_POST['street|hnr']);
-                $_POST['hnr'] = array_pop($pieces);
-                $_POST['street'] = implode(' ', $pieces);
-
-                if ($_POST['street'] == '' or $_POST['hnr'] == '') {
-                    return t('Bitte gib Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
-                }
-            }
-            // Means no error
-            return false;
-        break;
-    }
-}
-
-/**
- * @param string $field
- * @param int $mode
- * @param string $error
- * @return bool|string
- */
-function Addr2Input($field, $mode, $error = '')
-{
-    global $dsp;
-
-    switch ($mode) {
-        case \LanSuite\MasterForm::OUTPUT_PROC:
-            if ($_POST['plz|city'] == '' and $_POST['plz'] and $_POST['city']) {
-                $_POST['plz|city'] = $_POST['plz'] .' '. $_POST['city'];
-            }
-            $dsp->AddTextFieldRow('plz|city', t('PLZ und Ort'), $_POST['plz|city'], $error, '', Optional('city'));
-            return false;
-        break;
-
-        case \LanSuite\MasterForm::CHECK_ERROR_PROC:
-            if (($_POST['plz|city'] != '') || (FieldNeeded('city'))) {
-                $pieces = explode(' ', $_POST['plz|city']);
-                $_POST['plz'] = array_shift($pieces);
-                $_POST['city'] = implode(' ', $pieces);
-
-                if ($_POST['plz'] == 0 or $_POST['city'] == '') {
-                    return t('Bitte gib Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
-                } elseif (strlen($_POST['plz']) < 4) {
-                    return t('Die Postleitzahl muss aus 5 Ziffern bestehen.');
-                }
-            }
-            // Means no error
-            return false;
-        break;
-    }
-}
-
-/**
- * @param string $key
- * @return int
- */
-function Optional($key)
-{
-    global $cfg;
-
-    if ($cfg["signon_show_".$key] <= 1) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-/**
- * @param string $key
- * @return int
- */
-function FieldNeeded($key)
-{
-    global $cfg;
-
-    if ($cfg["signon_show_".$key] == 2) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-/**
- * @param string $key
- * @return int
- */
-function ShowField($key)
-{
-    global $cfg;
-
-    if ($cfg["signon_show_".$key] > 0) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
 
 if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
     $party_user = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id= %int%", $_GET["userid"], $party->party_id);
@@ -374,10 +25,10 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             }
   
             if (!$quick_signon) {
-                if (ShowField('firstname')) {
+                if (ShowFieldUsrMgr('firstname')) {
                     $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
                 }
-                if (ShowField('lastname')) {
+                if (ShowFieldUsrMgr('lastname')) {
                     $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
                 }
                 $mf->AddGroup(t('Namen'));
@@ -385,7 +36,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 // If Admin: Usertype, Group and Module-Permissions
                 if ($auth['type'] >= 2) {
                     // Usertype
-                    $selections = array();
+                    $selections = [];
                     $selections['1'] = t('Benutzer');
                     $selections['2'] = t('Administrator');
                     if ($auth['type'] >= 3) {
@@ -394,10 +45,15 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                     $mf->AddField(t('Benutzertyp'), 'type', \LanSuite\MasterForm::IS_SELECTION, $selections, '', '', 1, array('2', '3'));
   
                     // Module-Permissions
-                    $selections = array();
-                    $res = $db->qry("SELECT module.name, module.caption FROM %prefix%modules AS module
+                    $selections = [];
+                    $res = $db->qry("
+                      SELECT
+                        module.name,
+                        module.caption
+                      FROM %prefix%modules AS module
                       LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
-                      WHERE menu.file != ''
+                      WHERE
+                        menu.file != ''
                       GROUP BY menu.module");
                     while ($row = $db->fetch_array($res)) {
                           $selections[$row['name']] = $row['caption'];
@@ -413,13 +69,13 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                     }
 
                     $mf->AddField(
-                      t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
-                      '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
-                      '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
-                      'permissions',
-                      \LanSuite\MasterForm::IS_MULTI_SELECTION,
-                      $selections,
-                      \LanSuite\MasterForm::FIELD_OPTIONAL
+                        t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
+                        '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
+                        '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
+                        'permissions',
+                        \LanSuite\MasterForm::IS_MULTI_SELECTION,
+                        $selections,
+                        \LanSuite\MasterForm::FIELD_OPTIONAL
                     );
 
                     $mf->AddDropDownFromTable(t('Gruppe'), 'group_id', 'group_id', 'group_name', 'party_usergroups', t('Keine'));
@@ -433,8 +89,8 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $mf->AddFix('type', 1);
             }
   
-            $mf->AddField(t('E-Mail'), 'email', '', '', '', CheckValidEmail);
-            $mf->AddField(t('E-Mail wiederholen'),'email2','','','');	
+            $mf->AddField(t('E-Mail'), 'email', '', '', '', 'CheckValidEmail');
+            $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', '');
             if (($_GET['action'] != 'change' && $_GET['action'] != 'entrance') || ($_GET['action'] == 'entrance' && !$_GET['userid'])) {
                 if ($cfg['signon_autopw']) {
                     $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
@@ -452,21 +108,29 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
   
         if (!$DoSignon && !$quick_signon) {
             // Clan Options
-            if (ShowField('clan')) {
+            if (ShowFieldUsrMgr('clan')) {
                 if (!isset($_POST['clan'])) {
                     $users_clan = $db->qry_first("SELECT clanid FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
                     $_POST['clan'] = $users_clan['clanid'];
                 }
 
-                $selections = array();
+                $selections = [];
                 $selections[''] = '---';
-                $PWClans = array();
-                $clans_query = $db->qry("SELECT c.clanid, c.name, c.url, c.password, COUNT(u.clanid) AS members
-                    FROM %prefix%clan AS c
-                    LEFT JOIN %prefix%user AS u ON c.clanid = u.clanid
-                    WHERE u.clanid IS NULL or u.type >= 1
-                    GROUP BY c.clanid
-                    ORDER BY c.name");
+                $PWClans = [];
+                $clans_query = $db->qry("
+                  SELECT
+                    c.clanid,
+                    c.name,
+                    c.url,
+                    c.password,
+                    COUNT(u.clanid) AS members
+                  FROM %prefix%clan AS c
+                  LEFT JOIN %prefix%user AS u ON c.clanid = u.clanid
+                  WHERE
+                    u.clanid IS NULL
+                    OR u.type >= 1
+                  GROUP BY c.clanid
+                  ORDER BY c.name");
                 while ($row = $db->fetch_array($clans_query)) {
                     $selections[$row['clanid']] = $row['name'] .' ('. $row['members'] .')';
                     if ($row['password']) {
@@ -476,10 +140,10 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $db->free_result($clans_query);
 
                 $mf->AddField(t('Vorhandener Clan'), 'clan', \LanSuite\MasterForm::IS_SELECTION, $selections, Optional('clan'), '', 1, $PWClans);
-                $mf->AddField(t('Passwort'), 'clanpw', \LanSuite\MasterForm::IS_PASSWORD, '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckClanPW');
+                $mf->AddField(t('Passwort'), 'clanpw', \LanSuite\MasterForm::IS_PASSWORD, '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckClanPWUsrMgr');
                 $mf->AddField(t('Neuer Clan'), 'new_clan_select', 'tinyint(1)', '', \LanSuite\MasterForm::FIELD_OPTIONAL, '', 3);
                 $mf->AddField(t('Name'), 'clan_new', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckClanNotExists');
-                if (ShowField('clanurl')) {
+                if (ShowFieldUsrMgr('clanurl')) {
                     $mf->AddField(t('Webseite'), 'clanurl', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
                 }
                 $mf->AddField(t('Passwort'), 'newclanpw', \LanSuite\MasterForm::IS_NEW_PASSWORD, '', \LanSuite\MasterForm::FIELD_OPTIONAL);
@@ -488,27 +152,27 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
             // Leagues
             if ($func->isModActive('tournament2')) {
-                if (ShowField('wwcl_id')) {
+                if (ShowFieldUsrMgr('wwcl_id')) {
                     $mf->AddField(t('WWCL ID'), 'wwclid', '', '', Optional('wwclid'));
                 }
-                if (ShowField('ngl_id')) {
+                if (ShowFieldUsrMgr('ngl_id')) {
                     $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('nglid'));
                 }
-                if (ShowField('lgz_id')) {
+                if (ShowFieldUsrMgr('lgz_id')) {
                     $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgzid'));
                 }
                 $mf->AddGroup(t('Ligen'));
             }
 
             // Address
-            if (ShowField('street')) {
+            if (ShowFieldUsrMgr('street')) {
                 $mf->AddField('', 'street|hnr', \LanSuite\MasterForm::IS_CALLBACK, 'Addr1Input', Optional('street'));
             }
-            if (ShowField('city')) {
+            if (ShowFieldUsrMgr('city')) {
                 $mf->AddField('', 'plz|city', \LanSuite\MasterForm::IS_CALLBACK, 'Addr2Input', Optional('city'));
             }
 
-            $list = array();
+            $list = [];
             if (!isset($_POST['country'])) {
                 $_POST['country'] = $cfg['sys_country'];
             }
@@ -521,43 +185,43 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             $mf->AddGroup(t('Adresse'));
 
             // Contact
-            if (ShowField('telefon')) {
+            if (ShowFieldUsrMgr('telefon')) {
                 $mf->AddField(t('Telefon'), 'telefon', '', '', Optional('telefon'));
             }
-            if (ShowField('handy')) {
+            if (ShowFieldUsrMgr('handy')) {
                 $mf->AddField(t('Handy'), 'handy', '', '', Optional('telefon'));
             }
-            if (ShowField('icq')) {
+            if (ShowFieldUsrMgr('icq')) {
                 $mf->AddField('ICQ', 'icq', '', '', Optional('icq'));
             }
-            if (ShowField('msn')) {
+            if (ShowFieldUsrMgr('msn')) {
                 $mf->AddField('MSN', 'msn', '', '', Optional('msn'));
             }
-            if (ShowField('xmpp')) {
+            if (ShowFieldUsrMgr('xmpp')) {
                 $mf->AddField('XMPP', 'xmpp', '', '', Optional('xmpp'));
             }
-            if (ShowField('skype')) {
+            if (ShowFieldUsrMgr('skype')) {
                 $mf->AddField('Skype', 'skype', '', '', Optional('skype'));
             }
             $mf->AddGroup(t('Kontakt'));
 
             // Misc (Perso + Birthday + Gender + Newsletter)
             if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
-                if (ShowField('perso')) {
+                if (ShowFieldUsrMgr('perso')) {
                     $mf->AddField(t('Personalausweis'), 'perso', \LanSuite\MasterForm::IS_CALLBACK, 'PersoInput', Optional('perso'));
                 }
-                if (ShowField('birthday')) {
+                if (ShowFieldUsrMgr('birthday')) {
                     $mf->AddField(t('Geburtstag'), 'birthday', '', '-80/-8', Optional('birthday'), 'check_birthday');
                 }
             }
-            if (ShowField('gender')) {
-                $selections = array();
+            if (ShowFieldUsrMgr('gender')) {
+                $selections = [];
                 $selections['0'] = t('Keine Angabe');
                 $selections['1'] = t('Männlich');
                 $selections['2'] = t('Weiblich');
                 $mf->AddField(t('Geschlecht'), 'sex', \LanSuite\MasterForm::IS_SELECTION, $selections, Optional('gender'), 'check_opt_gender');
             }
-            if (ShowField('newsletter')) {
+            if (ShowFieldUsrMgr('newsletter')) {
                 $mf->AddField(t('Newsletter abonnieren'), 'newsletter', '', '', Optional('newsletter'));
             }
 
@@ -569,10 +233,10 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
             // AGB and Vollmacht, if new user
             if ((!$_GET['userid'] or $DoSignon) and $auth['type'] <= 1) {
-                if (ShowField('voll')) {
+                if (ShowFieldUsrMgr('voll')) {
                     $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich, die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.', "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name']), 'vollmacht', 'tinyint(1)');
                 }
-                if (ShowField('agb')) {
+                if (ShowFieldUsrMgr('agb')) {
                     ($cfg['signon_agb_targetblank']) ? $target = ' target="_blank"' : $target = '';
                     $mf->AddField(t('AGB bestätigen') .'|'. t('Hiermit bestätige ich die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und stimme ihnen zu.', '<a href="'. urldecode($cfg["signon_agblink"]) .'"'. $target .'>'. t('AGB') .'</a>', $_SESSION['party_info']['name']), 'agb', 'tinyint(1)');
                 }
@@ -597,7 +261,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
         // Settings
         if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
             if ($cfg['user_design_change']) {
-                $selections = array();
+                $selections = [];
                 $selections[''] = t('System-Vorgabe');
 
                 $xml = new \LanSuite\XML();
@@ -636,7 +300,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
     }
 
     $AddUserSuccess = 0;
-    $mf->AdditionalDBUpdateFunction = 'Update';
+    $mf->AdditionalDBUpdateFunction = 'UpdateUsrMgr';
     if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $_GET['step'] .'&signon='. $_GET['signon'], 'user', 'userid', $_GET['userid'])) {
         // Log in new user
         if (!$auth['login']) {

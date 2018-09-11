@@ -1,10 +1,4 @@
-<?php // by denny@esa-box.de
-
-function optionrow($name, $text)
-{
-    return "<option value=\"$name\">$text</option>";
-}
-
+<?php
 
 switch ($_GET["step"]) {
     case 3:
@@ -25,7 +19,6 @@ switch ($_GET["step"]) {
         break;
 }
 
-
 switch ($_GET["step"]) {
     default:
         include_once('modules/troubleticket/search.inc.php');
@@ -37,11 +30,11 @@ switch ($_GET["step"]) {
         $rowtest = $db->qry_first("SELECT COUNT(*) AS n FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);
         $numrows = $rowtest["n"];
 
-        // Prüfen ob ticketid leer ist
+        // Check if ticketid is empty
         if ($tt_id == "") {
             $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
-        } // Prüfen ob ticketid gültig ist
-        elseif ($numrows == "") {
+        // Check if ticket is is valid
+        } elseif ($numrows == "") {
             $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
         } else {
             $dsp->NewContent(t('Troubleticket bearbeiten'), "");
@@ -135,64 +128,78 @@ switch ($_GET["step"]) {
                 $dsp->AddDoubleRow($time_text, $time_val);
             }
             $dsp->AddDoubleRow(t('Bearbeitender Orga'), $get_targetuser["username"]);
-
             $dsp->SetForm("index.php?mod=troubleticket&action=change&step=3&ttid=$tt_id");
-
             $dsp->AddDropDownFieldRow("tticket_status", t('Status auswählen'), $status_wahl, $error["tticket_status"], 1);
-
             $dsp->AddTextAreaPlusRow("tticket_publictext", t('Kommentar für Benutzer'), $_POST['tticket_publictext'], $error["tticket_publictext"]);
             $dsp->AddTextAreaPlusRow("tticket_orgatext", t('Kommentar für Orgas'), $_POST['tticket_orgatext'], $error["tticket_orgatext"]);
-
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
             $dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/change");
         }
         break;
 
-
     case 3:
         $tt_id = $_GET['ttid'];
 
-        $db->qry("UPDATE %prefix%troubleticket SET
-    publiccomment = %string%,
-    orgacomment = %string%
-    WHERE ttid = %int%", $_POST["tticket_publictext"], $_POST["tticket_orgatext"], $tt_id);
+        $db->qry("
+          UPDATE %prefix%troubleticket
+          SET
+            publiccomment = %string%,
+            orgacomment = %string%
+          WHERE
+            ttid = %int%", $_POST["tticket_publictext"], $_POST["tticket_orgatext"], $tt_id);
         $zeit = time();
 
         switch ($_POST["tticket_status"]) {
             case 1:
-                $db->qry('UPDATE %prefix%troubleticket SET status = \'1\' WHERE ttid = %int%', $tt_id);
+                $db->qry('
+                  UPDATE %prefix%troubleticket
+                  SET
+                    status = \'1\'
+                  WHERE ttid = %int%', $tt_id);
                 break;
 
             case 2:
-                $db->qry("UPDATE %prefix%troubleticket SET
-     status = '2',
-     target_userid = '0'
-     WHERE ttid = %int%", $tt_id);
+                $db->qry("
+                  UPDATE %prefix%troubleticket
+                  SET
+                    status = '2',
+                    target_userid = '0'
+                  WHERE
+                    ttid = %int%", $tt_id);
                 break;
 
             case 3:
-                $db->qry("UPDATE %prefix%troubleticket SET
-     status = '3',
-     processstatus = '0',
-     process = %string%,
-     finished = ''
-     WHERE ttid = %int%", $zeit, $tt_id);
+                $db->qry("
+                  UPDATE %prefix%troubleticket
+                  SET
+                    status = '3',
+                    processstatus = '0',
+                    process = %string%,
+                    finished = ''
+                  WHERE
+                    ttid = %int%", $zeit, $tt_id);
                 break;
 
             case 4:
-                $db->qry("UPDATE %prefix%troubleticket SET
-     status = '4',
-     processstatus = '100',
-     finished = %string%
-     WHERE ttid = %int%", $zeit, $tt_id);
+                $db->qry("
+                  UPDATE %prefix%troubleticket
+                  SET
+                    status = '4',
+                    processstatus = '100',
+                    finished = %string%
+                  WHERE
+                    ttid = %int%", $zeit, $tt_id);
                 break;
 
             case 5:
-                $db->qry("UPDATE %prefix%troubleticket SET
-     status = '5',
-     processstatus = '100',
-     finished = %string%
-     WHERE ttid = %int%", $zeit, $tt_id);
+                $db->qry("
+                  UPDATE %prefix%troubleticket
+                  SET
+                    status = '5',
+                    processstatus = '100',
+                    finished = %string%
+                  WHERE
+                    ttid = %int%", $zeit, $tt_id);
                 break;
         }
 

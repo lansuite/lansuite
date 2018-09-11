@@ -18,9 +18,7 @@ namespace LanSuite;
  *      $debug = new \LanSuite\Debug(1);
  *      $debug->tracker("BEFOREINCLUDE");            // Set Timerpoint
  *      $debug->addvar('$cfg Serverconfig',$cfg);    // Add an Debugvar (Arrays posible)
- *      $debug->timer_start('function sortarray');
  *      $array = sortarray($array)
- *      $debug->timer_stop('function sortarray');
  *      echo $sys_debug->show();                     // Show() generates simple HTML-Output
  *
  * @todo Add percentual display for Tracker/Timer
@@ -84,7 +82,13 @@ class Debug
     private $sql_query_list = [];
 
     /**
-     * debug constructor.
+     * @var bool
+     */
+    private $sql_query_running = false;
+
+    /**
+     * Debug constructor.
+     *
      * @param string $mode          0 = off, 1 = normal, 2 = file
      * @param string $debug_path    Path for filedebug
      */
@@ -144,6 +148,8 @@ class Debug
         if ($this->mode > 0) {
             return $this->timer_out;
         }
+
+        return '';
     }
 
     /**
@@ -159,10 +165,38 @@ class Debug
         if ($this->mode > 0) {
             if (is_string($key)) {
                 $this->debugvars[$key] = $value;
-
             } else {
                 $this->debugvars["debugvar_".count($this->debugvars)] = $value;
             }
+        }
+    }
+
+    /**
+     * Start Timer for Querys.
+     * Always use with query_stop()
+     *
+     * @param string $query Executed query string
+     * @return void
+     */
+    public function query_start($query){
+        if (($this->mode > 0) && (!$this->sql_query_running)) {
+            $this->sql_query_running = true;
+            $this->sql_query_start = microtime(true);
+            $this->sql_query_string = $query;
+        }
+    }
+
+    /**
+     * @param string $error
+     * @return void
+     */
+    public function query_stop($error = null){
+        if (($this->mode > 0) && ($this->sql_query_running)) {
+            $this->sql_query_running = false;
+            $sql_query_end = microtime(true);
+            $this->sql_query_list[] = [
+                round(($sql_query_end - $this->sql_query_start) * 1000, 4), $this->sql_query_string, $error
+            ];
         }
     }
 
@@ -186,6 +220,8 @@ class Debug
 
             return $sql_query_debug;
         }
+
+        return '';
     }
 
     /**
@@ -196,15 +232,16 @@ class Debug
      */
     private function sort_array_by_col($array)
     {
-        function compare($wert_a, $wert_b) {
+        $compare = function ($wert_a, $wert_b)
+        {
             $a = $wert_a[0];
             $b = $wert_b[0];
             if ($a == $b) {
                 return 0;
             }
             return ($a > $b) ? -1 : +1;
-        }
-        usort($array, 'compare');
+        };
+        usort($array, $compare);
         return $array;
     }
 
@@ -268,7 +305,6 @@ class Debug
 
             if ($array_level==0) {
                 $caption = $key;
-
             } else {
                 $caption = "[".$key."]";
             };
@@ -276,14 +312,11 @@ class Debug
             if (is_array($value)) {
                 $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")");
                 $out .= $this->row_array($value, $array_node.$caption, $array_level+1);
-
             } elseif (is_object($value)) {
                 $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;");
                 $out .= $this->row_array(get_object_vars($value), $array_node.$caption, $array_level+1);
-
             } elseif (is_scalar($value)) {
                 $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;".htmlentities($value));
-
             } else {
                 $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;Error: Can not display Debug- Value!!!");
             }

@@ -1,7 +1,6 @@
 <?php
 
-include_once("modules/mail/class_mail.php");
-$mail = new mail();
+$mail = new \LanSuite\Module\Mail\Mail();
 
 switch ($_GET["step"]) {
     case 2:
@@ -34,7 +33,6 @@ switch ($_GET["step"]) {
 
         $dsp->AddFieldSetStart('Zielgruppen-Einschränkung');
         $dsp->AddCheckBoxRow("onlynewsletter", t('Nur Newsletter'), t('Nur an Benutzer, die den Newsletter bei der Anmeldung bestellt haben'), "", 1, $_POST["onlynewsletter"]);
-#		$dsp->AddCheckBoxRow("onlysignon", t('Nur Angemeldete'), t('Nur an Benutzer, die zur aktuellen Party angemeldet sind'), "", 1, $_POST["onlysignon"]);
 
         $t_array = array();
         array_push($t_array, '<option $selected value="0">'. t('An alle Benutzer') .'</option>');
@@ -137,17 +135,24 @@ switch ($_GET["step"]) {
 
         $success = "";
         $fail = "";
-        $users = $db->qry("SELECT s.ip, u.*, p.*, c.name AS clan, c.url AS clanurl FROM %prefix%user AS u
-      LEFT JOIN %prefix%party_user AS p ON p.user_id=u.userid
-      LEFT JOIN %prefix%clan AS c ON c.clanid=u.clanid
-      LEFT JOIN %prefix%seat_seats AS s ON s.userid=u.userid
-      WHERE %plain%
-      GROUP BY u.email", $where);
+        $users = $db->qry("
+          SELECT
+            s.ip,
+            u.*,
+            p.*,
+            c.name AS clan,
+            c.url AS clanurl
+          FROM %prefix%user AS u
+            LEFT JOIN %prefix%party_user AS p ON p.user_id=u.userid
+            LEFT JOIN %prefix%clan AS c ON c.clanid=u.clanid
+            LEFT JOIN %prefix%seat_seats AS s ON s.userid=u.userid
+          WHERE %plain%
+          GROUP BY u.email", $where);
 
         while ($user = $db->fetch_array($users)) {
             $text = $__POST["text"];
 
-            // Variablen ersetzen
+            // Replace variables
             $text = str_replace("%USERNAME%", $user["username"], $text);
             $text = str_replace("%VORNAME%", $user["firstname"], $text);
             $text = str_replace("%NACHNAME%", $user["name"], $text);
@@ -174,7 +179,7 @@ switch ($_GET["step"]) {
             ($user["party_id"]) ? $text = str_replace("%ANGEMELDET%", t('Ja'), $text)
                 : $text = str_replace("%ANGEMELDET%", t('Nein'), $text);
 
-            // Mail senden
+            // Send mail
             if ($_POST["toinet"]) {
                 if ($mail->create_inet_mail($user["firstname"] ." ". $user["name"], $user["email"], $_POST["subject"], $text, $cfg["sys_party_mail"])) {
                     $success .= $user["firstname"] ." ". $user["name"] ."[". $user["email"] ."]" . HTML_NEWLINE;

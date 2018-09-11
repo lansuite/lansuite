@@ -142,7 +142,6 @@ class Func
     {
         if ((int)$func_timestamp == 0) {
             return '---';
-
         } else {
             switch ($func_art) {
                 case 'year':
@@ -221,7 +220,6 @@ class Func
 
         if ($priority != "0" && $priority != "1" && $priority != "2") {
             echo(t('Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)'));
-
         } else {
             $date = date("U");
             $db->qry("INSERT INTO %prefix%infobox SET userid=%int%, class=%string%, id_in_class = %int%, text=%string%, date=%string%, priority=%string%", $userid, $item, $itemid, $text, $date, $priority);
@@ -235,6 +233,8 @@ class Func
      * @param int $JustReturn
      * @param string $link_type
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     private function GeneralDialog($type, $text, $link_target = '', $JustReturn = 0, $link_type = '')
     {
@@ -243,7 +243,6 @@ class Func
         // Link
         if ($link_target == NO_LINK) {
             $smarty->assign('link', '');
-
         } else {
             switch ($link_type) {
                 case 'FORWARD':
@@ -279,7 +278,6 @@ class Func
 
         if ($JustReturn) {
             $FrameworkMessages .= $smarty->fetch('design/templates/'. $type .'.htm');
-
         } else {
             $dsp->AddContentLine($smarty->fetch('design/templates/'. $type .'.htm'));
         }
@@ -323,10 +321,12 @@ class Func
     }
 
     /**
-     * @param string    $text
-     * @param string    $link_target_yes
-     * @param string    $link_target_no
+     * @param string $text
+     * @param string $link_target_yes
+     * @param string $link_target_no
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function question($text, $link_target_yes, $link_target_no = '')
     {
@@ -344,10 +344,12 @@ class Func
     }
 
     /**
-     * @param array     $questionarray
-     * @param array     $linkarray
-     * @param string    $text
+     * @param array $questionarray
+     * @param array $linkarray
+     * @param string $text
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function multiquestion($questionarray, $linkarray, $text = '')
     {
@@ -388,7 +390,6 @@ class Func
                 '<' => '&lt;',
                 '>' => '&gt;'
             ];
-
         } else {
             $aTransSpecchar = [
                 '&' => '&amp;',
@@ -442,10 +443,11 @@ class Func
             if ($mode != 1) {
                 preg_replace_callback(
                     '#\[c\]((.)*)\[\/c\]#sUi',
-                    create_function(
-                        '$treffer',
-                        'global $HighlightCode, $HighlightCount; $HighlightCount++; $HighlightCode[$HighlightCount] = $treffer[1];'
-                    ),
+                    function ($treffer) {
+                        global $HighlightCode, $HighlightCount;
+                        $HighlightCount++;
+                        $HighlightCode[$HighlightCount] = $treffer[1];
+                    },
                     $string
                 );
             }
@@ -490,20 +492,19 @@ class Func
             if ($mode != 1) {
                 $string = preg_replace_callback(
                     '#\[c\](.)*\[\/c\]#sUi',
-                    create_function(
-                        '$treffer',
-                        'global $func, $HighlightCode, $HighlightCount2;
+                    function ($treffer) {
+                        global $HighlightCode, $HighlightCount2;
                         $HighlightCount2++;
-                        $geshi = new GeSHi($HighlightCode[$HighlightCount2], \'php\');
+                        $geshi = new GeSHi($HighlightCode[$HighlightCount2], 'php');
                         $geshi->set_header_type(GESHI_HEADER_NONE);
-                        return \'
+                        return '
                             <blockquote>
                                 <div class="tbl_small">Code:</div>
                                 <div class="tbl_7">
                                     \'. $func->AllowHTML(\'<code>\' . $geshi->parse_code() . \'</code>\') .\'
                                 </div>
-                            </blockquote>\';'
-                    ),
+                            </blockquote>';
+                    },
                     $string
                 );
             }
@@ -626,6 +627,7 @@ class Func
     /**
      * @param string $ip
      * @return int
+     * @TODO: Extend to cover IPv6 functionality
      */
     public function checkIP($ip)
     {
@@ -668,7 +670,6 @@ class Func
 
         if ($message == '') {
             echo("Function log_event needs message defined! - Invalid arguments supplied!");
-
         } else {
             if ($sort_tag == '') {
                 $sort_tag = $_GET['mod'];
@@ -704,29 +705,33 @@ class Func
      */
     public function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name)
     {
+        // $current_page is passed as an string, because the source is a GET parameter
+        // it seems that it can contain a string 'all' or a number.
+        // In this function we add numbers to $current_page which
+        // can lead to different results as expected
+        // To avoid this, we cast it to int
+        $currentPageInt = intval($current_page);
         if ($max_entries_per_page > 0 and $overall_entries >= 0 and $working_link != "" and $var_page_name != "") {
             if ($current_page == "all") {
                 $page_sql = "";
                 $page_a = 0;
                 $page_b = $overall_entries;
-
             } else {
-                $page_sql = ("LIMIT " . ($current_page * $max_entries_per_page) . ", " . (int)($max_entries_per_page));
-                $page_a = ($current_page * $max_entries_per_page);
+                $page_sql = ("LIMIT " . ($currentPageInt * $max_entries_per_page) . ", " . (int)($max_entries_per_page));
+                $page_a = ($currentPageInt * $max_entries_per_page);
                 $page_b = ($max_entries_per_page);
             }
 
             if ($overall_entries > $max_entries_per_page) {
                 $page_output = ("Seiten: ");
-                if ($current_page != "all" && ($current_page + 1) > 1) {
-                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($current_page - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
+                if ($current_page != "all" && ($currentPageInt + 1) > 1) {
+                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($currentPageInt - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
                 }
 
                 $i = 0;
                 while ($i < ($overall_entries / $max_entries_per_page)) {
                     if ($current_page == $i && $current_page != "all") {
                         $page_output .= (" " . ($i + 1));
-
                     } else {
                         $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
                     }
@@ -734,8 +739,8 @@ class Func
                     $i++;
                 }
 
-                if ($current_page != "all" && ($current_page + 1) < ($overall_entries/$max_entries_per_page)) {
-                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
+                if ($current_page != "all" && ($currentPageInt + 1) < ($overall_entries/$max_entries_per_page)) {
+                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($currentPageInt + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
                 }
 
                 if ($current_page != "all") {
@@ -754,11 +759,12 @@ class Func
                 'b' => $page_b,
             ];
 
-            return($output);
-
+            return $output;
         } else {
             echo("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
         }
+
+        return [];
     }
 
     /**
@@ -806,7 +812,6 @@ class Func
                         $name .= substr($_FILES[$source_var]['name'], strrpos($_FILES[$source_var]['name'], "."), 5);
                     }
                     $target = $path . $name;
-
                 } else {
                       $target = $path . $_FILES[$source_var]['name'];
                 }
@@ -854,12 +859,10 @@ class Func
                 if (move_uploaded_file($_FILES[$source_var]['tmp_name'], $targetUniq)) {
                       chmod($targetUniq, octdec($config["lansuite"]["chmod_file"]));
                       return $targetUniq;
-
                 } else {
                       echo "Fehler: Datei konnte nicht hochgeladen werden." . HTML_NEWLINE;
                       print_r($_FILES);
                       return 0;
-
                 }
                 break;
         }
@@ -890,7 +893,6 @@ class Func
         $handle = fsockopen('udp://'.$host, 7, $errno, $errstr);
         if (!$handle) {
             return false;
-
         } else {
             // Set read timeout
             socket_set_timeout($handle, 0, $timeout);
@@ -914,7 +916,6 @@ class Func
             if (($laptime * 1000000) > ($timeout * 0.9)) {
                 fclose($handle);
                 return false;
-
             } else {
                 fclose($handle);
                 return true;
@@ -972,11 +973,12 @@ class Func
         if ($imgpath != '' && $imgpath != 'none' && $imgpath != '0') {
             if (is_file($imgpath)) {
                 return 1;
-
             } else {
                 return 0;
             }
         }
+
+        return 0;
     }
 
     /**
@@ -992,14 +994,12 @@ class Func
             $res = $db->qry("SELECT userid FROM %prefix%user WHERE type = 3 LIMIT 1");
             if ($db->num_rows($res) > 0) {
                 $found = 1;
-
             } else {
                 $found = 0;
             }
 
             $db->free_result($res);
             return $found;
-
         } else {
             return 0;
         }
@@ -1019,11 +1019,9 @@ class Func
 
         if ($HardLimit && strlen($str) > $HardLimit) {
             return substr($str, 0, $HardLimit - 2) . '...';
-
         } elseif (strlen($str) > $SoftLimit) {
             preg_match('/[^a-zA-Z0-9]/', substr($str, $SoftLimit, strlen($str)), $ret, PREG_OFFSET_CAPTURE);
             return substr($str, 0, $SoftLimit + $ret[0][1]) . '...';
-
         } else {
             return $str;
         }
@@ -1052,7 +1050,6 @@ class Func
 
         if (!$userid) {
             return 1;
-
         } else {
             $last_read = $db->qry_first('
             SELECT UNIX_TIMESTAMP(date) AS date 
@@ -1061,7 +1058,7 @@ class Func
 
             // Older, than one week
             if ($last_change < (time() - 60 * 60 * 24 * 7)) {
-              return 0;
+                return 0;
 
             // No entry -> Thread completely new
             } elseif (!$last_read['date']) {
@@ -1098,7 +1095,6 @@ class Func
         $search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%lastread WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
         if ($search_read["found"]) {
             $db->qry_first("UPDATE %prefix%lastread SET date = NOW() WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
-
         } else {
             $db->qry_first("INSERT INTO %prefix%lastread SET date = NOW(), tab = %string%, entryid = %int%, userid = %int%", $table, $entryid, $userid);
         }
@@ -1177,7 +1173,8 @@ class Func
      * @param string $caption
      * @return bool
      */
-    public function isModActive($mod, &$caption = '') {
+    public function isModActive($mod, &$caption = '')
+    {
         if (array_key_exists($mod, $this->ActiveModules)) {
             $caption = $this->ActiveModules[$mod];
         }

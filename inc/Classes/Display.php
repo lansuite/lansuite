@@ -71,6 +71,8 @@ class Display
      * @param string $name
      * @param string $mod
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddSmartyTpl($name, $mod = '')
     {
@@ -88,6 +90,8 @@ class Display
      *
      * @param $content
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddContentLine($content)
     {
@@ -97,7 +101,6 @@ class Display
             $smarty->assign('content', $content);
             $MainContent .= $smarty->fetch('design/templates/ls_row_firstline.htm');
             $this->FirstLine = 0;
-
         } else {
             $smarty->assign('content', $content);
             $MainContent .= $smarty->fetch('design/templates/ls_row_line.htm');
@@ -107,10 +110,12 @@ class Display
     /**
      * Writes the headline of a page
      *
-     * @param string    $caption
-     * @param string    $text
-     * @param string    $helplet_id
+     * @param string $caption
+     * @param string $text
+     * @param string $helplet_id
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function NewContent($caption, $text = null, $helplet_id = 'help')
     {
@@ -268,6 +273,8 @@ class Display
      * @param string $parm
      * @param string $class
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddSingleRow($text, $parm = null, $class = '')
     {
@@ -290,6 +297,8 @@ class Display
      * @param string $value
      * @param string $id
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddDoubleRow($key, $value, $id = null)
     {
@@ -484,6 +493,8 @@ class Display
     /**
      * @param array $table
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddTableRow($table)
     {
@@ -492,13 +503,11 @@ class Display
         $rows = '';
         if (!is_array($table)) {
             $func->error(t('AddTableRow: First argument needs to be array'));
-
         } else {
             foreach ($table as $y => $row) {
                 $cells = '';
                 if (!is_array($row)) {
                     $func->error(t('AddTableRow: First argument needs to be 2-dimension-array'));
-
                 } else {
                     foreach ($row as $x => $cell) {
                         if ($cell['link']) {
@@ -613,6 +622,8 @@ class Display
      * @param boolean $optional
      * @param string $maxchar
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddTextAreaPlusRow($name, $key, $value, $errortext, $cols = null, $rows = null, $optional = null, $maxchar = null)
     {
@@ -834,18 +845,20 @@ class Display
     }
 
     /**
-     * @param string    $name
-     * @param string    $key
-     * @param int       $time
-     * @param string    $errortext
-     * @param array     $values
-     * @param array     $disableds
-     * @param int       $start_year
-     * @param int       $end_year
-     * @param int       $hidetime       0 =  All visible / 1 = Hide Time / 2 = Hide Date
-     * @param boolean   $optional
-     * @param string    $additional
+     * @param string $name
+     * @param string $key
+     * @param int $time
+     * @param string $errortext
+     * @param array $values
+     * @param array $disableds
+     * @param int $start_year
+     * @param int $end_year
+     * @param int $hidetime 0 =  All visible / 1 = Hide Time / 2 = Hide Date
+     * @param boolean $optional
+     * @param string $additional
      * @return void
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function AddDateTimeRow($name, $key, $time, $errortext, $values = null, $disableds = null, $start_year = null, $end_year = null, $hidetime = null, $optional = null, $additional = null)
     {
@@ -864,14 +877,12 @@ class Display
             $year = date("Y", $time);
             $hour = date("H", $time);
             $min = date("i", $time);
-
         } elseif ($values['day'] != "" and $values['month'] != "" and $values['year'] != "") {
             $day = $values['day'];
             $month = $values['month'];
             $year = $values['year'];
             $hour = $values['hour'];
             $min = $values['min'];
-
         } else {
             $day = date("d");
             $month = date("m");
@@ -1036,10 +1047,8 @@ class Display
         $maxfilesize = ini_get('upload_max_filesize');
         if (strpos($maxfilesize, 'M') > 0) {
             $maxfilesize = (int)$maxfilesize * 1024 * 1024;
-
         } elseif (strpos($maxfilesize, 'K') > 0) {
             $maxfilesize = (int)$maxfilesize * 1024;
-
         } else {
             $maxfilesize = (int)$maxfilesize;
         }
@@ -1139,7 +1148,7 @@ class Display
      */
     public function FetchAttachmentRow($file)
     {
-        $gd = new gd();
+        $gd = new GD();
 
         $FileEnding = strtolower(substr($file, strrpos($file, '.'), 5));
 
@@ -1149,7 +1158,6 @@ class Display
 
             $gd->CreateThumb($file, $FileThumb, '300', '300');
             return HTML_NEWLINE . HTML_NEWLINE. '<a href="'. $file .'" target="_blank"><img src="'. $FileThumb .'" border="0" /></a>';
-
         }
 
         return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon('download', $file) .' ('. t('Angehängte Datei herunterladen').')';
@@ -1210,8 +1218,10 @@ class Display
      * @param string $target
      * @param string $align
      * @return string
+     * @throws \Exception
+     * @throws \SmartyException
      */
-    public function FetchIcon($picname, $link, $hint = null, $target = null, $align = 'left')
+    public function FetchIcon($picname, $link = '', $hint = null, $target = null, $align = 'left')
     {
         global $smarty;
 
@@ -1278,6 +1288,8 @@ class Display
      * @param int $userid
      * @param string $username
      * @return string
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function FetchUserIcon($userid, $username = '')
     {

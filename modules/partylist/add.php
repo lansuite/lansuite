@@ -1,4 +1,5 @@
 <?php
+
 $dsp->NewContent(t('Party eintragen'), t('Hier kannst du deine Party der Liste hinzufügen'));
 
 $mf = new \LanSuite\MasterForm();

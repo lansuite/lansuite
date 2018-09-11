@@ -1,25 +1,7 @@
 <?php
 
-/**
- * getColor is used as a mastersearch callback function
- *
- * @return string
- */
-function getColor()
-{
-    global $line;
-    
-    if ($line['my']) {
-        return "<font color='red'>-".number_format($line['movement'], 2, ',', '.') . " EUR</font>";
-    }
-    if (!$line['my']) {
-        return "<font color='green'>+".number_format($line['movement'], 2, ',', '.') . " EUR</font>";
-    }
-}
-
 if ($_GET['act'] == "him" && $auth['type'] < 3) {
     $func->information("ACCESS_DENIED");
-
 } elseif ($_GET['act'] == "him" && $auth['type'] = 3) {
     switch ($_GET['step']) {
         case 2:
@@ -66,7 +48,7 @@ if (!$_GET['act'] || ($_GET['act'] && $_GET['step'] == 2)) {
     $ms2->AddSelect('a.fromUserid');
     $ms2->AddSelect("IF(a.fromUserid = {$userid},'1','0') AS my");
     $ms2->AddResultField(t('Bearbeiter'), 'fu.username', 'UserNameAndIcon');
-    $ms2->AddResultField(t('Betrag'), 'a.movement', 'getColor');
+    $ms2->AddResultField(t('Betrag'), 'a.movement', 'GetColor');
 
     $ms2->PrintSearch('index.php?mod=cashmgr&action=myaccounting', 'a.id');
 }

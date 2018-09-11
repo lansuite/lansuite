@@ -1,18 +1,5 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	 2.0
-*	File Version:		 2.0
-*	Filename: 			add.php
-*	Module: 			Troubleticket
-*	Main editor: 		denny@esa-box.de
-*	Last change:
-*	Description: 		Adds a troubleticket by user to the system
-*	Remarks:
-*
-**************************************************************************
+/**
 *
 * Database "Status" and "Priotity" structure
 *
@@ -34,7 +21,6 @@
 *
 */
 
-
 switch ($_GET["step"]) {
     case 2:
         if (strlen($_POST["tticket_text"]) > 5000) {
@@ -54,7 +40,6 @@ switch ($_GET["step"]) {
         break;
 }
 
-
 switch ($_GET["step"]) {
     default:
         $dsp->NewContent(t('Troubleticket hinzufügen'), t(' Mit diesem Formular kannst du ein Troubleticket hinzufügen, falls du ein Problem hast'));
@@ -62,7 +47,7 @@ switch ($_GET["step"]) {
 
         $dsp->AddTextFieldRow("tticket_desc", t('Beschreibung'), $_POST['tticket_desc'], $error["tticket_desc"]);
 
-        $t_cat = $db->qry("SELECT *FROM %prefix%troubleticket_cat");
+        $t_cat = $db->qry("SELECT * FROM %prefix%troubleticket_cat");
         
         if ($db->num_rows($t_cat) > 0) {
             $t_cat_array[] = "<option value=\"0\">".t('Bitte Auswählen')."</option>";
@@ -127,25 +112,25 @@ switch ($_GET["step"]) {
         }
         
                 
-        $db->qry("INSERT INTO %prefix%troubleticket SET
-    created = %string%,
-    verified = %string%,
-    process = '',
-    finished = '',
-    status = %string%,
-    processstatus = '0',
-    priority = %string%,
-    origin_userid = %int%,
-    target_userid = %int%,
-    orgaonly = %string%,
-    caption = %string%,
-    text = %string%,
-    orgacomment = '',
-    publiccomment = %string%,
-    cat = %string%
-    ", $czeit, $vzeit, $ticketstatus, $_POST["tticket_priority"], $auth["userid"], $target_userid, $_POST["orgaonly"], $_POST["tticket_desc"], $_POST["tticket_text"], $pubcomment, $_POST["tticket_cat"]);
+        $db->qry("
+          INSERT INTO %prefix%troubleticket
+          SET
+            created = %string%,
+            verified = %string%,
+            process = '',
+            finished = '',
+            status = %string%,
+            processstatus = '0',
+            priority = %string%,
+            origin_userid = %int%,
+            target_userid = %int%,
+            orgaonly = %string%,
+            caption = %string%,
+            text = %string%,
+            orgacomment = '',
+            publiccomment = %string%,
+            cat = %string%", $czeit, $vzeit, $ticketstatus, $_POST["tticket_priority"], $auth["userid"], $target_userid, $_POST["orgaonly"], $_POST["tticket_desc"], $_POST["tticket_text"], $pubcomment, $_POST["tticket_cat"]);
 
-        
         if ($cat_data['orga'] > 0 && isset($_POST["tticket_cat"]) && $_POST["tticket_cat"] > 0) {
             $func->setainfo(t('dir wurde das Troubleticket "<b>%1</b>"zugewiesen. ', $_POST["tticket_desc"]), $cat_data['orga'], 1, "troubleticket", $db->insert_id());
         }

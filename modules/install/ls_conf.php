@@ -1,7 +1,8 @@
 <?php
 
-include_once('modules/install/class_install.php');
-$install = new Install();
+$importXml = new \LanSuite\XML();
+$installImport = new \LanSuite\Module\Install\Import($importXml);
+$install = new \LanSuite\Module\Install\Install($installImport);
 
 switch ($_GET["step"]) {
     case 2:
@@ -52,7 +53,7 @@ switch ($_GET["step"]) {
             $_POST["prefix"] = $config['database']['prefix'];
         }
 
-        #### Database Access
+        // Database Access
         $dsp->AddSingleRow("<b>". t('Datenbank-Zugangsdaten') ."</b>");
         $dsp->AddTextFieldRow("host", t('Host (Server-IP)'), $_POST["host"], "");
         $dsp->AddTextFieldRow("user", t('Benutzername'), $_POST["user"], "");
@@ -60,7 +61,7 @@ switch ($_GET["step"]) {
         $dsp->AddTextFieldRow("database", t('Datenbank'), $_POST["database"], "");
         $dsp->AddTextFieldRow("prefix", t('Tabellen-Prefix'), $_POST["prefix"], "");
 
-        #### Default Design
+        // Default Design
         // Open the design-dir
         $design_dir = opendir("design/");
 
@@ -70,11 +71,16 @@ switch ($_GET["step"]) {
             if ($akt_design != "." and $akt_design != ".." and $akt_design != ".svn" and $akt_design != "templates" and $akt_design != "style.css") {
                 $file = "design/$akt_design/design.xml";
                 if (file_exists($file)) {
-                // Read Names from design.xml
+                    // Read Names from design.xml
                     $xml_file = fopen($file, "r");
                     $xml_content = fread($xml_file, filesize($file));
                     if ($xml_content != "") {
-                        ($config['lansuite']['default_design'] == $akt_design) ? $selected = "selected" : $selected = "";
+                        if ($config['lansuite']['default_design'] == $akt_design) {
+                            $selected = 'selected';
+                        } else {
+                            $selected = '';
+                        }
+                        $xml = new \LanSuite\XML();
                         array_push($t_array, "<option $selected value=\"$akt_design\">". $xml->get_tag_content("name", $xml_content) ."</option>");
                     }
                     fclose($xml_file);

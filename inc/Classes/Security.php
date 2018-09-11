@@ -17,7 +17,6 @@ class Security
         }
 
         if ($cfg['reload_limit']) {
-
             // Reload blacklist
             if (!$cfg['reload_time']) {
                 $cfg['reload_time'] = 600;
@@ -91,7 +90,6 @@ class Security
 
         if ($_SESSION["lock_$module"]) {
             $locked = true;
-
         } else {
             $row = $db->qry_first('
               SELECT 1 AS found 
@@ -102,7 +100,6 @@ class Security
 
             if ($row['found']) {
                 $locked = true;
-
             } else {
                 $locked = false;
             }

@@ -1,7 +1,8 @@
 <?php
 
-include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
+use LanSuite\Module\Seating\Seat2;
+
+$seat2 = new Seat2();
 
 // Errors
 if ($_GET['step'] > 1 and (!$_GET['userid'])) {
@@ -31,17 +32,35 @@ if ($_GET['step'] == 10 and $_GET['quest']) {
 
 // Select seat and user infos
 if ($_GET['blockid'] and isset($_GET['row']) and isset($_GET['col'])) {
-    $seat = $db->qry_first("SELECT s.userid, s.status, u.username, u.firstname, u.name FROM %prefix%seat_seats AS s
-  LEFT JOIN %prefix%user AS u ON s.userid = u.userid
-  WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
+    $seat = $db->qry_first("
+      SELECT
+        s.userid,
+        s.status,
+        u.username,
+        u.firstname,
+        u.name
+      FROM %prefix%seat_seats AS s
+      LEFT JOIN %prefix%user AS u ON s.userid = u.userid
+      WHERE
+        blockid = %int%
+        AND row = %string%
+        AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 }
 
 if ($_GET['userid']) {
-    $new_user = $db->qry_first("SELECT u.userid, u.username, u.firstname, u.name, pu.paid FROM %prefix%user AS u
-								LEFT JOIN %prefix%party_user AS pu ON pu.user_id = u.userid
-								WHERE userid = %int% AND pu.party_id = %int%", $_GET['userid'], $party->party_id);
+    $new_user = $db->qry_first("
+      SELECT
+        u.userid,
+        u.username,
+        u.firstname,
+        u.name,
+        pu.paid
+      FROM %prefix%user AS u
+      LEFT JOIN %prefix%party_user AS pu ON pu.user_id = u.userid
+      WHERE
+        userid = %int%
+        AND pu.party_id = %int%", $_GET['userid'], $party->party_id);
 }
-
 
 switch ($_GET['step']) {
     default:
@@ -59,26 +78,23 @@ switch ($_GET['step']) {
 
     case 3:
         $dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahre mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
-
         $dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}"));
-
         $dsp->AddBackButton("index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}", 'seating/seatadmin');
         break;
 
     // Reserve seat - questions
     case 10:
         switch ($seat['status']) {
-            case 0:    // Seat unavailable
+            // Seat unavailable
+            case 0:
             case '':
                 $func->error(t('Dieser Sitzplatz existiert nicht'), "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}");
                 break;
 
-            case 1:    // Seat free, or just marked -> ask if reserve, or mark
+            // Seat free, or just marked -> ask if reserve, or mark
+            case 1:
             case 3:
                 if (!$_GET['quest']) {
-                //$User = $db->qry_first("SELECT username FROM %prefix%user
-                 //		WHERE userid = %int%", $_GET['userid']);
-                    
                     $questionarray = array();
                     $linkarray = array();
                     if ($new_user['paid'] == 0) {
@@ -98,7 +114,8 @@ switch ($_GET['step']) {
                 }
                 break;
 
-            case 2:    // Seat occupied -> show action selection
+            // Seat occupied -> show action selection
+            case 2:
                 if (!$_GET['quest']) {
                     // Selected users own seat
                     if ($seat['userid'] == $_GET['userid']) {

@@ -1,10 +1,4 @@
 <?php
-/*
- * Created on 12.02.2009
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
 
 $dsp->NewContent(t('Shoutbox'), t('Shoutbox History'));
 

@@ -1,14 +1,30 @@
 <?php
 
-include_once('modules/poll/class_poll.php');
-$poll = new poll;
+$poll = new LanSuite\Module\Poll\Poll();
 
-$pollrow = $db->qry_first('SELECT pollid, caption, comment, UNIX_TIMESTAMP(endtime) AS endtime, multi, anonym FROM %prefix%polls
-  WHERE (!group_id OR group_id = %int%)
+$pollrow = $db->qry_first('
+  SELECT
+    pollid,
+    caption,
+    comment,
+    UNIX_TIMESTAMP(endtime) AS endtime,
+    multi, anonym
+  FROM %prefix%polls
+  WHERE 
+    (
+      !group_id
+      OR group_id = %int%
+    )
   ORDER BY RAND() LIMIT 1', $auth['group_id']);
-$voted = $db->qry_first('SELECT 1 AS found FROM %prefix%polloptions AS o
+
+$voted = $db->qry_first('
+  SELECT
+    1 AS found
+  FROM %prefix%polloptions AS o
   INNER JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
-  WHERE o.pollid = %int% AND v.userid = %int%', $pollrow['pollid'], $auth['userid']);
+  WHERE
+    o.pollid = %int%
+    AND v.userid = %int%', $pollrow['pollid'], $auth['userid']);
 
 $box->DotRow('<b>'. $pollrow['caption'] .'</b>');
 

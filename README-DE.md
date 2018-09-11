@@ -37,7 +37,13 @@ $ # Füge den Inhalt der Beispiel-Konfiguration (siehe unten) in ./inc/base/conf
 $ chmod 0777 ./inc/base/config.php
 $ chmod -R 0777 ./ext_inc/
 $ docker-compose up
+$ docker-compose run php composer install
 ```
+
+Hinweis: 
+Einige Distributionen (e.g. Fedora) erlauben nur dem Benutzer `root` Zugriff auf den Socket für den Docker Daemon.
+Dies resultiert in einer Fehlermeldung wie `ERROR: Couldn't connect to Docker daemon at http+docker://localunixsocket - is it running?` 
+In diesem Fall  müssen die beiden `docker-compose` Befehle als Benutzer `root` (über `su` oder `sudo`) ausgeführt werden.
 
 Die Befehlsreihenfolge startet nun einen [Nginx webserver](https://nginx.org/) mit einer [php-fpm](https://secure.php.net/manual/en/install.fpm.php) Konfiguration und einer [MySQL Datenbank](https://www.mysql.com/).
 Wenn alles gestartet wurde, besuche http://<Your-Docker-IP>:8080/ und du siehst ein Einsatzbereites LANSuite-System.

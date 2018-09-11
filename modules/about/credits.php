@@ -1,5 +1,5 @@
 <?php
-$dsp->NewContent($config['lansuite']['version'], 'A web based lanparty administration tool');
+$dsp->NewContent(LANSUITE_VERSION, 'A web based lanparty administration tool');
 
 $dsp->AddSingleRow('<b>Contact</b>', 'align="center"');
 $dsp->AddSingleRow('internet: <a href="http://www.lansuite.de" target="_blank">http://www.lansuite.de</a><br />
@@ -33,7 +33,6 @@ $dsp->AddSingleRow('an alle aktiven User im Board<br />
 <a href="http://blog.one-network.org" target="_blank">OpenSource Intranet Blog (http://blog.one-network.org</a>)<br />
 an alle Dokuschreiber<br />
 <a href="http://lansuite-docu.orgapage.de" target="_blank">OpenSource Intranet Blog (http://lansuite-docu.orgapage.de</a>)<br />
-Lansurfer.com<br />
 Gigahertz Rent GmbH <br />
 WWCL (http://www.wwcl.de) <br />
 MySQL-Crew<br />

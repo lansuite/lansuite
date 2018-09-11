@@ -14,7 +14,7 @@ while ($row = $db->fetch_array($res)) {
     $smarty->assign('text2', '');
     $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
-$db->free_result($row);
+$db->free_result($res);
 $smarty->assign('content', $content);
 $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
 
@@ -30,7 +30,7 @@ while ($row = $db->fetch_array($res)) {
     $smarty->assign('text2', '');
     $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
-$db->free_result($row);
+$db->free_result($res);
 $smarty->assign('content', $content);
 $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
 
@@ -41,8 +41,14 @@ $MainContent .= '<li class="LineLeftHalf">';
 
 $smarty->assign('caption', t('Die neusten Kommentare'));
 $content = '';
-$res = $db->qry('SELECT name, UNIX_TIMESTAMP(date) as date FROM %prefix%picgallery AS p
-  LEFT JOIN %prefix%comments AS c ON p.picid = c.relatedto_id AND c.relatedto_item = \'Picgallery\'
+$res = $db->qry('
+  SELECT
+    name,
+    UNIX_TIMESTAMP(date) AS date
+  FROM %prefix%picgallery AS p
+  LEFT JOIN %prefix%comments AS c ON
+    p.picid = c.relatedto_id
+    AND c.relatedto_item = \'Picgallery\'
   ORDER BY c.date DESC
   LIMIT 10');
 while ($row = $db->fetch_array($res)) {
@@ -51,7 +57,7 @@ while ($row = $db->fetch_array($res)) {
     $smarty->assign('text2', '');
     $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
-$db->free_result($row);
+$db->free_result($res);
 $smarty->assign('content', $content);
 $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
 
@@ -60,8 +66,14 @@ $MainContent .= '<li class="LineRightHalf">';
 
 $smarty->assign('caption', t('Die meisten Kommentare'));
 $content = '';
-$res = $db->qry('SELECT name, COUNT(*) AS count FROM %prefix%picgallery AS p
-  LEFT JOIN %prefix%comments AS c ON p.picid = c.relatedto_id AND c.relatedto_item = \'Picgallery\'
+$res = $db->qry('
+  SELECT
+    name,
+    COUNT(*) AS count
+  FROM %prefix%picgallery AS p
+  LEFT JOIN %prefix%comments AS c ON
+    p.picid = c.relatedto_id
+    AND c.relatedto_item = \'Picgallery\'
   GROUP BY c.relatedto_id
   ORDER BY count DESC
   LIMIT 10');
@@ -71,7 +83,7 @@ while ($row = $db->fetch_array($res)) {
     $smarty->assign('text2', '');
     $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
-$db->free_result($row);
+$db->free_result($res);
 $smarty->assign('content', $content);
 $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
 

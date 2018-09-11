@@ -1,18 +1,4 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		delete_cat.php
-*	Module: 		FAQ
-*	Main editor: 		Micheal@one-network.org
-*	Last change: 		29.03.2003 18:56
-*	Description: 		Removes Faq Data
-*	Remarks:
-*
-**************************************************************************/
 
 switch ($_GET["step"]) {
     default:
@@ -25,9 +11,8 @@ switch ($_GET["step"]) {
         if ($get_catname["name"] != "") {
             $func->question(t('Bist du sicher, dass du die Kategorie  <b> %1 </b> und die darin enthaltenen Fragen wirklich löschen willst?', $get_catname['name']), "index.php?mod=faq&object=cat&action=delete_cat&catid={$_GET['catid']}&step=3", "index.php?mod=faq&object=cat&action=delete_cat");
         } else {
-                $func->error(t('Diese Kategorie existiert nicht'));
+            $func->error(t('Diese Kategorie existiert nicht'));
         }
-    
         break;
     
     case 3:
@@ -42,11 +27,9 @@ switch ($_GET["step"]) {
             } else {
                 $func->error("DB_ERROR");
             }
-        } //if
-        
-        else {
+        } else {
             $func->error(t('Diese Kategorie existiert nicht'));
         }
     
         break;
-} // close switch step
+}

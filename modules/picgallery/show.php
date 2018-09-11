@@ -2,56 +2,11 @@
 
 $gd = new \LanSuite\GD();
 
-# Forbid changedir to upper directories
+// Forbid changedir to upper directories
 $_GET['file'] = str_replace('/..', '', $_GET['file']);
 $_GET['file'] = str_replace('\\..', '', $_GET['file']);
 
 $icon_dir = "ext_inc/picgallery_icon/";
-
-function IsSupportedVideo($ext)
-{
-    if (($ext == "mp4") or ($ext == "mpg") or ($ext == "mpeg") or ($ext == "ogv")) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-// Returns, wheather the supplied extension is supported, or not.
-function IsSupportedType($ext)
-{
-    $ext = strtolower($ext);
-    if ((($ext == "jpeg" or $ext == "jpg") and (ImageTypes() & IMG_JPG))
-    or ($ext == "png" and (ImageTypes() & IMG_PNG))
-    or ($ext == "gif" and (ImageTypes() & IMG_GIF))
-    or ($ext == "wbmp" and (ImageTypes() & IMG_WBMP))
-    or ($ext == "bmp")
-    or (IsSupportedVideo($ext))
-#	or ($ext == "ico")		// Problem: "Die" in target-function + most Browsers can not display this type
-#	or ($ext == "cur")		// Problem: "Die" in target-function + most Browsers can not display this type
-#	or ($ext == "ani")		// Problem: "Die" in target-function + most Browsers can not display this type
-    ) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function IsPackage($ext)
-{
-    $ext = strtolower($ext);
-    if (($ext == "zip")
-    or ($ext == "tar")
-    or ($ext == "rar")
-    or ($ext == "ace")
-    or ($ext == "gz")
-    or ($ext == "bz")
-    ) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 // If a new gallery should be created
 if ($_POST['gallery_name']) {
@@ -101,8 +56,9 @@ if ($_POST["file_name"] and ($auth['type'] >= 2 or $cfg['picgallery_allow_user_n
 // GD-Check
 if (!$gd->available) {
     $func->error(t('Kein GD installiert'));
-} // Wenn keine Datei ausgewählt ist: Übersicht
-elseif (!$akt_file) {
+
+// Wenn keine Datei ausgewählt ist: Übersicht
+} elseif (!$akt_file) {
     unset($_SESSION['klick_reload']);
     unset($klick_reload);
 
@@ -157,7 +113,7 @@ elseif (!$akt_file) {
         }
         closedir($handle);
 
-    // Sort by Name
+        // Sort by Name
         sort($dir_list);
         sort($file_list);
     }
@@ -233,11 +189,18 @@ elseif (!$akt_file) {
                     }
                     $smarty->assign('file_name', $file_name);
 
-                    $pic = $db->qry_first("SELECT p.picid, p.caption, p.clicks, COUNT(*) AS comments FROM %prefix%picgallery AS p
-       LEFT JOIN %prefix%comments AS c ON p.picid = c.relatedto_id
-            WHERE p.name = %string% AND c.relatedto_item = 'Picgallery'
-       GROUP BY p.picid
-            ", $db_dir . $file);
+                    $pic = $db->qry_first("
+                      SELECT
+                        p.picid,
+                        p.caption,
+                        p.clicks,
+                        COUNT(*) AS comments
+                      FROM %prefix%picgallery AS p
+                      LEFT JOIN %prefix%comments AS c ON p.picid = c.relatedto_id
+                      WHERE
+                        p.name = %string%
+                        AND c.relatedto_item = 'Picgallery'
+                      GROUP BY p.picid", $db_dir . $file);
                     ($pic['caption']) ? $caption = $pic['caption'] : $caption = "<i>Unbenannt</i>";
                     $smarty->assign('caption', $caption);
 
@@ -250,7 +213,7 @@ elseif (!$akt_file) {
                     }
                     $smarty->assign('buttons', $buttons);
 
-          // Videos
+                    // Videos
                     if (IsSupportedVideo($extension)) {
                         $smarty->assign('pic_width', $cfg["picgallery_max_width"]);
                         $smarty->assign('pic_height', $cfg["picgallery_max_height"]);
@@ -392,11 +355,17 @@ elseif (!$akt_file) {
             $extension =  strtolower(substr($root_file, strrpos($root_file, ".") + 1, 4));
 
             // Select pic data
-            $pic = $db->qry_first("SELECT p.picid, p.userid, p.caption, p.clicks, u.userid, u.username
-    FROM %prefix%picgallery AS p
-    LEFT JOIN %prefix%user AS u ON p.userid = u.userid
-    WHERE p.name = %string%
-    ", $db_dir);
+            $pic = $db->qry_first("
+              SELECT
+                p.picid,
+                p.userid,
+                p.caption,
+                p.clicks,
+                u.userid,
+                u.username
+              FROM %prefix%picgallery AS p
+              LEFT JOIN %prefix%user AS u ON p.userid = u.userid
+              WHERE p.name = %string%", $db_dir);
 
             if (!$_SESSION["click_reload"][$db_dir]) {
                 $db->qry("UPDATE %prefix%picgallery SET clicks = clicks + 1 WHERE name = %string%", $db_dir);
@@ -407,7 +376,7 @@ elseif (!$akt_file) {
                 $dsp->AddDoubleRow(t('Bildname'), $pic['caption']);
             }
 
-      // Videos
+            // Videos
             if (IsSupportedVideo($extension)) {
                 $dsp->AddDoubleRow("", '<video width="450" height="350" src="'. $root_file .'" autobuffer autoplay controls>
           <div class="video-fallback"><br>Du benötigst einen Browser, der HTML5 unterstützt.</div>
@@ -424,7 +393,7 @@ elseif (!$akt_file) {
 
                 $js_full_link = "javascript:var w=window.open('$root_file','_blank','width=". ($picinfo['0'] + 10) .",height=". ($picinfo['1'] + 10) .",resizable=yes,scrollbars=yes')";
 
-                  //					JPG						PNG						GIF						BMP
+                  // JPG, PNG, GIF, BMP
                 if ($picinfo['2'] == "1" or $picinfo['2'] == "2" or $picinfo['2'] == "3" or $picinfo['2'] == "6") {
                     $dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
                 }

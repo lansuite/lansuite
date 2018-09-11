@@ -1,7 +1,9 @@
 <?php
 
-include_once("modules/tournament2/class_tournament.php");
-$tfunc = new tfunc;
+$mail = new \LanSuite\Module\Mail\Mail();
+$seat2 = new \LanSuite\Module\Seating\Seat2();
+
+$tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
 $headermenuitem    = $_GET['headermenuitem'];
 
@@ -9,15 +11,22 @@ if ($headermenuitem == "") {
     $headermenuitem = 1;
 }
 
-$tournament = $db->qry_first("SELECT t.*, a.username AS techadmin_name, r.username AS tournamentadmin_name, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments AS t    
-    LEFT JOIN %prefix%user AS r ON t.tournamentadmin = r.userid
-    LEFT JOIN %prefix%user AS a ON t.techadmin = a.userid
-    WHERE tournamentid = %int%", $_GET['tournamentid']);
+$tournament = $db->qry_first("
+  SELECT
+    t.*,
+    a.username AS techadmin_name,
+    r.username AS tournamentadmin_name,
+    UNIX_TIMESTAMP(starttime) AS starttime
+  FROM %prefix%tournament_tournaments AS t    
+  LEFT JOIN %prefix%user AS r ON t.tournamentadmin = r.userid
+  LEFT JOIN %prefix%user AS a ON t.techadmin = a.userid
+  WHERE
+    tournamentid = %int%", $_GET['tournamentid']);
 if (!$tournament["tournamentid"]) {
     $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
 } else {
     switch ($_GET['step']) {
-    // Shuffle maps
+        // Shuffle maps
         case 20:
             if ($auth['type'] <= 1) {
                 $func->information('ACCESS_DENIED');
@@ -31,9 +40,24 @@ if (!$tournament["tournamentid"]) {
     }
   
     switch ($_GET['step']) {
-        case 10:    // Activate Seeding
-            $seeded = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%t2_teams WHERE (tournamentid = %int%) AND (seeding_mark = '1') GROUP BY tournamentid", $_GET['tournamentid']);
-            $team = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%t2_teams WHERE (tournamentid = %int%) GROUP BY tournamentid", $_GET['tournamentid']);
+        // Activate Seeding
+        case 10:
+            $seeded = $db->qry_first("
+              SELECT
+                COUNT(*) AS anz
+              FROM %prefix%t2_teams
+              WHERE
+                (tournamentid = %int%)
+                AND (seeding_mark = '1')
+              GROUP BY tournamentid", $_GET['tournamentid']);
+
+            $team = $db->qry_first("
+              SELECT
+                COUNT(*) AS anz
+              FROM %prefix%t2_teams
+              WHERE
+                (tournamentid = %int%)
+              GROUP BY tournamentid", $_GET['tournamentid']);
 
             if (($seeded['anz']+1) > ($team['anz'] / 2)) {
                 $func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkiere zuerst ein Team, bevor du ein weiteres markierst'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
@@ -43,23 +67,19 @@ if (!$tournament["tournamentid"]) {
             }
             break;
 
-        case 11:    // Deaktivate Seeding
+        // Deaktivate Seeding
+        case 11:
             $db->qry("UPDATE %prefix%t2_teams SET seeding_mark = '0' WHERE (teamid = %int%)", $_GET['teamid']);
             $func->confirmation(t('Das Team wurde demarkiert.'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
             break;
 
-        default:    // Show details
+        // Show details
+        default:
             $dsp->NewContent(t('Turnier %1', $tournament['name']), t('Hier findest du Informationen zu diesem Turnier und kannst dich anmelden'));
 
-            /*$menunames[1] = t('Turnierinfos');
-            $menunames[2] = t('Angemeldete Teams');
-            $dsp->AddHeaderMenu($menunames, "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}", $headermenuitem);
-            */
             $dsp->StartTabs();
-                
-                $dsp->StartTab(t('Turnierinfos'), 'details');
-                
-                    $dsp->AddDoubleRow(t('Turniername'), $tournament['name']);
+            $dsp->StartTab(t('Turnierinfos'), 'details');
+            $dsp->AddDoubleRow(t('Turniername'), $tournament['name']);
 
             if (($tournament['icon']) && ($tournament['icon'] != "none")) {
                 $icon = "<img src=\"ext_inc/tournament_icons/{$tournament['icon']}\" alt=\"Icon\"> ";
@@ -67,9 +87,9 @@ if (!$tournament["tournamentid"]) {
             if ($tournament['version'] == "") {
                 $tournament['version'] = "<i>".t('unbekannt')."</i>";
             }
-                    $dsp->AddDoubleRow(t('Spiel'), $icon . $tournament['game'] ." (".t('Version').": ". $tournament['version'] .")");
+            $dsp->AddDoubleRow(t('Spiel'), $icon . $tournament['game'] ." (".t('Version').": ". $tournament['version'] .")");
 
-                    $league = "";
+            $league = "";
             if ($tournament['wwcl_gameid'] != 0) {
                 $league .= ", <img src=\"ext_inc/tournament_icons/leagues/wwcl.png\" alt=\"WWCL\">";
             }
@@ -96,7 +116,7 @@ if (!$tournament["tournamentid"]) {
             } else {
                 $blind_draw = "";
             }
-                    $dsp->AddDoubleRow(t('Spiel-Modus'), $modus .", ". $tournament['teamplayer'] ." ".t('gegen')." ". $tournament['teamplayer'] . $blind_draw . $league);
+            $dsp->AddDoubleRow(t('Spiel-Modus'), $modus .", ". $tournament['teamplayer'] ." ".t('gegen')." ". $tournament['teamplayer'] . $blind_draw . $league);
 
             if ($tournament['tournamentadmin']) {
                 $dsp->AddDoubleRow(t('Turniermanagement'), $dsp->FetchUserIcon($tournament['tournamentadmin'], $tournament['tournamentadmin_name']));
@@ -138,30 +158,36 @@ if (!$tournament["tournamentid"]) {
             if ($tournament['status'] == "process") {
                 $status = "<div class=\"tbl_error\">".t('Partien werden gespielt')."</div>";
             }
-                    $dsp->AddDoubleRow(t('Status'), $status);
+            $dsp->AddDoubleRow(t('Status'), $status);
 
-                    ($tournament['groupid'] == 0) ?
-                        $dsp->AddDoubleRow(t('Turniergruppe'), t('Dieses Turnier wurde keiner Gruppe zugeordnet. Jeder darf teilnehmen.'))
-                        : $dsp->AddDoubleRow(t('Turniergruppe'), t('Dieses Turnier wurde der Gruppe %1 zugeordnet. Es düfen sich nur Spieler anmelden, welche nicht bereits zu einem anderen Turnier der Gruppe %1 angemeldet sind.', $tournament['groupid']));
+            ($tournament['groupid'] == 0) ?
+                $dsp->AddDoubleRow(t('Turniergruppe'), t('Dieses Turnier wurde keiner Gruppe zugeordnet. Jeder darf teilnehmen.'))
+                : $dsp->AddDoubleRow(t('Turniergruppe'), t('Dieses Turnier wurde der Gruppe %1 zugeordnet. Es düfen sich nur Spieler anmelden, welche nicht bereits zu einem anderen Turnier der Gruppe %1 angemeldet sind.', $tournament['groupid']));
 
             if ($auth['userid'] != '') {
                 if ($tournament['coins'] == 0) {
                     $dsp->AddDoubleRow(t('Coin-Kosten'), t('Für dieses Turnier werden keine Coins benötigt'));
                 } else {
-                    $team_coin = $db->qry_first("SELECT SUM(t.coins) AS t_coins
-         FROM %prefix%tournament_tournaments AS t
-         INNER JOIN %prefix%t2_teams AS teams ON t.tournamentid = teams.tournamentid
-         WHERE (teams.leaderid = %int%)
-         AND t.party_id=%int% 
-         GROUP BY teams.leaderid
-         ", $auth["userid"], $party->party_id);
-                    $member_coin = $db->qry_first("SELECT SUM(t.coins) AS t_coins
-         FROM %prefix%tournament_tournaments AS t
-         INNER JOIN %prefix%t2_teammembers AS members ON t.tournamentid = members.tournamentid
-         WHERE (members.userid = %int%)
-         AND t.party_id=%int% 
-         GROUP BY members.userid
-         ", $auth["userid"], $party->party_id);
+                    $team_coin = $db->qry_first("
+                      SELECT
+                        SUM(t.coins) AS t_coins
+                      FROM %prefix%tournament_tournaments AS t
+                      INNER JOIN %prefix%t2_teams AS teams ON t.tournamentid = teams.tournamentid
+                      WHERE
+                        (teams.leaderid = %int%)
+                        AND t.party_id=%int% 
+                      GROUP BY teams.leaderid", $auth["userid"], $party->party_id);
+
+                    $member_coin = $db->qry_first("
+                      SELECT
+                        SUM(t.coins) AS t_coins
+                      FROM %prefix%tournament_tournaments AS t
+                      INNER JOIN %prefix%t2_teammembers AS members ON t.tournamentid = members.tournamentid
+                      WHERE
+                        (members.userid = %int%)
+                        AND t.party_id=%int% 
+                      GROUP BY members.userid", $auth["userid"], $party->party_id);
+
                     (($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']) < $tournament['coins']) ?
                           $coin_out = t('Das Anmelden kostet %COST% Coins, du besitzt jedoch nur %IS% Coins!')
                           : $coin_out = t('Das Anmelden kostet %COST% Coins. Du besitzen noch: %IS% Coins');
@@ -170,27 +196,24 @@ if (!$tournament["tournamentid"]) {
                 }
             }
 
-                    ($tournament['over18']) ?
-                        $dsp->AddDoubleRow(t('U18-Sperre'), t('Nur zugänglich für Spieler aus Über-18-Blöcken'))
-                        : $dsp->AddDoubleRow(t('U18-Sperre'), t('Keine Sperre'));
+            ($tournament['over18']) ?
+                $dsp->AddDoubleRow(t('U18-Sperre'), t('Nur zugänglich für Spieler aus Über-18-Blöcken'))
+                : $dsp->AddDoubleRow(t('U18-Sperre'), t('Keine Sperre'));
             $dsp->AddFieldsetEnd();
 
-
-                    ($tournament["defwin_on_time_exceed"] == "1")? $defwin_warning = "<div class=\"tbl_error\">".t('ACHTUNG: Bei Zeitüberschreitung wird das Ergebnis automatisch gelost!')."</div> ".t('Wir bitten euch daher die Spiele direkt zu beginnen und das Ergebnis umgehend zu melden!')."" : $defwin_warning = "";
+            ($tournament["defwin_on_time_exceed"] == "1")? $defwin_warning = "<div class=\"tbl_error\">".t('ACHTUNG: Bei Zeitüberschreitung wird das Ergebnis automatisch gelost!')."</div> ".t('Wir bitten euch daher die Spiele direkt zu beginnen und das Ergebnis umgehend zu melden!')."" : $defwin_warning = "";
             $dsp->AddFieldsetStart(t('Zeiten') . $defwin_warning);
-                    $dsp->AddDoubleRow(t('Turnier beginnt um'), $func->unixstamp2date($tournament["starttime"], "datetime"));
+            $dsp->AddDoubleRow(t('Turnier beginnt um'), $func->unixstamp2date($tournament["starttime"], "datetime"));
 
-                    $dsp->AddDoubleRow(t('Dauer einer Runde'), t('Maximal %1 Spiel(e) pro Runde (je %2) + %3 Pause -> %4', $tournament["max_games"], $tournament["game_duration"] ."min", $tournament["break_duration"] ."min", $tournament["max_games"] * $tournament["game_duration"] + $tournament["break_duration"] ."min"));
-            ;
+            $dsp->AddDoubleRow(t('Dauer einer Runde'), t('Maximal %1 Spiel(e) pro Runde (je %2) + %3 Pause -> %4', $tournament["max_games"], $tournament["game_duration"] ."min", $tournament["break_duration"] ."min", $tournament["max_games"] * $tournament["game_duration"] + $tournament["break_duration"] ."min"));
             $dsp->AddFieldsetEnd();
-
 
             $dsp->AddFieldsetStart(t('Regeln und Sonstiges'));
             if ($tournament['rules_ext']) {
                 $dsp->AddDoubleRow(t('Regelwerk'), "<a href=\"./ext_inc/tournament_rules/{$tournament['rules_ext']}\" target=\"_blank\">".t('Regelwerk öffnen')."({$tournament['rules_ext']})</a>");
             }
 
-                    $dsp->AddDoubleRow(t('Bemerkung'), $func->text2html($tournament["comment"]));
+            $dsp->AddDoubleRow(t('Bemerkung'), $func->text2html($tournament["comment"]));
 
             $maps = explode("\n", $tournament["mapcycle"]);
             $map_str = '';
@@ -201,21 +224,32 @@ if (!$tournament["tournamentid"]) {
             if ($auth['type'] > 1) {
                 $mapcycle .= '<a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. t('Maps neu mischen') .'</a>';
             }
-                    $dsp->AddDoubleRow($mapcycle, $func->text2html($map_str));
+            $dsp->AddDoubleRow($mapcycle, $func->text2html($map_str));
             $dsp->AddFieldsetEnd();
             $dsp->EndTab();
 
 
             $dsp->StartTab(t('Angemeldete Teams'), 'assign');
-                    $waiting_teams = "";
-                    $completed_teams = "";
-                    $teams = $db->qry("SELECT name, teamid, seeding_mark, disqualified FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $_GET['tournamentid']);
+            $waiting_teams = "";
+            $completed_teams = "";
+            $teams = $db->qry("
+              SELECT
+                name,
+                teamid,
+                seeding_mark,
+                disqualified
+              FROM %prefix%t2_teams
+              WHERE
+                (tournamentid = %int%)", $_GET['tournamentid']);
             while ($team = $db->fetch_array($teams)) {
-                $members = $db->qry_first("SELECT COUNT(*) AS members
-       FROM %prefix%t2_teammembers
-       WHERE (teamid = %int%)
-       GROUP BY teamid
-       ", $team['teamid']);
+                $members = $db->qry_first("
+                  SELECT
+                    COUNT(*) AS members
+                  FROM %prefix%t2_teammembers
+                  WHERE
+                    (teamid = %int%)
+                  GROUP BY teamid", $team['teamid']);
+
                 $team_out = $team["name"] . $tfunc->button_team_details($team['teamid'], $_GET['tournamentid']);
                 if (($tournament['mode'] == "single") or ($tournament['mode'] == "double")) {
                     if ($team["seeding_mark"]) {
@@ -229,12 +263,7 @@ if (!$tournament["tournamentid"]) {
                         }
                     }
                 }
-/*  // Disquallifiy droped, due to errors
-        if ($auth["type"] > 1 and $tournament['status'] == "process") {
-            if ($team['disqualified']) $team_out .= " <font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchSpanButton(t('Disqualifizieren rückgängig'), "index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}&step=10");
-            else $team_out .= " ". $dsp->FetchSpanButton(t('Disqualifizieren'), "index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}");
-        }
-*/
+
                 $team_out .= HTML_NEWLINE;
                 if (($members["members"] + 1) < $tournament['teamplayer']) {
                     $teamcount[0]++;
@@ -244,21 +273,20 @@ if (!$tournament["tournamentid"]) {
                     $completed_teams .= $team_out;
                 }
             }
-                    $db->free_result($teams);
+            $db->free_result($teams);
 
-                    $dsp->AddSingleRow(t('Es sind %1 von maximal %2 Teams zu diesem Turnier angemeldet.', ($teamcount[0] + $teamcount[1]), $tournament['maxteams']));
+            $dsp->AddSingleRow(t('Es sind %1 von maximal %2 Teams zu diesem Turnier angemeldet.', ($teamcount[0] + $teamcount[1]), $tournament['maxteams']));
 
             if ($completed_teams == "") {
                 $completed_teams = "<i>".t('Keine')."</i>";
             }
-                    $dsp->AddDoubleRow(t('Teamnamen'), $completed_teams);
+            $dsp->AddDoubleRow(t('Teamnamen'), $completed_teams);
 
             if (($tournament['teamplayer'] > 1) && ($waiting_teams != "")) {
                 $dsp->AddSingleRow(t('Folgende %1 Teams sind noch unvollständig', ($teamcount[0] + 0)));
                 $dsp->AddDoubleRow(t('Teamnamen'), $waiting_teams);
             }
-                $dsp->EndTab();
-
+            $dsp->EndTab();
             $dsp->EndTabs();
 
             $buttons="";
@@ -283,9 +311,9 @@ if (!$tournament["tournamentid"]) {
                         $buttons .= $dsp->FetchSpanButton(t('Schließen rückgängig'), "index.php?mod=tournament2&action=undo_close&tournamentid={$_GET['tournamentid']}"). " ";
                     }
                     break;
-            } // END: switch status
+            }
             $dsp->AddDoubleRow("", $buttons);
             $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/details");
             break;
-    } // END: Switch Step
-} // else
+    }
+}

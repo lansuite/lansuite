@@ -1,10 +1,9 @@
-<?php // by denny@esa-box.de
+<?php
 
 switch ($_GET["step"]) {
     default:
         include_once('modules/troubleticket/search.inc.php');
         break;
-
 
     case 2:
         $tt_id = $_GET['ttid'];
@@ -12,11 +11,11 @@ switch ($_GET["step"]) {
         $rowtest = $db->qry_first("SELECT COUNT(*) AS n FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);
         $numrows = $rowtest["n"];
 
-        // Prüfen ob ticketid leer ist
+        // Check if ticketid is empty
         if ($tt_id == "") {
             $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
-        } // Prüfen ob ticketid gültig ist
-        elseif ($numrows == "") {
+        // Check if ticketid is valid
+        } elseif ($numrows == "") {
             $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
         } else {
             $dsp->NewContent(t('Troubleticket anzeigen'), t('Hier siehst du alle Informationen zu diesem Ticket'));

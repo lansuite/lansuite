@@ -36,7 +36,7 @@ if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']
     }
     $mf->AddField(t('Priorität'), 'priority', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-  // Assign bug
+    // Assign bug
     if ($auth['type'] >= 2) {
         $mf->AddDropDownFromTable(t('Bearbeiter'), 'agent', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
         $mf->AddField(t('Preis'), 'price', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
@@ -46,7 +46,7 @@ if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']
     if (!$_GET['bugid']) {
         $mf->AddFix('date', 'NOW()');
         if ($_SERVER['SERVER_NAME'] != 'lansuite.orgapage.de') {
-            $mf->AddFix('version', $config['lansuite']['version']);
+            $mf->AddFix('version', LANSUITE_VERSION);
         }
         $mf->AddFix('url', $_SERVER['SERVER_NAME']);
         $mf->AddFix('reporter', $auth['userid']);

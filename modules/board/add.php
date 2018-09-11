@@ -1,13 +1,5 @@
 <?php
 
-function Update($id)
-{
-    if (!$_POST['board_group']) {
-        $_POST['board_group'] = $_POST['group_new'];
-    }
-    return true;
-}
-
 $mf = new \LanSuite\MasterForm();
 
 $mf->AddField(t('Forumname'), 'name');

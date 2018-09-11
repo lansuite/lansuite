@@ -1,4 +1,7 @@
 <?php
+
+use LanSuite\Module\Seating\Seat2;
+
 $blockid = $_GET['blockid'];
 $seating_ip = $_POST['seating_ip'];
 
@@ -13,21 +16,12 @@ switch ($_GET['step']) {
                     $col = floor($cur_cell / 100);
                     $row = $cur_cell % 100;
 
-            // Check IP format
+                    // Check IP format
                     if (!$func->checkIP($value)) {
                         $func->error(t('Das Format mindestens einer IP ist ungültig. Format: 192.168.123.12'));
                         $_GET['step'] = 2;
                         break;
                     }
-
-            // Check for allready assigned IPs
-            /*
-            $current_ip = $db->qry_first("SELECT 1 AS found FROM %prefix%seat_seats WHERE ip = %string%", $value);
-            if ($current_ip['found']) {
-                $func->error(t('Mindestens eine IP wurde bereits vergeben'));
-                $_GET['step'] = 2;
-                break;
-            }*/
                 }
             }
         }
@@ -43,8 +37,7 @@ switch ($_GET['step']) {
         break;
 
     case 2:
-        include_once("modules/seating/class_seat.php");
-        $seat2 = new seat2();
+        $seat2 = new Seat2();
 
         $dsp->NewContent(t('Sitzplatz - IP-Verteilung'), t('Hier siehst du die einzelnen Sitzpl&auml;tze und die jeweils zugewiesene IP-Nummer. Diese k&ouml;nnen einzeln von Hand neu eingetragen oder ge&auml;ndert werden.'));
 
@@ -61,8 +54,14 @@ switch ($_GET['step']) {
                 $col = floor($cur_cell / 100);
                 $row = $cur_cell % 100;
 
-                $db->qry_first("UPDATE %prefix%seat_seats SET ip=%string%
-    WHERE blockid = %int% AND row = %string% AND col = %string%", $value, $_GET['blockid'], $row, $col);
+                $db->qry_first("
+                  UPDATE %prefix%seat_seats
+                  SET
+                    ip=%string%
+                  WHERE
+                    blockid = %int%
+                    AND row = %string%
+                    AND col = %string%", $value, $_GET['blockid'], $row, $col);
             }
         }
         $func->confirmation(t('Die IPs wurden erfolgreich eingetragen'), 'index.php?mod=seating');

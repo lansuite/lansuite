@@ -1,8 +1,27 @@
 # LanSuite configuration
 /inc/base/config.php
 
+# Database dump
+database-dump.sql
+
 # Installed by vendors
 bin/phpunit
 
+# Release archives
+LanSuite-*.tar.gz
+LanSuite-*_checksums.txt
+
 # Generated folder/files
 /vendor/
+
+# Docs
+.DS_Store
+node_modules
+lib/core/metadata.js
+lib/core/MetadataBlog.js
+website/translated_docs
+website/build/
+website/yarn.lock
+website/node_modules
+website/i18n/*
+!website/i18n/en.json

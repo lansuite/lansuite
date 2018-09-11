@@ -1,40 +1,4 @@
 <?php
-function NameAndDesc($name)
-{
-    global $line, $auth;
-
-    if ($line['board_group']) {
-        $group = '<b>'. $line['board_group'] .'</b> - ';
-    }
-
-    return '<img src="design/'. $auth['design'] .'/images/arrows_forum.gif" hspace="3" align="left" border="0">'. $group .'<b>'. $name .'</b><br />' . $line['description'];
-}
-
-function LastPostDetails($date)
-{
-    global $db, $line, $dsp, $cfg;
-
-    if ($date) {
-        $row = $db->qry_first("SELECT t.caption, p.userid, p.tid, p.pid FROM %prefix%board_posts AS p
-      LEFT JOIN %prefix%board_threads AS t ON p.tid = t.tid
-      WHERE UNIX_TIMESTAMP(p.date) = %string% AND t.fid = %int%", $date, $line['fid']);
-
-        $row2 = $db->qry_first(
-            "SELECT COUNT(*) AS cnt FROM %prefix%board_posts AS p
-        WHERE p.tid = %int%
-        GROUP BY p.tid",
-            $row['tid']
-        );
-        $page = floor(($row2['cnt'] - 1) / $cfg['board_max_posts']);
-
-        if (strlen($row['caption']) > 18) {
-            $row['caption'] = substr($row['caption'], 0, 16). '...';
-        }
-        return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&posts_page='. $page .'#pid'. $row['pid'] .'" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
-    } else {
-        return $dsp->FetchIcon('no', '', '-');
-    }
-}
 
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
@@ -48,7 +12,7 @@ $ms2->AddSelect('f.description');
 $ms2->AddSelect('f.board_group');
 $ms2->AddResultField(t('Forum'), 'f.name', 'NameAndDesc');
 $ms2->AddResultField(t('Beiträge'), 'COUNT(p.pid) AS posts');
-$ms2->AddResultField(t('Letzter Beitrag'), 'UNIX_TIMESTAMP(MAX(p.date)) AS LastPost', 'LastPostDetails');
+$ms2->AddResultField(t('Letzter Beitrag'), 'UNIX_TIMESTAMP(MAX(p.date)) AS LastPost', 'LastPostDetailsShow');
 
 $ms2->AddIconField('details', 'index.php?mod=board&action=forum&fid=', t('Details'));
 if ($auth['type'] >= 2) {

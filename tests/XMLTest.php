@@ -4,12 +4,14 @@ namespace LanSuite\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-class XMLTest extends TestCase {
+class XMLTest extends TestCase
+{
 
     /**
      * @covers xml::get_tag_content
      */
-    public function testGetTagContent() {
+    public function testGetTagContent()
+    {
         $tagToGrab = 'name';
         $input = '<?xml version="1.0" encoding="UTF-8"?>
 <design>
@@ -31,7 +33,8 @@ class XMLTest extends TestCase {
     /**
      * @covers xml::write_tag
      */
-    public function testWriteTag() {
+    public function testWriteTag()
+    {
         $GLOBALS['func'] = new \LanSuite\Func();
 
         $content = 'Super news. Now now now.';
@@ -46,7 +49,8 @@ class XMLTest extends TestCase {
     /**
      * @covers xml::write_master_tag
      */
-    public function testWriteMasterTag() {
+    public function testWriteMasterTag()
+    {
         $content = "\t\t\t<title>This is my news</title>
 			<description>And this is the story. You won't believe it!</description>
 			<author>ADMIN ADMIN (ADMIN)</author>
@@ -66,7 +70,8 @@ class XMLTest extends TestCase {
         $this->assertEquals($expected, $actual);
     }
 
-    public function dataProviderConvertInputString() {
+    public function dataProviderConvertInputString()
+    {
         return array(
             array('', ''),
             array('This is "Sparta" with double quotes', 'This is Sparta with double quotes'),
@@ -80,7 +85,8 @@ class XMLTest extends TestCase {
      * @dataProvider dataProviderConvertInputString
      * @covers xml::convertinputstr
      */
-    public function testConvertInputString($string, $expected) {
+    public function testConvertInputString($string, $expected)
+    {
         $xml = new \LanSuite\XML();
         $actual = $xml->convertinputstr($string);
 
