@@ -335,9 +335,12 @@ class DB
         if ($this->query_id === true) {
             return true;
         }
-
-        $row = $this->fetch_array();
-        $this->free_result();
+		if ($this->query_id->num_rows >0) { // only try to fetch something if we got a valid result
+			$row = $this->fetch_array();
+			$this->free_result();
+		} else {
+			$row = false; // just return false otherwise
+		}
         return $row;
     }
 
