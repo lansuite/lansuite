@@ -89,7 +89,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $mf->AddFix('type', 1);
             }
   
-            $mf->AddField(t('E-Mail'), 'email', '', '', '', CheckValidEmail);
+            $mf->AddField(t('E-Mail'), 'email', '', '', '', 'CheckValidEmail');
             $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', '');
             if (($_GET['action'] != 'change' && $_GET['action'] != 'entrance') || ($_GET['action'] == 'entrance' && !$_GET['userid'])) {
                 if ($cfg['signon_autopw']) {

@@ -368,7 +368,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
             $dsp->AddFieldSetStart(t('Texte editieren.'));
             if ($_POST['id']) {
                 foreach ($_POST['id'] as $key => $value) {
-                    $db->qry("UPDATE %prefix%translation SET %plain% = %string% WHERE file = %string% AND id = %string%", $_SESSION['target_language'], $value, $_GET['file'], $key);
+                    $db->qry("UPDATE %prefix%translation SET %plain% = %string% WHERE file = %string% AND id = %string%", $_SESSION['target_language'], $value, $_GET['module'], $key);
                 }
 
                 $func->confirmation('Module-Übersetzung wurde erfolgreich upgedatet');
