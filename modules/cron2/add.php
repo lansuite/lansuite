@@ -12,7 +12,7 @@ $mf->AddField(
     \LanSuite\MasterForm::IS_SELECTION,
     array('php'=>'php','sql'=>'sql'),
     \LanSuite\MasterForm::FIELD_OPTIONAL
-    );
+);
 $mf->AddField(t('Ausführen täglich, um'), 'runat');
 
 $mf->SendForm('index.php?mod=cron2&action=add', 'cron', 'jobid', $_GET['jobid']);
