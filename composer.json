@@ -42,6 +42,7 @@
             "LanSuite\\Module\\CashMgr\\": "modules/cashmgr/Classes/",
             "LanSuite\\Module\\ClanMgr\\": "modules/clanmgr/Classes/",
             "LanSuite\\Module\\Cron2\\": "modules/cron2/Classes/",
+            "LanSuite\\Module\\Discord\\": "modules/discord/Classes/",
             "LanSuite\\Module\\Foodcenter\\": "modules/foodcenter/Classes/",
             "LanSuite\\Module\\GuestList\\": "modules/guestlist/Classes/",
             "LanSuite\\Module\\Install\\": "modules/install/Classes/",

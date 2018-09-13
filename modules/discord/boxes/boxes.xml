@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite>
+	<box>
+		<name>Discord</name>
+		<place>1</place>
+		<pos>6</pos>
+		<active>0</active>
+		<internet>0</internet>
+		<login>0</login>
+		<source>discord</source>
+		<callback></callback>
+	</box>
+</lansuite>
