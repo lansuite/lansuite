@@ -73,7 +73,7 @@ function CheckValidEmail($email)
     }
     
     // Check if we already have a user with that email address
-    $row = $db->qry_first('SELECT * FROM %prefix%users WHERE email = %string%', $email);
+    $row = $db->qry_first('SELECT * FROM %prefix%user WHERE email = %string%', $email);
     if ($row){
         return t('Diese E-Mail-Adresse ist bereits in Verwendung. Bitte verwende die "Passwort zurücksetzen"-Funktion, um dein Passwort zurück zu setzen');
     }
