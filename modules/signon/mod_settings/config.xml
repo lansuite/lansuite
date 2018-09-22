@@ -39,6 +39,12 @@
       <name>Felder bei Anmeldung</name>
     </head>
     <items>
+	    	<item>
+    		<name>signon_username_unique</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Soll der Username einmalig sein?</description>
+    	</item>
     	<item>
     		<name>signon_show_firstname</name>
     		<type>signon</type>
