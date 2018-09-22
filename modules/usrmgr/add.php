@@ -19,7 +19,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             // Show Username Field
             ($quick_signon)? $optional = 1 : $optional = 0;
             if (($auth['type'] >= 2 || !$_GET['userid'] or $missing_fields)) {
-                $mf->AddField(t('Benutzername'), 'username', '', '', $optional);
+                $mf->AddField(t('Benutzername'), 'username', '', '', $optional, 'CheckValidUsername');
             } else {
                 $mf->AddField(t('Benutzername'), '', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen Administrator.'));
             }
