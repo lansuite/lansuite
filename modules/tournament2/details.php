@@ -210,7 +210,7 @@ if (!$tournament["tournamentid"]) {
 
             $dsp->AddFieldsetStart(t('Regeln und Sonstiges'));
             if ($tournament['rules_ext']) {
-                $dsp->AddDoubleRow(t('Regelwerk'), "<a href=\"./ext_inc/tournament_rules/{$tournament['rules_ext']}\" target=\"_blank\">".t('Regelwerk öffnen')."({$tournament['rules_ext']})</a>");
+                $dsp->AddDoubleRow(t('Regelwerk'), "<a href=\"./ext_inc/tournament_rules/{$tournament['rules_ext']}\" target=\"_blank\">".t('Regelwerk öffnen ')."({$tournament['rules_ext']})</a>");
             }
 
             $dsp->AddDoubleRow(t('Bemerkung'), $func->text2html($tournament["comment"]));
