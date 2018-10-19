@@ -60,6 +60,7 @@
             "LanSuite\\": "inc/Classes"
         },
         "files": [
+            "inc/base/define.php",
             "inc/Functions/T.php",
             "inc/Functions/FetchDataRow.php",
             "inc/Functions/FetchPostRow.php",
