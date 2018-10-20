@@ -125,9 +125,6 @@ function myErrorHandler($errno, $errstr, $errfile, $errline)
 
 $PHPErrors = '';
 
-// Read definition file
-include_once('inc/base/define.php');
-
 // Read Config and Definitionfiles
 // Load Basic Config
 if (file_exists('inc/base/config.php')) {
