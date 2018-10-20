@@ -763,7 +763,7 @@ class Install
                 if ($env_stats == "") {
                     $server_stats = $ok;
                 } else {
-                    $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei HTML_NEWLINE{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
+                    $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei ' . HTML_NEWLINE . '{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
                 }
 
                 $config["server_stats"]["status"] = 1;
@@ -773,7 +773,7 @@ class Install
                     $server_stats = $ok;
                 } else {
                     $env_stats = "<strong>modules/stats/ls_getinfo.exe</strong>" . HTML_NEWLINE;
-                    $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei HTML_NEWLINE{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
+                    $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei ' . HTML_NEWLINE . '{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
                 }
             }
               $dsp->AddDoubleRow("Server Stats", $server_stats);

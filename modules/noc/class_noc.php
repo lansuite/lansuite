@@ -202,11 +202,11 @@ class noc
                         $dsp->AddHRuleRow();
                     }
                 } else {
-                    $dsp->AddSingleRow(t('Die Adresse konnte nicht gefunden werden.HTML_NEWLINEDie Adressen werden bei der Ansicht des Device aktuallisiert.'));
+                    $dsp->AddSingleRow(t('Die Adresse konnte nicht gefunden werden.' . HTML_NEWLINE . 'Die Adressen werden bei der Ansicht des Device aktuallisiert.'));
                 }
             }
         } else {
-            $dsp->AddSingleRow(t('Die Adresse konnte nicht gefunden werden.HTML_NEWLINEDie Adressen werden bei der Ansicht des Device aktuallisiert.'));
+            $dsp->AddSingleRow(t('Die Adresse konnte nicht gefunden werden.' . HTML_NEWLINE . 'Die Adressen werden bei der Ansicht des Device aktuallisiert.'));
         }
     }
 }

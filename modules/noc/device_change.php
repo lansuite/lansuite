@@ -62,7 +62,7 @@ switch ($_GET["step"]) {
             $device_write = $row["writecommunity"];
 
             $dsp->NewContent(t('Device hinzuf&uuml;gen'), t('Um einen Device zum NOC hinzuzuf&uuml;gen, f&uuml;lle bitte
-				         		  das folgende Formular vollst&auml;ndig aus.HTML_NEWLINEF&uuml;r das Feld Name
+				         		  das folgende Formular vollst&auml;ndig aus.' . HTML_NEWLINE . 'F&uuml;r das Feld Name
               					   stehen 30 Zeichen zur Verf&uuml;gung. '));
             $dsp->SetForm("index.php?mod=noc&action=change_device&step=3&deviceid=" . $_GET["deviceid"], "noc");
             $dsp->AddTextFieldRow("device_caption", t('Name'), $device_caption, $noc_error['device_caption']);
@@ -85,16 +85,16 @@ switch ($_GET["step"]) {
     // Check and Update Device Data
     case 3:
         if ($noc->checkSNMPDevice($_POST["device_ip"], $_POST["device_read"]) != 1) {
-            $func->error(t('HTML_NEWLINEDas Device konnte nicht erreicht werden. M&ouml;gl. Ursachen:HTML_NEWLINEHTML_NEWLINE
-				      				- Das Device hat keinen StromHTML_NEWLINE
-				      				- Das Device hat noch keine IP-AdresseHTML_NEWLINE
-				      				- Das Device unterst&uuml;tzt kein SNMPHTML_NEWLINE
-				      				- Du hast eine falsche Read-Community angegebenHTML_NEWLINE
-				      				- Du hast eine falsche IP-Adresse angegebenHTML_NEWLINE
-				      				- Du hast vergessen, SNMP am device einzuschaltenHTML_NEWLINE
-				      				- Dieses PHP unterst&uuml;tzt kein SNMP, kompilieren sie es mit SNMPHTML_NEWLINE
-				      				&nbsp; &nbsp;oder laden sie sich ein vorkompiliertes PHP mit SNMP vonHTML_NEWLINE
-				      				&nbsp; &nbsp;<a href="http://de.php.net">Der Deutschen PHP Seite</a> herunterHTML_NEWLINE, '));
+            $func->error(t(HTML_NEWLINE . 'Das Device konnte nicht erreicht werden. M&ouml;gl. Ursachen:' . HTML_NEWLINE . HTML_NEWLINE . '
+				      				- Das Device hat keinen Strom' . HTML_NEWLINE . '
+				      				- Das Device hat noch keine IP-Adresse' . HTML_NEWLINE . '
+				      				- Das Device unterst&uuml;tzt kein SNMP' . HTML_NEWLINE . '
+				      				- Du hast eine falsche Read-Community angegeben' . HTML_NEWLINE . '
+				      				- Du hast eine falsche IP-Adresse angegeben' . HTML_NEWLINE . '
+				      				- Du hast vergessen, SNMP am device einzuschalten' . HTML_NEWLINE . '
+				      				- Dieses PHP unterst&uuml;tzt kein SNMP, kompilieren sie es mit SNMP' . HTML_NEWLINE . '
+				      				&nbsp; &nbsp;oder laden sie sich ein vorkompiliertes PHP mit SNMP von' . HTML_NEWLINE . '
+				      				&nbsp; &nbsp;<a href="http://de.php.net">Der Deutschen PHP Seite</a> herunter' . HTML_NEWLINE .', '));
             break;
         } // END IF
         
