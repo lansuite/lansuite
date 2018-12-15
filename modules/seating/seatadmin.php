@@ -98,10 +98,10 @@ switch ($_GET['step']) {
                     $questionarray = array();
                     $linkarray = array();
                     if ($new_user['paid'] == 0) {
-                        $markinfo = "HTML_NEWLINE(Alle markierten Sitzplätze von %1 werden gelöscht, da %1 noch nicht bezahlt hat)";
+                        $markinfo = HTML_NEWLINE . "(Alle markierten Sitzplätze von %1 werden gelöscht, da %1 noch nicht bezahlt hat)";
                     }
 
-                    array_push($questionarray, t('Sitzplatz für %1 reservierenHTML_NEWLINE(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)', $new_user['username']));
+                    array_push($questionarray, t('Sitzplatz für %1 reservieren' . HTML_NEWLINE . '(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)', $new_user['username']));
                     array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=11&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 
                     array_push($questionarray, t('Sitzplatz für %1 markieren'.$markinfo, $new_user['username']));
@@ -110,7 +110,7 @@ switch ($_GET['step']) {
                     array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
                     array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid={$_GET['blockid']}");
             
-                    $func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist noch frei (bzw. nur markiert)HTML_NEWLINESoll er fest reserviert oder nur markiert werden?'));
+                    $func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist noch frei (bzw. nur markiert)' . HTML_NEWLINE . 'Soll er fest reserviert oder nur markiert werden?'));
                 }
                 break;
 

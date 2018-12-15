@@ -347,7 +347,7 @@ if (!$row = $db->fetch_array()) {
 
                         $text .= $noc_data . t('Der Portstatus wurde ge&auml;ndert') . HTML_NEWLINE;
                     } else {
-                        $text .= $noc_data . t('Der Port auf konnte nicht ge&auml;ndert werden.HTML_NEWLINE
+                        $text .= $noc_data . t('Der Port auf konnte nicht ge&auml;ndert werden.' . HTML_NEWLINE . '
 											 Pr&uuml;fen sie die Einstellung der Write-Community') . HTML_NEWLINE;
                     }
                 }
@@ -387,7 +387,7 @@ if (!$row = $db->fetch_array()) {
 
                     $text .= $noc_data . t('Der Portstatus wurde ge&auml;ndert') . HTML_NEWLINE;
                 } else {
-                    $text .= $noc_data . t('Der Port auf konnte nicht ge&auml;ndert werden.HTML_NEWLINE
+                    $text .= $noc_data . t('Der Port auf konnte nicht ge&auml;ndert werden.' . HTML_NEWLINE . '
 											 Pr&uuml;fen sie die Einstellung der Write-Community') . HTML_NEWLINE;
                     $noc_error = 1;
                 }
