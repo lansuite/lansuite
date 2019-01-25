@@ -329,6 +329,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
             }
 
             $mf = new \LanSuite\MasterForm();
+            $mf->IncrementNumber();
 
             $res = $db->qry('SELECT * FROM %prefix%menu WHERE module = %string% AND caption != \'\' ORDER BY level, requirement, pos', $_GET['module']);
             while ($row = $db->fetch_array($res)) {
