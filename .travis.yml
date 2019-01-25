@@ -17,53 +17,57 @@ cache:
 install:
   - phpenv rehash
   - composer install
+  - composer global require "squizlabs/php_codesniffer *"
+  
+before_script:
+  - phpcs --version
 
 script:
   - find . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 php -lf
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/about
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/beamer
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/board
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/boxes
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/bugtracker
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/cashmgr
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/clanmgr
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/codecheck
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=PSR1.Methods.CamelCapsMethodName modules/cron2
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/downloads
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/faq
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/foodcenter
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/games
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s modules/guestbook
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude="Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName" modules/guestlist
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/hardware
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s modules/helplet
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/home
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/info2
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/install
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/irc
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/mail
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/mastersearch2
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/msgsys
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/news
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/party
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/partylist
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/paypal
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR2.Methods.MethodDeclaration,PSR1.Methods.CamelCapsMethodName modules/pdf
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/picgallery
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/poll
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/popups
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/rent
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/sample
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/seating
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/server/
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/shoutbox
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/signon
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/sponsor
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/stats
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR2.Methods.MethodDeclaration,PSR1.Classes.ClassDeclaration modules/teamspeak2
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/tournament2
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/troubleticket
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/usrmgr
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/wiki
-  - ./vendor/bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --ignore="/ext_scripts/*,/ext_inc/*,/modules/*,/vendor/*" . || true # Allow failures for now
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/about
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/beamer
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/board
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/boxes
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/bugtracker
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/cashmgr
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/clanmgr
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/codecheck
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=PSR1.Methods.CamelCapsMethodName modules/cron2
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/downloads
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/faq
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/foodcenter
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/games
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s modules/guestbook
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude="Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName" modules/guestlist
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/hardware
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s modules/helplet
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/home
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/info2
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/install
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/irc
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/mail
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/mastersearch2
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/msgsys
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/news
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/party
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/partylist
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/paypal
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR2.Methods.MethodDeclaration,PSR1.Methods.CamelCapsMethodName modules/pdf
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/picgallery
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/poll
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/popups
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/rent
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/sample
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/seating
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/server/
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/shoutbox
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/signon
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/sponsor
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/stats
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR2.Methods.MethodDeclaration,PSR1.Classes.ClassDeclaration modules/teamspeak2
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/tournament2
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/troubleticket
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName modules/usrmgr
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength modules/wiki
+  - phpcs --standard=PSR1,PSR2 --extensions=php -s --ignore="/ext_scripts/*,/ext_inc/*,/modules/*,/vendor/*" . || true # Allow failures for now
   - bin/phpunit
