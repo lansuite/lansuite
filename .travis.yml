@@ -15,7 +15,6 @@ cache:
     - $HOME/.composer/cache
 
 install:
-  - pear install PHP_CodeSniffer
   - phpenv rehash
   - composer install
 
