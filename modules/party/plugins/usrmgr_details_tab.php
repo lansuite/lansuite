@@ -25,5 +25,5 @@ if ($auth['type'] >= 1) {
 
     $ms2->PrintSearch('index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&headermenuitem=6', 'p.party_id');
 } else {
-    $func->information(NO_LOGIN);
+    $func->information('NO_LOGIN');
 }
