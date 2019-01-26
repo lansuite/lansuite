@@ -499,7 +499,7 @@ class Import
             }
 
             // Optimize table
-            $db->qry_first("OPTIMIZE TABLE `%plain%`", $table_name);
+            $db->qry_first("OPTIMIZE TABLE `%prefix%%plain%`", $table_name);
             
             // Move usersettings to user
             if ($table_name == 'user' and in_array('usersettings', $this->installed_tables)) {
