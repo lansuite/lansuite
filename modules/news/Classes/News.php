@@ -51,7 +51,9 @@ class News
             // the news feed which might not be the case. But currently this seems like
             // the best way to do it..
             $linkprotocol = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) || $_SERVER['SERVER_PORT']=='443') ? 'https' : 'http';
-            $item .= $xml->write_tag("link", $linkprotocol . "://{$_SERVER['SERVER_NAME']}" . ((($linkprotocol=='https' && $_SERVER['SERVER_PORT']!=443) || ($linkprotocol=='http' && $_SERVER['SERVER_PORT']!=80)) ? ":{$_SERVER['SERVER_PORT']}" : "") . "{$path}index.php?mod=news&amp;action=comment&amp;newsid=". $news['newsid'], 3);
+            // This is quite sad - we really need to double-encode the ampersand chars
+            // because otherwise they will be broken by AllowHTML in xml->write_tag ..
+            $item .= $xml->write_tag("link", $linkprotocol . "://{$_SERVER['SERVER_NAME']}" . ((($linkprotocol=='https' && $_SERVER['SERVER_PORT']!=443) || ($linkprotocol=='http' && $_SERVER['SERVER_PORT']!=80)) ? ":{$_SERVER['SERVER_PORT']}" : "") . "{$path}index.php?mod=news&amp;amp;action=comment&amp;amp;newsid=". $news['newsid'], 3);
             $channel .= $xml->write_master_tag("item", $item, 2);
         }
         $db->free_result($get_news);
