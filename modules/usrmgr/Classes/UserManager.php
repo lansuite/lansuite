@@ -187,7 +187,7 @@ class UserManager
 
             // Signon-Mail
             case 1:
-                if ($_POST['InsertControll' . $_GET[mf_id]]) {
+                if ($_POST['InsertControll' . $_GET['mf_id']]) {
                     $message = $cfg["signon_signonemail_text"];
                     $subject = $cfg["signon_signonemail_subject"];
                 } else {
@@ -206,7 +206,7 @@ class UserManager
                     $message = str_replace('%MAXGUESTS%', $_SESSION['party_info']['max_guest'], $message);
                     $anmelde_schluss = '';
                     if ($_SESSION['party_info']['s_enddate'] > 0) {
-                        $anmelde_schluss = "Anmeldeschluss: " . $func->unixstamp2date($_SESSION['party_info']['s_enddate'], date);
+                        $anmelde_schluss = "Anmeldeschluss: " . $func->unixstamp2date($_SESSION['party_info']['s_enddate'], 'date');
                     }
                     $message = str_replace('%SIGNON_DEADLINE%', $anmelde_schluss, $message);
                     $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
