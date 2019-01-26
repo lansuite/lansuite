@@ -81,7 +81,7 @@ $mf->AddGroup(t('Anmeldeeinschränkungen'));
 if (!$_POST['starttime']) {
     $_POST['starttime'] = date('Y-m-d H:i', $_SESSION['party_info']['partybegin']);
 }
-$mf->AddField(t('Turnier beginnt um'), 'starttime', '', '', '', CheckDateInFuture);
+$mf->AddField(t('Turnier beginnt um'), 'starttime', '', '', '', 'CheckDateInFuture');
 
 $selections = array();
 if ($_POST['game_duration'] == '') {
