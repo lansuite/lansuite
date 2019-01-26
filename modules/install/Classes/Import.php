@@ -113,6 +113,7 @@ class Import
             // Get current table-structure from DB, to compare with XML-File
             $db_fields = array();
             $FieldsForContent = array();
+            $DBPrimaryKeys = array();
             if ($table_found) {
                 // Read fields from DB
                 $query = $db->qry("DESCRIBE %prefix%%plain%", $table_name);
@@ -123,7 +124,6 @@ class Import
                 $db->free_result($query);
 
                 // Read indizes from DB
-                $DBPrimaryKeys = array();
                 $DBUniqueKeys = array();
                 $DBIndizes = array();
                 $DBFulltext = array();
