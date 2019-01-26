@@ -42,7 +42,7 @@ switch ($_GET['step']) {
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=edit'));
     
         if ($auth['type'] >= 2 and isset($_SESSION['party_id'])) {
-            $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite, oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persöhnlich die aktivie ist, kannst du auf der Startseite, oder in der Party-Box einstellen', $_SESSION['party_id']), NO_LINK);
+            $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persönlich die aktive ist, kannst du auf der Startseite oder in der Party-Box einstellen', $_SESSION['party_id']), NO_LINK);
         }
         break;
 
