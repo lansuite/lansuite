@@ -38,8 +38,8 @@ class News
           FROM  %prefix%news n
           LEFT JOIN %prefix%user u ON u.userid = n.poster
           ORDER BY n.date DESC");
-        while ($news = $db->fetch_array($get_news)) {
-            $item = $xml->write_tag("title", $news["caption"], 3);
+        while ($news = $db->fetch_array($get_news, 0)) {
+            $item = $xml->write_tag("title", $func->Entity2Uml(strip_tags($news["caption"])), 3);
             $item .= $xml->write_tag("description", $func->Entity2Uml(strip_tags($news["text"])), 3);
             $item .= $xml->write_tag("author", $func->Entity2Uml("{$news['firstname']} {$news['name']} ({$news['username']})"), 3);
             $item .= $xml->write_tag("pubDate", date("D, j M Y H:i:s O", $news['date']), 3);
