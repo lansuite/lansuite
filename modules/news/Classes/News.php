@@ -45,7 +45,13 @@ class News
             $item .= $xml->write_tag("pubDate", date("D, j M Y H:i:s O", $news['date']), 3);
                                                     
             $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
-            $item .= $xml->write_tag("link", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=news&amp;action=comment&amp;newsid=". $news['newsid'], 3);
+
+            // This assumes that the author of a news item accesses Lansuite via the
+            // same means (server name, port, protocol) as someone who later accesses
+            // the news feed which might not be the case. But currently this seems like
+            // the best way to do it..
+            $linkprotocol = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) || $_SERVER['SERVER_PORT']=='443') ? 'https' : 'http';
+            $item .= $xml->write_tag("link", $linkprotocol . "://{$_SERVER['SERVER_NAME']}" . ((($linkprotocol=='https' && $_SERVER['SERVER_PORT']!=443) || ($linkprotocol=='http' && $_SERVER['SERVER_PORT']!=80)) ? ":{$_SERVER['SERVER_PORT']}" : "") . "{$path}index.php?mod=news&amp;action=comment&amp;newsid=". $news['newsid'], 3);
             $channel .= $xml->write_master_tag("item", $item, 2);
         }
         $db->free_result($get_news);
