@@ -344,7 +344,7 @@
 			</entry>
 			<entry>
 				<id>67ca595570fe049fcd0e4b9625f5ef1e</id>
-				<org>Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.</org>
+				<org>Solange kein Admin einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.</org>
 				<en>ADMIM As long as no one module is assigned, where each has Admin privileges.</en>
 				<es>ADMIM Mientras no se le asigna un módulo, donde cada uno tiene privilegios de administrador.</es>
 				<fr>ADMIM Tant qu&amp;#39;il n&amp;#39;existera pas un seul module est assigné, où chacun a des privilèges Admin.</fr>
