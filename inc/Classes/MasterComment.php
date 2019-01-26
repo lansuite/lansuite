@@ -69,7 +69,7 @@ class MasterComment
 
         // Add new comments
         if ($cfg['mc_only_logged_in'] && !$auth['login']) {
-            $func->information(t('Bitte loggen dich ein, bevor du einen Kommentar verfasst'), NO_LINK);
+            $func->information(t('Bitte logge dich ein, bevor du einen Kommentar verfasst'), NO_LINK);
         } else {
             if ($_GET['commentid']) {
                 $row = $db->qry_first('SELECT creatorid FROM %prefix%comments WHERE commentid = %int%', $_GET['commentid']);
