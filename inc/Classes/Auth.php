@@ -353,7 +353,7 @@ class Auth
                     } else {
                         $auth_backlink = "";
                     }
-                    $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink, '', 'FORWARD');
+                    $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim Laden der nächsten Seite wirksam.'), $auth_backlink, '', 'FORWARD');
 
                     // Show error logins
                     $msg = '';
