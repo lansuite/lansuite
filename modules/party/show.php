@@ -31,10 +31,10 @@ switch ($_GET['step']) {
             $ms2->AddIconField('edit', 'index.php?mod=party&action=edit&party_id=', t('Editieren'));
         }
         if ($auth['type'] >= 2) {
-            $ms2->AddIconField('delete', 'index.php?mod=party&action=delete&party_id=', t('Editieren'));
+            $ms2->AddIconField('delete', 'index.php?mod=party&action=delete&party_id=', t('Löschen'));
         }
         if ($auth['type'] >= 2) {
-            $ms2->AddIconField('paid', 'index.php?mod=party&action=price&step=2&party_id=');
+            $ms2->AddIconField('paid', 'index.php?mod=party&action=price&step=2&party_id=', t('Preise bearbeiten'));
         }
 
         $ms2->PrintSearch('index.php?mod=party', 'p.party_id');
