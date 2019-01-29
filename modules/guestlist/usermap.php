@@ -90,7 +90,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
     } else {
         $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, ($cfg["guestlist_showorga"] == 0 ? "type = 1" : "type >= 1"));
         if ($get_cur["n"]>0) {
-            $func->error(t('Leider hat noch keiner der angemeldeten Benutzer dieser Party seine Postleitzahl angegeben. Es kann daher keine Karte angezeigt werden.'));
+            $func->error(t('Leider hat noch keiner der angemeldeten Besucher dieser Party seine Postleitzahl angegeben. Es kann daher keine Karte angezeigt werden.'));
         } else {
             $func->error(t('Es hat sich noch niemand für die aktuelle Party angemeldet, daher ist eine Anzeige der Karte nicht möglich.'));
         }
@@ -104,7 +104,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
     if ($db->num_rows($res) == 0) {
         $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, ($cfg["guestlist_showorga"] == 0 ? "type = 1" : "type >= 1"));
         if ($get_cur["n"]>0) {
-            $func->error(t('Leider hat noch keiner der angemeldeten Benutzer dieser Party seine Postleitzahl angegeben. Es kann daher keine Karte angezeigt werden.'));
+            $func->error(t('Leider hat noch keiner der angemeldeten Besucher dieser Party seine Postleitzahl angegeben. Es kann daher keine Karte angezeigt werden.'));
         } else {
             $func->error(t('Es hat sich noch niemand für die aktuelle Party angemeldet, daher ist eine Anzeige der Karte nicht möglich.'));
         }
