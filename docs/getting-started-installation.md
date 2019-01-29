@@ -58,4 +58,4 @@ $ docker-compose -f docker-compose.yml -f docker-compose.dump.yml up
 
 ### `ERROR: Version in "./docker-compose.yml" is unsupported. You might be seeing this error because you're using the wrong Compose file version.`
 
-> Your docker-compose version is outdated. If you have installed it using your distribution's package manager please uninstall it and follow [the office installation guide](https://docs.docker.com/compose/install/) on how to install a more-recent version.
+> Your docker-compose version is outdated. If you have installed it using your distribution's package manager please uninstall it and follow [the official installation guide](https://docs.docker.com/compose/install/) on how to install a more-recent version.
