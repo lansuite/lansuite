@@ -55,3 +55,7 @@ $ docker-compose -f docker-compose.yml -f docker-compose.dump.yml up
 
 > A different issue exists in Docker for Windows: If you get an error like: `ERROR: for web  Cannot start service web: OCI runtime create failed: container_linux.go:348: starting container process caused "process_linux.go:402: container init caused \"rootfs_linux.go:58: mounting \\\"/c/xampp/htdocs/lansuite/.docker/nginx-development.conf\\\" to rootfs \\\"/mnt/sda1/var/lib/docker/aufs/mnt/a302993ced4b16d16c0ab56c001d97fbdb9742f2f5beff079b18be797e95ff2a\\\" at \\\"/mnt/sda1/var/lib/docker/aufs/mnt/a302993ced4b16d16c0ab56c001d97fbdb9742f2f5beff079b18be797e95ff2a/etc/nginx/conf.d/default.conf\\\" caused \\\"not a directory\\\"\"": unknown: Are you trying to mount a directory onto a file (or vice-versa)? Check if the specified host path exists and is the expected type`
 > Then you need to enable drive sharing for the host drive the docker image is stored on as described on [Fix the Host Volume Sharing issue](http://peterjohnlightfoot.com/docker-for-windows-on-hyper-v-fix-the-host-volume-sharing-issue/).
+
+### `ERROR: Version in "./docker-compose.yml" is unsupported. You might be seeing this error because you're using the wrong Compose file version.`
+
+> Your docker-compose version is outdated. If you have installed it using your distribution's package manager please uninstall it and follow [the office installation guide](https://docs.docker.com/compose/install/) on how to install a more-recent version.
