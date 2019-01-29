@@ -58,4 +58,4 @@ $ docker-compose -f docker-compose.yml -f docker-compose.dump.yml up
 
 ### `ERROR: Version in "./docker-compose.yml" is unsupported. You might be seeing this error because you're using the wrong Compose file version.`
 
-> Your `docker-compose` version is most likely outdated. Currently LanSuite uses the Compose file format v3.0, hence you need at least Compose version 1.13.0 or higher. See [this link](https://docs.docker.com/compose/compose-file/) for the compatibility list. If you have installed it using your distribution's package manager please uninstall it and follow [the official installation guide](https://docs.docker.com/compose/install/) on how to install a more-recent version.
+> Your `docker-compose` version is most likely outdated. Currently LanSuite uses the Compose file format v3.0, hence you need at least Compose version 1.10.0 or higher. If you have installed it using your distribution's package manager please uninstall it and follow [the official installation guide](https://docs.docker.com/compose/install/) on how to install a more-recent version.
