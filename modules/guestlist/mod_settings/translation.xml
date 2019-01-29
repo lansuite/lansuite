@@ -473,13 +473,13 @@
 				<file>guestlist</file>
 			</entry>
 			<entry>
-				<id>260762763f33c57f40d610f448484ca8</id>
-				<org>Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben. Das Bestimmen der Position ist daher nicht m&amp;ouml;glich.</org>
-				<en>Unfortunately, none of the logged-on user&amp;#39;s specified zip code. Determining the position is therefore not possible.</en>
-				<es>Desafortunadamente, ninguno de los que ha iniciado sesión en el código postal especificada usuario. La determinación de la posición es por lo tanto no es posible.</es>
-				<fr>Malheureusement, aucun des connecté sur le code postal de l&amp;#39;utilisateur spécifié. Déterminer la position n&amp;#39;est donc pas possible.</fr>
-				<nl>Helaas, geen van de aangemelde gebruiker opgegeven zip code. Het bepalen van de positie is dus niet mogelijk.</nl>
-				<it>Purtroppo, nessuno dei connesso codice di avviamento postale dell&amp;#39;utente specificato. Determinare la posizione non è quindi possibile.</it>
+				<id>7bee8ee391916d8fe9aab63f096765c7</id>
+				<org>Leider hat noch keiner der angemeldeten Benutzer dieser Party seine Postleitzahl angegeben. Es kann daher keine Karte angezeigt werden.</org>
+				<en>Unfortunately, none of the registered users of this party have indicated their postal code. Therefore, no map can be displayed.</en>
+				<es>Desafortunadamente, ninguno de los usuarios registrados de este evento ha ingresado su código postal. Por lo tanto, no se puede mostrar ningún mapa.</es>
+				<fr>Malheureusement, aucun des utilisateurs enregistrés de cet événement n'a entré son code postal. Par conséquent, aucune carte ne peut être affichée.</fr>
+				<nl>Helaas heeft geen van de geregistreerde gebruikers van deze gebeurtenis hun postcode ingevoerd. Daarom kan er geen kaart worden weergegeven.</nl>
+				<it>Sfortunatamente, nessuno degli utenti registrati di questo evento ha inserito il suo codice postale. Pertanto, nessuna mappa può essere visualizzata.</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
@@ -602,6 +602,16 @@
 				<it></it>
 				<file>export</file>
 			</entry>
+                        <entry>
+                                <id>c24afee9b3b40f0bf98c45429c3a961a</id>
+                                <org>Es hat sich noch niemand für die aktuelle Party angemeldet, daher ist eine Anzeige der Karte nicht möglich.</org>
+                                <en>Nobody has registered for the current party so it is not possible to display the map.</en>
+                                <es>Nadie se ha registrado para el evento actual, por lo que no es posible visualizar el mapa.</es>
+                                <fr>Personne ne s'est inscrit pour l'événement en cours, il n'est donc pas possible d'afficher la carte.</fr>
+                                <nl>Niemand heeft zich geregistreerd voor de huidige gebeurtenis, dus het is niet mogelijk om de kaart weer te geven.</nl>
+                                <it>Nessuno si è registrato per l'evento corrente, quindi non è possibile visualizzare la mappa.</it>
+                                <file>guestlist</file>
+                        </entry>
 		</content>
 	</table>
 </lansuite>
