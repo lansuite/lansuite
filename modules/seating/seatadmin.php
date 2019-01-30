@@ -127,7 +127,7 @@ switch ($_GET['step']) {
                         array_push($questionarray, t('Dennoch reservieren. %1 hat dadurch anschließend keinen Sitzplatz mehr', $seat['username']));
                         array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&quest=1");
 
-                        array_push($questionarray, t('Dennoch reservieren und %USERNAME% anschließend einen neuen Sitzplatz aussuchen', $seat['username']));
+                        array_push($questionarray, t('Dennoch reservieren und %1 anschließend einen neuen Sitzplatz zuweisen', $seat['username']));
                         array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&quest=2&next_userid={$seat['userid']}");
 
                         array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
