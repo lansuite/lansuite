@@ -48,8 +48,8 @@ class Discord {
     
     public function fetchServerData(){
         $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
-        $JsonReturnData = file_get_contents($APIurl);
-        return json_decode($JsonReturnData, false);
+        $JsonReturnData = @file_get_contents($APIurl);
+        return ($JsonReturnData===false ? false : json_decode($JsonReturnData, false));
     }
 
     /**
