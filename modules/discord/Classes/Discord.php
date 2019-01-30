@@ -60,7 +60,7 @@ class Discord {
      * @return string Box content ready for output
      */
     public function genBoxContent($discordServerData){
-        $boxContent ="<li class='discord_server_name'>{$discordServerData->name}<br>";
+        $boxContent ="<li class='discord_server_name'>{$discordServerData->name} ";
         // -------------------------------- MEMBERS ---------------------------------------- // 
         if (count($discordServerData->members) > 0) {
             $boxContent .= '<span class="online_users badge green">' . count($discordServerData->members) . '</span>';
@@ -104,8 +104,10 @@ class Discord {
                 $boxContent .= "</li>";
             }  
         }
-        $boxContent .= "<input class=\"btn-join\" type=button onClick=\"parent.open('". $discordServerData->instant_invite ." ')\" value='Join'>";
-        $boxContent .= '</ul>';
+        if (!is_null($discordServerData->instant_invite)) {
+            $boxContent .= "<input class=\"btn-join\" type=button onClick=\"parent.open('". $discordServerData->instant_invite ." ')\" value='Join'>";
+        }
+        $boxContent .= '</li>';
         return $boxContent;
     }
 }
