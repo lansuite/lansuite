@@ -22,7 +22,7 @@ class Clan
             return false;
         }
     
-        if (substr($url, 0, 7) != 'http://') {
+        if ($url!='' && substr($url, 0, 7) != 'http://') {
             $url = 'http://'. $url;
         }
         
