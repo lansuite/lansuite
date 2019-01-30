@@ -770,6 +770,16 @@
 				<en>no age limit</en>
 				<file>party</file>
 			</entry>
+			<entry>
+				<id>b567503e0c0e50f191c1596d67a49753</id>
+				<org>Preise bearbeiten</org>
+				<en>Edit prices</en>
+				<es>Editar precios</es>
+				<fr>Modifier les prix</fr>
+				<nl>Prijzen bewerken</nl>
+				<it>Modifica i prezzi</it>
+				<file>party</file>
+			</entry>
 		</content>
 	</table>
 </lansuite>

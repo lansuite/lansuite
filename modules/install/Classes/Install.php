@@ -783,7 +783,7 @@ class Install
         if (extension_loaded('snmp')) {
             $snmp_check = $ok;
         } else {
-            $snmp_check = $not_possible . t('Auf deinem System konnte das PHP-Modul <b>SNMP-Library</b> nicht gefunden werden. SNMP ermöglicht es, auf Netzwerkdevices zuzugreifen, um detaillierte Informatioen über diese zu liefern. Ohne diese Bibliothek kann das Lansuite-Modul <b> NOC </b> (Netzwerküberwachung) nicht arbeiten. Das Modul NOC wird <b>automatisch deaktiviert</b>.');
+            $snmp_check = $not_possible . t('Auf deinem System konnte das PHP-Modul <b>SNMP-Library</b> nicht gefunden werden. SNMP ermöglicht es, auf Netzwerkdevices zuzugreifen, um detaillierte Informationen über diese zu liefern. Ohne diese Bibliothek kann das Lansuite-Modul <b> NOC </b> (Netzwerküberwachung) nicht arbeiten. Das Modul NOC wird <b>automatisch deaktiviert</b>.');
         }
         $dsp->AddDoubleRow("SNMP Library", $snmp_check);
 
@@ -798,7 +798,7 @@ class Install
         $dsp->AddFieldSetEnd();
 
         // Information
-        $dsp->AddFieldSetStart(t('Informationen - Interesante Server-Einstellungen im Überblick'));
+        $dsp->AddFieldSetStart(t('Informationen - Interessante Server-Einstellungen im Überblick'));
 
         // Display System-Variables
         $dsp->AddFieldSetStart(t('Webserver'));

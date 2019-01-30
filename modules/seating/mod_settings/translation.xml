@@ -784,12 +784,12 @@
 			</entry>
 			<entry>
 				<id>de5ee62aa5d8c68174b136de6d5a78f6</id>
-				<org>Dennoch reservieren und %USERNAME% anschließend einen neuen Sitzplatz aussuchen</org>
-				<en>However, reserve and%USERNAME%then choose a new seat</en>
-				<es>Sin embargo, la reserva y%USERNAME%y elija un nuevo asiento</es>
-				<fr>Toutefois, les réserves et%USERNAME%alors choisir un nouveau siège</fr>
-				<nl>Echter, reserve en%GEBRUIKERSNAAM%en kies vervolgens een nieuwe stoel</nl>
-				<it>Tuttavia, riserva e%%USERNAME quindi scegliere una nuova sede</it>
+				<org>Dennoch reservieren und %1 anschließend einen neuen Sitzplatz zuweisen</org>
+				<en>Reserve nevertheless and then choose a new seat for %1</en>
+				<es>Reserve sin embargo y luego elija un nuevo asiento para %1</es>
+				<fr>Toutefois, les réserves et alors choisir un nouveau siège pour %1</fr>
+				<nl>Echter, reserve en kies vervolgens een nieuwe stoel voor %1</nl>
+				<it>Tuttavia, riserva e quindi scegliere una nuova sede per %1</it>
 				<file>seating</file>
 			</entry>
 			<entry>
@@ -874,12 +874,12 @@
 			</entry>
 			<entry>
 				<id>00fe63aa5a29076d33156db10a91172a</id>
-				<org>Diesen Sitzplatz für einen Freund vormerkenHTML_NEWLINE(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)</org>
-				<en>This seat for a friend vormerkenHTML_NEWLINE (A Vormekung can be overridden by anyone. It was only after the payment is a fixed reservations accepted)</en>
-				<es>Este asiento para un vormerkenHTML_NEWLINE amigo (A Vormekung se puede reemplazar por cualquier persona. Sólo después de que el pago es una reserva fija aceptado)</es>
-				<fr>Ce siège de vormerkenHTML_NEWLINE ami (A Vormekung peut être substituée par n&amp;#39;importe qui. Ce n&amp;#39;est qu&amp;#39;après le paiement est une des réserves fixes acceptée)</fr>
-				<nl>Deze stoel voor een vriend vormerkenHTML_NEWLINE (A Vormekung kan worden overschreven door iedereen. Het was pas na de betaling is een vaste aanvaard reserveringen)</nl>
-				<it>Questa sede per un vormerkenHTML_NEWLINE amico (A Vormekung può essere modificato da chiunque. E &amp;#39;stato solo dopo il pagamento è accettato prenotazioni fisse)</it>
+				<org>Diesen Sitzplatz für einen Freund vormerkenHTML_NEWLINE(Eine Vormerkung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)</org>
+				<en>This seat for a friend vormerkenHTML_NEWLINE (A Vormerkung can be overridden by anyone. It was only after the payment is a fixed reservations accepted)</en>
+				<es>Este asiento para un vormerkenHTML_NEWLINE amigo (A Vormerkung se puede reemplazar por cualquier persona. Sólo después de que el pago es una reserva fija aceptado)</es>
+				<fr>Ce siège de vormerkenHTML_NEWLINE ami (A Vormerkung peut être substituée par n&amp;#39;importe qui. Ce n&amp;#39;est qu&amp;#39;après le paiement est une des réserves fixes acceptée)</fr>
+				<nl>Deze stoel voor een vriend vormerkenHTML_NEWLINE (A Vormerkung kan worden overschreven door iedereen. Het was pas na de betaling is een vaste aanvaard reserveringen)</nl>
+				<it>Questa sede per un vormerkenHTML_NEWLINE amico (A Vormerkung può essere modificato da chiunque. E &amp;#39;stato solo dopo il pagamento è accettato prenotazioni fisse)</it>
 				<file>seating</file>
 			</entry>
 			<entry>
@@ -894,12 +894,12 @@
 			</entry>
 			<entry>
 				<id>a2ddc878372eeaca9739b28797b98710</id>
-				<org>Diesen Sitzplatz für mich vormerkenHTML_NEWLINE(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)</org>
-				<en>This seat for me vormerkenHTML_NEWLINE (A Vormekung can be overridden by anyone. It was only after the payment is a fixed reservations accepted)</en>
-				<es>Este asiento para mí vormerkenHTML_NEWLINE (A Vormekung se puede reemplazar por cualquier persona. Sólo después de que el pago es una reserva fija aceptado)</es>
-				<fr>Ce siège pour moi vormerkenHTML_NEWLINE (A Vormekung peut être substituée par n&amp;#39;importe qui. Ce n&amp;#39;est qu&amp;#39;après le paiement est une des réserves fixes acceptée)</fr>
-				<nl>Deze stoel voor mij vormerkenHTML_NEWLINE (A Vormekung overschreven kan worden door iedereen. Het was pas na de betaling is een vaste aanvaard reserveringen)</nl>
-				<it>Questa sede per me vormerkenHTML_NEWLINE (A Vormekung può essere modificato da chiunque. E &amp;#39;stato solo dopo il pagamento è accettato prenotazioni fisse)</it>
+				<org>Diesen Sitzplatz für mich vormerkenHTML_NEWLINE(Eine Vormerkung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)</org>
+				<en>This seat for me vormerkenHTML_NEWLINE (A Vormerkung can be overridden by anyone. It was only after the payment is a fixed reservations accepted)</en>
+				<es>Este asiento para mí vormerkenHTML_NEWLINE (A Vormerkung se puede reemplazar por cualquier persona. Sólo después de que el pago es una reserva fija aceptado)</es>
+				<fr>Ce siège pour moi vormerkenHTML_NEWLINE (A Vormerkung peut être substituée par n&amp;#39;importe qui. Ce n&amp;#39;est qu&amp;#39;après le paiement est une des réserves fixes acceptée)</fr>
+				<nl>Deze stoel voor mij vormerkenHTML_NEWLINE (A Vormerkung overschreven kan worden door iedereen. Het was pas na de betaling is een vaste aanvaard reserveringen)</nl>
+				<it>Questa sede per me vormerkenHTML_NEWLINE (A Vormerkung può essere modificato da chiunque. E &amp;#39;stato solo dopo il pagamento è accettato prenotazioni fisse)</it>
 				<file>seating</file>
 			</entry>
 			<entry>
