@@ -24,6 +24,12 @@
                 <default>1</default>
                 <description>Sollen Bots ausgeblendet werden?</description>
         </item>
+        <item>
+                <name>discord_hide_empty_channels</name>
+                <type>boolean</type>
+                <default>1</default>
+                <description>Sollen leere Channels ausgeblendet werden?</description>
+        </item>
     </items>
   </group>
 </config>

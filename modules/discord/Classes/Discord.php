@@ -80,7 +80,7 @@ class Discord {
 
         $boxContent ="<li class='discord_server_name'>{$discordServerData->name} ";
         // -------------------------------- MEMBERS ---------------------------------------- // 
-        if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots']==1) {
+        if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1) {
             $onlinemembers = 0;
             foreach ($discordServerData->members as $member) {
                 if (!$member->bot) {
@@ -117,7 +117,7 @@ class Discord {
                     });
             $boxContent .= '<ul class="online_sidebar_channel">';
             foreach ($discordServerData->members as $member) {
-                if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots']==1 && $member->bot) {
+                if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1 && $member->bot) {
                     continue;
                 }
                 if (array_key_exists('nick', $member) && !empty($member->channel_id)) {
@@ -128,6 +128,9 @@ class Discord {
                 }
             }
             foreach ($discordServerData->channels as $channel) {
+                if (isset($cfg['discord_hide_empty_channels']) && $cfg['discord_hide_empty_channels'] == 1 && empty($channel_members[$channel->id])) {
+                    continue;
+                }
                 $boxContent .= "<li class='channel'>{$channel->name}";
                 if (!empty($channel_members[$channel->id])) {
                     $boxContent .= '<ul>';
