@@ -103,12 +103,14 @@ class Discord {
                 if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1 && $member->bot) {
                     continue;
                 }
+                $username = $member->username;
                 if (array_key_exists('nick', $member)) {
-                    $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->nick . '</li>';
+                    $username = $member->nick;
                 }
-                else {
-                    $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->username . '</li>';
+                if (isset($cfg['discord_max_user_length']) && strlen($username) > $cfg['discord_max_user_length']) {
+                    $username = substr($username, 0, $cfg['discord_max_user_length'] - 2).'..';
                 }
+                $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $username . '</li>';
             }
             $boxContent .= '</ul>';
         }
@@ -134,10 +136,17 @@ class Discord {
                     if (isset($cfg['discord_hide_empty_channels']) && $cfg['discord_hide_empty_channels'] == 1 && empty($channel_members[$channel->id])) {
                         continue;
                     }
-                    $boxContent .= "<li class='channel'>{$channel->name}";
+                    $channelname = $channel->name;
+                    if (isset($cfg['discord_max_channel_length']) && strlen($channelname) > $cfg['discord_max_channel_length']) {
+                        $channelname = substr($channelname, 0, $cfg['discord_max_channel_length'] - 2).'..';
+                    }
+                    $boxContent .= "<li class='channel'>{$channelname}";
                     if (!empty($channel_members[$channel->id])) {
                         $boxContent .= '<ul>';
                         foreach ($channel_members[$channel->id] as $username) {
+                            if (isset($cfg['discord_max_user_length']) && strlen($username) > $cfg['discord_max_user_length']) {
+                                $username = substr($username, 0, $cfg['discord_max_user_length'] - 2).'..';
+                            }
                             $boxContent .= "<li class='channel_member'>$username</li>";
                         }
                         $boxContent .= '</ul>';
