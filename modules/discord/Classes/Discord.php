@@ -97,52 +97,56 @@ class Discord {
         else {
             $boxContent .= '<span class="online_users badge red">0</span>';
         } 
-        $boxContent .= '<ul class="online_sidebar">';
-        foreach($discordServerData->members as $member){
-            if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots']==1 && $member->bot) {
-                continue;
-            }
-            if (array_key_exists('nick', $member)) {
-                $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->nick . '</li>';
-            }
-            else {
-                $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->username . '</li>';
-            }
-        }
-        $boxContent .= '</ul>';
-        // -------------------------------- CHANNELS ---------------------------------------- //
-        if ($discordServerData->channels) {
-            usort($discordServerData->channels, function($a, $b) {
-            return ($a->position > $b->position) ? 1 : -1;
-                    });
-            $boxContent .= '<ul class="online_sidebar_channel">';
-            foreach ($discordServerData->members as $member) {
+        if (isset($cfg['discord_show_global_members']) && $cfg['discord_show_global_members'] == 1) {
+            $boxContent .= '<ul class="online_sidebar">';
+            foreach($discordServerData->members as $member){
                 if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1 && $member->bot) {
                     continue;
                 }
-                if (array_key_exists('nick', $member) && !empty($member->channel_id)) {
-                    $channel_members[$member->channel_id][] = $member->nick;
+                if (array_key_exists('nick', $member)) {
+                    $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->nick . '</li>';
                 }
-                elseif (!empty($member->channel_id)) {
-                    $channel_members[$member->channel_id][] = $member->username;
+                else {
+                    $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->username . '</li>';
                 }
             }
-            foreach ($discordServerData->channels as $channel) {
-                if (isset($cfg['discord_hide_empty_channels']) && $cfg['discord_hide_empty_channels'] == 1 && empty($channel_members[$channel->id])) {
-                    continue;
-                }
-                $boxContent .= "<li class='channel'>{$channel->name}";
-                if (!empty($channel_members[$channel->id])) {
-                    $boxContent .= '<ul>';
-                    foreach ($channel_members[$channel->id] as $username) {
-                        $boxContent .= "<li class='channel_member'>$username</li>";
-                    }
-                    $boxContent .= '</ul>';
-                }
-                $boxContent .= "</li>";
-            }  
+            $boxContent .= '</ul>';
         }
-        if (!is_null($discordServerData->instant_invite)) {
+        // -------------------------------- CHANNELS ---------------------------------------- //
+        if (isset($cfg['discord_show_channels']) && $cfg['discord_show_channels'] == 1) {
+            if ($discordServerData->channels) {
+                usort($discordServerData->channels, function($a, $b) {
+                return ($a->position > $b->position) ? 1 : -1;
+                        });
+                $boxContent .= '<ul class="online_sidebar_channel">';
+                foreach ($discordServerData->members as $member) {
+                    if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1 && $member->bot) {
+                        continue;
+                    }
+                    if (array_key_exists('nick', $member) && !empty($member->channel_id)) {
+                        $channel_members[$member->channel_id][] = $member->nick;
+                    }
+                    elseif (!empty($member->channel_id)) {
+                        $channel_members[$member->channel_id][] = $member->username;
+                    }
+                }
+                foreach ($discordServerData->channels as $channel) {
+                    if (isset($cfg['discord_hide_empty_channels']) && $cfg['discord_hide_empty_channels'] == 1 && empty($channel_members[$channel->id])) {
+                        continue;
+                    }
+                    $boxContent .= "<li class='channel'>{$channel->name}";
+                    if (!empty($channel_members[$channel->id])) {
+                        $boxContent .= '<ul>';
+                        foreach ($channel_members[$channel->id] as $username) {
+                            $boxContent .= "<li class='channel_member'>$username</li>";
+                        }
+                        $boxContent .= '</ul>';
+                    }
+                    $boxContent .= "</li>";
+                }
+            }
+        }
+        if (!is_null($discordServerData->instant_invite) && isset($cfg['discord_show_join_button']) && $cfg['discord_show_join_button'] == 1) {
             $boxContent .= "<input class=\"btn-join\" type=button onClick=\"parent.open('". $discordServerData->instant_invite ." ')\" value='Join'>";
         }
         $boxContent .= '</li>';

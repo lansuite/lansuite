@@ -30,6 +30,24 @@
                 <default>1</default>
                 <description>Sollen leere Channels ausgeblendet werden?</description>
         </item>
+        <item>
+                <name>discord_show_global_members</name>
+                <type>boolean</type>
+                <default>1</default>
+                <description>Soll eine generische Userliste angezeigt werden?</description>
+        </item>
+        <item>
+                <name>discord_show_channels</name>
+                <type>boolean</type>
+                <default>1</default>
+                <description>Sollen Channels angezeigt werden?</description>
+        </item>
+        <item>
+                <name>discord_show_join_button</name>
+                <type>boolean</type>
+                <default>1</default>
+                <description>Soll ein Join-Button angezeigt werden? (Hinweis: "Instant Invite" muss in Discord aktiv sein)</description>
+        </item>
     </items>
   </group>
 </config>
