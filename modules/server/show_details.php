@@ -3,8 +3,19 @@ $serverid = $_GET["serverid"];
 
 $server = $db->qry_first("
   SELECT
-    a.*,
-    INET6_NTOA(a.ip) AS realip,
+    a.serverid,
+    a.owner,
+    a.caption,
+    a.text,
+    INET6_NTOA(a.ip) AS ip,
+    a.mac,
+    a.port,
+    a.os,
+    a.cpu,
+    a.ram,
+    a.hdd,
+    a.type,
+    a.pw,
     b.userid,
     b.username
   FROM %prefix%server AS a
@@ -34,7 +45,7 @@ if ($server == "") {
 
         // Wenn Intranetversion, Servererreichbarkeit testen
         if ($cfg["sys_internet"] == 0 and (!get_cfg_var("safe_mode"))) {
-            PingServer($server["realip"], $server["port"]);
+            PingServer($server["ip"], $server["port"]);
 
             // Gescannte Daten neu auslesen
             $server_scan = $db->qry_first('
@@ -66,7 +77,7 @@ if ($server == "") {
             $dsp->AddDoubleRow(t('Letzter Scan'), t('Diese Funktion ist erst auf der Party verf&uuml;gbar'));
         }
 
-        $dsp->AddDoubleRow(t('IP-Adresse / Domain'), $server["realip"]);
+        $dsp->AddDoubleRow(t('IP-Adresse / Domain'), $server["ip"]);
         $dsp->AddDoubleRow(t('MAC Adresse'), $server["mac"]);
         $dsp->AddDoubleRow(t('Port'), $server["port"]);
 
@@ -93,7 +104,7 @@ if ($server == "") {
             $buttons .= $dsp->FetchSpanButton(t('Löschen'), "index.php?mod=server&action=delete&step=2&serverid=$serverid") ." ";
         }
         if ($server["type"] == "web") {
-            $buttons .= $dsp->FetchSpanButton(t('Öffnen'), "http://{$server['realip']}:{$server['port']}", t('Webseite &ouml;ffnen'), "_blank") ." ";
+            $buttons .= $dsp->FetchSpanButton(t('Öffnen'), "http://{$server['ip']}:{$server['port']}", t('Webseite &ouml;ffnen'), "_blank") ." ";
         }
         if ($buttons) {
             $dsp->AddDoubleRow("", $buttons);
