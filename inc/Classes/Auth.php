@@ -353,7 +353,7 @@ class Auth
                     } else {
                         $auth_backlink = "";
                     }
-                    $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink, '', 'FORWARD');
+                    $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim Laden der nächsten Seite wirksam.'), $auth_backlink, '', 'FORWARD');
 
                     // Show error logins
                     $msg = '';
@@ -361,7 +361,7 @@ class Auth
                                    FROM %prefix%login_errors
                                    WHERE userid = %int%', $user['userid']);
                     while ($row = $db->fetch_array($res)) {
-                        $msg .= t('Am') .' '. $row['time'] .' von der IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>'. HTML_NEWLINE;
+                        $msg .= t('Am') .' '. $row['time'] .' von der IP: <a href="https://dnsquery.org/ipwhois/'. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>'. HTML_NEWLINE;
                     }
                     $db->free_result($res);
                     if ($msg != '') {

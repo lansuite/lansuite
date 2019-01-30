@@ -85,7 +85,7 @@ switch ($_GET['step']) {
                     }
                           // If not reached the maximum of marks
                     if ($marked_seats['anz'] < $cfg['seating_max_marks']) {
-                          array_push($questionarray, t('Diesen Sitzplatz für einen Freund vormerken<br />(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)'));
+                          array_push($questionarray, t('Diesen Sitzplatz für einen Freund vormerken<br />(Eine Vormerkung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)'));
                           array_push($linkarray, "index.php?mod=seating&action=show&step=12&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
                     }
                           // Clanadmins can reserve seats for paid clan-members
@@ -114,7 +114,7 @@ switch ($_GET['step']) {
                     }
                 // Mark seat for myselfe (if not paid)
                 } else {
-                    array_push($questionarray, t('Diesen Sitzplatz für mich vormerken<br />(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)'));
+                    array_push($questionarray, t('Diesen Sitzplatz für mich vormerken<br />(Eine Vormerkung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)'));
                     array_push($linkarray, "index.php?mod=seating&action=show&step=12&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
                 }
                 array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
