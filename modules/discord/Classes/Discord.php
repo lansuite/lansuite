@@ -15,23 +15,23 @@ namespace LanSuite\Module\Discord;
 class Discord {
 
     // Storage for the discord server id
-    private $discordServerId = 0;
+    private $discordServerId = '';
     
 
     
-    public function __construct($discordServerId = 0){
+    public function __construct($discordServerId = ''){
         global $cfg,$func;
         
         //Have a look first, if OpenSSL is enabled as module...
        if (extension_loaded('openssl'))
        {
             //Check if server id was passed via constructor, use configuration value otherwise
-            if ($discordServerId){
+            if ($discordServerId!=''){
                 $this->discordServerId = $disordServerId;
             } elseif (isset($cfg['discord_server_id'])) {
                 $this ->discordServerId =  $cfg['discord_server_id'];
             } else {
-                $func->error(t('Es wurde keine Discord server ID konfiguriert oder übergeben'));
+                $func->error(t('Es wurde keine Discord Server ID konfiguriert oder übergeben'));
             } 
        }
         else {
