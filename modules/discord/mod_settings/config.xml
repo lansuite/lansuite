@@ -13,4 +13,17 @@
     	</item>
     </items>
   </group>
+  <group>
+    <head>
+      <name>Anzeigeeinstellungen</name>
+    </head>
+    <items>
+        <item>
+                <name>discord_hide_bots</name>
+                <type>boolean</type>
+                <default>1</default>
+                <description>Sollen Bots ausgeblendet werden?</description>
+        </item>
+    </items>
+  </group>
 </config>

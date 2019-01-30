@@ -76,16 +76,32 @@ class Discord {
      * @return string Box content ready for output
      */
     public function genBoxContent($discordServerData){
+        global $cfg;
+
         $boxContent ="<li class='discord_server_name'>{$discordServerData->name} ";
         // -------------------------------- MEMBERS ---------------------------------------- // 
-        if (count($discordServerData->members) > 0) {
-            $boxContent .= '<span class="online_users badge green">' . count($discordServerData->members) . '</span>';
+        if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots']==1) {
+            $onlinemembers = 0;
+            foreach ($discordServerData->members as $member) {
+                if (!$member->bot) {
+                    $onlinemembers++;
+                }
+            }
         }
         else {
-            $boxContent .= '<span class="online_users badge red">' . count($discordServerData->members) . '</span>';
+            $onlinemembers = count($discordServerData->members);
+        }
+        if ($onlinemembers > 0) {
+            $boxContent .= '<span class="online_users badge green">' . $onlinemembers . '</span>';
+        }
+        else {
+            $boxContent .= '<span class="online_users badge red">0</span>';
         } 
         $boxContent .= '<ul class="online_sidebar">';
         foreach($discordServerData->members as $member){
+            if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots']==1 && $member->bot) {
+                continue;
+            }
             if (array_key_exists('nick', $member)) {
                 $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->nick . '</li>';
             }
@@ -101,6 +117,9 @@ class Discord {
                     });
             $boxContent .= '<ul class="online_sidebar_channel">';
             foreach ($discordServerData->members as $member) {
+                if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots']==1 && $member->bot) {
+                    continue;
+                }
                 if (array_key_exists('nick', $member) && !empty($member->channel_id)) {
                     $channel_members[$member->channel_id][] = $member->nick;
                 }
