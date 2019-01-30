@@ -113,6 +113,7 @@ class Import
             // Get current table-structure from DB, to compare with XML-File
             $db_fields = array();
             $FieldsForContent = array();
+            $DBPrimaryKeys = array();
             if ($table_found) {
                 // Read fields from DB
                 $query = $db->qry("DESCRIBE %prefix%%plain%", $table_name);
@@ -123,7 +124,6 @@ class Import
                 $db->free_result($query);
 
                 // Read indizes from DB
-                $DBPrimaryKeys = array();
                 $DBUniqueKeys = array();
                 $DBIndizes = array();
                 $DBFulltext = array();
@@ -499,7 +499,7 @@ class Import
             }
 
             // Optimize table
-            $db->qry_first("OPTIMIZE TABLE `%plain%`", $table_name);
+            $db->qry_first("OPTIMIZE TABLE `%prefix%%plain%`", $table_name);
             
             // Move usersettings to user
             if ($table_name == 'user' and in_array('usersettings', $this->installed_tables)) {

@@ -872,20 +872,20 @@ class Display
         }
 
         if ($time > 0) {
-            $day = date("d", $time);
-            $month = date("m", $time);
+            $day = date("j", $time);
+            $month = date("n", $time);
             $year = date("Y", $time);
             $hour = date("H", $time);
             $min = date("i", $time);
         } elseif ($values['day'] != "" and $values['month'] != "" and $values['year'] != "") {
-            $day = $values['day'];
-            $month = $values['month'];
+            $day = ltrim($values['day'],'0');
+            $month = ltrim($values['month'],'0');
             $year = $values['year'];
             $hour = $values['hour'];
             $min = $values['min'];
         } else {
-            $day = date("d");
-            $month = date("m");
+            $day = date("j");
+            $month = date("n");
             $year = date("Y");
             $hour = date("H");
             $min = round(date("i") / 5) * 5;

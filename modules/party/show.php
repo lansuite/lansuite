@@ -31,10 +31,10 @@ switch ($_GET['step']) {
             $ms2->AddIconField('edit', 'index.php?mod=party&action=edit&party_id=', t('Editieren'));
         }
         if ($auth['type'] >= 2) {
-            $ms2->AddIconField('delete', 'index.php?mod=party&action=delete&party_id=', t('Editieren'));
+            $ms2->AddIconField('delete', 'index.php?mod=party&action=delete&party_id=', t('Löschen'));
         }
         if ($auth['type'] >= 2) {
-            $ms2->AddIconField('paid', 'index.php?mod=party&action=price&step=2&party_id=');
+            $ms2->AddIconField('paid', 'index.php?mod=party&action=price&step=2&party_id=', t('Preise bearbeiten'));
         }
 
         $ms2->PrintSearch('index.php?mod=party', 'p.party_id');
@@ -42,7 +42,7 @@ switch ($_GET['step']) {
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=edit'));
     
         if ($auth['type'] >= 2 and isset($_SESSION['party_id'])) {
-            $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite, oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persöhnlich die aktivie ist, kannst du auf der Startseite, oder in der Party-Box einstellen', $_SESSION['party_id']), NO_LINK);
+            $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persönlich die aktive ist, kannst du auf der Startseite oder in der Party-Box einstellen', $_SESSION['party_id']), NO_LINK);
         }
         break;
 
