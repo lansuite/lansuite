@@ -139,7 +139,7 @@ if (!$thread and $tid) {
 
         $type = $userdata["type"];
         if ($auth['type'] >= 2) {
-            $type .= '<br />IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';
+            $type .= '<br />IP: <a href="https://dnsquery.org/ipwhois/'. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';
         }
         $smarty->assign('type', $userdata["type"]);
 

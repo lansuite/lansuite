@@ -23,7 +23,7 @@ if ($auth['login']) {
         while ($row = $db->fetch_array($query)) {
             $smarty->assign('link', 'index.php?mod=mail&action=showmail&ref=in&mailID='. $row['mailID']);
             $smarty->assign('text', $func->CutString($row['subject'], 40));
-            $smarty->assign('text2', ' ['.$row['username'].']');
+            $smarty->assign('text2', ' ['.($row['username']=='' ? 'System' : $row['username']).']');
             if ($row['des_Status'] == 'new') {
                 $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
             } else {

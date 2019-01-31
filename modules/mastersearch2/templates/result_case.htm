@@ -77,7 +77,7 @@ MultiSelectSecurityQuest = new Array({$security_questions});
   <div class="content_head" style="text-align:right">
     {if $pages != ''}
       {$pages}
-      <select name="EntsPerPage" onchange="$(this).parent().find('input[name=design]').val(''); $(this).parent().find('input[name=msExport]').val(''); this.form.submit();">
+      <select name="EntsPerPage" onchange="var e=$(this).parent().find('input[name=design]')[0]; e.parentNode.removeChild(e); e=$(this).parent().find('input[name=msExport]')[0]; e.parentNode.removeChild(e); this.form.submit();">
         {html_options options=$EntsPerPage selected=$EntPerPage}
       </select>
     {else}
