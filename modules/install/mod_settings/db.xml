@@ -1143,7 +1143,7 @@
             <field>
                 <name>ip</name>
                 <type>varbinary(16)</type>
-                <null>YES</null>
+                <null></null>
                 <key>PRI</key>
                 <default></default>
                 <extra></extra>
@@ -1168,7 +1168,7 @@
             <field>
                 <name>ip</name>
                 <type>varbinary(16)</type>
-                <null>YES</null>
+                <null></null>
                 <key>PRI</key>
                 <default></default>
                 <extra></extra>

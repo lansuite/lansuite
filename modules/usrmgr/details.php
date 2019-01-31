@@ -103,7 +103,7 @@ if (!$user_data['userid']) {
     if ($cfg['signon_show_clan']) {
         $clan = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
         $clan .= '<a href="index.php?mod=clanmgr&step=2&clanid='.$user_data["clanid"].'">'.$user_data["clan"].'</a>';
-        if (substr($user_data['clanurl'], 0, 7) != 'http://') {
+        if ($user_data['clanurl']!='' && substr($user_data['clanurl'], 0, 7) != 'http://') {
             $user_data['clanurl'] = 'http://'. $user_data['clanurl'];
         }
         if ($user_data['clanurl']) {

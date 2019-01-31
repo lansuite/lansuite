@@ -268,7 +268,7 @@ class Func
                 $text = t('Du hast keine Zugriffsrechte für diesen Bereich.');
                 break;
             case 'NO_LOGIN':
-                $text = t('Du bist nicht eingeloggt. Bitte logge dich erst ein, bevor du diesen Bereich betritst.');
+                $text = t('Du bist nicht eingeloggt. Bitte logge dich erst ein, bevor du diesen Bereich betrittst.');
                 break;
             case 'NO_REFRESH':
                 $text = t('Du hast diese Anfrage wiederholt ausgeführt.');

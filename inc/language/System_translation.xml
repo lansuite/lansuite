@@ -84,7 +84,7 @@
 			</entry>
 			<entry>
 				<id>07834f918b2652509fbcae60694b9a58</id>
-				<org>Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.</org>
+				<org>Erfolgreich eingeloggt. Die Änderungen werden beim Laden der nächsten Seite wirksam.</org>
 				<en>Successfully logged in. The changes will take effect when the next page is loaded.</en>
 				<es>Has cerrado correctamente. Los cambios surtirán efecto cuando la página siguiente a la carga.</es>
 				<fr>Connecté avec succès. Les modifications prendront effet dès la prochaine page à charger.</fr>
@@ -414,7 +414,7 @@
 			</entry>
 			<entry>
 				<id>ab559eb6c85d0c3a970dca3e9a94312c</id>
-				<org>Bitte loggen dich sich ein, bevor du einen Kommentar verfasst</org>
+				<org>Bitte logge dich ein, bevor du einen Kommentar verfasst</org>
 				<en>Please log in before you leave a comment</en>
 				<es>Debes iniciar sesión antes de dejar un comentario</es>
 				<fr>S&amp;#39;il vous plaît vous connecter avant de laisser un commentaire</fr>
@@ -984,7 +984,7 @@
 			</entry>
 			<entry>
 				<id>e7ba52be00619245bf487b34e862db3c</id>
-				<org>Du bist nicht eingeloggt. Bitte loggen dich erst ein, bevor du diesen Bereich betritst.</org>
+				<org>Du bist nicht eingeloggt. Bitte logge dich erst ein, bevor du diesen Bereich betrittst.</org>
 				<en>You are not logged. Please log in first before you enter this area.</en>
 				<es>No está conectado. Debes iniciar sesión antes de entrar en esta área.</es>
 				<fr>Vous n&amp;#39;êtes pas connecté. S&amp;#39;il vous plaît Connectez-vous en premier avant de pénétrer dans cette zone.</fr>

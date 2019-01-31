@@ -71,7 +71,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                     $mf->AddField(
                         t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
                         '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
-                        '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
+                        '('.t('Solange kein Admin einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
                         'permissions',
                         \LanSuite\MasterForm::IS_MULTI_SELECTION,
                         $selections,
