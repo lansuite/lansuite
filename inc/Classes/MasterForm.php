@@ -186,6 +186,26 @@ class MasterForm
      */
     private $number = 0;
 
+    /**
+     * The MasterForm class deals internally with a number to handle multiple forms on one page.
+     * If you are using the MasterForm class only once at the page, you can just initialize and use it.
+     * If you use it multiple times, you need to increment the internal counter.
+     * If you use two forms on one page, you need to increment the counter once. If you use three forms, twice. And so on.
+     *
+     * E.g.
+     *      $formOne = new \LanSuite\MasterForm();
+     *      ...
+     *      $formTwo = new \LanSuite\MasterForm();
+     *      $formTwo->IncrementNumber();
+     *      ...
+     *      $formThree = new \LanSuite\MasterForm();
+     *      $formThree->IncrementNumber();
+     *      $formThree->IncrementNumber();
+     *
+     * The reason for this: The internal number is used to assign the data to the related form.
+     * If they overlap, it could lead to wrong data in the previous forms.
+     *
+     */
     public function __construct($MFID = 0)
     {
         $this->MFID = $MFID;
@@ -340,7 +360,7 @@ class MasterForm
     public function AddDropDownFromTable($caption, $id1, $id2, $text, $table, $defText = '', $where = '')
     {
         global $db;
-    
+
         $selections = [];
         if ($defText) {
             $selections[''] = $defText;
@@ -558,7 +578,7 @@ class MasterForm
                                                     $_POST[$field['name']] = $_POST[$field['name'].'_value_year'] .'-'. $_POST[$field['name'].'_value_month'] .'-'. $_POST[$field['name'].'_value_day'];
                                                     $__POST[$field['name']] = $_POST[$field['name']];
                                                 }
-                
+
                                                 // Upload submitted file
                                                 if ($_POST[$field['name'].'_keep']) {
                                                     foreach ($this->SQLFields as $key => $val) {
@@ -1020,7 +1040,7 @@ class MasterForm
                 if ($this->Pages and count($this->Pages) > 1) {
                     $dsp->EndTabs();
                 }
-        
+
                 if ($this->SendButtonText) {
                     $dsp->AddFormSubmitRow($this->SendButtonText);
                 } elseif ($id || $this->MultiLineID) {
