@@ -16,7 +16,7 @@ if ($party->count > 0) {
           SELECT COUNT(*) as n FROM %prefix%party_user AS p
           LEFT JOIN %prefix%user ON user_id=userid
           WHERE
-            %string%
+            %plain%
             AND (p.paid > 0)
             AND p.party_id=%int%", $querytype, $party->party_id);
 
@@ -28,7 +28,7 @@ if ($party->count > 0) {
           WHERE
             p.checkin>1
             AND p.checkout=0
-            AND %string%
+            AND %plain%
             AND p.party_id=%int%", $querytype, $party->party_id);
 
         $user_checkout = $db->qry_first("
@@ -38,12 +38,11 @@ if ($party->count > 0) {
           LEFT JOIN %prefix%user ON user_id=userid
           WHERE
             p.checkout>1
-            AND %string%
+            AND %plain%
             AND p.party_id=%int%", $querytype, $party->party_id);
         $content .= t('Gäste bezahlt / eingecheckt / ausgecheckt') .': '. $user_paid['n'] .' / '. $user_checkin['n'] .' / '. $user_checkout['n'] . HTML_NEWLINE;
 
-        $online = count($authentication->online_users);
         $visits = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
-        $content .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. $online['count'] . HTML_NEWLINE;
+        $content .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. count($authentication->online_users) . HTML_NEWLINE;
     }
 }

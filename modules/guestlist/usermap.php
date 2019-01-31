@@ -88,7 +88,12 @@ if ($cfg['guestlist_guestmap'] == 2) {
             $func->error(t('Die Google Analytics ID wurde nicht konfiguriert, ist aber notwendig zur Benutzung von Google Maps-Diensten.'));
         }
     } else {
-        $func->error(t('Es hat sich noch niemand für die aktuelle Party registriert, daher ist eine Anzeige der Karte nicht möglich'));
+        $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, ($cfg["guestlist_showorga"] == 0 ? "type = 1" : "type >= 1"));
+        if ($get_cur["n"]>0) {
+            $func->error(t('Leider hat noch keiner der angemeldeten Besucher dieser Party seine Postleitzahl angegeben. Es kann daher keine Karte angezeigt werden.'));
+        } else {
+            $func->error(t('Es hat sich noch niemand für die aktuelle Party angemeldet, daher ist eine Anzeige der Karte nicht möglich.'));
+        }
     }
 // Use Geofreedb
 } else {
@@ -97,7 +102,12 @@ if ($cfg['guestlist_guestmap'] == 2) {
     $pi = pi();
 
     if ($db->num_rows($res) == 0) {
-        $func->information(t('Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben oder es hat sich noch niemand für die Party registriert. Das Bestimmen der Position ist daher nicht m&ouml;glich.'), "index.php?mod=home");
+        $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, ($cfg["guestlist_showorga"] == 0 ? "type = 1" : "type >= 1"));
+        if ($get_cur["n"]>0) {
+            $func->error(t('Leider hat noch keiner der angemeldeten Besucher dieser Party seine Postleitzahl angegeben. Es kann daher keine Karte angezeigt werden.'));
+        } else {
+            $func->error(t('Es hat sich noch niemand für die aktuelle Party angemeldet, daher ist eine Anzeige der Karte nicht möglich.'));
+        }
     } else {
         $map_out = '<script type="text/javascript" src="ext_scripts/overlib421/Mini/overlib_mini.js"><!-- overLIB (c) Erik Bosrup --></script>
 <div id="tooltip" class="tooltip" style="position: absolute; width: auto; height: auto; z-index: 100; visibility: hidden; left: 0; top: 0;"></div><script src="modules/guestlist/templates/map.js" type="text/javascript"></script><map name="deutschland">';

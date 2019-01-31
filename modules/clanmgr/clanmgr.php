@@ -45,7 +45,7 @@ switch ($_GET['step']) {
             $dsp->AddDoubleRow(t(''), '<img src="'. $row['clanlogo_path'] .'" alt="'.$row['name'].'">');
         }
         $dsp->AddDoubleRow(t('Clan'), $row['name']);
-        if (stristr($row['url'], 'http://') === false) {
+        if ($row['url']!='' && stristr($row['url'], 'http://') === false) {
             $row['url'] = "http://".$row['url'];
         }
         $dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a>');
