@@ -20,9 +20,9 @@ $avg = $db->qry_first("
   WHERE
     DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 HOUR), '%Y-%m-%d %H:00:00')");
 $box->DotRow(t('Besucher').':');
-$box->EngangedRow('<span class="infolink">'.number_format($total['visits'], 0, '', '.') .'<span class="infobox">'.$total['visits'].' '.t('Besucher insgesamt') .'</span></span>&nbsp;<span class="infolink">('. $avg['visits'] .')<span class="infobox">'.$avg['visits'].' '.t('Besucher in der letzten Stunde') .'</span></span>');
+$box->EngangedRow('<span class="infolink">'.number_format($total['visits'], 0, '', '.').'<span class="infobox">'.$total['visits'].' '.t('Besucher insgesamt').'</span></span>&nbsp;<span class="infolink">('.($avg['visits'] ? $avg['visits'] : '0').')<span class="infobox">'.($avg['visits'] ? $avg['visits'] : '0').' '.t('Besucher in der letzten Stunde').'</span></span>');
 $box->DotRow(t('Aufrufe').':');
-$box->EngangedRow('<span class="infolink">'.number_format($total['hits'], 0, '', '.') .'<span class="infobox">'.$total['hits'].' '.t('Seitenzugriffe insgesamt') .'</span></span>&nbsp;<span class="infolink">('. $avg['hits'] .')<span class="infobox">'.$avg['hits'].' '. t('Seitenzugriffe in der letzten Stunde') .'</span></span>');
+$box->EngangedRow('<span class="infolink">'.number_format($total['hits'], 0, '', '.').'<span class="infobox">'.$total['hits'].' '.t('Seitenzugriffe insgesamt').'</span></span>&nbsp;<span class="infolink">('.($avg['hits'] ? $avg['hits'] : '0').')<span class="infobox">'.($avg['hits'] ? $avg['hits'] : '0').' '.t('Seitenzugriffe in der letzten Stunde').'</span></span>');
 
 $box->DotRow(t('Online') .': '. count($authentication->online_users), 'index.php?mod=guestlist&action=onlineuser');
 foreach ($authentication->online_users as $userid) {
