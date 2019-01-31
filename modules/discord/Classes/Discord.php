@@ -15,23 +15,23 @@ namespace LanSuite\Module\Discord;
 class Discord {
 
     // Storage for the discord server id
-    private $discordServerId = 0;
+    private $discordServerId = '';
     
 
     
-    public function __construct($discordServerId = 0){
+    public function __construct($discordServerId = ''){
         global $cfg,$func;
         
         //Have a look first, if OpenSSL is enabled as module...
        if (extension_loaded('openssl'))
        {
             //Check if server id was passed via constructor, use configuration value otherwise
-            if ($discordServerId){
+            if ($discordServerId!=''){
                 $this->discordServerId = $disordServerId;
             } elseif (isset($cfg['discord_server_id'])) {
                 $this ->discordServerId =  $cfg['discord_server_id'];
             } else {
-                $func->error(t('Es wurde keine Discord server ID konfiguriert oder übergeben'));
+                $func->error(t('Es wurde keine Discord Server ID konfiguriert oder übergeben'));
             } 
        }
         else {
@@ -47,9 +47,25 @@ class Discord {
      */
     
     public function fetchServerData(){
-        $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
-        $JsonReturnData = file_get_contents($APIurl);
-        return json_decode($JsonReturnData, false);
+        clearstatcache('ext_inc/discord/cache.json');
+        if (is_readable('ext_inc/discord/cache.json') && time()-filemtime('ext_inc/discord/cache.json') < 60) {
+            // Cache file is readable and <60 seconds old.
+            // Note: Discord itself currently seems to update the widget.json file only once every 300 seconds.
+            $JsonReturnData = file_get_contents('ext_inc/discord/cache.json');
+        } else if (is_readable('ext_inc/discord/cache.json') && filesize('ext_inc/discord/cache.json') < 2 && time()-filemtime('ext_inc/discord/cache.json') < 300) {
+            // Cache file exists but is too small. There was probably some issue retrieving Discord data.
+            // Only retry after 300 seconds.
+            return false;
+        } else {
+            // No cache file or too old; let's fetch data.
+            $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
+            $JsonReturnData = @file_get_contents($APIurl);
+            if (is_writeable('ext_inc/discord/')) {
+                // Note: This intentionally also writes empty results to the cache file.
+                @file_put_contents('ext_inc/discord/cache.json', $JsonReturnData, LOCK_EX);
+            }
+        }
+        return ($JsonReturnData === false ? false : json_decode($JsonReturnData, false));
     }
 
     /**
@@ -60,52 +76,89 @@ class Discord {
      * @return string Box content ready for output
      */
     public function genBoxContent($discordServerData){
-        $boxContent ="<li class='discord_server_name'>{$discordServerData->name}<br>";
+        global $cfg;
+
+        $boxContent ="<li class='discord_server_name'>{$discordServerData->name} ";
         // -------------------------------- MEMBERS ---------------------------------------- // 
-        if (count($discordServerData->members) > 0) {
-            $boxContent .= '<span class="online_users badge green">' . count($discordServerData->members) . '</span>';
+        if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1) {
+            $onlinemembers = 0;
+            foreach ($discordServerData->members as $member) {
+                if (!$member->bot) {
+                    $onlinemembers++;
+                }
+            }
         }
         else {
-            $boxContent .= '<span class="online_users badge red">' . count($discordServerData->members) . '</span>';
+            $onlinemembers = count($discordServerData->members);
+        }
+        if ($onlinemembers > 0) {
+            $boxContent .= '<span class="online_users badge green">' . $onlinemembers . '</span>';
+        }
+        else {
+            $boxContent .= '<span class="online_users badge red">0</span>';
         } 
-        $boxContent .= '<ul class="online_sidebar">';
-        foreach($discordServerData->members as $member){
-            if (array_key_exists('nick', $member)) {
-                $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->nick . '</li>';
+        if (isset($cfg['discord_show_global_members']) && $cfg['discord_show_global_members'] == 1) {
+            $boxContent .= '<ul class="online_sidebar">';
+            foreach($discordServerData->members as $member){
+                if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1 && $member->bot) {
+                    continue;
+                }
+                $username = $member->username;
+                if (array_key_exists('nick', $member)) {
+                    $username = $member->nick;
+                }
+                if (isset($cfg['discord_max_user_length']) && strlen($username) > $cfg['discord_max_user_length']) {
+                    $username = substr($username, 0, $cfg['discord_max_user_length'] - 2).'..';
+                }
+                $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $username . '</li>';
             }
-            else {
-                $boxContent .= '<li><img src="'. $member->avatar_url .'" class="'. $member->status .' discord_avatar">' . $member->username . '</li>';
-            }
+            $boxContent .= '</ul>';
         }
-        $boxContent .= '</ul>';
         // -------------------------------- CHANNELS ---------------------------------------- //
-        if ($discordServerData->channels) {
-            usort($discordServerData->channels, function($a, $b) {
-            return ($a->position > $b->position) ? 1 : -1;
-                    });
-            $boxContent .= '<ul class="online_sidebar_channel">';
-            foreach ($discordServerData->members as $member) {
-                if (array_key_exists('nick', $member) && !empty($member->channel_id)) {
-                    $channel_members[$member->channel_id][] = $member->nick;
+        if (isset($cfg['discord_show_channels']) && $cfg['discord_show_channels'] == 1) {
+            if ($discordServerData->channels) {
+                usort($discordServerData->channels, function($a, $b) {
+                return ($a->position > $b->position) ? 1 : -1;
+                        });
+                $boxContent .= '<ul class="online_sidebar_channel">';
+                foreach ($discordServerData->members as $member) {
+                    if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1 && $member->bot) {
+                        continue;
+                    }
+                    if (array_key_exists('nick', $member) && !empty($member->channel_id)) {
+                        $channel_members[$member->channel_id][] = $member->nick;
+                    }
+                    elseif (!empty($member->channel_id)) {
+                        $channel_members[$member->channel_id][] = $member->username;
+                    }
                 }
-                elseif (!empty($member->channel_id)) {
-                    $channel_members[$member->channel_id][] = $member->username;
+                foreach ($discordServerData->channels as $channel) {
+                    if (isset($cfg['discord_hide_empty_channels']) && $cfg['discord_hide_empty_channels'] == 1 && empty($channel_members[$channel->id])) {
+                        continue;
+                    }
+                    $channelname = $channel->name;
+                    if (isset($cfg['discord_max_channel_length']) && strlen($channelname) > $cfg['discord_max_channel_length']) {
+                        $channelname = substr($channelname, 0, $cfg['discord_max_channel_length'] - 2).'..';
+                    }
+                    $boxContent .= "<li class='channel'>{$channelname}";
+                    if (!empty($channel_members[$channel->id])) {
+                        $boxContent .= '<ul>';
+                        foreach ($channel_members[$channel->id] as $username) {
+                            if (isset($cfg['discord_max_user_length']) && strlen($username) > $cfg['discord_max_user_length']) {
+                                $username = substr($username, 0, $cfg['discord_max_user_length'] - 2).'..';
+                            }
+                            $boxContent .= "<li class='channel_member'>$username</li>";
+                        }
+                        $boxContent .= '</ul>';
+                    }
+                    $boxContent .= "</li>";
                 }
             }
-            foreach ($discordServerData->channels as $channel) {
-                $boxContent .= "<li class='channel'>{$channel->name}";
-                if (!empty($channel_members[$channel->id])) {
-                    $boxContent .= '<ul>';
-                    foreach ($channel_members[$channel->id] as $username) {
-                        $boxContent .= "<li class='channel_member'>$username</li>";
-                    }
-                    $boxContent .= '</ul>';
-                }
-                $boxContent .= "</li>";
-            }  
         }
-        $boxContent .= "<input class=\"btn-join\" type=button onClick=\"parent.open('". $discordServerData->instant_invite ." ')\" value='Join'>";
-        $boxContent .= '</ul>';
+        if (!is_null($discordServerData->instant_invite) && isset($cfg['discord_show_join_button']) && $cfg['discord_show_join_button'] == 1) {
+            $boxContent .= "<input class=\"btn-join\" type=button onClick=\"parent.open('". $discordServerData->instant_invite ." ')\" value='Join'>";
+        }
+        $boxContent .= '</li>';
         return $boxContent;
     }
 }

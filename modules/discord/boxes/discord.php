@@ -12,5 +12,12 @@ if (file_exists('design/' . $auth['design'] . '/discord.css')) {
 } else {
     $framework->add_css_path('modules/discord/boxes/default.css');
 }
-$boxcontent = $discord->genBoxContent($discordServerData);
-$box->Row($boxcontent);
+if (!$discordServerData) {
+    // Failed to fetch Discord status XML.
+    // Possible reasons: No connectivity, Discord server issues, Widget not enabled in Discord server settings
+    // TODO: Improve error reporting.
+    $box->Row('<b>Error:</b> Unable to retrieve server data.');
+} else {
+    $boxcontent = $discord->genBoxContent($discordServerData);
+    $box->Row($boxcontent);
+}
