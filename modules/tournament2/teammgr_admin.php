@@ -112,8 +112,11 @@ switch ($_GET["step"]) {
             while ($tourney = $db->fetch_array($tourneys)) {
                 array_push($t_array, "<option value=\"{$tourney['tournamentid']}\">{$tourney['name']}</option>");
             }
-            $dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=40");
-            $dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmelden<br />(Nur in Anmeldephase möglich)'), $t_array, "");
+            $dsp->SetForm("?", NULL, 'GET');
+            $t_hiddenfields  = '<input type="hidden" name="mod" value="tournament2" />';
+            $t_hiddenfields .= '<input type="hidden" name="action" value="teammgr_admin" />';
+            $t_hiddenfields .= '<input type="hidden" name="step" value="40" />';
+            $dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmelden<br />(Nur in Anmeldephase möglich)').$t_hiddenfields, $t_array, "");
             $dsp->AddFormSubmitRow(t('Abschicken'));
         }
         $db->free_result($tourneys);
