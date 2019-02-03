@@ -112,7 +112,7 @@ switch ($_GET["step"]) {
             while ($tourney = $db->fetch_array($tourneys)) {
                 array_push($t_array, "<option value=\"{$tourney['tournamentid']}\">{$tourney['name']}</option>");
             }
-            $dsp->SetForm("?", NULL, 'GET');
+            $dsp->SetForm("?", null, 'GET');
             $t_hiddenfields  = '<input type="hidden" name="mod" value="tournament2" />';
             $t_hiddenfields .= '<input type="hidden" name="action" value="teammgr_admin" />';
             $t_hiddenfields .= '<input type="hidden" name="step" value="40" />';
