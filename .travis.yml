@@ -27,7 +27,8 @@ script:
     bin/phpcs --standard=PSR1,PSR2 --extensions=php -s \
       modules/guestbook \
       modules/helplet
-  - bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength \
+  - |
+    bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength \
     modules/about \
     modules/beamer \
     modules/board \
@@ -53,7 +54,8 @@ script:
     modules/stats \
     modules/troubleticket \
     modules/wiki
-  - bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName \
+  - |
+    bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName \
     modules/boxes \
     modules/bugtracker \
     modules/cashmgr \
