@@ -3,8 +3,8 @@
 use LanSuite\Validator\Email;
 
 /**
- * CheckValidEmail is a callback function for e.g. MasterForm to verify a given email adress against a set of requirements.
- * So far it uses a generic (configurable) Validator and checks if the given address is already in use
+ * CheckValidEmail is a callback function for e.g. MasterForm to verify a given email address against a set of requirements.
+ * So far it uses a generic (configurable) Validator
  *
  * @param string    $email
  * @return bool|mixed|string
@@ -66,17 +66,6 @@ function CheckValidEmail($email)
             break;
     }
 
-    // Compare first and second email entry.
-    // As only first entry is passed to this function, we have to get the second one from $_POST directly
-    if (!isset($_POST['email2']) || $email !== $_POST['email2']) {
-        return t('E-Mail-Adressen stimmen nicht überein. Bitte überprüfe deine Eingabe');
-    }
-    
-    // Check if we already have a user with that email address
-    $row = $db->qry_first('SELECT * FROM %prefix%user WHERE email = %string%', $email);
-    if ($row){
-        return t('Diese E-Mail-Adresse ist bereits in Verwendung. Bitte verwende die "Passwort zurücksetzen"-Funktion, um dein Passwort zurück zu setzen');
-    }
     // Check for forbidden trash mail services
     $TrashMailDomains = explode("\n", $cfg['mf_forbidden_trashmail_domains']);
     foreach ($TrashMailDomains as $key => $val) {
