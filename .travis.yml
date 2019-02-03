@@ -24,8 +24,8 @@ before_script:
 script:
   - if find . -name "*.php" ! -path "./vendor/*" -print0 | xargs -0 -n 1 -P 8 php -l | grep -v "No syntax errors detected"; then exit 1; fi
   - bin/phpcs --standard=PSR1,PSR2 --extensions=php -s \
-    modules/guestbook \
-    modules/helplet
+modules/guestbook \
+modules/helplet
   - bin/phpcs --standard=PSR1,PSR2 --extensions=php -s --exclude=Generic.Files.LineLength \
     modules/about \
     modules/beamer \
