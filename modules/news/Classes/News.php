@@ -24,7 +24,7 @@ class News
         if ($cfg["news_logourl"]) {
             $image = $xml->write_tag("url", $cfg["news_logourl"], 3);
             $image .= $xml->write_tag("title", $cfg['sys_page_title'] ." - Logo", 3);
-            $image .= $xml->write_tag("link", $cfg["sys_partyurl"], 3);
+            $image .= $xml->write_tag("link", (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], 3);
             $channel .= $xml->write_master_tag("image", $image, 2);
         }
 
