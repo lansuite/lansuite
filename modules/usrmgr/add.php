@@ -90,7 +90,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             }
   
             $mf->AddField(t('E-Mail'), 'email', '', '', '', 'CheckDuplicateAndValidEmail');
-            $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', '');
+            $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', true);
             if (($_GET['action'] != 'change' && $_GET['action'] != 'entrance') || ($_GET['action'] == 'entrance' && !$_GET['userid'])) {
                 if ($cfg['signon_autopw']) {
                     $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
