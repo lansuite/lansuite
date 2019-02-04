@@ -9,7 +9,11 @@ function CheckValidUsername($username)
 {
     global $cfg, $db;
     if ($cfg['signon_username_unique']) {
-        $row = $db->qry_first('SELECT * FROM %prefix%user WHERE username=%string%', $username);
+        if (isset($_GET['userid'])) {
+            $row = $db->qry_first('SELECT * FROM %prefix%user WHERE username=%string% AND userid!=%int%', $username, $_GET['userid']);
+        } else {
+            $row = $db->qry_first('SELECT * FROM %prefix%user WHERE username=%string%', $username);
+        }
         if ($row) {
             return t('Der gewählte Username existiert bereits');
         }
