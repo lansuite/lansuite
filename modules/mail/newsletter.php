@@ -161,7 +161,7 @@ switch ($_GET["step"]) {
             $text = str_replace("%CLANURL%", $user["clanurl"], $text);
             
             $text = str_replace("%PARTYNAME%", $party_data["name"], $text);
-            $text = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $text);
+            $text = str_replace('%PARTYURL%', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], $text);
             $text = str_replace("%MAXGUESTS%", $party_data['max_guest'], $text);
             
             $text = str_replace("%WWCLID%", $user["wwclid"], $text);

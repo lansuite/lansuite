@@ -11,6 +11,12 @@
                 <default></default>
                 <description>Discord server ID</description>
     	</item>
+        <item>
+                <name>discord_json_timeout</name>
+                <type>int</type>
+                <default>4</default>
+                <description>Timeout für den Abruf der Discord JSON Daten</description>
+        </item>
     </items>
   </group>
   <group>
