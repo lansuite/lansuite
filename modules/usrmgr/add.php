@@ -259,7 +259,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
     if (!$DoSignon && !$quick_signon) {
         // Settings
-        if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
+        if ($auth['type'] >= 2 or !$_GET['userid'] or $auth['userid'] == $_GET['userid']) {
             if ($cfg['user_design_change']) {
                 $selections = [];
                 $selections[''] = t('System-Vorgabe');
