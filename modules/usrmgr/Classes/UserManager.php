@@ -176,7 +176,7 @@ class UserManager
                 }
                 $message = str_replace('%CLAN%', $clan, $message);
                 $message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
-                $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
+                $message = str_replace('%PARTYURL%', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], $message);
                 $message = str_replace('%PAGE_TITLE%', $cfg['sys_page_title'], $message);
                 if ($mail->create_inet_mail($_POST["firstname"] . " " . $_POST["name"], $_POST["email"], $cfg["signon_signonemail_subject"], $message, $cfg["sys_party_mail"])) {
                     return true;
@@ -209,7 +209,7 @@ class UserManager
                         $anmelde_schluss = "Anmeldeschluss: " . $func->unixstamp2date($_SESSION['party_info']['s_enddate'], 'date');
                     }
                     $message = str_replace('%SIGNON_DEADLINE%', $anmelde_schluss, $message);
-                    $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
+                    $message = str_replace('%PARTYURL%', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], $message);
                     if ($mail->create_inet_mail($row["firstname"] . " " . $row["name"], $row["email"], $subject, $message, $cfg["sys_party_mail"])) {
                         return true;
                     } else {
@@ -234,7 +234,7 @@ class UserManager
 
         $system = $xml->write_tag('version', LANSUITE_VERSION, 2);
         $system .= $xml->write_tag('name', $cfg['feed_partyname'], 2);
-        $system .= $xml->write_tag('link', $cfg['sys_partyurl'], 2);
+        $system .= $xml->write_tag('link', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], 2);
         $system .= $xml->write_tag('language', 'de-de', 2);
         $system .= $xml->write_tag('current_party', $cfg['signon_partyid'], 2);
 
