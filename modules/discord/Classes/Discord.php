@@ -22,9 +22,11 @@ class Discord {
     public function __construct($discordServerId = ''){
         global $cfg,$func;
         
-        //Have a look first, if OpenSSL is enabled as module...
-       if (extension_loaded('openssl'))
-       {
+        if (!extension_loaded('openssl')) {
+            $func->error('OpenSSL-Modul nicht geladen!');
+        } else if (!ini_get('allow_url_fopen')) {
+            $func->error('allow_url_fopen nicht aktiv');
+        } else {
             //Check if server id was passed via constructor, use configuration value otherwise
             if ($discordServerId!=''){
                 $this->discordServerId = $disordServerId;
@@ -33,9 +35,6 @@ class Discord {
             } else {
                 $func->error(t('Es wurde keine Discord Server ID konfiguriert oder übergeben'));
             } 
-       }
-        else {
-            $func->error('OpenSSL-Modul nicht geladen!');
         }
     }
     
