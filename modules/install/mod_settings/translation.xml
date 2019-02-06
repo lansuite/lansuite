@@ -3559,116 +3559,26 @@
 				<it>Dettagli</it>
 				<file>install</file>
 			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
+                        <entry>
+                                <id>6907ea946b45f307548691a0a7d6f105</id>
+                                <org>Auf deinem System konnte das PHP-Modul &lt;b&gt;OpenSSL&lt;/b&gt; nicht gefunden werden. Dies hat zur Folge dass Module, die HTTPS Verbindungen zu anderen Servern aufbauen, nicht funktionieren</org>
+                                <en>The &lt;b&gt;OpenSSL&lt;/b&gt; PHP module was not found on your system. This will cause issues with modules that establish HTTPS connections to other servers</en>
+                                <es>The &lt;b&gt;OpenSSL&lt;/b&gt; PHP module was not found on your system. This will cause issues with modules that establish HTTPS connections to other servers</es>
+                                <fr>The &lt;b&gt;OpenSSL&lt;/b&gt; PHP module was not found on your system. This will cause issues with modules that establish HTTPS connections to other servers</fr>
+                                <nl>The &lt;b&gt;OpenSSL&lt;/b&gt; PHP module was not found on your system. This will cause issues with modules that establish HTTPS connections to other servers</nl>
+                                <it>The &lt;b&gt;OpenSSL&lt;/b&gt; PHP module was not found on your system. This will cause issues with modules that establish HTTPS connections to other servers</it>
+                                <file>install</file>
+                        </entry>
+                        <entry>
+                                <id>29a2d7fdd3ed7396ad1a30993edf6597</id>
+                                <org>In deiner PHP Konfiguration ist &lt;b&gt;allow_url_fopen&lt;/b&gt; nicht aktiviert. Dadurch können einige Module (z.B. Discord, Partylist) keine externen Verbindungen aufbauen und werden daher nicht funktionieren</org>
+                                <en>In your PHP configuration the setting &lt;b&gt;allow_url_fopen&lt;/b&gt; is not enabled. This will cause issues with modules (such as Discord, Partylist) that attempt to connect to external sites</en>
+                                <es>In your PHP configuration the setting &lt;b&gt;allow_url_fopen&lt;/b&gt; is not enabled. This will cause issues with modules (such as Discord, Partylist) that attempt to connect to external sites</es>
+                                <fr>In your PHP configuration the setting &lt;b&gt;allow_url_fopen&lt;/b&gt; is not enabled. This will cause issues with modules (such as Discord, Partylist) that attempt to connect to external sites</fr>
+                                <nl>In your PHP configuration the setting &lt;b&gt;allow_url_fopen&lt;/b&gt; is not enabled. This will cause issues with modules (such as Discord, Partylist) that attempt to connect to external sites</nl>
+                                <it>In your PHP configuration the setting &lt;b&gt;allow_url_fopen&lt;/b&gt; is not enabled. This will cause issues with modules (such as Discord, Partylist) that attempt to connect to external sites</it>
+                                <file>install</file>
+                        </entry>
 		</content>
 	</table>
 </lansuite>
