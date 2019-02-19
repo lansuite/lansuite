@@ -129,7 +129,7 @@ class Translation
      */
     private function load_cache_bydb($module)
     {
-        global $db;
+        global $db,$cache;
 
         if ($db->success) {
             $res = $db->qry('
@@ -147,6 +147,7 @@ class Translation
                     }
                 }
             }
+            $cache->set('translation.'.$module,$this->lang_cache[$module]);
         }
     }
 
@@ -170,6 +171,7 @@ class Translation
                     $this->lang_cache[$module][$data['id']] = $text;
                 }
             }
+            $cache->set('translation.'.$module,$this->lang_cache[$module]);
         }
     }
 
@@ -545,6 +547,82 @@ class Translation
         }
 
         closedir($ResDir);
+
+        return $output;
+    }
+    
+    public function translate($args)
+    {
+        global $db, $func, $translation_no_html_replace, $cache;
+
+        // Prepare function parameters
+        // First argument is the input string, the following are parameters
+        $input = (string) array_shift($args);
+        foreach ($args as $CurrentArg) {
+            // If second Parameter is Array (old Style)
+            if (!is_array($CurrentArg)) {
+                $parameters[] = $CurrentArg;
+            } else {
+                $parameters = $CurrentArg;
+            }
+        }
+
+        if ($input == '') {
+            return '';
+        }
+
+        $key = md5($input);
+        $module = '';
+        if (isset($_GET['mod']) && $_GET['mod']) {
+            $module = $_GET['mod'];
+        }
+
+        $trans_text = '';
+        if (strlen($input) > 255) {
+            $long = '_long';
+        } else {
+            $long = '';
+        }
+
+        if (array_key_exists($module, $this->lang_cache) && $this->lang_cache[$module][$key] != '') {
+            // Already in memory cache ($this->lang_cache[key])
+            $output = $this->ReplaceParameters($this->lang_cache[$module][$key], $parameters, $key);
+        } else {
+            // Try to receive translations for module from cache
+            if ($cache->has('translation.'.$module)){
+                $this->lang_cache[$module] = $cache->get('translation.'.$module);
+                //@TODO: Implement fetch logic, add cache update on retrieval
+            }
+            // Try to read from DB
+            if ($this->language == 'de') {
+                // All texts in source are in german at the moment
+                $output = $this->ReplaceParameters($input, $parameters, $key);
+            } else {
+                if ($db->success) {
+                    $trans_text = $this->get_trans_db($key, $_GET['mod'], $long);
+                }
+
+                // If ok replace parameter
+                if ($trans_text != '' && $trans_text != null) {
+                    $output = $this->ReplaceParameters($trans_text, $parameters);
+
+                // If any problem on get translations just return $input
+                } else {
+                    $output = $this->ReplaceParameters($input, $parameters, $key);
+                }
+            }
+        }
+
+        if ($translation_no_html_replace) {
+            $translation_no_html_replace = false;
+
+            // Deprecated. Should be replaced in t() by '<', '>' and '[br]'
+            $output = str_replace('--lt--', '<', $output);
+            $output = str_replace('--gt--', '>', $output);
+            $output = str_replace('HTML_NEWLINE', '<br />', $output);
+
+            return $func->text2html($output, 4);
+        }
 
         return $output;
     }
