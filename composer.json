@@ -195,6 +195,7 @@
             "modules/usrmgr/Functions/CheckOldPW.php",
             "modules/usrmgr/Functions/CheckOptGender.php",
             "modules/usrmgr/Functions/CheckValidUsername.php",
+            "modules/usrmgr/Functions/CheckDuplicateAndValidEmail.php",
             "modules/usrmgr/Functions/ClanURLLinkUsrMgrSearch.php",
             "modules/usrmgr/Functions/ClanURLLinkUsrMgrSearchInc.php",
             "modules/usrmgr/Functions/FieldNeeded.php",
