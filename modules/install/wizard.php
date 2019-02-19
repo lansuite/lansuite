@@ -26,7 +26,7 @@ switch ($_GET["step"]) {
             $row = $db->qry_first("SELECT email FROM %prefix%user WHERE email=%string%", $_POST["email"]);
 
             // If found, update password
-            if ($row !== false ) {
+            if ($row !== false) {
                 $db->qry(
                     "UPDATE %prefix%user SET password = %string%, type = '3' WHERE email=%string%",
                     md5($_POST["password"]),
@@ -34,10 +34,10 @@ switch ($_GET["step"]) {
                 );
             // If not found, insert
             } else {
-               $db->qry(
-                    "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
-                    $_POST["email"],
-                    md5($_POST["password"])
+                $db->qry(
+                   "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
+                   $_POST["email"],
+                   md5($_POST["password"])
                 );
                 $userid = $db->insert_id();
             }
@@ -412,6 +412,7 @@ switch ($_GET["step"]) {
 
         $config["environment"]["configured"] = 1;
         $install->WriteConfig();
+        
         //flush cached values to force recreation on next load
         $cache->delete('config'); 
         
