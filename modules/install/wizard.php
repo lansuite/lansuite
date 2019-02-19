@@ -35,9 +35,9 @@ switch ($_GET["step"]) {
             // If not found, insert
             } else {
                 $db->qry(
-                   "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
-                   $_POST["email"],
-                   md5($_POST["password"])
+                    "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
+                    $_POST["email"],
+                    md5($_POST["password"])
                 );
                 $userid = $db->insert_id();
             }
@@ -414,7 +414,7 @@ switch ($_GET["step"]) {
         $install->WriteConfig();
         
         //flush cached values to force recreation on next load
-        $cache->delete('config'); 
+        $cache->delete('config');
         
         break;
 }
