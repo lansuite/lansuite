@@ -338,8 +338,13 @@ if ($config['environment']['configured'] == 0) {
     if (!$func->admin_exists() && isset($_GET["action"]) && (($_GET["action"] == "wizard" && $_GET["step"] <= 3) || ($_GET["action"] == "ls_conf"))) {
         $db->success = 0;
     }
-
-    $cfg = $func->read_db_config();
+    
+    if ($cache->has('cfg')){
+        $cfg = $cache->get('cfg');
+    } else {
+        $cfg = $func->read_db_config(); 
+        $cache->set('cfg', $cfg);
+    }
     $message = $sec->check_blacklist();
     if (strlen($message) > 0) {
         die($message);
