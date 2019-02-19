@@ -127,7 +127,7 @@ function myErrorHandler($errno, $errstr, $errfile, $errline)
 $PHPErrors = '';
 
 // Initialize Cache. Go for APCu first, filebased otherwise. DB adaptor to be used when we implement PDO.
-if (module_loaded('apcu')) {
+if (extension_loaded('apcu')) {
     $cache = new Symfony\Component\Cache\Simple\ApcuCache('lansuite');
 } 
 else {
