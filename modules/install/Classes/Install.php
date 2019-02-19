@@ -794,7 +794,15 @@ class Install
             $ftp_check = $not_possible . t('Auf deinem System konnte das PHP-Modul <b>FTP-Library</b> nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann');
         }
         $dsp->AddDoubleRow("FTP Library", $ftp_check);
-
+        
+        // APCu-Lib
+        if (extension_loaded('apcu')) {
+            $apcu_check = $ok;
+        } else {
+            $apcu_check = $optimize . t('Auf deinem System konnte das PHP-Modul <b>APCu</b> nicht gefunden werden. Dies wird verwendet, um verschiedenste Daten für schnellen Zugriff zwischenzuspeichern. Eine Aktivierung ist angeraten');
+        }
+        $dsp->AddDoubleRow("APCu", $apcu_check);
+        
         // OpenSSL
         if (extension_loaded('openssl')) {
             $openssl_check = $ok;

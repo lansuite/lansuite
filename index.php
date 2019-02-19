@@ -3,6 +3,7 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Debug\Debug;
+use Symfony\Component\Cache;
 
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise
@@ -125,29 +126,43 @@ function myErrorHandler($errno, $errstr, $errfile, $errline)
 
 $PHPErrors = '';
 
-// Read Config and Definitionfiles
-// Load Basic Config
-if (file_exists('inc/base/config.php')) {
-    $config = parse_ini_file('inc/base/config.php', 1);
-
-// Default config. Will be used only until the wizard has created the config file
-} else {
-    $config = [];
-
-    $config['lansuite']['default_design'] = 'simple';
-    $config['lansuite']['chmod_dir'] = '777';
-    $config['lansuite']['chmod_file'] = '666';
-    $config['lansuite']['debugmode'] = '0';
-
-    $config['database']['server'] = 'localhost';
-    $config['database']['user'] = 'root';
-    $config['database']['passwd'] = '';
-    $config['database']['database'] = 'lansuite';
-    $config['database']['prefix'] = 'ls_';
-    $config['database']['charset'] = 'utf8';
-
-    $config['environment']['configured'] = 0;
+// Initialize Cache. Go for APCu first, filebased otherwise. DB adaptor to be used when we implement PDO.
+if (module_loaded('apcu')) {
+    $cache = new Symfony\Component\Cache\Simple\ApcuCache('lansuite');
+} 
+else {
+    $cache = new Symfony\Component\Cache\Simple\FilesystemCache('lansuite');
 }
+
+// Check cache for config, try to load from file otherwise
+if ($cache->has('config')){
+    $config = $cache->get('config');
+} else {
+    // Read Config and Definitionfiles
+    // Load Basic Config
+    if (file_exists('inc/base/config.php')) {
+        $config = parse_ini_file('inc/base/config.php', 1);
+        $cache->set('config', $config);
+    // Default config. Will be used only until the wizard has created the config file
+    } else {
+        $config = [];
+
+        $config['lansuite']['default_design'] = 'simple';
+        $config['lansuite']['chmod_dir'] = '777';
+        $config['lansuite']['chmod_file'] = '666';
+        $config['lansuite']['debugmode'] = '0';
+
+        $config['database']['server'] = 'localhost';
+        $config['database']['user'] = 'root';
+        $config['database']['passwd'] = '';
+        $config['database']['database'] = 'lansuite';
+        $config['database']['prefix'] = 'ls_';
+        $config['database']['charset'] = 'utf8';
+
+        $config['environment']['configured'] = 0;
+    }
+}
+
 
 // If the debug mode is disabled, we launch the original error handler.
 // The original error handler shows PHP Warnings in a typical red box
