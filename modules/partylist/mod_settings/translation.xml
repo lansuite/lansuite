@@ -263,16 +263,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<id>e878032d6b4bb38bb67c824033583c2d</id>
-				<org>infos.xml fehlt</org>
-				<en>infos.xml missing</en>
-				<es>infos.xml desaparecidos</es>
-				<fr>infos.xml disparus</fr>
-				<nl>infos.xml vermist</nl>
-				<it>infos.xml mancanti</it>
-				<file>partylist</file>
-			</entry>
-			<entry>
 				<id>92b414b968c001a1d8358de2438d37d5</id>
 				<org>Noch keine Party angelegt</org>
 				<en>No party created</en>
@@ -392,6 +382,37 @@
 				<it>Nessuna voce</it>
 				<file>partylist</file>
 			</entry>
+                        <entry>
+                                <id>31c82656054fa9ec750f5deedccec884</id>
+                                <org>Fehler beim Datenabruf</org>
+                                <en>Error while retrieving data</en>
+                                <es>Error al recuperar datos</es>
+                                <fr>Erreur lors de la récupération des données</fr>
+                                <nl>Fout tijdens het ophalen van gegevens</nl>
+                                <it>Errore durante il recupero dei dati</it>
+                                <file>partylist</file>
+                        </entry>
+                        <entry>
+                                <id>f0fb3c160b2babab82fef748e09411a3</id>
+                                <org>Konfigurationsproblem: OpenSSL-Modul nicht geladen</org>
+                                <en>Configuration problem: OpenSSL module not loaded</en>
+                                <es>Configuration problem: OpenSSL module not loaded</es>
+                                <fr>Configuration problem: OpenSSL module not loaded</fr>
+                                <nl>Configuration problem: OpenSSL module not loaded</nl>
+                                <it>Configuration problem: OpenSSL module not loaded</it>
+                                <file>partylist</file>
+                        </entry>
+                        <entry>
+                                <id>b52e743a00f414c366f87db86928e143</id>
+                                <org>Konfigurationsproblem: allow_url_fopen nicht aktiv</org>
+                                <en>Configuration problem: allow_url_fopen not enabled</en>
+                                <es>Configuration problem: allow_url_fopen not enabled</es>
+                                <fr>Configuration problem: allow_url_fopen not enabled</fr>
+                                <nl>Configuration problem: allow_url_fopen not enabled</nl>
+                                <it>Configuration problem: allow_url_fopen not enabled</it>
+                                <file>partylist</file>
+                        </entry>
+
 		</content>
 	</table>
 </lansuite>
