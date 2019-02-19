@@ -26,7 +26,7 @@ switch ($_GET["step"]) {
             $row = $db->qry_first("SELECT email FROM %prefix%user WHERE email=%string%", $_POST["email"]);
 
             // If found, update password
-            if ($row['email']) {
+            if ($row !== false ) {
                 $db->qry(
                     "UPDATE %prefix%user SET password = %string%, type = '3' WHERE email=%string%",
                     md5($_POST["password"]),
@@ -34,7 +34,7 @@ switch ($_GET["step"]) {
                 );
             // If not found, insert
             } else {
-                $db->qry(
+               $db->qry(
                     "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
                     $_POST["email"],
                     md5($_POST["password"])
@@ -160,6 +160,9 @@ switch ($_GET["step"]) {
         $config["database"]["prefix"] = $_POST["prefix"];
         $config["lansuite"]["default_design"] = $_POST["design"];
 
+        //flush cached values to force recreation on next load
+        $cache->delete('config');
+        
         // Write new $config-Vars to config.php-File
         if (!$install->WriteConfig()) {
             $continue = 0;
