@@ -412,5 +412,8 @@ switch ($_GET["step"]) {
 
         $config["environment"]["configured"] = 1;
         $install->WriteConfig();
+        //flush cached values to force recreation on next load
+        $cache->delete('config'); 
+        
         break;
 }
