@@ -46,25 +46,18 @@ class Discord {
      */
     
     public function fetchServerData(){
-        global $cfg;
+        global $cfg, $cache;
 
-        clearstatcache('ext_inc/discord/cache.json');
-        if (is_readable('ext_inc/discord/cache.json') && time()-filemtime('ext_inc/discord/cache.json') < 60) {
+        if ($cache->has('discord.cache')) {
             // Cache file is readable and <60 seconds old.
             // Note: Discord itself currently seems to update the widget.json file only once every 300 seconds.
-            $JsonReturnData = file_get_contents('ext_inc/discord/cache.json');
-        } else if (is_readable('ext_inc/discord/cache.json') && filesize('ext_inc/discord/cache.json') < 2 && time()-filemtime('ext_inc/discord/cache.json') < 300) {
-            // Cache file exists but is too small. There was probably some issue retrieving Discord data.
-            // Only retry after 300 seconds.
-            return false;
+            $JsonReturnData = $cache->get('discord.cache');
         } else {
             // No cache file or too old; let's fetch data.
             $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
             $JsonReturnData = @file_get_contents($APIurl,false,stream_context_create(array('http' => array('timeout' => (isset($cfg['discord_json_timeout']) ? $cfg['discord_json_timeout'] : 4)))));
-            if (is_writeable('ext_inc/discord/')) {
-                // Note: This intentionally also writes empty results to the cache file.
-                @file_put_contents('ext_inc/discord/cache.json', $JsonReturnData, LOCK_EX);
-            }
+            // Store in cache with timeout of 60 seconds
+            $cache->write('discord.cache',$JsonReturnData, 60);
         }
         return ($JsonReturnData === false ? false : json_decode($JsonReturnData, false));
     }
