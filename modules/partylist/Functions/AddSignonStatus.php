@@ -7,19 +7,26 @@
  */
 function AddSignonStatus($lsurl, $show_history = 0)
 {
-    global $xml, $dsp, $HTTPHeader, $func;
+    global $xml, $dsp, $func;
 
     if (substr($lsurl, strlen($lsurl) - 1, 1) != '/') {
         $lsurl .= '/';
     }
-    if (substr($lsurl, 0, 7) != 'http://') {
+    if (substr($lsurl, 0, 7) != 'http://' && substr($lsurl, 0, 8) != 'https://') {
         $lsurl = 'http://'. $lsurl;
     }
     $lsurl .= 'ext_inc/party_infos/infos.xml';
     $content = GetSite($lsurl);
 
     if (!$content) {
-        return '<div class="infolink" style="display:inline">'. t('infos.xml fehlt') .'<span class="infobox">'. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace("'", "\\'", str_replace('"', "'", str_replace("\r\n", HTML_NEWLINE, $HTTPHeader))) .'</span></div>';
+        $content_error = '';
+        if (!extension_loaded('openssl') && strpos($lsurl, 'https://')!==false) {
+            $content_error .= HTML_NEWLINE.t('Konfigurationsproblem: OpenSSL-Modul nicht geladen');
+        }
+        if (!ini_get('allow_url_fopen')) {
+            $content_error .= HTML_NEWLINE.t('Konfigurationsproblem: allow_url_fopen nicht aktiv');
+        }
+        return '<div class="infolink" style="display:inline">'. t('Fehler beim Datenabruf') . $content_error .'<span class="infobox">'. $lsurl .'</span></div>';
     } else {
         $system = $xml->get_tag_content_array('system', $content);
         // Version 3.0 XML-File
