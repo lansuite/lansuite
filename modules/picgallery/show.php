@@ -404,7 +404,7 @@ if (!$gd->available) {
                 $dl_button = $dsp->FetchIcon("fullscreen", $js_full_link, t('Vollbild'));
             }
             $full_button = $dsp->FetchIcon("download", "index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", t('Bild herrunterladen'));
-            ($auth[type] > "1") ? $del_button = $dsp->FetchIcon("delete", "index.php?mod=picgallery&action=delete&file={$_GET["file"]}", t('Bild l&ouml;schen')) : $del_button = "";
+            ($auth['type'] > "1") ? $del_button = $dsp->FetchIcon("delete", "index.php?mod=picgallery&action=delete&file={$_GET["file"]}", t('Bild l&ouml;schen')) : $del_button = "";
             $note_button = $dsp->FetchIcon("add", "index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", t('Verlinkung hinzufügen'));
 
 
