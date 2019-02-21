@@ -45,7 +45,7 @@ class Translation
      *
      * @var array
      */
-    public $lang_cache = [];
+    private $lang_cache = [];
 
     /**
      * Is cache for module loaded (db)
@@ -176,7 +176,7 @@ class Translation
     }
 
     /**
-     * Get the translation from database via hashcode
+     * Inserts given paramers into the numbered placeholders in the input string
      *
      * @param string    $input          Text with placeholders (blabla %1 bla %2)
      * @param array     $parameters     Parameters
@@ -213,22 +213,16 @@ class Translation
     public function get_trans_db($hashkey, $module, $long)
     {
         global $db;
-
-        if ($this->lang_cache[$module][$hashkey]) {
-            $translated = $this->lang_cache[$module][$hashkey];
-        } else {
+        $translated = '';
+        if ($db->success){
             $row = $db->qry_first('
                 SELECT id, org, ' . $this->language . ' 
                 FROM %prefix%translation' . $long . ' 
                 WHERE id = %string%', $hashkey);
-
             if ($row[$this->language]) {
                 $translated = $row[$this->language];
-            } else {
-                $translated = '';
             }
         }
-
         return $translated;
     }
 
@@ -551,6 +545,20 @@ class Translation
         return $output;
     }
     
+    
+    /**
+    * Translates the given string into the selected Language.
+    *
+    * The first argument is the string to translate, the following are parameters.
+    * Parameters are placeholders for dynamic data.
+    *
+    * Example:
+    *      t('Your name is %1 and your Email is %2', $row['name'], $row['email'])
+    *
+    * Important is to use %1, %2, %3 for dynamic data.
+    *
+    * @return string
+    */
     public function translate($args)
     {
         global $db, $func, $translation_no_html_replace, $cache;
@@ -566,12 +574,15 @@ class Translation
                 $parameters = $CurrentArg;
             }
         }
-
+        
+        //Quick path out for empty strings
         if ($input == '') {
             return '';
         }
-
+        //Hash string to MD5 value
         $key = md5($input);
+        
+        //Get module from $_GET
         $module = '';
         if (isset($_GET['mod']) && $_GET['mod']) {
             $module = $_GET['mod'];
@@ -584,33 +595,22 @@ class Translation
             $long = '';
         }
 
-        if (array_key_exists($module, $this->lang_cache) && $this->lang_cache[$module][$key] != '') {
-            // Already in memory cache ($this->lang_cache[key])
-            $output = $this->ReplaceParameters($this->lang_cache[$module][$key], $parameters, $key);
-        } else {
-            // Try to receive translations for module from cache
+        //check if translations for selected module are already loaded and the requested key is found  
+        if (!array_key_exists($module, $this->lang_cache)) {
+            // Module translation is not in memory, try to load it from cache first
             if ($cache->has('translation.'.$module)){
                 $this->lang_cache[$module] = $cache->get('translation.'.$module);
-                //@TODO: Implement fetch logic, add cache update on retrieval
-            }
-            // Try to read from DB
-            if ($this->language == 'de') {
-                // All texts in source are in german at the moment
-                $output = $this->ReplaceParameters($input, $parameters, $key);
             } else {
-                if ($db->success) {
-                    $trans_text = $this->get_trans_db($key, $_GET['mod'], $long);
-                }
-
-                // If ok replace parameter
-                if ($trans_text != '' && $trans_text != null) {
-                    $output = $this->ReplaceParameters($trans_text, $parameters);
-
-                // If any problem on get translations just return $input
-                } else {
-                    $output = $this->ReplaceParameters($input, $parameters, $key);
-                }
+                // Cache miss, try to load from DB
+                $this->load_cache_bydb($module);
             }
+        }
+        // OK, now we should have the translation in the Array, search for it...
+        if ($this->lang_cache[$module][$key]!=''){
+            $output = $this->ReplaceParameters($this->lang_cache[$module][$key], $parameters, $key); 
+        } else {
+            // unable to translate, just return with replaced parameters...
+            $output = $this->ReplaceParameters($input, $parameters, $key);
         }
 
         if ($translation_no_html_replace) {
