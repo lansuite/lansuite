@@ -3,7 +3,19 @@ $serverid = $_GET["serverid"];
 
 $server = $db->qry_first("
   SELECT
-    a.*,
+    a.serverid,
+    a.owner,
+    a.caption,
+    a.text,
+    INET6_NTOA(a.ip) AS ip,
+    a.mac,
+    a.port,
+    a.os,
+    a.cpu,
+    a.ram,
+    a.hdd,
+    a.type,
+    a.pw,
     b.userid,
     b.username
   FROM %prefix%server AS a
