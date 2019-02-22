@@ -13,7 +13,7 @@ $ms2->AddTextSearchDropDown('PW', 's.pw', array('' => t('Alle'), '0' => t('Nein'
 $ms2->AddSelect('u.userid');
 $ms2->AddResultField(t('Name'), 's.caption');
 $ms2->AddResultField(t('Servertyp'), 's.type', 'ServerType');
-$ms2->AddResultField(t('IP-Adresse / Domain'), 's.ip');
+$ms2->AddResultField(t('IP-Adresse / Domain'), 'INET6_NTOA(s.ip) AS ip');
 $ms2->AddResultField(t('Port'), 's.port');
 $ms2->AddResultField(t('Besitzer'), 'u.username', 'UserNameAndIcon');
 $ms2->AddResultField('PW', 's.pw', 'PWIcon');
