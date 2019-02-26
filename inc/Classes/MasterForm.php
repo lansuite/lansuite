@@ -506,7 +506,11 @@ class MasterForm
                     $db_query = '';
                     if ($this->SQLFields) {
                         foreach ($this->SQLFields as $val) {
-                            $db_query .= ", $val";
+                            if ($SQLFieldTypes[$val] == 'varbinary(16)' and $val == 'ip') {
+                                $db_query .= ', INET6_NTOA('.$val.') AS '.$val;
+                            } else {
+                                $db_query .= ", $val";
+                            }
                         }
                     }
 
