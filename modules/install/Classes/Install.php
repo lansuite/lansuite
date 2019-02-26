@@ -799,7 +799,7 @@ class Install
         if (extension_loaded('apcu')) {
             $apcu_check = $ok;
         } else {
-            $apcu_check = $optimize . t('Auf deinem System konnte das PHP-Modul <b>APCu</b> nicht gefunden werden. Dies wird verwendet, um verschiedenste Daten für schnellen Zugriff zwischenzuspeichern. Eine Aktivierung ist angeraten');
+            $apcu_check = $optimize . t('Auf deinem System konnte das PHP-Modul <b>APCu</b> nicht gefunden werden. Dies wird verwendet, um verschiedenste Daten für schnellen Zugriff zwischenzuspeichern. Eine Aktivierung ist bei vielen Seitenzugriffen angeraten. Als Fallback werden die Daten im Dateisystem vorgehalten');
         }
         $dsp->AddDoubleRow("APCu", $apcu_check);
         
