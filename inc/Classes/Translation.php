@@ -98,13 +98,17 @@ class Translation
     public function get_lang()
     {
         global $cfg;
-
+        
+        //Check if a language was provided with POST or GET and store it in the session
         if (isset($_POST['language']) && $_POST['language']) {
             $_SESSION['language'] = $_POST['language'];
+            $this->lang_cache = array();
         } elseif (isset($_GET['language']) && $_GET['language']) {
             $_SESSION['language'] = $_GET['language'];
+            $this->lang_cache = array();
         }
 
+        // Check if there is a language stored in the session...
         if (isset($_SESSION['language']) && $_SESSION['language']) {
             $this->language = $_SESSION['language'];
         } elseif ($cfg['sys_language']) {
@@ -115,7 +119,7 @@ class Translation
 
         // Protect from bad code/injections
         if (!in_array($this->language, $this->valid_lang)) {
-            $this->language = 'de';
+            $this->language = 'en';
         }
 
         return $this->language;
@@ -147,7 +151,7 @@ class Translation
                     }
                 }
             }
-            $cache->set('translation.'.$module,$this->lang_cache[$module]);
+            $cache->set('translation.' . $this->language . '.' . $module,$this->lang_cache[$module]);
         }
     }
 
@@ -159,6 +163,7 @@ class Translation
      */
     private function load_cache_byfile($module)
     {
+        global $cache;
         $xmldata = $this->xml_read_to_array($module);
         if (is_array($xmldata)) {
             foreach ($xmldata as $data) {
@@ -167,11 +172,11 @@ class Translation
                     $text = $data[$this->language];
                 }
 
-                if (array_key_exists($module, $this->lang_cache) && $this->lang_cache[$module][$data['id']] == '' && $text != '') {
+                if ($text != '') {
                     $this->lang_cache[$module][$data['id']] = $text;
                 }
             }
-            $cache->set('translation.'.$module,$this->lang_cache[$module]);
+            $cache->set('translation.' . $this->language . '.' . $module, $this->lang_cache[$module]);
         }
     }
 
@@ -598,8 +603,8 @@ class Translation
         //check if translations for selected module are already loaded and the requested key is found  
         if (!array_key_exists($module, $this->lang_cache)) {
             // Module translation is not in memory, try to load it from cache first
-            if ($cache->has('translation.'.$module)){
-                $this->lang_cache[$module] = $cache->get('translation.'.$module);
+            if ($cache->has('translation.' . $this->language . '.' . $module)){
+                $this->lang_cache[$module] = $cache->get('translation.' . $this->language . '.' . $module);
             } else {
                 // Cache miss, try to load from DB
                 $this->load_cache_bydb($module);
