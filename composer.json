@@ -21,7 +21,7 @@
         "setasign/fpdf": "^1.8",
         "paypal/rest-api-sdk-php": "^1.13",
         "symfony/debug": "^3.4",
-        "symfony/cache": "^v4.2.*"
+        "symfony/cache": "^v4.2.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.5",
