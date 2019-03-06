@@ -695,6 +695,17 @@ class Install
             }
         }
         $dsp->AddDoubleRow(t('Schreibrechte im Ordner \'ext_inc\''), $ext_inc_check);
+        
+        // PHP temp folder access
+        $tmpfile = tmpfile();
+        if (!$tmpfile) {
+            $tmp_check = $failed . t('PHP kann keine temporären Dateien in konfigurierten Temp-Verzeichnis anlegen. Es wurde versucht, in folgenden Verzeichnis eine Datei anzulegen: %1', sys_get_temp_dir());
+        } else {
+            $tmp_check = $ok . t('Datei %1 erfolgreich erzeugt', stream_get_meta_data($tmpfile)['uri']);
+            fclose($tmpfile);
+        }
+        $dsp->AddDoubleRow(t('Schreiben temporärer Dateien'), $tmp_check);
+        
         $dsp->AddFieldSetEnd();
 
         #### Warning ####

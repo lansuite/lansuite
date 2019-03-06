@@ -128,10 +128,10 @@ $PHPErrors = '';
 
 // Initialize Cache. Go for APCu first, filebased otherwise. DB adaptor to be used when we implement PDO.
 if (extension_loaded('apcu')) {
-    $cache = new Symfony\Component\Cache\Simple\ApcuCache('lansuite');
+    $cache = new Symfony\Component\Cache\Simple\ApcuCache('lansuite',600);
 } 
 else {
-    $cache = new Symfony\Component\Cache\Simple\FilesystemCache('lansuite');
+    $cache = new Symfony\Component\Cache\Simple\FilesystemCache('lansuite',600);
 }
 
 // Check cache for config, try to load from file otherwise
