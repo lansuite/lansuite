@@ -26,5 +26,6 @@ before_script:
 script:
   - for file in $CHANGED_FILES; do
     bin/phpcs --standard= PSR1,PSR2 --extensions=php -s $file
+    done
   - if find . -name "*.php" ! -path "./vendor/*" -print0 | xargs -0 -n 1 -P 8 php -l | grep -v "No syntax errors detected"; then exit 1; fi
   - bin/phpunit
