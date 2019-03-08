@@ -20,11 +20,9 @@ install:
 
 before_script:
   - bin/phpcs --version
-  - echo 'Travis commit range' 
   - echo $TRAVIS_COMMIT_RANGE
   - CHANGED_FILES=($(git diff --name-only --diff-filter=ACM $TRAVIS_COMMIT_RANGE))
-  - echo 'Changed files\n'
-  - echo $CHANGED_FILES'
+  - echo $CHANGED_FILES
 
 script:
   - for file in $CHANGED_FILES; do
