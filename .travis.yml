@@ -28,8 +28,6 @@ before_script:
 script:
   - CHANGED_FILES=`git diff --name-only --diff-filter=ACM $TRAVIS_COMMIT~ $TRAVIS_COMMIT`
   - echo "$CHANGED_FILES"
-  - for file in $CHANGED_FILES; do
-    bin/phpcs --standard=PSR1,PSR2 --extensions=php -s $file;
-    if php -l $file | grep -v "No syntax errors detected"; then exit 1; fi
-    done
+  - echo "$CHANGED_FILES" | xargs -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
+  - echo "$CHANGED_FILES" | xargs -n1 -P4 bin/phpcs --standard=PSR1,PSR2 --extensions=php -s
   - bin/phpunit
