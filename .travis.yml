@@ -20,11 +20,14 @@ install:
 
 before_script:
   - bin/phpcs --version
+  - echo $TRAVIS_COMMIT
   - echo $TRAVIS_COMMIT_RANGE
-  - CHANGED_FILES=($(git diff --name-only --diff-filter=ACM $TRAVIS_COMMIT_RANGE))
-  - echo $CHANGED_FILES
+  - echo $TRAVIS_PULL_REQUEST_SHA
+  - echo $TRAVIS_EVENT_TYPE
 
 script:
+  - CHANGED_FILES=($(git diff --name-only --diff-filter=ACM $TRAVIS_COMMIT~ $TRAVIS_COMMIT))
+  - echo $CHANGED_FILES
   - for file in $CHANGED_FILES; do
     bin/phpcs --standard=PSR1,PSR2 --extensions=php -s $file;
     if php -l $file | grep -v "No syntax errors detected"; then exit 1; fi
