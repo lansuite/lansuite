@@ -89,8 +89,8 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $mf->AddFix('type', 1);
             }
   
-            $mf->AddField(t('E-Mail'), 'email', '', '', '', 'CheckValidEmail');
-            $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', '');
+            $mf->AddField(t('E-Mail'), 'email', '', '', '', 'CheckDuplicateAndValidEmail');
+            $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', true);
             if (($_GET['action'] != 'change' && $_GET['action'] != 'entrance') || ($_GET['action'] == 'entrance' && !$_GET['userid'])) {
                 if ($cfg['signon_autopw']) {
                     $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
@@ -259,7 +259,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
     if (!$DoSignon && !$quick_signon) {
         // Settings
-        if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
+        if ($auth['type'] >= 2 or !$_GET['userid'] or $auth['userid'] == $_GET['userid']) {
             if ($cfg['user_design_change']) {
                 $selections = [];
                 $selections[''] = t('System-Vorgabe');

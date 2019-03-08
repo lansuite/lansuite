@@ -795,6 +795,22 @@ class Install
         }
         $dsp->AddDoubleRow("FTP Library", $ftp_check);
 
+        // OpenSSL
+        if (extension_loaded('openssl')) {
+            $openssl_check = $ok;
+        } else {
+            $openssl_check = $not_possible . t('Auf deinem System konnte das PHP-Modul <b>OpenSSL</b> nicht gefunden werden. Dies hat zur Folge dass Module, die HTTPS Verbindungen zu anderen Servern aufbauen, nicht funktionieren');
+        }
+        $dsp->AddDoubleRow("OpenSSL", $openssl_check);
+
+        // allow_url_fopen
+        if (ini_get('allow_url_fopen')) {
+            $allowurlfopen_check = $ok;
+        } else {
+            $allowurlfopen_check = $not_possible . t('In deiner PHP Konfiguration ist <b>allow_url_fopen</b> nicht aktiviert. Dadurch können einige Module (z.B. Discord, Partylist) keine externen Verbindungen aufbauen und werden daher nicht funktionieren');
+        }
+        $dsp->AddDoubleRow("allow_url_fopen", $allowurlfopen_check);
+
         $dsp->AddFieldSetEnd();
 
         // Information

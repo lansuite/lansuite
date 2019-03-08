@@ -8,7 +8,7 @@ switch ($_GET['step']) {
         if (substr($row['ls_url'], strlen($row['ls_url']) - 1, 1) != '/') {
             $row['ls_url'] .= '/';
         }
-        if (substr($row['ls_url'], 0, 7) != 'http://') {
+        if (substr($row['ls_url'], 0, 7) != 'http://' && substr($row['ls_url'], 0, 8) != 'https://') {
             $row['ls_url'] = 'http://'. $row['ls_url'];
         }
         header('Location: '. $row['ls_url'] . 'index.php?mod=signon');
@@ -62,7 +62,7 @@ if (!$_GET['partyid']) {
         p.partyid = %int%", $_GET['partyid']);
     $framework->AddToPageTitle($row["name"]);
 
-    if (substr($row['url'], 0, 7) != 'http://') {
+    if (substr($row['url'], 0, 7) != 'http://' && substr($row['url'], 0, 8) != 'https://') {
         $row['url'] = 'http://'. $row['url'];
     }
 

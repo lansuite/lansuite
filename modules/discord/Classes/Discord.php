@@ -22,9 +22,11 @@ class Discord {
     public function __construct($discordServerId = ''){
         global $cfg,$func;
         
-        //Have a look first, if OpenSSL is enabled as module...
-       if (extension_loaded('openssl'))
-       {
+        if (!extension_loaded('openssl')) {
+            $func->error('OpenSSL-Modul nicht geladen!');
+        } else if (!ini_get('allow_url_fopen')) {
+            $func->error('allow_url_fopen nicht aktiv');
+        } else {
             //Check if server id was passed via constructor, use configuration value otherwise
             if ($discordServerId!=''){
                 $this->discordServerId = $disordServerId;
@@ -33,9 +35,6 @@ class Discord {
             } else {
                 $func->error(t('Es wurde keine Discord Server ID konfiguriert oder übergeben'));
             } 
-       }
-        else {
-            $func->error('OpenSSL-Modul nicht geladen!');
         }
     }
     
@@ -47,6 +46,8 @@ class Discord {
      */
     
     public function fetchServerData(){
+        global $cfg;
+
         clearstatcache('ext_inc/discord/cache.json');
         if (is_readable('ext_inc/discord/cache.json') && time()-filemtime('ext_inc/discord/cache.json') < 60) {
             // Cache file is readable and <60 seconds old.
@@ -59,7 +60,7 @@ class Discord {
         } else {
             // No cache file or too old; let's fetch data.
             $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
-            $JsonReturnData = @file_get_contents($APIurl);
+            $JsonReturnData = @file_get_contents($APIurl,false,stream_context_create(array('http' => array('timeout' => (isset($cfg['discord_json_timeout']) ? $cfg['discord_json_timeout'] : 4)))));
             if (is_writeable('ext_inc/discord/')) {
                 // Note: This intentionally also writes empty results to the cache file.
                 @file_put_contents('ext_inc/discord/cache.json', $JsonReturnData, LOCK_EX);
