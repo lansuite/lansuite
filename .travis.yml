@@ -27,7 +27,7 @@ before_script:
 
 script:
   - CHANGED_FILES=`git diff --name-only --diff-filter=ACM $TRAVIS_COMMIT~ $TRAVIS_COMMIT`
-  - CHANGED_PHP_FILES=`echo "$CHANGED_FILES | grep "\.php$"`
+  - CHANGED_PHP_FILES=`echo "$CHANGED_FILES" | grep "\.php$"`
   - if [ -z "$CHANGED_PHP_FILES" ]; then travis_terminate 0; fi; 
   - echo "$CHANGED_PHP_FILES" | xargs -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
   - echo "$CHANGED_PHP_FILES" | xargs -n1 -P4 bin/phpcs --standard=PSR1,PSR2 --extensions=php -s
