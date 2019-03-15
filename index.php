@@ -128,14 +128,13 @@ $PHPErrors = '';
 
 // Initialize Cache. Go for APCu first, filebased otherwise. DB adaptor to be used when we implement PDO.
 if (extension_loaded('apcu')) {
-    $cache = new Symfony\Component\Cache\Simple\ApcuCache('lansuite',600);
-} 
-else {
-    $cache = new Symfony\Component\Cache\Simple\FilesystemCache('lansuite',600);
+    $cache = new Symfony\Component\Cache\Simple\ApcuCache('lansuite', 600);
+} else {
+    $cache = new Symfony\Component\Cache\Simple\FilesystemCache('lansuite', 600);
 }
 
 // Check cache for config, try to load from file otherwise
-if ($cache->has('config')){
+if ($cache->has('config')) {
     $config = $cache->get('config');
 } else {
     // Read Config and Definitionfiles
@@ -339,10 +338,10 @@ if ($config['environment']['configured'] == 0) {
         $db->success = 0;
     }
     
-    if ($cache->has('cfg')){
+    if ($cache->has('cfg')) {
         $cfg = $cache->get('cfg');
     } else {
-        $cfg = $func->read_db_config(); 
+        $cfg = $func->read_db_config();
         $cache->set('cfg', $cfg);
     }
     $message = $sec->check_blacklist();

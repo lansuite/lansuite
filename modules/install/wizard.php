@@ -45,7 +45,7 @@ switch ($_GET["step"]) {
             $authentication = new \LanSuite\Auth();
             $authentication->login($_POST["email"], $_POST["password"]);
         }
-      // No break!
+      // no break!
 
     case 8:
         if (!$func->admin_exists()) {
@@ -124,7 +124,7 @@ switch ($_GET["step"]) {
             if ($currentDesign != '.' && $currentDesign != '..' && $currentDesign != 'templates' && is_dir($designPath . $currentDesign)) {
                 $file = "design/$currentDesign/design.xml";
                 if (file_exists($file)) {
-                // Read Names from design.xml
+                    // Read Names from design.xml
                     $xml_file = fopen($file, "r");
                     $xml_content = fread($xml_file, filesize($file));
                     if ($xml_content != "") {
@@ -307,7 +307,6 @@ switch ($_GET["step"]) {
 
     // Create Adminaccount
     case 7:
-    // No break!
 
     // Load modules
     case 8:

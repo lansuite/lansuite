@@ -787,7 +787,7 @@ class Install
                     $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei ' . HTML_NEWLINE . '{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
                 }
             }
-              $dsp->AddDoubleRow("Server Stats", $server_stats);
+            $dsp->AddDoubleRow("Server Stats", $server_stats);
         }
 
         // SNMP-Lib
@@ -920,7 +920,7 @@ class Install
      *
      * @return void
      */
-    private function DeleteAllTables()
+    private function deleteAllTables()
     {
         global $xml, $db;
 
