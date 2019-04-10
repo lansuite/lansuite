@@ -23,7 +23,7 @@ class Party
     {
         global $cfg, $db;
 
-        if (empty($party_id){
+        if (empty($party_id)){
             // Set new Session PartyID on GET or POST
             if (is_numeric($_GET['set_party_id'])) {
                 $this->party_id = $_GET['set_party_id'];
