@@ -374,7 +374,6 @@ if ($func->isModActive('party')) {
 
 // If without party-module: Just give a fake ID, for many modules need it
 } else {
-
     $party = new class
     {
         public $party_id;

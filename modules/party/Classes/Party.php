@@ -391,7 +391,9 @@ class Party
      * @return array Result array with elements "qty" and "paid"
     */
     public function getGuestQty($party_id = NULL){
-        if (empty($party_id)) {$party_id = $this->party_id}
+        if (empty($party_id)) {
+            $party_id = $this->party_id;
+            }
         if $cache->has('party.guestcount.'. $party_id){
             $guestCounts = $cache->get('party.guestcount.'. $party_id);
         } else {

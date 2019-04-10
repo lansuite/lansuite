@@ -70,6 +70,7 @@
             "inc/Functions/CheckValidEmail.php",
             "inc/Functions/Debug.php",
             "inc/Functions/DependencyPreCheck.php",
+            "inc/Functions/MyErrorHandler.php",
             "modules/about/Functions/GetTheLinesAndChars.php",
             "modules/about/Functions/LetsOpenTheDir.php",
             "modules/board/Functions/FormatTitle.php",

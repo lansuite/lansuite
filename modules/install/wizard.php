@@ -307,7 +307,8 @@ switch ($_GET["step"]) {
 
     // Create Adminaccount
     case 7:
-
+        //@TODO: Add the functionality here or remove the code
+        break;
     // Load modules
     case 8:
         $dsp->NewContent(t('Module aktivieren'), t('Hier kannst du festlegen, welche Module aktiv sein sollen'));
