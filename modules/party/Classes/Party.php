@@ -19,11 +19,11 @@ class Party
      */
     public $data = [];
 
-    public function __construct($party_id = NULL)
+    public function __construct($party_id = null)
     {
         global $cfg, $db;
 
-        if (empty($party_id)){
+        if (empty($party_id)) {
             // Set new Session PartyID on GET or POST
             if (is_numeric($_GET['set_party_id'])) {
                 $this->party_id = $_GET['set_party_id'];
@@ -385,16 +385,17 @@ class Party
     }
     
     /**
-     * Returns the amount of users registered for a party. 
+     * Returns the amount of users registered for a party.
      * 
      * @param int $party_id The ID of the party to calculate this for
      * @return array Result array with elements "qty" and "paid"
     */
-    public function getGuestQty($party_id = NULL){
+    public function getGuestQty($party_id = NULL)
+    {
         if (empty($party_id)) {
             $party_id = $this->party_id;
-            }
-        if $cache->has('party.guestcount.'. $party_id){
+        }
+        if ($cache->has('party.guestcount.'. $party_id)) {
             $guestCounts = $cache->get('party.guestcount.'. $party_id);
         } else {
             // Fetch in one query
@@ -403,11 +404,11 @@ class Party
             } else {
                 $querytype = "type >= 1";
             }
-        // Fetch amounts from DB
-        $countQry = $db->qry('SELECT COUNT(*) as qty, party.paid as paid FROM %prefix%user as user LEFT JOIN %prefix%party_user as party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%) GROUP BY paid ORDER BY paid DESC;');
-        while ($guestCounts = $countQry->fetch_array(){}
-        $cache->set('party.guestcount.'. $party_id, $guestCounts);
-        return $guestCounts;
+            // Fetch amounts from DB
+            $countQry = $db->qry('SELECT COUNT(*) as qty, party.paid as paid FROM %prefix%user as user LEFT JOIN %prefix%party_user as party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%) GROUP BY paid ORDER BY paid DESC;');
+            while ($guestCounts = $countQry->fetch_array(){}
+            $cache->set('party.guestcount.'. $party_id, $guestCounts);
+            return $guestCounts;
         }
     }
 }
