@@ -14,7 +14,10 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
             if ($status='success') {
                // Get Items that were paid from the payment...
                 $items = $paypalObj->getItemsFromPayment();
-
+                $seat2 = new \LanSuite\Module\Seating\Seat2();
+                $mail = new \LanSuite\Module\Mail\Mail();
+                $UsrMgr = new\LanSuite\Module\UsrMgr\UserManager(new \LanSuite\Module\Mail\Mail());
+                $GuestList = new \LanSuite\Module\GuestList\GuestList($seat2,$UsrMgr);
                // Show list of items. There has to be at least one because the payment succeeded
                 $dsp->addSingleRow('Die folgenden Artikel wurden erfolgreich bezahlt:');
                 foreach ($items as $item) {
@@ -30,7 +33,6 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
                             break;
                         default:
                             $data = SKUtoParty($item->sku);
-                            $GuestList = new \LanSuite\Module\Guestlist\GuestList();
                             $GuestList->SetPaid($auth['userid'], $data['party_id']);
                             break;
                     }
