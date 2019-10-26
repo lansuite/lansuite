@@ -31,10 +31,10 @@
 
 <tr><td class="mastersearch2_search_row_key">
   &nbsp;
-</td><td class="mastersearch2_search_row_value"{if $quicklinks|@count <= 0} colspan="3"{/if}>
+</td><td class="mastersearch2_search_row_value"{if is_array($quicklinks) && $quicklinks|@count <= 0} colspan="3"{/if}>
   <input type="submit" class="Button" name="suchen" value="Suchen" />
 </td>
-{if $quicklinks|@count > 0}
+{if is_array($quicklinks) && $quicklinks|@count > 0}
 <td class="mastersearch2_search_row_value" colspan="2" style="text-align:right">
 {foreach from=$quicklinks item=quicklink}
   <div class="Button" style="display:inline-block">
