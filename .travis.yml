@@ -13,6 +13,10 @@ matrix:
 cache:
   directories:
     - $HOME/.composer/cache
+    
+branches:
+  except:
+    - /nightly/
 
 install:
   - phpenv rehash
@@ -33,3 +37,26 @@ script:
   - echo "$CHANGED_PHP_FILES" | xargs -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
   - echo "$CHANGED_PHP_FILES" | xargs -n1 -P4 bin/phpcs --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength --extensions=php -s
   - bin/phpunit
+  
+before_deploy:
+      # Cleanup build, prep releases
+      - bin/prep-release.sh
+      # Set up git user name and tag this commit
+      - git config --local user.name "Travis CI"
+      - git config --local user.email "builds@travis-ci.com"
+      #- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+      - export TRAVIS_TAG="nightly"
+      - git tag -f $TRAVIS_TAG
+
+deploy:
+      provider: releases
+      api_key: "GITHUB OAUTH TOKEN"
+      file_glob: true
+      file:
+        - "LanSuite-*.tar.gz"
+        - "LanSuite-*_checksums.txt"
+      skip_cleanup: true
+      overwrite:true
+      on:
+        tags:true
+        branch:master
