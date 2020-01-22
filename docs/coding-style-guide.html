@@ -1,12 +1,62 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Coding style guide · LANSuite</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Coding style guide · LANSuite"/><meta property="og:type" content="website"/><meta property="og:url" content="https://lansuite.github.io/lansuite/index.html"/><meta property="og:description" content="This project follows the coding guideline standards:"/><meta property="og:image" content="https://lansuite.github.io/lansuite/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://lansuite.github.io/lansuite/img/docusaurus.png"/><link rel="shortcut icon" href="/lansuite/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://lansuite.github.io/blog/atom.xml" title="LANSuite Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://lansuite.github.io/blog/feed.xml" title="LANSuite Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/lansuite/css/main.css"/></head><body class="sideNavVisible doc separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/lansuite/"><img class="logo" src="/lansuite/img/docusaurus.svg" alt="LANSuite"/><h2 class="headerTitleWithLogo">LANSuite</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/lansuite/docs/installation.html" target="_self">Docs</a></li><li class=""><a href="/lansuite/en/credits.html" target="_self">Credits</a></li><li class=""><a href="/lansuite/blog" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Development</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Getting Started</h3><ul><li class="navListItem"><a class="navItem" href="/lansuite/docs/requirements.html">Requirements</a></li><li class="navListItem"><a class="navItem" href="/lansuite/docs/installation.html">Installation</a></li><li class="navListItem"><a class="navItem" href="/lansuite/docs/configuration.html">Configuration</a></li></ul></div><div class="navGroup navGroupActive"><h3>Guides</h3><ul><li class="navListItem"><a class="navItem" href="/lansuite/docs/upgrade.html">Upgrade to a newer version</a></li></ul></div><div class="navGroup navGroupActive"><h3>Development</h3><ul><li class="navListItem"><a class="navItem" href="/lansuite/docs/api-docs.html">Generating API docs</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/lansuite/docs/coding-style-guide.html">Coding style guide</a></li><li class="navListItem"><a class="navItem" href="/lansuite/docs/documentation.html">Documentation</a></li></ul></div></div></section></div><script>
-          var toggler = document.getElementById('navToggler');
-          var nav = document.getElementById('docsNav');
-          toggler.onclick = function() {
-            nav.classList.toggle('docsSliderActive');
-          };
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>Coding style guide</h1></header><article><div><span><p>This project follows the coding guideline standards:</p>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Coding style guide · LANSuite</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="This project follows the coding guideline standards:"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Coding style guide · LANSuite"/><meta property="og:type" content="website"/><meta property="og:url" content="https://lansuite.github.io/lansuite/index.html"/><meta property="og:description" content="This project follows the coding guideline standards:"/><meta property="og:image" content="https://lansuite.github.io/lansuite/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://lansuite.github.io/lansuite/img/docusaurus.png"/><link rel="shortcut icon" href="/lansuite/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://lansuite.github.io/lansuite/blog/atom.xml" title="LANSuite Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://lansuite.github.io/lansuite/blog/feed.xml" title="LANSuite Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/lansuite/js/scrollSpy.js"></script><link rel="stylesheet" href="/lansuite/css/main.css"/><script src="/lansuite/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/lansuite/"><img class="logo" src="/lansuite/img/docusaurus.svg" alt="LANSuite"/><h2 class="headerTitleWithLogo">LANSuite</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/lansuite/docs/installation.html" target="_self">Docs</a></li><li class=""><a href="/lansuite/credits.html" target="_self">Credits</a></li><li class=""><a href="/lansuite/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Development</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul class=""><li class="navListItem"><a class="navItem" href="/lansuite/docs/requirements.html">Requirements</a></li><li class="navListItem"><a class="navItem" href="/lansuite/docs/installation.html">Installation</a></li><li class="navListItem"><a class="navItem" href="/lansuite/docs/configuration.html">Configuration</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Guides</h3><ul class=""><li class="navListItem"><a class="navItem" href="/lansuite/docs/upgrade.html">Upgrade to a newer version</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Development</h3><ul class=""><li class="navListItem"><a class="navItem" href="/lansuite/docs/api-docs.html">Generating API docs</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/lansuite/docs/coding-style-guide.html">Coding style guide</a></li><li class="navListItem"><a class="navItem" href="/lansuite/docs/documentation.html">Documentation</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Coding style guide</h1></header><article><div><span><p>This project follows the coding guideline standards:</p>
 <ul>
 <li><a href="http://www.php-fig.org/psr/psr-1/">PSR-1: Basic Coding Standard</a></li>
 <li><a href="http://www.php-fig.org/psr/psr-2/">PSR-2: Coding Style Guide</a></li>
 </ul>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="api-docs.html">← Generating API docs</a><a class="docs-next button" href="documentation.html">Documentation →</a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/lansuite/" class="nav-home"><img src="/lansuite/img/docusaurus.svg" alt="LANSuite" width="66" height="58"/></a><div><h5>Docs</h5><a href="/lansuite/docs/installation.html">Getting Started</a><a href="/lansuite/docs/upgrade.html">Guides</a></div><div><h5>More</h5><a class="github-button" href="https://github.com/lansuite/lansuite" data-count-href="/lansuite/lansuite/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">lansuite</a></div></section><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/lansuite/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 LANSuite team and contributors</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/lansuite/docs/api-docs.html"><span class="arrow-prev">← </span><span>Generating API docs</span></a><a class="docs-next button" href="/lansuite/docs/documentation.html"><span>Documentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/lansuite/" class="nav-home"><img src="/lansuite/img/docusaurus.svg" alt="LANSuite" width="66" height="58"/></a><div><h5>Docs</h5><a href="/lansuite/docs/installation.html">Getting Started</a><a href="/lansuite/docs/upgrade.html">Guides</a></div><div><h5>More</h5><a class="github-button" href="https://github.com/lansuite/lansuite" data-count-href="/lansuite/lansuite/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">lansuite</a></div></section><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/lansuite/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2020 LANSuite team and contributors</section></footer></div></body></html>
