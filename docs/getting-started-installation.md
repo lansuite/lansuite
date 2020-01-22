@@ -18,6 +18,7 @@ Following tools are relevant:
  * A PHP environment with Composer for local/remote installations (here guides for [Windows](https://www.thecodedeveloper.com/install-composer-windows-xampp/) and [Linux](https://getcomposer.org/download/))
  * [Docker Community Edition](https://www.docker.com/community-edition) to run the container 
  * Git (recommended, either as command-line or GUI)
+
 It is required that you have at least a PHP environment with composer available if you do not want to run the Docker container.
 
 ### Fetch source code
@@ -27,6 +28,8 @@ This is the recommendation as it simplifies later updates.
 
 Alternatively a snapshot of the current source code branch can be downloaded from the project page(e.g. https://github.com/lansuite/lansuite/archive/master.zip for the master).
 This must be extracted before usage (e.g. with `unzip master.zip`(Linux) or with a tool like WinZip,WinRAR or 7zip(Windows).
+
+## Run natively
 
 ### Prepare to run
 After preparing a build environment and obaining the sources you must run a few steps to prepare the solution for deployment.
@@ -45,7 +48,7 @@ If you had to run the steps above on a different system then you'll need to uplo
 Use a (S)FTP-client then to upload the whole folder to your webspace.
 Ensure that file permissions are properly set so that the webserver user is able to write both to the file `/inc/base/config.php` and the folder `./ext_inc/` and it's contents.
 
-## Docker
+## Run in Docker
 
 We assume that you have a running [Docker Community Edition](https://www.docker.com/community-edition) installed.
 
