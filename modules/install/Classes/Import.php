@@ -197,7 +197,7 @@ class Import
                         if ($key == "UNI") {
                             $unique_key .= ", UNIQUE KEY $name ($name)";
                         }
-                        $mysql_fields .= "$name $type $null $default $extra, ";
+                        $mysql_fields .= "`$name` $type $null $default $extra, ";
 
                         // Safe Field-Names to know which fields to import content for, in the next step.
                         $field_names[] = $name;
