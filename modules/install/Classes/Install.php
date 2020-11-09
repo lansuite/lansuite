@@ -99,7 +99,7 @@ class Install
                 }
             }
         } else {
-            // If User wants to rewrite all tables, drop databse. It will be created anew in the next step
+            // If User wants to rewrite all tables, drop database. It will be created anew in the next step
             if (!$_GET["quest"] and $createnew and $_GET["step"] == 3) {
                 $this->DeleteAllTables();
             }

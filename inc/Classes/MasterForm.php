@@ -1117,7 +1117,7 @@ class MasterForm
                                 foreach ($this->SQLFields as $key => $val) {
                                     if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') {
                                         $db_query .= "$val = NOW(), ";
-                                    } elseif ($SQLFieldTypes[$val] == 'tinyint(1)') {
+                                    } elseif ($this->is_field_int($SQLFieldTypes[$val])) {
                                         $db_query .= $val .' = '. (int)$_POST[$val] .', ';
                                     } elseif ($SQLFieldTypes[$val] == 'varbinary(16)' and $val == 'ip') {
                                         $db_query .= $val .' = INET6_ATON(\''. $_POST[$val] .'\'), ';
@@ -1125,6 +1125,10 @@ class MasterForm
                                         $db_query .= "$val = $val + 1, ";
                                     } elseif ($_POST[$val] == '--' and strpos($SQLFieldTypes[$val], 'int') !== false) {
                                         $db_query .= "$val = $val - 1, ";
+                                    } elseif ($this->is_field_enum($SQLFieldTypes[$val])) {
+                                        if ($_POST[$val] != '') {
+                                            $db_query .= "$val = '{$_POST[$val]}', ";
+                                        } // otherwise ignore value; default has to be defined
                                     } else {
                                         $db_query .= "$val = '{$_POST[$val]}', ";
                                     }
@@ -1204,5 +1208,23 @@ class MasterForm
         }
 
         return 0;
+    }
+
+    private function is_field_enum($field_type)
+    {
+        return $this->str_starts_with($field_type, 'enum');
+    }
+
+    private function is_field_int($field_type)
+    {
+        return $this->str_starts_with($field_type, 'tinyint')
+            || $this->str_starts_with($field_type, 'smallint')
+            || $this->str_starts_with($field_type, 'mediumint')
+            || $this->str_starts_with($field_type, 'int')
+            || $this->str_starts_with($field_type, 'bigint');
+    }
+
+    private function str_starts_with($search_in, $for) {
+        return strpos($search_in, $for) === 0;
     }
 }
