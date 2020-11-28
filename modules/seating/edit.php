@@ -48,7 +48,7 @@ switch ($_GET['step']) {
               WHERE
                 blockid = %int%
                 AND status = 2
-                AND row >= %int%", $_GET['blockid'], $_POST['rows']);
+                AND `row` >= %int%", $_GET['blockid'], $_POST['rows']);
             if ($row["number"] != 0) {
                 $error['rows'] = t('Bitte gib eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entferne bitte die betroffenen Benutzer.');
             }
@@ -311,8 +311,8 @@ switch ($_GET['step']) {
                 party_id = %int%,
                 group_id = %int%,
                 price_id = %int%,
-                name = %string%,
-                rows = %int%,
+                `name` = %string%,
+                `rows` = %int%,
                 cols = %int%,
                 orientation = %string%,
                 u18 = %string%,
@@ -337,8 +337,8 @@ switch ($_GET['step']) {
                 party_id = %int%,
                 group_id = %int%,
                 price_id = %int%,
-                name = %string%,
-                rows = %int%,
+                `name` = %string%,
+                `rows` = %int%,
                 cols = %int%,
                 orientation = %string%,
                 u18 = %string%,

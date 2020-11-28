@@ -21,9 +21,9 @@ switch ($_GET['step']) {
           INSERT INTO %prefix%seat_block
           SET
             party_id = %int%,
-            rows = %int%,
+            `rows` = %int%,
             cols = %int%,
-            name = %string%,
+            `name` = %string%,
             orientation = %int%,
             u18 = %int%,
             remark = %string%,
