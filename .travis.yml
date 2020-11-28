@@ -29,7 +29,7 @@ script:
   - CHANGED_FILES=`git diff --name-only --diff-filter=ACM $TRAVIS_COMMIT~ $TRAVIS_COMMIT`
   - echo "$CHANGED_FILES"
   - CHANGED_PHP_FILES=`echo "$CHANGED_FILES" | grep "\.php$"`
-  - if [ -z "$CHANGED_PHP_FILES" ]; then travis_terminate 0; fi; 
+  - if [ -z "$CHANGED_PHP_FILES" ]; then travis_terminate 0; fi;
   - echo "$CHANGED_PHP_FILES" | xargs -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
-  - echo "$CHANGED_PHP_FILES" | xargs -n1 -P4 bin/phpcs --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength --extensions=php -s
+  - echo "$CHANGED_PHP_FILES" | xargs -n1 -P4 bin/phpcs --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName.NotCamelCaps --extensions=php -s
   - bin/phpunit
