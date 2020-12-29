@@ -488,7 +488,14 @@ class Install
                             $it = $xml->getFirstTagContent("it", $entry, 1);
                             $file = $xml->getFirstTagContent("file", $entry);
 
-                            if (strlen($org) > 255) {
+                            if (strlen($org) > 255
+                                || strlen($de) > 255
+                                || strlen($en) > 255
+                                || strlen($es) > 255
+                                || strlen($fr) > 255
+                                || strlen($nl) > 255
+                                || strlen($it) > 255
+                            ) {
                                 $long = '_long';
                             } else {
                                 $long = '';

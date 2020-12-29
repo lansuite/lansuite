@@ -124,7 +124,7 @@
 			</entry>
 			<entry>
 				<id>649eedb59d668ad71e5d11f398141a86</id>
-				<org>Das Foodcenter ist geschlossen Bestellungen sind m�glich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:</org>
+				<org>Das Foodcenter ist geschlossen Bestellungen sind möglich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:</org>
 				<en>The Food Center is mglich orders are closed but are only after opening abgearbeitet.Die Öffnungszeigen:</en>
 				<es>El Centro de la Alimentación es órdenes mglich están cerradas pero que sólo después de la apertura Öffnungszeigen abgearbeitet.Die:</es>
 				<fr>Le Centre de l&amp;#39;alimentation est de plusieurs ordres mglich sont fermés mais sont seulement après l&amp;#39;ouverture abgearbeitet.Die Öffnungszeigen:</fr>
@@ -224,7 +224,7 @@
 			</entry>
 			<entry>
 				<id>733238a7fc19707bfbcffbde4010e9cd</id>
-				<org>Produkt hinzuf�gen</org>
+				<org>Produkt hinzufügen</org>
 				<en>ADD TO Catalog</en>
 				<es>Agregar a catálogo</es>
 				<fr>AJOUTER À Catalogue</fr>
@@ -234,7 +234,7 @@
 			</entry>
 			<entry>
 				<id>09a56c2ac6ae93d3b011d77eff25e0fa</id>
-				<org>Hier k�nnen sie ein Produkt hinzuf&amp;uuml;gen</org>
+				<org>Hier können sie ein Produkt hinzuf&amp;uuml;gen</org>
 				<en>Here you may submit a review</en>
 				<es>Aquí usted puede presentar una revisión</es>
 				<fr>Ici vous proposer un commentaire mai</fr>
@@ -244,7 +244,7 @@
 			</entry>
 			<entry>
 				<id>b7c230e4fa771b14f797c2d986cc3342</id>
-				<org>Produkt �ndern</org>
+				<org>Produkt ändern</org>
 				<en>Change Product</en>
 				<es>Cambio de producto</es>
 				<fr>Changer de produit</fr>
@@ -284,7 +284,7 @@
 			</entry>
 			<entry>
 				<id>5164e803a0232e15e1e082a119ac6903</id>
-				<org>Infos f�r Lieferant (zb. seine Artikelnummer)</org>
+				<org>Infos für Lieferant (zb. seine Artikelnummer)</org>
 				<en>Supplier Info fr () zb. his article</en>
 				<es>Fr Información de Proveedores () Zb. Su artículo</es>
 				<fr>Info-fournisseur FR () Zb. Son article</fr>
@@ -364,7 +364,7 @@
 			</entry>
 			<entry>
 				<id>0c7957cea5ab356db65bc6fe73e2d74b</id>
-				<org>Mehrfachauswahl m�glich</org>
+				<org>Mehrfachauswahl möglich</org>
 				<en>Multiple mglich</en>
 				<es>Mglich múltiples</es>
 				<fr>Multiples mglich</fr>
@@ -384,7 +384,7 @@
 			</entry>
 			<entry>
 				<id>dbae42ae1483c609ea0c51b88edf6f3a</id>
-				<org>Auswahlm�glichkeiten</org>
+				<org>Auswahlmöglichkeiten</org>
 				<en>Player choice</en>
 				<es>La selección del Jugador</es>
 				<fr>Lecteur choix</fr>
@@ -1084,7 +1084,7 @@
 			</entry>
 			<entry>
 				<id>091e5358b839cffb1a0a44d5f25f3735</id>
-				<org>Um einen Artikel zu l�schen, setze ihn auf 0 und klicken anschlie�end auf /'/Neu berechnen/'/.</org>
+				<org>Um einen Artikel zu löschen, setze ihn auf 0 und klicken anschließend auf /'/Neu berechnen/'/.</org>
 				<en>To Delete an item, set it to 0 and click Subsequently on / &amp;#39;/ Recalculate /&amp;#39; /.</en>
 				<es>Para eliminar un elemento, ponerlo a 0 y haga clic en Más tarde / &amp;#39;/ Actualizar /&amp;#39; /.</es>
 				<fr>Pour supprimer un élément, elle a mis à 0 et cliquez ensuite sur / &amp;#39;/ Recalculer /&amp;#39; /.</fr>
@@ -1144,7 +1144,7 @@
 			</entry>
 			<entry>
 				<id>c04153d4c23a36e6d2af3990390934f7</id>
-				<org>Nicht gen�gend Geld auf dem Konto.</org>
+				<org>Nicht genügend Geld auf dem Konto.</org>
 				<en>Not enough free money in the account.</en>
 				<es>No hay suficiente dinero libre en la cuenta.</es>
 				<fr>Pas assez d&amp;#39;argent frais dans le compte.</fr>
@@ -1164,7 +1164,7 @@
 			</entry>
 			<entry>
 				<id>40195068e1468e4d1fee5d5d7352026a</id>
-				<org>R�ckzahlung bei abbestellten Produkten</org>
+				<org>Rückzahlung bei abbestellten Produkten</org>
 				<en>Rckzahlung canceled when products</en>
 				<es>Rckzahlung cancelada cuando los productos</es>
 				<fr>Rckzahlung annulée lorsque des produits</fr>
@@ -1204,7 +1204,7 @@
 			</entry>
 			<entry>
 				<id>90d1a72fc98af69190adb5e5edcd47e4</id>
-				<org>Es m�ssen keine Produkte bestellt werden.</org>
+				<org>Es müssen keine Produkte bestellt werden.</org>
 				<en>There have to all be ordered any products yet.</en>
 				<es>Tiene que pedir a todos los productos todavía.</es>
 				<fr>Il doit y avoir tous être commandé de produits pour le moment.</fr>
@@ -1224,7 +1224,7 @@
 			</entry>
 			<entry>
 				<id>24e4bc931f43ba74546bc222ca0bc3b5</id>
-				<org>Fertiggestellte K�chengerichte zur Abholung/Lieferung</org>
+				<org>Fertiggestellte Küchengerichte zur Abholung/Lieferung</org>
 				<en>Completed Kchengerichte for pickup / delivery</en>
 				<es>Completo Kchengerichte para su recogida o entrega</es>
 				<fr>Terminé Kchengerichte pour le ramassage / livraison</fr>
@@ -1234,7 +1234,7 @@
 			</entry>
 			<entry>
 				<id>d69555f5692acca3744992dece949b24</id>
-				<org>Derzeit gibt es keine fertiggestellten Gerichte aus der K�che.</org>
+				<org>Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.</org>
 				<en>Currently there are no completed dishes from the kitchen.</en>
 				<es>Actualmente no hay completado platos de la cocina.</es>
 				<fr>Actuellement il n&amp;#39;y a pas rempli les plats de la cuisine.</fr>
@@ -1254,7 +1254,7 @@
 			</entry>
 			<entry>
 				<id>5e5c9b72c8a2ecceaf88f8208cb30be1</id>
-				<org>Bitte Template ausw�hlen:</org>
+				<org>Bitte Template auswählen:</org>
 				<en>Please template auswhlen:</en>
 				<es>Si la plantilla auswhlen:</es>
 				<fr>S&amp;#39;il vous plaît modèle auswhlen:</fr>
@@ -1284,7 +1284,7 @@
 			</entry>
 			<entry>
 				<id>4ba422c48b479fbfc32a2387af5e1755</id>
-				<org>Bitte w�hlen sie die Produktanzahl die abbestellt werden soll.</org>
+				<org>Bitte wählen sie die Produktanzahl die abbestellt werden soll.</org>
 				<en>Please select the product number to be canceled.</en>
 				<es>Por favor seleccione el número de producto que ser cancelado.</es>
 				<fr>S&amp;#39;il vous plaît sélectionnez le numéro de produit pour être annulé.</fr>
