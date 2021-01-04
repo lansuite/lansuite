@@ -107,7 +107,7 @@ class Translation
 
         if (isset($_SESSION['language']) && $_SESSION['language']) {
             $this->language = $_SESSION['language'];
-        } elseif ($cfg['sys_language']) {
+        } elseif (isset($cfg['sys_language']) && $cfg['sys_language']) {
             $this->language = $cfg['sys_language'];
         } else {
             $this->language = 'de';
