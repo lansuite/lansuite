@@ -895,7 +895,7 @@ class Func
             return false;
         } else {
             // Set read timeout
-            socket_set_timeout($handle, 0, $timeout);
+            stream_set_timeout($handle, 0, $timeout);
             // Time the response
             list($usec, $sec) = explode(" ", microtime(true));
             $start = (float)$usec + (float)$sec;

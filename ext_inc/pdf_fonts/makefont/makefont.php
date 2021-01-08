@@ -16,7 +16,7 @@ function ReadMap($enc)
     $cc2gn=array();
     foreach ($a as $l) {
         if ($l{0}=='!') {
-            $e=preg_split('/[ \\t]+/', chop($l));
+            $e=preg_split('/[ \\t]+/', rtrim($l));
             $cc=hexdec(substr($e[0], 1));
             $gn=$e[2];
             $cc2gn[$cc]=$gn;
@@ -48,7 +48,7 @@ function ReadAFM($file, &$map)
         'combininggraveaccent'=>'gravecomb','combininghookabove'=>'hookabovecomb','combiningtildeaccent'=>'tildecomb',
         'combiningacuteaccent'=>'acutecomb','combiningdotbelow'=>'dotbelowcomb','dongsign'=>'dong');
     foreach ($a as $l) {
-        $e=explode(' ', chop($l));
+        $e=explode(' ', rtrim($l));
         if (count($e)<2) {
             continue;
         }
@@ -231,7 +231,7 @@ function MakeFontEncoding($map)
             $s.='/'.$map[$i].' ';
         }
     }
-    return chop($s);
+    return rtrim($s);
 }
 
 function SaveToFile($file, $s, $mode = 't')

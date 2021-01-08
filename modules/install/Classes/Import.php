@@ -852,7 +852,7 @@ class Import
         $import = array("error" => 0, "nothing" => 0, "insert" => 0, "replace" => 0);
 
         foreach ($csv_file as $csv_line) {
-            $csv_line = chop($csv_line);
+            $csv_line = rtrim($csv_line);
             $csv_line = trim($csv_line);
             $csv_line = str_replace("\"", "", $csv_line);
             $csv_line = str_replace("'", "", $csv_line);

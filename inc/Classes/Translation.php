@@ -344,7 +344,7 @@ class Translation
         // File handling: Make backup copy
         $file = $this->get_trans_filename($module);
         $file_handle = fopen($file, 'w');
-        fputs($file_handle, $output);
+        fwrite($file_handle, $output);
         fclose($file_handle);
     }
 
