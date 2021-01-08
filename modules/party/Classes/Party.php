@@ -105,7 +105,7 @@ class Party
             $link = "index.php?" . $_SERVER['QUERY_STRING'];
         }
 
-        if ($show_old = 0) {
+        if ($show_old == 0) {
             $row = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys WHERE enddate < %int%", time());
         } else {
             $row = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys");
