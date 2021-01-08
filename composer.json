@@ -15,6 +15,10 @@
         "php": "^7.0",
         "ext-gd": "*",
         "ext-mysqli": "*",
+        "ext-snmp": "*",
+        "ext-json": "*",
+        "ext-zlib": "*",
+        "ext-ftp": "*",
 
         "smarty/smarty": "^3.1",
         "geshi/geshi": "^1.0.9",
