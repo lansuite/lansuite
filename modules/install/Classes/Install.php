@@ -629,7 +629,7 @@ class Install
 
         // PHP version
         $minPHPVersion = '7.0.0';
-        $currentPHPVersion = phpversion();
+        $currentPHPVersion = PHP_VERSION;
         if (version_compare($currentPHPVersion, $minPHPVersion) >= 0) {
             $phpv_check = $ok . $currentPHPVersion;
         } else {
