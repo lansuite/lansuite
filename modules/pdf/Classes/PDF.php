@@ -300,7 +300,7 @@ class PDF
         ];
         $t_array = [];
 
-        while (list($key, $val) = each($type_array)) {
+        foreach ($type_array as $key => $val) {
             array_push($t_array, "<option value=\"$key\">$val</option>");
         }
 
@@ -390,7 +390,7 @@ class PDF
         ];
         $t_array = [];
 
-        while (list($key, $val) = each($type_array)) {
+        foreach ($type_array as $key => $val) {
             array_push($t_array, "<option value=\"$key\">$val</option>");
         }
 
@@ -411,7 +411,7 @@ class PDF
         ];
         $s_array = [];
 
-        while (list($key, $val) = each($sort_array)) {
+        foreach ($sort_array as $key => $val) {
             array_push($s_array, "<option value=\"$key\">$val</option>");
         }
 
@@ -447,7 +447,7 @@ class PDF
         ];
         $s_array = [];
 
-        while (list($key, $val) = each($sort_array)) {
+        foreach ($sort_array as $key => $val) {
             array_push($s_array, "<option value=\"$key\">$val</option>");
         }
 

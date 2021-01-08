@@ -18,7 +18,7 @@ switch ($_GET["step"]) {
             "ext_inc_data"  => t('DATA: Daten-Ordner herunterladen (Avatare, Bildergallerie, Banner, ...)')
         );
         $t_array = array();
-        while (list($key, $val) = each($type_array)) {
+        foreach ($type_array as $key => $val) {
             array_push($t_array, "<option $selected value=\"$key\">$val</option>");
         }
         $dsp->AddDropDownFieldRow("type", t('Export Typ'), $t_array, "", 1);
