@@ -14,7 +14,7 @@ switch ($step) {
             $t_array = array();
             foreach ($option_array as $key => $val) {
                 ($key == $row["cfg_value"]) ? $selected = "selected" : $selected = "";
-                array_push($t_array, "<option $selected value=\"$key\">$val</option>");
+                $t_array[] = "<option $selected value=\"$key\">$val</option>";
             }
             $dsp->AddDropDownFieldRow($row["cfg_key"], $row["cfg_key"], $t_array, "", 1);
         }

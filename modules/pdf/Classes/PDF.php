@@ -301,7 +301,7 @@ class PDF
         $t_array = [];
 
         foreach ($type_array as $key => $val) {
-            array_push($t_array, "<option value=\"$key\">$val</option>");
+            $t_array[] = "<option value=\"$key\">$val</option>";
         }
 
         $dsp->AddDropDownFieldRow("paid", t('Besucher hat bezahlt'), $t_array, "", 1);
@@ -310,15 +310,15 @@ class PDF
         $dsp->AddCheckBoxRow("orga", t('Besucher ist Orga'), "", "", "1", "0", "0");
         $dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'), "", "", "1", "1", "0");
 
-        $t_array = [];
-        array_push($t_array, "<option value=\"null\">Alle</option>");
-        $query = $db->qry('SELECT * FROM %prefix%user AS user WHERE user.type > 0');
+        $t_array   = [];
+        $t_array[] = "<option value=\"null\">Alle</option>";
+        $query     = $db->qry('SELECT * FROM %prefix%user AS user WHERE user.type > 0');
 
         while ($row = $db->fetch_array($query)) {
             if ($row['item_id'] == "") {
-                array_push($t_array, "<option value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>");
+                $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>";
             } else {
-                array_push($t_array, "<option value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>");
+                $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>";
             }
         }
 
@@ -343,16 +343,16 @@ class PDF
         $dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
         $dsp->AddSingleRow(t('Die Bl&auml;tter werden nach folgenden Kriterien erstellt:'));
 
-        $block = [];
-        array_push($block, "<option value=\"null\"></option>");
-        $query = $db->qry('SELECT * FROM %prefix%seat_block WHERE party_id=%int% ORDER BY blockid', $party->party_id);
+        $block   = [];
+        $block[] = "<option value=\"null\"></option>";
+        $query   = $db->qry('SELECT * FROM %prefix%seat_block WHERE party_id=%int% ORDER BY blockid', $party->party_id);
 
         if ($db->num_rows($query) == 0) {
             $func->error(t('Keine Sitzpl&auml;tze vorhanden'), "index.php?mod=pdf&action=$action");
         } else {
             while ($row = $db->fetch_array($query)) {
                 if ($row['name']) {
-                    array_push($block, "<option value=\"" . $row['blockid'] . "\">" . $row['name'] . "</option>");
+                    $block[] = "<option value=\"" . $row['blockid'] . "\">" . $row['name'] . "</option>";
                 }
             }
 
@@ -391,7 +391,7 @@ class PDF
         $t_array = [];
 
         foreach ($type_array as $key => $val) {
-            array_push($t_array, "<option value=\"$key\">$val</option>");
+            $t_array[] = "<option value=\"$key\">$val</option>";
         }
 
         $dsp->AddDropDownFieldRow("paid", t('Besucher hat bezahlt'), $t_array, "", 1);
@@ -412,7 +412,7 @@ class PDF
         $s_array = [];
 
         foreach ($sort_array as $key => $val) {
-            array_push($s_array, "<option value=\"$key\">$val</option>");
+            $s_array[] = "<option value=\"$key\">$val</option>";
         }
 
         $dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);
@@ -448,7 +448,7 @@ class PDF
         $s_array = [];
 
         foreach ($sort_array as $key => $val) {
-            array_push($s_array, "<option value=\"$key\">$val</option>");
+            $s_array[] = "<option value=\"$key\">$val</option>";
         }
 
         $dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);

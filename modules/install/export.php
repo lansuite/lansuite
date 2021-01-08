@@ -19,7 +19,7 @@ switch ($_GET["step"]) {
         );
         $t_array = array();
         foreach ($type_array as $key => $val) {
-            array_push($t_array, "<option $selected value=\"$key\">$val</option>");
+            $t_array[] = "<option $selected value=\"$key\">$val</option>";
         }
         $dsp->AddDropDownFieldRow("type", t('Export Typ'), $t_array, "", 1);
 

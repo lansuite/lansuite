@@ -71,7 +71,7 @@ switch ($_GET["step"]) {
         reset($options);
         foreach ($options as $key => $val) {
             ($_POST["tticket_priority"] == $key) ? $selected = "selected" : $selected = "";
-            array_push($t_array, "<option $selected value=\"$key\">$val</option>");
+            $t_array[] = "<option $selected value=\"$key\">$val</option>";
         }
         $dsp->AddDropDownFieldRow("tticket_priority", t('Priorität'), $t_array, $error["tticket_priority"], 1);
 

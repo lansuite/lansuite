@@ -67,13 +67,13 @@ switch ($_GET["step"]) {
         } else {
             $selected = '';
         }
-        array_push($lang_array, "<option $selected value=\"de\">Deutsch</option>");
+        $lang_array[] = "<option $selected value=\"de\">Deutsch</option>";
         if ($language == "en") {
             $selected = 'selected';
         } else {
             $selected = '';
         }
-        array_push($lang_array, "<option $selected value=\"en\">English</option>");
+        $lang_array[] = "<option $selected value=\"en\">English</option>";
         $dsp->AddDropDownFieldRow("language", t('Sprache'), $lang_array, "");
         $dsp->AddFormSubmitRow(t('Ändern'));
 
@@ -129,7 +129,7 @@ switch ($_GET["step"]) {
                     $xml_content = fread($xml_file, filesize($file));
                     if ($xml_content != "") {
                         ($config['lansuite']['default_design'] == $currentDesign) ? $selected = "selected" : $selected = "";
-                        array_push($t_array, "<option $selected value=\"$currentDesign\">". $xml->get_tag_content("name", $xml_content) ."</option>");
+                        $t_array[] = "<option $selected value=\"$currentDesign\">" . $xml->get_tag_content("name", $xml_content) . "</option>";
                     }
                     fclose($xml_file);
                 }
@@ -355,7 +355,7 @@ switch ($_GET["step"]) {
         $country_array = array();
         while ($selection = $db->fetch_array($get_cfg_selection)) {
             ($language == $selection["cfg_value"]) ? $selected = "selected" : $selected = "";
-            array_push($country_array, "<option $selected value=\"{$selection["cfg_value"]}\">". t($selection["cfg_display"]) ."</option>");
+            $country_array[] = "<option $selected value=\"{$selection["cfg_value"]}\">" . t($selection["cfg_display"]) . "</option>";
         }
         $dsp->AddDropDownFieldRow("country", t('Land, in dem die Party stattfindet'), $country_array, "");
 
@@ -372,13 +372,13 @@ switch ($_GET["step"]) {
         } else {
             $selected = "selected";
         }
-        array_push($mode_array, '<option $selected value="1">'. t('Internet-Seite. Vor der Party') .'</option>');
+        $mode_array[] = '<option $selected value="1">' . t('Internet-Seite. Vor der Party') . '</option>';
         if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') {
             $selected = "selected";
         } else {
             $selected = "";
         }
-        array_push($mode_array, '<option $selected value="0">'. t('Intranet-Seite. Auf der Party') .'</option>');
+        $mode_array[] = '<option $selected value="0">' . t('Intranet-Seite. Auf der Party') . '</option>';
         $dsp->AddDropDownFieldRow("mode", t('Internet- oder Lokaler-Modus?'), $mode_array, "");
 
         $dsp->AddFormSubmitRow(t('Weiter'));

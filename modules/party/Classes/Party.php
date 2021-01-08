@@ -123,7 +123,7 @@ class Party
                 }
 
                 if (is_array($list_array)) {
-                    array_push($list_array, "<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
+                    $list_array[] = "<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>";
                 } else {
                     $list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
                 }
@@ -304,7 +304,7 @@ class Party
                 }
 
                 if (is_array($data)) {
-                    array_push($data, "<option $selected value='{$res['group_id']}'>{$res['group_name']}</option>");
+                    $data[] = "<option $selected value='{$res['group_id']}'>{$res['group_name']}</option>";
                 } else {
                     $data = array("<option $selected value='{$res['group_id']}'>{$res['group_name']}</option>");
                 }

@@ -76,17 +76,19 @@ switch ($_GET['step']) {
                 if ($user_data['paid']) {
                     // Reserve seat for myselfe
                     if ($row['seatid']) {
-                        array_push($questionarray, t('Du hast bereits einen Sitzplatz reserviert. Möchtest du deinen Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?'));
-                        array_push($linkarray, "index.php?mod=seating&action=show&step=11&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+                        $questionarray[] = t('Du hast bereits einen Sitzplatz reserviert. Möchtest du deinen Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?');
+                        $linkarray[]     = "index.php?mod=seating&action=show&step=11&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     // Change my seat, if I allready have one
                     } else {
-                        array_push($questionarray, t('Diesen Sitzplatz für mich reservieren'));
-                        array_push($linkarray, "index.php?mod=seating&action=show&step=11&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+                        $questionarray[] = t('Diesen Sitzplatz für mich reservieren');
+                        $linkarray[]     = "index.php?mod=seating&action=show&step=11&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     }
                           // If not reached the maximum of marks
                     if ($marked_seats['anz'] < $cfg['seating_max_marks']) {
-                          array_push($questionarray, t('Diesen Sitzplatz für einen Freund vormerken<br />(Eine Vormerkung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)'));
-                          array_push($linkarray, "index.php?mod=seating&action=show&step=12&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+                          $questionarray[] = t(
+                              'Diesen Sitzplatz für einen Freund vormerken<br />(Eine Vormerkung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)'
+                          );
+                          $linkarray[]     = "index.php?mod=seating&action=show&step=12&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     }
                           // Clanadmins can reserve seats for paid clan-members
                     if ($auth['clanadmin']) {
@@ -102,23 +104,23 @@ switch ($_GET['step']) {
                             AND p.paid
                             AND p.party_id = %int%", $auth['clanid'], $auth['userid'], $party->party_id);
                         while ($row = $db->fetch_array($res)) {
-                            array_push($questionarray, t('Diesen Sitzplatz für mein bezahltes Clan-Mitglied %1 reservieren', $row['username']));
-                            array_push($linkarray, "index.php?mod=seating&action=show&step=13&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&userid={$row['userid']}");
+                            $questionarray[] = t('Diesen Sitzplatz für mein bezahltes Clan-Mitglied %1 reservieren', $row['username']);
+                            $linkarray[]     = "index.php?mod=seating&action=show&step=13&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&userid={$row['userid']}";
                         }
                         $db->free_result($res);
                     }
                           // Delete mark, if Admin
                     if ($auth['type'] > 1 and $seat_user['status'] == 3) {
-                        array_push($questionarray, t('Möchtest du als Admin diese Vormerkung entfernen?'));
-                        array_push($linkarray, "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+                        $questionarray[] = t('Möchtest du als Admin diese Vormerkung entfernen?');
+                        $linkarray[]     = "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     }
                 // Mark seat for myselfe (if not paid)
                 } else {
-                    array_push($questionarray, t('Diesen Sitzplatz für mich vormerken<br />(Eine Vormerkung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)'));
-                    array_push($linkarray, "index.php?mod=seating&action=show&step=12&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+                    $questionarray[] = t('Diesen Sitzplatz für mich vormerken<br />(Eine Vormerkung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)');
+                    $linkarray[]     = "index.php?mod=seating&action=show&step=12&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                 }
-                array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
-                array_push($linkarray, "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+                $questionarray[] = t('Aktion abbrechen. Zurück zum Sitzplan');
+                $linkarray[]     = "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}";
 
                 $func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist momentan noch frei'));
             }
@@ -251,11 +253,11 @@ switch ($_GET['step']) {
             $questionarray = array();
             $linkarray = array();
 
-            array_push($questionarray, t('Diesen Platz für mich vorreservieren, meinen alten Platz freigeben.'));
-            array_push($linkarray, "index.php?mod=seating&action=show&step=22&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+            $questionarray[] = t('Diesen Platz für mich vorreservieren, meinen alten Platz freigeben.');
+            $linkarray[]     = "index.php?mod=seating&action=show&step=22&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
         
-            array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
-            array_push($linkarray, "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+            $questionarray[] = t('Aktion abbrechen. Zurück zum Sitzplan');
+            $linkarray[]     = "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}";
         
         
             $func->multiquestion($questionarray, $linkarray, t('Solange du nicht für diese Party bezahlt hast, darfst du nur einen Sitz vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -280,11 +282,11 @@ switch ($_GET['step']) {
         $questionarray = array();
         $linkarray = array();
 
-        array_push($questionarray, t('Meinen Sitzplatz wieder freigeben'));
-        array_push($linkarray, "index.php?mod=seating&action=show&step=21&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+        $questionarray[] = t('Meinen Sitzplatz wieder freigeben');
+        $linkarray[]     = "index.php?mod=seating&action=show&step=21&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
 
-        array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
-        array_push($linkarray, "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+        $questionarray[] = t('Aktion abbrechen. Zurück zum Sitzplan');
+        $linkarray[]     = "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}";
 
         $func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist momentan für dich reserviert'));
         break;
@@ -319,14 +321,14 @@ switch ($_GET['step']) {
             $questionarray = array();
             $linkarray = array();
 
-            array_push($questionarray, t('Diesen Sitzplatz wieder freigeben'));
-            array_push($linkarray, "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+            $questionarray[] = t('Diesen Sitzplatz wieder freigeben');
+            $linkarray[]     = "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
 
-            array_push($questionarray, t('Für %1 einen anderen Sitzplatz bestimmen (umsetzen)', $seatingUser['username']));
-            array_push($linkarray, "index.php?mod=seating&action=show&step=32&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&userid={$seatingUser['userid']}");
+            $questionarray[] = t('Für %1 einen anderen Sitzplatz bestimmen (umsetzen)', $seatingUser['username']);
+            $linkarray[]     = "index.php?mod=seating&action=show&step=32&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&userid={$seatingUser['userid']}";
 
-            array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
-            array_push($linkarray, "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+            $questionarray[] = t('Aktion abbrechen. Zurück zum Sitzplan');
+            $linkarray[]     = "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}";
 
             $func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist momentan für %1 reserviert. Du kannst:', $seatingUser['username']));
         }

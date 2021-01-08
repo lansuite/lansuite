@@ -252,7 +252,7 @@ class Install
                     $xml_file = fread($handle, filesize($file));
                     fclose($handle);
 
-                    array_push($mod_list, $module);
+                    $mod_list[] = $module;
 
                     $name           = $xml->get_tag_content("name", $xml_file);
                     $caption        = $xml->get_tag_content("caption", $xml_file);
@@ -382,7 +382,7 @@ class Install
                                         $default = $xml->get_tag_content('default', $xml_item);
                                         $description = $xml->get_tag_content('description', $xml_item);
                                         $pos = $xml->get_tag_content('pos', $xml_item);
-                                        array_push($SettingList, $name);
+                                        $SettingList[] = $name;
 
                                         // Insert into DB, if not exists
                                         $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
