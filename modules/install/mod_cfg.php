@@ -250,16 +250,10 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                             $res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
                         while ($row = $db->fetch_array($res)) {
                             switch ($row['on_delete']) {
-                                case 'DELETE':
-                                    $color = '#ff0000';
-                                    break;
-                                case 'ASK_DELETE':
-                                    $color = '#ff0000';
-                                    break;
-                                case 'SET0':
-                                    $color = '#ff0000';
-                                    break;
                                 case 'ASK_SET0':
+                                case 'SET0':
+                                case 'ASK_DELETE':
+                                case 'DELETE':
                                     $color = '#ff0000';
                                     break;
                                 case 'DENY':
@@ -283,16 +277,10 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         $res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
                         while ($row = $db->fetch_array($res)) {
                             switch ($row['on_delete']) {
-                                case 'DELETE':
-                                    $color = '#ff0000';
-                                    break;
-                                case 'ASK_DELETE':
-                                    $color = '#ff0000';
-                                    break;
-                                case 'SET0':
-                                    $color = '#ff0000';
-                                    break;
                                 case 'ASK_SET0':
+                                case 'SET0':
+                                case 'ASK_DELETE':
+                                case 'DELETE':
                                     $color = '#ff0000';
                                     break;
                                 case 'DENY':

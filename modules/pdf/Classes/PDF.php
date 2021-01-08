@@ -1074,25 +1074,9 @@ class PDF
                     }
                     break;
 
-                case 'rect':
-                    if ($templ[$i]['end_x'] > $this->object_width) {
-                        $this->object_width = $templ[$i]['end_x'];
-                    }
-                    if ($templ[$i]['end_y'] > $this->object_high) {
-                        $this->object_high = $templ[$i]['end_y'];
-                    }
-                    break;
-
-                case 'line':
-                    if ($templ[$i]['end_x'] > $this->object_width) {
-                        $this->object_width = $templ[$i]['end_x'];
-                    }
-                    if ($templ[$i]['end_y'] > $this->object_high) {
-                        $this->object_high = $templ[$i]['end_y'];
-                    }
-                    break;
-
                 case 'image':
+                case 'line':
+                case 'rect':
                     if ($templ[$i]['end_x'] > $this->object_width) {
                         $this->object_width = $templ[$i]['end_x'];
                     }

@@ -153,10 +153,8 @@ class Func
                 case 'date':
                     $func_date  = date('d.m.Y', $func_timestamp);
                     break;
-                case 'time':
-                    $func_date  = date('H:i', $func_timestamp);
-                    break;
                 case 'shorttime':
+                case 'time':
                     $func_date  = date('H:i', $func_timestamp);
                     break;
                 case 'datetime':

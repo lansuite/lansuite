@@ -392,11 +392,8 @@ class Translation
     private function get_trans_filename($module)
     {
         switch ($module) {
-            case 'DB':
-                $file = 'inc/language/' . $module . '_' . $this->transfile_name;
-                break;
-
             case 'System':
+            case 'DB':
                 $file = 'inc/language/' . $module . '_' . $this->transfile_name;
                 break;
 
