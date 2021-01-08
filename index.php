@@ -227,7 +227,7 @@ $_SERVER['QUERY_STRING'] = $func->NoHTML($_SERVER['QUERY_STRING'], 1);
 $__POST = $_POST;
 
 // Emulate MQ, if disabled
-if (!get_magic_quotes_gpc()) {
+if (!function_exists('get_magic_quotes_gpc') || !get_magic_quotes_gpc()) {
     foreach ($_GET as $key => $val) {
         if (!is_array($_GET[$key])) {
             $_GET[$key] = addslashes($_GET[$key]);
