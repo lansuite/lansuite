@@ -305,7 +305,6 @@ function CheckTTF($file)
 function MakeFont($fontfile, $afmfile, $enc = 'cp1252', $patch = array(), $type = 'TrueType')
 {
     //Generate a font definition file
-    set_magic_quotes_runtime(0);
     if ($enc) {
         $map=ReadMap($enc);
         foreach ($patch as $cc => $gn) {
