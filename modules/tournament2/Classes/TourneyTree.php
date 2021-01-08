@@ -173,14 +173,14 @@ class TourneyTree
     {
         for ($i=1; $i < count($tbl);) {
             $t = $s = 0;
-            for ($x=0; $x < count($tbl[$i]); $x++) {
-                if ($tbl[$i][$x] === true && $t == 0) {
+            foreach ($tbl[$i] as $x => $xValue) {
+                if ($xValue === true && $t == 0) {
                     $s=$x;
                 }
-                if ($tbl[$i][$x] === true) {
+                if ($xValue === true) {
                     $t++;
                 }
-                if ($tbl[$i][$x] === false && $t > 0) {
+                if ($xValue === false && $t > 0) {
                     $idx = (int)(($t / 2));
                     $tbl[$i][$s+$idx] = 'ARROW';
                     $t = $s = 0;

@@ -1062,25 +1062,25 @@ class PDF
     private function _get_size($templ)
     {
         // Determine the size of all objects
-        for ($i = 0; $i < count($templ); $i++) {
-            switch ($templ[$i]['type']) {
+        foreach ($templ as $i => $iValue) {
+            switch ($iValue['type']) {
                 case 'text':
-                    $width = $this->pdf->GetStringWidth($templ[$i]['text']);
+                    $width = $this->pdf->GetStringWidth($iValue['text']);
                     if ($width > $this->object_width) {
                         $this->object_width = $width;
                     }
-                    if (($templ[$i]['fontsize']/2) > $this->object_high) {
-                        $this->object_high = ($templ[$i]['fontsize']/2);
+                    if (($iValue['fontsize']/2) > $this->object_high) {
+                        $this->object_high = ($iValue['fontsize']/2);
                     }
                     break;
 
                 case 'image':
                 case 'line':
                 case 'rect':
-                    if ($templ[$i]['end_x'] > $this->object_width) {
+                    if ($iValue['end_x'] > $this->object_width) {
                         $this->object_width = $templ[$i]['end_x'];
                     }
-                    if ($templ[$i]['end_y'] > $this->object_high) {
+                    if ($iValue['end_y'] > $this->object_high) {
                         $this->object_high = $templ[$i]['end_y'];
                     }
                     break;
@@ -1099,12 +1099,12 @@ class PDF
                     
                     // no break
                 case 'data':
-                    $width = $this->pdf->GetStringWidth($data[$templ[$i]['text']]);
+                    $width = $this->pdf->GetStringWidth($data[$iValue['text']]);
                     if ($width > $this->object_width) {
                         $this->object_width = $width;
                     }
-                    if (($templ[$i]['fontsize']/2) > $this->object_high) {
-                        $this->object_high = ($templ[$i]['fontsize']/2);
+                    if (($iValue['fontsize']/2) > $this->object_high) {
+                        $this->object_high = ($iValue['fontsize']/2);
                     }
                     break;
             }
@@ -1120,58 +1120,58 @@ class PDF
      */
     private function _write_object($templ, $data)
     {
-        for ($i = 0; $i < count($templ); $i++) {
-            if ($templ[$i]['user_type'] == $templ[$i]['type'] || $templ[$i]['user_type'] == "0") {
-                switch ($templ[$i]['type']) {
+        foreach ($templ as $iValue) {
+            if ($iValue['user_type'] == $iValue['type'] || $iValue['user_type'] == "0") {
+                switch ($iValue['type']) {
                     case 'text':
-                        $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
-                        $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                        if ($templ[$i]['end_x'] == "1") {
-                            $this->pdf->Text(($templ[$i]["pos_x"] - $this->pdf->GetStringWidth($templ[$i]['text'])) + $this->x, $templ[$i]["pos_y"] + $this->y, $templ[$i]['text']);
+                        $this->pdf->SetFont($iValue['font'], '', $iValue["fontsize"]);
+                        $this->pdf->SetTextColor($iValue["red"], $iValue["green"], $iValue["blue"]);
+                        if ($iValue['end_x'] == "1") {
+                            $this->pdf->Text(($iValue["pos_x"] - $this->pdf->GetStringWidth($iValue['text'])) + $this->x, $iValue["pos_y"] + $this->y, $iValue['text']);
                         } else {
-                            $this->pdf->Text($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y, $templ[$i]['text']);
+                            $this->pdf->Text($iValue["pos_x"] + $this->x, $iValue["pos_y"] + $this->y, $iValue['text']);
                         }
                         break;
 
                     case 'multicell':
-                        $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
-                        $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                        $this->pdf->SetXY($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y);
-                        $this->pdf->MultiCell($templ[$i]['end_x'], $templ[$i]['end_y'], $templ[$i]['text'], "0", $templ[$i]["align"]);
+                        $this->pdf->SetFont($iValue['font'], '', $iValue["fontsize"]);
+                        $this->pdf->SetTextColor($iValue["red"], $iValue["green"], $iValue["blue"]);
+                        $this->pdf->SetXY($iValue["pos_x"] + $this->x, $iValue["pos_y"] + $this->y);
+                        $this->pdf->MultiCell($iValue['end_x'], $iValue['end_y'], $iValue['text'], "0", $iValue["align"]);
                         break;
 
                     case 'rect':
-                        $this->pdf->SetDrawColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                        if ($templ[$i]['fontsize'] == "1") {
-                            $this->pdf->SetFillColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                            $this->pdf->Rect($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y'], "FD");
+                        $this->pdf->SetDrawColor($iValue["red"], $iValue["green"], $iValue["blue"]);
+                        if ($iValue['fontsize'] == "1") {
+                            $this->pdf->SetFillColor($iValue["red"], $iValue["green"], $iValue["blue"]);
+                            $this->pdf->Rect($iValue['pos_x'] + $this->x, $iValue['pos_y'] + $this->y, $iValue['end_x'], $iValue['end_y'], "FD");
                         } else {
                             $this->pdf->SetFillColor(255);
-                            $this->pdf->Rect($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y']);
+                            $this->pdf->Rect($iValue['pos_x'] + $this->x, $iValue['pos_y'] + $this->y, $iValue['end_x'], $iValue['end_y']);
                         }
                         break;
 
                     case 'line':
-                        $this->pdf->SetDrawColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                        $this->pdf->Line($templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'] + $this->x, $templ[$i]['end_y'] + $this->y);
+                        $this->pdf->SetDrawColor($iValue["red"], $iValue["green"], $iValue["blue"]);
+                        $this->pdf->Line($iValue['pos_x'] + $this->x, $iValue['pos_y'] + $this->y, $iValue['end_x'] + $this->x, $iValue['end_y'] + $this->y);
                         break;
 
                     case 'image':
-                        $this->pdf->Image(IMAGE_PATH . $templ[$i]['text'], $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y, $templ[$i]['end_x'], $templ[$i]['end_y']);
+                        $this->pdf->Image(IMAGE_PATH . $iValue['text'], $iValue['pos_x'] + $this->x, $iValue['pos_y'] + $this->y, $iValue['end_x'], $iValue['end_y']);
                         break;
 
                     case 'barcode':
                         $imagename = mt_rand(100000, 999999);
                         $this->barcodeSystem->get_image($data['userid'], static::BARCODE_PATH . $imagename);
-                        $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $templ[$i]['pos_x'] + $this->x, $templ[$i]['pos_y'] + $this->y);
+                        $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $iValue['pos_x'] + $this->x, $iValue['pos_y'] + $this->y);
                         $this->barcodeSystem->kill_image(static::BARCODE_PATH . $imagename);
 
                         // no break
                     case 'data':
-                        $this->pdf->SetFont($templ[$i]['font'], '', $templ[$i]["fontsize"]);
-                        $this->pdf->SetTextColor($templ[$i]["red"], $templ[$i]["green"], $templ[$i]["blue"]);
-                        $this->pdf->SetXY($templ[$i]["pos_x"] + $this->x, $templ[$i]["pos_y"] + $this->y);
-                        $this->pdf->MultiCell($templ[$i]['end_x'], $templ[$i]['end_y'], $data[$templ[$i]['text']], "0", $templ[$i]["align"]);
+                        $this->pdf->SetFont($iValue['font'], '', $iValue["fontsize"]);
+                        $this->pdf->SetTextColor($iValue["red"], $iValue["green"], $iValue["blue"]);
+                        $this->pdf->SetXY($iValue["pos_x"] + $this->x, $iValue["pos_y"] + $this->y);
+                        $this->pdf->MultiCell($iValue['end_x'], $iValue['end_y'], $data[$iValue['text']], "0", $iValue["align"]);
                         break;
                 }
             }
