@@ -24,15 +24,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: gd, mysqli
-          #ini-values: post_max_size=256M, max_execution_time=180
-          #coverage: xdebug
           #tools: php-cs-fixer, phpunit:${{ matrix.phpunit-versions }}
-
-      #- name: Configure composer
-      #  run: |
-      #    COMPOSER_HOME="$(composer config home)"
-      #    ([ -d "$COMPOSER_HOME" ] || mkdir "$COMPOSER_HOME") && cp .github/composer-config.json "$COMPOSER_HOME/config.json"
-      #    echo "COMPOSER_ROOT_VERSION=$(grep branch-version composer.json | grep -o '[0-9.x]*').x-dev" >> $GITHUB_ENV
 
       - name: Determine composer cache directory
         id: composer-cache
@@ -47,11 +39,6 @@ jobs:
 
       - name: Install dependencies
         run: composer install
-        #run: |
-        #    echo "::group::composer update"
-        #    composer require --dev --no-update mongodb/mongodb:@stable
-        #    composer update --no-progress --ansi
-        #    echo "::endgroup::"
 
       - name: Run tests
         run: bin/phpunit
