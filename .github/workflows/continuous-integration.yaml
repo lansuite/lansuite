@@ -74,4 +74,4 @@ jobs:
         run: composer install
 
       - name: Run tests
-        run: bin/phpcs --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName --extensions=php -s .
+        run: bin/phpcs --ignore=*/vendor/* --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName --extensions=php -s .
