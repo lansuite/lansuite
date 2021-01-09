@@ -51,9 +51,9 @@ jobs:
             composer require --dev --no-update mongodb/mongodb:@stable
             composer update --no-progress --ansi
             echo "::endgroup::"
-            echo "::group::install phpunit"
-            ./phpunit install
-            echo "::endgroup::"
+            #echo "::group::install phpunit"
+            #bin/phpunit install
+            #echo "::endgroup::"
 
       - name: Run tests
-        run: ./phpunit
+        run: bin/phpunit
