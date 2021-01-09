@@ -42,3 +42,47 @@ jobs:
 
       - name: Run tests
         run: bin/phpunit
+
+  style-tests:
+    name: Code Style Tests
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # TODO Add experimental jobs
+        php-versions: ['7.2', '7.3', '7.4']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: gd, mysqli
+
+      - name: Determine composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=directory::$(composer config cache-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+            path: ${{ steps.composer-cache.outputs.directory }}
+            key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+            restore-keys: ${{ matrix.php }}-composer-
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run tests
+        run: |
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }}..${{ github.event.after }})
+          #CHANGED_FILES=$(git diff --name-only --diff-filter=ACM $TRAVIS_COMMIT~ $TRAVIS_COMMIT`
+          #CHANGED_FILES=`git diff --name-only --diff-filter=ACM $TRAVIS_COMMIT~ $TRAVIS_COMMIT`
+          echo "$CHANGED_FILES"
+          CHANGED_PHP_FILES=`echo "$CHANGED_FILES" | grep "\.php$"`
+          #if [ -z "$CHANGED_PHP_FILES" ]; then travis_terminate 0; fi;
+          #echo "$CHANGED_PHP_FILES" | xargs -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
+          #echo "$CHANGED_PHP_FILES" | xargs -n1 -P4 bin/phpcs --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName --extensions=php -s
