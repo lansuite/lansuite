@@ -49,19 +49,14 @@ jobs:
     name: Code Style Tests
     runs-on: ubuntu-20.04
 
-    strategy:
-      fail-fast: true
-      matrix:
-        # TODO Add experimental jobs
-        php-versions: ['7.2', '7.3', '7.4']
-
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          # Run style checks only on one version (latest supported)
+          php-version: 7.4
           extensions: gd, mysqli
 
       - name: Determine composer cache directory
