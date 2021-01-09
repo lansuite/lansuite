@@ -1,7 +1,5 @@
 # LANSuite - Web based LAN-Party Management System
 
-[![Build Status](https://travis-ci.org/lansuite/lansuite.svg?branch=master)](https://travis-ci.org/lansuite/lansuite)
-
 LANSuite ist ein Administrationssystem für LAN-Partys.
 
 *Englische Version der README*: Kann unter [README.md](./README.md) gefunden werden.
@@ -33,16 +31,16 @@ Wir setzen eine einsatzbereite [Docker Community Edition](https://www.docker.com
 $ git clone https://github.com/lansuite/lansuite.git
 $ cd lansuite
 $ touch ./inc/base/config.php
-$ # Füge den Inhalt der Beispiel-Konfiguration (siehe unten) in ./inc/base/config.php ein 
+$ # Füge den Inhalt der Beispiel-Konfiguration (siehe unten) in ./inc/base/config.php ein
 $ chmod 0777 ./inc/base/config.php
 $ chmod -R 0777 ./ext_inc/
 $ docker-compose up
 $ docker-compose run php composer install
 ```
 
-Hinweis: 
+Hinweis:
 Einige Distributionen (e.g. Fedora) erlauben nur dem Benutzer `root` Zugriff auf den Socket für den Docker Daemon.
-Dies resultiert in einer Fehlermeldung wie `ERROR: Couldn't connect to Docker daemon at http+docker://localunixsocket - is it running?` 
+Dies resultiert in einer Fehlermeldung wie `ERROR: Couldn't connect to Docker daemon at http+docker://localunixsocket - is it running?`
 In diesem Fall  müssen die beiden `docker-compose` Befehle als Benutzer `root` (über `su` oder `sudo`) ausgeführt werden.
 
 Die Befehlsreihenfolge startet nun einen [Nginx webserver](https://nginx.org/) mit einer [php-fpm](https://secure.php.net/manual/en/install.fpm.php) Konfiguration und einer [MySQL Datenbank](https://www.mysql.com/).
@@ -69,7 +67,7 @@ prefix=ls_
 charset=utf8
 ```
 
-**Warnung**: 
+**Warnung**:
 Chmod auf `0777` zu setzen ist nicht für Produktionssysteme zu empfehlen. Nur euer eigener Webserver sollte in Schreibrechte haben.
 
 ## Development
