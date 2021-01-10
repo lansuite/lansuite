@@ -2294,7 +2294,8 @@
 			</entry>
 			<entry>
 				<id>dead631430c69fb1151f9d0330e80516</id>
-				<org>Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase müglich)</org>
+				<org>Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase möglich)</org>
+
 				<en>New team (players) anmeldenHTML_NEWLINE (Only in log phase mglich)</en>
 				<es>Nuevo equipo (jugadores) anmeldenHTML_NEWLINE (Sólo en el registro de mglich fase)</es>
 				<fr>Nouvelle équipe (joueurs) anmeldenHTML_NEWLINE (Uniquement dans le journal mglich phase)</fr>
