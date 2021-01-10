@@ -191,11 +191,11 @@ class MasterSearch2
      */
     public function AddTextSearchField($caption, $sql_fields)
     {
-        $arr = [
+        $arr                   = [
             'caption' => $caption,
             'sql_fields' => $sql_fields
         ];
-        array_push($this->search_fields, $arr);
+        $this->search_fields[] = $arr;
     }
 
     /**
@@ -220,7 +220,7 @@ class MasterSearch2
             $_GET["search_dd_input"][$curr_pos] = $default;
         }
 
-        array_push($this->search_dropdown, $arr);
+        $this->search_dropdown[] = $arr;
     }
 
     /**
@@ -233,14 +233,14 @@ class MasterSearch2
      */
     public function AddResultField($caption, $sql_field, $callback = '', $max_char = 0, $width = 0)
     {
-        $arr = [
+        $arr                  = [
             'caption' => $caption,
             'sql_field' => $sql_field,
             'callback' => $callback,
             'max_char' => $max_char,
             'width' => $width
         ];
-        array_push($this->result_field, $arr);
+        $this->result_field[] = $arr;
 
         $this->AddSelect($sql_field);
     }
@@ -254,13 +254,13 @@ class MasterSearch2
      */
     public function AddIconField($icon_name, $link = '', $tooltipp = '', $callback = '')
     {
-        $arr = [
+        $arr                = [
             'icon_name' => $icon_name,
             'link' => $link,
             'tooltipp' => $tooltipp,
             'callback' => $callback
         ];
-        array_push($this->icon_field, $arr);
+        $this->icon_field[] = $arr;
     }
 
     /**
@@ -272,13 +272,13 @@ class MasterSearch2
      */
     public function AddMultiSelectAction($caption, $action, $security_question = 0, $icon = '')
     {
-        $arr = [
+        $arr                         = [
             'caption' => $caption,
             'action' => $action,
             'security_question' => $security_question,
             'icon' => $icon
         ];
-        array_push($this->multi_select_action, $arr);
+        $this->multi_select_action[] = $arr;
     }
 
     /**

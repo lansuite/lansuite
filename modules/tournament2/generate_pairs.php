@@ -163,9 +163,9 @@ if ($team_anz < 4) {
                 while ($team = $db->fetch_array($teams)) {
                     $teams_num++;
                     if ($team["seeding_mark"]) {
-                        array_push($seed_team_liste, $team["leaderid"]);
+                        $seed_team_liste[] = $team["leaderid"];
                     } else {
-                        array_push($noseed_team_liste, $team["leaderid"]);
+                        $noseed_team_liste[] = $team["leaderid"];
                     }
 
                     $mail->create_sys_mail($team['leaderid'], t_no_html('Turnier %1 generiert', $tournament['name']), t_no_html('Die Rundes des Turniers %1 wurden soeben generiert. Wir bitte dich, direkt mit dem ersten Spiel anzufangen, damit es keine unnötge Verzögerung im Turnier gibt. Viel Erfolg!', $tournament['name']));
@@ -189,7 +189,7 @@ if ($team_anz < 4) {
                         }
                     }
                     if (!$error) {
-                        array_push($team_liste, $akt_leaderid);
+                        $team_liste[] = $akt_leaderid;
                     }
                     if ($error) {
                         echo "FEHLER beim Seeding!";
@@ -293,11 +293,11 @@ if ($team_anz < 4) {
                     $i = 0;
                     while (($i < $group_size) && ($team = $db->fetch_array($teams))) {
                         $i++;
-                        array_push($team_liste, $team["leaderid"]);
+                        $team_liste[] = $team["leaderid"];
                     }
                     // If odd, insert faketeam "Geamefree"
                     if (floor($group_size / 2) != ($group_size / 2)) {
-                        array_push($team_liste, "0");
+                        $team_liste[] = "0";
                         $group_size++;
                     }
 
@@ -319,14 +319,14 @@ if ($team_anz < 4) {
                         }
 
                         // Rotate position for next round
-                        array_push($team_liste, $team_liste_2[0]);
-                        array_push($team_liste, $team_liste_2[2]);
+                        $team_liste[] = $team_liste_2[0];
+                        $team_liste[] = $team_liste_2[2];
                         for ($position = 2; $position <= ($group_size-4); $position+=2) {
-                            array_push($team_liste, $team_liste_2[$position+2]);
-                            array_push($team_liste, $team_liste_2[$position-1]);
+                            $team_liste[] = $team_liste_2[$position + 2];
+                            $team_liste[] = $team_liste_2[$position - 1];
                         }
-                        array_push($team_liste, $team_liste_2[$group_size-1]);
-                        array_push($team_liste, $team_liste_2[$group_size-3]);
+                        $team_liste[] = $team_liste_2[$group_size - 1];
+                        $team_liste[] = $team_liste_2[$group_size - 3];
                     }
                 }
                 break;

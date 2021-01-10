@@ -35,20 +35,20 @@ function PingServer($host, $port)
         // Weitere Daten für FTPs herrausfinden
         if (($success) && ($server_daten["type"] == "ftp")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
-                socket_set_blocking($fp, false);
-                socket_set_timeout($fp, 1, 500);
+                stream_set_blocking($fp, false);
+                stream_set_timeout($fp, 1, 500);
                 // Benutzernamen senden
-                fputs($fp, "USER anonymous\r\n");
+                fwrite($fp, "USER anonymous\r\n");
                 // Passwort senden
-                fputs($fp, "PASS erreichbarkeitstest@lansuite.de\r\n");
+                fwrite($fp, "PASS erreichbarkeitstest@lansuite.de\r\n");
                 // In Passivmode wechseln
-                fputs($fp, "PASV\r\n");
+                fwrite($fp, "PASV\r\n");
                 // System abfragen
-                fputs($fp, "SYST\r\n");
+                fwrite($fp, "SYST\r\n");
                 // Verzeichnis auflisten
-                fputs($fp, "LIST\r\n");
+                fwrite($fp, "LIST\r\n");
                 // Quit senden
-                fputs($fp, "QUIT\r\n");
+                fwrite($fp, "QUIT\r\n");
 
                 $res = fread($fp, 1000);
 
@@ -97,13 +97,13 @@ function PingServer($host, $port)
         // Weitere Daten für IRCs herrausfinden
         if (($success) && ($server_daten["type"] == "irc")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
-                socket_set_blocking($fp, false);
-                socket_set_timeout($fp, 1, 500);
+                stream_set_blocking($fp, false);
+                stream_set_timeout($fp, 1, 500);
 
                 // Liste anfordern
-                fputs($fp, "list\r\n");
+                fwrite($fp, "list\r\n");
                 // Verabschieden
-                fputs($fp, "quit done\r\n");
+                fwrite($fp, "quit done\r\n");
                 $res = fread($fp, 1000);
 
                 // Channel ausgeben

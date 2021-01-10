@@ -344,7 +344,7 @@ class Translation
         // File handling: Make backup copy
         $file = $this->get_trans_filename($module);
         $file_handle = fopen($file, 'w');
-        fputs($file_handle, $output);
+        fwrite($file_handle, $output);
         fclose($file_handle);
     }
 
@@ -392,11 +392,8 @@ class Translation
     private function get_trans_filename($module)
     {
         switch ($module) {
-            case 'DB':
-                $file = 'inc/language/' . $module . '_' . $this->transfile_name;
-                break;
-
             case 'System':
+            case 'DB':
                 $file = 'inc/language/' . $module . '_' . $this->transfile_name;
                 break;
 

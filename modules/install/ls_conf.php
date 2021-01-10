@@ -80,8 +80,8 @@ switch ($_GET["step"]) {
                         } else {
                             $selected = '';
                         }
-                        $xml = new \LanSuite\XML();
-                        array_push($t_array, "<option $selected value=\"$akt_design\">". $xml->get_tag_content("name", $xml_content) ."</option>");
+                        $xml       = new \LanSuite\XML();
+                        $t_array[] = "<option $selected value=\"$akt_design\">" . $xml->get_tag_content("name", $xml_content) . "</option>";
                     }
                     fclose($xml_file);
                 }

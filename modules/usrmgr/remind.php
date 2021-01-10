@@ -30,7 +30,7 @@ if (!$cfg['sys_internet']) {
                     } //make sure that it ends with a slash
                     $verification_link .= "index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode";
                 } else { // fallback to old version
-                    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+                    if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
                         $proto = 'https://';
                     } else {
                         $proto = 'http://';

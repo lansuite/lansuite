@@ -61,7 +61,7 @@ class Discord {
             // No cache file or too old; let's fetch data.
             $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
             $JsonReturnData = @file_get_contents($APIurl,false,stream_context_create(array('http' => array('timeout' => (isset($cfg['discord_json_timeout']) ? $cfg['discord_json_timeout'] : 4)))));
-            if (is_writeable('ext_inc/discord/')) {
+            if (is_writable('ext_inc/discord/')) {
                 // Note: This intentionally also writes empty results to the cache file.
                 @file_put_contents('ext_inc/discord/cache.json', $JsonReturnData, LOCK_EX);
             }
