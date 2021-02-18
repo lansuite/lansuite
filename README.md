@@ -57,6 +57,10 @@ To help you get your feet wet and get you familiar with our contribution process
 The best way to get in contact with us is via [GitHub Issues](https://github.com/lansuite/lansuite/issues).
 Over this way, it is transparent to the community, and all team members and contributors are informed and have the chance to respond.
 
+## Similar projects
+
+* [Krisseck/Lanparty-Portal](https://github.com/Krisseck/Lanparty-Portal): Lanparty Intranet, based on PHP
+
 ## License
 
 LanSuite is [GPL v2 licensed](./LICENSE).
