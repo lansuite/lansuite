@@ -59,7 +59,7 @@ Over this way, it is transparent to the community, and all team members and cont
 
 ## Similar projects
 
-* [Krisseck/Lanparty-Portal](https://github.com/Krisseck/Lanparty-Portal): Lanparty Intranet, based on PHP
+* [Awesome LAN Party Software](https://github.com/LANparties/awesome-lanparty-software)
 
 ## License
 

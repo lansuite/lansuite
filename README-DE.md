@@ -105,4 +105,4 @@ $ bin/phpdoc run --progressbar -t ./docs/
 
 ## Ähnliche Projekte
 
-* [Krisseck/Lanparty-Portal](https://github.com/Krisseck/Lanparty-Portal): Lanparty Intranet, basierend auf PHP
+* [Awesome LAN Party Software](https://github.com/LANparties/awesome-lanparty-software)
