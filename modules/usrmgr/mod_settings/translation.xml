@@ -1514,7 +1514,7 @@
 			</entry>
 			<entry>
 				<id>b71458124f924a7a956ef5aac8b3eb99</id>
-				<org>M�nnlich</org>
+				<org>Männlich</org>
 				<en>Mnnlich</en>
 				<es>Mnnlich</es>
 				<fr>Mnnlich</fr>
@@ -1624,7 +1624,7 @@
 			</entry>
 			<entry>
 				<id>13eef23234ac36a2f4efc0154f96be98</id>
-				<org>Zuweisungsbegriff (f�r Alter z.b. 18+, 16-18, -18)</org>
+				<org>Zuweisungsbegriff (für Alter z.b. 18+, 16-18, -18)</org>
 				<en>Allocation concept (eg fr Age 18 +, 16-18, -18)</en>
 				<es>Concepto de asignación (por ejemplo, fr Edad 18 +, 16-18, -18)</es>
 				<fr>Attribution concept (fr Age 18 +, 16-18, -18)</fr>
@@ -1644,7 +1644,7 @@
 			</entry>
 			<entry>
 				<id>b31de82a35d22eae31bae787e998168f</id>
-				<org>Benutzergruppe wurde hinzugef�gt</org>
+				<org>Benutzergruppe wurde hinzugefügt</org>
 				<en>User group was hinzugefgt</en>
 				<es>Grupo de usuarios se hinzugefgt</es>
 				<fr>Groupe d&amp;#39;utilisateurs a été hinzugefgt</fr>
@@ -1674,7 +1674,7 @@
 			</entry>
 			<entry>
 				<id>2ea0b06ae2c1160f8a57255a35373c5b</id>
-				<org>Gruppe ausw�hlen</org>
+				<org>Gruppe auswählen</org>
 				<en>Group auswhlen</en>
 				<es>Auswhlen Grupo</es>
 				<fr>Groupe auswhlen</fr>
@@ -1724,7 +1724,7 @@
 			</entry>
 			<entry>
 				<id>eb360dda2e3d61791c7d384eeb40dac6</id>
-				<org>Die Gruppenzuweisung wurde erfolgreich durchgef�hrt</org>
+				<org>Die Gruppenzuweisung wurde erfolgreich durchgeführt</org>
 				<en>The group assignment was successfully durchgefhrt</en>
 				<es>La asignación de grupo con éxito durchgefhrt</es>
 				<fr>L&amp;#39;attribution de groupe a été mené durchgefhrt</fr>
@@ -1744,7 +1744,7 @@
 			</entry>
 			<entry>
 				<id>54f668e09cf179fd8fb1b3a1cd025019</id>
-				<org>Hier kannst du die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die h�chste Priorit�t</org>
+				<org>Hier kannst du die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die höchste Priorität</org>
 				<en>You may submit the groups sort the order in which they are to be Applied. The top has the hchste Prioritt</en>
 				<es>Usted puede presentar la clase grupos de la orden en que han de aplicarse. La parte superior tiene el Prioritt hchste</es>
 				<fr>Vous mai présenter le genre des groupes de l&amp;#39;ordre dans lequel elles doivent être appliquées. Le sommet a le Prioritt hchste</fr>
@@ -1754,7 +1754,7 @@
 			</entry>
 			<entry>
 				<id>98b0e913db21dbfc8c8572b40bfa82b4</id>
-				<org>Wollen sie die Gruppe %1 wirklich l�schen?</org>
+				<org>Wollen sie die Gruppe %1 wirklich löschen?</org>
 				<en>Do they really Delete the group%1?</en>
 				<es>¿Realmente Elimine el grupo%1?</es>
 				<fr>Supprimer-ils vraiment le groupe%1?</fr>
@@ -1774,7 +1774,7 @@
 			</entry>
 			<entry>
 				<id>54f4731545f7549313ce1f8dcb071198</id>
-				<org>Welche Gruppe m�chtest du den Benutzern die in der gel�schten Gruppe sind zuweisen?</org>
+				<org>Welche Gruppe möchtest du den Benutzern die in der gelöschten Gruppe sind zuweisen?</org>
 				<en>Interested in what category you assign users to gelschten in the group are?</en>
 				<es>¿Interesado en qué categoría se asigna a los usuarios gelschten en el grupo son?</es>
 				<fr>Intéressé à quelle catégorie vous assigner des utilisateurs à gelschten dans le groupe sont?</fr>
@@ -1784,7 +1784,7 @@
 			</entry>
 			<entry>
 				<id>419c212762172d0f7da33179e04fa063</id>
-				<org>Gruppe erfolgreich gel�scht.</org>
+				<org>Gruppe erfolgreich gelöscht.</org>
 				<en>Group successfully gelscht.</en>
 				<es>Grupo éxito gelscht.</es>
 				<fr>Groupe gelscht succès.</fr>
