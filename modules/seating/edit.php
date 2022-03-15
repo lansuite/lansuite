@@ -304,6 +304,11 @@ switch ($_GET['step']) {
 
     case 3:
         // Save block settings
+
+        // u18 is not checked, then the value is '0'
+        if (empty($_POST['u18'])) {
+            $_POST['u18'] = '0';
+        }
         if ($_GET['action'] == 'add') {
             $db->qry("
               INSERT INTO %prefix%seat_block
