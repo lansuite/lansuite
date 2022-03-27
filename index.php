@@ -229,8 +229,8 @@ $__POST = $_POST;
 // Emulate MQ, if disabled
 // TODO Remove this get_magic_quotes_gpc function check, once this project had 7.4 as a minimum requirement.
 // See
-//	- Setting: https://www.php.net/manual/en/info.configuration.php#ini.magic-quotes-gpc
-//	- Function: https://www.php.net/manual/en/function.get-magic-quotes-gpc.php
+// - Setting: https://www.php.net/manual/en/info.configuration.php#ini.magic-quotes-gpc
+// - Function: https://www.php.net/manual/en/function.get-magic-quotes-gpc.php
 if (!function_exists('get_magic_quotes_gpc') || !get_magic_quotes_gpc()) {
     foreach ($_GET as $key => $val) {
         if (!is_array($_GET[$key])) {
@@ -359,11 +359,9 @@ if ($func->isModActive('party')) {
 
 // If without party-module: Just give a fake ID, for many modules need it
 } else {
-    class party
-    {
+    $party = new class {
         public $party_id;
-    }
-    $party = new party();
+    };
     $party->party_id = (int) $cfg['signon_partyid'];
 }
 
