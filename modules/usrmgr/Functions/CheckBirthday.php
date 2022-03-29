@@ -7,6 +7,7 @@
  *
  * @param string $date  From Inputfield like 2000-01-02
  * @return bool|string  Returns Message on error else false
+ * @todo fix this (What is that strange -80y bit? Compare against sensible date range, use checkdate() )
  */
 function check_birthday($date)
 {
