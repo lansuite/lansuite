@@ -251,15 +251,7 @@ switch ($_GET["step"]) {
             }
 
         $dsp->AddFieldSetEnd();                
-                
-                
-                
-                
-                
-                
-                
-                
-
+        
                 // Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
                 $install->CreateNewTables(0);
                 $output .= t('Die Tabellenstruktur wurde erfolgreich angepasst'). HTML_NEWLINE . HTML_NEWLINE;
