@@ -159,7 +159,7 @@ switch ($_GET["step"]) {
         $config["database"]["database"] = $_POST["database"];
         $config["database"]["prefix"] = $_POST["prefix"];
         $config["lansuite"]["default_design"] = $_POST["design"];
-
+        $dsp->NewContent(t('Datenbankgenerierung'), t('Das Setup versucht nun die Datenbank zu initialisieren.'));
         // Write new $config-Vars to config.php-File
         if (!$install->WriteConfig()) {
             $continue = 0;
@@ -182,7 +182,7 @@ switch ($_GET["step"]) {
                     $output .= t('Datenbank wurde erfolgreich angelegt.');
                     break;
                 case 4:
-                    $output .= $fail_leadin . t('Verbdindung ok aber keinen Datenbanknamen angegeben.') . $leadout;
+                    $output .= $fail_leadin . t('Verbindung ok aber keinen Datenbanknamen angegeben.') . $leadout;
                     break;
                 case 5:
                     $output .= t('Datenbank wurde erfolgreich Überschrieben.');
@@ -192,6 +192,73 @@ switch ($_GET["step"]) {
 
             if ($res == 1 or $res == 3 or $res == 5) {
                 $db->connect();
+                
+            if ($db->success) {
+                
+                $dsp->AddFieldSetStart(t('MySQL'));
+
+                // SQL mode - check for options with known issues
+                $sqlmode_disable = array('ONLY_FULL_GROUP_BY');
+                $res = $db->qry('SELECT @@SESSION.SQL_MODE as sqlmode;');
+                $opts = $db->fetch_array($res)['sqlmode'];
+                $server_opts = explode (',',$opts);
+                $warn_opts = implode(array_values(array_intersect($server_opts,$sqlmode_disable)),',');
+                $sql_mode='';
+                if ($warn_opts) {
+                    $sql_mode = $warning . t("Der MySQL-Server hat aktuell folgende Optionen aktiviert, die zu Problemen mit LanSuite führen: %1 \nEs wird versucht, dies automatisch zu kompensieren, indem diese für jede Verbindung deaktiviert werden. Dies hat zur Folge, dass eventuelle Änderungen an der Server-Variable SQL_MODE nicht automatisch für LanSuite übernommen werden, sondern manuell in config.php angepasst werden müssen", $warn_opts);
+                    $config['database']['sqlmode']=implode(',',array_diff($server_opts,$sqlmode_disable));
+                    $install->WriteConfig();
+                    
+                } else {
+                    $sql_mode = $ok . t("Folgende SQL-Optionen werden vom Server für die Verbindung gesetzt: %1",$opts);
+                }
+                $dsp->AddDoubleRow("SQL mode", $sql_mode);
+
+                
+                // key_buffer_size
+                $dsp->AddFieldSetStart(t('Key buffer size -  MySQL empfiehlt für optimale Performance: 25% des Arbeitsspeichers. Oft reicht weniger.'));
+                $res = $db->qry('SHOW variables LIKE "key_buffer_size"');
+                while ($row = $db->fetch_array($res)) {
+                    $dsp->AddDoubleRow($row[0], $row[1]);
+                }
+                $db->free_result($res);
+                $dsp->AddFieldSetEnd();
+
+                // Key_blocks
+                $dsp->AddFieldSetStart(t('Key blocks - Performance: Key_blocks_unused sollte niemals 0 erreichen! Wenn der Wert nahe 0 ist: key_buffer_size erhöhen'));
+                $res = $db->qry('SHOW status LIKE "Key_blocks%"');
+                while ($row = $db->fetch_array($res)) {
+                    $dsp->AddDoubleRow($row[0], $row[1]);
+                }
+                $db->free_result($res);
+                $dsp->AddFieldSetEnd();
+
+                // Query cache
+                $dsp->AddFieldSetStart(t('Query cache - Beschleunigt MySQL-Abfragen. Sollte aktiv sein'));
+                $res = $db->qry('SHOW VARIABLES LIKE \'have_query_cache\'');
+                while ($row = $db->fetch_array($res)) {
+                    $dsp->AddDoubleRow($row[0], $row[1]);
+                }
+                $db->free_result($res);
+                $res = $db->qry('SHOW STATUS LIKE \'Qcache%\'');
+                while ($row = $db->fetch_array($res)) {
+                    $dsp->AddDoubleRow($row[0], $row[1]);
+                }
+                $db->free_result($res);
+                $dsp->AddFieldSetEnd();
+
+                $dsp->AddFieldSetEnd();
+            }
+
+        $dsp->AddFieldSetEnd();                
+                
+                
+                
+                
+                
+                
+                
+                
 
                 // Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
                 $install->CreateNewTables(0);
@@ -199,7 +266,6 @@ switch ($_GET["step"]) {
             }
         }
 
-        $dsp->NewContent(t('Datenbankgenerierung'), t('Das Setup versucht nun die Datenbank zu initialisieren.'));
         $dsp->AddSingleRow($output);
 
         if ($continue) {

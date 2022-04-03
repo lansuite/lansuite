@@ -111,6 +111,7 @@ class DB
         $pass = $config['database']['passwd'];
         $database = $config['database']['database'];
         $charset = $config['database']['charset'];
+        $sqlmode = $config['database']['sqlmode'];
 
         // Try to connect to the database
         // Suppress error output, because mysqli_connect throws a PHP Warning once it is not able to connect
@@ -147,6 +148,12 @@ class DB
         } else {
             $this->link_id->set_charset('utf8');
         }
+        
+        // Set sql mode, if specified
+        if (!empty($sqlmode)){
+            $this->link_id->query("SET SESSION SQL_MODE='$sqlmode';");
+        }
+        
         $this->success = true;
         $this->connectfailure = 0;
 
