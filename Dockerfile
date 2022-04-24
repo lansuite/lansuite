@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM php:7.2.34-fpm
 
 COPY . /code
 
@@ -10,6 +10,7 @@ RUN apt-get update \
         libsnmp-dev \
         snmp \
         unzip \
+        libzip-dev \
     && docker-php-ext-install -j$(nproc) mysqli snmp \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \

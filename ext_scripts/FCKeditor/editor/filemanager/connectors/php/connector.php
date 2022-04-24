@@ -29,7 +29,6 @@ require('./util.php') ;
 require('./io.php') ;
 require('./basexml.php') ;
 require('./commands.php') ;
-require('./phpcompat.php') ;
 
 if ( !$Config['Enabled'] )
 	SendError( 1, 'This connector is disabled. Please check the "editor/filemanager/connectors/php/config.php" file' ) ;

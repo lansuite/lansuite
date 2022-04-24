@@ -348,7 +348,7 @@ class Debug
             if ($this->mode == "2") {
                 echo $this->mode;
                 $file_handle = fopen($this->debug_path."debug_".time().".htm", "a");
-                fputs($file_handle, $out);
+                fwrite($file_handle, $out);
                 fclose($file_handle);
             }
             return $out;

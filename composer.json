@@ -15,6 +15,10 @@
         "php": "^7.0",
         "ext-gd": "*",
         "ext-mysqli": "*",
+        "ext-snmp": "*",
+        "ext-json": "*",
+        "ext-zlib": "*",
+        "ext-ftp": "*",
 
         "smarty/smarty": "^3.1",
         "geshi/geshi": "^1.0.9",
@@ -26,11 +30,23 @@
     "require-dev": {
         "phpunit/phpunit": "^6.5",
         "doctrine/instantiator": "~1.0.5",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "phpstan/phpstan": "^0.12.65",
+        "phan/phan": "^4.0"
     },
     "minimum-stability": "stable",
     "config": {
         "bin-dir": "bin"
+    },
+    "scripts": {
+        "phpstan": [
+            "Composer\\Config::disableProcessTimeout",
+            "./vendor/phpstan/phpstan/phpstan analyse bin design docs ext_inc ext_scripts inc modules tests website"
+            ],
+        "phan": [
+            "Composer\\Config::disableProcessTimeout",
+            "PHAN_ALLOW_XDEBUG=1 php ./vendor/phan/phan/phan --allow-polyfill-parser"
+        ]
     },
     "suggest": {
         "ext-snmp": "Required to use the \"Network Operation Center\" module.",

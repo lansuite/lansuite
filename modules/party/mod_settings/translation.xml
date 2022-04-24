@@ -494,7 +494,7 @@
 			</entry>
 			<entry>
 				<id>db301a401fc5c967406acf2921b74f9c</id>
-				<org>Die Daten wurden erfolgreich ge�ndert.</org>
+				<org>Die Daten wurden erfolgreich geändert.</org>
 				<en>The data were successfully gendert.</en>
 				<es>Los datos fueron exitosamente gendert.</es>
 				<fr>Les données ont été gendert succès.</fr>
@@ -504,7 +504,7 @@
 			</entry>
 			<entry>
 				<id>246f0b0ab9e49ac6fb298a06ca3fa36c</id>
-				<org>Anzahl Pl�tze</org>
+				<org>Anzahl Plätze</org>
 				<en>Number of Seats open</en>
 				<es>Número de plazas abiertas</es>
 				<fr>Nombre de sièges ouverts</fr>
@@ -514,7 +514,7 @@
 			</entry>
 			<entry>
 				<id>4562044232d0676187bc533061ceb14b</id>
-				<org>Text f�r Eintrittspreis</org>
+				<org>Text für Eintrittspreis</org>
 				<en>Text fr Admission</en>
 				<es>Texto fr Admisión</es>
 				<fr>Text fr Admission</fr>

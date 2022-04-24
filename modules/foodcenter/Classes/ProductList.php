@@ -53,8 +53,8 @@ class ProductList
         global $dsp;
 
         if (count($this->product) > 0) {
-            for ($i = 0; $i < count($this->product); $i++) {
-                $this->product[$i]->order_form($worklink);
+            foreach ($this->product as $iValue) {
+                $iValue->order_form($worklink);
             }
         } else {
             $dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));

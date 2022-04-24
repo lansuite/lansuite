@@ -102,16 +102,16 @@ switch ($_GET["step"]) {
                             $query = $db->qry("DESCRIBE %prefix%%plain%", $table);
                             while ($row = $db->fetch_array($query)) {
                                 reset($items);
-                                $fields = array();
-                                array_push($fields, "<option value=\"\">-Leer-</option>");
-                                $z = 0;
+                                $fields   = array();
+                                $fields[] = "<option value=\"\">-Leer-</option>";
+                                $z        = 0;
                                 foreach ($items as $item) {
                                     if ($item == $row["Field"]) {
                                         $selected = "selected";
                                     } else {
                                         $selected = "";
                                     }
-                                    array_push($fields, "<option $selected value=\"$z\">$z - $item</option>");
+                                    $fields[] = "<option $selected value=\"$z\">$z - $item</option>";
                                     $z++;
                                 }
                                 $dsp->AddDropDownFieldRow($table.'--'.$row["Field"], "<b>$table.{$row["Field"]}</b>", $fields, "");

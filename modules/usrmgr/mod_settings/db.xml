@@ -235,7 +235,7 @@
             <field>
                 <name>birthday</name>
                 <type>date</type>
-                <null></null>
+                <null>YES</null>
                 <default></default>
                 <extra></extra>
             </field>

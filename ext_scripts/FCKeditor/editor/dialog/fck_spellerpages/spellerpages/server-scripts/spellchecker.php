@@ -80,22 +80,22 @@ function print_checker_results() {
 
 	# open temp file, add the submitted text.
 	if( $fh = fopen( $tempfile, 'w' )) {
-		for( $i = 0; $i < count( $textinputs ); $i++ ) {
-			$text = urldecode( $textinputs[$i] );
+        foreach ($textinputs as $iValue) {
+            $text = urldecode($iValue);
 
-			// Strip all tags for the text. (by FredCK - #339 / #681)
-			$text = preg_replace( "/<[^>]+>/", " ", $text ) ;
+            // Strip all tags for the text. (by FredCK - #339 / #681)
+            $text = preg_replace( "/<[^>]+>/", " ", $text ) ;
 
-			$lines = explode( "\n", $text );
-			fwrite ( $fh, "%\n" ); # exit terse mode
-			fwrite ( $fh, "^$input_separator\n" );
-			fwrite ( $fh, "!\n" ); # enter terse mode
-			foreach( $lines as $key=>$value ) {
-				# use carat on each line to escape possible aspell commands
-				fwrite( $fh, "^$value\n" );
-			}
-		}
-		fclose( $fh );
+            $lines = explode( "\n", $text );
+            fwrite ( $fh, "%\n" ); # exit terse mode
+            fwrite ( $fh, "^$input_separator\n" );
+            fwrite ( $fh, "!\n" ); # enter terse mode
+            foreach( $lines as $key=>$value ) {
+                # use carat on each line to escape possible aspell commands
+                fwrite( $fh, "^$value\n" );
+            }
+        }
+        fclose( $fh );
 
 		# exec aspell command - redirect STDERR to STDOUT
 		$cmd = "$aspell_prog $aspell_opts < $tempfile 2>&1";

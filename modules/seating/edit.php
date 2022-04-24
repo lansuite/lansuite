@@ -48,7 +48,7 @@ switch ($_GET['step']) {
               WHERE
                 blockid = %int%
                 AND status = 2
-                AND row >= %int%", $_GET['blockid'], $_POST['rows']);
+                AND `row` >= %int%", $_GET['blockid'], $_POST['rows']);
             if ($row["number"] != 0) {
                 $error['rows'] = t('Bitte gib eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entferne bitte die betroffenen Benutzer.');
             }
@@ -255,29 +255,29 @@ switch ($_GET['step']) {
         // Orientation
         $selections = array();
         ($_POST['orientation'] == 0) ? $selected = 'selected' : $selected = '';
-        array_push($selections, "<option $selected value=\"0\">".t('Vertikal').'</option>');
+        $selections[] = "<option $selected value=\"0\">" . t('Vertikal') . '</option>';
         ($_POST['orientation'] == 1) ? $selected = 'selected' : $selected = '';
-        array_push($selections, "<option $selected value=\"1\">".t('Horizontal').'</option>');
+        $selections[] = "<option $selected value=\"1\">" . t('Horizontal') . '</option>';
         $dsp->AddDropDownFieldRow('orientation', t('Orientierung'), $selections, '');
 
         $dsp->AddCheckBoxRow('u18', t('U18 Block'), '', '', 0, $_POST['u18']);
 
-        $t_array = array();
-        array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
-        $res = $db->qry("SELECT group_id, group_name FROM %prefix%party_usergroups");
+        $t_array   = array();
+        $t_array[] = '<option value="0">' . t('Für alle Benutzer offen') . '</option>';
+        $res       = $db->qry("SELECT group_id, group_name FROM %prefix%party_usergroups");
         while ($row = $db->fetch_array($res)) {
             ($_POST['group_id'] == $row['group_id'])? $selected = 'selected' : $selected = '';
-            array_push($t_array, '<option '. $selected .' value="'. $row['group_id'] .'">'. $row['group_name'] .'</option>');
+            $t_array[] = '<option ' . $selected . ' value="' . $row['group_id'] . '">' . $row['group_name'] . '</option>';
         }
         $db->free_result($res);
         $dsp->AddDropDownFieldRow("group_id", t('Nur für Benutzer dieser Gruppe'), $t_array, '');
 
-        $t_array = array();
-        array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
-        $res = $db->qry("SELECT price_id, price_text FROM %prefix%party_prices WHERE party_id = %int%", $party->party_id);
+        $t_array   = array();
+        $t_array[] = '<option value="0">' . t('Für alle Benutzer offen') . '</option>';
+        $res       = $db->qry("SELECT price_id, price_text FROM %prefix%party_prices WHERE party_id = %int%", $party->party_id);
         while ($row = $db->fetch_array($res)) {
             ($_POST['price_id'] == $row['price_id'])? $selected = 'selected' : $selected = '';
-            array_push($t_array, '<option '. $selected .' value="'. $row['price_id'] .'">'. $row['price_text'] .'</option>');
+            $t_array[] = '<option ' . $selected . ' value="' . $row['price_id'] . '">' . $row['price_text'] . '</option>';
         }
         $db->free_result($res);
         $dsp->AddDropDownFieldRow("price_id", t('Nur für diesen Eintrittspreis'), $t_array, '');
@@ -293,7 +293,7 @@ switch ($_GET['step']) {
         $res = $db->qry("SELECT party_id, name FROM %prefix%partys");
         while ($row = $db->fetch_array($res)) {
             ($_POST['party_id'] == $row['party_id']) ? $selected = 'selected' : $selected = '';
-            array_push($selections, "<option $selected value=\"". $row['party_id'] ."\">". $row['name'] .'</option>');
+            $selections[] = "<option $selected value=\"" . $row['party_id'] . "\">" . $row['name'] . '</option>';
         }
         $db->free_result($res);
         $dsp->AddDropDownFieldRow('party_id', t('Party'), $selections, '');
@@ -304,6 +304,11 @@ switch ($_GET['step']) {
 
     case 3:
         // Save block settings
+
+        // u18 is not checked, then the value is '0'
+        if (empty($_POST['u18'])) {
+            $_POST['u18'] = '0';
+        }
         if ($_GET['action'] == 'add') {
             $db->qry("
               INSERT INTO %prefix%seat_block
@@ -311,8 +316,8 @@ switch ($_GET['step']) {
                 party_id = %int%,
                 group_id = %int%,
                 price_id = %int%,
-                name = %string%,
-                rows = %int%,
+                `name` = %string%,
+                `rows` = %int%,
                 cols = %int%,
                 orientation = %string%,
                 u18 = %string%,
@@ -337,8 +342,8 @@ switch ($_GET['step']) {
                 party_id = %int%,
                 group_id = %int%,
                 price_id = %int%,
-                name = %string%,
-                rows = %int%,
+                `name` = %string%,
+                `rows` = %int%,
                 cols = %int%,
                 orientation = %string%,
                 u18 = %string%,

@@ -252,7 +252,7 @@ class Install
                     $xml_file = fread($handle, filesize($file));
                     fclose($handle);
 
-                    array_push($mod_list, $module);
+                    $mod_list[] = $module;
 
                     $name           = $xml->get_tag_content("name", $xml_file);
                     $caption        = $xml->get_tag_content("caption", $xml_file);
@@ -382,7 +382,7 @@ class Install
                                         $default = $xml->get_tag_content('default', $xml_item);
                                         $description = $xml->get_tag_content('description', $xml_item);
                                         $pos = $xml->get_tag_content('pos', $xml_item);
-                                        array_push($SettingList, $name);
+                                        $SettingList[] = $name;
 
                                         // Insert into DB, if not exists
                                         $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
@@ -488,7 +488,14 @@ class Install
                             $it = $xml->getFirstTagContent("it", $entry, 1);
                             $file = $xml->getFirstTagContent("file", $entry);
 
-                            if (strlen($org) > 255) {
+                            if (strlen($org) > 255
+                                || strlen($de) > 255
+                                || strlen($en) > 255
+                                || strlen($es) > 255
+                                || strlen($fr) > 255
+                                || strlen($nl) > 255
+                                || strlen($it) > 255
+                            ) {
                                 $long = '_long';
                             } else {
                                 $long = '';
@@ -629,7 +636,7 @@ class Install
 
         // PHP version
         $minPHPVersion = '7.0.0';
-        $currentPHPVersion = phpversion();
+        $currentPHPVersion = PHP_VERSION;
         if (version_compare($currentPHPVersion, $minPHPVersion) >= 0) {
             $phpv_check = $ok . $currentPHPVersion;
         } else {

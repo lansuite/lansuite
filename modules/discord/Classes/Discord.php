@@ -62,6 +62,7 @@ class Discord
             $JsonReturnData = @file_get_contents($APIurl, false, stream_context_create(array('http' => array('timeout' => (isset($cfg['discord_json_timeout']) ? $cfg['discord_json_timeout'] : 4)))));
             // Store in cache with timeout of 60 seconds
             $cache->write('discord.cache', $JsonReturnData, 60);
+            }
         }
         return ($JsonReturnData === false ? false : json_decode($JsonReturnData, false));
     }
