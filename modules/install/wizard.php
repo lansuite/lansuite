@@ -26,7 +26,7 @@ switch ($_GET["step"]) {
             $row = $db->qry_first("SELECT email FROM %prefix%user WHERE email=%string%", $_POST["email"]);
 
             // If found, update password
-            if ($row['email']) {
+            if ($row !== false) {
                 $db->qry(
                     "UPDATE %prefix%user SET password = %string%, type = '3' WHERE email=%string%",
                     md5($_POST["password"]),
@@ -45,7 +45,7 @@ switch ($_GET["step"]) {
             $authentication = new \LanSuite\Auth();
             $authentication->login($_POST["email"], $_POST["password"]);
         }
-      // No break!
+      // no break!
 
     case 8:
         if (!$func->admin_exists()) {
@@ -124,7 +124,7 @@ switch ($_GET["step"]) {
             if ($currentDesign != '.' && $currentDesign != '..' && $currentDesign != 'templates' && is_dir($designPath . $currentDesign)) {
                 $file = "design/$currentDesign/design.xml";
                 if (file_exists($file)) {
-                // Read Names from design.xml
+                    // Read Names from design.xml
                     $xml_file = fopen($file, "r");
                     $xml_content = fread($xml_file, filesize($file));
                     if ($xml_content != "") {
@@ -159,7 +159,10 @@ switch ($_GET["step"]) {
         $config["database"]["database"] = $_POST["database"];
         $config["database"]["prefix"] = $_POST["prefix"];
         $config["lansuite"]["default_design"] = $_POST["design"];
+        //flush cached values to force recreation on next load
+        $cache->delete('config');
         $dsp->NewContent(t('Datenbankgenerierung'), t('Das Setup versucht nun die Datenbank zu initialisieren.'));
+
         // Write new $config-Vars to config.php-File
         if (!$install->WriteConfig()) {
             $continue = 0;
@@ -362,8 +365,8 @@ switch ($_GET["step"]) {
 
     // Create Adminaccount
     case 7:
-    // No break!
-
+        //@TODO: Add the functionality here or remove the code
+        break;
     // Load modules
     case 8:
         $dsp->NewContent(t('Module aktivieren'), t('Hier kannst du festlegen, welche Module aktiv sein sollen'));
@@ -467,5 +470,9 @@ switch ($_GET["step"]) {
 
         $config["environment"]["configured"] = 1;
         $install->WriteConfig();
+        
+        //flush cached values to force recreation on next load
+        $cache->delete('config');
+        
         break;
 }
