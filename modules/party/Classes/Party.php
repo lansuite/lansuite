@@ -19,26 +19,31 @@ class Party
      */
     public $data = [];
 
-    public function __construct()
+    public function __construct($party_id = null)
     {
         global $cfg, $db;
 
-        // Set new Session PartyID on GET or POST
-        if (is_numeric($_GET['set_party_id'])) {
-            $this->party_id = $_GET['set_party_id'];
-        } elseif (is_numeric($_POST['set_party_id'])) {
-            $this->party_id = $_POST['set_party_id'];
-        } elseif (is_numeric($_SESSION['party_id'])) {
-            // Look whether this partyId exists
-            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%partys WHERE party_id = %int%', $_SESSION['party_id']);
-            if ($row['found']) {
-                $this->party_id = $_SESSION['party_id'];
+        if (empty($party_id)) {
+            // Set new Session PartyID on GET or POST
+            if (is_numeric($_GET['set_party_id'])) {
+                $this->party_id = $_GET['set_party_id'];
+            } elseif (is_numeric($_POST['set_party_id'])) {
+                $this->party_id = $_POST['set_party_id'];
+            } elseif (is_numeric($_SESSION['party_id'])) {
+                // Look whether this partyId exists
+                $row = $db->qry_first('SELECT 1 AS found FROM %prefix%partys WHERE party_id = %int%', $_SESSION['party_id']);
+                if ($row['found']) {
+                    $this->party_id = $_SESSION['party_id'];
+                } else {
+                    $this->party_id = $cfg['signon_partyid'];
+                    unset($_SESSION['party_id']);
+                }
             } else {
                 $this->party_id = $cfg['signon_partyid'];
-                unset($_SESSION['party_id']);
             }
         } else {
-            $this->party_id = $cfg['signon_partyid'];
+            // use the provided ID
+            $this->party_id = $party_id;
         }
 
         $_SESSION['party_id'] = $this->party_id;
@@ -230,7 +235,7 @@ class Party
             $query .= "seatcontrol = {$seatcontrol},";
         }
 
-        $query .= "	checkin = {$checkin},
+        $query .= " checkin = {$checkin},
                     checkout = {$checkout}
                     WHERE user_id = {$user_id} AND
                     party_id = {$this->party_id}";
@@ -377,5 +382,33 @@ class Party
         global $db;
         $db->qry("UPDATE %prefix%user  SET group_id=%string% WHERE group_id=%string%", $set_group, $del_group);
         $db->qry("DELETE FROM %prefix%party_usergroups WHERE group_id=%string%", $del_group);
+    }
+    
+    /**
+     * Returns the amount of users registered for a party.
+     * 
+     * @param int $party_id The ID of the party to calculate this for
+     * @return array Result array with elements "qty" and "paid"
+    */
+    public function getGuestQty($party_id = NULL)
+    {
+        if (empty($party_id)) {
+            $party_id = $this->party_id;
+        }
+        if ($cache->has('party.guestcount.'. $party_id)) {
+            $guestCounts = $cache->get('party.guestcount.'. $party_id);
+        } else {
+            // Fetch in one query
+            if ($cfg["guestlist_showorga"] == 0) {
+                $querytype = "type = 1";
+            } else {
+                $querytype = "type >= 1";
+            }
+            // Fetch amounts from DB
+            $countQry = $db->qry('SELECT COUNT(*) as qty, party.paid as paid FROM %prefix%user as user LEFT JOIN %prefix%party_user as party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%) GROUP BY paid ORDER BY paid DESC;');
+            while ($guestCounts = $countQry->fetch_array(){}
+            $cache->set('party.guestcount.'. $party_id, $guestCounts);
+            return $guestCounts;
+        }
     }
 }

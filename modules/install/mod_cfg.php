@@ -52,6 +52,8 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         }
                     }
                     $func->confirmation(t('Erfolgreich geändert'), 'index.php?mod=install&action=mod_cfg&module='. $_GET["module"]. '&tab=0');
+                    //invalidate config cache
+                    $cache->delete('cfg');
                 } else {
                     $dsp->SetForm('index.php?mod=install&action=mod_cfg&step=11&module='. $_GET['module']. '&tab=0');
                     while ($rowGroup = $db->fetch_array($resGroup)) {

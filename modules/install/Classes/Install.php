@@ -702,6 +702,17 @@ class Install
             }
         }
         $dsp->AddDoubleRow(t('Schreibrechte im Ordner \'ext_inc\''), $ext_inc_check);
+        
+        // PHP temp folder access
+        $tmpfile = tmpfile();
+        if (!$tmpfile) {
+            $tmp_check = $failed . t('PHP kann keine temporären Dateien in konfigurierten Temp-Verzeichnis anlegen. Es wurde versucht, in folgenden Verzeichnis eine Datei anzulegen: %1', sys_get_temp_dir());
+        } else {
+            $tmp_check = $ok . t('Datei %1 erfolgreich erzeugt', stream_get_meta_data($tmpfile)['uri']);
+            fclose($tmpfile);
+        }
+        $dsp->AddDoubleRow(t('Schreiben temporärer Dateien'), $tmp_check);
+        
         $dsp->AddFieldSetEnd();
 
         #### Warning ####
@@ -783,7 +794,7 @@ class Install
                     $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei ' . HTML_NEWLINE . '{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
                 }
             }
-              $dsp->AddDoubleRow("Server Stats", $server_stats);
+            $dsp->AddDoubleRow("Server Stats", $server_stats);
         }
 
         // SNMP-Lib
@@ -801,7 +812,15 @@ class Install
             $ftp_check = $not_possible . t('Auf deinem System konnte das PHP-Modul <b>FTP-Library</b> nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann');
         }
         $dsp->AddDoubleRow("FTP Library", $ftp_check);
-
+        
+        // APCu-Lib
+        if (extension_loaded('apcu')) {
+            $apcu_check = $ok;
+        } else {
+            $apcu_check = $optimize . t('Auf deinem System konnte das PHP-Modul <b>APCu</b> nicht gefunden werden. Dies wird verwendet, um verschiedenste Daten für schnellen Zugriff zwischenzuspeichern. Eine Aktivierung ist bei vielen Seitenzugriffen angeraten. Als Fallback werden die Daten im Dateisystem vorgehalten');
+        }
+        $dsp->AddDoubleRow("APCu", $apcu_check);
+        
         // OpenSSL
         if (extension_loaded('openssl')) {
             $openssl_check = $ok;
@@ -908,7 +927,7 @@ class Install
      *
      * @return void
      */
-    private function DeleteAllTables()
+    private function deleteAllTables()
     {
         global $xml, $db;
 

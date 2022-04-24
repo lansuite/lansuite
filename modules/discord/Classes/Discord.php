@@ -6,64 +6,62 @@
  * and open the template in the editor.
  */
 namespace LanSuite\Module\Discord;
+
 /**
  * Class implementation for all functions required to interact with the Discord and LS API
  * General intention is to roll this up with the TS3 code into a general "voiceserver" parent class
  *
  * @author MaLuZ
  */
-class Discord {
+class Discord
+{
 
     // Storage for the discord server id
     private $discordServerId = '';
     
 
     
-    public function __construct($discordServerId = ''){
+    public function __construct($discordServerId = '')
+    {
         global $cfg,$func;
         
         if (!extension_loaded('openssl')) {
             $func->error('OpenSSL-Modul nicht geladen!');
-        } else if (!ini_get('allow_url_fopen')) {
+        } elseif (!ini_get('allow_url_fopen')) {
             $func->error('allow_url_fopen nicht aktiv');
         } else {
             //Check if server id was passed via constructor, use configuration value otherwise
-            if ($discordServerId!=''){
+            if ($discordServerId!='') {
                 $this->discordServerId = $disordServerId;
             } elseif (isset($cfg['discord_server_id'])) {
                 $this ->discordServerId =  $cfg['discord_server_id'];
             } else {
                 $func->error(t('Es wurde keine Discord Server ID konfiguriert oder übergeben'));
-            } 
+            }
         }
     }
     
     /**
      * Retrieves JSON widget data from the Discord server via the public API
      * Data is being returned as multi-dimensional array
-     * 
-     * @return stdClass decoded JSON content as object of stdClass, FALSE on error 
+     *
+     * @return stdClass decoded JSON content as object of stdClass, FALSE on error
      */
     
-    public function fetchServerData(){
-        global $cfg;
+    public function fetchServerData()
+    {
+        global $cfg, $cache;
 
-        clearstatcache('ext_inc/discord/cache.json');
-        if (is_readable('ext_inc/discord/cache.json') && time()-filemtime('ext_inc/discord/cache.json') < 60) {
+        if ($cache->has('discord.cache')) {
             // Cache file is readable and <60 seconds old.
             // Note: Discord itself currently seems to update the widget.json file only once every 300 seconds.
-            $JsonReturnData = file_get_contents('ext_inc/discord/cache.json');
-        } else if (is_readable('ext_inc/discord/cache.json') && filesize('ext_inc/discord/cache.json') < 2 && time()-filemtime('ext_inc/discord/cache.json') < 300) {
-            // Cache file exists but is too small. There was probably some issue retrieving Discord data.
-            // Only retry after 300 seconds.
-            return false;
+            $JsonReturnData = $cache->get('discord.cache');
         } else {
             // No cache file or too old; let's fetch data.
             $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
-            $JsonReturnData = @file_get_contents($APIurl,false,stream_context_create(array('http' => array('timeout' => (isset($cfg['discord_json_timeout']) ? $cfg['discord_json_timeout'] : 4)))));
-            if (is_writable('ext_inc/discord/')) {
-                // Note: This intentionally also writes empty results to the cache file.
-                @file_put_contents('ext_inc/discord/cache.json', $JsonReturnData, LOCK_EX);
+            $JsonReturnData = @file_get_contents($APIurl, false, stream_context_create(array('http' => array('timeout' => (isset($cfg['discord_json_timeout']) ? $cfg['discord_json_timeout'] : 4)))));
+            // Store in cache with timeout of 60 seconds
+            $cache->write('discord.cache', $JsonReturnData, 60);
             }
         }
         return ($JsonReturnData === false ? false : json_decode($JsonReturnData, false));
@@ -76,11 +74,12 @@ class Discord {
      * @version $Id: discord.php 1673 2018-04-04 08:13:47Z CCG*Centurio $
      * @return string Box content ready for output
      */
-    public function genBoxContent($discordServerData){
+    public function genBoxContent($discordServerData)
+    {
         global $cfg;
 
         $boxContent ="<li class='discord_server_name'>{$discordServerData->name} ";
-        // -------------------------------- MEMBERS ---------------------------------------- // 
+        // -------------------------------- MEMBERS ---------------------------------------- //
         if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1) {
             $onlinemembers = 0;
             foreach ($discordServerData->members as $member) {
@@ -88,19 +87,17 @@ class Discord {
                     $onlinemembers++;
                 }
             }
-        }
-        else {
+        } else {
             $onlinemembers = count($discordServerData->members);
         }
         if ($onlinemembers > 0) {
             $boxContent .= '<span class="online_users badge green">' . $onlinemembers . '</span>';
-        }
-        else {
+        } else {
             $boxContent .= '<span class="online_users badge red">0</span>';
-        } 
+        }
         if (isset($cfg['discord_show_global_members']) && $cfg['discord_show_global_members'] == 1) {
             $boxContent .= '<ul class="online_sidebar">';
-            foreach($discordServerData->members as $member){
+            foreach ($discordServerData->members as $member) {
                 if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1 && $member->bot) {
                     continue;
                 }
@@ -118,9 +115,9 @@ class Discord {
         // -------------------------------- CHANNELS ---------------------------------------- //
         if (isset($cfg['discord_show_channels']) && $cfg['discord_show_channels'] == 1) {
             if ($discordServerData->channels) {
-                usort($discordServerData->channels, function($a, $b) {
-                return ($a->position > $b->position) ? 1 : -1;
-                        });
+                usort($discordServerData->channels, function ($a, $b) {
+                    return ($a->position > $b->position) ? 1 : -1;
+                });
                 $boxContent .= '<ul class="online_sidebar_channel">';
                 foreach ($discordServerData->members as $member) {
                     if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1 && $member->bot) {
@@ -128,8 +125,7 @@ class Discord {
                     }
                     if (array_key_exists('nick', $member) && !empty($member->channel_id)) {
                         $channel_members[$member->channel_id][] = $member->nick;
-                    }
-                    elseif (!empty($member->channel_id)) {
+                    } elseif (!empty($member->channel_id)) {
                         $channel_members[$member->channel_id][] = $member->username;
                     }
                 }
