@@ -44,7 +44,7 @@ class Accounting
             $this->editorid = $auth['userid'];
         }
         
-        if ($party_id = 0) {
+        if ($party_id == 0) {
             $this->partyid = $party->party_id;
         } else {
             $this->partyid = $party_id;

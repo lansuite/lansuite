@@ -7,5 +7,5 @@
 function SanitizeVal($string)
 {
     $string = str_replace(',', '.', $string);
-    return doubleval($string);
+    return floatval($string);
 }

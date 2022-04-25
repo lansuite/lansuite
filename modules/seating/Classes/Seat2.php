@@ -374,7 +374,7 @@ class Seat2
         if ($auth['clanid']) {
             $clanmates = $db->qry("SELECT userid FROM %prefix%user WHERE clanid = %int%", $auth['clanid']);
             while ($clanmate = $db->fetch_array($clanmates)) {
-                array_push($my_clanmates, $clanmate['userid']);
+                $my_clanmates[] = $clanmate['userid'];
             }
             $db->free_result($clanmates);
         }

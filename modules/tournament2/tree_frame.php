@@ -161,8 +161,8 @@ if ($t['status'] != "process" and $t['status'] != "closed") {
               GROUP BY teams.leaderid
               ORDER BY teams.leaderid", $tournamentid, $_GET["group"]);
             while ($leader = $db->fetch_array($leaders)) {
-                  array_push($leader_array, $leader["leaderid"]);
-                  array_push($leader_name_array, $leader["name"]);
+                  $leader_array[]      = $leader["leaderid"];
+                  $leader_name_array[] = $leader["name"];
             }
             $db->free_result($leaders);
 

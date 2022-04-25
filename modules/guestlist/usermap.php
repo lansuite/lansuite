@@ -99,7 +99,6 @@ if ($cfg['guestlist_guestmap'] == 2) {
 } else {
     $res = $db->qry("SELECT plz FROM %prefix%user LEFT JOIN %prefix%party_user ON userid = user_id WHERE (plz > 0) AND (party_id = %int%)", $party->party_id);
     $res3 = $db->qry_first("SELECT laenge, breite FROM %prefix%locations WHERE plz = %int%", $_SESSION['party_info']['partyplz']);
-    $pi = pi();
 
     if ($db->num_rows($res) == 0) {
         $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, ($cfg["guestlist_showorga"] == 0 ? "type = 1" : "type >= 1"));
@@ -184,10 +183,10 @@ if ($cfg['guestlist_guestmap'] == 2) {
             $db->free_result($res2);
 
             // Distance calculations
-            $breite1 = $user['breite']/180*$pi;
-            $breite2 = $res3['breite']/180*$pi;
-            $laenge1 = $user['laenge']/180*$pi;
-            $laenge2 = $res3['laenge']/180*$pi;
+            $breite1 = $user['breite']/180*M_PI;
+            $breite2 = $res3['breite']/180*M_PI;
+            $laenge1 = $user['laenge']/180*M_PI;
+            $laenge2 = $res3['laenge']/180*M_PI;
 
             $e = acos(sin($breite1)*sin($breite2) + cos($breite1)*cos($breite2)*cos($laenge2-$laenge1));
             $entfernung = round($e * 6378.137, 0);

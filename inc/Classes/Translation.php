@@ -111,7 +111,7 @@ class Translation
         // Check if there is a language stored in the session...
         if (isset($_SESSION['language']) && $_SESSION['language']) {
             $this->language = $_SESSION['language'];
-        } elseif ($cfg['sys_language']) {
+        } elseif (isset($cfg['sys_language']) && $cfg['sys_language']) {
             $this->language = $cfg['sys_language'];
         } else {
             $this->language = 'de';
@@ -345,7 +345,7 @@ class Translation
         // File handling: Make backup copy
         $file = $this->get_trans_filename($module);
         $file_handle = fopen($file, 'w');
-        fputs($file_handle, $output);
+        fwrite($file_handle, $output);
         fclose($file_handle);
     }
 
@@ -393,11 +393,8 @@ class Translation
     private function get_trans_filename($module)
     {
         switch ($module) {
-            case 'DB':
-                $file = 'inc/language/' . $module . '_' . $this->transfile_name;
-                break;
-
             case 'System':
+            case 'DB':
                 $file = 'inc/language/' . $module . '_' . $this->transfile_name;
                 break;
 

@@ -116,9 +116,9 @@ class LanSuiteTree extends TourneyTree
         }
 
         // little fix coz lansuite saves overall-final to WB but we exspect it to be in LB
-        $fix = array_pop($this->wb_teams);
-        array_push($this->lb_teams, $fix);
-        $fix = array_pop($this->wb_teams);
+        $fix              = array_pop($this->wb_teams);
+        $this->lb_teams[] = $fix;
+        $fix              = array_pop($this->wb_teams);
         array_push($this->wb_teams, $fix, $fix);
 
         foreach ($this->lb_teams as $round => $teams) {

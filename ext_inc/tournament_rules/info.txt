@@ -1,7 +1,7 @@
 
 === WWCL ===
 In der Datei 'gameini.xml' stehen alle aktuellen WWCL-Spiele mit ihren IDs.
-Diese Liste ist wichtig f¸r den WWCL-Export.
+Diese Liste ist wichtig f√ºr den WWCL-Export.
 
 Beim Erstellen eines Turnieres hat man ein Dropdown, in dem man das jeweilige WWCL-Spiel zuweisen kann.
 Nur wenn dieses zugewiesen ist, wird dieses Turnier beim Export mit einbezogen.
@@ -14,7 +14,7 @@ Regeln: http://www.wwcl.net/downloads/rules.zip
 
 === NGL ===
 Hier gilt das gleiche, wie oberhalb bei der WWCL.
-Die NGL-Datei heiﬂt 'games.xml'
+Die NGL-Datei hei√üt 'games.xml'
 
 Die URL zum aktuallisieren der Datei ist:
 http://www.ngl-germany.de/organiser/extern/games.xml
@@ -22,7 +22,7 @@ http://www.ngl-germany.de/organiser/extern/games.xml
 
 === LGZ ===
 Hier gilt das gleiche, wie oberhalb bei der WWCL.
-Die NGL-Datei heiﬂt 'xml_games.xml'
+Die NGL-Datei hei√üt 'xml_games.xml'
 
 Die URL zum aktuallisieren der Datei ist:
 http://lan.gamer-zone.com/xml_games.php?season=3

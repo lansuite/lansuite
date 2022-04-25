@@ -99,7 +99,7 @@ if ($tteam->SignonCheck($tournamentid)) {
                     if ($_POST["existing_team_name"] == $team['teamid']) {
                         $selected = "selected";
                     }
-                    array_push($t_array, "<option $selected value=\"{$team['teamid']}\">{$team['name']}</option>");
+                    $t_array[] = "<option $selected value=\"{$team['teamid']}\">{$team['name']}</option>";
                 }
                 $db->free_result($teams);
                 $dsp->AddDropDownFieldRow("existing_team_name", t('Team beitreten'), $t_array, "");

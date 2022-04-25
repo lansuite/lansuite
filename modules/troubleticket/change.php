@@ -78,48 +78,48 @@ switch ($_GET["step"]) {
 
                 // status: NEU EINGETRAGEN / NICHT GEPRÜFT
                 case 1:
-                    $status    = t('Neu / Ungeprüft');
-                    array_push($status_wahl, optionrow(4, t(' Auf Erledigt setzen ')));
-                    array_push($status_wahl, optionrow(5, t(' Bearbeitung ablehnen ')));
-                    $time_text = "";
+                    $status        = t('Neu / Ungeprüft');
+                    $status_wahl[] = optionrow(4, t(' Auf Erledigt setzen '));
+                    $status_wahl[] = optionrow(5, t(' Bearbeitung ablehnen '));
+                    $time_text     = "";
                     $time_val = "";
                     break;
 
                 // status: GEPRÜFT / ggf. VON EINEM ORGA NEU EINGETRAGEN
                 case 2:
-                    $status    = t('Überprüft / Akzeptiert');
-                    array_push($status_wahl, optionrow(0, t(' Keine Änderung ')));
-                    array_push($status_wahl, optionrow(2, t(' Problem nicht übernehmen und zurückgeben ')));
-                    array_push($status_wahl, optionrow(3, t(' Problem übernehmen und Bearbeitung beginnen ')));
-                    array_push($status_wahl, optionrow(4, t(' Auf Erledigt setzen ')));
-                    array_push($status_wahl, optionrow(5, t(' Bearbeitung ablehnen ')));
-                    $time_text = t('Überprüft am/um');
+                    $status        = t('Überprüft / Akzeptiert');
+                    $status_wahl[] = optionrow(0, t(' Keine Änderung '));
+                    $status_wahl[] = optionrow(2, t(' Problem nicht übernehmen und zurückgeben '));
+                    $status_wahl[] = optionrow(3, t(' Problem übernehmen und Bearbeitung beginnen '));
+                    $status_wahl[] = optionrow(4, t(' Auf Erledigt setzen '));
+                    $status_wahl[] = optionrow(5, t(' Bearbeitung ablehnen '));
+                    $time_text     = t('Überprüft am/um');
                     $time_val = $func->unixstamp2date($row["verified"], "daydatetime");
                     break;
 
                 // status: ORGA HAT ARBEIT BEGONNEN
                 case 3:
-                    $status    = t('In Arbeit');
-                    array_push($status_wahl, optionrow(0, t(' Keine Änderung ')));
-                    array_push($status_wahl, optionrow(4, t(' Auf Erledigt setzen ')));
-                    $time_text = t('In Bearbeitung seit');
+                    $status        = t('In Arbeit');
+                    $status_wahl[] = optionrow(0, t(' Keine Änderung '));
+                    $status_wahl[] = optionrow(4, t(' Auf Erledigt setzen '));
+                    $time_text     = t('In Bearbeitung seit');
                     $time_val = $func->unixstamp2date($row["process"], "daydatetime");
                     break;
 
                 // status: BEARBEITUNG ABGESCHLOSSEN
                 case 4:
-                    $status    = t('Abgeschlossen');
-                    array_push($status_wahl, optionrow(0, t(' Keine Änderung ')));
-                    array_push($status_wahl, optionrow(3, t(' Problem übernehmen und Bearbeitung beginnen ')));
-                    $time_text = t('Beendet am/um');
+                    $status        = t('Abgeschlossen');
+                    $status_wahl[] = optionrow(0, t(' Keine Änderung '));
+                    $status_wahl[] = optionrow(3, t(' Problem übernehmen und Bearbeitung beginnen '));
+                    $time_text     = t('Beendet am/um');
                     $time_val = $func->unixstamp2date($row["finished"], "daydatetime");
                     break;
 
                 // status: BEARBEITUNG ABGELEHNT
                 case 5:
-                    $status    = t('Abgelehnt');
-                    array_push($status_wahl, optionrow(0, t(' Keine Änderung ')));
-                    $time_text = t('Bearbeitung abgelehnt am/um');
+                    $status        = t('Abgelehnt');
+                    $status_wahl[] = optionrow(0, t(' Keine Änderung '));
+                    $time_text     = t('Bearbeitung abgelehnt am/um');
                     $time_val = $func->unixstamp2date($row["finished"], "daydatetime");
                     break;
             }
