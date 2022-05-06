@@ -101,14 +101,14 @@ switch ($_GET['step']) {
                         $markinfo = HTML_NEWLINE . "(Alle markierten Sitzplätze von %1 werden gelöscht, da %1 noch nicht bezahlt hat)";
                     }
 
-                    array_push($questionarray, t('Sitzplatz für %1 reservieren' . HTML_NEWLINE . '(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)', $new_user['username']));
-                    array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=11&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+                    $questionarray[] = t('Sitzplatz für %1 reservieren' . HTML_NEWLINE . '(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)', $new_user['username']);
+                    $linkarray[]     = "index.php?mod=seating&action=seatadmin&step=11&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
 
-                    array_push($questionarray, t('Sitzplatz für %1 markieren'.$markinfo, $new_user['username']));
-                    array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=12&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+                    $questionarray[] = t('Sitzplatz für %1 markieren' . $markinfo, $new_user['username']);
+                    $linkarray[]     = "index.php?mod=seating&action=seatadmin&step=12&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
 
-                    array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
-                    array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid={$_GET['blockid']}");
+                    $questionarray[] = t('Aktion abbrechen. Zurück zum Sitzplan');
+                    $linkarray[]     = "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid={$_GET['blockid']}";
             
                     $func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist noch frei (bzw. nur markiert)' . HTML_NEWLINE . 'Soll er fest reserviert oder nur markiert werden?'));
                 }
@@ -124,14 +124,14 @@ switch ($_GET['step']) {
                         $questionarray = array();
                         $linkarray = array();
 
-                        array_push($questionarray, t('Dennoch reservieren. %1 hat dadurch anschließend keinen Sitzplatz mehr', $seat['username']));
-                        array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&quest=1");
+                        $questionarray[] = t('Dennoch reservieren. %1 hat dadurch anschließend keinen Sitzplatz mehr', $seat['username']);
+                        $linkarray[]     = "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&quest=1";
 
-                        array_push($questionarray, t('Dennoch reservieren und %USERNAME% anschließend einen neuen Sitzplatz aussuchen', $seat['username']));
-                        array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&quest=2&next_userid={$seat['userid']}");
+                        $questionarray[] = t('Dennoch reservieren und %1 anschließend einen neuen Sitzplatz zuweisen', $seat['username']);
+                        $linkarray[]     = "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&quest=2&next_userid={$seat['userid']}";
 
-                        array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
-                        array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid={$_GET['blockid']}");
+                        $questionarray[] = t('Aktion abbrechen. Zurück zum Sitzplan');
+                        $linkarray[]     = "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid={$_GET['blockid']}";
 
                         $func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist aktuell belegt durch %1 (%2 %3)', $seat['username'], $seat['firstname'], $seat['name']));
                     }

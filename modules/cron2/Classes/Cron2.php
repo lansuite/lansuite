@@ -10,7 +10,7 @@ class Cron2
      */
     public function Run($jobid)
     {
-        global $db, $func;
+        global $db, $func, $config;
 
         if (!$jobid) {
             return false;
@@ -19,7 +19,8 @@ class Cron2
         $row = $db->qry_first("SELECT name, type, function FROM %prefix%cron WHERE jobid = %int%", $jobid);
         if ($row != false) {
             if ($row['type'] == 'sql') {
-                $db->qry('%plain%', $func->AllowHTML($row['function']));
+                $sql = str_replace('%prefix%', $config['database']['prefix'], $row['function']);
+                $db->qry('%plain%', $func->AllowHTML($sql));
             } elseif ($row['type'] == "php") {
                 require_once 'ext_scripts/'.$row['function'];
             }

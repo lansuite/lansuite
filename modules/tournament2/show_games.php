@@ -57,7 +57,7 @@ while ($tgamesrow = $db->fetch_array($tgames, 1, MYSQLI_ASSOC)) {
         $outputrow['Turnier'] = "<a href=\"?mod=tournament2&action=details&tournamentid=".$tgamesrow['tid']."\"><b>".$tgamesrow['tuname']."</b></a>";
         $tage = array("So", "Mo", "Di", "Mi", "Do", "Fr", "Sa");
         $outputrow['Startzeit'] = $tage[date('w', strtotime($tgamesrow['lastactivity']))]." ".date('H:i', strtotime($tgamesrow['lastactivity']));
-        $outputrow['Spielzeit+</br>Pause'] = $tgamesrow[game_duration]."+".$tgamesrow[break_duration]."min";
+        $outputrow['Spielzeit+</br>Pause'] = $tgamesrow['game_duration']."+".$tgamesrow['break_duration']."min";
         $delay = (($tgamesrow['overtime2'])-($tgamesrow['overtime']))/60;
         if ($delay>=120) {
             $outputrow['cellstyle'] = "background-color:#FF1000;";

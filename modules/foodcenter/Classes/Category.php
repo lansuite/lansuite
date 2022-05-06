@@ -86,7 +86,7 @@ class Category
                 } else {
                     $selected = "";
                 }
-                array_push($tmp, "<option $selected value='0'>".t('Neue Kategorie')."</option>");
+                $tmp[] = "<option $selected value='0'>" . t('Neue Kategorie') . "</option>";
             }
 
             while ($data = $db->fetch_array($row)) {
@@ -95,7 +95,7 @@ class Category
                 } else {
                     $selected = "";
                 }
-                array_push($tmp, "<option $selected value='{$data['cat_id']}'>{$data['name']}</option>");
+                $tmp[] = "<option $selected value='{$data['cat_id']}'>{$data['name']}</option>";
             }
             return $tmp;
         } else {

@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM php:7.2.34-fpm
 
 COPY . /code
 
@@ -9,6 +9,8 @@ RUN apt-get update \
         libjpeg62-turbo-dev \
         libsnmp-dev \
         snmp \
+        unzip \
+        libzip-dev \
     && docker-php-ext-install -j$(nproc) mysqli snmp \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
@@ -23,16 +25,18 @@ RUN apt-get update \
 
 # Composer setup starts here. The zip extension is required for that.
 # See https://github.com/composer/docker/blob/8a2a40c3376bac96f8e3db2f129062173bff7734/1.6/Dockerfile
+# and https://github.com/composer/docker/blob/942dac53831e7b4ca4419a135304e177b9d29dbd/1.8/Dockerfile
+# or more recently https://getcomposer.org/download/
 RUN docker-php-ext-install zip
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /tmp
-ENV COMPOSER_VERSION 1.6.2
+ENV COMPOSER_VERSION 1.8.0
 
-RUN curl -s -f -L -o /tmp/installer.php https://raw.githubusercontent.com/composer/getcomposer.org/b107d959a5924af895807021fcef4ffec5a76aa9/web/installer \
+RUN curl --silent --fail --location --retry 3 --output /tmp/installer.php --url https://raw.githubusercontent.com/composer/getcomposer.org/d3e09029468023aa4e9dcd165e9b6f43df0a9999/web/installer \
     && php -r " \
-    \$signature = '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061'; \
-    \$hash = hash('SHA384', file_get_contents('/tmp/installer.php')); \
+    \$signature = '93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8'; \
+    \$hash = hash_file('sha384', '/tmp/installer.php'); \
     if (!hash_equals(\$signature, \$hash)) { \
         unlink('/tmp/installer.php'); \
         echo 'Integrity check failed, installer is either corrupt or worse.' . PHP_EOL; \

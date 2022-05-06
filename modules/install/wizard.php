@@ -4,8 +4,8 @@ if ($_POST["resetdb"]) {
     $db->success = 0;
 }
 $importXml = new \LanSuite\XML();
-$installImport = new \LanSuite\Module\Install\Import($importXml);
-$install = new \LanSuite\Module\Install\Install($installImport);
+$import = new \LanSuite\Module\Install\Import($importXml);
+$install = new \LanSuite\Module\Install\Install($import);
 
 // XML is a global requirement during installation
 $xml = new \LanSuite\XML();
@@ -26,7 +26,7 @@ switch ($_GET["step"]) {
             $row = $db->qry_first("SELECT email FROM %prefix%user WHERE email=%string%", $_POST["email"]);
 
             // If found, update password
-            if ($row['email']) {
+            if ($row !== false) {
                 $db->qry(
                     "UPDATE %prefix%user SET password = %string%, type = '3' WHERE email=%string%",
                     md5($_POST["password"]),
@@ -35,7 +35,7 @@ switch ($_GET["step"]) {
             // If not found, insert
             } else {
                 $db->qry(
-                    "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
+                    "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3', lastlogin = NOW(), comment = '', birthday = NULL, signature = ''",
                     $_POST["email"],
                     md5($_POST["password"])
                 );
@@ -45,7 +45,7 @@ switch ($_GET["step"]) {
             $authentication = new \LanSuite\Auth();
             $authentication->login($_POST["email"], $_POST["password"]);
         }
-      // No break!
+      // no break!
 
     case 8:
         if (!$func->admin_exists()) {
@@ -67,13 +67,13 @@ switch ($_GET["step"]) {
         } else {
             $selected = '';
         }
-        array_push($lang_array, "<option $selected value=\"de\">Deutsch</option>");
+        $lang_array[] = "<option $selected value=\"de\">Deutsch</option>";
         if ($language == "en") {
             $selected = 'selected';
         } else {
             $selected = '';
         }
-        array_push($lang_array, "<option $selected value=\"en\">English</option>");
+        $lang_array[] = "<option $selected value=\"en\">English</option>";
         $dsp->AddDropDownFieldRow("language", t('Sprache'), $lang_array, "");
         $dsp->AddFormSubmitRow(t('Ändern'));
 
@@ -124,12 +124,12 @@ switch ($_GET["step"]) {
             if ($currentDesign != '.' && $currentDesign != '..' && $currentDesign != 'templates' && is_dir($designPath . $currentDesign)) {
                 $file = "design/$currentDesign/design.xml";
                 if (file_exists($file)) {
-                // Read Names from design.xml
+                    // Read Names from design.xml
                     $xml_file = fopen($file, "r");
                     $xml_content = fread($xml_file, filesize($file));
                     if ($xml_content != "") {
                         ($config['lansuite']['default_design'] == $currentDesign) ? $selected = "selected" : $selected = "";
-                        array_push($t_array, "<option $selected value=\"$currentDesign\">". $xml->get_tag_content("name", $xml_content) ."</option>");
+                        $t_array[] = "<option $selected value=\"$currentDesign\">" . $xml->get_tag_content("name", $xml_content) . "</option>";
                     }
                     fclose($xml_file);
                 }
@@ -160,6 +160,9 @@ switch ($_GET["step"]) {
         $config["database"]["prefix"] = $_POST["prefix"];
         $config["lansuite"]["default_design"] = $_POST["design"];
 
+        //flush cached values to force recreation on next load
+        $cache->delete('config');
+        
         // Write new $config-Vars to config.php-File
         if (!$install->WriteConfig()) {
             $continue = 0;
@@ -304,8 +307,8 @@ switch ($_GET["step"]) {
 
     // Create Adminaccount
     case 7:
-    // No break!
-
+        //@TODO: Add the functionality here or remove the code
+        break;
     // Load modules
     case 8:
         $dsp->NewContent(t('Module aktivieren'), t('Hier kannst du festlegen, welche Module aktiv sein sollen'));
@@ -326,7 +329,7 @@ switch ($_GET["step"]) {
         $res = $db->qry("SELECT name, reqphp, reqmysql FROM %prefix%modules WHERE changeable");
         while ($row = $db->fetch_array($res)) {
             if ($_POST[$row["name"]]) {
-                if ($row['reqphp'] and version_compare(phpversion(), $row['reqphp']) < 0) {
+                if ($row['reqphp'] and version_compare(PHP_VERSION, $row['reqphp']) < 0) {
                     $func->information(t('Das Modul %1 kann nicht aktiviert werden, da die PHP Version %2 benötigt wird', $row["name"], $row['reqphp']), NO_LINK);
                 } else {
                     $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = %string%", $row["name"]);
@@ -355,7 +358,7 @@ switch ($_GET["step"]) {
         $country_array = array();
         while ($selection = $db->fetch_array($get_cfg_selection)) {
             ($language == $selection["cfg_value"]) ? $selected = "selected" : $selected = "";
-            array_push($country_array, "<option $selected value=\"{$selection["cfg_value"]}\">". t($selection["cfg_display"]) ."</option>");
+            $country_array[] = "<option $selected value=\"{$selection["cfg_value"]}\">" . t($selection["cfg_display"]) . "</option>";
         }
         $dsp->AddDropDownFieldRow("country", t('Land, in dem die Party stattfindet'), $country_array, "");
 
@@ -372,13 +375,13 @@ switch ($_GET["step"]) {
         } else {
             $selected = "selected";
         }
-        array_push($mode_array, '<option $selected value="1">'. t('Internet-Seite. Vor der Party') .'</option>');
+        $mode_array[] = '<option $selected value="1">' . t('Internet-Seite. Vor der Party') . '</option>';
         if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') {
             $selected = "selected";
         } else {
             $selected = "";
         }
-        array_push($mode_array, '<option $selected value="0">'. t('Intranet-Seite. Auf der Party') .'</option>');
+        $mode_array[] = '<option $selected value="0">' . t('Intranet-Seite. Auf der Party') . '</option>';
         $dsp->AddDropDownFieldRow("mode", t('Internet- oder Lokaler-Modus?'), $mode_array, "");
 
         $dsp->AddFormSubmitRow(t('Weiter'));
@@ -409,5 +412,9 @@ switch ($_GET["step"]) {
 
         $config["environment"]["configured"] = 1;
         $install->WriteConfig();
+        
+        //flush cached values to force recreation on next load
+        $cache->delete('config');
+        
         break;
 }
