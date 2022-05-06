@@ -219,12 +219,12 @@ class Framework
     }
 
     /**
-     * Add Path for CSS-File for implementation in hHeader
+     * Add Path for a CSS-File to be included in the header output
      *
      * @param string $csspath
      * @return void
      */
-    private function add_css_path($csspath)
+    public function add_css_path($csspath)
     {
         $this->main_header_cssfiles .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$csspath."\" />\n";
     }
@@ -382,12 +382,8 @@ ga('send', 'pageview');
                 }
                 break;
 
-            case 'base':
-                // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
-                echo $this->main_content;
-                break;
-
             case 'ajax':
+            case 'base':
                 // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
                 echo $this->main_content;
                 break;

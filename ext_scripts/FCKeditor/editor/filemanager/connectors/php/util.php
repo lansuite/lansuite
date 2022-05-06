@@ -188,7 +188,7 @@ function IsImageValid( $filePath, $extension )
 
 	// version_compare is available since PHP4 >= 4.0.7
 	if ( function_exists( 'version_compare' ) ) {
-		$sCurrentVersion = phpversion();
+		$sCurrentVersion = PHP_VERSION;
 		if ( version_compare( $sCurrentVersion, "4.2.0" ) >= 0 ) {
 			$imageCheckExtensions[] = "tiff";
 			$imageCheckExtensions[] = "tif";

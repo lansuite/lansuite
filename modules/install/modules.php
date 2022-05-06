@@ -10,7 +10,7 @@ switch ($_GET["step"]) {
         $res = $db->qry("SELECT name, reqphp, reqmysql FROM %prefix%modules WHERE changeable");
         while ($row = $db->fetch_array($res)) {
             if ($_POST[$row["name"]]) {
-                if ($row['reqphp'] and version_compare(phpversion(), $row['reqphp']) < 0) {
+                if ($row['reqphp'] and version_compare(PHP_VERSION, $row['reqphp']) < 0) {
                     $func->information(t('Das Modul %1 kann nicht aktiviert werden, da die PHP Version %2 benötigt wird', $row["name"], $row['reqphp']), NO_LINK);
                 } else {
                     $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = %string%", $row["name"]);
@@ -31,7 +31,7 @@ switch ($_GET["step"]) {
 
     // Question: Reset all Modules
     case 3:
-        $func->question(t('Sollen wirklich <b>\'alle Module\'</b> zurückgesetzt werden?HTML_NEWLINEDies wirkt sich <u>nicht</u> auf die Datenbankeinträge der Module aus, jedoch gehen alle Einstellungen und Menüänderungen verloren, die zu den Modulen getätigt worden sind. Außerdem sind danach nur noch die Standardmodule aktiviert.'), "index.php?mod=install&action=modules&rewrite=all", "index.php?mod=install&action=modules");
+        $func->question(t('Sollen wirklich <b>\'alle Module\'</b> zurückgesetzt werden?' . HTML_NEWLINE . ' Dies wirkt sich <u>nicht</u> auf die Datenbankeinträge der Module aus, jedoch gehen alle Einstellungen und Menüänderungen verloren, die zu den Modulen getätigt worden sind. Außerdem sind danach nur noch die Standardmodule aktiviert.'), "index.php?mod=install&action=modules&rewrite=all", "index.php?mod=install&action=modules");
         break;
 
     // Question: Reset this Module
@@ -95,7 +95,7 @@ switch ($_GET["step"]) {
     case 23:
         $row = $db->qry_first("SELECT requirement FROM %prefix%menu WHERE id=%int%", $_GET["id"]);
         if ($row['requirement'] > 0) {
-            $func->information(t('Mit diesem Eintrag ist eine Zugriffsberechtigung verknüpft. Du solltest diesen Eintrag daher nicht löschen, da sonst jeder Zugriff auf die betreffende Datei hat.HTML_NEWLINEWenn du nur den Menülink entfernen möchten, lösche die Felder Titel und Linkziel.HTML_NEWLINEWenn du wirklich jedem Zugriff auf die Datei geben möchten, setze den Zugriff auf Jeder und lösche dann den Eintrag.'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
+            $func->information(t('Mit diesem Eintrag ist eine Zugriffsberechtigung verknüpft. Du solltest diesen Eintrag daher nicht löschen, da sonst jeder Zugriff auf die betreffende Datei hat.' . HTML_NEWLINE . 'Wenn du nur den Menülink entfernen möchten, lösche die Felder Titel und Linkziel.' . HTML_NEWLINE . 'Wenn du wirklich jedem Zugriff auf die Datei geben möchten, setze den Zugriff auf Jeder und lösche dann den Eintrag.'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
         } else {
             $db->qry("DELETE FROM %prefix%menu WHERE id=%int%", $_GET["id"]);
             $func->confirmation(t('Der Menü-Eintrag wurde erfolgreich gelöscht'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");

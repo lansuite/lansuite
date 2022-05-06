@@ -59,7 +59,7 @@ if (!$_GET['tournamentid']) {
   
                     $t_array = array("<option value=\"0\">".t('Finalspiele')."</option>");
                     for ($i = 1; $i <= $teams["max_group_nr"]; $i++) {
-                                array_push($t_array, "<option value=\"$i\">".t('Spiele der Gruppe')." $i</option>");
+                                $t_array[] = "<option value=\"$i\">" . t('Spiele der Gruppe') . " $i</option>";
                     }
   
                     $dsp->SetForm("index.php?mod=tournament2&action=tree&step=2&tournamentid=". $_GET['tournamentid']);

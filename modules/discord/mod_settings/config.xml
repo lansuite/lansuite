@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Discord Serverkonfiguration</name>
+    </head>
+    <items>
+    	<item>
+                <name>discord_server_id</name>
+                <type>string</type>
+                <default></default>
+                <description>Discord server ID</description>
+    	</item>
+        <item>
+                <name>discord_json_timeout</name>
+                <type>int</type>
+                <default>4</default>
+                <description>Timeout für den Abruf der Discord JSON Daten</description>
+        </item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Anzeigeeinstellungen</name>
+    </head>
+    <items>
+        <item>
+                <name>discord_hide_bots</name>
+                <type>boolean</type>
+                <default>1</default>
+                <description>Sollen Bots ausgeblendet werden?</description>
+        </item>
+        <item>
+                <name>discord_hide_empty_channels</name>
+                <type>boolean</type>
+                <default>1</default>
+                <description>Sollen leere Channels ausgeblendet werden?</description>
+        </item>
+        <item>
+                <name>discord_show_global_members</name>
+                <type>boolean</type>
+                <default>1</default>
+                <description>Soll eine generische Userliste angezeigt werden?</description>
+        </item>
+        <item>
+                <name>discord_show_channels</name>
+                <type>boolean</type>
+                <default>1</default>
+                <description>Sollen Channels angezeigt werden?</description>
+        </item>
+        <item>
+                <name>discord_show_join_button</name>
+                <type>boolean</type>
+                <default>1</default>
+                <description>Soll ein Join-Button angezeigt werden? (Hinweis: "Instant Invite" muss in Discord aktiv sein)</description>
+        </item>
+        <item>
+                <name>discord_max_user_length</name>
+                <type>int</type>
+                <default>20</default>
+                <description>Nach wievielen Zeichen sollen Usernamen gekürzt werden?</description>
+        </item>
+        <item>
+                <name>discord_max_channel_length</name>
+                <type>int</type>
+                <default>30</default>
+                <description>Nach wievielen Zeichen sollen Channelnamen gekürzt werden?</description>
+        </item>
+    </items>
+  </group>
+</config>

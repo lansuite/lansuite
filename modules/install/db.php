@@ -1,5 +1,9 @@
 <?php
+// This could run a long time, so avoid running into a timeout
+ini_set('max_execution_time', 0);
+set_time_limit(0);
 
+// And now continue with the fun stuff...
 $importXml = new \LanSuite\XML();
 $installImport = new \LanSuite\Module\Install\Import($importXml);
 $install = new \LanSuite\Module\Install\Install($installImport);

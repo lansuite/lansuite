@@ -43,7 +43,7 @@ class TeamspeakDisplayClass
     // Closes the connection to the Teamspeak server
     public function _closeConnection($socket)
     {
-        fputs($socket, "quit\n");
+        fwrite($socket, "quit\n");
         fclose($socket);
     }
     
@@ -52,7 +52,7 @@ class TeamspeakDisplayClass
     public function _stripPartFromString(&$evalString)
     {
         $pos = strpos($evalString, "\t");
-        if (is_integer($pos)) {
+        if (is_int($pos)) {
             $result = substr($evalString, 0, $pos);
             $evalString = substr($evalString, $pos + 1);
         } else {
@@ -77,7 +77,7 @@ class TeamspeakDisplayClass
     // Request, read and parse the server info:
     public function _getServerInfo($socket)
     {
-        fputs($socket, "si\n");
+        fwrite($socket, "si\n");
         $result = array();
         do {
             $buffer = $this->_stripEOL(fgets($socket, 4096));
@@ -152,7 +152,7 @@ class TeamspeakDisplayClass
     public function _getPlayerList($socket)
     {
         // Request, read and parse the player list
-        fputs($socket, "pl\n");
+        fwrite($socket, "pl\n");
         $buffer = $this->_stripEOL(fgets($socket, 4096));
         $result = array();
         if (strtoupper(substr($buffer, 0, 5)) == "ERROR") {
@@ -232,7 +232,7 @@ class TeamspeakDisplayClass
     public function _getChannelList($socket)
     {
         // Request, read and parse the channel list
-        fputs($socket, "cl\n");
+        fwrite($socket, "cl\n");
         $buffer = $this->_stripEOL(fgets($socket, 4096));
         $result = array();
         if (strtoupper(substr($buffer, 0, 5)) == "ERROR") {
@@ -281,7 +281,7 @@ class TeamspeakDisplayClass
     public function _selectServer($socket, $port)
     {
         // Request the server to select the server which is hosted on  the port set in serverUDPPort
-        fputs($socket, "sel ".$port . "\n");
+        fwrite($socket, "sel ".$port . "\n");
         
         // Read server response on request to select a server
         return ($this->_stripEOL(fgets($socket, 4096)) == "OK");

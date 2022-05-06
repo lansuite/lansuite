@@ -274,7 +274,7 @@
 			</entry>
 			<entry>
 				<id>fae7c86a1f7024a56cd0881f3472fee3</id>
-				<org>Es d�rfen maximal 20 Reihen ausgew�hlt werden</org>
+				<org>Es dürfen maximal 20 Reihen ausgewählt werden</org>
 				<en>It drfen maximum of 20 rows will be selected to</en>
 				<es>Es drfen máximo de 20 líneas serán seleccionados para</es>
 				<fr>Il drfen maximum de 20 lignes seront sélectionnés pour</fr>
@@ -284,7 +284,7 @@
 			</entry>
 			<entry>
 				<id>5362dc2fd6942ad424d1965dd9c6eabb</id>
-				<org>Es d�rfen maximal 40 Spalten ausgew�hlt werden</org>
+				<org>Es dürfen maximal 40 Spalten ausgewählt werden</org>
 				<en>It drfen maximum of 40 columns will be selected to</en>
 				<es>Es drfen máximo de 40 columnas serán seleccionados para</es>
 				<fr>Il drfen maximum de 40 colonnes seront sélectionnés pour</fr>
@@ -294,7 +294,7 @@
 			</entry>
 			<entry>
 				<id>cfd69bd2a15b259d84c1d7ed5584f8a7</id>
-				<org>Es d�rfen nicht mehr Mienen, als Felder ausgew�hlt werden</org>
+				<org>Es dürfen nicht mehr Mienen, als Felder ausgewählt werden</org>
 				<en>It is not drfen more faces, be chosen with as fields</en>
 				<es>No es drfen más caras, se elegirá como campos de</es>
 				<fr>Il n&amp;#39;est pas drfen visages plus, être choisies avec autant de champs</fr>
@@ -314,7 +314,7 @@
 			</entry>
 			<entry>
 				<id>8d798ccb99ac1ebea0071fce5cccba70</id>
-				<org>Du hast Gewonnen! Herzlichen Gl�ckwunsch!</org>
+				<org>Du hast Gewonnen! Herzlichen Glückwunsch!</org>
 				<en>You have won! Thank Glckwunsch!</en>
 				<es>Has ganado! Gracias Glckwunsch!</es>
 				<fr>Vous avez gagné! Merci Glckwunsch!</fr>

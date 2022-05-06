@@ -3,14 +3,15 @@
 use LanSuite\Validator\Email;
 
 /**
- * CheckValidEmail is an error callback function.
+ * CheckValidEmail is a callback function for e.g. MasterForm to verify a given email address against a set of requirements.
+ * So far it uses a generic (configurable) Validator
  *
  * @param string    $email
  * @return bool|mixed|string
  */
 function CheckValidEmail($email)
 {
-    global $cfg;
+    global $cfg,$db;
 
     // Check which validation mode to validate
     // an email address is configured
@@ -63,12 +64,6 @@ function CheckValidEmail($email)
                 return t('Diese E-Mail-Adresse ist ungültig (falscher Host-Teil, MX, A oder AAAA DNS Record fehlerhaft)');
             }
             break;
-    }
-
-    // Compare first and second email entry.
-    // As only first entry is passed to this function, we have to get the second one from $_POST directly
-    if (!isset($_POST['email2']) || $email !== $_POST['email2']) {
-        return t('E-Mail-Adressen stimmen nicht überein. Bitte überprüfe deine Eingabe');
     }
 
     // Check for forbidden trash mail services

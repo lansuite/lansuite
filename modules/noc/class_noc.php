@@ -139,8 +139,8 @@ class noc
 
         //Umrechnung der Portnummer für 3Com
         if (stristr($modell, "3com")) {
-            for ($i = 0; $i < count($ports); $i++) {
-                $ports[$i] = 100 + $ports[$i];
+            foreach ($ports as $i => $iValue) {
+                $ports[$i] = 100 + $iValue;
             }
         }
         // Array mit Ports und Adressen zusammenfügen
@@ -183,14 +183,14 @@ class noc
             @exec("arp -a $ip", $arp_output);
             $result = array();
             preg_match("/.{2}-.{2}-.{2}-.{2}-.{2}-.{2}/i", implode("", $arp_output), $result);
-            for ($i = 0; $i < count($result); $i++) {
+            foreach ($result as $i => $iValue) {
                 $result[$i] = str_replace("-", ":", $result[$i]);
             }
         }
         // Jede gefundene MAC-Adresse zuordnen und im Netzwerk suchen
         if ($result[0] != '') {
-            for ($i = 0; $i < count($result); $i++) {
-                $dsp->AddDoubleRow(t('MAC-Addresse'), $result[$i]);
+            foreach ($result as $i => $iValue) {
+                $dsp->AddDoubleRow(t('MAC-Addresse'), $iValue);
                 $dsp->AddHRuleRow();
                 $string = str_replace(":", "%", $result[$i]);
                 $query = $db->qry("SELECT * FROM %prefix%noc_ports WHERE mac LIKE %string%", '%'. $string .'%');
@@ -202,11 +202,11 @@ class noc
                         $dsp->AddHRuleRow();
                     }
                 } else {
-                    $dsp->AddSingleRow(t('Die Adresse konnte nicht gefunden werden.HTML_NEWLINEDie Adressen werden bei der Ansicht des Device aktuallisiert.'));
+                    $dsp->AddSingleRow(t('Die Adresse konnte nicht gefunden werden.' . HTML_NEWLINE . 'Die Adressen werden bei der Ansicht des Device aktuallisiert.'));
                 }
             }
         } else {
-            $dsp->AddSingleRow(t('Die Adresse konnte nicht gefunden werden.HTML_NEWLINEDie Adressen werden bei der Ansicht des Device aktuallisiert.'));
+            $dsp->AddSingleRow(t('Die Adresse konnte nicht gefunden werden.' . HTML_NEWLINE . 'Die Adressen werden bei der Ansicht des Device aktuallisiert.'));
         }
     }
 }

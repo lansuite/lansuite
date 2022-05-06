@@ -105,7 +105,7 @@ switch ($_GET["step"]) {
             
                 $func->confirmation(t('Der Portstatus wurde ge&auml;ndert'), "index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
             } else {
-                $func->error(t('Der Port auf konnte nicht ge&auml;ndert werden.HTML_NEWLINE
+                $func->error(t('Der Port auf konnte nicht ge&auml;ndert werden.' . HTML_NEWLINE . '
 											 Pr&uuml;fen sie die Einstellung der Write-Community'), "index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
             }
         }//port exists

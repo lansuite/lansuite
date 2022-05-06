@@ -10,7 +10,7 @@ switch ($_GET["step"]) {
         break;
     
     case 2:
-        $func->question(t('Willst du dieses Device wirklich l&ouml;schen?HTML_NEWLINE
+        $func->question(t('Willst du dieses Device wirklich l&ouml;schen?' . HTML_NEWLINE . '
 				 				   Dadurch gehen alle (auch f&uuml;r die Statistik relevante) Informationen verloren'), "index.php?mod=noc&action=delete_device&step=3&deviceid=" . $_GET["deviceid"], "index.php?mod=noc");
          
         break;

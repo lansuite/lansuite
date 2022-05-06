@@ -21,11 +21,11 @@ switch ($_GET['step']) {
           INSERT INTO %prefix%seat_block
           SET
             party_id = %int%,
-            rows = %int%,
+            `rows` = %int%,
             cols = %int%,
-            name = %string%,
-            orientation = %int%,
-            u18 = %int%,
+            `name` = %string%,
+            orientation = %string%,
+            u18 = %string%,
             remark = %string%,
             text_tl = %string%,
             text_tc = %string%,
@@ -44,7 +44,7 @@ switch ($_GET['step']) {
             $row['cols'],
             $row['name'] .' (Kopie)',
             $row['orientation'],
-            $row['u18'],
+            empty($row['u18']) ? '0' : $row['u18'],
             $row['remark'],
             $row['text_tl'],
             $row['text_tc'],
@@ -94,7 +94,7 @@ switch ($_GET['step']) {
                   INSERT INTO %prefix%seat_sep
                   SET
                     blockid = %int%,
-                    orientation = %int%,
+                    orientation = %string%,
                     value = %int%',
                     $blockid,
                     $row['orientation'],

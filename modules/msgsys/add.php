@@ -97,7 +97,7 @@ switch ($_GET['step']) {
                     $names1 .= "$item";
                 }
                 $func->confirmation(str_replace('%NAMES1%', $names1, t('Die folgenden Benutzer wurden in deiner Buddy-Liste hinzugef&uuml;gt:
-                                           <b>%NAMES1%</b> HTML_NEWLINE Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf sichtbar.')));
+                                           <b>%NAMES1%</b> ' . HTML_NEWLINE . ' Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf sichtbar.')));
 
             // Partly Successful
             } elseif (count($sux) > "0" && count($err) > "0") {
@@ -114,23 +114,23 @@ switch ($_GET['step']) {
                     $names2 .= "$item";
                 }
                 $func->confirmation(str_replace('%NAMES2%', $names2, str_replace('%NAMES1%', $names1, t('Die folgenden Benutzer wurden in deiner Buddy-Liste hinzugef&uuml;gt:
-                                           <b>%NAMES1%</b> HTML_NEWLINE
+                                           <b>%NAMES1%</b> ' . HTML_NEWLINE . '
                                            Folgende Benutzer konnten nicht in deiner Buddy-Liste hinzugef&uuml;gt werden:
-                                           <b>%NAMES2%</b> HTML_NEWLINE
-                                           Dies kann folgende Ursachen haben: HTML_NEWLINE
-                                           - Der Benutzer ist bereits in deiner Buddy-Liste HTML_NEWLINE
-                                           - Der Benutzer existiert nicht HTML_NEWLINE
-                                           - Es sind bereits zuviele Benutzer in deiner Buddy-Liste HTML_NEWLINE
-                                           - Du versuchst dich selbst in die Buddy-Liste hinzuzuf&uuml;gen HTML_NEWLINE
+                                           <b>%NAMES2%</b> ' . HTML_NEWLINE . '
+                                           Dies kann folgende Ursachen haben: ' . HTML_NEWLINE . '
+                                           - Der Benutzer ist bereits in deiner Buddy-Liste ' . HTML_NEWLINE . '
+                                           - Der Benutzer existiert nicht ' . HTML_NEWLINE . '
+                                           - Es sind bereits zuviele Benutzer in deiner Buddy-Liste ' . HTML_NEWLINE . '
+                                           - Du versuchst dich selbst in die Buddy-Liste hinzuzuf&uuml;gen ' . HTML_NEWLINE . '
                                            Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf sichtbar.'))), "");
                 // Not successful
             } elseif (count($sux) == "0" && count($err) > "0") {
-                $func->error(t('Es konnten keine Benutzer in die Buddy-Liste hinzugef&uuml;gt werden. HTML_NEWLINE
-                      Dies kann folgende Ursachen haben: HTML_NEWLINE
-                      - Der Benutzer ist bereits in deiner Buddy-Liste HTML_NEWLINE
-                      - Der Benutzer existiert nicht HTML_NEWLINE
-                      - Es sind bereits zuviele Benutzer in deiner Buddy-Liste HTML_NEWLINE
-                      - Du versuchst dich selbst in die Buddy-Liste hinzuzuf&uuml;gen HTML_NEWLINE'));
+                $func->error(t('Es konnten keine Benutzer in die Buddy-Liste hinzugef&uuml;gt werden. ' . HTML_NEWLINE . '
+                      Dies kann folgende Ursachen haben: ' . HTML_NEWLINE . '
+                      - Der Benutzer ist bereits in deiner Buddy-Liste ' . HTML_NEWLINE . '
+                      - Der Benutzer existiert nicht ' . HTML_NEWLINE . '
+                      - Es sind bereits zuviele Benutzer in deiner Buddy-Liste ' . HTML_NEWLINE . '
+                      - Du versuchst dich selbst in die Buddy-Liste hinzuzuf&uuml;gen ' . HTML_NEWLINE));
             }
         }
         break;

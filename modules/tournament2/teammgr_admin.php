@@ -110,10 +110,13 @@ switch ($_GET["step"]) {
         } else {
             $t_array = array("<option value=\"\">".t('Bitte Turnier auswählen')."</option>");
             while ($tourney = $db->fetch_array($tourneys)) {
-                array_push($t_array, "<option value=\"{$tourney['tournamentid']}\">{$tourney['name']}</option>");
+                $t_array[] = "<option value=\"{$tourney['tournamentid']}\">{$tourney['name']}</option>";
             }
-            $dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=40");
-            $dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmelden<br />(Nur in Anmeldephase möglich)'), $t_array, "");
+            $dsp->SetForm("?", null, 'GET');
+            $t_hiddenfields  = '<input type="hidden" name="mod" value="tournament2" />';
+            $t_hiddenfields .= '<input type="hidden" name="action" value="teammgr_admin" />';
+            $t_hiddenfields .= '<input type="hidden" name="step" value="40" />';
+            $dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmelden<br />(Nur in Anmeldephase möglich)').$t_hiddenfields, $t_array, "");
             $dsp->AddFormSubmitRow(t('Abschicken'));
         }
         $db->free_result($tourneys);
@@ -136,7 +139,7 @@ switch ($_GET["step"]) {
         } else {
             $t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
             while ($team = $db->fetch_array($teams)) {
-                array_push($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']}</option>");
+                $t_array[] = "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']}</option>";
             }
             $dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=10");
             $dsp->AddDropDownFieldRow("teamid", t('Komplettes Team löschen<br />(Nur in Anmeldephase möglich)'), $t_array, "");
@@ -167,7 +170,7 @@ switch ($_GET["step"]) {
 
                 $freie_platze = $team['teamplayer'] - ($member['members'] + 1);
                 if ($freie_platze > 0) {
-                    array_push($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']} (". t('Noch %1 frei', $freie_platze) .")</option>");
+                    $t_array[] = "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']} (" . t('Noch %1 frei', $freie_platze) . ")</option>";
                 }
             }
             $dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=20");
@@ -198,7 +201,7 @@ switch ($_GET["step"]) {
         } else {
             $t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
             while ($team = $db->fetch_array($teams)) {
-                array_push($t_array, "<option value=\"{$team['teamid']}-{$team['userid']}\">{$team['tname']} - {$team['name']} - {$team['mname']}</option>");
+                $t_array[] = "<option value=\"{$team['teamid']}-{$team['userid']}\">{$team['tname']} - {$team['name']} - {$team['mname']}</option>";
             }
             $dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=30");
             $dsp->AddDropDownFieldRow("member_user", t('Spieler aus einem Team löschen'), $t_array, "");

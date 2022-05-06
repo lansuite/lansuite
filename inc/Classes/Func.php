@@ -153,10 +153,8 @@ class Func
                 case 'date':
                     $func_date  = date('d.m.Y', $func_timestamp);
                     break;
-                case 'time':
-                    $func_date  = date('H:i', $func_timestamp);
-                    break;
                 case 'shorttime':
+                case 'time':
                     $func_date  = date('H:i', $func_timestamp);
                     break;
                 case 'datetime':
@@ -268,7 +266,7 @@ class Func
                 $text = t('Du hast keine Zugriffsrechte für diesen Bereich.');
                 break;
             case 'NO_LOGIN':
-                $text = t('Du bist nicht eingeloggt. Bitte logge dich erst ein, bevor du diesen Bereich betritst.');
+                $text = t('Du bist nicht eingeloggt. Bitte logge dich erst ein, bevor du diesen Bereich betrittst.');
                 break;
             case 'NO_REFRESH':
                 $text = t('Du hast diese Anfrage wiederholt ausgeführt.');
@@ -895,7 +893,7 @@ class Func
             return false;
         } else {
             // Set read timeout
-            socket_set_timeout($handle, 0, $timeout);
+            stream_set_timeout($handle, 0, $timeout);
             // Time the response
             list($usec, $sec) = explode(" ", microtime(true));
             $start = (float)$usec + (float)$sec;

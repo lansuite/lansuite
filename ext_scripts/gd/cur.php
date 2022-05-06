@@ -31,35 +31,33 @@ $IconID=-1;
 $ColMax=-1;
 $SizeMax=-1;
 
-for($p=0;$p<count($Ikona);$p++)
-{
-$Ikona[$p]["NumberOfColors"]=pow(2,$Ikona[$p]["Info"]["BitsPerPixel"]);
-};
+    foreach ($Ikona as $p => $pValue) {
+    $Ikona[$p]["NumberOfColors"]=pow(2, $pValue["Info"]["BitsPerPixel"]);
+    };
 
 
-for($p=0;$p<count($Ikona);$p++)
-{
+    foreach ($Ikona as $p => $pValue) {
 
-if(($ColMax==-1)or($Ikona[$p]["NumberOfColors"]>$Ikona[$ColMax]["NumberOfColors"]))
-if(($icoSize==$Ikona[$p]["Width"])or($icoSize==-2))
- {
-  $ColMax=$p;
- };
+    if(($ColMax==-1)or($pValue["NumberOfColors"]>$Ikona[$ColMax]["NumberOfColors"]))
+    if(($icoSize== $pValue["Width"])or($icoSize==-2))
+     {
+      $ColMax=$p;
+     };
 
-if(($SizeMax==-1)or($Ikona[$p]["Width"]>$Ikona[$SizeMax]["Width"]))
-if(($icoColorCount==$Ikona[$p]["NumberOfColors"])or($icoColorCount==-2))
- {
-   $SizeMax=$p;
- };
+    if(($SizeMax==-1)or($pValue["Width"]>$Ikona[$SizeMax]["Width"]))
+    if(($icoColorCount== $pValue["NumberOfColors"])or($icoColorCount==-2))
+     {
+       $SizeMax=$p;
+     };
 
 
-if($Ikona[$p]["NumberOfColors"]==$icoColorCount)
-if($Ikona[$p]["Width"]==$icoSize)
- {
+    if($pValue["NumberOfColors"]==$icoColorCount)
+    if($pValue["Width"]==$icoSize)
+     {
 
- $IconID=$p;
- };
-};
+     $IconID=$p;
+     };
+    };
 
 if($icoSize==-2) $IconID=$SizeMax;
 if($icoColorCount==-2) $IconID=$ColMax;

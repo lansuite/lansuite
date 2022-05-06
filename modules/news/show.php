@@ -52,9 +52,9 @@ if ($overall_news == 0) {
             while ($row=$db->fetch_array($get_news)) {
                 $priority = $row["priority"];
                 if ($priority == 1) {
-                    $type = important;
+                    $type = 'important';
                 } else {
-                    $type = normal;
+                    $type = 'normal';
                 }
 
                 $smarty->assign('caption', $row["caption"]);
@@ -119,9 +119,9 @@ if ($overall_news == 0) {
             while ($row=$db->fetch_array($get_news)) {
                 $priority = $row["priority"];
                 if ($priority == 1) {
-                    $type = important;
+                    $type = 'important';
                 } else {
-                    $type = normal;
+                    $type = 'normal';
                 }
 
                 $smarty->assign('caption', $row["caption"]);

@@ -148,7 +148,7 @@
 				<org>Der Ordner &lt;b&gt;ext_inc&lt;/b&gt; existiert &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis. Bitte überprüfe den Pfad auf korrekte Groß- und Kleinschreibung. Lege den Ordner gegebenfalls bitte selbst an.</org>
 				<en>The folder &lt;b&gt;does not&lt;/b&gt; exist in &lt;b&gt;ext_inc&lt;/b&gt; Lansuite directory. Please check the path to correct uppercase and lowercase letters. Create the folder if necessary, please yourself.</en>
 				<es>La carpeta &lt;b&gt;no&lt;/b&gt; existe en el directorio Lansuite &lt;b&gt;ext_inc.&lt;/b&gt; Por favor marque el camino para corregir las letras mayúsculas y minúsculas. Cree la carpeta si es necesario, sírvase usted mismo.</es>
-				<fr>Le &lt;b&gt;dossier&lt;/b&gt; n&amp;#39;existe &lt;b&gt;pas&lt;/b&gt; dans le répertoire Lansuite &lt;b&gt;ext_inc.&lt;/b&gt; S&amp;#39;il vous plaît vérifiez le chemin d&amp;#39;accès à corriger les lettres majuscules et minuscules. Créez le dossier s&amp;#39;il ya lieu, s&amp;#39;il vous plaît vous-m�</fr>
+				<fr>Le &lt;b&gt;dossier&lt;/b&gt; n&amp;#39;existe &lt;b&gt;pas&lt;/b&gt; dans le répertoire Lansuite &lt;b&gt;ext_inc.&lt;/b&gt; S&amp;#39;il vous plaît vérifiez le chemin d&amp;#39;accès à corriger les lettres majuscules et minuscules. Créez le dossier s&amp;#39;il ya lieu, s&amp;#39;il vous plaît vous-m</fr>
 				<nl>De map bestaat &lt;b&gt;niet&lt;/b&gt; in &lt;b&gt;ext_inc&lt;/b&gt; Lansuite directory. Controleer het pad naar de juiste hoofdletters en kleine letters. Maak de map, indien nodig, neem jezelf.</nl>
 				<it>La cartella &lt;b&gt;non&lt;/b&gt; esiste in &lt;b&gt;ext_inc&lt;/b&gt; directory Lansuite. Si prega di verificare il percorso per correggere lettere maiuscole e minuscole. Creare la cartella, se necessario, si prega di te stesso.</it>
 				<file>install</file>
@@ -2281,7 +2281,7 @@
 			</entry>
 			<entry>
 				<id>5ae963e63928340137b8938216ed9492</id>
-				<org>Informationen - Interesante Server-Einstellungen im Überblick</org>
+				<org>Informationen - Interessante Server-Einstellungen im Überblick</org>
 				<en>Information - Interesting Overview of server settings</en>
 				<es>Información - Interés general de la configuración del servidor</es>
 				<fr>De l&amp;#39;information - Vue d&amp;#39;ensemble intéressante paramètres du serveur</fr>
@@ -3559,116 +3559,26 @@
 				<it>Dettagli</it>
 				<file>install</file>
 			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id></id>
-				<org></org>
-				<file>install</file>
-			</entry>
+                        <entry>
+                                <id>6907ea946b45f307548691a0a7d6f105</id>
+                                <org>Auf deinem System konnte das PHP-Modul &lt;b&gt;OpenSSL&lt;/b&gt; nicht gefunden werden. Dies hat zur Folge dass Module, die HTTPS Verbindungen zu anderen Servern aufbauen, nicht funktionieren</org>
+                                <en>The &lt;b&gt;OpenSSL&lt;/b&gt; PHP module was not found on your system. This will cause issues with modules that establish HTTPS connections to other servers</en>
+                                <es>The &lt;b&gt;OpenSSL&lt;/b&gt; PHP module was not found on your system. This will cause issues with modules that establish HTTPS connections to other servers</es>
+                                <fr>The &lt;b&gt;OpenSSL&lt;/b&gt; PHP module was not found on your system. This will cause issues with modules that establish HTTPS connections to other servers</fr>
+                                <nl>The &lt;b&gt;OpenSSL&lt;/b&gt; PHP module was not found on your system. This will cause issues with modules that establish HTTPS connections to other servers</nl>
+                                <it>The &lt;b&gt;OpenSSL&lt;/b&gt; PHP module was not found on your system. This will cause issues with modules that establish HTTPS connections to other servers</it>
+                                <file>install</file>
+                        </entry>
+                        <entry>
+                                <id>29a2d7fdd3ed7396ad1a30993edf6597</id>
+                                <org>In deiner PHP Konfiguration ist &lt;b&gt;allow_url_fopen&lt;/b&gt; nicht aktiviert. Dadurch können einige Module (z.B. Discord, Partylist) keine externen Verbindungen aufbauen und werden daher nicht funktionieren</org>
+                                <en>In your PHP configuration the setting &lt;b&gt;allow_url_fopen&lt;/b&gt; is not enabled. This will cause issues with modules (such as Discord, Partylist) that attempt to connect to external sites</en>
+                                <es>In your PHP configuration the setting &lt;b&gt;allow_url_fopen&lt;/b&gt; is not enabled. This will cause issues with modules (such as Discord, Partylist) that attempt to connect to external sites</es>
+                                <fr>In your PHP configuration the setting &lt;b&gt;allow_url_fopen&lt;/b&gt; is not enabled. This will cause issues with modules (such as Discord, Partylist) that attempt to connect to external sites</fr>
+                                <nl>In your PHP configuration the setting &lt;b&gt;allow_url_fopen&lt;/b&gt; is not enabled. This will cause issues with modules (such as Discord, Partylist) that attempt to connect to external sites</nl>
+                                <it>In your PHP configuration the setting &lt;b&gt;allow_url_fopen&lt;/b&gt; is not enabled. This will cause issues with modules (such as Discord, Partylist) that attempt to connect to external sites</it>
+                                <file>install</file>
+                        </entry>
 		</content>
 	</table>
 </lansuite>

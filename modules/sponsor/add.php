@@ -8,7 +8,7 @@ if ($_GET['action'] == 'change' and $_GET['sponsorid'] == '') {
     $mf = new \LanSuite\MasterForm();
 
     $mf->AddField(t('Name'), 'name');
-    $mf->AddField(t('Ziel-URL'), 'url', '', '', FIELD_OPTIONAL);
+    $mf->AddField(t('Ziel-URL'), 'url', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddGroup('General');
 
     $code_popup_link_banner = '<ul>

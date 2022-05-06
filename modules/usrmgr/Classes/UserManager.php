@@ -37,7 +37,7 @@ class UserManager
             }
             $verification_link .= "index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
         } else {//No HTTPS URL defined, but maybe the user is already using it?
-            if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+            if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
                 $proto = 'https';
             } else {
                 $proto = 'http';
@@ -176,7 +176,7 @@ class UserManager
                 }
                 $message = str_replace('%CLAN%', $clan, $message);
                 $message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
-                $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
+                $message = str_replace('%PARTYURL%', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], $message);
                 $message = str_replace('%PAGE_TITLE%', $cfg['sys_page_title'], $message);
                 if ($mail->create_inet_mail($_POST["firstname"] . " " . $_POST["name"], $_POST["email"], $cfg["signon_signonemail_subject"], $message, $cfg["sys_party_mail"])) {
                     return true;
@@ -187,7 +187,7 @@ class UserManager
 
             // Signon-Mail
             case 1:
-                if ($_POST['InsertControll' . $_GET[mf_id]]) {
+                if ($_POST['InsertControll' . $_GET['mf_id']]) {
                     $message = $cfg["signon_signonemail_text"];
                     $subject = $cfg["signon_signonemail_subject"];
                 } else {
@@ -206,10 +206,10 @@ class UserManager
                     $message = str_replace('%MAXGUESTS%', $_SESSION['party_info']['max_guest'], $message);
                     $anmelde_schluss = '';
                     if ($_SESSION['party_info']['s_enddate'] > 0) {
-                        $anmelde_schluss = "Anmeldeschluss: " . $func->unixstamp2date($_SESSION['party_info']['s_enddate'], date);
+                        $anmelde_schluss = "Anmeldeschluss: " . $func->unixstamp2date($_SESSION['party_info']['s_enddate'], 'date');
                     }
                     $message = str_replace('%SIGNON_DEADLINE%', $anmelde_schluss, $message);
-                    $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
+                    $message = str_replace('%PARTYURL%', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], $message);
                     if ($mail->create_inet_mail($row["firstname"] . " " . $row["name"], $row["email"], $subject, $message, $cfg["sys_party_mail"])) {
                         return true;
                     } else {
@@ -234,7 +234,7 @@ class UserManager
 
         $system = $xml->write_tag('version', LANSUITE_VERSION, 2);
         $system .= $xml->write_tag('name', $cfg['feed_partyname'], 2);
-        $system .= $xml->write_tag('link', $cfg['sys_partyurl'], 2);
+        $system .= $xml->write_tag('link', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], 2);
         $system .= $xml->write_tag('language', 'de-de', 2);
         $system .= $xml->write_tag('current_party', $cfg['signon_partyid'], 2);
 
