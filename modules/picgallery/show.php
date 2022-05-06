@@ -90,7 +90,7 @@ if (!$gd->available) {
         while ($file = readdir($handle)) {
             if ($file != "." and $file != ".." and $file != ".svn" and substr($file, 0, 1) != '.') {
                 if (is_dir($root_dir . $file)) {
-                    array_push($dir_list, $file);
+                    $dir_list[] = $file;
                 } elseif (substr($file, 0, 8) != "lsthumb_") {
                     $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
                     if (IsSupportedType($extension)) {
@@ -99,14 +99,14 @@ if (!$gd->available) {
                         if ($file_modified > $last_modified) {
                             $last_modified = $file_modified;
                         }
-                        array_push($file_list, $file);
+                        $file_list[] = $file;
                     } elseif (IsPackage($extension)) {
                         $dir_size += filesize($root_dir . $file);
                         $file_modified = filemtime($root_dir . $file);
                         if ($file_modified > $last_modified) {
                             $last_modified = $file_modified;
                         }
-                        array_push($package_list, $file);
+                        $package_list[] = $file;
                     }
                 }
             }
@@ -417,7 +417,7 @@ if (!$gd->available) {
                 if (($file != ".") and ($file != "..") and ($file != ".svn") and (!is_dir($root_dir . $file) and substr($file, 0, 8) != "lsthumb_")) {
                     $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
                     if (IsSupportedType($extension)) {
-                        array_push($file_list, $file);
+                        $file_list[] = $file;
                     }
                 }
             }

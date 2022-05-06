@@ -39,7 +39,7 @@ class Import
         if ($db->success) {
             $res = $db->qry('SHOW TABLES');
             while ($row = $db->fetch_array($res)) {
-                array_push($this->installed_tables, $row[0]);
+                $this->installed_tables[] = $row[0];
             }
             $db->free_result($res);
         }
@@ -448,7 +448,7 @@ class Import
                     $db->qry("CREATE TABLE IF NOT EXISTS %prefix%%plain% ($mysql_fields %plain% $unique_key) ENGINE = MyISAM CHARACTER SET utf8", $table_name, $primary_key);
 
                     // Add to installed tables
-                    array_push($this->installed_tables, $config["database"]["prefix"]. $table_name);
+                    $this->installed_tables[] = $config["database"]["prefix"] . $table_name;
                 }
             }
 
@@ -852,7 +852,7 @@ class Import
         $import = array("error" => 0, "nothing" => 0, "insert" => 0, "replace" => 0);
 
         foreach ($csv_file as $csv_line) {
-            $csv_line = chop($csv_line);
+            $csv_line = rtrim($csv_line);
             $csv_line = trim($csv_line);
             $csv_line = str_replace("\"", "", $csv_line);
             $csv_line = str_replace("'", "", $csv_line);

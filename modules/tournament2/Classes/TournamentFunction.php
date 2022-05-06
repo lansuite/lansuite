@@ -250,11 +250,11 @@ class TournamentFunction
                 games.position ASC", $tournamentid);
             while ($team = $db->fetch_array($teams)) {
                 $array_id++;
-                array_push($ranking_data->id, $array_id);
-                array_push($ranking_data->tid, $team['teamid']);
-                array_push($ranking_data->name, $team['name']);
-                array_push($ranking_data->pos, $num++);
-                array_push($ranking_data->disqualified, $team['disqualified']);
+                $ranking_data->id[]           = $array_id;
+                $ranking_data->tid[]          = $team['teamid'];
+                $ranking_data->name[]         = $team['name'];
+                $ranking_data->pos[]          = $num++;
+                $ranking_data->disqualified[] = $team['disqualified'];
             }
             $db->free_result($teams);
         } elseif ($tournament['mode'] == 'single' or $tournament['mode'] == 'double'
@@ -286,11 +286,11 @@ class TournamentFunction
                     $team = $db->fetch_array($teams);
                     if ($team['teamid']) {
                         $array_id++;
-                        array_push($ranking_data->id, $array_id);
-                        array_push($ranking_data->tid, $team['teamid']);
-                        array_push($ranking_data->name, $team['name']);
-                        array_push($ranking_data->pos, $num++);
-                        array_push($ranking_data->disqualified, $team['disqualified']);
+                        $ranking_data->id[]           = $array_id;
+                        $ranking_data->tid[]          = $team['teamid'];
+                        $ranking_data->name[]         = $team['name'];
+                        $ranking_data->pos[]          = $num++;
+                        $ranking_data->disqualified[] = $team['disqualified'];
                     }
                 }
                 $db->free_result($teams);
@@ -319,11 +319,11 @@ class TournamentFunction
             while ($team = $db->fetch_array($teams)) {
                 if ($team['teamid'] && !in_array($team['teamid'], $ranking_data->tid)) {
                     $array_id++;
-                    array_push($ranking_data->id, $array_id);
-                    array_push($ranking_data->tid, $team['teamid']);
-                    array_push($ranking_data->name, $team['name']);
-                    array_push($ranking_data->pos, $num++);
-                    array_push($ranking_data->disqualified, $team['disqualified']);
+                    $ranking_data->id[]           = $array_id;
+                    $ranking_data->tid[]          = $team['teamid'];
+                    $ranking_data->name[]         = $team['name'];
+                    $ranking_data->pos[]          = $num++;
+                    $ranking_data->disqualified[] = $team['disqualified'];
                 }
             }
             $db->free_result($teams);
@@ -348,15 +348,15 @@ class TournamentFunction
             $i = 0;
             while ($team = $db->fetch_array($teams)) {
                 $i++;
-                array_push($ranking_data->pos, $i);
-                array_push($ranking_data->tid, $team["teamid"]);
-                array_push($ranking_data->name, $team['name']);
-                array_push($ranking_data->disqualified, $team['disqualified']);
-                array_push($ranking_data->reached_finales, 0);
-                array_push($ranking_data->win, 0);
-                array_push($ranking_data->score, 0);
-                array_push($ranking_data->score_en, 0);
-                array_push($ranking_data->games, 0);
+                $ranking_data->pos[]             = $i;
+                $ranking_data->tid[]             = $team["teamid"];
+                $ranking_data->name[]            = $team['name'];
+                $ranking_data->disqualified[]    = $team['disqualified'];
+                $ranking_data->reached_finales[] = 0;
+                $ranking_data->win[]             = 0;
+                $ranking_data->score[]           = 0;
+                $ranking_data->score_en[]        = 0;
+                $ranking_data->games[]           = 0;
             }
 
             $scores = $db->qry("
@@ -414,7 +414,7 @@ class TournamentFunction
             $teams_array_tmp = $ranking_data->tid;
             $i = 0;
             while (array_shift($teams_array_tmp)) {
-                array_push($ranking_data->score_dif, ($ranking_data->score[$i] - $ranking_data->score_en[$i]));
+                $ranking_data->score_dif[] = ($ranking_data->score[$i] - $ranking_data->score_en[$i]);
                 $i++;
             }
             array_multisort(

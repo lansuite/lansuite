@@ -152,7 +152,7 @@ switch ($_GET['step']) {
         $handle = opendir("ext_inc/foodcenter_templates");
         while ($file = readdir($handle)) {
             if (($file != ".") and ($file != "..") and ($file != ".svn") and (!is_dir($file))) {
-                if ((substr($file, -3, 3) == "htm") && (substr($file, -7, 7) != "row.htm") || (substr($file, -4, 4) == "html") && (substr($file, -8, 8) != "row.html")) {
+                if (((substr($file, -3, 3) == "htm") && (substr($file, -7, 7) != "row.htm")) || ((substr($file, -4, 4) == "html") && (substr($file, -8, 8) != "row.html"))) {
                     $file_array[] = "<option value=\"$file\">$file</option>";
                 }
             }

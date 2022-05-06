@@ -37,7 +37,7 @@ class Basket
             $this->count = 0;
             $this->product = new ProductList();
         } else {
-            $this->product = unserialize($_SESSION['basket_item']['product']);
+            $this->product = unserialize($_SESSION['basket_item']['product'], ProductList::class);
             $this->count = $_SESSION['basket_count'];
         }
 

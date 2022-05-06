@@ -199,8 +199,8 @@ class Product
             $this->noerror = false;
         }
 
-        for ($i=0; $i < count($this->option); $i++) {
-            if ($this->option[$i]->check() == false) {
+        foreach ($this->option as $iValue) {
+            if ($iValue->check() == false) {
                 $this->noerror = false;
             }
         }
@@ -305,16 +305,16 @@ class Product
         $tot_price = 0;
 
         if ($this->type == 2) {
-            for ($i=0; $i<count($this->option); $i++) {
-                if (is_object($this->option[$i])) {
-                    $tot_price += $this->option[$i]->count_price();
+            foreach ($this->option as $iValue) {
+                if (is_object($iValue)) {
+                    $tot_price += $iValue->count_price();
                 }
             }
             return  $this->ordered * $tot_price;
         } else {
-            for ($i=0; $i<count($this->option); $i++) {
-                if (is_object($this->option[$i])) {
-                    $tot_price += $this->option[$i]->count_price();
+            foreach ($this->option as $iValue) {
+                if (is_object($iValue)) {
+                    $tot_price += $iValue->count_price();
                 }
             }
 
@@ -334,18 +334,18 @@ class Product
         global $func;
 
         $ok = true;
-        for ($i = 0; $i < count($this->option); $i++) {
-            $this->option[$i]->error['pice_error'] = '';
+        foreach ($this->option as $iValue) {
+            $iValue->error['pice_error'] = '';
 
-            if ($this->option[$i]->id == $id) {
+            if ($iValue->id == $id) {
                 if ($value == null) {
-                    $this->option[$i]->ordered++;
+                    $iValue->ordered++;
                 } else {
-                    if ($this->mat == 0 || $this->option[$i]->pice >= $value) {
-                        $this->option[$i]->ordered = $value;
+                    if ($this->mat == 0 || $iValue->pice >= $value) {
+                        $iValue->ordered = $value;
                     } else {
-                        $this->option[$i]->ordered = $this->option[$i]->pice;
-                        $this->option[$i]->error['pice_error'] = t('Das Produkt ist nicht in dieser Menge vorhanden.');
+                        $iValue->ordered             = $iValue->pice;
+                        $iValue->error['pice_error'] = t('Das Produkt ist nicht in dieser Menge vorhanden.');
                         $func->information(t('Dieses Produkt ist leider nicht mehr vorhanden.'));
                         $ok = false;
                     }
@@ -368,9 +368,9 @@ class Product
         } else {
             $count = 0;
 
-            for ($i=0; $i<count($this->option); $i++) {
-                if ($this->option[$i]) {
-                    $count += $this->option[$i]->count_unit();
+            foreach ($this->option as $iValue) {
+                if ($iValue) {
+                    $count += $iValue->count_unit();
                 }
             }
 
@@ -576,17 +576,17 @@ class Product
 
         $show_caption = $this->caption;
         if ($this->type == 1 || $this->choise == false) {
-            for ($i = 0; $i < count($this->option); $i++) {
-                if ($this->option[$i]->ordered > 0) {
-                    $this->option[$i]->get_basket($listid, $show_caption, false);
+            foreach ($this->option as $iValue) {
+                if ($iValue->ordered > 0) {
+                    $iValue->get_basket($listid, $show_caption, false);
                 }
             }
         } else {
             $dsp->AddTextFieldRow("option_$listid", $this->caption, $this->ordered, $this->error_food['order_error']);
             $this->error_food['order_error'] = "";
-            for ($i = 0; $i < count($this->option); $i++) {
-                if ($this->option[$i]->ordered > 0 || $this->option[$i]->fix > 0) {
-                    $this->option[$i]->get_basket($listid, $show_caption, true);
+            foreach ($this->option as $iValue) {
+                if ($iValue->ordered > 0 || $iValue->fix > 0) {
+                    $iValue->get_basket($listid, $show_caption, true);
                 }
             }
         }

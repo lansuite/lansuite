@@ -37,7 +37,7 @@ class UserManager
             }
             $verification_link .= "index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
         } else {//No HTTPS URL defined, but maybe the user is already using it?
-            if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+            if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
                 $proto = 'https';
             } else {
                 $proto = 'http';

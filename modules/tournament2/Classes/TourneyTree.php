@@ -173,14 +173,14 @@ class TourneyTree
     {
         for ($i=1; $i < count($tbl);) {
             $t = $s = 0;
-            for ($x=0; $x < count($tbl[$i]); $x++) {
-                if ($tbl[$i][$x] === true && $t == 0) {
+            foreach ($tbl[$i] as $x => $xValue) {
+                if ($xValue === true && $t == 0) {
                     $s=$x;
                 }
-                if ($tbl[$i][$x] === true) {
+                if ($xValue === true) {
                     $t++;
                 }
-                if ($tbl[$i][$x] === false && $t > 0) {
+                if ($xValue === false && $t > 0) {
                     $idx = (int)(($t / 2));
                     $tbl[$i][$s+$idx] = 'ARROW';
                     $t = $s = 0;
@@ -237,19 +237,19 @@ class TourneyTree
             $wb[$i] = array();
             $x = TourneyTree::WBTeamsInRound($i+1, $this->size);
             for ($j=1; $j <= $x; $j++) {
-                array_push($wb[$i], $j);
+                $wb[$i][] = $j;
             }
         }
-        array_push($wb, array('1'));
+        $wb[] = ['1'];
 
         for ($i=0; $i < ((2*$sz)-2); $i++) {
             $lb[$i] = array();
             $x = TourneyTree::LBTeamsInRound($i+1, $this->size);
             for ($j=1; $j <= $x; $j++) {
-                array_push($lb[$i], $j);
+                $lb[$i][] = $j;
             }
         }
-        array_push($lb, array('1'));
+        $lb[] = ['1'];
         return true;
     }
 
@@ -304,7 +304,7 @@ class TourneyTree
 
                     if (($row % 2) == 1) {
                         $this->wb_tbl[$x][$y] = array_shift($this->wb_teams[$x]);        // insert team
-                            array_push($this->wb_indexes[$round], array($x, $y));
+                            $this->wb_indexes[$round][] = [$x, $y];
                     }
                 }
 
@@ -322,7 +322,7 @@ class TourneyTree
                         $this->wb_tbl[$x][$y] = array_shift($this->wb_teams[($x/2)]);        // insert team
                         array_shift($this->wb_indexes[$round-2]);
                         array_shift($this->wb_indexes[$round-2]);
-                        array_push($this->wb_indexes[$round], array($x, $y));
+                        $this->wb_indexes[$round][] = [$x, $y];
                     }
                 }
 
@@ -332,7 +332,7 @@ class TourneyTree
                         $tmp = array_shift($this->wb_teams[($x/2)]);
                         $this->wb_tbl[$x][$y] = $tmp;        // insert team
                         // we need this team again later for the final in DE!!!
-                        array_push($this->wb_teams[($x/2)], $tmp);
+                        $this->wb_teams[($x/2)][] = $tmp;
                     }
                 }
             }
@@ -357,12 +357,12 @@ class TourneyTree
                     }
                     if (($row % 2) == 1 && count($this->lb_teams[$x]) > 0) {
                         $this->lb_tbl[$x][$y] = array_shift($this->lb_teams[$x]);        // insert team
-                        array_push($this->lb_indexes[$round], array($x, $y));
+                        $this->lb_indexes[$round][] = [$x, $y];
                         // we need them for the positions of the following round
                         if (count($this->lb_teams[$x]) <= 0) {
                             for ($t=2; $t < $this->lb_num_rows/2; $t++) {
-                                array_push($this->lb_indexes[$round], array($x, $y+$t));
-                                $t += 2;
+                                $this->lb_indexes[$round][] = [$x, $y + $t];
+                                $t                          += 2;
                             }
                         }
                     }
@@ -385,15 +385,15 @@ class TourneyTree
                         if ((($x/2) % 2) == 0) {
                             array_shift($this->lb_indexes[$round-2]);
                         }
-                        array_push($this->lb_indexes[$round], array($x, $y));
+                        $this->lb_indexes[$round][] = [$x, $y];
 
                         if (count($this->lb_teams[($x/2)]) <= 0) {
                             $tmp = $this->getPrevCoords($round, $this->lb_indexes, 0);
                             $delta = $tmp[1][1] - $tmp[0][1] ;
                             if ($delta > 0) {
                                 for ($t=$delta; $t < ($this->lb_num_rows/2);) {
-                                    array_push($this->lb_indexes[$round], array($x, $y+$t));
-                                    $t += $delta;
+                                    $this->lb_indexes[$round][] = array($x, $y + $t);
+                                    $t                          += $delta;
                                 }
                             }
                         }

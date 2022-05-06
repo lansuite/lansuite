@@ -4,7 +4,7 @@ use LanSuite\PasswordHash;
 
 $db->connect();
 
-$dsp->NewContent(t('Adminaccount anlegen'), t('Lege hier einen Adminaccount an, �ber welchen du Zugriff auf diese Admin-Seite erh?lst. Wenn du bereits Benutzer-Daten importiert hast musst du hier keinen weiteren Account anlegen.'));
+$dsp->NewContent(t('Adminaccount anlegen'), t('Lege hier einen Adminaccount an, über welchen du Zugriff auf diese Admin-Seite erhälst. Wenn du bereits Benutzer-Daten importiert hast musst du hier keinen weiteren Account anlegen.'));
 
 $find = $db->qry("SELECT * FROM %prefix%user");
 if ($db->num_rows($find) == 0) {

@@ -382,12 +382,8 @@ ga('send', 'pageview');
                 }
                 break;
 
-            case 'base':
-                // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
-                echo $this->main_content;
-                break;
-
             case 'ajax':
+            case 'base':
                 // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
                 echo $this->main_content;
                 break;

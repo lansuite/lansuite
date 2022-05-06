@@ -252,7 +252,7 @@ class Install
                     $xml_file = fread($handle, filesize($file));
                     fclose($handle);
 
-                    array_push($mod_list, $module);
+                    $mod_list[] = $module;
 
                     $name           = $xml->get_tag_content("name", $xml_file);
                     $caption        = $xml->get_tag_content("caption", $xml_file);
@@ -382,7 +382,7 @@ class Install
                                         $default = $xml->get_tag_content('default', $xml_item);
                                         $description = $xml->get_tag_content('description', $xml_item);
                                         $pos = $xml->get_tag_content('pos', $xml_item);
-                                        array_push($SettingList, $name);
+                                        $SettingList[] = $name;
 
                                         // Insert into DB, if not exists
                                         $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
@@ -488,7 +488,14 @@ class Install
                             $it = $xml->getFirstTagContent("it", $entry, 1);
                             $file = $xml->getFirstTagContent("file", $entry);
 
-                            if (strlen($org) > 255) {
+                            if (strlen($org) > 255
+                                || strlen($de) > 255
+                                || strlen($en) > 255
+                                || strlen($es) > 255
+                                || strlen($fr) > 255
+                                || strlen($nl) > 255
+                                || strlen($it) > 255
+                            ) {
                                 $long = '_long';
                             } else {
                                 $long = '';
@@ -629,7 +636,7 @@ class Install
 
         // PHP version
         $minPHPVersion = '7.0.0';
-        $currentPHPVersion = phpversion();
+        $currentPHPVersion = PHP_VERSION;
         if (version_compare($currentPHPVersion, $minPHPVersion) >= 0) {
             $phpv_check = $ok . $currentPHPVersion;
         } else {
@@ -695,6 +702,17 @@ class Install
             }
         }
         $dsp->AddDoubleRow(t('Schreibrechte im Ordner \'ext_inc\''), $ext_inc_check);
+        
+        // PHP temp folder access
+        $tmpfile = tmpfile();
+        if (!$tmpfile) {
+            $tmp_check = $failed . t('PHP kann keine temporären Dateien in konfigurierten Temp-Verzeichnis anlegen. Es wurde versucht, in folgenden Verzeichnis eine Datei anzulegen: %1', sys_get_temp_dir());
+        } else {
+            $tmp_check = $ok . t('Datei %1 erfolgreich erzeugt', stream_get_meta_data($tmpfile)['uri']);
+            fclose($tmpfile);
+        }
+        $dsp->AddDoubleRow(t('Schreiben temporärer Dateien'), $tmp_check);
+        
         $dsp->AddFieldSetEnd();
 
         #### Warning ####
@@ -776,7 +794,7 @@ class Install
                     $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei ' . HTML_NEWLINE . '{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
                 }
             }
-              $dsp->AddDoubleRow("Server Stats", $server_stats);
+            $dsp->AddDoubleRow("Server Stats", $server_stats);
         }
 
         // SNMP-Lib
@@ -794,7 +812,15 @@ class Install
             $ftp_check = $not_possible . t('Auf deinem System konnte das PHP-Modul <b>FTP-Library</b> nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann');
         }
         $dsp->AddDoubleRow("FTP Library", $ftp_check);
-
+        
+        // APCu-Lib
+        if (extension_loaded('apcu')) {
+            $apcu_check = $ok;
+        } else {
+            $apcu_check = $optimize . t('Auf deinem System konnte das PHP-Modul <b>APCu</b> nicht gefunden werden. Dies wird verwendet, um verschiedenste Daten für schnellen Zugriff zwischenzuspeichern. Eine Aktivierung ist bei vielen Seitenzugriffen angeraten. Als Fallback werden die Daten im Dateisystem vorgehalten');
+        }
+        $dsp->AddDoubleRow("APCu", $apcu_check);
+        
         // OpenSSL
         if (extension_loaded('openssl')) {
             $openssl_check = $ok;
@@ -901,7 +927,7 @@ class Install
      *
      * @return void
      */
-    private function DeleteAllTables()
+    private function deleteAllTables()
     {
         global $xml, $db;
 

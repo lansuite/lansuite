@@ -38,7 +38,7 @@ if (!$_GET["sieg"]) {
             }
             fclose($handle);
         }
-        $_SESSION["losungswort"] = chop(trim($_SESSION["losungswort"]));
+        $_SESSION["losungswort"] = rtrim(trim($_SESSION["losungswort"]));
         $_SESSION["losungswort"] = strtoupper($_SESSION["losungswort"]);
 
         for ($z = 1; $z <= strlen($_SESSION["losungswort"]); $z++) {

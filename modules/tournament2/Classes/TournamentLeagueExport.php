@@ -69,7 +69,7 @@ class TournamentLeagueExport
 
         while ($row = $db->fetch_array($query)) {
             $i++;
-            array_push($data_email, $row["teamid"]);
+            $data_email[] = $row["teamid"];
 
             // Spieler
             if ($row["teamplayer"] == 1) {

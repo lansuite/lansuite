@@ -135,7 +135,7 @@ class PayPal
 
             // use the same link as the user currently has to avoid to return to a variant where the user is not logged in
             // e.g. HTTP vs. HTTPS or http://www.something vs. http://something.de
-            if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+            if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
                 $proto = 'https://';
             } else {
                 $proto = 'http://';
