@@ -9,7 +9,7 @@ function imageAuthCode($width, $height) {
   $auth_code = md5($auth_code);
   $auth_code = substr($auth_code, 0, 5);
   $auth_code = strtoupper($auth_code);
-  setcookie('image_auth_code', md5($auth_code), time()+60*60 , '/',"",$_SERVER['HTTPS'] = 'on' ? true : false, true);
+  setcookie('image_auth_code', md5($auth_code), time()+60*60 , '/',"",$_SERVER['HTTPS'] == 'on' ? true : false, true);
   $image = imagecreate($width,$height) or die("Can't initialize GD image stream");
 
   $bg_color     = imagecolorallocate($image, 240, 248, 255);

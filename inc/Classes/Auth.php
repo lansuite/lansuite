@@ -677,7 +677,7 @@ class Auth
             time()+3600*24*$this->cookie_time,
             $this->cookie_path,
             $this->cookie_domain,
-            ,$_SERVER['HTTPS'] = 'on' ? true : false, 
+            $_SERVER['HTTPS'] == 'on' ? true : false, 
             true
         );
     }
