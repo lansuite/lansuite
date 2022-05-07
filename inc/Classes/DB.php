@@ -180,6 +180,43 @@ class DB
     }
 
     /**
+     * Transforms an old LS-style query to a MySQLi prepared statement
+     * @return mysqli_statement
+    */
+    private function qry2stmt($query,$args) {
+        //due to the usage of %plain% to drop in parts of the SQL statement it is required to iterate through query and deal with each entry separately
+        $query_split = preg_split('((%string%|%int%|%plain%))',$query,-1,PREG_SPLIT_DELIM_CAPTURE);
+        $query_stmt=''; // prepared statement compatible string
+        $query_param=''; //type definition for prepare statement
+        $arg_iterator=0; // position in arguments
+        foreach ($query_split as $query_element) {
+            switch ($query_element) {
+                case '%int%': //insert placeholder and write statement element with iterator
+                    $query_stmt .= '?';
+                    $query_param .= 'i';
+                    $arg_iterator++;
+                    break;
+                case '%string%': //insert placeholder and write statement element with iterator
+                    $query_stmt .= '?';
+                    $query_param .= 's';
+                    $arg_iterator++;
+                    break;
+                case '%plain%': //insert content as-is with iterator
+                    $query_stmt .= $args[$arg_iterator];
+                    unset($args[$arg_iterator]); // remove element and move forward
+                    $arg_iterator++;
+                    break;
+                default: //insert content as-is
+                    $query_stmt .= $query_element;
+            }
+        }
+        $stmt = $this->link_id->stmt_init();
+        $stmt->prepare($query_stmt);
+        $stmt->bind_param($query_param, ...$args); 
+        return $stmt;        
+    }
+    
+    /**
      * If the second parameter is an array, the function uses the array as value list.
      *
      * @return bool|int|mysqli_result
@@ -187,36 +224,50 @@ class DB
     public function qry()
     {
         global $config, $debug;
-
         // Arguments could be passed als multiple ones, or a single array
         $this->QueryArgs = func_get_args();
         if (is_array($this->QueryArgs[0])) {
             $this->QueryArgs = $this->QueryArgs[0];
         }
-
+        //extract query from list
         $query = array_shift($this->QueryArgs);
-
+        // @TODO: Don't replace %prefix% within quotes!
         $query = str_replace('%prefix%', $config['database']['prefix'], $query);
-        $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array(&$this, 'escape'), $query);
-
-        // TODO: Don't replace %prefix% within quotes!
-        if (isset($debug)) {
-            $debug->query_start($query);
+        
+        if (sizeof($this->QueryArgs)){
+            //We have a non-native query and a replacement of elements is required
+            $stmt = $this->qry2stmt($query, $this->QueryArgs);
+            if (isset($debug)) {
+                $debug->query_start($query_stmt);
+            }
+            $stmt->execute();
+            // get full result set as this causes "Commands out of sync; you can't run this command now" error otherwise (See: https://stackoverflow.com/questions/614671/commands-out-of-sync-you-cant-run-this-command-now )
+            $stmt->store_result();
+            //MySQL returns false for unsuccessful queries, but also for queries without return values (see https://www.php.net/manual/en/mysqli-stmt.get-result.php)
+            //Thus errno has to be evaluated if false
+            $rslt = $stmt->get_result();
+            if ($rslt){
+                $this->query_id = $rslt;
+            } else {
+                $this->query_id = $stmt->errno == 0;
+            }
+            $this->sql_error = $stmt->error . $this->link_id->error;
+        } else {
+            //run basic query
+            if (isset($debug)) {
+                $debug->query_start($query_stmt);
+            }
+            $this->query_id = mysqli_query($this->link_id, $query);
+            $this->sql_error = mysqli_error($this->link_id);
         }
-
-        $this->query_id = mysqli_query($this->link_id, $query);
-        $this->sql_error = mysqli_error($this->link_id);
-
         if (!$this->query_id) {
             $this->print_error($this->sql_error, $query);
         }
-
         $this->count_query++;
         if (isset($debug)) {
             $debug->query_stop($this->sql_error);
         }
         $this->QueryArgs = [];
-
         return $this->query_id;
     }
 
