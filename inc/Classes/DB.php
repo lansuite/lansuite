@@ -186,8 +186,6 @@ class DB
      * @return mysqli_statement
     */
     private function qry2stmt($query,$args) {
-
-
         //due to the usage of %plain% to drop in parts of the SQL statement it is required to iterate through query and deal with each entry separately
         $query_split = preg_split('((%string%|%int%|%plain%))',$query,-1,PREG_SPLIT_DELIM_CAPTURE);
 
@@ -249,6 +247,7 @@ class DB
             }
             $stmt->execute();
             // get full result set as this causes "Commands out of sync; you can't run this command now" error otherwise (See: https://stackoverflow.com/questions/614671/commands-out-of-sync-you-cant-run-this-command-now )
+            $stmt->store_result();
             //MySQL returns false for unsuccessful queries, but also for queries without return values (see https://www.php.net/manual/en/mysqli-stmt.get-result.php)
             //Thus errno has to be evaluated if false
             $rslt = $stmt->get_result();
