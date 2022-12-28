@@ -30,7 +30,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^7.1",
-        "doctrine/instantiator": "~1.0.5",
+        "doctrine/instantiator": "~1.4.1",
         "squizlabs/php_codesniffer": "*",
         "phpstan/phpstan": "^0.12.65",
         "phan/phan": "^4.0"
