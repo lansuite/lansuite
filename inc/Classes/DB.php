@@ -110,13 +110,13 @@ class DB
         $user = $config['database']['user'];
         $pass = $config['database']['passwd'];
         $database = $config['database']['database'];
-        $charset = $config['database']['dbport'];
+        $port = $config['database']['dbport'] ?? 3306;
         $charset = $config['database']['charset'];
 	    
 
         // Try to connect to the database
         // Suppress error output, because mysqli_connect throws a PHP Warning once it is not able to connect
-        $this->link_id = @mysqli_connect($server, $user, $pass, $database, $dbport);
+        $this->link_id = @mysqli_connect($server, $user, $pass, $database, $port);
 
         if (!$this->link_id) {
             if ($save) {
