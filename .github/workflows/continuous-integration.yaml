@@ -13,14 +13,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['7.2', '7.3', '7.4']
+        php-versions: ['7.4','8.0']
         include:
         - php-versions: 8.0
           experimental: true
 
     steps:
-      - uses: actions/checkout@v2
-
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -72,6 +74,16 @@ jobs:
 
       - name: Install dependencies
         run: composer install
+        
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
 
-      - name: Run tests
-        run: bin/phpcs --ignore=*/vendor/* --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName --extensions=php -s .
+      - name: Run phpcs on all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            bin/phpcs --ignore=*/vendor/* --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName --extensions=php -s $file
+          done
+
+#      - name: Run tests
+#        run: bin/phpcs --ignore=*/vendor/* --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName --extensions=php -s .
