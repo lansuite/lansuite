@@ -395,9 +395,9 @@ class Party
         if (empty($party_id)) {
             $party_id = $this->party_id;
         }
-        if ($cache->has('party.guestcount.'. $party_id)) {
-            $guestCounts = $cache->get('party.guestcount.'. $party_id);
-        } else {
+        
+        $partyCache = $cache->getItem('party.guestcount.' . $party_id);
+        if (!$partyCache->isHit()){
             // Fetch in one query
             if ($cfg["guestlist_showorga"] == 0) {
                 $querytype = "type = 1";
@@ -407,8 +407,9 @@ class Party
             // Fetch amounts from DB
             $countQry = $db->qry('SELECT COUNT(*) as qty, party.paid as paid FROM %prefix%user as user LEFT JOIN %prefix%party_user as party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%) GROUP BY paid ORDER BY paid DESC;');
             while ($guestCounts = $countQry->fetch_array()){}
-            $cache->set('party.guestcount.'. $party_id, $guestCounts);
-            return $guestCounts;
+            $partyCache->set('party.guestcount.'. $party_id, $guestCounts);
+            $cache->write($partyCache);
         }
+        return $partyCache->get();
     }
 }
