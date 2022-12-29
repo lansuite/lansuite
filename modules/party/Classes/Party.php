@@ -392,12 +392,14 @@ class Party
     */
     public function getGuestQty($party_id = NULL)
     {
+        global $cache;
+        
         if (empty($party_id)) {
             $party_id = $this->party_id;
         }
         
         $partyCache = $cache->getItem('party.guestcount.' . $party_id);
-        if (!$partyCache->isHit()){
+        if (!$partyCache->isHit()) {
             // Fetch in one query
             if ($cfg["guestlist_showorga"] == 0) {
                 $querytype = "type = 1";
