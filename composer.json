@@ -34,7 +34,7 @@
         "doctrine/instantiator": "~1.4.1",
         "squizlabs/php_codesniffer": "*",
         "phpstan/phpstan": "^0.12.65",
-        "phan/phan": "^4.0"
+        "phan/phan": "^5.4"
     },
     "minimum-stability": "stable",
     "config": {
