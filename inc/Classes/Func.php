@@ -429,8 +429,15 @@ class Func
     }
 
     /**
-     * @param string    $string
-     * @param int       $mode   0: default; 1: wiki before; 2: wiki after; 4: basic
+     * Transforms given input text to HTML-enriched output. 
+     * Based on the mode provided, various tags are allowed.
+     * These are - to my understanding  - as follows:
+     * mode 0: Full BBcode parsing, Smileys
+     * mode 1: BBcode text formatting, img, url + whitespace conversion
+     * mode 2: Smileys, PHP syntax highlighting
+     * mode 4: basic BBcode + whitespace conversion, Smileys
+     * @param string $string The text to be parsed
+     * @param int $mode 0: default; 1: wiki before; 2: wiki after; 4: basic
      * @return string
      */
     public function text2html($string, $mode = 0)
@@ -444,7 +451,7 @@ class Func
             return $parser->parse($string, $config);
         } else {
             if ($mode != 4) {
-                if ($mode != 1) {
+                if ($mode != 1) { //mode 2 - seems to be dead code that was supposed to do syntax highlighting as further down
                     preg_replace_callback(
                         '#\[c\]((.)*)\[\/c\]#sUi',
                         function ($treffer) {
@@ -456,20 +463,20 @@ class Func
                     );
                 }
 
-                if ($mode != 2) {
+                if ($mode != 2) {//mode 1 - BBcode for img & url tags
                     $img_start2 = '<img src="ext_inc/smilies/';
                     $img_end   = '" border="0" alt="" />';
 
                     $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:468px; max-height:450px; overflow:hidden;" />', $string);
                     $string = preg_replace('#\[url(?|=[\'"]?([^]"\']+)[\'"]?]([^[]+)|](([^[]+)))\[/url]#i', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
 
-                    if ($mode != 1) {
+                    if ($mode != 1) {// unreachable code, as mode MUST be 1 to come here
                         $string = preg_replace('#(\\s|^)(https?://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
                     }
                 }
             }
 
-            if ($mode != 2) {
+            if ($mode != 2) { // mode 1 or 4 - whitespace conversion + basic BBcode tags
                 $string = str_replace("\r", '', $string);
                 $string = str_replace("\n", "<br />\n", $string);
                 $string = str_replace("[br]", "<br />\n", $string);
@@ -483,8 +490,8 @@ class Func
                 $string = preg_replace('#\[sup\](.*)\[/sup\]#sUi', '<sup>\\1</sup>', $string);
             }
 
-            if ($mode != 4) {
-                if ($mode != 2) {
+            if ($mode != 4) { // mode 1 or 2
+                if ($mode != 2) {// mode 1 - BBcode quote, size, color
                     $string = preg_replace('#\[quote\](.*)\[/quote\]#sUi', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">\\1</div></blockquote>', $string);
 
                     $string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
@@ -493,7 +500,7 @@ class Func
                     $string = str_replace('[/color]', '</font>', $string);
                 }
 
-                if ($mode != 1) {
+                if ($mode != 1) {// mode 2 - PHP Syntax highlighting via GeSHi
                     $string = preg_replace_callback(
                         '#\[c\](.)*\[\/c\]#sUi',
                         function ($treffer) {
@@ -514,7 +521,7 @@ class Func
                 }
             }
         }
-            if ($mode != 1) {
+            if ($mode != 1) { // mode 0,2,4 - Smiley replacement
                 $res = $db->qry("SELECT shortcut, image FROM %prefix%smilies");
                 while ($row = $db->fetch_array($res)) {
                     $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
