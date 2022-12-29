@@ -57,7 +57,7 @@ class Discord
             $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
             $JsonReturnData = @file_get_contents($APIurl, false, stream_context_create(array('http' => array('timeout' => (isset($cfg['discord_json_timeout']) ? $cfg['discord_json_timeout'] : 4)))));
             // Store in cache with timeout of 60 seconds
-            $discordCache->write('discord.cache', $JsonReturnData, 60);
+            $discordCache->set($JsonReturnData, 60);
             $cache->save($discordCache);
             }
         $JsonReturnData = $discordCache->get();
