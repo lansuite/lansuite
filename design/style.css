@@ -399,50 +399,6 @@ div.wikiH1 {
     font-weight: bold;
     font-size: 16pt;
 }
-
-/*
-*   Teamspeak2
-*/
-#teamspeakdisplay img {
-  border: 0px;
-}
-#teamspeakdisplay table {
-  border-collapse: collapse;  border-spacing: 0px;
-}
-#teamspeakdisplay td {
-  padding: 0px;
-  vertical-align: top;  white-space: nowrap;
-  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
-}
-#teamspeakdisplay td.teamspeakserver {
-  padding-left: 3px;
-  font-weight: bold;
-}
-#teamspeakdisplay td.teamspeakchannel {
-  padding-left: 3px;
-}
-#teamspeakdisplay td.teamspeaksubchannel {
-  padding-left: 3px;
-}
-#teamspeakdisplay td.teamspeakplayer {
-    padding-left: 3px;
-    font-weight: bold;
-}
-#teamspeakdisplay a.teamspeakserver {
-  font-size: 11px;  font-weight: bold;  font-family: verdana, helvetica, sans-serif;
-  text-decoration: none;
-  color: #000000;
-}
-#teamspeakdisplay a.teamspeakchannel, a.teamspeaksubchannel {
-  font-size: 11px;  font-weight: ;  font-family: verdana, helvetica, sans-serif;
-  text-decoration: none;
-  color: #000000;
-}
-#teamspeakdisplay a.teamspeakserver:hover, a.teamspeakchannel:hover, a.teamspeaksubchannel:hover {
-  color: #000066;
-  text-decoration: none;
-}
-
 /* 
  * Shoutbox 
 */
