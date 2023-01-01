@@ -1,4 +1,4 @@
-FROM php:7.2.34-fpm
+FROM php:8.2.0-fpm
 
 COPY . /code
 
