@@ -21,20 +21,18 @@ $PHPErrors = '';
 
 // Initialize Cache. Go for APCu first, filebased otherwise. DB adaptor to be used when we implement PDO.
 if (extension_loaded('apcu')) {
-    $cache = new Symfony\Component\Cache\Simple\ApcuCache('lansuite', 600);
+    $cache = new Symfony\Component\Cache\Adapter\ApcuAdapter('lansuite', 600);
 } else {
-    $cache = new Symfony\Component\Cache\Simple\FilesystemCache('lansuite', 600);
+    $cache = new Symfony\Component\Cache\Adapter\FilesystemAdapter('lansuite', 600);
 }
 
 // Check cache for config, try to load from file otherwise
-if ($cache->has('config')) {
-    $config = $cache->get('config');
-} else {
+$configCache = $cache->getItem('config');
+if (!$configCache->isHit()) {
     // Read Config and Definitionfiles
     // Load Basic Config
     if (file_exists('inc/base/config.php')) {
         $config = parse_ini_file('inc/base/config.php', 1);
-        $cache->set('config', $config);
     // Default config. Will be used only until the wizard has created the config file
     } else {
         $config = [];
@@ -53,8 +51,10 @@ if ($cache->has('config')) {
 
         $config['environment']['configured'] = 0;
     }
+    $configCache->set($config);
+    $cache->save($configCache);
 }
-
+$config = $configCache->get();
 
 // If the debug mode is disabled, we launch the original error handler.
 // The original error handler shows PHP Warnings in a typical red box
@@ -235,13 +235,16 @@ if ($config['environment']['configured'] == 0) {
         $db->success = 0;
     }
     
-    if ($cache->has('cfg')) {
-        $cfg = $cache->get('cfg');
-    } else {
+    //load $cfg from cache
+    $cfgCache = $cache->getItem('cfg');
+    if (!$cfgCache->isHit()) {
         $cfg = $func->read_db_config();
-        $cache->set('cfg', $cfg);
+        $cfgCache->set($cfg);
+        $cache->save($cfgCache);
     }
+    $cfg = $cfgCache->get();
     $message = $sec->check_blacklist();
+    
     if (strlen($message) > 0) {
         die($message);
     }

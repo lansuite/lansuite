@@ -17,9 +17,10 @@ services:
             - ./.docker/nginx-php-flags.conf:/usr/local/etc/php-fpm.d/php-flags.conf
     mysql:
         image: mysql:5.6
+        container_name: mysqldb
+        platform: linux/amd64
         ports:
             - "3306:3306"
-        environment:
-            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-            - MYSQL_DATABASE=lansuite
+        env_file:
+            - docker/mysql.env
 
