@@ -51,18 +51,16 @@ class Discord
     public function fetchServerData()
     {
         global $cfg, $cache;
-
-        if ($cache->has('discord.cache')) {
-            // Cache file is readable and <60 seconds old.
-            // Note: Discord itself currently seems to update the widget.json file only once every 300 seconds.
-            $JsonReturnData = $cache->get('discord.cache');
-        } else {
+        $discordCache = $cache->getItem('discord.cache');
+        if (!$discordCache->isHit()) {
             // No cache file or too old; let's fetch data.
             $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
             $JsonReturnData = @file_get_contents($APIurl, false, stream_context_create(array('http' => array('timeout' => (isset($cfg['discord_json_timeout']) ? $cfg['discord_json_timeout'] : 4)))));
             // Store in cache with timeout of 60 seconds
-            $cache->write('discord.cache', $JsonReturnData, 60);
+            $discordCache->set($JsonReturnData, 60);
+            $cache->save($discordCache);
             }
+        $JsonReturnData = $discordCache->get();
         }
         return ($JsonReturnData === false ? false : json_decode($JsonReturnData, false));
     }

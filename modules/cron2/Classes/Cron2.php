@@ -16,7 +16,7 @@ class Cron2
             return false;
         }
 
-        $row = $db->qry_first("SELECT name, type, function FROM %prefix%cron WHERE jobid = %int%", $jobid);
+        $row = $db->qry_first("SELECT name, type, `function` FROM %prefix%cron WHERE jobid = %int%", $jobid);
         if ($row != false) {
             if ($row['type'] == 'sql') {
                 $sql = str_replace('%prefix%', $config['database']['prefix'], $row['function']);

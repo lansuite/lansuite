@@ -153,52 +153,6 @@ li.engaged {
     background-image: url(images/arrows_data.gif);
     background-repeat: no-repeat;
 }
-/* ---- Teamspeak2 Display BEGINN ----*/
-#teamspeakdisplay img {
-    border: 0px;
-}
-#teamspeakdisplay table {
-    border-collapse: collapse;
-    border-spacing: 0px;
-}
-#teamspeakdisplay td {
-    padding: 0px;
-    vertical-align: top;
-    white-space: nowrap;
-    font-size: 11px;
-    font-family: verdana, helvetica, sans-serif;
-}
-#teamspeakdisplay td.teamspeakserver {
-    padding-left: 3px;
-    font-weight: bold;
-}
-#teamspeakdisplay td.teamspeakchannel {
-    padding-left: 3px;
-}
-#teamspeakdisplay td.teamspeaksubchannel {
-    padding-left: 3px;
-}
-#teamspeakdisplay td.teamspeakplayer {
-    padding-left: 3px;
-    font-weight: bold;
-}
-#teamspeakdisplay a.teamspeakserver {
-    font-size: 11px;
-    font-weight: bold;
-    font-family: verdana, helvetica, sans-serif;
-    text-decoration: none;
-    color: #000000;
-}
-#teamspeakdisplay a.teamspeakchannel, a.teamspeaksubchannel {
-    font-size: 11px;  font-weight: ;  font-family: verdana, helvetica, sans-serif;
-    text-decoration: none;
-    color: #000000;
-}
-#teamspeakdisplay a.teamspeakserver:hover, a.teamspeakchannel:hover, a.teamspeaksubchannel:hover {
-    color: #000066;
-    text-decoration: none;
-}
-/* ---- Teamspeak2 Display ENDE ----*/
 /* Content */
 .content {
     padding: 0px 0px 0px 0px;
