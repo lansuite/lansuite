@@ -7,6 +7,6 @@
 	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Denny Mleinek</author>				<!-- The author of this module -->
 	<email>denny@one-network.org</email>					<!-- The E-Mail-Adress of the modules author -->
-	<version>1.2</version>			<!-- The version of this module -->
+	<version>1.3</version>			<!-- The version of this module -->
 	<state>Stable</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
 </lansuite-module>
