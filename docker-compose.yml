@@ -19,8 +19,11 @@ services:
         image: mysql:5.6
         container_name: mysqldb
         platform: linux/amd64
+        volumes:
+            - mysql_data:/var/lib/mysql
         ports:
             - "3306:3306"
         env_file:
             - docker/mysql.env
-
+volumes:
+    mysql_data: 
