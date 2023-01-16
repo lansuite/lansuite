@@ -147,61 +147,6 @@ class SMTPMail {
         return true;
     }
 
-    private function parse_resp($socket, $resp_code, $line = __LINE__)
-    {
-        #Read response
-        $ok = true;
-
-        while(($buffer = fgets($socket, 256)) !== false) {
-            $code = substr($buffer, 3, 1);
-
-            if($code == 500) {
-                
-                echo "Unrecognized command". HTML_NEWLINE;
-                $ok = false;
-                break;
-            }
-
-            if($code > 500) {
-                
-                echo "Erros have been occured". HTML_NEWLINE;
-                $ok = false;
-                break;
-            } 
-
-            if($code == ' ')
-            {
-                echo "Unrecognized response". HTML_NEWLINE;
-                $ok = false;
-                break;
-            }
-            
-            if($code != $resp_code )
-            {
-                echo "Ran into problems sending Mail. Response: $server_response " . HTML_NEWLINE;
-                $ok = false;
-                break;
-            }
-        }
-       
-        return $ok;
-
-    }
-
-    private function smtp_write_b64($socket,$data){
-        $this->smtp_write($socket,base64_encode($data));
-    }
-
-    private function smtp_write($socket,$data) {
-        $nl = "\r\n";
-        fwrite($socket, $data . $nl);
-    }
-
-    private function credentials_empty() {
-        return (empty($this->smtp_user) || empty($this->smtp_password)); 
-    }
-
-
     
 }
 
