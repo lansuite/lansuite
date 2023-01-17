@@ -45,14 +45,11 @@ class SMTPMail
         // Fix any bare linefeeds in the message to make it RFC821 Compliant.
         $message = preg_replace("#(?<!\r)\n#si", "\r\n", $message);
 
-        if ($headers != '') {
-            if (is_array($headers)) {
-                if (sizeof($headers) > 1) {
-                    $headers = implode("\n", $headers);
-                } else {
-                    $headers = $headers[0];
-                }
-            }
+
+        if (!empty($headers)) {
+
+            $headers = is_array($headers) ? implode("\n", $headers) : $headers;
+
             $headers = rtrim($headers);
 
             // Make sure there are no bare linefeeds in the headers
@@ -115,7 +112,6 @@ class SMTPMail
                 $mail->addAddress($mail_to);
             }
 
-
             @reset($cc);
             foreach ($cc as $cc_address) {
                 // Add an additional bit of error checking to cc header
@@ -133,7 +129,6 @@ class SMTPMail
                     $mail->addBCC($bcc_address);
                 }
             }
-
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
