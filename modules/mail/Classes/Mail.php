@@ -114,7 +114,6 @@ class Mail
 
         // SMTP-Mail
         if ($cfg["mail_use_smtp"]) {
-
             $smtpMail = new SMTPMail(
                 $cfg["mail_smtp_host"],
                 $cfg["mail_smtp_port"],
