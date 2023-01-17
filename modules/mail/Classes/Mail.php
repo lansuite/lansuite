@@ -115,7 +115,13 @@ class Mail
         // SMTP-Mail
         if ($cfg["mail_use_smtp"]) {
 
-            $smtpMail = new SMTPMail($cfg["mail_smtp_host"],$cfg["mail_smtp_port"],$cfg["mail_smtp_tls"],$cfg["mail_smtp_user"],$cfg["mail_smtp_pass"]);
+            $smtpMail = new SMTPMail(
+                $cfg["mail_smtp_host"],
+                $cfg["mail_smtp_port"],
+                $cfg["mail_smtp_tls"],
+                $cfg["mail_smtp_user"],
+                $cfg["mail_smtp_pass"]
+            );
             //Either use explicit sender or use indivdiual user, depends on the SMTP configuration
             $from = empty($cfg["mail_smtp_send_from"]) ? $from : $cfg["mail_smtp_send_from"];
             return $smtpMail->Send($from, $to_user_email, $subject_text, $msgbody_text, $this->inet_headers);

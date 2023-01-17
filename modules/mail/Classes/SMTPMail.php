@@ -1,28 +1,31 @@
 <?php
 
 namespace LanSuite\Module\Mail;
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
-class SMTPMail {
+class SMTPMail
+{
 
-    private $smtp_host;
-    private $smtp_port;
-    private $smtp_user;
-    private $smtp_password;
-    private $use_tls;
+    private $smtpHost;
+    private $smtpPort;
+    private $smtpUser;
+    private $smtpPassword;
+    private $useTLS;
+    private $mailPattern = "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/";
 
 
-    public function __construct($host,$port,$tls, $user, $password)
+    public function __construct($host, $port, $tls, $user, $password)
     {
-        $this->smtp_host = $host;
-        $this->smtp_port = empty($port) ? 25 : $port;
-        $this->use_tls = is_bool($tls) ? $tls : false;
-        $this->smtp_user = $user;
-        $this->smtp_password = $password;
+        $this->smtpHost = $host;
+        $this->smtpPort = empty($port) ? 25 : $port;
+        $this->useTLS = is_bool($tls) ? $tls : false;
+        $this->smtpUser = $user;
+        $this->smtpPassword = $password;
     }
 
 
@@ -36,7 +39,7 @@ class SMTPMail {
      * @param string $headers
      * @return bool
      */
-    public function Send(string $from,string $mail_to, string $subject,string $message,string $headers = '')
+    public function Send(string $from, string $mail_to, string $subject, string $message, string $headers = '')
     {
 
         // Fix any bare linefeeds in the message to make it RFC821 Compliant.
@@ -62,7 +65,7 @@ class SMTPMail {
             @reset($header_array);
 
             $headers = '';
-            foreach($header_array as $header){
+            foreach ($header_array as $header) {
                 if (preg_match('#^cc:#si', $header)) {
                     $cc = preg_replace('#^cc:(.*)#si', '\1', $header);
                 } elseif (preg_match('#^bcc:#si', $header)) {
@@ -90,41 +93,43 @@ class SMTPMail {
 
         try {
             //Server settings
-        #    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                    //Enable verbose debug output
+            #    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                    //Enable verbose debug output
             $mail->isSMTP();                                          //Send using SMTP
-            $mail->Host = $this->smtp_host;                     //Set the SMTP server to send through
+            $mail->Host = $this->smtpHost;                     //Set the SMTP server to send through
 
-            if(!empty($this->smtp_user) && !empty($this->smtp_password))
-            {
-                $mail->SMTPAuth   = true;    
-                $mail->Username   = $this->smtp_user;                     //SMTP username
-                $mail->Password   = $this->smtp_password;                 //SMTP password
+            if (!empty($this->smtpUser) && !empty($this->smtpPassword)) {
+                $mail->SMTPAuth   = true;
+                $mail->Username   = $this->smtpUser;                     //SMTP username
+                $mail->Password   = $this->smtpPassword;                 //SMTP password
             }
 
-            if($use_tls) $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;      //Enable implicit TLS encryption
-            $mail->Port = $this->smtp_port;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            if ($this->useTLS == true) {
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;      //Enable implicit TLS encryption
+            }
+
+            $mail->Port = $this->smtpPort;
 
             $mail->setFrom($from);
 
-            if (preg_match('#[^ ]+\@[^ ]+#', $mail_to)) {
-                $mail->addAddress($mail_to);  
+            if (preg_match($this->mailPattern, $mail_to)) {
+                $mail->addAddress($mail_to);
             }
 
 
             @reset($cc);
-            foreach($cc as $cc_address){
+            foreach ($cc as $cc_address) {
                 // Add an additional bit of error checking to cc header
                 $cc_address = trim($cc_address);
-                if (preg_match('#[^ ]+\@[^ ]+#', $cc_address)) {
+                if (preg_match($this->mailPattern, $cc_address)) {
                     $mail->addCC($cc_address);
                 }
             }
 
             @reset($bcc);
-            foreach($bcc as $bcc_address){
+            foreach ($bcc as $bcc_address) {
                 // Add an additional bit of error checking to bcc header...
                 $bcc_address = trim($bcc_address);
-                if (preg_match('#[^ ]+\@[^ ]+#', $bcc_address)) {
+                if (preg_match($this->mailPattern, $bcc_address)) {
                     $mail->addBCC($bcc_address);
                 }
             }
@@ -138,7 +143,6 @@ class SMTPMail {
 
             $mail->send();
             echo 'Message has been sent';
-
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             return false;
@@ -146,7 +150,4 @@ class SMTPMail {
 
         return true;
     }
-
-    
 }
-
