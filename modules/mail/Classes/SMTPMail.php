@@ -17,7 +17,7 @@ class SMTPMail
     private $smtpPassword;
     private $useTLS;
     private $mailPattern = "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/";
-
+    private $func;
 
     public function __construct($host, $port, $tls, $user, $password)
     {
@@ -26,6 +26,7 @@ class SMTPMail
         $this->useTLS = is_bool($tls) ? $tls : false;
         $this->smtpUser = $user;
         $this->smtpPassword = $password;
+        $this->func = new \LanSuite\Func();
     }
 
 
@@ -39,8 +40,13 @@ class SMTPMail
      * @param string $headers
      * @return bool
      */
-    public function Send(string $from, string $mail_to, string $subject, string $message, string $headers = '')
+    public function sendMail(string $from, string $mail_to, string $subject, string $message, string $headers = '')
     {
+        if (!$this->validateFields($from, $subject, $message)) {
+            $this->func->error(t("Not all required mail fields have been set"));
+            return false;
+        }
+
 
         // Fix any bare linefeeds in the message to make it RFC821 Compliant.
         $message = preg_replace("#(?<!\r)\n#si", "\r\n", $message);
@@ -77,15 +83,6 @@ class SMTPMail
             $bcc = explode(', ', $bcc);
         }
 
-        if (trim($subject) == '') {
-            echo "No email Subject specified";
-        }
-
-        if (trim($message) == '') {
-            echo "Email message was blank";
-        }
-
-
         $mail = new PHPMailer(true);
 
         try {
@@ -112,23 +109,8 @@ class SMTPMail
                 $mail->addAddress($mail_to);
             }
 
-            @reset($cc);
-            foreach ($cc as $cc_address) {
-                // Add an additional bit of error checking to cc header
-                $cc_address = trim($cc_address);
-                if (preg_match($this->mailPattern, $cc_address)) {
-                    $mail->addCC($cc_address);
-                }
-            }
-
-            @reset($bcc);
-            foreach ($bcc as $bcc_address) {
-                // Add an additional bit of error checking to bcc header...
-                $bcc_address = trim($bcc_address);
-                if (preg_match($this->mailPattern, $bcc_address)) {
-                    $mail->addBCC($bcc_address);
-                }
-            }
+            $this->addCC($mail, $cc);
+            $this->addBCC($mail, $bcc);
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
@@ -137,12 +119,41 @@ class SMTPMail
             $mail->AltBody = strip_tags($message);
 
             $mail->send();
-            echo 'Message has been sent';
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            $this->func->error(t("Message could not be sent. Mailer Error: %1", $mail->ErrorInfo));
             return false;
         }
 
+        return true;
+    }
+
+    private function addCC(&$mailer, $cc)
+    {
+        foreach ($cc as $ccAddress) {
+            // Add an additional bit of error checking to cc header
+            $ccAddress = trim($ccAddress);
+            if (preg_match($this->mailPattern, $ccAddress)) {
+                $mailer->addCC($ccAddress);
+            }
+        }
+    }
+
+    private function addBCC(&$mailer, $bcc)
+    {
+        foreach ($bcc as $bccAddress) {
+            // Add an additional bit of error checking to bcc header...
+            $bccAddress = trim($bccAddress);
+            if (preg_match($this->mailPattern, $bccAddress)) {
+                $mailer->addBCC($bccAddress);
+            }
+        }
+    }
+
+    private function validateFields($from, $subject, $message)
+    {
+        if (empty($from) || empty($subject) || empty($message)) {
+            return false;
+        }
         return true;
     }
 }
