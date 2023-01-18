@@ -33,7 +33,7 @@
         "phpunit/phpunit": "^7.1",
         "doctrine/instantiator": "~1.4.1",
         "squizlabs/php_codesniffer": "*",
-        "phpstan/phpstan": "^0.12.65",
+        "phpstan/phpstan": "^1.9.12",
         "phan/phan": "^5.4"
     },
     "minimum-stability": "stable",
