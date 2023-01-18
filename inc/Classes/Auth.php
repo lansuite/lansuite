@@ -244,13 +244,19 @@ class Auth
 
             // Not found in cookie table, then check for manual login (either with email, oder userid)
             } else {
-                $user = $db->qry_first(
-                    'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user
-              WHERE ((userid = %int% AND 0 = %int%) OR LOWER(email) = %string%)',
-                    $tmp_login_email,
-                    $is_email,
-                    $tmp_login_email
-                );
+
+                if($is_email)
+                {
+                    $user = $db->qry_first(
+                        'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE email = %string%)',
+                        $tmp_login_email
+                    );
+                }
+                else{
+                    $user = $db->qry_first('SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE userid = %int%',
+                        $tmp_login_email
+                    );
+                }
             }
 
             // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
