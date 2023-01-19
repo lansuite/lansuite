@@ -29,17 +29,18 @@ Code example:
 // Import global object
 global $cache;
 
-// Check for existence of item in cache
-if ($cache->has('module.entry.id') {
-   $CachedData = $cache->get('module.entry.id');
-   } else if {
-   // Not in cache, thus generate content
-   $CachedData = expensiveFunction();
-   // And store it in cache so that the next iteration uses cache data
-   $cache->write('module.entry.id', $CachedData, <$customTTL>);
-   }
-   //Run processing of data in $CachedData
-   ...
+// Try to get cache-item
+$cachedItem = $cache->getItem('module.entry.id');
+if (!$cachedItem->isHit()) {
+    // Not in cache, thus generate content
+    $cacheData = expensiveFunction();
+    // Write back to item and cache
+    $cachedItem->set($cacheData,<TTL>);
+    $cache->save($cachedItem);
+    }
+$Data = $cachedItem->get();
+//Run processing of data in $Data
+...
 ```
 
 ### Naming convention
@@ -54,14 +55,14 @@ Further levels below this are possible and left to the discretion of the develop
 ### Race conditions
 
 As the cache provides a single instance across parallel executions, it can happen that multiple threads access an entry at the same or close to the same time.
-This could cause a cache entry to be updated multiple times, because an update already occured between `$cache->has()` and `$cache->write()`
+This could cause a cache entry to be updated multiple times, because an update already occured between `$cache->getItem()` and `$cache->write()`
 This can be a problem on high-load servers on restarts or cache misses, because this could cause a massive ammount of recalculations.
 This would need a better implementation that includes cache mutexes.
 
 ### Cache Item Timeout
 
 Entries have a default Time-To-Live of ten minutes and disappear after that.
-A cache entry could disappear between the check in `$cache->has()` and retrieval if the TTL is breached between these two calls.
+A cache entry could disappear between the check in `$cache->getItem()` and retrieval if the TTL is breached between these two calls.
 This can be influenced by defining a custom TTL when writing the item back.
 
 ### Cached display

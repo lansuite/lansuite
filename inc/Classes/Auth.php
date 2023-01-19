@@ -244,13 +244,19 @@ class Auth
 
             // Not found in cookie table, then check for manual login (either with email, oder userid)
             } else {
-                $user = $db->qry_first(
-                    'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user
-              WHERE ((userid = %int% AND 0 = %int%) OR LOWER(email) = %string%)',
-                    $tmp_login_email,
-                    $is_email,
-                    $tmp_login_email
-                );
+
+                if($is_email)
+                {
+                    $user = $db->qry_first(
+                        'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE email = %string%)',
+                        $tmp_login_email
+                    );
+                }
+                else{
+                    $user = $db->qry_first('SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE userid = %int%',
+                        $tmp_login_email
+                    );
+                }
             }
 
             // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
@@ -331,7 +337,12 @@ class Auth
                 // Set authdata
                 $db->qry(
                     'REPLACE INTO %prefix%stats_auth
-                  SET sessid = %string%, userid = %int%, login = \'1\', ip = %string%, logtime = %string%, logintime = %string%, lasthit = %string%',
+                  SET sessid = %string%, 
+                  userid = %int%, login = \'1\', 
+                  ip = INET6_ATON(%string%), 
+                  logtime = %string%, 
+                  logintime = %string%, 
+                  lasthit = %string%',
                     $this->auth["sessid"],
                     $user["userid"],
                     $this->auth["ip"],
@@ -580,7 +591,11 @@ class Auth
     {
         global $db;
         // Put all User-Data into $auth-Array
-        $user_data = $db->qry_first('SELECT 1 AS found, session.userid, session.login, session.ip, user.*
+        $user_data = $db->qry_first('SELECT 1 AS found, 
+        session.userid, 
+        session.login, 
+        INET6_NTOA(session.ip) AS ip, 
+        user.*
             FROM %prefix%stats_auth AS session
             LEFT JOIN %prefix%user AS user ON user.userid = session.userid
             WHERE session.sessid=%string% ORDER BY session.lasthit', $this->auth["sessid"]);
@@ -609,7 +624,15 @@ class Auth
             // If a session loaded no page for over one hour, this counts as a new visit
             $db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
             // Update user-stats and lasthit, so the timeout is resetted
-            $db->qry('UPDATE %prefix%stats_auth SET lasthit=%int%, hits = hits + 1, ip=%string%, lasthiturl= %string% WHERE sessid=%string%', $this->timestamp, $this->auth["ip"], $_SERVER['REQUEST_URI'], $this->auth["sessid"]);
+            $db->qry('UPDATE %prefix%stats_auth 
+            SET lasthit=%int%, hits = hits + 1, 
+            ip=INET6_ATON(%string%), 
+            lasthiturl= %string% 
+            WHERE sessid=%string%', 
+            $this->timestamp, 
+            $this->auth["ip"], 
+            $_SERVER['REQUEST_URI'], 
+            $this->auth["sessid"]);
         }
 
         // Heartbeat

@@ -2,6 +2,8 @@
 
 namespace LanSuite;
 
+use mysqli;
+
 class DB
 {
     /**
@@ -110,11 +112,13 @@ class DB
         $user = $config['database']['user'];
         $pass = $config['database']['passwd'];
         $database = $config['database']['database'];
+        $port = $config['database']['dbport'] ?? 3306;
         $charset = $config['database']['charset'];
+	    
 
         // Try to connect to the database
         // Suppress error output, because mysqli_connect throws a PHP Warning once it is not able to connect
-        $this->link_id = @mysqli_connect($server, $user, $pass);
+        $this->link_id = @mysqli_connect($server, $user, $pass, $database, $port);
 
         if (!$this->link_id) {
             if ($save) {
@@ -182,8 +186,11 @@ class DB
      * @return mysqli_statement
     */
     private function qry2stmt($query,$args) {
+
+
         //due to the usage of %plain% to drop in parts of the SQL statement it is required to iterate through query and deal with each entry separately
         $query_split = preg_split('((%string%|%int%|%plain%))',$query,-1,PREG_SPLIT_DELIM_CAPTURE);
+
         $query_stmt=''; // prepared statement compatible string
         $query_param=''; //type definition for prepare statement
         $arg_iterator=0; // position in arguments
@@ -208,6 +215,8 @@ class DB
                     $query_stmt .= $query_element;
             }
         }
+
+        $args = array_values($args);
         $stmt = $this->link_id->stmt_init();
         $stmt->prepare($query_stmt);
         $stmt->bind_param($query_param, ...$args); 
@@ -240,7 +249,6 @@ class DB
             }
             $stmt->execute();
             // get full result set as this causes "Commands out of sync; you can't run this command now" error otherwise (See: https://stackoverflow.com/questions/614671/commands-out-of-sync-you-cant-run-this-command-now )
-            $stmt->store_result();
             //MySQL returns false for unsuccessful queries, but also for queries without return values (see https://www.php.net/manual/en/mysqli-stmt.get-result.php)
             //Thus errno has to be evaluated if false
             $rslt = $stmt->get_result();
@@ -381,12 +389,14 @@ class DB
     public function qry_first()
     {
         $this->qry($args = func_get_args());
-
         // For execute querys $this->query_id will not be a resource that needs to be freed.
+
         if ($this->query_id === true) {
             return true;
         }
+
 		if ($this->query_id->num_rows >0) { // only try to fetch something if we got a valid result
+          
 			$row = $this->fetch_array();
 			$this->free_result();
 		} else {
