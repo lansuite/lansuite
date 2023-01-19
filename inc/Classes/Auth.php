@@ -625,8 +625,9 @@ class Auth
             WHERE sessid=%string%', 
             $this->timestamp, 
             $this->auth["ip"], 
-            $_SERVER['REQUEST_URI'], 
+            substr($_SERVER['REQUEST_URI'],0,100)
             $this->auth["sessid"]);
+
         }
 
         // Heartbeat
