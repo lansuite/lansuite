@@ -244,15 +244,13 @@ class Auth
 
             // Not found in cookie table, then check for manual login (either with email, oder userid)
             } else {
-
-                if($is_email)
-                {
+                if ($is_email) {
                     $user = $db->qry_first(
                         'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE email = %string%)',
                         $tmp_login_email
                     );
                 }
-                else{
+                else {
                     $user = $db->qry_first('SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE userid = %int%',
                         $tmp_login_email
                     );
@@ -624,15 +622,16 @@ class Auth
             // If a session loaded no page for over one hour, this counts as a new visit
             $db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
             // Update user-stats and lasthit, so the timeout is resetted
-            $db->qry('UPDATE %prefix%stats_auth 
-            SET lasthit=%int%, hits = hits + 1, 
-            ip=INET6_ATON(%string%), 
-            lasthiturl= %string% 
-            WHERE sessid=%string%', 
-            $this->timestamp, 
-            $this->auth["ip"], 
-            $_SERVER['REQUEST_URI'], 
-            $this->auth["sessid"]);
+            $db->qry('UPDATE %prefix%stats_auth
+            SET lasthit=%int%, hits = hits + 1,
+            ip=INET6_ATON(%string%),
+            lasthiturl= %string%
+            WHERE sessid=%string%',
+            $this->timestamp,
+            $this->auth["ip"],
+            $_SERVER['REQUEST_URI'],
+            $this->auth["sessid"]
+            );
         }
 
         // Heartbeat
