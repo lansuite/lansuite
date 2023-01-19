@@ -249,6 +249,7 @@ class Auth
                         'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE email = %string%)',
                         $tmp_login_email
                     );
+
                 } else {
                     $user = $db->qry_first(
                         'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE userid = %int%',
@@ -623,6 +624,7 @@ class Auth
             $db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
             // Update user-stats and lasthit, so the timeout is resetted
             $db->qry('
+
               UPDATE %prefix%stats_auth 
               SET
                 lasthit=%int%, hits = hits + 1, 
