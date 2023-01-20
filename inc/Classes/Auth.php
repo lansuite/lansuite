@@ -249,9 +249,9 @@ class Auth
                         'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE email = %string%)',
                         $tmp_login_email
                     );
-                }
-                else {
-                    $user = $db->qry_first('SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE userid = %int%',
+                } else {
+                    $user = $db->qry_first(
+                        'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE userid = %int%',
                         $tmp_login_email
                     );
                 }
@@ -622,15 +622,17 @@ class Auth
             // If a session loaded no page for over one hour, this counts as a new visit
             $db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
             // Update user-stats and lasthit, so the timeout is resetted
-            $db->qry('UPDATE %prefix%stats_auth 
-            SET lasthit=%int%, hits = hits + 1, 
-            ip=INET6_ATON(%string%), 
-            lasthiturl= %string% 
-            WHERE sessid=%string%', 
-            $this->timestamp, 
-            $this->auth["ip"], 
-            substr($_SERVER['REQUEST_URI'],0,100)
-            $this->auth["sessid"]);
+            $db->qry(
+                    'UPDATE %prefix%stats_auth
+                    SET lasthit=%int%, hits = hits + 1,
+                    ip=INET6_ATON(%string%),
+                    lasthiturl= %string%
+                    WHERE sessid=%string%',
+                    $this->timestamp,
+                    $this->auth["ip"], 
+                    substr($_SERVER['REQUEST_URI'], 0, 100),
+                    $this->auth["sessid"]
+            );
         }
 
         // Heartbeat
