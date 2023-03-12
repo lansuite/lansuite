@@ -28,7 +28,7 @@ if (extension_loaded('apcu')) {
 
 // Check cache for config, try to load from file otherwise
 $configCache = $cache->getItem('config');
-if (!$configCache->isHit()) {
+if (!$configCache->isHit() || $_GET['mod'] == 'install') {
     // Read Config and Definitionfiles
     // Load Basic Config
     if (file_exists('inc/base/config.php')) {
