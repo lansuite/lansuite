@@ -625,7 +625,7 @@ class Auth
             WHERE sessid=%string%', 
             $this->timestamp, 
             $this->auth["ip"], 
-            substr($_SERVER['REQUEST_URI'],0,100)
+            substr($_SERVER['REQUEST_URI'],0,100),
             $this->auth["sessid"]);
 
         }

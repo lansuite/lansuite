@@ -402,7 +402,7 @@ switch ($_GET["step"]) {
 
         $dsp->NewContent(t('Installation abschließen'), t('Die Installation wurde erfolgreich beendet.'));
 
-        $dsp->AddSingleRow(t('Die Installation ist nun beendet.<br /><br />Mit einem Klick auf <b>Einloggen</b> unterhalb schließest dz die Installation ab und gelangst auf die Adminseite. Dort kannst du weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.<br /><br />Der Modulmanager ermöglicht es dir dort Module zu de-/aktivieren.<br /><br />Über den Link \'Allgemeine Einstellungen\' stehen dir eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
+        $dsp->AddSingleRow(t('Die Installation ist nun beendet.<br /><br />Mit einem Klick auf <b>Einloggen</b> unterhalb schließst du die Installation ab und gelangst auf die Adminseite. Dort kannst du weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.<br /><br />Der Modulmanager ermöglicht es dir dort Module zu de-/aktivieren.<br /><br />Über den Link \'Allgemeine Einstellungen\' stehen dir eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
         if (!$func->admin_exists()) {
             $dsp->AddSingleRow("<font color=red>". t('<b>Es wurde kein Admin-Account angelegt</b><br />Solange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.') ."</font>");
         }
