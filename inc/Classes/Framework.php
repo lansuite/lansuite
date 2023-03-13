@@ -141,6 +141,8 @@ class Framework
         $this->add_js_path('scripts.js');
 
         $this->add_css_path('ext_scripts/jquery-ui/smoothness/jquery-ui.custom.css');
+        $this->add_css_path('vendor/fortawesome/font-awesome/css/fontawesome.min.css');
+        $this->add_css_path('vendor/fortawesome/font-awesome/css/solid.min.css');
         $this->add_css_path('design/style.css');
 
         if ($this->internal_url_query['query']) {

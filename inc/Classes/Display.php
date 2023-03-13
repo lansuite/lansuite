@@ -1225,6 +1225,7 @@ class Display
     {
         global $smarty;
 
+        // overrides
         switch ($picname) {
             case 'next':
                 $picname = 'forward';
@@ -1271,6 +1272,119 @@ class Display
             $ret = $smarty->fetch('design/templates/ls_fetch_icon_submit.htm');
         } else {
             $ret = $smarty->fetch('design/templates/ls_fetch_icon.htm');
+        }
+
+        if ($target) {
+            $target = " target=\"$target\"";
+        }
+
+        if ($link) {
+            $ret = '<a href="'.$link.'"'.$target.'>'. $ret .'</a>';
+        }
+
+        return $ret;
+    }
+
+    /**
+     * @param string $iconName
+     * @param string $link
+     * @param string $hint
+     * @param string $target
+     * @param string $align
+     * @return string
+     * @throws \Exception
+     * @throws \SmartyException
+     */
+    public function FetchFaIcon($iconName, $link = '', $hint = null, $target = null, $align = 'left')
+    {
+        return $this->FetchFaIconOrStackIcon($iconName, null, $link, $hint, $target, $align);
+    }
+
+    /**
+     * Stacked icon with a negative icon on top
+     * @param string $iconName
+     * @param string $link
+     * @param string $hint
+     * @param string $target
+     * @param string $align
+     * @return string
+     * @throws \Exception
+     * @throws \SmartyException
+     */
+    public function FetchFaIconNegate($iconName, $link = '', $hint = null, $target = null, $align = 'left')
+    {
+        return $this->FetchFaIconOrStackIcon($iconName, 'ban', $link, $hint, $target, $align);
+    }
+
+    /**
+     * @param string $iconName
+     * @param string $link
+     * @param string $hint
+     * @param string $target
+     * @param string $align
+     * @return string
+     * @throws \Exception
+     * @throws \SmartyException
+     */
+    private function FetchFaIconOrStackIcon($iconName, $iconName2 = null, $link = '', $hint = null, $target = null, $align = 'left')
+    {
+        global $smarty;
+
+        // map old icon names to new ones
+        switch ($iconName) {
+            case 'next':
+                // $iconName = 'arrow-right';
+                $iconName = 'chevron-right';
+                break;
+            case 'preview':
+                $picname = 'magnifying-glass';
+                break;
+        }
+        $smarty->assign('name', $iconName);
+
+        ($iconName2) && $smarty->assign('name2', $iconName2);
+
+        if ($hint == '') {
+            switch ($iconName) {
+                default:
+                    $hint = '';
+                    break;
+                case 'plus':
+                case 'user-plus':
+                    $hint = t('Hinzufügen');
+                    break;
+                case 'pencil':
+                    $hint = t('Ändern');
+                    break;
+                case 'edit':
+                case 'pen':
+                    $hint = t('Editieren');
+                    break;
+                case 'trash':
+                case 'trash-can':
+                    $hint = t('Löschen');
+                    break;
+                case 'send':
+                    $hint = t('Senden');
+                    break;
+                case 'quote':
+                    $hint = t('Zitieren');
+                    break;
+            }
+        }
+        $smarty->assign('hint', $hint);
+        if ($align == 'right') {
+            // TODO: not implemented yet for fa-icons
+            $smarty->assign('additionalhtml', 'align="right" valign="bottom" vspace="2" ');
+        } else {
+            $smarty->assign('additionalhtml', '');
+        }
+
+        if ($this->form_open) {
+            // TODO: not implemented yet for fa-icons
+            $ret = $smarty->fetch('design/templates/ls_fetch_fa_icon_submit.htm');
+        } else {
+            $ret = $smarty->fetch($iconName2 ? 'design/templates/ls_fetch_fa_icon_stack.htm' : 'design/templates/ls_fetch_fa_icon.htm');
         }
 
         if ($target) {

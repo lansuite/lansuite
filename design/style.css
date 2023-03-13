@@ -586,6 +586,19 @@ div#Footer {
 }
 
 /*
+*   FontAwesome Icons
+*/
+a:not(:last-child) > .fa,
+a:not(:last-child) > .fas,
+a:not(:last-child) > .fa-solid {
+  margin-right: 2px;
+}
+.ls-fa-icon {
+  font-size: 1.1rem;
+}
+
+
+/*
 * Old should not be used anymore
 */
 .content {
