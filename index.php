@@ -133,29 +133,6 @@ $_SERVER['QUERY_STRING'] = $func->NoHTML($_SERVER['QUERY_STRING'], 1);
 // TODO investigate why this is needed
 $__POST = $_POST;
 
-// Emulate MQ, if disabled
-// TODO Remove this get_magic_quotes_gpc function check, once this project had 7.4 as a minimum requirement.
-// See
-// - Setting: https://www.php.net/manual/en/info.configuration.php#ini.magic-quotes-gpc
-// - Function: https://www.php.net/manual/en/function.get-magic-quotes-gpc.php
-if (!function_exists('get_magic_quotes_gpc') || !get_magic_quotes_gpc()) {
-    foreach ($_GET as $key => $val) {
-        if (!is_array($_GET[$key])) {
-            $_GET[$key] = addslashes($_GET[$key]);
-        }
-    }
-    foreach ($_POST as $key => $val) {
-        if (!is_array($_POST[$key])) {
-            $_POST[$key] = addslashes($_POST[$key]);
-        }
-    }
-    foreach ($_COOKIE as $key => $val) {
-        if (!is_array($_COOKIE[$key])) {
-            $_COOKIE[$key] = addslashes($_COOKIE[$key]);
-        }
-    }
-}
-
 // Include and Initialize base classes
 $lang = [];
 
