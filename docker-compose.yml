@@ -2,7 +2,7 @@ version: '3'
 
 services:
     web:
-        image: nginx:latest
+        image: nginx:1.23.4-alpine
         ports:
             - "8080:80"
         volumes:
@@ -16,7 +16,7 @@ services:
             - .:/code
             - ./.docker/nginx-php-flags.conf:/usr/local/etc/php-fpm.d/php-flags.conf
     mysql:
-        image: mysql:5.6
+        image: mysql:5.7.42
         container_name: mysqldb
         platform: linux/amd64
         volumes:
