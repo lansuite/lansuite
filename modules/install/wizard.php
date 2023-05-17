@@ -1,6 +1,6 @@
 <?php
 
-if ($_POST["resetdb"]) {
+if ($request->request->get('resetdb')) {
     $db->success = 0;
 }
 $importXml = new \LanSuite\XML();
@@ -13,7 +13,8 @@ $xml = new \LanSuite\XML();
 $_SESSION['auth']['design'] = 'simple';
 
 // Error-Switch
-switch ($_GET["step"]) {
+$step = $request->query->get('step');
+switch ($step) {
     case 7:
         if ($_POST["email"] == "") {
             $func->error(t('Bitte gib eine E-Mail-Adresse ein!'), "index.php?mod=install&action=wizard&step=6");
@@ -50,12 +51,12 @@ switch ($_GET["step"]) {
     case 8:
         if (!$func->admin_exists()) {
             $func->information(t('Du musst einen Admin-Account anlegen, um fortfahren zu können'));
-            $_GET['step'] = 6;
+            $step = 6;
         }
         break;
 }
 
-switch ($_GET["step"]) {
+switch ($step) {
     // Check Environment
     default:
         $dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration deines Webservers überprüft.<br />Sollte alles korrekt sein, so drücke bitte am Ende der Seite auf <b>Weiter</b> um mit der Eingabe der Grundeinstellungen fortzufahren.'));

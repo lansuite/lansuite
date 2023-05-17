@@ -2,12 +2,16 @@
 
 namespace LanSuite\Module\Stats;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class Stats
 {
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         global $db, $cfg;
+
+        $httpReferer = $request->server->get('HTTP_REFERER');
 
         // Try not to count search engine bots
         // Bad Examples:
@@ -22,7 +26,7 @@ class Stats
             && strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'search') === false
             && strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'google') === false
             && strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'find') === false) {
-            if ($cfg['log_browser_stats']) {
+            if (array_key_exists('log_browser_stats', $cfg) && $cfg['log_browser_stats']) {
                 $db->qry(
                     '
                   INSERT INTO %prefix%stats_browser
@@ -31,7 +35,7 @@ class Stats
                     referrer = %string%,
                     accept_language = %string%',
                     $_SERVER['HTTP_USER_AGENT'],
-                    $_SERVER['HTTP_REFERER'],
+                    $httpReferer,
                     $_SERVER['HTTP_ACCEPT_LANGUAGE']
                 );
             }
@@ -62,19 +66,19 @@ class Stats
 
             // Update search engine data
             $search_engine = '';
-            if (strpos($_SERVER['HTTP_REFERER'], 'ttp://www.google.') > 0) {
+            if (strpos($httpReferer, 'ttp://www.google.') > 0) {
                 $search_engine = 'google';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], '.yahoo.com/search') > 0) {
+            } elseif (strpos($httpReferer, '.yahoo.com/search') > 0) {
                 $search_engine = 'yahoo';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], '.altavista.com') > 0) {
+            } elseif (strpos($httpReferer, '.altavista.com') > 0) {
                 $search_engine = 'altavista';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], 'ttp://search.msn.') > 0) {
+            } elseif (strpos($httpReferer, 'ttp://search.msn.') > 0) {
                 $search_engine = 'msn';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], '.aol.de/suche') > 0) {
+            } elseif (strpos($httpReferer, '.aol.de/suche') > 0) {
                 $search_engine = 'aol_de';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], 'search.aol.com/') > 0) {
+            } elseif (strpos($httpReferer, 'search.aol.com/') > 0) {
                 $search_engine = 'aol_com';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], '.web.de/') > 0) {
+            } elseif (strpos($httpReferer, '.web.de/') > 0) {
                 $search_engine = 'web_de';
             }
 

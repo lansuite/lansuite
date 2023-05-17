@@ -19,6 +19,8 @@ function t()
 {
     global $db, $translation, $func, $translation_no_html_replace;
 
+    $parameters = null;
+
     // Prepare function parameters
     // First argument is the input string, the following are parameters
     $args = func_get_args();

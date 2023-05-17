@@ -35,7 +35,7 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
     }
 }
 
-
+$siteblock = false;
 if ($cfg['sys_blocksite'] == 1 and $auth['type'] < 2 and $_GET['mod'] != 'info2' and $framework->modus != "ajax") {
     $siteblock = true;
 }
