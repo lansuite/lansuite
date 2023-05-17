@@ -285,10 +285,14 @@ class Display
         $smarty->assign('text', $text);
         if ($parm != '') {
             $smarty->assign('align', $parm);
+        } else {
+            $smarty->assign('align', '');
         }
 
         if ($class != '') {
             $smarty->assign('class', 'class="' . $class . '"');
+        } else {
+            $smarty->assign('class', '');
         }
 
         $this->AddContentLine($smarty->fetch('design/templates/ls_row_single.htm'));

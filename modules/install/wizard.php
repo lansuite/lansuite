@@ -94,24 +94,27 @@ switch ($step) {
         $dsp->NewContent(t('Grundeinstellungen'), t('Bitte gib nun die Zugangsdaten zur Datenbank an.'));
         $dsp->SetForm("index.php?mod=install&action=wizard&step=3");
 
+        $databaseHost = '';
+        $databaseUser = '';
+        $databasePrefix = '';
         // Set default settings from Config-File
-        if ($_POST["host"] == "") {
-            $_POST["host"] = $config['database']['server'];
+        if ($request->request->get('host') == "") {
+            $databaseHost = $config['database']['server'];
         }
-        if ($_POST["user"] == "") {
-            $_POST["user"] = $config['database']['user'];
+        if ($request->request->get('user') == "") {
+            $databaseUser = $config['database']['user'];
         }
-        if ($_POST["prefix"] == "") {
-            $_POST["prefix"] = $config['database']['prefix'];
+        if ($request->request->get('prefix') == "") {
+            $databasePrefix = $config['database']['prefix'];
         }
 
         // Database Access
         $dsp->AddSingleRow("<b>". t('Datenbank-Zugangsdaten') ."</b>");
-        $dsp->AddTextFieldRow("host", t('Host (Server-IP)'), $_POST["host"], "");
-        $dsp->AddTextFieldRow("user", t('Benutzername'), $_POST["user"], "");
-        $dsp->AddPasswordRow("pass", t('Kennwort'), $_POST["pass"], "");
-        $dsp->AddTextFieldRow("database", t('Datenbank'), $_POST["database"], "");
-        $dsp->AddTextFieldRow("prefix", t('Tabellen-Prefix'), $_POST["prefix"], "");
+        $dsp->AddTextFieldRow("host", t('Host (Server-IP)'), $databaseHost, "");
+        $dsp->AddTextFieldRow("user", t('Benutzername'), $databaseUser, "");
+        $dsp->AddPasswordRow("pass", t('Kennwort'), $request->request->get('pass'), "");
+        $dsp->AddTextFieldRow("database", t('Datenbank'), $request->request->get('database'), "");
+        $dsp->AddTextFieldRow("prefix", t('Tabellen-Prefix'), $databasePrefix, "");
 
         // Default Designs
         $designPath = 'design' . DIRECTORY_SEPARATOR;
