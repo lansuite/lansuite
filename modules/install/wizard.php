@@ -174,7 +174,7 @@ switch ($step) {
         } else {
             $output .= t('Datei \'config.php\' wurde erfolgreich geschrieben.') .HTML_NEWLINE . HTML_NEWLINE;
 
-            $res = $install->TryCreateDB($_POST["resetdb"]);
+            $res = $install->TryCreateDB($request->request->get('resetdb'));
             switch ($res) {
                 case 0:
                     $output .= $fail_leadin . t('Die Datenbank ist nicht erreichbar. Überprüfe bitte die Angaben zur Datenbankverbindung.') . $leadout;
