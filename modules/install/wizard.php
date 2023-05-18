@@ -332,7 +332,7 @@ switch ($step) {
         // Update modules
         $res = $db->qry("SELECT name, reqphp, reqmysql FROM %prefix%modules WHERE changeable");
         while ($row = $db->fetch_array($res)) {
-            if ($_POST[$row["name"]]) {
+            if ($request->request->get($row["name"])) {
                 if ($row['reqphp'] and version_compare(PHP_VERSION, $row['reqphp']) < 0) {
                     $func->information(t('Das Modul %1 kann nicht aktiviert werden, da die PHP Version %2 benötigt wird', $row["name"], $row['reqphp']), NO_LINK);
                 } else {
