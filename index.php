@@ -340,7 +340,7 @@ function initializeDesign()
         $user_design_change = $cfg['user_design_change'];
     }
     // If user is not allowed to use an own selected design, or none is selected, use default
-    if (!$user_design_change || !$auth['design']) {
+    if (!$user_design_change || (array_key_exists('design', $auth) && !$auth['design'])) {
         $auth['design'] = $config['lansuite']['default_design'];
     }
 
