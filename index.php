@@ -95,6 +95,7 @@ if (isset($_GET['fullscreen'])) {
 
 // Compromise ... design as base and popup should be deprecated
 $design = $request->query->get('design');
+$frmwrkmode = '';
 if ($design == 'base' || $design == 'popup' || $design == 'ajax' || $design == 'print' || $design == 'beamer') {
     $frmwrkmode = $design;
 }
@@ -366,7 +367,12 @@ function initializeDesign()
 initializeDesign();
 
 // Load Rotation Banner
-if ($design != 'popup' && $_GET['action'] != 'wizard' && !$_SESSION['lansuite']['fullscreen'] && $db->success && $func->isModActive('sponsor')) {
+$actionParameter = $request->query->get('action');
+$fullscreenSessionParameter = false;
+if (array_key_exists('lansuite', $_SESSION) && array_key_exists('fullscreen', $_SESSION['lansuite'])) {
+    $fullscreenSessionParameter = $_SESSION['lansuite']['fullscreen'];
+}
+if ($design != 'popup' && $actionParameter != 'wizard' && !$fullscreenSessionParameter && $db->success && $func->isModActive('sponsor')) {
     include_once("modules/sponsor/banner.php");
 }
 

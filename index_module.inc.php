@@ -69,33 +69,39 @@ if (!$missing_fields and !$siteblock) {
             }
 
             //// Load Mod-Config
+            $modParameter = $request->query->get('mod');
+            $actionParameter = $request->query->get('action');
             // 1) Search $_GET['action'] in DB (field "action")
-            $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = %string%)", $_GET['mod'], $_GET['action']);
-            if ($menu['file'] != '') {
+            $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = %string%)", $modParameter, $actionParameter);
+            if ($menu && $menu['file'] != '') {
                 if ($authentication->authorized($menu['requirement'])) {
-                    include_once("modules/{$_GET['mod']}/{$menu['file']}.php");
+                    // TODO Fix security issue
+                    include_once("modules/{$modParameter}/{$menu['file']}.php");
                 }
 
             // 2) Search $_GET['action'] in DB (field "file")
             } else {
-                $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (file = %string%)", $_GET['mod'], $_GET['action']);
-                if ($menu['file'] != '') {
+                $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (file = %string%)", $modParameter, $actionParameter);
+                if ($menu && $menu['file'] != '') {
                     if ($authentication->authorized($menu['requirement'])) {
-                        include_once("modules/{$_GET['mod']}/{$menu['file']}.php");
+                        // TODO Fix security issue
+                        include_once("modules/{$modParameter}/{$menu['file']}.php");
                     }
 
                 // 3) Search file named $_GET['action'] in the Mod-Directory
-                } elseif (file_exists("modules/{$_GET['mod']}/{$_GET['action']}.php")) {
+                } elseif (file_exists("modules/{$modParameter}/{$actionParameter}.php")) {
                     if ($authentication->authorized($menu['requirement'])) {
-                        include_once("modules/{$_GET['mod']}/{$_GET['action']}.php");
+                        // TODO Fix security issue
+                        include_once("modules/{$modParameter}/{$actionParameter}.php");
                     }
 
                 // 4) Search 'default'-Entry in DB
                 } else {
-                    $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = 'default')", $_GET['mod']);
-                    if ($menu['file'] != '') {
+                    $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = 'default')", $modParameter);
+                    if ($menu && $menu['file'] != '') {
                         if ($authentication->authorized($menu['requirement'])) {
-                            include_once("modules/{$_GET['mod']}/{$menu['file']}.php");
+                            // TODO Fix security issue
+                            include_once("modules/{$modParameter}/{$menu['file']}.php");
                         }
 
                     // 4) Error: 'Not Found'

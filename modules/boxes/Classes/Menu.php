@@ -43,7 +43,7 @@ class Menu
      */
     private function FetchItem($item)
     {
-        global $cfg;
+        global $cfg, $request;
 
         $item['caption'] = t($item['caption']);
         $item['hint'] = t($item['hint']);
@@ -68,11 +68,13 @@ class Menu
                 preg_match('/(id=)(\\d{1,4})/', $item['link'], $treffer);
                 $info2_id = $treffer[2];
             }
+
+            $actionParameter = $request->query->get('action');
             if (($item['module'] != 'info2' and $item['module'] == $_GET['mod'] and $item['level']==0)
                 or ($item['module'] == 'info2' and $item['module'] == $_GET['mod'] and $item['level']==0 and $info2_id == $_GET['id'])
                 or ($item['module'] == 'info2' and $_GET['mod'] == 'info2' and $info2_id == $_GET['id'])
                 or ($item['module'] == 'info2' and $_GET['mod'] == 'info2' and $cfg['info2_use_submenus']==1 and $item['level']==0)
-                or ($item['module'] != 'info2' and $item['module'] == $_GET['mod'] and ($item['action'] == $_GET['action']) and $item['level']==1)
+                or ($item['module'] != 'info2' and $item['module'] == $_GET['mod'] and ($item['action'] == $actionParameter) and $item['level']==1)
                ) {
                 $highlighted = 1;
             } else {
