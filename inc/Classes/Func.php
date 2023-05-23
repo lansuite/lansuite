@@ -99,7 +99,7 @@ class Func
         $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
 
         // If the numbers of the two array are not the same, return false, because the cannot belong together
-        if ((is_array($arrStr) || $arrStr instanceof \Countable ? count($arrStr) : 0) !== count($arrPattern)) {
+        if ((is_array($arrStr) || $arrStr instanceof \Countable ? count($arrStr) : 0) !== (is_array($arrPattern) || $arrPattern instanceof \Countable ? count($arrPattern) : 0)) {
             return false;
         }
 
