@@ -22,12 +22,17 @@ return static function (RectorConfig $rectorConfig): void {
 
     // Define sets of rules
     $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_55
+        LevelSetList::UP_TO_PHP_56
     ]);
 
     $rectorConfig->skip([
         // Skipping LongArrayToShortArrayRector, because it transforms long multi-line
         // array to one line arrays. This would destroy readability for now.
         Rector\Php54\Rector\Array_\LongArrayToShortArrayRector::class,
+
+        // Skipping PowToExpRector, because pow is not deprecated or has any disadvantage
+        // over **
+        // See https://www.php.net/manual/en/function.pow.php
+        Rector\Php56\Rector\FuncCall\PowToExpRector::class,
     ]);
 };

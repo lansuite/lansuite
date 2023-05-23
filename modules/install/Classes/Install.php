@@ -80,6 +80,7 @@ class Install
      */
     public function TryCreateDB($createnew = null)
     {
+        $ret_val = null;
         global $config, $db;
 
         if (!$db->connect(1)) {
@@ -620,6 +621,7 @@ class Install
      */
     public function envcheck()
     {
+        $config = [];
         global $db, $dsp, $func;
 
         $continue = 1;
@@ -961,6 +963,7 @@ class Install
      */
     public function getModConfigLine($row, $showLinks = 1)
     {
+        $language = null;
         global $smarty, $db;
 
         $smarty->assign('name', $row['name']);

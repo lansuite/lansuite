@@ -6,6 +6,7 @@
  */
 function GetTheLinesAndChars($file)
 {
+    $data = [];
     $file_content = file($file);
     $data[0] = count($file_content);
     foreach ($file_content as $iValue) {

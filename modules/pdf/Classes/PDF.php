@@ -266,6 +266,7 @@ class PDF
      */
     public function get_data_array($action, $selected = "")
     {
+        $data = [];
         $data[] = [];
         foreach ($this->data_type_array[$action] as $key => $value) {
             if ($key == $selected) {
@@ -467,6 +468,8 @@ class PDF
      */
     private function _makeUserCard($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $pdf_guestid)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -623,6 +626,8 @@ class PDF
      */
     private function _makeSeatCard($block, $order)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -743,6 +748,8 @@ class PDF
      */
     private function _makeUserlist($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $order)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -915,6 +922,8 @@ class PDF
      */
     private function _makeCertificate($pdf_normal, $pdf_user)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');

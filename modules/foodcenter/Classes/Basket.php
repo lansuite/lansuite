@@ -77,6 +77,7 @@ class Basket
      */
     public function show_basket()
     {
+        $fc_theke_delivered = [];
         global $dsp, $cfg, $func;
             
         $dsp->NewContent(t('Warenkorb'), t('Um einen Artikel zu löschen, setze ihn auf 0 und klicken anschließend auf "Neu berechnen".'));

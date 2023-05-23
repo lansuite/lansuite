@@ -61,6 +61,7 @@ class Import
      */
     public function GetImportHeader($tmp_file_name)
     {
+        $import = [];
         $xml_file = fopen($tmp_file_name, "r");
         $this->xml_content = fread($xml_file, filesize($tmp_file_name));
         fclose($xml_file);
@@ -554,6 +555,8 @@ class Import
      */
     public function ImportLanSuite($del_db, $replace, $no_seat, $signon, $comment)
     {
+        $users_to_import = [];
+        $seat_blocks_to_import = [];
         global $db, $party, $cfg;
 
         // Delete User-Table

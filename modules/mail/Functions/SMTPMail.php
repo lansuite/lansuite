@@ -11,6 +11,8 @@
  */
 function SMTPMail($mail_to, $subject, $message, $headers = '')
 {
+    $cc = null;
+    $bcc = null;
     global $board_config;
 
     // Fix any bare linefeeds in the message to make it RFC821 Compliant.
