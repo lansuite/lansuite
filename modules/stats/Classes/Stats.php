@@ -94,7 +94,7 @@ class Stats
                 $url_paras = explode("&", $url_paras[1]);
 
                 foreach ($url_paras as $akt_para) {
-                    list($para_var, $para_val) = explode("=", $akt_para);
+                    [$para_var, $para_val] = explode("=", $akt_para);
 
                     // Search for parameter containing the search term
                     if ($para_var == $query_var[$search_engine]) {

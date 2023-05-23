@@ -43,7 +43,7 @@ class FoodcenterPrint
         $temp_file = fread($handle, filesize($this->path . $_POST['file']));
         fclose($handle);
 
-        list($file, $ext) = explode(".", $_POST['file']);
+        [$file, $ext] = explode(".", $_POST['file']);
         $this->row_file = $file . "_row." . $ext;
 
         if (!file_exists($this->path . $this->row_file)) {

@@ -74,7 +74,7 @@ if ($tteam->SignonCheck($tournamentid)) {
                 $sec->lock("t_join");
             }
 
-            if (count($error) > 0) {
+            if ((is_array($error) || $error instanceof \Countable ? count($error) : 0) > 0) {
                 $_GET['step']--;
             }
             break;

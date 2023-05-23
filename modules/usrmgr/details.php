@@ -302,7 +302,7 @@ if (!$user_data['userid']) {
     $dsp->AddFieldsetEnd();
   
     $plugin = new \LanSuite\Plugin('usrmgr_details_main');
-    while (list($caption, $inc) = $plugin->fetch()) {
+    while ([$caption, $inc] = $plugin->fetch()) {
         $dsp->AddFieldsetStart($caption);
         include_once($inc);
         $dsp->AddFieldsetEnd();
@@ -398,7 +398,7 @@ if (!$user_data['userid']) {
     }
 
     $plugin = new \LanSuite\Plugin('usrmgr_details_tab');
-    while (list($caption, $inc, $icon) = $plugin->fetch()) {
+    while ([$caption, $inc, $icon] = $plugin->fetch()) {
         $dsp->StartTab($caption, $icon);
         include_once($inc);
         $dsp->EndTab();

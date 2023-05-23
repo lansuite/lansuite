@@ -751,11 +751,7 @@ class Auth
             $cookie = $crypt->decrypt($cookie);
         }
 
-        list($this->cookie_data['userid'],
-              $this->cookie_data['uniqekey'],
-              $this->cookie_data['version'],
-              $this->cookie_data['olduserid'],
-              $this->cookie_data['sb_code']) = explode("|", $cookie);
+        [$this->cookie_data['userid'], $this->cookie_data['uniqekey'], $this->cookie_data['version'], $this->cookie_data['olduserid'], $this->cookie_data['sb_code']] = explode("|", $cookie);
     }
 
     /**
