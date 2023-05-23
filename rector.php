@@ -22,6 +22,12 @@ return static function (RectorConfig $rectorConfig): void {
 
     // Define sets of rules
     $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_53,
+        LevelSetList::UP_TO_PHP_54
+    ]);
+
+    $rectorConfig->skip([
+        // Skipping LongArrayToShortArrayRector, because it transforms long multi-line
+        // array to one line arrays. This would destroy readability for now.
+        Rector\Php54\Rector\Array_\LongArrayToShortArrayRector::class,
     ]);
 };
