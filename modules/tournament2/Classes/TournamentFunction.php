@@ -955,7 +955,7 @@ class TournamentFunction
                 if ($cfg["t_default_win"] == 0) {
                     $cfg["t_default_win"] = 2;
                 }
-                if (rand(0, 1) == 1) {
+                if (random_int(0, 1) == 1) {
                     $score1 = $cfg["t_default_win"];
                     $score2 = 0;
                 } else {

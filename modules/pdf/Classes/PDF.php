@@ -1095,7 +1095,7 @@ class PDF
                     break;
 
                 case 'barcode':
-                    $imagename = mt_rand(100000, 999999);
+                    $imagename = random_int(100000, 999999);
                     $this->barcodeSystem->get_image($_SESSION['userid'], static::BARCODE_PATH .$imagename);
                     $image = getimagesize(static::BARCODE_PATH .$imagename . ".png");
                     if (($image[0]/2) > $this->object_width) {
@@ -1170,7 +1170,7 @@ class PDF
                         break;
 
                     case 'barcode':
-                        $imagename = mt_rand(100000, 999999);
+                        $imagename = random_int(100000, 999999);
                         $this->barcodeSystem->get_image($data['userid'], static::BARCODE_PATH . $imagename);
                         $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $iValue['pos_x'] + $this->x, $iValue['pos_y'] + $this->y);
                         $this->barcodeSystem->kill_image(static::BARCODE_PATH . $imagename);
