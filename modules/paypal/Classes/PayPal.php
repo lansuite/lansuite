@@ -10,30 +10,18 @@ use \PayPal\Api\Payer;
 class PayPal
 {
 
-    /**
-     * @var OAuthTokenCredential
-     */
-    private $authTokenCredential;
+    private \PayPal\Auth\OAuthTokenCredential $authTokenCredential;
 
-    /**
-     * @var array
-     */
-    private $config = [];
+    private array $config = [];
 
     /**
      * @var array
      */
     private $items = [];
 
-    /**
-     * @var Payment
-     */
-    private $payment;
+    private ?\PayPal\Api\Payment $payment = null;
 
-    /**
-     * @var ApiContext
-     */
-    private $apiContext;
+    private \PayPal\Rest\ApiContext $apiContext;
     
     public function __construct()
     {

@@ -6,10 +6,7 @@ use LanSuite\XML;
 
 class Install
 {
-    /**
-     * @var Import
-     */
-    private $import;
+    private \LanSuite\Module\Install\Import $import;
 
     public function __construct(Import $import)
     {

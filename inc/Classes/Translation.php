@@ -16,10 +16,8 @@ class Translation
 
     /**
      * Basename of the translation file
-     *
-     * @var string
      */
-    private $transfile_name = 'translation.xml';
+    private string $transfile_name = 'translation.xml';
 
     /**
      * @var array
@@ -49,17 +47,13 @@ class Translation
 
     /**
      * Is cache for module loaded (db)
-     *
-     * @var int
      */
-    private $cachemod_loaded_db = 0;
+    private int $cachemod_loaded_db = 0;
 
     /**
      * Is cache for module loaded (xml)
-     *
-     * @var int
      */
-    private $cachemod_loaded_xml  = 0;
+    private int $cachemod_loaded_xml  = 0;
 
     public function __construct()
     {
@@ -476,7 +470,7 @@ class Translation
 
                 preg_match_all('/([^a-zA-Z0-9]+t\\(\\\')(.*?)(\\\'\\)|\\\'\\,)/', $content, $treffer1, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
                 preg_match_all('/([^a-zA-Z0-9]+t\\(\\")(.*?)(\\"\\)|\\"\\,)/', $content, $treffer2, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
-                $treffer = array_merge($treffer1, $treffer2);
+                $treffer = [...$treffer1, ...$treffer2];
 
                 foreach ($treffer as $wert) {
                     $CurrentPos = $wert[2][1];

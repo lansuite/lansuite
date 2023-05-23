@@ -18,10 +18,7 @@ class Display
      */
     public $form_open = 0;
 
-    /**
-     * @var int
-     */
-    private $formcount = 1;
+    private int $formcount = 1;
 
     /**
      * @var string
@@ -33,30 +30,18 @@ class Display
      */
     public $errortext_suffix = '';
 
-    /**
-     * @var int
-     */
-    private $FirstLine = 1;
+    private int $FirstLine = 1;
 
-    /**
-     * @var int
-     */
-    private $CurrentTab = 0;
+    private int $CurrentTab = 0;
 
     /**
      * @var string
      */
     private $TabsMainContentTmp = '';
 
-    /**
-     * @var array
-     */
-    private $TabNames = [];
+    private array $TabNames = [];
 
-    /**
-     * @var string
-     */
-    private $form_name = '';
+    private string $form_name = '';
 
     public function __construct()
     {

@@ -32,10 +32,8 @@ class Supplier
 
     /**
      * Error container
-     *
-     * @var array
      */
-    private $error = [];
+    private array $error = [];
 
     /**
      * supp constructor.

@@ -42,10 +42,7 @@ class TourneyTree
      */
     private $wb_num_cols;
 
-    /**
-     * @var array
-     */
-    private $wb_tbl = [];
+    private array $wb_tbl = [];
 
     /**
      * @var array
@@ -67,10 +64,7 @@ class TourneyTree
      */
     private $lb_num_cols;
 
-    /**
-     * @var array
-     */
-    private $lb_tbl = [];
+    private array $lb_tbl = [];
 
     /**
      * @var array

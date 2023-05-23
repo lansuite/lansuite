@@ -21,60 +21,33 @@ class MasterSearch2
         'order_by_end' => ''
     ];
 
-    /**
-     * @var array
-     */
-    private $result_field = [];
+    private array $result_field = [];
 
-    /**
-     * @var array
-     */
-    private $search_fields = [];
+    private array $search_fields = [];
 
-    /**
-     * @var array
-     */
-    private $search_dropdown = [];
+    private array $search_dropdown = [];
 
-    /**
-     * @var array
-     */
-    private $icon_field = [];
+    private array $icon_field = [];
 
-    /**
-     * @var array
-     */
-    private $multi_select_action = [];
+    private array $multi_select_action = [];
 
     /**
      * @var array
      */
     public $config = [];
 
-    /**
-     * @var array
-     */
-    private $bgcolors = [];
+    private array $bgcolors = [];
 
-    /**
-     * @var string
-     */
-    private $bgcolor_attr = '';
+    private string $bgcolor_attr = '';
 
-    /**
-     * @var bool
-     */
-    private $orderByFieldFound = false;
+    private bool $orderByFieldFound = false;
 
     /**
      * @var string
      */
     public $NoItemsText = '';
 
-    /**
-     * @var array
-     */
-    private $SQLFieldTypes = [];
+    private array $SQLFieldTypes = [];
 
     /**
      * @var array
@@ -86,15 +59,9 @@ class MasterSearch2
      */
     private $ms_number = 0;
 
-    /**
-     * @var string
-     */
-    private $TargetPageField = '';
+    private string $TargetPageField = '';
 
-    /**
-     * @var int
-     */
-    private $TargetPageCount = 0;
+    private int $TargetPageCount = 0;
 
     /**
      * @var array

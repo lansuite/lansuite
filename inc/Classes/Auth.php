@@ -23,10 +23,8 @@ class Auth
 
     /**
      * Time
-     *
-     * @var int
      */
-    private $timestamp;
+    private int $timestamp;
 
     /**
      * Cookie data
@@ -37,52 +35,38 @@ class Auth
 
     /**
      * Cookie name
-     *
-     * @var string
      */
-    private $cookie_name = 'LSAUTH';
+    private string $cookie_name = 'LSAUTH';
 
     /**
      * Cookie version
-     *
-     * @var string
      */
-    private $cookie_version = '1';
+    private string $cookie_version = '1';
 
     /**
      * Domain
-     *
-     * @var string
      */
-    private $cookie_domain = '';
+    private string $cookie_domain = '';
 
     /**
      * Duration in days
-     *
-     * @var string
      */
-    private $cookie_time = '30';
+    private string $cookie_time = '30';
 
     /**
      * Cookie path
-     *
-     * @var string
      */
-    private $cookie_path = '';
+    private string $cookie_path = '';
 
     /**
      * Crypt Cookie with AzDGCrypt
-     *
-     * @var bool
      */
-    private $cookie_crypt = true;
+    private bool $cookie_crypt = true;
 
     /**
      * Passphrase for AzDGCrypt
-     *
-     * @var string
      */
-    private $cookie_crypt_pw = "iD9ww32e";
+    private string $cookie_crypt_pw = "iD9ww32e";
 
     /**
      * Array containing all users, currently online

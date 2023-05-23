@@ -113,7 +113,7 @@ if ($tteam->SignonCheck($tournamentid)) {
             }
 
             $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $_POST["team_comment"], "", "", "", 1);
-            $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1000000, 1);
+            $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
 
             if ($tournament['wwcl_gameid'] > 0) {
                 $dsp->AddTextFieldRow("wwclid", t('WWCL ID'), $user['wwclid'], "");
