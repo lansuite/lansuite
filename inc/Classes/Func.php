@@ -99,13 +99,13 @@ class Func
         $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
 
         // If the numbers of the two array are not the same, return false, because the cannot belong together
-        if ((is_array($arrStr) || $arrStr instanceof \Countable ? count($arrStr) : 0) !== (is_array($arrPattern) || $arrPattern instanceof \Countable ? count($arrPattern) : 0)) {
+        if ((is_countable($arrStr) ? count($arrStr) : 0) !== (is_countable($arrPattern) ? count($arrPattern) : 0)) {
             return false;
         }
 
         // Creates a new array which has the keys from the $arrPattern array and the values from the $arrStr array
         $arrTime = [];
-        for ($i = 0; $i < (is_array($arrStr) || $arrStr instanceof \Countable ? count($arrStr) : 0); $i++) {
+        for ($i = 0; $i < (is_countable($arrStr) ? count($arrStr) : 0); $i++) {
             $arrTime[$arrPattern[$i]] = $arrStr[$i];
         }
 

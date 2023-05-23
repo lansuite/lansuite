@@ -297,7 +297,7 @@ class TourneyTree
                 $row = $y+1;
 
                 if ($x == 0) {
-                    if (((is_array($this->wb_teams[$x]) || $this->wb_teams[$x] instanceof \Countable ? count($this->wb_teams[$x]) : 0) % 2) == 1) {
+                    if (((is_countable($this->wb_teams[$x]) ? count($this->wb_teams[$x]) : 0) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->wb_tbl);
                         $this->generateBar($x+1, $y-1, $this->wb_tbl);
                     }
@@ -312,7 +312,7 @@ class TourneyTree
                 // $x / 2 is the actual round!
                 // $round-2 is the actual previous round
                 if ($x > 0 && $x < $this->wb_num_cols && ($x % 2) == 0) {
-                    if (((is_array($this->wb_teams[$x/2]) || $this->wb_teams[$x/2] instanceof \Countable ? count($this->wb_teams[$x/2]) : 0) % 2) == 1) {
+                    if (((is_countable($this->wb_teams[$x/2]) ? count($this->wb_teams[$x/2]) : 0) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->wb_tbl);
                         $this->generateBar($x+1, $y-1, $this->wb_tbl);
                     }
@@ -351,11 +351,11 @@ class TourneyTree
 
                 // first round
                 if ($x == 0) {
-                    if (((is_array($this->lb_teams[$x]) || $this->lb_teams[$x] instanceof \Countable ? count($this->lb_teams[$x]) : 0) % 2) == 1) {
+                    if (((is_countable($this->lb_teams[$x]) ? count($this->lb_teams[$x]) : 0) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->lb_tbl);
                         $this->generateBar($x+1, $y-1, $this->lb_tbl);
                     }
-                    if (($row % 2) == 1 && (is_array($this->lb_teams[$x]) || $this->lb_teams[$x] instanceof \Countable ? count($this->lb_teams[$x]) : 0) > 0) {
+                    if (($row % 2) == 1 && (is_countable($this->lb_teams[$x]) ? count($this->lb_teams[$x]) : 0) > 0) {
                         $this->lb_tbl[$x][$y] = array_shift($this->lb_teams[$x]);        // insert team
                         $this->lb_indexes[$round][] = [$x, $y];
                         // we need them for the positions of the following round
@@ -370,14 +370,14 @@ class TourneyTree
 
                 // rounds > 1
                 if ($x > 0 && $x < ($this->lb_num_cols-2) && ($x % 2) == 0) {
-                    if (((is_array($this->lb_teams[$x/2]) || $this->lb_teams[$x/2] instanceof \Countable ? count($this->lb_teams[$x/2]) : 0) % 2) == 1) {
+                    if (((is_countable($this->lb_teams[$x/2]) ? count($this->lb_teams[$x/2]) : 0) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->lb_tbl);
                         $this->generateBar($x+1, $y-1, $this->lb_tbl);
                     }
 
                     $tmp = $this->getPrevCoords($round, $this->lb_indexes);
                     if ($this->calcMW($tmp[0][1], $tmp[1][1]) == $y) {
-                        if ((is_array($this->lb_teams[($x/2)]) || $this->lb_teams[($x/2)] instanceof \Countable ? count($this->lb_teams[($x/2)]) : 0) > 0) {
+                        if ((is_countable($this->lb_teams[($x/2)]) ? count($this->lb_teams[($x/2)]) : 0) > 0) {
                             $this->lb_tbl[$x][$y] = array_shift($this->lb_teams[($x/2)]);
                         }        // insert team
                         array_shift($this->lb_indexes[$round-2]);
@@ -387,7 +387,7 @@ class TourneyTree
                         }
                         $this->lb_indexes[$round][] = [$x, $y];
 
-                        if ((is_array($this->lb_teams[($x/2)]) || $this->lb_teams[($x/2)] instanceof \Countable ? count($this->lb_teams[($x/2)]) : 0) <= 0) {
+                        if ((is_countable($this->lb_teams[($x/2)]) ? count($this->lb_teams[($x/2)]) : 0) <= 0) {
                             $tmp = $this->getPrevCoords($round, $this->lb_indexes, 0);
                             $delta = $tmp[1][1] - $tmp[0][1] ;
                             if ($delta > 0) {
