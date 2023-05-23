@@ -484,13 +484,13 @@ class MasterSearch2
                 } else {
                     $FirstTable = $this->query['from'];
                 }
-        
+
                 $res = $db->qry("DESCRIBE %plain%", $FirstTable);
                 while ($row = $db->fetch_array($res)) {
                     $this->SQLFieldTypes[$row['Field']] = $row['Type'];
                 }
                 $db->free_result($res);
-        
+
                 if ($this->SQLFieldTypes[$this->query['order_by']] == 'datetime'
                     || $this->SQLFieldTypes[$this->query['order_by']] == 'date'
                     || $this->SQLFieldTypes[$this->query['order_by']] == 'time'
@@ -498,7 +498,7 @@ class MasterSearch2
                     $this->query['order_by'] .= ' DESC';
                 }
             }
-      
+
         // Default order by (if non given per URL)
         } elseif ($this->query['default_order_by']) {
             $this->query['order_by'] = $this->query['default_order_by'];

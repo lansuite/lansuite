@@ -106,14 +106,14 @@ class MasterDelete
             if ($func->internal_referer != 'index.php?'.$_SERVER['QUERY_STRING']) {
                 $_SESSION['md_referrer'] = $func->internal_referer;
             }
-            
+
             $refFieldsDelete = '';
             $refFieldsSet0 = '';
             $refFieldsDeny = '';
             $res = $db->qry('SELECT pri_table, pri_key, on_delete FROM %prefix%ref WHERE foreign_table = %string% AND foreign_key = %string%', $table, $idname);
             while ($row = $db->fetch_array($res)) {
                 $row2 = $db->qry_first('SELECT COUNT(*) AS cnt FROM %prefix%%plain% WHERE %plain% = %int%', $row['pri_table'], $row['pri_key'], $id);
-                
+
                 if ($row2['cnt']) {
                     if ($row['on_delete'] == 'ASK_DELETE') {
                         $refFieldsDelete .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
@@ -151,7 +151,7 @@ class MasterDelete
             }
 
             return false;
-        
+
         // Action
         } else {
             $res = $this->DoDelete($table, $idname, $id);
