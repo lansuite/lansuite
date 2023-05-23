@@ -20,7 +20,7 @@ RUN apt-get update \
     # Development extensions
     && pecl install xdebug-3.2.1 \
     && docker-php-ext-enable xdebug \
-    && echo 'xdebug.mode=debug' >> /usr/local/etc/php/php.ini \
+    && echo 'xdebug.mode=debug,develop' >> /usr/local/etc/php/php.ini \
     && echo 'xdebug.discover_client_host=1' >> /usr/local/etc/php/php.ini \
     # Cleanup
     && rm -rf /var/lib/apt/lists/* \
