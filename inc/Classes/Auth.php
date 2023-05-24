@@ -28,10 +28,8 @@ class Auth
 
     /**
      * Cookie data
-     *
-     * @var array
      */
-    private $cookie_data = [];
+    private array $cookie_data = [];
 
     /**
      * Cookie name

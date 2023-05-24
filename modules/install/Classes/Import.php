@@ -4,20 +4,14 @@ namespace LanSuite\Module\Install;
 
 class Import
 {
-    /**
-     * @var string
-     */
-    private $xml_content;
+    private string|bool|null $xml_content = null;
 
     /**
      * @var string
      */
     public $xml_content_lansuite;
 
-    /**
-     * @var array
-     */
-    private $table_state = [];
+    private array $table_state = [];
 
     /**
      * @var array
@@ -44,9 +38,8 @@ class Import
 
     /**
      * @param string $usr_file_name
-     * @return bool|string
      */
-    public function GetUploadFileType($usr_file_name)
+    public function GetUploadFileType($usr_file_name): bool|string
     {
         $file_type = substr($usr_file_name, strrpos($usr_file_name, ".") + 1, strlen($usr_file_name));
         return $file_type;
@@ -169,9 +162,9 @@ class Import
 
                         // Set default value to 0 or '', if NOT NULL and not autoincrement
                         if ($null == 'NOT NULL' and $extra == '') {
-                            if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint' or substr($type, 0, 9) == 'mediumint'
-                            or substr($type, 0, 8) == 'smallint' or substr($type, 0, 6) == 'bigint'
-                            or substr($type, 0, 7) == 'decimal' or substr($type, 0, 5) == 'float' or substr($type, 0, 6) == 'double') {
+                            if (str_starts_with($type, 'int') or str_starts_with($type, 'tinyint') or str_starts_with($type, 'mediumint')
+                            or str_starts_with($type, 'smallint') or str_starts_with($type, 'bigint')
+                            or str_starts_with($type, 'decimal') or str_starts_with($type, 'float') or str_starts_with($type, 'double')) {
                                     $default = 'default '. (int)$default_xml;
                             } elseif ($type == 'timestamp') {
                                 $default = 'default CURRENT_TIMESTAMP';
@@ -217,7 +210,7 @@ class Import
 
                                         // Handle special type changes
                                         // Changing int() to datetime
-                                        if ($type == 'datetime' and substr($db_field["Type"], 0, 3) == 'int') {
+                                        if ($type == 'datetime' and str_starts_with($db_field["Type"], 'int')) {
                                             $db->qry("ALTER TABLE %prefix%$table_name CHANGE %plain% %plain%_lstmp INT", $name, $name);
                                             $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% DATETIME", $table_name, $name);
                                             $db->qry("UPDATE %prefix%%plain% SET %plain% = FROM_UNIXTIME(%plain%_lstmp)", $table_name, $name, $name);

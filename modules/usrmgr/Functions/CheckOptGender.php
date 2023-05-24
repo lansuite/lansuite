@@ -6,7 +6,7 @@
  * @param int $gender   From Inputfield 0=None, 1=Male, 2=Female
  * @return bool|string  Returns Message on error else false
  */
-function check_opt_gender($gender)
+function check_opt_gender($gender): bool|string
 {
     global $cfg;
 

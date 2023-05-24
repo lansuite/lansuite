@@ -14,10 +14,7 @@ class PayPal
 
     private array $config = [];
 
-    /**
-     * @var array
-     */
-    private $items = [];
+    private array $items = [];
 
     private ?\PayPal\Api\Payment $payment = null;
 
@@ -47,7 +44,6 @@ class PayPal
     }
 
     /**
-     * @param PayPalItem $item
      * @return void
      */
     public function addItem(PayPalItem $item)
@@ -76,10 +72,7 @@ class PayPal
         return $items;
     }
 
-    /**
-     * @return float|int
-     */
-    public function calcItemsTotal()
+    public function calcItemsTotal(): float|int
     {
         $total = 0;
         foreach ($this->items as $item) {
@@ -169,7 +162,7 @@ class PayPal
 
                 $approval_link = $this->payment->getApprovalLink();
                 return $approval_link;
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 $func->error(t('Fehler bei der Übermittlung an PayPal'));
             }
         } else {

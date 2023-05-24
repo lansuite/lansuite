@@ -139,9 +139,6 @@ class Email extends Validator
 
     /**
      * Check DNS Records for MX type.
-     *
-     * @param string $host
-     * @return bool
      */
     private function checkMX(string $host): bool
     {
@@ -150,9 +147,6 @@ class Email extends Validator
 
     /**
      * Check if one of MX, A or AAAA DNS RR exists.
-     *
-     * @param string $host
-     * @return bool
      */
     private function checkHost(string $host): bool
     {

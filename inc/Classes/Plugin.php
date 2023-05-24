@@ -47,9 +47,8 @@ class Plugin
      * Get the next (or specific) element
      *
      * @param int $index
-     * @return array|bool
      */
-    public function fetch($index = -1)
+    public function fetch($index = -1): array|bool
     {
         if ($index == -1) {
             $index = (int) $this->currentIndex;

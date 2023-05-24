@@ -27,49 +27,34 @@ class TourneyTree
      */
     private $size;
 
-    /**
-     * @var float|int
-     */
-    private $wb_rounds;
+    private float|int $wb_rounds;
 
-    /**
-     * @var float|int
-     */
-    private $wb_num_rows;
+    private int|float $wb_num_rows;
 
-    /**
-     * @var float|int
-     */
-    private $wb_num_cols;
+    private float|int $wb_num_cols;
 
     private array $wb_tbl = [];
 
-    /**
-     * @var array
-     */
-    private $wb_indexes = [];
+    private array $wb_indexes = [];
 
     /**
      * @var float|int
      */
-    private $lb_rounds;
+    private float|int|null $lb_rounds = null;
 
     /**
      * @var float|int
      */
-    private $lb_num_rows;
+    private int|float|null $lb_num_rows = null;
 
     /**
      * @var float|int
      */
-    private $lb_num_cols;
+    private float|int|null $lb_num_cols = null;
 
     private array $lb_tbl = [];
 
-    /**
-     * @var array
-     */
-    private $lb_indexes = [];
+    private array $lb_indexes = [];
 
     public function __construct($size, $wb_teams, $lb_teams = false)
     {

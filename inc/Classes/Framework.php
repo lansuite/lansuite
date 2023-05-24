@@ -226,18 +226,16 @@ class Framework
 
     /**
      * Check for errors in content and returns Zip-Mode
-     *
-     * @return int|string
      */
-    private function check_optimizer()
+    private function check_optimizer(): int|string
     {
         global $PHPErrors, $db;
 
         if (headers_sent() || connection_aborted() || $PHPErrors || (isset($db) && $db->errorsFound)) {
             return 0;
-        } elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip') !== false) {
+        } elseif (str_contains($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip')) {
             return "x-gzip";
-        } elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip') !== false) {
+        } elseif (str_contains($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip')) {
             return "gzip";
         }
 
