@@ -5,8 +5,9 @@ use LanSuite\Module\Boxes\Menu;
 
 // In LogOff state all boxes are visible (no ability to minimize them)
 if ($auth['login'] == "1") {
+    $boxActionParameter = $request->query->get('box_action');
     // Change state, when Item is clicked
-    if ($_GET['box_action'] == 'change' and $_GET['boxid'] != "") {
+    if ($boxActionParameter == 'change' and $_GET['boxid'] != "") {
         if ($_SESSION['box_'. $_GET['boxid'] .'_active']) {
             unset($_SESSION['box_'. $_GET['boxid'] .'_active']);
         } else {
