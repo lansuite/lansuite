@@ -635,7 +635,7 @@ class Install
         $dsp->AddFieldSetStart("Kritisch - Diese Test müssen alle erfolgreich sein, damit Lansuite funktioniert");
 
         // PHP version
-        $minPHPVersion = '7.0.0';
+        $minPHPVersion = '8.0.0';
         $currentPHPVersion = PHP_VERSION;
         if (version_compare($currentPHPVersion, $minPHPVersion) >= 0) {
             $phpv_check = $ok . $currentPHPVersion;
@@ -658,7 +658,7 @@ class Install
         $dsp->AddDoubleRow("MySQLi-Extension", $mysql_check);
 
         // MySQL Server version
-        $minMysqlVersion = '5.6.3';
+        $minMysqlVersion = '5.7.0';
         $minMariaDBVersion = '10.0';
         $currentMysqlVersion = $db->getServerInfo();
         if (!$currentMysqlVersion) {
