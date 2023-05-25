@@ -56,6 +56,7 @@ $ touch ./inc/base/config.php
 $ # Add the content of the example configuration file below into ./inc/base/config.php
 $ chmod a+rw ./inc/base/config.php
 $ chmod -R a+rwX ./ext_inc/
+$ cp docker/mysql.env.dist docker/mysql.env
 $ docker-compose up
 $ docker-compose run php composer install
 ```

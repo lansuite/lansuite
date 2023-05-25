@@ -66,7 +66,7 @@ if (!$cfg['download_use_ftp']) {
                 sort($FileList);
             }
         }
-          
+
         if ($FileList) {
             foreach ($FileList as $CurFile) {
                 $CreateTime = filectime($BaseDir.'/'.$CurFilePath);
