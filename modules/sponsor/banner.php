@@ -2,7 +2,8 @@
 
 // 62.67.200.4 = Proxy IP of https://sslsites.de/lansuite.orgapage.de
 // @TODO: Rework this!
-if ($_SERVER['HTTPS'] == 'on' || getenv('REMOTE_ADDR') == "62.67.200.4") {
+$httpsServer = $request->server->get('HTTPS');
+if ($httpsServer == 'on' || getenv('REMOTE_ADDR') == "62.67.200.4") {
     $where = "rotation AND ((pic_path != '' AND pic_path != 'http://') OR pic_path_banner != '') AND !ssl_hide_banner";
 } else {
     $where = "rotation AND ((pic_path != '' AND pic_path != 'http://') OR pic_path_banner != '')";
@@ -19,7 +20,7 @@ $banner = $db->qry_first("
 unset($where);
 
 $file_name = '';
-$old_file_name = 'ext_inc/banner/banner_'. substr($banner['pic_path'], strrpos($banner["pic_path"], 'ext_inc/banner/') + 15, strlen($banner['pic_path']));
+$old_file_name = 'ext_inc/banner/banner_'. substr($banner['pic_path_banner'], strrpos($banner["pic_path_banner"], 'ext_inc/banner/') + 15, strlen($banner['pic_path_banner']));
 
 if ($banner['sponsorid']) {
     $db->qry("UPDATE %prefix%sponsor SET views_banner = views_banner + 1 WHERE sponsorid = %int%", $banner['sponsorid']);
