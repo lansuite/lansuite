@@ -57,19 +57,26 @@ if (!$missing_fields and !$siteblock) {
             }
 
         default:
+            $modParameter = $request->query->get('mod');
+
             // If module is deactivated display information message and redirect to home-mod
-            if (!$func->isModActive($_GET['mod'])) {
-                $row = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name = %string%', $_GET['mod']);
+            if ($modParameter && !$func->isModActive($modParameter)) {
+                $row = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name = %string%', $modParameter);
                 if ($row['caption']) {
                     $func->information(t('Das Modul %1 wurde deaktiviert und steht somit nicht zur Verfügung. Du wurdest zur Startseite weitergeleitet', $row['caption']), NO_LINK);
                 } else {
                     $func->information(t('Das Modul %1 existiert nicht. Überprüfe, ob du die Adresse korrekt eingegeben hast. Du wurdest zur Startseite weitergeleitet', $_GET['mod']), NO_LINK);
                 }
-                $_GET['mod'] = 'home';
+
+                $modParameter = 'home';
             }
 
-            //// Load Mod-Config
-            $modParameter = $request->query->get('mod');
+            // If we don't have a module, set home as default
+            if (!$modParameter) {
+                $modParameter = 'home';
+            }
+
+            // Load Mod-Config
             $actionParameter = $request->query->get('action');
             // 1) Search $_GET['action'] in DB (field "action")
             $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = %string%)", $modParameter, $actionParameter);
