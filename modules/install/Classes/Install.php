@@ -80,7 +80,7 @@ class Install
      */
     public function TryCreateDB($createnew = null)
     {
-        global $config, $db;
+        global $config, $db, $request;
 
         if (!$db->connect(1)) {
             // No success connection
@@ -100,7 +100,7 @@ class Install
             }
         } else {
             // If User wants to rewrite all tables, drop databse. It will be created anew in the next step
-            if (!$_GET["quest"] and $createnew and $_GET["step"] == 3) {
+            if (!$request->query->get('quest') && $createnew && $request->query->get('step') == 3) {
                 $this->DeleteAllTables();
             }
             if ($createnew) {
@@ -271,7 +271,7 @@ class Install
                     $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%modules WHERE name = %string%", $module);
 
                     if ($name) {
-                        if (!$mod_found["found"]) {
+                        if (!$mod_found) {
                             $db->qry_first(
                                 "
                               REPLACE INTO %prefix%modules
@@ -386,7 +386,7 @@ class Install
 
                                         // Insert into DB, if not exists
                                         $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
-                                        if (!$found['cfg_key']) {
+                                        if (!$found) {
                                             $db->qry(
                                                 "INSERT INTO %prefix%config SET cfg_key = %string%, cfg_value = %string%, cfg_type = %string%, cfg_group = %string%, cfg_desc = %string%, cfg_module = %string%, cfg_pos = %int%",
                                                 $name,
@@ -433,7 +433,7 @@ class Install
                             $callback = $xml->get_tag_content("callback", $box);
 
                             $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
-                            if ($rewrite or !$mod_found['found']) {
+                            if ($rewrite or !$mod_found) {
                                 $db->qry_first("DELETE FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
                                 $db->qry_first(
                                     "INSERT INTO %prefix%boxes
@@ -556,7 +556,7 @@ class Install
         while ($module = readdir($modules_dir)) {
             if ($func->isModActive($module)) {
                 $menu_found = $db->qry_first("SELECT 1 AS found FROM %prefix%menu WHERE module = %string%", $module);
-                if (!$menu_found["found"]) {
+                if (!$menu_found) {
                     $file = "modules/$module/mod_settings/menu.xml";
                     if (file_exists($file)) {
                         $handle = fopen($file, "r");
