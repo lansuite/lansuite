@@ -182,8 +182,10 @@ class Import
                             } elseif ($type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') {
                                 $default = '';
                             } elseif ($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext') {
+                                // Text fields can't have a default in MySQL
                                 $default = '';
                             } else {
+                                // E.g. fields with type varchar will land here
                                 $default = "default '$default_xml'";
                             }
                         } else {
@@ -353,7 +355,8 @@ class Import
                                 $foreign_table,
                                 $foreign_key_name
                             );
-                            if ($row['on_delete'] != $on_delete) {
+
+                            if (is_array($row) && $row['on_delete'] != $on_delete) {
                                 $db->qry(
                                     '
                                   DELETE FROM %prefix%ref
@@ -369,7 +372,7 @@ class Import
                                 );
                                     $row['found'] = 0;
                             }
-                            if (!$row['found']) {
+                            if (!$row) {
                                 $db->qry(
                                     '
                                   INSERT INTO %prefix%ref
@@ -479,7 +482,8 @@ class Import
                                 if ($value != '') {
                                     $mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
                                 }
-                                if ($field_name == $DBPrimaryKeys[0] and in_array($value, $EntriesFound)) {
+
+                                if (array_key_exists(0, $DBPrimaryKeys) && $field_name == $DBPrimaryKeys[0] && in_array($value, $EntriesFound)) {
                                     $FoundValueInDB = 1;
                                 }
                             }
