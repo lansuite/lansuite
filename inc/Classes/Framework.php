@@ -296,12 +296,14 @@ class Framework
      */
     public function html_out()
     {
-        global $templ, $cfg, $db, $auth, $smarty, $func, $debug;
+        global $templ, $cfg, $db, $auth, $smarty, $func, $debug, $request;
         $compression_mode = $this->check_optimizer();
 
         // Prepare Header
-        if ($_GET['sitereload']) {
+        if ($request->query->get('sitereload')) {
             $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
+        } else {
+            $smarty->assign('main_header_sitereload', '');
         }
 
         // Add special CSS and JS
@@ -317,8 +319,13 @@ class Framework
         $smarty->assign('MainTitle', $this->pageTitle);
         $smarty->assign('MainLogout', '');
         $smarty->assign('MainLogo', '');
-        $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
-        $smarty->assign('MainJS', $templ['index']['control']['js']);
+        if (isset($templ)) {
+            $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
+            $smarty->assign('MainJS', $templ['index']['control']['js']);
+        } else {
+            $smarty->assign('MainBodyJS', '');
+            $smarty->assign('MainJS', '');
+        }
         $smarty->assign('MainContent', $this->main_content);
 
         $EndJS = '';
@@ -371,7 +378,11 @@ ga('send', 'pageview');
 
             default:
                 // Footer
-                $smarty->assign('main_footer_version', $templ['index']['info']['version']);
+                if (isset($templ)) {
+                    $smarty->assign('main_footer_version', $templ['index']['info']['version']);
+                } else {
+                    $smarty->assign('main_footer_version', '');
+                }
                 $smarty->assign('main_footer_date', date('y'));
                 $smarty->assign('main_footer_countquery', $db->count_query);
                 $smarty->assign('main_footer_timer', round($this->out_work(), 2));
@@ -379,6 +390,8 @@ ga('send', 'pageview');
 
                 if ($cfg["sys_footer_impressum"]) {
                     $smarty->assign('main_footer_impressum', $cfg["sys_footer_impressum"]);
+                } else {
+                    $smarty->assign('main_footer_impressum', '');
                 }
 
                 $main_footer_mem_usage = '';
@@ -398,7 +411,11 @@ ga('send', 'pageview');
                 $smarty->assign('Design', $this->design);
 
                 // Unterscheidung fullscreen / Normal
-                if ($_SESSION['lansuite']['fullscreen'] or $this->modus == 'beamer') {
+                $sessionFullScreenSet = false;
+                if (array_key_exists('lansuite', $_SESSION) && array_key_exists('fullscreen', $_SESSION['lansuite'])) {
+                    $sessionFullScreenSet = $_SESSION['lansuite']['fullscreen'];
+                }
+                if ($sessionFullScreenSet or $this->modus == 'beamer') {
                     $smarty->assign('MainContentStyleID', 'ContentFullscreen');
                 } else {
                     $smarty->assign('MainContentStyleID', 'Content');
@@ -409,10 +426,15 @@ ga('send', 'pageview');
                 }
 
                 // Ausgabe Hauptseite
-                if (!$_SESSION['lansuite']['fullscreen'] and !$this->modus == 'beamer') {
+                if (!$sessionFullScreenSet and !$this->modus == 'beamer') {
                     $smarty->assign('MainFrameworkmessages', $this->framework_messages);
-                    $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
-                    $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
+                    if (isset($templ)) {
+                        $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
+                        $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
+                    } else {
+                        $smarty->assign('MainLeftBox', '');
+                        $smarty->assign('MainRightBox', '');
+                    }
                     $smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" border="0" />');
                     if ($auth['type'] >= 2 and isset($debug)) { // and $cfg['sys_showdebug'] (no more, for option now in inc/base/config)
                         $smarty->assign('MainDebug', $debug->show());

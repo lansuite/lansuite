@@ -35,7 +35,7 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
     }
 }
 
-
+$siteblock = false;
 if ($cfg['sys_blocksite'] == 1 and $auth['type'] < 2 and $_GET['mod'] != 'info2' and $framework->modus != "ajax") {
     $siteblock = true;
 }
@@ -57,45 +57,58 @@ if (!$missing_fields and !$siteblock) {
             }
 
         default:
+            $modParameter = $request->query->get('mod');
+
             // If module is deactivated display information message and redirect to home-mod
-            if (!$func->isModActive($_GET['mod'])) {
-                $row = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name = %string%', $_GET['mod']);
+            if ($modParameter && !$func->isModActive($modParameter)) {
+                $row = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name = %string%', $modParameter);
                 if ($row['caption']) {
                     $func->information(t('Das Modul %1 wurde deaktiviert und steht somit nicht zur Verfügung. Du wurdest zur Startseite weitergeleitet', $row['caption']), NO_LINK);
                 } else {
                     $func->information(t('Das Modul %1 existiert nicht. Überprüfe, ob du die Adresse korrekt eingegeben hast. Du wurdest zur Startseite weitergeleitet', $_GET['mod']), NO_LINK);
                 }
-                $_GET['mod'] = 'home';
+
+                $modParameter = 'home';
             }
 
-            //// Load Mod-Config
+            // If we don't have a module, set home as default
+            if (!$modParameter) {
+                $modParameter = 'home';
+            }
+
+            // Load Mod-Config
+            $actionParameter = $request->query->get('action');
             // 1) Search $_GET['action'] in DB (field "action")
-            $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = %string%)", $_GET['mod'], $_GET['action']);
-            if ($menu['file'] != '') {
+            $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = %string%)", $modParameter, $actionParameter);
+            if ($menu && $menu['file'] != '') {
                 if ($authentication->authorized($menu['requirement'])) {
-                    include_once("modules/{$_GET['mod']}/{$menu['file']}.php");
+                    // TODO Fix security issue
+                    include_once("modules/{$modParameter}/{$menu['file']}.php");
                 }
 
             // 2) Search $_GET['action'] in DB (field "file")
             } else {
-                $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (file = %string%)", $_GET['mod'], $_GET['action']);
-                if ($menu['file'] != '') {
+                $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (file = %string%)", $modParameter, $actionParameter);
+                if ($menu && $menu['file'] != '') {
                     if ($authentication->authorized($menu['requirement'])) {
-                        include_once("modules/{$_GET['mod']}/{$menu['file']}.php");
+                        // TODO Fix security issue
+                        include_once("modules/{$modParameter}/{$menu['file']}.php");
                     }
 
                 // 3) Search file named $_GET['action'] in the Mod-Directory
-                } elseif (file_exists("modules/{$_GET['mod']}/{$_GET['action']}.php")) {
+                } elseif (file_exists("modules/{$modParameter}/{$actionParameter}.php")) {
                     if ($authentication->authorized($menu['requirement'])) {
-                        include_once("modules/{$_GET['mod']}/{$_GET['action']}.php");
+                        // TODO Fix security issue
+                        include_once("modules/{$modParameter}/{$actionParameter}.php");
                     }
 
                 // 4) Search 'default'-Entry in DB
                 } else {
-                    $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = 'default')", $_GET['mod']);
-                    if ($menu['file'] != '') {
+                    $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = 'default')", $modParameter);
+                    if ($menu && $menu['file'] != '') {
                         if ($authentication->authorized($menu['requirement'])) {
-                            include_once("modules/{$_GET['mod']}/{$menu['file']}.php");
+                            // TODO Fix security issue
+                            include_once("modules/{$modParameter}/{$menu['file']}.php");
                         }
 
                     // 4) Error: 'Not Found'

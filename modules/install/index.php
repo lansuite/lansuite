@@ -4,7 +4,7 @@ $dsp->NewContent(t('Installation und Administration'), t('Auf diesen Seiten kann
 
 // Scan for DB-Structure SQL-Errors
 $row = $db->qry_first('SELECT 1 AS found FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
-if ($row['found']) {
+if (is_array($row) && $row['found']) {
     $func->information(t('Es wurden SQL-Fehler im Log gefunden, die auf eine nicht aktuelle Struktur der Lansuite-Datenbank hindeuten. Es wird empfohlen die Datenbank zu aktuallisieren.'). '<br><br><a href="index.php?mod=install&action=db">'. t('Datenbank jetzt aktuallisieren') .'</a>', NO_LINK);
 }
 
@@ -44,6 +44,7 @@ if (!$func->admin_exists()) {
             GROUP BY menu.module
             ");
     if ($db->num_rows() > 0) {
+        $mod_list = '';
         while ($row = $db->fetch_array($module_list)) {
             $mod_list .= "{$row["caption"]}, ";
         }
