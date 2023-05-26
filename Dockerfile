@@ -1,5 +1,5 @@
 # Get composer
-FROM composer:2.5.5 as composer
+FROM composer:2.5.7 as composer
 
 FROM php:8.0.28-fpm-bullseye
 
