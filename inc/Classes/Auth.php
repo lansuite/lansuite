@@ -120,6 +120,8 @@ class Auth
             'email' => '',
             'username' => '',
             'userpassword' => '',
+            'group_id' => 0,
+            'design' => 'simple' // TODO Get design from default configuration
         ];
         $this->timestamp = time();
 
