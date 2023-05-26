@@ -39,7 +39,9 @@
 <div id="DateLogout">
   {$smarty.now|date_format:"%d.%m.%Y"}{if $MainLogout} | {$MainLogout}{/if}
 </div>
-<div id="Banner">{$MainBanner}</div>
+{if isset($MainBanner)}
+  <div id="Banner">{$MainBanner}</div>
+{/if}
 {/if}
 
 <div id="{$MainContentStyleID}">
@@ -47,7 +49,9 @@
   {$MainContent}
   <br />
   <div id="Footer">{$Footer}</div>
+  {if isset($MainDebug)}
   {$MainDebug}
+  {/if}
 </div>
 <div id="BoxesLeft">{$MainLeftBox}</div>
 {if !$IsMobileBrowser}<div id="BoxesRight">{$MainRightBox}</div>{/if}

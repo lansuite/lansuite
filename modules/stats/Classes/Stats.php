@@ -2,12 +2,18 @@
 
 namespace LanSuite\Module\Stats;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class Stats
 {
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         global $db, $cfg;
+
+        $httpReferer = $request->server->get('HTTP_REFERER');
+        $httpUserAgent = $request->server->get('HTTP_USER_AGENT');
+        $httpAcceptLanguage = $request->server->get('HTTP_ACCEPT_LANGUAGE');
 
         // Try not to count search engine bots
         // Bad Examples:
@@ -16,13 +22,13 @@ class Stats
         //   Mozilla/5.0 (compatible; Exabot/3.0; +http://www.e...
         //   Mozilla/5.0 (compatible; Googlebot/2.1; +http://ww...
         // see also http://www.user-agents.org/
-        if (!str_contains(strtolower($_SERVER['HTTP_USER_AGENT']), 'bot')
-            && !str_contains(strtolower($_SERVER['HTTP_USER_AGENT']), 'spider')
-            && !str_contains(strtolower($_SERVER['HTTP_USER_AGENT']), 'crawl')
-            && !str_contains(strtolower($_SERVER['HTTP_USER_AGENT']), 'search')
-            && !str_contains(strtolower($_SERVER['HTTP_USER_AGENT']), 'google')
-            && !str_contains(strtolower($_SERVER['HTTP_USER_AGENT']), 'find')) {
-            if ($cfg['log_browser_stats']) {
+        if (!str_contains(strtolower($httpUserAgent), 'bot')
+            && !str_contains(strtolower($httpUserAgent), 'spider')
+            && !str_contains(strtolower($httpUserAgent), 'crawl')
+            && !str_contains(strtolower($httpUserAgent), 'search')
+            && !str_contains(strtolower($httpUserAgent), 'google')
+            && !str_contains(strtolower($httpUserAgent), 'find')) {
+            if (array_key_exists('log_browser_stats', $cfg) && $cfg['log_browser_stats']) {
                 $db->qry(
                     '
                   INSERT INTO %prefix%stats_browser
@@ -30,16 +36,16 @@ class Stats
                     useragent = %string%,
                     referrer = %string%,
                     accept_language = %string%',
-                    $_SERVER['HTTP_USER_AGENT'],
-                    $_SERVER['HTTP_REFERER'],
-                    $_SERVER['HTTP_ACCEPT_LANGUAGE']
+                    $httpUserAgent,
+                    $httpReferer,
+                    $httpAcceptLanguage,
                 );
             }
 
             // Update usage stats
             // Is the user known, or is it a new visit? - After 30min idle this counts as a new visit
             // Existing session -> Only hit
-            if ($_SESSION['last_hit'] > (time() - 60 * 30)) {
+            if (array_key_exists('last_hit', $_SESSION) && $_SESSION['last_hit'] > (time() - 60 * 30)) {
                 $db->qry("
                   INSERT INTO %prefix%stats_usage
                   SET
@@ -62,19 +68,19 @@ class Stats
 
             // Update search engine data
             $search_engine = '';
-            if (strpos($_SERVER['HTTP_REFERER'], 'ttp://www.google.') > 0) {
+            if (strpos($httpReferer, 'ttps://www.google.') > 0) {
                 $search_engine = 'google';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], '.yahoo.com/search') > 0) {
+            } elseif (strpos($httpReferer, '.yahoo.com/search') > 0) {
                 $search_engine = 'yahoo';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], '.altavista.com') > 0) {
+            } elseif (strpos($httpReferer, '.altavista.com') > 0) {
                 $search_engine = 'altavista';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], 'ttp://search.msn.') > 0) {
+            } elseif (strpos($httpReferer, 'ttp://search.msn.') > 0) {
                 $search_engine = 'msn';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], '.aol.de/suche') > 0) {
+            } elseif (strpos($httpReferer, '.aol.de/suche') > 0) {
                 $search_engine = 'aol_de';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], 'search.aol.com/') > 0) {
+            } elseif (strpos($httpReferer, 'search.aol.com/') > 0) {
                 $search_engine = 'aol_com';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], '.web.de/') > 0) {
+            } elseif (strpos($httpReferer, '.web.de/') > 0) {
                 $search_engine = 'web_de';
             }
 
@@ -90,7 +96,7 @@ class Stats
                 );
 
                 // Read URL parameters into an array
-                $url_paras = explode("?", $_SERVER["HTTP_REFERER"]); // URL part behind ? -> $url_paras[1]
+                $url_paras = explode("?", httpReferer); // URL part behind ? -> $url_paras[1]
                 $url_paras = explode("&", $url_paras[1]);
 
                 foreach ($url_paras as $akt_para) {

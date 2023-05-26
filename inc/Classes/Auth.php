@@ -138,7 +138,7 @@ class Auth
         $oneHour = 60 * 60;
         $thirtyDays = 60 * 60 * 24 * 30;
         $row = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
-        if ($row['found']) {
+        if ($row) {
             $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
             $db->qry_first('OPTIMIZE TABLE %prefix%stats_auth');
 
@@ -146,7 +146,7 @@ class Auth
             // (TODO: Maybe make this time a config option)
             // (TODO: Maybe differ time for admins and non-admins)
             $row = $db->qry_first('SELECT 1 AS found FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
-            if ($row['found']) {
+            if ($row) {
                 $db->qry_first('DELETE FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
                 $db->qry_first('OPTIMIZE TABLE %prefix%cookie');
             }
@@ -218,7 +218,7 @@ class Auth
 
             // Search in cookie table for id + pw
             $cookierow = $db->qry_first('SELECT userid from %prefix%cookie WHERE cookieid = %int% AND password = %string%', $tmp_login_email, $tmp_login_pass);
-            if ($cookierow['userid']) {
+            if ($cookierow) {
                 $user = $db->qry_first(
                     'SELECT *, 1 AS found FROM %prefix%user WHERE (userid = %int%)',
                     $cookierow['userid']
@@ -247,7 +247,7 @@ class Auth
                GROUP BY userid', $user['userid']);
 
             // Too many login trys?
-            if ($row['anz'] >= 5) {
+            if (is_array($row) && $row['anz'] >= 5) {
                 $func->information(t('Du hast in der letzten Minute bereits 5 mal dein Passwort falsch eingegeben. Bitte warte einen Moment, bevor du es erneut versuchen darfst'), '', 1);
 
             // Email not found?
@@ -301,7 +301,7 @@ class Auth
                 $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate, lastlogin = NOW() WHERE userid = %int%', $user['userid']);
 
                 // If not logged in by cookie, generete new cookie and store it
-                if (!$cookierow['userid']) {
+                if (!$cookierow) {
                     $this->set_cookie_pw($user['userid']);
                 }
 
