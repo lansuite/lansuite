@@ -4,6 +4,9 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Cache;
+use Symfony\Component\HttpFoundation\Request;
+
+$request = Request::createFromGlobals();
 
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise
@@ -28,7 +31,7 @@ if (extension_loaded('apcu')) {
 
 // Check cache for config, try to load from file otherwise
 $configCache = $cache->getItem('config');
-if (!$configCache->isHit() || $_GET['mod'] == 'install') {
+if (!$configCache->isHit() || $request->query->get('mod') == 'install') {
     // Read Config and Definitionfiles
     // Load Basic Config
     if (file_exists('inc/base/config.php')) {
@@ -56,11 +59,21 @@ if (!$configCache->isHit() || $_GET['mod'] == 'install') {
 }
 $config = $configCache->get();
 
+if (!isset($config['environment'])) {
+    $config['environment']['configured'] = 0;
+}
+
 // If the debug mode is disabled, we launch the original error handler.
 // The original error handler shows PHP Warnings in a typical red box
 if (!$config['lansuite']['debugmode']) {
     $PHPErrorsFound = 0;
-    set_error_handler("myErrorHandler");
+
+    // We only can set the error handler, once the system is set up.
+    // The error handler writes into the database. If the environment is
+    // not set up yet, we don't have the respective database tables.
+    if ($config['environment']['configured']) {
+        set_error_handler("myErrorHandler");
+    }
 
 // If the debug mode is enabled, we register the Symonfy/Debug component.
 // This component shows the error in a nice stack trace.
@@ -81,8 +94,10 @@ if (isset($_GET['fullscreen'])) {
 }
 
 // Compromise ... design as base and popup should be deprecated
-if (isset($_GET['design']) && ($_GET['design'] == 'base' || $_GET['design'] == 'popup' || $_GET['design'] == 'ajax' || $_GET['design'] == 'print' || $_GET['design'] == 'beamer')) {
-    $frmwrkmode = $_GET['design'];
+$design = $request->query->get('design');
+$frmwrkmode = '';
+if ($design == 'base' || $design == 'popup' || $design == 'ajax' || $design == 'print' || $design == 'beamer') {
+    $frmwrkmode = $design;
 }
 // Set Popupmode via GET (base, popup)
 if (isset($_GET['frmwrkmode']) && $_GET['frmwrkmode']) {
@@ -214,9 +229,18 @@ if ($config['environment']['configured'] == 0) {
     $db->connect(1);
     $IsAboutToInstall = 1;
 
-    // Force Adminrights for installing User
+    // Force Admin rights for installing User
     $auth["type"] = 3;
     $auth["login"] = 1;
+    $auth['userid'] = 0;
+
+    // At this point in time, we are in the installation mode and the global
+    // configuration $cfg does not exist yet, but it is accessed through the codebase already.
+    // Lets load the default XML configuration from the installation module.
+    $installConfigFile = 'modules/install/mod_settings/config.xml';
+    $configLoader = new \LanSuite\Configuration();
+    $configLoader->loadConfigurationFromXML($installConfigFile, 'install');
+    $cfg = $configLoader->getConfigurationAsArray();
 
     // Load DB-Data after installwizard step 3
     if ($_GET["action"] == "wizard" && isset($_GET["step"]) && $_GET["step"] > 3) {
@@ -277,7 +301,8 @@ if ($func->isModActive('party')) {
     $party = new class {
         public $party_id;
     };
-    $party->party_id = (int) $cfg['signon_partyid'];
+    // Just a random high number
+    $party->party_id = (int) ($cfg['signon_partyid'] ?? 1683925);
 }
 
 if ($config['environment']['configured'] != 0) {
@@ -307,23 +332,29 @@ if ($config['environment']['configured'] != 0) {
  */
 function initializeDesign()
 {
-    global $cfg, $auth, $config, $_SESSION, $_GET, $smarty;
+    global $cfg, $auth, $config, $_SESSION, $_GET, $smarty, $request;
 
+    $design = $request->query->get('design');
+
+    $user_design_change = false;
+    if (array_key_exists('user_design_change', $cfg)) {
+        $user_design_change = $cfg['user_design_change'];
+    }
     // If user is not allowed to use an own selected design, or none is selected, use default
-    if (!$cfg['user_design_change'] || !$auth['design']) {
+    if (!$user_design_change || (array_key_exists('design', $auth) && !$auth['design'])) {
         $auth['design'] = $config['lansuite']['default_design'];
     }
 
     // Design switch by URL
-    if (isset($_GET['design']) && $_GET['design'] != 'popup' && $_GET['design'] != 'base') {
-        $auth['design'] = $_GET['design'];
+    if ($design != 'popup' && $design != 'base') {
+        $auth['design'] = $design;
     }
 
     // Fallback design is 'simple'
     if (!$auth['design'] || !file_exists('design/' . $auth['design'] . '/templates/main.htm')) {
         $auth['design'] = 'simple';
         if (!isset($_GET['design']) || ($_GET['design'] != 'popup' && $_GET['design'] != 'base')) {
-            $_GET['design'] = 'simple';
+            $design = 'simple';
         }
     }
 
@@ -336,12 +367,17 @@ function initializeDesign()
 initializeDesign();
 
 // Load Rotation Banner
-if ($_GET['design'] != 'popup' && $_GET['action'] != 'wizard' && !$_SESSION['lansuite']['fullscreen'] && $db->success && $func->isModActive('sponsor')) {
+$actionParameter = $request->query->get('action');
+$fullscreenSessionParameter = false;
+if (array_key_exists('lansuite', $_SESSION) && array_key_exists('fullscreen', $_SESSION['lansuite'])) {
+    $fullscreenSessionParameter = $_SESSION['lansuite']['fullscreen'];
+}
+if ($design != 'popup' && $actionParameter != 'wizard' && !$fullscreenSessionParameter && $db->success && $func->isModActive('sponsor')) {
     include_once("modules/sponsor/banner.php");
 }
 
 // Create Boxes / load Boxmanager
-if (!$IsAboutToInstall && $_GET['design'] != 'base') {
+if (!$IsAboutToInstall && $design != 'base') {
     include_once("modules/boxes/boxes.php");
 }
 
@@ -363,7 +399,9 @@ if ($PHPErrors) {
 $PHPErrors = '';
 
 // Add old Frameworkmessages (should be deprecated)
-$framework->add_content($FrameworkMessages);
+if (isset($FrameworkMessages)) {
+    $framework->add_content($FrameworkMessages);
+}
 // Add old MainContent-Variable (should be deprecated)
 $framework->add_content($MainContent);
 
@@ -384,7 +422,7 @@ unset($dsp);
 // Statistics will be updated only at scriptend, so pagesize and loadtime can be inserted
 if ($db->success) {
     // Statistic Functions (for generating server- and usage-statistics)
-    $stats = new LanSuite\Module\Stats\Stats();
+    $stats = new LanSuite\Module\Stats\Stats($request);
     unset($stats);
 
     // Check Cronjobs
