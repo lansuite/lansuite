@@ -6,6 +6,7 @@
  */
 function GetBoardRank($posts)
 {
+    $rank = null;
     global $cfg;
 
     $lines = explode("\n", $cfg['board_rank']);

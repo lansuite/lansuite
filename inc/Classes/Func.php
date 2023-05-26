@@ -140,6 +140,8 @@ class Func
      */
     public function unixstamp2date($func_timestamp, $func_art)
     {
+        $day = [];
+        $func_date = null;
         if ((int)$func_timestamp == 0) {
             return '---';
         } else {
@@ -717,6 +719,7 @@ class Func
      */
     public function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name)
     {
+        $orderby = null;
         // $current_page is passed as an string, because the source is a GET parameter
         // it seems that it can contain a string 'all' or a number.
         // In this function we add numbers to $current_page which
@@ -1120,6 +1123,9 @@ class Func
      */
     public function CreateSignonBar($guests, $paid_guests, $max_guests)
     {
+        $curuser = null;
+        $gesamtpaid = null;
+        $bar = null;
         $max_bars = 100;
 
         // Calculate signed up guests

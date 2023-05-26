@@ -8,6 +8,7 @@
  */
 function ServerParse($socket, $response, $line = __LINE__)
 {
+    $server_response = null;
     while (substr($server_response, 3, 1) != ' ') {
         if (!($server_response = fgets($socket, 256))) {
             echo("Couldn't get mail server response codes ". HTML_NEWLINE);

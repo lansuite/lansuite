@@ -475,6 +475,8 @@ class TournamentFunction
      */
     private function GenerateNewPosition($player1, $player2)
     {
+        $team_round = [];
+        $team_pos = [];
         global $db, $round, $pos, $score, $tournamentid, $leaderid, $num_rounds, $team_anz;
 
         $team_round[$player1] = $round;
@@ -669,6 +671,7 @@ class TournamentFunction
      */
     public function SubmitResult($ttid, $gameid1, $gameid2, $score1, $score2, $comment)
     {
+        $unfinished_games = [];
         global $db, $func, $tournamentid, $round, $pos, $score, $leaderid, $num_rounds, $team_anz;
         $tournamentid = $ttid;
         $score[1] = $score1;

@@ -398,6 +398,10 @@ class MasterForm
      */
     public function SendForm($BaseURL, $table, $idname = '', $id = 0)
     {
+        $SQLFieldTypes = [];
+        $SQLFieldUnique = [];
+        $field = [];
+        $addUpdSuccess = null;
         global $dsp, $db, $config, $func, $sec, $framework, $__POST, $smarty, $cfg;
 
         // In freeze-mode there are no changes to the database allowed
