@@ -751,11 +751,7 @@ class Auth
             $cookie = $crypt->decrypt($cookie);
         }
 
-        list($this->cookie_data['userid'],
-              $this->cookie_data['uniqekey'],
-              $this->cookie_data['version'],
-              $this->cookie_data['olduserid'],
-              $this->cookie_data['sb_code']) = explode("|", $cookie);
+        [$this->cookie_data['userid'], $this->cookie_data['uniqekey'], $this->cookie_data['version'], $this->cookie_data['olduserid'], $this->cookie_data['sb_code']] = explode("|", $cookie);
     }
 
     /**
@@ -769,7 +765,7 @@ class Auth
         $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
         $key = '';
         for ($i = 0; $i < $count; $i++) {
-            $key .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+            $key .= substr($possible, random_int(0, strlen($possible) - 1), 1);
         }
         return $key;
     }

@@ -12,7 +12,7 @@ switch ($_GET['step']) {
         break;
 
     case 3:
-        $password = rand(1000, 9999);
+        $password = random_int(1000, 9999);
         $md5_password = md5($password);
 
         if ($_SESSION["auth"]["type"] < $userdata["type"]) {

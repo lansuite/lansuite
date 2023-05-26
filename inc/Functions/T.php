@@ -17,6 +17,7 @@ $translation_no_html_replace = false;
  */
 function t()
 {
+    $parameters = [];
     global $db, $translation, $func, $translation_no_html_replace;
 
     $parameters = null;

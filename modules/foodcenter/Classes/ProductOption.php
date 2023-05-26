@@ -202,7 +202,7 @@ class ProductOption
             $this->error['price'] .= t('Bitte geben sie eine einheit an (Stk./dl/kg)');
         }
 
-        if (!is_numeric($this->price) || $this->price == "") {
+        if (!is_numeric($this->price) || $this->price == 0) {
             if ($this->error['price'] != "") {
                 $this->error['price'] .= HTML_NEWLINE;
             }

@@ -13,7 +13,7 @@ if (!$cfg['sys_internet']) {
             } elseif ($user_data['username']) {
                 $fcode = '';
                 for ($x = 0; $x <= 24; $x++) {
-                    $fcode .= chr(mt_rand(65, 90));
+                    $fcode .= chr(random_int(65, 90));
                 }
 
                 $db->qry("UPDATE %prefix%user SET fcode='$fcode' WHERE email = %string%", $_POST['pwr_mail']);
@@ -55,7 +55,7 @@ if (!$cfg['sys_internet']) {
             if (($user_data['fcode']) && ($_GET['fcode'] != '')) {
                 $new_pwd = "";
                 for ($x = 0; $x <= 8; $x++) {
-                    $new_pwd .= chr(mt_rand(65, 90));
+                    $new_pwd .= chr(random_int(65, 90));
                 }
 
                 $db->qry("UPDATE %prefix%user SET password = %string%, fcode = '' WHERE fcode = %string%", md5($new_pwd), $_GET['fcode']);

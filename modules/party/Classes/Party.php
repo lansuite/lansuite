@@ -106,6 +106,7 @@ class Party
      */
     public function get_party_dropdown_form($show_old = 0, $link = '')
     {
+        $list_array = [];
         global $dsp, $db, $func;
 
         if ($link == '') {
@@ -254,6 +255,7 @@ class Party
      */
     public function delete_user_from_party($user_id)
     {
+        $checkin = null;
         global $db, $cfg;
 
         $timestamp = time();
@@ -279,6 +281,7 @@ class Party
      */
     public function get_user_group_dropdown($group_id = "NULL", $nogroub = 0, $select_id = 0, $javascript = false)
     {
+        $data = [];
         global $db, $dsp;
 
         if ($group_id == "NULL") {
@@ -394,6 +397,8 @@ class Party
     */
     public function getGuestQty($party_id = NULL)
     {
+        $cfg = [];
+        $db = null;
         global $cache;
         
         if (empty($party_id)) {

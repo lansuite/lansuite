@@ -61,6 +61,7 @@ class Import
      */
     public function GetImportHeader($tmp_file_name)
     {
+        $import = [];
         $xml_file = fopen($tmp_file_name, "r");
         $this->xml_content = fread($xml_file, filesize($tmp_file_name));
         fclose($xml_file);
@@ -346,7 +347,7 @@ class Import
                 
                         // Foreign Key references
                         if ($foreign_key) {
-                            list($foreign_table, $foreign_key_name) = explode('.', $foreign_key, 2);
+                            [$foreign_table, $foreign_key_name] = explode('.', $foreign_key, 2);
                             $row = $db->qry_first(
                                 'SELECT 1 AS found, on_delete FROM %prefix%ref WHERE
               pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
@@ -391,7 +392,7 @@ class Import
                             }
                         }
                         if ($reference) {
-                            list($reference_table, $reference_key) = explode('.', $reference, 2);
+                            [$reference_table, $reference_key] = explode('.', $reference, 2);
 
                             $row = $db->qry_first(
                                 '
@@ -558,6 +559,8 @@ class Import
      */
     public function ImportLanSuite($del_db, $replace, $no_seat, $signon, $comment)
     {
+        $users_to_import = [];
+        $seat_blocks_to_import = [];
         global $db, $party, $cfg;
 
         // Delete User-Table

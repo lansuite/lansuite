@@ -386,6 +386,7 @@ class Product
      */
     public function form_add_product($step)
     {
+        $add_product_prod_opt = [];
         global $dsp, $smarty;
 
         $nextstep = $step + 1;

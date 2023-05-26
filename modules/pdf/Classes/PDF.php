@@ -14,7 +14,7 @@ class PDF
     /**
      * Storage of barcodes
      */
-    const BARCODE_PATH ='ext_inc/barcodes/';
+    public const BARCODE_PATH ='ext_inc/barcodes/';
 
     /**
      * Data array
@@ -266,6 +266,7 @@ class PDF
      */
     public function get_data_array($action, $selected = "")
     {
+        $data = [];
         $data[] = [];
         foreach ($this->data_type_array[$action] as $key => $value) {
             if ($key == $selected) {
@@ -467,6 +468,8 @@ class PDF
      */
     private function _makeUserCard($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $pdf_guestid)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -623,6 +626,8 @@ class PDF
      */
     private function _makeSeatCard($block, $order)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -743,6 +748,8 @@ class PDF
      */
     private function _makeUserlist($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $order)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -915,6 +922,8 @@ class PDF
      */
     private function _makeCertificate($pdf_normal, $pdf_user)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -1086,7 +1095,7 @@ class PDF
                     break;
 
                 case 'barcode':
-                    $imagename = mt_rand(100000, 999999);
+                    $imagename = random_int(100000, 999999);
                     $this->barcodeSystem->get_image($_SESSION['userid'], static::BARCODE_PATH .$imagename);
                     $image = getimagesize(static::BARCODE_PATH .$imagename . ".png");
                     if (($image[0]/2) > $this->object_width) {
@@ -1161,7 +1170,7 @@ class PDF
                         break;
 
                     case 'barcode':
-                        $imagename = mt_rand(100000, 999999);
+                        $imagename = random_int(100000, 999999);
                         $this->barcodeSystem->get_image($data['userid'], static::BARCODE_PATH . $imagename);
                         $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $iValue['pos_x'] + $this->x, $iValue['pos_y'] + $this->y);
                         $this->barcodeSystem->kill_image(static::BARCODE_PATH . $imagename);

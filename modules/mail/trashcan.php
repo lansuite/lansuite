@@ -60,7 +60,7 @@ $ms2->AddResultField(t('Gesendet'), 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2
 $ms2->AddResultField(t('Gelesen'), 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate', '', 60);
 
 $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=trash&mailID=', t('Details'));
-$ms2->AddIconField('delete', 'index.php?mod=mail&action=trashcan&step=20&mailid=', t('Entgültig löschen'), '', 10);
+$ms2->AddIconField('delete', 'index.php?mod=mail&action=trashcan&step=20&mailid=', t('Entgültig löschen'), '');
 
 $ms2->AddMultiSelectAction(t('Entgültig löschen'), 'index.php?mod=mail&action=trashcan&step=20', 1, 'delete');
 

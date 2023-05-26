@@ -4,40 +4,40 @@ namespace LanSuite;
 
 class MasterForm
 {
+    //@TODO: Check and properly set accessiblity for all of these
+    public const FIELD_OPTIONAL = 1;
 
-    const FIELD_OPTIONAL = 1;
+    public const HTML_ALLOWED = 1;
 
-    const HTML_ALLOWED = 1;
+    public const LSCODE_ALLOWED = 1;
 
-    const LSCODE_ALLOWED = 1;
+    public const HTML_WYSIWYG = 2;
 
-    const HTML_WYSIWYG = 2;
+    public const LSCODE_BIG = 3;
 
-    const LSCODE_BIG = 3;
+    public const IS_PASSWORD = 1;
 
-    const IS_PASSWORD = 1;
+    public const IS_NEW_PASSWORD = 2;
 
-    const IS_NEW_PASSWORD = 2;
+    public const IS_SELECTION = 3;
 
-    const IS_SELECTION = 3;
+    public const IS_MULTI_SELECTION = 4;
 
-    const IS_MULTI_SELECTION = 4;
+    public const IS_FILE_UPLOAD = 5;
 
-    const IS_FILE_UPLOAD = 5;
+    public const IS_PICTURE_SELECT = 6;
 
-    const IS_PICTURE_SELECT = 6;
+    public const IS_TEXT_MESSAGE = 7;
 
-    const IS_TEXT_MESSAGE = 7;
+    public const IS_CAPTCHA = 8;
 
-    const IS_CAPTCHA = 8;
+    public const IS_NOT_CHANGEABLE = 9;
 
-    const IS_NOT_CHANGEABLE = 9;
+    public const IS_CALLBACK = 10;
 
-    const IS_CALLBACK = 10;
+    public const CHECK_ERROR_PROC = 1;
 
-    const CHECK_ERROR_PROC = 1;
-
-    const OUTPUT_PROC = 2;
+    public const OUTPUT_PROC = 2;
 
     /**
      * @var array
@@ -398,6 +398,10 @@ class MasterForm
      */
     public function SendForm($BaseURL, $table, $idname = '', $id = 0)
     {
+        $SQLFieldTypes = [];
+        $SQLFieldUnique = [];
+        $field = [];
+        $addUpdSuccess = null;
         global $dsp, $db, $config, $func, $sec, $framework, $__POST, $smarty, $cfg;
 
         // In freeze-mode there are no changes to the database allowed
@@ -695,7 +699,7 @@ class MasterForm
 
                     $this->DependOnStarted = $this->NumFields;
                     $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_$InsContName', this.checked)\"";
-                    list($text1, $text2) = explode('|', $this->AddInsertControllField);
+                    [$text1, $text2] = explode('|', $this->AddInsertControllField);
                     $dsp->AddCheckBoxRow($InsContName, $text1, $text2, '', $field['optional'], $_POST[$InsContName], '', '', $additionalHTML);
                     $dsp->StartHiddenBox('box_'.$InsContName, $_POST[$InsContName]);
                 }
@@ -791,7 +795,7 @@ class MasterForm
                                                 if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) {
                                                     $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_{$field['name']}', this.checked)\"";
                                                 }
-                                                list($field['caption1'], $field['caption2']) = explode('|', $field['caption']);
+                                                [$field['caption1'], $field['caption2']] = explode('|', $field['caption']);
                                                 if (!$_POST[$field['name']]) {
                                                       unset($_POST[$field['name']]);
                                                 }
@@ -801,9 +805,9 @@ class MasterForm
                                             // Date-Select
                                             case 'datetime':
                                                 $values = array();
-                                                list($date, $time) = explode(' ', $_POST[$field['name']]);
-                                                list($values['year'], $values['month'], $values['day']) = explode('-', $date);
-                                                list($values['hour'], $values['min'], $values['sec']) = explode(':', $time);
+                                                [$date, $time] = explode(' ', $_POST[$field['name']]);
+                                                [$values['year'], $values['month'], $values['day']] = explode('-', $date);
+                                                [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
 
                                                 if ($values['year'] == '') {
                                                     $values['year'] = "0000";
@@ -836,9 +840,9 @@ class MasterForm
                                             // Date-Select
                                             case 'date':
                                                 $values = array();
-                                                list($date, $time) = explode(' ', $_POST[$field['name']]);
-                                                list($values['year'], $values['month'], $values['day']) = explode('-', $date);
-                                                list($values['hour'], $values['min'], $values['sec']) = explode(':', $time);
+                                                [$date, $time] = explode(' ', $_POST[$field['name']]);
+                                                [$values['year'], $values['month'], $values['day']] = explode('-', $date);
+                                                [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
 
                                                 if ($values['year'] == '') {
                                                     $values['year'] = "0000";
