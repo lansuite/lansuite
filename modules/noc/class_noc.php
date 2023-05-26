@@ -24,7 +24,6 @@ class noc
 {
     public function MACtoIP($SearchMAC, $IP, $ReadCommunity)
     {
-        $IP = null;
         $walk = snmprealwalk($IP, $ReadCommunity, ".1.3.6.1.2.1.3.1.1.2");
 
         if ($walk) {
