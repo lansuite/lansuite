@@ -65,8 +65,8 @@ switch ($step) {
         }
 
         if (!isset($_SESSION["zahl"])) {
-            srand(date('U'));
-            $_SESSION["zahl"] = rand(1, 1000);
+            mt_srand(date('U'));
+            $_SESSION["zahl"] = random_int(1, 1000);
             $_POST['eingabe'] = "0";
         }
 

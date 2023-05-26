@@ -769,7 +769,7 @@ class Auth
         $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
         $key = '';
         for ($i = 0; $i < $count; $i++) {
-            $key .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+            $key .= substr($possible, random_int(0, strlen($possible) - 1), 1);
         }
         return $key;
     }
