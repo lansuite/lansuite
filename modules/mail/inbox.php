@@ -68,8 +68,8 @@ if ($auth['userid']) {
     $ms2->AddResultField(t('Gesendet'), 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate', '', 70);
     $ms2->AddResultField(t('Gelesen'), 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate', '', 20);
     
-    $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=in&mailID=', t('Details'), '', 10);
-    $ms2->AddIconField('delete', 'index.php?mod=mail&action=inbox&step=20&mailid=', t('Löschen'), '', 10);
+    $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=in&mailID=', t('Details'), '');
+    $ms2->AddIconField('delete', 'index.php?mod=mail&action=inbox&step=20&mailid=', t('Löschen'), '');
 
     $ms2->AddMultiSelectAction(t('Markierung entfernen'), 'index.php?mod=mail&step=10', 0);
     $ms2->AddMultiSelectAction(t('Markieren: Rot'), 'index.php?mod=mail&step=11', 0);

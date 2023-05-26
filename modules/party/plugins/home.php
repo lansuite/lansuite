@@ -43,6 +43,6 @@ if ($party->count > 0) {
         $content .= t('Gäste bezahlt / eingecheckt / ausgecheckt') .': '. $user_paid['n'] .' / '. $user_checkin['n'] .' / '. $user_checkout['n'] . HTML_NEWLINE;
 
         $visits = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
-        $content .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. count($authentication->online_users) . HTML_NEWLINE;
+        $content .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. (is_array($authentication->online_users) || $authentication->online_users instanceof \Countable ? count($authentication->online_users) : 0) . HTML_NEWLINE;
     }
 }

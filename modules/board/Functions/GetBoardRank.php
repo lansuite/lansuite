@@ -11,7 +11,7 @@ function GetBoardRank($posts)
 
     $lines = explode("\n", $cfg['board_rank']);
     foreach ($lines as $line) {
-        list($num, $name) = explode("->", $line);
+        [$num, $name] = explode("->", $line);
         if ($num > $posts) {
             break;
         }

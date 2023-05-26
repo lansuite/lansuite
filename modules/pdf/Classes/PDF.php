@@ -14,7 +14,7 @@ class PDF
     /**
      * Storage of barcodes
      */
-    const BARCODE_PATH ='ext_inc/barcodes/';
+    public const BARCODE_PATH ='ext_inc/barcodes/';
 
     /**
      * Data array

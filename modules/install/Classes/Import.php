@@ -347,7 +347,7 @@ class Import
                 
                         // Foreign Key references
                         if ($foreign_key) {
-                            list($foreign_table, $foreign_key_name) = explode('.', $foreign_key, 2);
+                            [$foreign_table, $foreign_key_name] = explode('.', $foreign_key, 2);
                             $row = $db->qry_first(
                                 'SELECT 1 AS found, on_delete FROM %prefix%ref WHERE
               pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
@@ -392,7 +392,7 @@ class Import
                             }
                         }
                         if ($reference) {
-                            list($reference_table, $reference_key) = explode('.', $reference, 2);
+                            [$reference_table, $reference_key] = explode('.', $reference, 2);
 
                             $row = $db->qry_first(
                                 '

@@ -147,7 +147,7 @@ class noc
             }
         }
         // Array mit Ports und Adressen zusammenfügen
-        for ($i = 0; $i < count($ports); $i++) {
+        for ($i = 0; $i < (is_array($ports) || $ports instanceof \Countable ? count($ports) : 0); $i++) {
             if ($data[$ports[$i]] == "") {
                 $data[$ports[$i]] = $Addresses[$i];
             } else {
