@@ -4,7 +4,7 @@ namespace LanSuite;
 
 class MasterForm
 {
-
+    //@TODO: Check and properly set accessiblity for all of these
     public const FIELD_OPTIONAL = 1;
 
     public const HTML_ALLOWED = 1;
