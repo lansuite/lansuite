@@ -31,6 +31,7 @@ class FoodcenterPrint
 
     public function __construct()
     {
+        $temp = [];
         global $func, $auth;
 
         if (!file_exists($this->path . $_POST['file']) || $_POST['file'] == "") {
@@ -42,7 +43,7 @@ class FoodcenterPrint
         $temp_file = fread($handle, filesize($this->path . $_POST['file']));
         fclose($handle);
 
-        list($file, $ext) = explode(".", $_POST['file']);
+        [$file, $ext] = explode(".", $_POST['file']);
         $this->row_file = $file . "_row." . $ext;
 
         if (!file_exists($this->path . $this->row_file)) {
@@ -184,6 +185,8 @@ class FoodcenterPrint
      */
     private function sql()
     {
+        $config = [];
+        $row_temp = [];
         global $db;
 
         $search = '';

@@ -7,6 +7,8 @@
  */
 function write_pairs2($bracket, $max_pos)
 {
+    $score1 = null;
+    $gameid1 = null;
     global $auth, $templ, $func, $t, $x_start, $height, $height_menu, $box_height, $box_width, $db, $tournamentid, $akt_round, $max_round, $dg, $img_height, $map, $tfunc;
 
     $dg++;

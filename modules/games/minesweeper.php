@@ -27,7 +27,7 @@ switch ($_GET["step"]) {
         } elseif ($_POST["mines"] < 5) {
             $func->information(t('Es sollten mindestens 5 Mienen versteckt sein, sonst ist das Spiel witzlos!'), "index.php?mod=games&action=minesweeper");
         } else {
-            $tmp_nick = rand(0, 100000);
+            $tmp_nick = random_int(0, 100000);
 
             $db->qry("
               REPLACE INTO %prefix%game_hs

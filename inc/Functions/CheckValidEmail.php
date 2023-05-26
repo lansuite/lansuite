@@ -72,7 +72,7 @@ function CheckValidEmail($email)
         $TrashMailDomains[$key] = trim($val);
     }
 
-    list(, $hostName) = explode('@', $email);
+    [, $hostName] = explode('@', $email);
     if (in_array($hostName, $TrashMailDomains)) {
         return t('Die E-Mail-Domain %1 ist nicht erlaubt, da sie ein Anbieter von "Wegwerf-Mails" ist', $hostName);
     }

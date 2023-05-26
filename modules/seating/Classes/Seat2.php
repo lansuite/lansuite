@@ -50,7 +50,7 @@ class Seat2
         if (!$row['blockid']) {
             return '';
         } else {
-            $LinkText = $row['name'] .' '. $break . $this->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation'], $MaxBlockLength);
+            $LinkText = $row['name'] .' '. $break . $this->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation']);
             return "<a href=\"#\" onclick=\"var w=window.open('index.php?mod=seating&action=popup&design=popup&function=usrmgr&id={$row['blockid']}&userarray[]=$userid&l=1','_blank','width=596,height=678,resizable=yes');\" class=\"small\">$LinkText</a>";
         }
     }
@@ -270,6 +270,7 @@ class Seat2
      */
     public function U18Block($id, $idtype)
     {
+        $blockid = null;
         global $db;
 
         if ($idtype == "b") {
@@ -307,6 +308,14 @@ class Seat2
      */
     public function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false)
     {
+        $seat_user_checkin = [];
+        $party_user = [];
+        $seat_user_checkout = [];
+        $user_info = [];
+        $YStartPlan = null;
+        $jscode = null;
+        $XStartPlan = null;
+        $YOffset = null;
         global $db, $templ, $auth, $cfg, $party, $smarty, $framework, $func;
 
         // Get Block data (side descriptions + number of rows + cols)

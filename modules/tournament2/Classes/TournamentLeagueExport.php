@@ -153,6 +153,9 @@ class TournamentLeagueExport
      */
     public function ngl_export($eventid)
     {
+        $mode = null;
+        $db_teamid = [];
+        $score1 = null;
         global $db, $party;
 
         $output = '<?xml version="1.0" encoding="ISO-8859-15"?'.'>'."\r\n";
@@ -347,6 +350,9 @@ class TournamentLeagueExport
      */
     public function lgz_export($eventid)
     {
+        $mode = null;
+        $db_teamid = [];
+        $score1 = null;
         global $db, $party;
 
         $output = '<?xml version="1.0"?'.'>'."\r\n";

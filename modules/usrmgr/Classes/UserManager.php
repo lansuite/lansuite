@@ -24,7 +24,7 @@ class UserManager
 
         $verification_code = '';
         for ($x = 0; $x <= 24; $x++) {
-            $verification_code .= chr(mt_rand(65, 90));
+            $verification_code .= chr(random_int(65, 90));
         }
         $db->qry('UPDATE %prefix%user SET fcode=%string% WHERE userid = %int%', $verification_code, $id);
         $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
@@ -89,7 +89,7 @@ class UserManager
      */
     public function GeneratePassword()
     {
-        return rand(10000, 99999);
+        return random_int(10000, 99999);
     }
 
     /**
