@@ -16,3 +16,7 @@ define('LS_AUTH_TYPE_ANONYMOUS', 0);
 define('LS_AUTH_TYPE_USER', 1);
 define('LS_AUTH_TYPE_ADMIN', 2);
 define('LS_AUTH_TYPE_SUPERADMIN', 3);
+
+// Authentication logged in/out
+define('LS_AUTH_LOGIN_LOGGED_OUT', 0);
+define('LS_AUTH_LOGIN_LOGGED_IN', 1);
