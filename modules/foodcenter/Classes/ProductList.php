@@ -84,6 +84,7 @@ class ProductList
      */
     public function add_product($id, $opt)
     {
+        $key_array = [];
         // Product already in the list?
         if (in_array($id, $this->product_list)) {
             if (is_array($opt)) {

@@ -507,7 +507,7 @@ class Export
         header("Content-Disposition: attachment; filename=\"$filename\"");
         $zip->download_file();
     
-        if ((is_array($zip->errors) || $zip->errors instanceof \Countable ? count($zip->errors) : 0) > 0) {
+        if ((is_countable($zip->errors) ? count($zip->errors) : 0) > 0) {
             return false;
         }
 

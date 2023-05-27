@@ -91,7 +91,7 @@ switch ($_GET["step"]) {
         $sysLocation    = $noc->getSNMPValue($_POST["device_ip"], $_POST["device_read"], ".1.3.6.1.2.1.1.6.0");
         $sysName    = $noc->getSNMPValue($_POST["device_ip"], $_POST["device_read"], ".1.3.6.1.2.1.1.5.0");
         $ports    = $noc->getSNMPwalk($_POST["device_ip"], $_POST["device_read"], ".1.3.6.1.2.1.2.2.1.1");
-        $numport = is_array($ports) || $ports instanceof \Countable ? count($ports) : 0;
+        $numport = is_countable($ports) ? count($ports) : 0;
         
         // Store the device into a SQL table
         $add_query = $db->qry("INSERT INTO %prefix%noc_devices SET
@@ -112,7 +112,7 @@ switch ($_GET["step"]) {
 
         $row = $db->fetch_array();
 
-        for ($ActualPort=0; $ActualPort < (is_array($ports) || $ports instanceof \Countable ? count($ports) : 0); $ActualPort++) {
+        for ($ActualPort=0; $ActualPort < (is_countable($ports) ? count($ports) : 0); $ActualPort++) {
             $Port[$ActualPort]["deviceid"] = $row["id"];
 
             $Port[$ActualPort]["PortNr"] =
