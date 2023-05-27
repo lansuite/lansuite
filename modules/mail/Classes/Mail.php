@@ -4,10 +4,7 @@ namespace LanSuite\Module\Mail;
 
 class Mail
 {
-    /**
-     * @var string
-     */
-    private $inet_headers;
+    private ?string $inet_headers = null;
 
     /**
      * @var string

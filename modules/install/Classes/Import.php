@@ -24,10 +24,7 @@ class Import
      */
     public $installed_tables = [];
 
-    /**
-     * @var \LanSuite\XML
-     */
-    private $xml;
+    private \LanSuite\XML $xml;
 
     public function __construct(\LanSuite\XML $xml)
     {

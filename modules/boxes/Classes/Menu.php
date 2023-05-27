@@ -19,10 +19,7 @@ class Menu
      */
     public $box;
 
-    /**
-     * @var string
-     */
-    private $title = '';
+    private string $title = '';
 
     /**
      * @param $id

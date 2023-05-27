@@ -29,10 +29,7 @@ class DB
      */
     public $count_query = 0;
 
-    /**
-     * @var string
-     */
-    private $errors = '';
+    private string $errors = '';
 
     /**
      * @var int
@@ -53,10 +50,7 @@ class DB
      */
     private $QueryArgs = [];
 
-    /**
-     * @var string
-     */
-    private $sql_error = '';
+    private string $sql_error = '';
 
     /**
      * @param string $msg

@@ -18,29 +18,20 @@ class PDF
 
     /**
      * Data array
-     *
-     * @var array
      */
-    private $data_type_array = [];
+    private array $data_type_array = [];
 
-    /**
-     * @var \FPDF
-     */
-    private $pdf;
+    private ?\FPDF $pdf = null;
 
     /**
      * Current position on the x axis
-     *
-     * @var int
      */
-    private $x = 0;
+    private int $x = 0;
 
     /**
      * Current position on the y axis
-     *
-     * @var int
      */
-    private $y = 0;
+    private int $y = 0;
 
     /**
      * Start position on the x axis
@@ -86,17 +77,13 @@ class PDF
 
     /**
      * Corrent column
-     *
-     * @var int
      */
-    private $col = 1;
+    private int $col = 1;
 
     /**
      * Current row
-     *
-     * @var int
      */
-    private $row = 1;
+    private int $row = 1;
 
     /**
      * Maximum number of possible columns
@@ -119,15 +106,9 @@ class PDF
      */
     private $templ_id;
 
-    /**
-     * @var BarcodeSystem
-     */
-    private $barcodeSystem = null;
+    private ?\LanSuite\BarcodeSystem $barcodeSystem = null;
 
-    /**
-     * @var Seat2
-     */
-    private $seating = null;
+    private ?\LanSuite\Module\Seating\Seat2 $seating = null;
 
     /**
      * @param int $templ_id

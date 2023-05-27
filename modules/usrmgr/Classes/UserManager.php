@@ -4,10 +4,7 @@ namespace LanSuite\Module\UsrMgr;
 class UserManager
 {
 
-    /**
-     * @var \LanSuite\Module\Mail\Mail
-     */
-    private $mail = null;
+    private ?\LanSuite\Module\Mail\Mail $mail = null;
 
     public function __construct(\LanSuite\Module\Mail\Mail $mail)
     {

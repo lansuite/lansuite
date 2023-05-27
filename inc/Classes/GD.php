@@ -29,10 +29,7 @@ class GD
      */
     private $font_size;
 
-    /**
-     * @var int
-     */
-    private $free_type = 0;
+    private int $free_type = 0;
 
     /**
      * @var int

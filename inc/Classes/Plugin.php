@@ -10,30 +10,15 @@ namespace LanSuite;
 class Plugin
 {
 
-    /**
-     * @var array
-     */
-    private $modules = [];
+    private array $modules = [];
 
-    /**
-     * @var array
-     */
-    private $captions = [];
+    private array $captions = [];
 
-    /**
-     * @var array
-     */
-    private $icons = [];
+    private array $icons = [];
 
-    /**
-     * @var int
-     */
-    private $currentIndex = 0;
+    private int $currentIndex = 0;
 
-    /**
-     * @var int
-     */
-    private $count = 0;
+    private int $count = 0;
 
     /**
      * @var string

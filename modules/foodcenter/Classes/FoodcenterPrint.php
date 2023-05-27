@@ -4,30 +4,15 @@ namespace LanSuite\Module\Foodcenter;
 
 class FoodcenterPrint
 {
-    /**
-     * @var string
-     */
-    private $output = '';
+    private string $output = '';
 
-    /**
-     * @var string
-     */
-    private $path = 'ext_inc/foodcenter_templates/';
+    private string $path = 'ext_inc/foodcenter_templates/';
 
-    /**
-     * @var string
-     */
-    private $row_file = '';
+    private string $row_file = '';
 
-    /**
-     * @var string
-     */
-    private $row_temp = '';
+    private string $row_temp = '';
 
-    /**
-     * @var array
-     */
-    private $config = [];
+    private array $config = [];
 
     public function __construct()
     {
