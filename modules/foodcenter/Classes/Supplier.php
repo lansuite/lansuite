@@ -53,9 +53,8 @@ class Supplier
      *
      * @param int       $select_id
      * @param boolean   $new
-     * @return array|bool
      */
-    private function get_supp_array($select_id, $new = null)
+    private function get_supp_array($select_id, $new = null): array|bool
     {
         global $db;
 

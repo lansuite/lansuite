@@ -89,10 +89,8 @@ class Product
 
     /**
      * Error container
-     *
-     * @var array
      */
-    private $error_food = [];
+    private array $error_food = [];
 
     /**
      * Error status

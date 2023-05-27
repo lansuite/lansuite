@@ -29,7 +29,7 @@ class UserManager
         if (!empty($cfg['sys_partyurl_ssl'])) {
             $verification_link = $cfg['sys_partyurl_ssl'];
             //make sure that it ends with a slash
-            if (substr($cfg['sys_partyurl_ssl'], -1, 1) != '/') {
+            if (!str_ends_with($cfg['sys_partyurl_ssl'], '/')) {
                 $verification_link .= '/';
             }
             $verification_link .= "index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";

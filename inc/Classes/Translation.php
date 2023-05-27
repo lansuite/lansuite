@@ -388,15 +388,10 @@ class Translation
      */
     private function get_trans_filename($module)
     {
-        switch ($module) {
-            case 'System':
-            case 'DB':
-                $file = 'inc/language/' . $module . '_' . $this->transfile_name;
-                break;
-
-            default:
-                $file = 'modules/' . $module . '/mod_settings/' . $this->transfile_name;
-        }
+        $file = match ($module) {
+            'System', 'DB' => 'inc/language/' . $module . '_' . $this->transfile_name,
+            default => 'modules/' . $module . '/mod_settings/' . $this->transfile_name,
+        };
 
         return $file;
     }
@@ -455,7 +450,7 @@ class Translation
 
         // Generate module name from file
         $CurrentFile = str_replace('\\', '/', $baseDir);
-        if (strpos($CurrentFile, 'modules/') !== false) {
+        if (str_contains($CurrentFile, 'modules/')) {
             $CurrentFile = substr($CurrentFile, strpos($CurrentFile, 'modules/') + 8, strlen($CurrentFile));
             $CurrentFile = substr($CurrentFile, 0, strpos($CurrentFile, '/'));
         } else {

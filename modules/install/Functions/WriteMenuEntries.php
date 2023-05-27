@@ -40,26 +40,14 @@ function WriteMenuEntries()
             $requirement = "";
             for ($i = 0; $i <= 5; $i++) {
                 ($i == $row["requirement"])? $selected = " selected" : $selected = "";
-                switch ($i) {
-                    default:
-                        $out = t('Jeder');
-                        break;
-                    case 1:
-                        $out = t('Nur Eingeloggte');
-                        break;
-                    case 2:
-                        $out = t('Nur Admins');
-                        break;
-                    case 3:
-                        $out = t('Nur Superadminen');
-                        break;
-                    case 4:
-                        $out = t('Keine Admins');
-                        break;
-                    case 5:
-                        $out = t('Nur Ausgeloggte');
-                        break;
-                }
+                $out = match ($i) {
+                    1 => t('Nur Eingeloggte'),
+                    2 => t('Nur Admins'),
+                    3 => t('Nur Superadminen'),
+                    4 => t('Keine Admins'),
+                    5 => t('Nur Ausgeloggte'),
+                    default => t('Jeder'),
+                };
                 $requirement .= "<option value=\"$i\"$selected>$out</option>";
             }
             $smarty->assign('requirement', $requirement);
