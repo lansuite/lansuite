@@ -22,7 +22,7 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
         WHERE p.module = %string% AND u.type >= %int%", $_GET['mod'], $auth['type']);
 
           // If so: Has the current user access to this mod?
-        if ($permission['found']) {
+        if ($permission && $permission['found']) {
             $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string% AND userid = %int%", $_GET['mod'], $auth['userid']);
 
             // If not: Set his rights to user-rights
