@@ -22,7 +22,7 @@ Also there is no requirement that the value is always correct, as it is just use
 ### Code
 
 There is object named `$cache` available in the global scope.
-This implements [PSR-16](https://www.php-fig.org/psr/psr-16/) and either works via APCu (if module enabled) or with files in the temporary directory.
+This implements [PSR-16](https://www.php-fig.org/psr/psr-16/) and works with files in the temporary directory.
 Code example:
 
 ```

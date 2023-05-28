@@ -810,14 +810,6 @@ class Install
         }
         $dsp->AddDoubleRow("FTP Library", $ftp_check);
         
-        // APCu-Lib
-        if (extension_loaded('apcu')) {
-            $apcu_check = $ok;
-        } else {
-            $apcu_check = $optimize . t('Auf deinem System konnte das PHP-Modul <b>APCu</b> nicht gefunden werden. Dies wird verwendet, um verschiedenste Daten für schnellen Zugriff zwischenzuspeichern. Eine Aktivierung ist bei vielen Seitenzugriffen angeraten. Als Fallback werden die Daten im Dateisystem vorgehalten');
-        }
-        $dsp->AddDoubleRow("APCu", $apcu_check);
-        
         // OpenSSL
         if (extension_loaded('openssl')) {
             $openssl_check = $ok;

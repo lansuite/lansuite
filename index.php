@@ -22,12 +22,10 @@ if (function_exists('ini_set')) {
 
 $PHPErrors = '';
 
-// Initialize Cache. Go for APCu first, filebased otherwise. DB adaptor to be used when we implement PDO.
-if (extension_loaded('apcu')) {
-    $cache = new Symfony\Component\Cache\Adapter\ApcuAdapter('lansuite', 600);
-} else {
-    $cache = new Symfony\Component\Cache\Adapter\FilesystemAdapter('lansuite', 600);
-}
+// TODO Implement DB cache adapter, once PDO is in place
+$cache = new Symfony\Component\Cache\Adapter\FilesystemAdapter('lansuite', 600);
+
+$cache->delete('config');
 
 // Check cache for config, try to load from file otherwise
 $configCache = $cache->getItem('config');
