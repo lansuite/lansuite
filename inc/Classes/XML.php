@@ -148,6 +148,13 @@ class XML
             $tag_to_grab = substr($tag_to_grab, 0, strpos($tag_to_grab, ' '));
         }
 
+        // If matching with preg_split fails, an array with a single element containing the input string will be returned.
+        // In this case, $tag_content[1] does not exist.
+        // This can happen if $tag_to_grab is not existing in $input
+        if (!array_key_exists(1, $tag_content)) {
+            return '';
+        }
+
         $tag_content = preg_split("/\<\/$tag_to_grab\>/i", $tag_content[1], 0);
 
         if ($replace_html) {

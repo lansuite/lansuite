@@ -17,6 +17,7 @@
  */
 function d()
 {
+    $val = null;
     global $debug, $func;
 
     $arg_vars = func_get_args();

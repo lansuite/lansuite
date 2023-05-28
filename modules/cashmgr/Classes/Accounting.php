@@ -175,6 +175,7 @@ class Accounting
      */
     private function getGroup($fix, $posneg)
     {
+        $row = null;
         global $db;
         
         $result_list = [];

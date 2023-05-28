@@ -12,32 +12,32 @@ switch ($_GET["step"]) {
 
             $_GET["step"] = 2;
         }
-        
+
         if ($_POST["device_ip"] == "") {
             $noc_error['device_ip'] = t('Bitte gib eine IP-Adresse f&uuml;r das Device ein');
-            
+
             $_GET["step"] = 2;
         } else {
             if (!($func->checkIP($_POST["device_ip"]))) {
                 $noc_error['device_ip'] = t('Bitte gib eine <em>g&uuml;ltige</em> IP-Adresse f&uuml;r das Device ein');
-            
+
                 $_GET["step"] = 2;
             }
         }
-        
-                
+
+
         if ($_POST["device_write"] == "") {
             $noc_error['device_write'] = t('Bitte gib eine Write-Community f&uuml;r das Device an.');
-                
+
             $_GET["step"] = 2;
         }
-        
+
         if ($_POST["device_read"] == "") {
             $noc_error['device_read'] = t('Bitte gib eine Read-Community f&uuml;r das Device an.');
-                            
+
             $_GET["step"] = 2;
         }
-        
+
         break;
 } // END SWITCH I
 
@@ -50,10 +50,10 @@ switch ($_GET["step"]) {
     case 1:
         include_once('modules/noc/search.inc.php');
         break;
-        
+
     case 2:
         $db->qry("SELECT * FROM %prefix%noc_devices WHERE id = %int%", $_GET["deviceid"]);
-        
+
         if ($row = $db->fetch_array()) {
             $deviceid = $row["id"];
             $device_ip = $row["ip"];
@@ -69,7 +69,7 @@ switch ($_GET["step"]) {
             $dsp->AddTextFieldRow("device_ip", t('IP-Adresse'), $device_ip, $noc_error['device_ip']);
             $dsp->AddTextFieldRow("device_read", t('Read-Community'), $device_read, $noc_error['device_read']);
             $dsp->AddTextFieldRow("device_write", t('Write-Community'), $device_write, $noc_error['device_write']);
-        
+
             $dsp->AddFormSubmitRow(t('Ändern'));
             $dsp->AddBackButton("index.php?mod=noc", "noc");
 
@@ -80,7 +80,7 @@ switch ($_GET["step"]) {
 
 
         break;
-    
+
     // --------------------------------------------------------------------------------------------------
     // Check and Update Device Data
     case 3:
@@ -97,9 +97,9 @@ switch ($_GET["step"]) {
 				      				&nbsp; &nbsp;<a href="http://de.php.net">Der Deutschen PHP Seite</a> herunter' . HTML_NEWLINE .', '));
             break;
         } // END IF
-        
+
         // ------------------------------------------------------------------------------------------
-    
+
         // U p d a t e it, not delete and reinsert it.
         $add_query = $db->qry("UPDATE %prefix%noc_devices SET
          name = %string%,
@@ -107,14 +107,14 @@ switch ($_GET["step"]) {
          readcommunity = %string%,
          writecommunity = %string%
          WHERE id = %int%", $_POST['device_caption'], $_POST['device_ip'], $_POST['device_read'], $_POST['device_write'], $_GET["deviceid"]);
-        
+
         if ($add_query == 1) {
             $func->confirmation(t('Das Device wurde erfolgreich ge&auml;ndert.'));
         } else {
             $func->error(t('Das Device konnte nicht ge&auml;ndert werden.'));
         } // END IF
-                
-    
+
+
         break;
 } // END SWITCH II
 

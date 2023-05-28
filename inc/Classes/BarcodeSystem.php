@@ -46,7 +46,7 @@ class BarcodeSystem
     {
         $code = 768300000000;
         $code = $code + ($userid * 10000);
-        $code = $code + mt_rand(0, 9999);
+        $code = $code + random_int(0, 9999);
         return $code;
     }
 

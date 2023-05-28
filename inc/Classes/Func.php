@@ -99,13 +99,13 @@ class Func
         $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
 
         // If the numbers of the two array are not the same, return false, because the cannot belong together
-        if (count($arrStr) !== count($arrPattern)) {
+        if ((is_array($arrStr) || $arrStr instanceof \Countable ? count($arrStr) : 0) !== count($arrPattern)) {
             return false;
         }
 
         // Creates a new array which has the keys from the $arrPattern array and the values from the $arrStr array
         $arrTime = [];
-        for ($i = 0; $i < count($arrStr); $i++) {
+        for ($i = 0; $i < (is_array($arrStr) || $arrStr instanceof \Countable ? count($arrStr) : 0); $i++) {
             $arrTime[$arrPattern[$i]] = $arrStr[$i];
         }
 
@@ -140,6 +140,8 @@ class Func
      */
     public function unixstamp2date($func_timestamp, $func_art)
     {
+        $day = [];
+        $func_date = null;
         if ((int)$func_timestamp == 0) {
             return '---';
         } else {
@@ -717,6 +719,7 @@ class Func
      */
     public function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name)
     {
+        $orderby = null;
         // $current_page is passed as an string, because the source is a GET parameter
         // it seems that it can contain a string 'all' or a number.
         // In this function we add numbers to $current_page which
@@ -909,7 +912,7 @@ class Func
             // Set read timeout
             stream_set_timeout($handle, 0, $timeout);
             // Time the response
-            list($usec, $sec) = explode(" ", microtime(true));
+            [$usec, $sec] = explode(" ", microtime(true));
             $start = (float)$usec + (float)$sec;
 
             // Send something
@@ -923,7 +926,7 @@ class Func
             fread($handle, 1024);
 
             // Work out if we got a responce and time it
-            list($usec, $sec) = explode(" ", microtime(true));
+            [$usec, $sec] = explode(" ", microtime(true));
             $laptime = ((float)$usec + (float)$sec)-$start;
             if (($laptime * 1000000) > ($timeout * 0.9)) {
                 fclose($handle);
@@ -1120,6 +1123,9 @@ class Func
      */
     public function CreateSignonBar($guests, $paid_guests, $max_guests)
     {
+        $curuser = null;
+        $gesamtpaid = null;
+        $bar = null;
         $max_bars = 100;
 
         // Calculate signed up guests

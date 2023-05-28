@@ -17,7 +17,10 @@ $translation_no_html_replace = false;
  */
 function t()
 {
+    $parameters = [];
     global $db, $translation, $func, $translation_no_html_replace;
+
+    $parameters = null;
 
     // Prepare function parameters
     // First argument is the input string, the following are parameters
@@ -49,7 +52,7 @@ function t()
         $long = '';
     }
 
-    if (array_key_exists($module, $translation->lang_cache) && $translation->lang_cache[$module][$key] != '') {
+    if (array_key_exists($module, $translation->lang_cache) && array_key_exists($key, $translation->lang_cache[$module]) && $translation->lang_cache[$module][$key] != '') {
         // Already in memory cache ($this->lang_cache[key])
         $output = $translation->ReplaceParameters($translation->lang_cache[$module][$key], $parameters, $key);
     } else {

@@ -20,17 +20,17 @@ $avg = $db->qry_first("
   WHERE
     DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 HOUR), '%Y-%m-%d %H:00:00')");
 $box->DotRow(t('Besucher').':');
-$box->EngangedRow('<span class="infolink">'.number_format($total['visits'], 0, '', '.').'<span class="infobox">'.$total['visits'].' '.t('Besucher insgesamt').'</span></span>&nbsp;<span class="infolink">('.($avg['visits'] ? $avg['visits'] : '0').')<span class="infobox">'.($avg['visits'] ? $avg['visits'] : '0').' '.t('Besucher in der letzten Stunde').'</span></span>');
+$box->EngangedRow('<span class="infolink">'.number_format($total['visits'], 0, '', '.').'<span class="infobox">'.$total['visits'].' '.t('Besucher insgesamt').'</span></span>&nbsp;<span class="infolink">('.($avg['visits'] ?: '0').')<span class="infobox">'.($avg['visits'] ?: '0').' '.t('Besucher in der letzten Stunde').'</span></span>');
 $box->DotRow(t('Aufrufe').':');
-$box->EngangedRow('<span class="infolink">'.number_format($total['hits'], 0, '', '.').'<span class="infobox">'.$total['hits'].' '.t('Seitenzugriffe insgesamt').'</span></span>&nbsp;<span class="infolink">('.($avg['hits'] ? $avg['hits'] : '0').')<span class="infobox">'.($avg['hits'] ? $avg['hits'] : '0').' '.t('Seitenzugriffe in der letzten Stunde').'</span></span>');
+$box->EngangedRow('<span class="infolink">'.number_format($total['hits'], 0, '', '.').'<span class="infobox">'.$total['hits'].' '.t('Seitenzugriffe insgesamt').'</span></span>&nbsp;<span class="infolink">('.($avg['hits'] ?: '0').')<span class="infobox">'.($avg['hits'] ?: '0').' '.t('Seitenzugriffe in der letzten Stunde').'</span></span>');
 
-$box->DotRow(t('Online') .': '. count($authentication->online_users), 'index.php?mod=guestlist&action=onlineuser');
+$box->DotRow(t('Online') .': '. (is_array($authentication->online_users) || $authentication->online_users instanceof \Countable ? count($authentication->online_users) : 0), 'index.php?mod=guestlist&action=onlineuser');
 foreach ($authentication->online_users as $userid) {
     $row = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
     $box->EngangedRow($dsp->FetchUserIcon($userid, $row["username"]));
 }
 
-$box->DotRow(t('Untätig') .': '. count($authentication->away_users), 'index.php?mod=guestlist&action=onlineuser');
+$box->DotRow(t('Untätig') .': '. (is_array($authentication->away_users) || $authentication->away_users instanceof \Countable ? count($authentication->away_users) : 0), 'index.php?mod=guestlist&action=onlineuser');
 foreach ($authentication->away_users as $userid) {
     $row = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
     $box->EngangedRow($dsp->FetchUserIcon($userid, $row["username"]));

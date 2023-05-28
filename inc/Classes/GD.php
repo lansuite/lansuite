@@ -96,6 +96,7 @@ class GD
      */
     public function PutImage($file = null, $type = null, $destroy = true)
     {
+        $path = null;
         global $config;
 
         if ($file) {
@@ -280,6 +281,7 @@ class GD
      */
     private function OpenImage($filename)
     {
+        $img_src = null;
         if (!file_exists($filename)) {
             return 0;
         }
