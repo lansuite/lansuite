@@ -31,7 +31,7 @@ if (!$_GET["sieg"]) {
             }
             fclose($handle);
 
-            $linenr = rand(1, $lines -1);
+            $linenr = random_int(1, $lines -1);
             $handle = fopen("modules/games/woerter.txt", "r");
             for ($z = 0; $z < $linenr; $z++) {
                 $_SESSION["losungswort"] = fgets($handle, 4096);

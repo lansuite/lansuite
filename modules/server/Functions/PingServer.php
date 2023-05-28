@@ -22,7 +22,7 @@ function PingServer($host, $port)
         AND (port = %string%)
       HAVING (idle > %int%)", $host, $port, $cfg["server_ping_refresh"]);
 
-    if (rand(0, 2) == 0) {
+    if (random_int(0, 2) == 0) {
         // Erreichbarkeit testen
         $success = 0;
         if ($func->ping($host)) {

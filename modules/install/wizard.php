@@ -1,6 +1,6 @@
 <?php
 
-if ($_POST["resetdb"]) {
+if ($request->request->get('resetdb')) {
     $db->success = 0;
 }
 $importXml = new \LanSuite\XML();
@@ -13,7 +13,8 @@ $xml = new \LanSuite\XML();
 $_SESSION['auth']['design'] = 'simple';
 
 // Error-Switch
-switch ($_GET["step"]) {
+$step = $request->query->get('step');
+switch ($step) {
     case 7:
         if ($_POST["email"] == "") {
             $func->error(t('Bitte gib eine E-Mail-Adresse ein!'), "index.php?mod=install&action=wizard&step=6");
@@ -50,12 +51,12 @@ switch ($_GET["step"]) {
     case 8:
         if (!$func->admin_exists()) {
             $func->information(t('Du musst einen Admin-Account anlegen, um fortfahren zu können'));
-            $_GET['step'] = 6;
+            $step = 6;
         }
         break;
 }
 
-switch ($_GET["step"]) {
+switch ($step) {
     // Check Environment
     default:
         $dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration deines Webservers überprüft.<br />Sollte alles korrekt sein, so drücke bitte am Ende der Seite auf <b>Weiter</b> um mit der Eingabe der Grundeinstellungen fortzufahren.'));
@@ -93,24 +94,27 @@ switch ($_GET["step"]) {
         $dsp->NewContent(t('Grundeinstellungen'), t('Bitte gib nun die Zugangsdaten zur Datenbank an.'));
         $dsp->SetForm("index.php?mod=install&action=wizard&step=3");
 
+        $databaseHost = '';
+        $databaseUser = '';
+        $databasePrefix = '';
         // Set default settings from Config-File
-        if ($_POST["host"] == "") {
-            $_POST["host"] = $config['database']['server'];
+        if ($request->request->get('host') == "") {
+            $databaseHost = $config['database']['server'];
         }
-        if ($_POST["user"] == "") {
-            $_POST["user"] = $config['database']['user'];
+        if ($request->request->get('user') == "") {
+            $databaseUser = $config['database']['user'];
         }
-        if ($_POST["prefix"] == "") {
-            $_POST["prefix"] = $config['database']['prefix'];
+        if ($request->request->get('prefix') == "") {
+            $databasePrefix = $config['database']['prefix'];
         }
 
         // Database Access
         $dsp->AddSingleRow("<b>". t('Datenbank-Zugangsdaten') ."</b>");
-        $dsp->AddTextFieldRow("host", t('Host (Server-IP)'), $_POST["host"], "");
-        $dsp->AddTextFieldRow("user", t('Benutzername'), $_POST["user"], "");
-        $dsp->AddPasswordRow("pass", t('Kennwort'), $_POST["pass"], "");
-        $dsp->AddTextFieldRow("database", t('Datenbank'), $_POST["database"], "");
-        $dsp->AddTextFieldRow("prefix", t('Tabellen-Prefix'), $_POST["prefix"], "");
+        $dsp->AddTextFieldRow("host", t('Host (Server-IP)'), $databaseHost, "");
+        $dsp->AddTextFieldRow("user", t('Benutzername'), $databaseUser, "");
+        $dsp->AddPasswordRow("pass", t('Kennwort'), $request->request->get('pass'), "");
+        $dsp->AddTextFieldRow("database", t('Datenbank'), $request->request->get('database'), "");
+        $dsp->AddTextFieldRow("prefix", t('Tabellen-Prefix'), $databasePrefix, "");
 
         // Default Designs
         $designPath = 'design' . DIRECTORY_SEPARATOR;
@@ -170,7 +174,7 @@ switch ($_GET["step"]) {
         } else {
             $output .= t('Datei \'config.php\' wurde erfolgreich geschrieben.') .HTML_NEWLINE . HTML_NEWLINE;
 
-            $res = $install->TryCreateDB($_POST["resetdb"]);
+            $res = $install->TryCreateDB($request->request->get('resetdb'));
             switch ($res) {
                 case 0:
                     $output .= $fail_leadin . t('Die Datenbank ist nicht erreichbar. Überprüfe bitte die Angaben zur Datenbankverbindung.') . $leadout;
@@ -328,7 +332,7 @@ switch ($_GET["step"]) {
         // Update modules
         $res = $db->qry("SELECT name, reqphp, reqmysql FROM %prefix%modules WHERE changeable");
         while ($row = $db->fetch_array($res)) {
-            if ($_POST[$row["name"]]) {
+            if ($request->request->get($row["name"])) {
                 if ($row['reqphp'] and version_compare(PHP_VERSION, $row['reqphp']) < 0) {
                     $func->information(t('Das Modul %1 kann nicht aktiviert werden, da die PHP Version %2 benötigt wird', $row["name"], $row['reqphp']), NO_LINK);
                 } else {
@@ -402,7 +406,7 @@ switch ($_GET["step"]) {
 
         $dsp->NewContent(t('Installation abschließen'), t('Die Installation wurde erfolgreich beendet.'));
 
-        $dsp->AddSingleRow(t('Die Installation ist nun beendet.<br /><br />Mit einem Klick auf <b>Einloggen</b> unterhalb schließest dz die Installation ab und gelangst auf die Adminseite. Dort kannst du weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.<br /><br />Der Modulmanager ermöglicht es dir dort Module zu de-/aktivieren.<br /><br />Über den Link \'Allgemeine Einstellungen\' stehen dir eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
+        $dsp->AddSingleRow(t('Die Installation ist nun beendet.<br /><br />Mit einem Klick auf <b>Einloggen</b> unterhalb schließt du die Installation ab und gelangst auf die Adminseite. Dort kannst du weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.<br /><br />Der Modulmanager ermöglicht es dir dort Module zu de-/aktivieren.<br /><br />Über den Link \'Allgemeine Einstellungen\' stehen dir eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
         if (!$func->admin_exists()) {
             $dsp->AddSingleRow("<font color=red>". t('<b>Es wurde kein Admin-Account angelegt</b><br />Solange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.') ."</font>");
         }

@@ -21,18 +21,20 @@ class Party
 
     public function __construct($party_id = null)
     {
-        global $cfg, $db;
+        global $cfg, $db, $request;
 
+        $setPartyIDGETParameter = $request->query->get('set_party_id');
+        $setPartyIDPOSTParameter = $request->request->get('set_party_id');
         if (empty($party_id)) {
             // Set new Session PartyID on GET or POST
-            if (is_numeric($_GET['set_party_id'])) {
-                $this->party_id = $_GET['set_party_id'];
-            } elseif (is_numeric($_POST['set_party_id'])) {
-                $this->party_id = $_POST['set_party_id'];
+            if (is_numeric($setPartyIDGETParameter)) {
+                $this->party_id = $setPartyIDGETParameter;
+            } elseif (is_numeric($setPartyIDPOSTParameter)) {
+                $this->party_id = $setPartyIDPOSTParameter;
             } elseif (is_numeric($_SESSION['party_id'])) {
                 // Look whether this partyId exists
                 $row = $db->qry_first('SELECT 1 AS found FROM %prefix%partys WHERE party_id = %int%', $_SESSION['party_id']);
-                if ($row['found']) {
+                if (is_array($row) && $row['found']) {
                     $this->party_id = $_SESSION['party_id'];
                 } else {
                     $this->party_id = $cfg['signon_partyid'];
@@ -104,6 +106,7 @@ class Party
      */
     public function get_party_dropdown_form($show_old = 0, $link = '')
     {
+        $list_array = [];
         global $dsp, $db, $func;
 
         if ($link == '') {
@@ -252,6 +255,7 @@ class Party
      */
     public function delete_user_from_party($user_id)
     {
+        $checkin = null;
         global $db, $cfg;
 
         $timestamp = time();
@@ -277,6 +281,7 @@ class Party
      */
     public function get_user_group_dropdown($group_id = "NULL", $nogroub = 0, $select_id = 0, $javascript = false)
     {
+        $data = [];
         global $db, $dsp;
 
         if ($group_id == "NULL") {
@@ -392,6 +397,8 @@ class Party
     */
     public function getGuestQty($party_id = NULL)
     {
+        $cfg = [];
+        $db = null;
         global $cache;
         
         if (empty($party_id)) {
