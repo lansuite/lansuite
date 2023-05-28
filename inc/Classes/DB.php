@@ -208,6 +208,12 @@ class DB
     {
         global $func;
 
+        // Mimic the original behaviour of mysqli_fetch_array
+        // Returns an array representing the fetched row, null if there are no more rows in the result set, or false on failure.
+        if (!$query_id) {
+            return null;
+        }
+
         if ($query_id != -1) {
             $this->query_id = $query_id;
         }
@@ -233,7 +239,9 @@ class DB
             $this->query_id = $query_id;
         }
 
-        return mysqli_num_rows($this->query_id);
+        // If a SQL query does not return any rows, the query function
+        // returns false. We ensure that `num_rows` always returns an integer.
+        return $query_id ? mysqli_num_rows($this->query_id): 0;
     }
 
     /**
@@ -295,6 +303,11 @@ class DB
      */
     public function free_result($query_id = -1)
     {
+        // No op if we don't had a query result
+        if (!$query_id) {
+            return;
+        }
+
         if ($query_id != -1) {
             $this->query_id = $query_id;
         }

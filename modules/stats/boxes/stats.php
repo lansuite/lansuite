@@ -18,7 +18,16 @@ $avg = $db->qry_first("
     hits
   FROM %prefix%stats_usage
   WHERE
-    DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 HOUR), '%Y-%m-%d %H:00:00')");
+    DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 2 HOUR), '%Y-%m-%d %H:00:00')");
+
+// If there are no visits + hits in the last hour
+// preset it  to 0
+if (!$avg) {
+  $avg = [
+    'visits' => 0,
+    'hits' => 0,
+  ];
+}
 $box->DotRow(t('Besucher').':');
 $box->EngangedRow('<span class="infolink">'.number_format($total['visits'], 0, '', '.').'<span class="infobox">'.$total['visits'].' '.t('Besucher insgesamt').'</span></span>&nbsp;<span class="infolink">('.($avg['visits'] ?: '0').')<span class="infobox">'.($avg['visits'] ?: '0').' '.t('Besucher in der letzten Stunde').'</span></span>');
 $box->DotRow(t('Aufrufe').':');

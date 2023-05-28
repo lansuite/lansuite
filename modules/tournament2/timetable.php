@@ -43,7 +43,7 @@ if ($maxtime > $mintime + 60 * 60 * 24 * 4) {
     $maxtime = $mintime + 60 * 60 * 24 * 4;
 }
 
-$head .= "<td><b>".t('Turnier')."</b></td>";
+$head = "<td><b>".t('Turnier')."</b></td>";
 for ($z = $mintime; $z <= $maxtime; $z+= (60 * 60 * 2)) {
     $head .= "<td colspan = 4>". $func->unixstamp2date($z, "time")."</td>";
 }
