@@ -674,6 +674,20 @@ class Install
         }
         $dsp->AddDoubleRow("MySQL Server Version", $mysqlVersionCheck);
 
+        // Testing for MySQL STRICT mode
+        //  Strict SQL mode is in effect if either STRICT_ALL_TABLES or STRICT_TRANS_TABLES is enabled [...]
+        // See https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sql-mode-strict
+        //
+        // Related bug ticket to enable LanSuite to work properly with strict mode: https://github.com/lansuite/lansuite/issues/456
+        $sqlMode = $db->getSqlMode();
+        if (str_contains($sqlMode, 'STRICT_ALL_TABLES') || str_contains($sqlMode, 'STRICT_TRANS_TABLES')) {
+            $continue = 0;
+            $sqlModeCheck = $failed . t('Der MySQL STRICT Mode ist aktiviert. LanSuite ist zur Zeit nicht mit dem MySQL STRICT Mode kompatibel. Bitte deaktiviere den MySQL STRICT Mode.');
+        } else {
+            $sqlModeCheck = $ok . $sqlMode;
+        }
+        $dsp->AddDoubleRow("MySQL Mode", $sqlModeCheck);
+
         // config.php Rights
         $lansuite_conf = "inc/base/config.php";
         if (!is_writable($lansuite_conf) and !is_writable(dirname($lansuite_conf))) {

@@ -377,4 +377,19 @@ class DB
             $this->errors = '';
         }
     }
+
+    /**
+     * Returns the configured SQL mode.
+     */
+    public function getSqlMode(): string
+    {
+        $query = 'SELECT @@sql_mode';
+        $result = mysqli_query($this->link_id, $query);
+        if (!$result) {
+            return '';
+        }
+
+       $sqlMode = $result->fetch_assoc();
+       return $sqlMode['@@sql_mode'];
+    }
 }
