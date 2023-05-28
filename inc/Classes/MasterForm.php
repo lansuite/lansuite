@@ -130,7 +130,7 @@ class MasterForm
 
     private int $OptGroupOpen = 0;
 
-    private int $MultiLineID = 0;
+    private $MultiLineID = 0;
 
     private array $MultiLineIDs = [];
 
