@@ -43,7 +43,7 @@ switch ($_GET["step"]) {
             $catcaption = $get_data["name"];
         
             if ($catcaption != "") {
-                $change_it = $db->qry("UPDATE %prefix%faq_cat SET name = %string% WHERE catid = %int%", $_POST[cat_caption], $_GET["catid"]);
+                $change_it = $db->qry("UPDATE %prefix%faq_cat SET name = %string% WHERE catid = %int%", $_POST['cat_caption'], $_GET["catid"]);
                 
                 if ($change_it == true) {
                     $_SESSION["change_blocker_faq_cat"] = 1;
