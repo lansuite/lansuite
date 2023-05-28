@@ -84,6 +84,7 @@ class ProductList
      */
     public function add_product($id, $opt)
     {
+        $key_array = [];
         // Product already in the list?
         if (in_array($id, $this->product_list)) {
             if (is_array($opt)) {
@@ -108,7 +109,11 @@ class ProductList
 
                 // If it is not the same product, get the last key
                 end($this->product);
-                $key_array = each($this->product);
+                $key_array[1] = current($this->product);
+                $key_array['value'] = current($this->product);
+                $key_array[0] = key($this->product);
+                $key_array['key'] = key($this->product);
+                next($this->product);
                 if (count($this->product) == 0) {
                     $key = 0;
                 } else {
@@ -142,7 +147,11 @@ class ProductList
             $ret = true;
 
             end($this->product);
-            $key_array = each($this->product);
+            $key_array[1] = current($this->product);
+            $key_array['value'] = current($this->product);
+            $key_array[0] = key($this->product);
+            $key_array['key'] = key($this->product);
+            next($this->product);
             if (count($this->product) == 0) {
                 $key = 0;
             } else {

@@ -691,9 +691,7 @@ class Auth
         setcookie(
             $this->cookie_name,
             $this->cookiedata_pack(),
-            time()+3600*24*$this->cookie_time,
-            $this->cookie_path,
-            $this->cookie_domain
+            ['expires' => time()+3600*24*$this->cookie_time, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain]
         );
     }
 
@@ -707,9 +705,7 @@ class Auth
         setcookie(
             $this->cookie_name,
             '',
-            time()+1,
-            $this->cookie_path,
-            $this->cookie_domain
+            ['expires' => time()+1, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain]
         );
     }
 
