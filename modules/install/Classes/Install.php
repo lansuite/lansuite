@@ -6,10 +6,7 @@ use LanSuite\XML;
 
 class Install
 {
-    /**
-     * @var Import
-     */
-    private $import;
+    private \LanSuite\Module\Install\Import $import;
 
     public function __construct(Import $import)
     {
@@ -41,10 +38,8 @@ class Install
 
     /**
      * Write $config into file /inc/base/config.php
-     *
-     * @return bool|int
      */
-    public function WriteConfig()
+    public function WriteConfig(): bool|int
     {
         global $config;
 
@@ -665,7 +660,7 @@ class Install
         $currentMysqlVersion = $db->getServerInfo();
         if (!$currentMysqlVersion) {
             $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (root@localhost) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %1 benutzt.', $minMysqlVersion);
-        } elseif (strpos($currentMysqlVersion, 'MariaDB') !== false) {
+        } elseif (str_contains($currentMysqlVersion, 'MariaDB')) {
             $currentMariaDBVersion = substr($currentMysqlVersion, strpos($currentMysqlVersion, '-')+1);
             if (version_compare($currentMariaDBVersion, $minMariaDBVersion) >= 0) {
                 $mysqlVersionCheck = $optimize . t('MariaDB Version %1 gefunden. <br/>Bitte beachte, das LanSuite primär für MySQL entwickelt wurde und es daher zu unerwarteten Problemen mit MariaDB kommen kann!', $currentMariaDBVersion);

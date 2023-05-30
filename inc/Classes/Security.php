@@ -12,7 +12,7 @@ class Security
         global $db, $cfg;
 
         // Global blacklist
-        if (strpos($cfg['ip_blacklist'], $_SERVER['REMOTE_ADDR']) !== false) {
+        if (str_contains($cfg['ip_blacklist'], (string) $_SERVER['REMOTE_ADDR'])) {
             return 'Deine IP wird von LanSuite geblockt. Melde dich bitte bei den Administratoren';
         }
 

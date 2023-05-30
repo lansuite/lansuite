@@ -25,35 +25,17 @@ if ($cfg['guestlist_guestmap'] == 2) {
         $aggregated_text='';
         while ($row = $db->fetch_array($res)) {
             ($row['country'])? $country = $row['country'] : $country = $cfg['sys_country'];
-            switch ($country) {
-                case 'de':
-                    $GCountry = 'Germany';
-                    break;
-                case 'at':
-                    $GCountry = 'Austria';
-                    break;
-                case 'ch':
-                    $GCountry = 'Swiss';
-                    break;
-                case 'en':
-                    $GCountry = 'England';
-                    break;
-                case 'nl':
-                    $GCountry = 'Netherlands';
-                    break;
-                case 'es':
-                    $GCountry = 'Spain';
-                    break;
-                case 'it':
-                    $GCountry = 'Italy';
-                    break;
-                case 'fr':
-                    $GCountry = 'France';
-                    break;
-                default:
-                    $GCountry = 'Germany';
-                    break;
-            }
+            $GCountry = match ($country) {
+                'de' => 'Germany',
+                'at' => 'Austria',
+                'ch' => 'Swiss',
+                'en' => 'England',
+                'nl' => 'Netherlands',
+                'es' => 'Spain',
+                'it' => 'Italy',
+                'fr' => 'France',
+                default => 'Germany',
+            };
 
             // Show detailed map to admins only, otherwise stick to user settings
             if ($row['show_me_in_map'] == 1 || $auth['type'] >= 2) {

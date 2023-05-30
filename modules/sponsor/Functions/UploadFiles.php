@@ -17,7 +17,7 @@ function UploadFiles()
         // 3) Was a code submitted?
     } elseif ($_POST['pic_code'] != '') {
         $_POST['pic_path'] = $_POST['pic_code'];
-        if (substr($_POST['pic_path'], 0, 12) != 'html-code://') {
+        if (!str_starts_with($_POST['pic_path'], 'html-code://')) {
             $_POST['pic_path'] = 'html-code://'. $_POST['pic_path'];
         }
     }
@@ -32,7 +32,7 @@ function UploadFiles()
         // 3) Was a code submitted?
     } elseif ($_POST['pic_code_banner'] != '') {
         $_POST['pic_path_banner'] = $_POST['pic_code_banner'];
-        if (substr($_POST['pic_path_banner'], 0, 12) != 'html-code://') {
+        if (!str_starts_with($_POST['pic_path_banner'], 'html-code://')) {
             $_POST['pic_path_banner'] = 'html-code://'. $_POST['pic_path_banner'];
         }
 
@@ -52,7 +52,7 @@ function UploadFiles()
         // 3) Was a code submitted?
     } elseif ($_POST['pic_code_button'] != '') {
         $_POST['pic_path_button'] = $_POST['pic_code_button'];
-        if (substr($_POST['pic_path_button'], 0, 12) != 'html-code://') {
+        if (!str_starts_with($_POST['pic_path_button'], 'html-code://')) {
             $_POST['pic_path_button'] = 'html-code://'. $_POST['pic_path_button'];
         }
 

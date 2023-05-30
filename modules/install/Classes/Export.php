@@ -6,25 +6,16 @@ use LanSuite\Module\Seating\Seat2;
 
 class Export
 {
-    /**
-     * @var string
-     */
-    private $output;
+    private ?string $output = null;
 
-    /**
-     * @var string
-     */
-    private $filename;
+    private ?string $filename = null;
 
     /**
      * @var string
      */
     public $lansuite;
 
-    /**
-     * @var \LanSuite\XML
-     */
-    private $xml;
+    private \LanSuite\XML $xml;
 
     public function __construct(\LanSuite\XML $xml)
     {
@@ -507,7 +498,7 @@ class Export
         header("Content-Disposition: attachment; filename=\"$filename\"");
         $zip->download_file();
     
-        if ((is_array($zip->errors) || $zip->errors instanceof \Countable ? count($zip->errors) : 0) > 0) {
+        if ((is_countable($zip->errors) ? count($zip->errors) : 0) > 0) {
             return false;
         }
 

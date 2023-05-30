@@ -45,46 +45,29 @@ class Debug
 
     /**
      * Helpvar Timer (Outputstring)
-     *
-     * @var string
      */
-    private $timer_out = '';
+    private string $timer_out = '';
 
-    /**
-     * @var string
-     */
-    private $timer_all;
+    private float|int|null $timer_all = null;
 
     /**
      * Uservars to show
-     *
-     * @var array
      */
-    private $debugvars = [];
+    private array $debugvars = [];
 
     /**
      * Debug mode
-     *
-     * @var string
      */
-    private $mode = '';
+    private string $mode = '';
 
     /**
      * Debugpath for Filedebug
-     *
-     * @var string
      */
-    private $debug_path = '';
+    private string $debug_path = '';
 
-    /**
-     * @var array
-     */
-    private $sql_query_list = [];
+    private array $sql_query_list = [];
 
-    /**
-     * @var bool
-     */
-    private $sql_query_running = false;
+    private bool $sql_query_running = false;
 
     /**
      * Debug constructor.

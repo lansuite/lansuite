@@ -6,11 +6,11 @@ help: ## Outputs the help
 
 .PHONY: init
 init: ## Installs dependencies
-	yarn install
+	npm install
 
 .PHONY: run
 run: ## Starts the development server
-	yarn start
+	npm start
 
 .PHONY: clean
 clean: ## Deletes the generated content and node_modules
@@ -19,4 +19,4 @@ clean: ## Deletes the generated content and node_modules
 
 .PHONY: build
 build: ## Compiles the documentation into static content
-	yarn build
+	npm build

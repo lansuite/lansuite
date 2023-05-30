@@ -8,7 +8,7 @@ $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 $dsp->NewContent(t('Turnier-Zeitplan'), t('Hier siehst du, welches Turnier zu welcher Zeit stattfindet.'));
 
 // Generate Table-head
-$mintime = 9999999999;
+$mintime = 9_999_999_999;
 $maxtime = 0;
 $tournaments = $db->qry("
   SELECT *,

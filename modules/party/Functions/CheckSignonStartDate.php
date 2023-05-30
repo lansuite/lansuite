@@ -2,9 +2,8 @@
 
 /**
  * @param string $sstartdate
- * @return bool|string
  */
-function CheckSignonStartDate($sstartdate)
+function CheckSignonStartDate($sstartdate): bool|string
 {
     global $func;
 

@@ -19,7 +19,7 @@ while ($sponsor = $db->fetch_array($sponsoren)) {
     $out = '';
 
     // If entry is HTML-Code
-    if (substr($sponsor['pic_path_button'], 0, 12) == 'html-code://') {
+    if (str_starts_with($sponsor['pic_path_button'], 'html-code://')) {
         $out = $func->AllowHTML(substr($sponsor["pic_path_button"], 12, strlen($sponsor["pic_path_button"]) - 12));
 
     // Else add Image-Tag

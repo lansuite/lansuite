@@ -5,6 +5,7 @@ namespace LanSuite;
 class MasterForm
 {
     //@TODO: Check and properly set accessiblity for all of these
+
     public const FIELD_OPTIONAL = 1;
 
     public const HTML_ALLOWED = 1;
@@ -39,35 +40,17 @@ class MasterForm
 
     public const OUTPUT_PROC = 2;
 
-    /**
-     * @var array
-     */
-    private $FormFields = [];
+    private array $FormFields = [];
 
-    /**
-     * @var array
-     */
-    private $Groups = [];
+    private array $Groups = [];
 
-    /**
-     * @var array
-     */
-    private $SQLFields = [];
+    private array $SQLFields = [];
 
-    /**
-     * @var array
-     */
-    private $WYSIWYGFields = [];
+    private array $WYSIWYGFields = [];
 
-    /**
-     * @var array
-     */
-    private $DependOn = [];
+    private array $DependOn = [];
 
-    /**
-     * @var array
-     */
-    private $error = [];
+    private array $error = [];
 
     /**
      * @var string
@@ -104,15 +87,9 @@ class MasterForm
      */
     public $isChange = false;
 
-    /**
-     * @var string
-     */
-    private $FormEncType = '';
+    private string $FormEncType = '';
 
-    /**
-     * @var int
-     */
-    private $PWSecID = 0;
+    private int $PWSecID = 0;
 
     /**
      * @var string
@@ -129,10 +106,7 @@ class MasterForm
      */
     public $AddChangeCondition = '';
 
-    /**
-     * @var int
-     */
-    private $NumFields = 0;
+    private int $NumFields = 0;
 
     /**
      * @var int
@@ -154,37 +128,20 @@ class MasterForm
      */
     public $SendButtonText = '';
 
-    /**
-     * @var int
-     */
-    private $OptGroupOpen = 0;
+    private int $OptGroupOpen = 0;
 
-    /**
-     * @var int
-     */
-    private $MultiLineID = 0;
+    private int $MultiLineID = 0;
 
-    /**
-     * @var array
-     */
-    private $MultiLineIDs = [];
+    private array $MultiLineIDs = [];
 
-    /**
-     * @var int
-     */
-    private $FCKeditorID = 0;
+    private int $FCKeditorID = 0;
 
-    /**
-     * @var array
-     */
-    private $Pages = [];
+    private array $Pages = [];
 
     /**
      * Master form number
-     *
-     * @var int
      */
-    private $number = 0;
+    private int $number = 0;
 
     /**
      * The MasterForm class deals internally with a number to handle multiple forms on one page.
@@ -431,7 +388,7 @@ class MasterForm
             $StartURL = str_replace('&mf_step=2', '', $StartURL);
             $StartURL = preg_replace('#&mf_id=[0-9]*#si', '', $StartURL);
 
-            if (strpos($StartURL, '&' . $idname . '=' . $id) == 0) {
+            if (str_starts_with($StartURL, '&' . $idname . '=' . $id)) {
                 $StartURL .= '&' . $idname . '=' . $id;
             }
         }
@@ -616,7 +573,7 @@ class MasterForm
                                                       $this->error[$field['name']] = t('Bitte fülle dieses Pflichtfeld aus.');
 
                                                 // Check Int
-                                                } elseif (strpos($SQLFieldTypes[$field['name']], 'int') !== false && $SQLFieldTypes[$field['name']] != 'tinyint(1)' && $SQLFieldTypes[$field['name']] != "enum('0','1')" && $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) {
+                                                } elseif (str_contains($SQLFieldTypes[$field['name']], 'int') && $SQLFieldTypes[$field['name']] != 'tinyint(1)' && $SQLFieldTypes[$field['name']] != "enum('0','1')" && $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) {
                                                       $this->error[$field['name']] = t('Bitte gib eine Zahl ein.');
 
                                                 // Check date
@@ -632,7 +589,7 @@ class MasterForm
                                                       $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
 
                                                 // No \r \n \t \0 \x0B in Non-Multiline-Fields
-                                                } elseif ($field['type'] != 'text' && $field['type'] != 'mediumtext' && $field['type'] != 'longtext' && $SQLFieldTypes[$field['name']] != 'text' && $SQLFieldTypes[$field['name']] != 'mediumtext' && $SQLFieldTypes[$field['name']] != 'longtext' && !is_array($_POST[$field['name']]) && ((strpos($_POST[$field['name']], "\r") !== false) || (strpos($_POST[$field['name']], "\n") !== false) || (strpos($_POST[$field['name']], "\t") !== false) || (strpos($_POST[$field['name']], "\0") !== false) || (strpos($_POST[$field['name']], "\x0B") !== false))) {
+                                                } elseif ($field['type'] != 'text' && $field['type'] != 'mediumtext' && $field['type'] != 'longtext' && $SQLFieldTypes[$field['name']] != 'text' && $SQLFieldTypes[$field['name']] != 'mediumtext' && $SQLFieldTypes[$field['name']] != 'longtext' && !is_array($_POST[$field['name']]) && ((str_contains($_POST[$field['name']], "\r")) || (str_contains($_POST[$field['name']], "\n")) || (str_contains($_POST[$field['name']], "\t")) || (str_contains($_POST[$field['name']], "\0")) || (str_contains($_POST[$field['name']], "\x0B")))) {
                                                       $this->error[$field['name']] = t('Dieses Feld enthält nicht erlaubte Steuerungszeichen (z.B. einen Tab, oder Zeilenumbruch)');
 
                                                 // Callbacks
@@ -755,13 +712,13 @@ class MasterForm
 
                                             case 'mediumtext':
                                                 if (!$maxchar) {
-                                                    $maxchar = 16777215;
+                                                    $maxchar = 16_777_215;
                                                 }
                                                 // No break statement here on purpose
 
                                             case 'longtext':
                                                 if (!$maxchar) {
-                                                    $maxchar = 4294967295;
+                                                    $maxchar = 4_294_967_295;
                                                 }
                                                 if ($field['selections'] == self::HTML_ALLOWED or $field['selections'] == self::LSCODE_ALLOWED) {
                                                     $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
@@ -913,7 +870,7 @@ class MasterForm
                                                 if (is_array($field['selections'])) {
                                                     $selections = array();
                                                     foreach ($field['selections'] as $key => $val) {
-                                                        if (substr($key, 0, 10) == '-OptGroup-') {
+                                                        if (str_starts_with($key, '-OptGroup-')) {
                                                             if ($this->OptGroupOpen) {
                                                                 $selections[] = '</optgroup>';
                                                             }
@@ -1125,9 +1082,9 @@ class MasterForm
                                         $db_query .= $val .' = '. (int)$_POST[$val] .', ';
                                     } elseif ($SQLFieldTypes[$val] == 'varbinary(16)' and $val == 'ip') {
                                         $db_query .= $val .' = INET6_ATON(\''. $_POST[$val] .'\'), ';
-                                    } elseif ($_POST[$val] == '++' and strpos($SQLFieldTypes[$val], 'int') !== false) {
+                                    } elseif ($_POST[$val] == '++' and str_contains($SQLFieldTypes[$val], 'int')) {
                                         $db_query .= "$val = $val + 1, ";
-                                    } elseif ($_POST[$val] == '--' and strpos($SQLFieldTypes[$val], 'int') !== false) {
+                                    } elseif ($_POST[$val] == '--' and str_contains($SQLFieldTypes[$val], 'int')) {
                                         $db_query .= "$val = $val - 1, ";
                                     } else {
                                         $db_query .= "$val = '{$_POST[$val]}', ";

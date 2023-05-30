@@ -152,7 +152,7 @@ class Barcode
             if (strlen($barnumber)>13 || strlen($barnumber)<12) {
                 $this->_error="Barcode number must be less then 13 characters.";
                 return false;
-            } elseif (substr($barnumber, 0, 3)!="978") {
+            } elseif (!str_starts_with($barnumber, "978")) {
                 $this->_error="Not an ISBN barcode number. Must be start with 978";
                 return false;
             }
@@ -983,7 +983,7 @@ class Barcode
         $len=strlen($barnumber);
         if ($len % 2!=0) {
             $barnumber=$this->_checkDigit($barnumber, $len);
-            if ($len==strlen($barnumber) && substr($barnumber, -1)!='0') {
+            if ($len==strlen($barnumber) && !str_ends_with($barnumber, '0')) {
                 $barnumber.='0';
             }
         }
@@ -1120,7 +1120,7 @@ class Barcode
 
         $len=strlen($barnumber);
         $barnumber=$this->_checkDigit($barnumber, $len);
-        if ($len==strlen($barnumber) && substr($barnumber, -1)!='0') {
+        if ($len==strlen($barnumber) && !str_ends_with($barnumber, '0')) {
             $barnumber.='0';
         }
 
@@ -1130,7 +1130,7 @@ class Barcode
         $widebar.="0";
 
         for ($i=0; $i<strlen($barnumber); $i++) {
-            $num=(int)$barnumber{$i};
+            $num=(int)$barnumber[$i];
             $str="";
             $str=str_replace("N", "10", $encTable[$num]);
             $str=str_replace("W", $widebar, $str);
@@ -1232,7 +1232,7 @@ class Barcode
             $barnumber = str_pad($barnumber, 12, "0", STR_PAD_LEFT);
         }
 
-        if (substr($upca, 0, 1) != '0' && substr($upca, 0, 1) != '1') {
+        if (!str_starts_with($upca, '0') && !str_starts_with($upca, '1')) {
             $this->_error = 'Invalid Number System (only 0 & 1 are valid)';
             return false;
         } else {
@@ -1276,7 +1276,7 @@ class Barcode
         $encTable[$checkdigit];
 
         for ($i=0; $i<strlen($barnumber); $i++) {
-            $num=(int)$barnumber{$i};
+            $num=(int)$barnumber[$i];
             $even=(substr($encTable[$checkdigit], $i, 1)=='E');
             if (!$even) {
                 $mfcStr.=$leftOdd[$num];
@@ -1404,9 +1404,9 @@ class Barcode
 
         for ($i=0; $i<strlen($barnumber); $i++) {
             if ($i % 2 == 0) {
-                $csumTotal = $csumTotal + (3 * intval($barnumber{$i}));
+                $csumTotal = $csumTotal + (3 * intval($barnumber[$i]));
             } else {
-                $csumTotal = $csumTotal + intval($barnumber{$i});
+                $csumTotal = $csumTotal + intval($barnumber[$i]);
             }
         }
 
@@ -1445,7 +1445,7 @@ class Barcode
         $prodStr="";
 
         for ($i=0; $i<strlen($barnumber); $i++) {
-            $num=(int)$barnumber{$i};
+            $num=(int)$barnumber[$i];
             if ($i<4) {
                 $mfcStr.=$leftOdd[$num];
             } elseif ($i>=4) {
@@ -1560,9 +1560,9 @@ class Barcode
 
         for ($i=0; $i<strlen($barnumber); $i++) {
             if ($i % 2 == 0) {
-                $csumTotal = $csumTotal + intval($barnumber{$i});
+                $csumTotal = $csumTotal + intval($barnumber[$i]);
             } else {
-                $csumTotal = $csumTotal + (3 * intval($barnumber{$i}));
+                $csumTotal = $csumTotal + (3 * intval($barnumber[$i]));
             }
         }
 
@@ -1621,7 +1621,7 @@ class Barcode
         $encbit=$barnumber[0];
 
         for ($i=1; $i<strlen($barnumber); $i++) {
-            $num=(int)$barnumber{$i};
+            $num=(int)$barnumber[$i];
             if ($i<7) {
                 $even=(substr($encTable[$encbit], $i-1, 1)==1);
                 if (!$even) {
