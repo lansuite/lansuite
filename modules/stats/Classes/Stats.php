@@ -22,12 +22,12 @@ class Stats
         //   Mozilla/5.0 (compatible; Exabot/3.0; +http://www.e...
         //   Mozilla/5.0 (compatible; Googlebot/2.1; +http://ww...
         // see also http://www.user-agents.org/
-        if (strpos(strtolower($httpUserAgent), 'bot') === false
-            && strpos(strtolower($httpUserAgent), 'spider') === false
-            && strpos(strtolower($httpUserAgent), 'crawl') === false
-            && strpos(strtolower($httpUserAgent), 'search') === false
-            && strpos(strtolower($httpUserAgent), 'google') === false
-            && strpos(strtolower($httpUserAgent), 'find') === false) {
+        if (!str_contains(strtolower($httpUserAgent), 'bot')
+            && !str_contains(strtolower($httpUserAgent), 'spider')
+            && !str_contains(strtolower($httpUserAgent), 'crawl')
+            && !str_contains(strtolower($httpUserAgent), 'search')
+            && !str_contains(strtolower($httpUserAgent), 'google')
+            && !str_contains(strtolower($httpUserAgent), 'find')) {
             if (array_key_exists('log_browser_stats', $cfg) && $cfg['log_browser_stats']) {
                 $db->qry(
                     '

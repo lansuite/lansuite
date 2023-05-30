@@ -64,7 +64,7 @@ while ($row = $db->fetch_array()) {
 }
 
 // We need more than 10 Values to continue...
-if ((is_array($value) || $value instanceof \Countable ? count($value) : 0) < 10) {
+if ((is_countable($value) ? count($value) : 0) < 10) {
     if (!is_array($value)) {
         $msg = "Es sind keine Daten vorhanden.";
     } else {

@@ -145,9 +145,8 @@ class Beamer
 
     /**
      * @param int $bcid
-     * @return array|bool|null
      */
-    public function getContent($bcid)
+    public function getContent($bcid): array|bool|null
     {
         global $db;
 

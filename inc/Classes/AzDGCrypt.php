@@ -59,7 +59,7 @@ class AzDGCrypt
      */
     public function crypt($t)
     {
-        mt_srand((double)microtime()*1000000);
+        mt_srand((double)microtime()*1_000_000);
         $r = md5(random_int(0, 32000));
         $c=0;
         $v = "";

@@ -2,9 +2,8 @@
 
 /**
  * @param int $id
- * @return bool|string
  */
-function ChangeAllowed($id)
+function ChangeAllowed($id): bool|string
 {
     global $db, $row, $func, $auth, $seat2;
 

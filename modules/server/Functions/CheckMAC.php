@@ -2,9 +2,8 @@
 
 /**
  * @param string $mac
- * @return bool|string
  */
-function CheckMAC($mac)
+function CheckMAC($mac): bool|string
 {
     if ($mac) {
         $explode = explode('-', $mac);

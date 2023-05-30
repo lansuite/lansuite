@@ -10,30 +10,15 @@ use \PayPal\Api\Payer;
 class PayPal
 {
 
-    /**
-     * @var OAuthTokenCredential
-     */
-    private $authTokenCredential;
+    private \PayPal\Auth\OAuthTokenCredential $authTokenCredential;
 
-    /**
-     * @var array
-     */
-    private $config = [];
+    private array $config = [];
 
-    /**
-     * @var array
-     */
-    private $items = [];
+    private array $items = [];
 
-    /**
-     * @var Payment
-     */
-    private $payment;
+    private ?\PayPal\Api\Payment $payment = null;
 
-    /**
-     * @var ApiContext
-     */
-    private $apiContext;
+    private \PayPal\Rest\ApiContext $apiContext;
     
     public function __construct()
     {
@@ -59,7 +44,6 @@ class PayPal
     }
 
     /**
-     * @param PayPalItem $item
      * @return void
      */
     public function addItem(PayPalItem $item)
@@ -88,10 +72,7 @@ class PayPal
         return $items;
     }
 
-    /**
-     * @return float|int
-     */
-    public function calcItemsTotal()
+    public function calcItemsTotal(): float|int
     {
         $total = 0;
         foreach ($this->items as $item) {
@@ -181,7 +162,7 @@ class PayPal
 
                 $approval_link = $this->payment->getApprovalLink();
                 return $approval_link;
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 $func->error(t('Fehler bei der Übermittlung an PayPal'));
             }
         } else {

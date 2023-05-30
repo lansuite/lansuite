@@ -16,10 +16,8 @@ class Translation
 
     /**
      * Basename of the translation file
-     *
-     * @var string
      */
-    private $transfile_name = 'translation.xml';
+    private string $transfile_name = 'translation.xml';
 
     /**
      * @var array
@@ -49,17 +47,13 @@ class Translation
 
     /**
      * Is cache for module loaded (db)
-     *
-     * @var int
      */
-    private $cachemod_loaded_db = 0;
+    private int $cachemod_loaded_db = 0;
 
     /**
      * Is cache for module loaded (xml)
-     *
-     * @var int
      */
-    private $cachemod_loaded_xml  = 0;
+    private int $cachemod_loaded_xml  = 0;
 
     public function __construct()
     {
@@ -394,15 +388,10 @@ class Translation
      */
     private function get_trans_filename($module)
     {
-        switch ($module) {
-            case 'System':
-            case 'DB':
-                $file = 'inc/language/' . $module . '_' . $this->transfile_name;
-                break;
-
-            default:
-                $file = 'modules/' . $module . '/mod_settings/' . $this->transfile_name;
-        }
+        $file = match ($module) {
+            'System', 'DB' => 'inc/language/' . $module . '_' . $this->transfile_name,
+            default => 'modules/' . $module . '/mod_settings/' . $this->transfile_name,
+        };
 
         return $file;
     }
@@ -461,7 +450,7 @@ class Translation
 
         // Generate module name from file
         $CurrentFile = str_replace('\\', '/', $baseDir);
-        if (strpos($CurrentFile, 'modules/') !== false) {
+        if (str_contains($CurrentFile, 'modules/')) {
             $CurrentFile = substr($CurrentFile, strpos($CurrentFile, 'modules/') + 8, strlen($CurrentFile));
             $CurrentFile = substr($CurrentFile, 0, strpos($CurrentFile, '/'));
         } else {
@@ -479,7 +468,7 @@ class Translation
 
                 preg_match_all('/([^a-zA-Z0-9]+t\\(\\\')(.*?)(\\\'\\)|\\\'\\,)/', $content, $treffer1, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
                 preg_match_all('/([^a-zA-Z0-9]+t\\(\\")(.*?)(\\"\\)|\\"\\,)/', $content, $treffer2, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
-                $treffer = array_merge($treffer1, $treffer2);
+                $treffer = [...$treffer1, ...$treffer2];
 
                 foreach ($treffer as $wert) {
                     $CurrentPos = $wert[2][1];

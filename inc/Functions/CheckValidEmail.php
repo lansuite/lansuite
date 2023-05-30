@@ -13,16 +13,10 @@ function CheckValidEmail($email)
 {
     global $cfg,$db;
 
-    // Check which validation mode to validate
-    // an email address is configured
-    switch ($cfg['sys_email_regex_verification']) {
-        case 'loose':
-            $emailValidator = new Email(Email::VALIDATION_MODE_LOOSE);
-            break;
-        case 'html5':
-        default:
-            $emailValidator = new Email(Email::VALIDATION_MODE_HTML5);
-    }
+    $emailValidator = match ($cfg['sys_email_regex_verification']) {
+        'loose' => new Email(Email::VALIDATION_MODE_LOOSE),
+        default => new Email(Email::VALIDATION_MODE_HTML5),
+    };
 
     // Enable dns verification features based on user configuration
     switch ($cfg['sys_email_dns_verification']) {

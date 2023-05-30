@@ -14,10 +14,7 @@ class Basket
      */
     private $product;
 
-    /**
-     * @var Accounting
-     */
-    private $account;
+    private \LanSuite\Module\Foodcenter\Accounting $account;
 
     /**
      * @var int

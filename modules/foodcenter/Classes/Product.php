@@ -27,17 +27,13 @@ class Product
 
     /**
      * Category
-     *
-     * @var Category
      */
-    private $cat;
+    private ?\LanSuite\Module\Foodcenter\Category $cat = null;
 
     /**
      * Supplier
-     *
-     * @var Supplier
      */
-    private $supp;
+    private ?\LanSuite\Module\Foodcenter\Supplier $supp = null;
 
     /**
      * Supplier information
@@ -55,10 +51,8 @@ class Product
 
     /**
      * Management of material
-     *
-     * @var int
      */
-    private $mat;
+    private ?int $mat = null;
 
     /**
      * Product type
@@ -91,21 +85,17 @@ class Product
      *
      * @var ProductOption[]
      */
-    private $option = [];
+    private array $option = [];
 
     /**
      * Error container
-     *
-     * @var array
      */
-    private $error_food = [];
+    private array $error_food = [];
 
     /**
      * Error status
-     *
-     * @var boolean
      */
-    private $noerror = true;
+    private bool $noerror = true;
 
     /**
      * product constructor.

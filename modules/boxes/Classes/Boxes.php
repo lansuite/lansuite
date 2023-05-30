@@ -25,16 +25,10 @@ class Boxes
     {
         global $func;
 
-        // Set Item-Class
-        switch ($requirement) {
-            default:
-                $link_class = 'menu';
-                break;
-            case 2:
-            case 3:
-                $link_class = 'admin';
-                break;
-        }
+        $link_class = match ($requirement) {
+            2, 3 => 'admin',
+            default => 'menu',
+        };
 
         $class = '';
         switch ($level) {

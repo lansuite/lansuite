@@ -1,11 +1,10 @@
 <?php
 
 /**
- * @param mixed $bracket
  * @param int $max_pos
  * @return void
  */
-function write_pairs3($bracket, $max_pos)
+function write_pairs3(mixed $bracket, $max_pos)
 {
     $score1 = null;
     $known_game1 = null;
