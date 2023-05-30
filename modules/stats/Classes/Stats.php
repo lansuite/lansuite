@@ -29,7 +29,8 @@ class Stats
             && !str_contains(strtolower($httpUserAgent), 'search')
             && !str_contains(strtolower($httpUserAgent), 'google')
             && !str_contains(strtolower($httpUserAgent), 'find')) {
-                if (array_key_exists('log_browser_stats', $cfg) && $cfg['log_browser_stats']) {
+
+            if (array_key_exists('log_browser_stats', $cfg) && $cfg['log_browser_stats']) {
                 $db->qry(
                     '
                   INSERT INTO %prefix%stats_browser
