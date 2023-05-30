@@ -52,21 +52,12 @@ switch ($_GET["step"]) {
             $dsp->AddDoubleRow(t('Eingetragen am/um'), $func->unixstamp2date($row["created"], "daydatetime"));
             $dsp->AddDoubleRow(t('Von Benutzer'), $get_originuser["username"]);
 
-            // priorität zahl -> text
-            switch ($row["priority"]) {
-                default:
-                    $priority = t('Niedrig');
-                    break;
-                case 20:
-                    $priority = t('Normal');
-                    break;
-                case 30:
-                    $priority = t('Hoch');
-                    break;
-                case 40:
-                    $priority = t('Kritisch');
-                    break;
-            }
+            $priority = match ($row["priority"]) {
+                20 => t('Normal'),
+                30 => t('Hoch'),
+                40 => t('Kritisch'),
+                default => t('Niedrig'),
+            };
             $dsp->AddDoubleRow(t('Priorität'), $priority);
 
             // entsprechend des ticketstatuses passende zeilen ausgeben

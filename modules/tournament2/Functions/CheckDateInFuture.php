@@ -2,9 +2,8 @@
 
 /**
  * @param string $date
- * @return bool|string
  */
-function CheckDateInFuture($date)
+function CheckDateInFuture($date): bool|string
 {
     global $func, $mf;
 

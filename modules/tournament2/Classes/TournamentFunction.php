@@ -52,9 +52,8 @@ class TournamentFunction
      * @param int $tid
      * @param string $mode
      * @param int $group
-     * @return float|int
      */
-    public function GetTeamAnz($tid, $mode, $group = 0)
+    public function GetTeamAnz($tid, $mode, $group = 0): float|int
     {
         global $db;
 
@@ -99,9 +98,8 @@ class TournamentFunction
      * @param array $tournament
      * @param int $round
      * @param int $group_nr
-     * @return float|int
      */
-    public function GetGameStart($tournament, $round, $group_nr = 0)
+    public function GetGameStart($tournament, $round, $group_nr = 0): float|int
     {
         global $db;
         
@@ -151,9 +149,8 @@ class TournamentFunction
      * @param array $tournament
      * @param int $round
      * @param int $group_nr
-     * @return float|int
      */
-    public function GetGameEnd($tournament, $round, $group_nr = 0)
+    public function GetGameEnd($tournament, $round, $group_nr = 0): float|int
     {
         global $db;
         

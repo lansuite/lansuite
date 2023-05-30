@@ -58,7 +58,7 @@ if (!$_GET["sieg"]) {
 
             $pos = 0;
             $found = 0;
-            while (!(strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) === false)) {
+            while (!(!str_contains($_SESSION["losungswort"], $_POST["buchstabe"]))) {
                 $pos = strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) + 1;
                 $_GET["ratewort"] = substr_replace($_GET["ratewort"], $_POST["buchstabe"], $pos - 1, 1);
                 $found = 1;

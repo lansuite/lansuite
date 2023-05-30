@@ -26,7 +26,7 @@ if ($_GET['replyto']) {
     $reply_message = $row['mailID'];
     if (!$_POST['toUserID'] and $_GET['replyto']) {
         $_POST['Subject'] = 'WG: '.$row['Subject'];
-    } elseif (substr($row['Subject'], 0, 4) == 'Re: ') {
+    } elseif (str_starts_with($row['Subject'], 'Re: ')) {
         $_POST['Subject'] = $row['Subject'];
     } else {
         $_POST['Subject'] = 'Re: '.$row['Subject'];

@@ -2,9 +2,8 @@
 
 /**
  * @param string $state
- * @return bool|string
  */
-function CheckStateChangeAllowed($state)
+function CheckStateChangeAllowed($state): bool|string
 {
     if ($state == 'process') {
         return t('Dieser Status kann nicht manuell gesetzt werden. Zum setzen, bitte "Generieren" verwenden');

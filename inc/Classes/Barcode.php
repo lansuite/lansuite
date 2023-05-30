@@ -152,7 +152,7 @@ class Barcode
             if (strlen($barnumber)>13 || strlen($barnumber)<12) {
                 $this->_error="Barcode number must be less then 13 characters.";
                 return false;
-            } elseif (substr($barnumber, 0, 3)!="978") {
+            } elseif (!str_starts_with($barnumber, "978")) {
                 $this->_error="Not an ISBN barcode number. Must be start with 978";
                 return false;
             }
@@ -983,7 +983,7 @@ class Barcode
         $len=strlen($barnumber);
         if ($len % 2!=0) {
             $barnumber=$this->_checkDigit($barnumber, $len);
-            if ($len==strlen($barnumber) && substr($barnumber, -1)!='0') {
+            if ($len==strlen($barnumber) && !str_ends_with($barnumber, '0')) {
                 $barnumber.='0';
             }
         }
@@ -1120,7 +1120,7 @@ class Barcode
 
         $len=strlen($barnumber);
         $barnumber=$this->_checkDigit($barnumber, $len);
-        if ($len==strlen($barnumber) && substr($barnumber, -1)!='0') {
+        if ($len==strlen($barnumber) && !str_ends_with($barnumber, '0')) {
             $barnumber.='0';
         }
 
@@ -1232,7 +1232,7 @@ class Barcode
             $barnumber = str_pad($barnumber, 12, "0", STR_PAD_LEFT);
         }
 
-        if (substr($upca, 0, 1) != '0' && substr($upca, 0, 1) != '1') {
+        if (!str_starts_with($upca, '0') && !str_starts_with($upca, '1')) {
             $this->_error = 'Invalid Number System (only 0 & 1 are valid)';
             return false;
         } else {

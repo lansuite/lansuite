@@ -77,20 +77,12 @@ if (!$_GET['file']) {
         ORDER BY DATE_FORMAT(time, %string%)", $group_by, $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
 
     while ($row = $db->fetch_array($res)) {
-        switch ($_GET['time']) {
-            default:
-                $out = $func->unixstamp2date($row['display_time'], 'year');
-                break;
-            case 'y':
-                $out = $func->unixstamp2date($row['display_time'], 'month');
-                break;
-            case 'm':
-                $out = $func->unixstamp2date($row['display_time'], 'daydate');
-                break;
-            case 'd':
-                $out = $func->unixstamp2date($row['display_time'], 'daydatetime');
-                break;
-        }
+        $out = match ($_GET['time']) {
+            'y' => $func->unixstamp2date($row['display_time'], 'month'),
+            'm' => $func->unixstamp2date($row['display_time'], 'daydate'),
+            'd' => $func->unixstamp2date($row['display_time'], 'daydatetime'),
+            default => $func->unixstamp2date($row['display_time'], 'year'),
+        };
         if ($link) {
             $out = '<a href="index.php?mod=downloads&action=stats&file='.$_GET['file'].'&time='. $link .'&timeframe='. $row['group_by_time'] .'">'. $out .'</a>';
         }

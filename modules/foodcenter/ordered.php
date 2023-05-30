@@ -38,30 +38,13 @@ $ms2->AddResultField('Letzte änderung', 'a.lastchange', 'MS2GetDate');
 $ms2->AddResultField('Geliefert', 'a.supplytime', 'MS2GetDate');
 $ms2->AddResultField('Status', 's.statusname');
 
-switch ($_POST['search_dd_input'][0]) {
-    case 1:
-        $ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
-        break;
-
-    case 2:
-        $ms2->NoItemsText = t('Es müssen keine Produkte bestellt werden.');
-        break;
-
-    case 3:
-        $ms2->NoItemsText = t('Es wird auf keine Lieferung gewartet.');
-        break;
-
-    case 4:
-        $ms2->NoItemsText = t('Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.');
-        break;
-        
-    case 5:
-        $ms2->NoItemsText = t('Du hast alle Produkte abgeholt.');
-        break;
-        
-    default:
-        $ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
-        break;
-}
+$ms2->NoItemsText = match ($_POST['search_dd_input'][0]) {
+    1 => t('Keine aktuellen Bestellungen vorhanden.'),
+    2 => t('Es müssen keine Produkte bestellt werden.'),
+    3 => t('Es wird auf keine Lieferung gewartet.'),
+    4 => t('Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.'),
+    5 => t('Du hast alle Produkte abgeholt.'),
+    default => t('Keine aktuellen Bestellungen vorhanden.'),
+};
 
 $ms2->PrintSearch('index.php?mod=foodcenter&action=ordered', 'a.id');
