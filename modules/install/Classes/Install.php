@@ -75,7 +75,6 @@ class Install
      */
     public function TryCreateDB($createnew = null)
     {
-        $ret_val = null;
         global $config, $db, $request;
         $ret_val = null;
 
