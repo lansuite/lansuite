@@ -2,9 +2,8 @@
 
 /**
  * @param int $priceID
- * @return array|bool|null
  */
-function GetPriceDetails($priceID)
+function GetPriceDetails($priceID): array|bool|null
 {
     global $db, $auth;
 

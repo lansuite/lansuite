@@ -178,27 +178,13 @@ class PDF
     {
         global $func;
 
-        switch ($action) {
-            case 'guestcards':
-                $this->_menuUsercards($action);
-                break;
-
-            case 'seatcards':
-                $this->_menuSeatcards($action);
-                break;
-
-            case 'userlist':
-                $this->_menuUserlist($action);
-                break;
-
-            case 'certificate':
-                $this->_menuCertificate($action);
-                break;
-
-            default:
-                $func->error(t('Die von dir gew&uuml;nschte Funktion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action);
-                break;
-        }
+        match ($action) {
+            'guestcards' => $this->_menuUsercards($action),
+            'seatcards' => $this->_menuSeatcards($action),
+            'userlist' => $this->_menuUserlist($action),
+            'certificate' => $this->_menuCertificate($action),
+            default => $func->error(t('Die von dir gew&uuml;nschte Funktion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action),
+        };
     }
 
     /**

@@ -48,10 +48,7 @@ class Debug
      */
     private string $timer_out = '';
 
-    /**
-     * @var string
-     */
-    private $timer_all;
+    private float|int|null $timer_all = null;
 
     /**
      * Uservars to show
@@ -68,10 +65,7 @@ class Debug
      */
     private string $debug_path = '';
 
-    /**
-     * @var array
-     */
-    private $sql_query_list = [];
+    private array $sql_query_list = [];
 
     private bool $sql_query_running = false;
 

@@ -13,17 +13,9 @@ if ($_GET['pid']) {
 
 // Delete board
 } else {
-    switch ($_GET['step']) {
-        default:
-            include_once('modules/board/show.php');
-            break;
-
-        case 2:
-            $md->Delete('board_forums', 'fid', $_GET['fid']);
-            break;
-
-        case 10:
-            $md->MultiDelete('board_forums', 'fid');
-            break;
-    }
+    match ($_GET['step']) {
+        2 => $md->Delete('board_forums', 'fid', $_GET['fid']),
+        10 => $md->MultiDelete('board_forums', 'fid'),
+        default => include_once('modules/board/show.php'),
+    };
 }

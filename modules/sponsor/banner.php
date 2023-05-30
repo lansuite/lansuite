@@ -34,7 +34,7 @@ if ($banner['pic_path_banner'] == '' and file_exists($old_file_name)) {
 }
 
 // If entry is HTML-Code
-if (substr($file_name, 0, 12) == 'html-code://') {
+if (str_starts_with($file_name, 'html-code://')) {
     $smarty->assign('MainBanner', $func->AllowHTML(substr($file_name, 12, strlen($file_name) - 12)));
 } else {
   // If no Banner-Thumb was found, use LanSuite default banner
