@@ -14,7 +14,7 @@ class Email extends Validator
      */
     public const PATTERN_LOOSE = '/^.+\@\S+\.\S+$/';
 
-    private static $emailPatterns = array(
+    private static array $emailPatterns = array(
         self::VALIDATION_MODE_LOOSE => self::PATTERN_LOOSE,
         self::VALIDATION_MODE_HTML5 => self::PATTERN_HTML5,
     );

@@ -50,20 +50,11 @@ class MasterForm
      */
     private $Groups = [];
 
-    /**
-     * @var array
-     */
-    private $SQLFields = [];
+    private array $SQLFields = [];
 
-    /**
-     * @var array
-     */
-    private $WYSIWYGFields = [];
+    private array $WYSIWYGFields = [];
 
-    /**
-     * @var array
-     */
-    private $DependOn = [];
+    private array $DependOn = [];
 
     /**
      * @var array
@@ -105,15 +96,9 @@ class MasterForm
      */
     public $isChange = false;
 
-    /**
-     * @var string
-     */
-    private $FormEncType = '';
+    private string $FormEncType = '';
 
-    /**
-     * @var int
-     */
-    private $PWSecID = 0;
+    private int $PWSecID = 0;
 
     /**
      * @var string
@@ -130,10 +115,7 @@ class MasterForm
      */
     public $AddChangeCondition = '';
 
-    /**
-     * @var int
-     */
-    private $NumFields = 0;
+    private int $NumFields = 0;
 
     /**
      * @var int
@@ -155,37 +137,20 @@ class MasterForm
      */
     public $SendButtonText = '';
 
-    /**
-     * @var int
-     */
-    private $OptGroupOpen = 0;
+    private int $OptGroupOpen = 0;
 
-    /**
-     * @var int
-     */
-    private $MultiLineID = 0;
+    private int $MultiLineID = 0;
 
-    /**
-     * @var array
-     */
-    private $MultiLineIDs = [];
+    private array $MultiLineIDs = [];
 
-    /**
-     * @var int
-     */
-    private $FCKeditorID = 0;
+    private int $FCKeditorID = 0;
 
-    /**
-     * @var array
-     */
-    private $Pages = [];
+    private array $Pages = [];
 
     /**
      * Master form number
-     *
-     * @var int
      */
-    private $number = 0;
+    private int $number = 0;
 
     /**
      * The MasterForm class deals internally with a number to handle multiple forms on one page.
@@ -756,13 +721,13 @@ class MasterForm
 
                                             case 'mediumtext':
                                                 if (!$maxchar) {
-                                                    $maxchar = 16777215;
+                                                    $maxchar = 16_777_215;
                                                 }
                                                 // No break statement here on purpose
 
                                             case 'longtext':
                                                 if (!$maxchar) {
-                                                    $maxchar = 4294967295;
+                                                    $maxchar = 4_294_967_295;
                                                 }
                                                 if ($field['selections'] == self::HTML_ALLOWED or $field['selections'] == self::LSCODE_ALLOWED) {
                                                     $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);

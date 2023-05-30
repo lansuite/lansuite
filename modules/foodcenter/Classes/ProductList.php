@@ -11,17 +11,15 @@ class ProductList
 {
     /**
      * List of product numbers
-     *
-     * @var array
      */
-    private $product_list = [];
+    private array $product_list = [];
 
     /**
      * List of products
      *
      * @var Product[]
      */
-    private $product = [];
+    private array $product = [];
 
     /**
      * Load all products from a category

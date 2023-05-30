@@ -928,7 +928,7 @@ class Func
             // Work out if we got a responce and time it
             [$usec, $sec] = explode(" ", microtime(true));
             $laptime = ((float)$usec + (float)$sec)-$start;
-            if (($laptime * 1000000) > ($timeout * 0.9)) {
+            if (($laptime * 1_000_000) > ($timeout * 0.9)) {
                 fclose($handle);
                 return false;
             } else {
