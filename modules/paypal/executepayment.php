@@ -30,7 +30,10 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
                             break;
                         default:
                             $data = SKUtoParty($item->sku);
-                            $GuestList = new \LanSuite\Module\Guestlist\GuestList();
+                            $seating = new \LanSuite\Module\Seating\Seat2();
+                            $mail = new \LanSuite\Module\Mail\Mail();
+                            $userManager = new \LanSuite\Module\UsrMgr\UserManager($mail);
+                            $GuestList = new \LanSuite\Module\GuestList\GuestList($seating, $userManager);
                             $GuestList->SetPaid($auth['userid'], $data['party_id']);
                             break;
                     }
