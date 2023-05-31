@@ -498,9 +498,9 @@ class Product
 
         switch ($this->type) {
             case 1:
-                unset($price_1);
-                unset($price_2);
-                unset($price_3);
+                $price_1 = '';
+                $price_2 = '';
+                $price_3 = '';
 
                 if (is_object($this->option[0])) {
                     $price_3 = "<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a>";
