@@ -614,9 +614,8 @@ class Install
      *
      * @return int
      */
-    public function envcheck()
+    public function envcheck(array $configuration)
     {
-        $config = [];
         global $db, $dsp, $func;
 
         $continue = 1;
@@ -659,7 +658,7 @@ class Install
         $minMariaDBVersion = '10.0';
         $currentMysqlVersion = $db->getServerInfo();
         if (!$currentMysqlVersion) {
-            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (root@localhost) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %1 benutzt.', $minMysqlVersion);
+            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (%1@%2) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %3 benutzt.', $configuration['database']['user'], $configuration['database']['server'], $minMysqlVersion);
         } elseif (str_contains($currentMysqlVersion, 'MariaDB')) {
             $currentMariaDBVersion = substr($currentMysqlVersion, strpos($currentMysqlVersion, '-')+1);
             if (version_compare($currentMariaDBVersion, $minMariaDBVersion) >= 0) {
@@ -760,53 +759,6 @@ class Install
             $xml_check = $warning . t('Das PHP-Modul XML wurde nicht gefunden. Dies wird für (UTF-8 encodierte) eMails und CSV-Datenexporte benötigt');
         }
         $dsp->AddDoubleRow("XML Modul", $xml_check);
-
-        // Test Safe-Mode
-        if (!ini_get("safe_mode")) {
-            $safe_mode = $ok;
-        } else {
-            $safe_mode = $not_possible . t('Auf deinem System ist die PHP-Einstellung <b>safe_mode</b> auf <b>On</b> gesetzt. safe_mode ist dazu gedacht, einige Systemfunktionen auf dem Server zu sperren um Angriffe zu verhindern (siehe dazu: <a href=\'http://de2.php.net/features.safe-mode\' target=\'_blank\'>www.php.net</a>). Doch leider benötigen einige Lansuite-Module (speziell: LansinTV, Serverstatistiken oder das Server-Modul) Zugriff auf genau diese Funktionen. Du solltest daher, wenn du Probleme in diesen Modulen hast, in deiner <b>PHP.ini</b> die Option <b>safe_mode</b> auf <b>Off</b> setzen! <br />Außer bei oben genannten Modulen, kann es bei aktiviertem safe_mode außerdem auch zu Problemen bei dem Generieren von Buttons, wie dem am Ende dieser Seite kommen.');
-        }
-        $dsp->AddDoubleRow("Safe Mode", $safe_mode);
-
-        // Testing Safe-Mode and execution of system-programs
-        if (!ini_get("safe_mode")) {
-            if (stristr(strtolower($_SERVER['SERVER_SOFTWARE']), "win") == "") {
-                $env_stats = '';
-                if (@shell_exec("cat /proc/uptime") == "") {
-                    $env_stats .= "<strong>/proc/uptime</strong>" . HTML_NEWLINE;
-                }
-
-                if (@shell_exec("cat /proc/loadavg") == "") {
-                    $env_stats .= "<strong>/proc/loadavg</strong>" . HTML_NEWLINE;
-                }
-
-                if (@shell_exec("cat /proc/cpuinfo") == "") {
-                    $env_stats .= "<strong>/proc/cpuinfo</strong>" . HTML_NEWLINE;
-                }
-
-                if (@shell_exec("cat /proc/meminfo") == "") {
-                    $env_stats .= "<strong>/proc/meminfo</strong>" . HTML_NEWLINE;
-                }
-
-                if ($env_stats == "") {
-                    $server_stats = $ok;
-                } else {
-                    $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei ' . HTML_NEWLINE . '{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
-                }
-
-                $config["server_stats"]["status"] = 1;
-            } else {
-                system("modules\stats\ls_getinfo.exe", $status);
-                if ($status == 0) {
-                    $server_stats = $ok;
-                } else {
-                    $env_stats = "<strong>modules/stats/ls_getinfo.exe</strong>" . HTML_NEWLINE;
-                    $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei ' . HTML_NEWLINE . '{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
-                }
-            }
-            $dsp->AddDoubleRow("Server Stats", $server_stats);
-        }
 
         // SNMP-Lib
         if (extension_loaded('snmp')) {

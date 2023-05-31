@@ -29,7 +29,8 @@ class Stats
             && !str_contains(strtolower($httpUserAgent), 'search')
             && !str_contains(strtolower($httpUserAgent), 'google')
             && !str_contains(strtolower($httpUserAgent), 'find')) {
-                if (array_key_exists('log_browser_stats', $cfg) && $cfg['log_browser_stats']) {
+
+            if (array_key_exists('log_browser_stats', $cfg) && $cfg['log_browser_stats']) {
                 $db->qry(
                     '
                   INSERT INTO %prefix%stats_browser
@@ -97,7 +98,7 @@ class Stats
                 );
 
                 // Read URL parameters into an array
-                $url_paras = explode("?", httpReferer); // URL part behind ? -> $url_paras[1]
+                $url_paras = explode("?", $httpReferer); // URL part behind ? -> $url_paras[1]
                 $url_paras = explode("&", $url_paras[1]);
 
                 foreach ($url_paras as $akt_para) {

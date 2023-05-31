@@ -5,6 +5,7 @@ namespace LanSuite;
 class MasterForm
 {
     //@TODO: Check and properly set accessiblity for all of these
+
     public const FIELD_OPTIONAL = 1;
 
     public const HTML_ALLOWED = 1;
@@ -141,6 +142,21 @@ class MasterForm
      * Master form number
      */
     private int $number = 0;
+
+    /**
+     * Master form ID
+     */
+    private int $MFID;
+
+    /**
+     * Current page in pagination
+     */
+    private int $currentPage;
+
+    /**
+     * Name of a form field
+     */
+    private string $DependOnField;
 
     /**
      * The MasterForm class deals internally with a number to handle multiple forms on one page.

@@ -6,11 +6,11 @@ help: ## Outputs the help
 
 .PHONY: init
 init: ## Installs dependencies
-	yarn install
+	npm install
 
 .PHONY: run
 run: ## Starts the development server
-	yarn start
+	npm run start
 
 .PHONY: clean
 clean: ## Deletes the generated content and node_modules
@@ -19,4 +19,9 @@ clean: ## Deletes the generated content and node_modules
 
 .PHONY: build
 build: ## Compiles the documentation into static content
-	yarn build
+	npm run build
+
+
+.PHONY: deploy
+deploy: ## Renders and deploys the documentation to https://lansuite.github.io/lansuite/
+	npm run deploy
