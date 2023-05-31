@@ -98,7 +98,7 @@ class Stats
                 );
 
                 // Read URL parameters into an array
-                $url_paras = explode("?", httpReferer); // URL part behind ? -> $url_paras[1]
+                $url_paras = explode("?", $httpReferer); // URL part behind ? -> $url_paras[1]
                 $url_paras = explode("&", $url_paras[1]);
 
                 foreach ($url_paras as $akt_para) {

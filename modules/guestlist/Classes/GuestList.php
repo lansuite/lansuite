@@ -2,7 +2,7 @@
 
 namespace LanSuite\Module\GuestList;
 
-use Lansuite\Module\Mail\Mail;
+use LanSuite\Module\Mail\Mail;
 use LanSuite\Module\Seating\Seat2;
 
 class GuestList

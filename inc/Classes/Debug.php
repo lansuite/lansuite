@@ -70,6 +70,16 @@ class Debug
     private bool $sql_query_running = false;
 
     /**
+     * Microtime on the start of the measurement.
+     */
+    private float $sql_query_start;
+
+    /**
+     * Query that gets measured.
+     */
+    private string $sql_query_string;
+
+    /**
      * Debug constructor.
      *
      * @param string $mode          0 = off, 1 = normal, 2 = file

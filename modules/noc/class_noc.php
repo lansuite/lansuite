@@ -123,9 +123,9 @@ class noc
         foreach ($walkvalue as $value) {
             if (stristr($value, ":")) {
                 $tmp = explode(":", $value);
-                $data[] .= trim($tmp[1]);
+                $data[] = trim($tmp[1]);
             } else {
-                $data[] .= trim($value);
+                $data[] = trim($value);
             }
         }
         

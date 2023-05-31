@@ -144,6 +144,21 @@ class MasterForm
     private int $number = 0;
 
     /**
+     * Master form ID
+     */
+    private int $MFID;
+
+    /**
+     * Current page in pagination
+     */
+    private int $currentPage;
+
+    /**
+     * Name of a form field
+     */
+    private string $DependOnField;
+
+    /**
      * The MasterForm class deals internally with a number to handle multiple forms on one page.
      * If you are using the MasterForm class only once at the page, you can just initialize and use it.
      * If you use it multiple times, you need to increment the internal counter.
