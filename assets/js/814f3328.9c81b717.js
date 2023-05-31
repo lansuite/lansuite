@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunklansuite_documentation=self.webpackChunklansuite_documentation||[]).push([[535],{5641:t=>{t.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Launch of the documentation","permalink":"/lansuite/blog/documentation-launch"}]}')}}]);
