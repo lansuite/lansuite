@@ -76,7 +76,7 @@ switch ($_GET["step"]) {
             while ($row=$db->fetch_array($get_cats)) {
                 $selected=($row["catid"] == $_POST["question_cat"]) ? "selected" : "";
 
-                $faq_cats[] .= "<option $selected value=" . $row["catid"] . "> " . $row["name"] . " </option>";
+                $faq_cats[] = "<option $selected value=" . $row["catid"] . "> " . $row["name"] . " </option>";
             }
 
             $dsp->AddTextFieldRow("question_caption", t('Frage / Überschrift'), $_POST['question_caption'], $faq_error['question_caption']);

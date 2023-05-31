@@ -5,6 +5,11 @@ namespace LanSuite;
 class Func
 {
     /**
+     * HTTP referer
+     */
+    public string $internal_referer;
+
+    /**
      * @var array
      */
     public $ActiveModules = [];
@@ -41,22 +46,12 @@ class Func
 
         $res = $db->qry('SELECT cfg_value, cfg_key, cfg_type FROM %prefix%config');
         while ($row = $db->fetch_array($res, 0)) {
-            switch ($row['cfg_type']) {
-                case 'integer':
-                case 'int':
-                      $cfg["{$row['cfg_key']}"] = (int)$row['cfg_value'];
-                    break;
-                case 'boolean':
-                case 'bool':
-                      $cfg["{$row['cfg_key']}"] = (bool)$row['cfg_value'];
-                    break;
-                case 'float':
-                      $cfg["{$row['cfg_key']}"] = (float)$row['cfg_value'];
-                    break;
-                default:
-                      $cfg["{$row['cfg_key']}"] = $row['cfg_value'];
-                    break;
-            }
+            $cfg["{$row['cfg_key']}"] = match ($row['cfg_type']) {
+                'integer', 'int' => (int)$row['cfg_value'],
+                'boolean', 'bool' => (bool)$row['cfg_value'],
+                'float' => (float)$row['cfg_value'],
+                default => $row['cfg_value'],
+            };
         }
         $db->free_result($res);
 
@@ -68,9 +63,8 @@ class Func
      *
      * @param string    $strStr
      * @param string    $strPattern
-     * @return bool|false|int
      */
-    public function str2time($strStr, $strPattern = 'Y-m-d H:i:s')
+    public function str2time($strStr, $strPattern = 'Y-m-d H:i:s'): bool|int
     {
         // An array of the valid date characters, see: http://php.net/date#AEN21898
         $arrCharacters = [
@@ -136,9 +130,8 @@ class Func
      *
      * @param int       $func_timestamp
      * @param string    $func_art       One of year, month, date, time, shorttime, datetime, daydatetime, daydate, or shortdaytime
-     * @return false|string
      */
-    public function unixstamp2date($func_timestamp, $func_art)
+    public function unixstamp2date($func_timestamp, $func_art): null|string
     {
         $day = [];
         $func_date = null;
@@ -508,8 +501,8 @@ class Func
                         function ($treffer) {
                             global $HighlightCode, $HighlightCount2;
                             $HighlightCount2++;
-                            $geshi = new GeSHi($HighlightCode[$HighlightCount2], 'php');
-                            $geshi->set_header_type(GESHI_HEADER_NONE);
+                            $geshi = new \GeSHi($HighlightCode[$HighlightCount2], 'php');
+                            $geshi->set_header_type(\GESHI_HEADER_NONE);
                             return '
                                 <blockquote>
                                     <div class="tbl_small">Code:</div>
@@ -786,9 +779,8 @@ class Func
      * @param string    $source_var
      * @param string    $path
      * @param string    $name
-     * @return int|string
      */
-    public function FileUpload($source_var, $path, $name = null)
+    public function FileUpload($source_var, $path, $name = null): int|string
     {
         global $config;
 
@@ -928,7 +920,7 @@ class Func
             // Work out if we got a responce and time it
             [$usec, $sec] = explode(" ", microtime(true));
             $laptime = ((float)$usec + (float)$sec)-$start;
-            if (($laptime * 1000000) > ($timeout * 0.9)) {
+            if (($laptime * 1_000_000) > ($timeout * 0.9)) {
                 fclose($handle);
                 return false;
             } else {
@@ -956,9 +948,8 @@ class Func
 
     /**
      * @param string $dir
-     * @return array|bool
      */
-    public function GetDirList($dir)
+    public function GetDirList($dir): array|bool
     {
         if (!is_dir($dir)) {
             return false;
@@ -967,7 +958,7 @@ class Func
         $ret = array();
         $handle = opendir($dir);
         while ($file = readdir($handle)) {
-            if ((substr($file, 0, 1)  != '.') and ($file != '.svn')) {
+            if ((!str_starts_with($file, '.')) and ($file != '.svn')) {
                 $ret[] = strtolower($file);
             }
         }

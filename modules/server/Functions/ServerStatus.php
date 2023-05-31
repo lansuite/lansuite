@@ -8,7 +8,7 @@ function ServerStatus()
     global $cfg, $line;
 
     // Wenn Intranetversion, erreichbarkeit testen
-    if ($cfg["sys_internet"] == 0 and (!get_cfg_var("safe_mode"))) {
+    if ($cfg["sys_internet"] == 0) {
         PingServer($line['ip'], $line['port']);
 
         if ($line['available'] == 1) {

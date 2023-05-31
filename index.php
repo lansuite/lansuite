@@ -15,11 +15,6 @@ $request = Request::createFromGlobals();
 // when the development of LanSuite continues and is getting modernized.
 error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
 
-if (function_exists('ini_set')) {
-    // Disable SID in URL
-    ini_set('url_rewriter.tags', '');
-}
-
 $PHPErrors = '';
 
 // Initialize Cache. Go for APCu first, filebased otherwise. DB adaptor to be used when we implement PDO.

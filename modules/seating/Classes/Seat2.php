@@ -59,9 +59,8 @@ class Seat2
      * @param int $userid
      * @param int $MaxBlockLength
      * @param int $LinkIt
-     * @return bool|string
      */
-    public function SeatOfUser($userid, $MaxBlockLength = 0, $LinkIt = 0)
+    public function SeatOfUser($userid, $MaxBlockLength = 0, $LinkIt = 0): bool|string
     {
         global $db, $party;
 
@@ -102,9 +101,8 @@ class Seat2
 
     /**
      * @param int $userid
-     * @return array|bool
      */
-    public function SeatOfUserArray($userid)
+    public function SeatOfUserArray($userid): array|bool
     {
         global $db, $party;
 
@@ -155,9 +153,8 @@ class Seat2
      * @param int $MaxBlockLength
      * @param int $LinkIt
      * @param int $userid
-     * @return bool|string
      */
-    private function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0, $userid = 0)
+    private function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0, $userid = 0): bool|string
     {
         global $db;
     
@@ -191,9 +188,8 @@ class Seat2
      * @param int $x
      * @param int $y
      * @param boolean $orientation
-     * @return int|string
      */
-    public function CoordinateToName($x, $y, $orientation)
+    public function CoordinateToName($x, $y, $orientation): int|string
     {
         $out = '';
         if ($orientation) {
@@ -245,9 +241,8 @@ class Seat2
     /**
      * @param int $y
      * @param boolean $orientation
-     * @return int|string
      */
-    public function CoordinateToNameRow($y, $orientation)
+    public function CoordinateToNameRow($y, $orientation): int|string
     {
         $out = '';
         if ($orientation) {

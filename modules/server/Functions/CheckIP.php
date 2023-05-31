@@ -2,9 +2,8 @@
 
 /**
  * @param string $ip
- * @return bool|string
  */
-function CheckIP($ip)
+function CheckIP($ip): bool|string
 {
     global $cfg;
 

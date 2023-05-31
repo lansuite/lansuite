@@ -45,46 +45,39 @@ class Debug
 
     /**
      * Helpvar Timer (Outputstring)
-     *
-     * @var string
      */
-    private $timer_out = '';
+    private string $timer_out = '';
 
-    /**
-     * @var string
-     */
-    private $timer_all;
+    private float|int|null $timer_all = null;
 
     /**
      * Uservars to show
-     *
-     * @var array
      */
-    private $debugvars = [];
+    private array $debugvars = [];
 
     /**
      * Debug mode
-     *
-     * @var string
      */
-    private $mode = '';
+    private string $mode = '';
 
     /**
      * Debugpath for Filedebug
-     *
-     * @var string
      */
-    private $debug_path = '';
+    private string $debug_path = '';
+
+    private array $sql_query_list = [];
+
+    private bool $sql_query_running = false;
 
     /**
-     * @var array
+     * Microtime on the start of the measurement.
      */
-    private $sql_query_list = [];
+    private float $sql_query_start;
 
     /**
-     * @var bool
+     * Query that gets measured.
      */
-    private $sql_query_running = false;
+    private string $sql_query_string;
 
     /**
      * Debug constructor.

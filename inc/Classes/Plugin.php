@@ -10,30 +10,15 @@ namespace LanSuite;
 class Plugin
 {
 
-    /**
-     * @var array
-     */
-    private $modules = [];
+    private array $modules = [];
 
-    /**
-     * @var array
-     */
-    private $captions = [];
+    private array $captions = [];
 
-    /**
-     * @var array
-     */
-    private $icons = [];
+    private array $icons = [];
 
-    /**
-     * @var int
-     */
-    private $currentIndex = 0;
+    private int $currentIndex = 0;
 
-    /**
-     * @var int
-     */
-    private $count = 0;
+    private int $count = 0;
 
     /**
      * @var string
@@ -62,9 +47,8 @@ class Plugin
      * Get the next (or specific) element
      *
      * @param int $index
-     * @return array|bool
      */
-    public function fetch($index = -1)
+    public function fetch($index = -1): array|bool
     {
         if ($index == -1) {
             $index = (int) $this->currentIndex;

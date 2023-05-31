@@ -22,7 +22,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     // Define sets of rules
     $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_73
+        LevelSetList::UP_TO_PHP_80
     ]);
 
     $rectorConfig->skip([
@@ -34,5 +34,12 @@ return static function (RectorConfig $rectorConfig): void {
         // over **
         // See https://www.php.net/manual/en/function.pow.php
         Rector\Php56\Rector\FuncCall\PowToExpRector::class,
+
+        // Skipping Constructor Promotion right now, because it is a great feature and syntactic sugar.
+        // However, to keep the changeset small, we might introduce this at a later stage.
+        // More info:
+        //  - https://wiki.php.net/rfc/constructor_promotion
+        //  - https://github.com/php/php-src/pull/5291
+        Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class,
     ]);
 };

@@ -6,24 +6,12 @@
  */
 function TTStatus($status)
 {
-    switch ($status) {
-        default:
-            return t('Überprüft am/um');
-            break;
-        case 1:
-            return t('Neu / Ungeprüft');
-            break;
-        case 2:
-            return t('Überprüft / Akzeptiert');
-            break;
-        case 3:
-            return t('In Arbeit');
-            break;
-        case 4:
-            return t('Abgeschlossen');
-            break;
-        case 5:
-            return t('Abgelehnt');
-            break;
-    }
+    return match ($status) {
+        1 => t('Neu / Ungeprüft'),
+        2 => t('Überprüft / Akzeptiert'),
+        3 => t('In Arbeit'),
+        4 => t('Abgeschlossen'),
+        5 => t('Abgelehnt'),
+        default => t('Überprüft am/um'),
+    };
 }

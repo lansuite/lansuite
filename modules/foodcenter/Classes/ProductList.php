@@ -11,17 +11,15 @@ class ProductList
 {
     /**
      * List of product numbers
-     *
-     * @var array
      */
-    private $product_list = [];
+    private array $product_list = [];
 
     /**
      * List of products
      *
      * @var Product[]
      */
-    private $product = [];
+    private array $product = [];
 
     /**
      * Load all products from a category
@@ -79,10 +77,9 @@ class ProductList
      * Returns true once the product is added, false otherwise
      *
      * @param int       $id
-     * @param array|int $opt
      * @return bool
      */
-    public function add_product($id, $opt)
+    public function add_product($id, array|int $opt)
     {
         $key_array = [];
         // Product already in the list?
@@ -181,11 +178,10 @@ class ProductList
      * Write new basket once something changed
      *
      * @param int       $listid
-     * @param array|int $opt
      * @param int $value
      * @return mixed
      */
-    public function chanche_ordered($listid, $opt, $value)
+    public function chanche_ordered($listid, array|int $opt, $value)
     {
         if (!is_null($opt)) {
             return $this->product[$listid]->order_option($opt, $value);

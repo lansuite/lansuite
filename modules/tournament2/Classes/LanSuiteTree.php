@@ -4,30 +4,18 @@ namespace LanSuite\Module\Tournament2;
 
 class LanSuiteTree extends TourneyTree
 {
-    /**
-     * @var array
-     */
-    private $wb_teams = [];
+    private array $wb_teams = [];
 
-    /**
-     * @var array
-     */
-    private $lb_teams = [];
+    private array $lb_teams = [];
 
     /**
      * @var int
      */
     private $size = null;
 
-    /**
-     * @var string
-     */
-    private $st = null;
+    private ?string $st = null;
 
-    /**
-     * @var TourneyTree
-     */
-    private $tree = null;
+    private ?\LanSuite\Module\Tournament2\TourneyTree $tree = null;
 
     /**
      * @var \LanSuite\DB

@@ -23,9 +23,8 @@ class MasterDelete
      * @param string    $table
      * @param string    $idname
      * @param int       $id
-     * @return bool|int|mysqli_result
      */
-    private function DoDelete($table, $idname, $id)
+    private function DoDelete($table, $idname, $id): bool|int|\mysqli_result
     {
         global $func, $db, $config;
     
@@ -91,9 +90,8 @@ class MasterDelete
      * @param string    $table
      * @param string    $idname
      * @param int       $id
-     * @return bool|int|mysqli_result
      */
-    public function Delete($table, $idname, $id)
+    public function Delete($table, $idname, $id): bool|int|\mysqli_result
     {
         global $framework, $func, $db;
         
