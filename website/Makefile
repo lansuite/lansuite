@@ -10,7 +10,7 @@ init: ## Installs dependencies
 
 .PHONY: run
 run: ## Starts the development server
-	npm start
+	npm run start
 
 .PHONY: clean
 clean: ## Deletes the generated content and node_modules
@@ -19,7 +19,8 @@ clean: ## Deletes the generated content and node_modules
 
 .PHONY: build
 build: ## Compiles the documentation into static content
-	npm build
+	npm run build
+
 
 .PHONY: deploy
 deploy: ## Renders and deploys the documentation to https://lansuite.github.io/lansuite/
