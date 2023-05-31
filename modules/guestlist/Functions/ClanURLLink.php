@@ -13,7 +13,7 @@ function ClanURLLink($clan_name)
     } elseif ($func->isModActive('clanmgr')) {
         return '<a href="index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $line['clanid'] .'">'. $clan_name .'</a>';
     } elseif ($clan_name != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
-        if (substr($line['clanurl'], 0, 7) != 'http://') {
+        if (!str_starts_with($line['clanurl'], 'http://')) {
             $line['clanurl'] = 'http://'. $line['clanurl'];
         }
         return '<a href="'. $line['clanurl'] .'" target="_blank">'. $clan_name .'</a>';

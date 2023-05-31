@@ -2,9 +2,8 @@
 
 /**
  * @param string $mode
- * @return bool|string
  */
-function CheckModeChangeAllowed($mode)
+function CheckModeChangeAllowed($mode): bool|string
 {
     global $mf, $db;
 

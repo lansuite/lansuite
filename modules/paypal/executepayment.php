@@ -39,7 +39,7 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
                 $dsp->NewContent(t('Zahlung fehlgeschlagen'), t('Leider war die Zahlung nicht erfolgreich!'));
                 $func->error(t('Die PayPal-Zahlung wurde abgebrochen'));
             }
-        } catch (PayPal\Exception\PayPalConnectionException $e) {
+        } catch (PayPal\Exception\PayPalConnectionException) {
             $dsp->NewContent(t('Zahlung fehlgeschlagen'), t('Leider war die Zahlung nicht erfolgreich!'));
             $func->error(t('Die PayPal-Zahlung wurde abgebrochen'));
         }

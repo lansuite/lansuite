@@ -67,19 +67,21 @@ class Party
             $this->count = $db->num_rows($res);
             $db->free_result($res);
 
-            $_SESSION['party_info'] = array();
+            $_SESSION['party_info'] = [];
             if ($this->count > 0) {
                 $row = $db->qry_first("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM %prefix%partys WHERE party_id=%int%", $this->party_id);
                 $this->data = $row;
 
-                $_SESSION['party_info']['name']            = $row['name'];
-                $_SESSION['party_info']['partyort']        = $row['ort'];
-                $_SESSION['party_info']['partyplz']        = $row['plz'];
-                $_SESSION['party_info']['partybegin']    = $row['startdate'];
-                $_SESSION['party_info']['partyend']    = $row['enddate'];
-                $_SESSION['party_info']['s_startdate']    = $row['sstartdate'];
-                $_SESSION['party_info']['s_enddate']    = $row['senddate'];
-                $_SESSION['party_info']['max_guest']    = $row['max_guest'];
+                $_SESSION['party_info'] = [
+                    'name' => $row['name'],
+                    'partyort' => $row['ort'],
+                    'partyplz' => $row['plz'],
+                    'partybegin' => $row['startdate'],
+                    'partyend' => $row['enddate'],
+                    's_startdate' => $row['sstartdate'],
+                    's_enddate' => $row['senddate'],
+                    'max_guest' => $row['max_guest'],
+                ];
             }
         }
     }

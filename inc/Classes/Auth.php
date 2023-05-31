@@ -23,66 +23,48 @@ class Auth
 
     /**
      * Time
-     *
-     * @var int
      */
-    private $timestamp;
+    private int $timestamp;
 
     /**
      * Cookie data
-     *
-     * @var array
      */
-    private $cookie_data = [];
+    private array $cookie_data = [];
 
     /**
      * Cookie name
-     *
-     * @var string
      */
-    private $cookie_name = 'LSAUTH';
+    private string $cookie_name = 'LSAUTH';
 
     /**
      * Cookie version
-     *
-     * @var string
      */
-    private $cookie_version = '1';
+    private string $cookie_version = '1';
 
     /**
      * Domain
-     *
-     * @var string
      */
-    private $cookie_domain = '';
+    private string $cookie_domain = '';
 
     /**
      * Duration in days
-     *
-     * @var string
      */
-    private $cookie_time = '30';
+    private string $cookie_time = '30';
 
     /**
      * Cookie path
-     *
-     * @var string
      */
-    private $cookie_path = '';
+    private string $cookie_path = '';
 
     /**
      * Crypt Cookie with AzDGCrypt
-     *
-     * @var bool
      */
-    private $cookie_crypt = true;
+    private bool $cookie_crypt = true;
 
     /**
      * Passphrase for AzDGCrypt
-     *
-     * @var string
      */
-    private $cookie_crypt_pw = "iD9ww32e";
+    private string $cookie_crypt_pw = "iD9ww32e";
 
     /**
      * Array containing all users, currently online
@@ -106,8 +88,23 @@ class Auth
     {
         global $db;
 
-        $this->auth["sessid"] = session_id();
-        $this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
+        // Setting default values
+        $this->auth = [
+            'sessid' => session_id(),
+            'ip' => $_SERVER['REMOTE_ADDR'],
+
+            'login' => LS_AUTH_LOGIN_LOGGED_OUT,
+            'type' => LS_AUTH_TYPE_ANONYMOUS,
+
+            // In theory, all fields of the user database table should be present.
+            // See loadAuthBySID()
+            'userid' => 0,
+            'email' => '',
+            'username' => '',
+            'userpassword' => '',
+            'group_id' => 0,
+            'design' => 'simple' // TODO Get design from default configuration
+        ];
         $this->timestamp = time();
 
         // Update statistics
@@ -256,6 +253,13 @@ class Auth
                         $tmp_login_email
                     );
                 }
+            }
+
+            if (!$user) {
+                $user = [
+                    'userid' => 0,
+                    'found' => 0,
+                ];
             }
 
             // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
@@ -578,7 +582,7 @@ class Auth
      */
     public function get_olduserid()
     {
-        return $this->cookie_data['olduserid'];
+        return $this->cookie_data['olduserid'] ?? 0;
     }
 
     /**
@@ -589,15 +593,24 @@ class Auth
     private function loadAuthBySID()
     {
         global $db;
+
         // Put all User-Data into $auth-Array
-        $user_data = $db->qry_first('SELECT 1 AS found, 
-        session.userid, 
-        session.login, 
-        INET6_NTOA(session.ip) AS ip, 
-        user.*
-            FROM %prefix%stats_auth AS session
-            LEFT JOIN %prefix%user AS user ON user.userid = session.userid
-            WHERE session.sessid=%string% ORDER BY session.lasthit', $this->auth["sessid"]);
+        // TODO Replace * with an expanded list of all fields of the user database table
+        // TODO Check if really all fields are required
+        $user_data = $db->qry_first('
+            SELECT
+                1 AS `found`,
+                `session`.`userid`,
+                `session`.`login`,
+                INET6_NTOA(`session`.`ip`) AS `ip`,
+                `user`.*
+            FROM
+                `%prefix%stats_auth` AS `session`
+                LEFT JOIN `%prefix%user` AS `user` ON `user`.`userid` = `session`.`userid`
+            WHERE
+                `session`.`sessid` = %string%
+            ORDER BY `session`.`lasthit`', $this->auth["sessid"]);
+
         if (is_array($user_data)) {
             foreach ($user_data as $key => $val) {
                 if (!is_numeric($key)) {
@@ -605,6 +618,7 @@ class Auth
                 }
             }
         }
+
         return $this->auth['login'];
     }
 
@@ -701,9 +715,7 @@ class Auth
         setcookie(
             $this->cookie_name,
             $this->cookiedata_pack(),
-            time()+3600*24*$this->cookie_time,
-            $this->cookie_path,
-            $this->cookie_domain
+            ['expires' => time()+3600*24*$this->cookie_time, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain]
         );
     }
 
@@ -717,9 +729,7 @@ class Auth
         setcookie(
             $this->cookie_name,
             '',
-            time()+1,
-            $this->cookie_path,
-            $this->cookie_domain
+            ['expires' => time()+1, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain]
         );
     }
 

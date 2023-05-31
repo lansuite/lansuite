@@ -44,7 +44,7 @@ if ($server == "") {
         $dsp->AddDoubleRow(t('Servertyp'), $type_descriptor[$server["type"]]);
 
         // Wenn Intranetversion, Servererreichbarkeit testen
-        if ($cfg["sys_internet"] == 0 and (!get_cfg_var("safe_mode"))) {
+        if ($cfg["sys_internet"] == 0) {
             PingServer($server["ip"], $server["port"]);
 
             // Gescannte Daten neu auslesen

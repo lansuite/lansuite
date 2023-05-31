@@ -19,10 +19,7 @@ class Menu
      */
     public $box;
 
-    /**
-     * @var string
-     */
-    private $title = '';
+    private string $title = '';
 
     /**
      * @param $id
@@ -65,8 +62,10 @@ class Menu
 
             // Scan for ID in info2 Link
             if ($_GET['mod'] == 'info2') {
-                preg_match('/(id=)(\\d{1,4})/', $item['link'], $treffer);
-                $info2_id = $treffer[2];
+                $pregMatchResult = preg_match('/(id=)(\\d{1,4})/', $item['link'], $treffer);
+                if ($pregMatchResult) {
+                    $info2_id = $treffer[2];
+                }
             }
 
             $actionParameter = $request->query->get('action');
@@ -93,7 +92,7 @@ class Menu
     {
         global $auth, $db;
 
-        if (!$_GET['menu_group']) {
+        if (!array_key_exists('menu_group', $_GET) || !$_GET['menu_group']) {
             $_GET['menu_group'] = 0;
         }
 

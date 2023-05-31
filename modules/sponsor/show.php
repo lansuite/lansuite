@@ -13,7 +13,7 @@ $out = "<table>";
 while ($sponsor = $db->fetch_array($sponsoren)) {
     $col1 = "";
     // If entry is HTML-Code
-    if (substr($sponsor["pic_path"], 0, 12) == 'html-code://') {
+    if (str_starts_with($sponsor["pic_path"], 'html-code://')) {
         $col1 = $func->AllowHTML(substr($sponsor["pic_path"], 12, strlen($sponsor["pic_path"]) - 12));
 
     // Else add Image-Tag

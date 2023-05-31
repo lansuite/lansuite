@@ -38,10 +38,8 @@ class Framework
 
     /**
      * Design
-     *
-     * @var string
      */
-    private $design = "simple";
+    private string $design = "simple";
 
     /**
      * Displaymodus (popup)
@@ -52,62 +50,45 @@ class Framework
 
     /**
      * All framework messages
-     *
-     * @var string
      */
-    private $framework_messages = '';
+    private string $framework_messages = '';
 
     /**
      * Content
-     *
-     * @var string
      */
-    private $main_content = '';
+    private string $main_content = '';
 
     /**
      * Headercode for Meta Tags
-     *
-     * @var string
      */
-    private $main_header_metatags = '';
+    private string $main_header_metatags = '';
 
     /**
      * Headercode for JS-Files
-     *
-     * @var string
      */
-    private $main_header_jsfiles = '';
+    private string $main_header_jsfiles = '';
 
     /**
      * Headercode for JS-Code
-     *
-     * @var string
      */
-    private $main_header_jscode = '';
+    private string $main_header_jscode = '';
 
     /**
      * Headercode for CSS-Files
-     *
-     * @var string
      */
-    private $main_header_cssfiles = '';
+    private string $main_header_cssfiles = '';
 
     /**
      * Headercode for CSS-Code
-     *
-     * @var string
      */
-    private $main_header_csscode = '';
+    private string $main_header_csscode = '';
 
     /**
      * @var bool
      */
     public $IsMobileBrowser = false;
 
-    /**
-     * @var string
-     */
-    private $pageTitle = '';
+    private string $pageTitle = '';
 
     public function __construct()
     {
@@ -245,18 +226,16 @@ class Framework
 
     /**
      * Check for errors in content and returns Zip-Mode
-     *
-     * @return int|string
      */
-    private function check_optimizer()
+    private function check_optimizer(): int|string
     {
         global $PHPErrors, $db;
 
         if (headers_sent() || connection_aborted() || $PHPErrors || (isset($db) && $db->errorsFound)) {
             return 0;
-        } elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip') !== false) {
+        } elseif (str_contains($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip')) {
             return "x-gzip";
-        } elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip') !== false) {
+        } elseif (str_contains($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip')) {
             return "gzip";
         }
 
@@ -355,7 +334,7 @@ class Framework
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-ga('create', " . json_encode($cfg['google_analytics_id']) . ", 'auto');
+ga('create', " . json_encode($cfg['google_analytics_id'], JSON_THROW_ON_ERROR) . ", 'auto');
 ga('set', 'anonymizeIp', true);
 ga('send', 'pageview');
 </script>";

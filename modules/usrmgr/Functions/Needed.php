@@ -8,7 +8,8 @@ function Needed($key)
 {
     global $cfg;
 
-    if ($cfg['signon_show_'. $key] == 2) {
+    $configKey = 'signon_show_' . $key;
+    if (array_key_exists($configKey, $cfg) && $cfg[$configKey] == 2) {
         return true;
     } else {
         return false;

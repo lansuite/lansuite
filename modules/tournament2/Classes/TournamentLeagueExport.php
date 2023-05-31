@@ -5,15 +5,9 @@ namespace LanSuite\Module\Tournament2;
 class TournamentLeagueExport
 {
 
-    /**
-     * @var \LanSuite\XML
-     */
-    private $xml = null;
+    private ?\LanSuite\XML $xml = null;
 
-    /**
-     * @var \LanSuite\Module\Tournament2\TournamentFunction
-     */
-    private $tournamentFunc = null;
+    private ?\LanSuite\Module\Tournament2\TournamentFunction $tournamentFunc = null;
 
     public function __construct(\LanSuite\XML $xml, \LanSuite\Module\Tournament2\TournamentFunction $tournamentFunc)
     {

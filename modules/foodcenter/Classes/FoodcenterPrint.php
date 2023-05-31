@@ -4,30 +4,15 @@ namespace LanSuite\Module\Foodcenter;
 
 class FoodcenterPrint
 {
-    /**
-     * @var string
-     */
-    private $output = '';
+    private string $output = '';
 
-    /**
-     * @var string
-     */
-    private $path = 'ext_inc/foodcenter_templates/';
+    private string $path = 'ext_inc/foodcenter_templates/';
 
-    /**
-     * @var string
-     */
-    private $row_file = '';
+    private string $row_file = '';
 
-    /**
-     * @var string
-     */
-    private $row_temp = '';
+    private string $row_temp = '';
 
-    /**
-     * @var array
-     */
-    private $config = [];
+    private array $config = [];
 
     public function __construct()
     {
@@ -148,9 +133,8 @@ class FoodcenterPrint
 
     /**
      * @param int $userid
-     * @return array|bool|null|string
      */
-    private function GetUserdata($userid)
+    private function GetUserdata($userid): array|bool|null|string
     {
         global $db, $party;
 
@@ -167,9 +151,8 @@ class FoodcenterPrint
 
     /**
      * @param int $time
-     * @return false|string
      */
-    private function GetDate($time)
+    private function GetDate($time): false|string
     {
         global $func;
 
@@ -221,17 +204,11 @@ class FoodcenterPrint
 
             $d = 0;
             foreach ($config['search_fields'] as $col) {
-                switch ($config['search_type'][$d]) {
-                    case "exact":
-                        $search .= "($col = '$key') OR ";
-                        break;
-                    case "1337":
-                        $search .= "($col REGEXP '$key_1337') OR ";
-                        break;
-                    default:
-                        $search .= "($col LIKE '%$key%') OR ";
-                        break;
-                }
+                match ($config['search_type'][$d]) {
+                    "exact" => $search .= "($col = '$key') OR ",
+                    "1337" => $search .= "($col REGEXP '$key_1337') OR ",
+                    default => $search .= "($col LIKE '%$key%') OR ",
+                };
                 $d ++;
             }
             $search = substr($search, 0, strlen($search) - 4);
