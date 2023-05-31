@@ -12,10 +12,12 @@ const config = {
 
   url: 'https://lansuite.github.io',
   baseUrl: '/lansuite/',
+  trailingSlash: true,
 
   // GitHub pages deployment config.
   organizationName: 'lansuite',
   projectName: 'lansuite',
+  deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',

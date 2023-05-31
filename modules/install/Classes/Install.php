@@ -614,9 +614,8 @@ class Install
      *
      * @return int
      */
-    public function envcheck()
+    public function envcheck(array $configuration)
     {
-        $config = [];
         global $db, $dsp, $func;
 
         $continue = 1;
@@ -659,7 +658,7 @@ class Install
         $minMariaDBVersion = '10.0';
         $currentMysqlVersion = $db->getServerInfo();
         if (!$currentMysqlVersion) {
-            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (root@localhost) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %1 benutzt.', $minMysqlVersion);
+            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (%1@%2) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %3 benutzt.', $configuration['database']['user'], $configuration['database']['server'], $minMysqlVersion);
         } elseif (str_contains($currentMysqlVersion, 'MariaDB')) {
             $currentMariaDBVersion = substr($currentMysqlVersion, strpos($currentMysqlVersion, '-')+1);
             if (version_compare($currentMariaDBVersion, $minMariaDBVersion) >= 0) {
@@ -780,8 +779,6 @@ class Install
                 } else {
                     $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei ' . HTML_NEWLINE . '{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
                 }
-
-                $config["server_stats"]["status"] = 1;
             } else {
                 system("modules\stats\ls_getinfo.exe", $status);
                 if ($status == 0) {
