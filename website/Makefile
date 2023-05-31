@@ -20,3 +20,7 @@ clean: ## Deletes the generated content and node_modules
 .PHONY: build
 build: ## Compiles the documentation into static content
 	npm build
+
+.PHONY: deploy
+deploy: ## Renders and deploys the documentation to https://lansuite.github.io/lansuite/
+	npm run deploy
