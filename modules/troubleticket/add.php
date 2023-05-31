@@ -53,7 +53,7 @@ switch ($_GET["step"]) {
             $t_cat_array[] = "<option value=\"0\">".t('Bitte Auswählen')."</option>";
             
             while ($row = $db->fetch_array($t_cat)) {
-                $t_cat_array[] .= "<option value=\"{$row['cat_id']}\">{$row['cat_text']}</option>";
+                $t_cat_array[] = "<option value=\"{$row['cat_id']}\">{$row['cat_text']}</option>";
             }
             
             $dsp->AddDropDownFieldRow("tticket_cat", t('Kategorie'), $t_cat_array, $error['tticket_cat']);
