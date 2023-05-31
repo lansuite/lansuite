@@ -209,7 +209,7 @@ switch ($step) {
                 $res = $db->qry('SELECT @@SESSION.SQL_MODE as sqlmode;');
                 $opts = $db->fetch_array($res)['sqlmode'];
                 $server_opts = explode (',',$opts);
-                $warn_opts = implode(array_values(array_intersect($server_opts,$sqlmode_disable)),',');
+                $warn_opts = implode(',', array_values(array_intersect($server_opts,$sqlmode_disable)));
                 $sql_mode='';
                 if ($warn_opts) {
                     $sql_mode = $warning . t("Der MySQL-Server hat aktuell folgende Optionen aktiviert, die zu Problemen mit LanSuite führen: %1 \nEs wird versucht, dies automatisch zu kompensieren, indem diese für jede Verbindung deaktiviert werden. Dies hat zur Folge, dass eventuelle Änderungen an der Server-Variable SQL_MODE nicht automatisch für LanSuite übernommen werden, sondern manuell in config.php angepasst werden müssen", $warn_opts);
