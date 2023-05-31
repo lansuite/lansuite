@@ -78,8 +78,7 @@ switch ($step) {
         $dsp->AddDropDownFieldRow("language", t('Sprache'), $lang_array, "");
         $dsp->AddFormSubmitRow(t('Ändern'));
 
-        $continue = $install->envcheck();
-
+        $continue = $install->envcheck($config);
         if ($continue) {
             $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=2"));
         }
