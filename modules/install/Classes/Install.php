@@ -677,14 +677,14 @@ class Install
         $sqlmodeDisable = ['ONLY_FULL_GROUP_BY', 'STRICT_TRANS_TABLES'];
         $res = $db->qry('SELECT @@SESSION.SQL_MODE AS sqlmode;');
         $opts = $db->fetch_array($res)['sqlmode'];
-        $serverOpts = explode (',', $opts);
+        $serverOpts = explode(',', $opts);
         $warnOpts = implode(',', array_values(array_intersect($serverOpts, $sqlmodeDisable)));
         $newSqlMode = implode(',', array_diff($serverOpts, $sqlmodeDisable));
         $sqlModeMessage = $ok . t("Folgende SQL-Optionen werden vom Server für die Verbindung gesetzt: %1", $opts);
         if ($warnOpts) {
-            $sql_mode = $warning . t("LANSuite ist mit folgenden SQL Mode settings inkompatibel: '%1'.\nEs wird versucht, dies automatisch zu kompensieren, indem für jede Verbindung folgender  SQL Mode gesetzt wird: '%2'. Dies hat zur Folge, dass eventuelle Änderungen an der Server-Variable SQL_MODE nicht automatisch für LanSuite übernommen werden, sondern manuell in config.php angepasst werden müssen.", $warnOpts, $newSqlMode);
+            $sqlModeMessage = $warning . t("LANSuite ist mit folgenden SQL Mode settings inkompatibel: '%1'.\nEs wird versucht, dies automatisch zu kompensieren, indem für jede Verbindung folgender  SQL Mode gesetzt wird: '%2'. Dies hat zur Folge, dass eventuelle Änderungen an der Server-Variable SQL_MODE nicht automatisch für LanSuite übernommen werden, sondern manuell in config.php angepasst werden müssen.", $warnOpts, $newSqlMode);
         }
-        $dsp->AddDoubleRow("SQL mode", $sql_mode);
+        $dsp->AddDoubleRow("SQL mode", $sqlModeMessage);
 
         // config.php Rights
         $lansuite_conf = "inc/base/config.php";

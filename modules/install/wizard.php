@@ -204,7 +204,7 @@ switch ($step) {
                     $sqlmodeDisable = ['ONLY_FULL_GROUP_BY', 'STRICT_TRANS_TABLES'];
                     $res = $db->qry('SELECT @@SESSION.SQL_MODE AS sqlmode;');
                     $opts = $db->fetch_array($res)['sqlmode'];
-                    $serverOpts = explode (',', $opts);
+                    $serverOpts = explode(',', $opts);
                     $warnOpts = implode(',', array_values(array_intersect($serverOpts, $sqlmodeDisable)));
                     $newSqlMode = implode(',', array_diff($serverOpts, $sqlmodeDisable));
                     if ($warnOpts) {

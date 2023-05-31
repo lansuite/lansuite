@@ -136,7 +136,7 @@ class DB
         }
         
         // Set sql mode, if specified
-        if (!empty($sqlmode)){
+        if (!empty($sqlmode)) {
             $this->setSqlMode($sqlmode);
         }
         
