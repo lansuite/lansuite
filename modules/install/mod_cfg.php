@@ -251,20 +251,11 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         }
                             $res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
                         while ($row = $db->fetch_array($res)) {
-                            switch ($row['on_delete']) {
-                                case 'ASK_SET0':
-                                case 'SET0':
-                                case 'ASK_DELETE':
-                                case 'DELETE':
-                                    $color = '#ff0000';
-                                    break;
-                                case 'DENY':
-                                    $color = '#008800';
-                                    break;
-                                default:
-                                    $color = '#000000';
-                                    break;
-                            }
+                            $color = match ($row['on_delete']) {
+                                'ASK_SET0', 'SET0', 'ASK_DELETE', 'DELETE' => '#ff0000',
+                                'DENY' => '#008800',
+                                default => '#000000',
+                            };
                             $dsp->AddDoubleRow('<font color="'. $color .'">'. $row['pri_table'] .'.'. $row['pri_key'] .'</font>', $row['foreign_table'] .'.'. $row['foreign_key']);
                         }
                         $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
@@ -278,20 +269,11 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         }
                         $res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
                         while ($row = $db->fetch_array($res)) {
-                            switch ($row['on_delete']) {
-                                case 'ASK_SET0':
-                                case 'SET0':
-                                case 'ASK_DELETE':
-                                case 'DELETE':
-                                    $color = '#ff0000';
-                                    break;
-                                case 'DENY':
-                                    $color = '#008800';
-                                    break;
-                                default:
-                                    $color = '#000000';
-                                    break;
-                            }
+                            $color = match ($row['on_delete']) {
+                                'ASK_SET0', 'SET0', 'ASK_DELETE', 'DELETE' => '#ff0000',
+                                'DENY' => '#008800',
+                                default => '#000000',
+                            };
                             $dsp->AddDoubleRow('<font color="'. $color .'">'. $row['pri_table'] .'.'. $row['pri_key'] .'</font>', $row['foreign_table'] .'.'. $row['foreign_key']);
                         }
                         $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
