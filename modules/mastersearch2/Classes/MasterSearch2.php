@@ -128,7 +128,12 @@ class MasterSearch2
             $sql_field = substr($sql_field, $first_as + 4, strlen($sql_field));
         }
 
-        if ($sql_field == $_GET['order_by']) {
+        $orderByParameter = '';
+        if (array_key_exists('order_by', $_GET)) {
+            $orderByParameter = $_GET['order_by'];
+        }
+
+        if ($sql_field == $orderByParameter) {
             $this->orderByFieldFound = true;
         }
     }
@@ -414,21 +419,30 @@ class MasterSearch2
         // Generate GROUP BY
         $this->query['group_by'] .= $select_id_field;
 
+        $orderByParameter = '';
+        if (array_key_exists('order_by', $_GET)) {
+            $orderByParameter = $_GET['order_by'];
+        }
+
         // Generate ORDER BY
-        if (strpos($_GET['order_by'], "\'") > 0) {
+        if (strpos($orderByParameter, "\'") > 0) {
+            // TODO migrate away from superglobal access
             $_GET['order_by'] = '';
+            $orderByParameter = '';
         }
 
         // Is $_GET['order_by'] defined in select statement?
         // If not set to default order by value
-        if ($_GET['order_by'] && !$this->orderByFieldFound) {
-            $func->information(t('Sortieren nach "%1" nicht möglich. Es wird statt dessen nach "%2" sortiert', $_GET['order_by'], $this->query['default_order_by']), NO_LINK);
+        if ($orderByParameter && !$this->orderByFieldFound) {
+            $func->information(t('Sortieren nach "%1" nicht möglich. Es wird statt dessen nach "%2" sortiert', $orderByParameter, $this->query['default_order_by']), NO_LINK);
+            // TODO migrate away from superglobal access
             $_GET['order_by'] = '';
+            $orderByParameter = '';
         }
 
         // Order by user selection
-        if ($_GET['order_by']) {
-            $this->query['order_by'] = $_GET['order_by'];
+        if ($orderByParameter) {
+            $this->query['order_by'] = $orderByParameter;
 
             // Order direction given by user?
             if ($_GET['order_dir']) {
@@ -505,7 +519,7 @@ class MasterSearch2
               {$this->query['limit']}"
         );
 
-        $this->HiddenGetFields['order_by'] = $_GET['order_by'];
+        $this->HiddenGetFields['order_by'] = $orderByParameter;
         $this->HiddenGetFields['order_dir'] = $_GET['order_dir'];
         $this->HiddenGetFields['EntsPerPage'] = $_GET['EntsPerPage'];
         $smarty->assign('action', $working_link);
