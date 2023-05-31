@@ -137,8 +137,7 @@ class DB
         
         // Set sql mode, if specified
         if (!empty($sqlmode)){
-            $sqlModeQuery = sprintf("SET SESSION SQL_MODE='%s';", mysqli_real_escape_string($this->link_id, $sqlmode));
-            $this->link_id->query($sqlModeQuery);
+            $this->setSqlMode($sqlmode);
         }
         
         $this->success = true;
@@ -386,5 +385,14 @@ class DB
             $func->error($this->errors);
             $this->errors = '';
         }
+    }
+
+    /**
+     * Sets the SQL Mode for this database session.
+     */
+    public function setSqlMode(string $sqlmode)
+    {
+        $sqlModeQuery = sprintf("SET SESSION SQL_MODE='%s';", mysqli_real_escape_string($this->link_id, $sqlmode));
+        $this->link_id->query($sqlModeQuery);
     }
 }
