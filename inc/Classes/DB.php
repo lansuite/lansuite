@@ -96,7 +96,7 @@ class DB
         $charset = $config['database']['charset'];
         $sqlmode = '';
         if (array_key_exists('sqlmode', $config['database'])) {
-                $sqlmode = $config['database']['sqlmode'];
+            $sqlmode = $config['database']['sqlmode'];
         }
 
         // Try to connect to the database
@@ -137,7 +137,8 @@ class DB
         
         // Set sql mode, if specified
         if (!empty($sqlmode)){
-            $this->link_id->query("SET SESSION SQL_MODE='$sqlmode';");
+            $sqlModeQuery = sprintf("SET SESSION SQL_MODE='%s';", mysqli_real_escape_string($this->link_id, $sqlmode));
+            $this->link_id->query($sqlModeQuery);
         }
         
         $this->success = true;
