@@ -32,7 +32,7 @@ class Discord
         } else {
             //Check if server id was passed via constructor, use configuration value otherwise
             if ($discordServerId!='') {
-                $this->discordServerId = $disordServerId;
+                $this->discordServerId = $discordServerId;
             } elseif (isset($cfg['discord_server_id'])) {
                 $this ->discordServerId =  $cfg['discord_server_id'];
             } else {
