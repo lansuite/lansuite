@@ -112,7 +112,10 @@ class DB
         $database = $config['database']['database'];
         $port = $config['database']['dbport'] ?? 3306;
         $charset = $config['database']['charset'];
-        $sqlmode = $config['database']['sqlmode'];
+        $sqlmode = '';
+        if (array_key_exists('sqlmode', $config['database'])) {
+                $sqlmode = $config['database']['sqlmode'];
+        }
 
         // Try to connect to the database
         // Suppress error output, because mysqli_connect throws a PHP Warning once it is not able to connect
