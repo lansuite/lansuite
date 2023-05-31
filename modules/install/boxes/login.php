@@ -13,6 +13,8 @@ $smarty->assign('buttons_login', '<input type="submit" class="Button" name="logi
 // 62.67.200.4 = Proxy IP of https://sslsites.de/lansuite.orgapage.de
 if ($cfg['sys_partyurl_ssl'] && ($_SERVER['HTTPS'] != 'on' && getenv('REMOTE_ADDR') != "62.67.200.4")) {
     $smarty->assign('ssl_link', $cfg['sys_partyurl_ssl']);
+} else {
+    $smarty->assign('ssl_link', '');
 }
 
 $box->AddTemplate($smarty->fetch('modules/boxes/templates/box_login_content.htm'));

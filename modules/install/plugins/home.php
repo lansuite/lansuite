@@ -3,6 +3,7 @@
 $smarty->assign('caption', t('Sonstige neue Kommentare'));
 $content = "";
 
+$exclude = '';
 if (!$func->isModActive('faq')) {
     $exclude .= ' AND relatedto_item != \'faq\'';
 }
