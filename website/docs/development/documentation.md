@@ -5,83 +5,87 @@ sidebar_position: 4
 ---
 
 The documentation is built with [Docusaurus](https://docusaurus.io/).
-Please check out their [*Getting Started* guide for installation](https://docusaurus.io/docs/en/installation).
 
-This page assumes that you have [yarn](https://github.com/yarnpkg/yarn) installed.
-Docusaurus is also able to operate with [npm](https://docs.npmjs.com/getting-started/what-is-npm).
-For the related npm commands, please check out the documentation of Docusaurus.
+This page assumes you have [`npm`](https://docs.npmjs.com/about-npm) installed.
 
 ## Writing a new documentation article
 
-1. Add your documentation to the `/docs` folder as `.md` files, ensuring you have the proper [header](https://docusaurus.io/docs/en/doc-markdown#documents) in each file.
-The most straightforward header would be the following, where `id` is the link name (e.g., `docs/intro.html`) and the `title`, is, of course, the title of the browser page.
+1. Add your documentation to the `website/docs[/<category>]` folder as a Markdown (`.md`) file:
 
     ```yaml
     ---
-    id: intro
-    title: Getting Started
+    id: cache
+    title: Using the LANSuite cache
     ---
 
-    My new content here..
+    My documentation content here ...
     ```
 
-2. If your new documentation article should appear in the sidebar add it to the `website/sidebars.json` file so that your documentation is rendered in a sidebar.
-
-  > If you do not add your documentation to the `sidebars.json` file, the docs will be rendered, but they can only be linked to from other documentation and visited with the known URL.
-
-3. Place assets, such as images, in the `website/static/` folder.
-4. Run the site to see the results of your changes.
+2. Place assets, such as images, in the `website/static/` folder.
+3. Run the site locally to see the results of your changes:
 
   ```bash
   cd website/
-  yarn install
-  yarn start
-  # Navigate to http://localhost:3000
+  make init
+  make run
+  # Navigate to http://localhost:3000/lansuite/
   ```
+
+There are more options to adjust.
+We suggest reading [Create a doc @ Docusaurus documentation](https://docusaurus.io/docs/create-doc) to get an overview.
 
 ## Writing a new blog post
 
-To publish a new post on the blog, create a file within the blog folder with a formatted name of `YYYY-MM-DD-My-Blog-Post-Title.md`.
-The post date is extracted from the file name.
+1. Add your blog post to the `website/blog` folder as a Markdown (`.md`) file with the filename pattern of `YYYY-MM-DD-My-Blog-Post-Title.md`:
 
-For example, at `website/blog/2017-08-18-Introducing-Docusaurus.md`:
+    ```yaml
+    ---
+    slug: documentation-launch
+    title: Launch of the documentation
+    authors: andygrunwald
+    tags: [documentation, website]
+    ---
 
-```yml
----
-author: Frank Li
-authorURL: https://twitter.com/foobarbaz
-title: Introducing Docusaurus
----
+    Lorem Ipsum ...
+    ```
 
-Lorem Ipsum...
-```
+2. Place assets, such as images, in the `website/static/` folder.
+3. Run the site locally to see the results of your changes:
 
-## Building the documentation site
+  ```bash
+  cd website/
+  make init
+  make run
+  # Navigate to http://localhost:3000/lansuite/
+  ```
 
-The website is located in the `website/` folder and depends on various dependencies.
-For this we go into the `website/` folder, install the dependencies and start the local web server:
+There are more options to adjust.
+We suggest reading [Blog @ Docusaurus documentation](https://docusaurus.io/docs/blog) to get an overview.
+
+## Running the documentation site locally
+
+The website is located in the `website/` folder.
+Switch into the `website/` folder, install the dependencies, and start the local development server:
 
 ```bash
 cd website/
-yarn install
-yarn start
+make init
+make run
 ```
 
-After the `start` command, your browser should open the address [http://localhost:3000/](http://localhost:3000/) and show you the website.
+It should open the address [http://localhost:3000/lansuite/](http://localhost:3000/lansuite/) in a local web browser and show you the website.
 
-## Publishing the documentation site
+## Publishing the documentation site to production
 
-If you are ready, we should publish your new work.
-While publishing we generate static HTML and push it to the [LANSuite repositories `gh-pages` branch](https://github.com/lansuite/lansuite/tree/gh-pages).
-This branch is responsible for the content behind [https://lansuite.github.io/lansuite/](https://lansuite.github.io/lansuite/).
+While publishing the documentation, it generates static HTML and pushes it to the [`gh-pages` branch](https://github.com/lansuite/lansuite/tree/gh-pages) of the LANSuite repository.
+Via GitHub pages, this branch is served at [https://lansuite.github.io/lansuite/](https://lansuite.github.io/lansuite/).
+
 Now let's publish:
 
 ```bash
 cd website/
-GIT_USER=<GIT_USER> \
-  CURRENT_BRANCH=master \
-  USE_SSH=true \
-  yarn run publish-gh-pages
+make init
+make deploy
 ```
 
-> The specified `GIT_USER` must have push access to the repository of LANSuite.
+If you encounter problems during the process, please check if all required environment variables are set: [Environment settings @ Docusaurus documentation](https://docusaurus.io/docs/deployment#environment-settings).
