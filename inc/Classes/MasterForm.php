@@ -151,7 +151,7 @@ class MasterForm
     /**
      * Current page in pagination
      */
-    private int $currentPage;
+    private int $currentPage = 0;
 
     /**
      * Name of a form field
