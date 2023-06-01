@@ -383,8 +383,9 @@ class MasterForm
         }
 
         // Break, if in wrong form
-        $Step_Tmp = $_GET['mf_step'];
-        if ($_GET['mf_step'] == 2 && $_GET['mf_id'] != $this->GetNumber()) {
+        $masterFormStepParameter = $_GET['mf_step'] ?? 0;
+        $Step_Tmp = $masterFormStepParameter;
+        if ($masterFormStepParameter == 2 && $_GET['mf_id'] != $this->GetNumber()) {
             $Step_Tmp = 1;
         }
 
@@ -902,7 +903,8 @@ class MasterForm
                                                     }
 
                                                     $this->OptGroupOpen = 0;
-                                                    $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], $additionalHTML);
+                                                    $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                    $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $fieldErrorText, $field['optional'], $additionalHTML);
                                                 }
                                                 break;
 
@@ -982,7 +984,8 @@ class MasterForm
                                                     $length = 70;
                                                 }
 
-                                                $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], $length, $field['optional'], $not_changeable, $maxlength);
+                                                $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $fieldErrorText, $length, $field['optional'], $not_changeable, $maxlength);
                                                 break;
                                         }
 
