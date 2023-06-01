@@ -16,7 +16,8 @@ $selections['0'] = t('Nein');
 $selections['1'] = t('Ja');
 $mf->AddField(t('Top-Meldung'), 'top', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-if (!$_GET['newsid']) {
+$newsIdParameter = $_GET['newsid'] ?? 0;
+if (!$newsIdParameter) {
     $mf->AddFix('date', 'NOW()');
     $mf->AddFix('poster', $auth['userid']);
 }
@@ -25,7 +26,7 @@ $mf->AddField(t('Link 1'), 'link_1', '', '', \LanSuite\MasterForm::FIELD_OPTIONA
 $mf->AddField(t('Link 2'), 'link_2', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
 $mf->AddField(t('Link 3'), 'link_3', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-if ($mf->SendForm('index.php?mod=news&action='. $_GET['action'], 'news', 'newsid', $_GET['newsid'])) {
+if ($mf->SendForm('index.php?mod=news&action='. $_GET['action'], 'news', 'newsid', $newsIdParameter)) {
     $news = new \LanSuite\Module\News\News();
     $news->GenerateNewsfeed();
 }
