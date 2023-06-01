@@ -103,7 +103,7 @@ if (!$user_data['userid']) {
     if ($cfg['signon_show_clan']) {
         $clan = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
         $clan .= '<a href="index.php?mod=clanmgr&step=2&clanid='.$user_data["clanid"].'">'.$user_data["clan"].'</a>';
-        if ($user_data['clanurl']!='' && substr($user_data['clanurl'], 0, 7) != 'http://') {
+        if ($user_data['clanurl']!='' && !str_starts_with($user_data['clanurl'], 'http://')) {
             $user_data['clanurl'] = 'http://'. $user_data['clanurl'];
         }
         if ($user_data['clanurl']) {
@@ -302,7 +302,7 @@ if (!$user_data['userid']) {
     $dsp->AddFieldsetEnd();
   
     $plugin = new \LanSuite\Plugin('usrmgr_details_main');
-    while (list($caption, $inc) = $plugin->fetch()) {
+    while ([$caption, $inc] = $plugin->fetch()) {
         $dsp->AddFieldsetStart($caption);
         include_once($inc);
         $dsp->AddFieldsetEnd();
@@ -398,7 +398,7 @@ if (!$user_data['userid']) {
     }
 
     $plugin = new \LanSuite\Plugin('usrmgr_details_tab');
-    while (list($caption, $inc, $icon) = $plugin->fetch()) {
+    while ([$caption, $inc, $icon] = $plugin->fetch()) {
         $dsp->StartTab($caption, $icon);
         include_once($inc);
         $dsp->EndTab();

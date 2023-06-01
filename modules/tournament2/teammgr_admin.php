@@ -40,7 +40,7 @@ switch ($_GET["step"]) {
 
     // Member aus Team löschen
     case 30:
-        list($team_id, $user_id) = explode("-", $_POST["member_user"], 2);
+        [$team_id, $user_id] = explode("-", $_POST["member_user"], 2);
         if ($tteam->kick($team_id, $user_id)) {
             $func->confirmation(t('Der Spieler wurde erfolgreich aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr_admin");
         }
@@ -76,7 +76,7 @@ switch ($_GET["step"]) {
             $dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $_POST["set_password"], $error["set_password"]);
             $dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $_POST["set_password2"], $error["set_password2"]);
             $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $team_comment, "", "", "", 1);
-            $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1000000, 1);
+            $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
             $dsp->AddBackButton("index.php?mod=tournament2&action=teammgr_admin", "");
         }

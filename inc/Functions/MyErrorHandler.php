@@ -99,7 +99,7 @@ function MyErrorHandler($errno, $errstr, $errfile, $errline)
                 type = 3,
                 description = %string%,
                 sort_tag = "PHP-Fehler"',
-            (int) $auth['userid'],
+            (int) ($auth['userid'] ?? 0),
             $err
         );
     }

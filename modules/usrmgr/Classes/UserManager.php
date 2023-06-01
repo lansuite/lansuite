@@ -4,10 +4,7 @@ namespace LanSuite\Module\UsrMgr;
 class UserManager
 {
 
-    /**
-     * @var \LanSuite\Module\Mail\Mail
-     */
-    private $mail = null;
+    private ?\LanSuite\Module\Mail\Mail $mail = null;
 
     public function __construct(\LanSuite\Module\Mail\Mail $mail)
     {
@@ -24,7 +21,7 @@ class UserManager
 
         $verification_code = '';
         for ($x = 0; $x <= 24; $x++) {
-            $verification_code .= chr(mt_rand(65, 90));
+            $verification_code .= chr(random_int(65, 90));
         }
         $db->qry('UPDATE %prefix%user SET fcode=%string% WHERE userid = %int%', $verification_code, $id);
         $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
@@ -32,7 +29,7 @@ class UserManager
         if (!empty($cfg['sys_partyurl_ssl'])) {
             $verification_link = $cfg['sys_partyurl_ssl'];
             //make sure that it ends with a slash
-            if (substr($cfg['sys_partyurl_ssl'], -1, 1) != '/') {
+            if (!str_ends_with($cfg['sys_partyurl_ssl'], '/')) {
                 $verification_link .= '/';
             }
             $verification_link .= "index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
@@ -89,7 +86,7 @@ class UserManager
      */
     public function GeneratePassword()
     {
-        return rand(10000, 99999);
+        return random_int(10000, 99999);
     }
 
     /**

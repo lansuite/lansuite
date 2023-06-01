@@ -1,12 +1,14 @@
 <?php
 
 /**
- * @param mixed $bracket
  * @param int $max_pos
  * @return void
  */
-function write_pairs3($bracket, $max_pos)
+function write_pairs3(mixed $bracket, $max_pos)
 {
+    $score1 = null;
+    $known_game1 = null;
+    $spielerid1 = null;
     global $gd, $func, $tournament, $x_start, $height, $height_menu, $box_height, $box_width, $db, $tournamentid, $akt_round, $max_round, $color, $dg, $img_height, $map, $tfunc;
 
     $dg++;

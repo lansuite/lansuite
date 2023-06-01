@@ -6,6 +6,7 @@
  */
 function GetUserInfo($userid)
 {
+    $user = [];
     global $db, $cfg, $func;
 
     $row_poster = $db->qry_first("SELECT username, type, avatar_path, signature FROM %prefix%user WHERE userid=%int%", $userid);

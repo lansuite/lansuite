@@ -17,6 +17,7 @@
  */
 function d()
 {
+    $val = null;
     global $debug, $func;
 
     $arg_vars = func_get_args();
@@ -27,7 +28,7 @@ function d()
     if ($arg_vars[1]) {
         $title = $arg_vars[0];
         $val = $arg_vars[1];
-    } elseif (is_string($arg_vars[0]) && substr($arg_vars[0], 0, 1) == '$') {
+    } elseif (is_string($arg_vars[0]) && str_starts_with($arg_vars[0], '$')) {
         $title = $arg_vars[0];
         eval('global '. $arg_vars[0] .'; $val = '. $arg_vars[0] .';');
     } else {

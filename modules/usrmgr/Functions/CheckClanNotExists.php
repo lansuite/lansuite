@@ -2,9 +2,8 @@
 
 /**
  * @param string $ClanName
- * @return bool|string
  */
-function CheckClanNotExists($ClanName)
+function CheckClanNotExists($ClanName): bool|string
 {
     global $db;
 

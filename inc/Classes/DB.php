@@ -4,20 +4,11 @@ namespace LanSuite;
 
 class DB
 {
-    /**
-     * @var \mysqli
-     */
-    private $link_id;
+    private \mysqli|bool|null $link_id = null;
 
-    /**
-     * @var \mysqli_result
-     */
-    private $query_id;
+    private bool|\mysqli_result|null $query_id = null;
 
-    /**
-     * @var array
-     */
-    private $record = [];
+    private array|bool|null $record = [];
 
     /**
      * @var bool
@@ -29,10 +20,7 @@ class DB
      */
     public $count_query = 0;
 
-    /**
-     * @var string
-     */
-    private $errors = '';
+    private string $errors = '';
 
     /**
      * @var int
@@ -48,15 +36,9 @@ class DB
      */
     public $connectfailure = 0;
 
-    /**
-     * @var array
-     */
-    private $QueryArgs = [];
+    private array $QueryArgs = [];
 
-    /**
-     * @var string
-     */
-    private $sql_error = '';
+    private string $sql_error = '';
 
     /**
      * @param string $msg
@@ -110,11 +92,16 @@ class DB
         $user = $config['database']['user'];
         $pass = $config['database']['passwd'];
         $database = $config['database']['database'];
+        $port = $config['database']['dbport'] ?? 3306;
         $charset = $config['database']['charset'];
+        $sqlmode = '';
+        if (array_key_exists('sqlmode', $config['database'])) {
+            $sqlmode = $config['database']['sqlmode'];
+        }
 
         // Try to connect to the database
         // Suppress error output, because mysqli_connect throws a PHP Warning once it is not able to connect
-        $this->link_id = @mysqli_connect($server, $user, $pass);
+        $this->link_id = @mysqli_connect($server, $user, $pass, $database, $port);
 
         if (!$this->link_id) {
             if ($save) {
@@ -147,6 +134,12 @@ class DB
         } else {
             $this->link_id->set_charset('utf8');
         }
+        
+        // Set sql mode, if specified
+        if (!empty($sqlmode)) {
+            $this->setSqlMode($sqlmode);
+        }
+        
         $this->success = true;
         $this->connectfailure = 0;
 
@@ -179,10 +172,8 @@ class DB
 
     /**
      * If the second parameter is an array, the function uses the array as value list.
-     *
-     * @return bool|int|mysqli_result
      */
-    public function qry()
+    public function qry(): bool|int|\mysqli_result
     {
         global $config, $debug;
 
@@ -221,11 +212,16 @@ class DB
     /**
      * @param int $query_id
      * @param int $save
-     * @return array|null
      */
-    public function fetch_array($query_id = -1, $save = 1)
+    public function fetch_array($query_id = -1, $save = 1): ?array
     {
         global $func;
+
+        // Mimic the original behaviour of mysqli_fetch_array
+        // Returns an array representing the fetched row, null if there are no more rows in the result set, or false on failure.
+        if (!$query_id) {
+            return null;
+        }
 
         if ($query_id != -1) {
             $this->query_id = $query_id;
@@ -252,7 +248,9 @@ class DB
             $this->query_id = $query_id;
         }
 
-        return mysqli_num_rows($this->query_id);
+        // If a SQL query does not return any rows, the query function
+        // returns false. We ensure that `num_rows` always returns an integer.
+        return $query_id ? mysqli_num_rows($this->query_id): 0;
     }
 
     /**
@@ -270,9 +268,8 @@ class DB
 
     /**
      * @param int $query_id
-     * @return int|string
      */
-    public function insert_id($query_id = -1)
+    public function insert_id($query_id = -1): int|string
     {
         if ($query_id != -1) {
             $this->query_id = $query_id;
@@ -315,6 +312,11 @@ class DB
      */
     public function free_result($query_id = -1)
     {
+        // No op if we don't had a query result
+        if (!$query_id) {
+            return;
+        }
+
         if ($query_id != -1) {
             $this->query_id = $query_id;
         }
@@ -324,10 +326,8 @@ class DB
 
     /**
      * If the second parameter is an array, the function uses the array as value list.
-     *
-     * @return array|bool|null
      */
-    public function qry_first()
+    public function qry_first(): array|bool|null
     {
         $this->qry($args = func_get_args());
 
@@ -344,10 +344,7 @@ class DB
         return $row;
     }
 
-    /**
-     * @return array|null
-     */
-    public function qry_first_rows()
+    public function qry_first_rows(): ?array
     {
         $this->qry($args = func_get_args());
         $row = $this->fetch_array();
@@ -367,10 +364,8 @@ class DB
 
     /**
      * Returns the version of the MySQL server
-     *
-     * @return string|bool
      */
-    public function getServerInfo()
+    public function getServerInfo(): string|bool
     {
         if ($this->link_id) {
             return mysqli_get_server_info($this->link_id);
@@ -390,5 +385,14 @@ class DB
             $func->error($this->errors);
             $this->errors = '';
         }
+    }
+
+    /**
+     * Sets the SQL Mode for this database session.
+     */
+    public function setSqlMode(string $sqlmode)
+    {
+        $sqlModeQuery = sprintf("SET SESSION SQL_MODE='%s';", mysqli_real_escape_string($this->link_id, $sqlmode));
+        $this->link_id->query($sqlModeQuery);
     }
 }

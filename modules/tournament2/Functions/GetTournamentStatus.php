@@ -6,6 +6,7 @@
  */
 function GetTournamentStatus($status)
 {
+    $status_descriptor = [];
     $status_descriptor["open"]      = t('Anmeldung offen');
     $status_descriptor["locked"]    = t('Anmeldung geschlossen');
     $status_descriptor["invisible"] = t('Unsichtbar');

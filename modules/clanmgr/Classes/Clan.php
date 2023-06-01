@@ -12,9 +12,8 @@ class Clan
      * @param int $userid
      * @param string $url
      * @param string $password
-     * @return bool|int|string
      */
-    public function Add($name, $userid, $url = '', $password = '')
+    public function Add($name, $userid, $url = '', $password = ''): bool|int|string
     {
         global $db;
 
@@ -22,7 +21,7 @@ class Clan
             return false;
         }
     
-        if ($url!='' && substr($url, 0, 7) != 'http://') {
+        if ($url!='' && !str_starts_with($url, 'http://')) {
             $url = 'http://'. $url;
         }
         

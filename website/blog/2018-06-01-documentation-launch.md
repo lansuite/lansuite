@@ -1,7 +1,8 @@
 ---
+slug: documentation-launch
 title: Launch of the documentation
-author: Andy Grunwald
-authorURL: http://twitter.com/andygrunwald
+authors: andygrunwald
+tags: [documentation, website]
 ---
 
 In April 2017 we kicked off the development of LANSuite again.

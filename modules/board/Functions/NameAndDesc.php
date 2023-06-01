@@ -6,6 +6,7 @@
  */
 function NameAndDesc($name)
 {
+    $group = null;
     global $line, $auth;
 
     if ($line['board_group']) {

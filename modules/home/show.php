@@ -19,11 +19,12 @@ switch ($home_page) {
         $z = 0;
 
         $plugin = new \LanSuite\Plugin('home');
-        while (list($caption, $inc) = $plugin->fetch()) {
+        while ([$caption, $inc] = $plugin->fetch()) {
             if ($caption == 'install') {
                 $caption = 'comments';
             }
-            if ($cfg['home_item_cnt_'.$caption]
+            $cfgArrayKey = 'home_item_cnt_' . $caption;
+            if ((array_key_exists($cfgArrayKey, $cfg) && $cfg[$cfgArrayKey])
                 || ($caption == 'party' && $party->count > 0)
                 || ($caption == 'troubleticket' && $auth['type'] >= 2)
                 || ($caption == 'rent' && $auth['type'] >= 2)

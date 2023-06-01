@@ -26,7 +26,7 @@ $query = $db->qry("
     )
   ORDER BY timestamp", $auth['userid'], $_GET['queryid'], $_GET['queryid'], $auth['userid']);
 
-$row2 = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $_GET[queryid]);
+$row2 = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $_GET['queryid']);
 
 while ($row = $db->fetch_array($query)) {
     $senderid   = $row["senderid"];

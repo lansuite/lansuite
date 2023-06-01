@@ -41,7 +41,7 @@ $ms2->AddIconField('unlocked', 'index.php?mod=usrmgr&step=10&userid=', t('Accoun
 
 // Add icons depending on other modules
 $plugin = new \LanSuite\Plugin('usrmgr_search');
-while (list($caption, $inc) = $plugin->fetch()) {
+while ([$caption, $inc] = $plugin->fetch()) {
     include_once($inc);
 }
 

@@ -21,80 +21,41 @@ class MasterSearch2
         'order_by_end' => ''
     ];
 
-    /**
-     * @var array
-     */
-    private $result_field = [];
+    private array $result_field = [];
 
-    /**
-     * @var array
-     */
-    private $search_fields = [];
+    private array $search_fields = [];
 
-    /**
-     * @var array
-     */
-    private $search_dropdown = [];
+    private array $search_dropdown = [];
 
-    /**
-     * @var array
-     */
-    private $icon_field = [];
+    private array $icon_field = [];
 
-    /**
-     * @var array
-     */
-    private $multi_select_action = [];
+    private array $multi_select_action = [];
 
     /**
      * @var array
      */
     public $config = [];
 
-    /**
-     * @var array
-     */
-    private $bgcolors = [];
+    private array $bgcolors = [];
 
-    /**
-     * @var string
-     */
-    private $bgcolor_attr = '';
+    private string $bgcolor_attr = '';
 
-    /**
-     * @var bool
-     */
-    private $orderByFieldFound = false;
+    private bool $orderByFieldFound = false;
 
     /**
      * @var string
      */
     public $NoItemsText = '';
 
-    /**
-     * @var array
-     */
-    private $SQLFieldTypes = [];
+    private array $SQLFieldTypes = [];
 
-    /**
-     * @var array
-     */
-    private $HiddenGetFields = [];
+    private array $HiddenGetFields = [];
 
-    /**
-     * @var int
-     */
-    private $ms_number = 0;
+    private int|float $ms_number = 0;
 
-    /**
-     * @var string
-     */
-    private $TargetPageField = '';
+    private string $TargetPageField = '';
 
-    /**
-     * @var int
-     */
-    private $TargetPageCount = 0;
+    private int $TargetPageCount = 0;
 
     /**
      * @var array
@@ -302,7 +263,7 @@ class MasterSearch2
 
         $UrlParas = explode('&', substr($working_link, strpos($working_link, '?') + 1, strlen($working_link)));
         foreach ($UrlParas as $UrlPara) {
-            list($key, $val) = explode('=', $UrlPara);
+            [$key, $val] = explode('=', $UrlPara);
             $this->HiddenGetFields[$key] .= $val;
         }
 
@@ -410,7 +371,7 @@ class MasterSearch2
                             // Negation, greater than, less than
                             $pre_eq = '';
                             $value = $func->AllowHTML($value); # Converts &lt; back to <
-                            if (substr($value, 0, 1) == '!' or substr($value, 0, 1) == '<' or substr($value, 0, 1) == '>') {
+                            if (str_starts_with($value, '!') or str_starts_with($value, '<') or str_starts_with($value, '>')) {
                                 $pre_eq = substr($value, 0, 1);
                                 $value = substr($value, 1, strlen($value) - 1);
                             }
@@ -426,7 +387,7 @@ class MasterSearch2
                         }
 
                         // If COUNT function is used in select, write this variable in the having statement, otherwise in the where statement
-                        if (strpos($current_field_list['sql_field'], 'OUNT(') == 0) {
+                        if (str_starts_with($current_field_list['sql_field'], 'OUNT(')) {
                             $this->query['where'] .= " AND ($sql_one_search_field)";
                         } else {
                             $this->query['having'] .= "($sql_one_search_field) AND ";
@@ -484,13 +445,13 @@ class MasterSearch2
                 } else {
                     $FirstTable = $this->query['from'];
                 }
-        
+
                 $res = $db->qry("DESCRIBE %plain%", $FirstTable);
                 while ($row = $db->fetch_array($res)) {
                     $this->SQLFieldTypes[$row['Field']] = $row['Type'];
                 }
                 $db->free_result($res);
-        
+
                 if ($this->SQLFieldTypes[$this->query['order_by']] == 'datetime'
                     || $this->SQLFieldTypes[$this->query['order_by']] == 'date'
                     || $this->SQLFieldTypes[$this->query['order_by']] == 'time'
@@ -498,7 +459,7 @@ class MasterSearch2
                     $this->query['order_by'] .= ' DESC';
                 }
             }
-      
+
         // Default order by (if non given per URL)
         } elseif ($this->query['default_order_by']) {
             $this->query['order_by'] = $this->query['default_order_by'];
@@ -707,7 +668,7 @@ class MasterSearch2
         $this->HiddenGetFields = array();
         $UrlParas = explode('&', $_SERVER['QUERY_STRING']);
         foreach ($UrlParas as $UrlPara) {
-            list($key, $val) = explode('=', $UrlPara);
+            [$key, $val] = explode('=', $UrlPara);
             if ($key != 'ms_page') {
                 if (!array_key_exists(urldecode($key), $this->HiddenGetFields)) {
                     $this->HiddenGetFields[urldecode($key)] .= urldecode($val);
@@ -864,7 +825,7 @@ class MasterSearch2
                     $arr = array();
 
                     if (!$current_field['callback'] or call_user_func($current_field['callback'], $line[$select_id_field])) {
-                        if (substr($current_field['link'], 0, 11) == 'javascript:') {
+                        if (str_starts_with($current_field['link'], 'javascript:')) {
                             $arr['link'] = '#" onclick="'. $current_field['link'];
                         } else {
                             $arr['link'] = $current_field['link'];

@@ -23,66 +23,48 @@ class Auth
 
     /**
      * Time
-     *
-     * @var int
      */
-    private $timestamp;
+    private int $timestamp;
 
     /**
      * Cookie data
-     *
-     * @var array
      */
-    private $cookie_data = [];
+    private array $cookie_data = [];
 
     /**
      * Cookie name
-     *
-     * @var string
      */
-    private $cookie_name = 'LSAUTH';
+    private string $cookie_name = 'LSAUTH';
 
     /**
      * Cookie version
-     *
-     * @var string
      */
-    private $cookie_version = '1';
+    private string $cookie_version = '1';
 
     /**
      * Domain
-     *
-     * @var string
      */
-    private $cookie_domain = '';
+    private string $cookie_domain = '';
 
     /**
      * Duration in days
-     *
-     * @var string
      */
-    private $cookie_time = '30';
+    private string $cookie_time = '30';
 
     /**
      * Cookie path
-     *
-     * @var string
      */
-    private $cookie_path = '';
+    private string $cookie_path = '';
 
     /**
      * Crypt Cookie with AzDGCrypt
-     *
-     * @var bool
      */
-    private $cookie_crypt = true;
+    private bool $cookie_crypt = true;
 
     /**
      * Passphrase for AzDGCrypt
-     *
-     * @var string
      */
-    private $cookie_crypt_pw = "iD9ww32e";
+    private string $cookie_crypt_pw = "iD9ww32e";
 
     /**
      * Array containing all users, currently online
@@ -106,8 +88,23 @@ class Auth
     {
         global $db;
 
-        $this->auth["sessid"] = session_id();
-        $this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
+        // Setting default values
+        $this->auth = [
+            'sessid' => session_id(),
+            'ip' => $_SERVER['REMOTE_ADDR'],
+
+            'login' => LS_AUTH_LOGIN_LOGGED_OUT,
+            'type' => LS_AUTH_TYPE_ANONYMOUS,
+
+            // In theory, all fields of the user database table should be present.
+            // See loadAuthBySID()
+            'userid' => 0,
+            'email' => '',
+            'username' => '',
+            'userpassword' => '',
+            'group_id' => 0,
+            'design' => 'simple' // TODO Get design from default configuration
+        ];
         $this->timestamp = time();
 
         // Update statistics
@@ -156,7 +153,7 @@ class Auth
         $oneHour = 60 * 60;
         $thirtyDays = 60 * 60 * 24 * 30;
         $row = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
-        if ($row['found']) {
+        if ($row) {
             $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
             $db->qry_first('OPTIMIZE TABLE %prefix%stats_auth');
 
@@ -164,7 +161,7 @@ class Auth
             // (TODO: Maybe make this time a config option)
             // (TODO: Maybe differ time for admins and non-admins)
             $row = $db->qry_first('SELECT 1 AS found FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
-            if ($row['found']) {
+            if ($row) {
                 $db->qry_first('DELETE FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
                 $db->qry_first('OPTIMIZE TABLE %prefix%cookie');
             }
@@ -236,7 +233,7 @@ class Auth
 
             // Search in cookie table for id + pw
             $cookierow = $db->qry_first('SELECT userid from %prefix%cookie WHERE cookieid = %int% AND password = %string%', $tmp_login_email, $tmp_login_pass);
-            if ($cookierow['userid']) {
+            if ($cookierow) {
                 $user = $db->qry_first(
                     'SELECT *, 1 AS found FROM %prefix%user WHERE (userid = %int%)',
                     $cookierow['userid']
@@ -253,6 +250,13 @@ class Auth
                 );
             }
 
+            if (!$user) {
+                $user = [
+                    'userid' => 0,
+                    'found' => 0,
+                ];
+            }
+
             // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
             if ($func->isModActive('party')) {
                 $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
@@ -265,7 +269,7 @@ class Auth
                GROUP BY userid', $user['userid']);
 
             // Too many login trys?
-            if ($row['anz'] >= 5) {
+            if (is_array($row) && $row['anz'] >= 5) {
                 $func->information(t('Du hast in der letzten Minute bereits 5 mal dein Passwort falsch eingegeben. Bitte warte einen Moment, bevor du es erneut versuchen darfst'), '', 1);
 
             // Email not found?
@@ -319,7 +323,7 @@ class Auth
                 $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate, lastlogin = NOW() WHERE userid = %int%', $user['userid']);
 
                 // If not logged in by cookie, generete new cookie and store it
-                if (!$cookierow['userid']) {
+                if (!$cookierow) {
                     $this->set_cookie_pw($user['userid']);
                 }
 
@@ -331,7 +335,12 @@ class Auth
                 // Set authdata
                 $db->qry(
                     'REPLACE INTO %prefix%stats_auth
-                  SET sessid = %string%, userid = %int%, login = \'1\', ip = %string%, logtime = %string%, logintime = %string%, lasthit = %string%',
+                  SET sessid = %string%, 
+                  userid = %int%, login = \'1\', 
+                  ip = INET6_ATON(%string%), 
+                  logtime = %string%, 
+                  logintime = %string%, 
+                  lasthit = %string%',
                     $this->auth["sessid"],
                     $user["userid"],
                     $this->auth["ip"],
@@ -568,7 +577,7 @@ class Auth
      */
     public function get_olduserid()
     {
-        return $this->cookie_data['olduserid'];
+        return $this->cookie_data['olduserid'] ?? 0;
     }
 
     /**
@@ -579,11 +588,24 @@ class Auth
     private function loadAuthBySID()
     {
         global $db;
+
         // Put all User-Data into $auth-Array
-        $user_data = $db->qry_first('SELECT 1 AS found, session.userid, session.login, session.ip, user.*
-            FROM %prefix%stats_auth AS session
-            LEFT JOIN %prefix%user AS user ON user.userid = session.userid
-            WHERE session.sessid=%string% ORDER BY session.lasthit', $this->auth["sessid"]);
+        // TODO Replace * with an expanded list of all fields of the user database table
+        // TODO Check if really all fields are required
+        $user_data = $db->qry_first('
+            SELECT
+                1 AS `found`,
+                `session`.`userid`,
+                `session`.`login`,
+                INET6_NTOA(`session`.`ip`) AS `ip`,
+                `user`.*
+            FROM
+                `%prefix%stats_auth` AS `session`
+                LEFT JOIN `%prefix%user` AS `user` ON `user`.`userid` = `session`.`userid`
+            WHERE
+                `session`.`sessid` = %string%
+            ORDER BY `session`.`lasthit`', $this->auth["sessid"]);
+
         if (is_array($user_data)) {
             foreach ($user_data as $key => $val) {
                 if (!is_numeric($key)) {
@@ -591,6 +613,7 @@ class Auth
                 }
             }
         }
+
         return $this->auth['login'];
     }
 
@@ -609,7 +632,15 @@ class Auth
             // If a session loaded no page for over one hour, this counts as a new visit
             $db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
             // Update user-stats and lasthit, so the timeout is resetted
-            $db->qry('UPDATE %prefix%stats_auth SET lasthit=%int%, hits = hits + 1, ip=%string%, lasthiturl= %string% WHERE sessid=%string%', $this->timestamp, $this->auth["ip"], $_SERVER['REQUEST_URI'], $this->auth["sessid"]);
+            $db->qry('UPDATE %prefix%stats_auth 
+            SET lasthit=%int%, hits = hits + 1, 
+            ip=INET6_ATON(%string%), 
+            lasthiturl= %string% 
+            WHERE sessid=%string%', 
+            $this->timestamp, 
+            $this->auth["ip"], 
+            substr($_SERVER['REQUEST_URI'],0,100),
+            $this->auth["sessid"]);
         }
 
         // Heartbeat
@@ -674,11 +705,7 @@ class Auth
         setcookie(
             $this->cookie_name,
             $this->cookiedata_pack(),
-            time()+3600*24*$this->cookie_time,
-            $this->cookie_path,
-            $this->cookie_domain,
-            $_SERVER['HTTPS'] == 'on' ? true : false, 
-            true
+            ['expires' => time()+3600*24*$this->cookie_time, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain, 'secure' => $_SERVER['HTTPS'] == 'on' ? true : false, 'httponly' => true]
         );
     }
 
@@ -692,9 +719,7 @@ class Auth
         setcookie(
             $this->cookie_name,
             '',
-            time()+1,
-            $this->cookie_path,
-            $this->cookie_domain
+            ['expires' => time()+1, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain]
         );
     }
 
@@ -735,11 +760,7 @@ class Auth
             $cookie = $crypt->decrypt($cookie);
         }
 
-        list($this->cookie_data['userid'],
-              $this->cookie_data['uniqekey'],
-              $this->cookie_data['version'],
-              $this->cookie_data['olduserid'],
-              $this->cookie_data['sb_code']) = explode("|", $cookie);
+        [$this->cookie_data['userid'], $this->cookie_data['uniqekey'], $this->cookie_data['version'], $this->cookie_data['olduserid'], $this->cookie_data['sb_code']] = explode("|", $cookie);
     }
 
     /**
@@ -753,7 +774,7 @@ class Auth
         $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
         $key = '';
         for ($i = 0; $i < $count; $i++) {
-            $key .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+            $key .= substr($possible, random_int(0, strlen($possible) - 1), 1);
         }
         return $key;
     }

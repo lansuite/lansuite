@@ -4,30 +4,18 @@ namespace LanSuite\Module\Tournament2;
 
 class LanSuiteTree extends TourneyTree
 {
-    /**
-     * @var array
-     */
-    private $wb_teams = [];
+    private array $wb_teams = [];
 
-    /**
-     * @var array
-     */
-    private $lb_teams = [];
+    private array $lb_teams = [];
 
     /**
      * @var int
      */
     private $size = null;
 
-    /**
-     * @var string
-     */
-    private $st = null;
+    private ?string $st = null;
 
-    /**
-     * @var TourneyTree
-     */
-    private $tree = null;
+    private ?\LanSuite\Module\Tournament2\TourneyTree $tree = null;
 
     /**
      * @var \LanSuite\DB
@@ -73,7 +61,7 @@ class LanSuiteTree extends TourneyTree
 
         // Determine winner of each match
         foreach ($this->wb_teams as $round => $teams) {
-            for ($i=0; $i<count($teams); $i++) {
+            for ($i=0; $i<(is_countable($teams) ? count($teams) : 0); $i++) {
                 $t1 = $this->wb_teams[$round][$i];
                 $i++;
                 $t2 = $this->wb_teams[$round][$i];
@@ -122,7 +110,7 @@ class LanSuiteTree extends TourneyTree
         array_push($this->wb_teams, $fix, $fix);
 
         foreach ($this->lb_teams as $round => $teams) {
-            for ($i=0; $i<count($teams); $i++) {
+            for ($i=0; $i<(is_countable($teams) ? count($teams) : 0); $i++) {
                 $t1 = $this->lb_teams[$round][$i];
                 $i++;
                 $t2 = $this->lb_teams[$round][$i];

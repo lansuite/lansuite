@@ -88,10 +88,10 @@ if (!$gd->available) {
     }
     if ($handle) {
         while ($file = readdir($handle)) {
-            if ($file != "." and $file != ".." and $file != ".svn" and substr($file, 0, 1) != '.') {
+            if ($file != "." and $file != ".." and $file != ".svn" and !str_starts_with($file, '.')) {
                 if (is_dir($root_dir . $file)) {
                     $dir_list[] = $file;
-                } elseif (substr($file, 0, 8) != "lsthumb_") {
+                } elseif (!str_starts_with($file, "lsthumb_")) {
                     $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
                     if (IsSupportedType($extension)) {
                         $dir_size += filesize($root_dir . $file);
@@ -260,20 +260,12 @@ if (!$gd->available) {
                 and $z <= $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * ($_GET["page"] + 1)) {
                     $extension =  strtolower(substr($package, strrpos($package, ".") + 1, 4));
 
-                    switch ($extension) {
-                        case "ace":
-                            $icon = "ace.jpg";
-                            break;
-                        case "rar":
-                            $icon = "rar.jpg";
-                            break;
-                        case "zip":
-                            $icon = "zip.jpg";
-                            break;
-                        default:
-                            $icon = "zip.jpg";
-                            break;
-                    }
+                    $icon = match ($extension) {
+                        "ace" => "ace.jpg",
+                        "rar" => "rar.jpg",
+                        "zip" => "zip.jpg",
+                        default => "zip.jpg",
+                    };
 
                     $thumb_path = $icon_dir . $icon;
                     if (file_exists($thumb_path)) {
@@ -414,7 +406,7 @@ if (!$gd->available) {
                 $handle = opendir($root_dir);
             }
             while ($file = readdir($handle)) {
-                if (($file != ".") and ($file != "..") and ($file != ".svn") and (!is_dir($root_dir . $file) and substr($file, 0, 8) != "lsthumb_")) {
+                if (($file != ".") and ($file != "..") and ($file != ".svn") and (!is_dir($root_dir . $file) and !str_starts_with($file, "lsthumb_"))) {
                     $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
                     if (IsSupportedType($extension)) {
                         $file_list[] = $file;
