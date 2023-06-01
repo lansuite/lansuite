@@ -162,10 +162,10 @@ switch ($step) {
         $config["database"]["database"] = $_POST["database"];
         $config["database"]["prefix"] = $_POST["prefix"];
         $config["lansuite"]["default_design"] = $_POST["design"];
-
         //flush cached values to force recreation on next load
         $cache->delete('config');
-        
+        $dsp->NewContent(t('Datenbankgenerierung'), t('Das Setup versucht nun die Datenbank zu initialisieren.'));
+
         // Write new $config-Vars to config.php-File
         if (!$install->WriteConfig()) {
             $continue = 0;
@@ -188,7 +188,7 @@ switch ($step) {
                     $output .= t('Datenbank wurde erfolgreich angelegt.');
                     break;
                 case 4:
-                    $output .= $fail_leadin . t('Verbdindung ok aber keinen Datenbanknamen angegeben.') . $leadout;
+                    $output .= $fail_leadin . t('Verbindung ok aber keinen Datenbanknamen angegeben.') . $leadout;
                     break;
                 case 5:
                     $output .= t('Datenbank wurde erfolgreich Überschrieben.');
@@ -199,13 +199,31 @@ switch ($step) {
             if ($res == 1 or $res == 3 or $res == 5) {
                 $db->connect();
 
+                if ($db->success) {
+                    // Write new compatible SQL mode to configuration
+                    $sqlmodeDisable = ['ONLY_FULL_GROUP_BY', 'STRICT_TRANS_TABLES'];
+                    $res = $db->qry('SELECT @@SESSION.SQL_MODE AS sqlmode;');
+                    $opts = $db->fetch_array($res)['sqlmode'];
+                    $serverOpts = explode(',', $opts);
+                    $warnOpts = implode(',', array_values(array_intersect($serverOpts, $sqlmodeDisable)));
+                    $newSqlMode = implode(',', array_diff($serverOpts, $sqlmodeDisable));
+                    if ($warnOpts) {
+                        $config['database']['sqlmode'] = $newSqlMode;
+                        $install->WriteConfig();
+
+                        // We need to set the SQL mode manually
+                        // because we executed the database connect before
+                        // the new sqlmode was set
+                        $db->setSqlMode($newSqlMode);
+                    }
+                }
+
                 // Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
                 $install->CreateNewTables(0);
                 $output .= t('Die Tabellenstruktur wurde erfolgreich angepasst'). HTML_NEWLINE . HTML_NEWLINE;
             }
         }
 
-        $dsp->NewContent(t('Datenbankgenerierung'), t('Das Setup versucht nun die Datenbank zu initialisieren.'));
         $dsp->AddSingleRow($output);
 
         if ($continue) {

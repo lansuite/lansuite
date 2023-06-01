@@ -94,7 +94,10 @@ class DB
         $database = $config['database']['database'];
         $port = $config['database']['dbport'] ?? 3306;
         $charset = $config['database']['charset'];
-	    
+        $sqlmode = '';
+        if (array_key_exists('sqlmode', $config['database'])) {
+            $sqlmode = $config['database']['sqlmode'];
+        }
 
         // Try to connect to the database
         // Suppress error output, because mysqli_connect throws a PHP Warning once it is not able to connect
@@ -131,6 +134,12 @@ class DB
         } else {
             $this->link_id->set_charset('utf8');
         }
+        
+        // Set sql mode, if specified
+        if (!empty($sqlmode)) {
+            $this->setSqlMode($sqlmode);
+        }
+        
         $this->success = true;
         $this->connectfailure = 0;
 
@@ -376,5 +385,14 @@ class DB
             $func->error($this->errors);
             $this->errors = '';
         }
+    }
+
+    /**
+     * Sets the SQL Mode for this database session.
+     */
+    public function setSqlMode(string $sqlmode)
+    {
+        $sqlModeQuery = sprintf("SET SESSION SQL_MODE='%s';", mysqli_real_escape_string($this->link_id, $sqlmode));
+        $this->link_id->query($sqlModeQuery);
     }
 }
