@@ -2,8 +2,8 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
-use Symfony\Component\Debug\Debug;
 use Symfony\Component\Cache;
+use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
 $request = Request::createFromGlobals();
