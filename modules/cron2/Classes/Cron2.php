@@ -44,7 +44,7 @@ class Cron2
           FROM %prefix%cron
           WHERE
             UNIX_TIMESTAMP(NOW()) > UNIX_TIMESTAMP(DATE_ADD(DATE(lastrun), INTERVAL 1 DAY)) + TIME_TO_SEC(runat)");
-        if ($row['jobid']) {
+        if ($row && $row['jobid']) {
             $this->Run($row['jobid']);
         }
     }

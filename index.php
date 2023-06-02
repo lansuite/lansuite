@@ -268,7 +268,7 @@ if ($config['environment']['configured'] == 0) {
         die($message);
     }
 
-    if (!$_GET['mod']) {
+    if (!array_key_exists('mod', $_GET) || !$_GET['mod']) {
         $_GET['mod'] = 'home';
     }
     $func->getActiveModules();
