@@ -3,6 +3,8 @@
  * Generate Signonstatus. Show Counter and Bar.
  */
 
+// TODO Even if no party is planned, this box is shown
+
 // Number with or without orga team
 if ($cfg["guestlist_showorga"] == 0) {
     $querytype = "type = 1";
@@ -23,7 +25,7 @@ $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user L
 $paid = $get_cur["n"];
 
 // Max. attenteed
-$max = $_SESSION['party_info']['max_guest'];
+$max = $_SESSION['party_info']['max_guest'] ?? 0;
 
 if ($paid > $cur) {
     $paid = $cur;
@@ -60,6 +62,7 @@ $pixelcuruser = $curuser - $gesamtpaid;
 $pixelpaid = $gesamtpaid;
 
 // Create bar
+$bar = '';
 if ($pixelpaid > 0) {
     $bar = '<ul class="BarOccupied infolink" style="width:'. $pixelpaid .'px;">&nbsp;<span class="infobox">'. t('Angemeldet und Bezahlt') .': '. $paid .'</span></ul>';
 }
@@ -84,12 +87,15 @@ if ($cfg['sys_internet']) {
         }
         $box->ItemRow('data', '<form action=""><select name="set_party_id" class="form" >'. $options .'</select><br /><input type="submit" class="Button" value="Party wechseln" /></form>');
     } else {
-        $box->ItemRow("data", '<b>'. $_SESSION['party_info']['name'] .'</b>');
+        $partyName = $_SESSION['party_info']['name'] ?? '';
+        $box->ItemRow("data", '<b>'. $partyName .'</b>');
     }
     $db->free_result($res);
   
     date_default_timezone_set($cfg['sys_timezone']);
-    $box->EngangedRow(date("d.m.y", $_SESSION['party_info']['partybegin']) .' - '. date("d.m.y", $_SESSION['party_info']['partyend']));
+    $partyBegin = $_SESSION['party_info']['partybegin'] ?? time();
+    $partyEnd = $_SESSION['party_info']['partyend'] ?? time();
+    $box->EngangedRow(date("d.m.y", $partyBegin) .' - '. date("d.m.y", $partyEnd));
 }
 
 $box->EngangedRow($bar);
@@ -126,7 +132,8 @@ if ($cfg['sys_internet']) {
     $box->EmptyRow();
     $box->ItemRow("data", '<b>'. t('Counter') .'</b>');
   
-    if ($_SESSION['party_info']['partyend'] < time()) {
+    $partyEnd = $_SESSION['party_info']['partyend'] ?? 0;
+    if ($partyEnd < time()) {
         $box->EngangedRow(t('Diese Party ist bereits vorüber'));
     } else {
         $count = ceil(($_SESSION['party_info']['partybegin'] - time()) / 60);

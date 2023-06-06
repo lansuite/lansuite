@@ -19,4 +19,3 @@ while ($row = $db->fetch_array($res)) {
     }
 }
 $db->free_result($res);
-s

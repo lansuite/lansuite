@@ -5,6 +5,11 @@ namespace LanSuite;
 class Func
 {
     /**
+     * HTTP referer
+     */
+    public string $internal_referer;
+
+    /**
      * @var array
      */
     public $ActiveModules = [];
@@ -496,8 +501,8 @@ class Func
                         function ($treffer) {
                             global $HighlightCode, $HighlightCount2;
                             $HighlightCount2++;
-                            $geshi = new GeSHi($HighlightCode[$HighlightCount2], 'php');
-                            $geshi->set_header_type(GESHI_HEADER_NONE);
+                            $geshi = new \GeSHi($HighlightCode[$HighlightCount2], 'php');
+                            $geshi->set_header_type(\GESHI_HEADER_NONE);
                             return '
                                 <blockquote>
                                     <div class="tbl_small">Code:</div>
