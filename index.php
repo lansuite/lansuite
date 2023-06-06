@@ -2,8 +2,8 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
-use Symfony\Component\Debug\Debug;
 use Symfony\Component\Cache;
+use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
 $request = Request::createFromGlobals();
@@ -74,9 +74,13 @@ if (!$config['lansuite']['debugmode']) {
 // This component shows the error in a nice stack trace.
 // More information here: https://symfony.com/components/Debug
 } elseif ($config['lansuite']['debugmode'] > 0) {
+    Debug::enable();
+
     // TODO Once LanSuite is notice free, we set the $errorReportingLevel back to E_ALL
-    $errorReportingLevel = E_ALL & ~E_NOTICE;
-    Debug::enable($errorReportingLevel);
+    // We need to re-set error_reporting here, because
+    // the error handler component sets error_reporting(-1).
+    // At the moment (2023-06-02) we only care about PHP Warning and above.
+    error_reporting(E_ALL & ~E_NOTICE);
 }
 
 // Start session-management
@@ -277,7 +281,7 @@ if ($config['environment']['configured'] == 0) {
         die($message);
     }
 
-    if (!$_GET['mod']) {
+    if (!array_key_exists('mod', $_GET) || !$_GET['mod']) {
         $_GET['mod'] = 'home';
     }
     $func->getActiveModules();
