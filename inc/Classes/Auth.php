@@ -88,8 +88,23 @@ class Auth
     {
         global $db;
 
-        $this->auth["sessid"] = session_id();
-        $this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
+        // Setting default values
+        $this->auth = [
+            'sessid' => session_id(),
+            'ip' => $_SERVER['REMOTE_ADDR'],
+
+            'login' => LS_AUTH_LOGIN_LOGGED_OUT,
+            'type' => LS_AUTH_TYPE_ANONYMOUS,
+
+            // In theory, all fields of the user database table should be present.
+            // See loadAuthBySID()
+            'userid' => 0,
+            'email' => '',
+            'username' => '',
+            'userpassword' => '',
+            'group_id' => 0,
+            'design' => 'simple' // TODO Get design from default configuration
+        ];
         $this->timestamp = time();
 
         // Update statistics
@@ -233,6 +248,13 @@ class Auth
                     $is_email,
                     $tmp_login_email
                 );
+            }
+
+            if (!$user) {
+                $user = [
+                    'userid' => 0,
+                    'found' => 0,
+                ];
             }
 
             // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
@@ -555,7 +577,7 @@ class Auth
      */
     public function get_olduserid()
     {
-        return $this->cookie_data['olduserid'];
+        return $this->cookie_data['olduserid'] ?? 0;
     }
 
     /**
@@ -566,15 +588,24 @@ class Auth
     private function loadAuthBySID()
     {
         global $db;
+
         // Put all User-Data into $auth-Array
-        $user_data = $db->qry_first('SELECT 1 AS found, 
-        session.userid, 
-        session.login, 
-        INET6_NTOA(session.ip) AS ip, 
-        user.*
-            FROM %prefix%stats_auth AS session
-            LEFT JOIN %prefix%user AS user ON user.userid = session.userid
-            WHERE session.sessid=%string% ORDER BY session.lasthit', $this->auth["sessid"]);
+        // TODO Replace * with an expanded list of all fields of the user database table
+        // TODO Check if really all fields are required
+        $user_data = $db->qry_first('
+            SELECT
+                1 AS `found`,
+                `session`.`userid`,
+                `session`.`login`,
+                INET6_NTOA(`session`.`ip`) AS `ip`,
+                `user`.*
+            FROM
+                `%prefix%stats_auth` AS `session`
+                LEFT JOIN `%prefix%user` AS `user` ON `user`.`userid` = `session`.`userid`
+            WHERE
+                `session`.`sessid` = %string%
+            ORDER BY `session`.`lasthit`', $this->auth["sessid"]);
+
         if (is_array($user_data)) {
             foreach ($user_data as $key => $val) {
                 if (!is_numeric($key)) {
@@ -582,6 +613,7 @@ class Auth
                 }
             }
         }
+
         return $this->auth['login'];
     }
 
@@ -609,7 +641,6 @@ class Auth
             $this->auth["ip"], 
             substr($_SERVER['REQUEST_URI'],0,100),
             $this->auth["sessid"]);
-
         }
 
         // Heartbeat

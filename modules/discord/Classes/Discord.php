@@ -32,7 +32,7 @@ class Discord
         } else {
             //Check if server id was passed via constructor, use configuration value otherwise
             if ($discordServerId!='') {
-                $this->discordServerId = $disordServerId;
+                $this->discordServerId = $discordServerId;
             } elseif (isset($cfg['discord_server_id'])) {
                 $this ->discordServerId =  $cfg['discord_server_id'];
             } else {
@@ -51,17 +51,19 @@ class Discord
     public function fetchServerData()
     {
         global $cfg, $cache;
+
         $discordCache = $cache->getItem('discord.cache');
         if (!$discordCache->isHit()) {
             // No cache file or too old; let's fetch data.
             $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
             $JsonReturnData = @file_get_contents($APIurl, false, stream_context_create(array('http' => array('timeout' => (isset($cfg['discord_json_timeout']) ? $cfg['discord_json_timeout'] : 4)))));
+
             // Store in cache with timeout of 60 seconds
             $discordCache->set($JsonReturnData, 60);
             $cache->save($discordCache);
-            }
-        $JsonReturnData = $discordCache->get();
         }
+        $JsonReturnData = $discordCache->get();
+
         return ($JsonReturnData === false ? false : json_decode($JsonReturnData, false));
     }
 

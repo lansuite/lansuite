@@ -130,7 +130,7 @@ class MasterForm
 
     private int $OptGroupOpen = 0;
 
-    private int $MultiLineID = 0;
+    private $MultiLineID = 0;
 
     private array $MultiLineIDs = [];
 
@@ -142,6 +142,21 @@ class MasterForm
      * Master form number
      */
     private int $number = 0;
+
+    /**
+     * Master form ID
+     */
+    private int $MFID;
+
+    /**
+     * Current page in pagination
+     */
+    private int $currentPage = 0;
+
+    /**
+     * Name of a form field
+     */
+    private string $DependOnField;
 
     /**
      * The MasterForm class deals internally with a number to handle multiple forms on one page.
@@ -368,8 +383,9 @@ class MasterForm
         }
 
         // Break, if in wrong form
-        $Step_Tmp = $_GET['mf_step'];
-        if ($_GET['mf_step'] == 2 && $_GET['mf_id'] != $this->GetNumber()) {
+        $masterFormStepParameter = $_GET['mf_step'] ?? 0;
+        $Step_Tmp = $masterFormStepParameter;
+        if ($masterFormStepParameter == 2 && $_GET['mf_id'] != $this->GetNumber()) {
             $Step_Tmp = 1;
         }
 
@@ -742,7 +758,9 @@ class MasterForm
                                                         $dsp->AddDoubleRow($field['caption'], $dsp->errortext_prefix . $this->error[$field['name']] . $dsp->errortext_suffix);
                                                     }
                                                 } else {
-                                                      $dsp->AddTextAreaRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional']);
+                                                    $postFieldText = $_POST[$field['name']] ?? '';
+                                                    $errorFieldText = $this->error[$field['name']] ?? '';
+                                                    $dsp->AddTextAreaRow($field['name'], $field['caption'], $postFieldText, $errorFieldText, '', '', $field['optional']);
                                                 }
                                                 break;
 
@@ -877,7 +895,8 @@ class MasterForm
                                                             $selections[] = '<optgroup label="'. $val .'">';
                                                             $this->OptGroupOpen = 1;
                                                         } else {
-                                                            ($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
+                                                            $postFieldValue = $_POST[$field['name']] ?? '';
+                                                            ($postFieldValue == $key) ? $selected = " selected" : $selected = "";
                                                             $selections[] = "<option$selected value=\"$key\">$val</option>";
                                                         }
                                                     }
@@ -887,7 +906,8 @@ class MasterForm
                                                     }
 
                                                     $this->OptGroupOpen = 0;
-                                                    $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], $additionalHTML);
+                                                    $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                    $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $fieldErrorText, $field['optional'], $additionalHTML);
                                                 }
                                                 break;
 
@@ -929,7 +949,9 @@ class MasterForm
                                             // Picture Dropdown from path
                                             case self::IS_PICTURE_SELECT:
                                                 if (is_dir($field['selections'])) {
-                                                    $dsp->AddPictureDropDownRow($field['name'], $field['caption'], $field['selections'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']]);
+                                                    $errorFieldText = $this->error[$field['name']] ?? '';
+                                                    $postFieldText = $_POST[$field['name']] ?? '';
+                                                    $dsp->AddPictureDropDownRow($field['name'], $field['caption'], $field['selections'], $errorFieldText, $field['optional'], $postFieldText);
                                                 }
                                                 break;
 
@@ -967,7 +989,9 @@ class MasterForm
                                                     $length = 70;
                                                 }
 
-                                                $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], $length, $field['optional'], $not_changeable, $maxlength);
+                                                $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                $postFieldText = $_POST[$field['name']] ?? '';
+                                                $dsp->AddTextFieldRow($field['name'], $field['caption'], $postFieldText, $fieldErrorText, $length, $field['optional'], $not_changeable, $maxlength);
                                                 break;
                                         }
 

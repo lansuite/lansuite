@@ -173,7 +173,7 @@ class Display
         $out .= '<div id="tabs"><ul>'. $items .'</ul>';
 
         $sel = '';
-        if ($_GET['tab']) {
+        if (array_key_exists('tab', $_GET) && $_GET['tab']) {
             $sel = '{ selected: '. (int)$_GET['tab'] .' }';
         }
         $framework->add_js_code('$(function() { $("#tabs").tabs('. $sel .'); });');

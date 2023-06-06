@@ -94,7 +94,10 @@ class DB
         $database = $config['database']['database'];
         $port = $config['database']['dbport'] ?? 3306;
         $charset = $config['database']['charset'];
-	    
+        $sqlmode = '';
+        if (array_key_exists('sqlmode', $config['database'])) {
+            $sqlmode = $config['database']['sqlmode'];
+        }
 
         // Try to connect to the database
         // Suppress error output, because mysqli_connect throws a PHP Warning once it is not able to connect
@@ -131,6 +134,12 @@ class DB
         } else {
             $this->link_id->set_charset('utf8');
         }
+        
+        // Set sql mode, if specified
+        if (!empty($sqlmode)) {
+            $this->setSqlMode($sqlmode);
+        }
+        
         $this->success = true;
         $this->connectfailure = 0;
 
@@ -208,6 +217,12 @@ class DB
     {
         global $func;
 
+        // Mimic the original behaviour of mysqli_fetch_array
+        // Returns an array representing the fetched row, null if there are no more rows in the result set, or false on failure.
+        if (!$query_id) {
+            return null;
+        }
+
         if ($query_id != -1) {
             $this->query_id = $query_id;
         }
@@ -233,7 +248,9 @@ class DB
             $this->query_id = $query_id;
         }
 
-        return mysqli_num_rows($this->query_id);
+        // If a SQL query does not return any rows, the query function
+        // returns false. We ensure that `num_rows` always returns an integer.
+        return $query_id ? mysqli_num_rows($this->query_id): 0;
     }
 
     /**
@@ -295,6 +312,11 @@ class DB
      */
     public function free_result($query_id = -1)
     {
+        // No op if we don't had a query result
+        if (!$query_id) {
+            return;
+        }
+
         if ($query_id != -1) {
             $this->query_id = $query_id;
         }
@@ -363,5 +385,14 @@ class DB
             $func->error($this->errors);
             $this->errors = '';
         }
+    }
+
+    /**
+     * Sets the SQL Mode for this database session.
+     */
+    public function setSqlMode(string $sqlmode)
+    {
+        $sqlModeQuery = sprintf("SET SESSION SQL_MODE='%s';", mysqli_real_escape_string($this->link_id, $sqlmode));
+        $this->link_id->query($sqlModeQuery);
     }
 }

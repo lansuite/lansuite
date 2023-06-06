@@ -22,12 +22,14 @@ class Stats
         //   Mozilla/5.0 (compatible; Exabot/3.0; +http://www.e...
         //   Mozilla/5.0 (compatible; Googlebot/2.1; +http://ww...
         // see also http://www.user-agents.org/
+
         if (!str_contains(strtolower($httpUserAgent), 'bot')
             && !str_contains(strtolower($httpUserAgent), 'spider')
             && !str_contains(strtolower($httpUserAgent), 'crawl')
             && !str_contains(strtolower($httpUserAgent), 'search')
             && !str_contains(strtolower($httpUserAgent), 'google')
             && !str_contains(strtolower($httpUserAgent), 'find')) {
+
             if (array_key_exists('log_browser_stats', $cfg) && $cfg['log_browser_stats']) {
                 $db->qry(
                     '
@@ -96,7 +98,7 @@ class Stats
                 );
 
                 // Read URL parameters into an array
-                $url_paras = explode("?", httpReferer); // URL part behind ? -> $url_paras[1]
+                $url_paras = explode("?", $httpReferer); // URL part behind ? -> $url_paras[1]
                 $url_paras = explode("&", $url_paras[1]);
 
                 foreach ($url_paras as $akt_para) {

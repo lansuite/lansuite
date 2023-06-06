@@ -317,13 +317,10 @@ class Framework
         $smarty->assign('MainTitle', $this->pageTitle);
         $smarty->assign('MainLogout', '');
         $smarty->assign('MainLogo', '');
-        if (isset($templ)) {
-            $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
-            $smarty->assign('MainJS', $templ['index']['control']['js']);
-        } else {
-            $smarty->assign('MainBodyJS', '');
-            $smarty->assign('MainJS', '');
-        }
+
+        $smarty->assign('MainBodyJS', $templ['index']['body']['js'] ?? '');
+        $smarty->assign('MainJS', $templ['index']['control']['js'] ?? '');
+
         $smarty->assign('MainContent', $this->main_content);
 
         $EndJS = '';
@@ -376,11 +373,7 @@ ga('send', 'pageview');
 
             default:
                 // Footer
-                if (isset($templ)) {
-                    $smarty->assign('main_footer_version', $templ['index']['info']['version']);
-                } else {
-                    $smarty->assign('main_footer_version', '');
-                }
+                $smarty->assign('main_footer_version', $templ['index']['info']['version'] ?? '');
                 $smarty->assign('main_footer_date', date('y'));
                 $smarty->assign('main_footer_countquery', $db->count_query);
                 $smarty->assign('main_footer_timer', round($this->out_work(), 2));

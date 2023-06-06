@@ -237,9 +237,9 @@ class PDF
         $data[] = [];
         foreach ($this->data_type_array[$action] as $key => $value) {
             if ($key == $selected) {
-                $data[] .= "<option selected value=\"$key\">$value</option>";
+                $data[] = "<option selected value=\"$key\">$value</option>";
             } else {
-                $data[] .= "<option value=\"$key\">$value</option>";
+                $data[] = "<option value=\"$key\">$value</option>";
             }
         }
 
