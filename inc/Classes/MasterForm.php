@@ -1217,11 +1217,11 @@ class MasterForm
 
     private function is_field_int($field_type)
     {
-        return $this->str_starts_with($field_type, 'tinyint')
-            || $this->str_starts_with($field_type, 'smallint')
-            || $this->str_starts_with($field_type, 'mediumint')
-            || $this->str_starts_with($field_type, 'int')
-            || $this->str_starts_with($field_type, 'bigint');
+        return str_starts_with($field_type, 'tinyint')
+            || str_starts_with($field_type, 'smallint')
+            || str_starts_with($field_type, 'mediumint')
+            || str_starts_with($field_type, 'int')
+            || str_starts_with($field_type, 'bigint');
     }
 
     private function str_starts_with($search_in, $for) {
