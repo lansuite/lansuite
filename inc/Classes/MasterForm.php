@@ -1212,7 +1212,7 @@ class MasterForm
 
     private function is_field_enum($field_type)
     {
-        return $this->str_starts_with($field_type, 'enum');
+        return str_starts_with($field_type, 'enum');
     }
 
     private function is_field_int($field_type)
