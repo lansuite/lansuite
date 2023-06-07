@@ -1223,8 +1223,4 @@ class MasterForm
             || str_starts_with($field_type, 'int')
             || str_starts_with($field_type, 'bigint');
     }
-
-    private function str_starts_with($search_in, $for) {
-        return strpos($search_in, $for) === 0;
-    }
 }
