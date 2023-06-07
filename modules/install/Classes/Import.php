@@ -180,10 +180,9 @@ class Import
                                 $default_xml = 'CURRENT_TIMESTAMP';
                                 $extra = 'on update CURRENT_TIMESTAMP';
                             } elseif ($type == 'datetime' or $type == 'date' or $type == 'time') {
+                                $default = '';
                                 if ($default_xml != '') {
                                     $default = "default '$default_xml'";
-                                } else {
-                                    $default = '';
                                 }
                             } elseif ($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext' or $type == 'blob') {
                                 $default = '';
