@@ -16,7 +16,7 @@ if (!$cfg['sys_internet']) {
             } elseif ($user_data['username']) {
                 $fcode = '';
                 for ($x = 0; $x <= 24; $x++) {
-                    $fcode .= chr(mt_rand(65, 90));
+                    $fcode .= chr(random_int(65, 90));
                 }
 
                 $db->qry("UPDATE %prefix%user SET fcode='$fcode' WHERE email = %string%", $_POST['pwr_mail']);
@@ -28,7 +28,7 @@ if (!$cfg['sys_internet']) {
                 //Try HTTPS first...
                 if (!empty($cfg['sys_partyurl_ssl'])) {
                     $verification_link = $cfg['sys_partyurl_ssl'];
-                    if (substr($cfg['sys_partyurl_ssl'], -1, 1) != '/') {
+                    if (!str_ends_with($cfg['sys_partyurl_ssl'], '/')) {
                         $verification_link .= '/';
                     } //make sure that it ends with a slash
                     $verification_link .= "index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode";
@@ -58,7 +58,7 @@ if (!$cfg['sys_internet']) {
             if (($user_data['fcode']) && ($_GET['fcode'] != '')) {
                 $new_pwd = "";
                 for ($x = 0; $x <= 8; $x++) {
-                    $new_pwd .= chr(mt_rand(65, 90));
+                    $new_pwd .= chr(random_int(65, 90));
                 }
 
                 $db->qry("UPDATE %prefix%user SET password = %string%, fcode = '' WHERE fcode = %string%", PasswordHash::hash($new_pwd), $_GET['fcode']);

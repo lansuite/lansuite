@@ -4,11 +4,10 @@
  * @param string $field
  * @param int $mode
  * @param string $error
- * @return bool|string
  * @throws Exception
  * @throws SmartyException
  */
-function PersoInput($field, $mode, $error = '')
+function PersoInput($field, $mode, $error = ''): bool|string
 {
     global $dsp, $usrmgr, $smarty;
 

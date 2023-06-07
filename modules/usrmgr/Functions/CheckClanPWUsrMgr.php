@@ -4,9 +4,8 @@ use LanSuite\PasswordHash;
 
 /**
  * @param string $clanpw
- * @return bool|string
  */
-function CheckClanPWUsrMgr($clanpw)
+function CheckClanPWUsrMgr($clanpw): bool|string
 {
     global $db, $auth;
 

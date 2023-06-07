@@ -27,19 +27,19 @@ switch ($_GET["step"]) {
         $ms2->AddTextSearchDropDown(t('Benutzer'), 'a.userid', $list);
 
         $list = array('' => t('Alle'));
-        $res = $db->qry('SELECT ip FROM %prefix%stats_auth GROUP BY ip ORDER BY ip');
+        $res = $db->qry('SELECT INET6_NTOA(ip) AS ip FROM %prefix%stats_auth GROUP BY ip ORDER BY ip');
         while ($row = $db->fetch_array($res)) {
             if ($row['ip']) {
                 $list[$row['ip']] = $row['ip'];
             }
         }
         $db->free_result($res);
-        $ms2->AddTextSearchDropDown(t('IP'), 'a.ip', $list);
+        $ms2->AddTextSearchDropDown(t('IP'), 'INET6_NTOA(a.ip)', $list);
 
         $ms2->AddSelect('u.userid');
         $ms2->AddResultField(t('Session-ID'), 'a.sessid');
         $ms2->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
-        $ms2->AddResultField(t('IP'), 'a.ip');
+        $ms2->AddResultField(t('IP'), 'INET6_NTOA(a.ip) AS ip');
         $ms2->AddResultField(t('Hits'), 'a.hits');
         $ms2->AddResultField(t('Visits'), 'a.visits');
         $ms2->AddResultField(t('Eingeloggt'), 'a.logintime', 'MS2GetDate');

@@ -255,11 +255,11 @@ switch ($_GET['step']) {
 
             $questionarray[] = t('Diesen Platz für mich vorreservieren, meinen alten Platz freigeben.');
             $linkarray[]     = "index.php?mod=seating&action=show&step=22&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
-        
+
             $questionarray[] = t('Aktion abbrechen. Zurück zum Sitzplan');
             $linkarray[]     = "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}";
-        
-        
+
+
             $func->multiquestion($questionarray, $linkarray, t('Solange du nicht für diese Party bezahlt hast, darfst du nur einen Sitz vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
         // Check number of marked seats of this user

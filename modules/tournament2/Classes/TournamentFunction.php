@@ -5,15 +5,9 @@ namespace LanSuite\Module\Tournament2;
 class TournamentFunction
 {
 
-    /**
-     * @var \LanSuite\Module\Mail\Mail
-     */
-    private $mail = null;
+    private ?\LanSuite\Module\Mail\Mail $mail = null;
 
-    /**
-     * @var \LanSuite\Module\Seating\Seat2
-     */
-    private $seating = null;
+    private ?\LanSuite\Module\Seating\Seat2 $seating = null;
 
     public function __construct(\LanSuite\Module\Mail\Mail $mail, \LanSuite\Module\Seating\Seat2 $seating)
     {
@@ -58,9 +52,8 @@ class TournamentFunction
      * @param int $tid
      * @param string $mode
      * @param int $group
-     * @return float|int
      */
-    public function GetTeamAnz($tid, $mode, $group = 0)
+    public function GetTeamAnz($tid, $mode, $group = 0): float|int
     {
         global $db;
 
@@ -105,9 +98,8 @@ class TournamentFunction
      * @param array $tournament
      * @param int $round
      * @param int $group_nr
-     * @return float|int
      */
-    public function GetGameStart($tournament, $round, $group_nr = 0)
+    public function GetGameStart($tournament, $round, $group_nr = 0): float|int
     {
         global $db;
         
@@ -157,9 +149,8 @@ class TournamentFunction
      * @param array $tournament
      * @param int $round
      * @param int $group_nr
-     * @return float|int
      */
-    public function GetGameEnd($tournament, $round, $group_nr = 0)
+    public function GetGameEnd($tournament, $round, $group_nr = 0): float|int
     {
         global $db;
         
@@ -475,6 +466,8 @@ class TournamentFunction
      */
     private function GenerateNewPosition($player1, $player2)
     {
+        $team_round = [];
+        $team_pos = [];
         global $db, $round, $pos, $score, $tournamentid, $leaderid, $num_rounds, $team_anz;
 
         $team_round[$player1] = $round;
@@ -669,6 +662,7 @@ class TournamentFunction
      */
     public function SubmitResult($ttid, $gameid1, $gameid2, $score1, $score2, $comment)
     {
+        $unfinished_games = [];
         global $db, $func, $tournamentid, $round, $pos, $score, $leaderid, $num_rounds, $team_anz;
         $tournamentid = $ttid;
         $score[1] = $score1;
@@ -952,7 +946,7 @@ class TournamentFunction
                 if ($cfg["t_default_win"] == 0) {
                     $cfg["t_default_win"] = 2;
                 }
-                if (rand(0, 1) == 1) {
+                if (random_int(0, 1) == 1) {
                     $score1 = $cfg["t_default_win"];
                     $score2 = 0;
                 } else {

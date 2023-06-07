@@ -4,9 +4,8 @@ use LanSuite\PasswordHash;
 
 /**
  * @param string $old_password
- * @return bool|string
  */
-function CheckOldPW($old_password)
+function CheckOldPW($old_password): bool|string
 {
     global $db, $auth;
 

@@ -38,10 +38,8 @@ class Framework
 
     /**
      * Design
-     *
-     * @var string
      */
-    private $design = "simple";
+    private string $design = "simple";
 
     /**
      * Displaymodus (popup)
@@ -52,62 +50,45 @@ class Framework
 
     /**
      * All framework messages
-     *
-     * @var string
      */
-    private $framework_messages = '';
+    private string $framework_messages = '';
 
     /**
      * Content
-     *
-     * @var string
      */
-    private $main_content = '';
+    private string $main_content = '';
 
     /**
      * Headercode for Meta Tags
-     *
-     * @var string
      */
-    private $main_header_metatags = '';
+    private string $main_header_metatags = '';
 
     /**
      * Headercode for JS-Files
-     *
-     * @var string
      */
-    private $main_header_jsfiles = '';
+    private string $main_header_jsfiles = '';
 
     /**
      * Headercode for JS-Code
-     *
-     * @var string
      */
-    private $main_header_jscode = '';
+    private string $main_header_jscode = '';
 
     /**
      * Headercode for CSS-Files
-     *
-     * @var string
      */
-    private $main_header_cssfiles = '';
+    private string $main_header_cssfiles = '';
 
     /**
      * Headercode for CSS-Code
-     *
-     * @var string
      */
-    private $main_header_csscode = '';
+    private string $main_header_csscode = '';
 
     /**
      * @var bool
      */
     public $IsMobileBrowser = false;
 
-    /**
-     * @var string
-     */
-    private $pageTitle = '';
+    private string $pageTitle = '';
 
     public function __construct()
     {
@@ -245,18 +226,16 @@ class Framework
 
     /**
      * Check for errors in content and returns Zip-Mode
-     *
-     * @return int|string
      */
-    private function check_optimizer()
+    private function check_optimizer(): int|string
     {
         global $PHPErrors, $db;
 
         if (headers_sent() || connection_aborted() || $PHPErrors || (isset($db) && $db->errorsFound)) {
             return 0;
-        } elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip') !== false) {
+        } elseif (str_contains($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip')) {
             return "x-gzip";
-        } elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip') !== false) {
+        } elseif (str_contains($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip')) {
             return "gzip";
         }
 
@@ -315,12 +294,14 @@ class Framework
      */
     public function html_out()
     {
-        global $templ, $cfg, $db, $auth, $smarty, $func, $debug;
+        global $templ, $cfg, $db, $auth, $smarty, $func, $debug, $request;
         $compression_mode = $this->check_optimizer();
 
         // Prepare Header
-        if ($_GET['sitereload']) {
+        if ($request->query->get('sitereload')) {
             $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
+        } else {
+            $smarty->assign('main_header_sitereload', '');
         }
 
         // Add special CSS and JS
@@ -336,8 +317,10 @@ class Framework
         $smarty->assign('MainTitle', $this->pageTitle);
         $smarty->assign('MainLogout', '');
         $smarty->assign('MainLogo', '');
-        $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
-        $smarty->assign('MainJS', $templ['index']['control']['js']);
+
+        $smarty->assign('MainBodyJS', $templ['index']['body']['js'] ?? '');
+        $smarty->assign('MainJS', $templ['index']['control']['js'] ?? '');
+
         $smarty->assign('MainContent', $this->main_content);
 
         $EndJS = '';
@@ -348,7 +331,7 @@ class Framework
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-ga('create', " . json_encode($cfg['google_analytics_id']) . ", 'auto');
+ga('create', " . json_encode($cfg['google_analytics_id'], JSON_THROW_ON_ERROR) . ", 'auto');
 ga('set', 'anonymizeIp', true);
 ga('send', 'pageview');
 </script>";
@@ -390,7 +373,7 @@ ga('send', 'pageview');
 
             default:
                 // Footer
-                $smarty->assign('main_footer_version', $templ['index']['info']['version']);
+                $smarty->assign('main_footer_version', $templ['index']['info']['version'] ?? '');
                 $smarty->assign('main_footer_date', date('y'));
                 $smarty->assign('main_footer_countquery', $db->count_query);
                 $smarty->assign('main_footer_timer', round($this->out_work(), 2));
@@ -398,6 +381,8 @@ ga('send', 'pageview');
 
                 if ($cfg["sys_footer_impressum"]) {
                     $smarty->assign('main_footer_impressum', $cfg["sys_footer_impressum"]);
+                } else {
+                    $smarty->assign('main_footer_impressum', '');
                 }
 
                 $main_footer_mem_usage = '';
@@ -417,7 +402,11 @@ ga('send', 'pageview');
                 $smarty->assign('Design', $this->design);
 
                 // Unterscheidung fullscreen / Normal
-                if ($_SESSION['lansuite']['fullscreen'] or $this->modus == 'beamer') {
+                $sessionFullScreenSet = false;
+                if (array_key_exists('lansuite', $_SESSION) && array_key_exists('fullscreen', $_SESSION['lansuite'])) {
+                    $sessionFullScreenSet = $_SESSION['lansuite']['fullscreen'];
+                }
+                if ($sessionFullScreenSet or $this->modus == 'beamer') {
                     $smarty->assign('MainContentStyleID', 'ContentFullscreen');
                 } else {
                     $smarty->assign('MainContentStyleID', 'Content');
@@ -428,10 +417,15 @@ ga('send', 'pageview');
                 }
 
                 // Ausgabe Hauptseite
-                if (!$_SESSION['lansuite']['fullscreen'] and !$this->modus == 'beamer') {
+                if (!$sessionFullScreenSet and !$this->modus == 'beamer') {
                     $smarty->assign('MainFrameworkmessages', $this->framework_messages);
-                    $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
-                    $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
+                    if (isset($templ)) {
+                        $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
+                        $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
+                    } else {
+                        $smarty->assign('MainLeftBox', '');
+                        $smarty->assign('MainRightBox', '');
+                    }
                     $smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" border="0" />');
                     if ($auth['type'] >= 2 and isset($debug)) { // and $cfg['sys_showdebug'] (no more, for option now in inc/base/config)
                         $smarty->assign('MainDebug', $debug->show());

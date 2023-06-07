@@ -14,7 +14,7 @@ switch ($_GET['step']) {
         break;
 
     case 3:
-        $password = rand(1000, 9999);
+        $password = random_int(1000, 9999);
         $hash = PasswordHash::hash($password);
 
         if ($_SESSION["auth"]["type"] < $userdata["type"]) {

@@ -1,7 +1,5 @@
 # LANSuite - Web based LAN-Party Management System
 
-[![Build Status](https://travis-ci.org/lansuite/lansuite.svg?branch=master)](https://travis-ci.org/lansuite/lansuite)
-
 LANSuite ist ein Administrationssystem für LAN-Partys.
 
 *Englische Version der README*: Kann unter [README.md](./README.md) gefunden werden.

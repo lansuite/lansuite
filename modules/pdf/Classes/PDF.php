@@ -14,33 +14,24 @@ class PDF
     /**
      * Storage of barcodes
      */
-    const BARCODE_PATH ='ext_inc/barcodes/';
+    public const BARCODE_PATH ='ext_inc/barcodes/';
 
     /**
      * Data array
-     *
-     * @var array
      */
-    private $data_type_array = [];
+    private array $data_type_array = [];
 
-    /**
-     * @var \FPDF
-     */
-    private $pdf;
+    private ?\FPDF $pdf = null;
 
     /**
      * Current position on the x axis
-     *
-     * @var int
      */
-    private $x = 0;
+    private int $x = 0;
 
     /**
      * Current position on the y axis
-     *
-     * @var int
      */
-    private $y = 0;
+    private int $y = 0;
 
     /**
      * Start position on the x axis
@@ -86,17 +77,13 @@ class PDF
 
     /**
      * Corrent column
-     *
-     * @var int
      */
-    private $col = 1;
+    private int $col = 1;
 
     /**
      * Current row
-     *
-     * @var int
      */
-    private $row = 1;
+    private int $row = 1;
 
     /**
      * Maximum number of possible columns
@@ -119,15 +106,9 @@ class PDF
      */
     private $templ_id;
 
-    /**
-     * @var BarcodeSystem
-     */
-    private $barcodeSystem = null;
+    private ?\LanSuite\BarcodeSystem $barcodeSystem = null;
 
-    /**
-     * @var Seat2
-     */
-    private $seating = null;
+    private ?\LanSuite\Module\Seating\Seat2 $seating = null;
 
     /**
      * @param int $templ_id
@@ -197,27 +178,13 @@ class PDF
     {
         global $func;
 
-        switch ($action) {
-            case 'guestcards':
-                $this->_menuUsercards($action);
-                break;
-
-            case 'seatcards':
-                $this->_menuSeatcards($action);
-                break;
-
-            case 'userlist':
-                $this->_menuUserlist($action);
-                break;
-
-            case 'certificate':
-                $this->_menuCertificate($action);
-                break;
-
-            default:
-                $func->error(t('Die von dir gew&uuml;nschte Funktion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action);
-                break;
-        }
+        match ($action) {
+            'guestcards' => $this->_menuUsercards($action),
+            'seatcards' => $this->_menuSeatcards($action),
+            'userlist' => $this->_menuUserlist($action),
+            'certificate' => $this->_menuCertificate($action),
+            default => $func->error(t('Die von dir gew&uuml;nschte Funktion konnte nicht ausgef&uuml;rt werden'), "index.php?mod=pdf&action=" . $action),
+        };
     }
 
     /**
@@ -266,12 +233,13 @@ class PDF
      */
     public function get_data_array($action, $selected = "")
     {
+        $data = [];
         $data[] = [];
         foreach ($this->data_type_array[$action] as $key => $value) {
             if ($key == $selected) {
-                $data[] .= "<option selected value=\"$key\">$value</option>";
+                $data[] = "<option selected value=\"$key\">$value</option>";
             } else {
-                $data[] .= "<option value=\"$key\">$value</option>";
+                $data[] = "<option value=\"$key\">$value</option>";
             }
         }
 
@@ -467,6 +435,8 @@ class PDF
      */
     private function _makeUserCard($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $pdf_guestid)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -623,6 +593,8 @@ class PDF
      */
     private function _makeSeatCard($block, $order)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -743,6 +715,8 @@ class PDF
      */
     private function _makeUserlist($pdf_paid, $pdf_normal, $pdf_op, $pdf_orga, $order)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -915,6 +889,8 @@ class PDF
      */
     private function _makeCertificate($pdf_normal, $pdf_user)
     {
+        $data = [];
+        $new_page = null;
         global $db, $func, $party;
 
         define('IMAGE_PATH', 'ext_inc/pdf_templates/');
@@ -1086,7 +1062,7 @@ class PDF
                     break;
 
                 case 'barcode':
-                    $imagename = mt_rand(100000, 999999);
+                    $imagename = random_int(100000, 999999);
                     $this->barcodeSystem->get_image($_SESSION['userid'], static::BARCODE_PATH .$imagename);
                     $image = getimagesize(static::BARCODE_PATH .$imagename . ".png");
                     if (($image[0]/2) > $this->object_width) {
@@ -1161,7 +1137,7 @@ class PDF
                         break;
 
                     case 'barcode':
-                        $imagename = mt_rand(100000, 999999);
+                        $imagename = random_int(100000, 999999);
                         $this->barcodeSystem->get_image($data['userid'], static::BARCODE_PATH . $imagename);
                         $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $iValue['pos_x'] + $this->x, $iValue['pos_y'] + $this->y);
                         $this->barcodeSystem->kill_image(static::BARCODE_PATH . $imagename);

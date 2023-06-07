@@ -7,15 +7,9 @@ use LanSuite\PasswordHash;
 class Team
 {
 
-    /**
-     * @var \LanSuite\Module\Mail\Mail
-     */
-    private $mail = null;
+    private ?\LanSuite\Module\Mail\Mail $mail = null;
 
-    /**
-     * @var \LanSuite\Module\Seating\Seat2
-     */
-    private $seating = null;
+    private ?\LanSuite\Module\Seating\Seat2 $seating = null;
 
     public function __construct(\LanSuite\Module\Mail\Mail $mail, \LanSuite\Module\Seating\Seat2 $seating)
     {

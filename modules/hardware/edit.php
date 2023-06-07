@@ -17,7 +17,7 @@ if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_sel
     $mf->AddField('Monitor', 'monitor', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddField('Betriebssystem', 'os', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddField('Computername', 'name', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
-    $mf->AddField('Sonstiges', 'sonstiges', text, '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+    $mf->AddField('Sonstiges', 'sonstiges', 'text', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddFix('userid', $_GET['userid']);
     $mf->SendForm('index.php?mod=hardware&action=edit&userid='.$_GET['userid'], 'hardware', 'hardwareid', $_GET['hardwareid']);
 } else {

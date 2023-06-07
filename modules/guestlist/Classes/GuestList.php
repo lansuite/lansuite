@@ -2,21 +2,15 @@
 
 namespace LanSuite\Module\GuestList;
 
-use Lansuite\Module\Mail\Mail;
+use LanSuite\Module\Mail\Mail;
 use LanSuite\Module\Seating\Seat2;
 
 class GuestList
 {
 
-    /**
-     * @var Seat2
-     */
-    private $seating;
+    private \LanSuite\Module\Seating\Seat2 $seating;
 
-    /**
-     * @var \LanSuite\Module\UsrMgr\UserManager
-     */
-    private $userManager;
+    private \LanSuite\Module\UsrMgr\UserManager $userManager;
 
     public function __construct(Seat2 $seating, \LanSuite\Module\UsrMgr\UserManager $userManager)
     {

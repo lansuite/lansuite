@@ -5,8 +5,9 @@ use LanSuite\Module\Boxes\Menu;
 
 // In LogOff state all boxes are visible (no ability to minimize them)
 if ($auth['login'] == "1") {
+    $boxActionParameter = $request->query->get('box_action');
     // Change state, when Item is clicked
-    if ($_GET['box_action'] == 'change' and $_GET['boxid'] != "") {
+    if ($boxActionParameter == 'change' and $_GET['boxid'] != "") {
         if ($_SESSION['box_'. $_GET['boxid'] .'_active']) {
             unset($_SESSION['box_'. $_GET['boxid'] .'_active']);
         } else {
@@ -54,7 +55,23 @@ $BoxRes = $db->qry("
 
 while ($BoxRow = $db->fetch_array($BoxRes)) {
     if (($BoxRow['module'] == '' or $func->isModActive($BoxRow['module'])) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
+
+        // Preset $templ, if it is not defined yet
+        if (!isset($templ)) {
+            $templ = [
+                'index' => [
+                    'control' => [
+                        'boxes_letfside' => '',
+                        'boxes_rightside' => '',
+                    ]
+                ]
+            ];
+        }
+
         if ($BoxRow['source'] == 'menu') {
+            if (!isset($MenuCallbacks)) {
+                $MenuCallbacks = [];
+            }
             if (is_array($MenuCallbacks) && count($MenuCallbacks) > 0) {
                 $MenuCallbacks = array();
                 $MenuCallbacks[] = 'ShowSignon';

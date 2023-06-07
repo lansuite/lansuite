@@ -66,7 +66,7 @@ if (!$cfg['download_use_ftp']) {
                 sort($FileList);
             }
         }
-          
+
         if ($FileList) {
             foreach ($FileList as $CurFile) {
                 $CreateTime = filectime($BaseDir.'/'.$CurFilePath);
@@ -166,7 +166,7 @@ if (!$cfg['download_use_ftp']) {
         if ($_GET['go_dir'] == "up") {
             array_pop($_SESSION['downloads_dir']);
         } elseif ($_GET['go_dir']) {
-            if (count($_SESSION['downloads_dir']) > "0") {
+            if ((is_countable($_SESSION['downloads_dir']) ? count($_SESSION['downloads_dir']) : 0) > "0") {
                 foreach ($_SESSION['downloads_dir'] as $dir_entry) {
                     $set_dir .= "/" . $dir_entry;
                 }
@@ -181,7 +181,7 @@ if (!$cfg['download_use_ftp']) {
             unset($join_dir);
         }
 
-        if (count($_SESSION['downloads_dir']) > "0") {
+        if ((is_countable($_SESSION['downloads_dir']) ? count($_SESSION['downloads_dir']) : 0) > "0") {
             foreach ($_SESSION['downloads_dir'] as $dir_entry) {
                 $set_dir .= "/" . $dir_entry;
             }
@@ -267,7 +267,7 @@ if (!$cfg['download_use_ftp']) {
         }
 
         $dsp->NewContent(t('Downloads'), t('Hier kannst du zum Download bereitgestellte Dateien downloaden. Ordner sind durch ein Ordner-Symbol gekennzeichnet und können per Klick auf dieses oder den Namen ge&ouml;ffnet werden. Bei &ouml;ffnen eines Unterverzeichnisses wird das aktuelle Verzeichnis am oberen Rand angezeigt. Ebenfalls angezeigt wird ein Symbol mit dem du zum nächst höhergelegenen Verzeichnis gelangst'));
-        if (count($_SESSION['downloads_dir']) > "0") {
+        if ((is_countable($_SESSION['downloads_dir']) ? count($_SESSION['downloads_dir']) : 0) > "0") {
             $dsp->AddSingleRow('<a href="index.php?mod=downloads&action=show&go_dir=up"><img src="design/'. $auth['design'] .'/images/downloads_goup.gif" border="0"></a> '. $dir .'/');
         }
         $dsp->AddTableRow($table);

@@ -50,7 +50,7 @@ class Seat2
         if (!$row['blockid']) {
             return '';
         } else {
-            $LinkText = $row['name'] .' '. $break . $this->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation'], $MaxBlockLength);
+            $LinkText = $row['name'] .' '. $break . $this->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation']);
             return "<a href=\"#\" onclick=\"var w=window.open('index.php?mod=seating&action=popup&design=popup&function=usrmgr&id={$row['blockid']}&userarray[]=$userid&l=1','_blank','width=596,height=678,resizable=yes');\" class=\"small\">$LinkText</a>";
         }
     }
@@ -59,9 +59,8 @@ class Seat2
      * @param int $userid
      * @param int $MaxBlockLength
      * @param int $LinkIt
-     * @return bool|string
      */
-    public function SeatOfUser($userid, $MaxBlockLength = 0, $LinkIt = 0)
+    public function SeatOfUser($userid, $MaxBlockLength = 0, $LinkIt = 0): bool|string
     {
         global $db, $party;
 
@@ -102,9 +101,8 @@ class Seat2
 
     /**
      * @param int $userid
-     * @return array|bool
      */
-    public function SeatOfUserArray($userid)
+    public function SeatOfUserArray($userid): array|bool
     {
         global $db, $party;
 
@@ -155,9 +153,8 @@ class Seat2
      * @param int $MaxBlockLength
      * @param int $LinkIt
      * @param int $userid
-     * @return bool|string
      */
-    private function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0, $userid = 0)
+    private function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0, $userid = 0): bool|string
     {
         global $db;
     
@@ -191,9 +188,8 @@ class Seat2
      * @param int $x
      * @param int $y
      * @param boolean $orientation
-     * @return int|string
      */
-    public function CoordinateToName($x, $y, $orientation)
+    public function CoordinateToName($x, $y, $orientation): int|string
     {
         $out = '';
         if ($orientation) {
@@ -245,9 +241,8 @@ class Seat2
     /**
      * @param int $y
      * @param boolean $orientation
-     * @return int|string
      */
-    public function CoordinateToNameRow($y, $orientation)
+    public function CoordinateToNameRow($y, $orientation): int|string
     {
         $out = '';
         if ($orientation) {
@@ -270,6 +265,7 @@ class Seat2
      */
     public function U18Block($id, $idtype)
     {
+        $blockid = null;
         global $db;
 
         if ($idtype == "b") {
@@ -307,6 +303,14 @@ class Seat2
      */
     public function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false)
     {
+        $seat_user_checkin = [];
+        $party_user = [];
+        $seat_user_checkout = [];
+        $user_info = [];
+        $YStartPlan = null;
+        $jscode = null;
+        $XStartPlan = null;
+        $YOffset = null;
         global $db, $templ, $auth, $cfg, $party, $smarty, $framework, $func;
 
         // Get Block data (side descriptions + number of rows + cols)
