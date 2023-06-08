@@ -1,7 +1,8 @@
 <?php
 
 // Check if news id is valid
-$check = $db->qry_first('SELECT caption FROM %prefix%news WHERE newsid = %int%', $_GET['newsid']);
+$newsQuery = 'SELECT caption FROM %prefix%news WHERE newsid = ?';
+$check = $database->queryWithOnlyFirstRow($newsQuery, 'i', [$_GET['newsid']]);
 if ($check["caption"] != "") {
     $framework->AddToPageTitle($check["caption"]);
     $func->SetRead('news', $_GET['newsid']);
