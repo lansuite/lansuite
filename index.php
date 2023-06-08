@@ -41,11 +41,12 @@ if (!$configCache->isHit() || $request->query->get('mod') == 'install') {
         $config['lansuite']['debugmode'] = '0';
 
         $config['database']['server'] = 'localhost';
+        $config['database']['dbport'] = 3306;
         $config['database']['user'] = 'root';
         $config['database']['passwd'] = '';
         $config['database']['database'] = 'lansuite';
         $config['database']['prefix'] = 'ls_';
-        $config['database']['charset'] = 'utf8';
+        $config['database']['charset'] = 'utf8mb4';
 
         $config['environment']['configured'] = 0;
     }
