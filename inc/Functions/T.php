@@ -17,10 +17,9 @@ $translation_no_html_replace = false;
  */
 function t()
 {
-    $parameters = [];
-    global $db, $translation, $func, $translation_no_html_replace;
+    global $db, $config, $translation, $func, $translation_no_html_replace;
 
-    $parameters = null;
+    $parameters = [];
 
     // Prepare function parameters
     // First argument is the input string, the following are parameters
@@ -52,16 +51,25 @@ function t()
         $long = '';
     }
 
-    if (array_key_exists($module, $translation->lang_cache) && array_key_exists($key, $translation->lang_cache[$module]) && $translation->lang_cache[$module][$key] != '') {
+    $translationEntry = $translation->getLangCacheEntry($module, $key);
+    // If we can't find the translation in the $module cache
+    // we walk one hierarchy higher, to the System translations.
+    if ($translationEntry == '') {
+        $translationEntry = $translation->getLangCacheEntry('System', $key);
+    }
+
+    if ($translationEntry != '') {
         // Already in memory cache ($this->lang_cache[key])
-        $output = $translation->ReplaceParameters($translation->lang_cache[$module][$key], $parameters, $key);
+        $output = $translation->ReplaceParameters($translationEntry, $parameters, $key);
+
     } else {
         // Try to read from DB
         if ($translation->language == 'de') {
             // All texts in source are in german at the moment
             $output = $translation->ReplaceParameters($input, $parameters, $key);
+
         } else {
-            if ($db->success) {
+            if ($db->success && EnvIsConfigured()) {
                 $trans_text = $translation->get_trans_db($key, $_GET['mod'], $long);
             }
 
