@@ -93,6 +93,8 @@ if ($party->count > 0 and $_SESSION['party_info']['partyend'] > time()) {
       WHERE
         pu.user_id = %int%
         AND pu.party_id = %int%", $auth["userid"], $party->party_id);
+
+    $paidstat_info = '';
     if ($query_signstat == null) {
         $signstat = '<font color="red">'. t('Nein') .'!</font>';
         $signstat_info = '<a href="index.php?mod=signon"><i> '. t('Hier anmelden') .'</i></a>';

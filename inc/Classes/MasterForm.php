@@ -467,7 +467,7 @@ class MasterForm
         // Delete non existing DB fields, from array
         if ($this->SQLFields) {
             foreach ($this->SQLFields as $key => $val) {
-                if (!$SQLFieldTypes[$val]) {
+                if (!array_key_exists($val, $SQLFieldTypes)) {
                     unset($this->SQLFields[$key]);
                 }
             }
@@ -673,8 +673,10 @@ class MasterForm
                     $this->DependOnStarted = $this->NumFields;
                     $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_$InsContName', this.checked)\"";
                     [$text1, $text2] = explode('|', $this->AddInsertControllField);
-                    $dsp->AddCheckBoxRow($InsContName, $text1, $text2, '', $field['optional'], $_POST[$InsContName], '', '', $additionalHTML);
-                    $dsp->StartHiddenBox('box_'.$InsContName, $_POST[$InsContName]);
+                    $optionalField = $field['optional'] ?? '';
+                    $preValue = $_POST[$InsContName] ?? '';
+                    $dsp->AddCheckBoxRow($InsContName, $text1, $text2, '', $optionalField, $preValue, '', '', $additionalHTML);
+                    $dsp->StartHiddenBox('box_'.$InsContName, $preValue);
                 }
 
                 // Write pages links
@@ -771,19 +773,32 @@ class MasterForm
                                                     $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_{$field['name']}', this.checked)\"";
                                                 }
                                                 [$field['caption1'], $field['caption2']] = explode('|', $field['caption']);
-                                                if (!$_POST[$field['name']]) {
+                                                if (array_key_exists($field['name'], $_POST) && !$_POST[$field['name']]) {
                                                       unset($_POST[$field['name']]);
                                                 }
-                                                $dsp->AddCheckBoxRow($field['name'], $field['caption1'], $field['caption2'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']], '', '', $additionalHTML);
+                                                $errorText = $this->error[$field['name']] ?? '';
+                                                $fieldValue = $_POST[$field['name']] ?? '';
+                                                $dsp->AddCheckBoxRow($field['name'], $field['caption1'], $field['caption2'], $errorText, $field['optional'], $fieldValue, '', '', $additionalHTML);
                                                 break;
 
                                             // Date-Select
                                             case 'datetime':
-                                                $values = array();
-                                                [$date, $time] = explode(' ', $_POST[$field['name']]);
-                                                [$values['year'], $values['month'], $values['day']] = explode('-', $date);
-                                                [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
+                                                $values = array(
+                                                    'year' => '',
+                                                    'month' => '',
+                                                    'day' => '',
+                                                    'hour' => '',
+                                                    'min' => '',
+                                                    'sec' => '',
+                                                );
+                                                $fieldValue = $_POST[$field['name']] ?? '';
 
+                                                if ($fieldValue) {
+                                                    [$date, $time] = explode(' ', $fieldValue);
+                                                    [$values['year'], $values['month'], $values['day']] = explode('-', $date);
+                                                    [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
+                                                }
+                                                $startj = null;
                                                 if ($values['year'] == '') {
                                                     $values['year'] = "0000";
                                                     $startj = "0000";
@@ -809,7 +824,8 @@ class MasterForm
                                                       $values['sec'] = "00";
                                                 }
 
-                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $this->error[$field['name']], $values, '', $startj, '', '', $field['optional']);
+                                                $errorText = $this->error[$field['name']] ?? '';
+                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $errorText, $values, '', $startj, '', '', $field['optional']);
                                                 break;
 
                                             // Date-Select

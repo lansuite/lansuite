@@ -858,6 +858,8 @@ class Display
         $smarty->assign('name', $name);
         $smarty->assign('key', $key);
         $smarty->assign('additional', $additional);
+
+        $smarty->assign('optional', '');
         if ($optional) {
             $smarty->assign('optional', '_optional');
         }
@@ -925,26 +927,32 @@ class Display
         }
         $smarty->assign('years', $arr);
 
+        $smarty->assign('dis_min', '');
         if (isset($disableds['min']) and $disableds['min']) {
             $smarty->assign('dis_min', 'disabled=disabled');
         }
 
+        $smarty->assign('dis_hour', '');
         if (isset($disableds['hour']) and $disableds['hour']) {
             $smarty->assign('dis_hour', 'disabled=disabled');
         }
 
+        $smarty->assign('dis_day', '');
         if (isset($disableds['day']) and $disableds['day']) {
             $smarty->assign('dis_day', 'disabled=disabled');
         }
 
+        $smarty->assign('dis_month', '');
         if (isset($disableds['month']) and $disableds['month']) {
             $smarty->assign('dis_month', 'disabled=disabled');
         }
 
+        $smarty->assign('dis_year', '');
         if (isset($disableds['year']) and $disableds['year']) {
             $smarty->assign('dis_year', 'disabled=disabled');
         }
 
+        $smarty->assign('errortext', '');
         if ($errortext) {
             $smarty->assign('errortext', $this->errortext_prefix . $errortext . $this->errortext_suffix);
         }
