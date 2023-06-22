@@ -183,7 +183,7 @@ class Translation
             $this->lang_cache[$module] = [];
         }
 
-        if (array_key_exists($id, $this->lang_cache[$module]) && this->lang_cache[$module][$data['id']] != '') {
+        if (array_key_exists($id, $this->lang_cache[$module]) && this->lang_cache[$module][$id] != '') {
             return;
         }
 
