@@ -44,11 +44,6 @@ class Translation
     private array $lang_cache = [];
 
     /**
-     * Is cache for module loaded (database)
-     */
-    private int $cachemod_loaded_db = 0;
-
-    /**
      * Is cache for module loaded (xml)
      */
     private int $cachemod_loaded_xml  = 0;
@@ -70,7 +65,6 @@ class Translation
         if ($mode == 'db') {
             // System is configured, Language will be loaded from DB
             $this->load_cache_bydb($akt_modul);
-            $this->cachemod_loaded_db = 1;
 
         } elseif ($mode == 'xml') {
             // System is on Install, Language will be loaded from XML
