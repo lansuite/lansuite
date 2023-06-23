@@ -433,6 +433,8 @@ class Translation
      * Example:
      *      TUpdateFromDB('menu', 'caption') Reads all "captions"-strings from table "menu"
      *
+     * TODO We may want to think about this, moving out of the Translation class into a "Maintenance" CLI or anything like this.
+     *
      * @param string    $table      Table name (e.g. menu)
      * @param string    $field      Field name (e.g. caption)
      * @return int                  Number of insert entries that have been written to the database
@@ -470,16 +472,21 @@ class Translation
     /**
      * Reads all t()-Function strings from the complete sourcecode and write those into the translation table.
      *
+     * TODO We may want to think about this, moving out of the Translation class into a "Maintenance" CLI or anything like this.
+     *
      * @param string    $baseDir        Path to Scan
-     * @param int $sub
+     * @param int       $sub
      * @return string
      */
-    public function TUpdateFromFiles($baseDir, $sub = 0)
+    public function TUpdateFromFiles(string $baseDir, int $sub = 0): string
     {
         global $db, $FoundTransEntries;
 
         $output = '';
-        $baseDir .= '/';
+        if (!str_ends_with($baseDir, DIRECTORY_SEPARATOR)) {
+            $baseDir .= DIRECTORY_SEPARATOR;
+        }
+
         if ($sub == 0) {
             $FoundTransEntries = [];
         }
@@ -520,25 +527,30 @@ class Translation
 
                         // Do only add expressions, which are not already in system lang-file
                         $row = $db->qry_first('
-                          SELECT 1 AS found, tid 
+                          SELECT
+                            1 AS `found`,
+                            `tid`
                           FROM %prefix%translation%plain% 
                           WHERE 
-                            id = %string% 
+                            `id` = %string%
                             AND (
-                              file = "System" 
-                              OR file = %string%
+                              `file` = "System"
+                              OR `file` = %string%
                             )', $long, $key, $CurrentFile);
-                        if ($row['found']) {
+                        if (is_array($row)) {
                             $output .= $CurrentFile . '@' . $CurrentPos . ': ' . $CurrentTrans .'<br />';
+
                         } else {
                             // New -> Insert to DB
                             $db->qry("
                               REPLACE INTO %prefix%translation%plain% 
                               SET 
-                                id = %string%, 
-                                file = %string%, 
-                                org = %string%", $long, $key, $CurrentFile, $CurrentTrans);
-                            $row['tid'] = $db->insert_id();
+                                `id` = %string%,
+                                `file` = %string%,
+                                `org` = %string%", $long, $key, $CurrentFile, $CurrentTrans);
+                            $row = [
+                                'tid' => $db->insert_id(),
+                            ];
                             $output .= '<font color="#00ff00">' . $CurrentFile . '@' . $CurrentPos . ': ' . $CurrentTrans .'</font><br />';
                         }
                         if (!$long) {
@@ -546,7 +558,7 @@ class Translation
                         }
                     }
                 }
-            } elseif ($file != '.' && $file != '..' && $file != '.svn' && is_dir($FilePath)) {
+            } elseif ($file != '.' && $file != '..' && $file != '.svn' && $file != '.git' && $file != '.docker' && $file != '.github' && is_dir($FilePath)) {
                 $output .= $this->TUpdateFromFiles($FilePath, $sub++);
             }
         }
@@ -554,14 +566,17 @@ class Translation
         // Mark entries as obsolete, which no do no longer exist
         if (($sub == 1 && $CurrentFile != 'System') || ($sub == 0 && $CurrentFile == 'System')) {
             $res = $db->qry("
-              SELECT tid, file, org 
+              SELECT
+                `tid`,
+                `file`,
+                `org`
               FROM %prefix%translation 
               WHERE 
-                file = %string% 
-                AND obsolete = 0", $CurrentFile);
+                `file` = %string%
+                AND `obsolete` = 0", $CurrentFile);
             while ($row = $db->fetch_array($res)) {
                 if (!in_array($row['tid'], $FoundTransEntries)) {
-                    $db->qry("UPDATE %prefix%translation SET obsolete = 1 WHERE tid = %int%", $row['tid']);
+                    $db->qry("UPDATE %prefix%translation SET `obsolete` = 1 WHERE `tid` = %int%", $row['tid']);
                     $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
                 }
             }
