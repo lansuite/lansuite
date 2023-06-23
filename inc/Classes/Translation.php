@@ -206,26 +206,25 @@ class Translation
     }
 
     /**
-     * Get the translation from database via hashcode
+     * Replaces parameters from $input (%1, %2, %3, ...) with the content from $parameters at the same spot.
      *
-     * @param string    $input          Text with placeholders (blabla %1 bla %2)
-     * @param array     $parameters     Parameters
+     * @param string    $input          Text with placeholders (random text %1 here %2)
+     * @param array     $parameters     Parameters that will replace %1, %2, ...
      * @param string    $key
      * @return string                   Text with inserted Parameters
      */
-    public function ReplaceParameters($input, $parameters = null, $key = null)
+    public function ReplaceParameters(string $input, array $parameters = null, string $key = null): string
     {
         global $cfg, $auth;
 
-        $z = 1;
-        if ($parameters) {
-            foreach ($parameters as $parameter) {
-                $input = str_replace('%' . $z, $parameter, $input);
-                $z++;
-            }
+        $i = 1;
+        foreach ($parameters as $parameter) {
+            $input = str_replace('%' . $i, $parameter, $input);
+            $i++;
         }
 
-        if ($key && (is_array($auth) && $auth['type'] >= 2) && $cfg['show_translation_links']) {
+        if ($key && (is_array($auth) && $auth['type'] >= \LS_AUTH_TYPE_ADMIN) && $cfg['show_translation_links']) {
+            // TODO Check if this link works at all. We don't have a module with the name "misc"
             $input .= ' <a href=index.php?mod=misc&action=translation&step=40&id='. $key .'><img src=design/images/icon_translate.png height=10 width=10 border=0></a>';
         }
 
