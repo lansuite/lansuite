@@ -190,7 +190,7 @@ class Translation
             }
         }
 
-        if ($key && $auth['type'] >= 2 && $cfg['show_translation_links']) {
+        if ($key && (is_array($auth) && $auth['type'] >= 2) && $cfg['show_translation_links']) {
             $input .= ' <a href=index.php?mod=misc&action=translation&step=40&id='. $key .'><img src=design/images/icon_translate.png height=10 width=10 border=0></a>';
         }
 

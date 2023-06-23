@@ -26,8 +26,6 @@ $query = $db->qry("
 if ($db->num_rows($query) > 0) {
     while ($row = $db->fetch_array($query)) {
         $page = floor(($row['comments'] - 1) / 20);
-        $smarty->assign('link', "index.php?mod=board&action=thread&tid={$row['tid']}&posts_page={$page}#pid{$row['pid']}");
-
         $smarty->assign('link', "index.php?mod=news&action=comment&newsid={$row["newsid"]}&ms_page={$page}");
         if ($cfg['news_comments_allowed']) {
             $smarty->assign('text', $func->CutString($row["caption"], 40));

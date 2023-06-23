@@ -561,7 +561,7 @@ class MasterForm
                                                 }
 
                                                 // Upload submitted file
-                                                if ($_POST[$field['name'].'_keep']) {
+                                                if (array_key_exists($field['name'].'_keep', $_POST) && $_POST[$field['name'].'_keep']) {
                                                     foreach ($this->SQLFields as $key => $val) {
                                                         if ($val == $field['name']) {
                                                             unset($this->SQLFields[$key]);
