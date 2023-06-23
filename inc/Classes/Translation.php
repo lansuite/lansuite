@@ -55,7 +55,7 @@ class Translation
      * @param string    $mode       Data source mode (xml for install, db for running system)
      * @param string    $akt_modul  Active module
      */
-    public function load_trans($mode, $akt_modul)
+    public function load_trans(string $mode, string $akt_modul): void
     {
         if ($mode == 'db') {
             // System is configured, Language will be loaded from DB
