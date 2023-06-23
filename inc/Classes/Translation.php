@@ -428,34 +428,39 @@ class Translation
     }
 
     /**
-     * Reads language specific strings from the user database tables and write those into the tranlation table.
+     * Reads language specific strings from the user database tables and write those into the translation table.
+     *
      * Example:
      *      TUpdateFromDB('menu', 'caption') Reads all "captions"-strings from table "menu"
      *
      * @param string    $table      Table name (e.g. menu)
      * @param string    $field      Field name (e.g. caption)
-     * @return int                  Number of insert entries
+     * @return int                  Number of insert entries that have been written to the database
      */
-    public function TUpdateFromDB($table, $field)
+    public function TUpdateFromDB(string $table, string $field): int
     {
         global $db, $FoundTransEntries;
 
         $i = 0;
-        $res = $db->qry('SELECT '. $field .' FROM %prefix%' . $table);
+        $res = $db->qry('SELECT `'. $field .'` FROM %prefix%' . $table);
         while ($row = $db->fetch_array($res)) {
-            if ($row[$field] != '') {
-                $key = md5($row[$field]);
-                $row2 = $db->qry_first('SELECT 1 AS found, tid FROM %prefix%translation WHERE id = %string%', $key);
-
-                if (!$row2['found']) {
-                    $db->qry('REPLACE INTO %prefix%translation SET id = %string%, file = \'DB\', org = %string%', $key, $row[$field]);
-                    $row2['tid'] = $db->insert_id();
-                    $i++;
-                }
-
-                // Array is compared with the database later for synchronization
-                $FoundTransEntries[] = $row2['tid'];
+            if ($row[$field] == '') {
+                continue;
             }
+
+            $key = md5($row[$field]);
+            $row2 = $db->qry_first('SELECT 1 AS `found`, `tid` FROM %prefix%translation WHERE `id` = %string%', $key);
+
+            if (is_bool($row2)) {
+                $db->qry('REPLACE INTO %prefix%translation SET `id` = %string%, `file` = \'DB\', `org` = %string%', $key, $row[$field]);
+                $row2 = [
+                    'tid' => $db->insert_id(),
+                ];
+                $i++;
+            }
+
+            // Array is compared with the database later for synchronization
+            $FoundTransEntries[] = $row2['tid'];
         }
         $db->free_result($res);
 
