@@ -401,7 +401,7 @@ class Import
                                 $name,
                                 $reference_condition
                             );
-                            if (!$row['found']) {
+                            if (!$row) {
                                 $db->qry(
                                     '
                                   INSERT INTO %prefix%ref
