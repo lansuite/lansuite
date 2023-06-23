@@ -4,6 +4,9 @@ namespace LanSuite;
 
 /**
  * Global translation
+ *
+ * TODO Implement proper caching interface
+ * TODO Implement dependency injection to remove `global` keywords
  */
 class Translation
 {
