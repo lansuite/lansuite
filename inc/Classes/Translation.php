@@ -211,7 +211,7 @@ class Translation
      * @param string        $key
      * @return string                       Text with inserted Parameters
      */
-    public function ReplaceParameters(string $input, array $parameters = null, string $key = null): string
+    public function ReplaceParameters(string $input, array $parameters, string $key = ''): string
     {
         global $cfg, $auth;
 
