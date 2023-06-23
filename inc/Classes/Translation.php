@@ -17,10 +17,7 @@ class Translation
      */
     private string $transfile_name = 'translation.xml';
 
-    /**
-     * @var array
-     */
-    public $lang_names = [
+    public array $lang_names = [
         'de' => 'Deutsch',
         'en' => 'Englisch',
         'es' => 'Spanisch',
@@ -30,22 +27,18 @@ class Translation
     ];
 
     /**
-     * Valid languages
-     *
-     * @var array
+     * Valid languages.
      */
-    public $valid_lang = ['de', 'en', 'es', 'fr', 'nl', 'it'];
+    public array $valid_lang = ['de', 'en', 'es', 'fr', 'nl', 'it'];
 
     /**
      * In memory translation cache.
      * Only holds one language.
-     *
-     * @var array
      */
     private array $lang_cache = [];
 
     /**
-     * Is cache for module loaded (db)
+     * Is cache for module loaded (database)
      */
     private int $cachemod_loaded_db = 0;
 
