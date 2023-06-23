@@ -39,11 +39,12 @@ class Translation
     public $valid_lang = ['de', 'en', 'es', 'fr', 'nl', 'it'];
 
     /**
-     * Temporary translations
+     * In memory translation cache.
+     * Only holds one language.
      *
      * @var array
      */
-    public $lang_cache = [];
+    private array $lang_cache = [];
 
     /**
      * Is cache for module loaded (db)
