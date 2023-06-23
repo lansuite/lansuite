@@ -374,34 +374,37 @@ class Translation
     }
 
     /**
-     * Parse all language sets into an array
+     * Reads all translation from the $module XML file
+     * and returns the data.
      *
      * @param string    $module     Module name e.g. file-field
      * @return array
      */
-    private function xml_read_to_array($module)
+    private function xml_read_to_array(string $module): array
     {
         $records = [];
         $xml = new XML();
 
         $lang_file = $this->get_trans_filename($module);
-        if (file_exists($lang_file)) {
-            $xml_file = fopen($lang_file, 'r');
-            $file_cont = fread($xml_file, filesize($lang_file));
-            fclose($xml_file);
+        if (!file_exists($lang_file)) {
+            return $records;
+        }
 
-            $entries = $xml->getTagContentArray('entry', $file_cont);
-            foreach ($entries as $entry) {
-                $id = $xml->getFirstTagContent('id', $entry, 1);
-                $records[$id]['id'] = $id;
-                $records[$id]['org'] = $xml->getFirstTagContent('org', $entry, 1);
-                $records[$id]['de'] = $xml->getFirstTagContent('de', $entry, 1);
-                $records[$id]['en'] = $xml->getFirstTagContent('en', $entry, 1);
-                $records[$id]['fr'] = $xml->getFirstTagContent('fr', $entry, 1);
-                $records[$id]['it'] = $xml->getFirstTagContent('it', $entry, 1);
-                $records[$id]['es'] = $xml->getFirstTagContent('es', $entry, 1);
-                $records[$id]['nl'] = $xml->getFirstTagContent('nl', $entry, 1);
-            }
+        $xml_file = fopen($lang_file, 'r');
+        $file_cont = fread($xml_file, filesize($lang_file));
+        fclose($xml_file);
+
+        $entries = $xml->getTagContentArray('entry', $file_cont);
+        foreach ($entries as $entry) {
+            $id = $xml->getFirstTagContent('id', $entry, 1);
+            $records[$id]['id'] = $id;
+            $records[$id]['org'] = $xml->getFirstTagContent('org', $entry, 1);
+            $records[$id]['de'] = $xml->getFirstTagContent('de', $entry, 1);
+            $records[$id]['en'] = $xml->getFirstTagContent('en', $entry, 1);
+            $records[$id]['fr'] = $xml->getFirstTagContent('fr', $entry, 1);
+            $records[$id]['it'] = $xml->getFirstTagContent('it', $entry, 1);
+            $records[$id]['es'] = $xml->getFirstTagContent('es', $entry, 1);
+            $records[$id]['nl'] = $xml->getFirstTagContent('nl', $entry, 1);
         }
 
         return $records;
