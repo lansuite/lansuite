@@ -649,7 +649,7 @@ class Translation
 
         } else {
             // Try to read from DB
-            if ($this->language == 'de') {
+            if ($this->language == $this->defaultLanguage) {
                 // All texts in source are in german at the moment
                 $output = $this->ReplaceParameters($input, $parameters, $key);
 
