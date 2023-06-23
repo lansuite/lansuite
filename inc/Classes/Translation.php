@@ -43,11 +43,6 @@ class Translation
      */
     private array $lang_cache = [];
 
-    /**
-     * Is cache for module loaded (xml)
-     */
-    private int $cachemod_loaded_xml  = 0;
-
     public function __construct()
     {
         // Read language from GET, POST & set
@@ -71,7 +66,6 @@ class Translation
             $this->load_cache_byfile('System');
             $this->load_cache_byfile('DB');
             $this->load_cache_byfile($akt_modul);
-            $this->cachemod_loaded_xml = 1;
         }
     }
 
