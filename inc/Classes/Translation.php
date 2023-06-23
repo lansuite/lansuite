@@ -114,30 +114,32 @@ class Translation
     /**
      * Load translations for a module from database into memory
      *
-     * @param string $module    Module name or DB / System
+     * @param string $module    Module name or "DB" / "System"
      * @return void
      */
-    private function load_cache_bydb($module)
+    private function load_cache_bydb(string $module): void
     {
         global $db;
 
-        if ($db->success) {
-            $res = $db->qry('
-                SELECT id, org, ' . $this->language . ' 
-                FROM %prefix%translation 
-                WHERE 
-                    file = %string% 
-                    OR file = \'DB\' 
-                    OR file = \'System\' 
-                ORDER BY FIELD(file, \'System,DB,'. $module .'\')', $module);
-            while ($row = $db->fetch_array($res, 0)) {
-                if ($row[$this->language] != '') {
-                    if (!array_key_exists($module, $this->lang_cache)) {
-                        $this->lang_cache[$module] = [];
-                    }
-                    if (!array_key_exists($row['id'], $this->lang_cache[$module]) || $this->lang_cache[$module][$row['id']] == '') {
-                        $this->lang_cache[$module][$row['id']] = $row[$this->language];
-                    }
+        $res = $db->qry('
+            SELECT
+                `id`,
+                `org`,
+                `' . $this->language . '`
+            FROM %prefix%translation
+            WHERE
+                file = %string%
+                OR file = \'DB\'
+                OR file = \'System\'
+            ORDER BY FIELD(`file`, \'System,DB,'. $module .'\')', $module);
+
+        while ($row = $db->fetch_array($res, 0)) {
+            if ($row[$this->language] != '') {
+                if (!array_key_exists($module, $this->lang_cache)) {
+                    $this->lang_cache[$module] = [];
+                }
+                if (!array_key_exists($row['id'], $this->lang_cache[$module]) || $this->lang_cache[$module][$row['id']] == '') {
+                    $this->lang_cache[$module][$row['id']] = $row[$this->language];
                 }
             }
         }
