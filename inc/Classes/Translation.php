@@ -189,7 +189,7 @@ class Translation
     /**
      * Returns a single language cache entry.
      */
-    public function getLangCacheEntry(string $module, string $key): string
+    private function getLangCacheEntry(string $module, string $key): string
     {
         if (!array_key_exists($module, $this->lang_cache)) {
             return '';
