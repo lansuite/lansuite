@@ -589,7 +589,21 @@ class Translation
         return $output;
     }
 
-    public function translate(array $args)
+    /**
+     * Translates a single word/sentence into the configured language.
+     * This function accepts multiple parameter:
+     *  1. The key/name of the string to translate
+     *  2. A list of values to replace in the key/name of the string to translate.
+     *
+     * If your translation contains variables, like a username, this variable is
+     * represented by %1. %2 describes the second variable, and so on.
+     * In this case you call the function like
+     *  ->translate(<key>, $username, $var2)
+     *
+     * Example:
+     *  ->translate('Du wurdest erfolgreich ausgeloggt.')
+     */
+    public function translate(array $args): string
     {
         global $db, $config, $func, $translation_no_html_replace;
 
@@ -612,17 +626,15 @@ class Translation
         }
 
         $key = md5($input);
-        $module = '';
-        if (isset($_GET['mod']) && $_GET['mod']) {
-            $module = $_GET['mod'];
-        }
+        $module = $_GET['mod'] ?? '';
 
         $trans_text = '';
+        $long = '';
         if (strlen($input) > 255) {
             $long = '_long';
-        } else {
-            $long = '';
         }
+
+        // TODO Unit test this function and make the logic below easier
 
         $translationEntry = $this->getLangCacheEntry($module, $key);
         // If we can't find the translation in the $module cache
@@ -632,7 +644,7 @@ class Translation
         }
 
         if ($translationEntry != '') {
-            // Already in memory cache ($this->lang_cache[key])
+            // Already in memory cache
             $output = $this->ReplaceParameters($translationEntry, $parameters, $key);
 
         } else {
@@ -647,7 +659,7 @@ class Translation
                 }
 
                 // If ok replace parameter
-                if ($trans_text != '' && $trans_text != null) {
+                if ($trans_text != '') {
                     $output = $this->ReplaceParameters($trans_text, $parameters);
 
                 // If any problem on get translations just return $input
