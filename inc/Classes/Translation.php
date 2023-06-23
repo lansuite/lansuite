@@ -232,39 +232,37 @@ class Translation
     }
 
     /**
-     * Get the translation from database via hashcode
+     * Get a single translation value from database via hashcode.
      *
      * @param string    $hashkey    Hash code from original text in sourcecode
      * @param string    $module
      * @param string    $long
      * @return string
      */
-    private function get_trans_db($hashkey, $module, $long)
+    private function get_trans_db(string $hashkey, string $module, string $long): string
     {
         global $db;
 
-        if (array_key_exists($hashkey, $this->lang_cache[$module]) && $this->lang_cache[$module][$hashkey]) {
-            $translated = $this->lang_cache[$module][$hashkey];
-
-        } else {
-            $row = $db->qry_first('
-                SELECT
-                    `id`,
-                    `org`,
-                    `' . $this->language . '`
-                FROM
-                    %prefix%translation' . $long . '
-                WHERE
-                    id = %string%', $hashkey);
-
-            if (is_array($row) && $row[$this->language]) {
-                $translated = $row[$this->language];
-            } else {
-                $translated = '';
-            }
+        $entry = $this->getLangCacheEntry($module, $hashkey);
+        if ($entry) {
+            return $entry;
         }
 
-        return $translated;
+        $row = $db->qry_first('
+            SELECT
+                `id`,
+                `org`,
+                `' . $this->language . '`
+            FROM
+                %prefix%translation' . $long . '
+            WHERE
+                id = %string%', $hashkey);
+
+        if (is_array($row) && $row[$this->language]) {
+            $entry = $row[$this->language];
+        }
+
+        return $entry;
     }
 
     /**
