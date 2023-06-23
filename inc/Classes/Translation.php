@@ -266,15 +266,20 @@ class Translation
     }
 
     /**
-     * Read complete Module translation from database and write to back file.
+     * Read complete module translation from database and write to back file.
      * This will be only used for maintenance translations
      *
      * TODO Error handling for xml and file access
+     * TODO This function overwrites files in the source tree.
+     *      A LanSuite upgrade will overwrite the written file with a newer
+     *      version from the source code repository.
+     *      We should check if we want to support this functionality or modify it to
+     *      write a file outside of the source tree, to make it safe for code upgrades.
      *
      * @param string    $module     Module name
      * @return void
      */
-    public function xml_write_db_to_file($module)
+    public function xml_write_db_to_file(string $module): void
     {
         global $db;
 
@@ -283,7 +288,7 @@ class Translation
         $output = '<?xml version="1.0" encoding="UTF-8"?'.">\r\n\r\n";
         $header = $xml->write_tag('filetype', 'LanSuite', 2);
         $header .= $xml->write_tag('version', '2.0', 2);
-        $header .= $xml->write_tag('source', 'http://www.lansuite.de', 2);
+        $header .= $xml->write_tag('source', 'https://github.com/lansuite/lansuite', 2);
         $header .= $xml->write_tag('date', date('Y-m-d h:i'), 2);
         $header = $xml->write_master_tag("header", $header, 1);
 
@@ -292,79 +297,64 @@ class Translation
 
         $content = '';
         $res = $db->qry('
-            SELECT * 
-            FROM %prefix%translation 
-            WHERE 
-              file = %string% 
-              AND obsolete = 0', $module);
+            SELECT
+                `id`,
+                `org`,
+                `de`,
+                `en`,
+                `es`,
+                `fr`,
+                `nl`,
+                `it`
+            FROM %prefix%translation
+            WHERE
+              `file` = %string%
+              AND `obsolete` = 0
+              AND `id` != \'\'', $module);
         while ($row = $db->fetch_array($res)) {
-            if ($row['id'] != '') {
-                $entry = $xml->write_tag('id', $row['id'], 4);
-                $entry .= $xml->write_tag('org', $row['org'], 4);
-
-                if ($row['de'] != '') {
-                    $entry .= $xml->write_tag('de', $row['de'], 4);
-                }
-
-                if ($row['en'] != '') {
-                    $entry .= $xml->write_tag('en', $row['en'], 4);
-                }
-
-                if ($row['es'] != '') {
-                    $entry .= $xml->write_tag('es', $row['es'], 4);
-                }
-
-                if ($row['fr'] != '') {
-                    $entry .= $xml->write_tag('fr', $row['fr'], 4);
-                }
-
-                if ($row['nl'] != '') {
-                    $entry .= $xml->write_tag('nl', $row['nl'], 4);
-                }
-
-                if ($row['it'] != '') {
-                    $entry .= $xml->write_tag('it', $row['it'], 4);
-                }
-
-                $entry .= $xml->write_tag('file', $module, 4);
-                $content .= $xml->write_master_tag('entry', $entry, 3);
-            }
-        }
-        $db->free_result($res);
-
-        // Read long Translation
-        $res2 = $db->qry('
-            SELECT * 
-            FROM %prefix%translation_long 
-            WHERE 
-              file = %string% 
-              AND obsolete = 0', $module);
-        while ($row2 = $db->fetch_array($res2)) {
             $entry = $xml->write_tag('id', $row['id'], 4);
             $entry .= $xml->write_tag('org', $row['org'], 4);
 
-            if ($row['de'] != '') {
-                $entry .= $xml->write_tag('de', $row['de'], 4);
+            $languagesToAdd = ['de', 'en', 'es', 'fr', 'nl', 'it'];
+            foreach ($languagesToAdd as $languageShort) {
+                if ($row[$languageShort] != '') {
+                    $entry .= $xml->write_tag($languageShort, $row[$languageShort], 4);
+                }
             }
 
-            if ($row['en'] != '') {
-                $entry .= $xml->write_tag('en', $row['en'], 4);
-            }
+            $entry .= $xml->write_tag('file', $module, 4);
+            $content .= $xml->write_master_tag('entry', $entry, 3);
+        }
+        $db->free_result($res);
 
-            if ($row['es'] != '') {
-                $entry .= $xml->write_tag('es', $row['es'], 4);
-            }
+        // Read long Translations
+        $res2 = $db->qry('
+            SELECT
+                `id`,
+                `org`,
+                `de`,
+                `en`,
+                `es`,
+                `fr`,
+                `nl`,
+                `it`
+            FROM %prefix%translation_long 
+            WHERE 
+              `file` = %string%
+              AND `obsolete` = 0', $module);
+        while ($row = $db->fetch_array($res2)) {
+            $entry = $xml->write_tag('id', $row['id'], 4);
+            $entry .= $xml->write_tag('org', $row['org'], 4);
 
-            if ($row['fr'] != '') {
-                $entry .= $xml->write_tag('fr', $row['fr'], 4);
-            }
+            $languagesToAdd = ['de', 'en', 'es', 'fr', 'nl', 'it'];
+            foreach ($languagesToAdd as $languageShort) {
+                if ($row[$languageShort] != '') {
+                    $entry .= $xml->write_tag($languageShort, $row[$languageShort], 4);
+                }
 
-            if ($row['nl'] != '') {
-                $entry .= $xml->write_tag('nl', $row['nl'], 4);
-            }
-
-            if ($row['it'] != '') {
-                $entry .= $xml->write_tag('it', $row['it'], 4);
+                if ($row[$languageShort] != '') {
+                    $entry .= $xml->write_tag($languageShort, $row[$languageShort], 4);
+                }
             }
 
             $entry .= $xml->write_tag('file', $module, 4);
@@ -376,7 +366,7 @@ class Translation
         $lansuite = $xml->write_master_tag('table', $tables, 1);
         $output .= $xml->write_master_tag('lansuite', $header . $lansuite, 0);
 
-        // File handling: Make backup copy
+        // We overwrite the original file
         $file = $this->get_trans_filename($module);
         $file_handle = fopen($file, 'w');
         fwrite($file_handle, $output);
