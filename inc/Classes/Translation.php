@@ -134,14 +134,7 @@ class Translation
             ORDER BY FIELD(`file`, \'System,DB,'. $module .'\')', $module);
 
         while ($row = $db->fetch_array($res, 0)) {
-            if ($row[$this->language] != '') {
-                if (!array_key_exists($module, $this->lang_cache)) {
-                    $this->lang_cache[$module] = [];
-                }
-                if (!array_key_exists($row['id'], $this->lang_cache[$module]) || $this->lang_cache[$module][$row['id']] == '') {
-                    $this->lang_cache[$module][$row['id']] = $row[$this->language];
-                }
-            }
+            $this->setLangCacheEntry($module, $row['id'], $row[$this->language]);
         }
     }
 
