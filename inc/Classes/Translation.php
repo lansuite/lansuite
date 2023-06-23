@@ -73,6 +73,7 @@ class Translation
             // System is configured, Language will be loaded from DB
             $this->load_cache_bydb($akt_modul);
             $this->cachemod_loaded_db = 1;
+
         } elseif ($mode == 'xml') {
             // System is on Install, Language will be loaded from XML
             $this->load_cache_byfile('System');
@@ -95,14 +96,17 @@ class Translation
 
         if (isset($_POST['language']) && $_POST['language']) {
             $_SESSION['language'] = $_POST['language'];
+
         } elseif (isset($_GET['language']) && $_GET['language']) {
             $_SESSION['language'] = $_GET['language'];
         }
 
         if (isset($_SESSION['language']) && $_SESSION['language']) {
             $this->language = $_SESSION['language'];
+
         } elseif (isset($cfg['sys_language']) && $cfg['sys_language']) {
             $this->language = $cfg['sys_language'];
+
         } else {
             $this->language = 'de';
         }
@@ -163,11 +167,47 @@ class Translation
                     $text = $data[$this->language];
                 }
 
-                if (array_key_exists($module, $this->lang_cache) && $this->lang_cache[$module][$data['id']] == '' && $text != '') {
-                    $this->lang_cache[$module][$data['id']] = $text;
-                }
+                $this->setLangCacheEntry($module, $data['id'], $text);
             }
         }
+    }
+
+    /**
+     * Sets a single language cache entry.
+     *
+     * Does not overwrite existing language cache entries.
+     */
+    private function setLangCacheEntry(string $module, string $id, string $text)
+    {
+        if (!array_key_exists($module, $this->lang_cache)) {
+            $this->lang_cache[$module] = [];
+        }
+
+        if (array_key_exists($id, $this->lang_cache[$module]) && this->lang_cache[$module][$id] != '') {
+            return;
+        }
+
+        if ($text == '') {
+            return;
+        }
+
+        $this->lang_cache[$module][$id] = $text;
+    }
+
+    /**
+     * Returns a single language cache entry.
+     */
+    public function getLangCacheEntry(string $module, string $key): string
+    {
+        if (!array_key_exists($module, $this->lang_cache)) {
+            return '';
+        }
+
+        if (!array_key_exists($key, $this->lang_cache[$module])) {
+            return '';
+        }
+
+        return $this->lang_cache[$module][$key];
     }
 
     /**
@@ -209,15 +249,21 @@ class Translation
     {
         global $db;
 
-        if ($this->lang_cache[$module][$hashkey]) {
+        if (array_key_exists($hashkey, $this->lang_cache[$module]) && $this->lang_cache[$module][$hashkey]) {
             $translated = $this->lang_cache[$module][$hashkey];
+
         } else {
             $row = $db->qry_first('
-                SELECT id, org, ' . $this->language . ' 
-                FROM %prefix%translation' . $long . ' 
-                WHERE id = %string%', $hashkey);
+                SELECT
+                    `id`,
+                    `org`,
+                    `' . $this->language . '`
+                FROM
+                    %prefix%translation' . $long . '
+                WHERE
+                    id = %string%', $hashkey);
 
-            if ($row[$this->language]) {
+            if (is_array($row) && $row[$this->language]) {
                 $translated = $row[$this->language];
             } else {
                 $translated = '';
