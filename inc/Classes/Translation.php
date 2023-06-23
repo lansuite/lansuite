@@ -13,6 +13,12 @@ class Translation
     private string $language = 'de';
 
     /**
+     * Default language.
+     * Will be used in cases where an invalid language was selected.
+     */
+    private string $defaultLanguage = 'de';
+
+    /**
      * Basename of the translation file
      */
     private string $transfile_name = 'translation.xml';
@@ -76,13 +82,19 @@ class Translation
     }
 
     /**
-     * Select and set the global language
+     * Selects and set the global language.
+     * The selection process happens based on a priority list:
+     *  1. POST
+     *  2. GET
+     *  3. SESSION
+     *  4. Database selection
+     *  5. Default language
      *
-     * Returns a valid language selected by the user
+     * Returns a valid language selected by the user.
      *
      * @return string
      */
-    public function get_lang()
+    public function get_lang(): string
     {
         global $cfg;
 
@@ -100,12 +112,12 @@ class Translation
             $this->language = $cfg['sys_language'];
 
         } else {
-            $this->language = 'de';
+            $this->language = $this->defaultLanguage;
         }
 
         // Protect from bad code/injections
         if (!in_array($this->language, $this->valid_lang)) {
-            $this->language = 'de';
+            $this->language = $this->defaultLanguage;
         }
 
         return $this->language;
