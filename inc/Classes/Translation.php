@@ -384,15 +384,15 @@ class Translation
 
         $entries = $xml->getTagContentArray('entry', $file_cont);
         foreach ($entries as $entry) {
-            $id = $xml->getFirstTagContent('id', $entry, 1);
+            $id = $xml->getFirstTagContent('id', $entry, true);
             $records[$id]['id'] = $id;
-            $records[$id]['org'] = $xml->getFirstTagContent('org', $entry, 1);
-            $records[$id]['de'] = $xml->getFirstTagContent('de', $entry, 1);
-            $records[$id]['en'] = $xml->getFirstTagContent('en', $entry, 1);
-            $records[$id]['fr'] = $xml->getFirstTagContent('fr', $entry, 1);
-            $records[$id]['it'] = $xml->getFirstTagContent('it', $entry, 1);
-            $records[$id]['es'] = $xml->getFirstTagContent('es', $entry, 1);
-            $records[$id]['nl'] = $xml->getFirstTagContent('nl', $entry, 1);
+            $records[$id]['org'] = $xml->getFirstTagContent('org', $entry, true);
+            $records[$id]['de'] = $xml->getFirstTagContent('de', $entry, true);
+            $records[$id]['en'] = $xml->getFirstTagContent('en', $entry, true);
+            $records[$id]['fr'] = $xml->getFirstTagContent('fr', $entry, true);
+            $records[$id]['it'] = $xml->getFirstTagContent('it', $entry, true);
+            $records[$id]['es'] = $xml->getFirstTagContent('es', $entry, true);
+            $records[$id]['nl'] = $xml->getFirstTagContent('nl', $entry, true);
         }
 
         return $records;
