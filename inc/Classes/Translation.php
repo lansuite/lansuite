@@ -412,12 +412,12 @@ class Translation
 
     /**
      * Get the file path for a language file.
-     * Path for System/DB and modules are different.
+     * Path for "System"/"DB" and modules are different.
      *
-     * @param string    $module     Module name (System, DB, Module ...)
+     * @param string    $module     Module name ("System", "DB", Module of choice)
      * @return string
      */
-    private function get_trans_filename($module)
+    private function get_trans_filename(string $module): string
     {
         $file = match ($module) {
             'System', 'DB' => 'inc/language/' . $module . '_' . $this->transfile_name,
