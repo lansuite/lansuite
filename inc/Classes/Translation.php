@@ -583,4 +583,86 @@ class Translation
 
         return $output;
     }
+
+    public function translate(array $args)
+    {
+        global $db, $config, $func, $translation_no_html_replace;
+
+        $parameters = [];
+
+        // Prepare function parameters
+        // First argument is the input string, the following are parameters
+        $input = (string) array_shift($args);
+        foreach ($args as $CurrentArg) {
+            // If second Parameter is Array (old Style)
+            if (!is_array($CurrentArg)) {
+                $parameters[] = $CurrentArg;
+            } else {
+                $parameters = $CurrentArg;
+            }
+        }
+
+        if ($input == '') {
+            return '';
+        }
+
+        $key = md5($input);
+        $module = '';
+        if (isset($_GET['mod']) && $_GET['mod']) {
+            $module = $_GET['mod'];
+        }
+
+        $trans_text = '';
+        if (strlen($input) > 255) {
+            $long = '_long';
+        } else {
+            $long = '';
+        }
+
+        $translationEntry = $this->getLangCacheEntry($module, $key);
+        // If we can't find the translation in the $module cache
+        // we walk one hierarchy higher, to the System translations.
+        if ($translationEntry == '') {
+            $translationEntry = $this->getLangCacheEntry('System', $key);
+        }
+
+        if ($translationEntry != '') {
+            // Already in memory cache ($this->lang_cache[key])
+            $output = $this->ReplaceParameters($translationEntry, $parameters, $key);
+
+        } else {
+            // Try to read from DB
+            if ($this->language == 'de') {
+                // All texts in source are in german at the moment
+                $output = $this->ReplaceParameters($input, $parameters, $key);
+
+            } else {
+                if ($db->success && EnvIsConfigured()) {
+                    $trans_text = $this->get_trans_db($key, $_GET['mod'], $long);
+                }
+
+                // If ok replace parameter
+                if ($trans_text != '' && $trans_text != null) {
+                    $output = $this->ReplaceParameters($trans_text, $parameters);
+
+                // If any problem on get translations just return $input
+                } else {
+                    $output = $this->ReplaceParameters($input, $parameters, $key);
+                }
+            }
+        }
+
+        if ($translation_no_html_replace) {
+            $translation_no_html_replace = false;
+
+            // Deprecated. Should be replaced in t() by '<', '>' and '[br]'
+            $output = str_replace('--lt--', '<', $output);
+            $output = str_replace('--gt--', '>', $output);
+            $output = str_replace('HTML_NEWLINE', '<br />', $output);
+
+            return $func->text2html($output, 4);
+        }
+
+        return $output;
+    }
 }
