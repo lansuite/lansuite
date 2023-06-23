@@ -139,21 +139,17 @@ class Translation
     }
 
     /**
-     * Load translations from XML-file into memory
+     * Load translations for a module from XML-file into memory
      *
-     * @param string    $module     Module name or DB / System
+     * @param string    $module     Module name or "DB" / "System"
      * @return void
      */
-    private function load_cache_byfile($module)
+    private function load_cache_byfile(string $module): void
     {
         $xmldata = $this->xml_read_to_array($module);
         if (is_array($xmldata)) {
             foreach ($xmldata as $data) {
-                $text = '';
-                if (isset($data[$this->language])) {
-                    $text = $data[$this->language];
-                }
-
+                $text = $data[$this->language] ?? '';
                 $this->setLangCacheEntry($module, $data['id'], $text);
             }
         }
