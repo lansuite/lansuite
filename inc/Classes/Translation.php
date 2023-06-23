@@ -8,11 +8,9 @@ namespace LanSuite;
 class Translation
 {
     /**
-     * Global language
-     *
-     * @var string
+     * Global language.
      */
-    public $language = 'de';
+    private string $language = 'de';
 
     /**
      * Basename of the translation file
