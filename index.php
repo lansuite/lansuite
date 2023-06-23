@@ -286,6 +286,12 @@ if ($config['environment']['configured'] == 0) {
         $cache->save($cfgCache);
     }
     $cfg = $cfgCache->get();
+
+    // TODO Reload language
+    // At this point, we have the configured language from the database, but the translations are
+    // loaded already. Thats why the configured default language is used and loaded, even
+    // if another language is selected in the install module.
+
     $message = $sec->check_blacklist();
     
     if (strlen($message) > 0) {

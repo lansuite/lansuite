@@ -14,11 +14,13 @@ if ($auth['type'] <= 1) {
     $ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', t('Details'));
     $ms2->PrintSearch('index.php?mod=info2', 'i.infoID');
 } else {
-    if ($_POST['content'] == '') {
-        $_POST['content'] = $_POST['FCKeditor1'];
+    $contentPostParameter = $_POST['content'] ?? '';
+    if ($contentPostParameter == '') {
+        $_POST['content'] = $_POST['FCKeditor1'] ?? '';
     }
 
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET["step"] ?? 0;
+    switch ($stepParameter) {
         default:
             $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Info-Seiten editieren.'));
             $dsp->AddSingleRow($dsp->FetchSpanButton('Neuen Infotext hinzufügen', 'index.php?mod=info2&action=change&step=2'));

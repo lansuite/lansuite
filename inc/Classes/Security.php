@@ -98,7 +98,7 @@ class Security
                 ip = INET6_ATON(%string%) 
                 AND module = %string% LIMIT 1', $_SERVER['REMOTE_ADDR'], $module);
 
-            if ($row['found']) {
+            if ($row) {
                 $locked = true;
             } else {
                 $locked = false;
