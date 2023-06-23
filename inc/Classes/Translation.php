@@ -23,6 +23,9 @@ class Translation
      */
     private string $transfile_name = 'translation.xml';
 
+    /**
+     * @var array<string, string>
+     */
     public array $lang_names = [
         'de' => 'Deutsch',
         'en' => 'Englisch',
@@ -34,12 +37,16 @@ class Translation
 
     /**
      * Valid languages.
+     *
+     * @var array<string>
      */
     public array $valid_lang = ['de', 'en', 'es', 'fr', 'nl', 'it'];
 
     /**
      * In memory translation cache.
      * Only holds one language.
+     *
+     * @var array<string, array<string, string>>
      */
     private array $lang_cache = [];
 
@@ -196,10 +203,10 @@ class Translation
     /**
      * Replaces parameters from $input (%1, %2, %3, ...) with the content from $parameters at the same spot.
      *
-     * @param string    $input          Text with placeholders (random text %1 here %2)
-     * @param array     $parameters     Parameters that will replace %1, %2, ...
-     * @param string    $key
-     * @return string                   Text with inserted Parameters
+     * @param string        $input          Text with placeholders (random text %1 here %2)
+     * @param array<mixed>  $parameters     Parameters that will replace %1, %2, ...
+     * @param string        $key
+     * @return string                       Text with inserted Parameters
      */
     public function ReplaceParameters(string $input, array $parameters = null, string $key = null): string
     {
@@ -365,8 +372,8 @@ class Translation
      * Reads all translation from the $module XML file
      * and returns the data.
      *
-     * @param string    $module     Module name e.g. file-field
-     * @return array
+     * @param string                                    $module     Module name e.g. file-field
+     * @return array<string, array<string, string>>
      */
     private function xml_read_to_array(string $module): array
     {
@@ -590,6 +597,8 @@ class Translation
      *
      * Example:
      *  ->translate('Du wurdest erfolgreich ausgeloggt.')
+     *
+     * @param array<mixed> $args    List of variadic arguments (see PHP doc for description)
      */
     public function translate(array $args): string
     {
