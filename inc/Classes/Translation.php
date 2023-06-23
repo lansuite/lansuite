@@ -160,7 +160,7 @@ class Translation
      *
      * Does not overwrite existing language cache entries.
      */
-    private function setLangCacheEntry(string $module, string $id, string $text)
+    private function setLangCacheEntry(string $module, string $id, string $text): void
     {
         if (!array_key_exists($module, $this->lang_cache)) {
             $this->lang_cache[$module] = [];
