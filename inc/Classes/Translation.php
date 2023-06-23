@@ -237,7 +237,7 @@ class Translation
      * @param string    $long
      * @return string
      */
-    public function get_trans_db($hashkey, $module, $long)
+    private function get_trans_db($hashkey, $module, $long)
     {
         global $db;
 
