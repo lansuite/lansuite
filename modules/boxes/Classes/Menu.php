@@ -69,9 +69,10 @@ class Menu
             }
 
             $actionParameter = $request->query->get('action');
+            $idParameter = $_GET['id'] ?? 0;
             if (($item['module'] != 'info2' and $item['module'] == $_GET['mod'] and $item['level']==0)
-                or ($item['module'] == 'info2' and $item['module'] == $_GET['mod'] and $item['level']==0 and $info2_id == $_GET['id'])
-                or ($item['module'] == 'info2' and $_GET['mod'] == 'info2' and $info2_id == $_GET['id'])
+                or ($item['module'] == 'info2' and $item['module'] == $_GET['mod'] and $item['level']==0 and $info2_id == $idParameter)
+                or ($item['module'] == 'info2' and $_GET['mod'] == 'info2' and $info2_id == $idParameter)
                 or ($item['module'] == 'info2' and $_GET['mod'] == 'info2' and $cfg['info2_use_submenus']==1 and $item['level']==0)
                 or ($item['module'] != 'info2' and $item['module'] == $_GET['mod'] and ($item['action'] == $actionParameter) and $item['level']==1)
                ) {
