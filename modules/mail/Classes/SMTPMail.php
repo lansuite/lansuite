@@ -167,7 +167,10 @@ class SMTPMail
         }
     }
 
-    private function validateFields($from, $subject, $message)
+    /**
+     * validateFields checks if the incoming strings are not empty.
+     */
+    private function validateFields(string $from, string $subject, string $message): bool
     {
         if (empty($from) || empty($subject) || empty($message)) {
             return false;
