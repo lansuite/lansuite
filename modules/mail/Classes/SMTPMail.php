@@ -6,29 +6,47 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require_once 'vendor/autoload.php';
-
 class SMTPMail
 {
 
-    private $smtpHost;
-    private $smtpPort;
-    private $smtpUser;
-    private $smtpPassword;
-    private $useTLS;
-    private $mailPattern = "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/";
-    private $func;
+    /**
+     * SMTP Host address
+     */
+    private string $smtpHost;
 
-    public function __construct($host, $port, $tls, $user, $password)
+    /**
+     * SMTP Port
+     */
+    private int $smtpPort;
+
+    /**
+     * SMTP Username
+     */
+    private string $smtpUser;
+
+    /**
+     * SMTP Password
+     */
+    private string $smtpPassword;
+
+    /**
+     * Usage of TLS for the connection
+     */
+    private bool $useTLS;
+
+    private string $mailPattern = "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/";
+
+    private \LanSuite\Func $func;
+
+    public function __construct(string $host, int $port, bool $tls, string $user, string $password)
     {
         $this->smtpHost = $host;
         $this->smtpPort = empty($port) ? 25 : $port;
-        $this->useTLS = is_bool($tls) ? $tls : false;
+        $this->useTLS = $tls;
         $this->smtpUser = $user;
         $this->smtpPassword = $password;
         $this->func = new \LanSuite\Func();
     }
-
 
     /**
      * Replacement or substitute for PHP's mail command
