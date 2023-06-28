@@ -451,10 +451,12 @@ class TournamentFunction
     {
         global $auth;
 
+        $link = '';
         if ($teamid) {
             $link = " <a href=\"index.php?mod=tournament2&action=tdetails&tournamentid=$tournamentid&teamid=$teamid\"><img src=\"design/". $auth["design"] ."/images/arrows_search.gif\" width=\"12\" height=\"13\" border=\"0\"></a>";
-            return $link;
         }
+
+        return $link;
     }
 
     /**
