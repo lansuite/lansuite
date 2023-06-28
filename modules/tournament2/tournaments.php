@@ -10,15 +10,17 @@ $mf->AddField(t('Version'), 'version', '', '', \LanSuite\MasterForm::FIELD_OPTIO
 $mf->AddDropDownFromTable(t('Turniermanagement'), 'tournamentadmin', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
 $mf->AddDropDownFromTable(t('Technik/Server'), 'techadmin', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
 
-$t_state = $db->qry_first('SELECT status FROM %prefix%tournament_tournaments WHERE tournamentid=%int%', $_GET['tournamentid']);
+$tournamentIDParameter = $_GET['tournamentid'] ?? 0;
+$t_state = $db->qry_first('SELECT status FROM %prefix%tournament_tournaments WHERE tournamentid=%int%', $tournamentIDParameter);
 
-if ($t_state['status'] == 'process') {
+if (is_array($t_state) && $t_state['status'] == 'process') {
     $mf->AddField(t('Status'), '', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Turnier wird gerade gespielt'));
-} elseif ($t_state['status'] == 'closed') {
+} elseif (is_array($t_state) && $t_state['status'] == 'closed') {
     $mf->AddField(t('Status'), '', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Turnier wurde beendet'));
 } else {
     $selections = array();
-    if ($_POST['status'] == '') {
+    $statusParameter = $_POST['status'] ?? '';
+    if ($statusParameter == '') {
         $_POST['status'] = 'open';
     }
     $selections['invisible'] = t('Unsichtbar (nur Admins können das Turnier sehen)');
@@ -38,7 +40,8 @@ for ($i = 1; $i <= 20; $i++) {
 $mf->AddField(t('Spieler pro Team'), 'teamplayer', \LanSuite\MasterForm::IS_SELECTION, $selections);
 
 $selections = array();
-if ($_POST['maxteams'] == '') {
+$maxTeamsParameter = $_POST['maxteams'] ?? '';
+if ($maxTeamsParameter == '') {
     $_POST['maxteams'] = 1024;
 }
 for ($i = 8; $i <= 1024; $i*=2) {
@@ -47,7 +50,8 @@ for ($i = 8; $i <= 1024; $i*=2) {
 $mf->AddField(t('Maximale Teamanzahl'), 'maxteams', \LanSuite\MasterForm::IS_SELECTION, $selections);
 
 $selections = array();
-if ($_POST['mode'] == '') {
+$modeParameter = $_POST['mode'] ?? '';
+if ($modeParameter == '') {
     $_POST['mode'] = 'double';
 }
 $selections['single'] = t('Single-Elimination');
@@ -78,13 +82,15 @@ $mf->AddField(t('U18-Sperre').'|'.t('Keine Spieler aus Unter-18-Sitzblöcken zul
 $mf->AddGroup(t('Anmeldeeinschränkungen'));
 
 // Times
-if (!$_POST['starttime']) {
+$startTimeParameter = $_POST['starttime'] ?? null;
+if (!$startTimeParameter) {
     $_POST['starttime'] = date('Y-m-d H:i', $_SESSION['party_info']['partybegin']);
 }
 $mf->AddField(t('Turnier beginnt um'), 'starttime', '', '', '', 'CheckDateInFuture');
 
 $selections = array();
-if ($_POST['game_duration'] == '') {
+$gameDurationParameter = $_POST['game_duration'] ?? '';
+if ($gameDurationParameter == '') {
     $_POST['game_duration'] = '30';
 }
 $mf->AddField(t('Dauer eines Spieles (Min.)'), 'game_duration');
@@ -101,7 +107,8 @@ $selections['5'] = '5 (Best Of 5)';
 $mf->AddField(t('Maximale Spiele pro Runde'), 'max_games', \LanSuite\MasterForm::IS_SELECTION, $selections);
 
 $selections = array();
-if ($_POST['break_duration'] == '') {
+$breakDurationParameter = $_POST['break_duration'] ?? '';
+if ($breakDurationParameter == '') {
     $_POST['break_duration'] = '30';
 }
 $mf->AddField(t('Pause nach jeder Runde (Min.)'), 'break_duration');
@@ -201,10 +208,10 @@ $mf->AddField(t('Mapcycle (Maps durch Zeilenumbruch trennen)'), 'mapcycle', '', 
 $mf->AddGroup(t('Liga-Support, Regeln und Mapcycle'));
 $mf->AddPage(t('Liga-Support, Regeln und Mapcycle'));
 
-if (!$_GET['tournamentid']) {
+if (!$tournamentIDParameter) {
     $mf->AddFix('party_id', (int)$party->party_id);
 }
 
-if ($mf->SendForm('index.php?mod=tournament2&action='. $_GET['action'], 'tournament_tournaments', 'tournamentid', $_GET['tournamentid'])) {
+if ($mf->SendForm('index.php?mod=tournament2&action='. $_GET['action'], 'tournament_tournaments', 'tournamentid', $tournamentIDParameter)) {
     $func->log_event(t('Das Turnier %1 wurde eingetragen', $_POST["name"]), 1, t('Turnier Verwaltung'));
 }
