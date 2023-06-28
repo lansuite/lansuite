@@ -121,7 +121,7 @@ class Mail
                 $cfg["mail_smtp_user"],
                 $cfg["mail_smtp_pass"]
             );
-            //Either use explicit sender or use indivdiual user, depends on the SMTP configuration
+            // Either use explicit sender or use indivdiual user, depends on the SMTP configuration
             $from = empty($cfg["mail_smtp_send_from"]) ? $from : $cfg["mail_smtp_send_from"];
             return $smtpMail->sendMail($from, $to_user_email, $subject_text, $msgbody_text, $this->inet_headers);
 
