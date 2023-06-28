@@ -57,6 +57,8 @@ class TournamentFunction
     {
         global $db;
 
+        $numberOfTeams = 0;
+
         if (($mode == "groups") && ($group == 0)) {
             $game = $db->qry("
               SELECT gameid
@@ -67,7 +69,9 @@ class TournamentFunction
               GROUP BY group_nr", $tid);
             $team_anz = 2 * $db->num_rows($game);
             $db->free_result($game);
-            return $team_anz;
+
+            $numberOfTeams = $team_anz;
+
         } else {
             if ($mode != "groups") {
                 $group = 0;
@@ -88,8 +92,11 @@ class TournamentFunction
                 AND (round = 0)
                 AND (group_nr = %string%) %plain%
               GROUP BY round", $tid, $group, $add_where);
-            return $games['anz'];
+
+              $numberOfTeams = $games['anz'] ?? 0;
         }
+
+        return $numberOfTeams;
     }
 
     /**
