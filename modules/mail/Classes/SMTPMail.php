@@ -34,8 +34,6 @@ class SMTPMail
      */
     private bool $useTLS;
 
-    private string $mailPattern = "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/";
-
     private \LanSuite\Func $func;
 
     public function __construct(string $host, int $port, bool $tls, string $user, string $password)
@@ -58,22 +56,18 @@ class SMTPMail
      * @param string $headers
      * @return bool
      */
-    public function sendMail(string $from, string $mail_to, string $subject, string $message, string $headers = '')
+    public function sendMail(string $from, string $mail_to, string $subject, string $message, string $headers = ''): bool
     {
         if (!$this->validateFields($from, $subject, $message)) {
             $this->func->error(t("Not all required mail fields have been set"));
             return false;
         }
 
-
         // Fix any bare linefeeds in the message to make it RFC821 Compliant.
         $message = preg_replace("#(?<!\r)\n#si", "\r\n", $message);
 
-
         if (!empty($headers)) {
-
             $headers = is_array($headers) ? implode("\n", $headers) : $headers;
-
             $headers = rtrim($headers);
 
             // Make sure there are no bare linefeeds in the headers
@@ -83,7 +77,7 @@ class SMTPMail
             // but we have to grab bcc and cc headers and treat them differently
             // Something we really didn't take into consideration originally
             $header_array = explode("\r\n", $headers);
-            @reset($header_array);
+            reset($header_array);
 
             $headers = '';
             foreach ($header_array as $header) {
@@ -97,41 +91,42 @@ class SMTPMail
             }
 
             $headers = rtrim($headers);
-            $cc = explode(', ', $cc);
-            $bcc = explode(', ', $bcc);
+            $cc = explode(',', $cc);
+            $bcc = explode(',', $bcc);
         }
 
         $mail = new PHPMailer(true);
-
         try {
-            //Server settings
-            #    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                    //Enable verbose debug output
-            $mail->isSMTP();                                          //Send using SMTP
-            $mail->Host = $this->smtpHost;                     //Set the SMTP server to send through
+            // Server settings
+            // TODO Add setting to enable verbose debug output
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
+            $mail->isSMTP();
+            $mail->Host = $this->smtpHost;
+            $mail->Port = $this->smtpPort;
             if (!empty($this->smtpUser) && !empty($this->smtpPassword)) {
-                $mail->SMTPAuth   = true;
-                $mail->Username   = $this->smtpUser;                     //SMTP username
-                $mail->Password   = $this->smtpPassword;                 //SMTP password
+                $mail->SMTPAuth = true;
+                $mail->Username = $this->smtpUser;
+                $mail->Password = $this->smtpPassword;
             }
 
             if ($this->useTLS == true) {
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;      //Enable implicit TLS encryption
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             }
-
-            $mail->Port = $this->smtpPort;
 
             $mail->setFrom($from);
 
-            if (preg_match($this->mailPattern, $mail_to)) {
+            $mail_to = trim($mail_to);
+            $mail_to = filter_var($mail_to, FILTER_VALIDATE_EMAIL);
+            if ($mail_to) {
                 $mail->addAddress($mail_to);
             }
 
             $this->addCC($mail, $cc);
             $this->addBCC($mail, $bcc);
 
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
+            // Content
+            $mail->isHTML(true);
             $mail->Subject = $subject;
             $mail->Body    = $message;
             $mail->AltBody = strip_tags($message);
