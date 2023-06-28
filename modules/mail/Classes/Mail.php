@@ -79,7 +79,7 @@ class Mail
      */
     public function create_inet_mail($to_user_name, $to_user_email, $subject_text, $msgbody_text, $from = '')
     {
-        global $cfg, $board_config;
+        global $cfg;
         
         // The sending mail address must be the sys_part_mail, otherwise some mail-provider won't send the mail.
         // Set default Sender-Mail, if non is set
