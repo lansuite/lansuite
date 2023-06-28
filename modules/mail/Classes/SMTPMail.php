@@ -145,23 +145,23 @@ class SMTPMail
         return true;
     }
 
-    private function addCC(&$mailer, $cc)
+    private function addCC(PHPMailer\PHPMailer\PHPMailer $mailer, array $cc): void
     {
         foreach ($cc as $ccAddress) {
-            // Add an additional bit of error checking to cc header
             $ccAddress = trim($ccAddress);
-            if (preg_match($this->mailPattern, $ccAddress)) {
+            $ccAddress = filter_var($ccAddress, FILTER_VALIDATE_EMAIL);
+            if ($ccAddress) {
                 $mailer->addCC($ccAddress);
             }
         }
     }
 
-    private function addBCC(&$mailer, $bcc)
+    private function addBCC(PHPMailer\PHPMailer\PHPMailer $mailer, array $bcc): void
     {
         foreach ($bcc as $bccAddress) {
-            // Add an additional bit of error checking to bcc header...
             $bccAddress = trim($bccAddress);
-            if (preg_match($this->mailPattern, $bccAddress)) {
+            $bccAddress = filter_var($bccAddress, FILTER_VALIDATE_EMAIL);
+            if ($bccAddress) {
                 $mailer->addBCC($bccAddress);
             }
         }
