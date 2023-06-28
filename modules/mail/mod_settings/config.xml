@@ -42,6 +42,18 @@
     		<default>localhost</default>
     		<description>Hostname des SMTP-Servers</description>
     	</item>
+		<item>
+    		<name>mail_smtp_port</name>
+    		<type>int</type>
+    		<default>25</default>
+    		<description>SMTP-Server Port</description>
+    	</item>
+		<item>
+    		<name>mail_smtp_tls</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>SMTP-Server nutzt TLS</description>
+    	</item>
     	<item>
     		<name>mail_smtp_user</name>
     		<type>string</type>
@@ -54,6 +66,13 @@
     		<default></default>
     		<description>Passwort des SMTP-Servers</description>
     	</item>
+		<item>
+    		<name>mail_smtp_send_from</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Sender E-Mail</description>
+    	</item>
+
     </items>
   </group>
   <group>
