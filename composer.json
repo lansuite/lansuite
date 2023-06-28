@@ -142,8 +142,6 @@
             "modules/install/Functions/YesNo.php",
             "modules/mail/Functions/MailStatus.php",
             "modules/mail/Functions/SendOnlineMail.php",
-            "modules/mail/Functions/ServerParse.php",
-            "modules/mail/Functions/SMTPMail.php",
             "modules/mastersearch2/Functions/MS2GetDate.php",
             "modules/mastersearch2/Functions/MS2GetTime.php",
             "modules/mastersearch2/Functions/Text2LSCode.php",
