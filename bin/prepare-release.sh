@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# Prepares a new release archive.
+# Prepares a new public LanSuite release.
 # The end result are two files:
 #   - The complete package: LanSuite-*.tar.gz
 #   - A checksum file: LanSuite-*_checksums.txt
@@ -13,6 +13,9 @@
 #   # Running a release based on a git tag
 #   bin/prepare-release.sh v1.2.3
 #
+
+LANSUITE_GIT_URL="https://github.com/lansuite/lansuite.git"
+OUTPUT_DIR="/builds/"
 
 # Our own sha256sum function call.
 # That takes into account machines that don't have sha256sum but do have sha2 (i.e. macOS)
@@ -53,7 +56,7 @@ log "INFO" "Prepare release ... Started"
 # Check if git is available
 if ! type "git" > /dev/null; then
   log "ERROR" "git can't be found."
-  log "ERROR" "git is necessary to determine the current state of the package to release."
+  log "ERROR" "git is necessary to clone the latest version of the source code."
   log "ERROR" "Please install it."
   exit 1;
 fi
@@ -76,41 +79,68 @@ fi
 
 log "INFO" "All dependencies fulfilled. We continue."
 
+if [ -z "$LANSUITE_VERSION" ]
+then
+      log "INFO" "No LanSuite tag given set. We package a release of LanSuite with latest main."
+else
+      log "INFO" "LanSuite tag set. We package a release of LanSuite $LANSUITE_VERSION"
+fi
+
+log "INFO" "Checking out the git repository $LANSUITE_GIT_URL ..."
+git clone $LANSUITE_GIT_URL
+if [ $? -eq 0 ]; then
+    log "INFO" "Checking out the git repository $LANSUITE_GIT_URL ... Done."
+else
+    log "ERROR" "Checking out the git repository $LANSUITE_GIT_URL ... Failed"
+    exit 1;
+fi
+
+# Switch to working directory
+cd ./lansuite/
+
+log "INFO" "Fetching remote tags from $LANSUITE_GIT_URL ..."
+git fetch --all --tags
+if [ $? -eq 0 ]; then
+    log "INFO" "Fetching remote tags from $LANSUITE_GIT_URL ... Done."
+else
+    log "ERROR" "Fetching remote tags from $LANSUITE_GIT_URL ... Failed"
+    exit 1;
+fi
+
 # Determine version to release
-if [ $# -eq 0 ]; then
-    COMMIT_SHA=$(git show --format=%h HEAD)
-    log "INFO" "No argument supplied."
+if [ -z "$LANSUITE_VERSION" ]; then
+    COMMIT_SHA=$(git rev-parse --verify HEAD)
+    log "INFO" "No LanSuite version supplied."
     log "INFO" "Running in snapshot mode with commit ${COMMIT_SHA}."
     RELEASE_VERSION="snapshot-$COMMIT_SHA"
 else
-    log "INFO" "Argument $1 given. Checking if tag exists ..."
-    git show-ref --verify refs/tags/$1
+    log "INFO" "LanSuite version $LANSUITE_VERSION given. Checking if tag exists ..."
+    git show-ref --verify refs/tags/$LANSUITE_VERSION
     if [ $? -eq 0 ]; then
-        log "INFO" "Argument $1 given. Checking if tag exists ... Done."
-        log "INFO" "Running in release mode with tag $1."
-        RELEASE_VERSION=$1
+        log "INFO" "LanSuite version $LANSUITE_VERSION given. Checking if tag exists ... Done."
+        log "INFO" "Running in release mode with tag $LANSUITE_VERSION."
+
+        # Switching to the local tag
+        log "INFO" "Switching to $LANSUITE_VERSION ..."
+        git checkout tags/$LANSUITE_VERSION
+        if [ $? -eq 0 ]; then
+            log "INFO" "Switching to $LANSUITE_VERSION ...Done."
+        else
+            log "ERROR" "Switching to $LANSUITE_VERSION ...Failed"exit 1;
+        fi
+
+        RELEASE_VERSION=$LANSUITE_VERSION
     else
-        log "ERROR" "Argument $1 given. Checking if tag exists ... Failed"
-        log "ERROR" "Git tag $1 doesn\'t exists."
+        log "ERROR" "LanSuite version $LANSUITE_VERSION given. Checking if tag exists ... Failed"
+        log "ERROR" "Git tag $LANSUITE_VERSION doesn\'t exists."
         log "ERROR" "If you want to release a new LanSuite version based on a release, please create a new git tag for it."
         exit 1;
     fi
-
 fi
 
 log "INFO" "Release version $RELEASE_VERSION determined. We continue."
 
-#
-# Git Operations
-#
-# Check if our repository is in a clean state
-if [ -z "$(git status --porcelain)" ]; then
-  log "INFO" "Git repository is in a clean state. We continue."
-else
-  log "ERROR" "Git repository is in an unclean state."
-  log "ERROR" "Transfer the repository into a clean state before packaging the release."
-  exit 1;
-fi
+LANSUITE_FILENAME="LanSuite-$RELEASE_VERSION"
 
 # If vendor dir exists, delete it
 if [ -d "./vendor/" ]; then
@@ -119,7 +149,7 @@ if [ -d "./vendor/" ]; then
   log "INFO" "Removing vendor dir ... Done."
 fi
 
-# Install dependencies
+# Install PHP dependencies
 log "INFO" "Installing dependencies via composer ..."
 composer install --no-dev --optimize-autoloader
 log "INFO" "Installing dependencies via composer ... Done."
@@ -128,19 +158,31 @@ log "INFO" "Installing dependencies via composer ... Done."
 
 # Packaging archive
 log "INFO" "Packaging release archive ..."
-tar -cvzf LanSuite-$RELEASE_VERSION.tar.gz --exclude .git .
+tar --exclude .git \
+    --exclude .docker \
+    --exclude .github \
+    --exclude .phan \
+    --exclude builds \
+    --exclude docker \
+    --exclude website \
+    --exclude Dockerfile \
+    --exclude Dockerfile-Production-Release \
+    --exclude docker-compose.yml \
+    --exclude docker-compose.dump.yml \
+    -cvzf ${OUTPUT_DIR}$LANSUITE_FILENAME.tar.gz .
 log "INFO" "Packaging release archive ... Done."
 
 # Building checksums
 log "INFO" "Generating checksums ..."
-CHECKSUM_FILENAME="LanSuite-${RELEASE_VERSION}_checksums.txt"
+CHECKSUM_FILENAME="${OUTPUT_DIR}${LANSUITE_FILENAME}_checksums.txt"
 if [ -f CHECKSUM_FILENAME ]; then
     log "ERROR" "Checksum file $CHECKSUM_FILENAME already exists."
     exit 1;
 fi
 
-echo $(sha256sum_ LanSuite-$RELEASE_VERSION.tar.gz) >> $CHECKSUM_FILENAME
+echo $(sha256sum_ ${OUTPUT_DIR}$LANSUITE_FILENAME.tar.gz) >> $CHECKSUM_FILENAME
 log "INFO" "Generating checksums ... Done."
+log "INFO" ""
 
 # We are done here.
 # Saying goodbye.
