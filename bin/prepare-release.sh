@@ -22,11 +22,11 @@ OUTPUT_DIR="/builds/"
 sha256sum_() {
     hash -r
     if type sha256sum >& /dev/null; then
-        echo "$(sha256sum $@)"
+        sha256sum "$@"
     elif type shasum >& /dev/null; then
-        echo "$(shasum -a 256 $@)"
+        shasum -a 256 "$@"
     else
-        echo "$(sha2 -q -256 $@)"
+        sha2 -q -256 "$@"
     fi
 }
 
@@ -88,6 +88,7 @@ fi
 
 log "INFO" "Checking out the git repository $LANSUITE_GIT_URL ..."
 git clone $LANSUITE_GIT_URL
+# shellcheck disable=SC2181
 if [ $? -eq 0 ]; then
     log "INFO" "Checking out the git repository $LANSUITE_GIT_URL ... Done."
 else
@@ -96,10 +97,11 @@ else
 fi
 
 # Switch to working directory
-cd ./lansuite/
+cd ./lansuite/ || exit
 
 log "INFO" "Fetching remote tags from $LANSUITE_GIT_URL ..."
 git fetch --all --tags
+# shellcheck disable=SC2181
 if [ $? -eq 0 ]; then
     log "INFO" "Fetching remote tags from $LANSUITE_GIT_URL ... Done."
 else
@@ -115,14 +117,16 @@ if [ -z "$LANSUITE_VERSION" ]; then
     RELEASE_VERSION="snapshot-$COMMIT_SHA"
 else
     log "INFO" "LanSuite version $LANSUITE_VERSION given. Checking if tag exists ..."
-    git show-ref --verify refs/tags/$LANSUITE_VERSION
+    git show-ref --verify "refs/tags/$LANSUITE_VERSION"
+    # shellcheck disable=SC2181
     if [ $? -eq 0 ]; then
         log "INFO" "LanSuite version $LANSUITE_VERSION given. Checking if tag exists ... Done."
         log "INFO" "Running in release mode with tag $LANSUITE_VERSION."
 
         # Switching to the local tag
         log "INFO" "Switching to $LANSUITE_VERSION ..."
-        git checkout tags/$LANSUITE_VERSION
+        git checkout "tags/$LANSUITE_VERSION"
+        # shellcheck disable=SC2181
         if [ $? -eq 0 ]; then
             log "INFO" "Switching to $LANSUITE_VERSION ...Done."
         else
@@ -169,7 +173,7 @@ tar --exclude .git \
     --exclude Dockerfile-Production-Release \
     --exclude docker-compose.yml \
     --exclude docker-compose.dump.yml \
-    -cvzf ${OUTPUT_DIR}$LANSUITE_FILENAME.tar.gz .
+    -cvzf "${OUTPUT_DIR}$LANSUITE_FILENAME.tar.gz" .
 log "INFO" "Packaging release archive ... Done."
 
 # Building checksums
@@ -180,7 +184,7 @@ if [ -f CHECKSUM_FILENAME ]; then
     exit 1;
 fi
 
-echo $(sha256sum_ ${OUTPUT_DIR}$LANSUITE_FILENAME.tar.gz) >> $CHECKSUM_FILENAME
+sha256sum_ "${OUTPUT_DIR}${LANSUITE_FILENAME}.tar.gz" >> "$CHECKSUM_FILENAME"
 log "INFO" "Generating checksums ... Done."
 log "INFO" ""
 
