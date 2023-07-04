@@ -5,13 +5,28 @@ $mail = new \LanSuite\Module\Mail\Mail();
 
 $tteam = new \LanSuite\Module\Tournament2\Team($mail, $seat2);
 
-($_GET['tournamentid'])? $tournamentid = $_GET['tournamentid'] : $tournamentid = $_POST['tournamentid'];
-($_GET['userid'])? $userid = $_GET['userid'] : $userid = $_POST['userid'];
-($_GET['teamid'])? $teamid = $_GET['teamid'] : $teamid = $_POST['teamid'];
-($_GET['member_user'])? $member_user = $_GET['member_user'] : $member_user = $_POST['member_user'];
+$tournamentid = $_GET['tournamentid'] ?? 0;
+if (!$tournamentid) {
+    $tournamentid = $_POST['tournamentid'] ?? $tournamentid;
+}
 
+$userid = $_GET['userid'] ?? 0;
+if (!$userid) {
+    $userid = $_POST['userid'] ?? $userid;
+}
 
-switch ($_GET["step"]) {
+$teamid = $_GET['teamid'] ?? 0;
+if (!$teamid) {
+    $teamid = $_POST['teamid'] ?? $teamid;
+}
+
+$member_user = $_GET['member_user'] ?? 0;
+if ($member_user) {
+    $member_user = $_POST['member_user'] ?? $member_user;
+}
+
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     // Team löschen
     case 10:
         if ($tteam->delete($_POST["teamid"])) {

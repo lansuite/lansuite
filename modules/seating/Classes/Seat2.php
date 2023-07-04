@@ -272,7 +272,7 @@ class Seat2
             $blockid = $id;
         } elseif ($idtype != "b") {
             $row_seat = $db->qry_first("SELECT blockid FROM %prefix%seat_seats WHERE userid=%int%", $id);
-            $blockid = $row_seat['blockid'];
+            $blockid = $row_seat['blockid'] ?? '';
             if ($blockid == "") {
                 return false;
             }
