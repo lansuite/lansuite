@@ -11,7 +11,7 @@ return [
     // If this is set to `null`,
     // then Phan assumes the PHP version which is closest to the minor version
     // of the php executable used to execute Phan.
-    "target_php_version" => 7.3,
+    "target_php_version" => 8.1,
 
     // A list of directories that should be parsed for class and
     // method information. After excluding the directories
