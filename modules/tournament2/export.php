@@ -11,7 +11,8 @@ $t_league_export = new \LanSuite\Module\Tournament2\TournamentLeagueExport($xml,
 
 $dsp->NewContent(t('Exporte'), t('Hier stehen die Turnier-Exports der verschiedenen Ligen zum download bereit.'));
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 2:
         // WWCL
         $dsp->AddSingleRow("WWCL");

@@ -606,7 +606,7 @@ class MasterForm
                                                       $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
 
                                                 // No \r \n \t \0 \x0B in Non-Multiline-Fields
-                                                } elseif ($field['type'] != 'text' && $field['type'] != 'mediumtext' && $field['type'] != 'longtext' && $SQLFieldTypes[$field['name']] != 'text' && $SQLFieldTypes[$field['name']] != 'mediumtext' && $SQLFieldTypes[$field['name']] != 'longtext' && !is_array($_POST[$field['name']]) && ((str_contains($_POST[$field['name']], "\r")) || (str_contains($_POST[$field['name']], "\n")) || (str_contains($_POST[$field['name']], "\t")) || (str_contains($_POST[$field['name']], "\0")) || (str_contains($_POST[$field['name']], "\x0B")))) {
+                                                } elseif ($field['type'] != 'text' && $field['type'] != 'mediumtext' && $field['type'] != 'longtext' && $SQLFieldTypes[$field['name']] != 'text' && $SQLFieldTypes[$field['name']] != 'mediumtext' && $SQLFieldTypes[$field['name']] != 'longtext' && !is_array($fieldValue) && ((str_contains($fieldValue, "\r")) || (str_contains($fieldValue, "\n")) || (str_contains($fieldValue, "\t")) || (str_contains($fieldValue, "\0")) || (str_contains($fieldValue, "\x0B")))) {
                                                       $this->error[$field['name']] = t('Dieses Feld enthält nicht erlaubte Steuerungszeichen (z.B. einen Tab, oder Zeilenumbruch)');
 
                                                 // Callbacks
@@ -799,7 +799,11 @@ class MasterForm
                                                 if ($fieldValue) {
                                                     [$date, $time] = explode(' ', $fieldValue);
                                                     [$values['year'], $values['month'], $values['day']] = explode('-', $date);
-                                                    [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
+
+                                                    $timeParts = explode(':', $time);
+                                                    $values['hour'] = $timeParts[0] ?? '00';
+                                                    $values['min'] = $timeParts[1] ?? '00';
+                                                    $values['sec'] = $timeParts[2] ?? '00';
                                                 }
                                                 $startj = null;
                                                 if ($values['year'] == '') {
@@ -1125,18 +1129,19 @@ class MasterForm
                                 }
                             } else {
                                 foreach ($this->SQLFields as $key => $val) {
+                                    $postFieldValue = $_POST[$val] ?? '';
                                     if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') {
                                         $db_query .= "$val = NOW(), ";
                                     } elseif ($SQLFieldTypes[$val] == 'tinyint(1)') {
                                         $db_query .= $val .' = '. (int)$_POST[$val] .', ';
                                     } elseif ($SQLFieldTypes[$val] == 'varbinary(16)' and $val == 'ip') {
                                         $db_query .= $val .' = INET6_ATON(\''. $_POST[$val] .'\'), ';
-                                    } elseif ($_POST[$val] == '++' and str_contains($SQLFieldTypes[$val], 'int')) {
+                                    } elseif ($postFieldValue == '++' and str_contains($SQLFieldTypes[$val], 'int')) {
                                         $db_query .= "$val = $val + 1, ";
-                                    } elseif ($_POST[$val] == '--' and str_contains($SQLFieldTypes[$val], 'int')) {
+                                    } elseif ($postFieldValue == '--' and str_contains($SQLFieldTypes[$val], 'int')) {
                                         $db_query .= "$val = $val - 1, ";
                                     } else {
-                                        $db_query .= "$val = '{$_POST[$val]}', ";
+                                        $db_query .= "$val = '{$postFieldValue}', ";
                                     }
                                 }
                                 $db_query = substr($db_query, 0, strlen($db_query) - 2);
