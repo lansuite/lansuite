@@ -804,7 +804,6 @@ class MasterForm
                                                     $values['hour'] = $timeParts[0] ?? '00';
                                                     $values['min'] = $timeParts[1] ?? '00';
                                                     $values['sec'] = $timeParts[2] ?? '00';
-
                                                 }
                                                 $startj = null;
                                                 if ($values['year'] == '') {
