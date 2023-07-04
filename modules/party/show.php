@@ -1,13 +1,14 @@
 <?php
 
 // Set Active PartyID
-if ($_GET['step'] == 10 and is_numeric($_GET['party_id'])) {
+$stepParameter = $_GET['step'] ?? 0;
+if ($stepParameter == 10 and is_numeric($_GET['party_id'])) {
     $db->qry("UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = 'signon_partyid'", $_GET['party_id']);
     $cfg['signon_partyid'] = $_GET['party_id'];
 }
 
 $dsp->NewContent(t('Unsere Partys'), t('Hier siehst du eine Liste aller geplanten Partys'));
-switch ($_GET['step']) {
+switch ($stepParameter) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('party');
     

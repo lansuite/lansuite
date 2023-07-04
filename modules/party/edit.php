@@ -13,10 +13,13 @@ $mf->AddField(t('Anmeldung startet am'), 'sstartdate', '', '', '', 'CheckSignonS
 $mf->AddField(t('Anmeldung endet am'), 'senddate', '', '', '', 'CheckSignonEndDate');
 
 $mf->AdditionalDBUpdateFunction = 'UpdatePartyID';
-$mf->SendForm('index.php?mod=party&action=edit', 'partys', 'party_id', $_GET['party_id']);
+
+$partyID = $_GET['party_id'] ?? 0;
+$mf->SendForm('index.php?mod=party&action=edit', 'partys', 'party_id', $partyID);
 
 // Write ext_inc/party_infos/infos.xml on Change
-if ($_GET['mf_step'] == '2') {
+$masterFormStepParam = $_GET['mf_step'] ?? 0;
+if ($masterFormStepParam == '2') {
     $mail = new \LanSuite\Module\Mail\Mail();
     $usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
     $usrmgr->WriteXMLStatFile();
