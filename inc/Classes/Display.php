@@ -647,9 +647,12 @@ class Display
         $smarty->assign('value', $value);
         $smarty->assign('rows', $rows);
 
+        $smarty->assign('errortext', '');
         if ($errortext) {
             $smarty->assign('errortext', $this->errortext_prefix . $errortext . $this->errortext_suffix);
         }
+
+        $smarty->assign('optional', '');
         if ($optional) {
             $smarty->assign('optional', '_optional');
         }

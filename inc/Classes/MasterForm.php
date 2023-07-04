@@ -585,7 +585,8 @@ class MasterForm
                                                 }
 
                                                 // Check for value
-                                                if (!$field['optional'] and $_POST[$field['name']] == '') {
+                                                $fieldValue = $_POST[$field['name']] ?? '';
+                                                if (!$field['optional'] && $fieldValue == '') {
                                                       $this->error[$field['name']] = t('Bitte fülle dieses Pflichtfeld aus.');
 
                                                 // Check Int
@@ -619,13 +620,13 @@ class MasterForm
                                                 // Check double uniques
                                                 // Neccessary in Multi Line Edit Mode? If so: Still to do
                                                 if ($SQLFieldUnique[$field['name']]) {
+                                                    $check_double_where = '';
                                                     if ($this->isChange) {
                                                         $check_double_where = ' AND '. $idname .' != '. (int)$id;
                                                     }
 
                                                     $row = $db->qry_first("SELECT 1 AS found FROM %prefix%%plain% WHERE %plain% = %string% %plain%", $table, $field['name'], $_POST[$field['name']], $check_double_where);
-
-                                                    if ($row['found']) {
+                                                    if ($row) {
                                                         $this->error[$field['name']] = t('Dieser Eintrag existiert bereits in unserer Datenbank.');
                                                     }
                                                 }
@@ -738,10 +739,12 @@ class MasterForm
                                                 if (!$maxchar) {
                                                     $maxchar = 4_294_967_295;
                                                 }
+                                                $postFieldValue = $_POST[$field['name']] ?? '';
+                                                $errorText = $this->error[$field['name']] ?? '';
                                                 if ($field['selections'] == self::HTML_ALLOWED or $field['selections'] == self::LSCODE_ALLOWED) {
-                                                    $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
+                                                    $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $postFieldValue, $errorText, '', '', $field['optional'], $maxchar);
                                                 } elseif ($field['selections'] == self::LSCODE_BIG) {
-                                                    $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], 70, 20, $field['optional'], $maxchar);
+                                                    $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $postFieldValue, $errorText, 70, 20, $field['optional'], $maxchar);
                                                 } elseif ($field['selections'] == self::HTML_WYSIWYG) {
                                                     $this->FCKeditorID++;
                                                     ob_start();
@@ -867,14 +870,18 @@ class MasterForm
 
                                             // New-Password-Row
                                             case self::IS_NEW_PASSWORD:
+                                                $postFieldValue = $_POST[$field['name']] ?? '';
+                                                $postFieldSecondValue = $_POST[$field['name'].'2'] ?? '';
                                                 // Dont show MD5-sum, read from DB on change
-                                                if (strlen($_POST[$field['name']]) == 32) {
+                                                if (strlen($postFieldValue) == 32) {
                                                     $_POST[$field['name']] = '';
                                                 }
 
                                                 $this->PWSecID++;
-                                                $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel)\"");
-                                                $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.t('Verfikation'), $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional']);
+                                                $errorText = $this->error[$field['name']] ?? '';
+                                                $errorTextSecond = $this->error[$field['name'].'2'] ?? '';
+                                                $dsp->AddPasswordRow($field['name'], $field['caption'], $postFieldValue, $errorText, '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel)\"");
+                                                $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.t('Verfikation'), $postFieldSecondValue, $errorTextSecond, '', $field['optional']);
                                                 $smarty->assign('pw_security_id', $this->PWSecID);
                                                 $dsp->AddDoubleRow('', $smarty->fetch('design/templates/ls_row_pw_security.htm'));
                                                 break;
@@ -949,8 +956,10 @@ class MasterForm
 
                                             // File Upload to path
                                             case self::IS_FILE_UPLOAD:
-                                                $dsp->AddFileSelectRow($field['name'], $field['caption'], $this->error[$field['name']], '', '', $field['optional']);
-                                                if ($_POST[$field['name']]) {
+                                                $errorText = $this->error[$field['name']] ?? '';
+                                                $dsp->AddFileSelectRow($field['name'], $field['caption'], $errorText, '', '', $field['optional']);
+                                                $postFieldValue = $_POST[$field['name']] ?? '';
+                                                if ($postFieldValue) {
                                                     $FileEnding = strtolower(substr($_POST[$field['name']], strrpos($_POST[$field['name']], '.'), 5));
                                                     if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') {
                                                         $img = HTML_NEWLINE.'<img src="'. $_POST[$field['name']] .'" />';
