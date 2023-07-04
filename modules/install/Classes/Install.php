@@ -631,7 +631,7 @@ class Install
         $dsp->AddFieldSetStart("Kritisch - Diese Test müssen alle erfolgreich sein, damit Lansuite funktioniert");
 
         // PHP version
-        $minPHPVersion = '8.0.0';
+        $minPHPVersion = '8.1.0';
         $currentPHPVersion = PHP_VERSION;
         if (version_compare($currentPHPVersion, $minPHPVersion) >= 0) {
             $phpv_check = $ok . $currentPHPVersion;
