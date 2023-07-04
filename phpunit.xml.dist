@@ -14,7 +14,6 @@
          failOnWarning="true"
          stopOnError="false"
          stopOnFailure="false"
-         verbose="true"
 >
     <testsuites>
         <testsuite name="LanSuite Test Suite">
