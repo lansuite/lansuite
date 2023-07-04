@@ -25,7 +25,8 @@ if ($party->count == 0) {
           ORDER BY startdate");
         while ($row = $db->fetch_array($res)) {
             $mf = new \LanSuite\MasterForm($MFID);
-            if ($_GET['mf_step'] != 2 || $row['party_id'] == $_GET['party_id']) {
+            $masterFormStepParam = $_GET['mf_step'] ?? 0;
+            if ($masterFormStepParam != 2 || $row['party_id'] == $_GET['party_id']) {
                 $dsp->AddFieldsetStart($row['name'] .' ('. $func->unixstamp2date($row['startdate'], 'datetime') .' - '. $func->unixstamp2date($row['enddate'], 'datetime') .')');
                 $mf->AdditionalKey = 'party_id = '. $row['party_id'];
 
@@ -43,7 +44,7 @@ if ($party->count == 0) {
                     $mf->AddFix('paid', '1');
                 }
 
-                if ($cfg['signon_autopaid'] or $_POST['paid']) {
+                if ($cfg['signon_autopaid'] or (array_key_exists('paid', $_POST) && $_POST['paid'])) {
                     $mf->AddFix('paiddate', 'NOW()');
                 }
 

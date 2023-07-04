@@ -51,7 +51,7 @@ MultiSelectSecurityQuest = new Array({$security_questions});
 
 </table>
 
-{if $MultiOptions != '' }
+{if isset($MultiOptions) }
 <div class="content_head" align="left">
 <select name="action_select" onChange="change_selection(this, {$ms_number});">
   <option value="">{$MultiCaption}</option>
