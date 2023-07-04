@@ -100,7 +100,8 @@ class MasterDelete
         $CurentURLBase = preg_replace('#&'. $idname .'=[0-9]*#si', '', $CurentURLBase);
         
         // Print confirmation message
-        if (!$_POST['confirmed']) {
+        $confirmedParameter = $_POST['confirmed'] ?? null;
+        if (!$confirmedParameter) {
             if ($func->internal_referer != 'index.php?'.$_SERVER['QUERY_STRING']) {
                 $_SESSION['md_referrer'] = $func->internal_referer;
             }

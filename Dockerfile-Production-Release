@@ -3,8 +3,6 @@ FROM composer:2.5.8 as composer
 
 FROM php:8.1.20-fpm-bullseye
 
-COPY . /code
-
 # Install libraries and PHP-Extensions that are not provided by the base image
 RUN apt-get update \
     && apt-get install -y \
@@ -14,14 +12,10 @@ RUN apt-get update \
         snmp \
         unzip \
         libzip-dev \
+        git \
     && docker-php-ext-install -j$(nproc) mysqli snmp \
     && docker-php-ext-configure gd --enable-gd --prefix=/usr --with-jpeg --with-freetype \
     && docker-php-ext-install -j$(nproc) gd \
-    # Development extensions
-    && pecl install xdebug-3.2.1 \
-    && docker-php-ext-enable xdebug \
-    && echo 'xdebug.mode=debug,develop' >> /usr/local/etc/php/php.ini \
-    && echo 'xdebug.discover_client_host=1' >> /usr/local/etc/php/php.ini \
     # Cleanup
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
@@ -31,6 +25,7 @@ RUN docker-php-ext-install zip
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-WORKDIR /code
+# Copy prepare-release.sh script
+COPY ./bin/prepare-release.sh /usr/local/bin/prepare-release.sh
 
-RUN composer install
+ENTRYPOINT ["/usr/local/bin/prepare-release.sh"]

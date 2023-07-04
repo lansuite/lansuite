@@ -366,8 +366,10 @@ class MasterSearch2
         // Generate additional where from dropdown fields
         $z = 0;
         if ($this->search_dropdown) {
+            $searchDDInputParameter = $_GET['search_dd_input'] ?? [];
             foreach ($this->search_dropdown as $current_field_list) {
-                if ($_GET["search_dd_input"][$z] != '') {
+                $searchDDInputIndexParameter = $searchDDInputParameter[$z] ?? '';
+                if ($searchDDInputIndexParameter != '') {
                     if ($current_field_list['sql_field'] != '') {
                         if (is_array($_GET["search_dd_input"][$z])) {
                             $values = $_GET["search_dd_input"][$z];
@@ -652,13 +654,15 @@ class MasterSearch2
         // Dropdown Inputs
         $z = 0;
         if ($this->search_dropdown) {
+            $searchInputParameter = $_GET['search_dd_input'] ?? [];
             foreach ($this->search_dropdown as $current_field) {
+                $searchInputParameterIndex = $searchInputParameter[$z] ?? '';
                 $arr = array();
                 $arr['type'] = 'select';
                 $arr['name'] = "search_dd_input[$z]";
                 $arr['caption'] = $current_field['caption'];
                 $arr['options'] = $current_field['selections'];
-                $arr['selected'] = $_GET['search_dd_input'][$z];
+                $arr['selected'] = $searchInputParameterIndex;
 
                 $arr['multiple'] = '';
                 if ($current_field['multiple']) {
@@ -730,9 +734,11 @@ class MasterSearch2
                 }
 
                 // Order Link and Image
-                ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
+                $msPageParameter = $_GET['ms_page'] ?? '';
+                $orderByParameter = $_GET['order_by'] ?? '';
+                ($msPageParameter == 'all')? $add_page = '&ms_page=all' : $add_page = '';
                 $order_dir = 'asc';
-                if ($_GET['order_by'] == $current_field['sql_field']) {
+                if ($orderByParameter == $current_field['sql_field']) {
                     if ($this->SQLFieldTypes[$current_field['sql_field']] == 'datetime'
                         || $this->SQLFieldTypes[$current_field['sql_field']] == 'date'
                         || $this->SQLFieldTypes[$current_field['sql_field']] == 'time'
@@ -744,7 +750,9 @@ class MasterSearch2
                 }
 
                 // Generate Headlines
-                $arr = array();
+                $arr = array(
+                    'entry' => '',
+                );
                 if ($current_field['caption']) {
                     $arr['entry'] = $current_field['caption'];
                     $arr['link'] = $_SERVER['QUERY_STRING'];
@@ -756,7 +764,7 @@ class MasterSearch2
                     $arr['link'] = preg_replace('#mf_step=.\\&?#si', '', $arr['link']);
                     $arr['link'] = preg_replace('#mf_id=.\\&?#si', '', $arr['link']);
 
-                    if ($_GET['order_by'] == $current_field['sql_field']) {
+                    if ($orderByParameter == $current_field['sql_field']) {
                         if ($order_dir == 'desc') {
                             $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
                         } else {
@@ -815,7 +823,8 @@ class MasterSearch2
                     }
 
                     // Link first row to same target as first icon
-                    if ($k == 0 and !$this->config['dont_link_first_line'] and $this->icon_field[0]['link']) {
+                    $iconFieldLink = $this->icon_field[0]['link'] ?? '';
+                    if ($k == 0 && !$this->config['dont_link_first_line'] && $iconFieldLink) {
                         if ($this->TargetPageCount) {
                             $TargetPage = floor($line[$this->TargetPageField] / $this->TargetPageCount);
                         } else {
@@ -883,18 +892,19 @@ class MasterSearch2
                 }
                 $x++;
             }
-      
+
             $smarty->assign('maxIcons', $maxIcons);
             $smarty->assign('head', $head);
             $smarty->assign('body', $body);
 
             // Multi-Select Dropdown
             $MultiOptions = array();
+            $multi_select_actions = '';
+            $security_questions = '';
             if (count($this->multi_select_action) > 0) {
                 $smarty->assign('MultiCaption', t('Bitte auswählen'));
                 $z = 0;
-                $multi_select_actions = '';
-                $security_questions = '';
+
                 foreach ($this->multi_select_action as $current_action) {
                     $arr = array();
                     if ($z == 0) {
@@ -914,10 +924,11 @@ class MasterSearch2
                     $MultiOptions[] = $arr;
                     $z++;
                 }
-                $smarty->assign('multi_select_actions', $multi_select_actions);
-                $smarty->assign('security_questions', $security_questions);
+
                 $smarty->assign('MultiOptions', $MultiOptions);
             }
+            $smarty->assign('multi_select_actions', $multi_select_actions);
+            $smarty->assign('security_questions', $security_questions);
             $db->free_result($res);
 
             $smarty->assign('ms_number', $this->ms_number);

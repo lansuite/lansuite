@@ -41,11 +41,12 @@ if (!$configCache->isHit() || $request->query->get('mod') == 'install') {
         $config['lansuite']['debugmode'] = '0';
 
         $config['database']['server'] = 'localhost';
+        $config['database']['dbport'] = 3306;
         $config['database']['user'] = 'root';
         $config['database']['passwd'] = '';
         $config['database']['database'] = 'lansuite';
         $config['database']['prefix'] = 'ls_';
-        $config['database']['charset'] = 'utf8';
+        $config['database']['charset'] = 'utf8mb4';
 
         $config['environment']['configured'] = 0;
     }
@@ -208,8 +209,27 @@ $ms_number = 0;
 // Display Functions (to load the lansuite-templates)
 $dsp = new \LanSuite\Display();
 
-// DB Functions (to work with the databse)
+// DB Functions (to work with the database)
+// TODO Remove the "old" database class, once everything is migrated to the new one (see below)
 $db = new \LanSuite\DB();
+
+// Loading the new database class with standard support for prepared statements.
+$database = new \LanSuite\Database(
+    $config['database']['server'],
+    $config['database']['dbport'] ?? 3306,
+    $config['database']['user'],
+    $config['database']['passwd'],
+    $config['database']['database'],
+    $config['database']['charset'] ?? 'utf8mb4'
+);
+try {
+    $database->connect();
+    $database->setTablePrefix($config['database']['prefix']);
+} catch(\mysqli_sql_exception $e) {
+    $databaseError = $e->getMessage() . ' (' . $e->getCode() . ')';
+    echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. LanSuite wird abgebrochen. Zurückgegebener MySQL-Fehler: ' . $databaseError) . HTML_FONT_END;
+    exit();
+}
 
 // Security Functions (to lock pages)
 $sec = new \LanSuite\Security();
@@ -275,6 +295,12 @@ if ($config['environment']['configured'] == 0) {
         $cache->save($cfgCache);
     }
     $cfg = $cfgCache->get();
+
+    // TODO Reload language
+    // At this point, we have the configured language from the database, but the translations are
+    // loaded already. Thats why the configured default language is used and loaded, even
+    // if another language is selected in the install module.
+
     $message = $sec->check_blacklist();
     
     if (strlen($message) > 0) {

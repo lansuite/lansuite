@@ -4,15 +4,22 @@ namespace LanSuite;
 
 /**
  * Global translation
+ *
+ * TODO Implement proper caching interface
+ * TODO Implement dependency injection to remove `global` keywords
  */
 class Translation
 {
     /**
-     * Global language
-     *
-     * @var string
+     * Global language.
      */
-    public $language = 'de';
+    private string $language = 'de';
+
+    /**
+     * Default language.
+     * Will be used in cases where an invalid language was selected.
+     */
+    private string $defaultLanguage = 'de';
 
     /**
      * Basename of the translation file
@@ -20,9 +27,9 @@ class Translation
     private string $transfile_name = 'translation.xml';
 
     /**
-     * @var array
+     * @var array<string, string>
      */
-    public $lang_names = [
+    public array $lang_names = [
         'de' => 'Deutsch',
         'en' => 'Englisch',
         'es' => 'Spanisch',
@@ -32,28 +39,19 @@ class Translation
     ];
 
     /**
-     * Valid languages
+     * Valid languages.
      *
-     * @var array
+     * @var array<string>
      */
-    public $valid_lang = ['de', 'en', 'es', 'fr', 'nl', 'it'];
+    public array $valid_lang = ['de', 'en', 'es', 'fr', 'nl', 'it'];
 
     /**
-     * Temporary translations
+     * In memory translation cache.
+     * Only holds one language.
      *
-     * @var array
+     * @var array<string, array<string, string>>
      */
-    public $lang_cache = [];
-
-    /**
-     * Is cache for module loaded (db)
-     */
-    private int $cachemod_loaded_db = 0;
-
-    /**
-     * Is cache for module loaded (xml)
-     */
-    private int $cachemod_loaded_xml  = 0;
+    private array $lang_cache = [];
 
     public function __construct()
     {
@@ -67,49 +65,57 @@ class Translation
      * @param string    $mode       Data source mode (xml for install, db for running system)
      * @param string    $akt_modul  Active module
      */
-    public function load_trans($mode, $akt_modul)
+    public function load_trans(string $mode, string $akt_modul): void
     {
         if ($mode == 'db') {
             // System is configured, Language will be loaded from DB
             $this->load_cache_bydb($akt_modul);
-            $this->cachemod_loaded_db = 1;
+
         } elseif ($mode == 'xml') {
             // System is on Install, Language will be loaded from XML
             $this->load_cache_byfile('System');
             $this->load_cache_byfile('DB');
             $this->load_cache_byfile($akt_modul);
-            $this->cachemod_loaded_xml = 1;
         }
     }
 
     /**
-     * Select and set the global language
+     * Selects and set the global language.
+     * The selection process happens based on a priority list:
+     *  1. POST
+     *  2. GET
+     *  3. SESSION
+     *  4. Database selection
+     *  5. Default language
      *
-     * Returns a valid language selected by the user
+     * Returns a valid language selected by the user.
      *
      * @return string
      */
-    public function get_lang()
+    public function get_lang(): string
     {
         global $cfg;
 
         if (isset($_POST['language']) && $_POST['language']) {
             $_SESSION['language'] = $_POST['language'];
+
         } elseif (isset($_GET['language']) && $_GET['language']) {
             $_SESSION['language'] = $_GET['language'];
         }
 
         if (isset($_SESSION['language']) && $_SESSION['language']) {
             $this->language = $_SESSION['language'];
+
         } elseif (isset($cfg['sys_language']) && $cfg['sys_language']) {
             $this->language = $cfg['sys_language'];
+
         } else {
-            $this->language = 'de';
+            $this->language = $this->defaultLanguage;
         }
 
         // Protect from bad code/injections
         if (!in_array($this->language, $this->valid_lang)) {
-            $this->language = 'de';
+            $this->language = $this->defaultLanguage;
         }
 
         return $this->language;
@@ -118,79 +124,105 @@ class Translation
     /**
      * Load translations for a module from database into memory
      *
-     * @param string $module    Module name or DB / System
+     * @param string $module    Module name or "DB" / "System"
      * @return void
      */
-    private function load_cache_bydb($module)
+    private function load_cache_bydb(string $module): void
     {
         global $db;
 
-        if ($db->success) {
-            $res = $db->qry('
-                SELECT id, org, ' . $this->language . ' 
-                FROM %prefix%translation 
-                WHERE 
-                    file = %string% 
-                    OR file = \'DB\' 
-                    OR file = \'System\' 
-                ORDER BY FIELD(file, \'System,DB,'. $module .'\')', $module);
-            while ($row = $db->fetch_array($res, 0)) {
-                if ($row[$this->language] != '') {
-                    if (!array_key_exists($module, $this->lang_cache)) {
-                        $this->lang_cache[$module] = [];
-                    }
-                    if (!array_key_exists($row['id'], $this->lang_cache[$module]) || $this->lang_cache[$module][$row['id']] == '') {
-                        $this->lang_cache[$module][$row['id']] = $row[$this->language];
-                    }
-                }
-            }
+        $res = $db->qry('
+            SELECT
+                `id`,
+                `org`,
+                `' . $this->language . '`
+            FROM %prefix%translation
+            WHERE
+                file = %string%
+                OR file = \'DB\'
+                OR file = \'System\'
+            ORDER BY FIELD(`file`, \'System,DB,'. $module .'\')', $module);
+
+        while ($row = $db->fetch_array($res, 0)) {
+            $this->setLangCacheEntry($module, $row['id'], $row[$this->language]);
         }
     }
 
     /**
-     * Load translations from XML-file into memory
+     * Load translations for a module from XML-file into memory
      *
-     * @param string    $module     Module name or DB / System
+     * @param string    $module     Module name or "DB" / "System"
      * @return void
      */
-    private function load_cache_byfile($module)
+    private function load_cache_byfile(string $module): void
     {
         $xmldata = $this->xml_read_to_array($module);
         if (is_array($xmldata)) {
             foreach ($xmldata as $data) {
-                $text = '';
-                if (isset($data[$this->language])) {
-                    $text = $data[$this->language];
-                }
-
-                if (array_key_exists($module, $this->lang_cache) && $this->lang_cache[$module][$data['id']] == '' && $text != '') {
-                    $this->lang_cache[$module][$data['id']] = $text;
-                }
+                $text = $data[$this->language] ?? '';
+                $this->setLangCacheEntry($module, $data['id'], $text);
             }
         }
     }
 
     /**
-     * Get the translation from database via hashcode
+     * Sets a single language cache entry.
      *
-     * @param string    $input          Text with placeholders (blabla %1 bla %2)
-     * @param array     $parameters     Parameters
-     * @param string    $key
-     * @return string                   Text with inserted Parameters
+     * Does not overwrite existing language cache entries.
      */
-    public function ReplaceParameters($input, $parameters = null, $key = null)
+    private function setLangCacheEntry(string $module, string $id, string $text): void
+    {
+        if (!array_key_exists($module, $this->lang_cache)) {
+            $this->lang_cache[$module] = [];
+        }
+
+        if (array_key_exists($id, $this->lang_cache[$module]) && $this->lang_cache[$module][$id] != '') {
+            return;
+        }
+
+        if ($text == '') {
+            return;
+        }
+
+        $this->lang_cache[$module][$id] = $text;
+    }
+
+    /**
+     * Returns a single language cache entry.
+     */
+    private function getLangCacheEntry(string $module, string $key): string
+    {
+        if (!array_key_exists($module, $this->lang_cache)) {
+            return '';
+        }
+
+        if (!array_key_exists($key, $this->lang_cache[$module])) {
+            return '';
+        }
+
+        return $this->lang_cache[$module][$key];
+    }
+
+    /**
+     * Replaces parameters from $input (%1, %2, %3, ...) with the content from $parameters at the same spot.
+     *
+     * @param string        $input          Text with placeholders (random text %1 here %2)
+     * @param array<mixed>  $parameters     Parameters that will replace %1, %2, ...
+     * @param string        $key
+     * @return string                       Text with inserted Parameters
+     */
+    public function ReplaceParameters(string $input, array $parameters, string $key = ''): string
     {
         global $cfg, $auth;
 
-        $z = 1;
-        if ($parameters) {
-            foreach ($parameters as $parameter) {
-                $input = str_replace('%' . $z, $parameter, $input);
-                $z++;
-            }
+        $i = 1;
+        foreach ($parameters as $parameter) {
+            $input = str_replace('%' . $i, $parameter, $input);
+            $i++;
         }
 
-        if ($key && $auth['type'] >= 2 && $cfg['show_translation_links']) {
+        if ($key && (is_array($auth) && $auth['type'] >= \LS_AUTH_TYPE_ADMIN) && $cfg['show_translation_links']) {
+            // TODO Check if this link works at all. We don't have a module with the name "misc"
             $input .= ' <a href=index.php?mod=misc&action=translation&step=40&id='. $key .'><img src=design/images/icon_translate.png height=10 width=10 border=0></a>';
         }
 
@@ -198,45 +230,54 @@ class Translation
     }
 
     /**
-     * Get the translation from database via hashcode
+     * Get a single translation value from database via hashcode.
      *
      * @param string    $hashkey    Hash code from original text in sourcecode
      * @param string    $module
      * @param string    $long
      * @return string
      */
-    public function get_trans_db($hashkey, $module, $long)
+    private function get_trans_db(string $hashkey, string $module, string $long): string
     {
         global $db;
 
-        if ($this->lang_cache[$module][$hashkey]) {
-            $translated = $this->lang_cache[$module][$hashkey];
-        } else {
-            $row = $db->qry_first('
-                SELECT id, org, ' . $this->language . ' 
-                FROM %prefix%translation' . $long . ' 
-                WHERE id = %string%', $hashkey);
-
-            if ($row[$this->language]) {
-                $translated = $row[$this->language];
-            } else {
-                $translated = '';
-            }
+        $entry = $this->getLangCacheEntry($module, $hashkey);
+        if ($entry) {
+            return $entry;
         }
 
-        return $translated;
+        $row = $db->qry_first('
+            SELECT
+                `id`,
+                `org`,
+                `' . $this->language . '`
+            FROM
+                %prefix%translation' . $long . '
+            WHERE
+                id = %string%', $hashkey);
+
+        if (is_array($row) && $row[$this->language]) {
+            $entry = $row[$this->language];
+        }
+
+        return $entry;
     }
 
     /**
-     * Read complete Module translation from database and write to back file.
+     * Read complete module translation from database and write to back file.
      * This will be only used for maintenance translations
      *
      * TODO Error handling for xml and file access
+     * TODO This function overwrites files in the source tree.
+     *      A LanSuite upgrade will overwrite the written file with a newer
+     *      version from the source code repository.
+     *      We should check if we want to support this functionality or modify it to
+     *      write a file outside of the source tree, to make it safe for code upgrades.
      *
      * @param string    $module     Module name
      * @return void
      */
-    public function xml_write_db_to_file($module)
+    public function xml_write_db_to_file(string $module): void
     {
         global $db;
 
@@ -245,7 +286,7 @@ class Translation
         $output = '<?xml version="1.0" encoding="UTF-8"?'.">\r\n\r\n";
         $header = $xml->write_tag('filetype', 'LanSuite', 2);
         $header .= $xml->write_tag('version', '2.0', 2);
-        $header .= $xml->write_tag('source', 'http://www.lansuite.de', 2);
+        $header .= $xml->write_tag('source', 'https://github.com/lansuite/lansuite', 2);
         $header .= $xml->write_tag('date', date('Y-m-d h:i'), 2);
         $header = $xml->write_master_tag("header", $header, 1);
 
@@ -254,79 +295,62 @@ class Translation
 
         $content = '';
         $res = $db->qry('
-            SELECT * 
-            FROM %prefix%translation 
-            WHERE 
-              file = %string% 
-              AND obsolete = 0', $module);
+            SELECT
+                `id`,
+                `org`,
+                `de`,
+                `en`,
+                `es`,
+                `fr`,
+                `nl`,
+                `it`
+            FROM %prefix%translation
+            WHERE
+              `file` = %string%
+              AND `obsolete` = 0
+              AND `id` != \'\'', $module);
         while ($row = $db->fetch_array($res)) {
-            if ($row['id'] != '') {
-                $entry = $xml->write_tag('id', $row['id'], 4);
-                $entry .= $xml->write_tag('org', $row['org'], 4);
-
-                if ($row['de'] != '') {
-                    $entry .= $xml->write_tag('de', $row['de'], 4);
-                }
-
-                if ($row['en'] != '') {
-                    $entry .= $xml->write_tag('en', $row['en'], 4);
-                }
-
-                if ($row['es'] != '') {
-                    $entry .= $xml->write_tag('es', $row['es'], 4);
-                }
-
-                if ($row['fr'] != '') {
-                    $entry .= $xml->write_tag('fr', $row['fr'], 4);
-                }
-
-                if ($row['nl'] != '') {
-                    $entry .= $xml->write_tag('nl', $row['nl'], 4);
-                }
-
-                if ($row['it'] != '') {
-                    $entry .= $xml->write_tag('it', $row['it'], 4);
-                }
-
-                $entry .= $xml->write_tag('file', $module, 4);
-                $content .= $xml->write_master_tag('entry', $entry, 3);
-            }
-        }
-        $db->free_result($res);
-
-        // Read long Translation
-        $res2 = $db->qry('
-            SELECT * 
-            FROM %prefix%translation_long 
-            WHERE 
-              file = %string% 
-              AND obsolete = 0', $module);
-        while ($row2 = $db->fetch_array($res2)) {
             $entry = $xml->write_tag('id', $row['id'], 4);
             $entry .= $xml->write_tag('org', $row['org'], 4);
 
-            if ($row['de'] != '') {
-                $entry .= $xml->write_tag('de', $row['de'], 4);
+            foreach ($this->valid_lang as $languageShort) {
+                if ($row[$languageShort] != '') {
+                    $entry .= $xml->write_tag($languageShort, $row[$languageShort], 4);
+                }
             }
 
-            if ($row['en'] != '') {
-                $entry .= $xml->write_tag('en', $row['en'], 4);
-            }
+            $entry .= $xml->write_tag('file', $module, 4);
+            $content .= $xml->write_master_tag('entry', $entry, 3);
+        }
+        $db->free_result($res);
 
-            if ($row['es'] != '') {
-                $entry .= $xml->write_tag('es', $row['es'], 4);
-            }
+        // Read long Translations
+        $res2 = $db->qry('
+            SELECT
+                `id`,
+                `org`,
+                `de`,
+                `en`,
+                `es`,
+                `fr`,
+                `nl`,
+                `it`
+            FROM %prefix%translation_long 
+            WHERE 
+              `file` = %string%
+              AND `obsolete` = 0', $module);
+        while ($row = $db->fetch_array($res2)) {
+            $entry = $xml->write_tag('id', $row['id'], 4);
+            $entry .= $xml->write_tag('org', $row['org'], 4);
 
-            if ($row['fr'] != '') {
-                $entry .= $xml->write_tag('fr', $row['fr'], 4);
-            }
+            foreach ($this->valid_lang as $languageShort) {
+                if ($row[$languageShort] != '') {
+                    $entry .= $xml->write_tag($languageShort, $row[$languageShort], 4);
+                }
 
-            if ($row['nl'] != '') {
-                $entry .= $xml->write_tag('nl', $row['nl'], 4);
-            }
-
-            if ($row['it'] != '') {
-                $entry .= $xml->write_tag('it', $row['it'], 4);
+                if ($row[$languageShort] != '') {
+                    $entry .= $xml->write_tag($languageShort, $row[$languageShort], 4);
+                }
             }
 
             $entry .= $xml->write_tag('file', $module, 4);
@@ -338,7 +362,7 @@ class Translation
         $lansuite = $xml->write_master_tag('table', $tables, 1);
         $output .= $xml->write_master_tag('lansuite', $header . $lansuite, 0);
 
-        // File handling: Make backup copy
+        // We overwrite the original file
         $file = $this->get_trans_filename($module);
         $file_handle = fopen($file, 'w');
         fwrite($file_handle, $output);
@@ -346,34 +370,37 @@ class Translation
     }
 
     /**
-     * Parse all language sets into an array
+     * Reads all translation from the $module XML file
+     * and returns the data.
      *
-     * @param string    $module     Module name e.g. file-field
-     * @return array
+     * @param string                                    $module     Module name e.g. file-field
+     * @return array<string, array<string, string>>
      */
-    private function xml_read_to_array($module)
+    private function xml_read_to_array(string $module): array
     {
         $records = [];
         $xml = new XML();
 
         $lang_file = $this->get_trans_filename($module);
-        if (file_exists($lang_file)) {
-            $xml_file = fopen($lang_file, 'r');
-            $file_cont = fread($xml_file, filesize($lang_file));
-            fclose($xml_file);
+        if (!file_exists($lang_file)) {
+            return $records;
+        }
 
-            $entries = $xml->getTagContentArray('entry', $file_cont);
-            foreach ($entries as $entry) {
-                $id = $xml->getFirstTagContent('id', $entry, 1);
-                $records[$id]['id'] = $id;
-                $records[$id]['org'] = $xml->getFirstTagContent('org', $entry, 1);
-                $records[$id]['de'] = $xml->getFirstTagContent('de', $entry, 1);
-                $records[$id]['en'] = $xml->getFirstTagContent('en', $entry, 1);
-                $records[$id]['fr'] = $xml->getFirstTagContent('fr', $entry, 1);
-                $records[$id]['it'] = $xml->getFirstTagContent('it', $entry, 1);
-                $records[$id]['es'] = $xml->getFirstTagContent('es', $entry, 1);
-                $records[$id]['nl'] = $xml->getFirstTagContent('nl', $entry, 1);
-            }
+        $xml_file = fopen($lang_file, 'r');
+        $file_cont = fread($xml_file, filesize($lang_file));
+        fclose($xml_file);
+
+        $entries = $xml->getTagContentArray('entry', $file_cont);
+        foreach ($entries as $entry) {
+            $id = $xml->getFirstTagContent('id', $entry, true);
+            $records[$id]['id'] = $id;
+            $records[$id]['org'] = $xml->getFirstTagContent('org', $entry, true);
+            $records[$id]['de'] = $xml->getFirstTagContent('de', $entry, true);
+            $records[$id]['en'] = $xml->getFirstTagContent('en', $entry, true);
+            $records[$id]['fr'] = $xml->getFirstTagContent('fr', $entry, true);
+            $records[$id]['it'] = $xml->getFirstTagContent('it', $entry, true);
+            $records[$id]['es'] = $xml->getFirstTagContent('es', $entry, true);
+            $records[$id]['nl'] = $xml->getFirstTagContent('nl', $entry, true);
         }
 
         return $records;
@@ -381,12 +408,12 @@ class Translation
 
     /**
      * Get the file path for a language file.
-     * Path for System/DB and modules are different.
+     * Path for "System"/"DB" and modules are different.
      *
-     * @param string    $module     Module name (System, DB, Module ...)
+     * @param string    $module     Module name ("System", "DB", Module of choice)
      * @return string
      */
-    private function get_trans_filename($module)
+    private function get_trans_filename(string $module): string
     {
         $file = match ($module) {
             'System', 'DB' => 'inc/language/' . $module . '_' . $this->transfile_name,
@@ -397,34 +424,41 @@ class Translation
     }
 
     /**
-     * Reads language specific strings from the user database tables and write those into the tranlation table.
+     * Reads language specific strings from the user database tables and write those into the translation table.
+     *
      * Example:
      *      TUpdateFromDB('menu', 'caption') Reads all "captions"-strings from table "menu"
      *
+     * TODO We may want to think about this, moving out of the Translation class into a "Maintenance" CLI or anything like this.
+     *
      * @param string    $table      Table name (e.g. menu)
      * @param string    $field      Field name (e.g. caption)
-     * @return int                  Number of insert entries
+     * @return int                  Number of insert entries that have been written to the database
      */
-    public function TUpdateFromDB($table, $field)
+    public function TUpdateFromDB(string $table, string $field): int
     {
         global $db, $FoundTransEntries;
 
         $i = 0;
-        $res = $db->qry('SELECT '. $field .' FROM %prefix%' . $table);
+        $res = $db->qry('SELECT `'. $field .'` FROM %prefix%' . $table);
         while ($row = $db->fetch_array($res)) {
-            if ($row[$field] != '') {
-                $key = md5($row[$field]);
-                $row2 = $db->qry_first('SELECT 1 AS found, tid FROM %prefix%translation WHERE id = %string%', $key);
-
-                if (!$row2['found']) {
-                    $db->qry('REPLACE INTO %prefix%translation SET id = %string%, file = \'DB\', org = %string%', $key, $row[$field]);
-                    $row2['tid'] = $db->insert_id();
-                    $i++;
-                }
-
-                // Array is compared with the database later for synchronization
-                $FoundTransEntries[] = $row2['tid'];
+            if ($row[$field] == '') {
+                continue;
             }
+
+            $key = md5($row[$field]);
+            $row2 = $db->qry_first('SELECT 1 AS `found`, `tid` FROM %prefix%translation WHERE `id` = %string%', $key);
+
+            if (is_bool($row2)) {
+                $db->qry('REPLACE INTO %prefix%translation SET `id` = %string%, `file` = \'DB\', `org` = %string%', $key, $row[$field]);
+                $row2 = [
+                    'tid' => $db->insert_id(),
+                ];
+                $i++;
+            }
+
+            // Array is compared with the database later for synchronization
+            $FoundTransEntries[] = $row2['tid'];
         }
         $db->free_result($res);
 
@@ -434,16 +468,21 @@ class Translation
     /**
      * Reads all t()-Function strings from the complete sourcecode and write those into the translation table.
      *
+     * TODO We may want to think about this, moving out of the Translation class into a "Maintenance" CLI or anything like this.
+     *
      * @param string    $baseDir        Path to Scan
-     * @param int $sub
+     * @param int       $sub
      * @return string
      */
-    public function TUpdateFromFiles($baseDir, $sub = 0)
+    public function TUpdateFromFiles(string $baseDir, int $sub = 0): string
     {
         global $db, $FoundTransEntries;
 
         $output = '';
-        $baseDir .= '/';
+        if (!str_ends_with($baseDir, DIRECTORY_SEPARATOR)) {
+            $baseDir .= DIRECTORY_SEPARATOR;
+        }
+
         if ($sub == 0) {
             $FoundTransEntries = [];
         }
@@ -484,25 +523,30 @@ class Translation
 
                         // Do only add expressions, which are not already in system lang-file
                         $row = $db->qry_first('
-                          SELECT 1 AS found, tid 
+                          SELECT
+                            1 AS `found`,
+                            `tid`
                           FROM %prefix%translation%plain% 
                           WHERE 
-                            id = %string% 
+                            `id` = %string%
                             AND (
-                              file = "System" 
-                              OR file = %string%
+                              `file` = "System"
+                              OR `file` = %string%
                             )', $long, $key, $CurrentFile);
-                        if ($row['found']) {
+                        if (is_array($row)) {
                             $output .= $CurrentFile . '@' . $CurrentPos . ': ' . $CurrentTrans .'<br />';
+
                         } else {
                             // New -> Insert to DB
                             $db->qry("
                               REPLACE INTO %prefix%translation%plain% 
                               SET 
-                                id = %string%, 
-                                file = %string%, 
-                                org = %string%", $long, $key, $CurrentFile, $CurrentTrans);
-                            $row['tid'] = $db->insert_id();
+                                `id` = %string%,
+                                `file` = %string%,
+                                `org` = %string%", $long, $key, $CurrentFile, $CurrentTrans);
+                            $row = [
+                                'tid' => $db->insert_id(),
+                            ];
                             $output .= '<font color="#00ff00">' . $CurrentFile . '@' . $CurrentPos . ': ' . $CurrentTrans .'</font><br />';
                         }
                         if (!$long) {
@@ -510,7 +554,7 @@ class Translation
                         }
                     }
                 }
-            } elseif ($file != '.' && $file != '..' && $file != '.svn' && is_dir($FilePath)) {
+            } elseif ($file != '.' && $file != '..' && $file != '.svn' && $file != '.git' && $file != '.docker' && $file != '.github' && is_dir($FilePath)) {
                 $output .= $this->TUpdateFromFiles($FilePath, $sub++);
             }
         }
@@ -518,14 +562,17 @@ class Translation
         // Mark entries as obsolete, which no do no longer exist
         if (($sub == 1 && $CurrentFile != 'System') || ($sub == 0 && $CurrentFile == 'System')) {
             $res = $db->qry("
-              SELECT tid, file, org 
+              SELECT
+                `tid`,
+                `file`,
+                `org`
               FROM %prefix%translation 
               WHERE 
-                file = %string% 
-                AND obsolete = 0", $CurrentFile);
+                `file` = %string%
+                AND `obsolete` = 0", $CurrentFile);
             while ($row = $db->fetch_array($res)) {
                 if (!in_array($row['tid'], $FoundTransEntries)) {
-                    $db->qry("UPDATE %prefix%translation SET obsolete = 1 WHERE tid = %int%", $row['tid']);
+                    $db->qry("UPDATE %prefix%translation SET `obsolete` = 1 WHERE `tid` = %int%", $row['tid']);
                     $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
                 }
             }
@@ -534,6 +581,102 @@ class Translation
         }
 
         closedir($ResDir);
+
+        return $output;
+    }
+
+    /**
+     * Translates a single word/sentence into the configured language.
+     * This function accepts multiple parameter:
+     *  1. The key/name of the string to translate
+     *  2. A list of values to replace in the key/name of the string to translate.
+     *
+     * If your translation contains variables, like a username, this variable is
+     * represented by %1. %2 describes the second variable, and so on.
+     * In this case you call the function like
+     *  ->translate(<key>, $username, $var2)
+     *
+     * Example:
+     *  ->translate('Du wurdest erfolgreich ausgeloggt.')
+     *
+     * @param array<mixed> $args    List of variadic arguments (see PHP doc for description)
+     */
+    public function translate(array $args): string
+    {
+        global $db, $config, $func, $translation_no_html_replace;
+
+        $parameters = [];
+
+        // Prepare function parameters
+        // First argument is the input string, the following are parameters
+        $input = (string) array_shift($args);
+        foreach ($args as $CurrentArg) {
+            // If second Parameter is Array (old Style)
+            if (!is_array($CurrentArg)) {
+                $parameters[] = $CurrentArg;
+            } else {
+                $parameters = $CurrentArg;
+            }
+        }
+
+        if ($input == '') {
+            return '';
+        }
+
+        $key = md5($input);
+        $module = $_GET['mod'] ?? '';
+
+        $trans_text = '';
+        $long = '';
+        if (strlen($input) > 255) {
+            $long = '_long';
+        }
+
+        // TODO Unit test this function and make the logic below easier
+
+        $translationEntry = $this->getLangCacheEntry($module, $key);
+        // If we can't find the translation in the $module cache
+        // we walk one hierarchy higher, to the System translations.
+        if ($translationEntry == '') {
+            $translationEntry = $this->getLangCacheEntry('System', $key);
+        }
+
+        if ($translationEntry != '') {
+            // Already in memory cache
+            $output = $this->ReplaceParameters($translationEntry, $parameters, $key);
+
+        } else {
+            // Try to read from DB
+            if ($this->language == $this->defaultLanguage) {
+                // All texts in source are in german at the moment
+                $output = $this->ReplaceParameters($input, $parameters, $key);
+
+            } else {
+                if ($db->success && EnvIsConfigured()) {
+                    $trans_text = $this->get_trans_db($key, $_GET['mod'], $long);
+                }
+
+                // If ok replace parameter
+                if ($trans_text != '') {
+                    $output = $this->ReplaceParameters($trans_text, $parameters);
+
+                // If any problem on get translations just return $input
+                } else {
+                    $output = $this->ReplaceParameters($input, $parameters, $key);
+                }
+            }
+        }
+
+        if ($translation_no_html_replace) {
+            $translation_no_html_replace = false;
+
+            // Deprecated. Should be replaced in t() by '<', '>' and '[br]'
+            $output = str_replace('--lt--', '<', $output);
+            $output = str_replace('--gt--', '>', $output);
+            $output = str_replace('HTML_NEWLINE', '<br />', $output);
+
+            return $func->text2html($output, 4);
+        }
 
         return $output;
     }

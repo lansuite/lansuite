@@ -16,7 +16,7 @@ services:
             - .:/code
             - ./.docker/nginx-php-flags.conf:/usr/local/etc/php-fpm.d/php-flags.conf
     mysql:
-        image: mysql:5.7.42
+        image: biarms/mysql:5.7
         container_name: mysqldb
         volumes:
             - mysql_data:/var/lib/mysql
