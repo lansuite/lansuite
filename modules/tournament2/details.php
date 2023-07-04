@@ -5,7 +5,7 @@ $seat2 = new \LanSuite\Module\Seating\Seat2();
 
 $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
-$headermenuitem    = $_GET['headermenuitem'];
+$headermenuitem = $_GET['headermenuitem'] ?? '';
 
 if ($headermenuitem == "") {
     $headermenuitem = 1;
@@ -25,7 +25,8 @@ $tournament = $db->qry_first("
 if (!$tournament["tournamentid"]) {
     $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
 } else {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // Shuffle maps
         case 20:
             if ($auth['type'] <= 1) {
@@ -39,7 +40,7 @@ if (!$tournament["tournamentid"]) {
             break;
     }
   
-    switch ($_GET['step']) {
+    switch ($stepParameter) {
         // Activate Seeding
         case 10:
             $seeded = $db->qry_first("
@@ -241,6 +242,8 @@ if (!$tournament["tournamentid"]) {
               FROM %prefix%t2_teams
               WHERE
                 (tournamentid = %int%)", $_GET['tournamentid']);
+
+            $teamcount = [0, 0];
             while ($team = $db->fetch_array($teams)) {
                 $members = $db->qry_first("
                   SELECT

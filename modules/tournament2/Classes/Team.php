@@ -173,19 +173,19 @@ class Team
           GROUP BY members.userid", $userid, $party->party_id);
 
         // Is the user already signed on to this tournament?
-        if ($team["found"]) {
+        if (is_array($team) && $team["found"]) {
             $func->information(t('%1 ist bereits zu diesem Turnier angemeldet!', $user["username"]));
 
         // Is the user member of a team, allready signed on to this tournament?
-        } elseif ($teammember["found"] != "") {
+        } elseif (is_array($teammember) && $teammember["found"] != "") {
             $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu diesem Turnier angemeldet hat!', $user["username"]));
 
         // Is the user allready signed on to a tournament in the same group as this tournament?
-        } elseif ($in_group["found"] != "") {
+        } elseif (is_array($in_group) && $in_group["found"] != "") {
             $func->information(t('%1 ist bereits zu einem Turnier angemeldet, welches der gleichen Gruppe angehört!', $user["username"]));
 
         // Is the user member of a team, allready signed on to a tournament in the same group as this tournament?
-        } elseif ($memb_in_group["found"] != "") {
+        } elseif (is_array($memb_in_group) && $memb_in_group["found"] != "") {
             $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu einem Turnier der gleichen Gruppe angemeldet hat!', $user["username"]));
 
         // Has the user paid?
