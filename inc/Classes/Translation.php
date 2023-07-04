@@ -313,8 +313,7 @@ class Translation
             $entry = $xml->write_tag('id', $row['id'], 4);
             $entry .= $xml->write_tag('org', $row['org'], 4);
 
-            $languagesToAdd = ['de', 'en', 'es', 'fr', 'nl', 'it'];
-            foreach ($languagesToAdd as $languageShort) {
+            foreach ($this->valid_lang as $languageShort) {
                 if ($row[$languageShort] != '') {
                     $entry .= $xml->write_tag($languageShort, $row[$languageShort], 4);
                 }
@@ -344,8 +343,7 @@ class Translation
             $entry = $xml->write_tag('id', $row['id'], 4);
             $entry .= $xml->write_tag('org', $row['org'], 4);
 
-            $languagesToAdd = ['de', 'en', 'es', 'fr', 'nl', 'it'];
-            foreach ($languagesToAdd as $languageShort) {
+            foreach ($this->valid_lang as $languageShort) {
                 if ($row[$languageShort] != '') {
                     $entry .= $xml->write_tag($languageShort, $row[$languageShort], 4);
                 }
