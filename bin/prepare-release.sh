@@ -115,9 +115,10 @@ else
         git checkout "tags/$LANSUITE_VERSION"
         # shellcheck disable=SC2181
         if [ $? -eq 0 ]; then
-            log "INFO" "Switching to $LANSUITE_VERSION ...Done."
+            log "INFO" "Switching to $LANSUITE_VERSION ... Done."
         else
-            log "ERROR" "Switching to $LANSUITE_VERSION ...Failed"exit 1;
+            log "ERROR" "Switching to $LANSUITE_VERSION ... Failed"
+            exit 1;
         fi
 
         RELEASE_VERSION=$LANSUITE_VERSION
@@ -145,7 +146,15 @@ log "INFO" "Installing dependencies via composer ..."
 composer install --no-dev --optimize-autoloader
 log "INFO" "Installing dependencies via composer ... Done."
 
-# TODO Generating PHP class / function documentation
+# Render PHP API doc
+log "INFO" "Generating PHP API docs ..."
+phpDocumentor -d "inc" -d "modules" -t "docs/api"
+if [ $? -eq 0 ]; then
+    log "INFO" "Generating PHP API docs ... Done."
+else
+    log "ERROR" "Generating PHP API docs ... Failed"
+    exit 1;
+fi
 
 # Packaging archive
 log "INFO" "Packaging release archive ..."
@@ -160,7 +169,7 @@ tar --exclude .git \
     --exclude Dockerfile-Production-Release \
     --exclude docker-compose.yml \
     --exclude docker-compose.dump.yml \
-    -cvzf "${OUTPUT_DIR}$LANSUITE_FILENAME.tar.gz" .
+    -czf "${OUTPUT_DIR}$LANSUITE_FILENAME.tar.gz" .
 log "INFO" "Packaging release archive ... Done."
 
 # Building checksums
