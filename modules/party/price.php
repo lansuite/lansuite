@@ -12,13 +12,11 @@ switch ($_GET['step']) {
         break;
 }
 
-
-
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('party');
 
 $ms2->query['from'] = "%prefix%partys AS party LEFT JOIN %prefix%party_prices AS p ON p.party_id = party.party_id";
 $ms2->query['default_order_by'] = 'p.price_text DESC';
-$ms2->query['where'] = "party.party_id = ". (int)$_GET['party_id'];
+$ms2->query['where'] = "party.party_id = ". (int) $_GET['party_id'];
 
 $ms2->config['EntriesPerPage'] = 20;
 

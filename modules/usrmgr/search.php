@@ -3,7 +3,8 @@
 $mail = new \LanSuite\Module\Mail\Mail();
 $UsrMgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 10:
         if (!$_POST['action'] and $_GET['userid']) {
             $_POST['action'][$_GET['userid']] = 1;
