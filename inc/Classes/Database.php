@@ -134,30 +134,18 @@ class Database
      * 
      * $query => The SQL statement.
      * 
-     * $parameterTypes => Parameter types:
-     *      i	corresponding variable has type int
-     *      d	corresponding variable has type float
-     *      s	corresponding variable has type string
-     *      b	corresponding variable is a blob and will be sent in packets
-     *      See https://www.php.net/manual/en/mysqli-stmt.bind-param
-     * 
      * $parameterValues => The values for the query.
-     *      Attention: Need to be in the same order as $parameterTypes.
      * 
      * TODO: Implement debug time measurement (with query_start and query_stop)
      */
-    public function query(string $query, string $parameterTypes = '', array $parameterValues = []): \mysqli_stmt
+    public function query(string $query, array $parameterValues = []): \mysqli_stmt
     {
         // Replace table prefix
         $query = str_replace('%prefix%', $this->tablePrefix, $query);
 
         $statement = $this->database->prepare($query);
-        if (count($parameterValues) > 0) {
-            $statement->bind_param($parameterTypes, ...$parameterValues);
-        }
-
         // Will throw an exception in the case of failure.
-        $statement->execute();
+        $statement->execute($parameterValues);
 
         return $statement;
     }
@@ -168,9 +156,9 @@ class Database
      * 
      * In case of an empty result, an empty array is returned.
      */
-    public function queryWithFullResult(string $query, string $parameterTypes = '', array $parameterValues = []): array
+    public function queryWithFullResult(string $query, array $parameterValues = []): array
     {
-        $statement = $this->query($query, $parameterTypes, $parameterValues);
+        $statement = $this->query($query, $parameterValues);
         $queryResult = $this->getStatementResult($statement);
 
         if (!$queryResult) {
@@ -195,9 +183,9 @@ class Database
      * 
      * In case of an empty result, an empty array is returned.
      */
-    public function queryWithOnlyFirstRow(string $query, string $parameterTypes = '', array $parameterValues = []): array
+    public function queryWithOnlyFirstRow(string $query, array $parameterValues = []): array
     {
-        $statement = $this->query($query, $parameterTypes, $parameterValues);
+        $statement = $this->query($query, $parameterValues);
         $queryResult = $this->getStatementResult($statement);
 
         if (!$queryResult) {

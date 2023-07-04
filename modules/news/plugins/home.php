@@ -22,7 +22,7 @@ $query = '
   GROUP BY n.newsid
   ORDER BY n.top DESC, date DESC
   LIMIT 0, ?';
-$newsResult = $database->queryWithFullResult($query, 'i', [$cfg['home_item_cnt_news']]);
+$newsResult = $database->queryWithFullResult($query, [$cfg['home_item_cnt_news']]);
 if (count($newsResult) > 0) {
     foreach($newsResult as $row) {
         $page = floor(($row['comments'] - 1) / 20);
