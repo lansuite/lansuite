@@ -165,13 +165,15 @@ log "INFO" "Packaging release archive ... Done."
 
 # Building checksums
 log "INFO" "Generating checksums ..."
-CHECKSUM_FILENAME="${OUTPUT_DIR}${LANSUITE_FILENAME}_checksums.txt"
+CHECKSUM_FILENAME="${LANSUITE_FILENAME}_checksums.txt"
 if [ -f CHECKSUM_FILENAME ]; then
     log "ERROR" "Checksum file $CHECKSUM_FILENAME already exists."
     exit 1;
 fi
 
-shasum -a 256 "${OUTPUT_DIR}${LANSUITE_FILENAME}.tar.gz" >> "$CHECKSUM_FILENAME"
+cd "${OUTPUT_DIR}" || exit
+
+shasum -a 256 "${LANSUITE_FILENAME}.tar.gz" >> "$CHECKSUM_FILENAME"
 log "INFO" "Generating checksums ... Done."
 log "INFO" ""
 
