@@ -17,19 +17,6 @@
 LANSUITE_GIT_URL="https://github.com/lansuite/lansuite.git"
 OUTPUT_DIR="/builds/"
 
-# Our own sha256sum function call.
-# That takes into account machines that don't have sha256sum but do have sha2 (i.e. macOS)
-sha256sum_() {
-    hash -r
-    if type sha256sum >& /dev/null; then
-        sha256sum "$@"
-    elif type shasum >& /dev/null; then
-        shasum -a 256 "$@"
-    else
-        sha2 -q -256 "$@"
-    fi
-}
-
 # log function
 #
 #   Parameter #1: Logging state. INFO, WARNING or ERROR
@@ -184,7 +171,7 @@ if [ -f CHECKSUM_FILENAME ]; then
     exit 1;
 fi
 
-sha256sum_ "${OUTPUT_DIR}${LANSUITE_FILENAME}.tar.gz" >> "$CHECKSUM_FILENAME"
+shasum -a 256 "${OUTPUT_DIR}${LANSUITE_FILENAME}.tar.gz" >> "$CHECKSUM_FILENAME"
 log "INFO" "Generating checksums ... Done."
 log "INFO" ""
 
