@@ -1,11 +1,11 @@
 <?php
-
 $selectrequire = array();
 $selectrequire['0'] = t('Alle');
 $selectrequire['2'] = t('Admins und Superadmins');
 $selectrequire['3'] = t('Superadmins');
 
-if (!$_GET['party_id']) {
+$partyIDParameter = $_GET['party_id'] ?? 0;
+if (!$partyIDParameter) {
     $_GET['party_id'] = $party->party_id;
 }
 
@@ -22,5 +22,6 @@ $mf->AddDropDownFromTable(t('Gruppenname'), 'group_id', 'group_id', 'group_name'
 $mf->AddField(t('Sichtbar für'), 'requirement', \LanSuite\MasterForm::IS_SELECTION, $selectrequire, 1);
 $mf->AddField(t('Gültig bis'), 'enddate');
 
-$mf->SendForm('index.php?mod=party&action=price_edit&party_id='. $_GET['party_id'], 'party_prices', 'price_id', $_GET['price_id']);
+$priceIDParameter = $_GET['price_id'] ?? 0;
+$mf->SendForm('index.php?mod=party&action=price_edit&party_id='. $_GET['party_id'], 'party_prices', 'price_id', $priceIDParameter);
 $dsp->AddBackButton('index.php?mod=party&action=price&party_id='. $_GET['party_id']);

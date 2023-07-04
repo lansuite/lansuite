@@ -229,8 +229,9 @@ class UserManager
         $xml = new \LanSuite\XML();
         $output = '<?xml version="1.0" encoding="UTF-8"?' . '>' . "\r\n";
 
+        $feedPartyName = $cfg['feed_partyname'] ?? '';
         $system = $xml->write_tag('version', LANSUITE_VERSION, 2);
-        $system .= $xml->write_tag('name', $cfg['feed_partyname'], 2);
+        $system .= $xml->write_tag('name', $feedPartyName, 2);
         $system .= $xml->write_tag('link', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], 2);
         $system .= $xml->write_tag('language', 'de-de', 2);
         $system .= $xml->write_tag('current_party', $cfg['signon_partyid'], 2);
@@ -240,7 +241,18 @@ class UserManager
 
         $lansuite = $xml->write_master_tag('system', $system, 1);
 
-        $res = $db->qry("SELECT party_id, name, max_guest, ort, plz, startdate, enddate FROM %prefix%partys");
+        $res = $db->qry("
+            SELECT
+                `party_id`,
+                `name`,
+                `max_guest`,
+                `ort`,
+                `plz`,
+                `startdate`,
+                `enddate`,
+                `sstartdate`,
+                `senddate`
+            FROM %prefix%partys");
         $partys = '';
         while ($row = $db->fetch_array($res)) {
             $party = $xml->write_tag('partyid', $row['party_id'], 3);

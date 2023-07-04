@@ -6,7 +6,8 @@ $install = new \LanSuite\Module\Install\Install($installImport);
 
 $dsp->NewContent(t('Menu Einträge ersetzen'), "");
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->SetForm("index.php?mod=install&action=dbmenu&step=2");
         $dsp->AddCheckBoxRow("rewrite", t('Menu Einträge ersetzen'), "", "");
@@ -14,7 +15,8 @@ switch ($_GET['step']) {
         $dsp->AddBackButton("index.php?mod=install");
         break;
     case 2:
-        $install->InsertMenus($_POST["rewrite"]);
+        $rewriteParameter = $_POST["rewrite"] ?? false;
+        $install->InsertMenus($rewriteParameter);
         $func->information(t('Menu erfolgreich neu geschrieben'), "index.php?mod=install");
         break;
 }
