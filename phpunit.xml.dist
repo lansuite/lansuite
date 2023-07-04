@@ -6,28 +6,19 @@
  convertNoticesToExceptions="true"
  convertWarningsToExceptions="true"
  -->
-<phpunit backupGlobals="true"
-         backupStaticProperties="false"
-         colors="true"
-         bootstrap="vendor/autoload.php"
-         failOnRisky="true"
-         failOnWarning="true"
-         stopOnError="false"
-         stopOnFailure="false"
->
-    <testsuites>
-        <testsuite name="LanSuite Test Suite">
-            <directory suffix="Test.php">./tests/</directory>
-        </testsuite>
-    </testsuites>
-
-    <coverage>
-        <include>
-            <directory suffix=".php">./</directory>
-        </include>
-
-        <exclude>
-            <directory suffix=".php">./vendor</directory>
-        </exclude>
-    </coverage>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="true" backupStaticProperties="false" colors="true" bootstrap="vendor/autoload.php" failOnRisky="true" failOnWarning="true" stopOnError="false" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd">
+  <testsuites>
+    <testsuite name="LanSuite Test Suite">
+      <directory suffix="Test.php">./tests/</directory>
+    </testsuite>
+  </testsuites>
+  <coverage/>
+  <source>
+    <include>
+      <directory suffix=".php">./</directory>
+    </include>
+    <exclude>
+      <directory suffix=".php">./vendor</directory>
+    </exclude>
+  </source>
 </phpunit>
