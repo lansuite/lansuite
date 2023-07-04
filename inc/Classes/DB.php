@@ -2,6 +2,14 @@
 
 namespace LanSuite;
 
+/**
+ * Old Database implementation.
+ *
+ * Please use the new database implementation Database()
+ * See Database.php
+ *
+ * @deprecated
+ */
 class DB
 {
     private \mysqli|bool|null $link_id = null;
