@@ -70,7 +70,7 @@ class XMLTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function dataProviderConvertInputString()
+    public static function dataProviderConvertInputString()
     {
         return array(
             array('', ''),
