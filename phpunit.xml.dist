@@ -21,13 +21,13 @@
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist>
-            <directory>./</directory>
-            <exclude>
-                <directory>./Tests</directory>
-                <directory>./vendor</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+    <coverage>
+        <include>
+            <directory suffix=".php">./</directory>
+        </include>
+
+        <exclude>
+            <directory suffix=".php">./vendor</directory>
+        </exclude>
+    </coverage>
 </phpunit>
