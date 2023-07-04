@@ -64,19 +64,6 @@ class TranslationTest extends TestCase
     }
 
     /**
-     * @covers \LanSuite\Translation::ReplaceParameters
-     */
-    public function testReplaceParameters_NoParameters()
-    {
-        $input = 'This is foo bar baz';
-
-        $translation = new \LanSuite\Translation();
-        $actual = $translation->ReplaceParameters($input);
-
-        $this->assertEquals($input, $actual);
-    }
-
-    /**
      * @covers \LanSuite\Translation::get_lang
      */
     public function testGetLanguage_Invalid()

@@ -3,7 +3,7 @@
 $smarty->assign('caption', t('Aktuelle News') . ' <span class="small">[<a href="ext_inc/newsfeed/news.xml" class="menu" title="XML Newsfeed">RSS</a>]</span>');
 $content = '';
 
-$query = $db->qry("
+$query = '
   SELECT
     n.newsid,
     n.caption,
@@ -15,16 +15,16 @@ $query = $db->qry("
     LEFT JOIN %prefix%comments AS c ON (
       c.relatedto_id = n.newsid
       AND (
-        c.relatedto_item = 'news'
+        c.relatedto_item = "news"
         OR c.relatedto_item IS NULL
       )
     )
   GROUP BY n.newsid
   ORDER BY n.top DESC, date DESC
-  LIMIT 0,%int%", $cfg['home_item_cnt_news']);
-
-if ($db->num_rows($query) > 0) {
-    while ($row = $db->fetch_array($query)) {
+  LIMIT 0, ?';
+$newsResult = $database->queryWithFullResult($query, [$cfg['home_item_cnt_news']]);
+if (count($newsResult) > 0) {
+    foreach($newsResult as $row) {
         $page = floor(($row['comments'] - 1) / 20);
         $smarty->assign('link', "index.php?mod=news&action=comment&newsid={$row["newsid"]}&ms_page={$page}");
         if ($cfg['news_comments_allowed']) {

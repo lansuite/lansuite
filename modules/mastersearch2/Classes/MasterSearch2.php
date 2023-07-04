@@ -750,7 +750,9 @@ class MasterSearch2
                 }
 
                 // Generate Headlines
-                $arr = array();
+                $arr = array(
+                    'entry' => '',
+                );
                 if ($current_field['caption']) {
                     $arr['entry'] = $current_field['caption'];
                     $arr['link'] = $_SERVER['QUERY_STRING'];

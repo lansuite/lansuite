@@ -65,7 +65,7 @@ class EmailTest extends TestCase
         $this->assertFalse($validator->isOptionEnabled(Email::OPTION_HOST_CHECK));
     }
 
-    public function dataProviderValidEmailsLooseValidation()
+    public static function dataProviderValidEmailsLooseValidation()
     {
         return array(
             array('fabien@symfony.com'),
@@ -90,7 +90,7 @@ class EmailTest extends TestCase
         $this->assertSame(0, $validator->getErrorCode());
     }
 
-    public function dataProviderValidEmailsHTML5Validation()
+    public static function dataProviderValidEmailsHTML5Validation()
     {
         return array(
             array('fabien@symfony.com'),
@@ -111,7 +111,7 @@ class EmailTest extends TestCase
         $this->assertSame(0, $validator->getErrorCode());
     }
 
-    public function dataProviderInvalidEmailsLooseValidation()
+    public static function dataProviderInvalidEmailsLooseValidation()
     {
         return array(
             array('example'),
@@ -132,7 +132,7 @@ class EmailTest extends TestCase
         $this->assertSame(Email::INVALID_FORMAT_ERROR, $validator->getErrorCode());
     }
 
-    public function dataProviderInvalidEmailsHTML5Validation()
+    public static function dataProviderInvalidEmailsHTML5Validation()
     {
         return array(
             array('example'),
