@@ -127,7 +127,7 @@ class Mail
 
         // PHP-Mail
         } else {
-            if (@mail("$to_user_name <$to_user_email>", $subject_text, $msgbody_text, $this->inet_headers)) {
+            if (mail("$to_user_name <$to_user_email>", $subject_text, $msgbody_text, $this->inet_headers)) {
                 return true;
             }
 
