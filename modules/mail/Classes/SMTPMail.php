@@ -97,8 +97,8 @@ class SMTPMail
 
         $mail = new PHPMailer(true);
         try {
-            // Server settings
-            // TODO Add setting to enable verbose debug output
+            // If you aim to debug the email sending code
+            // You can enable email debugging here.
             // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
             $mail->isSMTP();
@@ -140,7 +140,7 @@ class SMTPMail
         return true;
     }
 
-    private function addCC(PHPMailer\PHPMailer\PHPMailer $mailer, array $cc): void
+    private function addCC(PHPMailer $mailer, array $cc): void
     {
         foreach ($cc as $ccAddress) {
             $ccAddress = trim($ccAddress);
@@ -151,7 +151,7 @@ class SMTPMail
         }
     }
 
-    private function addBCC(PHPMailer\PHPMailer\PHPMailer $mailer, array $bcc): void
+    private function addBCC(PHPMailer $mailer, array $bcc): void
     {
         foreach ($bcc as $bccAddress) {
             $bccAddress = trim($bccAddress);
