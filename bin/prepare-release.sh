@@ -149,6 +149,7 @@ log "INFO" "Installing dependencies via composer ... Done."
 # Render PHP API doc
 log "INFO" "Generating PHP API docs ..."
 phpDocumentor -d "inc" -d "modules" -t "docs/api"
+# shellcheck disable=SC2181
 if [ $? -eq 0 ]; then
     log "INFO" "Generating PHP API docs ... Done."
 else
