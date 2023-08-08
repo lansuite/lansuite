@@ -13,6 +13,7 @@ RUN apt-get update \
         unzip \
         libzip-dev \
         git \
+        wget \
     && docker-php-ext-install -j$(nproc) mysqli snmp \
     && docker-php-ext-configure gd --enable-gd --prefix=/usr --with-jpeg --with-freetype \
     && docker-php-ext-install -j$(nproc) gd \
@@ -24,6 +25,11 @@ RUN apt-get update \
 RUN docker-php-ext-install zip
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
+
+# Install phpDocumentor
+RUN wget https://phpdoc.org/phpDocumentor.phar \
+    && chmod +x phpDocumentor.phar \
+    && mv phpDocumentor.phar /usr/local/bin/phpDocumentor
 
 # Copy prepare-release.sh script
 COPY ./bin/prepare-release.sh /usr/local/bin/prepare-release.sh
