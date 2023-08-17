@@ -1,3 +1,7 @@
+#
+# Dockerfile to create a new software release.
+#
+
 # Get composer
 FROM composer:2.5.8 as composer
 
