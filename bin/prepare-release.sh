@@ -166,7 +166,7 @@ tar --exclude .git \
     --exclude builds \
     --exclude docker \
     --exclude website \
-    --exclude Dockerfile \
+    --exclude Dockerfile-development \
     --exclude Dockerfile-Production-Release \
     --exclude docker-compose.yml \
     --exclude docker-compose.dump.yml \
