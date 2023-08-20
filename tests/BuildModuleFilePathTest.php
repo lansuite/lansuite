@@ -73,7 +73,8 @@ class BuildModuleFilePathTest extends TestCase
         ];
     }
 
-    private function getFilesystemMock(bool $existsReturnValue) {
+    private function getFilesystemMock(bool $existsReturnValue)
+    {
         $filesystem = $this->createConfiguredMock(
             \Symfony\Component\Filesystem\Filesystem::class,
             [
