@@ -15,7 +15,7 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
     }
 
     // Reset $auth['type'], if no permission to Mod
-    if ($auth['type'] > 1) {
+    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
         // Has at least someone (with rights equal or above) access to this mod?
         $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions AS p
         LEFT JOIN %prefix%user AS u on p.userid = u.userid
@@ -27,7 +27,7 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
 
             // If not: Set his rights to user-rights
             if (!$permission['found']) {
-                $auth['type'] = 1;
+                $auth['type'] = \LS_AUTH_TYPE_USER;
                 $_SESSION['auth']['type'] = 1;
                 $authentication->auth['type'] = 1;
             }
@@ -36,11 +36,11 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
 }
 
 $siteblock = false;
-if ($cfg['sys_blocksite'] == 1 and $auth['type'] < 2 and $_GET['mod'] != 'info2' and $framework->modus != "ajax") {
+if ($cfg['sys_blocksite'] == 1 && $auth['type'] < \LS_AUTH_TYPE_ADMIN && $_GET['mod'] != 'info2' && $framework->modus != "ajax") {
     $siteblock = true;
 }
 
-if (!$missing_fields and !$siteblock) {
+if (!$missing_fields && !$siteblock) {
     switch ($_GET['mod']) {
         case 'logout':
             $func->confirmation(t('Du wurdest erfolgreich ausgeloggt.'), '');
