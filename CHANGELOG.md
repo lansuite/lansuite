@@ -112,6 +112,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 ### Security
 
 - [Database] Introduced a new Database class with first-class prepared statement support
+- [System] Protect module inclusion for path traversal
 
 ## [4.2] - 2015-03-15
 
