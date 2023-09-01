@@ -20,7 +20,7 @@ This way, we ensure that every contributor can release the same production relea
 First step: Building the docker image to create a release:
 
 ```
-docker build --file ./Dockerfile-Production-Release --tag lansuite/lansuite:prod-release .
+docker build --file ./Dockerfile-production-release --tag lansuite/lansuite:prod-release .
 ```
 
 ### Building a release from the latest version

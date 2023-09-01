@@ -166,8 +166,8 @@ tar --exclude .git \
     --exclude builds \
     --exclude docker \
     --exclude website \
-    --exclude Dockerfile \
-    --exclude Dockerfile-Production-Release \
+    --exclude Dockerfile-development \
+    --exclude Dockerfile-production-release \
     --exclude docker-compose.yml \
     --exclude docker-compose.dump.yml \
     -czf "${OUTPUT_DIR}$LANSUITE_FILENAME.tar.gz" .
