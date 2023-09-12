@@ -17,8 +17,8 @@ function check_birthday($date): bool|string
         $ref_date = (date("Y")-80)."-".date("n")."-".date("d");
         if ($date == $ref_date or ($date=="0000-00-00")) {
             return t("Bitte das korrekte Geburtsdatum eingeben.");
-        } else {
-            return false;
         }
     }
+
+    return false;
 }
