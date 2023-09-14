@@ -181,9 +181,9 @@ class Database
      * Executes $query as prepared statement and returns
      * only the first row.
      * 
-     * In case of an empty result, an empty array is returned.
+     * In case of an empty result, null is returned.
      */
-    public function queryWithOnlyFirstRow(string $query, array $parameterValues = []): array
+    public function queryWithOnlyFirstRow(string $query, array $parameterValues = []): array|null
     {
         $statement = $this->query($query, $parameterValues);
         $queryResult = $this->getStatementResult($statement);
