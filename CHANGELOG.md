@@ -79,6 +79,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Remove `ini_set('url_rewriter.tags', '')`
 - [System] Remove hardcoded set date_default_timezone_set to Europe/Berlin
 - [System] Removed mysql_ functionality in favor of mysqli
+- [System] Remove nofollow.php from index root
 - [Installation] Remove install check "magic_quotes_gpc"
 - [Installation] Remove install check "register_globals"
 - [Installation] Remove install check "register_argc_argv"
@@ -113,6 +114,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 ### Security
 
 - [Database] Introduced a new Database class with first-class prepared statement support
+- [System] Protect module inclusion for path traversal
 
 ## [4.2] - 2015-03-15
 
