@@ -21,6 +21,9 @@ bin/rector
 bin/tocheckstyle
 bin/var-dump-server
 
+# PHPUnit
+.phpunit.result.cache
+
 # Release archives
 builds/LanSuite-*.tar.gz
 builds/LanSuite-*_checksums.txt
