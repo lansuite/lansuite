@@ -5,8 +5,12 @@ require __DIR__ . '/vendor/autoload.php';
 use Symfony\Component\Cache;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Filesystem\Filesystem;
 
 $request = Request::createFromGlobals();
+$filesystem = new Filesystem();
+
+define('ROOT_DIRECTORY', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise

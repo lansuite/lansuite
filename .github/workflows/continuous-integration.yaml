@@ -16,7 +16,7 @@ jobs:
         php-versions: ['8.1']
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -74,7 +74,7 @@ jobs:
         
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v37
+        uses: tj-actions/changed-files@v39
 
       - name: Run phpcs on all changed files
         run: |

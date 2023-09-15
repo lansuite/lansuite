@@ -15,7 +15,7 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
     }
 
     // Reset $auth['type'], if no permission to Mod
-    if ($auth['type'] > 1) {
+    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
         // Has at least someone (with rights equal or above) access to this mod?
         $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions AS p
         LEFT JOIN %prefix%user AS u on p.userid = u.userid
@@ -27,7 +27,7 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
 
             // If not: Set his rights to user-rights
             if (!$permission['found']) {
-                $auth['type'] = 1;
+                $auth['type'] = \LS_AUTH_TYPE_USER;
                 $_SESSION['auth']['type'] = 1;
                 $authentication->auth['type'] = 1;
             }
@@ -36,11 +36,11 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
 }
 
 $siteblock = false;
-if ($cfg['sys_blocksite'] == 1 and $auth['type'] < 2 and $_GET['mod'] != 'info2' and $framework->modus != "ajax") {
+if ($cfg['sys_blocksite'] == 1 && $auth['type'] < \LS_AUTH_TYPE_ADMIN && $_GET['mod'] != 'info2' && $framework->modus != "ajax") {
     $siteblock = true;
 }
 
-if (!$missing_fields and !$siteblock) {
+if (!$missing_fields && !$siteblock) {
     switch ($_GET['mod']) {
         case 'logout':
             $func->confirmation(t('Du wurdest erfolgreich ausgeloggt.'), '');
@@ -77,38 +77,62 @@ if (!$missing_fields and !$siteblock) {
             }
 
             // Load Mod-Config
-            $actionParameter = $request->query->get('action');
+            $actionParameter = $request->query->get('action') ?? '';
             // 1) Search $_GET['action'] in DB (field "action")
-            $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = %string%)", $modParameter, $actionParameter);
+            $sqlQuery = 'SELECT `file`, `requirement` FROM `%prefix%menu` WHERE `module` = ? AND `action` = ?';
+            $menu = $database->queryWithOnlyFirstRow($sqlQuery, [$modParameter, $actionParameter]);
             if ($menu && $menu['file'] != '') {
+                // Case like
+                //  - /?mod=info2&action=change
                 if ($authentication->authorized($menu['requirement'])) {
-                    // TODO Fix security issue
-                    include_once("modules/{$modParameter}/{$menu['file']}.php");
+                    $pathToInclude = BuildModuleFilePath($filesystem, ROOT_DIRECTORY, $modParameter, $menu['file']);
+                    include_once($pathToInclude);
                 }
 
             // 2) Search $_GET['action'] in DB (field "file")
             } else {
-                $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (file = %string%)", $modParameter, $actionParameter);
+                $sqlQuery = 'SELECT `file`, `requirement` FROM `%prefix%menu` WHERE `module` = ? AND `file` = ?';
+                $menu = $database->queryWithOnlyFirstRow($sqlQuery, [$modParameter, $actionParameter]);
+
+                $fileInModDirectoryExists = false;
+                if (!$menu || empty($menu['file'])) {
+                    try {
+                        $pathToInclude = BuildModuleFilePath($filesystem, ROOT_DIRECTORY, $modParameter, $actionParameter);
+                        $fileInModDirectoryExists = true;
+                    } catch (\Exception $exception) {
+                        // We don't need to catch the exception here.
+                        // It means the "modules/{$modParameter}/{$actionParameter}.php" file doesn't exist.
+                    }
+                }
+
                 if ($menu && $menu['file'] != '') {
+                    // Case like
+                    //  - /?mod=about&action=overview
                     if ($authentication->authorized($menu['requirement'])) {
-                        // TODO Fix security issue
-                        include_once("modules/{$modParameter}/{$menu['file']}.php");
+                        $pathToInclude = BuildModuleFilePath($filesystem, ROOT_DIRECTORY, $modParameter, $menu['file']);
+                        include_once($pathToInclude);
                     }
 
                 // 3) Search file named $_GET['action'] in the Mod-Directory
-                } elseif (file_exists("modules/{$modParameter}/{$actionParameter}.php")) {
+                } elseif ($fileInModDirectoryExists) {
+                    // Case like
+                    //  - /?mod=downloads&action=stats_grafik
                     if ($authentication->authorized($menu['requirement'])) {
-                        // TODO Fix security issue
-                        include_once("modules/{$modParameter}/{$actionParameter}.php");
+                        include_once($pathToInclude);
                     }
 
                 // 4) Search 'default'-Entry in DB
                 } else {
-                    $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = 'default')", $modParameter);
+                    // Case like
+                    //  - Index homepage in a non logged in status
+                    //  - /?mod=news
+                    $sqlQuery = 'SELECT `file`, `requirement` FROM `%prefix%menu` WHERE `module` = ? AND `action` = "default"';
+                    $menu = $database->queryWithOnlyFirstRow($sqlQuery, [$modParameter]);
+
                     if ($menu && $menu['file'] != '') {
                         if ($authentication->authorized($menu['requirement'])) {
-                            // TODO Fix security issue
-                            include_once("modules/{$modParameter}/{$menu['file']}.php");
+                            $pathToInclude = BuildModuleFilePath($filesystem, ROOT_DIRECTORY, $modParameter, $menu['file']);
+                            include_once($pathToInclude);
                         }
 
                     // 4) Error: 'Not Found'
