@@ -375,7 +375,7 @@ function initializeDesign()
     }
 
     // Design switch by URL
-    if ($design != 'popup' && $design != 'base') {
+    if ($design && $design != 'popup' && $design != 'base') {
         $auth['design'] = $design;
     }
 
