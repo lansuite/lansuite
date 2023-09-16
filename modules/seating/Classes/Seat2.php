@@ -317,6 +317,11 @@ class Seat2
         // Get Block data (side descriptions + number of rows + cols)
         $block = $db->qry_first("SELECT * FROM %prefix%seat_block WHERE blockid = %int%", $blockid);
 
+        // If we don't have a seatplan or block ID, we don't need to render something.
+        if (!$block) {
+            return '';
+        }
+
         $smarty->assign('row_count', $block['rows'] + 1);
         $smarty->assign('col_count', $block['cols'] + 1);
         $smarty->assign('mode', $mode);
