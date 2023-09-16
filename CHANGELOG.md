@@ -47,6 +47,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Added check for incompatible SQL Modes to the first installation page
 - [Installation] If there is no `config.php` file available during installation, create it during setup from the default config
 - [Discord] Introduced a new module to manage Discord Servers
+- [Party] Add information `Gesamt` in the Party box to show how many people can sign up for a party
   
 ### Changed
 

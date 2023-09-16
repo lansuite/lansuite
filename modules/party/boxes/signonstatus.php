@@ -99,6 +99,7 @@ if ($cfg['sys_internet']) {
 }
 
 $box->EngangedRow($bar);
+$box->EngangedRow(t('Gesamt').': '. $max);
 $box->EngangedRow(t('Angemeldet').': '. $cur);
 $box->EngangedRow(t('Bezahlt').': '. $paid);
 $box->EngangedRow(t('Frei').': '. ($max - $paid));
