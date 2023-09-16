@@ -8,10 +8,11 @@ if ($auth['login'] == "1") {
     $boxActionParameter = $request->query->get('box_action');
     // Change state, when Item is clicked
     if ($boxActionParameter == 'change' and $_GET['boxid'] != "") {
-        if ($_SESSION['box_'. $_GET['boxid'] .'_active']) {
+        $sessionBoxKey = 'box_' . $_GET['boxid'] . '_active';
+        if (array_key_exists($sessionBoxKey, $_SESSION) && $_SESSION[$sessionBoxKey]) {
             unset($_SESSION['box_'. $_GET['boxid'] .'_active']);
         } else {
-            $_SESSION['box_'. $_GET['boxid'] .'_active'] = 1;
+            $_SESSION[$sessionBoxKey] = 1;
         }
     }
 }
