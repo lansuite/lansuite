@@ -509,8 +509,9 @@ class MasterSearch2
             $this->query['limit'] = '';
         } else {
             $msPageParameter = $_GET['ms_page'] ?? '';
-            if ($msPageParameter != '' && (!$_GET['ms_number'] || $_GET['ms_number'] == $this->ms_number)) {
-                $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
+            $msNumber = $_GET['ms_number'] ?? 0;
+            if ($msPageParameter != '' && (!$msNumber || $msNumber == $this->ms_number)) {
+                $page_start = (int)$msPageParameter * (int)$this->config['EntriesPerPage'];
             } else {
                 $page_start = 0;
             }
