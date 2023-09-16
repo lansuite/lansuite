@@ -44,7 +44,8 @@ if ($check["caption"] != "") {
     }
     $smarty->assign('text', $text);
 
-    if ($_GET["mcact"] == "" or $_GET["mcact"] == "show") {
+    $mcactParameter = $_GET["mcact"] ?? '';
+    if ($mcactParameter == '' || $mcactParameter == 'show') {
         $dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier kannst du diese News kommentieren'));
         $dsp->AddSingleRow($smarty->fetch("modules/news/templates/show_single_row_$news_type.htm"));
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Newsübersicht'), "index.php?mod=news&action=show"));
