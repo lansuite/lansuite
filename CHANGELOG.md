@@ -64,6 +64,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [User] Allow empty birthday field
 - [Statistics] Limit lasthiturl to 100 chars as we expect it to fit varchar(100)
 - [User] Enforce uniqueness of user & email for registration
+- [Boxes/Login] Sign up and Password Recovery are now text links below the login box and not only icons anymore (for better usability)
 
 ### Deprecated
 
