@@ -775,7 +775,9 @@ class MasterForm
                                                 if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) {
                                                     $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_{$field['name']}', this.checked)\"";
                                                 }
-                                                [$field['caption1'], $field['caption2']] = explode('|', $field['caption']);
+                                                $captionParts = explode('|', $field['caption']);
+                                                $field['caption1'] = $captionParts[0];
+                                                $field['caption2'] = $captionParts[1] ?? '';
                                                 if (array_key_exists($field['name'], $_POST) && !$_POST[$field['name']]) {
                                                       unset($_POST[$field['name']]);
                                                 }
