@@ -117,7 +117,11 @@ if (!$missing_fields && !$siteblock) {
                 } elseif ($fileInModDirectoryExists) {
                     // Case like
                     //  - /?mod=downloads&action=stats_grafik
-                    if ($authentication->authorized($menu['requirement'])) {
+                    $authRequirement = 0;
+                    if ($menu && $menu['requirement']) {
+                        $authRequirement = $menu['requirement'];
+                    }
+                    if ($authentication->authorized($authRequirement)) {
                         include_once($pathToInclude);
                     }
 
