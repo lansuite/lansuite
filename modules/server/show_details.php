@@ -29,7 +29,8 @@ if ($server == "") {
     $func->SetRead('server', $_GET["serverid"]);
 
     // Just show details if the user is not adding, deleting or chaning his comment
-    if ($_GET["mcact"] == "" || $_GET["mcact"] == "show") {
+    $mcactParameter = $_GET["mcact"] ?? '';
+    if ($mcactParameter == "" || $mcactParameter == "show") {
         $dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite diehst du alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangst du zur Übersicht zur&uuml;ck', $server["caption"]));
 
         $dsp->AddDoubleRow(t('Name'), $server["caption"]);
