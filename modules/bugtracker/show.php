@@ -21,8 +21,9 @@ $colors[5] = '#aaaaaa';
 $colors[6] = '#999999';
 $colors[7] = '#bc851b';
 
-if ($_POST['action']) {
-    foreach ($_POST['action'] as $key => $val) {
+$actionPOSTParameter = $_POST['action'] ?? null;
+if ($actionPOSTParameter) {
+    foreach ($actionPOSTParameter as $key => $val) {
         if ($auth['type'] >= 2) {
             // Change state
             if ($_GET['state'] != '' and $_GET['state'] >= 2) {
@@ -42,7 +43,8 @@ if ($_POST['action']) {
     }
 }
 
-if ($_GET['action'] == 'delete' and $auth['type'] >= 2) {
+$actionParameter = $_GET['action'] ?? '';
+if ($actionParameter == 'delete' && $auth['type'] >= 2) {
     if ($_GET['bugid'] != '') {
         $md = new \LanSuite\MasterDelete();
         $md->Delete('bugtracker', 'bugid', $_GET['bugid']);
@@ -52,7 +54,8 @@ if ($_GET['action'] == 'delete' and $auth['type'] >= 2) {
     }
 }
 
-if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
+$bugidParameter = $_GET['bugid'] ?? null;
+if (!$bugidParameter || $actionParameter == 'delete') {
     $dsp->NewContent(t('Bugtracker'), t('Hier kannst du Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
 
     $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('bugtracker');

@@ -23,7 +23,7 @@ class Seat2
             party_id=%int%
             AND user_id=%int%", $party->party_id, $userid);
 
-        if ($seat_paid['paid']>0) {
+        if ($seat_paid && $seat_paid['paid'] > 0) {
             $seat_status = 2;
         } else {
             $seat_status = 3;
@@ -47,8 +47,9 @@ class Seat2
                 AND s.status = %string%", $party->party_id, $userid, $seat_status);
         }
   
-        if (!$row['blockid']) {
+        if (!$row || !$row['blockid']) {
             return '';
+
         } else {
             $LinkText = $row['name'] .' '. $break . $this->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation']);
             return "<a href=\"#\" onclick=\"var w=window.open('index.php?mod=seating&action=popup&design=popup&function=usrmgr&id={$row['blockid']}&userarray[]=$userid&l=1','_blank','width=596,height=678,resizable=yes');\" class=\"small\">$LinkText</a>";
@@ -315,6 +316,11 @@ class Seat2
 
         // Get Block data (side descriptions + number of rows + cols)
         $block = $db->qry_first("SELECT * FROM %prefix%seat_block WHERE blockid = %int%", $blockid);
+
+        // If we don't have a seatplan or block ID, we don't need to render something.
+        if (!$block) {
+            return '';
+        }
 
         $smarty->assign('row_count', $block['rows'] + 1);
         $smarty->assign('col_count', $block['cols'] + 1);
