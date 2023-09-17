@@ -23,7 +23,7 @@ class Seat2
             party_id=%int%
             AND user_id=%int%", $party->party_id, $userid);
 
-        if ($seat_paid['paid']>0) {
+        if ($seat_paid && $seat_paid['paid'] > 0) {
             $seat_status = 2;
         } else {
             $seat_status = 3;
