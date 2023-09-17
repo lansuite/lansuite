@@ -509,8 +509,9 @@ class MasterSearch2
             $this->query['limit'] = '';
         } else {
             $msPageParameter = $_GET['ms_page'] ?? '';
-            if ($msPageParameter != '' && (!$_GET['ms_number'] || $_GET['ms_number'] == $this->ms_number)) {
-                $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
+            $msNumber = $_GET['ms_number'] ?? 0;
+            if ($msPageParameter != '' && (!$msNumber || $msNumber == $this->ms_number)) {
+                $page_start = (int)$msPageParameter * (int)$this->config['EntriesPerPage'];
             } else {
                 $page_start = 0;
             }
@@ -546,7 +547,8 @@ class MasterSearch2
 
         $pages = '';
         if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {
-            $framework->AddToPageTitle(t('Seite') .' '. ((int)$_GET['ms_page'] + 1));
+            $msPageParameter = $_GET['ms_page'] ?? 0;
+            $framework->AddToPageTitle(t('Seite') .' '. ((int) $msPageParameter + 1));
 
             $link = $_SERVER['QUERY_STRING'] .'&ms_page=';
             $link = preg_replace('#mf_step=.\\&?#si', '', $link);
@@ -557,21 +559,21 @@ class MasterSearch2
             $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
 
             // Previous page link
-            if ((int)$_GET['ms_page'] > 0) {
-                $pages .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
+            if ((int) $msPageParameter > 0) {
+                $pages .= $link_start . $link . ($msPageParameter - 1) . $link_end .'<b>&lt;</b></a>';
             }
       
             // First page link
-            if ($_GET['ms_page'] > 4) {
+            if ($msPageParameter > 4) {
                 $pages .= $link_start . $link . '0' . $link_end .'<b>1</b></a> ... ';
-                $i = $_GET['ms_page'] - 3;
+                $i = $msPageParameter - 3;
             } else {
                 $i = 0;
             }
 
             // Direct page link
-            while ($i < $count_pages and $i < ($_GET['ms_page'] + 4)) {
-                if ($_GET['ms_page'] == $i) {
+            while ($i < $count_pages and $i < ($msPageParameter + 4)) {
+                if ($msPageParameter == $i) {
                     $pages .= (" " . ($i + 1));
                 } else {
                     $pages .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
@@ -588,8 +590,8 @@ class MasterSearch2
             }
       
             // Next page link
-            if (($_GET['ms_page'] + 1) < $count_pages) {
-                $pages .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
+            if (($msPageParameter + 1) < $count_pages) {
+                $pages .= $link_start . $link . ($msPageParameter + 1) . $link_end .'<b>&gt;</b></a>';
             }
         }
         $EntsPerPage = array();
