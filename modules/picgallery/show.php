@@ -2,16 +2,19 @@
 
 $gd = new \LanSuite\GD();
 
+$fileParameter = $_GET['file'] ?? '';
 // Forbid changedir to upper directories
-$_GET['file'] = str_replace('/..', '', $_GET['file']);
-$_GET['file'] = str_replace('\\..', '', $_GET['file']);
+$fileParameter = str_replace('/..', '', $fileParameter);
+$fileParameter = str_replace('\\..', '', $fileParameter);
+$_GET['file'] = $fileParameter;
 
 $icon_dir = "ext_inc/picgallery_icon/";
 
+$galleryNameParameter = $_POST['gallery_name'] ?? '';
 // If a new gallery should be created
-if ($_POST['gallery_name']) {
+if ($galleryNameParameter) {
     if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
-        $func->CreateDir('ext_inc/picgallery/'. $_GET['file'] . $_POST['gallery_name']);
+        $func->CreateDir('ext_inc/picgallery/'. $_GET['file'] . $galleryNameParameter);
     } else {
         $func->error(t('Du bist nicht berechtigt neue Galerien anzulegen'), "index.php?mod=picgallery&file={$_GET["file"]}");
     }
@@ -26,8 +29,9 @@ $akt_file = substr($_GET["file"], strrpos($_GET["file"], '/') + 1, strlen($_GET[
 $root_dir = "ext_inc/picgallery". $akt_dir;
 $root_file = "ext_inc/picgallery". $_GET["file"];
 
-$gallery_id = $_GET["galleryid"];
-if (!$_GET["page"]) {
+$gallery_id = $_GET["galleryid"] ?? 0;
+$pageParameter = $_GET["page"] ?? 0;
+if (!$pageParameter) {
     $_GET["page"] = 0;
 }
 
@@ -49,8 +53,9 @@ if (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["fil
 }
 
 // Set Changed Name
-if ($_POST["file_name"] and ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming'])) {
-    $db->qry("UPDATE %prefix%picgallery SET caption = %string% WHERE name = %string%", $_POST["file_name"], $db_dir);
+$fileNameParameter = $_POST["file_name"] ?? '';
+if ($fileNameParameter && ($auth['type'] >= 2 || $cfg['picgallery_allow_user_naming'])) {
+    $db->qry("UPDATE %prefix%picgallery SET caption = %string% WHERE name = %string%", $fileNameParameter, $db_dir);
 }
 
 // GD-Check
@@ -62,7 +67,7 @@ if (!$gd->available) {
     unset($_SESSION['klick_reload']);
     unset($klick_reload);
 
-    $dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicke auf ein Bild um das Bild in voller Größe anzuzeigen.'));
+    $dsp->NewContent(t('Bildergalerie'), t('Klicke auf ein Bild um das Bild in voller Größe anzuzeigen.'));
 
     if (!$cfg["picgallery_items_per_row"]) {
         $cfg["picgallery_items_per_row"] = 3;
@@ -167,9 +172,7 @@ if (!$gd->available) {
         $smarty->assign('page', $_GET['page']);
 
         $smarty->assign('name', $key);
-        if ($optional) {
-            $smarty->assign('optional', '_optional');
-        }
+        $smarty->assign('optional', '_optional');
 
         if ($file_list) {
             foreach ($file_list as $file) {
@@ -201,10 +204,14 @@ if (!$gd->available) {
                         p.name = %string%
                         AND c.relatedto_item = 'Picgallery'
                       GROUP BY p.picid", $db_dir . $file);
-                    ($pic['caption']) ? $caption = $pic['caption'] : $caption = "<i>Unbenannt</i>";
+
+                    $caption = $pic['caption'] ?? '<i>Unbenannt</i>';
                     $smarty->assign('caption', $caption);
 
-                    $smarty->assign('clicks', $dsp->HelpText($pic['clicks'], 'Angesehen') .'/'. $dsp->HelpText($pic['comments'], 'Kommentare'));
+                    $smarty->assign('clicks', '');
+                    if (is_array($pic)) {
+                        $smarty->assign('clicks', $dsp->HelpText($pic['clicks'], 'Angesehen') . '/' . $dsp->HelpText($pic['comments'], 'Kommentare'));
+                    }
                     $smarty->assign('galleryid', $gallery_id);
 
                     $buttons = $dsp->FetchIcon("next", "index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", t('Bild anzeigen'));
@@ -343,7 +350,8 @@ if (!$gd->available) {
         $db->qry("DELETE FROM %prefix%picgallery WHERE name =  %string% AND clicks = 0", $db_dir);
         $func->error(t('Dieses Bild ist nicht vorhanden'), "index.php?mod=picgallery");
     } else {
-        if ($_GET['mcact'] == "show" or $_GET['mcact'] == "") {
+        $mcactParameter = $_GET['mcact'] ?? '';
+        if ($mcactParameter == "show" || $mcactParameter == '') {
             $extension =  strtolower(substr($root_file, strrpos($root_file, ".") + 1, 4));
 
             // Select pic data
@@ -359,7 +367,7 @@ if (!$gd->available) {
               LEFT JOIN %prefix%user AS u ON p.userid = u.userid
               WHERE p.name = %string%", $db_dir);
 
-            if (!$_SESSION["click_reload"][$db_dir]) {
+            if (!array_key_exists($db_dir, $_SESSION["click_reload"])) {
                 $db->qry("UPDATE %prefix%picgallery SET clicks = clicks + 1 WHERE name = %string%", $db_dir);
                 $_SESSION["click_reload"][$db_dir] = 1;
             }
@@ -417,16 +425,18 @@ if (!$gd->available) {
             $num_files = count($file_list);
             $akt_file = array_keys($file_list, $akt_file);
 
-            if ($file_list[$akt_file[0] - 1]) {
+            if ($akt_file[0] > 0 && $file_list[$akt_file[0] - 1]) {
                 $prev_button = $dsp->FetchIcon("back", "index.php?mod=picgallery&file=$akt_dir" . $file_list[$akt_file[0] - 1], t('Bild zur&uuml;ck'));
             } else {
                 $prev_button = "";
             }
-            if ($file_list[$akt_file[0] + 1]) {
+
+            if (array_key_exists(($akt_file[0] + 1), $file_list)) {
                 $next_button = $dsp->FetchIcon("next", "index.php?mod=picgallery&file=$akt_dir" . $file_list[$akt_file[0] + 1], t('Bild weiter'));
             } else {
                 $next_button = "";
             }
+
             $dsp->AddDoubleRow("", "$prev_button $next_button $full_button $dl_button $del_button $note_button");
 
             // Change Pic-Name
@@ -477,8 +487,9 @@ if (!$gd->available) {
         }
 
         // Mastercomment
-        if ($_GET['picid']) {
-            $pic['picid'] = $_GET['picid'];
+        $picidParameter = $_GET['picid'] ?? 0;
+        if ($picidParameter) {
+            $pic['picid'] = $picidParameter;
         }
         new \LanSuite\MasterComment('Picgallery', $pic['picid']);
     }
