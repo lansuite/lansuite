@@ -2,7 +2,8 @@
 
 $xml = new \LanSuite\XML();
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 10:
         $row = $db->qry_first("SELECT ls_url FROM %prefix%partylist WHERE partyid = %int%", $_GET['partyid']);
         if (substr($row['ls_url'], strlen($row['ls_url']) - 1, 1) != '/') {

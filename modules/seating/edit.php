@@ -9,8 +9,9 @@ if ($_GET['action'] == 'add' and $_GET['step'] < 2) {
 }
 
 // Error-Switch
-$error = array();
-switch ($_GET['step']) {
+$error = [];
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 3:
         // Error Columns
         if ($_POST['cols'] == "") {
@@ -158,7 +159,8 @@ switch ($_GET['step']) {
 }
 
 // Form-Switch
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/seating/search.inc.php');
         break;

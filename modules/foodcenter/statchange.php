@@ -6,7 +6,8 @@ if ($auth['type'] < 2) {
     unset($_GET['step']);
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 3:
         $time = time();
         if ($_GET['status'] == 6 || $_GET['status'] == 7) {
@@ -62,7 +63,8 @@ switch ($_GET['step']) {
         break;
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 

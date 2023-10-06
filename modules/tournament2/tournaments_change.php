@@ -1,6 +1,6 @@
 <?php
-
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case "open":
         if ($auth['type'] >= 3) {
             foreach ($_POST['action'] as $key => $val) {
