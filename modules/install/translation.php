@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
     

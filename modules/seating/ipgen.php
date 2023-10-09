@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $_POST["ipgen_a"] = "10";
         $_POST["ipgen_b"] = "10";

@@ -4,7 +4,8 @@ $xml = new \LanSuite\XML();
 
 $dsp->NewContent(t('Design Manager'), t('Editiere Design-Templates und setze das aktive Design'));
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     // List designs
     default:
         // Open design-dir

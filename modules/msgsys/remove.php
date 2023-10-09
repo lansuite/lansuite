@@ -1,7 +1,8 @@
 <?php
 
 if ($_GET['queryid']) {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter ) {
         default:
             $rowcheck = $db->qry("
               SELECT id
