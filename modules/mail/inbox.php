@@ -7,7 +7,8 @@ if (!$auth['userid']) {
 
 // If logged in
 if ($auth['userid']) {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // Label
         // None
         case 10:

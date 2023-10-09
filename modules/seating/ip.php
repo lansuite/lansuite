@@ -5,7 +5,8 @@ use LanSuite\Module\Seating\Seat2;
 $blockid = $_GET['blockid'];
 $seating_ip = $_POST['seating_ip'];
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 3:
         $seating_ip_exists = array();
         $seating_ip = array();
@@ -28,7 +29,8 @@ switch ($_GET['step']) {
         break;
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $current_url = 'index.php?mod=seating&action=ip';
         $target_url = 'index.php?mod=seating&action=ip&step=2&blockid=';
