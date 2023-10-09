@@ -42,7 +42,7 @@ if (!$row['found']) {
 }
 
 // Upload posted File
-if (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["file_upload"]) {
+if (($cfg["picgallery_allow_user_upload"] || $auth["type"] > 1) && (array_key_exists('file_upload', $_FILES) && $_FILES['file_upload'])) {
     $extension = substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4);
     if (IsSupportedType($extension) || IsPackage($extension)) {
         $upload = $func->FileUpload("file_upload", $root_dir);

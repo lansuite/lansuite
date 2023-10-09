@@ -62,7 +62,8 @@ if ($_GET['userid']) {
         AND pu.party_id = %int%", $_GET['userid'], $party->party_id);
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $additional_where = "p.party_id = {$party->party_id} and u.type > 0";
         $current_url = 'index.php?mod=seating&action=seatadmin';

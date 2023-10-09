@@ -3,7 +3,8 @@
 include_once("modules/noc/class_noc.php");
 $noc = new noc();
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case "2":
         if ($_POST['ip'] == '') {
             $error_noc['ip'] = t('Bitte gib eine IP-Adresse f&uuml;r das Device ein');
@@ -11,8 +12,8 @@ switch ($_GET['step']) {
         }
 }
 
-
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
             $dsp->NewContent(t('User im Netzwerk finden'), t('Mit diesem Formular kannst du einen User im Netzwerk lokalisieren'));
             $dsp->SetForm("index.php?mod=noc&action=find&step=2");

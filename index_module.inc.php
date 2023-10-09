@@ -26,7 +26,7 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
             $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string% AND userid = %int%", $_GET['mod'], $auth['userid']);
 
             // If not: Set his rights to user-rights
-            if (!$permission['found']) {
+            if (!$permission) {
                 $auth['type'] = \LS_AUTH_TYPE_USER;
                 $_SESSION['auth']['type'] = 1;
                 $authentication->auth['type'] = 1;

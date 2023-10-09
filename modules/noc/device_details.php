@@ -12,7 +12,8 @@ $db->qry("SELECT * from %prefix%noc_devices WHERE id = %int%", $_GET["deviceid"]
 if (!$row = $db->fetch_array()) {
     $func->error(t('Das gew&auml;hlte Device existiert nicht'));
 } else {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         default:
             $device_ip = $row["ip"];
             $readcommunity  = $row["readcommunity"];

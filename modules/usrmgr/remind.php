@@ -4,7 +4,8 @@ $dsp->NewContent(t('Passwort vergessen'), t('Mit diesem Modul kannst du dir ein 
 if (!$cfg['sys_internet']) {
     $func->information(t('Diese Funktion ist nur im Internetmodus verfügbar'));
 } else {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // Email prüfen, Freischaltecode generieren, Email senden
         case 2:
             $user_data = $db->qry_first("SELECT username FROM %prefix%user WHERE email = %string%", $_POST['pwr_mail']);
