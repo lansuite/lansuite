@@ -254,12 +254,17 @@ class Auth
                 $user = [
                     'userid' => 0,
                     'found' => 0,
+                    'user_login' => 0,
                 ];
             }
 
             // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
             if ($func->isModActive('party')) {
-                $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
+                $partyID = 0;
+                if ($party) {
+                    $partyID = $party->party_id;
+                }
+                $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $partyID, $user['userid']);
             }
 
             // Count login errors
