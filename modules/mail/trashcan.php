@@ -19,7 +19,8 @@ $mail_unread_total = $db->qry_first("
 $dsp->NewContent(t('Papierkorb'), t('Du hast <b>%1</b> Mail(s) in ihrem Papierkorb. Davon wurde(n) <b>%2</b> nicht von dir gelesen.', $mail_total["n"], $mail_unread_total["n"]));
 
 if ($auth['userid']) {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // check if it can delete from Database and delete
         case 20:
             if (!$_POST['action'] and $_GET['mailid']) {

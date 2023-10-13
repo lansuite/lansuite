@@ -210,7 +210,8 @@ if (!$party->party_id) {
             break;
     }
 
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         case 10:
             $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
 

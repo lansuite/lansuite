@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 2:
         if ($_POST['tticket_cat'] == 0 && $_GET['act'] == "change") {
             $error['tticket_cat'] = t('Du hast keine Kategorie zum ändern ausgewählt');
@@ -16,7 +17,8 @@ switch ($_GET['step']) {
         break;
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Kategorie'));
         

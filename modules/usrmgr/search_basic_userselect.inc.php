@@ -6,7 +6,9 @@ include_once('modules/usrmgr/search_main.inc.php');
 
 $seat2 = new Seat2();
 
-$ms2->query['where'] = $additional_where;
+if (isset($additional_where)) {
+    $ms2->query['where'] = $additional_where;
+}
 
 $ms2->AddTextSearchField('NGL/WWCL/LGZ-ID', array('u.nglid' => 'exact', 'u.nglclanid' => 'exact', 'u.wwclid' => 'exact', 'u.wwclclanid' => 'exact', 'u.lgzid' => 'exact', 'u.lgzclanid' => 'exact',));
 
