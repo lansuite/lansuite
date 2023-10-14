@@ -12,6 +12,8 @@ switch ($stepParameter) {
 
         $ms2->AddIconField('in', 'index.php?mod=seating&action=copy&step=2&blockid=', t('Kopieren'));
         $ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', t('Editieren'));
+
+        $current_url = 'index.php?mod=seating&action=copy';
         $ms2->PrintSearch($current_url, 'b.blockid');
         break;
   

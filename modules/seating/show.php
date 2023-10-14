@@ -78,7 +78,7 @@ switch ($stepParameter) {
                 $row = $db->qry_first("SELECT seatid FROM %prefix%seat_seats WHERE blockid = %int% AND status = 2 AND userid = %int%", $_GET['blockid'], $auth['userid']);
                 if ($user_data['paid']) {
                     // Reserve seat for myselfe
-                    if ($row['seatid']) {
+                    if ($row && $row['seatid']) {
                         $questionarray[] = t('Du hast bereits einen Sitzplatz reserviert. Möchtest du deinen Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?');
                         $linkarray[]     = "index.php?mod=seating&action=show&step=11&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     // Change my seat, if I allready have one
