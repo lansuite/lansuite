@@ -165,6 +165,10 @@ class Accounting
                 break;
         }
 
+        if ($result['total'] == '') {
+            $result['total'] = 0;
+        }
+
         return $this->getMoneyColor($result['total']);
     }
 

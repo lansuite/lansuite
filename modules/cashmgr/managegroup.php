@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Gruppen verwalten'), t('Uebersicht'));
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('cashmgr');

@@ -1,5 +1,6 @@
 <?php
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Bugtracker Export'), t('Nutze diese Funktion um einen Export der Bugtracker-Einträge zu erstellen, den sie auf lansuite.de importieren können'));
         $dsp->AddDoubleRow('', t('Bitte versuche Fehler zunächst selbst zu beheben und filter vor dem Export Probleme aus, die nicht von generellem Interesse für Lansuite sind. Es werden nur Probleme mit Status offen, oder bestätigt exportiert. Ergänze unvollständige Angaben, so gut du kannst. Danke, für die Hilfe!'));

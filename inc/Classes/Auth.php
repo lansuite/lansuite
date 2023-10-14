@@ -254,12 +254,17 @@ class Auth
                 $user = [
                     'userid' => 0,
                     'found' => 0,
+                    'user_login' => 0,
                 ];
             }
 
             // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
             if ($func->isModActive('party')) {
-                $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
+                $partyID = 0;
+                if ($party) {
+                    $partyID = $party->party_id;
+                }
+                $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $partyID, $user['userid']);
             }
 
             // Count login errors
@@ -308,12 +313,12 @@ class Auth
                 $this->cookie_unset();
 
             // Not checked in?
-            } elseif ($func->isModActive('party') and (!$party_query["checkin"] or $party_query["checkin"] == '0000-00-00 00:00:00') and $user["type"] < 2 and !$cfg["sys_internet"]) {
+            } elseif ($func->isModActive('party') && (is_array($party_query) && (!$party_query["checkin"] || $party_query["checkin"] == '0000-00-00 00:00:00')) && $user["type"] < 2 && !$cfg["sys_internet"]) {
                 $func->information(t('Du bist nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn du eingecheckt bist.') .HTML_NEWLINE. t('Bitte melden dich bei der Organisation.'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account nicht eingecheckt).', $tmp_login_email), "2", "Authentifikation");
 
             // Already checked out?
-            } elseif ($func->isModActive('party') and $party_query["checkout"] and $party_query["checkout"] != '0000-00-00 00:00:00' and $user["type"] < 2 and !$cfg["sys_internet"]) {
+            } elseif ($func->isModActive('party') && is_array($party_query) && $party_query["checkout"] && $party_query["checkout"] != '0000-00-00 00:00:00' && $user["type"] < 2 && !$cfg["sys_internet"]) {
                 $func->information(t('Du bist bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn du eingecheckt bist.') .HTML_NEWLINE. t('Bitte melden dich bei der Organisation.'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account ausgecheckt).', $tmp_login_email), "2", "Authentifikation");
 
@@ -424,6 +429,7 @@ class Auth
         // Reset Sessiondata
         unset($this->auth);
         unset($_SESSION['auth']);
+        $this->auth['login'] = "0";
         $this->auth["userid"] = "";
         $this->auth["email"] = "";
         $this->auth["username"] = "";

@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('seating');
 
@@ -11,6 +12,8 @@ switch ($_GET['step']) {
 
         $ms2->AddIconField('in', 'index.php?mod=seating&action=copy&step=2&blockid=', t('Kopieren'));
         $ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', t('Editieren'));
+
+        $current_url = 'index.php?mod=seating&action=copy';
         $ms2->PrintSearch($current_url, 'b.blockid');
         break;
   

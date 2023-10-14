@@ -12,7 +12,8 @@ if ($_GET['fid'] != '') {
     $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("back", "index.php?mod=board"));
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     // Edit headline
     case 10:
         if ($auth['type'] >= 2) {

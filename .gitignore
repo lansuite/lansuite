@@ -45,3 +45,27 @@ website/i18n/*
 # Docker 
 # Avoid accidently commit of .env files
 docker/*.env
+
+# designs
+design/**
+!design/beamer
+!design/images
+!design/osX
+!design/simple
+!design/style.css
+!design/sunset
+!design/templates
+
+# ext_inc/
+ext_inc/avatare/*
+ext_inc/banner/*
+ext_inc/board_upload/*
+ext_inc/bugtracker_upload/*
+ext_inc/downloads/*
+ext_inc/newsfeed/news.xml
+ext_inc/party_infos/infos.xml
+ext_inc/picgallery/**
+ext_inc/templates_c/*.htm.php
+ext_inc/pdf_fonts/*.php
+ext_inc/pdf_templates/*
+!ext_inc/pdf_templates/background_usercard.jpg

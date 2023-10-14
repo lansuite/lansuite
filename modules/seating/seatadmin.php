@@ -2,18 +2,19 @@
 
 use LanSuite\Module\Seating\Seat2;
 
+$stepParameter = $_GET['step'] ?? 0;
 $seat2 = new Seat2();
 
 // Errors
-if ($_GET['step'] > 1 and (!$_GET['userid'])) {
+if ($stepParameter > 1 && (!$_GET['userid'])) {
     $func->error(t('Es wurde kein Benutzer ausgewählt'), "index.php?mod=seating&action=seatadmin");
 }
-if ($_GET['step'] > 2 and (!$_GET['blockid'])) {
+if ($stepParameter > 2 && (!$_GET['blockid'])) {
     $func->error(t('Es wurde kein Sitzblock ausgewählt'), "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}");
 }
 
 // Exec step10-query
-if ($_GET['step'] == 10 and $_GET['quest']) {
+if ($stepParameter == 10 and $_GET['quest']) {
     // Assign seat
     $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
 
@@ -31,7 +32,8 @@ if ($_GET['step'] == 10 and $_GET['quest']) {
 }
 
 // Select seat and user infos
-if ($_GET['blockid'] and isset($_GET['row']) and isset($_GET['col'])) {
+$blockIDParameter = $_GET['blockid'] ?? 0;
+if ($blockIDParameter && isset($_GET['row']) && isset($_GET['col'])) {
     $seat = $db->qry_first("
       SELECT
         s.userid,
@@ -44,10 +46,11 @@ if ($_GET['blockid'] and isset($_GET['row']) and isset($_GET['col'])) {
       WHERE
         blockid = %int%
         AND row = %string%
-        AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
+        AND col = %string%", $blockIDParameter, $_GET['row'], $_GET['col']);
 }
 
-if ($_GET['userid']) {
+$userIDParameter = $_GET['userid'] ?? 0;
+if ($userIDParameter) {
     $new_user = $db->qry_first("
       SELECT
         u.userid,
@@ -59,10 +62,11 @@ if ($_GET['userid']) {
       LEFT JOIN %prefix%party_user AS pu ON pu.user_id = u.userid
       WHERE
         userid = %int%
-        AND pu.party_id = %int%", $_GET['userid'], $party->party_id);
+        AND pu.party_id = %int%", $userIDParameter, $party->party_id);
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $additional_where = "p.party_id = {$party->party_id} and u.type > 0";
         $current_url = 'index.php?mod=seating&action=seatadmin';

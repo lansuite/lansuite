@@ -282,7 +282,7 @@ class TournamentFunction
             if ($tournament['mode'] == "double") {
                 for ($i = 0; $i < 2; $i++) {
                     $team = $db->fetch_array($teams);
-                    if ($team['teamid']) {
+                    if ($team && $team['teamid']) {
                         $array_id++;
                         $ranking_data->id[]           = $array_id;
                         $ranking_data->tid[]          = $team['teamid'];
