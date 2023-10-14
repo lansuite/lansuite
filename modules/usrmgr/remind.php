@@ -4,7 +4,8 @@ $dsp->NewContent(t('Passwort vergessen'), t('Mit diesem Modul kannst du dir ein 
 if (!$cfg['sys_internet']) {
     $func->information(t('Diese Funktion ist nur im Internetmodus verfügbar'));
 } else {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // Email prüfen, Freischaltecode generieren, Email senden
         case 2:
             $user_data = $db->qry_first("SELECT username FROM %prefix%user WHERE email = %string%", $_POST['pwr_mail']);
@@ -13,7 +14,7 @@ if (!$cfg['sys_internet']) {
             } elseif ($user_data['username']) {
                 $fcode = '';
                 for ($x = 0; $x <= 24; $x++) {
-                    $fcode .= chr(mt_rand(65, 90));
+                    $fcode .= chr(random_int(65, 90));
                 }
 
                 $db->qry("UPDATE %prefix%user SET fcode='$fcode' WHERE email = %string%", $_POST['pwr_mail']);
@@ -25,12 +26,12 @@ if (!$cfg['sys_internet']) {
                 //Try HTTPS first...
                 if (!empty($cfg['sys_partyurl_ssl'])) {
                     $verification_link = $cfg['sys_partyurl_ssl'];
-                    if (substr($cfg['sys_partyurl_ssl'], -1, 1) != '/') {
+                    if (!str_ends_with($cfg['sys_partyurl_ssl'], '/')) {
                         $verification_link .= '/';
                     } //make sure that it ends with a slash
                     $verification_link .= "index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode";
                 } else { // fallback to old version
-                    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+                    if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443) {
                         $proto = 'https://';
                     } else {
                         $proto = 'http://';
@@ -55,7 +56,7 @@ if (!$cfg['sys_internet']) {
             if (($user_data['fcode']) && ($_GET['fcode'] != '')) {
                 $new_pwd = "";
                 for ($x = 0; $x <= 8; $x++) {
-                    $new_pwd .= chr(mt_rand(65, 90));
+                    $new_pwd .= chr(random_int(65, 90));
                 }
 
                 $db->qry("UPDATE %prefix%user SET password = %string%, fcode = '' WHERE fcode = %string%", md5($new_pwd), $_GET['fcode']);

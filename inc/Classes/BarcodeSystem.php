@@ -19,7 +19,7 @@ namespace LanSuite;
  */
 class BarcodeSystem
 {
-    private $class_barcode;
+    private \LanSuite\Barcode $class_barcode;
 
     public function __construct()
     {
@@ -44,9 +44,9 @@ class BarcodeSystem
      */
     private function gencode($userid)
     {
-        $code = 768300000000;
+        $code = 768_300_000_000;
         $code = $code + ($userid * 10000);
-        $code = $code + mt_rand(0, 9999);
+        $code = $code + random_int(0, 9999);
         return $code;
     }
 

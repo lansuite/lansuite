@@ -1,5 +1,6 @@
 <?php
 
+$get_paid = ['paid' => 0];
 if ($auth['type'] <= 1) {
     $get_paid = $db->qry_first('SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%', $auth['userid'], $party->party_id);
 }
@@ -17,13 +18,14 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     $func->information(t('Es sind keine freien IPs mehr vorhanden. Bitte einen Administrator darum den vorgesehenen Bereich zu erhöhren'), "index.php?mod=server");
 } elseif ($cfg["server_admin_only"] and $auth['type'] <= 1) {
     $func->information(t('Nur Adminsitratoren dürfen Server hinzufügen'), "index.php?mod=server");
-} elseif (!$get_paid['paid'] and $auth["type"] <= 1) {
+} elseif ((!$get_paid['paid']) and $auth["type"] <= 1) {
     $func->information(t('Du musst zuerst bezahlen, um Server hinzufügen zu dürfen'), "index.php?mod=server");
 } else {
     $dsp->NewContent(t('Server'), t('Hinzufügen und Aendern der Server'));
 
     $mf = new \LanSuite\MasterForm();
-    if (!$_GET['serverid']) {
+    $serverIdParameter = $_GET['serverid'] ?? 0;
+    if (!$serverIdParameter) {
         if ($auth['type'] > 1) {
             $mf->AddDropDownFromTable(t('Besitzer'), 'owner', 'userid', 'username', 'user', '', 'type > 0');
         } else {
@@ -68,7 +70,7 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     $mf->AddField(t('Passwort geschützt'), 'pw', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddField(t('Beschreibung'), 'text', '', \LanSuite\MasterForm::LSCODE_ALLOWED, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-    if ($mf->SendForm('index.php?mod=server&action=add', 'server', 'serverid', $_GET['serverid'])) {
+    if ($mf->SendForm('index.php?mod=server&action=add', 'server', 'serverid', $serverIdParameter)) {
         // Increase auto IP
         if ($cfg['server_ip_auto_assign']) {
             $db->qry('UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = \'server_ip_next\'', $cfg['server_ip_next'] + 1);

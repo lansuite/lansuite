@@ -5,13 +5,28 @@ $mail = new \LanSuite\Module\Mail\Mail();
 
 $tteam = new \LanSuite\Module\Tournament2\Team($mail, $seat2);
 
-($_GET['tournamentid'])? $tournamentid = $_GET['tournamentid'] : $tournamentid = $_POST['tournamentid'];
-($_GET['userid'])? $userid = $_GET['userid'] : $userid = $_POST['userid'];
-($_GET['teamid'])? $teamid = $_GET['teamid'] : $teamid = $_POST['teamid'];
-($_GET['member_user'])? $member_user = $_GET['member_user'] : $member_user = $_POST['member_user'];
+$tournamentid = $_GET['tournamentid'] ?? 0;
+if (!$tournamentid) {
+    $tournamentid = $_POST['tournamentid'] ?? $tournamentid;
+}
 
+$userid = $_GET['userid'] ?? 0;
+if (!$userid) {
+    $userid = $_POST['userid'] ?? $userid;
+}
 
-switch ($_GET["step"]) {
+$teamid = $_GET['teamid'] ?? 0;
+if (!$teamid) {
+    $teamid = $_POST['teamid'] ?? $teamid;
+}
+
+$member_user = $_GET['member_user'] ?? 0;
+if ($member_user) {
+    $member_user = $_POST['member_user'] ?? $member_user;
+}
+
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     // Team löschen
     case 10:
         if ($tteam->delete($_POST["teamid"])) {
@@ -40,7 +55,7 @@ switch ($_GET["step"]) {
 
     // Member aus Team löschen
     case 30:
-        list($team_id, $user_id) = explode("-", $_POST["member_user"], 2);
+        [$team_id, $user_id] = explode("-", $_POST["member_user"], 2);
         if ($tteam->kick($team_id, $user_id)) {
             $func->confirmation(t('Der Spieler wurde erfolgreich aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr_admin");
         }
@@ -76,7 +91,7 @@ switch ($_GET["step"]) {
             $dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $_POST["set_password"], $error["set_password"]);
             $dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $_POST["set_password2"], $error["set_password2"]);
             $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $team_comment, "", "", "", 1);
-            $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1000000, 1);
+            $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
             $dsp->AddBackButton("index.php?mod=tournament2&action=teammgr_admin", "");
         }
@@ -110,7 +125,7 @@ switch ($_GET["step"]) {
         } else {
             $t_array = array("<option value=\"\">".t('Bitte Turnier auswählen')."</option>");
             while ($tourney = $db->fetch_array($tourneys)) {
-                array_push($t_array, "<option value=\"{$tourney['tournamentid']}\">{$tourney['name']}</option>");
+                $t_array[] = "<option value=\"{$tourney['tournamentid']}\">{$tourney['name']}</option>";
             }
             $dsp->SetForm("?", null, 'GET');
             $t_hiddenfields  = '<input type="hidden" name="mod" value="tournament2" />';
@@ -139,7 +154,7 @@ switch ($_GET["step"]) {
         } else {
             $t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
             while ($team = $db->fetch_array($teams)) {
-                array_push($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']}</option>");
+                $t_array[] = "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']}</option>";
             }
             $dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=10");
             $dsp->AddDropDownFieldRow("teamid", t('Komplettes Team löschen<br />(Nur in Anmeldephase möglich)'), $t_array, "");
@@ -170,7 +185,7 @@ switch ($_GET["step"]) {
 
                 $freie_platze = $team['teamplayer'] - ($member['members'] + 1);
                 if ($freie_platze > 0) {
-                    array_push($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']} (". t('Noch %1 frei', $freie_platze) .")</option>");
+                    $t_array[] = "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']} (" . t('Noch %1 frei', $freie_platze) . ")</option>";
                 }
             }
             $dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=20");
@@ -201,7 +216,7 @@ switch ($_GET["step"]) {
         } else {
             $t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
             while ($team = $db->fetch_array($teams)) {
-                array_push($t_array, "<option value=\"{$team['teamid']}-{$team['userid']}\">{$team['tname']} - {$team['name']} - {$team['mname']}</option>");
+                $t_array[] = "<option value=\"{$team['teamid']}-{$team['userid']}\">{$team['tname']} - {$team['name']} - {$team['mname']}</option>";
             }
             $dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=30");
             $dsp->AddDropDownFieldRow("member_user", t('Spieler aus einem Team löschen'), $t_array, "");

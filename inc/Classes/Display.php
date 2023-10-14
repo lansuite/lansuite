@@ -18,10 +18,7 @@ class Display
      */
     public $form_open = 0;
 
-    /**
-     * @var int
-     */
-    private $formcount = 1;
+    private int $formcount = 1;
 
     /**
      * @var string
@@ -33,30 +30,18 @@ class Display
      */
     public $errortext_suffix = '';
 
-    /**
-     * @var int
-     */
-    private $FirstLine = 1;
+    private int $FirstLine = 1;
 
-    /**
-     * @var int
-     */
-    private $CurrentTab = 0;
+    private int $CurrentTab = 0;
 
     /**
      * @var string
      */
     private $TabsMainContentTmp = '';
 
-    /**
-     * @var array
-     */
-    private $TabNames = [];
+    private array $TabNames = [];
 
-    /**
-     * @var string
-     */
-    private $form_name = '';
+    private string $form_name = '';
 
     public function __construct()
     {
@@ -123,6 +108,8 @@ class Display
 
         if (file_exists('modules/'. $_GET['mod'] .'/docu/'. $language .'_'. $helplet_id .'.php')) {
             $smarty->assign('helplet_id', $helplet_id);
+        } else {
+            $smarty->assign('helplet_id', '');
         }
 
         $smarty->assign('mod', $_GET['mod']);
@@ -186,7 +173,7 @@ class Display
         $out .= '<div id="tabs"><ul>'. $items .'</ul>';
 
         $sel = '';
-        if ($_GET['tab']) {
+        if (array_key_exists('tab', $_GET) && $_GET['tab']) {
             $sel = '{ selected: '. (int)$_GET['tab'] .' }';
         }
         $framework->add_js_code('$(function() { $("#tabs").tabs('. $sel .'); });');
@@ -283,10 +270,14 @@ class Display
         $smarty->assign('text', $text);
         if ($parm != '') {
             $smarty->assign('align', $parm);
+        } else {
+            $smarty->assign('align', '');
         }
 
         if ($class != '') {
             $smarty->assign('class', 'class="' . $class . '"');
+        } else {
+            $smarty->assign('class', '');
         }
 
         $this->AddContentLine($smarty->fetch('design/templates/ls_row_single.htm'));
@@ -656,9 +647,12 @@ class Display
         $smarty->assign('value', $value);
         $smarty->assign('rows', $rows);
 
+        $smarty->assign('errortext', '');
         if ($errortext) {
             $smarty->assign('errortext', $this->errortext_prefix . $errortext . $this->errortext_suffix);
         }
+
+        $smarty->assign('optional', '');
         if ($optional) {
             $smarty->assign('optional', '_optional');
         }
@@ -867,6 +861,8 @@ class Display
         $smarty->assign('name', $name);
         $smarty->assign('key', $key);
         $smarty->assign('additional', $additional);
+
+        $smarty->assign('optional', '');
         if ($optional) {
             $smarty->assign('optional', '_optional');
         }
@@ -934,26 +930,32 @@ class Display
         }
         $smarty->assign('years', $arr);
 
+        $smarty->assign('dis_min', '');
         if (isset($disableds['min']) and $disableds['min']) {
             $smarty->assign('dis_min', 'disabled=disabled');
         }
 
+        $smarty->assign('dis_hour', '');
         if (isset($disableds['hour']) and $disableds['hour']) {
             $smarty->assign('dis_hour', 'disabled=disabled');
         }
 
+        $smarty->assign('dis_day', '');
         if (isset($disableds['day']) and $disableds['day']) {
             $smarty->assign('dis_day', 'disabled=disabled');
         }
 
+        $smarty->assign('dis_month', '');
         if (isset($disableds['month']) and $disableds['month']) {
             $smarty->assign('dis_month', 'disabled=disabled');
         }
 
+        $smarty->assign('dis_year', '');
         if (isset($disableds['year']) and $disableds['year']) {
             $smarty->assign('dis_year', 'disabled=disabled');
         }
 
+        $smarty->assign('errortext', '');
         if ($errortext) {
             $smarty->assign('errortext', $this->errortext_prefix . $errortext . $this->errortext_suffix);
         }
@@ -1236,29 +1238,15 @@ class Display
         $smarty->assign('name', $picname);
 
         if ($hint == '') {
-            switch ($picname) {
-                default:
-                    $hint = '';
-                    break;
-                case 'add':
-                    $hint = t('Hinzufügen');
-                    break;
-                case 'change':
-                    $hint = t('Ändern');
-                    break;
-                case 'edit':
-                    $hint = t('Editieren');
-                    break;
-                case 'delete':
-                    $hint = t('Löschen');
-                    break;
-                case 'send':
-                    $hint = t('Senden');
-                    break;
-                case 'quote':
-                    $hint = t('Zitieren');
-                    break;
-            }
+            $hint = match ($picname) {
+                'add' => t('Hinzufügen'),
+                'change' => t('Ändern'),
+                'edit' => t('Editieren'),
+                'delete' => t('Löschen'),
+                'send' => t('Senden'),
+                'quote' => t('Zitieren'),
+                default => '',
+            };
         }
         $smarty->assign('hint', $hint);
         if ($align == 'right') {
@@ -1347,4 +1335,31 @@ class Display
     {
         return '<div class="infolink" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
     }
+
+    public function AddTripleRow($key, $value, $id = null, $ext_txt) {
+        global $smarty;
+
+        if ($key == '') {
+            $key = '&nbsp;';
+        }
+
+        if ($value == '') {
+            $value = '&nbsp;';
+        }
+
+        if ($ext_txt == '') {
+            $value = '&nbsp;';
+        }
+
+        if ($id == '') {
+            $id = 'DoubleRowVal';
+        }
+
+        $smarty->assign('key', $key);
+        $smarty->assign('value', $value);
+        $smarty->assign('id', $id);
+        $smarty->assign('ls_triplerow_ext', $ext_txt);
+
+        $this->AddContentLine($smarty->fetch('design/templates/ls_row_triple.htm'));
+      }
 }

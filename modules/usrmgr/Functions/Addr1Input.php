@@ -4,9 +4,8 @@
  * @param string $field
  * @param int $mode
  * @param string $error
- * @return bool|string
  */
-function Addr1Input($field, $mode, $error = '')
+function Addr1Input($field, $mode, $error = ''): bool|string
 {
     global $dsp;
 

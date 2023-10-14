@@ -7,7 +7,8 @@ $userManager = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
 $guestlist = new LanSuite\Module\GuestList\GuestList($seating, $userManager);
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     // Paid
     case 10:
         if (!$_POST['action'] and $_GET['userid']) {
@@ -119,6 +120,7 @@ switch ($_GET['step']) {
         break;
 }
 
-if (!$_GET['userid']) {
+$userIdParameter = $_GET['userid'] ?? 0;
+if (!$userIdParameter) {
     include_once('modules/guestlist/search.inc.php');
 }

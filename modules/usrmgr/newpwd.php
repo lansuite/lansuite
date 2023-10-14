@@ -2,7 +2,8 @@
 
 $user_data = $db->qry_first("SELECT name, firstname, username, type FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/usrmgr/search.inc.php');
         break;
@@ -12,7 +13,7 @@ switch ($_GET['step']) {
         break;
 
     case 3:
-        $password = rand(1000, 9999);
+        $password = random_int(1000, 9999);
         $md5_password = md5($password);
 
         if ($_SESSION["auth"]["type"] < $userdata["type"]) {

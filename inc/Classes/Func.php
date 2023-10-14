@@ -5,6 +5,11 @@ namespace LanSuite;
 class Func
 {
     /**
+     * HTTP referer
+     */
+    public string $internal_referer;
+
+    /**
      * @var array
      */
     public $ActiveModules = [];
@@ -41,22 +46,12 @@ class Func
 
         $res = $db->qry('SELECT cfg_value, cfg_key, cfg_type FROM %prefix%config');
         while ($row = $db->fetch_array($res, 0)) {
-            switch ($row['cfg_type']) {
-                case 'integer':
-                case 'int':
-                      $cfg["{$row['cfg_key']}"] = (int)$row['cfg_value'];
-                    break;
-                case 'boolean':
-                case 'bool':
-                      $cfg["{$row['cfg_key']}"] = (bool)$row['cfg_value'];
-                    break;
-                case 'float':
-                      $cfg["{$row['cfg_key']}"] = (float)$row['cfg_value'];
-                    break;
-                default:
-                      $cfg["{$row['cfg_key']}"] = $row['cfg_value'];
-                    break;
-            }
+            $cfg["{$row['cfg_key']}"] = match ($row['cfg_type']) {
+                'integer', 'int' => (int)$row['cfg_value'],
+                'boolean', 'bool' => (bool)$row['cfg_value'],
+                'float' => (float)$row['cfg_value'],
+                default => $row['cfg_value'],
+            };
         }
         $db->free_result($res);
 
@@ -68,9 +63,8 @@ class Func
      *
      * @param string    $strStr
      * @param string    $strPattern
-     * @return bool|false|int
      */
-    public function str2time($strStr, $strPattern = 'Y-m-d H:i:s')
+    public function str2time($strStr, $strPattern = 'Y-m-d H:i:s'): bool|int
     {
         // An array of the valid date characters, see: http://php.net/date#AEN21898
         $arrCharacters = [
@@ -99,13 +93,13 @@ class Func
         $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
 
         // If the numbers of the two array are not the same, return false, because the cannot belong together
-        if (count($arrStr) !== count($arrPattern)) {
+        if ((is_countable($arrStr) ? count($arrStr) : 0) !== (is_countable($arrPattern) ? count($arrPattern) : 0)) {
             return false;
         }
 
         // Creates a new array which has the keys from the $arrPattern array and the values from the $arrStr array
         $arrTime = [];
-        for ($i = 0; $i < count($arrStr); $i++) {
+        for ($i = 0; $i < (is_countable($arrStr) ? count($arrStr) : 0); $i++) {
             $arrTime[$arrPattern[$i]] = $arrStr[$i];
         }
 
@@ -136,10 +130,11 @@ class Func
      *
      * @param int       $func_timestamp
      * @param string    $func_art       One of year, month, date, time, shorttime, datetime, daydatetime, daydate, or shortdaytime
-     * @return false|string
      */
-    public function unixstamp2date($func_timestamp, $func_art)
+    public function unixstamp2date($func_timestamp, $func_art): null|string
     {
+        $day = [];
+        $func_date = null;
         if ((int)$func_timestamp == 0) {
             return '---';
         } else {
@@ -153,10 +148,8 @@ class Func
                 case 'date':
                     $func_date  = date('d.m.Y', $func_timestamp);
                     break;
-                case 'time':
-                    $func_date  = date('H:i', $func_timestamp);
-                    break;
                 case 'shorttime':
+                case 'time':
                     $func_date  = date('H:i', $func_timestamp);
                     break;
                 case 'datetime':
@@ -431,92 +424,106 @@ class Func
     }
 
     /**
-     * @param string    $string
-     * @param int       $mode   0: default; 1: wiki before; 2: wiki after; 4: basic
+     * Transforms given input text to HTML-enriched output. 
+     * Based on the mode provided, various tags are allowed.
+     * These are - to my understanding  - as follows:
+     * mode 0: Full BBcode parsing, Smileys
+     * mode 1: BBcode text formatting, img, url + whitespace conversion
+     * mode 2: Smileys, PHP syntax highlighting
+     * mode 4: basic BBcode + whitespace conversion, Smileys
+     * @param string $string The text to be parsed
+     * @param int $mode 0: default; 1: wiki before; 2: wiki after; 4: basic
      * @return string
      */
     public function text2html($string, $mode = 0)
     {
         global $db;
+        
+        if ($mode == 0)
+        {
+            $parser = new \Youthweb\BBCodeParser\Manager();
+            $config = ['parse_headlines' => true];
+            return $parser->parse($string, $config);
+        } else {
+            if ($mode != 4) {
+                if ($mode != 1) { //mode 2 - seems to be dead code that was supposed to do syntax highlighting as further down
+                    preg_replace_callback(
+                        '#\[c\]((.)*)\[\/c\]#sUi',
+                        function ($treffer) {
+                            global $HighlightCode, $HighlightCount;
+                            $HighlightCount++;
+                            $HighlightCode[$HighlightCount] = $treffer[1];
+                        },
+                        $string
+                    );
+                }
 
-        if ($mode != 4) {
-            if ($mode != 1) {
-                preg_replace_callback(
-                    '#\[c\]((.)*)\[\/c\]#sUi',
-                    function ($treffer) {
-                        global $HighlightCode, $HighlightCount;
-                        $HighlightCount++;
-                        $HighlightCode[$HighlightCount] = $treffer[1];
-                    },
-                    $string
-                );
+                if ($mode != 2) {//mode 1 - BBcode for img & url tags
+                    $img_start2 = '<img src="ext_inc/smilies/';
+                    $img_end   = '" border="0" alt="" />';
+
+                    $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:468px; max-height:450px; overflow:hidden;" />', $string);
+                    $string = preg_replace('#\[url(?|=[\'"]?([^]"\']+)[\'"]?]([^[]+)|](([^[]+)))\[/url]#i', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
+
+                    if ($mode != 1) {// unreachable code, as mode MUST be 1 to come here
+                        $string = preg_replace('#(\\s|^)(https?://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
+                    }
+                }
             }
 
-            if ($mode != 2) {
-                $img_start2 = '<img src="ext_inc/smilies/';
-                $img_end   = '" border="0" alt="" />';
+            if ($mode != 2) { // mode 1 or 4 - whitespace conversion + basic BBcode tags
+                $string = str_replace("\r", '', $string);
+                $string = str_replace("\n", "<br />\n", $string);
+                $string = str_replace("[br]", "<br />\n", $string);
+                $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
 
-                $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:468px; max-height:450px; overflow:hidden;" />', $string);
-                $string = preg_replace('#\\[url=(https?://[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
+                $string = preg_replace('#\[b\](.*)\[/b\]#sUi', '<b>\\1</b>', $string);
+                $string = preg_replace('#\[i\](.*)\[/i\]#sUi', '<i>\\1</i>', $string);
+                $string = preg_replace('#\[u\](.*)\[/u\]#sUi', '<u>\\1</u>', $string);
+                $string = preg_replace('#\[s\](.*)\[/s\]#sUi', '<s>\\1</s>', $string);
+                $string = preg_replace('#\[sub\](.*)\[/sub\]#sUi', '<sub>\\1</sub>', $string);
+                $string = preg_replace('#\[sup\](.*)\[/sup\]#sUi', '<sup>\\1</sup>', $string);
+            }
 
-                if ($mode != 1) {
-                    $string = preg_replace('#(\\s|^)(https?://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
+            if ($mode != 4) { // mode 1 or 2
+                if ($mode != 2) {// mode 1 - BBcode quote, size, color
+                    $string = preg_replace('#\[quote\](.*)\[/quote\]#sUi', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">\\1</div></blockquote>', $string);
+
+                    $string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
+                    $string = str_replace('[/size]', '</font>', $string);
+                    $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
+                    $string = str_replace('[/color]', '</font>', $string);
+                }
+
+                if ($mode != 1) {// mode 2 - PHP Syntax highlighting via GeSHi
+                    $string = preg_replace_callback(
+                        '#\[c\](.)*\[\/c\]#sUi',
+                        function ($treffer) {
+                            global $HighlightCode, $HighlightCount2;
+                            $HighlightCount2++;
+                            $geshi = new \GeSHi($HighlightCode[$HighlightCount2], 'php');
+                            $geshi->set_header_type(\GESHI_HEADER_NONE);
+                            return '
+                                <blockquote>
+                                    <div class="tbl_small">Code:</div>
+                                    <div class="tbl_7">
+                                        \'. $func->AllowHTML(\'<code>\' . $geshi->parse_code() . \'</code>\') .\'
+                                    </div>
+                                </blockquote>';
+                        },
+                        $string
+                    );
                 }
             }
         }
-
-        if ($mode != 2) {
-            $string = str_replace("\r", '', $string);
-            $string = str_replace("\n", "<br />\n", $string);
-            $string = str_replace("[br]", "<br />\n", $string);
-            $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
-
-            $string = preg_replace('#\[b\](.*)\[/b\]#sUi', '<b>\\1</b>', $string);
-            $string = preg_replace('#\[i\](.*)\[/i\]#sUi', '<i>\\1</i>', $string);
-            $string = preg_replace('#\[u\](.*)\[/u\]#sUi', '<u>\\1</u>', $string);
-            $string = preg_replace('#\[s\](.*)\[/s\]#sUi', '<s>\\1</s>', $string);
-            $string = preg_replace('#\[sub\](.*)\[/sub\]#sUi', '<sub>\\1</sub>', $string);
-            $string = preg_replace('#\[sup\](.*)\[/sup\]#sUi', '<sup>\\1</sup>', $string);
-        }
-
-        if ($mode != 4) {
-            if ($mode != 2) {
-                $string = preg_replace('#\[quote\](.*)\[/quote\]#sUi', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">\\1</div></blockquote>', $string);
-
-                $string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
-                $string = str_replace('[/size]', '</font>', $string);
-                $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
-                $string = str_replace('[/color]', '</font>', $string);
-            }
-
-            if ($mode != 1) {
-                $string = preg_replace_callback(
-                    '#\[c\](.)*\[\/c\]#sUi',
-                    function ($treffer) {
-                        global $HighlightCode, $HighlightCount2;
-                        $HighlightCount2++;
-                        $geshi = new GeSHi($HighlightCode[$HighlightCount2], 'php');
-                        $geshi->set_header_type(GESHI_HEADER_NONE);
-                        return '
-                            <blockquote>
-                                <div class="tbl_small">Code:</div>
-                                <div class="tbl_7">
-                                    \'. $func->AllowHTML(\'<code>\' . $geshi->parse_code() . \'</code>\') .\'
-                                </div>
-                            </blockquote>';
-                    },
-                    $string
-                );
-            }
-
-            if ($mode != 1) {
+            if ($mode != 1) { // mode 0,2,4 - Smiley replacement
                 $res = $db->qry("SELECT shortcut, image FROM %prefix%smilies");
                 while ($row = $db->fetch_array($res)) {
                     $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
                 }
                 $db->free_result($res);
             }
-        }
+        
 
         return $string;
     }
@@ -705,6 +712,7 @@ class Func
      */
     public function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name)
     {
+        $orderby = null;
         // $current_page is passed as an string, because the source is a GET parameter
         // it seems that it can contain a string 'all' or a number.
         // In this function we add numbers to $current_page which
@@ -771,9 +779,8 @@ class Func
      * @param string    $source_var
      * @param string    $path
      * @param string    $name
-     * @return int|string
      */
-    public function FileUpload($source_var, $path, $name = null)
+    public function FileUpload($source_var, $path, $name = null): int|string
     {
         global $config;
 
@@ -895,9 +902,9 @@ class Func
             return false;
         } else {
             // Set read timeout
-            socket_set_timeout($handle, 0, $timeout);
+            stream_set_timeout($handle, 0, $timeout);
             // Time the response
-            list($usec, $sec) = explode(" ", microtime(true));
+            [$usec, $sec] = explode(" ", microtime(true));
             $start = (float)$usec + (float)$sec;
 
             // Send something
@@ -911,9 +918,9 @@ class Func
             fread($handle, 1024);
 
             // Work out if we got a responce and time it
-            list($usec, $sec) = explode(" ", microtime(true));
+            [$usec, $sec] = explode(" ", microtime(true));
             $laptime = ((float)$usec + (float)$sec)-$start;
-            if (($laptime * 1000000) > ($timeout * 0.9)) {
+            if (($laptime * 1_000_000) > ($timeout * 0.9)) {
                 fclose($handle);
                 return false;
             } else {
@@ -941,9 +948,8 @@ class Func
 
     /**
      * @param string $dir
-     * @return array|bool
      */
-    public function GetDirList($dir)
+    public function GetDirList($dir): array|bool
     {
         if (!is_dir($dir)) {
             return false;
@@ -952,7 +958,7 @@ class Func
         $ret = array();
         $handle = opendir($dir);
         while ($file = readdir($handle)) {
-            if ((substr($file, 0, 1)  != '.') and ($file != '.svn')) {
+            if ((!str_starts_with($file, '.')) and ($file != '.svn')) {
                 $ret[] = strtolower($file);
             }
         }
@@ -1093,7 +1099,7 @@ class Func
         }
 
         $search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%lastread WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
-        if ($search_read["found"]) {
+        if ($search_read) {
             $db->qry_first("UPDATE %prefix%lastread SET date = NOW() WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
         } else {
             $db->qry_first("INSERT INTO %prefix%lastread SET date = NOW(), tab = %string%, entryid = %int%, userid = %int%", $table, $entryid, $userid);
@@ -1108,6 +1114,9 @@ class Func
      */
     public function CreateSignonBar($guests, $paid_guests, $max_guests)
     {
+        $curuser = null;
+        $gesamtpaid = null;
+        $bar = null;
         $max_bars = 100;
 
         // Calculate signed up guests

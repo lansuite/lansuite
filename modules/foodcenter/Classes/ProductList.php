@@ -11,17 +11,15 @@ class ProductList
 {
     /**
      * List of product numbers
-     *
-     * @var array
      */
-    private $product_list = [];
+    private array $product_list = [];
 
     /**
      * List of products
      *
      * @var Product[]
      */
-    private $product = [];
+    private array $product = [];
 
     /**
      * Load all products from a category
@@ -53,8 +51,8 @@ class ProductList
         global $dsp;
 
         if (count($this->product) > 0) {
-            for ($i = 0; $i < count($this->product); $i++) {
-                $this->product[$i]->order_form($worklink);
+            foreach ($this->product as $iValue) {
+                $iValue->order_form($worklink);
             }
         } else {
             $dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));
@@ -79,11 +77,11 @@ class ProductList
      * Returns true once the product is added, false otherwise
      *
      * @param int       $id
-     * @param array|int $opt
      * @return bool
      */
-    public function add_product($id, $opt)
+    public function add_product($id, array|int $opt)
     {
+        $key_array = [];
         // Product already in the list?
         if (in_array($id, $this->product_list)) {
             if (is_array($opt)) {
@@ -108,7 +106,11 @@ class ProductList
 
                 // If it is not the same product, get the last key
                 end($this->product);
-                $key_array = each($this->product);
+                $key_array[1] = current($this->product);
+                $key_array['value'] = current($this->product);
+                $key_array[0] = key($this->product);
+                $key_array['key'] = key($this->product);
+                next($this->product);
                 if (count($this->product) == 0) {
                     $key = 0;
                 } else {
@@ -142,7 +144,11 @@ class ProductList
             $ret = true;
 
             end($this->product);
-            $key_array = each($this->product);
+            $key_array[1] = current($this->product);
+            $key_array['value'] = current($this->product);
+            $key_array[0] = key($this->product);
+            $key_array['key'] = key($this->product);
+            next($this->product);
             if (count($this->product) == 0) {
                 $key = 0;
             } else {
@@ -172,11 +178,10 @@ class ProductList
      * Write new basket once something changed
      *
      * @param int       $listid
-     * @param array|int $opt
      * @param int $value
      * @return mixed
      */
-    public function chanche_ordered($listid, $opt, $value)
+    public function chanche_ordered($listid, array|int $opt, $value)
     {
         if (!is_null($opt)) {
             return $this->product[$listid]->order_option($opt, $value);

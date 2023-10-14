@@ -12,11 +12,12 @@ $db->qry("SELECT * from %prefix%noc_devices WHERE id = %int%", $_GET["deviceid"]
 if (!$row = $db->fetch_array()) {
     $func->error(t('Das gew&auml;hlte Device existiert nicht'));
 } else {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         default:
             $device_ip = $row["ip"];
             $readcommunity  = $row["readcommunity"];
-        
+
         // DISPLAYED TEXT
             $smarty->assign('caption', t('Name'));
             $smarty->assign('ip', t('IP-Adresse'));
@@ -126,12 +127,12 @@ if (!$row = $db->fetch_array()) {
 
         //Mac-Addressen auslesen
             $noc->getMacAddress($row["ip"], $row["readcommunity"], $row["id"], $row["sysDescr"]);
-        
+
         // Get the Ports and display 'em
             $db->qry("SELECT name FROM %prefix%noc_devices WHERE id = %int%", $_GET["deviceid"]);
 
             $row = $db->fetch_array();
-        
+
         // Ports are all saved into 1 template variable
             $ports = "<tr align=\"center\">";
 
@@ -161,7 +162,7 @@ if (!$row = $db->fetch_array()) {
                     $colspan = "1";
                 }
 
-            
+
                 switch ($row["linkstatus"]) {
                     case "up(1)":
                     case "up":
@@ -181,8 +182,8 @@ if (!$row = $db->fetch_array()) {
                             }
                                 $ports .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";
                         }
-                    
-        
+
+
                         break;
 
                     case "down(2)":
@@ -222,12 +223,12 @@ if (!$row = $db->fetch_array()) {
             $changebutton = $dsp->FetchSpanButton(t('Zurück'), "index.php?mod=noc&action=show_device");
             $changebutton .= $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=2");
             $smarty->assign('changebutton', $changebutton);
-    
+
         // DISPLAY TEMPLATE
             $dsp->AddSmartyTpl('device_details', 'noc');
             break;
-        
-        
+
+
         case 2:
             $dsp->NewContent(t('Portstatus &auml;ndern'), t('Gib bitte alle Ports an die du &auml;ndern willst'));
             $dsp->SetForm("index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=3");
@@ -264,7 +265,7 @@ if (!$row = $db->fetch_array()) {
                             }
                                 $tmp_noc .= "<td colspan=\"" . $colspan . "\"><input name='noc[]' type='checkbox' value='". $row["portnr"] ."'/><img alt='' border=0 src=\"$port_pic\"/></td>\n";
                         }
-                
+
                         break;
 
                     case "down(2)":
@@ -295,11 +296,11 @@ if (!$row = $db->fetch_array()) {
                 }
                 $Portcount++;
             } // END WHILE
-        
+
             $dsp->AddSingleRow($tmp_noc . "<td>");
             $dsp->AddFormSubmitRow(t('Editieren'));
             break;
-        
+
         case 3:
             if (is_array($_POST['noc'])) {
                 foreach ($_POST['noc'] as $noc_data) {
@@ -351,7 +352,7 @@ if (!$row = $db->fetch_array()) {
 											 Pr&uuml;fen sie die Einstellung der Write-Community') . HTML_NEWLINE;
                     }
                 }
-                
+
                 if ($noc_error == 1) {
                     $func->error($text, "index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]);
                 } else {
@@ -391,7 +392,7 @@ if (!$row = $db->fetch_array()) {
 											 Pr&uuml;fen sie die Einstellung der Write-Community') . HTML_NEWLINE;
                     $noc_error = 1;
                 }
-            
+
                 if ($noc_error == 1) {
                     $func->error($text, "index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]);
                 } else {

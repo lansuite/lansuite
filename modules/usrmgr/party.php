@@ -25,7 +25,8 @@ if ($party->count == 0) {
           ORDER BY startdate");
         while ($row = $db->fetch_array($res)) {
             $mf = new \LanSuite\MasterForm($MFID);
-            if ($_GET['mf_step'] != 2 || $row['party_id'] == $_GET['party_id']) {
+            $masterFormStepParam = $_GET['mf_step'] ?? 0;
+            if ($masterFormStepParam != 2 || $row['party_id'] == $_GET['party_id']) {
                 $dsp->AddFieldsetStart($row['name'] .' ('. $func->unixstamp2date($row['startdate'], 'datetime') .' - '. $func->unixstamp2date($row['enddate'], 'datetime') .')');
                 $mf->AdditionalKey = 'party_id = '. $row['party_id'];
 
@@ -43,7 +44,7 @@ if ($party->count == 0) {
                     $mf->AddFix('paid', '1');
                 }
 
-                if ($cfg['signon_autopaid'] or $_POST['paid']) {
+                if ($cfg['signon_autopaid'] or (array_key_exists('paid', $_POST) && $_POST['paid'])) {
                     $mf->AddFix('paiddate', 'NOW()');
                 }
 
@@ -77,7 +78,8 @@ if ($party->count == 0) {
                 $mf->SendButtonText = 'An-/Abmelden';
 
                 $mf->AdditionalDBUpdateFunction = 'PartyMail';
-                $mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&party_id='. $row['party_id'], 'party_user', 'user_id', $_GET['user_id']);
+                $actionParameter = $_GET['action'] ?? '';
+                $mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $actionParameter  .'&party_id='. $row['party_id'], 'party_user', 'user_id', $_GET['user_id']);
                 $dsp->AddFieldsetEnd();
             } else {
                 $mf->IncrementNumber();
@@ -93,6 +95,7 @@ if ($party->count == 0) {
             p.*,
             pu.user_id,
             pu.paid,
+            pu.price_id,
             UNIX_TIMESTAMP(pu.checkin) AS checkin,
             UNIX_TIMESTAMP(pu.checkout) AS checkout,
             UNIX_TIMESTAMP(p.enddate) AS enddate,

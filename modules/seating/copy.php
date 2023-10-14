@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('seating');
 
@@ -11,6 +12,8 @@ switch ($_GET['step']) {
 
         $ms2->AddIconField('in', 'index.php?mod=seating&action=copy&step=2&blockid=', t('Kopieren'));
         $ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', t('Editieren'));
+
+        $current_url = 'index.php?mod=seating&action=copy';
         $ms2->PrintSearch($current_url, 'b.blockid');
         break;
   
@@ -24,8 +27,8 @@ switch ($_GET['step']) {
             `rows` = %int%,
             cols = %int%,
             `name` = %string%,
-            orientation = %int%,
-            u18 = %int%,
+            orientation = %string%,
+            u18 = %string%,
             remark = %string%,
             text_tl = %string%,
             text_tc = %string%,
@@ -44,7 +47,7 @@ switch ($_GET['step']) {
             $row['cols'],
             $row['name'] .' (Kopie)',
             $row['orientation'],
-            $row['u18'],
+            empty($row['u18']) ? '0' : $row['u18'],
             $row['remark'],
             $row['text_tl'],
             $row['text_tc'],
@@ -94,7 +97,7 @@ switch ($_GET['step']) {
                   INSERT INTO %prefix%seat_sep
                   SET
                     blockid = %int%,
-                    orientation = %int%,
+                    orientation = %string%,
                     value = %int%',
                     $blockid,
                     $row['orientation'],

@@ -1,0 +1,21 @@
+name: Auto-label merge conflicts
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  conflicts:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: mschilde/auto-label-merge-conflicts@v2.0
+        with:
+          CONFLICT_LABEL_NAME: conflicts
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

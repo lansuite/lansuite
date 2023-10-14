@@ -2,9 +2,8 @@
 
 /**
  * @param string $senddate
- * @return bool|string
  */
-function CheckSignonEndDate($senddate)
+function CheckSignonEndDate($senddate): bool|string
 {
     global $func;
     if ($func->str2time($senddate) < $func->str2time($_POST['sstartdate'])) {

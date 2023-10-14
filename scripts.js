@@ -166,7 +166,6 @@ function LoadingToolTip(text)
 
 function changepic(picname, obj)
 {
-    alert(picname.substr(picname.substr.length - 6, 6));
     if (picname.substr(picname.substr.length - 6, 6) == "none" || picname == "") {
         obj.src = "design/images/transparent.png";
     } else {

@@ -152,7 +152,7 @@ class Barcode
             if (strlen($barnumber)>13 || strlen($barnumber)<12) {
                 $this->_error="Barcode number must be less then 13 characters.";
                 return false;
-            } elseif (substr($barnumber, 0, 3)!="978") {
+            } elseif (!str_starts_with($barnumber, "978")) {
                 $this->_error="Not an ISBN barcode number. Must be start with 978";
                 return false;
             }
@@ -294,6 +294,7 @@ class Barcode
 
     public function _c93Barcode($barnumber, $scale = 1, $file = "", $checkdigit = false)
     {
+        $space = [];
         $bars=$this->_c93Encode($barnumber);
         if (empty($file)) {
             header("Content-type: image/".$this->_format);
@@ -378,6 +379,7 @@ class Barcode
 
     public function _c39Encode($barnumber, $checkdigit = false)
     {
+        $sum = null;
         $encTable=array("0" => "NNNWWNWNN",
         "1" => "WNNWNNNNW",
         "2" => "NNWWNNNNW",
@@ -483,6 +485,7 @@ class Barcode
 
     public function _c39Barcode($barnumber, $scale = 1, $file = "", $checkdigit = false)
     {
+        $space = [];
         $bars=$this->_c39Encode($barnumber, $checkdigit);
         if (empty($file)) {
             header("Content-type: image/".$this->_format);
@@ -559,6 +562,7 @@ class Barcode
     ///Start function for code128
     public function _c128Encode($barnumber, $useKeys)
     {
+        $check = null;
         $encTable=array("11011001100","11001101100","11001100110","10010011000","10010001100","10001001100","10011001000","10011000100","10001100100","11001001000","11001000100","11000100100","10110011100","10011011100","10011001110","10111001100","10011101100","10011100110","11001110010","11001011100","11001001110","11011100100","11001110100","11101101110","11101001100","11100101100","11100100110","11101100100","11100110100","11100110010","11011011000","11011000110","11000110110","10100011000","10001011000","10001000110","10110001000","10001101000","10001100010","11010001000","11000101000","11000100010","10110111000","10110001110","10001101110","10111011000","10111000110","10001110110","11101110110","11010001110","11000101110","11011101000","11011100010","11011101110","11101011000","11101000110","11100010110","11101101000","11101100010","11100011010","11101111010","11001000010","11110001010","10100110000","10100001100","10010110000","10010000110","10000101100","10000100110","10110010000","10110000100","10011010000","10011000010","10000110100","10000110010","11000010010","11001010000","11110111010","11000010100","10001111010","10100111100","10010111100","10010011110","10111100100","10011110100","10011110010","11110100100","11110010100","11110010010","11011011110","11011110110","11110110110","10101111000","10100011110","10001011110","10111101000","10111100010","11110101000","11110100010","10111011110","10111101110","11101011110","11110101110","11010000100","11010010000","11010011100","11000111010");
 
         $start=array("A"=>"11010000100","B"=>"11010010000","C"=>"11010011100");
@@ -612,6 +616,7 @@ class Barcode
 
     public function _c128Barcode($barnumber, $scale = 1, $file = "")
     {
+        $space = [];
         $useKeys="B";
         if (preg_match("/^[0-9".chr(128).chr(129).chr(130)."]+$/", $barnumber)) {
             $useKeys='C';
@@ -752,6 +757,7 @@ class Barcode
 
     public function _codaBarcode($barnumber, $scale = 1, $file = "")
     {
+        $space = [];
         $bars=$this->_codaEncode($barnumber);
         if (empty($file)) {
             header("Content-type: image/".$this->_format);
@@ -849,6 +855,7 @@ class Barcode
 
     public function _postEncode($barnumber)
     {
+        $check = null;
         $encTable=array("11000","00011","00101","00110","01001","01010","01100","10001","10010","10100");
 
         $sum=0;
@@ -868,6 +875,7 @@ class Barcode
 
     public function _postBarcode($barnumber, $scale = 1, $file = "")
     {
+        $space = [];
         if (strlen($barnumber)==5 || strlen($barnumber)==9 || strlen($barnumber)==11) {
             ;
         } else {
@@ -975,7 +983,7 @@ class Barcode
         $len=strlen($barnumber);
         if ($len % 2!=0) {
             $barnumber=$this->_checkDigit($barnumber, $len);
-            if ($len==strlen($barnumber) && substr($barnumber, -1)!='0') {
+            if ($len==strlen($barnumber) && !str_ends_with($barnumber, '0')) {
                 $barnumber.='0';
             }
         }
@@ -1008,6 +1016,7 @@ class Barcode
 
     public function _i25Barcode($barnumber, $scale = 1, $file = "")
     {
+        $space = [];
         $bars=$this->_i25Encode($barnumber);
         if (empty($file)) {
             header("Content-type: image/".$this->_format);
@@ -1111,7 +1120,7 @@ class Barcode
 
         $len=strlen($barnumber);
         $barnumber=$this->_checkDigit($barnumber, $len);
-        if ($len==strlen($barnumber) && substr($barnumber, -1)!='0') {
+        if ($len==strlen($barnumber) && !str_ends_with($barnumber, '0')) {
             $barnumber.='0';
         }
 
@@ -1121,7 +1130,7 @@ class Barcode
         $widebar.="0";
 
         for ($i=0; $i<strlen($barnumber); $i++) {
-            $num=(int)$barnumber{$i};
+            $num=(int)$barnumber[$i];
             $str="";
             $str=str_replace("N", "10", $encTable[$num]);
             $str=str_replace("W", $widebar, $str);
@@ -1133,6 +1142,7 @@ class Barcode
 
     public function _so25Barcode($barnumber, $scale = 1, $file = "")
     {
+        $space = [];
         $bars=$this->_so25Encode($barnumber);
         if (empty($file)) {
             header("Content-type: image/".$this->_format);
@@ -1213,6 +1223,7 @@ class Barcode
 
     public function ConvertUPCAtoUPCE($upca)
     {
+        $barnumber = null;
         $csumTotal = 0; // The checksum working variable starts at zero
         $upce ="";
         // If the source message string is less than 12 characters long, we make it 12 characters
@@ -1221,7 +1232,7 @@ class Barcode
             $barnumber = str_pad($barnumber, 12, "0", STR_PAD_LEFT);
         }
 
-        if (substr($upca, 0, 1) != '0' && substr($upca, 0, 1) != '1') {
+        if (!str_starts_with($upca, '0') && !str_starts_with($upca, '1')) {
             $this->_error = 'Invalid Number System (only 0 & 1 are valid)';
             return false;
         } else {
@@ -1265,7 +1276,7 @@ class Barcode
         $encTable[$checkdigit];
 
         for ($i=0; $i<strlen($barnumber); $i++) {
-            $num=(int)$barnumber{$i};
+            $num=(int)$barnumber[$i];
             $even=(substr($encTable[$checkdigit], $i, 1)=='E');
             if (!$even) {
                 $mfcStr.=$leftOdd[$num];
@@ -1279,6 +1290,7 @@ class Barcode
 
     public function _upceBarcode($barnumber, $scale = 1, $file = "")
     {
+        $space = [];
         if (strlen($barnumber)>6) {
             $this->_ean13CheckDigit($barnumber);
             $barnumber=substr($this->_ean13CheckDigit($barnumber), 1);
@@ -1392,9 +1404,9 @@ class Barcode
 
         for ($i=0; $i<strlen($barnumber); $i++) {
             if ($i % 2 == 0) {
-                $csumTotal = $csumTotal + (3 * intval($barnumber{$i}));
+                $csumTotal = $csumTotal + (3 * intval($barnumber[$i]));
             } else {
-                $csumTotal = $csumTotal + intval($barnumber{$i});
+                $csumTotal = $csumTotal + intval($barnumber[$i]);
             }
         }
 
@@ -1433,7 +1445,7 @@ class Barcode
         $prodStr="";
 
         for ($i=0; $i<strlen($barnumber); $i++) {
-            $num=(int)$barnumber{$i};
+            $num=(int)$barnumber[$i];
             if ($i<4) {
                 $mfcStr.=$leftOdd[$num];
             } elseif ($i>=4) {
@@ -1446,6 +1458,7 @@ class Barcode
 
     public function _ean8Barcode($barnumber, $scale = 1, $file = "")
     {
+        $space = [];
         $barnumber=$this->_checkDigit($barnumber, 7);
         $bars=$this->_ean8Encode($barnumber);
         if (empty($file)) {
@@ -1547,9 +1560,9 @@ class Barcode
 
         for ($i=0; $i<strlen($barnumber); $i++) {
             if ($i % 2 == 0) {
-                $csumTotal = $csumTotal + intval($barnumber{$i});
+                $csumTotal = $csumTotal + intval($barnumber[$i]);
             } else {
-                $csumTotal = $csumTotal + (3 * intval($barnumber{$i}));
+                $csumTotal = $csumTotal + (3 * intval($barnumber[$i]));
             }
         }
 
@@ -1608,7 +1621,7 @@ class Barcode
         $encbit=$barnumber[0];
 
         for ($i=1; $i<strlen($barnumber); $i++) {
-            $num=(int)$barnumber{$i};
+            $num=(int)$barnumber[$i];
             if ($i<7) {
                 $even=(substr($encTable[$encbit], $i-1, 1)==1);
                 if (!$even) {
@@ -1626,6 +1639,7 @@ class Barcode
 
     public function _eanBarcode($barnumber, $scale = 1, $file = "")
     {
+        $space = [];
         $barnumber=$this->_ean13CheckDigit($barnumber);
 
         $bars=$this->_eanEncode($barnumber);

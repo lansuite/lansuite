@@ -59,6 +59,7 @@ class noc
     // Returns a numeric Value ( 1 for Error, 0 for No Error) <= kinda illogical...
     public function checkSNMPDevice($IP, $ReadCommunity)
     {
+        $error = null;
         unset($error);
 
         if (!(@snmpget($IP, $ReadCommunity, ".1.3.6.1.2.1.1.1.0"))) {
@@ -116,14 +117,15 @@ class noc
 
     public function getSNMPwalk($Device, $ReadCommunity, $OID)
     {
+        $data = [];
         $walkvalue = snmpwalk($Device, $ReadCommunity, $OID);
         
         foreach ($walkvalue as $value) {
             if (stristr($value, ":")) {
                 $tmp = explode(":", $value);
-                $data[] .= trim($tmp[1]);
+                $data[] = trim($tmp[1]);
             } else {
-                $data[] .= trim($value);
+                $data[] = trim($value);
             }
         }
         
@@ -132,6 +134,7 @@ class noc
     
     public function getMacAddress($Device, $ReadComunity, $device_id, $modell)
     {
+        $data = [];
         global $db;
         
         $ports = $this->getSNMPwalk($Device, $ReadComunity, ".1.3.6.1.2.1.17.4.3.1.2");
@@ -139,12 +142,12 @@ class noc
 
         //Umrechnung der Portnummer für 3Com
         if (stristr($modell, "3com")) {
-            for ($i = 0; $i < count($ports); $i++) {
-                $ports[$i] = 100 + $ports[$i];
+            foreach ($ports as $i => $iValue) {
+                $ports[$i] = 100 + $iValue;
             }
         }
         // Array mit Ports und Adressen zusammenfügen
-        for ($i = 0; $i < count($ports); $i++) {
+        for ($i = 0; $i < (is_countable($ports) ? count($ports) : 0); $i++) {
             if ($data[$ports[$i]] == "") {
                 $data[$ports[$i]] = $Addresses[$i];
             } else {
@@ -183,14 +186,14 @@ class noc
             @exec("arp -a $ip", $arp_output);
             $result = array();
             preg_match("/.{2}-.{2}-.{2}-.{2}-.{2}-.{2}/i", implode("", $arp_output), $result);
-            for ($i = 0; $i < count($result); $i++) {
+            foreach ($result as $i => $iValue) {
                 $result[$i] = str_replace("-", ":", $result[$i]);
             }
         }
         // Jede gefundene MAC-Adresse zuordnen und im Netzwerk suchen
         if ($result[0] != '') {
-            for ($i = 0; $i < count($result); $i++) {
-                $dsp->AddDoubleRow(t('MAC-Addresse'), $result[$i]);
+            foreach ($result as $i => $iValue) {
+                $dsp->AddDoubleRow(t('MAC-Addresse'), $iValue);
                 $dsp->AddHRuleRow();
                 $string = str_replace(":", "%", $result[$i]);
                 $query = $db->qry("SELECT * FROM %prefix%noc_ports WHERE mac LIKE %string%", '%'. $string .'%');

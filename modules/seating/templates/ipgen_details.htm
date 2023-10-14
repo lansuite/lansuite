@@ -35,20 +35,18 @@
           </tr>
         </table>
       </td>
-      <td class="tbl_1{$bgrd}" width="70%" height="30"> 
-        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$bgrd}">
+      <td class="tbl_1" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
           <tr> 
             <td> 
               <input type="text" name="ipgen_a" size="3" maxlength="3" class="form" value="{$ipgen_a}"/> .
               <input type="text" name="ipgen_b" size="3" maxlength="3" class="form" value="{$ipgen_b}"/> .
               <input type="text" name="ipgen_c" size="3" maxlength="3" class="form" value="{$ipgen_c}"/> .		  
               <input type="text" name="ipgen_d" size="3" maxlength="3" class="form" value="xxx" disabled />
-			  <!-- Marco Müller -->
                Offset <input type="text" name="ipgen_offset" size="3" maxlength="3" class="form" value="{$ipgen_offset}" /> .	 
-			   <!-- END -->
-			   <br/>
-               {$msg}
-			</td>
+			        <br/>
+              {if isset($msg)}{$msg}{/if}
+			      </td>
           </tr>
         </table>
       </td>
@@ -66,8 +64,8 @@
           </tr>
         </table>
       </td>
-      <td class="tbl_1{$bgrd}" width="70%" height="30"> 
-        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$bgrd}">
+      <td class="tbl_1" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
           <tr> 
             <td> 
 			 <select name="ipgen_sort" size="1" class="form">
@@ -92,8 +90,8 @@
           </tr>
         </table>
       </td>
-      <td class="tbl_1{$bgrd}" width="70%" height="30"> 
-        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$bgrd}">
+      <td class="tbl_1" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
           <tr> 
             <td> 
 			 <select name="ipgen_startrow" size="1" class="form">
@@ -118,8 +116,8 @@
           </tr>
         </table>
       </td>
-      <td class="tbl_1{$bgrd}" width="70%" height="30"> 
-        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$bgrd}">
+      <td class="tbl_1" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
           <tr> 
             <td> 
 			 <select name="ipgen_startcol" size="1" class="form">
@@ -144,8 +142,8 @@
           </tr>
         </table>
       </td>
-      <td class="tbl_1{$bgrd}" width="70%" height="30"> 
-        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$bgrd}">
+      <td class="tbl_1" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
           <tr> 
             <td> 
 			 <select name="ipgen_break" size="1" class="form">

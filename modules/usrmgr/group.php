@@ -6,7 +6,8 @@ $usrmgr_selection[2] = t('Weiblich');
 $usrmgr_selection[3] = t('Männlich');
 $usrmgr_selection[4] = t('Ortschaft');
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 3:
         if (isset($_GET['group_id'])) {
             $_POST['group_id'] = $_GET['group_id'];
@@ -16,13 +17,14 @@ switch ($_GET['step']) {
             $_GET['step'] = 2;
         }
         
-        if ($_POST['selection'] == 1) {
+        $selectionParameter = $_POST['selection'] ?? 0;
+        if ($selectionParameter == 1) {
             if (!(preg_match("/^[0-9]+-[0-9]+$/i", trim($_POST['select_opts'])) || preg_match("/^-[0-9]+$/i", trim($_POST['select_opts'])) || preg_match("/^[0-9]+\+$/i", trim($_POST['select_opts'])))) {
                 $error_usrmgr['select_opts'] = t('Alter wurde falsch angegeben bitte in der Form 14+ , -18 oder 15-17 angeben.');
                 $_GET['step'] = 2;
             }
         }
-        if ($_POST['selection'] == 4 && trim($_POST['select_opts']) == "") {
+        if ($selectionParameter == 4 && trim($_POST['select_opts']) == "") {
             $error_usrmgr['select_opts'] = t('Bitte eine Stadt angeben');
             $_GET['step'] = 2;
         }
@@ -51,12 +53,14 @@ switch ($_GET['step']) {
         break;
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Gruppenverwaltung'), t('Erstelle Benutzergruppen um unterschiedliche Preise zu verlangen.'));
         $dsp->AddSingleRow("<a href='index.php?mod=usrmgr&action=group&step=9'>".t('Benutzer einer Gruppe zuweisen')."</a>");
 
-        if ($_GET['var'] == "update") {
+        $varParameter = $_GET['var'] ?? '';
+        if ($varParameter == "update") {
             $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=usrmgr&action=group&step=2&var=new"));
             $dsp->SetForm("index.php?mod=usrmgr&action=group&step=3&var=update&group_id={$_POST['group_id']}");
             if (!isset($_POST['group_name'])) {
@@ -67,12 +71,17 @@ switch ($_GET['step']) {
             $dsp->SetForm("index.php?mod=usrmgr&action=group&step=3&var=new");
         }
                     
-        $dsp->AddTextFieldRow("group_name", t('Gruppenname'), $_POST['group_name'], $error_usrmgr['group']);
-        $dsp->AddTextFieldRow("description", t('Benutzergruppenbeschreibung'), $_POST['description'], $error_usrmgr['group_desc']);
+        $groupNameParameter = $_POST['group_name'] ?? '';
+        $errorTextGroup = $error_usrmgr['group'] ?? '';
+        $dsp->AddTextFieldRow("group_name", t('Gruppenname'), $groupNameParameter, $errorTextGroup);
+
+        $descriptionParameter = $_POST['description'] ?? '';
+        $errorTextGroupDescription = $error_usrmgr['group_desc'] ?? '';
+        $dsp->AddTextFieldRow("description", t('Benutzergruppenbeschreibung'), $descriptionParameter, $errorTextGroupDescription);
 
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         
-        if ($_GET['var'] != "update") {
+        if ($varParameter != "update") {
             $count = $db->qry_first("SELECT count(group_id) as n FROM %prefix%party_usergroups WHERE selection != 0");
             if ($count['n'] > 1) {
                 $dsp->AddHRuleRow();
@@ -98,11 +107,13 @@ switch ($_GET['step']) {
         break;
     
     case 3:
+        $selectionParameter = $_POST['selection'] ?? '';
+        $selectionOptsParameter = $_POST['select_opts'] ?? '';
         if ($_GET['var'] == "new") {
-            $party->add_user_group($_POST['group_name'], $_POST['description'], $_POST['selection'], $_POST['select_opts']);
+            $party->add_user_group($_POST['group_name'], $_POST['description'], $selectionParameter, $selectionOptsParameter);
             $func->confirmation(t('Benutzergruppe wurde hinzugefügt'), 'index.php?mod=usrmgr&action=group&step=2');
         } elseif ($_GET['var'] == "update") {
-            $party->update_user_group($_GET['group_id'], $_POST['group_name'], $_POST['description'], $_POST['selection'], $_POST['select_opts']);
+            $party->update_user_group($_GET['group_id'], $_POST['group_name'], $_POST['description'], $selectionParameter, $selectionOptsParameter);
             $func->confirmation(t('Benutzergruppe wurde erfolgreich editiert.'), 'index.php?mod=usrmgr&action=group&step=2');
         } else {
             $func->error(t('Die Benutzergruppe konnte nicht angelegt werden.'), 'index.php?mod=usrmgr&action=group&step=2');

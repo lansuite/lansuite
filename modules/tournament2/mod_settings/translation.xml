@@ -344,7 +344,7 @@
 			</entry>
 			<entry>
 				<id>210951c20d68da540cb6f16ca0c9863a</id>
-				<org>Ergbnis wurde automatisch gelost, da die Zeit �berschritten wurde</org>
+				<org>Ergbnis wurde automatisch gelost, da die Zeit überschritten wurde</org>
 				<en>Ergbnis was automatically dissolved because the time limit exceeded</en>
 				<es>Ergbnis fue automáticamente disuelto, porque el límite de tiempo excedido</es>
 				<fr>Ergbnis a été automatiquement dissous parce que le délai est dépassé</fr>
@@ -354,7 +354,7 @@
 			</entry>
 			<entry>
 				<id>eb914a230790894b566065e39f0db8ff</id>
-				<org>Das Ergebnis des Spieles %1 gegen %2 im Turnier %3 wurde automatisch gelost, da die Zeit �berschritten wurde</org>
+				<org>Das Ergebnis des Spieles %1 gegen %2 im Turnier %3 wurde automatisch gelost, da die Zeit überschritten wurde</org>
 				<en>The outcome of the game 1 against%%3%2 in the tournament was automatically dissolved because the time limit exceeded</en>
 				<es>El resultado del juego contra 1%3%2%en el torneo fue automáticamente disuelto, porque el límite de tiempo excedido</es>
 				<fr>L&amp;#39;issue du match contre 1%3%2%dans le tournoi a été automatiquement dissous parce que le délai est dépassé</fr>
@@ -364,7 +364,7 @@
 			</entry>
 			<entry>
 				<id>ef17a4a3bdccdb2bd00ba277b59d72cc</id>
-				<org>Zeit�berschreitung im Turnier %1</org>
+				<org>Zeitüberschreitung im Turnier %1</org>
 				<en>Zeitberschreitung in the tournament%1</en>
 				<es>Zeitberschreitung en el torneo de 1%</es>
 				<fr>Zeitberschreitung dans le répertoire%1 tournoi</fr>
@@ -1274,7 +1274,7 @@
 			</entry>
 			<entry>
 				<id>a7deb11a5571244527dd508a0fd00251</id>
-				<org>Es m�ssen mindestens 4 Teams angemeldet sein!</org>
+				<org>Es müssen mindestens 4 Teams angemeldet sein!</org>
 				<en>It should be bright and logged at least 4 teams!</en>
 				<es>Se debe ser brillante y se registran por lo menos 4 equipos!</es>
 				<fr>Elle doit être brillante et enregistrées au moins 4 équipes!</fr>
@@ -1284,7 +1284,7 @@
 			</entry>
 			<entry>
 				<id>1355cc8eb46024551b394c72eb793bae</id>
-				<org>Es m�ssen mindestens 6 Teams angemeldet sein!</org>
+				<org>Es müssen mindestens 6 Teams angemeldet sein!</org>
 				<en>It should be bright and logged a minimum of 6 teams!</en>
 				<es>Se debe ser brillante y registra un mínimo de 6 equipos!</es>
 				<fr>Il devrait être clair, et enregistré un minimum de 6 équipes!</fr>
@@ -1304,7 +1304,7 @@
 			</entry>
 			<entry>
 				<id>d604fe52829312c934cdc850c732fcc3</id>
-				<org>Es wurde bereits die H�lfte der fest angemeldeten Teams markiert! Demarkiere zuerst ein Team, bevor du ein weiteres markierst</org>
+				<org>Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkiere zuerst ein Team, bevor du ein weiteres markierst</org>
 				<en>It has already been marked down to Hlfte of teams registered! First you uncheck a team before you select another</en>
 				<es>Ya se ha rebajado a Hlfte de equipos inscritos! Primero desactiva un equipo antes de que se seleccione otro</es>
 				<fr>Il a déjà été démarqués au Hlfte d&amp;#39;équipes inscrites! D&amp;#39;abord, vous décochez une équipe avant de vous choisir un autre</fr>
@@ -1314,7 +1314,7 @@
 			</entry>
 			<entry>
 				<id>02da47a6ed1ceb0b26b7142d0599b21f</id>
-				<org>Zu diesem Turnier haben sich Teams angemeldet, welche noch nicht komplett sind. M�chtest du diese beim Generieren aus dem Turnier entfernen?</org>
+				<org>Zu diesem Turnier haben sich Teams angemeldet, welche noch nicht komplett sind. Möchtest du diese beim Generieren aus dem Turnier entfernen?</org>
 				<en>For this tournament have signed up teams that are not yet complete. Interested in removing them when generating the tournament?</en>
 				<es>Para este torneo se han inscrito los equipos que aún no están completas. Interesado en la eliminación de ellos al generar el torneo?</es>
 				<fr>Pour ce tournoi ont signé en place des équipes qui ne sont pas encore terminés. Intéressés à les enlever lors de la génération du tournoi?</fr>
@@ -1334,7 +1334,7 @@
 			</entry>
 			<entry>
 				<id>abb1d58a6bd9d001bf09ab6fc7ae13c1</id>
-				<org>Der Turnieradmin hat soeben die Paarungen f�r das Turnier %1 generiert. Da Dein Team zu diesem Zeitpunkt leider noch nicht vollst�ndig war, wurde es, wie vom Turnieradmin gew�nscht, vom Turnier abgemeldet.</org>
+				<org>Der Turnieradmin hat soeben die Paarungen für das Turnier %1 generiert. Da Dein Team zu diesem Zeitpunkt leider noch nicht vollständig war, wurde es, wie vom Turnieradmin gewünscht, vom Turnier abgemeldet.</org>
 				<en>The tournament admin has just generated the tournament pairings fr%1. Because your team at this point, unfortunately, was not yet ENTIRETY, it was like gewnscht by the tournament admin, logged out of the tournament.</en>
 				<es>El administrador del torneo acaba de generar el torneo emparejamientos fr%1. Debido a que su equipo en este momento, lamentablemente, aún no estaba íntegramente, era como gewnscht por el administrador del torneo, la sesión de la competición.</es>
 				<fr>L&amp;#39;admin du tournoi vient généré les appariements%tournoi de 1 fr. Parce que votre équipe à ce moment-là, malheureusement, n&amp;#39;était pas encore ensemble, il était comme gewnscht par l&amp;#39;admin du tournoi, déconnecté du tournoi.</fr>
@@ -1344,7 +1344,7 @@
 			</entry>
 			<entry>
 				<id>289452651e432b71a81fd003f71e2d2b</id>
-				<org>Alle unvollst�ndigen Teams im Turnier %1 wurden entfernt</org>
+				<org>Alle unvollständigen Teams im Turnier %1 wurden entfernt</org>
 				<en>All unvollstndigen teams in the tournament have been removed%1</en>
 				<es>Todos los equipos unvollstndigen en el torneo han sido eliminados%1</es>
 				<fr>Unvollstndigen toutes les équipes dans le tournoi ont été retirés de 1%</fr>
@@ -1354,7 +1354,7 @@
 			</entry>
 			<entry>
 				<id>d052c5f4aca9555869ac5cc1824d2b08</id>
-				<org>Alle unvollst�ndigen Teams im Turnier %1 wurden erfolgreich gel�scht. M�chtest du das Turnier nun generieren?</org>
+				<org>Alle unvollständigen Teams im Turnier %1 wurden erfolgreich gelöscht. Möchtest du das Turnier nun generieren?</org>
 				<en>All teams in the tournament unvollstndigen%1 have been successfully gelscht. Interested in the tournament will now generate?</en>
 				<es>Todos los equipos en el torneo de 1%unvollstndigen han sido exitosamente gelscht. Interesado en el torneo, ahora va a generar?</es>
 				<fr>Toutes les équipes dans le tournoi%unvollstndigen 1 ont été avec succès gelscht. Intéressé par le tournoi va maintenant générer?</fr>
@@ -1374,7 +1374,7 @@
 			</entry>
 			<entry>
 				<id>75e797a82caaf4f1a6c81c564a424d18</id>
-				<org>Die Rundes des Turniers %1 wurden soeben generiert. Wir bitten dich, direkt mit dem ersten Spiel anzufangen, damit es keine unn�tge Verz�gerung im Turnier gibt. Viel Erfolg!</org>
+				<org>Die Rundes des Turniers %1 wurden soeben generiert. Wir bitten dich, direkt mit dem ersten Spiel anzufangen, damit es keine unnötige Verzögerung im Turnier gibt. Viel Erfolg!</org>
 				<en>The%1 round of the tournament have just been generated. We ask you to begin directly with the first game, so there are no unntge Verzgerung in the tournament. Good luck!</en>
 				<es>El 1%de todo el torneo han sido generados. Le pedimos que empezar directamente con el primer juego, así que no hay Verzgerung unntge en el torneo. Buena suerte!</es>
 				<fr>Le 1%autour du tournoi vient d&amp;#39;être généré. Nous vous demandons de commencer directement avec le premier match, il n&amp;#39;ya donc pas Verzgerung unntge dans le tournoi. Bonne chance!</fr>
@@ -1384,7 +1384,7 @@
 			</entry>
 			<entry>
 				<id>5ba8f2aa4e883b5ecb6af98959fe67c9</id>
-				<org>Das Turnier %1 wurde generiert.HTML_NEWLINEDie Begegnungen k�nnen nun gespielt werden.</org>
+				<org>Das Turnier %1 wurde generiert.HTML_NEWLINEDie Begegnungen können nun gespielt werden.</org>
 				<en>The tournament%1 was generiert.HTML_NEWLINEDie may submit now matches to be played.</en>
 				<es>El torneo de 1%se generiert.HTML_NEWLINEDie podrá presentar ahora los partidos que se jugarán.</es>
 				<fr>Le tournoi%1 a été generiert.HTML_NEWLINEDie mai correspond maintenant à présenter à être jouée.</fr>
@@ -1404,7 +1404,7 @@
 			</entry>
 			<entry>
 				<id>72e3f6a2a4860fbaec9dab5d5cbc04c7</id>
-				<org>Die Passworteingaben stimmen nicht �berein</org>
+				<org>Die Passworteingaben stimmen nicht überein</org>
 				<en>The password entries do not match Cleanup</en>
 				<es>Las entradas de la contraseña no coinciden limpieza de</es>
 				<fr>Les entrées de mot de passe ne correspondent pas Cleanup</fr>
@@ -1414,7 +1414,7 @@
 			</entry>
 			<entry>
 				<id>01c4a11b28263113fdb7b455d797b90c</id>
-				<org>Bitte gib einen Teamnamen ein, oder w�hle ein vorhandenes Team aus</org>
+				<org>Bitte gib einen Teamnamen ein, oder wähle ein vorhandenes Team aus</org>
 				<en>Please enter a team name, or select at an existing team</en>
 				<es>Por favor, introduzca un nombre de equipo, o seleccionar a un equipo ya existente</es>
 				<fr>S&amp;#39;il vous plaît entrer un nom d&amp;#39;équipe, ou sélectionnez à une équipe existante</fr>
@@ -1424,7 +1424,7 @@
 			</entry>
 			<entry>
 				<id>d3357b9e7962118cef2d4812cf908da5</id>
-				<org>Du wurdest zum Turnier %1 erfolgreich hinzugef�gt</org>
+				<org>Du wurdest zum Turnier %1 erfolgreich hinzugefügt</org>
 				<en>You have successfully hinzugefgt the tournament%1</en>
 				<es>Ha hinzugefgt el torneo de 1%</es>
 				<fr>Vous avez hinzugefgt avec succès le tournoi 1%</fr>
@@ -1594,7 +1594,7 @@
 			</entry>
 			<entry>
 				<id>8507e91aeb341248b17c2da4f0317c87</id>
-				<org>Falls temor�re ID gew�nscht, bitte &lt;b&gt;0&lt;/b&gt; eingeben und nach der Party die Verifizierungsmail best�tigen. Ein leeres Feld bedeutet, dass man au�er Konkurenz teilnimt (John Doe)</org>
+				<org>Falls temporäre ID gewünscht, bitte &lt;b&gt;0&lt;/b&gt; eingeben und nach der Party die Verifizierungsmail bestätigen. Ein leeres Feld bedeutet, dass man außer Konkurenz teilnimt (John Doe)</org>
 				<en>If temorre ID gewnscht, please enter &lt;b&gt;0&lt;/b&gt; and besttigen after the party, the verification mail. An empty field means that you teilnimt auer competitors (John Doe)</en>
 				<es>Si gewnscht ID temorre, por favor, introduzca &lt;b&gt;0&lt;/b&gt; y besttigen después de la fiesta, el correo de verificación. Un campo vacío significa que teilnimt competidores Auer (John Doe)</es>
 				<fr>Si temorre gewnscht d&amp;#39;identité, s&amp;#39;il vous plaît entrez &lt;b&gt;0&lt;/b&gt; et besttigen après la partie, le mail de vérification. Un champ vide signifie que vous teilnimt concurrents Auer (John Doe)</fr>
@@ -2044,7 +2044,7 @@
 			</entry>
 			<entry>
 				<id>b1cc95c6edf6ebec3fb1c1dc73aefb13</id>
-				<org>Der Spieler wurde deinem Team hinzugef�gt</org>
+				<org>Der Spieler wurde deinem Team hinzugefügt</org>
 				<en>The player was hinzugefgt your team</en>
 				<es>El jugador fue hinzugefgt su equipo</es>
 				<fr>Le joueur a été hinzugefgt votre équipe</fr>
@@ -2154,7 +2154,7 @@
 			</entry>
 			<entry>
 				<id>c916d0fc391cb362976f9c51fe49b954</id>
-				<org>Teamgr��e</org>
+				<org>Teamgröße</org>
 				<en>Teamgre</en>
 				<es>Teamgre</es>
 				<fr>Teamgre</fr>
@@ -2164,7 +2164,7 @@
 			</entry>
 			<entry>
 				<id>03d6b06c7d5844994dee1eae24f92e6e</id>
-				<org>Spieler hinzuf�gen</org>
+				<org>Spieler hinzufügen</org>
 				<en>ADD TO Player</en>
 				<es>AÑADIR A Player</es>
 				<fr>AJOUTER À Player</fr>
@@ -2224,7 +2224,7 @@
 			</entry>
 			<entry>
 				<id>531b2325c2ad019aade7d721b60bf1ae</id>
-				<org>Um ein neues Team zu erstellen / Dich zu einem Turnier anzumelden, w�hle bitte in der Turnier�bersicht das entsprechende Turnier aus und klicke am Ende der erscheinenden Detailansicht auf den Anmelde-Button.</org>
+				<org>Um ein neues Team zu erstellen / Dich zu einem Turnier anzumelden, wähle bitte in der Turnierübersicht das entsprechende Turnier aus und klicke am Ende der erscheinenden Detailansicht auf den Anmelde-Button.</org>
 				<en>To create a new team / Signing up for a tournament, please select at the appropriate Turnierbersicht from the tournament and then appearing at the end of detailed view click on the subscribe button.</en>
 				<es>Para crear un nuevo equipo / Registrarse en un torneo, por favor seleccione en el caso Turnierbersicht del torneo y, a continuación aparecen al final de la vista detallada, haga clic en el botón de suscribirse.</es>
 				<fr>Pour créer une nouvelle équipe / L&amp;#39;ouverture d&amp;#39;un tournoi, s&amp;#39;il vous plaît sélectionnez le Turnierbersicht appropriée dans le tournoi et figurant à la fin de click vue détaillée sur le bouton subscribe.</fr>
@@ -2234,7 +2234,7 @@
 			</entry>
 			<entry>
 				<id>c6864875459d95eb07767cd9195a5637</id>
-				<org>Das Team wurde erfolgreich gel�scht</org>
+				<org>Das Team wurde erfolgreich gelöscht</org>
 				<en>The team was successful gelscht</en>
 				<es>El equipo tuvo éxito gelscht</es>
 				<fr>L&amp;#39;équipe a été réussie gelscht</fr>
@@ -2244,7 +2244,7 @@
 			</entry>
 			<entry>
 				<id>abef364642505ff6c6f7aae623f90288</id>
-				<org>Der Spieler wurde dem Team hinzugef�gt</org>
+				<org>Der Spieler wurde dem Team hinzugefügt</org>
 				<en>The player was the team hinzugefgt</en>
 				<es>El jugador fue el equipo hinzugefgt</es>
 				<fr>Le joueur a été le hinzugefgt équipe</fr>
@@ -2284,7 +2284,7 @@
 			</entry>
 			<entry>
 				<id>cd6dcf45cf24b8363e4fa3a881608e35</id>
-				<org>Hier kannst du Teams l�schen oder ihnen weitere Spieler zuweisen.</org>
+				<org>Hier kannst du Teams löschen oder ihnen weitere Spieler zuweisen.</org>
 				<en>You may submit Delete teams or assign other players.</en>
 				<es>Usted puede enviar equipos Eliminar o asignar a otros jugadores.</es>
 				<fr>Vous mai présenter équipes Supprimer ou céder d&amp;#39;autres joueurs.</fr>
@@ -2294,7 +2294,8 @@
 			</entry>
 			<entry>
 				<id>dead631430c69fb1151f9d0330e80516</id>
-				<org>Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase m�glich)</org>
+				<org>Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase möglich)</org>
+
 				<en>New team (players) anmeldenHTML_NEWLINE (Only in log phase mglich)</en>
 				<es>Nuevo equipo (jugadores) anmeldenHTML_NEWLINE (Sólo en el registro de mglich fase)</es>
 				<fr>Nouvelle équipe (joueurs) anmeldenHTML_NEWLINE (Uniquement dans le journal mglich phase)</fr>
@@ -2314,7 +2315,7 @@
 			</entry>
 			<entry>
 				<id>0c70a2c01f6777fbd0434c9ec439f0fa</id>
-				<org>Bitte Turnier ausw�hlen</org>
+				<org>Bitte Turnier auswählen</org>
 				<en>Please auswhlen Tournament</en>
 				<es>Torneo favor auswhlen</es>
 				<fr>S&amp;#39;il vous plaît auswhlen Tournoi</fr>
@@ -2324,7 +2325,7 @@
 			</entry>
 			<entry>
 				<id>3b131e306d98dec54f97e1a64feefa96</id>
-				<org>Komplettes Team l�schenHTML_NEWLINE(Nur in Anmeldephase m�glich)</org>
+				<org>Komplettes Team löschenHTML_NEWLINE(Nur in Anmeldephase möglich)</org>
 				<en>Complete team lschenHTML_NEWLINE (Only mglich in registration phase)</en>
 				<es>LschenHTML_NEWLINE equipo completo (Sólo mglich en fase de registro)</es>
 				<fr>LschenHTML_NEWLINE équipe complète (seulement mglich dans l&amp;#39;enregistrement de phase)</fr>
@@ -2344,7 +2345,7 @@
 			</entry>
 			<entry>
 				<id>83db7e109bb3b06f78abea1804a04247</id>
-				<org>Bitte Team ausw�hlen</org>
+				<org>Bitte Team auswählen</org>
 				<en>Please auswhlen Team</en>
 				<es>Equipo, por favor auswhlen</es>
 				<fr>S&amp;#39;il vous plaît auswhlen Team</fr>
@@ -2354,7 +2355,7 @@
 			</entry>
 			<entry>
 				<id>99d37f879f8d9dde281a6ab0f07d018c</id>
-				<org>Spieler einem Team hinzuf�gen</org>
+				<org>Spieler einem Team hinzufügen</org>
 				<en>ADD TO A team player</en>
 				<es>Agregar a un jugador de equipo</es>
 				<fr>Ajouter à une équipe de ce joueur</fr>
@@ -2384,7 +2385,7 @@
 			</entry>
 			<entry>
 				<id>8e78cfaa8dc8bbe68bc09b43b0510897</id>
-				<org>Spieler aus einem Team l�schen</org>
+				<org>Spieler aus einem Team löschen</org>
 				<en>Players from a team Delete</en>
 				<es>Los jugadores de un equipo Eliminar</es>
 				<fr>Les joueurs d&amp;#39;une équipe Supprimer</fr>
@@ -2904,7 +2905,7 @@
 			</entry>
 			<entry>
 				<id>e5e10d682e0573cd57041e7ddcc3f349</id>
-				<org>Das ausgew�hlte Turnier existiert nicht</org>
+				<org>Das ausgewählte Turnier existiert nicht</org>
 				<en>Be selected to the tournament does not exist</en>
 				<es>Ser seleccionados para el torneo no existe</es>
 				<fr>Être sélectionné pour la compétition n&amp;#39;existe pas</fr>
@@ -2914,7 +2915,7 @@
 			</entry>
 			<entry>
 				<id>edbb8c7f0766c69bf08018de0e8439ad</id>
-				<org>Bist du sicher, dass du das generieren r�ckg�ngig machen willst? Alle Paarungen und alle bereits eingetragenen Ergebnisse dieses Turnieres werden dabei gel�scht! Bei bereits beendeten Turnieren geht dadurch au�erdem die Rangliste verloren!</org>
+				<org>Bist du sicher, dass du das generieren rückgängig machen willst? Alle Paarungen und alle bereits eingetragenen Ergebnisse dieses Turnieres werden dabei gelöscht! Bei bereits beendeten Turnieren geht dadurch außerdem die Rangliste verloren!</org>
 				<en>Are you sure you want to generate rckgngig? All pairings and all pre-registered gelscht results of this tournament will be there! If this is already finished tournaments auerdem lost the rankings!</en>
 				<es>¿Estás seguro de que desea generar rckgngig? Todas las parejas y todos los pre-registrados gelscht resultados de este torneo estarán allí! Si esto ya está terminado torneos auerdem perdido el ranking!</es>
 				<fr>Etes-vous sûr que vous voulez générer rckgngig? Toutes les liaisons et toutes les pré-inscrits gelscht résultats de ce tournoi sera là! Si c&amp;#39;est déjà fini tournois auerdem perdu le classement!</fr>
@@ -2924,7 +2925,7 @@
 			</entry>
 			<entry>
 				<id>8545a772f241e691e4ef210a69777d52</id>
-				<org>Das Turnier '%NAME%' wurde erfolgreich zur�ckgesetzt</org>
+				<org>Das Turnier '%NAME%' wurde erfolgreich zurückgesetzt</org>
 				<en>The tournament &amp;#39;%NAME%&amp;#39; has been successfully zurckgesetzt</en>
 				<es>NOMBRE El torneo &amp;#39;%%&amp;#39; se ha logrado zurckgesetzt</es>
 				<fr>Le tournoi de &amp;#39;%NOM%&amp;#39; a été correctement zurckgesetzt</fr>
@@ -2934,7 +2935,7 @@
 			</entry>
 			<entry>
 				<id>b2410d9ddb81aa6c7a7734b17cff73d5</id>
-				<org>Das Generieren des Turnieres '%NAME%' wurde r�ckg�ngig gemacht</org>
+				<org>Das Generieren des Turnieres '%NAME%' wurde rückgängig gemacht</org>
 				<en>The generation of the tournament &amp;#39;%NAME%&amp;#39; was made rckgngig</en>
 				<es>La generación del torneo &amp;#39;%name%&amp;quot;se hizo rckgngig</es>
 				<fr>La génération du tournoi &amp;#39;NOM%%&amp;#39; a été faite rckgngig</fr>
@@ -2944,7 +2945,7 @@
 			</entry>
 			<entry>
 				<id>29c82ac0b49cdede354878355befd903</id>
-				<org>Der Status wurde wieder auf 'wird gespielt' gesetzt. Das Turnier wird wieder beendet, sobald du das n�chste Ergebniss eingetragen hast.</org>
+				<org>Der Status wurde wieder auf 'wird gespielt' gesetzt. Das Turnier wird wieder beendet, sobald du das nächste Ergebniss eingetragen hast.</org>
 				<en>The status was back to &amp;#39;played&amp;#39; set. The tournament will once again finished as soon as you entered the Nearest results.</en>
 				<es>La situación había vuelto a &amp;#39;jugar&amp;#39; set. El torneo tendrá una vez terminado tan pronto como se anotan los resultados más cercana.</es>
 				<fr>Le statut était de retour à &amp;#39;joué&amp;#39; ensemble. Le tournoi sera une nouvelle fois terminé dès que vous avez entré les résultats les plus proches.</fr>
@@ -3066,7 +3067,7 @@
 				<id>2f6d8a7a8f42a6ea4c17a6057f7b459f</id>
 				<org>Der Turnieradmin hat soeben die Paarungen für das Turnier %1 generiert. Da Dein Team zu diesem Zeitpunkt leider noch nicht vollständig war, wurde es, wie vom Turnieradmin gewünscht, vom Turnier abgemeldet.</org>
 				<en>The tournament admin has just generated the pairings for the tournament%1. Because your team at this point, unfortunately, was not yet complete, it was, as requested by the tournament admin, logged out of the tournament.</en>
-				<es>El administrador del torneo acaba de generar los emparejamientos para el torneo de 1%. Debido a que su equipo en este momento, lamentablemente, aún no estaba completo, era, según lo solicitado por el administrador del torneo, la sesión de la competici�</es>
+				<es>El administrador del torneo acaba de generar los emparejamientos para el torneo de 1%. Debido a que su equipo en este momento, lamentablemente, aún no estaba completo, era, según lo solicitado por el administrador del torneo, la sesión de la competici</es>
 				<fr>L&amp;#39;admin du tournoi vient généré des paires pour le tournoi 1%. Parce que votre équipe à ce moment-là, malheureusement, n&amp;#39;est pas encore complète, elle était, comme demandé par l&amp;#39;admin du tournoi, déconnecté du tournoi.</fr>
 				<nl>Het toernooi admin heeft zojuist gegenereerd de koppelingen voor het toernooi%1. Omdat je team op dit punt, helaas, nog niet was voltooid, was het, zoals gevraagd door het toernooi admin, afgemeld bij het toernooi.</nl>
 				<it>Admin il torneo è appena generato gli accoppiamenti per il torneo 1%. Perché la tua squadra a questo punto, purtroppo, non era ancora completa, è stato, come richiesto da un amministratore del torneo, disconnesso dal torneo.</it>

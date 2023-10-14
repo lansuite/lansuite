@@ -2,9 +2,8 @@
 
 /**
  * @param string $AvatarName
- * @return bool|string
  */
-function CheckAndResizeUploadPic($AvatarName)
+function CheckAndResizeUploadPic($AvatarName): bool|string
 {
     global $gd;
 

@@ -5,7 +5,7 @@
 $pics_res = $db->qry_first('SELECT picid, name, caption FROM %prefix%picgallery WHERE name != \'\' ORDER BY RAND()');
 
 if ($pics_res['picid']) {
-    $pics_comrow = $db->qry_first('SELECT COUNT(commentid) AS comments FROM %prefix%comments WHERE relatedto_item = \'Picgallery\' AND relatedto_id = %int% ', $pics_res[picid]);
+    $pics_comrow = $db->qry_first('SELECT COUNT(commentid) AS comments FROM %prefix%comments WHERE relatedto_item = \'Picgallery\' AND relatedto_id = %int% ', $pics_res['picid']);
     $pic_array = explode("/", $pics_res['name']);
     $pic_name = $pic_array[sizeof($pic_array)-1];
     $pic_thumbname = "lsthumb_".$pic_name;

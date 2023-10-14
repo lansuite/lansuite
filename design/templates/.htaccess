@@ -6,7 +6,7 @@ AuthUserFile ../inc/.htpasswd
 AuthGroupFile ../inc/.htgroup
 require valid-user
 
-# Entschützt eine einzelne Datei
+# EntschÃ¼tzt eine einzelne Datei
 #<files frei.htm> 
 #allow from all 
 #satisfy any 

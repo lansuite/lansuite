@@ -6,7 +6,8 @@ if ($auth['type'] < 2) {
     unset($_GET['step']);
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 3:
         $time = time();
         if ($_GET['status'] == 6 || $_GET['status'] == 7) {
@@ -62,7 +63,8 @@ switch ($_GET['step']) {
         break;
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
@@ -152,7 +154,7 @@ switch ($_GET['step']) {
         $handle = opendir("ext_inc/foodcenter_templates");
         while ($file = readdir($handle)) {
             if (($file != ".") and ($file != "..") and ($file != ".svn") and (!is_dir($file))) {
-                if ((substr($file, -3, 3) == "htm") && (substr($file, -7, 7) != "row.htm") || (substr($file, -4, 4) == "html") && (substr($file, -8, 8) != "row.html")) {
+                if (((str_ends_with($file, "htm")) && (!str_ends_with($file, "row.htm"))) || ((str_ends_with($file, "html")) && (!str_ends_with($file, "row.html")))) {
                     $file_array[] = "<option value=\"$file\">$file</option>";
                 }
             }

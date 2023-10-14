@@ -2,9 +2,8 @@
 
 /**
  * @param int $id
- * @return bool|string
  */
-function ChangeAllowed($id)
+function ChangeAllowed($id): bool|string
 {
     global $db, $row, $func, $auth, $seat2;
 
@@ -53,7 +52,7 @@ function ChangeAllowed($id)
     $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
 
     // Free seats if the user hasn't paid already
-    if ($row2['paid'] == 0) {
+    if ($row2 && $row2['paid'] == 0) {
         $seat2->FreeSeatAllMarkedByUser($id);
     }
 

@@ -307,11 +307,10 @@ $LIST.="IART".inttodword(strlen($Author)).$Author;*/
 
 $ANI.=$LIST;
 
-for($p=0;$p<count($Image);$p++)
- {
-  $icon=aniImageIco($Image[$p]);
-  $fram.="icon".inttodword(strlen($icon)).$icon;
- };
+    foreach ($Image as $pValue) {
+     $icon=aniImageIco($pValue);
+     $fram.="icon".inttodword(strlen($icon)).$icon;
+    };
 
 $LIST.="fram$fram";
 

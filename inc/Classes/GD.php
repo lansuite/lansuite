@@ -29,10 +29,7 @@ class GD
      */
     private $font_size;
 
-    /**
-     * @var int
-     */
-    private $free_type = 0;
+    private int $free_type = 0;
 
     /**
      * @var int
@@ -44,10 +41,6 @@ class GD
         if (function_exists('gd_info')) {
             $GD = gd_info();
             $this->available = 1;
-
-            if ($GD['Freetype Support']) {
-                $this->free_type = 1;
-            }
 
             if ($GD['FreeType Support']) {
                 $this->free_type = 1;
@@ -96,6 +89,7 @@ class GD
      */
     public function PutImage($file = null, $type = null, $destroy = true)
     {
+        $path = null;
         global $config;
 
         if ($file) {
@@ -280,6 +274,7 @@ class GD
      */
     private function OpenImage($filename)
     {
+        $img_src = null;
         if (!file_exists($filename)) {
             return 0;
         }

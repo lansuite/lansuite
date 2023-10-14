@@ -25,4 +25,5 @@ $mf->AddFix('fix', '1');
 $mf->AddFix('editorid', $auth['userid']);
 $mf->AddFix('modul', 'cashmgr');
 
-$mf->SendForm('index.php?mod=cashmgr&action=fixbooking', 'cashmgr_accounting', 'ID', $_GET['cashid']);
+$cashIdParameter = $_GET['cashid'] ?? 0;
+$mf->SendForm('index.php?mod=cashmgr&action=fixbooking', 'cashmgr_accounting', 'ID', $cashIdParameter);

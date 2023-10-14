@@ -19,26 +19,33 @@ class Party
      */
     public $data = [];
 
-    public function __construct()
+    public function __construct($party_id = null)
     {
-        global $cfg, $db;
+        global $cfg, $db, $request;
 
-        // Set new Session PartyID on GET or POST
-        if (is_numeric($_GET['set_party_id'])) {
-            $this->party_id = $_GET['set_party_id'];
-        } elseif (is_numeric($_POST['set_party_id'])) {
-            $this->party_id = $_POST['set_party_id'];
-        } elseif (is_numeric($_SESSION['party_id'])) {
-            // Look whether this partyId exists
-            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%partys WHERE party_id = %int%', $_SESSION['party_id']);
-            if ($row['found']) {
-                $this->party_id = $_SESSION['party_id'];
+        $setPartyIDGETParameter = $request->query->get('set_party_id');
+        $setPartyIDPOSTParameter = $request->request->get('set_party_id');
+        if (empty($party_id)) {
+            // Set new Session PartyID on GET or POST
+            if (is_numeric($setPartyIDGETParameter)) {
+                $this->party_id = $setPartyIDGETParameter;
+            } elseif (is_numeric($setPartyIDPOSTParameter)) {
+                $this->party_id = $setPartyIDPOSTParameter;
+            } elseif (array_key_exists('party_id', $_SESSION) && is_numeric($_SESSION['party_id'])) {
+                // Look whether this partyId exists
+                $row = $db->qry_first('SELECT 1 AS found FROM %prefix%partys WHERE party_id = %int%', $_SESSION['party_id']);
+                if (is_array($row) && $row['found']) {
+                    $this->party_id = $_SESSION['party_id'];
+                } else {
+                    $this->party_id = $cfg['signon_partyid'];
+                    unset($_SESSION['party_id']);
+                }
             } else {
                 $this->party_id = $cfg['signon_partyid'];
-                unset($_SESSION['party_id']);
             }
         } else {
-            $this->party_id = $cfg['signon_partyid'];
+            // use the provided ID
+            $this->party_id = $party_id;
         }
 
         $_SESSION['party_id'] = $this->party_id;
@@ -60,19 +67,21 @@ class Party
             $this->count = $db->num_rows($res);
             $db->free_result($res);
 
-            $_SESSION['party_info'] = array();
+            $_SESSION['party_info'] = [];
             if ($this->count > 0) {
                 $row = $db->qry_first("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM %prefix%partys WHERE party_id=%int%", $this->party_id);
                 $this->data = $row;
 
-                $_SESSION['party_info']['name']            = $row['name'];
-                $_SESSION['party_info']['partyort']        = $row['ort'];
-                $_SESSION['party_info']['partyplz']        = $row['plz'];
-                $_SESSION['party_info']['partybegin']    = $row['startdate'];
-                $_SESSION['party_info']['partyend']    = $row['enddate'];
-                $_SESSION['party_info']['s_startdate']    = $row['sstartdate'];
-                $_SESSION['party_info']['s_enddate']    = $row['senddate'];
-                $_SESSION['party_info']['max_guest']    = $row['max_guest'];
+                $_SESSION['party_info'] = [
+                    'name' => $row['name'],
+                    'partyort' => $row['ort'],
+                    'partyplz' => $row['plz'],
+                    'partybegin' => $row['startdate'],
+                    'partyend' => $row['enddate'],
+                    's_startdate' => $row['sstartdate'],
+                    's_enddate' => $row['senddate'],
+                    'max_guest' => $row['max_guest'],
+                ];
             }
         }
     }
@@ -99,13 +108,14 @@ class Party
      */
     public function get_party_dropdown_form($show_old = 0, $link = '')
     {
+        $list_array = [];
         global $dsp, $db, $func;
 
         if ($link == '') {
             $link = "index.php?" . $_SERVER['QUERY_STRING'];
         }
 
-        if ($show_old = 0) {
+        if ($show_old == 0) {
             $row = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys WHERE enddate < %int%", time());
         } else {
             $row = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys");
@@ -123,7 +133,7 @@ class Party
                 }
 
                 if (is_array($list_array)) {
-                    array_push($list_array, "<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
+                    $list_array[] = "<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>";
                 } else {
                     $list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
                 }
@@ -230,7 +240,7 @@ class Party
             $query .= "seatcontrol = {$seatcontrol},";
         }
 
-        $query .= "	checkin = {$checkin},
+        $query .= " checkin = {$checkin},
                     checkout = {$checkout}
                     WHERE user_id = {$user_id} AND
                     party_id = {$this->party_id}";
@@ -247,6 +257,7 @@ class Party
      */
     public function delete_user_from_party($user_id)
     {
+        $checkin = null;
         global $db, $cfg;
 
         $timestamp = time();
@@ -272,6 +283,7 @@ class Party
      */
     public function get_user_group_dropdown($group_id = "NULL", $nogroub = 0, $select_id = 0, $javascript = false)
     {
+        $data = [];
         global $db, $dsp;
 
         if ($group_id == "NULL") {
@@ -304,7 +316,7 @@ class Party
                 }
 
                 if (is_array($data)) {
-                    array_push($data, "<option $selected value='{$res['group_id']}'>{$res['group_name']}</option>");
+                    $data[] = "<option $selected value='{$res['group_id']}'>{$res['group_name']}</option>";
                 } else {
                     $data = array("<option $selected value='{$res['group_id']}'>{$res['group_name']}</option>");
                 }
@@ -377,5 +389,38 @@ class Party
         global $db;
         $db->qry("UPDATE %prefix%user  SET group_id=%string% WHERE group_id=%string%", $set_group, $del_group);
         $db->qry("DELETE FROM %prefix%party_usergroups WHERE group_id=%string%", $del_group);
+    }
+    
+    /**
+     * Returns the amount of users registered for a party.
+     * 
+     * @param int $party_id The ID of the party to calculate this for
+     * @return array Result array with elements "qty" and "paid"
+    */
+    public function getGuestQty($party_id = NULL)
+    {
+        $cfg = [];
+        $db = null;
+        global $cache;
+        
+        if (empty($party_id)) {
+            $party_id = $this->party_id;
+        }
+        
+        $partyCache = $cache->getItem('party.guestcount.' . $party_id);
+        if (!$partyCache->isHit()) {
+            // Fetch in one query
+            if ($cfg["guestlist_showorga"] == 0) {
+                $querytype = "type = 1";
+            } else {
+                $querytype = "type >= 1";
+            }
+            // Fetch amounts from DB
+            $countQry = $db->qry('SELECT COUNT(*) as qty, party.paid as paid FROM %prefix%user as user LEFT JOIN %prefix%party_user as party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%) GROUP BY paid ORDER BY paid DESC;');
+            while ($guestCounts = $countQry->fetch_array()){}
+            $partyCache->set($guestCounts);
+            $cache->save($partyCache);
+        }
+        return $partyCache->get();
     }
 }

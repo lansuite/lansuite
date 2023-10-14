@@ -29,7 +29,8 @@ if ($server == "") {
     $func->SetRead('server', $_GET["serverid"]);
 
     // Just show details if the user is not adding, deleting or chaning his comment
-    if ($_GET["mcact"] == "" || $_GET["mcact"] == "show") {
+    $mcactParameter = $_GET["mcact"] ?? '';
+    if ($mcactParameter == "" || $mcactParameter == "show") {
         $dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite diehst du alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangst du zur Übersicht zur&uuml;ck', $server["caption"]));
 
         $dsp->AddDoubleRow(t('Name'), $server["caption"]);
@@ -44,7 +45,7 @@ if ($server == "") {
         $dsp->AddDoubleRow(t('Servertyp'), $type_descriptor[$server["type"]]);
 
         // Wenn Intranetversion, Servererreichbarkeit testen
-        if ($cfg["sys_internet"] == 0 and (!get_cfg_var("safe_mode"))) {
+        if ($cfg["sys_internet"] == 0) {
             PingServer($server["ip"], $server["port"]);
 
             // Gescannte Daten neu auslesen

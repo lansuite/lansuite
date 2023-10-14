@@ -53,7 +53,7 @@ switch ($_GET["step"]) {
             $t_cat_array[] = "<option value=\"0\">".t('Bitte Auswählen')."</option>";
             
             while ($row = $db->fetch_array($t_cat)) {
-                $t_cat_array[] .= "<option value=\"{$row['cat_id']}\">{$row['cat_text']}</option>";
+                $t_cat_array[] = "<option value=\"{$row['cat_id']}\">{$row['cat_text']}</option>";
             }
             
             $dsp->AddDropDownFieldRow("tticket_cat", t('Kategorie'), $t_cat_array, $error['tticket_cat']);
@@ -69,9 +69,9 @@ switch ($_GET["step"]) {
             $_POST["tticket_priority"] = "20";
         }
         reset($options);
-        while (list($key, $val) = each($options)) {
+        foreach ($options as $key => $val) {
             ($_POST["tticket_priority"] == $key) ? $selected = "selected" : $selected = "";
-            array_push($t_array, "<option $selected value=\"$key\">$val</option>");
+            $t_array[] = "<option $selected value=\"$key\">$val</option>";
         }
         $dsp->AddDropDownFieldRow("tticket_priority", t('Priorität'), $t_array, $error["tticket_priority"], 1);
 

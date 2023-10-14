@@ -1,6 +1,8 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+$clanIDParameter = $_GET['clanid'] ?? 0;
+switch ($stepParameter) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('clanmgr');
     
@@ -142,28 +144,28 @@ switch ($_GET['step']) {
   
     // Add - Edit
     case 30:
-        if ($_GET['clanid'] != '' and !($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < 2) {
+        if ($clanIDParameter != '' and !($clanIDParameter == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < 2) {
             $func->information(t('Du bist nicht berechtigt diesen Clan zu ändern'), "index.php?mod=home");
         } else {
             $mf = new \LanSuite\MasterForm();
 
             $dsp->AddFieldsetStart(t('Clan-Daten'));
             $mf->AddField(t('Clanname'), 'name');
-            if (!$_GET['clanid']) {
+            if (!$clanIDParameter) {
                 $mf->AddField(t('Beitritts Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
             }
             $mf->AddField(t('Webseite'), 'url', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
             $mf->AddField(t('Clanlogo'), 'clanlogo_path', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/clan/'. $auth['userid'] .'_', \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-            if (!$_GET['clanid']) {
+            if (!$clanIDParameter) {
                 $mf->CheckBeforeInserFunction = 'CheckExistingClan';
             }
             $mf->AdditionalDBUpdateFunction = 'UpdateClanMgr';
-            $mf->SendForm('index.php?mod=clanmgr&step='. $_GET['step'], 'clan', 'clanid', $_GET['clanid']);
+            $mf->SendForm('index.php?mod=clanmgr&step='. $_GET['step'], 'clan', 'clanid', $clanIDParameter);
 
             $dsp->AddFieldsetEnd();
         
-            if ($_GET['clanid'] != '') {
+            if ($clanIDParameter) {
                 $dsp->AddFieldsetStart(t('Mitglieder'));
                 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('clanmgr');
 

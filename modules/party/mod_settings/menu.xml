@@ -26,4 +26,14 @@
 		<file>delete</file>
 		<requirement>3</requirement>
 	</entry>
+	<entry>
+		<action>price_edit</action>
+		<file>price_edit</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
+		<action>price_del</action>
+		<file>price_del</file>
+		<requirement>3</requirement>
+	</entry>
 </menu>
