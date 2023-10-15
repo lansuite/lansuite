@@ -1,6 +1,6 @@
 <?php
 // Forum posts
-$dsp->AddDoubleRow(t('Board Posts'), $user_data['posts'].$count_rows['count']);
+$dsp->AddDoubleRow(t('Board Posts'), $count_rows['count']);
 
 // Threads
 $get_board_threads = $db->qry("
@@ -21,6 +21,7 @@ $get_board_threads = $db->qry("
   ORDER BY date DESC
   LIMIT 20", $_GET['userid'], $auth['type']);
 
+$threads = '';
 while ($row_threads = $db->fetch_array($get_board_threads)) {
     $threads .= $func->unixstamp2date($row_threads['date'], "datetime")." - <a href=\"index.php?mod=board&action=thread&tid={$row_threads['tid']}\">{$row_threads['caption']}</a>". HTML_NEWLINE;
 }

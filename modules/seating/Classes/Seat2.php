@@ -116,7 +116,8 @@ class Seat2
             party_id=%int%
             AND user_id=%int%", $party->party_id, $userid);
 
-        if ($seat_paid['paid']>0) {
+        $seatPaidPaid = $seat_paid['paid'] ?? 0;
+        if ($seatPaidPaid > 0) {
             $seat_status = 2;
         } else {
             $seat_status = 3;
@@ -135,7 +136,8 @@ class Seat2
             AND s.status = %string%
             AND b.party_id = %int%", $userid, $seat_status, $party->party_id);
     
-        if ($row['blockid']) {
+        $blockID = $row['blockid'] ?? 0;
+        if ($blockID) {
             $arr = array();
             $arr['block'] = $row['blockid'];
             $arr['row'] = $row['row'];
