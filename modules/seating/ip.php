@@ -3,7 +3,9 @@
 use LanSuite\Module\Seating\Seat2;
 
 $blockid = $_GET['blockid'];
-$seating_ip = $_POST['seating_ip'];
+$seating_ip = $_POST['seating_ip'] ?? [];
+
+$cellPostParameter = $_POST['cell'] ?? [];
 
 $stepParameter = $_GET['step'] ?? 0;
 switch ($stepParameter) {
@@ -11,8 +13,8 @@ switch ($stepParameter) {
         $seating_ip_exists = array();
         $seating_ip = array();
 
-        if ($_POST['cell']) {
-            foreach ($_POST['cell'] as $cur_cell => $value) {
+        if ($cellPostParameter) {
+            foreach ($cellPostParameter as $cur_cell => $value) {
                 if ($value) {
                     $col = floor($cur_cell / 100);
                     $row = $cur_cell % 100;
@@ -51,8 +53,8 @@ switch ($stepParameter) {
         break;
 
     case 3:
-        if ($_POST['cell']) {
-            foreach ($_POST['cell'] as $cur_cell => $value) {
+        if ($cellPostParameter) {
+            foreach ($cellPostParameter as $cur_cell => $value) {
                 $col = floor($cur_cell / 100);
                 $row = $cur_cell % 100;
 

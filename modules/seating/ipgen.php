@@ -10,7 +10,7 @@ switch ($stepParameter) {
         $smarty->assign('ipgen_a', $_POST["ipgen_a"]);
         $smarty->assign('ipgen_b', $_POST["ipgen_b"]);
         $smarty->assign('ipgen_c', $_POST["ipgen_c"]);
-        $smarty->assign('ip_offset', $_POST["ip_offset"]);
+        $smarty->assign('ipgen_offset', $_POST["ip_offset"]);
 
         $smarty->assign('form_action', "index.php?mod=seating&action=ipgen&step=10&blockid=". $_GET['blockid']);
         $smarty->assign('page_title', t('IP-Generierung'));

@@ -12,7 +12,7 @@ $ms2->AddResultField(t('Plätze'), 'b.blockid', 'SeatsAvailable');
 $ms2->AddResultField(t('Belegt'), 'b.blockid', 'SeatsOccupied');
 $ms2->AddResultField(t('Auslastung'), 'b.blockid', 'SeatLoad');
 
-if (!$target_icon) {
+if (!isset($target_icon)) {
     $target_icon = 'details';
 }
 if ($target_url) {
