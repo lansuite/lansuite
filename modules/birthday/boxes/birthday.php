@@ -1,12 +1,13 @@
 <?php
 $sqlQuery = '
 	SELECT
-		`username`, 
-		`birthday`
+		`%prefix%user`.`username`,
+		`%prefix%user`.`birthday`
 	FROM `%prefix%user` 
-	WHERE 
-		MOD(DAYOFYEAR(`birthday`) - DAYOFYEAR(CURRENT_DATE()) + 366, 366) BETWEEN 0 and 31  
-	ORDER BY DAYOFYEAR(`birthday`) ASC';
+	WHERE
+		`%prefix%user`.`show_birthday` = 1
+		AND MOD(DAYOFYEAR(`%prefix%user`.`birthday`) - DAYOFYEAR(CURRENT_DATE()) + 366, 366) BETWEEN 0 and 31
+	ORDER BY DAYOFYEAR(`%prefix%user`.`birthday`) ASC';
 
 $userWithBirthdays = $database->queryWithFullResult($sqlQuery);
 foreach ($userWithBirthdays as $birthdays) {
@@ -20,4 +21,8 @@ foreach ($userWithBirthdays as $birthdays) {
 		$box->DotRow($username . ' wird am');
 		$box->EngangedRow($birthday . ' ' . $age . ' Jahre');
 	}
+}
+
+if (count($userWithBirthdays) == 0) {
+	$box->EngangedRow('Zur Zeit hat niemand Geburtstag.');
 }

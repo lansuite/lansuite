@@ -11,12 +11,15 @@ $display = '
 
 $sqlQuery = '
 	SELECT
-		`name`,
-		 `firstname`,
-		 `username`,
-		 `birthday`
-	FROM %prefix%user 
-	ORDER BY `birthday` ASC';
+		`%prefix%user`.`name`,
+		`%prefix%user`.`firstname`,
+		`%prefix%user`.`username`,
+		`%prefix%user`.`birthday`
+	FROM `%prefix%user`
+	WHERE
+		`%prefix%user`.`show_birthday` = 1
+		AND `%prefix%user`.`birthday` > 0
+	ORDER BY `%prefix%user`.`birthday` ASC';
 
 $userWithBirthdays = $database->queryWithFullResult($sqlQuery);
 
@@ -35,4 +38,9 @@ foreach ($userWithBirthdays as $birthdays) {
 }
 
 $display .= '</table>';
-$dsp->AddSingleRow($display);
+
+if (count($userWithBirthdays) > 0) {
+	$dsp->AddSingleRow($display);
+} else {
+	$dsp->AddSingleRow('Niemand hat seinen Geburtstag eingetragen.');
+}
