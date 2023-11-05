@@ -212,7 +212,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 }
                 if (ShowFieldUsrMgr('birthday')) {
                     $mf->AddField(t('Geburtstag'), 'birthday', '', '-80/-8', Optional('birthday'), 'check_birthday');
-                    $mf->AddField(t('Geburtstag anzeigen') . '|' . t('Mein Geburtstag öffentlich sichtbar machen?'), 'show_birthday', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+                    $mf->AddField(t('Geburtstag anzeigen') . '|' . t('Meinen Geburtstag öffentlich sichtbar machen?'), 'show_birthday', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
                 }
             }
             if (ShowFieldUsrMgr('gender')) {
