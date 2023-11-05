@@ -42,5 +42,5 @@ $display .= '</table>';
 if (count($userWithBirthdays) > 0) {
 	$dsp->AddSingleRow($display);
 } else {
-	$dsp->AddSingleRow('Niemand hat seinen Geburtstag eingetragen.');
+	$dsp->AddSingleRow('Niemand hat seinen Geburtstag eingetragen oder als sichtbar konfiguriert.');
 }
