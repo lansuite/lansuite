@@ -27,7 +27,8 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Development] Introduced PHP_CodeSniffer to ensure a unified coding standard inside our codebase
 - [Development] Introduced a Makefile to make standard commands easier and scriptable
 - [Development] Introduced an automated way to create a new production release incl., documentation and API docs
-- [Development] Add basic Pull Request template
+- [Development] Added basic Pull Request template
+- [Development] Added versioning strategy for dependabot for npm and composer to auto-increase dependency versions if needed
 - [Documentation] Introduced an official documentation website at https://lansuite.github.io/lansuite/
 - [System] Introduced symfony/error-handler to provide more information in an error case rather than the native PHP errors (only active in debug mode)
 - [System] Introduced symfony/cache to easily provide other cache backends like APCu (next to file caching)
