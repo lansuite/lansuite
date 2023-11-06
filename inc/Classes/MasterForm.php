@@ -707,7 +707,7 @@ class MasterForm
                                 // Fields loop
                                 if ($group['fields']) {
                                     foreach ($group['fields'] as $FieldKey => $field) {
-                                        if (!$field['type']) {
+                                        if (!$field['type'] && array_key_exists($field['name'], $SQLFieldTypes)) {
                                             $field['type'] = $SQLFieldTypes[$field['name']];
                                         }
 
@@ -839,10 +839,24 @@ class MasterForm
 
                                             // Date-Select
                                             case 'date':
-                                                $values = array();
-                                                [$date, $time] = explode(' ', $_POST[$field['name']]);
+                                                $values = array(
+                                                    'hour' => '',
+                                                    'min' => '',
+                                                    'sec' => '',
+                                                );
+                                                $dateParts = explode(' ', $_POST[$field['name']]);
+
+                                                $date = $dateParts[0];
+                                                $time = '';
+                                                if (array_key_exists(1, $dateParts)) {
+                                                    $time = $dateParts[1];
+                                                }
+
                                                 [$values['year'], $values['month'], $values['day']] = explode('-', $date);
-                                                [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
+
+                                                if ($time) {
+                                                    [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
+                                                }
 
                                                 if ($values['year'] == '') {
                                                     $values['year'] = "0000";
@@ -861,17 +875,20 @@ class MasterForm
                                                 }
                                                 $start = $area[0];
                                                 $end = $area[1];
-                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $this->error[$field['name']], $values, '', $start, $end, 1, $field['optional']);
+                                                $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0,  $fieldErrorText, $values, '', $start, $end, 1, $field['optional']);
                                                 break;
 
                                             // Password-Row
                                             case self::IS_PASSWORD:
                                                 // Dont show MD5-sum, read from DB on change
-                                                if (strlen($_POST[$field['name']]) == 32) {
+                                                if (array_key_exists($field['name'], $_POST) && strlen($_POST[$field['name']]) == 32) {
                                                     $_POST[$field['name']] = '';
                                                 }
 
-                                                $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
+                                                $postFieldValue = $_POST[$field['name']] ?? '';
+                                                $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                $dsp->AddPasswordRow($field['name'], $field['caption'], $postFieldValue, $fieldErrorText, '', $field['optional']);
                                                 break;
 
                                             // New-Password-Row
@@ -956,7 +973,9 @@ class MasterForm
                                                         }
                                                         $selections[] = "<option value=\"$key\"$selected>$val</option>";
                                                     }
-                                                    $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], 7);
+
+                                                    $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                    $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $fieldErrorText, $field['optional'], 7);
                                                 }
                                                 break;
 
@@ -998,7 +1017,8 @@ class MasterForm
                                                 break;
 
                                             case self::IS_CALLBACK:
-                                                $ret = call_user_func($field['selections'], $field['name'], self::OUTPUT_PROC, $this->error[$field['name']]);
+                                                $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                $ret = call_user_func($field['selections'], $field['name'], self::OUTPUT_PROC, $fieldErrorText);
                                                 if ($ret) {
                                                     $dsp->AddDoubleRow($field['caption'], $ret);
                                                 }
@@ -1028,7 +1048,8 @@ class MasterForm
 
                                         // Start HiddenBox
                                         if ($this->DependOnStarted == 0 && array_key_exists($field['name'], $this->DependOn)) {
-                                            $dsp->StartHiddenBox('box_'.$field['name'], $_POST[$field['name']]);
+                                            $postFieldValue = $_POST[$field['name']] ?? '';
+                                            $dsp->StartHiddenBox('box_' . $field['name'], $postFieldValue);
                                             $this->DependOnStarted = $this->DependOn[$field['name']] + 1;
                                             unset($this->DependOn[$field['name']]);
                                         }

@@ -6,8 +6,9 @@ $mail = new \LanSuite\Module\Mail\Mail();
 $usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
 // Get Barcode if exists and translate to userid
-if ($_POST['barcodefield']) {
-    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
+$barcodefieldParameter = $_POST['barcodefield'] ?? null;
+if ($barcodefieldParameter) {
+    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $barcodefieldParameter);
     $_GET['userid']=$row['userid'];
 }
 
@@ -46,8 +47,20 @@ if (!$user_data['userid']) {
         user_id = %int%
         AND u.party_id = %int%
       GROUP BY u.user_id", $_GET['userid'], $party->party_id);
+
+    // $user_party can be null, thats why we pre-setting the values here
+    $userPartyPriceID = $user_party['price_id'] ?? 0;
+    $userPartyUserID = $user_party['user_id'] ?? 0;
+    $userPartyPaid = $user_party['paid'] ?? false;
+    $userPartyCheckin = $user_party['checkin'] ?? null;
+    $userPartyCheckout = $user_party['checkout'] ?? null;
+    $userPartyPriceText = $user_party['price_text'] ?? '';
+
     $count_rows = $db->qry_first('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = %int%', $_GET['userid']);
-    $party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $user_party['price_id']);
+    $party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $userPartyPriceID);
+
+    // $party_seatcontrol can be null, thats why we pre-setting the values here
+    $partySeatControlDepotPrice = $party_seatcontrol['depot_price'] ?? 0;
 
     $user_fields = $db->qry("SELECT name, caption, optional FROM %prefix%user_fields");
     ($db->num_rows($user_fields) > 0)? $hasUserFields = 1 : $hasUserFields = 0;
@@ -123,43 +136,43 @@ if (!$user_data['userid']) {
         $clan = '<table width="100%"><tr><td>';
         $party_row = '';
         $link = '';
-        ($user_party['user_id'])? $party_row .= t('Angemeldet') :  $party_row .= t('Nicht Angemeldet');
+        ($userPartyUserID)? $party_row .= t('Angemeldet') :  $party_row .= t('Nicht Angemeldet');
         if (IsAuthorizedAdmin()) {
-            ($user_party['paid'])? $link = 'index.php?mod=guestlist&step=11&userid='. $_GET['userid']
+            ($userPartyPaid)? $link = 'index.php?mod=guestlist&step=11&userid='. $_GET['userid']
             : $link = 'index.php?mod=guestlist&step=10&userid='. $_GET['userid'];
         }
         // Paid
-        ($user_party['paid'])? $party_row .= ', '. $dsp->FetchIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->FetchIcon('not_paid', $link, t('Nicht bezahlt'));
-        if ($user_party['price_text']) {
-            $party_row .= ' ['. $user_party['price_text'] .']';
+        ($userPartyPaid)? $party_row .= ', '. $dsp->FetchIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->FetchIcon('not_paid', $link, t('Nicht bezahlt'));
+        if ($userPartyPriceText) {
+            $party_row .= ' ['. $userPartyPriceText .']';
         }
         // Platzpfand
-        if ($party_seatcontrol['depot_price'] > 0) {
+        if ($partySeatControlDepotPrice > 0) {
             $party_row .= ', '. $party_seatcontrol['depot_desc'];
             $party_row .= ($user_party['seatcontrol']) ? t(' gezahlt') : t(' NICHT gezahlt');
         }
         // CheckIn CheckOut
         $link = '';
-        if (IsAuthorizedAdmin() and !$user_party['checkin']) {
+        if (IsAuthorizedAdmin() and !$userPartyCheckin) {
             $link = 'index.php?mod=guestlist&step=20&userid='. $_GET['userid'];
         }
-        if ($user_party['checkin']) {
-            $party_row .= ' '. $dsp->FetchIcon('in', $link, t('Eingecheckt')) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
+        if ($userPartyCheckin) {
+            $party_row .= ' '. $dsp->FetchIcon('in', $link, t('Eingecheckt')) .'['. $func->unixstamp2date($userPartyCheckin, 'datetime') .']';
         } else {
             $party_row .= ' '.$dsp->FetchIcon('not_in', $link, t('Nicht eingecheckt'));
         }
 
           $link = '';
-        if (IsAuthorizedAdmin() and !$user_party['checkout'] and $user_party['checkin']) {
+        if (IsAuthorizedAdmin() && !$userPartyCheckout && $userPartyCheckin) {
             $link = 'index.php?mod=guestlist&step=21&userid='. $_GET['userid'];
         }
-        if ($user_party['checkout']) {
-            $party_row .= ' '. $dsp->FetchIcon('out', $link, t('Ausgecheckt')) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
+        if ($userPartyCheckout) {
+            $party_row .= ' '. $dsp->FetchIcon('out', $link, t('Ausgecheckt')) .'['. $func->unixstamp2date($userPartyCheckout, 'datetime') .']';
         } else {
             $party_row .= ' '.$dsp->FetchIcon('not_out', $link, t('Nicht ausgecheckt'));
         }
 
-        if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) {
+        if (IsAuthorizedAdmin() && $userPartyCheckin > 0 && $userPartyCheckout > 0) {
             $party_row .= $dsp->FetchIcon('delete', 'index.php?mod=guestlist&step=22&userid=' . $_GET['userid'], 'Reset Checkin');
         }
 
@@ -171,7 +184,7 @@ if (!$user_data['userid']) {
         $seat2 = new Seat2();
 
         $user_data_seating = $seat2->SeatOfUserArray($_GET['userid']);
-        if ($user_data_seating['block'] == '') {
+        if (!$user_data_seating) {
             $seat = t('Kein Sitzplatz ausgewählt / zugeteilt.');
         } else {
             $seat = $seat2->SeatOfUser($_GET['userid'], 0, 2);
@@ -311,7 +324,9 @@ if (!$user_data['userid']) {
 
     $dsp->StartTab(t('Lesezeichen'), 'details');
     $dsp->AddFieldsetStart(t('In Kommentaren'));
-    switch ($_GET['step']) {
+
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         case 10:
             $md = new \LanSuite\MasterDelete();
             $md->MultiDelete('comments_bookmark', 'bid');
