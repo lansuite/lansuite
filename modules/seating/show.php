@@ -4,7 +4,8 @@ use LanSuite\Module\Seating\Seat2;
 
 $seat2 = new Seat2();
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $row = $db->qry_first('
           SELECT
@@ -12,13 +13,15 @@ switch ($_GET['step']) {
           FROM %prefix%seat_block
           WHERE
             party_id = %int%', $party->party_id);
-        $_GET['blockid'] = $row['blockid'];
+        $_GET['blockid'] = $row['blockid'] ?? 0;
 
     // Show seatplan
     case 2:
         $dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahre mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
 
         $current_url = 'index.php?mod=seating';
+        $target_icon = '';
+        $target_url = '';
         include_once('modules/seating/search_basic_blockselect.inc.php');
 
         $dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0));
@@ -75,7 +78,7 @@ switch ($_GET['step']) {
                 $row = $db->qry_first("SELECT seatid FROM %prefix%seat_seats WHERE blockid = %int% AND status = 2 AND userid = %int%", $_GET['blockid'], $auth['userid']);
                 if ($user_data['paid']) {
                     // Reserve seat for myselfe
-                    if ($row['seatid']) {
+                    if ($row && $row['seatid']) {
                         $questionarray[] = t('Du hast bereits einen Sitzplatz reserviert. Möchtest du deinen Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?');
                         $linkarray[]     = "index.php?mod=seating&action=show&step=11&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     // Change my seat, if I allready have one
@@ -347,6 +350,7 @@ switch ($_GET['step']) {
         if ($auth['type'] > 1) {
             $current_url = "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}";
             $target_url = "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid=";
+            $target_icon = '';
             include_once('modules/seating/search_basic_blockselect.inc.php');
         }
 }

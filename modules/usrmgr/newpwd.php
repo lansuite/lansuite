@@ -2,7 +2,8 @@
 
 $user_data = $db->qry_first("SELECT name, firstname, username, type FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/usrmgr/search.inc.php');
         break;

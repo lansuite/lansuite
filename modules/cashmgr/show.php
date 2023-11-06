@@ -1,6 +1,7 @@
 <?php
 
-if (!$_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+if (!$stepParameter) {
     switch ($auth['type']) {
         default:
             $func->information("ACCESS_DENIED");
@@ -23,7 +24,7 @@ if (!$_GET['step']) {
     }
 }
 
-switch ($_GET['step']) {
+switch ($stepParameter) {
     case 1:
         if ($auth['type'] < 3) {
             $func->information("ACCESS_DENIED");

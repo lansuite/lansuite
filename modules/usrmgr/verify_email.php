@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Email-Adresse verifizieren'), '');
 

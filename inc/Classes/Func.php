@@ -1099,7 +1099,7 @@ class Func
         }
 
         $search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%lastread WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
-        if ($search_read["found"]) {
+        if ($search_read) {
             $db->qry_first("UPDATE %prefix%lastread SET date = NOW() WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
         } else {
             $db->qry_first("INSERT INTO %prefix%lastread SET date = NOW(), tab = %string%, entryid = %int%, userid = %int%", $table, $entryid, $userid);

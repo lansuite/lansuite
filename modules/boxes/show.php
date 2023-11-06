@@ -1,5 +1,6 @@
 <?php
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     // Activate
     case 10:
         foreach ($_POST['action'] as $key => $val) {

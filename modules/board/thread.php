@@ -2,7 +2,8 @@
 
 // Exec Admin-Functions
 if ($auth['type'] >= 2) {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter ) {
         // Close Thread
         case 10:
             $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $_GET['tid']);

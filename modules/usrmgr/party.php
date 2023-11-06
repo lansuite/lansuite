@@ -78,7 +78,8 @@ if ($party->count == 0) {
                 $mf->SendButtonText = 'An-/Abmelden';
 
                 $mf->AdditionalDBUpdateFunction = 'PartyMail';
-                $mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&party_id='. $row['party_id'], 'party_user', 'user_id', $_GET['user_id']);
+                $actionParameter = $_GET['action'] ?? '';
+                $mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $actionParameter  .'&party_id='. $row['party_id'], 'party_user', 'user_id', $_GET['user_id']);
                 $dsp->AddFieldsetEnd();
             } else {
                 $mf->IncrementNumber();
@@ -94,6 +95,7 @@ if ($party->count == 0) {
             p.*,
             pu.user_id,
             pu.paid,
+            pu.price_id,
             UNIX_TIMESTAMP(pu.checkin) AS checkin,
             UNIX_TIMESTAMP(pu.checkout) AS checkout,
             UNIX_TIMESTAMP(p.enddate) AS enddate,

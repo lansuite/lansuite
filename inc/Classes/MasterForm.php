@@ -539,7 +539,7 @@ class MasterForm
                                             $err = false;
 
                                             // Copy WYSIWYG editor variable
-                                            if (($SQLFieldTypes[$field['name']] == 'text' || $SQLFieldTypes[$field['name']] == 'mediumtext' || $SQLFieldTypes[$field['name']] == 'longtext') && $field['selections'] == self::HTML_WYSIWYG) {
+                                            if (array_key_exists($field['name'], $SQLFieldTypes) && ($SQLFieldTypes[$field['name']] == 'text' || $SQLFieldTypes[$field['name']] == 'mediumtext' || $SQLFieldTypes[$field['name']] == 'longtext') && $field['selections'] == self::HTML_WYSIWYG) {
                                                 $this->FCKeditorID++;
                                                 $_POST[$field['name']] = $_POST['FCKeditor'. $this->FCKeditorID];
                                             }
@@ -548,14 +548,14 @@ class MasterForm
                                             if (!$this->DependOnStarted or $_POST[$this->DependOnField]) {
                                                 // -- Convertions --
                                                 // Convert Post-date to unix-timestap
-                                                if ($SQLFieldTypes[$field['name']] == 'datetime') {
+                                                if (array_key_exists($field['name'], $SQLFieldTypes) && $SQLFieldTypes[$field['name']] == 'datetime') {
                                                     //1997-12-31 23:59:59
                                                     $_POST[$field['name']] = $_POST[$field['name'].'_value_year'] .'-'. $_POST[$field['name'].'_value_month'] .'-'.
                                                     $_POST[$field['name'].'_value_day'] .' '. $_POST[$field['name'].'_value_hours'] .':'. $_POST[$field['name'].'_value_minutes'] .':00';
                                                     $__POST[$field['name']] = $_POST[$field['name']];
                                                 }
 
-                                                if ($SQLFieldTypes[$field['name']] == 'date') {
+                                                if (array_key_exists($field['name'], $SQLFieldTypes) && $SQLFieldTypes[$field['name']] == 'date') {
                                                     $_POST[$field['name']] = $_POST[$field['name'].'_value_year'] .'-'. $_POST[$field['name'].'_value_month'] .'-'. $_POST[$field['name'].'_value_day'];
                                                     $__POST[$field['name']] = $_POST[$field['name']];
                                                 }
@@ -590,11 +590,11 @@ class MasterForm
                                                       $this->error[$field['name']] = t('Bitte fülle dieses Pflichtfeld aus.');
 
                                                 // Check Int
-                                                } elseif (str_contains($SQLFieldTypes[$field['name']], 'int') && $SQLFieldTypes[$field['name']] != 'tinyint(1)' && $SQLFieldTypes[$field['name']] != "enum('0','1')" && $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) {
+                                                } elseif (array_key_exists($field['name'], $SQLFieldTypes) && str_contains($SQLFieldTypes[$field['name']], 'int') && $SQLFieldTypes[$field['name']] != 'tinyint(1)' && $SQLFieldTypes[$field['name']] != "enum('0','1')" && array_key_exists($field['name'], $_POST) && $_POST[$field['name']] && (int) $_POST[$field['name']] == 0) {
                                                       $this->error[$field['name']] = t('Bitte gib eine Zahl ein.');
 
                                                 // Check date
-                                                } elseif (($SQLFieldTypes[$field['name']] == 'datetime' || $SQLFieldTypes[$field['name']] == 'date') && (!checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year']) && !($_POST[$field['name'].'_value_month']=="00" && $_POST[$field['name'].'_value_day']=="00" && $_POST[$field['name'].'_value_year']=="0000"))) {
+                                                } elseif (array_key_exists($field['name'], $SQLFieldTypes) && ($SQLFieldTypes[$field['name']] == 'datetime' || $SQLFieldTypes[$field['name']] == 'date') && (!checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year']) && !($_POST[$field['name'].'_value_month']=="00" && $_POST[$field['name'].'_value_day']=="00" && $_POST[$field['name'].'_value_year']=="0000"))) {
                                                       $this->error[$field['name']] = t('Das eingegebene Datum ist nicht korrekt.');
 
                                                 // Check new passwords
@@ -606,7 +606,7 @@ class MasterForm
                                                       $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
 
                                                 // No \r \n \t \0 \x0B in Non-Multiline-Fields
-                                                } elseif ($field['type'] != 'text' && $field['type'] != 'mediumtext' && $field['type'] != 'longtext' && $SQLFieldTypes[$field['name']] != 'text' && $SQLFieldTypes[$field['name']] != 'mediumtext' && $SQLFieldTypes[$field['name']] != 'longtext' && !is_array($fieldValue) && ((str_contains($fieldValue, "\r")) || (str_contains($fieldValue, "\n")) || (str_contains($fieldValue, "\t")) || (str_contains($fieldValue, "\0")) || (str_contains($fieldValue, "\x0B")))) {
+                                                } elseif ($field['type'] != 'text' && $field['type'] != 'mediumtext' && $field['type'] != 'longtext' && array_key_exists($field['name'], $SQLFieldTypes) && $SQLFieldTypes[$field['name']] != 'text' && $SQLFieldTypes[$field['name']] != 'mediumtext' && $SQLFieldTypes[$field['name']] != 'longtext' && !is_array($fieldValue) && ((str_contains($fieldValue, "\r")) || (str_contains($fieldValue, "\n")) || (str_contains($fieldValue, "\t")) || (str_contains($fieldValue, "\0")) || (str_contains($fieldValue, "\x0B")))) {
                                                       $this->error[$field['name']] = t('Dieses Feld enthält nicht erlaubte Steuerungszeichen (z.B. einen Tab, oder Zeilenumbruch)');
 
                                                 // Callbacks
@@ -619,7 +619,7 @@ class MasterForm
 
                                                 // Check double uniques
                                                 // Neccessary in Multi Line Edit Mode? If so: Still to do
-                                                if ($SQLFieldUnique[$field['name']]) {
+                                                if (array_key_exists($field['name'], $SQLFieldTypes) && $SQLFieldUnique[$field['name']]) {
                                                     $check_double_where = '';
                                                     if ($this->isChange) {
                                                         $check_double_where = ' AND '. $idname .' != '. (int)$id;
@@ -707,7 +707,7 @@ class MasterForm
                                 // Fields loop
                                 if ($group['fields']) {
                                     foreach ($group['fields'] as $FieldKey => $field) {
-                                        if (!$field['type']) {
+                                        if (!$field['type'] && array_key_exists($field['name'], $SQLFieldTypes)) {
                                             $field['type'] = $SQLFieldTypes[$field['name']];
                                         }
 
@@ -730,13 +730,13 @@ class MasterForm
                                                 // No break statement here on purpose
 
                                             case 'mediumtext':
-                                                if (!$maxchar) {
+                                                if (!isset($maxchar)) {
                                                     $maxchar = 16_777_215;
                                                 }
                                                 // No break statement here on purpose
 
                                             case 'longtext':
-                                                if (!$maxchar) {
+                                                if (!isset($maxchar)) {
                                                     $maxchar = 4_294_967_295;
                                                 }
                                                 $postFieldValue = $_POST[$field['name']] ?? '';
@@ -775,7 +775,9 @@ class MasterForm
                                                 if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) {
                                                     $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_{$field['name']}', this.checked)\"";
                                                 }
-                                                [$field['caption1'], $field['caption2']] = explode('|', $field['caption']);
+                                                $captionParts = explode('|', $field['caption']);
+                                                $field['caption1'] = $captionParts[0];
+                                                $field['caption2'] = $captionParts[1] ?? '';
                                                 if (array_key_exists($field['name'], $_POST) && !$_POST[$field['name']]) {
                                                       unset($_POST[$field['name']]);
                                                 }
@@ -837,10 +839,24 @@ class MasterForm
 
                                             // Date-Select
                                             case 'date':
-                                                $values = array();
-                                                [$date, $time] = explode(' ', $_POST[$field['name']]);
+                                                $values = array(
+                                                    'hour' => '',
+                                                    'min' => '',
+                                                    'sec' => '',
+                                                );
+                                                $dateParts = explode(' ', $_POST[$field['name']]);
+
+                                                $date = $dateParts[0];
+                                                $time = '';
+                                                if (array_key_exists(1, $dateParts)) {
+                                                    $time = $dateParts[1];
+                                                }
+
                                                 [$values['year'], $values['month'], $values['day']] = explode('-', $date);
-                                                [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
+
+                                                if ($time) {
+                                                    [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
+                                                }
 
                                                 if ($values['year'] == '') {
                                                     $values['year'] = "0000";
@@ -859,17 +875,20 @@ class MasterForm
                                                 }
                                                 $start = $area[0];
                                                 $end = $area[1];
-                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $this->error[$field['name']], $values, '', $start, $end, 1, $field['optional']);
+                                                $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0,  $fieldErrorText, $values, '', $start, $end, 1, $field['optional']);
                                                 break;
 
                                             // Password-Row
                                             case self::IS_PASSWORD:
                                                 // Dont show MD5-sum, read from DB on change
-                                                if (strlen($_POST[$field['name']]) == 32) {
+                                                if (array_key_exists($field['name'], $_POST) && strlen($_POST[$field['name']]) == 32) {
                                                     $_POST[$field['name']] = '';
                                                 }
 
-                                                $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
+                                                $postFieldValue = $_POST[$field['name']] ?? '';
+                                                $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                $dsp->AddPasswordRow($field['name'], $field['caption'], $postFieldValue, $fieldErrorText, '', $field['optional']);
                                                 break;
 
                                             // New-Password-Row
@@ -954,7 +973,9 @@ class MasterForm
                                                         }
                                                         $selections[] = "<option value=\"$key\"$selected>$val</option>";
                                                     }
-                                                    $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], 7);
+
+                                                    $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                    $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $fieldErrorText, $field['optional'], 7);
                                                 }
                                                 break;
 
@@ -996,7 +1017,8 @@ class MasterForm
                                                 break;
 
                                             case self::IS_CALLBACK:
-                                                $ret = call_user_func($field['selections'], $field['name'], self::OUTPUT_PROC, $this->error[$field['name']]);
+                                                $fieldErrorText = $this->error[$field['name']] ?? '';
+                                                $ret = call_user_func($field['selections'], $field['name'], self::OUTPUT_PROC, $fieldErrorText);
                                                 if ($ret) {
                                                     $dsp->AddDoubleRow($field['caption'], $ret);
                                                 }
@@ -1026,7 +1048,8 @@ class MasterForm
 
                                         // Start HiddenBox
                                         if ($this->DependOnStarted == 0 && array_key_exists($field['name'], $this->DependOn)) {
-                                            $dsp->StartHiddenBox('box_'.$field['name'], $_POST[$field['name']]);
+                                            $postFieldValue = $_POST[$field['name']] ?? '';
+                                            $dsp->StartHiddenBox('box_' . $field['name'], $postFieldValue);
                                             $this->DependOnStarted = $this->DependOn[$field['name']] + 1;
                                             unset($this->DependOn[$field['name']]);
                                         }
@@ -1146,8 +1169,9 @@ class MasterForm
                                 }
                                 $db_query = substr($db_query, 0, strlen($db_query) - 2);
 
-                                // If the table entry should be created, or deleted wheter the control field is checked
-                                if ($this->AddInsertControllField != '' and !$_POST[$InsContName]) {
+                                // If the table entry should be created, or deleted whether the control field is checked
+                                $InsContNameParameter = $_POST[$InsContName] ?? 0;
+                                if ($this->AddInsertControllField != '' && !$InsContNameParameter) {
                                     $db->qry("DELETE FROM %prefix%%plain% WHERE %plain% %plain% = %int%", $table, $AddKey, $idname, $id);
 
                                 // Send query

@@ -1,8 +1,9 @@
 <?php
 $dsp->NewContent(t('Bugtracker'), t('Hier kannst du Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
 
-$row = $db->qry_first('SELECT reporter FROM %prefix%bugtracker WHERE bugid = %int%', $_GET['bugid']);
-if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']) {
+$bugidParameter = $_GET['bugid'] ?? 0;
+$row = $db->qry_first('SELECT reporter FROM %prefix%bugtracker WHERE bugid = %int%', $bugidParameter);
+if ($bugidParameter && $auth['type'] < 2 && $row['reporter'] != $auth['userid']) {
     $func->error(t('Nur Admins und der Reporter dürfen Bug-Einträge im Nachhinein editieren'), 'index.php?mod=bugtracker');
 } else {
     $mf = new \LanSuite\MasterForm();
@@ -43,7 +44,7 @@ if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']
         $mf->AddField(t('Bereits gespendet'), 'price_payed', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     }
 
-    if (!$_GET['bugid']) {
+    if (!$bugidParameter) {
         $mf->AddFix('date', 'NOW()');
         if ($_SERVER['SERVER_NAME'] != 'lansuite.orgapage.de') {
             $mf->AddFix('version', LANSUITE_VERSION);
@@ -69,7 +70,7 @@ if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']
         $mf->AddField(t('Bild / Datei anhängen'), 'file', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/bugtracker_upload/', \LanSuite\MasterForm::FIELD_OPTIONAL);
     }
 
-    $mf->SendForm('index.php?mod=bugtracker&action=add', 'bugtracker', 'bugid', $_GET['bugid']);
+    $mf->SendForm('index.php?mod=bugtracker&action=add', 'bugtracker', 'bugid', $bugidParameter);
 
     $dsp->AddBackButton('index.php?mod=bugtracker');
 }

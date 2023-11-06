@@ -960,6 +960,7 @@ class Display
             $smarty->assign('errortext', $this->errortext_prefix . $errortext . $this->errortext_suffix);
         }
 
+        $smarty->assign('showtime', '0');
         if ($hidetime != 1) {
             $smarty->assign('showtime', '1');
         }
@@ -1335,4 +1336,31 @@ class Display
     {
         return '<div class="infolink" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
     }
+
+    public function AddTripleRow($key, $value, $id = null, $ext_txt) {
+        global $smarty;
+
+        if ($key == '') {
+            $key = '&nbsp;';
+        }
+
+        if ($value == '') {
+            $value = '&nbsp;';
+        }
+
+        if ($ext_txt == '') {
+            $value = '&nbsp;';
+        }
+
+        if ($id == '') {
+            $id = 'DoubleRowVal';
+        }
+
+        $smarty->assign('key', $key);
+        $smarty->assign('value', $value);
+        $smarty->assign('id', $id);
+        $smarty->assign('ls_triplerow_ext', $ext_txt);
+
+        $this->AddContentLine($smarty->fetch('design/templates/ls_row_triple.htm'));
+      }
 }

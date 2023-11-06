@@ -7,11 +7,12 @@ function CheckAndResizeUploadPic($AvatarName): bool|string
 {
     global $gd;
 
-    if ($AvatarName == '') {
+    if (empty($AvatarName)) {
         return false;
     }
+
     $FileEnding = strtolower(substr($AvatarName, strrpos($AvatarName, '.'), 5));
-    if ($FileEnding != '.png' and $FileEnding != '.gif' and $FileEnding != '.jpg' and $FileEnding != '.jpeg') {
+    if ($FileEnding != '.png' && $FileEnding != '.gif' && $FileEnding != '.jpg' && $FileEnding != '.jpeg') {
         return t('Bitte eine Grafikdatei auswählen');
     }
 

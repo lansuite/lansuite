@@ -42,10 +42,6 @@ class GD
             $GD = gd_info();
             $this->available = 1;
 
-            if ($GD['Freetype Support']) {
-                $this->free_type = 1;
-            }
-
             if ($GD['FreeType Support']) {
                 $this->free_type = 1;
             }

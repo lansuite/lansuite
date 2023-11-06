@@ -31,7 +31,7 @@ class Party
                 $this->party_id = $setPartyIDGETParameter;
             } elseif (is_numeric($setPartyIDPOSTParameter)) {
                 $this->party_id = $setPartyIDPOSTParameter;
-            } elseif (is_numeric($_SESSION['party_id'])) {
+            } elseif (array_key_exists('party_id', $_SESSION) && is_numeric($_SESSION['party_id'])) {
                 // Look whether this partyId exists
                 $row = $db->qry_first('SELECT 1 AS found FROM %prefix%partys WHERE party_id = %int%', $_SESSION['party_id']);
                 if (is_array($row) && $row['found']) {
