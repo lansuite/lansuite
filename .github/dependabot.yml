@@ -24,3 +24,4 @@ updates:
     directory: "/website/"
     schedule:
       interval: "monthly"
+    versioning-strategy: auto
