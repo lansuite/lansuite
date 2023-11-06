@@ -960,6 +960,7 @@ class Display
             $smarty->assign('errortext', $this->errortext_prefix . $errortext . $this->errortext_suffix);
         }
 
+        $smarty->assign('showtime', '0');
         if ($hidetime != 1) {
             $smarty->assign('showtime', '1');
         }
