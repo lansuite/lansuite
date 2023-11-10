@@ -51,6 +51,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Party] Add information `Gesamt` in the Party box to show how many people can sign up for a party
 - [Birthday] New module to show users birthdays
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
+- [Tasks] New module to manage basic tasks
 
 ### Changed
 
