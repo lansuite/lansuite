@@ -22,19 +22,19 @@ switch ($stepParameter) {
         $ms2->AddResultField('Von', 'p.startdate');
         $ms2->AddResultField('Bis', 'p.enddate');
         $ms2->AddResultField(t('Mindestalter'), 'p.minage', 'GetMinimumAgeString');
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $ms2->AddResultField('Aktiv', 'p.party_id', 'GetActiveState');
         }
 
         $ms2->AddIconField('details', 'index.php?mod=party&action=show&step=1&party_id=', t('Details'));
         $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action=party&user_id='. $auth['userid'] .'&party_id=', t('Partyanmeldung'));
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $ms2->AddIconField('edit', 'index.php?mod=party&action=edit&party_id=', t('Editieren'));
         }
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $ms2->AddIconField('delete', 'index.php?mod=party&action=delete&party_id=', t('Löschen'));
         }
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $ms2->AddIconField('paid', 'index.php?mod=party&action=price&step=2&party_id=', t('Preise bearbeiten'));
         }
 
@@ -42,7 +42,7 @@ switch ($stepParameter) {
 
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=edit'));
     
-        if ($auth['type'] >= 2 and isset($_SESSION['party_id'])) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and isset($_SESSION['party_id'])) {
             $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persönlich die aktive ist, kannst du auf der Startseite oder in der Party-Box einstellen', $_SESSION['party_id']), NO_LINK);
         }
         break;

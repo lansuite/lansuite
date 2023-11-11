@@ -11,7 +11,7 @@ $ms2->AddResultField('Titel', 'n.id');
 $ms2->AddResultField('Datum', 'n.ip');
 
 $ms2->AddIconField('details', 'index.php?mod=noc&action=details_device&deviceid=', t('Details'));
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=noc&action=change_device&step=2&deviceid=', t('Editieren'));
 }
 if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {

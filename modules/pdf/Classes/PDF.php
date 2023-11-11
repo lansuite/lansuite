@@ -215,7 +215,7 @@ class PDF
                 break;
 
             case 'ticket':
-                if ($auth["userid"] == $_GET['userid'] || $auth["type"] > 2) {
+                if ($auth["userid"] == $_GET['userid'] || $auth['type'] > \LS_AUTH_TYPE_ADMIN) {
                     $this->_makeUserCard(1, 1, 1, 1, $_GET['userid']);
                 }
                 break;

@@ -15,10 +15,10 @@ $ms2->AddResultField(t('Status'), 'UNIX_TIMESTAMP(p.endtime) AS endtime', 'GetPo
 $ms2->AddResultField(t('Stimmen'), 'COUNT(v.polloptionid) AS Votes');
 
 $ms2->AddIconField('details', 'index.php?mod=poll&action=show&step=2&pollid=', t('Details'));
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('signon', 'index.php?mod=poll&action=result&pollid=', t('Ergebnis'));
 }
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=poll&action=change&step=2&pollid=', t('Editieren'));
 }
 if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {

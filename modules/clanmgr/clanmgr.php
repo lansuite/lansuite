@@ -18,10 +18,10 @@ switch ($stepParameter) {
         $ms2->AddResultField(t('Mitglieder'), 'COUNT(u.clanid) AS members');
 
         $ms2->AddIconField('details', 'index.php?mod=clanmgr&step=2&clanid=', t('Clan-Details'));
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $ms2->AddIconField('change_pw', 'index.php?mod=clanmgr&step=10&clanid=', t('Passwort ändern'));
         }
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $ms2->AddIconField('edit', 'index.php?mod=clanmgr&step=30&clanid=', t('Editieren'));
         }
         if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
@@ -59,10 +59,10 @@ switch ($stepParameter) {
         if ($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid']) {
             $buttons .= $dsp->FetchSpanButton(t('Clan verlassen'), 'index.php?mod='. $_GET['mod'] .'&step=40&clanid='. $_GET['clanid'].'&userid='.$auth['userid']).' ';
         }
-        if (($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] >= 2) {
+        if (($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $buttons .= $dsp->FetchSpanButton(t('Clan editieren'), 'index.php?mod='. $_GET['mod'] .'&step=30&clanid='. $_GET['clanid']).' ';
         }
-        if (($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] >= 2) {
+        if (($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $buttons .= $dsp->FetchSpanButton(t('Passwort ändern'), 'index.php?mod='. $_GET['mod'] .'&step=10&clanid='. $_GET['clanid']).' ';
         }
         $dsp->AddDoubleRow('', $buttons);
@@ -102,12 +102,12 @@ switch ($stepParameter) {
     case 10:
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
-        } elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) {
+        } elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < \LS_AUTH_TYPE_ADMIN) {
             $func->information(t('Du bist nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
         } else {
             $mf = new \LanSuite\MasterForm();
 
-            if ($auth['type'] < 2) {
+            if ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
                 $mf->AddField(t('Dezeitiges Passwort'), 'old_password', \LanSuite\MasterForm::IS_PASSWORD, '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckClanPW');
             }
             $mf->AddField(t('Neues Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
@@ -144,7 +144,7 @@ switch ($stepParameter) {
   
     // Add - Edit
     case 30:
-        if ($clanIDParameter != '' and !($clanIDParameter == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < 2) {
+        if ($clanIDParameter != '' and !($clanIDParameter == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < \LS_AUTH_TYPE_ADMIN) {
             $func->information(t('Du bist nicht berechtigt diesen Clan zu ändern'), "index.php?mod=home");
         } else {
             $mf = new \LanSuite\MasterForm();
@@ -192,7 +192,7 @@ switch ($stepParameter) {
             $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
         } elseif (CountAdmins() == 1 and $auth['clanadmin'] == 1) {
             $func->information(t('Löschen nicht möglich. Du bist der einzige Clan-Admin in diesem Clan. Benne bitte vorher einen weiteren Admin.'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);
-        } elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) or ($_GET['clanid'] == $auth['clanid'] and $_GET['userid'] = $auth['userid']) or $auth['type'] > 2) {
+        } elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) or ($_GET['clanid'] == $auth['clanid'] and $_GET['userid'] = $auth['userid']) or $auth['type'] > \LS_AUTH_TYPE_ADMIN) {
             $db->qry("UPDATE %prefix%user SET clanid = 0 WHERE userid = %int%", $_GET['userid']);
             $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);
         } else {

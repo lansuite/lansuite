@@ -41,7 +41,7 @@ while ($row = $db->fetch_array($res)) {
         $links .= ' - '. $row['username'] .'@'. $row['date'] .' ';
     }
     $links .= '</a>';
-    if ($_GET['versionid'] == $row['versionid'] and $auth['type'] > 2) {
+    if ($_GET['versionid'] == $row['versionid'] and $auth['type'] > \LS_AUTH_TYPE_ADMIN) {
         $links .= ' <a href="index.php?mod=wiki&action=delete&step=10&postid='. $_GET['postid'] .'&versionid='. $_GET['versionid'] .'" rel="nofollow" class="icon_delete" title="'. t('Löschen') .'"> </a> ';
     }
     $links .= '] ';
@@ -53,7 +53,7 @@ if ($auth['login']) {
 }
 
 $links_main = '';
-if ($auth['type'] > 2) {
+if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
     $links_main .= ' <a href="index.php?mod=wiki&action=delete&step=2&postid='. $_GET['postid'] .'" class="icon_delete" title="'. t('Löschen') .'"> </a>';
 }
 

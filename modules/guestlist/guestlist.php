@@ -15,7 +15,7 @@ switch ($stepParameter) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             $Messages = array('success' => '', 'error' => '');
             foreach ($_POST['action'] as $key => $val) {
                 $Msg = $guestlist->SetPaid($key, $party->party_id);
@@ -44,7 +44,7 @@ switch ($stepParameter) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             $Messages = array('success' => '', 'error' => '');
             foreach ($_POST['action'] as $key => $val) {
                 $Msg = $guestlist->SetNotPaid($key, $party->party_id);
@@ -73,7 +73,7 @@ switch ($stepParameter) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             foreach ($_POST['action'] as $key => $val) {
                 if ($guestlist->CheckIn($key, $party->party_id)) {
                     $func->information(t('Der Benutzer #%1 konnte nicht eingecheckt werden, da er nicht auf "bezahlt" steht', array($key)), NO_LINK);
@@ -92,7 +92,7 @@ switch ($stepParameter) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             foreach ($_POST['action'] as $key => $val) {
                 if ($guestlist->CheckOut($key, $party->party_id)) {
                     $func->information(t('Der Benutzer #%1 konnte nicht ausgecheckt werden, da er nicht eingecheckt ist', array($key)), NO_LINK);
@@ -111,7 +111,7 @@ switch ($stepParameter) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             foreach ($_POST['action'] as $key => $val) {
                 $guestlist->UndoCheckInOut($key, $party->party_id);
             }

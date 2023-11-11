@@ -16,7 +16,7 @@ $stepParameter = $_GET['step'] ?? 0;
 switch ($stepParameter) {
     // Edit headline
     case 10:
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $dsp->AddFieldsetStart(t('Thread bearbeiten'));
             $mf = new \LanSuite\MasterForm();
             $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
@@ -26,7 +26,7 @@ switch ($stepParameter) {
         break;
 
     case 20:
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             foreach ($_POST['action'] as $key => $val) {
                 $db->qry_first("UPDATE %prefix%board_threads SET fid = %int% WHERE tid = %int%", $_GET['to_fid'], $key);
             }
@@ -48,7 +48,7 @@ switch ($stepParameter) {
     case 43:
     case 44:
     case 45:
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             foreach ($_POST['action'] as $key => $val) {
                 $db->qry('UPDATE %prefix%board_threads SET label = %int% WHERE tid = %int%', $_GET['step'] - 40, $key);
             }
@@ -58,7 +58,7 @@ switch ($stepParameter) {
     // Sticky
     // Add
     case 50:
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             foreach ($_POST['action'] as $key => $val) {
                 $db->qry('UPDATE %prefix%board_threads SET sticky = 1 WHERE tid = %int%', $key);
             }
@@ -66,7 +66,7 @@ switch ($stepParameter) {
         break;
     // Remove
     case 51:
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             foreach ($_POST['action'] as $key => $val) {
                 $db->qry('UPDATE %prefix%board_threads SET sticky = 0 WHERE tid = %int%', $key);
             }
@@ -74,7 +74,7 @@ switch ($stepParameter) {
         break;
     // Close Threads
     case 52:
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             foreach ($_POST['action'] as $key => $val) {
                 $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $key);
             }
@@ -148,14 +148,14 @@ if ($_GET['action'] == 'bookmark') {
 
 $ms2->AddIconField('details', 'index.php?mod=board&action=thread&tid=', t('Details'));
 if ($_GET['action'] != 'bookmark') {
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $ms2->AddIconField('edit', 'index.php?mod=board&action=forum&step=10&fid='. $_GET['fid'] .'&tid=', t('Überschrift editieren'));
     }
     if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=11&tid=', t('Löschen'));
     }
 
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $res = $db->qry("SELECT fid, name FROM %prefix%board_forums");
         while ($row = $db->fetch_array($res)) {
             $ms2->AddMultiSelectAction(t('Verschieben nach '). $row['name'], 'index.php?mod=board&action=forum&step=20&to_fid='. $row['fid'] .'&fid='. $_GET['fid'], 1, 'in');

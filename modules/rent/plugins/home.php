@@ -4,7 +4,7 @@ $smarty->assign('caption', t('Verleih'));
 $content = '';
   
 // Additional Admin-Stats
-if ($auth["type"] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $row8 = $db->qry_first("SELECT count(*) as n FROM %prefix%rentuser WHERE back_orgaid = '' AND out_orgaid != ''");
 
     // total equip

@@ -8,7 +8,7 @@ if ($count_cat == 0) {
     $dsp->NewContent(t('FAQ'), t('Auf dieser Seite siehst du häufig gestellte Fragen und deren Antworten'));
 
     while ($row = $db->fetch_array($get_cat)) {
-        if ($auth['type'] > 2) {
+        if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
             $admin_link = $dsp->FetchIcon('delete', 'index.php?mod=faq&object=item&action=delete_cat&catid=' . $row["catid"] . '&step=2');
         }
         if ($auth['type'] > 1) {
@@ -18,7 +18,7 @@ if ($count_cat == 0) {
 
         $get_item = $db->qry("SELECT caption,itemid FROM %prefix%faq_item WHERE catid = %int% ORDER BY caption", $row['catid']);
         while ($row = $db->fetch_array($get_item)) {
-            if ($auth['type'] > 2) {
+            if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
                 $admin_link = $dsp->FetchIcon('delete', 'index.php?mod=faq&object=item&action=delete_item&itemid=' . $row["itemid"] . '&step=2');
             }
             if ($auth['type'] > 1) {

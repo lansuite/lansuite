@@ -37,19 +37,19 @@ if ($auth['type'] <= 1) {
             $ms2->AddResultField(t('Aktiv'), 'i.active', 'ShowActiveState');
 
             $ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', t('Details'));
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=2&infoID=', t('Editieren'));
             }
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                   $ms2->AddMultiSelectAction('Deaktivieren', 'index.php?mod=info2&action=change&step=20', 1);
             }
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                   $ms2->AddMultiSelectAction('Aktivieren (jedoch nicht verlinken)', 'index.php?mod=info2&action=change&step=21', 1);
             }
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                   $ms2->AddMultiSelectAction('Aktivieren und verlinken', 'index.php?mod=info2&action=change&step=22', 1);
             }
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                   $ms2->AddMultiSelectAction('Aktivieren und verlinken nur für Admins', 'index.php?mod=info2&action=change&step=23', 1);
             }
             if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
@@ -71,19 +71,19 @@ if ($auth['type'] <= 1) {
             $ms2->AddResultField(t('Link'), 'i.link', '', 140);
             $ms2->AddResultField(t('Aktiv'), 'i.active', 'ShowActiveState');
 
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=30&infoID=', t('Editieren'));
             }
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $ms2->AddMultiSelectAction('Deaktivieren', 'index.php?mod=info2&action=change&step=20', 1);
             }
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $ms2->AddMultiSelectAction('Aktivieren (jedoch nicht verlinken)', 'index.php?mod=info2&action=change&step=21', 1);
             }
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $ms2->AddMultiSelectAction('Aktivieren und verlinken', 'index.php?mod=info2&action=change&step=22', 1);
             }
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $ms2->AddMultiSelectAction('Aktivieren und verlinken nur für Admins', 'index.php?mod=info2&action=change&step=23', 1);
             }
             if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {

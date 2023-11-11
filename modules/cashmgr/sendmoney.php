@@ -22,7 +22,7 @@ while ($row = $db->fetch_array($res)) {
         $UserFound = 1;
     }
 
-    if ($auth['type'] >= 2 || !$cfg['sys_internet'] || $cfg['guestlist_shownames']) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || !$cfg['sys_internet'] || $cfg['guestlist_shownames']) {
         $selections[$row['userid']] = $row['username'] .' ('. $row['firstname'] .' '. $row['name'] .')';
     } else {
         $selections[$row['userid']] = $row['username'];

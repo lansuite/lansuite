@@ -18,7 +18,7 @@ function ChangeAllowed($id): bool|string
     }
 
     // Signon ended?
-    if ($row['senddate'] < time() and $auth['type'] < 2) {
+    if ($row['senddate'] < time() and $auth['type'] < \LS_AUTH_TYPE_ADMIN) {
         return t('Die Anmeldung ist beendet seit'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['senddate'], 'daydatetime'). '</strong>';
     }
 

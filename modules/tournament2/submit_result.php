@@ -130,7 +130,7 @@ if ($tournament["name"] == "") {
                 $dsp->AddDoubleRow(t('Server'), '<a href="index.php?mod=server&action=show_details&serverid='.$team1['server_id'].'">'.$selections[$team1['server_id']].'</a>');
             }
             
-            if ($func->isModActive('server') and $auth['type'] >= 2) {
+            if ($func->isModActive('server') and $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $mf = new \LanSuite\MasterForm();
                 $mf->AddField(t('Server Zuweisen'), 'server_id', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
                 if ($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1)) {

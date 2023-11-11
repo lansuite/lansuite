@@ -15,7 +15,7 @@ $ms2->AddResultField(t('Autor'), 'g.poster', 'UserNameAndIcon');
 $ms2->AddResultField(t('Eintrag'), 'g.text', 'Text2LSCode');
 $ms2->AddResultField(t('Datum'), 'g.date', 'MS2GetDate');
 
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=guestbook&action=add&guestbookid=', t('Editieren'));
 }
 if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
