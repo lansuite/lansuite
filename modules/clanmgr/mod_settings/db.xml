@@ -30,7 +30,7 @@
 			</field>
 			<field>
 				<name>password</name>
-				<type>char(32)</type>
+				<type>varchar(255)</type>
 				<null></null>
 				<key></key>
 				<default></default>
