@@ -84,7 +84,7 @@ $ms2->AddIconField('details', 'index.php?mod=news&action=comment&newsid=', t('De
 if ($auth['type'] >= 2) {
     $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
 }
 

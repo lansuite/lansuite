@@ -22,7 +22,7 @@ if ($auth['type'] >= 2) {
     $ms2->AddIconField('edit', 'index.php?mod=rent&action=add&stuffid=', t('Editieren'));
 }
 
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=rent&action=delete&stuffid=', t('Löschen'));
 }
 

@@ -21,7 +21,7 @@ if ($auth['type'] >= 2) {
 if ($auth['type'] >= 2) {
     $ms2->AddIconField('edit', 'index.php?mod=poll&action=change&step=2&pollid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=poll&action=delete&step=2&pollid=', t('Löschen'));
 }
 

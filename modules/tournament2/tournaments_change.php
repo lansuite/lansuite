@@ -2,7 +2,7 @@
 $stepParameter = $_GET['step'] ?? 0;
 switch ($stepParameter) {
     case "open":
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             foreach ($_POST['action'] as $key => $val) {
                 echo $key;
                 $db->qry('UPDATE %prefix%tournament_tournaments SET status = %string% WHERE tournamentid = %int%', "open", $key);
@@ -13,7 +13,7 @@ switch ($stepParameter) {
         break;
   
     case "lock":
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             foreach ($_POST['action'] as $key => $val) {
                 echo $key;
                 $db->qry('UPDATE %prefix%tournament_tournaments SET status = %string% WHERE tournamentid = %int%', "locked", $key);

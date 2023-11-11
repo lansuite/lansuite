@@ -135,7 +135,7 @@ if (!$bugidParameter || $actionParameter == 'delete') {
     if ($auth['type'] >= 2) {
         $ms2->AddIconField('edit', 'index.php?mod=bugtracker&action=add&bugid=', t('Editieren'));
     }
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('delete', 'index.php?mod=bugtracker&action=delete&bugid=', t('Löschen'));
     }
 

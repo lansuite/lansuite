@@ -9,7 +9,7 @@ $ms2->AddResultField('Autor', 's.url');
 if ($auth['type'] >= 2) {
     $ms2->AddIconField('edit', 'index.php?mod=sponsor&amp;action=change&amp;sponsorid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=sponsor&amp;action=delete&amp;step=2&sponsorid=', t('Löschen'));
 }
 

@@ -99,7 +99,7 @@ if (!$user_data['userid']) {
     if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'])) { # and $cfg['user_self_details_change']
         $name .= ' '. $dsp->FetchIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=' . $_GET['userid'], t('Editieren'));
     }
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $name .= ' '. $dsp->FetchIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=' . $_GET['userid'], t('Löschen'));
     }
     $name .= '</td></tr></table>';
@@ -345,7 +345,7 @@ if (!$user_data['userid']) {
     $ms2->AddResultField(t('Internet-Mail'), 'b.email');
     $ms2->AddResultField(t('System-Mail'), 'b.sysemail');
 
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&step=10&tab=1', 1);
     }
 
@@ -390,7 +390,7 @@ if (!$user_data['userid']) {
         $dsp->EndTab();
     }
 
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $dsp->StartTab(t('Sessions'), 'generate');
 
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('usrmgr');

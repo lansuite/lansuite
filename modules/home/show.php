@@ -5,7 +5,7 @@ $db->qry('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7 AND tab !
 
 if ($auth["type"] == 1) {
     $home_page = $cfg["home_login"];
-} elseif ($auth["type"] == 2 or $auth["type"] == 3) {
+} elseif ($auth["type"] == 2 or $auth['type'] == \LS_AUTH_TYPE_SUPERADMIN) {
     $home_page = $cfg["home_admin"];
 } else {
     $home_page = $cfg["home_logout"];

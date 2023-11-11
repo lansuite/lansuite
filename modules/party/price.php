@@ -30,7 +30,7 @@ if ($auth['type'] >= 2) {
     $ms2->AddIconField('edit', 'index.php?mod=party&action=price_edit&party_id='. $_GET['party_id'] .'&price_id=', t('Editieren'));
 }
 
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=party&action=price_del&party_id='. $_GET['party_id'], 1);
 }
 

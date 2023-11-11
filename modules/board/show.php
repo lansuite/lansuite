@@ -18,7 +18,7 @@ $ms2->AddIconField('details', 'index.php?mod=board&action=forum&fid=', t('Detail
 if ($auth['type'] >= 2) {
     $ms2->AddIconField('edit', 'index.php?mod=board&action=add&var=change&fid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=2&fid=', t('Löschen'));
 }
 $ms2->PrintSearch('index.php?mod=board', 'f.fid');

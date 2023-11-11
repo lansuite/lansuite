@@ -61,7 +61,7 @@ class MasterComment
         $ms2->AddIconField('quote', 'javascript:document.getElementById(\'text\').value += \'[quote]\' + document.getElementById(\'post%id%\').innerHTML + \'[/quote]\'', t('Zitieren'));
         $ms2->AddIconField('edit', $CurentURLBase.'&commentid=%id%#dsp_form2', t('Editieren'), 'MasterCommentEditAllowed');
 
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddIconField('delete', $CurentURLBase.'&mc_step=10&commentid=', t('Löschen'));
         }
 

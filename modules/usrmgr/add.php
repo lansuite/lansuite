@@ -43,7 +43,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $selections = [];
                 $selections['1'] = t('Benutzer');
                 $selections['2'] = t('Administrator');
-                if ($auth['type'] >= 3) {
+                if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
                     $selections['3'] = t('Superadmin');
                 }
                 $mf->AddField(t('Benutzertyp'), 'type', \LanSuite\MasterForm::IS_SELECTION, $selections, '', '', 1, array('2', '3'));
