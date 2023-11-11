@@ -35,10 +35,10 @@ if ($_POST['action']) {
     $ms2->AddResultField(t('IP'), 'INET6_NTOA(p.ip) AS ip');
     $ms2->AddResultField(t('Datum'), 'p.date', 'MS2GetDate');
 
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=10&pid=', t('Delete'));
     }
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddMultiSelectAction(t('Delete'), 'index.php?mod=board&action=admin_search&mode=del', 1);
     }
   

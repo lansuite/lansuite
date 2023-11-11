@@ -33,7 +33,7 @@ $ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&useri
 if ($auth['type'] >= 2) {
     $ms2->AddIconField('assign', 'index.php?mod=auth&action=switch_to&userid=', t('Benutzer wechseln'), 'IfLowerUserlevel');
 }
-if ($auth['type'] >= 3 and $func->isModActive('foodcenter')) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN and $func->isModActive('foodcenter')) {
     $ms2->AddIconField('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=', t('Geld auf Konto buchen'));
 }
 $ms2->AddIconField('locked', 'index.php?mod=usrmgr&step=11&userid=', t('Account freigeben'), 'IfLocked');
@@ -48,7 +48,7 @@ while ([$caption, $inc] = $plugin->fetch()) {
 if ($auth['type'] >= 2) {
     $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', t('Löschen'));
 }
 
@@ -67,7 +67,7 @@ if ($auth['type'] >= 2) {
 if ($auth['type'] >= 2) {
     $ms2->AddMultiSelectAction(t('Sperren'), "index.php?mod=usrmgr&step=10", 1, 'locked');
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddMultiSelectAction(t('Löschen'), "index.php?mod=usrmgr&action=delete&step=10", 1, 'delete');
 }
 

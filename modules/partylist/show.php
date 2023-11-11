@@ -45,7 +45,7 @@ if (!$_GET['partyid']) {
         $ms2->AddIconField('signon', 'index.php?mod=partylist&step=10&design=base&partyid=', t('Anmelden'));
     }
     $ms2->AddIconField('edit', 'index.php?mod=partylist&action=add&partyid=', t('Editieren'), 'EditAllowed');
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('delete', 'index.php?mod=partylist&action=delete&partyid=', t('Löschen'));
     }
 

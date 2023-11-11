@@ -2,7 +2,7 @@
 $dsp->NewContent(t('Statistiken'), $_GET['file']);
 
 // Delete
-if ($_GET['delfile'] and $auth['type'] >= 3) {
+if ($_GET['delfile'] and $auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $md = new \LanSuite\MasterDelete();
     $md->Delete('download_stats', 'file', $_GET['delfile']);
 }
@@ -18,7 +18,7 @@ if (!$_GET['file']) {
     $ms2->AddResultField(t('Downloads'), 'SUM(s.hits) AS hits');
 
     $ms2->AddIconField('details', 'index.php?mod=downloads&action=stats&file=', t('Details'));
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('delete', 'index.php?mod=downloads&action=stats&delfile=', t('Löschen'));
     }
 

@@ -72,7 +72,7 @@ $ms2->AddResultField(t('Quelldatei'), 'b.source');
 if ($auth['type'] >= 2) {
     $ms2->AddIconField('edit', 'index.php?mod=boxes&amp;step=20&amp;boxid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=boxes&amp;step=30&amp;boxid=', t('Löschen'));
 }
 

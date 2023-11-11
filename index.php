@@ -253,7 +253,7 @@ if ($config['environment']['configured'] == 0) {
     $IsAboutToInstall = 1;
 
     // Force Admin rights for installing User
-    $auth["type"] = 3;
+    $auth['type'] = \LS_AUTH_TYPE_SUPERADMIN;
     $auth["login"] = 1;
     $auth['userid'] = 0;
 

@@ -24,11 +24,11 @@ switch ($stepParameter) {
         if ($auth['type'] >= 2) {
             $ms2->AddIconField('edit', 'index.php?mod=clanmgr&step=30&clanid=', t('Editieren'));
         }
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddIconField('delete', 'index.php?mod=clanmgr&step=20&clanid=', t('Löschen'));
         }
 
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=clanmgr&step=20', 1);
         }
 
@@ -86,7 +86,7 @@ switch ($stepParameter) {
         $ms2->AddResultField(t('Rolle'), 'u.clanadmin', 'ShowRole');
     
         $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Clan-Details'));
-        if ($auth['type'] >= 3 | ($auth['clanid'] == $_GET['clanid'] & $auth['clanadmin'] == 1)) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN || ($auth['clanid'] == $_GET['clanid'] && $auth['clanadmin'] == 1)) {
             $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
         }
 
@@ -128,7 +128,7 @@ switch ($stepParameter) {
 
     // Delete
     case 20:
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             if ($_GET['clanid']) {
                 $_POST['action'][$_GET['clanid']] = 1;
             }

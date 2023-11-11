@@ -52,7 +52,7 @@ if ($auth['type'] <= 1) {
             if ($auth['type'] >= 2) {
                   $ms2->AddMultiSelectAction('Aktivieren und verlinken nur für Admins', 'index.php?mod=info2&action=change&step=23', 1);
             }
-            if ($auth['type'] >= 3) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
                   $ms2->AddMultiSelectAction('Löschen', 'index.php?mod=info2&action=change&step=10', 1);
             }
 
@@ -86,7 +86,7 @@ if ($auth['type'] <= 1) {
             if ($auth['type'] >= 2) {
                 $ms2->AddMultiSelectAction('Aktivieren und verlinken nur für Admins', 'index.php?mod=info2&action=change&step=23', 1);
             }
-            if ($auth['type'] >= 3) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
                 $ms2->AddMultiSelectAction('Löschen', 'index.php?mod=info2&action=change&step=10', 1);
             }
 

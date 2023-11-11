@@ -23,7 +23,7 @@ $ms2->AddIconField('details', 'index.php?mod=server&action=show_details&serverid
 if ($auth['type'] >= 2) {
     $ms2->AddIconField('edit', 'index.php?mod=server&action=change&step=2&serverid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=server&action=delete&step=2&serverid=', t('Löschen'));
 }
 

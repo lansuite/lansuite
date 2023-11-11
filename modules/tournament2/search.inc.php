@@ -32,17 +32,17 @@ if ($auth['type'] >= 2) {
 if ($auth['type'] >= 2) {
     $ms2->AddIconField('edit', 'index.php?mod=tournament2&action=change&step=1&tournamentid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=tournament2&action=delete&step=2&tournamentid=', t('Löschen'));
 }
 
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddMultiSelectAction('Anmeldung &ouml;ffnen', 'index.php?mod=tournament2&action=changestat&step=open', 1);
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddMultiSelectAction('Anmeldung sperren', 'index.php?mod=tournament2&action=changestat&step=lock', 1);
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddMultiSelectAction('L&ouml;schen', 'index.php?mod=tournament2&action=delete&step=10', 1);
 }
 
