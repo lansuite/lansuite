@@ -176,7 +176,7 @@ switch ($stepParameter) {
             $time = time();
             $totprice = 0;
             foreach ($_POST["action"] as $item => $val) {
-                if ($_GET["status"] == 6 | $_GET["status"] == 7) {
+                if ($_GET["status"] == 6 || $_GET["status"] == 7) {
                     $db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string%, supplytime = %string%  WHERE id = %string%", $_GET["status"], $time, $time, $item);
 
                     $abfrage = $db->qry_first("
