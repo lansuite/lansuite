@@ -14,11 +14,11 @@ $ms2->AddResultField('Titel', 's.caption');
 $ms2->AddResultField('Verliehen', 's.quantity', 'RentCount');
 $ms2->AddResultField('Besitzer', 'o.username', 'UserNameAndIcon');
 
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('assign', 'index.php?mod=rent&action=show&step=10&stuffid=', t('Zuweisen'));
 }
 
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=rent&action=add&stuffid=', t('Editieren'));
 }
 

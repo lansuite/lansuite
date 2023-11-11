@@ -5,7 +5,7 @@ $db->qry('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7 AND tab !
 
 if ($auth["type"] == 1) {
     $home_page = $cfg["home_login"];
-} elseif ($auth["type"] == 2 or $auth['type'] == \LS_AUTH_TYPE_SUPERADMIN) {
+} elseif ($auth['type'] == \LS_AUTH_TYPE_ADMIN or $auth['type'] == \LS_AUTH_TYPE_SUPERADMIN) {
     $home_page = $cfg["home_admin"];
 } else {
     $home_page = $cfg["home_logout"];
@@ -26,9 +26,9 @@ switch ($home_page) {
             $cfgArrayKey = 'home_item_cnt_' . $caption;
             if ((array_key_exists($cfgArrayKey, $cfg) && $cfg[$cfgArrayKey])
                 || ($caption == 'party' && $party->count > 0)
-                || ($caption == 'troubleticket' && $auth['type'] >= 2)
-                || ($caption == 'rent' && $auth['type'] >= 2)
-                || ($caption == 'task' && $auth['type'] >= 2)) {
+                || ($caption == 'troubleticket' && $auth['type'] >= \LS_AUTH_TYPE_ADMIN)
+                || ($caption == 'rent' && $auth['type'] >= \LS_AUTH_TYPE_ADMIN)
+                || ($caption == 'task' && $auth['type'] >= \LS_AUTH_TYPE_ADMIN)) {
                 $content = '';
                 include($inc);
                 if ($content) {

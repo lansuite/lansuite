@@ -30,7 +30,7 @@ if ($target_url) {
         $ms2->AddIconField('ip_del', 'index.php?mod=seating&action=ipgen&step=20&blockid=', t('IPs löschen'));
     }
 
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', t('Editieren'));
     }
     if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {

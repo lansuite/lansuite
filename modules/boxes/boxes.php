@@ -116,7 +116,7 @@ unset($BoxRes);
 
 // Add Link to boxmanager, if menu is missing and loginbox, if not logged in
 if (!$MenuActive) {
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $box = new Boxes();
         $box->Row(t('Keine Navigation gefunden. Bitte korrekte zuweisung Box / Navigation prüfen (BoxID). Temporäre Links aktiviert.'));
         $box->EmptyRow();

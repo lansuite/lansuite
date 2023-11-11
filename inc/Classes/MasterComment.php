@@ -77,7 +77,7 @@ class MasterComment
                 $row = $db->qry_first('SELECT creatorid FROM %prefix%comments WHERE commentid = %int%', $_GET['commentid']);
             }
 
-            if (!$commentIdParameter || (is_array($row) && $row['creatorid'] && $row['creatorid'] == $auth['userid']) || $auth['type'] >= 2) {
+            if (!$commentIdParameter || (is_array($row) && $row['creatorid'] && $row['creatorid'] == $auth['userid']) || $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $mf = new MasterForm();
                 $mf->LogID = $id;
 

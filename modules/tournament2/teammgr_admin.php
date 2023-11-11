@@ -39,7 +39,7 @@ switch ($stepParameter) {
         include_once('modules/usrmgr/search_main.inc.php');
 
         $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr_admin&step=21&teamid='. $teamid .'&userid=', 'Assign');
         }
 
@@ -67,7 +67,7 @@ switch ($stepParameter) {
             include_once('modules/usrmgr/search_main.inc.php');
 
             $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid='. $tournamentid .'&userid=', 'Assign');
             }
 

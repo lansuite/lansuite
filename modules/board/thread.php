@@ -1,7 +1,7 @@
 <?php
 
 // Exec Admin-Functions
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $stepParameter = $_GET['step'] ?? 0;
     switch ($stepParameter ) {
         // Close Thread
@@ -139,7 +139,7 @@ if (!$thread and $tid) {
         $smarty->assign('username', $dsp->FetchUserIcon($row['userid'], $userdata["username"]));
 
         $type = $userdata["type"];
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $type .= '<br />IP: <a href="https://dnsquery.org/ipwhois/'. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';
         }
         $smarty->assign('type', $userdata["type"]);

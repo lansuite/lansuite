@@ -54,7 +54,7 @@ if (($cfg["picgallery_allow_user_upload"] || $auth["type"] > 1) && (array_key_ex
 
 // Set Changed Name
 $fileNameParameter = $_POST["file_name"] ?? '';
-if ($fileNameParameter && ($auth['type'] >= 2 || $cfg['picgallery_allow_user_naming'])) {
+if ($fileNameParameter && ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || $cfg['picgallery_allow_user_naming'])) {
     $db->qry("UPDATE %prefix%picgallery SET caption = %string% WHERE name = %string%", $fileNameParameter, $db_dir);
 }
 
@@ -135,7 +135,7 @@ if (!$gd->available) {
     if ($dir_list) {
         foreach ($dir_list as $dir) {
             $DelDirLink = '';
-            if ($auth['type'] > 2) {
+            if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
                 $DelDirLink = ' <a href="index.php?mod=picgallery&action=delete&step=10&file='.$akt_dir.$dir.'"><img src="design/'.$auth['design'].'/images/arrows_delete.gif" border="0" /></a>';
             }
             $directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$akt_dir$dir/\">$dir$DelDirLink</a>] <br />";
@@ -440,7 +440,7 @@ if (!$gd->available) {
             $dsp->AddDoubleRow("", "$prev_button $next_button $full_button $dl_button $del_button $note_button");
 
             // Change Pic-Name
-            if ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or $cfg['picgallery_allow_user_naming']) {
                 $dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}");
                 $dsp->AddTextFieldRow("file_name", t('Bildname'), $pic['caption'], "");
                 $dsp->AddFormSubmitRow(t('Editieren'));

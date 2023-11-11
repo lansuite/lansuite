@@ -25,7 +25,7 @@ function write_pairs2(mixed $bracket, $max_pos)
 
     $templ['index']['info']['content'] .= "CreateRect(". ($xpos - 5) .", 1, ". ($box_width + 10) .", $img_height, '$bg_color_svg', '#ffffff', '');";
     $templ['index']['info']['content'] .= "CreateText('". t('Runde') .": $akt_round" ."', $xpos, 16, '');";
-    ($auth['type'] >= 2)? $link = 'index.php?mod=tournament2&action=breaks&tournamentid='. $tournamentid : $link = '';
+    ($auth['type'] >= \LS_AUTH_TYPE_ADMIN)? $link = 'index.php?mod=tournament2&action=breaks&tournamentid='. $tournamentid : $link = '';
     $templ['index']['info']['content'] .= "CreateText('". t('Zeit') .": ". $round_start ." - ". $round_end ."', $xpos, 26, '". $link ."');";
     $templ['index']['info']['content'] .= "CreateText('". t('Map') .": ". addslashes(trim($map[(abs(floor($akt_round)) % count($map))])) ."', $xpos, 36, '');";
 

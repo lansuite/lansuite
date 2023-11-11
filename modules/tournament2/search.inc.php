@@ -26,10 +26,10 @@ $ms2->AddIconField('details', 'index.php?mod=tournament2&action=details&tourname
 $ms2->AddIconField('tree', 'index.php?mod=tournament2&action=tree&step=2&tournamentid=', t('Spielbaum'), 'IfGenerated');
 $ms2->AddIconField('play', 'index.php?mod=tournament2&action=games&step=2&tournamentid=', t('Paarungen'), 'IfGenerated');
 $ms2->AddIconField('ranking', 'index.php?mod=tournament2&action=rangliste&step=2&tournamentid=', t('Rangliste'), 'IfFinished');
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('generate', 'index.php?mod=tournament2&action=generate_pairs&step=2&tournamentid=', t('Generieren'), 'IfNotGenerated');
 }
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=tournament2&action=change&step=1&tournamentid=', t('Editieren'));
 }
 if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {

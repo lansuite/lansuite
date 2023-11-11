@@ -2,7 +2,7 @@
 
 $product_list = new LanSuite\Module\Foodcenter\ProductList();
 
-if ($auth['type'] < 2) {
+if ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
     unset($_GET['step']);
 }
 

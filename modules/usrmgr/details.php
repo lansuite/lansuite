@@ -218,10 +218,10 @@ if (!$user_data['userid']) {
     $dsp->AddFieldsetStart(t('Kontakt'));
     // Address
     $address = '';
-    if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
+    if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
         $address .= $user_data['street'] .' '. $user_data['hnr'] .', ';
     }
-    if (($user_data['plz'] != '' or $user_data['city']) and ($cfg['user_showcity4all'] == '1' or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid'])) {
+    if (($user_data['plz'] != '' or $user_data['city']) and ($cfg['user_showcity4all'] == '1' or $auth['type'] >= \LS_AUTH_TYPE_ADMIN or $auth['userid'] == $_GET['userid'])) {
         $address .= $user_data['plz'] .' '. $user_data['city'];
     }
     if ($address) {
@@ -240,7 +240,7 @@ if (!$user_data['userid']) {
 
     // Mail
     $mail = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
-    if ((!$cfg['sys_internet'] and $cfg['user_showmail4all']) or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']) {
+    if ((!$cfg['sys_internet'] and $cfg['user_showmail4all']) or $auth['type'] >= \LS_AUTH_TYPE_ADMIN or $auth['userid'] == $_GET['userid']) {
         $mail .= '<a href="mailto:'. $user_data['email'] .'">'. $user_data['email'] .'</a> ';
     }
     $mail .= '[Newsletter-Abo:';
@@ -290,12 +290,12 @@ if (!$user_data['userid']) {
     $dsp->AddDoubleRow(t('Benutzertyp'), GetTypeDescription($user_data['type']));
 
     // Perso
-    if ($user_data['perso'] and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
+    if ($user_data['perso'] and ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
         $dsp->AddDoubleRow(t('Passnummer / Sonstiges'), $user_data['perso'] .'<br>'. t('Hinweis: Die Angaben zu Straße und Passnummer sind nur für dich und die Organisatoren sichtbar.'));
     }
 
     // Birthday
-    if ($cfg['sys_internet'] == 0 or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']) {
+    if ($cfg['sys_internet'] == 0 or $auth['type'] >= \LS_AUTH_TYPE_ADMIN or $auth['userid'] == $_GET['userid']) {
         $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], 'date') .' ('. $user_data['age']  .')' : t('Nicht angegeben'));
     }
 
@@ -355,7 +355,7 @@ if (!$user_data['userid']) {
   
     $dsp->StartTab(t('Sonstiges'));
     // logins, last login
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $lastLoginTS = $db->qry_first("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", $_GET['userid']);
         $dsp->AddDoubleRow(t('Logins'), $user_data['logins']);
         if ($user_data['lastlogin']) {
@@ -423,7 +423,7 @@ if (!$user_data['userid']) {
 
     $db->free_result($user_fields);
 
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod='. $_GET['mod'] .'&action=search').' ';
     } else {
         $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod=guestlist&action=guestlist').' ';
