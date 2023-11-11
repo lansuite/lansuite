@@ -191,7 +191,7 @@ if ($auth['type'] <= 1) {
             break;
 
         // Activate and link (admin only)
-        case 23 :
+        case 23:
             if ($_GET['id']) {
                 $_POST['action'][$_GET['id']] = '1';
             }
@@ -227,7 +227,7 @@ if ($auth['type'] <= 1) {
             break;
 
         // Define external link
-        case 30 :
+        case 30:
             $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du einen externen Link definieren.'));
 
             $mf = new \LanSuite\MasterForm();
