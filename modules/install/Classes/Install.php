@@ -972,7 +972,7 @@ class Install
         $smarty->assign('showLinks', $showLinks);
         if ($showLinks) {
             $find_config = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $row["name"]);
-            if ($find_config["cfg_key"] != '') {
+            if (is_array($find_config) && $find_config["cfg_key"] != '') {
                 $settings_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=10&module={$row["name"]}\">". t('Konfig.') ."</a>";
             } else {
                 $settings_link = "";
@@ -980,7 +980,7 @@ class Install
             $smarty->assign('settings_link', $settings_link);
 
             $find_mod = $db->qry_first("SELECT module FROM %prefix%menu WHERE module=%string%", $row["name"]);
-            if ($find_mod["module"]) {
+            if (is_array($find_mod) && $find_mod["module"]) {
                 $menu_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
             } else {
                 $menu_link = "";
