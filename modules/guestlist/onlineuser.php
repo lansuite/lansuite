@@ -11,12 +11,12 @@ $ms2->query['order_by'] = "s.lasthit";
 
 $ms2->AddResultField(t('Name'), 'u.username', 'UserNameAndIcon');
 $ms2->AddResultField(t('Modul'), 's.lasthiturl', 'getModul');
-if ($auth['type']>2) {
+if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddResultField(t('URL'), 's.lasthiturl', 'getLastHitUrl');
 }
 $ms2->AddResultField(t('Status'), 's.lasthit', 'getTimeDiffAsName');
 $ms2->AddResultField(t('Letzter Aufruf'), 's.lasthit', 'getTimeDiff');
-if ($auth['type']>2) {
+if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddResultField(t('Letzter Heartbeat'), 's.lastajaxhit', 'getTimeDiff');
 }
 

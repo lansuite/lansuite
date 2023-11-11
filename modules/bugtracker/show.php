@@ -73,7 +73,7 @@ if (!$bugidParameter || $actionParameter == 'delete') {
     LEFT JOIN %prefix%user AS a ON b.agent = a.userid
     LEFT JOIN %prefix%comments AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
     ";
-    $ms2->query['where'] = '(!private OR '. (int)$auth['type'] .' >= 2)';
+    $ms2->query['where'] = '(!private OR '. (int) $auth['type'] .' >= ' . \LS_AUTH_TYPE_ADMIN . ')';
     $ms2->query['default_order_by'] = 'changedate DESC, FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
     $ms2->config['EntriesPerPage'] = 50;
     $ms2->AddBGColor('state', $colors);
@@ -178,7 +178,7 @@ if (!$bugidParameter || $actionParameter == 'delete') {
         bugid = %int%
         AND (
           !private
-          OR ". (int)$auth['type'] ." >= 2
+          OR " . (int) $auth['type'] . " >= " . \LS_AUTH_TYPE_ADMIN . "
         )", $_GET['bugid']);
 
     $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
