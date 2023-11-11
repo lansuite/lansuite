@@ -24,9 +24,6 @@ switch ($stepParameter) {
         }
         if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddIconField('delete', 'index.php?mod=clanmgr&step=20&clanid=', t('Löschen'));
-        }
-
-        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=clanmgr&step=20', 1);
         }
 
@@ -45,8 +42,8 @@ switch ($stepParameter) {
             $dsp->AddDoubleRow(t(''), '<img src="'.$row['clanlogo_path'].'" alt="'.$row['name'].'">');
         }
         $dsp->AddDoubleRow(t('Clan'), $row['name']);
-        if ($row['url'] != '' && stristr($row['url'], 'http://') === false) {
-            $row['url'] = 'http://'.$row['url'];
+        if ($row['url'] != '' && !str_starts_with(strtolower($row['url']), 'http')) {
+            $row['url'] = 'https://'.$row['url'];
         }
         $dsp->AddDoubleRow(t('Webseite'), '<a href="'.$row['url'].'" target="_blank">'.$row['url'].'</a>');
 
