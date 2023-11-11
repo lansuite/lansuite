@@ -72,7 +72,7 @@ if (!$user_data['userid']) {
 
     // First name, last name, username, user ID
     $name = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
-    if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['userid'] == $_GET['userid']) {
+    if (!$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER or $auth['userid'] == $_GET['userid']) {
         if ($user_data['firstname']) {
             $name .= $user_data['firstname'] .' ';
         }

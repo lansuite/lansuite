@@ -149,7 +149,7 @@ class MasterComment
         $dsp->AddFieldsetEnd();
 
         // Bookmarks and Auto-Mail
-        if ($auth['login'] and $auth['type'] > 1) {
+        if ($auth['login'] and $auth['type'] > \LS_AUTH_TYPE_USER) {
             $setBmParameter = $_GET['set_bm'] ?? '';
             if ($setBmParameter) {
                 $db->qry_first('DELETE FROM %prefix%comments_bookmark WHERE relatedto_id = %int% AND relatedto_item = %string%', $id, $mod);

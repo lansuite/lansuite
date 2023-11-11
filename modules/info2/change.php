@@ -1,6 +1,6 @@
 <?php
 
-if ($auth['type'] <= 1) {
+if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
     $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
     $ms2->query['from'] = "%prefix%info AS i";

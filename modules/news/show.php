@@ -101,7 +101,7 @@ if ($overall_news == 0) {
 
                 // Buttons
                 $buttons = "";
-                if ($auth["type"] > 1) {
+                if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                     $buttons .= $dsp->FetchIcon("edit", "index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid") . " ";
                     $buttons .= $dsp->FetchIcon("delete", "index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid") . " ";
                 }
@@ -164,7 +164,7 @@ if ($overall_news == 0) {
 
                 // Buttons
                 $buttons = "";
-                if ($auth["type"] > 1) {
+                if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                     $buttons .= $dsp->FetchIcon("edit", "index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid") . " ";
                     $buttons .= $dsp->FetchIcon("delete", "index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid") . " ";
                 }
