@@ -64,7 +64,7 @@ if (!$thread and $tid) {
 
     // Generate Thread-Buttons
     $buttons = '';
-    if ($auth["type"] > 1) {
+    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
         if ($thread['closed']) {
             $buttons .= ' '. $dsp->FetchIcon("unlocked", "index.php?mod=board&action=thread&step=11&tid=$tid");
         } else {
@@ -158,10 +158,10 @@ if (!$thread and $tid) {
         $smarty->assign('signature', $signature);
 
         $edit = '';
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $edit .= $dsp->FetchIcon("delete", "index.php?mod=board&action=delete&pid=$pid&posts_page=" . $_GET['posts_page'], '', '', 'right');
         }
-        if ($auth['type'] > 1 or $row["userid"] == $auth["userid"]) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER or $row["userid"] == $auth["userid"]) {
             $edit .= $dsp->FetchIcon("edit", "index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&posts_page=" . $_GET['posts_page'], '', '', 'right');
         }
         $edit .= $dsp->FetchIcon("quote", "javascript:InsertCode(document.dsp_form1.comment, '[quote]" . str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["comment"]))) . "[/quote]')", '', '', 'right');
@@ -195,7 +195,7 @@ if ($thread['closed']) {
     $func->information(t('Du gehörst nicht der richtigen Gruppe an, um auf diese Beiträge zu antworten.'), NO_LINK);
 } elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group'] and !$_GET['tid']) {
     $new_thread = t('Du gehörst nicht der richtigen Gruppe an, um einen Thread in diesem Forum starten zu können');
-} elseif ($_GET['pid'] != '' and $auth['type'] <= 1 and $current_post['userid'] != $auth['userid']) {
+} elseif ($_GET['pid'] != '' and $auth['type'] <= \LS_AUTH_TYPE_USER and $current_post['userid'] != $auth['userid']) {
     $func->error('Du darfst nur deine eigenen Beiträge editieren!', NO_LINK);
 } elseif ($thread) {
     // Topic erstellen oder auf Topic antworten

@@ -113,7 +113,7 @@ switch ($stepParameter) {
                         $db->free_result($res);
                     }
                           // Delete mark, if Admin
-                    if ($auth['type'] > 1 and $seat_user['status'] == 3) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_USER and $seat_user['status'] == 3) {
                         $questionarray[] = t('Möchtest du als Admin diese Vormerkung entfernen?');
                         $linkarray[]     = "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     }
@@ -309,7 +309,7 @@ switch ($stepParameter) {
     
     // Free seat as admin (question)
     case 30:
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $seatingUser = $db->qry_first("
               SELECT
                 s.userid,
@@ -339,7 +339,7 @@ switch ($stepParameter) {
     
     // Free seat as admin
     case 31:
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $seat2->FreeSeat($_GET['blockid'], $_GET['row'], $_GET['col']);
             $func->confirmation(t('Der Sitzplatz wurde erfolgreich freigegeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
         }
@@ -347,7 +347,7 @@ switch ($stepParameter) {
     
     // Umsetzen als Admin
     case 32:
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $current_url = "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}";
             $target_url = "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid=";
             $target_icon = '';

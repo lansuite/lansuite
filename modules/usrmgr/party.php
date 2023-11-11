@@ -51,7 +51,7 @@ if ($party->count == 0) {
                 // Prices
                 $qrytmp = "SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND requirement <= %string%";
                 // Show all prices for administrators and only the one not ended for normal users
-                if ($auth['type'] <= 1) {
+                if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                     $qrytmp.=" AND enddate > now()";
                 }
                 $res2 = $db->qry($qrytmp, $row['party_id'], $auth['type']);

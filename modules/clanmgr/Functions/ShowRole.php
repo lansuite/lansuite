@@ -14,7 +14,7 @@ function ShowRole($role)
         $ret = t('Clan-Mitglied');
     }
 
-    if (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > 1) {
+    if (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > \LS_AUTH_TYPE_USER) {
         $ret = '<a href="index.php?mod=clanmgr&action=clanmgr&step=50&clanid='. $_GET['clanid'] .'&userid='. $line['userid'] .'">'. $ret .'</a>';
     }
 

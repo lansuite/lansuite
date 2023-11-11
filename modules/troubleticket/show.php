@@ -93,7 +93,7 @@ switch ($_GET["step"]) {
                 $row["publiccomment"] = t(' Kein Hinweis eingetragen');
             }
             $dsp->AddDoubleRow(t('Kommentar'), $func->text2html($row["publiccomment"]));
-            if ($auth['type'] > 1) {
+            if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                 if (!$row["orgacomment"]) {
                     $row["orgacomment"] = t(' Kein Hinweis eingetragen');
                 }

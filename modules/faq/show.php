@@ -11,7 +11,7 @@ if ($count_cat == 0) {
         if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
             $admin_link = $dsp->FetchIcon('delete', 'index.php?mod=faq&object=item&action=delete_cat&catid=' . $row["catid"] . '&step=2');
         }
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $admin_link .= $dsp->FetchIcon('edit', 'index.php?mod=faq&object=cat&action=change_cat&catid=' . $row["catid"] . '&step=2');
         }
         $dsp->AddFieldsetStart($admin_link . $row["name"]);
@@ -21,7 +21,7 @@ if ($count_cat == 0) {
             if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
                 $admin_link = $dsp->FetchIcon('delete', 'index.php?mod=faq&object=item&action=delete_item&itemid=' . $row["itemid"] . '&step=2');
             }
-            if ($auth['type'] > 1) {
+            if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                 $admin_link .= $dsp->FetchIcon('edit', 'index.php?mod=faq&object=cat&action=change_item&itemid=' . $row["itemid"] . '&step=2');
             }
             $dsp->AddSingleRow($admin_link . $dsp->FetchLink($func->text2html($row["caption"]), 'index.php?mod=faq&action=comment&itemid='. $row["itemid"]));

@@ -237,7 +237,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             }
 
             // AGB and Vollmacht, if new user
-            if (!$_GET['userid'] && $auth['type'] <= 1) {
+            if (!$_GET['userid'] && $auth['type'] <= \LS_AUTH_TYPE_USER) {
                 if (ShowFieldUsrMgr('voll')) {
                     $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich, die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.', "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name']), 'vollmacht', 'tinyint(1)');
                 }

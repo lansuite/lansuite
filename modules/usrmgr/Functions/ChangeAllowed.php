@@ -23,7 +23,7 @@ function ChangeAllowed($id): bool|string
     }
 
     // Do not allow changes, if user has paid
-    if ($auth['type'] <= 1) {
+    if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
         $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
         if ($row2['paid']!= 0) {
             return t('Du bist für diese Party bereits auf bezahlt gesetzt. Bitte einen Admin dich auf "nicht bezahlt" zu setzen, bevor du dich abmeldest');

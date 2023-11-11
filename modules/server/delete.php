@@ -25,7 +25,7 @@ switch ($_GET["step"]) {
             serverid = %int%", $_GET["serverid"]);
 
         if ($server) {
-            if ($server["owner"] != $auth["userid"] and $auth["type"] <= 1) {
+            if ($server["owner"] != $auth["userid"] and $auth['type'] <= \LS_AUTH_TYPE_USER) {
                 $func->information(t('Nur der Besitzer und Administratoren d&uuml;rfen diese Aktion ausf&uuml;hren'), "index.php?mod=server&action=delete");
             } else {
                 $delete = $db->qry("DELETE FROM %prefix%server WHERE serverid = %int%", $_GET["serverid"]);

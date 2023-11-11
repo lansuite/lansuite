@@ -28,7 +28,7 @@ switch ($stepParameter) {
         }
 
         $ms2->PrintSearch('index.php?mod=clanmgr', 'c.clanid');
-        if ($auth['type'] >= 1) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_USER) {
             $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=clanmgr&step=30'));
         }
 
@@ -48,17 +48,13 @@ switch ($stepParameter) {
         $dsp->AddDoubleRow(t('Webseite'), '<a href="'.$row['url'].'" target="_blank">'.$row['url'].'</a>');
 
         $buttons = '';
-        if ($auth['type'] >= 1 and $auth['clanid'] != $_GET['clanid']) {
-            $buttons .= $dsp->FetchSpanButton(t('Clan beitreten'), 'index.php?mod='.$_GET['mod'].'&step=60&clanid='.$_GET['clanid']).' ';
+        if ($auth['type'] >= \LS_AUTH_TYPE_USER and $auth['clanid'] != $_GET['clanid']) {
+            $buttons .= $dsp->FetchSpanButton(t('Clan beitreten'), 'index.php?mod='. $_GET['mod'] .'&step=60&clanid='. $_GET['clanid']).' ';
+            $buttons .= $dsp->FetchSpanButton(t('Clan verlassen'), 'index.php?mod='. $_GET['mod'] .'&step=40&clanid='. $_GET['clanid'].'&userid='.$auth['userid']).' ';
         }
-        if ($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid']) {
-            $buttons .= $dsp->FetchSpanButton(t('Clan verlassen'), 'index.php?mod='.$_GET['mod'].'&step=40&clanid='.$_GET['clanid'].'&userid='.$auth['userid']).' ';
-        }
-        if (($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
-            $buttons .= $dsp->FetchSpanButton(t('Clan editieren'), 'index.php?mod='.$_GET['mod'].'&step=30&clanid='.$_GET['clanid']).' ';
-        }
-        if (($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
-            $buttons .= $dsp->FetchSpanButton(t('Passwort ändern'), 'index.php?mod='.$_GET['mod'].'&step=10&clanid='.$_GET['clanid']).' ';
+        if (($auth['type'] >= \LS_AUTH_TYPE_USER and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
+            $buttons .= $dsp->FetchSpanButton(t('Clan editieren'), 'index.php?mod='. $_GET['mod'] .'&step=30&clanid='. $_GET['clanid']).' ';
+            $buttons .= $dsp->FetchSpanButton(t('Passwort ändern'), 'index.php?mod='. $_GET['mod'] .'&step=10&clanid='. $_GET['clanid']).' ';
         }
         $dsp->AddDoubleRow('', $buttons);
 
@@ -74,7 +70,7 @@ switch ($stepParameter) {
         $ms2->AddSelect('u.name');
 
         $ms2->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
-        if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['clanid'] == $_GET['clanid']) {
+        if (!$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER or $auth['clanid'] == $_GET['clanid']) {
             $ms2->AddResultField(t('Vorname'), 'u.firstname', '');
             $ms2->AddResultField(t('Nachname'), 'u.name', '');
         }
@@ -199,7 +195,7 @@ switch ($stepParameter) {
     case 50:
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), 'index.php?mod=home');
-        } elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > 1) {
+        } elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > \LS_AUTH_TYPE_USER) {
             $cur_role = $db->qry_first('SELECT username, clanadmin FROM %prefix%user WHERE clanid = %int% AND userid = %int%', $_GET['clanid'], $_GET['userid']);
             if ($cur_role['clanadmin'] and CountAdmins() == 1) {
                 $func->information(t('Du kannst %1 nicht die Admin Rolle entziehen, da %1 z.z das einzige Mitglied mit der Rolle Clan-Admin ist. Benenne bitte vorher einen anderen Admin.', $cur_role['username']), 'index.php?mod=clanmgr&step=2&clanid='.$_GET['clanid']);
@@ -219,7 +215,7 @@ switch ($stepParameter) {
     case 60:
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), 'index.php?mod=home');
-        } elseif ($auth['type'] < 1) {
+        } elseif ($auth['type'] < \LS_AUTH_TYPE_USER) {
             $func->error(t('Keine Berechtigung diese Funktion auszuführen'), 'index.php?mod=home');
         } elseif (!$_POST['clan_pass']) {
             $dsp->SetForm('index.php?mod=clanmgr&action=clanmgr&step=60&clanid='.$_GET['clanid']);

@@ -8,7 +8,7 @@ function PaidIconLinkGuestlist($paid)
 {
     global $dsp, $line, $auth;
 
-    if ($auth['type'] > 1) {
+    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
         if ($paid) {
             return $dsp->FetchIcon('paid', 'index.php?mod=guestlist&step=11&userid=' . $line['userid'], t('Bezahlt'));
         } else {

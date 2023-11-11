@@ -241,7 +241,7 @@ class Team
                 team.teamid = %int%", $teamid);
 
             // Check password, if set and if acction is not performed, by teamadmin or ls-admin
-            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= 1) and ($team['password'] != '') and (md5($password) != $team['password'])) {
+            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= \LS_AUTH_TYPE_USER) and ($team['password'] != '') and (md5($password) != $team['password'])) {
                 $func->information(t('Das eingegebene Kennwort ist nicht korrekt'));
                 return false;
 

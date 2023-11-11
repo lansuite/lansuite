@@ -647,7 +647,7 @@ class Product
                 }
                 break;
         }
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=foodcenter&amp;action=addproduct&amp;id=". $this->id));
         }
         $dsp->AddBackButton($worklink);
