@@ -44,6 +44,7 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                 $ms2->AddMultiSelectAction('Aktivieren und verlinken', 'index.php?mod=info2&action=change&step=22', 1);
                 $ms2->AddMultiSelectAction('Aktivieren und verlinken nur für Admins', 'index.php?mod=info2&action=change&step=23', 1);
             }
+
             if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
                 $ms2->AddMultiSelectAction('Löschen', 'index.php?mod=info2&action=change&step=10', 1);
             }

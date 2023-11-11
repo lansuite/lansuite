@@ -4,7 +4,7 @@ $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 $dsp->NewContent(t('Turnierübersicht'), t('Hier findest du eine Übersicht aller angebotenen Turniere.'));
 
 $ms2->query['from'] = "%prefix%tournament_tournaments AS t LEFT JOIN %prefix%t2_teams AS teams ON t.tournamentid = teams.tournamentid";
-$ms2->query['where'] = "(t.status != 'invisible' OR ". (int)$auth['type'] ." > 1) AND t.party_id = ". (int)$party->party_id;
+$ms2->query['where'] = "(t.status != 'invisible' OR " . (int) $auth['type'] . " > " . \LS_AUTH_TYPE_USER . ") AND t.party_id = ". (int)$party->party_id;
 $ms2->query['default_order_by'] = 't.name';
 
 $ms2->config['EntriesPerPage'] = 50;
