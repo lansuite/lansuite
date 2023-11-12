@@ -6,9 +6,7 @@ sidebar_position: 1
 
 ## Prerequisites
 
-* A system having both Git and Composer up and running if you want to use the Git Master
-* A current file and database backup
-* Your target system running PHP >= 7.0 and MySQL >= 5.6.3
+* Your target system need to run PHP >= 8.1 and MySQL >= 5.7
 * A fair bit of time
 
 ## Preparation
