@@ -4,12 +4,6 @@ title: Upgrade to a newer version
 sidebar_position: 1
 ---
 
-## Foreword
-
-> Please note that this guide is work in progress!
-> If there is one step you should follow one by one, then it is the backup of the current system.
-> If you find any issues with the guide, then please tell us so (by [opening a new issue on Github](https://github.com/lansuite/lansuite/issues/new))!
-
 ## Prerequisites
 
 * A system having both Git and Composer up and running if you want to use the Git Master
