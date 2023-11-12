@@ -54,21 +54,27 @@ This can either be done by either of the following:
 
 ### Copy over files from an old installation
 
-Things of relevance here:
+Replace the new files with the old ones.
+
+A few files and locations are unique to your installation.
+Those should be kept.
+Like:
+
 * The base configuration file from `inc/base/config.php`
 * Anything under `ext_inc`
 * Custom designs from `designs/`
 
 Copy them to the same place on the new installation, overwriting everything there.
 
-### Check file access rights
-
-Depending on the user you did the installation with it may be required to reset the file and folder access rights.
-
 ### Run specific release tasks
 
 It may be required to run additional steps to prepare everything for the new version.
-These will be detailed in either `README.md` or `UPGRADE.md`
+Please check the upgrade guide to your specific version below.
+
+### Execute LanSuite upgrade logic
+
+Visit "Admin-Page" -> "Lansuite updaten / reparieren" ->> "Datenbank updaten und verwalten".
+This is also available at `http(s)://<your-domain>/index.php?mod=install&action=db`.
 
 ### Test your installation
 
@@ -76,32 +82,31 @@ Now is the time to look if everything is as expected.
 If yes, then you are good to unlock the installation.
 If not then either see what broke in the various logs or go to Rollback.
 
-## Rollback (if stuff doesn't work)
+### Unlock installation
 
-In case your upgrade failed terribly, and you need to return to your old state the following needs to be done:
+If you locked your installation, you  can now unlock it again.
+"Admin-Page" -> "Common Settings" -> "Lock LanSuite page".
+
+## Rollback (if things doesn't work)
+
+In case your upgrade failed, and you need to return to your old state the following needs to be done:
 
 ### Import DB backup
 
-You have to reimport the database backup taken before. How this is done varies in what tools you have available.
-The command line call for this would be `mysql -u<ls_user> -p < exportfile.sql`
+You have to reimport the database backup taken before.
+How this is done varies in what tools you have available.
+The command line call for this would be `mysql -u<ls_user> -p < exportfile.sql`.
 
 ### Restore folder backup
 
 Next step is to restore the folder backup taken.
-First clean up (`rm -rf <failed_update_folder>`) or move away (` mv <failed_update_folder> <anyothername>`) the failed installation.
+First clean up (`rm -rf <failed_update_folder>`) or move away (`mv <failed_update_folder> <anyothername>`) the failed installation.
 Then restore the original installation from your backup.
 Either by extracting (`gunzip ls_backup.tar.gz && tar xvf ls_backup.tar`) or moving back the copied folder (`mv <ls_folder>.backup <ls_folder>`).
 Or: Re-uploading your backup, if that was the way you went.
 
-### Unlock installation
-
-As the backup was taken at a point where the installation was locked, it may still be required to unlock it
-This would be done by reverting whatever was done to facilitate the original lock
-
 ## Pitfalls and Known Bugs
 
-* Please ensure that export and import of Database images use the same character encoding. Using the same client on the same system should ensure this, but be cautious if dump and import are done on different systems/clients
-* MySQL 5.7 changes default behavior for GROUP BY clauses. This may lead to unexpected errors in some cases. See [#117](https://github.com/lansuite/lansuite/issues/117) for details
-* The master branch is not usable without pulling in additional resources via composer. You must do this first to obtain a runnable installation!
-* You have to run a database table upgrade as an extension of the IP field is required to store logging information
-* Database character encoding is changed in the default settings from Latin1 to UTF8. Add an configuration entry to `/inc/base/config.php` under the `[database]` section named `charset = "Latin1"` to enforce Latin1 encoding 
+* Please ensure that export and import of Database images use the same character encoding. Using the same client on the same system should ensure this, but be cautious if dump and import are done on different systems/clients.
+* The git `master` branch is not usable without pulling in additional resources via composer. You must do this first to obtain a runnable installation!
+* Database character encoding is changed in the default settings from Latin1 to UTF8. Add an configuration entry to `/inc/base/config.php` under the `[database]` section named `charset = "Latin1"` to enforce Latin1 encoding (`UTF8` is still recommended).
