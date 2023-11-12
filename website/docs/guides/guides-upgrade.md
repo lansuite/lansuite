@@ -11,24 +11,32 @@ sidebar_position: 1
 
 ## Preparation
 
-### Plan
+### Download an official release
 
-It is recommended to tell your users (and fellow administrators) in advance that your LanSuite instance won't be 100% functional available during the upgrade.
-That should be well done in advance if you run a larger installation, for smaller ones no one may notice. But better be safe than sorry.
+1. Download the release from [GitHubs Releases page](https://github.com/lansuite/lansuite/releases)
+2. Extract the archive on your machine
 
-### Prepare Upgrade files
+### Execute a backup
 
-#### Official release
+#### Backup the database
 
-* Download the new release
-* Extract it on your machine
+Create a full database backup before upgrading.
 
-#### Git Master
+There are multiple variants available:
 
-* Run `git clone https://github.com/lansuite/lansuite.git`
-* Run `composer install`
+* LanSuite XML export ("Admin-Page" -> "Export" -> "XML - Full Database")
+* MySQL commandline dump (Something like `mysqldump --quick -u<ls user> -p <dbname> > exportfile.sql`)
+* PHPMyAdmin - if installed
+* Any tool provided by your hoster
 
-#### Server Upload
+Backing up your database using `mysqldump` is recommended, as both, LanSuite and PHPMyAdmin, may hit server limits on larger installations.
+
+#### Backup your current installation
+
+* If you have command line access: `tar cfvz ls_backup.tar.gz <ls_folder>` or `cp -R <ls_folder> <ls_folder>.backup`
+* Download the whole folder with (S)FTP or any other remote access tool you have available
+
+### Server Upload
 
 Upload all files into a different folder to your server.
 If you executed the previous step already on your server, then obviously nothing to be done at this step.
@@ -37,24 +45,10 @@ If you executed the previous step already on your server, then obviously nothing
 
 It is recommended to lock your installation and avoid changes during/after the backup.
 This can either be done by either of the following:
+
 * Lock LanSuite by enabling the corresponding option under "Admin-Page" -> "Common Settings" -> "Lock LanSuite page"
-* Shut down your web server
+* Shut down public access to your web server
 * Move index.php to a different location
-
-### Back up the database
-
-Also multiple variants here:
-* LS XML export ("Admin-Page" -> "Export" -> "XML - Full Database")
-* MySQL commandline dump (Something like `mysqldump --quick -u<ls user> -p <dbname> > exportfile.sql`)
-* PHPMyAdmin - if installed
-* Any tool provided by your hoster
-
-Backing up your database using `mysqldump` is recommended, as both, LanSuite and PHPMyAdmin, may hit server limits on larger installations.
-
-### Backup the current installation
-
-* If you have command line access: `tar cfvz ls_backup.tar.gz <ls_folder>` or `cp -R <ls_folder> <ls_folder>.backup`
-* Download the whole folder with (S)FTP or any other remote access tool you have available
 
 ## Upgrade
 
