@@ -545,7 +545,7 @@ class MasterForm
                                             }
 
                                             // If not in DependOn-Group, or DependOn-Group is active
-                                            if (!$this->DependOnStarted or $_POST[$this->DependOnField]) {
+                                            if (!$this->DependOnStarted || (array_key_exists($this->DependOnField, $_POST) && $_POST[$this->DependOnField])) {
                                                 // -- Convertions --
                                                 // Convert Post-date to unix-timestap
                                                 if (array_key_exists($field['name'], $SQLFieldTypes) && $SQLFieldTypes[$field['name']] == 'datetime') {
@@ -1158,7 +1158,8 @@ class MasterForm
                                     if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') {
                                         $db_query .= "$val = NOW(), ";
                                     } elseif ($SQLFieldTypes[$val] == 'tinyint(1)') {
-                                        $db_query .= $val .' = '. (int)$_POST[$val] .', ';
+                                        $intValue = $_POST[$val] ?? 0;
+                                        $db_query .= $val .' = '. (int) $intValue .', ';
                                     } elseif ($SQLFieldTypes[$val] == 'varbinary(16)' and $val == 'ip') {
                                         $db_query .= $val .' = INET6_ATON(\''. $_POST[$val] .'\'), ';
                                     } elseif ($postFieldValue == '++' and str_contains($SQLFieldTypes[$val], 'int')) {
