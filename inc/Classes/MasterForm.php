@@ -916,7 +916,9 @@ class MasterForm
                                                 $data = $captcha->create($text);
                                                 $_SESSION['captcha'] = $text;
                                                 $dsp->AddDoubleRow(t('Bitte gib diesen Text unterhalb ein'), "<pre style='font-size:8px;'>$data</pre>");
-                                                $dsp->AddTextFieldRow('captcha', '', $_POST['captcha'], $this->error['captcha']);
+                                                $captchaParameter = $_POST['captcha'] ?? '';
+                                                $captchaError = $this->error['captcha'] ?? '';
+                                                $dsp->AddTextFieldRow('captcha', '', $captchaParameter, $captchaError);
                                                 break;
 
                                             // Pre-Defined Dropdown
@@ -963,7 +965,7 @@ class MasterForm
                                                     $selections = array();
                                                     foreach ($field['selections'] as $key => $val) {
                                                         $selected = '';
-                                                        if ($_POST[$field['name']]) {
+                                                        if (array_key_exists($field['name'], $_POST) && is_array($_POST[$field['name']])) {
                                                             foreach ($_POST[$field['name']] as $PostedField) {
                                                                 if ($PostedField == $key) {
                                                                     $selected = ' selected';
