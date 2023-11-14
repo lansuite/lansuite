@@ -88,6 +88,7 @@ if (!$gd->available) {
     $package_list = array();
     $dir_size = 0;
     $last_modified = 0;
+    $handle = false;
     if (is_dir($root_dir)) {
         $handle = opendir($root_dir);
     }
