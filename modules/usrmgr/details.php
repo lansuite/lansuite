@@ -429,11 +429,11 @@ if (!$user_data['userid']) {
         $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod=guestlist&action=guestlist').' ';
     }
     $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE type > 0 AND userid < %int% order by userid desc', $_GET['userid']);
-    if ($row['userid']) {
+    if (is_array($row) && $row['userid']) {
         $buttons .= $dsp->FetchSpanButton(t('Vorheriger Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']).' ';
     }
     $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE type > 0 AND userid > %int%', $_GET['userid']);
-    if ($row['userid']) {
+    if (is_array($row) && $row['userid']) {
         $buttons .= $dsp->FetchSpanButton(t('Nächster Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']);
     }
 
