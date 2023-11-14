@@ -103,7 +103,8 @@ class Auth
             'username' => '',
             'userpassword' => '',
             'group_id' => 0,
-            'design' => 'simple' // TODO Get design from default configuration
+            'design' => 'simple', // TODO Get design from default configuration
+            'clanid' => 0,
         ];
         $this->timestamp = time();
 
