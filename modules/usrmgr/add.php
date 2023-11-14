@@ -158,13 +158,13 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             // Leagues
             if ($func->isModActive('tournament2')) {
                 if (ShowFieldUsrMgr('wwcl_id')) {
-                    $mf->AddField(t('WWCL ID'), 'wwclid', '', '', Optional('wwclid'));
+                    $mf->AddField(t('WWCL ID'), 'wwclid', '', '', Optional('wwcl_id'));
                 }
                 if (ShowFieldUsrMgr('ngl_id')) {
-                    $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('nglid'));
+                    $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('ngl_id'));
                 }
                 if (ShowFieldUsrMgr('lgz_id')) {
-                    $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgzid'));
+                    $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgz_id'));
                 }
                 $mf->AddGroup(t('Ligen'));
             }
