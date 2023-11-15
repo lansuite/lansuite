@@ -386,6 +386,9 @@ Class ASCII_Captcha
                                 #$current = $current!='' ? explode("\n", $current) : array_fill(0,7,'');
 				foreach ($new as $n => $w)
 					{
+						if (!array_key_exists($n, $current)) {
+							$current[$n] = '';
+						}
 						$current[$n] .= $w;
 					};
 				return implode("\n", $current);
