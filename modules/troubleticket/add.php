@@ -75,7 +75,7 @@ switch ($_GET["step"]) {
         }
         $dsp->AddDropDownFieldRow("tticket_priority", t('Priorität'), $t_array, $error["tticket_priority"], 1);
 
-        if ($auth["type"] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $dsp->AddRadioRow("orgaonly", t('Sichtbar für Alle'), "0", $error["orgaonly"], 0, 1);
             $dsp->AddRadioRow("orgaonly", t('Sichtbar nur für Orgas'), "1", "", 0, 0);
         }
@@ -89,7 +89,7 @@ switch ($_GET["step"]) {
     case 2:
         $czeit = time();
 
-        if ($auth["type"] <= 1) {
+        if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
             $ticketstatus = '1';
             $vzeit = '';
         } else {

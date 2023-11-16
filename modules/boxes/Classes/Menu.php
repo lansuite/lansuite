@@ -158,7 +158,7 @@ class Menu
                     $db->free_result($res2);
 
                     // If Admin add general Management-Links
-                    if ($auth['type'] > 2) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
                         $adminIcons = $this->box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
                         $this->box->Row('<span class="AdminIcons">'. $adminIcons .'</span>');
                     }

@@ -30,7 +30,7 @@ class Bugtracker
     {
         global $db, $func, $auth;
 
-        if ($auth['type'] <= 1) {
+        if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
             $row = $db->qry_first("
               SELECT
                 reporter,
@@ -114,7 +114,7 @@ class Bugtracker
 
         $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE agent = %int% AND bugid = %int%", $userid, $bugid);
         if (!$row['found']) {
-            if ($auth['type'] > 1) {
+            if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                 $db->qry("UPDATE %prefix%bugtracker SET agent = %int% WHERE bugid = %int%", $userid, $bugid);
             }
 

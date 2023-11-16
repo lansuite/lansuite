@@ -1,8 +1,8 @@
 <?php
 
-if ($_GET['act'] == "him" && $auth['type'] < 3) {
+if ($_GET['act'] == "him" && $auth['type'] < \LS_AUTH_TYPE_SUPERADMIN) {
     $func->information("ACCESS_DENIED");
-} elseif ($_GET['act'] == "him" && $auth['type'] = 3) {
+} elseif ($_GET['act'] == "him" && $auth['type'] == \LS_AUTH_TYPE_SUPERADMIN) {
     $stepParameter = $_GET['step'] ?? 0;
     switch ($stepParameter) {
         case 2:

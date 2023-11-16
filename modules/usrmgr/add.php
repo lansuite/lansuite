@@ -18,11 +18,11 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
         $mf->AddFix('locked', 1);
     }
 
-    if ($auth['type'] >= 2 || !$_GET['userid'] || ($auth['userid'] == $_GET['userid'] && ($cfg['user_self_details_change'] || $missing_fields))) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || !$_GET['userid'] || ($auth['userid'] == $_GET['userid'] && ($cfg['user_self_details_change'] || $missing_fields))) {
         // If Admin, Creating a new user, or Missing fields:
         // Show Username Field
         ($quick_signon)? $optional = 1 : $optional = 0;
-        if (($auth['type'] >= 2 || !$_GET['userid'] or $missing_fields)) {
+        if (($auth['type'] >= \LS_AUTH_TYPE_ADMIN || !$_GET['userid'] or $missing_fields)) {
             $mf->AddField(t('Benutzername'), 'username', '', '', $optional, 'CheckValidUsername');
         } else {
             $mf->AddField(t('Benutzername'), '', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen Administrator.'));
@@ -38,12 +38,12 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             $mf->AddGroup(t('Namen'));
 
             // If Admin: Usertype, Group and Module-Permissions
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 // Usertype
                 $selections = [];
                 $selections['1'] = t('Benutzer');
                 $selections['2'] = t('Administrator');
-                if ($auth['type'] >= 3) {
+                if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
                     $selections['3'] = t('Superadmin');
                 }
                 $mf->AddField(t('Benutzertyp'), 'type', \LanSuite\MasterForm::IS_SELECTION, $selections, '', '', 1, array('2', '3'));
@@ -90,7 +90,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
         // If not admin and user is created (not changed)
         // or if quick sign on is enabled
-        if ($quick_signon or ($auth['type'] < 2 && !$_GET['userid'])) {
+        if ($quick_signon or ($auth['type'] < \LS_AUTH_TYPE_ADMIN && !$_GET['userid'])) {
             $mf->AddFix('type', 1);
         }
 
@@ -210,7 +210,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             $mf->AddGroup(t('Kontakt'));
 
             // Misc (Perso + Birthday + Gender + Newsletter)
-            if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
+            if (($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$_GET['userid'] or $missing_fields)) {
                 if (ShowFieldUsrMgr('perso')) {
                     $mf->AddField(t('Personalausweis'), 'perso', \LanSuite\MasterForm::IS_CALLBACK, 'PersoInput', Optional('perso'));
                 }
@@ -231,13 +231,13 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             }
 
             // If Admin: Picture and Comment
-            if (($auth['type'] >= 2)) {
+            if (($auth['type'] >= \LS_AUTH_TYPE_ADMIN)) {
                 $mf->AddField(t('Benutzerbild hochladen'), 'picture', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/user_pics/', Optional('picture'));
                 $mf->AddField(t('Kommentar'), 'comment', '', \LanSuite\MasterForm::HTML_ALLOWED, \LanSuite\MasterForm::FIELD_OPTIONAL);
             }
 
             // AGB and Vollmacht, if new user
-            if (!$_GET['userid'] && $auth['type'] <= 1) {
+            if (!$_GET['userid'] && $auth['type'] <= \LS_AUTH_TYPE_USER) {
                 if (ShowFieldUsrMgr('voll')) {
                     $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich, die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.', "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name']), 'vollmacht', 'tinyint(1)');
                 }
@@ -264,7 +264,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
     if (!$quick_signon) {
         // Settings
-        if ($auth['type'] >= 2 or !$_GET['userid'] or $auth['userid'] == $_GET['userid']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$_GET['userid'] or $auth['userid'] == $_GET['userid']) {
             if ($cfg['user_design_change']) {
                 $selections = [];
                 $selections[''] = t('System-Vorgabe');

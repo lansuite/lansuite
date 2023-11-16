@@ -85,7 +85,7 @@ switch ($stepParameter) {
     case 10:
         $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
 
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $dsp->AddFieldSetStart(t('FrameWork'));
             $dsp->AddSingleRow($translation->TUpdateFromFiles('inc/classes'));
             $dsp->AddFieldSetEnd();

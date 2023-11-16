@@ -11,7 +11,7 @@ function Check()
 
     $ret = true;
 
-    if (($_POST['fromUserid'] != $auth['userid']) && $auth['type'] < 2) {
+    if (($_POST['fromUserid'] != $auth['userid']) && $auth['type'] < \LS_AUTH_TYPE_ADMIN) {
         $func->error(t("Deine Identität konnte nicht verifiziert werden. Die Transaktion wird sicherheitshalber abgebrochen."));
         $ret = false;
     } elseif ($_POST['toUserid'] == -1) {

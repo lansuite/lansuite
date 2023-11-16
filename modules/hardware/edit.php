@@ -1,7 +1,7 @@
 <?php
 
 // Edit Hardwareinfos for User
-if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])) {
     $mf = new \LanSuite\MasterForm();
     
     $dsp->NewContent(t("Hardware &auml;ndern"), t("Hier kannst du die Hardware eingeben"));

@@ -130,7 +130,7 @@ if ($tournament["name"] == "") {
                 $dsp->AddDoubleRow(t('Server'), '<a href="index.php?mod=server&action=show_details&serverid='.$team1['server_id'].'">'.$selections[$team1['server_id']].'</a>');
             }
             
-            if ($func->isModActive('server') and $auth['type'] >= 2) {
+            if ($func->isModActive('server') and $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $mf = new \LanSuite\MasterForm();
                 $mf->AddField(t('Server Zuweisen'), 'server_id', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
                 if ($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1)) {
@@ -193,7 +193,7 @@ if ($tournament["name"] == "") {
         case 2:
             // Berechtigungsprüfung
             $berechtigt = 0;
-            if ($auth["type"] > 1) {
+            if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                 $berechtigt = 1;
             } // Admin always
             if ($cfg["t_only_loser_submit"]) {
@@ -244,7 +244,7 @@ if ($tournament["name"] == "") {
                 } else {
                     $func->information(t('Nur Teilnehmer des Aktuellen Spiels und Turnieradmins dürfen ein Ergebnis eintragen'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
                 }
-            } elseif (($not_new) && ($auth["type"] <= 1)) {
+            } elseif (($not_new) && ($auth['type'] <= \LS_AUTH_TYPE_USER)) {
                 $func->information(t('Es wurde bereits ein Ergebnis für diese Partie eingetragen. Das Ergebnis kann nur noch von Turnieradmins editiert werden. Melden dich daher für Änderungen bei diesen.'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
             } else {
                 // Upload Screenshot

@@ -45,7 +45,7 @@ switch ($_GET["step"]) {
         $ms2->AddResultField(t('Eingeloggt'), 'a.logintime', 'MS2GetDate');
         $ms2->AddResultField(t('Letzter Aufruf'), 'a.lasthit', 'MS2GetDate');
 
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddMultiSelectAction(t('Session beenden'), "index.php?mod=install&action=sessions&step=10", 1);
         }
 

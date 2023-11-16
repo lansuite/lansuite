@@ -13,7 +13,7 @@ switch ($stepParameter) {
         $ms2->AddResultField('Bezeichnung', 'f.caption');
         $ms2->AddResultField('Optional', 'f.optional');
     
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=user_fields&step=20&fieldid=', t('Löschen'));
         }
         $ms2->PrintSearch('index.php?mod=usrmgr&action=user_fields', 'f.fieldid');
