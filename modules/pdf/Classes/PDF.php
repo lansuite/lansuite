@@ -283,11 +283,7 @@ class PDF
         $query     = $db->qry('SELECT * FROM %prefix%user AS user WHERE user.type > 0');
 
         while ($row = $db->fetch_array($query)) {
-            if ($row['item_id'] == "") {
-                $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>";
-            } else {
-                $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>";
-            }
+            $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>";
         }
 
         $dsp->AddSingleRow(t('Benutzer mit Stern wurden schon gedruckt'));
