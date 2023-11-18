@@ -342,7 +342,15 @@ if ($config['environment']['configured'] != 0) {
                 break;
             case 'logout':
                 $auth = $authentication->logout();
+
+                // At the moment we did not migrate fully to "Symfony\Component\HttpFoundation\Request".
+                // LanSuite has the behaviour to write into superglobals, like $_GET.
+                // HttpFoundation initiates from the superglobal only once.
+                // In a regular case, writes to the superglobals won't be respected by HttpFoundation.
+                // For the time being (until we fully migrate), we need to double write:
+                // Once to the superglobal, once to HttpFoundation.
                 $_GET['mod'] = 'home';
+                $request->query->set('mod', 'home');
                 break;
             // Switch to user
             case 'switch_to':
