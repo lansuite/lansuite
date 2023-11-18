@@ -115,7 +115,7 @@ if (!$cfg['download_use_ftp']) {
             $mf = new \LanSuite\MasterForm();
             $mf->AddField(t('URL'), 'link');
             $mf->AddFix('dir', $_GET['dir']);
-            $mf->SendForm('index.php?mod=downloads&dir=' . $_GET['dir'], 'download_urls', 'urlid', $row['urlid']);
+            $mf->SendForm('index.php?mod=downloads&dir=' . $_GET['dir'], 'download_urls', 'urlid', 0);
             $dsp->AddFieldSetEnd();
         }
 
