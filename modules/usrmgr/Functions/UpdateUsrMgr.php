@@ -11,7 +11,8 @@ function UpdateUsrMgr($id)
     // Clan-Management
     $clan = new \LanSuite\Module\ClanMgr\Clan();
     if (ShowField('clan')) {
-        if ($_POST['new_clan_select']) {
+        $newClanSelectKey = 'new_clan_select';
+        if (array_key_exists($newClanSelectKey, $_POST) && $_POST[$newClanSelectKey]) {
             $clan->Add($_POST['clan_new'], $id, $_POST["clanurl"], $_POST["newclanpw"]);
         } elseif ($_POST['clan']) {
             $clan->AddMember($_POST['clan'], $id);

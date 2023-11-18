@@ -2,7 +2,8 @@
 
 $dsp->NewContent(t('Benutzerkarte'), t('Auf dieser Karte findest du alle Benutzer, die eine PLZ eingegeben haben.'));
 
-if (!$cfg['google_maps_api_key']) {
+$googleMapsKey = $cfg['google_maps_api_key'] ?? '';
+if (!$googleMapsKey) {
     $func->information(t('Du musst dich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben.', '<a href="index.php?mod=install&action=modules&step=10&module=install">'. t('AdminSeite in den Allgemeinen Einstellungen').'</a>'));
 } else {
     $GCountry = match ($cfg['country']) {

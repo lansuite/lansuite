@@ -11,7 +11,8 @@ if (array_key_exists('quick_signon', $_SESSION) && $_SESSION['quick_signon']) {
 }
 
 if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
-    $party_user = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id= %int%", $_GET["userid"], $party->party_id);
+    $userIdParameter = $_GET["userid"] ?? 0;
+    $party_user = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id= %int%", $userIdParameter, $party->party_id);
     $mf = new \LanSuite\MasterForm();
   
     if ($cfg['signon_def_locked'] && !$_GET['userid']) {
@@ -65,8 +66,8 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $db->free_result($res);
 
                 $masterFormStepParameter = $_GET['mf_step'] ?? 0;
-                if (!$masterFormStepParameter && $_GET['userid']) {
-                    $res = $db->qry("SELECT module FROM %prefix%user_permissions WHERE userid = %int%", $_GET['userid']);
+                if (!$masterFormStepParameter && $userIdParameter) {
+                    $res = $db->qry("SELECT module FROM %prefix%user_permissions WHERE userid = %int%", $userIdParameter);
                     while ($row = $db->fetch_array($res)) {
                         $_POST["permissions"][] = $row["module"];
                     }
@@ -104,7 +105,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $mf->AddField(t('Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
             }
 
-            if ($cfg['signon_captcha'] && !$_GET['userid']) {
+            if ($cfg['signon_captcha'] && !$userIdParameter) {
                 $mf->AddField('', 'captcha', \LanSuite\MasterForm::IS_CAPTCHA);
             }
         }
@@ -114,8 +115,8 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             // Clan Options
             if (ShowFieldUsrMgr('clan')) {
                 if (!isset($_POST['clan'])) {
-                    $users_clan = $db->qry_first("SELECT clanid FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
-                    $_POST['clan'] = $users_clan['clanid'];
+                    $users_clan = $db->qry_first("SELECT clanid FROM %prefix%user WHERE userid = %int%", $userIdParameter);
+                    $_POST['clan'] = $users_clan['clanid'] ?? 0;
                 }
 
                 $selections = [];
@@ -157,13 +158,13 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             // Leagues
             if ($func->isModActive('tournament2')) {
                 if (ShowFieldUsrMgr('wwcl_id')) {
-                    $mf->AddField(t('WWCL ID'), 'wwclid', '', '', Optional('wwclid'));
+                    $mf->AddField(t('WWCL ID'), 'wwclid', '', '', Optional('wwcl_id'));
                 }
                 if (ShowFieldUsrMgr('ngl_id')) {
-                    $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('nglid'));
+                    $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('ngl_id'));
                 }
                 if (ShowFieldUsrMgr('lgz_id')) {
-                    $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgzid'));
+                    $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgz_id'));
                 }
                 $mf->AddGroup(t('Ligen'));
             }
@@ -237,7 +238,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             }
 
             // AGB and Vollmacht, if new user
-            if (!$_GET['userid'] && $auth['type'] <= \LS_AUTH_TYPE_USER) {
+            if (!$userIdParameter && $auth['type'] <= \LS_AUTH_TYPE_USER) {
                 if (ShowFieldUsrMgr('voll')) {
                     $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich, die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.', "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name']), 'vollmacht', 'tinyint(1)');
                 }
@@ -291,7 +292,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             $mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
       
             if ($cfg['user_avatarupload']) {
-                $mf->AddField(t('Avatar'), 'avatar_path', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/avatare/'. $_GET['userid'] .'_', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
+                $mf->AddField(t('Avatar'), 'avatar_path', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/avatare/'. $userIdParameter .'_', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
             }
             $mf->AddField(t('Signatur'), 'signature', '', \LanSuite\MasterForm::LSCODE_ALLOWED, \LanSuite\MasterForm::FIELD_OPTIONAL);
             $mf->AddGroup(t('Einstellungen'));
@@ -307,7 +308,9 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
     $AddUserSuccess = 0;
     $mf->AdditionalDBUpdateFunction = 'UpdateUsrMgr';
     $signOnParameter = $_GET['signon'] ?? 0;
-    if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $_GET['step'] .'&signon='. $signOnParameter, 'user', 'userid', $_GET['userid'])) {
+    $stepParameter = $_GET['step'] ?? 0;
+    $userID = $_GET['userid'] ?? 0;
+    if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $stepParameter  .'&signon='. $signOnParameter, 'user', 'userid', $userID)) {
         // Log in new user
         if (!$auth['login']) {
             $_POST['login'] = 1;
