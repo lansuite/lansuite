@@ -9,19 +9,19 @@ $seat2 = new \LanSuite\Module\Seating\Seat2();
 
 $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
-$qacc           = $_GET["qacc"];
+$qacc           = $_GET["qacc"] ?? 0;
 $tournamentid   = $_GET["tournamentid"];
 $gameid1        = $_GET["gameid1"];
 $gameid2        = $_GET["gameid2"];
-$score_team1    = $_POST["score_team1"];
-$score_team2    = $_POST["score_team2"];
-$score_comment  = $_POST["score_comment"];
+$score_team1    = $_POST["score_team1"] ?? 0;
+$score_team2    = $_POST["score_team2"] ?? 0;
+$score_comment  = $_POST["score_comment"] ?? '';
 
 // Ueberschreibungsabfrage
-if ($_GET["qacc"] == 1) {
-    $score_team1 = $_GET["score_team1"];
-    $score_team2 = $_GET["score_team2"];
-    $score_comment = $_GET["score_comment"];
+if ($qacc == 1) {
+    $score_team1 = $_GET["score_team1"] ?? 0;
+    $score_team2 = $_GET["score_team2"] ?? 0;
+    $score_comment = $_GET["score_comment"] ?? '';
 }
 
 // Infos holen

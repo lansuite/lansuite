@@ -7,7 +7,8 @@ $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
 $tournamentid = $_GET["tournamentid"];
 $fullscreen = $_SESSION['lansuite']['fullscreen'] ?? false;
-if ($_GET['group'] == '') {
+$groupParameter = $_GET['group'] ?? '';
+if ($groupParameter == '') {
     $_GET['group'] = 1;
 }
 
@@ -99,13 +100,16 @@ if ($t['status'] != "process" and $t['status'] != "closed") {
         // Init $templ if not exist
         if (!isset($templ)) {
             $templ = [
-                'index' => [
-                    'info' => [
-                        'content' => '',
-                    ]
-                ],
+                'index' => [],
             ];
         }
+        if (!array_key_exists('info', $templ['index'])) {
+            $templ['index']['info'] = [];
+        }
+        if (!array_key_exists('content', $templ['index']['info'])) {
+            $templ['index']['info']['content'] = '';
+        }
+
         $templ['index']['info']['content'] .= '<div id="content" style="width:'. (int)$width .'px; height:'. (int)$img_height .'px"></div>
       <script src="ext_scripts/SVG2VMLv1_1.js"></script>
       <script src="ext_scripts/ls_svg2vml.js"></script>

@@ -32,7 +32,8 @@ if (!$_GET['tournamentid']) {
             $seat2 = new \LanSuite\Module\Seating\Seat2();
 
             $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
-            $team_anz = $tfunc->GetTeamAnz($_GET['tournamentid'], $tournament['mode'], $_POST['group']);
+            $groupParameter = $_POST['group'] ?? 0;
+            $team_anz = $tfunc->GetTeamAnz($_GET['tournamentid'], $tournament['mode'], $groupParameter);
   
             $dsp->NewContent(t('Turnierbaum zum Turnier %1 (%2)', $tournament['name'], $modus), t('Hier siehst du grafisch dargestellt, wer gegen wen spielt und kannst Ergebnisse melden'));
 
@@ -49,7 +50,7 @@ if (!$_GET['tournamentid']) {
                     $height = (($team_anz/2) * 50) + 60;
                 }
   
-                if (($tournament["mode"] == "groups") && ($_POST['group'] == '')) {
+                if (($tournament["mode"] == "groups") && (!$groupParameter)) {
                     $teams = $db->qry_first("
                       SELECT
                         MAX(group_nr) AS max_group_nr
@@ -70,13 +71,13 @@ if (!$_GET['tournamentid']) {
                     // If specific games of a group was chosen
                     // pass this to the tree frame, otherwise keep it at the final games
                     $groupQueryParam = '';
-                    $groupID = (int) $_POST['group'];
+                    $groupID = (int) $groupParameter;
                     if ($groupID > 0) {
                         $groupQueryParam = '&group='. $groupID;
                     }
 
                     $iFrameURL = 'index.php?mod=tournament2&action=tree_frame&design=popup&tournamentid='. (int) $_GET['tournamentid'] . $groupQueryParam;
-                    $dsp->AddSingleRow('<iframe src="' . $iFrameURL . '" width="100%" height="'. (int)$height .'" style="width:100%; min-width:600px;"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'">Tree</a></iframe>');
+                    $dsp->AddSingleRow('<iframe src="' . $iFrameURL . '" width="100%" height="'. (int)$height .'" style="width:100%; min-width:600px;"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int) $groupParameter .'">Tree</a></iframe>');
                 }
 
                 if ($func->internal_referer) {
