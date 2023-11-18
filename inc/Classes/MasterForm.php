@@ -611,7 +611,8 @@ class MasterForm
 
                                                 // Callbacks
                                                 } elseif ($field['callback']) {
-                                                      $err = call_user_func($field['callback'], $_POST[$field['name']]);
+                                                    $postFieldValue = $_POST[$field['name']] ?? '';
+                                                    $err = call_user_func($field['callback'], $postFieldValue);
                                                     if ($err) {
                                                         $this->error[$field['name']] = $err;
                                                     }
