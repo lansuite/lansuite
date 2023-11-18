@@ -1,14 +1,16 @@
 <?php
-$dsp->NewContent(t('Statistiken'), $_GET['file']);
+$fileParameter = $_GET['file'] ?? '';
+$dsp->NewContent(t('Statistiken'), $fileParameter);
 
 // Delete
-if ($_GET['delfile'] and $auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
+$deleteFileParameter = $_GET['delfile'] ?? false;
+if ($deleteFileParameter && $auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $md = new \LanSuite\MasterDelete();
     $md->Delete('download_stats', 'file', $_GET['delfile']);
 }
 
 // List
-if (!$_GET['file']) {
+if (!$fileParameter) {
     $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
     $ms2->query['from'] = "%prefix%download_stats AS s";

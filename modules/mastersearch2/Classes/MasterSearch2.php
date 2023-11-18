@@ -407,6 +407,15 @@ class MasterSearch2
                             $this->query['where'] .= " AND ($sql_one_search_field)";
                         } else {
                             $this->query['having'] .= "($sql_one_search_field) AND ";
+
+                            // If we add a field to the HAVING query, it need to be part of the SELECT part
+                            // See MySQL documentation https://dev.mysql.com/doc/refman/8.0/en/select.html
+                            //
+                            // The SQL standard requires that HAVING must reference only columns in the GROUP BY clause or columns used in aggregate functions.
+                            // However, MySQL supports an extension to this behavior, and permits HAVING to refer to columns in the SELECT list and columns in outer subqueries as well.
+                            if (!str_contains($this->query['select'], $current_field_list['sql_field'])) {
+                                $this->query['select'] .= $current_field_list['sql_field'] . ', ';
+                            }
                         }
                     }
                 }
@@ -414,14 +423,15 @@ class MasterSearch2
             }
         }
 
-        // Modofy HAVING
+        // Modify HAVING
         if ($this->query['having'] != '') {
             // Cut off trailing AND, if exists
             if (substr($this->query['having'], strlen($this->query['having']) - 5, 5) == ' AND ') {
                 $this->query['having'] = substr($this->query['having'], 0, strlen($this->query['having']) - 5);
             }
-              // Write HAVING in front of statement
-              $this->query['having'] = 'HAVING '.$this->query['having'];
+
+            // Write HAVING in front of statement
+            $this->query['having'] = 'HAVING '.$this->query['having'];
         }
 
         // Generate SELECT
