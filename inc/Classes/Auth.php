@@ -103,7 +103,8 @@ class Auth
             'username' => '',
             'userpassword' => '',
             'group_id' => 0,
-            'design' => 'simple' // TODO Get design from default configuration
+            'design' => 'simple', // TODO Get design from default configuration
+            'clanid' => 0,
         ];
         $this->timestamp = time();
 
@@ -235,7 +236,7 @@ class Auth
             $cookierow = $db->qry_first('SELECT userid from %prefix%cookie WHERE cookieid = %int% AND password = %string%', $tmp_login_email, $tmp_login_pass);
             if ($cookierow) {
                 $user = $db->qry_first(
-                    'SELECT *, 1 AS found FROM %prefix%user WHERE (userid = %int%)',
+                    'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE (userid = %int%)',
                     $cookierow['userid']
                 );
 

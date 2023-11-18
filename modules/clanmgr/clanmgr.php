@@ -220,7 +220,7 @@ switch ($stepParameter) {
         } elseif (!$_POST['clan_pass']) {
             $dsp->SetForm('index.php?mod=clanmgr&action=clanmgr&step=60&clanid='.$_GET['clanid']);
             $dsp->AddSingleRow(t('Um den Clan beizutreten, musst du das Clanpasswort eingeben. Solltest du dies nicht kennen, wenden dich bitte an deinen Clan-Admin.'));
-            $dsp->AddPasswordRow('clan_pass', t('Clan Passwort'), $_POST['clan_pass'], $mail_error);
+            $dsp->AddPasswordRow('clan_pass', t('Clan Passwort'), $_POST['clan_pass'], '');
             $dsp->AddFormSubmitRow('send');
             $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr&step=2&clanid='.$_GET['clanid'], 'usrmgr/pwremind');
         } else {

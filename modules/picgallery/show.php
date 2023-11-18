@@ -88,6 +88,7 @@ if (!$gd->available) {
     $package_list = array();
     $dir_size = 0;
     $last_modified = 0;
+    $handle = false;
     if (is_dir($root_dir)) {
         $handle = opendir($root_dir);
     }
@@ -367,6 +368,9 @@ if (!$gd->available) {
               LEFT JOIN %prefix%user AS u ON p.userid = u.userid
               WHERE p.name = %string%", $db_dir);
 
+            if (!array_key_exists('click_reload', $_SESSION) || !is_array($_SESSION["click_reload"])) {
+                $_SESSION["click_reload"] = [];
+            }
             if (!array_key_exists($db_dir, $_SESSION["click_reload"])) {
                 $db->qry("UPDATE %prefix%picgallery SET clicks = clicks + 1 WHERE name = %string%", $db_dir);
                 $_SESSION["click_reload"][$db_dir] = 1;

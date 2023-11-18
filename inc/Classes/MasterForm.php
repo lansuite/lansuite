@@ -545,7 +545,7 @@ class MasterForm
                                             }
 
                                             // If not in DependOn-Group, or DependOn-Group is active
-                                            if (!$this->DependOnStarted or $_POST[$this->DependOnField]) {
+                                            if (!$this->DependOnStarted || (array_key_exists($this->DependOnField, $_POST) && $_POST[$this->DependOnField])) {
                                                 // -- Convertions --
                                                 // Convert Post-date to unix-timestap
                                                 if (array_key_exists($field['name'], $SQLFieldTypes) && $SQLFieldTypes[$field['name']] == 'datetime') {
@@ -840,11 +840,15 @@ class MasterForm
                                             // Date-Select
                                             case 'date':
                                                 $values = array(
+                                                    'year' => '',
+                                                    'month' => '',
+                                                    'day' => '',
                                                     'hour' => '',
                                                     'min' => '',
                                                     'sec' => '',
                                                 );
-                                                $dateParts = explode(' ', $_POST[$field['name']]);
+                                                $postFieldValue = $_POST[$field['name']] ?? '';
+                                                $dateParts = explode(' ', $postFieldValue);
 
                                                 $date = $dateParts[0];
                                                 $time = '';
@@ -852,7 +856,9 @@ class MasterForm
                                                     $time = $dateParts[1];
                                                 }
 
-                                                [$values['year'], $values['month'], $values['day']] = explode('-', $date);
+                                                if ($date) {
+                                                    [$values['year'], $values['month'], $values['day']] = explode('-', $date);
+                                                }
 
                                                 if ($time) {
                                                     [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
@@ -916,7 +922,9 @@ class MasterForm
                                                 $data = $captcha->create($text);
                                                 $_SESSION['captcha'] = $text;
                                                 $dsp->AddDoubleRow(t('Bitte gib diesen Text unterhalb ein'), "<pre style='font-size:8px;'>$data</pre>");
-                                                $dsp->AddTextFieldRow('captcha', '', $_POST['captcha'], $this->error['captcha']);
+                                                $captchaParameter = $_POST['captcha'] ?? '';
+                                                $captchaError = $this->error['captcha'] ?? '';
+                                                $dsp->AddTextFieldRow('captcha', '', $captchaParameter, $captchaError);
                                                 break;
 
                                             // Pre-Defined Dropdown
@@ -963,7 +971,7 @@ class MasterForm
                                                     $selections = array();
                                                     foreach ($field['selections'] as $key => $val) {
                                                         $selected = '';
-                                                        if ($_POST[$field['name']]) {
+                                                        if (array_key_exists($field['name'], $_POST) && is_array($_POST[$field['name']])) {
                                                             foreach ($_POST[$field['name']] as $PostedField) {
                                                                 if ($PostedField == $key) {
                                                                     $selected = ' selected';
@@ -1156,7 +1164,8 @@ class MasterForm
                                     if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') {
                                         $db_query .= "$val = NOW(), ";
                                     } elseif ($SQLFieldTypes[$val] == 'tinyint(1)') {
-                                        $db_query .= $val .' = '. (int)$_POST[$val] .', ';
+                                        $intValue = $_POST[$val] ?? 0;
+                                        $db_query .= $val .' = '. (int) $intValue .', ';
                                     } elseif ($SQLFieldTypes[$val] == 'varbinary(16)' and $val == 'ip') {
                                         $db_query .= $val .' = INET6_ATON(\''. $_POST[$val] .'\'), ';
                                     } elseif ($postFieldValue == '++' and str_contains($SQLFieldTypes[$val], 'int')) {

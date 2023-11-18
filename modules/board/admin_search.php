@@ -1,6 +1,7 @@
 <?php
-if ($_POST['action']) {
-    foreach ($_POST['action'] as $key => $val) {
+$actionParameter = $_POST['action'] ?? [];
+if ($actionParameter) {
+    foreach ($actionParameter as $key => $val) {
         switch ($_GET['mode']) {
             case 'del':
                 $md = new \LanSuite\MasterDelete();
