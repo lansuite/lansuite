@@ -338,7 +338,9 @@ if ($config['environment']['configured'] != 0) {
     if ($_GET['mod']=='auth') {
         switch ($_GET['action']) {
             case 'login':
-                $auth = $authentication->login($_POST['email'], $_POST['password']);
+                $emailValue = $_POST['email'] ?? '';
+                $passwordValue = $_POST['password'] ?? '';
+                $auth = $authentication->login($emailValue, $passwordValue);
                 break;
             case 'logout':
                 $auth = $authentication->logout();
