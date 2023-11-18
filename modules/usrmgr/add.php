@@ -11,19 +11,19 @@ if (array_key_exists('quick_signon', $_SESSION) && $_SESSION['quick_signon']) {
 }
 
 if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
-    $userIdParameter = $_GET["userid"] ?? 0;
+    $userIdParameter = $_GET['userid'] ?? 0;
     $party_user = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id= %int%", $userIdParameter, $party->party_id);
     $mf = new \LanSuite\MasterForm();
   
-    if ($cfg['signon_def_locked'] && !$_GET['userid']) {
+    if ($cfg['signon_def_locked'] && !$userIdParameter) {
         $mf->AddFix('locked', 1);
     }
 
-    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || !$_GET['userid'] || ($auth['userid'] == $_GET['userid'] && ($cfg['user_self_details_change'] || $missing_fields))) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || !$userIdParameter || ($auth['userid'] == $userIdParameter && ($cfg['user_self_details_change'] || $missing_fields))) {
         // If Admin, Creating a new user, or Missing fields:
         // Show Username Field
         ($quick_signon)? $optional = 1 : $optional = 0;
-        if (($auth['type'] >= \LS_AUTH_TYPE_ADMIN || !$_GET['userid'] or $missing_fields)) {
+        if (($auth['type'] >= \LS_AUTH_TYPE_ADMIN || !$userIdParameter or $missing_fields)) {
             $mf->AddField(t('Benutzername'), 'username', '', '', $optional, 'CheckValidUsername');
         } else {
             $mf->AddField(t('Benutzername'), '', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen Administrator.'));
@@ -91,13 +91,14 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
         // If not admin and user is created (not changed)
         // or if quick sign on is enabled
-        if ($quick_signon or ($auth['type'] < \LS_AUTH_TYPE_ADMIN && !$_GET['userid'])) {
+        if ($quick_signon or ($auth['type'] < \LS_AUTH_TYPE_ADMIN && !$userIdParameter)) {
             $mf->AddFix('type', 1);
         }
 
         $mf->AddField(t('E-Mail'), 'email', '', '', '', 'CheckDuplicateAndValidEmail');
         $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', true);
-        if (($_GET['action'] != 'change' && $_GET['action'] != 'entrance') || ($_GET['action'] == 'entrance' && !$_GET['userid'])) {
+        $actionParameter = $_GET['action'] ?? '';
+        if (($actionParameter != 'change' && $actionParameter != 'entrance') || ($actionParameter == 'entrance' && !$userIdParameter)) {
             if ($cfg['signon_autopw']) {
                 $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
                 $mf->AddFix('password', md5($_SESSION['tmp_pass']));
@@ -211,7 +212,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             $mf->AddGroup(t('Kontakt'));
 
             // Misc (Perso + Birthday + Gender + Newsletter)
-            if (($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$_GET['userid'] or $missing_fields)) {
+            if (($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$userIdParameter or $missing_fields)) {
                 if (ShowFieldUsrMgr('perso')) {
                     $mf->AddField(t('Personalausweis'), 'perso', \LanSuite\MasterForm::IS_CALLBACK, 'PersoInput', Optional('perso'));
                 }
@@ -265,7 +266,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
     if (!$quick_signon) {
         // Settings
-        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$_GET['userid'] or $auth['userid'] == $_GET['userid']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$userIdParameter or $auth['userid'] == $userIdParameter) {
             if ($cfg['user_design_change']) {
                 $selections = [];
                 $selections[''] = t('System-Vorgabe');
@@ -301,7 +302,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
     if ($_GET['mod'] == 'signon') {
         $mf->SendButtonText = 'Benutzer anlegen';
-    } elseif ($_GET['mod'] == 'usrmgr' and $_GET['action'] == 'entrance' and $_GET['step'] == 3) {
+    } elseif ($_GET['mod'] == 'usrmgr' and $actionParameter == 'entrance' and $_GET['step'] == 3) {
         $mf->SendButtonText = 'Edit. + Einchecken';
     }
 
@@ -310,7 +311,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
     $signOnParameter = $_GET['signon'] ?? 0;
     $stepParameter = $_GET['step'] ?? 0;
     $userID = $_GET['userid'] ?? 0;
-    if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $stepParameter  .'&signon='. $signOnParameter, 'user', 'userid', $userID)) {
+    if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $actionParameter .'&step='. $stepParameter  .'&signon='. $signOnParameter, 'user', 'userid', $userID)) {
         // Log in new user
         if (!$auth['login']) {
             $_POST['login'] = 1;

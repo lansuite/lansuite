@@ -840,11 +840,15 @@ class MasterForm
                                             // Date-Select
                                             case 'date':
                                                 $values = array(
+                                                    'year' => '',
+                                                    'month' => '',
+                                                    'day' => '',
                                                     'hour' => '',
                                                     'min' => '',
                                                     'sec' => '',
                                                 );
-                                                $dateParts = explode(' ', $_POST[$field['name']]);
+                                                $postFieldValue = $_POST[$field['name']] ?? '';
+                                                $dateParts = explode(' ', $postFieldValue);
 
                                                 $date = $dateParts[0];
                                                 $time = '';
@@ -852,7 +856,9 @@ class MasterForm
                                                     $time = $dateParts[1];
                                                 }
 
-                                                [$values['year'], $values['month'], $values['day']] = explode('-', $date);
+                                                if ($date) {
+                                                    [$values['year'], $values['month'], $values['day']] = explode('-', $date);
+                                                }
 
                                                 if ($time) {
                                                     [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);

@@ -368,8 +368,10 @@ if (!$gd->available) {
               LEFT JOIN %prefix%user AS u ON p.userid = u.userid
               WHERE p.name = %string%", $db_dir);
 
-            $clickReload = (is_array($_SESSION["click_reload"])) ? $_SESSION["click_reload"]: [];
-            if (!array_key_exists($db_dir, $clickReload)) {
+            if (!array_key_exists('click_reload', $_SESSION) || !is_array($_SESSION["click_reload"])) {
+                $_SESSION["click_reload"] = [];
+            }
+            if (!array_key_exists($db_dir, $_SESSION["click_reload"])) {
                 $db->qry("UPDATE %prefix%picgallery SET clicks = clicks + 1 WHERE name = %string%", $db_dir);
                 $_SESSION["click_reload"][$db_dir] = 1;
             }

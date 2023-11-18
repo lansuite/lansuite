@@ -682,6 +682,7 @@ class Func
                 $sort_tag = $_GET['mod'];
             }
 
+            $userId = $auth['userid'] ?? 0;
             $entry = $db->qry("
             INSERT INTO %prefix%log 
             SET
@@ -692,7 +693,7 @@ class Func
               target_id = %int%,
               script = %string%,
               referer = %string%,
-              ip = INET6_ATON(%string%)", $auth['userid'], $message, $type, $sort_tag, $target_id, $_SERVER["REQUEST_URI"], $this->internal_referer, $_SERVER['REMOTE_ADDR']);
+              ip = INET6_ATON(%string%)", $userId, $message, $type, $sort_tag, $target_id, $_SERVER["REQUEST_URI"], $this->internal_referer, $_SERVER['REMOTE_ADDR']);
 
             if ($entry == 1) {
                 return 1;
