@@ -11,8 +11,10 @@ $install = new \LanSuite\Module\Install\Install($installImport);
 $install->TryCreateDB(1);
 $db->connect();
 
-if ($_GET["quest"]) {
-    switch ($_GET["step"]) {
+$questParameter = $_GET["quest"] ?? 0;
+$stepParameter = $_GET["step"] ?? 0;
+if ($questParameter ) {
+    switch ($stepParameter) {
         // Rewrite specific table
         case 2:
             $func->question(str_replace("%NAME%", $_GET["table"], t('Bist du sicher, dass du die Datenbank des Moduls <b>\'%NAME%\'</b> zurücksetzen möchtest? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!')), "index.php?mod=install&action=db&step=2&table={$_GET["table"]}&quest=0", "index.php?mod=install&action=db");
@@ -40,7 +42,7 @@ if ($_GET["quest"]) {
     }
 } else {
     // Action Switch
-    switch ($_GET["step"]) {
+    switch ($stepParameter) {
         // Rewrite specific table
         case 2:
             $db->qry("DROP TABLE %plain%", $_GET["table"]);

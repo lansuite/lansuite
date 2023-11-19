@@ -3,7 +3,8 @@
 $xmlExport = new \LanSuite\XML();
 $export = new \LanSuite\Module\Install\Export($xmlExport);
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Daten exportieren'), t('Hier kannst du Benutzerdaten exportieren. Diese kannst du später wieder in Lansuite importieren.'));
         $dsp->SetForm("index.php?mod=install&action=export&step=2", "", "", "");

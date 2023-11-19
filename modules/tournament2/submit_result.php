@@ -103,7 +103,8 @@ if ($tournament["name"] == "") {
 
 // Keine Einschränkungen gefunden
 } else {
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET["step"] ?? 0;
+    switch ($stepParameter) {
         default:
             $seat2 = new Seat2();
 
