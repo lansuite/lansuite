@@ -760,7 +760,8 @@ class MasterForm
                                                     ob_end_clean();
                                                     $dsp->AddSingleRow($fcke_content);
 
-                                                    if ($this->error[$field['name']]) {
+                                                    $errorMessage = $this->error[$field['name']] ?? '';
+                                                    if ($errorMessage) {
                                                         $dsp->AddDoubleRow($field['caption'], $dsp->errortext_prefix . $this->error[$field['name']] . $dsp->errortext_suffix);
                                                     }
                                                 } else {
