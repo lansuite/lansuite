@@ -76,7 +76,8 @@ if (!$_GET["sieg"]) {
     }
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     // Spiel
     case 1:
         $dsp->SetForm("index.php?mod=games&action=hangman&step=1&ratewort={$_GET["ratewort"]}");

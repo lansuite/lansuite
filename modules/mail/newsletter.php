@@ -2,7 +2,8 @@
 
 $mail = new \LanSuite\Module\Mail\Mail();
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 2:
         if ($_POST["subject"] == "") {
             $subject_error = t('Bitte gib einen Betreff an');
@@ -19,7 +20,8 @@ switch ($_GET["step"]) {
         break;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Rundmail versenden'), t('Hier kannst du eine Rundmail an alle Benutzer senden.'));
         $dsp->SetForm("index.php?mod=mail&action=newsletter&step=2");
