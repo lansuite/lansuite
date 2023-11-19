@@ -186,7 +186,8 @@ if (!$thread and $tid) {
         $z++;
     }
 
-    if ($_SESSION['threadview'] != $tid) {
+    $threadViewId = $_SESSION['threadview'] ?? 0;
+    if ($threadViewId != $tid) {
         $db->qry("UPDATE %prefix%board_threads SET views=views+1 WHERE tid=%int%", $tid);
     }
     $_SESSION['threadview'] = $tid;

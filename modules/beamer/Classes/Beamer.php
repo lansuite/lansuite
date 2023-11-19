@@ -125,7 +125,8 @@ class Beamer
         global $db;
   
         $lastview = time();
-        if (!$c['bcid']) {
+        $bcId = $c['bcid'] ?? 0;
+        if (!$bcId) {
             $db->qry(
                 "INSERT INTO %prefix%beamer_content SET caption = %string%, maxRepeats = %string%, contentType = %string%, lastView = %string%, contentData = %string%",
                 $c['caption'],

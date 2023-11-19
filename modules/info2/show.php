@@ -31,7 +31,7 @@ if ($submodParameter != "" || ($_GET["id"]>=1)) {
     // Show edit/aktivate Buttons
     // TODO add delete
     if ($auth['type'] > \LS_AUTH_TYPE_USER) {
-        $buttons .= $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=info2&action=change&step=2&infoID={$_GET["id"]}"). " ";
+        $buttons = $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=info2&action=change&step=2&infoID={$_GET["id"]}"). " ";
         if ($info['active'] == 1) {
             $buttons .= $dsp->FetchSpanButton(t('Deaktivieren'), "index.php?mod=info2&action=change&step=20&infoID={$_GET["id"]}"). " ";
         } else {
