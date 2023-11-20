@@ -5,9 +5,9 @@
  *
  * @param string $dir directory to enumerate files in
  *
- * @return void Return (currently) via global variable $files
+ * @return void Returns files found in current + subdirectories (currently) via global variable $files
  *
- * @global string[] $files global vairable to contain all files enumerated
+ * @global string[] $files global variable to contain all files enumerated
  */
 function LetsOpenTheDir($dir)
 {
