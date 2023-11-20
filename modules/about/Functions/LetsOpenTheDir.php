@@ -15,7 +15,7 @@ function LetsOpenTheDir($dir)
 
     $thedir = opendir($dir);
     while (false !== ($content = readdir($thedir))) {
-        if ($content != '.' and $content != '..') {
+        if ($content != '.' && $content != '..') {
             if (is_dir($dir.'/'.$content)) {
                 LetsOpenTheDir($dir.'/'.$content);
             }
