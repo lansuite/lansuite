@@ -3,7 +3,7 @@
 /**
  * Function to recursively enumerate all files in all subdirectories into global variable $files.
  *
- * @param string $dir directory to enumverate files in
+ * @param string $dir directory to enumerate files in
  *
  * @return void Return (currently) via global variable $files
  *
