@@ -5,7 +5,12 @@ $dir = '.';
 LetsOpenTheDir($dir);
 
 foreach ($files as $file) {
-    if (preg_match('/\.(php|htm|html)$/', $file)) {
+    if (preg_match('/\.php$/', $file)) {
+        $data = GetTheLinesAndChars($file);
+        $php_lines += $data[0];
+        $php_chars += $data[1];
+    }
+    if (preg_match('/\.(html|htm|html5)$/', $file)) {
         $data = GetTheLinesAndChars($file);
         $html_lines += $data[0];
         $html_chars += $data[1];
