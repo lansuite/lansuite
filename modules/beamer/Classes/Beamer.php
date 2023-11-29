@@ -56,14 +56,15 @@ class Beamer
     }
 
     /**
+     * Enforces a given $bcid to be displayed next by resetting the last view date
      * @param int $bcid
      * @return void
      */
     public function set2first($bcid)
     {
-        global $db;
+        global $Database;
 
-        $db->qry("UPDATE %prefix%beamer_content SET lastView = '0' WHERE bcid = %int% LIMIT 1", $bcid);
+        $Database->query("UPDATE %prefix%beamer_content SET lastView = '0' WHERE bcid = ? LIMIT 1", [$bcid]);
     }
 
     /**
@@ -90,18 +91,18 @@ class Beamer
      */
     public function toggleBeamerActive($bcid, $beamerid)
     {
-        global $db;
+        global $Database;
 
         if ($beamerid == '') {
             return;
         }
 
-        $row = $db->qry_first('SELECT b%plain% As active FROM %prefix%beamer_content WHERE bcID = %int%', $beamerid, $bcid);
+        $row = $Database->queryWithOnlyFirstRow('SELECT b%plain% As active FROM %prefix%beamer_content WHERE bcID = %int%', $beamerid, $bcid);
         $active = $row['active'];
         if ($active == "1") {
-            $db->qry("UPDATE %prefix%beamer_content SET b%plain% = '0' WHERE bcID = %int% LIMIT 1", $beamerid, $bcid);
+            $Database->query("UPDATE %prefix%beamer_content SET b%plain% = '0' WHERE bcID = %int% LIMIT 1", $beamerid, $bcid);
         } else {
-            $db->qry("UPDATE %prefix%beamer_content SET b%plain% = '1' WHERE bcID = %int% LIMIT 1", $beamerid, $bcid);
+            $Database->query("UPDATE %prefix%beamer_content SET b%plain% = '1' WHERE bcID = %int% LIMIT 1", $beamerid, $bcid);
         }
     }
 
@@ -111,9 +112,9 @@ class Beamer
      */
     public function deleteContent($bcid)
     {
-        global $db;
+        global $Database;
   
-        $db->qry("DELETE FROM %prefix%beamer_content WHERE bcID = %int% LIMIT 1", $bcid);
+        $Database->query("DELETE FROM %prefix%beamer_content WHERE bcID = ? LIMIT 1", [$bcid]);
     }
 
     /**
@@ -122,25 +123,25 @@ class Beamer
      */
     public function saveContent($c)
     {
-        global $db;
+        global $Database;
   
         $lastview = time();
         $bcId = $c['bcid'] ?? 0;
         if (!$bcId) {
-            $db->qry(
-                "INSERT INTO %prefix%beamer_content SET caption = %string%, maxRepeats = %string%, contentType = %string%, lastView = %string%, contentData = %string%",
-                $c['caption'],
+            $db->query(
+                "INSERT INTO %prefix%beamer_content SET caption = ?, maxRepeats = ?, contentType = ?, lastView = ?, contentData = ?",
+                [$c['caption'],
                 $c['maxrepeats'],
                 $c['type'],
                 $lastview,
-                $c['text']
+                $c['text']]
             );
         } else {
             $caption_sql = '';
             if ($c['caption'] != "") {
                 $caption_sql = " , caption = '{$c['caption']}' ";
             }
-            $db->qry("UPDATE %prefix%beamer_content SET contentData = %string% %plain% WHERE bcid = %int%", $c['text'], $caption_sql, $c['bcid']);
+            $Database->query("UPDATE %prefix%beamer_content SET contentData = ? $caption_sql WHERE bcid = ?", [$c['text'], $c['bcid']]);
         }
     }
 
@@ -149,18 +150,20 @@ class Beamer
      */
     public function getContent($bcid): array|bool|null
     {
-        global $db;
+        global $Database;
 
-        $row = $db->qry_first("SELECT * FROM %prefix%beamer_content WHERE bcid = %int% LIMIT 1", $bcid);
+        $row = $Database->queryWithOnlyFirstRow("SELECT * FROM %prefix%beamer_content WHERE bcid = ? LIMIT 1", [$bcid]);
 
         return $row;
     }
 
     /**
+     * Gets the beamer page not seen for the longest time for a given beamer
+     * @todo Check what this really does
      * @param string $beamerid
-     * @return string
+     * @return string Either the content to be shown or empty string
      */
-    public function getCurrentContent(string $beamerid)
+    public function getCurrentContent(string $beamerid = '')
     {
         global $Database;
   
