@@ -160,13 +160,13 @@ class Beamer
      * @param string $beamerid
      * @return string
      */
-    public function getCurrentContent($beamerid)
+    public function getCurrentContent(string $beamerid)
     {
-        global $db;
+        global $Database;
   
-        $row = $db->qry_first('SELECT * FROM %prefix%beamer_content WHERE active = 1 AND b%plain% = 1 ORDER BY lastView ASC', $beamerid);
-        $db->qry('UPDATE %prefix%beamer_content SET lastView = %int% WHERE bcID = %int% LIMIT 1', time(), $row['bcID']);
-
+        $row = $Database->queryWithOnlyFirstRow('SELECT * FROM %prefix%beamer_content WHERE active = 1 AND b%plain% = 1 ORDER BY lastView ASC', $beamerid);
+        $Database->query('UPDATE %prefix%beamer_content SET lastView = ? WHERE bcID = ? LIMIT 1', [time(), $row['bcID']]);
+        //@todo check context of execution. If this is not executed only in context of display, then the last view should not be updated here but in the visualisation
         switch ($row['contentType']) {
             case 'text':
                 return $row['contentData'];
@@ -188,14 +188,23 @@ class Beamer
     }
 
     /**
+     * Returns List options for all found tournaments
+     * @param int $partyID Number of Party to select tournaments for. All tournaments will be returned when not provided
      * @return array
      */
-    public function getAllTournamentsAsOptionList()
+    public function getAllTournamentsAsOptionList(int $partyID)
     {
-        global $db;
+        global $Database;
 
         $tournaments = [];
-        $result = $db->qry('SELECT tournamentid, name FROM %prefix%tournament_tournaments');
+        $tQuery = 'SELECT tournamentid, name FROM %prefix%tournament_tournaments';
+        if (isset($partyID) && $partyID >=0) {
+            $tQuery .= ' where PartyID = ?';
+            $result = $Database->query($tQuery,$partyID);
+        } else {
+            $result = $Database->query($tQuery);
+        }
+        
         while ($row = $db->fetch_array($result)) {
             $tournaments[] = "<option value=\"{$row['tournamentid']}\">{$row['name']}</option>";
         }
@@ -204,14 +213,18 @@ class Beamer
     }
 
     /**
-     * @param int $ctid
-     * @return string
+     * Function to obtain the Name of a Tournament by its ID
+     * 
+     * @param int $ctid ID of the tournament
+     * @return string Name of the Tournament or empty if not found
+     * @todo move Tournament function to Tournament Moduke
      */
+
     public function getTournamentNamebyID($ctid)
     {
-        global $db;
+        global $Database;
 
-        $result = $db->qry_first('SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $ctid);
+        $result = $Database->queryWithOnlyFirstRow('SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = ?', [$ctid]);
 
         return $result['name'];
     }
