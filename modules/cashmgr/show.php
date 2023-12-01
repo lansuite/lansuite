@@ -26,7 +26,7 @@ if (!$stepParameter) {
 
 switch ($stepParameter) {
     case 1:
-        if ($auth['type'] < 3) {
+        if ($auth['type'] < \LS_AUTH_TYPE_SUPERADMIN) {
             $func->information("ACCESS_DENIED");
         } else {
             $dsp->NewContent(t('Kalkulation'), t('Zur aktuellen Lanparty zum derzeitigen Stand'));

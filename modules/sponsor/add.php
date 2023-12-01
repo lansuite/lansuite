@@ -2,7 +2,8 @@
 
 $gd = new \LanSuite\GD();
 
-if ($_GET['action'] == 'change' and $_GET['sponsorid'] == '') {
+$sponsorIdParameter = $_GET['sponsorid'] ?? '';
+if ($_GET['action'] == 'change' && $sponsorIdParameter == '') {
     include_once('modules/sponsor/search.inc.php');
 } else {
     $mf = new \LanSuite\MasterForm();
@@ -55,5 +56,5 @@ if ($_GET['action'] == 'change' and $_GET['sponsorid'] == '') {
 
     $mf->AdditionalDBAfterSelectFunction = 'RewriteFields';
     $mf->AdditionalDBPreUpdateFunction = 'UploadFiles';
-    $mf->SendForm('index.php?mod=sponsor&amp;action='. $_GET['action'], 'sponsor', 'sponsorid', $_GET['sponsorid']);
+    $mf->SendForm('index.php?mod=sponsor&amp;action='. $_GET['action'], 'sponsor', 'sponsorid', $sponsorIdParameter);
 }

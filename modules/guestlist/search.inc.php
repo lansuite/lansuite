@@ -35,7 +35,7 @@ if ($party->party_id) {
 $ms2->AddTextSearchField(t('Clan'), array('c.name' => 'like'));
 
 $ms2->AddResultField(t('Benutzername'), 'u.username');
-if ($auth['type'] >= 2 or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
     $ms2->AddResultField(t('Vorname'), 'u.firstname');
     $ms2->AddResultField(t('Nachname'), 'u.name');
 }
@@ -59,7 +59,7 @@ if ($party->party_id) {
 $ms2->AddIconField('details', 'index.php?mod=guestlist&action=details&userid=', t('Details'));
 $ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', t('Mail senden'));
 
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddMultiSelectAction(t('Auf "Bezahlt" setzen'), "index.php?mod=guestlist&step=10", 1, 'paid');
     $ms2->AddMultiSelectAction(t('Auf "Nicht Bezahlt" setzen'), "index.php?mod=guestlist&step=11", 1, 'not_paid');
     $ms2->AddMultiSelectAction(t('Einchecken'), "index.php?mod=guestlist&step=20", 1, 'in');

@@ -116,7 +116,8 @@ class Seat2
             party_id=%int%
             AND user_id=%int%", $party->party_id, $userid);
 
-        if ($seat_paid['paid']>0) {
+        $seatPaidPaid = $seat_paid['paid'] ?? 0;
+        if ($seatPaidPaid > 0) {
             $seat_status = 2;
         } else {
             $seat_status = 3;
@@ -135,7 +136,8 @@ class Seat2
             AND s.status = %string%
             AND b.party_id = %int%", $userid, $seat_status, $party->party_id);
     
-        if ($row['blockid']) {
+        $blockID = $row['blockid'] ?? 0;
+        if ($blockID) {
             $arr = array();
             $arr['block'] = $row['blockid'];
             $arr['row'] = $row['row'];
@@ -686,7 +688,7 @@ class Seat2
                                     } elseif (($seatStateValue == 2 || $seatStateValue == 3) && $seat_userid[$y][$x] == $auth['userid']) {
                                         $link = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
                                     // If assigned and user is admin -> Possibility to free this seat
-                                    } elseif ($seatStateValue == 2 && $auth['type'] > 1) {
+                                    } elseif ($seatStateValue == 2 && $auth['type'] > \LS_AUTH_TYPE_USER) {
                                         #$link = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
                                     }
                                 }
@@ -725,13 +727,13 @@ class Seat2
                             case "9":
                                 $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
                                 $tooltip .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
-                                if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)) {
+                                if (!$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER or ($auth['userid'] == $selected_user and $selected_user != false)) {
                                     $tooltip .= t('Name') .': '. trim($user_info[$y][$x]['firstname']) .' '. trim($user_info[$y][$x]['name']) . HTML_NEWLINE;
                                 }
                                 $tooltip .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
                                 $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
                                 if ($func->chk_img_path($user_info[$y][$x]['avatar_path']) and
-                                ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))) {
+                                ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER or ($auth['userid'] == $selected_user and $selected_user != false))) {
                                       $tooltip .= '<img src=\''. $user_info[$y][$x]['avatar_path'] .'\' style=\'max-width:100%;\' />' . HTML_NEWLINE;
                                 }
                                 break;

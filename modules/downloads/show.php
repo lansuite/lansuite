@@ -50,7 +50,7 @@ if (!$cfg['download_use_ftp']) {
 
         // Upload submittet file
         $stepParameter = $_GET['step'] ?? 0;
-        if ($stepParameter == 20 && $auth['type'] >= 2 || ($auth['login'] && $row['allow_upload'])) {
+        if ($stepParameter == 20 && $auth['type'] >= \LS_AUTH_TYPE_ADMIN || ($auth['login'] && $row['allow_upload'])) {
             $func->FileUpload('upload', $BaseDir.$_GET['dir']);
         }
 
@@ -102,7 +102,7 @@ if (!$cfg['download_use_ftp']) {
 
         $dsp->AddFieldSetEnd();
 
-        if ($auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or ($auth['login'] and $row['allow_upload'])) {
             // File Upload Box
             $dsp->AddFieldSetStart(t('Datei hochladen'));
             $dsp->SetForm('index.php?mod=downloads&step=20&dir='. $_GET['dir'], '', '', 'multipart/form-data');
@@ -115,7 +115,7 @@ if (!$cfg['download_use_ftp']) {
             $mf = new \LanSuite\MasterForm();
             $mf->AddField(t('URL'), 'link');
             $mf->AddFix('dir', $_GET['dir']);
-            $mf->SendForm('index.php?mod=downloads&dir=' . $_GET['dir'], 'download_urls', 'urlid', $row['urlid']);
+            $mf->SendForm('index.php?mod=downloads&dir=' . $_GET['dir'], 'download_urls', 'urlid', 0);
             $dsp->AddFieldSetEnd();
         }
 
@@ -127,7 +127,7 @@ if (!$cfg['download_use_ftp']) {
         }
 
         // Admin functions for dir
-        if ($auth['type'] >= 2 && ($masterFormStepParameter != 2 || $stepParameter == 10)) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN && ($masterFormStepParameter != 2 || $stepParameter == 10)) {
             $dsp->AddFieldSetStart(t('Ordner Text und Einstellungen editieren'));
             $mf = new \LanSuite\MasterForm();
 

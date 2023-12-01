@@ -21,7 +21,7 @@ switch ($_GET['shout']) {
         }
 
         if (($_POST['message'] and $auth['login']) or ($_POST['message'] and $captchaCheck)) {
-            if ($auth['type']>=1) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_USER) {
                 $_POST['nickname'] = $auth['username'];
             }
 

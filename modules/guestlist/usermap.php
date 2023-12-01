@@ -38,9 +38,9 @@ if ($cfg['guestlist_guestmap'] == 2) {
             };
 
             // Show detailed map to admins only, otherwise stick to user settings
-            if ($row['show_me_in_map'] == 1 || $auth['type'] >= 2) {
+            if ($row['show_me_in_map'] == 1 || $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $text = "<b>{$row['username']}</b>";
-                if ($cfg['guestlist_shownames']|| $auth['type'] >= 2) {
+                if ($cfg['guestlist_shownames']|| $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                     $text .= " {$row['firstname']} {$row['name']}";
                 }
             } else {
@@ -156,7 +156,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
             $UsersOut = '';
 
             while ($current_user = $db->fetch_array($res2)) {
-                if ($auth['type'] < 2 and ($cfg['sys_internet'])) {
+                if ($auth['type'] < \LS_AUTH_TYPE_ADMIN and ($cfg['sys_internet'])) {
                     $current_user['firstname'] = '---';
                     $current_user['name'] = '---';
                 }

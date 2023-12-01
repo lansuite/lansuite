@@ -2,7 +2,7 @@
 
 include_once('modules/troubleticket/search_main.inc.php');
 
-if ($auth['type'] < 2) {
+if ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
     $ms2->query['where'] .=  "AND orgaonly = '0'";
 }
 

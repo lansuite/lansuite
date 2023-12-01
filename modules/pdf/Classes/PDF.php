@@ -215,7 +215,7 @@ class PDF
                 break;
 
             case 'ticket':
-                if ($auth["userid"] == $_GET['userid'] || $auth["type"] > 2) {
+                if ($auth["userid"] == $_GET['userid'] || $auth['type'] > \LS_AUTH_TYPE_ADMIN) {
                     $this->_makeUserCard(1, 1, 1, 1, $_GET['userid']);
                 }
                 break;
@@ -283,11 +283,7 @@ class PDF
         $query     = $db->qry('SELECT * FROM %prefix%user AS user WHERE user.type > 0');
 
         while ($row = $db->fetch_array($query)) {
-            if ($row['item_id'] == "") {
-                $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>";
-            } else {
-                $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>";
-            }
+            $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>";
         }
 
         $dsp->AddSingleRow(t('Benutzer mit Stern wurden schon gedruckt'));

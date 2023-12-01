@@ -682,6 +682,7 @@ class Func
                 $sort_tag = $_GET['mod'];
             }
 
+            $userId = $auth['userid'] ?? 0;
             $entry = $db->qry("
             INSERT INTO %prefix%log 
             SET
@@ -692,7 +693,7 @@ class Func
               target_id = %int%,
               script = %string%,
               referer = %string%,
-              ip = INET6_ATON(%string%)", $auth['userid'], $message, $type, $sort_tag, $target_id, $_SERVER["REQUEST_URI"], $this->internal_referer, $_SERVER['REMOTE_ADDR']);
+              ip = INET6_ATON(%string%)", $userId, $message, $type, $sort_tag, $target_id, $_SERVER["REQUEST_URI"], $this->internal_referer, $_SERVER['REMOTE_ADDR']);
 
             if ($entry == 1) {
                 return 1;
@@ -904,8 +905,7 @@ class Func
             // Set read timeout
             stream_set_timeout($handle, 0, $timeout);
             // Time the response
-            [$usec, $sec] = explode(" ", microtime(true));
-            $start = (float)$usec + (float)$sec;
+            $start = microtime(true);
 
             // Send something
             $write = fwrite($handle, "echo this\n");
@@ -918,8 +918,8 @@ class Func
             fread($handle, 1024);
 
             // Work out if we got a responce and time it
-            [$usec, $sec] = explode(" ", microtime(true));
-            $laptime = ((float)$usec + (float)$sec)-$start;
+            $end = microtime(true);
+            $laptime = $end - $start;
             if (($laptime * 1_000_000) > ($timeout * 0.9)) {
                 fclose($handle);
                 return false;

@@ -27,7 +27,8 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Development] Introduced PHP_CodeSniffer to ensure a unified coding standard inside our codebase
 - [Development] Introduced a Makefile to make standard commands easier and scriptable
 - [Development] Introduced an automated way to create a new production release incl., documentation and API docs
-- [Development] Add basic Pull Request template
+- [Development] Added basic Pull Request template
+- [Development] Added versioning strategy for dependabot for npm and composer to auto-increase dependency versions if needed
 - [Documentation] Introduced an official documentation website at https://lansuite.github.io/lansuite/
 - [System] Introduced symfony/error-handler to provide more information in an error case rather than the native PHP errors (only active in debug mode)
 - [System] Introduced symfony/cache to easily provide other cache backends like APCu (next to file caching)
@@ -48,8 +49,9 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] If there is no `config.php` file available during installation, create it during setup from the default config
 - [Discord] Introduced a new module to manage Discord Servers
 - [Party] Add information `Gesamt` in the Party box to show how many people can sign up for a party
+- [Birthday] New module to show users birthdays
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
-  
+
 ### Changed
 
 - [System] Raised the requirements of minimum PHP Version to v8.1

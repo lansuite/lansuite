@@ -68,9 +68,10 @@ if (!$cfg['sys_internet']) {
             break;
 
         default:
+            $passwordReminderMail = $_POST['pwr_mail'] ?? '';
             $dsp->SetForm("index.php?mod=usrmgr&action=pwrecover&step=2");
             $dsp->AddSingleRow(t('Bitte gib die Email-Adresse ein, mit der du dich am System angemeldet hast'));
-            $dsp->AddTextFieldRow("pwr_mail", t('Deine Email'), $_POST['pwr_mail'], $mail_error);
+            $dsp->AddTextFieldRow("pwr_mail", t('Deine Email'), $passwordReminderMail, '');
             $dsp->AddFormSubmitRow(t('Abschicken'));
             $dsp->AddBackButton("index.php", "usrmgr/pwremind");
             break;

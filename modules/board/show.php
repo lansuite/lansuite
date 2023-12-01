@@ -15,10 +15,10 @@ $ms2->AddResultField(t('Beiträge'), 'COUNT(p.pid) AS posts');
 $ms2->AddResultField(t('Letzter Beitrag'), 'UNIX_TIMESTAMP(MAX(p.date)) AS LastPost', 'LastPostDetailsShow');
 
 $ms2->AddIconField('details', 'index.php?mod=board&action=forum&fid=', t('Details'));
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=board&action=add&var=change&fid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=2&fid=', t('Löschen'));
 }
 $ms2->PrintSearch('index.php?mod=board', 'f.fid');

@@ -26,7 +26,7 @@ $dsp->AddDoubleRow(t('Sonstiges'), $hardware['sonstiges']);
  * and change of details is allowed via $cfg['user_self_details_change']
  */
 
-if ($auth['type'] >= 2 || ($_GET['userid'] == $auth['userid'] && $cfg['user_self_details_change'])) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || ($_GET['userid'] == $auth['userid'] && $cfg['user_self_details_change'])) {
     if ($hardware['hardwareid']) {
         $plug_bttn_hw = $dsp->FetchSpanButton(t('Editieren'), 'index.php?mod=hardware&action=edit&userid='. $_GET['userid'].'&hardwareid='.$hardware['hardwareid']);
     } else {

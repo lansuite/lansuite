@@ -4,7 +4,8 @@ $importXml = new \LanSuite\XML();
 $installImport = new \LanSuite\Module\Install\Import($importXml);
 $install = new \LanSuite\Module\Install\Install($installImport);
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 2:
         // Set new $config-Vars
         if ($_POST["host"]) {

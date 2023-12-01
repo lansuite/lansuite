@@ -7,7 +7,7 @@ function MasterCommentEditAllowed()
 {
     global $line, $auth;
 
-    if ($line['creatorid'] == $auth['userid'] || $auth['type'] >= 2) {
+    if ($line['creatorid'] == $auth['userid'] || $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         return true;
     }
 
