@@ -57,7 +57,7 @@ class MasterDelete
                 }
 
                 $row = $db->qry_first('SELECT 1 AS found FROM %prefix%%plain% WHERE %plain% = %int%', $table, $val, $MasterKey[$key]);
-                if (!$row['found']) {
+                if (!$row) {
                     $db->qry('DELETE FROM %prefix%%plain% WHERE %plain% = %int%', $key, $val, $MasterKey[$key]);
                 }
             }

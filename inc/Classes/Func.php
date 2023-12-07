@@ -1067,7 +1067,7 @@ class Func
                 return 0;
 
             // No entry -> Thread completely new
-            } elseif (!$last_read['date']) {
+            } elseif (!$last_read) {
                 return 1;
 
             // Entry exists
