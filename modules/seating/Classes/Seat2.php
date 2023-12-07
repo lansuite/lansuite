@@ -929,7 +929,7 @@ class Seat2
             AND s.userid = %int%
             AND status = 2", $party->party_id, $userid);
 
-        if ($my_party_seat['seatid']) {
+        if (is_array($my_party_seat) && $my_party_seat['seatid']) {
             $db->qry("UPDATE %prefix%seat_seats SET userid = 0, status = 1 WHERE seatid = %int%", $my_party_seat['seatid']);
         }
 
