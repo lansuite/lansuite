@@ -133,3 +133,41 @@ Add the following line to your configuration at `/inc/base/config.php`:
 charset = "utf8mb4"
 [...]
 ```
+
+### Fonts in `ext_inc/pdf_fonts`
+
+Delete the following files
+
+* `ext_inc/pdf_fonts/courier.php`
+* `ext_inc/pdf_fonts/helvetica.php`
+* `ext_inc/pdf_fonts/helveticab.php`
+* `ext_inc/pdf_fonts/helveticabi.php`
+* `ext_inc/pdf_fonts/helveticai.php`
+* `ext_inc/pdf_fonts/symbol.php`
+* `ext_inc/pdf_fonts/times.php`
+* `ext_inc/pdf_fonts/timesb.php`
+* `ext_inc/pdf_fonts/timesbi.php`
+* `ext_inc/pdf_fonts/timesi.php`
+* `ext_inc/pdf_fonts/zapfdingbats.php`
+
+Delete the following folder
+
+* `ext_inc/pdf_fonts/makefont`
+
+Add the following files from the release package to the `ext_inc/pdf_fonts` folder
+
+* `ext_inc/pdf_fonts/OldEnglishTextMT.ttf`
+* `ext_inc/pdf_fonts/OldEnglishTextMT.z`
+* `ext_inc/pdf_fonts/OldEnglishTextMT.php`
+* `ext_inc/pdf_fonts/PostAntiqua.ttf`
+* `ext_inc/pdf_fonts/PostAntiqua.z`
+* `ext_inc/pdf_fonts/PostAntiqua.php`
+
+### Converting custom fonts
+
+If you have added your own custom fonts into `ext_inc/pdf_fonts`, you need to convert them into the new fpdf format:
+
+1. Go to http://www.fpdf.org/makefont/
+2. Choose your custom font file (ttf)
+3. Download the generated *.z and *.php file
+4. Add the `*.ttf`, `*.z` and `*.php` into `ext_inc/pdf_fonts`
