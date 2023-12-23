@@ -156,12 +156,7 @@ Delete the following folder
 
 Add the following files from the release package to the `ext_inc/pdf_fonts` folder
 
-* `ext_inc/pdf_fonts/OldEnglishTextMT.ttf`
-* `ext_inc/pdf_fonts/OldEnglishTextMT.z`
-* `ext_inc/pdf_fonts/OldEnglishTextMT.php`
-* `ext_inc/pdf_fonts/PostAntiqua.ttf`
-* `ext_inc/pdf_fonts/PostAntiqua.z`
-* `ext_inc/pdf_fonts/PostAntiqua.php`
+* `ext_inc/pdf_fonts/.gitkeep`
 
 ### Converting custom fonts
 
