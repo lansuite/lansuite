@@ -3,6 +3,9 @@
 $mail = new \LanSuite\Module\Mail\Mail();
 
 $stepParameter = $_GET["step"] ?? 0;
+$inet_error = '';
+$text_error = '';
+$subject_error = '';
 switch ($stepParameter) {
     case 2:
         if ($_POST["subject"] == "") {
@@ -26,10 +29,12 @@ switch ($stepParameter) {
         $dsp->NewContent(t('Rundmail versenden'), t('Hier kannst du eine Rundmail an alle Benutzer senden.'));
         $dsp->SetForm("index.php?mod=mail&action=newsletter&step=2");
 
-        if ($_POST["onlynewsletter"] == "") {
+        $onlyNewsletterParameter = $_POST["onlynewsletter"] ?? '';
+        if ($onlyNewsletterParameter == "") {
             $_POST["onlynewsletter"] = 1;
         }
-        if ($_POST["toinet"] == "") {
+        $toInetParameter = $_POST["toinet"] ?? '';
+        if ($toInetParameter == "") {
             $_POST["toinet"] = 1;
         }
 
@@ -83,12 +88,15 @@ switch ($stepParameter) {
         
         $dsp->AddFieldSetStart(t('Zielsysteme'));
         $dsp->AddCheckBoxRow("toinet", t('E-Mail-Adresse'), t('An die bei der Anmeldung angegebene E-Mail-Adresse'), $inet_error, 1, $_POST["toinet"]);
-        $dsp->AddCheckBoxRow("tosys", t('System-Mailbox'), t('An die System-Mailbox des Benutzers'), "", 1, $_POST["tosys"]);
+        $toSysParameter = $_POST["tosys"] ?? null;
+        $dsp->AddCheckBoxRow("tosys", t('System-Mailbox'), t('An die System-Mailbox des Benutzers'), "", 1, $toSysParameter);
         $dsp->AddFieldSetEnd();
 
+        $subjectParameter = $_POST["subject"] ?? '';
+        $textParameter = $_POST["text"] ?? '';
         $dsp->AddFieldSetStart('Nachricht');
-        $dsp->AddTextFieldRow("subject", t('Betreff'), $_POST["subject"], $subject_error);
-        $dsp->AddTextAreaMailRow("text", t('Text'), $_POST["text"], $text_error);
+        $dsp->AddTextFieldRow("subject", t('Betreff'), $subjectParameter, $subject_error);
+        $dsp->AddTextAreaMailRow("text", t('Text'), $textParameter, $text_error);
         $dsp->AddFieldSetEnd();
 
         $dsp->AddFormSubmitRow(t('Senden'));
@@ -135,6 +143,8 @@ switch ($stepParameter) {
             $where .= " AND u.clanid=". (int)$_POST['clan_id'];
         }
 
+        $toSysParameter = $_POST["tosys"] ?? null;
+
         $success = "";
         $fail = "";
         $users = $db->qry("
@@ -162,9 +172,10 @@ switch ($stepParameter) {
             $text = str_replace("%CLAN%", $user["clan"], $text);
             $text = str_replace("%CLANURL%", $user["clanurl"], $text);
             
-            $text = str_replace("%PARTYNAME%", $party_data["name"], $text);
+            // TODO Enable Party Data in mass mail
+            // $text = str_replace("%PARTYNAME%", $party_data["name"], $text);
             $text = str_replace('%PARTYURL%', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], $text);
-            $text = str_replace("%MAXGUESTS%", $party_data['max_guest'], $text);
+            // $text = str_replace("%MAXGUESTS%", $party_data['max_guest'], $text);
             
             $text = str_replace("%WWCLID%", $user["wwclid"], $text);
             $text = str_replace("%WWCLCLANID%", $user["wwclclanid"], $text);
@@ -189,7 +200,7 @@ switch ($stepParameter) {
                     $fail .= $user["firstname"] ." ". $user["name"] ."[". $user["email"] ."]" . HTML_NEWLINE;
                 }
             }
-            if ($_POST["tosys"]) {
+            if ($toSysParameter) {
                 $mail->create_sys_mail($user["userid"], $__POST["subject"], $text);
             }
         }
@@ -198,7 +209,9 @@ switch ($stepParameter) {
         if ($_POST["toinet"]) {
             $inet_success = t('Die Mail wurde erfolgreich an folgende Benutzer gesendet:') .HTML_NEWLINE. $success .HTML_NEWLINE . HTML_NEWLINE . t('An folgende Benutzer konnte die Mail leider nicht gesendet werden:') .HTML_NEWLINE. $fail . HTML_NEWLINE . HTML_NEWLINE;
         }
-        if ($_POST["tosys"]) {
+
+        $sys_success = '';
+        if ($toSysParameter) {
             $sys_success = t('Die Nachrichten an die System-Mailbox wurden erfolgreich versandt');
         }
 
