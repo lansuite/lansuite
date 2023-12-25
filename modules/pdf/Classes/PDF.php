@@ -447,11 +447,12 @@ class PDF
         $pdf_sqlstring = "";
 
         // Check for parties
-        if ($_POST['party'] == '1' || $pdf_paid) {
+        $partyParameter = $_POST['party'] ?? '';
+        if ($partyParameter == '1' || $pdf_paid) {
             $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id";
         }
         $pdf_sqlstring .= ' WHERE user.type > -1';
-        if ($_POST['party'] == '1' || $pdf_paid) {
+        if ($partyParameter == '1' || $pdf_paid) {
             $pdf_sqlstring .= ' AND party.party_id = '. intval($party->party_id);
         }
 
