@@ -431,7 +431,8 @@ class Auth
 
         // Reset Cookiedata
         $this->cookie_read();
-        $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid = %int%', $this->auth['userid'], $this->cookie_data['userid']);
+        $cookieUserId = $this->cookie_data['userid'] ?? 0;
+        $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid = %int%', $this->auth['userid'], $cookieUserId);
         $this->cookie_unset();
 
         // Reset Sessiondata
