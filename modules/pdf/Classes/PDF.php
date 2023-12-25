@@ -1165,8 +1165,7 @@ class PDF
                         $this->barcodeSystem->get_image($data['userid'], static::BARCODE_PATH . $imagename);
                         $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $iValue['pos_x'] + $this->x, $iValue['pos_y'] + $this->y);
                         $this->barcodeSystem->kill_image(static::BARCODE_PATH . $imagename);
-
-                        // no break
+                        break;
                     case 'data':
                         $this->pdf->SetFont($iValue['font'], '', $iValue["fontsize"]);
                         $this->pdf->SetTextColor($iValue["red"], $iValue["green"], $iValue["blue"]);
