@@ -18,7 +18,8 @@ if ($tournamentid == "") {
 
     switch ($_GET["action"]) {
         case "undo_generate":
-            switch ($_GET["step"]) {
+            $stepParameter = $_GET["step"] ?? 0;
+            switch ($stepParameter) {
                 default:
                     $func->question(t('Bist du sicher, dass du das generieren rückgängig machen wilst? Alle Paarungen und alle bereits eingetragenen Ergebnisse dieses Turnieres werden dabei gelöscht! Bei bereits beendeten Turnieren geht dadurch außerdem die Rangliste verloren!'), "index.php?mod=tournament2&action=undo_generate&step=2&tournamentid=$tournamentid", "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=1");
                     break;

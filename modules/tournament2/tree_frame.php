@@ -6,8 +6,9 @@ $seat2 = new \LanSuite\Module\Seating\Seat2();
 $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
 $tournamentid = $_GET["tournamentid"];
-$fullscreen   = $_SESSION['lansuite']['fullscreen'];
-if ($_GET['group'] == '') {
+$fullscreen = $_SESSION['lansuite']['fullscreen'] ?? false;
+$groupParameter = $_GET['group'] ?? '';
+if ($groupParameter == '') {
     $_GET['group'] = 1;
 }
 
@@ -96,7 +97,20 @@ if ($t['status'] != "process" and $t['status'] != "closed") {
             $img_height = $height + $height_menu;
         }
 
-          $templ['index']['info']['content'] .= '<div id="content" style="width:'. (int)$width .'px; height:'. (int)$img_height .'px"></div>
+        // Init $templ if not exist
+        if (!isset($templ)) {
+            $templ = [
+                'index' => [],
+            ];
+        }
+        if (!array_key_exists('info', $templ['index'])) {
+            $templ['index']['info'] = [];
+        }
+        if (!array_key_exists('content', $templ['index']['info'])) {
+            $templ['index']['info']['content'] = '';
+        }
+
+        $templ['index']['info']['content'] .= '<div id="content" style="width:'. (int)$width .'px; height:'. (int)$img_height .'px"></div>
       <script src="ext_scripts/SVG2VMLv1_1.js"></script>
       <script src="ext_scripts/ls_svg2vml.js"></script>
         <script>
@@ -229,7 +243,8 @@ if ($t['status'] != "process" and $t['status'] != "closed") {
         ';
     }
 
-    if ($_SESSION["lansuite"]["fullscreen"]) {
+    $fullscreenView = $_SESSION["lansuite"]["fullscreen"] ?? false;
+    if ($fullscreenView) {
         $templ['index']['info']['content'] .= "<script type=\"text/javascript\">\r\n<!--\r\n";
         $templ['index']['info']['content'] .= "var x=0;\r\n";
         $templ['index']['info']['content'] .= "setInterval(\"x = x + 1; window.scrollTo(x,0)\", 50);\r\n";

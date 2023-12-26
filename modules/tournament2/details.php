@@ -268,7 +268,7 @@ if (!$tournament["tournamentid"]) {
                 }
 
                 $team_out .= HTML_NEWLINE;
-                if (($members["members"] + 1) < $tournament['teamplayer']) {
+                if (is_array($members) && ($members["members"] + 1) < $tournament['teamplayer']) {
                     $teamcount[0]++;
                     $waiting_teams .= $team_out;
                 } else {

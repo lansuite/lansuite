@@ -191,7 +191,7 @@ class noc
             }
         }
         // Jede gefundene MAC-Adresse zuordnen und im Netzwerk suchen
-        if ($result[0] != '') {
+        if (array_key_exists(0, $result) && $result[0] != '') {
             foreach ($result as $i => $iValue) {
                 $dsp->AddDoubleRow(t('MAC-Addresse'), $iValue);
                 $dsp->AddHRuleRow();

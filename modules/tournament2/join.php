@@ -41,7 +41,8 @@ $user = $db->qry_first("
     userid = %int%", $auth["userid"]);
 
 if ($tteam->SignonCheck($tournamentid)) {
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET["step"] ?? 0;
+    switch ($stepParameter) {
         case 3:
             $error = [];
             if (!$sec->locked("t_join")) {
@@ -82,7 +83,8 @@ if ($tteam->SignonCheck($tournamentid)) {
             break;
     }
 
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET["step"] ?? 0;
+    switch ($stepParameter) {
         case 2:
             $sec->unlock("t_join");
 

@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/troubleticket/search.inc.php');
         break;
@@ -87,7 +88,10 @@ switch ($_GET["step"]) {
             if ($time_text and $time_val) {
                 $dsp->AddDoubleRow($time_text, $time_val);
             }
-            $dsp->AddDoubleRow(t('Bearbeitender Orga'), $dsp->FetchUserIcon($get_targetuser["userid"], $get_targetuser["username"]));
+
+            $targetUserUserId = $get_targetuser["userid"] ?? 0;
+            $targetUserUsername = $get_targetuser["username"] ?? '';
+            $dsp->AddDoubleRow(t('Bearbeitender Orga'), $dsp->FetchUserIcon($targetUserUserId, $targetUserUsername));
 
             if (!$row["publiccomment"]) {
                 $row["publiccomment"] = t(' Kein Hinweis eingetragen');

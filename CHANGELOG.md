@@ -69,6 +69,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Statistics] Limit lasthiturl to 100 chars as we expect it to fit varchar(100)
 - [User] Enforce uniqueness of user & email for registration
 - [Boxes/Login] Sign up and Password Recovery are now text links below the login box and not only icons anymore (for better usability)
+- [PDF] Usage of core fonts from fpdf instead of `ext_inc/pdf_fonts`
 
 ### Deprecated
 

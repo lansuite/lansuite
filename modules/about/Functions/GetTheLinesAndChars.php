@@ -2,14 +2,15 @@
 
 /**
  * @param string $file
- * @return array
+ *
+ * @return array<int, int> array containing two elements: line-count in element 0, character count in element 1
  */
 function GetTheLinesAndChars($file)
 {
     $data = [];
-    $file_content = file($file);
-    $data[0] = is_countable($file_content) ? count($file_content) : 0;
-    foreach ($file_content as $iValue) {
+    $fileContent = file($file);
+    $data[0] = is_countable($fileContent) ? count($fileContent) : 0;
+    foreach ($fileContent as $iValue) {
         $data[1] += strlen($iValue);
     }
 

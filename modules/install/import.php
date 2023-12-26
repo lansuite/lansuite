@@ -3,7 +3,8 @@
 $importXml = new \LanSuite\XML();
 $import = new \LanSuite\Module\Install\Import($importXml);
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Daten importieren'), t('Hier kannst du Benutzerdaten, die du aus einem anderen System exportiert habst, in Lansuite importieren.'));
         $dsp->SetForm("index.php?mod=install&action=import&step=2", "", "", "multipart/form-data");

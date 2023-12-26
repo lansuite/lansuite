@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 3:
         if (strlen($_POST["tticket_orgatext"]) > 5000) {
             $func->information(t('Der Text darf nicht mehr als 5000 Zeichen enthalten'), "index.php?mod=troubleticket&action=change&step=2&ttid={$_GET["ttid"]}");
@@ -19,7 +20,8 @@ switch ($_GET["step"]) {
         break;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/troubleticket/search.inc.php');
         break;
@@ -118,11 +120,21 @@ switch ($_GET["step"]) {
             if ($time_text and $time_val) {
                 $dsp->AddDoubleRow($time_text, $time_val);
             }
-            $dsp->AddDoubleRow(t('Bearbeitender Orga'), $get_targetuser["username"]);
+
+            $targetUsername = $get_targetuser["username"] ?? '';
+            $dsp->AddDoubleRow(t('Bearbeitender Orga'), $targetUsername);
             $dsp->SetForm("index.php?mod=troubleticket&action=change&step=3&ttid=$tt_id");
-            $dsp->AddDropDownFieldRow("tticket_status", t('Status auswählen'), $status_wahl, $error["tticket_status"], 1);
-            $dsp->AddTextAreaPlusRow("tticket_publictext", t('Kommentar für Benutzer'), $_POST['tticket_publictext'], $error["tticket_publictext"]);
-            $dsp->AddTextAreaPlusRow("tticket_orgatext", t('Kommentar für Orgas'), $_POST['tticket_orgatext'], $error["tticket_orgatext"]);
+
+            $errorTticketStatus = $error["tticket_status"] ?? '';
+            $dsp->AddDropDownFieldRow("tticket_status", t('Status auswählen'), $status_wahl, $errorTticketStatus, 1);
+
+            $valueTticketPublictext = $_POST['tticket_publictext'] ?? '';
+            $errorTticketPublictext = $error["tticket_publictext"] ?? '';
+            $dsp->AddTextAreaPlusRow("tticket_publictext", t('Kommentar für Benutzer'), $valueTticketPublictext, $errorTticketPublictext);
+
+            $valueTticketOrgatext = $_POST['tticket_orgatext'] ?? '';
+            $errorTticketOrgatext = $error["tticket_orgatext"] ?? '';
+            $dsp->AddTextAreaPlusRow("tticket_orgatext", t('Kommentar für Orgas'), $valueTticketOrgatext, $errorTticketOrgatext);
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
             $dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/change");
         }

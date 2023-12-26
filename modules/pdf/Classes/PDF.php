@@ -14,7 +14,12 @@ class PDF
     /**
      * Storage of barcodes
      */
-    public const BARCODE_PATH ='ext_inc/barcodes/';
+    public const BARCODE_PATH = 'ext_inc/barcodes/';
+
+    /**
+     * PDF Font path
+     */
+    public const PDF_CUSTOM_FONT_PATH = 'ext_inc' . DIRECTORY_SEPARATOR . 'pdf_fonts' . DIRECTORY_SEPARATOR;
 
     /**
      * Data array
@@ -283,11 +288,7 @@ class PDF
         $query     = $db->qry('SELECT * FROM %prefix%user AS user WHERE user.type > 0');
 
         while ($row = $db->fetch_array($query)) {
-            if ($row['item_id'] == "") {
-                $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>";
-            } else {
-                $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>";
-            }
+            $t_array[] = "<option value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>";
         }
 
         $dsp->AddSingleRow(t('Benutzer mit Stern wurden schon gedruckt'));
@@ -446,11 +447,12 @@ class PDF
         $pdf_sqlstring = "";
 
         // Check for parties
-        if ($_POST['party'] == '1' || $pdf_paid) {
+        $partyParameter = $_POST['party'] ?? '';
+        if ($partyParameter == '1' || $pdf_paid) {
             $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id";
         }
         $pdf_sqlstring .= ' WHERE user.type > -1';
-        if ($_POST['party'] == '1' || $pdf_paid) {
+        if ($partyParameter == '1' || $pdf_paid) {
             $pdf_sqlstring .= ' AND party.party_id = '. intval($party->party_id);
         }
 
@@ -1016,6 +1018,7 @@ class PDF
         }
 
         $this->pdf = new \FPDF($orientation, 'mm', $page_data['text']);
+        $this->loadCustomFonts();
         $this->start_x = $page_data['pos_x'];
         $this->start_y = $page_data['pos_y'];
         $this->pdf->AddPage();
@@ -1026,6 +1029,28 @@ class PDF
         } else {
             $this->total_x = $this->pdf->fw;
             $this->total_y = $this->pdf->fh;
+        }
+    }
+
+    /**
+     * Load custom fonts stored in ext_inc/
+     *
+     * Core fonts are stored and delivered from fpdf itself.
+     * Custom fonts can be integrated into the system.
+     *
+     * The ttf fonts need to be converted into a special format (via makepdf).
+     * To generate a new font, follow the tutorial at http://www.fpdf.org/en/tutorial/tuto7.htm
+     * or use the online generator at http://www.fpdf.org/makefont/
+     */
+    private function loadCustomFonts(): void {
+        $fontStyle = '';
+        $fontFile = '';
+        foreach (new \DirectoryIterator(static::PDF_CUSTOM_FONT_PATH) as $file) {
+            if ($file->isFile() && $file->getExtension() == 'php') {
+                $extensionPosition = strrpos($file->getFilename(), '.');
+                $filenameWithoutExtension = substr($file->getFilename(), 0, $extensionPosition);
+                $this->pdf->AddFont($filenameWithoutExtension, $fontStyle, $fontFile, static::PDF_CUSTOM_FONT_PATH);
+            }
         }
     }
 
@@ -1141,8 +1166,7 @@ class PDF
                         $this->barcodeSystem->get_image($data['userid'], static::BARCODE_PATH . $imagename);
                         $this->pdf->Image(static::BARCODE_PATH . $imagename . ".png", $iValue['pos_x'] + $this->x, $iValue['pos_y'] + $this->y);
                         $this->barcodeSystem->kill_image(static::BARCODE_PATH . $imagename);
-
-                        // no break
+                        break;
                     case 'data':
                         $this->pdf->SetFont($iValue['font'], '', $iValue["fontsize"]);
                         $this->pdf->SetTextColor($iValue["red"], $iValue["green"], $iValue["blue"]);

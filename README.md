@@ -16,7 +16,7 @@ LANSuite has features like ...
 
 ## Getting started
 
-See our documentation on [lansuite.github.io/lansuite](https://lansuite.github.io/lansuite/docs/installation.html).
+See our documentation on [lansuite.github.io/lansuite](https://lansuite.github.io/lansuite/).
 There you will find information on how to install it, what the requirements are, how to configure the system and more.
 
 If you still struggle with getting started, feel free to [open an issue](https://github.com/lansuite/lansuite/issues/new) and tell us your challenge.
