@@ -20,7 +20,7 @@ if ($overall_news == 0) {
         $newsCompletedConfig = $cfg['news_completed'] ?? 0;
         $pages = $func->page_split($newsPageParameter, $cfg["news_shorted_archiv"], $overall_news - ($cfg['news_shorted'] + $newsCompletedConfig), "index.php?mod=news&action=show&subaction=archive", "news_page");
 
-        $get_newsshorted = $database->query("SELECT UNIX_TIMESTAMP(n.date) AS date, n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC " . $pages["sql"]);
+        $get_newsshorted = $database->query("SELECT UNIX_TIMESTAMP(n.date) AS date, n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster WHERE n.visibility <= ? ORDER BY n.top DESC, n.date DESC " . $pages["sql"], $auth['type']);
         while ($row=$db->fetch_array($get_newsshorted)) {
             $tmpDate = $func->unixstamp2date($row['date'], 'daydate');
             $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=" .$row['newsid'] ."\">" .$row['caption'] ."</a>";
@@ -51,7 +51,7 @@ if ($overall_news == 0) {
             }
             $pages = $func->page_split($newsPageParameter, $cfg["news_count"], $overall_news, "index.php?mod=news&amp;action=show", "news_page");
 
-            $get_news = $db->qry('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC %plain%', $pages["sql"]);
+            $get_news = $database->queryWithFullResult('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster WHERE n.visibility <= ? ORDER BY n.top DESC, n.date DESC '. $pages["sql"], [$auth['type']]);
 
             while ($row=$db->fetch_array($get_news)) {
                 $priority = $row["priority"];
