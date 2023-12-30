@@ -3,7 +3,7 @@
 // Check if news id is valid
 $newsQuery = 'SELECT caption FROM %prefix%news WHERE newsid = ? AND visibility <= ?';
 $check = $database->queryWithOnlyFirstRow($newsQuery, [$_GET['newsid'], $auth['type']]);
-if ($check["caption"] != "") {
+if ($check) {
     $framework->AddToPageTitle($check["caption"]);
     $func->SetRead('news', $_GET['newsid']);
   

@@ -17,12 +17,11 @@ $selections['1'] = t('Ja');
 $mf->AddField(t('Top-Meldung'), 'top', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
 $privs = [0 => t('Alle'), 1 => t('Benutzer'), 2 => t('Admins'), 3 => t('SuperAdmins')];
-// Add Draft selctor
 $mf->AddField(t('Sichtbar für Benutzergruppe'),'visibility',\Lansuite\Masterform::IS_SELECTION, $privs, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-// Add release date
+//@todo: Add release date
 
-// Add date to remove
+//@todo: Add date to remove
 
 
 
