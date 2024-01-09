@@ -1,7 +1,7 @@
 <?php
 
 // Edit Hardwareinfos for User
-if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])) {
     $mf = new \LanSuite\MasterForm();
     
     $dsp->NewContent(t("Hardware &auml;ndern"), t("Hier kannst du die Hardware eingeben"));
@@ -17,7 +17,7 @@ if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_sel
     $mf->AddField('Monitor', 'monitor', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddField('Betriebssystem', 'os', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddField('Computername', 'name', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
-    $mf->AddField('Sonstiges', 'sonstiges', text, '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+    $mf->AddField('Sonstiges', 'sonstiges', 'text', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddFix('userid', $_GET['userid']);
     $mf->SendForm('index.php?mod=hardware&action=edit&userid='.$_GET['userid'], 'hardware', 'hardwareid', $_GET['hardwareid']);
 } else {

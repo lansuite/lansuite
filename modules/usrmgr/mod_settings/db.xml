@@ -235,8 +235,15 @@
             <field>
                 <name>birthday</name>
                 <type>date</type>
-                <null></null>
+                <null>YES</null>
                 <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>show_birthday</name>
+                <type>tinyint(1)</type>
+                <null></null>
+                <default>0</default>
                 <extra></extra>
             </field>
             <field>

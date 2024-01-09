@@ -2,7 +2,11 @@
 
 $mail = new \LanSuite\Module\Mail\Mail();
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+$inet_error = '';
+$text_error = '';
+$subject_error = '';
+switch ($stepParameter) {
     case 2:
         if ($_POST["subject"] == "") {
             $subject_error = t('Bitte gib einen Betreff an');
@@ -19,61 +23,64 @@ switch ($_GET["step"]) {
         break;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Rundmail versenden'), t('Hier kannst du eine Rundmail an alle Benutzer senden.'));
         $dsp->SetForm("index.php?mod=mail&action=newsletter&step=2");
 
-        if ($_POST["onlynewsletter"] == "") {
+        $onlyNewsletterParameter = $_POST["onlynewsletter"] ?? '';
+        if ($onlyNewsletterParameter == "") {
             $_POST["onlynewsletter"] = 1;
         }
-        if ($_POST["toinet"] == "") {
+        $toInetParameter = $_POST["toinet"] ?? '';
+        if ($toInetParameter == "") {
             $_POST["toinet"] = 1;
         }
 
         $dsp->AddFieldSetStart('Zielgruppen-Einschränkung');
         $dsp->AddCheckBoxRow("onlynewsletter", t('Nur Newsletter'), t('Nur an Benutzer, die den Newsletter bei der Anmeldung bestellt haben'), "", 1, $_POST["onlynewsletter"]);
 
-        $t_array = array();
-        array_push($t_array, '<option $selected value="0">'. t('An alle Benutzer') .'</option>');
-        array_push($t_array, '<option $selected value="-1">'. t('Zu keiner Party angemeldet') .'</option>');
-        $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
+        $t_array   = array();
+        $t_array[] = '<option $selected value="0">' . t('An alle Benutzer') . '</option>';
+        $t_array[] = '<option $selected value="-1">' . t('Zu keiner Party angemeldet') . '</option>';
+        $row       = $db->qry("SELECT party_id, name FROM %prefix%partys");
         while ($res = $db->fetch_array($row)) {
-            array_push($t_array, '<option $selected value="'. $res['party_id'] .'">'. $res['name'] .'</option>');
+            $t_array[] = '<option $selected value="' . $res['party_id'] . '">' . $res['name'] . '</option>';
         }
         $db->free_result($row);
         $dsp->AddDropDownFieldRow("onlysignon", t('Nur Angemeldete an folgender Party'), $t_array, '');
 
-        $t_array = array();
-        array_push($t_array, "<option $selected value=\"0\">".t('An alle Benutzer')."</option>");
-        array_push($t_array, "<option $selected value=\"1\">".t('Nur an Benutzer, die bezahlt haben')."</option>");
-        array_push($t_array, "<option $selected value=\"2\">".t('Nur an Benutzer, die NICHT bezahlt haben')."</option>");
+        $t_array   = array();
+        $t_array[] = "<option $selected value=\"0\">" . t('An alle Benutzer') . "</option>";
+        $t_array[] = "<option $selected value=\"1\">" . t('Nur an Benutzer, die bezahlt haben') . "</option>";
+        $t_array[] = "<option $selected value=\"2\">" . t('Nur an Benutzer, die NICHT bezahlt haben') . "</option>";
         $dsp->AddDropDownFieldRow("onlypaid", t('Nur Benutzer die zu oben ausgewählter Party bezahlt haben'), $t_array, '');
 
-        $t_array = array();
-        array_push($t_array, "<option $selected value=\"0\">". t('An alle Benutzer') ."</option>");
-        array_push($t_array, "<option $selected value=\"1\">". t('Nur an Gäste') ."</option>");
-        array_push($t_array, "<option $selected value=\"2\">". t('Nur an Admins und Superadminen') ."</option>");
-        array_push($t_array, "<option $selected value=\"3\">". t('Nur an Superadminen') ."</option>");
+        $t_array   = array();
+        $t_array[] = "<option $selected value=\"0\">" . t('An alle Benutzer') . "</option>";
+        $t_array[] = "<option $selected value=\"1\">" . t('Nur an Gäste') . "</option>";
+        $t_array[] = "<option $selected value=\"2\">" . t('Nur an Admins und Superadminen') . "</option>";
+        $t_array[] = "<option $selected value=\"3\">" . t('Nur an Superadminen') . "</option>";
         $dsp->AddDropDownFieldRow("type", t('Nur an folgende Benutzertypen'), $t_array, '');
 
-        $t_array = array();
-        array_push($t_array, '<option $selected value="0">'. t('An alle Gruppen') .'</option>');
-        array_push($t_array, '<option $selected value="-1">'. t('Nur an Benutzer ohne Gruppe') .'</option>');
-        $row = $db->qry("SELECT group_id, group_name FROM %prefix%party_usergroups");
+        $t_array   = array();
+        $t_array[] = '<option $selected value="0">' . t('An alle Gruppen') . '</option>';
+        $t_array[] = '<option $selected value="-1">' . t('Nur an Benutzer ohne Gruppe') . '</option>';
+        $row       = $db->qry("SELECT group_id, group_name FROM %prefix%party_usergroups");
         while ($res = $db->fetch_array($row)) {
-            array_push($t_array, '<option $selected value="'. $res['group_id'] .'">'. $res['group_name'] .'</option>');
+            $t_array[] = '<option $selected value="' . $res['group_id'] . '">' . $res['group_name'] . '</option>';
         }
         $db->free_result($row);
         $dsp->AddDropDownFieldRow("group_id", t('Nur an folgende Gruppen'), $t_array, '');
         
         // Clanfilter
-        $t_array = array();
-        array_push($t_array, '<option $selected value="0">'. t('An alle Clans') .'</option>');
-        array_push($t_array, '<option $selected value="-1">'. t('Nur an Benutzer ohne Clan') .'</option>');
-        $row = $db->qry("SELECT clanid, name FROM %prefix%clan");
+        $t_array   = array();
+        $t_array[] = '<option $selected value="0">' . t('An alle Clans') . '</option>';
+        $t_array[] = '<option $selected value="-1">' . t('Nur an Benutzer ohne Clan') . '</option>';
+        $row       = $db->qry("SELECT clanid, name FROM %prefix%clan");
         while ($res = $db->fetch_array($row)) {
-            array_push($t_array, '<option $selected value="'. $res['clanid'] .'">'. $res['name'] .'</option>');
+            $t_array[] = '<option $selected value="' . $res['clanid'] . '">' . $res['name'] . '</option>';
         }
         $db->free_result($row);
         $dsp->AddDropDownFieldRow("clan_id", t('Nur an folgenden Clan'), $t_array, '');
@@ -81,12 +88,15 @@ switch ($_GET["step"]) {
         
         $dsp->AddFieldSetStart(t('Zielsysteme'));
         $dsp->AddCheckBoxRow("toinet", t('E-Mail-Adresse'), t('An die bei der Anmeldung angegebene E-Mail-Adresse'), $inet_error, 1, $_POST["toinet"]);
-        $dsp->AddCheckBoxRow("tosys", t('System-Mailbox'), t('An die System-Mailbox des Benutzers'), "", 1, $_POST["tosys"]);
+        $toSysParameter = $_POST["tosys"] ?? null;
+        $dsp->AddCheckBoxRow("tosys", t('System-Mailbox'), t('An die System-Mailbox des Benutzers'), "", 1, $toSysParameter);
         $dsp->AddFieldSetEnd();
 
+        $subjectParameter = $_POST["subject"] ?? '';
+        $textParameter = $_POST["text"] ?? '';
         $dsp->AddFieldSetStart('Nachricht');
-        $dsp->AddTextFieldRow("subject", t('Betreff'), $_POST["subject"], $subject_error);
-        $dsp->AddTextAreaMailRow("text", t('Text'), $_POST["text"], $text_error);
+        $dsp->AddTextFieldRow("subject", t('Betreff'), $subjectParameter, $subject_error);
+        $dsp->AddTextAreaMailRow("text", t('Text'), $textParameter, $text_error);
         $dsp->AddFieldSetEnd();
 
         $dsp->AddFormSubmitRow(t('Senden'));
@@ -133,6 +143,8 @@ switch ($_GET["step"]) {
             $where .= " AND u.clanid=". (int)$_POST['clan_id'];
         }
 
+        $toSysParameter = $_POST["tosys"] ?? null;
+
         $success = "";
         $fail = "";
         $users = $db->qry("
@@ -160,9 +172,10 @@ switch ($_GET["step"]) {
             $text = str_replace("%CLAN%", $user["clan"], $text);
             $text = str_replace("%CLANURL%", $user["clanurl"], $text);
             
-            $text = str_replace("%PARTYNAME%", $party_data["name"], $text);
+            // TODO Enable Party Data in mass mail
+            // $text = str_replace("%PARTYNAME%", $party_data["name"], $text);
             $text = str_replace('%PARTYURL%', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], $text);
-            $text = str_replace("%MAXGUESTS%", $party_data['max_guest'], $text);
+            // $text = str_replace("%MAXGUESTS%", $party_data['max_guest'], $text);
             
             $text = str_replace("%WWCLID%", $user["wwclid"], $text);
             $text = str_replace("%WWCLCLANID%", $user["wwclclanid"], $text);
@@ -187,7 +200,7 @@ switch ($_GET["step"]) {
                     $fail .= $user["firstname"] ." ". $user["name"] ."[". $user["email"] ."]" . HTML_NEWLINE;
                 }
             }
-            if ($_POST["tosys"]) {
+            if ($toSysParameter) {
                 $mail->create_sys_mail($user["userid"], $__POST["subject"], $text);
             }
         }
@@ -196,7 +209,9 @@ switch ($_GET["step"]) {
         if ($_POST["toinet"]) {
             $inet_success = t('Die Mail wurde erfolgreich an folgende Benutzer gesendet:') .HTML_NEWLINE. $success .HTML_NEWLINE . HTML_NEWLINE . t('An folgende Benutzer konnte die Mail leider nicht gesendet werden:') .HTML_NEWLINE. $fail . HTML_NEWLINE . HTML_NEWLINE;
         }
-        if ($_POST["tosys"]) {
+
+        $sys_success = '';
+        if ($toSysParameter) {
             $sys_success = t('Die Nachrichten an die System-Mailbox wurden erfolgreich versandt');
         }
 

@@ -10,7 +10,8 @@ if (!$party->party_id) {
     $func->information(t('Es gibt keine aktive Party. Bitte setze im Partymanager eine Party aktiv'));
 } else {
     // Main-Switch
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET['step'] ?? '';
+    switch ($stepParameter) {
         // Auswahl: Angemeldet? ja/Nein
         case '':
         case 1:
@@ -133,7 +134,8 @@ if (!$party->party_id) {
             break;
     }
 
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // Platzpfand prüfen
         case 4:
         // Passwort ausgeben
@@ -192,14 +194,14 @@ if (!$party->party_id) {
                 $questionarray = array();
                 $linkarray = array();
 
-                array_push($questionarray, "Dennoch reservieren. {$seat['username']} hat dadurch anschließend keinen Sitzplatz mehr");
-                array_push($linkarray, "index.php?mod=usrmgr&action=entrance&step=10&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid={$_GET["blockid"]}&row={$_GET['row']}&col={$_GET['col']}");
+                $questionarray[] = "Dennoch reservieren. {$seat['username']} hat dadurch anschließend keinen Sitzplatz mehr";
+                $linkarray[]     = "index.php?mod=usrmgr&action=entrance&step=10&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid={$_GET["blockid"]}&row={$_GET['row']}&col={$_GET['col']}";
 
-                array_push($questionarray, "Dennoch reservieren und {$seat['username']} anschließend einen neuen Sitzplatz aussuchen");
-                array_push($linkarray, "index.php?mod=usrmgr&action=entrance&step=7&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid={$_GET["blockid"]}&next_userid={$seat['userid']}&row={$_GET['row']}&col={$_GET['col']}");
+                $questionarray[] = "Dennoch reservieren und {$seat['username']} anschließend einen neuen Sitzplatz aussuchen";
+                $linkarray[]     = "index.php?mod=usrmgr&action=entrance&step=7&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid={$_GET["blockid"]}&next_userid={$seat['userid']}&row={$_GET['row']}&col={$_GET['col']}";
 
-                array_push($questionarray, 'Aktion abbrechen. Zurück zum Sitzplan');
-                array_push($linkarray, "index.php?mod=usrmgr&action=entrance&step=7&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid={$_GET["blockid"]}");
+                $questionarray[] = 'Aktion abbrechen. Zurück zum Sitzplan';
+                $linkarray[]     = "index.php?mod=usrmgr&action=entrance&step=7&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid={$_GET["blockid"]}";
 
                 $func->multiquestion($questionarray, $linkarray, "Dieser Sitzplatz ist aktuell belegt durch {$seat['username']} ({$seat['firstname']} {$seat['name']})");
             }
@@ -210,7 +212,8 @@ if (!$party->party_id) {
             break;
     }
 
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         case 10:
             $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
 

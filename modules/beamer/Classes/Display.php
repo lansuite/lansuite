@@ -46,7 +46,7 @@ class Display
          * @param string $var
          * @return string
          */
-        function formatContentType($var)
+        $formatContentType = function($var)
         {
             if ($var == "text") {
                 return '<img src="design/images/icon_text.png" alt="Text" border="0">';
@@ -61,7 +61,7 @@ class Display
             }
 
             return '';
-        }
+        };
 
         /**
          * @param string    $var
@@ -82,37 +82,37 @@ class Display
             return '';
         }
     
-        function formatBeamer1Status($var, $bcid)
+        $formatBeamer1Status = function($var, $bcid)
         {
             return formatBStatus($var, $bcid, "1");
-        }
+        };
 
-        function formatBeamer2Status($var, $bcid)
+        $formatBeamer2Status = function($var, $bcid)
         {
             return formatBStatus($var, $bcid, "2");
-        }
+        };
 
-        function formatBeamer3Status($var, $bcid)
+        $formatBeamer3Status = function($var, $bcid)
         {
             return formatBStatus($var, $bcid, "3");
-        }
+        };
 
-        function formatBeamer4Status($var, $bcid)
+        $formatBeamer4Status = function($var, $bcid)
         {
             return formatBStatus($var, $bcid, "4");
-        }
+        };
 
-        function formatBeamer5Status($var, $bcid)
+        $formatBeamer5Status = function($var, $bcid)
         {
             return formatBStatus($var, $bcid, "5");
-        }
+        };
 
         /**
          * @param int $var
          * @param int $var2
          * @return string
          */
-        function formatActiveStatus($var, $var2)
+        $formatActiveStatus = function($var, $var2)
         {
             if ($var == "1") {
                 return '<a href="index.php?mod=beamer&action=toggleactive&bcid='.$var2.'"><img src="design/images/icon_active.png" alt="Aktiv" border="0"></a>';
@@ -123,22 +123,22 @@ class Display
             }
 
             return '';
-        }
+        };
     
         $dsp->NewContent(t('Auflistung der Inhalte'));
         $dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton(t('Inhalte hinzuf&uuml;gen'), 'index.php?mod=beamer&action=newcontent', 'Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));
 
-        $ms2 = new LanSuite\Module\MasterSearch2\MasterSearch2('Beamer');
+        $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('Beamer');
         $ms2->query['from'] = '%prefix%beamer_content';
-        $ms2->AddResultField('-A-', 'active', 'formatActiveStatus', '', 35);
-        $ms2->AddResultField(t('Typ'), 'contentType', 'formatContentType', "", 35);
+        $ms2->AddResultField('-A-', 'active', $formatActiveStatus, '', 35);
+        $ms2->AddResultField(t('Typ'), 'contentType', $formatContentType, "", 35);
         $ms2->AddResultField(t('Titel'), 'caption');
         $ms2->AddResultField(t('Zuletzt angezeigt'), 'lastView', 'MS2GetTime', '', 80);
-        $ms2->AddResultField('B.1', 'b1', 'formatBeamer1Status', '', 25);
-        $ms2->AddResultField('B.2', 'b2', 'formatBeamer2Status', '', 25);
-        $ms2->AddResultField('B.3', 'b3', 'formatBeamer3Status', '', 25);
-        $ms2->AddResultField('B.4', 'b4', 'formatBeamer4Status', '', 25);
-        $ms2->AddResultField('B.5', 'b5', 'formatBeamer5Status', '', 25);
+        $ms2->AddResultField('B.1', 'b1', $formatBeamer1Status, '', 25);
+        $ms2->AddResultField('B.2', 'b2', $formatBeamer2Status, '', 25);
+        $ms2->AddResultField('B.3', 'b3', $formatBeamer3Status, '', 25);
+        $ms2->AddResultField('B.4', 'b4', $formatBeamer4Status, '', 25);
+        $ms2->AddResultField('B.5', 'b5', $formatBeamer5Status, '', 25);
         $ms2->AddIconField('reset_timestamp', 'index.php?mod=beamer&action=set2first&bcid=', t('An den Anfang der Spielliste setzen'));
         $ms2->AddIconField('edit', 'index.php?mod=beamer&action=editcontent&bcid=', t('Bearbeiten'));
         $ms2->AddIconField('delete', 'index.php?mod=beamer&action=askfordelete&bcid=', t('L&ouml;schen'));

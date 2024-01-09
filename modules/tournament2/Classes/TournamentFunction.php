@@ -5,15 +5,9 @@ namespace LanSuite\Module\Tournament2;
 class TournamentFunction
 {
 
-    /**
-     * @var \LanSuite\Module\Mail\Mail
-     */
-    private $mail = null;
+    private ?\LanSuite\Module\Mail\Mail $mail = null;
 
-    /**
-     * @var \LanSuite\Module\Seating\Seat2
-     */
-    private $seating = null;
+    private ?\LanSuite\Module\Seating\Seat2 $seating = null;
 
     public function __construct(\LanSuite\Module\Mail\Mail $mail, \LanSuite\Module\Seating\Seat2 $seating)
     {
@@ -58,11 +52,12 @@ class TournamentFunction
      * @param int $tid
      * @param string $mode
      * @param int $group
-     * @return float|int
      */
-    public function GetTeamAnz($tid, $mode, $group = 0)
+    public function GetTeamAnz($tid, $mode, $group = 0): float|int
     {
         global $db;
+
+        $numberOfTeams = 0;
 
         if (($mode == "groups") && ($group == 0)) {
             $game = $db->qry("
@@ -74,7 +69,9 @@ class TournamentFunction
               GROUP BY group_nr", $tid);
             $team_anz = 2 * $db->num_rows($game);
             $db->free_result($game);
-            return $team_anz;
+
+            $numberOfTeams = $team_anz;
+
         } else {
             if ($mode != "groups") {
                 $group = 0;
@@ -95,8 +92,11 @@ class TournamentFunction
                 AND (round = 0)
                 AND (group_nr = %string%) %plain%
               GROUP BY round", $tid, $group, $add_where);
-            return $games['anz'];
+
+              $numberOfTeams = $games['anz'] ?? 0;
         }
+
+        return $numberOfTeams;
     }
 
     /**
@@ -105,9 +105,8 @@ class TournamentFunction
      * @param array $tournament
      * @param int $round
      * @param int $group_nr
-     * @return float|int
      */
-    public function GetGameStart($tournament, $round, $group_nr = 0)
+    public function GetGameStart($tournament, $round, $group_nr = 0): float|int
     {
         global $db;
         
@@ -157,9 +156,8 @@ class TournamentFunction
      * @param array $tournament
      * @param int $round
      * @param int $group_nr
-     * @return float|int
      */
-    public function GetGameEnd($tournament, $round, $group_nr = 0)
+    public function GetGameEnd($tournament, $round, $group_nr = 0): float|int
     {
         global $db;
         
@@ -250,11 +248,11 @@ class TournamentFunction
                 games.position ASC", $tournamentid);
             while ($team = $db->fetch_array($teams)) {
                 $array_id++;
-                array_push($ranking_data->id, $array_id);
-                array_push($ranking_data->tid, $team['teamid']);
-                array_push($ranking_data->name, $team['name']);
-                array_push($ranking_data->pos, $num++);
-                array_push($ranking_data->disqualified, $team['disqualified']);
+                $ranking_data->id[]           = $array_id;
+                $ranking_data->tid[]          = $team['teamid'];
+                $ranking_data->name[]         = $team['name'];
+                $ranking_data->pos[]          = $num++;
+                $ranking_data->disqualified[] = $team['disqualified'];
             }
             $db->free_result($teams);
         } elseif ($tournament['mode'] == 'single' or $tournament['mode'] == 'double'
@@ -284,13 +282,13 @@ class TournamentFunction
             if ($tournament['mode'] == "double") {
                 for ($i = 0; $i < 2; $i++) {
                     $team = $db->fetch_array($teams);
-                    if ($team['teamid']) {
+                    if ($team && $team['teamid']) {
                         $array_id++;
-                        array_push($ranking_data->id, $array_id);
-                        array_push($ranking_data->tid, $team['teamid']);
-                        array_push($ranking_data->name, $team['name']);
-                        array_push($ranking_data->pos, $num++);
-                        array_push($ranking_data->disqualified, $team['disqualified']);
+                        $ranking_data->id[]           = $array_id;
+                        $ranking_data->tid[]          = $team['teamid'];
+                        $ranking_data->name[]         = $team['name'];
+                        $ranking_data->pos[]          = $num++;
+                        $ranking_data->disqualified[] = $team['disqualified'];
                     }
                 }
                 $db->free_result($teams);
@@ -319,11 +317,11 @@ class TournamentFunction
             while ($team = $db->fetch_array($teams)) {
                 if ($team['teamid'] && !in_array($team['teamid'], $ranking_data->tid)) {
                     $array_id++;
-                    array_push($ranking_data->id, $array_id);
-                    array_push($ranking_data->tid, $team['teamid']);
-                    array_push($ranking_data->name, $team['name']);
-                    array_push($ranking_data->pos, $num++);
-                    array_push($ranking_data->disqualified, $team['disqualified']);
+                    $ranking_data->id[]           = $array_id;
+                    $ranking_data->tid[]          = $team['teamid'];
+                    $ranking_data->name[]         = $team['name'];
+                    $ranking_data->pos[]          = $num++;
+                    $ranking_data->disqualified[] = $team['disqualified'];
                 }
             }
             $db->free_result($teams);
@@ -348,15 +346,15 @@ class TournamentFunction
             $i = 0;
             while ($team = $db->fetch_array($teams)) {
                 $i++;
-                array_push($ranking_data->pos, $i);
-                array_push($ranking_data->tid, $team["teamid"]);
-                array_push($ranking_data->name, $team['name']);
-                array_push($ranking_data->disqualified, $team['disqualified']);
-                array_push($ranking_data->reached_finales, 0);
-                array_push($ranking_data->win, 0);
-                array_push($ranking_data->score, 0);
-                array_push($ranking_data->score_en, 0);
-                array_push($ranking_data->games, 0);
+                $ranking_data->pos[]             = $i;
+                $ranking_data->tid[]             = $team["teamid"];
+                $ranking_data->name[]            = $team['name'];
+                $ranking_data->disqualified[]    = $team['disqualified'];
+                $ranking_data->reached_finales[] = 0;
+                $ranking_data->win[]             = 0;
+                $ranking_data->score[]           = 0;
+                $ranking_data->score_en[]        = 0;
+                $ranking_data->games[]           = 0;
             }
 
             $scores = $db->qry("
@@ -414,7 +412,7 @@ class TournamentFunction
             $teams_array_tmp = $ranking_data->tid;
             $i = 0;
             while (array_shift($teams_array_tmp)) {
-                array_push($ranking_data->score_dif, ($ranking_data->score[$i] - $ranking_data->score_en[$i]));
+                $ranking_data->score_dif[] = ($ranking_data->score[$i] - $ranking_data->score_en[$i]);
                 $i++;
             }
             array_multisort(
@@ -460,10 +458,12 @@ class TournamentFunction
     {
         global $auth;
 
+        $link = '';
         if ($teamid) {
             $link = " <a href=\"index.php?mod=tournament2&action=tdetails&tournamentid=$tournamentid&teamid=$teamid\"><img src=\"design/". $auth["design"] ."/images/arrows_search.gif\" width=\"12\" height=\"13\" border=\"0\"></a>";
-            return $link;
         }
+
+        return $link;
     }
 
     /**
@@ -475,6 +475,8 @@ class TournamentFunction
      */
     private function GenerateNewPosition($player1, $player2)
     {
+        $team_round = [];
+        $team_pos = [];
         global $db, $round, $pos, $score, $tournamentid, $leaderid, $num_rounds, $team_anz;
 
         $team_round[$player1] = $round;
@@ -669,6 +671,7 @@ class TournamentFunction
      */
     public function SubmitResult($ttid, $gameid1, $gameid2, $score1, $score2, $comment)
     {
+        $unfinished_games = [];
         global $db, $func, $tournamentid, $round, $pos, $score, $leaderid, $num_rounds, $team_anz;
         $tournamentid = $ttid;
         $score[1] = $score1;
@@ -952,7 +955,7 @@ class TournamentFunction
                 if ($cfg["t_default_win"] == 0) {
                     $cfg["t_default_win"] = 2;
                 }
-                if (rand(0, 1) == 1) {
+                if (random_int(0, 1) == 1) {
                     $score1 = $cfg["t_default_win"];
                     $score2 = 0;
                 } else {

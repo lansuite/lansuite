@@ -4,18 +4,21 @@
  * @param string $field
  * @param int $mode
  * @param string $error
- * @return bool|string
  */
-function Addr1Input($field, $mode, $error = '')
+function Addr1Input($field, $mode, $error = ''): bool|string
 {
     global $dsp;
 
     switch ($mode) {
         case \LanSuite\MasterForm::OUTPUT_PROC:
-            if ($_POST['street|hnr'] == '' and $_POST['street'] and $_POST['hnr']) {
-                $_POST['street|hnr'] = $_POST['street'] .' '. $_POST['hnr'];
+            $streetAndNoParameter = $_POST['street|hnr'] ?? '';
+            $streetParameter = $_POST['street'] ?? '';
+            $streetNoParameter = $_POST['hnr'] ?? '';
+
+            if ($streetAndNoParameter == '' && $streetParameter  && $streetNoParameter) {
+                $_POST['street|hnr'] = $streetParameter  . ' ' . $streetNoParameter;
             }
-            $dsp->AddTextFieldRow('street|hnr', t('Straße und Hausnummer'), $_POST['street|hnr'], $error, '', Optional('street'));
+            $dsp->AddTextFieldRow('street|hnr', t('Straße und Hausnummer'), $streetAndNoParameter, $error, '', Optional('street'));
             return false;
             break;
 

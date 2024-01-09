@@ -8,6 +8,7 @@
  */
 function PaidIconLinkFoodcenter($paid)
 {
+    $link = null;
     global $dsp, $line, $party;
 
     // Only link, if selected party is the current party

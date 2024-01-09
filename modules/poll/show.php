@@ -2,7 +2,8 @@
 
 $poll = new LanSuite\Module\Poll\Poll();
 
-if ($_GET['step'] >= 2) {
+$stepParameter = $_GET['step'] ?? 0;
+if ($stepParameter >= 2) {
     $pollrow = $db->qry_first('
       SELECT
         caption,
@@ -52,7 +53,8 @@ if ($_GET['step'] >= 2) {
     $framework->AddToPageTitle($pollrow["caption"]);
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/poll/search.inc.php');
         break;
@@ -61,7 +63,7 @@ switch ($_GET['step']) {
         $func->SetRead('poll', $_GET['pollid']);
 
         // Has voted? -> Show results
-        if ($voted['found'] or ($pollrow['endtime'] and $pollrow['endtime'] < time())) {
+        if ($voted || ($pollrow['endtime'] && $pollrow['endtime'] < time())) {
             $poll->ShowResult($_GET['pollid'], $pollrow['anonym']);
 
         // Has not voted? -> Show form

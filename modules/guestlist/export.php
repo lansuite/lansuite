@@ -7,14 +7,15 @@ $userManager = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
 $guestlist = new LanSuite\Module\GuestList\GuestList($seating, $userManager);
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     // Export CSV
     case 10:
         if (!$_POST['action'] and $_GET['userid']) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             header('Expires: 0');
             header('Cache-control: private');
             header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -39,7 +40,7 @@ switch ($_GET['step']) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             foreach ($_POST['action'] as $key => $val) {
                 $guestlist->SetExported($key, $party->party_id);
             }
@@ -62,7 +63,7 @@ if (!$party->party_id) {
     $ms2->config['EntriesPerPage'] = 100;
 
     $ms2->AddResultField(t('Benutzername'), 'u.username');
-    if ($auth['type'] >= 2 or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
         $ms2->AddResultField(t('Vorname'), 'u.firstname');
         $ms2->AddResultField(t('Nachname'), 'u.name');
     }
@@ -72,7 +73,7 @@ if (!$party->party_id) {
 
     $ms2->AddIconField('details', 'index.php?mod=guestlist&action=details&userid=', t('Details'));
 
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $ms2->AddMultiSelectAction(t('Exportieren'), "index.php?mod=guestlist&action=export&step=10", 1, 'export');
         $ms2->AddMultiSelectAction(t('Als exportiert markieren'), "index.php?mod=guestlist&action=export&step=11", 1, 'setexported');
     }

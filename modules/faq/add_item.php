@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter ) {
     case 2:
         $get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
 
@@ -47,7 +48,8 @@ switch ($_GET["step"]) {
         break;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         unset($_SESSION['add_blocker_faqitem']);
 
@@ -59,7 +61,7 @@ switch ($_GET["step"]) {
         $faq_cats[] = "<option selected value=\"0\"> ".t('Kategorie wählen')." </option>";
 
         while ($row=$db->fetch_array($get_cats)) {
-            $faq_cats[] .= "<option value=" . $row["catid"] . "> " . $row["name"] . " </option>";
+            $faq_cats[] = "<option value=" . $row["catid"] . "> " . $row["name"] . " </option>";
         }
 
         $dsp->AddTextFieldRow("question_caption", t('Frage / Überschrift'), $_POST['question_caption'], $faq_error['question_caption']);

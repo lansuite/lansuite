@@ -1,1 +1,0 @@
-this folder will contain newsfeeds, which will be genaerated each time an admin posts news

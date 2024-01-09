@@ -2,38 +2,21 @@
 
 $dsp->NewContent(t('Benutzerkarte'), t('Auf dieser Karte findest du alle Benutzer, die eine PLZ eingegeben haben.'));
 
-if (!$cfg['google_maps_api_key']) {
+$googleMapsKey = $cfg['google_maps_api_key'] ?? '';
+if (!$googleMapsKey) {
     $func->information(t('Du musst dich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben.', '<a href="index.php?mod=install&action=modules&step=10&module=install">'. t('AdminSeite in den Allgemeinen Einstellungen').'</a>'));
 } else {
-    switch ($cfg['country']) {
-        case 'de':
-            $GCountry = 'Germany';
-            break;
-        case 'at':
-            $GCountry = 'Austria';
-            break;
-        case 'ch':
-            $GCountry = 'Swiss';
-            break;
-        case 'en':
-            $GCountry = 'England';
-            break;
-        case 'nl':
-            $GCountry = 'Netherlands';
-            break;
-        case 'es':
-            $GCountry = 'Spain';
-            break;
-        case 'it':
-            $GCountry = 'Italy';
-            break;
-        case 'fr':
-            $GCountry = 'France';
-            break;
-        default:
-            $GCountry = 'Germany';
-            break;
-    }
+    $GCountry = match ($cfg['country']) {
+        'de' => 'Germany',
+        'at' => 'Austria',
+        'ch' => 'Swiss',
+        'en' => 'England',
+        'nl' => 'Netherlands',
+        'es' => 'Spain',
+        'it' => 'Italy',
+        'fr' => 'France',
+        default => 'Germany',
+    };
 
     $res = $db->qry("
       SELECT

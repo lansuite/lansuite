@@ -9,7 +9,7 @@ function PartyMail()
 
     $usrmgr->WriteXMLStatFile();
 
-    if ($_POST['sendmail'] or $auth['type'] < 2) {
+    if ((array_key_exists('sendmail', $_POST) && $_POST['sendmail']) || $auth['type'] < \LS_AUTH_TYPE_ADMIN) {
         if ($usrmgr->SendSignonMail(1)) {
             $func->confirmation(t('Eine Bestätigung der Anmeldung wurde an deine E-Mail-Adresse gesendet.'), NO_LINK);
         } else {

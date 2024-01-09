@@ -25,40 +25,22 @@ if ($cfg['guestlist_guestmap'] == 2) {
         $aggregated_text='';
         while ($row = $db->fetch_array($res)) {
             ($row['country'])? $country = $row['country'] : $country = $cfg['sys_country'];
-            switch ($country) {
-                case 'de':
-                    $GCountry = 'Germany';
-                    break;
-                case 'at':
-                    $GCountry = 'Austria';
-                    break;
-                case 'ch':
-                    $GCountry = 'Swiss';
-                    break;
-                case 'en':
-                    $GCountry = 'England';
-                    break;
-                case 'nl':
-                    $GCountry = 'Netherlands';
-                    break;
-                case 'es':
-                    $GCountry = 'Spain';
-                    break;
-                case 'it':
-                    $GCountry = 'Italy';
-                    break;
-                case 'fr':
-                    $GCountry = 'France';
-                    break;
-                default:
-                    $GCountry = 'Germany';
-                    break;
-            }
+            $GCountry = match ($country) {
+                'de' => 'Germany',
+                'at' => 'Austria',
+                'ch' => 'Swiss',
+                'en' => 'England',
+                'nl' => 'Netherlands',
+                'es' => 'Spain',
+                'it' => 'Italy',
+                'fr' => 'France',
+                default => 'Germany',
+            };
 
             // Show detailed map to admins only, otherwise stick to user settings
-            if ($row['show_me_in_map'] == 1 || $auth['type'] >= 2) {
+            if ($row['show_me_in_map'] == 1 || $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $text = "<b>{$row['username']}</b>";
-                if ($cfg['guestlist_shownames']|| $auth['type'] >= 2) {
+                if ($cfg['guestlist_shownames']|| $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                     $text .= " {$row['firstname']} {$row['name']}";
                 }
             } else {
@@ -99,7 +81,6 @@ if ($cfg['guestlist_guestmap'] == 2) {
 } else {
     $res = $db->qry("SELECT plz FROM %prefix%user LEFT JOIN %prefix%party_user ON userid = user_id WHERE (plz > 0) AND (party_id = %int%)", $party->party_id);
     $res3 = $db->qry_first("SELECT laenge, breite FROM %prefix%locations WHERE plz = %int%", $_SESSION['party_info']['partyplz']);
-    $pi = pi();
 
     if ($db->num_rows($res) == 0) {
         $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, ($cfg["guestlist_showorga"] == 0 ? "type = 1" : "type >= 1"));
@@ -175,7 +156,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
             $UsersOut = '';
 
             while ($current_user = $db->fetch_array($res2)) {
-                if ($auth['type'] < 2 and ($cfg['sys_internet'])) {
+                if ($auth['type'] < \LS_AUTH_TYPE_ADMIN and ($cfg['sys_internet'])) {
                     $current_user['firstname'] = '---';
                     $current_user['name'] = '---';
                 }
@@ -184,10 +165,10 @@ if ($cfg['guestlist_guestmap'] == 2) {
             $db->free_result($res2);
 
             // Distance calculations
-            $breite1 = $user['breite']/180*$pi;
-            $breite2 = $res3['breite']/180*$pi;
-            $laenge1 = $user['laenge']/180*$pi;
-            $laenge2 = $res3['laenge']/180*$pi;
+            $breite1 = $user['breite']/180*M_PI;
+            $breite2 = $res3['breite']/180*M_PI;
+            $laenge1 = $user['laenge']/180*M_PI;
+            $laenge2 = $res3['laenge']/180*M_PI;
 
             $e = acos(sin($breite1)*sin($breite2) + cos($breite1)*cos($breite2)*cos($laenge2-$laenge1));
             $entfernung = round($e * 6378.137, 0);

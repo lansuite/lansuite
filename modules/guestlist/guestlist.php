@@ -7,14 +7,15 @@ $userManager = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
 $guestlist = new LanSuite\Module\GuestList\GuestList($seating, $userManager);
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     // Paid
     case 10:
         if (!$_POST['action'] and $_GET['userid']) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             $Messages = array('success' => '', 'error' => '');
             foreach ($_POST['action'] as $key => $val) {
                 $Msg = $guestlist->SetPaid($key, $party->party_id);
@@ -43,7 +44,7 @@ switch ($_GET['step']) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             $Messages = array('success' => '', 'error' => '');
             foreach ($_POST['action'] as $key => $val) {
                 $Msg = $guestlist->SetNotPaid($key, $party->party_id);
@@ -72,7 +73,7 @@ switch ($_GET['step']) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             foreach ($_POST['action'] as $key => $val) {
                 if ($guestlist->CheckIn($key, $party->party_id)) {
                     $func->information(t('Der Benutzer #%1 konnte nicht eingecheckt werden, da er nicht auf "bezahlt" steht', array($key)), NO_LINK);
@@ -91,7 +92,7 @@ switch ($_GET['step']) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             foreach ($_POST['action'] as $key => $val) {
                 if ($guestlist->CheckOut($key, $party->party_id)) {
                     $func->information(t('Der Benutzer #%1 konnte nicht ausgecheckt werden, da er nicht eingecheckt ist', array($key)), NO_LINK);
@@ -110,7 +111,7 @@ switch ($_GET['step']) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= 2 and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
             foreach ($_POST['action'] as $key => $val) {
                 $guestlist->UndoCheckInOut($key, $party->party_id);
             }
@@ -119,6 +120,7 @@ switch ($_GET['step']) {
         break;
 }
 
-if (!$_GET['userid']) {
+$userIdParameter = $_GET['userid'] ?? 0;
+if (!$userIdParameter) {
     include_once('modules/guestlist/search.inc.php');
 }

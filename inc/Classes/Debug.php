@@ -45,46 +45,39 @@ class Debug
 
     /**
      * Helpvar Timer (Outputstring)
-     *
-     * @var string
      */
-    private $timer_out = '';
+    private string $timer_out = '';
 
-    /**
-     * @var string
-     */
-    private $timer_all;
+    private float|int|null $timer_all = null;
 
     /**
      * Uservars to show
-     *
-     * @var array
      */
-    private $debugvars = [];
+    private array $debugvars = [];
 
     /**
      * Debug mode
-     *
-     * @var string
      */
-    private $mode = '';
+    private string $mode = '';
 
     /**
      * Debugpath for Filedebug
-     *
-     * @var string
      */
-    private $debug_path = '';
+    private string $debug_path = '';
+
+    private array $sql_query_list = [];
+
+    private bool $sql_query_running = false;
 
     /**
-     * @var array
+     * Microtime on the start of the measurement.
      */
-    private $sql_query_list = [];
+    private float $sql_query_start;
 
     /**
-     * @var bool
+     * Query that gets measured.
      */
-    private $sql_query_running = false;
+    private string $sql_query_string;
 
     /**
      * Debug constructor.
@@ -212,9 +205,9 @@ class Debug
 
             $sql_query_debug = '';
             foreach ($this->sql_query_list as $debug_query) {
-                $sql_query_debug .= debug::row_double(sprintf("<b>%8.4f ms</b>", $debug_query[0]), $debug_query[1]);
+                $sql_query_debug .= $this->row_double(sprintf("<b>%8.4f ms</b>", $debug_query[0]), $debug_query[1]);
                 if (!($debug_query[2]=="")) {
-                    $sql_query_debug .= debug::row_double("", "<span style=\"color:red\"><b>Error : ".$debug_query[2]."</b></span>");
+                    $sql_query_debug .= $this->row_double("", "<span style=\"color:red\"><b>Error : ".$debug_query[2]."</b></span>");
                 }
             }
 
@@ -236,10 +229,7 @@ class Debug
         {
             $a = $wert_a[0];
             $b = $wert_b[0];
-            if ($a == $b) {
-                return 0;
-            }
-            return ($a > $b) ? -1 : +1;
+            return $b <=> $a;
         };
         usort($array, $compare);
         return $array;
@@ -297,7 +287,7 @@ class Debug
     {
         $out = '';
         if ($array_level == 0) {
-            $out .= debug::row_double("<b>Key</b>", "<b>Value</b>");
+            $out .= $this->row_double("<b>Key</b>", "<b>Value</b>");
         }
 
         foreach ($array as $key => $value) {
@@ -310,15 +300,15 @@ class Debug
             };
 
             if (is_array($value)) {
-                $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")");
+                $out .= $this->row_double($shift.$array_node.$caption, "(".gettype($value).")");
                 $out .= $this->row_array($value, $array_node.$caption, $array_level+1);
             } elseif (is_object($value)) {
-                $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;");
+                $out .= $this->row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;");
                 $out .= $this->row_array(get_object_vars($value), $array_node.$caption, $array_level+1);
             } elseif (is_scalar($value)) {
-                $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;".htmlentities($value));
+                $out .= $this->row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;".htmlentities($value));
             } else {
-                $out .= debug::row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;Error: Can not display Debug- Value!!!");
+                $out .= $this->row_double($shift.$array_node.$caption, "(".gettype($value).")&nbsp;Error: Can not display Debug- Value!!!");
             }
         }
 
@@ -338,9 +328,9 @@ class Debug
         if ($this->mode > 0) {
             $this->tracker("END DEBUG-CLASS");
             $out = "<div align=\"left\"><table width=\"100%\" border=\"0\" cols=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
-            $out .= debug::row_top("<a name=\"debugtracker\"><b>Debugtracker</b></a>");
-            $out .= debug::row_single($this->timer_show());
-            $out .= debug::row_top("<a name=\"sql_querys\"><b>SQL-Querys (".count($this->sql_query_list).")</b></a>");
+            $out .= $this->row_top("<a name=\"debugtracker\"><b>Debugtracker</b></a>");
+            $out .= $this->row_single($this->timer_show());
+            $out .= $this->row_top("<a name=\"sql_querys\"><b>SQL-Querys (".count($this->sql_query_list).")</b></a>");
             $out .= $this->query_fetchlist();
             $out .= "</table></div>";
 
@@ -348,7 +338,7 @@ class Debug
             if ($this->mode == "2") {
                 echo $this->mode;
                 $file_handle = fopen($this->debug_path."debug_".time().".htm", "a");
-                fputs($file_handle, $out);
+                fwrite($file_handle, $out);
                 fclose($file_handle);
             }
             return $out;

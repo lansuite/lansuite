@@ -1,14 +1,16 @@
 <?php
-$dsp->NewContent(t('Statistiken'), $_GET['file']);
+$fileParameter = $_GET['file'] ?? '';
+$dsp->NewContent(t('Statistiken'), $fileParameter);
 
 // Delete
-if ($_GET['delfile'] and $auth['type'] >= 3) {
+$deleteFileParameter = $_GET['delfile'] ?? false;
+if ($deleteFileParameter && $auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $md = new \LanSuite\MasterDelete();
     $md->Delete('download_stats', 'file', $_GET['delfile']);
 }
 
 // List
-if (!$_GET['file']) {
+if (!$fileParameter) {
     $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
     $ms2->query['from'] = "%prefix%download_stats AS s";
@@ -18,7 +20,7 @@ if (!$_GET['file']) {
     $ms2->AddResultField(t('Downloads'), 'SUM(s.hits) AS hits');
 
     $ms2->AddIconField('details', 'index.php?mod=downloads&action=stats&file=', t('Details'));
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('delete', 'index.php?mod=downloads&action=stats&delfile=', t('Löschen'));
     }
 
@@ -77,20 +79,12 @@ if (!$_GET['file']) {
         ORDER BY DATE_FORMAT(time, %string%)", $group_by, $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
 
     while ($row = $db->fetch_array($res)) {
-        switch ($_GET['time']) {
-            default:
-                $out = $func->unixstamp2date($row['display_time'], 'year');
-                break;
-            case 'y':
-                $out = $func->unixstamp2date($row['display_time'], 'month');
-                break;
-            case 'm':
-                $out = $func->unixstamp2date($row['display_time'], 'daydate');
-                break;
-            case 'd':
-                $out = $func->unixstamp2date($row['display_time'], 'daydatetime');
-                break;
-        }
+        $out = match ($_GET['time']) {
+            'y' => $func->unixstamp2date($row['display_time'], 'month'),
+            'm' => $func->unixstamp2date($row['display_time'], 'daydate'),
+            'd' => $func->unixstamp2date($row['display_time'], 'daydatetime'),
+            default => $func->unixstamp2date($row['display_time'], 'year'),
+        };
         if ($link) {
             $out = '<a href="index.php?mod=downloads&action=stats&file='.$_GET['file'].'&time='. $link .'&timeframe='. $row['group_by_time'] .'">'. $out .'</a>';
         }

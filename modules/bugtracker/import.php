@@ -1,5 +1,6 @@
 <?php
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Bugtracker Import'), t('Hier kannst du die bugs.xml-Datei Importieren, die du auf deiner Webseite exportiert hast'));
         $dsp->SetForm('index.php?mod=bugtracker&action=import&step=2', '', '', 'multipart/form-data');

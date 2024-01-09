@@ -6,24 +6,12 @@
  */
 function GetTypeDescription($type)
 {
-    switch ($type) {
-        case -2:
-            return t('Organisator (gesperrt)');
-            break;
-        case -1:
-            return t('Gast (gesperrt)');
-            break;
-        default:
-            return t('Gast (deaktiviert)');
-            break;
-        case 1:
-            return t('Gast');
-            break;
-        case 2:
-            return t('Organisator');
-            break;
-        case 3:
-            return t('Superadmin');
-            break;
-    }
+    return match ($type) {
+        -2 => t('Organisator (gesperrt)'),
+        -1 => t('Gast (gesperrt)'),
+        1 => t('Gast'),
+        2 => t('Organisator'),
+        3 => t('Superadmin'),
+        default => t('Gast (deaktiviert)'),
+    };
 }

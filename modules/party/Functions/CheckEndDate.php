@@ -2,9 +2,8 @@
 
 /**
  * @param string $enddate
- * @return bool|string
  */
-function CheckEndDate($enddate)
+function CheckEndDate($enddate): bool|string
 {
     global $func;
 

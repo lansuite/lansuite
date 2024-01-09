@@ -22,7 +22,7 @@ function PingServer($host, $port)
         AND (port = %string%)
       HAVING (idle > %int%)", $host, $port, $cfg["server_ping_refresh"]);
 
-    if (rand(0, 2) == 0) {
+    if (random_int(0, 2) == 0) {
         // Erreichbarkeit testen
         $success = 0;
         if ($func->ping($host)) {
@@ -35,49 +35,49 @@ function PingServer($host, $port)
         // Weitere Daten für FTPs herrausfinden
         if (($success) && ($server_daten["type"] == "ftp")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
-                socket_set_blocking($fp, false);
-                socket_set_timeout($fp, 1, 500);
+                stream_set_blocking($fp, false);
+                stream_set_timeout($fp, 1, 500);
                 // Benutzernamen senden
-                fputs($fp, "USER anonymous\r\n");
+                fwrite($fp, "USER anonymous\r\n");
                 // Passwort senden
-                fputs($fp, "PASS erreichbarkeitstest@lansuite.de\r\n");
+                fwrite($fp, "PASS erreichbarkeitstest@lansuite.de\r\n");
                 // In Passivmode wechseln
-                fputs($fp, "PASV\r\n");
+                fwrite($fp, "PASV\r\n");
                 // System abfragen
-                fputs($fp, "SYST\r\n");
+                fwrite($fp, "SYST\r\n");
                 // Verzeichnis auflisten
-                fputs($fp, "LIST\r\n");
+                fwrite($fp, "LIST\r\n");
                 // Quit senden
-                fputs($fp, "QUIT\r\n");
+                fwrite($fp, "QUIT\r\n");
 
                 $res = fread($fp, 1000);
 
-                if ((strpos($res, "logged in") != 0) && (strpos($res, "230") != 0)) {
+                if ((!str_starts_with($res, "logged in")) && (!str_starts_with($res, "230"))) {
                     $special_info .= "<div class=\"tbl_green\">".t('Login als Anonymous erfolgreich')."</div>";
                 } else {
                     $special_info .= "<div class=\"tbl_error\">".t('Login als Anonymous fehlgeschlagen')."</div>";
                 }
-                if ((strpos($res, "Ratio") != 0) && (strpos($res, "426") != 0)) {
+                if ((!str_starts_with($res, "Ratio")) && (!str_starts_with($res, "426"))) {
                     $special_info .= "<div class=\"tbl_error\">".t('Ratio-FTP (Es muss zuerst etwas hochgeladen werden)')."</div>";
                 }
-                if ((strpos($res, "Quota") != 0) && (strpos($res, "426") != 0)) {
+                if ((!str_starts_with($res, "Quota")) && (!str_starts_with($res, "426"))) {
                     $special_info .= "<div class=\"tbl_error\">".t('Quota-FTP (Es darf nur eine gewisse Menge gezogen werden)')."</div>";
                 }
-                if ((strpos($res, "Too many") != 0) && (strpos($res, "21") != 0)) {
+                if ((!str_starts_with($res, "Too many")) && (!str_starts_with($res, "21"))) {
                     $special_info .= "<div class=\"tbl_error\">".t('<u>Hinweis</u>: Zu viele User momentan')."</div>";
                 }
-                if ((strpos($res, "home directory") != 0) && (strpos($res, "530") != 0)) {
+                if ((!str_starts_with($res, "home directory")) && (!str_starts_with($res, "530"))) {
                     $special_info .= "<div class=\"tbl_error\">".t('<u>Fehler</u>: Server hat kein Home-Directory gesetzt')."</div>";
                 }
-                if ((strpos($res, "220") === 0)) {
+                if ((str_starts_with($res, "220"))) {
                     $special_info .= "<div class=\"tbl_black\">: ".substr($res, 4, strpos($res, "\r\n")-2)."</div>";
                 }
-                if ((strpos($res, "215") != 0)) {
+                if ((!str_starts_with($res, "215"))) {
                     $special_info .= "<div class=\"tbl_black\">".t('System').": ".substr(substr($res, strpos($res, "215"), 99), 4, strpos(substr($res, strpos($res, "215"), 99), "\r\n")-2)  ."</div>";
                 }
                 $error_stri=$res;
                 for ($error_stri_num=0; $error_stri_num<10; $error_stri_num++) {
-                    if (strpos($error_stri, "530 ") != 0) {
+                    if (!str_starts_with($error_stri, "530 ")) {
                         if ($error_stri_num == 0) {
                             $special_info .= HTML_NEWLINE . "<div class=\"tbl_black\"><u>".t('Fehlermeldungen').":</u></div>";
                         }
@@ -97,20 +97,20 @@ function PingServer($host, $port)
         // Weitere Daten für IRCs herrausfinden
         if (($success) && ($server_daten["type"] == "irc")) {
             if ($fp = @fsockopen($host, $port, $errno, $errstr, 1)) {
-                socket_set_blocking($fp, false);
-                socket_set_timeout($fp, 1, 500);
+                stream_set_blocking($fp, false);
+                stream_set_timeout($fp, 1, 500);
 
                 // Liste anfordern
-                fputs($fp, "list\r\n");
+                fwrite($fp, "list\r\n");
                 // Verabschieden
-                fputs($fp, "quit done\r\n");
+                fwrite($fp, "quit done\r\n");
                 $res = fread($fp, 1000);
 
                 // Channel ausgeben
                 $special_info .= "<div class=\"tbl_black\"><u>".t('Channels').":</u></div>";
                 $channel=$res;
                 for ($channel_num=0; $channel_num<10; $channel_num++) {
-                    if (strpos($channel, "322 ") != 0) {
+                    if (!str_starts_with($channel, "322 ")) {
                         $channel=substr($channel, strpos($channel, "322 ")+5, 9999);
                         $special_info .= "<div class=\"tbl_black\">". substr($channel, 0, strpos($channel, ":")-1) ."</div>";
                     }

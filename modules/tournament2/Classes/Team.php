@@ -5,15 +5,9 @@ namespace LanSuite\Module\Tournament2;
 class Team
 {
 
-    /**
-     * @var \LanSuite\Module\Mail\Mail
-     */
-    private $mail = null;
+    private ?\LanSuite\Module\Mail\Mail $mail = null;
 
-    /**
-     * @var \LanSuite\Module\Seating\Seat2
-     */
-    private $seating = null;
+    private ?\LanSuite\Module\Seating\Seat2 $seating = null;
 
     public function __construct(\LanSuite\Module\Mail\Mail $mail, \LanSuite\Module\Seating\Seat2 $seating)
     {
@@ -179,19 +173,19 @@ class Team
           GROUP BY members.userid", $userid, $party->party_id);
 
         // Is the user already signed on to this tournament?
-        if ($team["found"]) {
+        if (is_array($team) && $team["found"]) {
             $func->information(t('%1 ist bereits zu diesem Turnier angemeldet!', $user["username"]));
 
         // Is the user member of a team, allready signed on to this tournament?
-        } elseif ($teammember["found"] != "") {
+        } elseif (is_array($teammember) && $teammember["found"] != "") {
             $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu diesem Turnier angemeldet hat!', $user["username"]));
 
         // Is the user allready signed on to a tournament in the same group as this tournament?
-        } elseif ($in_group["found"] != "") {
+        } elseif (is_array($in_group) && $in_group["found"] != "") {
             $func->information(t('%1 ist bereits zu einem Turnier angemeldet, welches der gleichen Gruppe angehört!', $user["username"]));
 
         // Is the user member of a team, allready signed on to a tournament in the same group as this tournament?
-        } elseif ($memb_in_group["found"] != "") {
+        } elseif (is_array($memb_in_group) && $memb_in_group["found"] != "") {
             $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu einem Turnier der gleichen Gruppe angemeldet hat!', $user["username"]));
 
         // Has the user paid?
@@ -247,7 +241,7 @@ class Team
                 team.teamid = %int%", $teamid);
 
             // Check password, if set and if acction is not performed, by teamadmin or ls-admin
-            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= 1) and ($team['password'] != '') and (md5($password) != $team['password'])) {
+            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= \LS_AUTH_TYPE_USER) and ($team['password'] != '') and (md5($password) != $team['password'])) {
                 $func->information(t('Das eingegebene Kennwort ist nicht korrekt'));
                 return false;
 

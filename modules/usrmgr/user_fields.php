@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('usrmgr');
     
@@ -12,7 +13,7 @@ switch ($_GET['step']) {
         $ms2->AddResultField('Bezeichnung', 'f.caption');
         $ms2->AddResultField('Optional', 'f.optional');
     
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=user_fields&step=20&fieldid=', t('Löschen'));
         }
         $ms2->PrintSearch('index.php?mod=usrmgr&action=user_fields', 'f.fieldid');
@@ -34,7 +35,8 @@ switch ($_GET['step']) {
         $mf->AddField(t('Optional'), 'optional', \LanSuite\MasterForm::IS_SELECTION, $selections);
 
         $mf->AdditionalDBUpdateFunction = 'UpdateUsrMgrUserFields';
-        $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $_GET['fieldid']);
+        $fieldIdParameter = $_GET['fieldid'] ?? 0;
+        $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $fieldIdParameter);
         break;
   
     // Delete entry

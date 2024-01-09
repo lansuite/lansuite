@@ -44,7 +44,7 @@ class Accounting
             $this->editorid = $auth['userid'];
         }
         
-        if ($party_id = 0) {
+        if ($party_id == 0) {
             $this->partyid = $party->party_id;
         } else {
             $this->partyid = $party_id;
@@ -165,6 +165,10 @@ class Accounting
                 break;
         }
 
+        if ($result['total'] == '') {
+            $result['total'] = 0;
+        }
+
         return $this->getMoneyColor($result['total']);
     }
 
@@ -175,6 +179,7 @@ class Accounting
      */
     private function getGroup($fix, $posneg)
     {
+        $row = null;
         global $db;
         
         $result_list = [];

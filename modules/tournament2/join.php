@@ -18,7 +18,8 @@ $tournament = $db->qry_first("
     wwcl_gameid,
     ngl_gamename,
     lgz_gamename,
-    maxteams
+    maxteams,
+    blind_draw
   FROM %prefix%tournament_tournaments
   WHERE
     tournamentid = %int%", $tournamentid);
@@ -40,8 +41,10 @@ $user = $db->qry_first("
     userid = %int%", $auth["userid"]);
 
 if ($tteam->SignonCheck($tournamentid)) {
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET["step"] ?? 0;
+    switch ($stepParameter) {
         case 3:
+            $error = [];
             if (!$sec->locked("t_join")) {
                 $error = array();
 
@@ -74,13 +77,14 @@ if ($tteam->SignonCheck($tournamentid)) {
                 $sec->lock("t_join");
             }
 
-            if (count($error) > 0) {
+            if ((is_countable($error) ? count($error) : 0) > 0) {
                 $_GET['step']--;
             }
             break;
     }
 
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET["step"] ?? 0;
+    switch ($stepParameter) {
         case 2:
             $sec->unlock("t_join");
 
@@ -99,21 +103,34 @@ if ($tteam->SignonCheck($tournamentid)) {
                     if ($_POST["existing_team_name"] == $team['teamid']) {
                         $selected = "selected";
                     }
-                    array_push($t_array, "<option $selected value=\"{$team['teamid']}\">{$team['name']}</option>");
+                    $t_array[] = "<option $selected value=\"{$team['teamid']}\">{$team['name']}</option>";
                 }
                 $db->free_result($teams);
                 $dsp->AddDropDownFieldRow("existing_team_name", t('Team beitreten'), $t_array, "");
-                $dsp->AddPasswordRow("password", t('Team-Passwort'), $_POST["password"], $error["password"]);
+
+                $passwordParameter = $_POST["password"] ?? '';
+                $passwordError = $error["password"] ?? '';
+                $dsp->AddPasswordRow("password", t('Team-Passwort'), $passwordParameter, $passwordError);
 
                 // Neues Team
                 $dsp->AddSingleRow("<b>". t('ODER: Neues Team anlegen') ."</b>");
-                $dsp->AddTextFieldRow("team_name", t('Teamname'), $_POST["team_name"], $error["team_name"]);
-                $dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $_POST["set_password"], $error["set_password"]);
-                $dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $_POST["set_password2"], $error["set_password2"]);
+
+                $teamNameParameter = $_POST["team_name"] ?? '';
+                $teamNameError = $error["team_name"] ?? '';
+                $dsp->AddTextFieldRow("team_name", t('Teamname'), $teamNameParameter, $teamNameError);
+
+                $setPasswordParameter = $_POST["set_password"] ?? '';
+                $setPasswordError = $error["set_password"] ?? '';
+                $dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $setPasswordParameter , $setPasswordError);
+
+                $setPassword2Parameter = $_POST["set_password2"] ?? '';
+                $setPassword2Error = $error["set_password2"] ?? '';
+                $dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $setPassword2Parameter, $setPassword2Error);
             }
 
-            $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $_POST["team_comment"], "", "", "", 1);
-            $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1000000, 1);
+            $teamCommentParameter = $_POST["team_comment"] ?? '';
+            $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $teamCommentParameter, "", "", "", 1);
+            $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
 
             if ($tournament['wwcl_gameid'] > 0) {
                 $dsp->AddTextFieldRow("wwclid", t('WWCL ID'), $user['wwclid'], "");

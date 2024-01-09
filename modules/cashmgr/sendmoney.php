@@ -5,9 +5,9 @@ $dsp->NewContent(t('Geld überweisen'), t('Hier kannst du anderen Benutzern Geld
 
 $AdminFound = 0;
 $UserFound = 0;
-$res = $db->qry("SELECT type, userid, username, firstname, name FROM %prefix%user WHERE type >= %string% ORDER BY type DESC, username", $WhereMinType);
+$res = $db->qry("SELECT type, userid, username, firstname, name FROM %prefix%user WHERE type >= %string% ORDER BY type DESC, username", LS_AUTH_TYPE_USER);
 
-if (!$_POST['toUserID']) {
+if (!array_key_exists('toUserID', $_POST)) {
     $selections[-1] = "- Bitte wählen -";
 }
 
@@ -22,7 +22,7 @@ while ($row = $db->fetch_array($res)) {
         $UserFound = 1;
     }
 
-    if ($auth['type'] >= 2 || !$cfg['sys_internet'] || $cfg['guestlist_shownames']) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || !$cfg['sys_internet'] || $cfg['guestlist_shownames']) {
         $selections[$row['userid']] = $row['username'] .' ('. $row['firstname'] .' '. $row['name'] .')';
     } else {
         $selections[$row['userid']] = $row['username'];
@@ -38,4 +38,5 @@ $mf->AddFix('modul', 'cashmgr');
 
 $mf->CheckBeforeInserFunction = 'Check';
 
-$mf->SendForm('index.php?mod=cashmgr&action=sendmoney', 'cashmgr_accounting', 'ID', $_GET['cashid']);
+$cashIdParameter = $_GET['cashid'] ?? 0;
+$mf->SendForm('index.php?mod=cashmgr&action=sendmoney', 'cashmgr_accounting', 'ID', $cashIdParameter);

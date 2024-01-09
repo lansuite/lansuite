@@ -20,10 +20,10 @@ $ms2->AddResultField('PW', 's.pw', 'PWIcon');
 $ms2->AddResultField(t('Status'), 's.available', 'ServerStatus');
 
 $ms2->AddIconField('details', 'index.php?mod=server&action=show_details&serverid=', t('Details'));
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=server&action=change&step=2&serverid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=server&action=delete&step=2&serverid=', t('Löschen'));
 }
 

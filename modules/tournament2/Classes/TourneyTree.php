@@ -27,55 +27,34 @@ class TourneyTree
      */
     private $size;
 
-    /**
-     * @var float|int
-     */
-    private $wb_rounds;
+    private float|int $wb_rounds;
+
+    private int|float $wb_num_rows;
+
+    private float|int $wb_num_cols;
+
+    private array $wb_tbl = [];
+
+    private array $wb_indexes = [];
 
     /**
      * @var float|int
      */
-    private $wb_num_rows;
+    private float|int|null $lb_rounds = null;
 
     /**
      * @var float|int
      */
-    private $wb_num_cols;
-
-    /**
-     * @var array
-     */
-    private $wb_tbl = [];
-
-    /**
-     * @var array
-     */
-    private $wb_indexes = [];
+    private int|float|null $lb_num_rows = null;
 
     /**
      * @var float|int
      */
-    private $lb_rounds;
+    private float|int|null $lb_num_cols = null;
 
-    /**
-     * @var float|int
-     */
-    private $lb_num_rows;
+    private array $lb_tbl = [];
 
-    /**
-     * @var float|int
-     */
-    private $lb_num_cols;
-
-    /**
-     * @var array
-     */
-    private $lb_tbl = [];
-
-    /**
-     * @var array
-     */
-    private $lb_indexes = [];
+    private array $lb_indexes = [];
 
     public function __construct($size, $wb_teams, $lb_teams = false)
     {
@@ -173,14 +152,14 @@ class TourneyTree
     {
         for ($i=1; $i < count($tbl);) {
             $t = $s = 0;
-            for ($x=0; $x < count($tbl[$i]); $x++) {
-                if ($tbl[$i][$x] === true && $t == 0) {
+            foreach ($tbl[$i] as $x => $xValue) {
+                if ($xValue === true && $t == 0) {
                     $s=$x;
                 }
-                if ($tbl[$i][$x] === true) {
+                if ($xValue === true) {
                     $t++;
                 }
-                if ($tbl[$i][$x] === false && $t > 0) {
+                if ($xValue === false && $t > 0) {
                     $idx = (int)(($t / 2));
                     $tbl[$i][$s+$idx] = 'ARROW';
                     $t = $s = 0;
@@ -237,19 +216,19 @@ class TourneyTree
             $wb[$i] = array();
             $x = TourneyTree::WBTeamsInRound($i+1, $this->size);
             for ($j=1; $j <= $x; $j++) {
-                array_push($wb[$i], $j);
+                $wb[$i][] = $j;
             }
         }
-        array_push($wb, array('1'));
+        $wb[] = ['1'];
 
         for ($i=0; $i < ((2*$sz)-2); $i++) {
             $lb[$i] = array();
             $x = TourneyTree::LBTeamsInRound($i+1, $this->size);
             for ($j=1; $j <= $x; $j++) {
-                array_push($lb[$i], $j);
+                $lb[$i][] = $j;
             }
         }
-        array_push($lb, array('1'));
+        $lb[] = ['1'];
         return true;
     }
 
@@ -297,14 +276,14 @@ class TourneyTree
                 $row = $y+1;
 
                 if ($x == 0) {
-                    if ((count($this->wb_teams[$x]) % 2) == 1) {
+                    if (((is_countable($this->wb_teams[$x]) ? count($this->wb_teams[$x]) : 0) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->wb_tbl);
                         $this->generateBar($x+1, $y-1, $this->wb_tbl);
                     }
 
                     if (($row % 2) == 1) {
                         $this->wb_tbl[$x][$y] = array_shift($this->wb_teams[$x]);        // insert team
-                            array_push($this->wb_indexes[$round], array($x, $y));
+                            $this->wb_indexes[$round][] = [$x, $y];
                     }
                 }
 
@@ -312,7 +291,7 @@ class TourneyTree
                 // $x / 2 is the actual round!
                 // $round-2 is the actual previous round
                 if ($x > 0 && $x < $this->wb_num_cols && ($x % 2) == 0) {
-                    if ((count($this->wb_teams[$x/2]) % 2) == 1) {
+                    if (((is_countable($this->wb_teams[$x/2]) ? count($this->wb_teams[$x/2]) : 0) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->wb_tbl);
                         $this->generateBar($x+1, $y-1, $this->wb_tbl);
                     }
@@ -322,7 +301,7 @@ class TourneyTree
                         $this->wb_tbl[$x][$y] = array_shift($this->wb_teams[($x/2)]);        // insert team
                         array_shift($this->wb_indexes[$round-2]);
                         array_shift($this->wb_indexes[$round-2]);
-                        array_push($this->wb_indexes[$round], array($x, $y));
+                        $this->wb_indexes[$round][] = [$x, $y];
                     }
                 }
 
@@ -332,7 +311,7 @@ class TourneyTree
                         $tmp = array_shift($this->wb_teams[($x/2)]);
                         $this->wb_tbl[$x][$y] = $tmp;        // insert team
                         // we need this team again later for the final in DE!!!
-                        array_push($this->wb_teams[($x/2)], $tmp);
+                        $this->wb_teams[($x/2)][] = $tmp;
                     }
                 }
             }
@@ -351,18 +330,18 @@ class TourneyTree
 
                 // first round
                 if ($x == 0) {
-                    if ((count($this->lb_teams[$x]) % 2) == 1) {
+                    if (((is_countable($this->lb_teams[$x]) ? count($this->lb_teams[$x]) : 0) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->lb_tbl);
                         $this->generateBar($x+1, $y-1, $this->lb_tbl);
                     }
-                    if (($row % 2) == 1 && count($this->lb_teams[$x]) > 0) {
+                    if (($row % 2) == 1 && (is_countable($this->lb_teams[$x]) ? count($this->lb_teams[$x]) : 0) > 0) {
                         $this->lb_tbl[$x][$y] = array_shift($this->lb_teams[$x]);        // insert team
-                        array_push($this->lb_indexes[$round], array($x, $y));
+                        $this->lb_indexes[$round][] = [$x, $y];
                         // we need them for the positions of the following round
                         if (count($this->lb_teams[$x]) <= 0) {
                             for ($t=2; $t < $this->lb_num_rows/2; $t++) {
-                                array_push($this->lb_indexes[$round], array($x, $y+$t));
-                                $t += 2;
+                                $this->lb_indexes[$round][] = [$x, $y + $t];
+                                $t                          += 2;
                             }
                         }
                     }
@@ -370,14 +349,14 @@ class TourneyTree
 
                 // rounds > 1
                 if ($x > 0 && $x < ($this->lb_num_cols-2) && ($x % 2) == 0) {
-                    if ((count($this->lb_teams[$x/2]) % 2) == 1) {
+                    if (((is_countable($this->lb_teams[$x/2]) ? count($this->lb_teams[$x/2]) : 0) % 2) == 1) {
                         $this->generateBar($x+1, $y, $this->lb_tbl);
                         $this->generateBar($x+1, $y-1, $this->lb_tbl);
                     }
 
                     $tmp = $this->getPrevCoords($round, $this->lb_indexes);
                     if ($this->calcMW($tmp[0][1], $tmp[1][1]) == $y) {
-                        if (count($this->lb_teams[($x/2)]) > 0) {
+                        if ((is_countable($this->lb_teams[($x/2)]) ? count($this->lb_teams[($x/2)]) : 0) > 0) {
                             $this->lb_tbl[$x][$y] = array_shift($this->lb_teams[($x/2)]);
                         }        // insert team
                         array_shift($this->lb_indexes[$round-2]);
@@ -385,15 +364,15 @@ class TourneyTree
                         if ((($x/2) % 2) == 0) {
                             array_shift($this->lb_indexes[$round-2]);
                         }
-                        array_push($this->lb_indexes[$round], array($x, $y));
+                        $this->lb_indexes[$round][] = [$x, $y];
 
-                        if (count($this->lb_teams[($x/2)]) <= 0) {
+                        if ((is_countable($this->lb_teams[($x/2)]) ? count($this->lb_teams[($x/2)]) : 0) <= 0) {
                             $tmp = $this->getPrevCoords($round, $this->lb_indexes, 0);
                             $delta = $tmp[1][1] - $tmp[0][1] ;
                             if ($delta > 0) {
                                 for ($t=$delta; $t < ($this->lb_num_rows/2);) {
-                                    array_push($this->lb_indexes[$round], array($x, $y+$t));
-                                    $t += $delta;
+                                    $this->lb_indexes[$round][] = array($x, $y + $t);
+                                    $t                          += $delta;
                                 }
                             }
                         }

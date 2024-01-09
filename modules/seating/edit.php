@@ -2,15 +2,18 @@
 
 use LanSuite\Module\Seating\Seat2;
 
+$stepParameter = $_GET['step'] ?? 0;
+
 $seat2 = new Seat2();
 
-if ($_GET['action'] == 'add' and $_GET['step'] < 2) {
+if ($_GET['action'] == 'add' && $stepParameter < 2) {
     $_GET['step'] = 2;
 }
 
 // Error-Switch
-$error = array();
-switch ($_GET['step']) {
+$error = [];
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 3:
         // Error Columns
         if ($_POST['cols'] == "") {
@@ -48,7 +51,7 @@ switch ($_GET['step']) {
               WHERE
                 blockid = %int%
                 AND status = 2
-                AND row >= %int%", $_GET['blockid'], $_POST['rows']);
+                AND `row` >= %int%", $_GET['blockid'], $_POST['rows']);
             if ($row["number"] != 0) {
                 $error['rows'] = t('Bitte gib eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entferne bitte die betroffenen Benutzer.');
             }
@@ -69,7 +72,8 @@ switch ($_GET['step']) {
 
     // Update Seperators
     case 4:
-        if ($_GET['change_sep_row'] > 0) {
+        $changeSepRowParameter = $_GET['change_sep_row'] ?? 0;
+        if ($changeSepRowParameter > 0) {
             $seperator = $db->qry_first("
               SELECT
                 value
@@ -79,7 +83,7 @@ switch ($_GET['step']) {
                 AND orientation = '1'
                 AND value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
 
-            if ($seperator['value']) {
+            if ($seperator && $seperator['value']) {
                 $db->qry("
                   DELETE FROM %prefix%seat_sep
                   WHERE
@@ -95,7 +99,9 @@ switch ($_GET['step']) {
                     value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
             }
         }
-        if ($_GET['change_sep_col'] > 0) {
+
+        $changeSepColParameter = $_GET['change_sep_col'] ?? 0;
+        if ($changeSepColParameter > 0) {
             $seperator = $db->qry_first("
               SELECT value
               FROM %prefix%seat_sep
@@ -103,7 +109,8 @@ switch ($_GET['step']) {
                 blockid = %int%
                 AND orientation = '0'
                 AND value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
-            if ($seperator['value']) {
+
+            if ($seperator && $seperator['value']) {
                 $db->qry("
                   DELETE FROM %prefix%seat_sep
                   WHERE
@@ -137,7 +144,7 @@ switch ($_GET['step']) {
                     AND row = %string%
                     AND col = %string%", $_GET['blockid'], $row, $col);
 
-                if (!$seats_qry['seatid']) {
+                if (!$seats_qry) {
                     $db->qry("
                       INSERT INTO %prefix%seat_seats
                       SET
@@ -158,76 +165,90 @@ switch ($_GET['step']) {
 }
 
 // Form-Switch
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/seating/search.inc.php');
         break;
 
     case 2:
+        $smarty->assign('text_tl', '');
+        $smarty->assign('text_tc', '');
+        $smarty->assign('text_tr', '');
+        $smarty->assign('text_lt', '');
+        $smarty->assign('text_lc', '');
+        $smarty->assign('text_lb', '');
+        $smarty->assign('text_rt', '');
+        $smarty->assign('text_rc', '');
+        $smarty->assign('text_rb', '');
+        $smarty->assign('text_bl', '');
+        $smarty->assign('text_bc', '');
+        $smarty->assign('text_br', '');
+
         // Get data from DB
         if ($_GET['action'] == 'edit') {
             $block = $db->qry_first("SELECT * FROM %prefix%seat_block WHERE blockid = %int%", $_GET['blockid']);
-            if ($_POST['name'] == "") {
+            if (!array_key_exists('name', $_POST)) {
                 $_POST['name'] = $block['name'];
             }
-            if ($_POST['cols'] == "") {
+            if (!array_key_exists('cols', $_POST)) {
                 $_POST['cols'] = $block['cols'] + 1;
             }
-            if ($_POST['rows'] == "") {
+            if (!array_key_exists('rows', $_POST)) {
                 $_POST['rows'] = $block['rows'] + 1;
             }
-            if ($_POST['orientation'] == "") {
+            if (!array_key_exists('orientation', $_POST)) {
                 $_POST['orientation'] = $block['orientation'];
             }
-            if ($_POST['u18'] == "") {
+            if (!array_key_exists('u18', $_POST)) {
                 $_POST['u18'] = $block['u18'];
             }
-            if ($_POST['party_id'] == "") {
+            if (!array_key_exists('party_id', $_POST)) {
                 $_POST['party_id'] = $block['party_id'];
             }
-            if ($_POST['group_id'] == "") {
+            if (!array_key_exists('group_id', $_POST)) {
                 $_POST['group_id'] = $block['group_id'];
             }
-            if ($_POST['price_id'] == "") {
+            if (!array_key_exists('price_id', $_POST)) {
                 $_POST['price_id'] = $block['price_id'];
             }
-            if ($_POST['remark'] == "") {
+            if (!array_key_exists('remark', $_POST)) {
                 $_POST['remark'] = $block['remark'];
             }
-            if ($_POST['text_tl'] == "") {
+            if (!array_key_exists('text_tl', $_POST)) {
                 $_POST['text_tl'] = $block['text_tl'];
             }
-            if ($_POST['text_tc'] == "") {
+            if (!array_key_exists('text_tc', $_POST)) {
                 $_POST['text_tc'] = $block['text_tc'];
             }
-            if ($_POST['text_tr'] == "") {
+            if (!array_key_exists('text_tr', $_POST)) {
                 $_POST['text_tr'] = $block['text_tr'];
             }
-            if ($_POST['text_lt'] == "") {
+            if (!array_key_exists('text_lt', $_POST)) {
                 $_POST['text_lt'] = $block['text_lt'];
             }
-            if ($_POST['text_lc'] == "") {
+            if (!array_key_exists('text_lc', $_POST)) {
                 $_POST['text_lc'] = $block['text_lc'];
             }
-            if ($_POST['text_lb'] == "") {
+            if (!array_key_exists('text_lb', $_POST)) {
                 $_POST['text_lb'] = $block['text_lb'];
             }
-            if ($_POST['text_rt'] == "") {
+            if (!array_key_exists('text_rt', $_POST)) {
                 $_POST['text_rt'] = $block['text_rt'];
             }
-            if ($_POST['text_rc'] == "") {
+            if (!array_key_exists('text_rc', $_POST)) {
                 $_POST['text_rc'] = $block['text_rc'];
             }
-            if ($_POST['text_rb'] == "") {
+            if (!array_key_exists('text_rb', $_POST)) {
                 $_POST['text_rb'] = $block['text_rb'];
             }
-            if ($_POST['text_bl'] == "") {
+            if (!array_key_exists('text_bl', $_POST)) {
                 $_POST['text_bl'] = $block['text_bl'];
             }
-            if ($_POST['text_bc'] == "") {
+            if (!array_key_exists('text_bc', $_POST)) {
                 $_POST['text_bc'] = $block['text_bc'];
             }
-            if ($_POST['text_br'] == "") {
+            if (!array_key_exists('text_br', $_POST)) {
                 $_POST['text_br'] = $block['text_br'];
             }
 
@@ -246,54 +267,69 @@ switch ($_GET['step']) {
         }
 
         $dsp->NewContent(t('Sitzblock erstellen'), t(' Mit Hilfe des folgenden Formulars kannst du einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt kannst du dann Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock deinen Bedürfnissen anzupassen.'));
-        $dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=3&blockid={$_GET['blockid']}");
+        $blockIDParameter = $_GET['blockid'] ?? 0;
+        $dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=3&blockid={$blockIDParameter}");
 
-        $dsp->AddTextFieldRow('name', t('Sitzblockname'), $_POST['name'], $error['name']);
-        $dsp->AddTextFieldRow('cols', t('Länge horizontal'), $_POST['cols'], $error['cols']);
-        $dsp->AddTextFieldRow('rows', t('Länge vertikal'), $_POST['rows'], $error['rows']);
+        $namePostParameter = $_POST['name'] ?? '';
+        $colsPostParameter = $_POST['cols'] ?? '';
+        $rowsPostParameter = $_POST['rows'] ?? '';
+
+        $nameError = $error['name'] ?? '';
+        $colsError = $error['cols'] ?? '';
+        $rowsError = $error['rows'] ?? '';
+
+        $dsp->AddTextFieldRow('name', t('Sitzblockname'), $namePostParameter, $nameError);
+        $dsp->AddTextFieldRow('cols', t('Länge horizontal'), $colsPostParameter, $colsError);
+        $dsp->AddTextFieldRow('rows', t('Länge vertikal'), $rowsPostParameter, $rowsError);
 
         // Orientation
         $selections = array();
-        ($_POST['orientation'] == 0) ? $selected = 'selected' : $selected = '';
-        array_push($selections, "<option $selected value=\"0\">".t('Vertikal').'</option>');
-        ($_POST['orientation'] == 1) ? $selected = 'selected' : $selected = '';
-        array_push($selections, "<option $selected value=\"1\">".t('Horizontal').'</option>');
+        (array_key_exists('orientation', $_POST) && $_POST['orientation'] == 0) ? $selected = 'selected' : $selected = '';
+        $selections[] = "<option $selected value=\"0\">" . t('Vertikal') . '</option>';
+        (array_key_exists('orientation', $_POST) && $_POST['orientation'] == 1) ? $selected = 'selected' : $selected = '';
+        $selections[] = "<option $selected value=\"1\">" . t('Horizontal') . '</option>';
         $dsp->AddDropDownFieldRow('orientation', t('Orientierung'), $selections, '');
 
-        $dsp->AddCheckBoxRow('u18', t('U18 Block'), '', '', 0, $_POST['u18']);
+        $u18Parameter = $_POST['u18'] ?? 0;
+        $dsp->AddCheckBoxRow('u18', t('U18 Block'), '', '', 0, $u18Parameter);
 
-        $t_array = array();
-        array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
-        $res = $db->qry("SELECT group_id, group_name FROM %prefix%party_usergroups");
+        $t_array   = array();
+        $t_array[] = '<option value="0">' . t('Für alle Benutzer offen') . '</option>';
+        $res       = $db->qry("SELECT group_id, group_name FROM %prefix%party_usergroups");
         while ($row = $db->fetch_array($res)) {
-            ($_POST['group_id'] == $row['group_id'])? $selected = 'selected' : $selected = '';
-            array_push($t_array, '<option '. $selected .' value="'. $row['group_id'] .'">'. $row['group_name'] .'</option>');
+            $groupIDParameter = $_POST['group_id'] ?? 0;
+            ($groupIDParameter == $row['group_id'])? $selected = 'selected' : $selected = '';
+            $t_array[] = '<option ' . $selected . ' value="' . $row['group_id'] . '">' . $row['group_name'] . '</option>';
         }
         $db->free_result($res);
         $dsp->AddDropDownFieldRow("group_id", t('Nur für Benutzer dieser Gruppe'), $t_array, '');
 
-        $t_array = array();
-        array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
-        $res = $db->qry("SELECT price_id, price_text FROM %prefix%party_prices WHERE party_id = %int%", $party->party_id);
+        $t_array   = array();
+        $t_array[] = '<option value="0">' . t('Für alle Benutzer offen') . '</option>';
+        $res       = $db->qry("SELECT price_id, price_text FROM %prefix%party_prices WHERE party_id = %int%", $party->party_id);
         while ($row = $db->fetch_array($res)) {
-            ($_POST['price_id'] == $row['price_id'])? $selected = 'selected' : $selected = '';
-            array_push($t_array, '<option '. $selected .' value="'. $row['price_id'] .'">'. $row['price_text'] .'</option>');
+            $priceIDParameter = $_POST['price_id'] ?? 0;
+            ($priceIDParameter == $row['price_id'])? $selected = 'selected' : $selected = '';
+            $t_array[] = '<option ' . $selected . ' value="' . $row['price_id'] . '">' . $row['price_text'] . '</option>';
         }
         $db->free_result($res);
         $dsp->AddDropDownFieldRow("price_id", t('Nur für diesen Eintrittspreis'), $t_array, '');
 
-        $dsp->AddTextAreaPlusRow('remark', t('Bemerkung'), $_POST['remark'], $error['remark'], '', 4, 1);
+        $remarkParameter = $_POST['remark'] ?? '';
+        $remarkError = $error['remark'] ?? '';
+        $dsp->AddTextAreaPlusRow('remark', t('Bemerkung'), $remarkParameter, $remarkError, '', 4, 1);
         $dsp->AddDoubleRow(t('Sitzblockbeschriftung'), $smarty->fetch('modules/seating/templates/plan_labels.htm'));
 
         // Partys
-        $selections = array();
-        if (!$_POST['party_id']) {
+        $partyIDParameter = $_POST['party_id'] ?? null;
+        if (!$partyIDParameter) {
             $_POST['party_id'] = $party->party_id;
         }
+        $selections = array();
         $res = $db->qry("SELECT party_id, name FROM %prefix%partys");
         while ($row = $db->fetch_array($res)) {
             ($_POST['party_id'] == $row['party_id']) ? $selected = 'selected' : $selected = '';
-            array_push($selections, "<option $selected value=\"". $row['party_id'] ."\">". $row['name'] .'</option>');
+            $selections[] = "<option $selected value=\"" . $row['party_id'] . "\">" . $row['name'] . '</option>';
         }
         $db->free_result($res);
         $dsp->AddDropDownFieldRow('party_id', t('Party'), $selections, '');
@@ -304,6 +340,11 @@ switch ($_GET['step']) {
 
     case 3:
         // Save block settings
+
+        // u18 is not checked, then the value is '0'
+        if (empty($_POST['u18'])) {
+            $_POST['u18'] = '0';
+        }
         if ($_GET['action'] == 'add') {
             $db->qry("
               INSERT INTO %prefix%seat_block
@@ -311,8 +352,8 @@ switch ($_GET['step']) {
                 party_id = %int%,
                 group_id = %int%,
                 price_id = %int%,
-                name = %string%,
-                rows = %int%,
+                `name` = %string%,
+                `rows` = %int%,
                 cols = %int%,
                 orientation = %string%,
                 u18 = %string%,
@@ -337,8 +378,8 @@ switch ($_GET['step']) {
                 party_id = %int%,
                 group_id = %int%,
                 price_id = %int%,
-                name = %string%,
-                rows = %int%,
+                `name` = %string%,
+                `rows` = %int%,
                 cols = %int%,
                 orientation = %string%,
                 u18 = %string%,

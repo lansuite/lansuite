@@ -6,10 +6,13 @@ $dsp->NewContent(t('Neue Mail verfassen'), '');
 
 $mf = new \LanSuite\MasterForm();
 
-if ($_GET['userID']) {
+$userIdParameter = $_GET['userID'] ?? 0;
+if ($userIdParameter) {
     $_POST['toUserID'] = $_GET['userID'];
 }
-if ($_GET['replyto']) {
+
+$replyToParameter = $_GET['replyto'] ?? 0;
+if ($replyToParameter) {
     $row = $db->qry_first("
       SELECT
         m.mailID,
@@ -26,7 +29,7 @@ if ($_GET['replyto']) {
     $reply_message = $row['mailID'];
     if (!$_POST['toUserID'] and $_GET['replyto']) {
         $_POST['Subject'] = 'WG: '.$row['Subject'];
-    } elseif (substr($row['Subject'], 0, 4) == 'Re: ') {
+    } elseif (str_starts_with($row['Subject'], 'Re: ')) {
         $_POST['Subject'] = $row['Subject'];
     } else {
         $_POST['Subject'] = 'Re: '.$row['Subject'];
@@ -41,11 +44,13 @@ Betreff: '. $row['Subject'] .'
 '.$row['msgbody'];
 }
 
-if ($_SESSION['tmpmsgbody'] and $_GET['back']) {
+$tmpMsgBodySessionParameter = $_SESSION['tmpmsgbody'] ?? '';
+if ($tmpMsgBodySessionParameter && $_GET['back']) {
     $_POST['msgbody'] = $_SESSION['tmpmsgbody'];
 }
 
-if ($_SESSION['tmpmsgsubject'] and $_GET['back']) {
+$tmpMsgSubjectSessionParameter = $_SESSION['tmpmsgsubject'] ?? '';
+if ($tmpMsgSubjectSessionParameter && $_GET['back']) {
     $_POST['Subject'] = $_SESSION['tmpmsgsubject'];
 }
 
@@ -80,7 +85,8 @@ $res = $db->qry("
   WHERE type >= %string%
   ORDER BY type DESC, username", $WhereMinType);
 
-if (!$_POST['toUserID']) {
+$toUserIdParameter = $_POST['toUserID'] ?? 0;
+if (!$toUserIdParameter) {
     $selections[-1] = "- Bitte wählen -";
 }
 
@@ -94,7 +100,7 @@ while ($row = $db->fetch_array($res)) {
         $UserFound = 1;
     }
 
-    if ($auth['type'] >= 2 or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
         $selections[$row['userid']] = $row['username'] .' ('. $row['firstname'] .' '. $row['name'] .')';
     } else {
         $selections[$row['userid']] = $row['username'];
@@ -127,10 +133,12 @@ $mf->SendButtonText = t('Mail abschicken');
 
 $mf->CheckBeforeInserFunction = 'SendOnlineMail';
 if ($mf->SendForm('index.php?mod=mail&action=newmail&reply_message', 'mail_messages', 'mailID', '')) {
-    $url_parts = parse_url($profile_url);
-    $reply_to = strrchr($url_parts['query'], 'replyto');
-    if ($reply_to) {
-        $reply_to_id = substr(strrchr($reply_to, '='), 1);
-        $setreply = $db->qry("UPDATE %prefix%mail_messages SET des_status = 'reply' WHERE mailID = %int% ", $reply_to_id);
+    if (isset($profile_url)) {
+        $url_parts = parse_url($profile_url);
+        $reply_to = strrchr($url_parts['query'], 'replyto');
+        if ($reply_to) {
+            $reply_to_id = substr(strrchr($reply_to, '='), 1);
+            $setreply = $db->qry("UPDATE %prefix%mail_messages SET des_status = 'reply' WHERE mailID = %int% ", $reply_to_id);
+        }
     }
 }

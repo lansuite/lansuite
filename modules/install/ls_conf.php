@@ -4,7 +4,8 @@ $importXml = new \LanSuite\XML();
 $installImport = new \LanSuite\Module\Install\Import($importXml);
 $install = new \LanSuite\Module\Install\Install($installImport);
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 2:
         // Set new $config-Vars
         if ($_POST["host"]) {
@@ -80,8 +81,8 @@ switch ($_GET["step"]) {
                         } else {
                             $selected = '';
                         }
-                        $xml = new \LanSuite\XML();
-                        array_push($t_array, "<option $selected value=\"$akt_design\">". $xml->get_tag_content("name", $xml_content) ."</option>");
+                        $xml       = new \LanSuite\XML();
+                        $t_array[] = "<option $selected value=\"$akt_design\">" . $xml->get_tag_content("name", $xml_content) . "</option>";
                     }
                     fclose($xml_file);
                 }

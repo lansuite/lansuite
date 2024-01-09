@@ -12,7 +12,7 @@ $res = $db->qry('
   ORDER BY age');
 
 while ($row = $db->fetch_array($res)) {
-    if ($row['birthday'] == '0000-00-00') {
+    if (empty($row['birthday']) || $row['birthday'] == '0000-00-00') {
         $dsp->AddDoubleRow(t('Keine Angabe'), $row['anz']);
     } else {
         $dsp->AddDoubleRow($row['age'], $row['anz']);

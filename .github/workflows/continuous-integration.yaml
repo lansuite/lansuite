@@ -1,0 +1,86 @@
+name: Continuous Integration
+
+on:
+  push:
+  schedule:
+    - cron: "5 1 * * *"
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['8.1']
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: gd, mysqli
+          #tools: php-cs-fixer, phpunit:${{ matrix.phpunit-versions }}
+
+      - name: Determine composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=directory::$(composer config cache-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+            path: ${{ steps.composer-cache.outputs.directory }}
+            key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+            restore-keys: ${{ matrix.php }}-composer-
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run tests
+        run: bin/phpunit
+
+  style-tests:
+    name: Code Style Tests
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          # Run style checks only on one version (latest supported)
+          php-version: 8.1
+          extensions: gd, mysqli
+
+      - name: Determine composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=directory::$(composer config cache-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+            path: ${{ steps.composer-cache.outputs.directory }}
+            key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+            restore-keys: ${{ matrix.php }}-composer-
+
+      - name: Install dependencies
+        run: composer install
+        
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+
+      - name: Run phpcs on all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            bin/phpcs --ignore=*/vendor/* --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName --extensions=php -s $file
+          done
+
+#      - name: Run tests
+#        run: bin/phpcs --ignore=*/vendor/* --standard=PSR1,PSR2 --exclude=Generic.Files.LineLength,PSR1.Methods.CamelCapsMethodName --extensions=php -s .

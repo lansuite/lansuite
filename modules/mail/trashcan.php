@@ -19,7 +19,8 @@ $mail_unread_total = $db->qry_first("
 $dsp->NewContent(t('Papierkorb'), t('Du hast <b>%1</b> Mail(s) in ihrem Papierkorb. Davon wurde(n) <b>%2</b> nicht von dir gelesen.', $mail_total["n"], $mail_unread_total["n"]));
 
 if ($auth['userid']) {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // check if it can delete from Database and delete
         case 20:
             if (!$_POST['action'] and $_GET['mailid']) {
@@ -60,7 +61,7 @@ $ms2->AddResultField(t('Gesendet'), 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2
 $ms2->AddResultField(t('Gelesen'), 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate', '', 60);
 
 $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=trash&mailID=', t('Details'));
-$ms2->AddIconField('delete', 'index.php?mod=mail&action=trashcan&step=20&mailid=', t('Entgültig löschen'), '', 10);
+$ms2->AddIconField('delete', 'index.php?mod=mail&action=trashcan&step=20&mailid=', t('Entgültig löschen'), '');
 
 $ms2->AddMultiSelectAction(t('Entgültig löschen'), 'index.php?mod=mail&action=trashcan&step=20', 1, 'delete');
 

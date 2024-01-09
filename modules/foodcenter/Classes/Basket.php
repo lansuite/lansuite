@@ -14,10 +14,7 @@ class Basket
      */
     private $product;
 
-    /**
-     * @var Accounting
-     */
-    private $account;
+    private \LanSuite\Module\Foodcenter\Accounting $account;
 
     /**
      * @var int
@@ -37,7 +34,7 @@ class Basket
             $this->count = 0;
             $this->product = new ProductList();
         } else {
-            $this->product = unserialize($_SESSION['basket_item']['product']);
+            $this->product = unserialize($_SESSION['basket_item']['product'], ProductList::class);
             $this->count = $_SESSION['basket_count'];
         }
 
@@ -77,6 +74,7 @@ class Basket
      */
     public function show_basket()
     {
+        $fc_theke_delivered = [];
         global $dsp, $cfg, $func;
             
         $dsp->NewContent(t('Warenkorb'), t('Um einen Artikel zu löschen, setze ihn auf 0 und klicken anschließend auf "Neu berechnen".'));

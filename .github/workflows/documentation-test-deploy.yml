@@ -1,0 +1,27 @@
+name: "Documentation: Test deployment"
+
+on:
+  pull_request:
+
+jobs:
+  test-deploy:
+    name: "Documentation: Test deployment"
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        shell: bash
+        working-directory: website
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: 'website/package-lock.json'
+
+      - name: Install dependencies
+        run: make init
+
+      - name: Test build the documentation website
+        run: make build

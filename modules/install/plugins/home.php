@@ -3,13 +3,14 @@
 $smarty->assign('caption', t('Sonstige neue Kommentare'));
 $content = "";
 
+$exclude = '';
 if (!$func->isModActive('faq')) {
     $exclude .= ' AND relatedto_item != \'faq\'';
 }
-if (!$func->isModActive('task') or $auth['type'] < 2) {
+if (!$func->isModActive('task') or $auth['type'] < \LS_AUTH_TYPE_ADMIN) {
     $exclude .= ' AND relatedto_item != \'task\'';
 }
-if ($auth['type'] < 2) {
+if ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
     $exclude .= ' AND relatedto_item != \'SponSupp\'';
 }
 if (!$func->isModActive('usrmgr')) {

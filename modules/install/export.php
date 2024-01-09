@@ -3,7 +3,8 @@
 $xmlExport = new \LanSuite\XML();
 $export = new \LanSuite\Module\Install\Export($xmlExport);
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Daten exportieren'), t('Hier kannst du Benutzerdaten exportieren. Diese kannst du später wieder in Lansuite importieren.'));
         $dsp->SetForm("index.php?mod=install&action=export&step=2", "", "", "");
@@ -18,8 +19,8 @@ switch ($_GET["step"]) {
             "ext_inc_data"  => t('DATA: Daten-Ordner herunterladen (Avatare, Bildergallerie, Banner, ...)')
         );
         $t_array = array();
-        while (list($key, $val) = each($type_array)) {
-            array_push($t_array, "<option $selected value=\"$key\">$val</option>");
+        foreach ($type_array as $key => $val) {
+            $t_array[] = "<option $selected value=\"$key\">$val</option>";
         }
         $dsp->AddDropDownFieldRow("type", t('Export Typ'), $t_array, "", 1);
 

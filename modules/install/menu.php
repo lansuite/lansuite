@@ -4,7 +4,8 @@ $importXml = new \LanSuite\XML();
 $installImport = new \LanSuite\Module\Install\Import($importXml);
 $install = new \LanSuite\Module\Install\Install($installImport);
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     // Move Up
     case 2:
         $db->qry("UPDATE %prefix%menu SET pos = 0 WHERE pos = %int%", ($_GET["pos"] - 1));
@@ -66,8 +67,7 @@ switch ($_GET["step"]) {
         break;
 }
 
-
-switch ($_GET["step"]) {
+switch ($stepParameter) {
     // Change Group Choice
     case 8:
         $dsp->NewContent(t('Gruppe ändern'), t('Hier kannst du diesen Navigationseintrag einer Gruppe zuweisen'));
@@ -82,13 +82,14 @@ switch ($_GET["step"]) {
 
 
     default:
+        $onlyActiveParameter = $_GET["onlyactive"] ?? 0;
         $dsp->NewContent(t('Navigationsmenü verwalten'), '');
         $dsp->AddDoubleRow("Hinweis MenüBox", "<font color=\"red\">".t("Verwende die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box")."</font>");
         $dsp->AddDoubleRow("Hinweis Gruppen", "<font color=\"red\">".t("Verwende die Gruppen um in der URL mit dem Parameter &menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design")."</font>");
-        $dsp->SetForm("index.php?mod=install&action=menu&step=10&onlyactive={$_GET["onlyactive"]}");
+        $dsp->SetForm("index.php?mod=install&action=menu&step=10&onlyactive={$onlyActiveParameter}");
 
-        $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&step=6&onlyactive={$_GET["onlyactive"]}\">".t('Navigation zurücksetzen')."</a>");
-        if ($_GET["onlyactive"]) {
+        $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&step=6&onlyactive={$onlyActiveParameter}\">".t('Navigation zurücksetzen')."</a>");
+        if ($onlyActiveParameter) {
             $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&onlyactive=0\">".t('Alle Einträge anzeigen')."</a>");
         } else {
             $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&onlyactive=1\">".t('Nur Einträge von aktivierten Modulen anzeigen')."</a>");
@@ -116,22 +117,22 @@ switch ($_GET["step"]) {
             $z++;
             $db->qry("UPDATE %prefix%menu SET pos = %int% WHERE id = %int%", $z, $menu["id"]);
 
-            if ($menu["active"] or (!$_GET["onlyactive"])) {
+            if ($menu["active"] or (!$onlyActiveParameter)) {
                 $link = "";
                 if ($menu["caption"] == "--hr--") {
                     $menu["caption"] = "<i>Trennzeile</i>";
-                    $link .= "[<a href=\"index.php?mod=install&action=menu&step=5&pos=$z&onlyactive={$_GET["onlyactive"]}\">".t('entfernen')."</a>] ";
+                    $link .= "[<a href=\"index.php?mod=install&action=menu&step=5&pos=$z&onlyactive={$onlyActiveParameter}\">".t('entfernen')."</a>] ";
                 } else {
-                    $link .= "[<a href=\"index.php?mod=install&action=modules&step=20&module={$menu["module"]}&onlyactive={$_GET["onlyactive"]}\">".t('editieren')."</a>] ";
+                    $link .= "[<a href=\"index.php?mod=install&action=modules&step=20&module={$menu["module"]}&onlyactive={$onlyActiveParameter}\">".t('editieren')."</a>] ";
                     if ($z < $db->num_rows($menus)) {
-                        $link .= "[<a href=\"index.php?mod=install&action=menu&step=4&pos=$z&onlyactive={$_GET["onlyactive"]}\">".t('Trennzeile')."</a>] ";
+                        $link .= "[<a href=\"index.php?mod=install&action=menu&step=4&pos=$z&onlyactive={$onlyActiveParameter}\">".t('Trennzeile')."</a>] ";
                     }
                 }
                 if ($z > 1) {
-                    $link .= "[<a href=\"index.php?mod=install&action=menu&step=2&pos=$z&onlyactive={$_GET["onlyactive"]}\">^</a>] ";
+                    $link .= "[<a href=\"index.php?mod=install&action=menu&step=2&pos=$z&onlyactive={$onlyActiveParameter}\">^</a>] ";
                 }
                 if ($z < $db->num_rows($menus)) {
-                    $link .= "[<a href=\"index.php?mod=install&action=menu&step=3&pos=$z&onlyactive={$_GET["onlyactive"]}\">v</a>]";
+                    $link .= "[<a href=\"index.php?mod=install&action=menu&step=3&pos=$z&onlyactive={$onlyActiveParameter}\">v</a>]";
                 }
                 $link .= " ".t('Pos').": <input type=\"text\" name=\"pos[{$menu["id"]}]\" value=\"$z\" size=\"2\">";
                 $link .= " Gruppe: <input type=\"text\" name=\"group[{$menu["id"]}]\" value=\"{$menu['group_nr']}\" size=\"2\">";

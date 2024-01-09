@@ -2,7 +2,15 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
-use Symfony\Component\Debug\Debug;
+use Symfony\Component\Cache;
+use Symfony\Component\ErrorHandler\Debug;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Filesystem\Filesystem;
+
+$request = Request::createFromGlobals();
+$filesystem = new Filesystem();
+
+define('ROOT_DIRECTORY', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise
@@ -11,141 +19,47 @@ use Symfony\Component\Debug\Debug;
 // when the development of LanSuite continues and is getting modernized.
 error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
 
-if (function_exists('ini_set')) {
-    // Disable SID in URL
-    ini_set('url_rewriter.tags', '');
-}
-
-/**
- * @param int $errno
- * @param string $errstr
- * @param string $errfile
- * @param int $errline
- * @return bool
- */
-function myErrorHandler($errno, $errstr, $errfile, $errline)
-{
-    global $PHPErrors, $PHPErrorsFound, $db, $auth;
-
-    // Only show errors, which sould be reported according to error_reporting
-    // Also filters @ (for @ will have error_reporting "0")
-    // Why this is necessary at all?
-    // From the PHP docs of "set_error_handler"
-    //      It is important to remember that the standard PHP error handler is completely bypassed for the error types specified by error_types unless the callback function returns FALSE.
-    // Source: https://secure.php.net/manual/en/function.set-error-handler.php
-    // LanSuite is _at the moment_ (2018-01-13) not PHP Notice free.
-    // We are working on this. Once this is done, we can remove the next two
-    // conditions and move along.
-    // Until this time we have to keep it.
-    // Otherwise the system might not be usable at all.
-    $rep = ini_get('error_reporting');
-    if (!($rep & $errno)) {
-        return false;
-    }
-
-    if (error_reporting() == 0) {
-        return false;
-    }
-
-    switch ($errno) {
-        case E_ERROR:
-            $errors = "Error";
-            break;
-        case E_WARNING:
-            $errors = "Warning";
-            break;
-        case E_PARSE:
-            $errors = "Parse Error";
-            break;
-        case E_NOTICE:
-            $errors = "Notice";
-            break;
-        case E_CORE_ERROR:
-            $errors = "Core Error";
-            break;
-        case E_CORE_WARNING:
-            $errors = "Core Warning";
-            break;
-        case E_COMPILE_ERROR:
-            $errors = "Compile Error";
-            break;
-        case E_COMPILE_WARNING:
-            $errors = "Compile Warning";
-            break;
-        case E_USER_ERROR:
-            $errors = "User Error";
-            break;
-        case E_USER_WARNING:
-            $errors = "User Warning";
-            break;
-        case E_USER_NOTICE:
-            $errors = "User Notice";
-            break;
-        case E_STRICT:
-            $errors = "Strict Notice";
-            break;
-        case E_RECOVERABLE_ERROR:
-            $errors = "Recoverable Error";
-            break;
-        default:
-            if ($errno == E_DEPRECATED) {
-                $errors = "Deprecated";
-            } elseif ($errno == E_USER_DEPRECATED) {
-                $errors = "User Deprecated";
-            } else {
-                $errors = "Unknown error ($errno)";
-            }
-    }
-
-    $err = sprintf("PHP %s: %s in %s on line %d", $errors, $errstr, $errfile, $errline);
-    if (ini_get('log_errors')) {
-        error_log($err);
-    }
-
-    $PHPErrors .= $err .'<br />';
-    $PHPErrorsFound = 1;
-
-    // Write to DB-Log
-    if (isset($db) and $db->success) {
-        $db->qry(
-            '
-            INSERT INTO %prefix%log
-            SET date = NOW(),
-                userid = %int%,
-                type = 3,
-                description = %string%,
-                sort_tag = "PHP-Fehler"',
-            (int) $auth['userid'],
-            $err
-        );
-    }
-
-    return true;
-}
-
 $PHPErrors = '';
 
-// Read Config and Definitionfiles
-// Load Basic Config
-if (file_exists('inc/base/config.php')) {
-    $config = parse_ini_file('inc/base/config.php', 1);
-
-// Default config. Will be used only until the wizard has created the config file
+// Initialize Cache. Go for APCu first, filebased otherwise. DB adaptor to be used when we implement PDO.
+if (extension_loaded('apcu')) {
+    $cache = new Symfony\Component\Cache\Adapter\ApcuAdapter('lansuite', 600);
 } else {
-    $config = [];
+    $cache = new Symfony\Component\Cache\Adapter\FilesystemAdapter('lansuite', 600);
+}
 
-    $config['lansuite']['default_design'] = 'simple';
-    $config['lansuite']['chmod_dir'] = '777';
-    $config['lansuite']['chmod_file'] = '666';
-    $config['lansuite']['debugmode'] = '0';
+// Check cache for config, try to load from file otherwise
+$configCache = $cache->getItem('config');
+if (!$configCache->isHit() || $request->query->get('mod') == 'install') {
+    // Read Config and Definitionfiles
+    // Load Basic Config
+    if (file_exists('inc/base/config.php')) {
+        $config = parse_ini_file('inc/base/config.php', 1);
+    // Default config. Will be used only until the wizard has created the config file
+    } else {
+        $config = [];
 
-    $config['database']['server'] = 'localhost';
-    $config['database']['user'] = 'root';
-    $config['database']['passwd'] = '';
-    $config['database']['database'] = 'lansuite';
-    $config['database']['prefix'] = 'ls_';
-    $config['database']['charset'] = 'utf8';
+        $config['lansuite']['default_design'] = 'simple';
+        $config['lansuite']['chmod_dir'] = '777';
+        $config['lansuite']['chmod_file'] = '666';
+        $config['lansuite']['debugmode'] = '0';
 
+        $config['database']['server'] = 'localhost';
+        $config['database']['dbport'] = 3306;
+        $config['database']['user'] = 'root';
+        $config['database']['passwd'] = '';
+        $config['database']['database'] = 'lansuite';
+        $config['database']['prefix'] = 'ls_';
+        $config['database']['charset'] = 'utf8mb4';
+
+        $config['environment']['configured'] = 0;
+    }
+    $configCache->set($config);
+    $cache->save($configCache);
+}
+$config = $configCache->get();
+
+if (!isset($config['environment'])) {
     $config['environment']['configured'] = 0;
 }
 
@@ -153,15 +67,25 @@ if (file_exists('inc/base/config.php')) {
 // The original error handler shows PHP Warnings in a typical red box
 if (!$config['lansuite']['debugmode']) {
     $PHPErrorsFound = 0;
-    set_error_handler("myErrorHandler");
+
+    // We only can set the error handler, once the system is set up.
+    // The error handler writes into the database. If the environment is
+    // not set up yet, we don't have the respective database tables.
+    if ($config['environment']['configured']) {
+        set_error_handler("myErrorHandler");
+    }
 
 // If the debug mode is enabled, we register the Symonfy/Debug component.
 // This component shows the error in a nice stack trace.
 // More information here: https://symfony.com/components/Debug
 } elseif ($config['lansuite']['debugmode'] > 0) {
+    Debug::enable();
+
     // TODO Once LanSuite is notice free, we set the $errorReportingLevel back to E_ALL
-    $errorReportingLevel = E_ALL & ~E_NOTICE;
-    Debug::enable($errorReportingLevel);
+    // We need to re-set error_reporting here, because
+    // the error handler component sets error_reporting(-1).
+    // At the moment (2023-06-02) we only care about PHP Warning and above.
+    error_reporting(E_ALL & ~E_NOTICE);
 }
 
 // Start session-management
@@ -174,8 +98,10 @@ if (isset($_GET['fullscreen'])) {
 }
 
 // Compromise ... design as base and popup should be deprecated
-if (isset($_GET['design']) && ($_GET['design'] == 'base' || $_GET['design'] == 'popup' || $_GET['design'] == 'ajax' || $_GET['design'] == 'print' || $_GET['design'] == 'beamer')) {
-    $frmwrkmode = $_GET['design'];
+$design = $request->query->get('design');
+$frmwrkmode = '';
+if ($design == 'base' || $design == 'popup' || $design == 'ajax' || $design == 'print' || $design == 'beamer') {
+    $frmwrkmode = $design;
 }
 // Set Popupmode via GET (base, popup)
 if (isset($_GET['frmwrkmode']) && $_GET['frmwrkmode']) {
@@ -227,7 +153,11 @@ $_SERVER['QUERY_STRING'] = $func->NoHTML($_SERVER['QUERY_STRING'], 1);
 $__POST = $_POST;
 
 // Emulate MQ, if disabled
-if (!get_magic_quotes_gpc()) {
+// TODO Remove this get_magic_quotes_gpc function check, once this project had 7.4 as a minimum requirement.
+// See
+// - Setting: https://www.php.net/manual/en/info.configuration.php#ini.magic-quotes-gpc
+// - Function: https://www.php.net/manual/en/function.get-magic-quotes-gpc.php
+if (!function_exists('get_magic_quotes_gpc') || !get_magic_quotes_gpc()) {
     foreach ($_GET as $key => $val) {
         if (!is_array($_GET[$key])) {
             $_GET[$key] = addslashes($_GET[$key]);
@@ -274,8 +204,27 @@ $ms_number = 0;
 // Display Functions (to load the lansuite-templates)
 $dsp = new \LanSuite\Display();
 
-// DB Functions (to work with the databse)
+// DB Functions (to work with the database)
+// TODO Remove the "old" database class, once everything is migrated to the new one (see below)
 $db = new \LanSuite\DB();
+
+// Loading the new database class with standard support for prepared statements.
+$database = new \LanSuite\Database(
+    $config['database']['server'],
+    $config['database']['dbport'] ?? 3306,
+    $config['database']['user'],
+    $config['database']['passwd'],
+    $config['database']['database'],
+    $config['database']['charset'] ?? 'utf8mb4'
+);
+try {
+    $database->connect();
+    $database->setTablePrefix($config['database']['prefix']);
+} catch(\mysqli_sql_exception $e) {
+    $databaseError = $e->getMessage() . ' (' . $e->getCode() . ')';
+    echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. LanSuite wird abgebrochen. Zurückgegebener MySQL-Fehler: ' . $databaseError) . HTML_FONT_END;
+    exit();
+}
 
 // Security Functions (to lock pages)
 $sec = new \LanSuite\Security();
@@ -303,9 +252,18 @@ if ($config['environment']['configured'] == 0) {
     $db->connect(1);
     $IsAboutToInstall = 1;
 
-    // Force Adminrights for installing User
-    $auth["type"] = 3;
+    // Force Admin rights for installing User
+    $auth['type'] = \LS_AUTH_TYPE_SUPERADMIN;
     $auth["login"] = 1;
+    $auth['userid'] = 0;
+
+    // At this point in time, we are in the installation mode and the global
+    // configuration $cfg does not exist yet, but it is accessed through the codebase already.
+    // Lets load the default XML configuration from the installation module.
+    $installConfigFile = 'modules/install/mod_settings/config.xml';
+    $configLoader = new \LanSuite\Configuration();
+    $configLoader->loadConfigurationFromXML($installConfigFile, 'install');
+    $cfg = $configLoader->getConfigurationAsArray();
 
     // Load DB-Data after installwizard step 3
     if ($_GET["action"] == "wizard" && isset($_GET["step"]) && $_GET["step"] > 3) {
@@ -323,14 +281,28 @@ if ($config['environment']['configured'] == 0) {
     if (!$func->admin_exists() && isset($_GET["action"]) && (($_GET["action"] == "wizard" && $_GET["step"] <= 3) || ($_GET["action"] == "ls_conf"))) {
         $db->success = 0;
     }
+    
+    //load $cfg from cache
+    $cfgCache = $cache->getItem('cfg');
+    if (!$cfgCache->isHit()) {
+        $cfg = $func->read_db_config();
+        $cfgCache->set($cfg);
+        $cache->save($cfgCache);
+    }
+    $cfg = $cfgCache->get();
 
-    $cfg = $func->read_db_config();
+    // TODO Reload language
+    // At this point, we have the configured language from the database, but the translations are
+    // loaded already. Thats why the configured default language is used and loaded, even
+    // if another language is selected in the install module.
+
     $message = $sec->check_blacklist();
+    
     if (strlen($message) > 0) {
         die($message);
     }
 
-    if (!$_GET['mod']) {
+    if (!array_key_exists('mod', $_GET) || !$_GET['mod']) {
         $_GET['mod'] = 'home';
     }
     $func->getActiveModules();
@@ -355,23 +327,32 @@ if ($func->isModActive('party')) {
 
 // If without party-module: Just give a fake ID, for many modules need it
 } else {
-    class party
-    {
+    $party = new class {
         public $party_id;
-    }
-    $party = new party();
-    $party->party_id = (int) $cfg['signon_partyid'];
+    };
+    // Just a random high number
+    $party->party_id = (int) ($cfg['signon_partyid'] ?? 1683925);
 }
 
 if ($config['environment']['configured'] != 0) {
     if ($_GET['mod']=='auth') {
         switch ($_GET['action']) {
             case 'login':
-                $auth = $authentication->login($_POST['email'], $_POST['password']);
+                $emailValue = $_POST['email'] ?? '';
+                $passwordValue = $_POST['password'] ?? '';
+                $auth = $authentication->login($emailValue, $passwordValue);
                 break;
             case 'logout':
                 $auth = $authentication->logout();
+
+                // At the moment we did not migrate fully to "Symfony\Component\HttpFoundation\Request".
+                // LanSuite has the behaviour to write into superglobals, like $_GET.
+                // HttpFoundation initiates from the superglobal only once.
+                // In a regular case, writes to the superglobals won't be respected by HttpFoundation.
+                // For the time being (until we fully migrate), we need to double write:
+                // Once to the superglobal, once to HttpFoundation.
                 $_GET['mod'] = 'home';
+                $request->query->set('mod', 'home');
                 break;
             // Switch to user
             case 'switch_to':
@@ -390,23 +371,29 @@ if ($config['environment']['configured'] != 0) {
  */
 function initializeDesign()
 {
-    global $cfg, $auth, $config, $_SESSION, $_GET, $smarty;
+    global $cfg, $auth, $config, $_SESSION, $_GET, $smarty, $request;
 
+    $design = $request->query->get('design');
+
+    $user_design_change = false;
+    if (array_key_exists('user_design_change', $cfg)) {
+        $user_design_change = $cfg['user_design_change'];
+    }
     // If user is not allowed to use an own selected design, or none is selected, use default
-    if (!$cfg['user_design_change'] || !$auth['design']) {
+    if (!$user_design_change || (array_key_exists('design', $auth) && !$auth['design'])) {
         $auth['design'] = $config['lansuite']['default_design'];
     }
 
     // Design switch by URL
-    if (isset($_GET['design']) && $_GET['design'] != 'popup' && $_GET['design'] != 'base') {
-        $auth['design'] = $_GET['design'];
+    if ($design && $design != 'popup' && $design != 'base') {
+        $auth['design'] = $design;
     }
 
     // Fallback design is 'simple'
     if (!$auth['design'] || !file_exists('design/' . $auth['design'] . '/templates/main.htm')) {
         $auth['design'] = 'simple';
         if (!isset($_GET['design']) || ($_GET['design'] != 'popup' && $_GET['design'] != 'base')) {
-            $_GET['design'] = 'simple';
+            $design = 'simple';
         }
     }
 
@@ -419,12 +406,17 @@ function initializeDesign()
 initializeDesign();
 
 // Load Rotation Banner
-if ($_GET['design'] != 'popup' && $_GET['action'] != 'wizard' && !$_SESSION['lansuite']['fullscreen'] && $db->success && $func->isModActive('sponsor')) {
+$actionParameter = $request->query->get('action');
+$fullscreenSessionParameter = false;
+if (array_key_exists('lansuite', $_SESSION) && array_key_exists('fullscreen', $_SESSION['lansuite'])) {
+    $fullscreenSessionParameter = $_SESSION['lansuite']['fullscreen'];
+}
+if ($design != 'popup' && $actionParameter != 'wizard' && !$fullscreenSessionParameter && $db->success && $func->isModActive('sponsor')) {
     include_once("modules/sponsor/banner.php");
 }
 
 // Create Boxes / load Boxmanager
-if (!$IsAboutToInstall && $_GET['design'] != 'base') {
+if (!$IsAboutToInstall && $design != 'base') {
     include_once("modules/boxes/boxes.php");
 }
 
@@ -446,7 +438,9 @@ if ($PHPErrors) {
 $PHPErrors = '';
 
 // Add old Frameworkmessages (should be deprecated)
-$framework->add_content($FrameworkMessages);
+if (isset($FrameworkMessages)) {
+    $framework->add_content($FrameworkMessages);
+}
 // Add old MainContent-Variable (should be deprecated)
 $framework->add_content($MainContent);
 
@@ -467,7 +461,7 @@ unset($dsp);
 // Statistics will be updated only at scriptend, so pagesize and loadtime can be inserted
 if ($db->success) {
     // Statistic Functions (for generating server- and usage-statistics)
-    $stats = new LanSuite\Module\Stats\Stats();
+    $stats = new LanSuite\Module\Stats\Stats($request);
     unset($stats);
 
     // Check Cronjobs

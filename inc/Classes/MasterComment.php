@@ -24,7 +24,8 @@ class MasterComment
         $dsp->AddFieldsetStart(t('Kommentare'));
 
         // Delete comments
-        if ($_GET['mc_step'] == 10) {
+        $masterCommentStepParameter = $_GET['mc_step'] ?? 0;
+        if ($masterCommentStepParameter == 10) {
             $md = new MasterDelete();
             $md->LogID = $id;
             $md->Delete('comments', 'commentid', $_GET['commentid']);
@@ -38,7 +39,7 @@ class MasterComment
         $CurentURLBase = preg_replace('#&commentid=[0-9]*#si', '', $CurentURLBase);
 
         // No ORDER BY in this MS, it collides with possible other MS on this page
-        $order_by_tmp = $_GET['order_by'];
+        $order_by_tmp = $_GET['order_by'] ?? '';
         $_GET['order_by'] = '';
 
         // List current comments
@@ -60,7 +61,7 @@ class MasterComment
         $ms2->AddIconField('quote', 'javascript:document.getElementById(\'text\').value += \'[quote]\' + document.getElementById(\'post%id%\').innerHTML + \'[/quote]\'', t('Zitieren'));
         $ms2->AddIconField('edit', $CurentURLBase.'&commentid=%id%#dsp_form2', t('Editieren'), 'MasterCommentEditAllowed');
 
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddIconField('delete', $CurentURLBase.'&mc_step=10&commentid=', t('Löschen'));
         }
 
@@ -71,30 +72,31 @@ class MasterComment
         if ($cfg['mc_only_logged_in'] && !$auth['login']) {
             $func->information(t('Bitte logge dich ein, bevor du einen Kommentar verfasst'), NO_LINK);
         } else {
-            if ($_GET['commentid']) {
+            $commentIdParameter = $_GET['commentid'] ?? 0;
+            if ($commentIdParameter) {
                 $row = $db->qry_first('SELECT creatorid FROM %prefix%comments WHERE commentid = %int%', $_GET['commentid']);
             }
 
-            if (!$_GET['commentid'] || ($row['creatorid'] && $row['creatorid'] == $auth['userid']) || $auth['type'] >= 2) {
+            if (!$commentIdParameter || (is_array($row) && $row['creatorid'] && $row['creatorid'] == $auth['userid']) || $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $mf = new MasterForm();
                 $mf->LogID = $id;
 
-                $mf->AddField(t('Kommentar'), 'text', '', masterform::LSCODE_BIG);
+                $mf->AddField(t('Kommentar'), 'text', '', MasterForm::LSCODE_BIG);
                 if (!$auth['login']) {
-                    $mf->AddField('', 'captcha', masterform::IS_CAPTCHA);
+                    $mf->AddField('', 'captcha', MasterForm::IS_CAPTCHA);
                 }
 
                 $mf->AddFix('relatedto_item', $mod);
                 $mf->AddFix('relatedto_id', $id);
-                if (!$_GET['commentid']) {
+                if (!$commentIdParameter) {
                     $mf->AddFix('date', 'NOW()');
                 }
 
-                if (!$_GET['commentid']) {
+                if (!$commentIdParameter) {
                     $mf->AddFix('creatorid', $auth['userid']);
                 }
 
-                if ($mf->SendForm('', 'comments', 'commentid', $_GET['commentid'])) {
+                if ($mf->SendForm('', 'comments', 'commentid', $commentIdParameter)) {
                     // Send email-notifications to thread-subscribers
                     // TODO Remove dependency to module. LanSuite core classes should not have dependencies to modules.
                     $mail = new Mail();
@@ -147,8 +149,9 @@ class MasterComment
         $dsp->AddFieldsetEnd();
 
         // Bookmarks and Auto-Mail
-        if ($auth['login'] and $auth['type'] > 1) {
-            if ($_GET['set_bm']) {
+        if ($auth['login'] and $auth['type'] > \LS_AUTH_TYPE_USER) {
+            $setBmParameter = $_GET['set_bm'] ?? '';
+            if ($setBmParameter) {
                 $db->qry_first('DELETE FROM %prefix%comments_bookmark WHERE relatedto_id = %int% AND relatedto_item = %string%', $id, $mod);
                 if ($_POST["check_bookmark"]) {
                     $db->qry(
@@ -179,34 +182,41 @@ class MasterComment
                 relatedto_id = %int%
                 AND relatedto_item = %string%
                 AND userid = %int%', $id, $mod, $auth['userid']);
-            if ($bookmark['found']) {
+
+            $checkBookmark = 0;
+            if (is_array($bookmark) && $bookmark['found']) {
                 $_POST['check_bookmark'] = 1;
+                $checkBookmark = 1;
             }
 
-            if ($bookmark['email']) {
+            $checkEmail = 0;
+            if (is_array($bookmark) && $bookmark['email']) {
                 $_POST['check_email'] = 1;
+                $checkEmail = 1;
             }
 
-            if ($bookmark['sysemail']) {
+            $checkSysEmail = 0;
+            if (is_array($bookmark) && $bookmark['sysemail']) {
                 $_POST['check_sysemail'] = 1;
+                $checkSysEmail = 1;
             }
 
             $dsp->SetForm($_SERVER['REQUEST_URI'] . '&set_bm=1');
             $dsp->AddFieldsetStart(t('Monitoring'));
             $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
 
-            $dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Diesen Beitrag in meine Lesezeichen aufnehmen<br><i>(Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren)</i>'), "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
-            $dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
-            $dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden'), "", 1, $_POST["check_email"]);
-            $dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf diesen Beitrag eine System-Mail an mich senden'), "", 1, $_POST["check_sysemail"]);
+            $dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Diesen Beitrag in meine Lesezeichen aufnehmen<br><i>(Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren)</i>'), "", 1, $checkBookmark, '', '', $additionalHTML);
+            $dsp->StartHiddenBox('email', $checkBookmark);
+            $dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden'), "", 1, $checkEmail);
+            $dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf diesen Beitrag eine System-Mail an mich senden'), "", 1, $checkSysEmail);
 
-            if ($bookmark["found"]) {
+            if (is_array($bookmark) && $bookmark["found"]) {
                 $dsp->StopHiddenBox();
             }
 
             $dsp->AddFormSubmitRow("edit");
 
-            if (!$bookmark["found"]) {
+            if (is_bool($bookmark) && !$bookmark) {
                 $dsp->StopHiddenBox();
             }
 

@@ -12,7 +12,7 @@ function AddSignonStatus($lsurl, $show_history = 0)
     if (substr($lsurl, strlen($lsurl) - 1, 1) != '/') {
         $lsurl .= '/';
     }
-    if (substr($lsurl, 0, 7) != 'http://' && substr($lsurl, 0, 8) != 'https://') {
+    if (!str_starts_with($lsurl, 'http://') && !str_starts_with($lsurl, 'https://')) {
         $lsurl = 'http://'. $lsurl;
     }
     $lsurl .= 'ext_inc/party_infos/infos.xml';
@@ -20,7 +20,7 @@ function AddSignonStatus($lsurl, $show_history = 0)
 
     if (!$content) {
         $content_error = '';
-        if (!extension_loaded('openssl') && strpos($lsurl, 'https://')!==false) {
+        if (!extension_loaded('openssl') && str_contains($lsurl, 'https://')) {
             $content_error .= HTML_NEWLINE.t('Konfigurationsproblem: OpenSSL-Modul nicht geladen');
         }
         if (!ini_get('allow_url_fopen')) {
