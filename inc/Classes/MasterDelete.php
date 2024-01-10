@@ -109,11 +109,13 @@ class MasterDelete
             $refFieldsDelete = '';
             $refFieldsSet0 = '';
             $refFieldsDeny = '';
+            //find foreign key references for table provided
             $res = $db->qry('SELECT pri_table, pri_key, on_delete FROM %prefix%ref WHERE foreign_table = %string% AND foreign_key = %string%', $table, $idname);
             while ($row = $db->fetch_array($res)) {
+                //fetch amount of entries affected in referencing tables
                 $row2 = $db->qry_first('SELECT COUNT(*) AS cnt FROM %prefix%%plain% WHERE %plain% = %int%', $row['pri_table'], $row['pri_key'], $id);
 
-                if ($row2['cnt']) {
+                if ($row2['cnt']) { // if entries are found act based on FK constraint
                     if ($row['on_delete'] == 'ASK_DELETE') {
                         $refFieldsDelete .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
                     } elseif ($row['on_delete'] == 'ASK_SET0') {
@@ -152,7 +154,7 @@ class MasterDelete
             return false;
 
         // Action
-        } else {
+        } else { //run deletion if confirmation has already been given
             $res = $this->DoDelete($table, $idname, $id);
 
             if ($res) {

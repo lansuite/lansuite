@@ -6,12 +6,12 @@ if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     switch ($stepParameter ) {
         // Close Thread
         case 10:
-            $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $_GET['tid']);
+            $database->query("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = ?", [$_GET['tid']]);
             break;
 
         // Open Thread
         case 11:
-            $db->qry("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = %int%", $_GET['tid']);
+            $database->query("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = ?", [$_GET['tid']]);
             break;
     }
 }
@@ -21,8 +21,8 @@ $list_type = $auth['type'] + 1;
 
 // Show Thread or create new
 if ($tid) {
-    $thread = $db->qry_first("
-      SELECT
+    $thread = $database->queryWithOnlyFirstRow(
+        "SELECT
         t.fid,
         t.caption,
         t.closed,
@@ -32,19 +32,20 @@ if ($tid) {
       FROM %prefix%board_threads AS t
         LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
       WHERE
-        t.tid=%int%
-        AND f.need_type <= %string%
+        t.tid = ?
+        AND f.need_type <= ?
         AND (
           !f.need_group
-          OR f.need_group = %int%
-        )", $tid, $list_type, $auth['group_id']);
+          OR f.need_group = ?
+        )", [$tid, $list_type, $auth['group_id']]
+    );
 
     $pId = $_GET['pid'] ?? 0;
     if ($pId) {
-        $current_post = $db->qry_first("SELECT userid FROM %prefix%board_posts WHERE pid = %int%", $_GET['pid']);
+        $current_post = $database->queryWithOnlyFirstRow("SELECT userid FROM %prefix%board_posts WHERE pid = ?", [$_GET['pid']]);
     }
 } else {
-    $thread = $db->qry_first("SELECT need_type, need_group FROM %prefix%board_forums WHERE fid = %int%", $_GET['fid']);
+    $thread = $database->queryWithOnlyFirstRow("SELECT need_type, need_group FROM %prefix%board_forums WHERE fid = ?", [$_GET['fid']]);
 }
 
 $fid = 0;
@@ -76,8 +77,8 @@ if (!$thread and $tid) {
         $buttons .= ' '. $dsp->FetchIcon("delete", "index.php?mod=board&action=delete&tid=$tid");
     }
 
-    $query = $db->qry("
-      SELECT
+    $query = $database->query(
+        "SELECT
         pid,
         comment,
         userid,
@@ -87,9 +88,10 @@ if (!$thread and $tid) {
         INET6_NTOA(ip) AS ip,
         file
       FROM %prefix%board_posts
-      WHERE tid=%int%
-      ORDER BY date", $tid);
-    $count_entrys = $db->num_rows($query);
+      WHERE tid = ? 
+      ORDER BY date", [$tid]
+    );
+    $count_entrys = $database->getStatementAffectedRows($query);
     
     // Page select
     $pages = [
@@ -100,8 +102,8 @@ if (!$thread and $tid) {
     ];
     if ($count_entrys > $cfg['board_max_posts']) {
         $pages = $func->page_split($_GET['posts_page'], $cfg['board_max_posts'], $count_entrys, "index.php?mod=board&action=thread&tid=$tid", "posts_page");
-        $query = $db->qry("
-          SELECT
+        $query = $database->query(
+            "SELECT
             pid,
             comment,
             userid,
@@ -111,13 +113,13 @@ if (!$thread and $tid) {
             INET6_NTOA(ip) AS ip,
             file
           FROM %prefix%board_posts
-          WHERE tid=%int%
-          ORDER BY date %plain%", $tid, $pages['sql']);
+          WHERE tid = ?
+          ORDER BY date %plain%", [$tid, $pages['sql']]);
     }
     $dsp->AddSingleRow($buttons . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $pages['html']);
-
+    $queryResult = $query->get_result();
     $z = 0;
-    while ($row = $db->fetch_array($query)) {
+    while ($row = $queryResult->fetch_array()) {
         $pid = $row["pid"];
 
         $smarty->assign('pid', $pid);
@@ -189,7 +191,7 @@ if (!$thread and $tid) {
 
     $threadViewId = $_SESSION['threadview'] ?? 0;
     if ($threadViewId != $tid) {
-        $db->qry("UPDATE %prefix%board_threads SET views=views+1 WHERE tid=%int%", $tid);
+        $database->query("UPDATE %prefix%board_threads SET views=views+1 WHERE tid = ?", [$tid]);
     }
     $_SESSION['threadview'] = $tid;
 
@@ -244,14 +246,14 @@ if (is_array($thread) && $thread['closed']) {
   
         // Update thread-table, if new thread
         if (!$_GET['tid'] and $_POST['caption'] != '') {
-            $db->qry("INSERT INTO %prefix%board_threads SET
-                fid = %int%,
-                caption = %string%
-                ", $_GET['fid'], $_POST['caption']);
-                $tid = $db->insert_id();
+            $queryStmt = $database->query("INSERT INTO %prefix%board_threads SET
+                fid = ?,
+                caption = ?
+                ", [$_GET['fid'], $_POST['caption']]);
+                $tid = $queryStmt->insert_id;
   
                 // Assign just created post to this new thread
-                $db->qry("UPDATE %prefix%board_posts SET tid = %int% WHERE pid = %int%", $tid, $pid);
+                $database->query("UPDATE %prefix%board_posts SET tid = ? WHERE pid = ?", [$tid, $pid]);
         }
 
         // Send email-notifications to thread-subscribers
@@ -263,7 +265,7 @@ if (is_array($thread) && $thread['closed']) {
             $_GET['fid'] = $thread['fid'];
         }
         // Internet-Mail
-        $subscribers = $db->qry("
+        $subscribers = $database->query("
           SELECT
             b.userid,
             u.firstname,
@@ -274,32 +276,36 @@ if (is_array($thread) && $thread['closed']) {
           WHERE
             b.email = 1
             AND (
-              b.tid = %int%
-              OR b.fid = %int%
-            )", $tid, $_GET['fid']);
-        while ($subscriber = $db->fetch_array($subscribers)) {
+              b.tid = ?
+              OR b.fid = ?
+            )", [$tid, $_GET['fid']]);
+            $subscriberResult = $subscribers->get_result();    
+        while ($subscriber = $subscriberResult->fetch_array()) {
             if ($subscriber['userid'] != $auth['userid']) {
                 $mail->create_inet_mail($subscriber["firstname"]." ".$subscriber["name"], $subscriber["email"], $cfg["board_subscribe_subject"], str_replace("%URL%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=board&action=thread&tid=$tid", $cfg["board_subscribe_text"]), $cfg["sys_party_mail"]);
             }
         }
-        $db->free_result($subscribers);
+        $database->freeResult($subscriberResult);
+        $database->closeStatement($subscribers);
   
         // Sys-Mail
-        $subscribers = $db->qry("
+        $subscribers = $database->query("
           SELECT userid
           FROM %prefix%board_bookmark AS b
           WHERE
             b.sysemail = 1
             AND (
-              b.tid = %int%
-              OR b.fid = %int%
-            )", $tid, $_GET['fid']);
-        while ($subscriber = $db->fetch_array($subscribers)) {
+              b.tid = ?
+              OR b.fid = ?
+            )", [$tid, $_GET['fid']]);
+        $subscriberResult = $subscribers->get_result();    
+        while ($subscriber = $subscriberResult->fetch_array()) {
             if ($subscriber['userid'] != $auth['userid']) {
                 $mail->create_sys_mail($subscriber["userid"], $cfg["board_subscribe_subject"], str_replace("%URL%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=board&action=thread&tid=$tid", $cfg["board_subscribe_text"]));
             }
         }
-        $db->free_result($subscribers);
+        $database->freeResult($subscriberResult);
+        $database->closeStatement($subscribers);
     }
     $dsp->AddFieldsetEnd();
 }
@@ -307,15 +313,18 @@ if (is_array($thread) && $thread['closed']) {
 if (is_array($thread) && $thread['caption'] != '') {
     // Bookmarks and Auto-Mail
     if ($auth['login']) {
-        $setBmParameter = $_GET["set_bm"] ?? '';
+        $setBmParameter = $_GET["set_bm"] ?? 0;
+        $setEmailParamter = $_POST["check_email"] ?? 0;
+        $setSysmailParameter = $_POST["check_sysemail"] ?? 0;
+        $setBookmarkParameter = $_POST["check_bookmark"] ?? 0;
         if ($setBmParameter) {
-            $db->qry_first("DELETE FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
-            if ($_POST["check_bookmark"]) {
-                $db->qry_first("INSERT INTO %prefix%board_bookmark SET tid = %int%, userid = %int%, email = %string%, sysemail = %string%", $tid, $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]);
+            $database->queryWithOnlyFirstRow("DELETE FROM %prefix%board_bookmark WHERE tid = ? AND userid = ?", [$tid, $auth['userid']]);
+            if ($setBookmarkParameter) {
+                $database->queryWithOnlyFirstRow("INSERT INTO %prefix%board_bookmark SET tid = ?, userid = ?, email = ?, sysemail = ?",  [$tid, $auth['userid'], $setEmailParamter, $setSysmailParameter]);
             }
         }
   
-        $bookmark = $db->qry_first("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
+        $bookmark = $database->queryWithOnlyFirstRow("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE tid = ? AND userid = ?", [$tid, $auth['userid']]);
         if (is_array($bookmark) && $bookmark["found"]) {
             $_POST["check_bookmark"] = 1;
         }
@@ -349,19 +358,20 @@ if (is_array($thread) && $thread['caption'] != '') {
     }
   
     // Generate Boardlist-Dropdown
-    $foren_liste = $db->qry("
-      SELECT
+    $forumListStmt = $database->query(
+      "SELECT
         fid,
         name
       FROM %prefix%board_forums
       WHERE
-        need_type <= %string%
+        need_type <= ?
         AND (
           !need_group
-          OR need_group = %int%
-      )", $list_type, $auth['group_id']);
+          OR need_group = ?
+      )", [$list_type, $auth['group_id']]);
+    $forumListResult = $forumListStmt->get_result();
     $goto = '';
-    while ($forum = $db->fetch_array($foren_liste)) {
+    while ($forum = $forumListResult->fetch_array()) {
         $goto .= "<option value=\"{$forum["fid"]}\">{$forum["name"]}</option>";
     }
     $smarty->assign('goto', $goto);
