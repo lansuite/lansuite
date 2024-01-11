@@ -20,7 +20,7 @@ if ($pidParameter) {
 
 // Delete board
 } else {
-    match ($request->query->getInt('step',0)) {
+    match ($stepParameter) {
         2 => $md->Delete('board_forums', 'fid', $fidParameter),
         10 => $md->MultiDelete('board_forums', 'fid'),
         default => include_once 'modules/board/show.php'
