@@ -1,6 +1,7 @@
 <?php
 
 namespace LanSuite;
+
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 /**
@@ -14,9 +15,14 @@ class File
     private string $_relativePath='';
     private Filesystem $_fileSystem;
 
-    public function __construct()
+    /**
+     * Constructor sets base path and initializes FS object
+     * 
+     * @param Filesystem|null $fs Filesystem-object for dependency injection
+     */
+    public function __construct(Filesystem|null $fs=null)
     {
-        $this->_fileSystem = new Filesystem();
+        $this->_fileSystem = $fs ?? new Filesystem();
         self::$_basePath = Path::canonicalize(ROOT_DIRECTORY);
         if (!str_ends_with(self::$_basePath, '/')) {
             self::$_basePath .='/';
@@ -26,7 +32,7 @@ class File
     /**
      * Builds a file path with the relative path and checks for path traversals
      * 
-     * @var    string $relativePath the relative path to be accessed
+     * @param  string $path the relative path to be accessed
      * @return string|bool The full path or false if attempted directory traversal
      */
     public function getFullPath($path) :string|bool 
@@ -44,7 +50,7 @@ class File
     /**
      * Sets a relative path on top of the basepath for any following operation
      * 
-     * @var    string $relativePath a path to be added on top of basepath
+     * @param  string $relativePath a path to be added on top of basepath
      * @return bool true if set, false if not secure
      */
     public function setRelativePath($relativePath) 
@@ -62,7 +68,7 @@ class File
     /**
      * outputs file content when access OK
      * 
-     * @var string $filePath The relative path to the file to be output
+     * @param string $filePath The relative path to the file to be output
      */
     public function outputFileContent(string $filePath): void
     {
@@ -76,7 +82,7 @@ class File
     /**
      * Checks if a file exists and is accessible based on the path
      * 
-     * @var    string $filePath The path of the file relative to path set in class
+     * @param  string $filePath The path of the file relative to path set in class
      * @return bool true if accessible, false if not
      */
 
