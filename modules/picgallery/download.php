@@ -7,7 +7,6 @@ $requestPath = $request->query->get('picurl');
 
 if ($file->exists($requestPath)) {
     $fullPath = $file->getFullPath($requestPath);
-    $picinfo = GetImageSize($fullPath);
     //set headers for download
     header("Content-Type: application/octet-stream");
     header("Content-Disposition: attachment; filename=\"$requestPath\"");
