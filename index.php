@@ -249,7 +249,12 @@ if ($config['environment']['configured'] == 0) {
     $_GET['action'] = 'wizard';
 
     // Silent connect
-    $db->connect(1);
+    try {
+        $db->connect(1);
+    } catch (\mysqli_sql_exception $e) {
+        //ignore connection error, this wil be dealt with later in the installation
+    }
+
     $IsAboutToInstall = 1;
 
     // Force Admin rights for installing User
