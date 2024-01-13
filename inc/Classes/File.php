@@ -18,11 +18,11 @@ class File
     /**
      * Constructor sets base path and initializes FS object
      * 
-     * @param Filesystem|null $fs Filesystem-object for dependency injection
+     * @param Filesystem $fs Filesystem-object for dependency injection
      */
-    public function __construct(Filesystem|null $fs=null)
+    public function __construct(Filesystem $fs = new Filesystem)
     {
-        $this->_fileSystem = $fs ?? new Filesystem();
+        $this->_fileSystem = $fs;
         self::$_basePath = Path::canonicalize(ROOT_DIRECTORY);
         if (!str_ends_with(self::$_basePath, '/')) {
             self::$_basePath .='/';
