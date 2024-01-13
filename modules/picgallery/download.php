@@ -1,17 +1,19 @@
 <?php
+namespace LanSuite;
 
-if (file_exists("ext_inc/picgallery/$_GET[picurl]")) {
-    $_GET['picurl'] = str_replace("..", "", $_GET['picurl']);
-    $picinfo = GetImageSize("ext_inc/picgallery/$_GET[picurl]");
-    if ($picinfo['2'] == "1" or $picinfo['2'] == "2" or $picinfo['2'] == "3") {
-        header("content-type: application/octet-stream");
-        header("content-disposition: attachment; filename=$_GET[picurl]");
-    
-        readfile("ext_inc/picgallery/$_GET[picurl]");
-    } else {
-        header("content-type: application/octet-stream");
-        header("content-disposition: attachment; filename=$_GET[picurl]");
-    
-        readfile("ext_inc/picgallery/$_GET[picurl]");
-    }
+$file = new File();
+$file->setRelativePath('ext_inc/picgallery/');
+$requestPath = $request->query->get('picurl');
+
+if ($file->exists($requestPath)) {
+    $fullPath = $file->getFullPath($requestPath);
+    $picinfo = GetImageSize($fullPath);
+    //set headers for download
+    header("Content-Type: application/octet-stream");
+    header("Content-Disposition: attachment; filename=\"$requestPath\"");
+    header("Content-Length: ".filesize($fullPath));   
+    //dump file content
+    $file->outputFileContent($requestPath);
+} else {
+    echo "file does not exist!";
 }

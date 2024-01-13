@@ -1,7 +1,8 @@
 <?php
 
 namespace LanSuite;
-
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
 /**
  * Class File
  * Generic class for file accessor functions
@@ -9,16 +10,16 @@ namespace LanSuite;
 
 class File
 {
-    private static bool $_BASEPATH_INITIALISED = false;
-    private static string $_LS_BASEPATH;
-    private string $_intermediatePath;
+    private static string $_basePath='';
+    private string $_relativePath='';
+    private Filesystem $_fileSystem;
 
     public function __construct()
     {
-        //Ensure basepath is set on first instantiation
-        if (!self::$_BASEPATH_INITIALISED) {
-            self::$_LS_BASEPATH = realpath(__DIR__ . '..'. DIRECTORY_SEPARATOR . '..'); //move down from /inc/classes/ to LS root
-            self::$_BASEPATH_INITIALISED = true;
+        $this->_fileSystem = new Filesystem();
+        self::$_basePath = Path::canonicalize(ROOT_DIRECTORY);
+        if (!str_ends_with(self::$_basePath, '/')) {
+            self::$_basePath .='/';
         }
     }
 
@@ -28,12 +29,12 @@ class File
      * @var    string $relativePath the relative path to be accessed
      * @return string|bool The full path or false if attempted directory traversal
      */
-    public function getFullPath($relativePath) :string|bool 
+    public function getFullPath($path) :string|bool 
     {
 
-        $path = realpath(self::$_LS_BASEPATH . $this->_intermediatePath . $relativePath);
+        $path = Path::canonicalize(self::$_basePath . $this->_relativePath . $path);
         //ensure that resulting path is still below the base path, return false if not
-        if (str_starts_with($path, self::$_LS_BASEPATH . $this->_intermediatePath)) {
+        if (str_starts_with($path, self::$_basePath . $this->_relativePath)) {
             return $path;
         } else {
             return false;
@@ -43,19 +44,15 @@ class File
     /**
      * Sets a relative path on top of the basepath for any following operation
      * 
-     * @var    string $intermediatePath a path to be added on top of basepath
+     * @var    string $relativePath a path to be added on top of basepath
      * @return bool true if set, false if not secure
      */
-    public function setIntermediatePath($intermediatePath) 
+    public function setRelativePath($relativePath) 
     {
-        //ensure path ends with system directory separator to prevent directory change
-        if (!str_ends_with($intermediatePath, DIRECTORY_SEPARATOR)) {
-            $intermediatePath .= DIRECTORY_SEPARATOR;
-        }
         //ensure new path is not below basepath
-        $path = realpath(self::$_LS_BASEPATH . $intermediatePath);
-        if (str_starts_with($path, self::$_LS_BASEPATH)) {
-            $this->_intermediatePath = $intermediatePath;
+        $path = Path::join(self::$_basePath, $relativePath);
+        if (str_starts_with($path, self::$_basePath)) {
+            $this->_relativePath = $relativePath;
             return true;
         } else {
             return false;
@@ -63,23 +60,53 @@ class File
     }
 
     /**
+     * outputs file content when access OK
+     * 
+     * @var string $filePath The relative path to the file to be output
+     */
+    public function outputFileContent(string $filePath): void
+    {
+        $fullPath = $this->getFullPath($filePath);
+        if ($fullPath && $this->_fileSystem->exists($fullPath)) {
+            readfile($fullPath);
+        }
+        return;
+    }
+
+    /**
+     * Checks if a file exists and is accessible based on the path
+     * 
+     * @var    string $filePath The path of the file relative to path set in class
+     * @return bool true if accessible, false if not
+     */
+
+    public function exists(string $filePath): bool
+    {
+        $fullPath = $this->getFullPath($filePath);
+        if ($fullPath) {
+            return $this->_fileSystem->exists($fullPath);
+        }
+        return false;
+    }
+
+    /**
      * Returns relative path 
      * 
-     * @return string the combination of base + intermediate path
+     * @return string the combination of base + relative path
      */
-    public function getRelativePath() 
+    public function getCurrentPath() 
     {
-        return self::$_LS_BASEPATH . $this->_intermediatePath;
+        return self::$_basePath . $this->_relativePath;
     }    
 
     /**
      * Returns value of relative path
      * 
-     * @return string the intermediate path set on top of the base path
+     * @return string the relative path set on top of the base path
      */
-    public function getIntermediatePath() 
+    public function getRelativePath() 
     {
-        return $this->_intermediatePath;
+        return $this->_relativePath;
     }
 
     /**
@@ -89,7 +116,7 @@ class File
      */
     public function getBasePath() 
     {
-        return self::$_LS_BASEPATH;
+        return self::$_basePath;
     }
 
 
