@@ -2,6 +2,7 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
+use LanSuite\FileCollection;
 use Symfony\Component\Cache;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,7 @@ $request = Request::createFromGlobals();
 $filesystem = new Filesystem();
 
 define('ROOT_DIRECTORY', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
+FileCollection::setBasePath(ROOT_DIRECTORY);
 
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise
