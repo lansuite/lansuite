@@ -117,6 +117,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] Tournament overview is not displayed if played as a league (#142)
 - [Tournament] MySQL Warning in module tournament2 if the user is not logged in (#97)
 - [Guestlist] Restrict user information shown on Google Maps according to their settings and never show the street details ... unless you are an administrator
+- [Board] Deletion of board failed without error (#861)
 
 ### Security
 
