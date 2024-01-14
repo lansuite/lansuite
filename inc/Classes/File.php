@@ -89,10 +89,7 @@ class File
     public function exists(string $filePath): bool
     {
         $fullPath = $this->getFullPath($filePath);
-        if ($fullPath) {
-            return $this->_fileSystem->exists($fullPath);
-        }
-        return false;
+        return $this->_fileSystem->exists($fullPath);
     }
 
     /**
