@@ -32,6 +32,36 @@ class FileCollection
     }
 
     /**
+     * Constructs obj with a given set of paths
+     * 
+     * @param array $filePaths paths to files 
+     * 
+     */
+    public static function constructCollection(array $filePaths) :FileCollection
+    {
+        $fileCollection = new FileCollection();
+        $commonPath = Path::getLongestCommonBasePath($filePaths);
+        $relativePath = Path::makeRelative($commonPath, $fileCollection->_basePath);
+        $fileCollection->setRelativePath($relativePath);
+
+        return $fileCollection;
+    }
+
+    public function scanDir($path='')
+    {
+        //scan a given path or base+rel-dir for files and return file objects
+    }
+
+     /**
+     * Returns an initialzied Handler for the file provided
+     * 
+     */
+    public function getFileHandle($filePath) :File
+    {
+        return new File($this->getFullPath($filePath));
+    }
+    
+    /**
      * Function to be called once during LS initalisation to set base path for the installation
      * 
      * @param string $basePath 
@@ -86,22 +116,6 @@ class FileCollection
         }
     }
 
-    /**
-     * outputs file content when access OK
-     * 
-     * @param string $filePath The relative path to the file to be output
-     * @throws Exception if path is not below allowed path
-     */
-    public function outputFileContent(string $filePath): void
-    {
-        $fullPath = $this->getFullPath($filePath);
-        if ($fullPath && $this->_fileSystem->exists($fullPath)) {
-            readfile($fullPath);
-        } else {
-            throw new Exception(t('Auf die Datei kann nicht zugegriffen werden'));
-        }
-        return;
-    }
 
     /**
      * Checks if a file exists and is accessible based on the path
