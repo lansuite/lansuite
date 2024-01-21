@@ -108,6 +108,9 @@ class FileCollection
     {
         //ensure new path is not below basepath
         $path = Path::join(self::$_basePath, $relativePath);
+        if (!str_ends_with($path, '/')) {
+            $path .= '/';
+        }
         if (str_starts_with($path, self::$_basePath)) {
             $this->_relativePath = $relativePath;
             return true;
