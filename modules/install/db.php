@@ -13,6 +13,11 @@ $db->connect();
 
 $questParameter = $_GET["quest"] ?? 0;
 $stepParameter = $_GET["step"] ?? 0;
+
+//sanitize module name
+preg_match('/[:alnum:]*/', $request->query->get('module'), $matches);
+$moduleParameter = $matches[0];
+
 if ($questParameter ) {
     switch ($stepParameter) {
         // Rewrite specific table
@@ -37,7 +42,7 @@ if ($questParameter ) {
 
         // Reset Module DBs
         case 7:
-            $func->question(t('Bist du sicher, dass du die Datenbank dieses Moduls zurücksetzen möchtest? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!'), "index.php?mod=install&action=db&step=7&module={$_GET["module"]}&quest=0", "index.php?mod=install&action=db");
+            $func->question(t('Bist du sicher, dass du die Datenbank dieses Moduls zurücksetzen möchtest? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!'), "index.php?mod=install&action=db&step=7&module={$moduleParameter}&quest=0", "index.php?mod=install&action=db");
             break;
     }
 } else {
@@ -61,7 +66,7 @@ if ($questParameter ) {
 
         // Reset Module DBs
         case 7:
-            $install->WriteTableFromXMLFile($_GET["module"], 1);
+            $install->WriteTableFromXMLFile($moduleParameter, 1);
             break;
     }
 
