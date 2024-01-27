@@ -1,8 +1,6 @@
 <?php
-
 namespace LanSuite;
 
-use Exception;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 /**
@@ -84,17 +82,20 @@ class FileCollection
      * 
      * @param  string $path the relative path to be accessed
      * @throws Exception if path is below allowed path
-     * @return string|bool The full path or false if attempted directory traversal
+     * @return string The full path built
      */
     public function getFullPath($path) :string 
     {
 
-        $path = Path::canonicalize(self::$_basePath . $this->_relativePath . $path);
+        $path = Path::join(self::$_basePath, $this->_relativePath, $path);
         //ensure that resulting path is still below the base path, return false if not
-        if (str_starts_with($path, self::$_basePath . $this->_relativePath)) {
+        if (str_starts_with($path, Path::join(self::$_basePath, $this->_relativePath))) {
+            if (is_dir($path) && !str_ends_with('$path', '/')) {
+                $path .= '/';
+            }
             return $path;
         } else {
-            throw new Exception(t('Auf den Pfad kann nicht zugegriffen werden'));
+            throw new Exception(t('Auf den Pfad kann nicht zugegriffen werden:' .$path .' | ' . self::$_basePath . $this->_relativePath));
         }
     }
 
@@ -106,11 +107,12 @@ class FileCollection
      */
     public function setRelativePath($relativePath) :bool
     {
-        //ensure new path is not below basepath
         $path = Path::join(self::$_basePath, $relativePath);
+        //ensure path ends with directory separator
         if (!str_ends_with($path, '/')) {
-            $path .= '/';
+            $relativePath .= '/';
         }
+        //ensure new path is not below basepath
         if (str_starts_with($path, self::$_basePath)) {
             $this->_relativePath = $relativePath;
             return true;

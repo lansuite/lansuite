@@ -1,25 +1,19 @@
 <?php
-
 namespace LanSuite;
-
-use Symfony\Component\Filesystem\Filesystem;
 
 class File {
 
 
-    private string $_fileName='';
     private string $_filePath='';
-    private Filesystem $_fileSystem;
 
     /**
      * 
      * 
      * 
      */
-    public function __construct($filePath)
+    public function __construct(string $filePath)
     {
         $this->_filePath = $filePath;
-        $this->_fileSystem = new Filesystem;
     }
 
     /**
@@ -41,12 +35,12 @@ class File {
 
     public function delete() :void
     {
-
+        unlink($this->_filePath);
     }
 
-    public function exists() :bool 
+    public function exists() :bool
     {
-
+        return is_file($this->_filePath);
     }
 
 }
