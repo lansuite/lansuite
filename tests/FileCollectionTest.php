@@ -59,9 +59,19 @@ class FileCollectionTest extends TestCase
 
     }
 
+    /**
+     * @covers FileCollection::getFullPath
+     */
     public function testgetFullPath()
     {
         $fs = new \LanSuite\FileCollection();
+        $this->assertEquals('/foo/bar/test',$fs->getFullPath('test'));
+        $this->assertEquals('/foo/bar/test',$fs->getFullPath('/test'));
+        //deactivating these two, as not correctly evaluated due to internal use of is_dir()
+        //$this->assertEquals('/foo/bar/test/',$fs->getFullPath('test/'));    
+        //$this->assertEquals('/foo/bar/test/',$fs->getFullPath('/test/'));
+
+    
         $this->expectException(\InvalidArgumentException::class);           
         $fs->getFullPath('../test');
     }
