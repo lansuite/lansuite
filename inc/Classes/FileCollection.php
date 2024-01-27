@@ -81,7 +81,7 @@ class FileCollection
      * Builds a file path with the relative path and checks for path traversals
      * 
      * @param  string $path the relative path to be accessed
-     * @throws Exception if path is below allowed path
+     * @throws InvalidArgumentException if path is below allowed path
      * @return string The full path built
      */
     public function getFullPath($path) :string 
@@ -95,7 +95,7 @@ class FileCollection
             }
             return $path;
         } else {
-            throw new Exception(t('Auf den Pfad kann nicht zugegriffen werden:' .$path .' | ' . self::$_basePath . $this->_relativePath));
+            throw new \InvalidArgumentException('Invalid Path specified: ' .$path);
         }
     }
 

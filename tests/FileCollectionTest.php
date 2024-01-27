@@ -16,7 +16,7 @@ class FileCollectionTest extends TestCase
     }
 
     /**
-     * @covers FileCollection::isOptionEnabled
+     * @covers FileCollection::__construct
      */
     public function testConstruct() :void
     {
@@ -59,6 +59,11 @@ class FileCollectionTest extends TestCase
 
     }
 
-
-  
+    public function testgetFullPath()
+    {
+        $fs = new \LanSuite\FileCollection();
+        $this->expectException(\InvalidArgumentException::class);           
+        $fs->getFullPath('../test');
+    }
+ 
 }
