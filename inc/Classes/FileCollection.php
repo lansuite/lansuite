@@ -107,14 +107,16 @@ class FileCollection
      */
     public function setRelativePath($relativePath) :bool
     {
-        $path = Path::join(self::$_basePath, $relativePath);
         //ensure path ends with directory separator
-        if (!str_ends_with($path, '/')) {
-            $relativePath .= '/';
-        }
-        if (!str_starts_with($path, '/')) {
+        if (str_starts_with($relativePath, '/')) {
             $relativePath = substr($relativePath, 1);
         }
+        $relativePath = Path::canonicalize($relativePath);
+        if (!str_ends_with($relativePath, '/')) {
+            $relativePath .= '/';
+        }
+        $path = Path::join(self::$_basePath, $relativePath);
+
         //ensure new path is not below basepath
         if (str_starts_with($path, self::$_basePath)) {
             $this->_relativePath = $relativePath;
@@ -145,7 +147,7 @@ class FileCollection
      */
     public function getCurrentPath() 
     {
-        return Path::join(self::$_basePath, $this->_relativePath);
+        return self::$_basePath . $this->_relativePath;
     }    
 
     /**

@@ -9,7 +9,10 @@ class FileCollectionTest extends TestCase
     
     public function setUp() :void
     {
-        define('ROOT_DIRECTORY', '/foo/bar');
+        if (!defined('ROOT_DIRECTORY'))
+        {
+            define('ROOT_DIRECTORY', '/foo/bar');
+        }
     }
 
     /**
