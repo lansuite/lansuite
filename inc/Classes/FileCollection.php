@@ -112,6 +112,9 @@ class FileCollection
         if (!str_ends_with($path, '/')) {
             $relativePath .= '/';
         }
+        if (!str_starts_with($path, '/')) {
+            $relativePath = substr($relativePath, 1);
+        }
         //ensure new path is not below basepath
         if (str_starts_with($path, self::$_basePath)) {
             $this->_relativePath = $relativePath;
@@ -142,7 +145,7 @@ class FileCollection
      */
     public function getCurrentPath() 
     {
-        return self::$_basePath . $this->_relativePath;
+        return Path::join(self::$_basePath, $this->_relativePath);
     }    
 
     /**
