@@ -64,16 +64,29 @@ class FileCollectionTest extends TestCase
      */
     public function testgetFullPath()
     {
-        $fs = new \LanSuite\FileCollection();
-        $this->assertEquals('/foo/bar/test',$fs->getFullPath('test'));
-        $this->assertEquals('/foo/bar/test',$fs->getFullPath('/test'));
+        $fc = new \LanSuite\FileCollection();
+        $this->assertEquals('/foo/bar/test', $fc->getFullPath('test'));
+        $this->assertEquals('/foo/bar/test', $fc->getFullPath('/test'));
         //deactivating these two, as not correctly evaluated due to internal use of is_dir()
-        //$this->assertEquals('/foo/bar/test/',$fs->getFullPath('test/'));    
-        //$this->assertEquals('/foo/bar/test/',$fs->getFullPath('/test/'));
+        //$this->assertEquals('/foo/bar/test/',$fc->getFullPath('test/'));    
+        //$this->assertEquals('/foo/bar/test/',$fc->getFullPath('/test/'));
 
     
         $this->expectException(\InvalidArgumentException::class);           
-        $fs->getFullPath('../test');
+        $fc->getFullPath('../test');
     }
+
+    /**
+     * @covers FileCollection:constructCollection
+     */
+    public function testConstructFromFileList()
+    {
+        $pathArray = ['/foo/bar/foo/', '/foo/bar/foo/foo2', '/foo/bar/foo/foo3/'];
+        $fc = \LanSuite\FileCollection::constructCollection($pathArray);
+        $this->assertEquals('foo/', $fc->getRelativePath());
+
+        
+    }
+
  
 }

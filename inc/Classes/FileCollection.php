@@ -14,6 +14,7 @@ class FileCollection
     private static bool $_basePathInitialized=false;
     private string $_relativePath='';
     private Filesystem $_fileSystem;
+    private array $_files=[];
 
     /**
      * Constructor sets base path and initializes FS object
@@ -30,18 +31,22 @@ class FileCollection
     }
 
     /**
-     * Constructs obj with a given set of paths
+     * Constructs FileColletion with a given set of paths
      * 
      * @param array $filePaths paths to files 
-     * 
+     * @return FileCollection A FileCollection with the most common
      */
     public static function constructCollection(array $filePaths) :FileCollection
     {
         $fileCollection = new FileCollection();
-        $commonPath = Path::getLongestCommonBasePath($filePaths);
-        $relativePath = Path::makeRelative($commonPath, $fileCollection->_basePath);
+        $commonPath = Path::getLongestCommonBasePath(...$filePaths);
+        $relativePath = Path::makeRelative($commonPath, FileCollection::$_basePath);
         $fileCollection->setRelativePath($relativePath);
-
+        $fileArray = [];
+        foreach ($filePaths as $file) {
+            $fileArray[] = Path::makeRelative($file, $commonPath);
+        }
+        $fileCollection->_files = $fileArray;
         return $fileCollection;
     }
 
@@ -59,13 +64,21 @@ class FileCollection
         return new File($this->getFullPath($filePath));
     }
     
+    public function getAllFileHandles() :array
+    {
+        $fileObjs=[];
+        foreach ($this->_files as $fPath){
+            $fileObjs[] = new File($this->getFullPath($fPath));
+        }
+        return $fileObjs;
+    }
     /**
      * Function to be called once during LS initalisation to set base path for the installation
      * 
      * @param string $basePath 
      * @return void
      */
-    public static function setBasePath($basePath) :void
+    private static function setBasePath($basePath) :void
     {
         if (!self::$_basePathInitialized) {
             self::$_basePath = PAth::canonicalize($basePath);
