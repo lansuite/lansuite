@@ -67,7 +67,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
             $smarty->assign('adresses', $adresses);
             $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
         } else {
-            $func->error(t('Ein Google Mamps API key wurde nicht konfiguriert, ist aber notwendig zur Benutzung von Google Maps-Diensten.'));
+            $func->error(t('Ein Google Maps API key wurde nicht konfiguriert, ist aber notwendig zur Benutzung von Google Maps-Diensten.'));
         }
     } else {
         $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, ($cfg["guestlist_showorga"] == 0 ? "type = 1" : "type >= 1"));
