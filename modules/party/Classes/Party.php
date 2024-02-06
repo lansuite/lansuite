@@ -53,37 +53,126 @@ class Party
     }
 
     /**
-     * Read PartyInfo into vars
-     *
+     * Read PartyInfo into user session and class atributes
+     * 
+     * @var int $pId a provided Party ID to set (or whatever the latest is, if not provided)
      * @return void
      */
-    private function UpdatePartyArray()
+    private function UpdatePartyArray(?int $pId)
     {
-        global $db;
+        global $database;
+        $partyId = $pId ?? $this->party_id;
+        
+        // Count Parties
+        $res = $database->queryWithOnlyFirstRow("SELECT count(*) as parties FROM %prefix%partys", []);
+        $this->count = $res['parties'];
 
-        if ($db->success) {
-            // Count Parties
-            $res = $db->qry("SELECT * FROM %prefix%partys");
-            $this->count = $db->num_rows($res);
-            $db->free_result($res);
+        $_SESSION['party_info'] = [];
+        if ($this->count > 0) {
+            $row = $database->queryWithOnlyFirstRow("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM %prefix%partys WHERE party_id=?", [$partyId]);
+            $this->data = $row;
 
-            $_SESSION['party_info'] = [];
-            if ($this->count > 0) {
-                $row = $db->qry_first("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM %prefix%partys WHERE party_id=%int%", $this->party_id);
-                $this->data = $row;
-
-                $_SESSION['party_info'] = [
-                    'name' => $row['name'],
-                    'partyort' => $row['ort'],
-                    'partyplz' => $row['plz'],
-                    'partybegin' => $row['startdate'],
-                    'partyend' => $row['enddate'],
-                    's_startdate' => $row['sstartdate'],
-                    's_enddate' => $row['senddate'],
-                    'max_guest' => $row['max_guest'],
-                ];
-            }
+            $_SESSION['party_info'] = [
+                'name' => $row['name'],
+                'partyort' => $row['ort'],
+                'partyplz' => $row['plz'],
+                'partybegin' => $row['startdate'],
+                'partyend' => $row['enddate'],
+                's_startdate' => $row['sstartdate'],
+                's_enddate' => $row['senddate'],
+                'max_guest' => $row['max_guest'],
+            ];
         }
+    }
+    
+     /**
+     * @return bool
+     */
+    public function WriteXMLStatFile()
+    {
+        global $cfg, $db, $config;
+
+        $xml = new \LanSuite\XML();
+        $output = '<?xml version="1.0" encoding="UTF-8"?' . '>' . "\r\n";
+
+        $feedPartyName = $cfg['feed_partyname'] ?? '';
+        $system = $xml->write_tag('version', LANSUITE_VERSION, 2);
+        $system .= $xml->write_tag('name', $feedPartyName, 2);
+        $system .= $xml->write_tag('link', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], 2);
+        $system .= $xml->write_tag('language', 'de-de', 2);
+        $system .= $xml->write_tag('current_party', $cfg['signon_partyid'], 2);
+
+        $row = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%user WHERE type > 0");
+        $system .= $xml->write_tag('users', $row['anz'], 2);
+
+        $lansuite = $xml->write_master_tag('system', $system, 1);
+
+        $res = $db->qry("
+            SELECT
+                `party_id`,
+                `name`,
+                `max_guest`,
+                `ort`,
+                `plz`,
+                `startdate`,
+                `enddate`,
+                `sstartdate`,
+                `senddate`
+            FROM %prefix%partys"
+        );
+        $partys = '';
+        while ($row = $db->fetch_array($res)) {
+            $party = $xml->write_tag('partyid', $row['party_id'], 3);
+            $party .= $xml->write_tag('name', $row['name'], 3);
+            $party .= $xml->write_tag('max_guest', $row['max_guest'], 3);
+            $party .= $xml->write_tag('ort', $row['ort'], 3);
+            $party .= $xml->write_tag('plz', $row['plz'], 3);
+            $party .= $xml->write_tag('startdate', $row['startdate'], 3);
+            $party .= $xml->write_tag('enddate', $row['enddate'], 3);
+            $party .= $xml->write_tag('sstartdate', $row['sstartdate'], 3);
+            $party .= $xml->write_tag('senddate', $row['senddate'], 3);
+
+            $row2 = $db->qry_first("
+              SELECT
+                COUNT(userid) AS anz
+              FROM %prefix%user AS user
+              LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
+              WHERE
+                party_id=%int%
+                AND (type >= 1)", $row['party_id']);
+            $party .= $xml->write_tag('registered', $row2['anz'], 3);
+
+            $row2 = $db->qry_first("
+              SELECT
+                COUNT(userid) AS anz
+              FROM %prefix%user AS user
+              LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
+              WHERE
+                (party.paid > 0)
+                AND party_id=%int%
+                AND (type >= 1)", $row['party_id']);
+            $party .= $xml->write_tag('paid', $row2['anz'], 3);
+
+            $partys .= $xml->write_master_tag('party', $party, 2);
+        }
+        $db->free_result($res);
+        $lansuite .= $xml->write_master_tag('partys', $partys, 1);
+
+        $output .= $xml->write_master_tag('lansuite', $lansuite, 0);
+
+        if (is_writable('ext_inc/party_infos/')) {
+            if ($fp = @fopen('ext_inc/party_infos/infos.xml', 'w')) {
+                if (!@fwrite($fp, $output)) {
+                    return false;
+                }
+                @fclose($fp);
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
     }
 
     /**

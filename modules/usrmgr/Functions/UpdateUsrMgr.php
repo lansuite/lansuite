@@ -1,5 +1,7 @@
 <?php
 
+use LanSuite\Module\Party\Party;
+
 /**
  * @param int $id
  * @return bool
@@ -33,7 +35,8 @@ function UpdateUsrMgr($id)
 
     // If new user has been added
     if (!$mf->isChange) {
-        $usrmgr->WriteXMLStatFile();
+        $partyObj = new Party();
+        $partyObj->WriteXMLStatFile();
 
         // If auto generated PW, use PW stored in session, else use PW send by POST field
         if ($_POST['password_original']) {

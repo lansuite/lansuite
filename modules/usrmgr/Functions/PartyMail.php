@@ -7,7 +7,8 @@ function PartyMail()
 {
     global $usrmgr, $func, $mail, $auth;
 
-    $usrmgr->WriteXMLStatFile();
+    $partyObj = new \LanSuite\Module\Party\Party();
+    $partyObj->WriteXMLStatFile();
 
     if ((array_key_exists('sendmail', $_POST) && $_POST['sendmail']) || $auth['type'] < \LS_AUTH_TYPE_ADMIN) {
         if ($usrmgr->SendSignonMail(1)) {

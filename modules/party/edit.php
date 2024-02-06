@@ -20,7 +20,6 @@ $mf->SendForm('index.php?mod=party&action=edit', 'partys', 'party_id', $partyID)
 // Write ext_inc/party_infos/infos.xml on Change
 $masterFormStepParam = $_GET['mf_step'] ?? 0;
 if ($masterFormStepParam == '2') {
-    $mail = new \LanSuite\Module\Mail\Mail();
-    $usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
-    $usrmgr->WriteXMLStatFile();
+    $partyObj = new \LanSuite\Module\Party\Party($partyID);
+    $partyObj->WriteXMLStatFile();
 }
