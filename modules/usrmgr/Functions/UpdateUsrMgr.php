@@ -36,7 +36,7 @@ function UpdateUsrMgr($id)
     // If new user has been added
     if (!$mf->isChange) {
         $partyObj = new Party();
-        $partyObj->WriteXMLStatFile();
+        $partyObj->WriteStatFiles();
 
         // If auto generated PW, use PW stored in session, else use PW send by POST field
         if ($_POST['password_original']) {

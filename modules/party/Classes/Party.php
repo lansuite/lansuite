@@ -70,28 +70,53 @@ class Party
 
         $_SESSION['party_info'] = [];
         if ($this->count > 0) {
-            $row = $database->queryWithOnlyFirstRow("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM %prefix%partys WHERE party_id=?", [$partyId]);
-            $this->data = $row;
+            $partyDetails = $this->getPartyDetails($partyId);
+            $this->data = $partyDetails;
 
             $_SESSION['party_info'] = [
-                'name' => $row['name'],
-                'partyort' => $row['ort'],
-                'partyplz' => $row['plz'],
-                'partybegin' => $row['startdate'],
-                'partyend' => $row['enddate'],
-                's_startdate' => $row['sstartdate'],
-                's_enddate' => $row['senddate'],
-                'max_guest' => $row['max_guest'],
+                'name' => $partyDetails['name'],
+                'partyort' => $partyDetails['ort'],
+                'partyplz' => $partyDetails['plz'],
+                'partybegin' => $partyDetails['startdate'],
+                'partyend' => $partyDetails['enddate'],
+                's_startdate' => $partyDetails['sstartdate'],
+                's_enddate' => $partyDetails['senddate'],
+                'max_guest' => $partyDetails['max_guest'],
             ];
         }
+    }
+
+    public function getPartyDetails(int $pId = null)
+    {
+        global $database;
+        $partyId = $pId ?? $this->party_id;
+        $partyData =  $database->queryWithOnlyFirstRow(
+            "SELECT 
+                name, 
+                ort, 
+                plz, 
+                UNIX_TIMESTAMP(enddate) AS enddate, 
+                UNIX_TIMESTAMP(sstartdate) AS sstartdate, 
+                UNIX_TIMESTAMP(senddate) AS senddate, 
+                UNIX_TIMESTAMP(startdate) AS startdate, 
+                max_guest 
+            FROM %prefix%partys 
+            WHERE party_id=?", 
+            [$partyId]
+        );        
+    }
+
+    public function getPartyStats(int $pId = null){
+        global $database;
+        $partyId = $pId ?? $this->party_id;
     }
     
      /**
      * @return bool
      */
-    public function WriteXMLStatFile()
+    public function WriteStatFiles()
     {
-        global $cfg, $db, $config;
+        global $cfg, $database, $config;
 
         $xml = new \LanSuite\XML();
         $output = '<?xml version="1.0" encoding="UTF-8"?' . '>' . "\r\n";
@@ -108,8 +133,8 @@ class Party
 
         $lansuite = $xml->write_master_tag('system', $system, 1);
 
-        $res = $db->qry("
-            SELECT
+        $res = $database->queryWithFullResult(
+            "SELECT
                 `party_id`,
                 `name`,
                 `max_guest`,
@@ -122,7 +147,7 @@ class Party
             FROM %prefix%partys"
         );
         $partys = '';
-        while ($row = $db->fetch_array($res)) {
+        while ($row = $database->queryWithFullResult($res)) {
             $party = $xml->write_tag('partyid', $row['party_id'], 3);
             $party .= $xml->write_tag('name', $row['name'], 3);
             $party .= $xml->write_tag('max_guest', $row['max_guest'], 3);
@@ -133,30 +158,29 @@ class Party
             $party .= $xml->write_tag('sstartdate', $row['sstartdate'], 3);
             $party .= $xml->write_tag('senddate', $row['senddate'], 3);
 
-            $row2 = $db->qry_first("
-              SELECT
+            $row2 = $database->queryWithOnlyFirstRow(
+              "SELECT
                 COUNT(userid) AS anz
               FROM %prefix%user AS user
               LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
               WHERE
-                party_id=%int%
-                AND (type >= 1)", $row['party_id']);
+                party_id=?
+                AND (type >= 1)", [$row['party_id']]);
             $party .= $xml->write_tag('registered', $row2['anz'], 3);
 
-            $row2 = $db->qry_first("
-              SELECT
+            $row2 = $database->queryWithOnlyFirstRow(
+              "SELECT
                 COUNT(userid) AS anz
               FROM %prefix%user AS user
               LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
               WHERE
                 (party.paid > 0)
                 AND party_id=%int%
-                AND (type >= 1)", $row['party_id']);
+                AND (type >= 1)", [$row['party_id']]);
             $party .= $xml->write_tag('paid', $row2['anz'], 3);
 
             $partys .= $xml->write_master_tag('party', $party, 2);
         }
-        $db->free_result($res);
         $lansuite .= $xml->write_master_tag('partys', $partys, 1);
 
         $output .= $xml->write_master_tag('lansuite', $lansuite, 0);
@@ -182,7 +206,7 @@ class Party
      */
     private function set_party_id($id)
     {
-        global $db;
+        global $database;
 
         $row = $db->qry_first_rows("SELECT * FROM %prefix%partys WHERE party_id = %int%", $id);
         if ($row['number'] == 1) {

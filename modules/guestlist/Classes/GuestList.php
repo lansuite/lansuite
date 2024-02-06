@@ -61,7 +61,7 @@ class GuestList
         $this->seating->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
 
         $partyObj = new \LanSuite\Module\Party\Party();
-        $partyObj->WriteXMLStatFile();
+        $partyObj->WriteStatFiles();
 
         $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "bezahlt" gesetzt', $row['username'], $row2['name']), 1, '', 'Zahlstatus');
         return $Messages;
@@ -103,7 +103,7 @@ class GuestList
         $this->seating->MarkSeatIfNotPaidAndSeatReserved($userid);
 
         $partyObj = new \LanSuite\Module\Party\Party();
-        $partyObj->WriteXMLStatFile();
+        $partyObj->WriteStatFiles();
 
         $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "nicht bezahlt" gesetzt', $row['username'], $row2['name']), 1, '', 'Zahlstatus');
         return $Messages;
