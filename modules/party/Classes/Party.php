@@ -58,7 +58,8 @@ class Party
      * @var int $pId a provided Party ID to set (or whatever the latest is, if not provided)
      * @return void
      */
-    private function UpdatePartyArray(?int $pId)
+
+    private function UpdatePartyArray(int $pId = null)
     {
         global $database;
         $partyId = $pId ?? $this->party_id;
