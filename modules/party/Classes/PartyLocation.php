@@ -17,6 +17,12 @@ public function add(array $locationDetails) {
 
     global $database;
 
+    $insertResult = $database->query(
+        'INSERT INTO %prefix%party_location( 
+            locationinfo_id,
+            location_name,
+            postcode,
+    VALUES')
 
 }
 

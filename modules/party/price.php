@@ -35,7 +35,7 @@ if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
 }
 
 $ms2->PrintSearch('index.php?mod=party&action=price&party_id='. $_GET['party_id'], 'p.price_id');
-
-$dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=price_edit'));
-
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
+    $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=price_edit'));
+}
 $dsp->AddBackButton('index.php?mod=party');

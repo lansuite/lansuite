@@ -320,16 +320,16 @@ class MasterForm
     }
 
     /**
-     * @param string    $caption
-     * @param string    $id1
-     * @param string    $id2
-     * @param string    $text
-     * @param string    $table
-     * @param string    $defText
-     * @param string    $where
+     * @param string    $caption Field title
+     * @param string    $fieldName The Field name in the form
+     * @param string    $fieldValueName The field to obtain the value of the selection from
+     * @param string    $selectionField The field to sort and select by name
+     * @param string    $table The table where to fetch data for the field for
+     * @param string    $defText The default text entry
+     * @param string    $where Additional selection clause
      * @return void
      */
-    public function AddDropDownFromTable($caption, $id1, $id2, $text, $table, $defText = '', $where = '')
+    public function AddDropDownFromTable($caption, $fieldName, $fieldValueName, $selectionField, $table, $defText = '', $where = '')
     {
         global $db;
 
@@ -340,14 +340,14 @@ class MasterForm
         if ($where) {
             $where = ' WHERE ' . $where;
         }
-        $res = $db->qry('SELECT %plain%, %plain% FROM %prefix%%plain%%plain% GROUP BY %plain% ORDER BY %plain%', $id2, $text, $table, $where, $id2, $text);
+        $res = $db->qry('SELECT %plain%, %plain% FROM %prefix%%plain%%plain% GROUP BY %plain% ORDER BY %plain%', $fieldValueName, $selectionField, $table, $where, $fieldValueName, $selectionField);
         while ($row = $db->fetch_array($res)) {
-            if ($row[$id2]) {
-                $selections[$row[$id2]] = $row[$text];
+            if ($row[$fieldValueName]) {
+                $selections[$row[$fieldValueName]] = $row[$selectionField];
             }
         }
         $db->free_result($res);
-        $this->AddField($caption, $id1, self::IS_SELECTION, $selections, self::FIELD_OPTIONAL);
+        $this->AddField($caption, $fieldName, self::IS_SELECTION, $selections, self::FIELD_OPTIONAL);
     }
 
     /**

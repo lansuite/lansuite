@@ -321,6 +321,14 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>address</name>
+				<type>varchar(50)</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>postcode</name>
 				<type>varchar(10)</type>
 				<null>NO</null>

@@ -39,9 +39,9 @@ switch ($stepParameter) {
         }
 
         $ms2->PrintSearch('index.php?mod=party', 'p.party_id');
-
-        $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=edit'));
-    
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
+            $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=edit'));
+        }
         if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and isset($_SESSION['party_id'])) {
             $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persönlich die aktive ist, kannst du auf der Startseite oder in der Party-Box einstellen', $_SESSION['party_id']), NO_LINK);
         }

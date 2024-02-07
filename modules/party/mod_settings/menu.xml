@@ -36,4 +36,10 @@
 		<file>price_del</file>
 		<requirement>3</requirement>
 	</entry>
+	<entry>
+		<action>location</action>
+		<file>location</file>
+		<requirement>2</requirement>
+		<hint>Veranstaltungsorte verwalten</hint>
+	</entry>
 </menu>
