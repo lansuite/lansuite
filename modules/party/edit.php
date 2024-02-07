@@ -21,5 +21,5 @@ $mf->SendForm('index.php?mod=party&action=edit', 'partys', 'party_id', $partyID)
 $masterFormStepParam = $_GET['mf_step'] ?? 0;
 if ($masterFormStepParam == '2') {
     $partyObj = new \LanSuite\Module\Party\Party($partyID);
-    $partyObj->WriteXMLStatFile();
+    $partyObj->WriteStatFiles();
 }
