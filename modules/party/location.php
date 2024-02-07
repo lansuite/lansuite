@@ -18,6 +18,9 @@ $ms2->config['EntriesPerPage'] = 20;
 $ms2->AddResultField(t('Name'), 'l.location_name');
 $ms2->AddResultField(t('PLZ'), 'l.postcode');
 
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
+    $ms2->AddIconField('add', 'index.php?mod=party&action=edit&step=2&party_id=', t('Veranstaltung an diesem Ort hinzufügen'));
+}
 
 if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=party&action=location_edit&party_id='. $_GET['party_id'] .'&location_id=', t('Editieren'));
