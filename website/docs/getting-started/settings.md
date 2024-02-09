@@ -10,7 +10,7 @@ Below you find an explanation of the various config settings you find in the Lan
 
 ## Common settings
 
-To be added
+To be added (TODO)
 
 ### Website-specific
 
