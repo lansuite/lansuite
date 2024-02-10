@@ -884,7 +884,7 @@ class MasterForm
                                                 $start = $area[0];
                                                 $end = $area[1];
                                                 $fieldErrorText = $this->error[$field['name']] ?? '';
-                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0,  $fieldErrorText, $values, '', $start, $end, 1, $field['optional']);
+                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $fieldErrorText, $values, '', $start, $end, 1, $field['optional']);
                                                 break;
 
                                             // Password-Row
