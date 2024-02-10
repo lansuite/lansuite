@@ -16,6 +16,15 @@ sidebar_position: 1
 1. Download the release from [GitHubs Releases page](https://github.com/lansuite/lansuite/releases)
 2. Extract the archive on your machine
 
+### Set system to read-only
+
+It is recommended to lock your installation and avoid changes during/after the backup.
+This can either be done by either of the following:
+
+* Lock LanSuite by enabling the corresponding option under "Admin-Page" -> "Common Settings" -> "Lock LanSuite page"
+* Shut down public access to your web server
+* Move index.php to a different location
+
 ### Execute a backup
 
 #### Backup the database
@@ -40,15 +49,6 @@ Backing up your database using `mysqldump` is recommended, as both, LanSuite and
 
 Upload all files into a different folder to your server.
 If you executed the previous step already on your server, then obviously nothing to be done at this step.
-
-### Set system to read-only
-
-It is recommended to lock your installation and avoid changes during/after the backup.
-This can either be done by either of the following:
-
-* Lock LanSuite by enabling the corresponding option under "Admin-Page" -> "Common Settings" -> "Lock LanSuite page"
-* Shut down public access to your web server
-* Move index.php to a different location
 
 ## Upgrade
 
