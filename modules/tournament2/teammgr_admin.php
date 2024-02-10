@@ -86,11 +86,15 @@ switch ($stepParameter) {
         }
 
         if ($tteam->SignonCheckUser($_GET["tournamentid"], $_GET["userid"])) {
+            $setPasswordParameter = $_POST["set_password"] ?? '';
+            $setPassword2Parameter = $_POST["set_password2"] ?? '';
+            $teamCommentParameter = $_POST["team_comment"] ?? '';
+
             $dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=42&tournamentid=$tournamentid&userid=$userid");
             $dsp->AddTextFieldRow("team_name", t('Teamname'), $_POST["team_name"], "");
-            $dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $_POST["set_password"], $error["set_password"]);
-            $dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $_POST["set_password2"], $error["set_password2"]);
-            $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $team_comment, "", "", "", 1);
+            $dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $setPasswordParameter, '');
+            $dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $setPassword2Parameter, '');
+            $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $teamCommentParameter, "", "", "", 1);
             $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
             $dsp->AddBackButton("index.php?mod=tournament2&action=teammgr_admin", "");
