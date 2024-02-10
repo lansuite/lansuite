@@ -4,59 +4,57 @@ namespace LanSuite;
 class File {
 
 
-    private string $_filePath='';
+    private string $filePath='';
 
     /**
      * Base constructor
      */
     public function __construct(string $filePath)
     {
-        $this->_filePath = $filePath;
+        $this->filePath = $filePath;
     }
 
     /**
      * Outputs file content when access OK
-     * 
+     *
      * @throws Exception if path is not below allowed path
+     * @return void
      */
     public function outputFileContent(): void
     {
-            readfile($this->_filePath);
+            readfile($this->filePath);
     }
 
-        /**
+    /**
      * Outputs file content when access OK
-     * 
+     *
      * @param string $filePath The relative path to the file to be output
      * @throws Exception if path is not below allowed path
+     * @return void
      */
     public function includeCode(): void
     {
-            include $this->_filePath;
-    }
-
-    public function rename($newFileName)
-    {
-
-        //make sure we just change the filename
+            include_once $this->filePath;
     }
 
     /**
      * Removes the file represented by the object
+     *
+     * @return void
      */
     public function delete() :void
     {
-        unlink($this->_filePath);
+        unlink($this->filePath);
     }
 
     /**
      * Checks if target is existing and a file
-     * 
+     *
      * @return bool true if existing and file, false otherwise
      */
     public function exists() :bool
     {
-        return is_file($this->_filePath);
+        return is_file($this->filePath);
     }
 
 }

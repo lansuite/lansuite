@@ -33,23 +33,23 @@ class FileCollectionTest extends TestCase
     {
         $fs = new \LanSuite\FileCollection();
         $fs->setRelativePath('foo');
-        $this->assertEquals('/foo/bar/foo/', $fs->getCurrentPath());   
+        $this->assertEquals('/foo/bar/foo/', $fs->getCurrentPath());
         $this->assertEquals('foo/', $fs->getRelativePath()); 
 
         $fs->setRelativePath('/foo');
-        $this->assertEquals('/foo/bar/foo/', $fs->getCurrentPath());   
+        $this->assertEquals('/foo/bar/foo/', $fs->getCurrentPath());
         $this->assertEquals('foo/', $fs->getRelativePath());
 
         $fs->setRelativePath('foo/');
-        $this->assertEquals('/foo/bar/foo/', $fs->getCurrentPath());   
+        $this->assertEquals('/foo/bar/foo/', $fs->getCurrentPath());
         $this->assertEquals('foo/', $fs->getRelativePath());
 
         $fs->setRelativePath('foo/../bar');
-        $this->assertEquals('/foo/bar/bar/', $fs->getCurrentPath());   
+        $this->assertEquals('/foo/bar/bar/', $fs->getCurrentPath());
         $this->assertEquals('bar/', $fs->getRelativePath());
 
         $fs->setRelativePath('foo/../bar/');
-        $this->assertEquals('/foo/bar/bar/', $fs->getCurrentPath());   
+        $this->assertEquals('/foo/bar/bar/', $fs->getCurrentPath());
         $this->assertEquals('bar/', $fs->getRelativePath());
 
         $this->assertEquals(true, $fs->setRelativePath('foo'));
@@ -68,11 +68,11 @@ class FileCollectionTest extends TestCase
         $this->assertEquals('/foo/bar/test', $fc->getFullPath('test'));
         $this->assertEquals('/foo/bar/test', $fc->getFullPath('/test'));
         //deactivating these two, as not correctly evaluated due to internal use of is_dir()
-        //$this->assertEquals('/foo/bar/test/',$fc->getFullPath('test/'));    
+        //$this->assertEquals('/foo/bar/test/',$fc->getFullPath('test/'));
         //$this->assertEquals('/foo/bar/test/',$fc->getFullPath('/test/'));
 
     
-        $this->expectException(\InvalidArgumentException::class);           
+        $this->expectException(\InvalidArgumentException::class);
         $fc->getFullPath('../test');
     }
 
@@ -84,8 +84,6 @@ class FileCollectionTest extends TestCase
         $pathArray = ['/foo/bar/foo/', '/foo/bar/foo/foo2', '/foo/bar/foo/foo3/'];
         $fc = \LanSuite\FileCollection::constructCollection($pathArray);
         $this->assertEquals('foo/', $fc->getRelativePath());
-
-        
     }
 
  

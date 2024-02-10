@@ -10,11 +10,11 @@ use Symfony\Component\Filesystem\Path;
 
 class FileCollection
 {
-    private static string $_basePath='';
-    private static bool $_basePathInitialized=false;
-    private string $_relativePath='';
-    private Filesystem $_fileSystem;
-    private array $_files=[];
+    private static string $basePath='';
+    private static bool $basePathInitialized=false;
+    private string $relativePath='';
+    private Filesystem $fileSystem;
+    private array $files=[];
 
     /**
      * Constructor sets base path and initializes FS object
@@ -23,9 +23,9 @@ class FileCollection
      */
     public function __construct(Filesystem $fs = new Filesystem)
     {
-        $this->_fileSystem = $fs;
+        $this->fileSystem = $fs;
         //ensure basepath is initialized before use, default to LS ROOT_DIRECTORY
-        if (!self::$_basePathInitialized) {
+        if (!self::$basePathInitialized) {
             self::setBasePath(ROOT_DIRECTORY);
         }
     }
@@ -40,13 +40,13 @@ class FileCollection
     {
         $fileCollection = new FileCollection();
         $commonPath = Path::getLongestCommonBasePath(...$filePaths);
-        $relativePath = Path::makeRelative($commonPath, FileCollection::$_basePath);
+        $relativePath = Path::makeRelative($commonPath, FileCollection::$basePath);
         $fileCollection->setRelativePath($relativePath);
         $fileArray = [];
         foreach ($filePaths as $file) {
             $fileArray[] = Path::makeRelative($file, $commonPath);
         }
-        $fileCollection->_files = $fileArray;
+        $fileCollection->files = $fileArray;
         return $fileCollection;
     }
 
@@ -67,7 +67,7 @@ class FileCollection
     public function getAllFileHandles() :array
     {
         $fileObjs=[];
-        foreach ($this->_files as $fPath){
+        foreach ($this->files as $fPath){
             $fileObjs[] = new File($this->getFullPath($fPath));
         }
         return $fileObjs;
@@ -80,13 +80,13 @@ class FileCollection
      */
     private static function setBasePath($basePath) :void
     {
-        if (!self::$_basePathInitialized) {
-            self::$_basePath = PAth::canonicalize($basePath);
+        if (!self::$basePathInitialized) {
+            self::$basePath = PAth::canonicalize($basePath);
             //ensure string ends with directory separator
-            if (!str_ends_with(self::$_basePath, '/')) {
-                self::$_basePath .='/';
+            if (!str_ends_with(self::$basePath, '/')) {
+                self::$basePath .='/';
             }
-            self::$_basePathInitialized = true;
+            self::$basePathInitialized = true;
         }
     }
 
@@ -100,9 +100,9 @@ class FileCollection
     public function getFullPath($path) :string 
     {
 
-        $path = Path::join(self::$_basePath, $this->_relativePath, $path);
+        $path = Path::join(self::$basePath, $this->relativePath, $path);
         //ensure that resulting path is still below the base path, return false if not
-        if (str_starts_with($path, Path::join(self::$_basePath, $this->_relativePath))) {
+        if (str_starts_with($path, Path::join(self::$basePath, $this->relativePath))) {
             if (is_dir($path) && !str_ends_with('$path', '/')) {
                 $path .= '/';
             }
@@ -128,11 +128,11 @@ class FileCollection
         if (!str_ends_with($relativePath, '/')) {
             $relativePath .= '/';
         }
-        $path = Path::join(self::$_basePath, $relativePath);
+        $path = Path::join(self::$basePath, $relativePath);
 
         //ensure new path is not below basepath
-        if (str_starts_with($path, self::$_basePath)) {
-            $this->_relativePath = $relativePath;
+        if (str_starts_with($path, self::$basePath)) {
+            $this->relativePath = $relativePath;
             return true;
         } else {
             return false;
@@ -150,7 +150,7 @@ class FileCollection
     public function exists(string $filePath): bool
     {
         $fullPath = $this->getFullPath($filePath);
-        return $this->_fileSystem->exists($fullPath);
+        return $this->fileSystem->exists($fullPath);
     }
 
     /**
@@ -160,7 +160,7 @@ class FileCollection
      */
     public function getCurrentPath() 
     {
-        return self::$_basePath . $this->_relativePath;
+        return self::$basePath . $this->relativePath;
     }    
 
     /**
@@ -170,7 +170,7 @@ class FileCollection
      */
     public function getRelativePath() 
     {
-        return $this->_relativePath;
+        return $this->relativePath;
     }
 
     /**
@@ -180,7 +180,7 @@ class FileCollection
      */
     public function getBasePath() 
     {
-        return self::$_basePath;
+        return self::$basePath;
     }
 
 
