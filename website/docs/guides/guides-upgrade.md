@@ -143,7 +143,7 @@ Changing the collation requires the following steps:
 * Re-import SQL dump with setting collation of the connection / file to `latin1`
 
 #### Online conversion
-The following steps in PHPmyAdmin _should_ also :
+The following steps in PHPmyAdmin _should_ also work, this has not been confirmed yet:
 
     Select the database.
     Click the "Operations" tab.
