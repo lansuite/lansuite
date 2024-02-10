@@ -102,6 +102,7 @@ switch ($stepParameter) {
                 if (!$questParameter) {
                     $questionarray = array();
                     $linkarray = array();
+                    $markinfo = '';
                     if (is_array($new_user) && $new_user['paid'] == 0) {
                         $markinfo = HTML_NEWLINE . "(Alle markierten Sitzplätze von %1 werden gelöscht, da %1 noch nicht bezahlt hat)";
                     }
