@@ -17,12 +17,22 @@ class File {
     /**
      * Outputs file content when access OK
      * 
-     * @param string $filePath The relative path to the file to be output
      * @throws Exception if path is not below allowed path
      */
     public function outputFileContent(): void
     {
             readfile($this->_filePath);
+    }
+
+        /**
+     * Outputs file content when access OK
+     * 
+     * @param string $filePath The relative path to the file to be output
+     * @throws Exception if path is not below allowed path
+     */
+    public function includeCode(): void
+    {
+            include $this->_filePath;
     }
 
     public function rename($newFileName)
