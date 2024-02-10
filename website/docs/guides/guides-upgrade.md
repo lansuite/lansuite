@@ -11,6 +11,12 @@ sidebar_position: 1
 
 ## Preparation
 
+### Upgrade communications
+
+It is recommended to tell your users (and fellow administrators) in advance that your LanSuite instance won't be 100% functional available during the upgrade.
+
+That should be well done in advance if you run a larger installation, for smaller ones no one may notice. But better be safe than sorry.
+
 ### Download an official release
 
 1. Download the release from [GitHubs Releases page](https://github.com/lansuite/lansuite/releases)
