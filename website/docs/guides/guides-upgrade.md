@@ -134,6 +134,12 @@ charset = "utf8mb4"
 [...]
 ```
 
+### Configuration: `google_maps_key`
+
+A separate API Key has been introduced for usage of Google Maps. (#887)
+Check the bottom of "Admin-Page" -> "Common Settings" where the existing setting for the Analytics ID is located and add/copy the API key to be used for Google Maps API requests
+Map display will be nonfunctional until the key is added.
+
 ### Fonts in `ext_inc/pdf_fonts`
 
 Delete the following files
