@@ -131,14 +131,40 @@ sqlmode = "NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREAT
 
 ### Configuration: `database.charset`
 
-Add the following line to your configuration at `/inc/base/config.php`:
+Old installations of LanSuite stored data in the database with character collation set to `latin1`.
+But LanSuite now uses `utf8mb4` by default.
+Thus it is either required to modify database collation or to force character set back to `latin1`.
+
+#### Offline conversion
+Changing the collation requires the following steps:
+* Full SQL dump of the database (see backup)
+* Drop all tables
+* Change collation of database to `utf8mb4` (or drop database and recreate)
+* Re-import SQL dump with setting collation of the connection / file to `latin1`
+
+#### Online conversion
+The following steps in PHPmyAdmin _should_ also :
+
+    Select the database.
+    Click the "Operations" tab.
+    Under "Collation" section, select the desired collation.
+    Click the "Change all tables collations" checkbox.
+    A new "Change all tables columns collations" checkbox will appear.
+    Click the "Change all tables columns collations" checkbox.
+    Click the "Go" button.
+
+#### Force latin1 as workaround
+If you want to enforce `latin1` as workaround you need to add the following key to the configuration file located at `/inc/base/config.php`:
 
 ```
 [...]
 [database]
-charset = "utf8mb4"
+charset = "latin1"
 [...]
 ```
+
+** Do not change collation setting during normal operation and without doing the required conversion, this will cause data to be stored in both formats with no easy way to remediate **
+
 
 ### Configuration: `google_maps_key`
 
