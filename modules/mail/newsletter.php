@@ -42,45 +42,45 @@ switch ($stepParameter) {
         $dsp->AddCheckBoxRow("onlynewsletter", t('Nur Newsletter'), t('Nur an Benutzer, die den Newsletter bei der Anmeldung bestellt haben'), "", 1, $_POST["onlynewsletter"]);
 
         $t_array   = array();
-        $t_array[] = '<option $selected value="0">' . t('An alle Benutzer') . '</option>';
-        $t_array[] = '<option $selected value="-1">' . t('Zu keiner Party angemeldet') . '</option>';
+        $t_array[] = '<option value="0">' . t('An alle Benutzer') . '</option>';
+        $t_array[] = '<option value="-1">' . t('Zu keiner Party angemeldet') . '</option>';
         $row       = $db->qry("SELECT party_id, name FROM %prefix%partys");
         while ($res = $db->fetch_array($row)) {
-            $t_array[] = '<option $selected value="' . $res['party_id'] . '">' . $res['name'] . '</option>';
+            $t_array[] = '<option value="' . $res['party_id'] . '">' . $res['name'] . '</option>';
         }
         $db->free_result($row);
         $dsp->AddDropDownFieldRow("onlysignon", t('Nur Angemeldete an folgender Party'), $t_array, '');
 
         $t_array   = array();
-        $t_array[] = "<option $selected value=\"0\">" . t('An alle Benutzer') . "</option>";
-        $t_array[] = "<option $selected value=\"1\">" . t('Nur an Benutzer, die bezahlt haben') . "</option>";
-        $t_array[] = "<option $selected value=\"2\">" . t('Nur an Benutzer, die NICHT bezahlt haben') . "</option>";
+        $t_array[] = "<option value=\"0\">" . t('An alle Benutzer') . "</option>";
+        $t_array[] = "<option value=\"1\">" . t('Nur an Benutzer, die bezahlt haben') . "</option>";
+        $t_array[] = "<option value=\"2\">" . t('Nur an Benutzer, die NICHT bezahlt haben') . "</option>";
         $dsp->AddDropDownFieldRow("onlypaid", t('Nur Benutzer die zu oben ausgewählter Party bezahlt haben'), $t_array, '');
 
         $t_array   = array();
-        $t_array[] = "<option $selected value=\"0\">" . t('An alle Benutzer') . "</option>";
-        $t_array[] = "<option $selected value=\"1\">" . t('Nur an Gäste') . "</option>";
-        $t_array[] = "<option $selected value=\"2\">" . t('Nur an Admins und Superadminen') . "</option>";
-        $t_array[] = "<option $selected value=\"3\">" . t('Nur an Superadminen') . "</option>";
+        $t_array[] = "<option value=\"0\">" . t('An alle Benutzer') . "</option>";
+        $t_array[] = "<option value=\"1\">" . t('Nur an Gäste') . "</option>";
+        $t_array[] = "<option value=\"2\">" . t('Nur an Admins und Superadminen') . "</option>";
+        $t_array[] = "<option value=\"3\">" . t('Nur an Superadminen') . "</option>";
         $dsp->AddDropDownFieldRow("type", t('Nur an folgende Benutzertypen'), $t_array, '');
 
         $t_array   = array();
-        $t_array[] = '<option $selected value="0">' . t('An alle Gruppen') . '</option>';
-        $t_array[] = '<option $selected value="-1">' . t('Nur an Benutzer ohne Gruppe') . '</option>';
+        $t_array[] = '<option value="0">' . t('An alle Gruppen') . '</option>';
+        $t_array[] = '<option value="-1">' . t('Nur an Benutzer ohne Gruppe') . '</option>';
         $row       = $db->qry("SELECT group_id, group_name FROM %prefix%party_usergroups");
         while ($res = $db->fetch_array($row)) {
-            $t_array[] = '<option $selected value="' . $res['group_id'] . '">' . $res['group_name'] . '</option>';
+            $t_array[] = '<option value="' . $res['group_id'] . '">' . $res['group_name'] . '</option>';
         }
         $db->free_result($row);
         $dsp->AddDropDownFieldRow("group_id", t('Nur an folgende Gruppen'), $t_array, '');
         
         // Clanfilter
         $t_array   = array();
-        $t_array[] = '<option $selected value="0">' . t('An alle Clans') . '</option>';
-        $t_array[] = '<option $selected value="-1">' . t('Nur an Benutzer ohne Clan') . '</option>';
+        $t_array[] = '<option value="0">' . t('An alle Clans') . '</option>';
+        $t_array[] = '<option value="-1">' . t('Nur an Benutzer ohne Clan') . '</option>';
         $row       = $db->qry("SELECT clanid, name FROM %prefix%clan");
         while ($res = $db->fetch_array($row)) {
-            $t_array[] = '<option $selected value="' . $res['clanid'] . '">' . $res['name'] . '</option>';
+            $t_array[] = '<option value="' . $res['clanid'] . '">' . $res['name'] . '</option>';
         }
         $db->free_result($row);
         $dsp->AddDropDownFieldRow("clan_id", t('Nur an folgenden Clan'), $t_array, '');
