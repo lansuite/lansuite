@@ -62,6 +62,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Use utf8 by default
 - [System] Update Google Analytics Integration
 - [System] Enabled Google Analytics Integration anonymizeIp feature
+- [System] Separated Google API-Keys for Analytics, Maps and Translate into dedicated settings (#887)
 - [System] Don't enforce php-snmp; only suggest it (#148)
 - [Database] Set utf8mb4 as the default charset
 - [Database] Add default database port to connection string if not configured
