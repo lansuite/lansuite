@@ -20,7 +20,11 @@ if (true) {
         if (!$pic['caption']) {
             $pic['caption'] = "<i>".t('Unbekannt')."</i>";
         }
-        $func->question(t('Willst du das Bild <b>%1 (%2)</b> wirklich l&ouml;schen?', $pic['caption'], $path), "index.php?mod=picgallery&action=delete&step=2&file=$path&caption={$pic['caption']}", "index.php?mod=picgallery&file=$directoryPath");
+        $func->question(
+            t('Willst du das Bild <b>%1 (%2)</b> wirklich l&ouml;schen?', $pic['caption'], $path), 
+            "index.php?mod=picgallery&action=delete&step=2&file=$path&caption={$pic['caption']}", 
+            "index.php?mod=picgallery&file=$directoryPath"
+        );
         break;
     
     case 2:
@@ -31,7 +35,10 @@ if (true) {
         if ($thumbFile->exists()) {
             $thumbFile->delete();
         }
-        $func->confirmation(t('Das Bild <b>%1 (%2)</b> wurde gel&ouml;scht', $_GET["caption"], $path), "index.php?mod=picgallery&file=$directoryPath");
+        $func->confirmation(
+            t('Das Bild <b>%1 (%2)</b> wurde gel&ouml;scht', $_GET["caption"], $path), 
+            "index.php?mod=picgallery&file=$directoryPath"
+        );
         break;
     
     // Delete directory

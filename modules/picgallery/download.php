@@ -12,7 +12,7 @@ if ($file->exists()) {
     //set headers for download
     header('Content-Type: application/octet-stream');
     header('Content-Disposition: attachment; filename="' . basename($requestPath) . '"');
-    header('Content-Length: '.filesize($fullPath));   
+    header('Content-Length: '.filesize($fullPath));
 
     //dump file content
     $file->outputFileContent();

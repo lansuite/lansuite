@@ -15,7 +15,7 @@ $questParameter = $_GET["quest"] ?? 0;
 $stepParameter = $_GET["step"] ?? 0;
 
 //sanitize module name
-preg_match('/[:alnum:]*/', $request->query->get('module'), $matches);
+preg_match('/[[:alnum:]]*/', $request->query->get('module'), $matches);
 $moduleParameter = $matches[0];
 
 if ($questParameter ) {

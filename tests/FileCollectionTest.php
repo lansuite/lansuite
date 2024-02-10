@@ -34,7 +34,7 @@ class FileCollectionTest extends TestCase
         $fs = new \LanSuite\FileCollection();
         $fs->setRelativePath('foo');
         $this->assertEquals('/foo/bar/foo/', $fs->getCurrentPath());
-        $this->assertEquals('foo/', $fs->getRelativePath()); 
+        $this->assertEquals('foo/', $fs->getRelativePath());
 
         $fs->setRelativePath('/foo');
         $this->assertEquals('/foo/bar/foo/', $fs->getCurrentPath());
