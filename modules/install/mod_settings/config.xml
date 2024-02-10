@@ -421,13 +421,6 @@ nospamfor.us</default>
         <default></default>
         <description>Google API-Key um Google-Maps Code zu aktivieren</description>
       </item>
-        </item>
-        <item>
-        <name>google_translate_key</name>
-        <type>string</type>
-        <default></default>
-        <description>Google API-Key um Google-Translate Code zu aktivieren</description>
-      </item>
     </items>
   </group>
   <group>
