@@ -16,8 +16,8 @@ if ($res->num_rows > 0) {
         $addresses .= "showAddress('Germany', '". addslashes($row['city']) ."', '". addslashes($row['plz']) ."', '". addslashes($row['street']) ."', '". addslashes($row['hnr']) ."', '". addslashes($text) ."');\r\n";
     }
     $smarty->assign('addresses', $addresses);
-    if (!empty($cfg['google_analytics_id'])) {
-        $smarty->assign('apikey', $cfg['google_analytics_id']);
+    if (!empty($cfg['google_maps_key'])) {
+        $smarty->assign('apikey', $cfg['google_maps_key']);
         $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
     } else {
         $func->error(t('Die Google Analytics ID wurde nicht konfiguriert, ist aber notwendig zur Benutzung von Google Maps-Diensten.'));

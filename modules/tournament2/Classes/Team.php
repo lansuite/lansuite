@@ -197,7 +197,7 @@ class Team
             $func->information(t('%1 kann diesem Turnier nicht beitreten. In diesem Turnier dürfen nur Benutzer mitspielen, die <b>nicht</b> in einem Unter-18-Block sitzen', $user["username"]));
 
         // Are enough coins left to afford this tournament
-        } elseif (($cfg["t_coins"] - $team_coin["t_coins"] - $member_coin["t_coins"] - $t["coins"]) < 0) {
+        } elseif (($cfg["t_coins"] - intval($team_coin["t_coins"]) - intval($member_coin["t_coins"]) - intval($t["coins"])) < 0) {
             $func->information(t('%1 besitzt nicht genügend Coins um an diesem Turnier teilnehmen zu können!', $user["username"]));
 
         // Everything fine
@@ -299,7 +299,8 @@ class Team
               SELECT
                 name,
                 teamplayer,
-                maxteams
+                maxteams,
+                blind_draw
               FROM %prefix%tournament_tournaments
               WHERE
                 tournamentid = %int%", $tournamentid);
@@ -312,7 +313,7 @@ class Team
                   WHERE
                     (tournamentid = %int%)
                   GROUP BY teamid", $tournamentid);
-                $completed_teams = $c_teams["teams"];
+                $completed_teams = intval($c_teams["teams"]);
                 $waiting_teams = 0;
             } else {
                 $waiting_teams = 0;

@@ -15,7 +15,7 @@ if (!$fileHandle->exists()) {
     $dsp->NewContent($helplet['modul'] .' ('. $helplet['action'] .')', $helplet['info']);
     $dsp->AddHruleRow();
 
-    if ($helplet['key']) {
+    if (array_key_exists('key', $helplet) && $helplet['key']) {
         foreach ($helplet['key'] as $key) {
             $value = array_shift($helplet['value']);
             if ($key) {
