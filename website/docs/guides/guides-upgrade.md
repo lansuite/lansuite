@@ -115,6 +115,7 @@ Or: Re-uploading your backup, if that was the way you went.
 
 * Please ensure that export and import of Database images use the same character encoding. Using the same client on the same system should ensure this, but be cautious if dump and import are done on different systems/clients.
 * The git `master` branch is not usable without pulling in additional resources via composer. You must do this first to obtain a runnable installation!
+* IP Addresses from existing log entries are removed due to a change of the column format for IPv6 support
 
 ## Upgrade from LanSuite v4.2 to v5.0
 
