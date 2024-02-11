@@ -62,6 +62,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Use utf8 by default
 - [System] Update Google Analytics Integration
 - [System] Enabled Google Analytics Integration anonymizeIp feature
+- [System] Separated Google API-Keys for Analytics, Maps and Translate into dedicated settings (#887)
 - [System] Don't enforce php-snmp; only suggest it (#148)
 - [System] Updated jQuery to v3.7.1 and jQuery UI to v1.13.2
 - [Database] Set utf8mb4 as the default charset
@@ -105,6 +106,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Skip cache for installation module
 - [Installation] Fixed #344: Switching to English during Installation breaks the Installation page (#650)
 - [Installation] Fixed dropdown to select the design
+- [Installation] Fixed Database error when going from step 2 to 1 in install wizzard (#871)
 - [Home] Set module `home` as default if we don't have a module parameter
 - [Clanmgr] Only prefix clan URL with http:// if an URL was entered
 - [Clanmgr] Only prefix URL field with http:// for display when an URL exists
@@ -117,6 +119,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] Tournament overview is not displayed if played as a league (#142)
 - [Tournament] MySQL Warning in module tournament2 if the user is not logged in (#97)
 - [Guestlist] Restrict user information shown on Google Maps according to their settings and never show the street details ... unless you are an administrator
+- [Board] Deletion of board failed without error (#861)
 
 ### Security
 

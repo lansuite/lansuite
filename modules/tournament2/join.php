@@ -49,8 +49,9 @@ if ($tteam->SignonCheck($tournamentid)) {
                 $error = array();
 
                 // If joining an existing team
-                if (($_POST['existing_team_name'] != "") and ($tournament['teamplayer'] > 1)) {
-                    $success = $tteam->join($_POST["existing_team_name"], $auth["userid"], $_POST["password"]);
+                $existingTeamNameParameter = $_POST['existing_team_name'] ?? '';
+                if (($existingTeamNameParameter != "") && ($tournament['teamplayer'] > 1)) {
+                    $success = $tteam->join($existingTeamNameParameter, $auth["userid"], $_POST["password"]);
 
                 // If creating a new team
                 } else {
@@ -58,20 +59,28 @@ if ($tteam->SignonCheck($tournamentid)) {
                         $_POST['team_name'] = "";
                     }
 
-                    if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) {
+                    $setPasswordParameter = $_POST["set_password"] ?? '';
+                    $setPassword2Parameter = $_POST["set_password2"] ?? '';
+                    if ($setPasswordParameter && $setPasswordParameter != $setPassword2Parameter) {
                         $error["set_password2"] = t('Die Passworteingaben stimmen nicht überein');
                     }
                     if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1) {
                         $error["team_name"] = t('Bitte gib einen Teamnamen ein, oder wähle ein vorhandenes Team aus');
                     }
                     if (count($error) == 0) {
-                        $success = $tteam->create($_GET["tournamentid"], $auth["userid"], $_POST['team_name'], $_POST["set_password"], $_POST['team_comment'], "team_banner");
+                        $success = $tteam->create($_GET["tournamentid"], $auth["userid"], $_POST['team_name'], $setPasswordParameter, $_POST['team_comment'], "team_banner");
                     }
                 }
 
                 if (count($error) == 0 and $success) {
                     // Update-League-IDs
-                    $tteam->UpdateLeagueIDs($auth["userid"], $_POST["wwclid"], $_POST["wwclclanid"], $_POST["nglid"], $_POST["nglclanid"], $_POST["lgzid"], $_POST["lgzclanid"]);
+                    $wwclidParameter = $_POST["wwclid"] ?? '';
+                    $wwclclanidParameter = $_POST["wwclclanid"] ?? '';
+                    $nglidParameter = $_POST["nglid"] ?? '';
+                    $nglclanidParameter = $_POST["nglclanid"] ?? '';
+                    $lgzidParameter = $_POST["lgzid"] ?? '';
+                    $lgzclanidParameter = $_POST["lgzclanid"] ?? '';
+                    $tteam->UpdateLeagueIDs($auth["userid"], $wwclidParameter, $wwclclanidParameter, $nglidParameter, $nglclanidParameter, $lgzidParameter , $_POST["lgzclanid"]);
                     $func->confirmation(t('Du wurdest zum Turnier %1 erfolgreich hinzugefügt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
                 }
                 $sec->lock("t_join");
@@ -96,11 +105,13 @@ if ($tteam->SignonCheck($tournamentid)) {
             } else {
                 $dsp->AddSingleRow("<b>". t('Vorhandenem Team beitreten') ."</b>");
 
+                $existingTeamNameParameter = $_POST['existing_team_name'] ?? '';
+
                 // Vorhandene Teams
                 $t_array = array("<option $selected value=\"\">-".t('Neues Team erstellen')."-</option>");
                 $teams = $db->qry("SELECT teamid, name FROM %prefix%t2_teams WHERE tournamentid = %int%", $tournamentid);
                 while ($team = $db->fetch_array($teams)) {
-                    if ($_POST["existing_team_name"] == $team['teamid']) {
+                    if ($existingTeamNameParameter == $team['teamid']) {
                         $selected = "selected";
                     }
                     $t_array[] = "<option $selected value=\"{$team['teamid']}\">{$team['name']}</option>";
