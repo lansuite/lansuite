@@ -26,6 +26,17 @@ class File {
     }
 
     /**
+     * Returns file content as string
+     *
+     * @throws Exception if path is not below allowed path
+     * @return string file content as string
+     */
+    public function readFileContent(): string
+    {
+            return file_get_contents($this->filePath);
+    }
+
+    /**
      * Outputs file content when access OK
      *
      * @param string $filePath The relative path to the file to be output
@@ -55,6 +66,16 @@ class File {
     public function exists() :bool
     {
         return is_file($this->filePath);
+    }
+
+    /**
+     * Returns path to file
+     *
+     * @return string full filesystem path to file
+     */
+    public function getPath() :string
+    {
+        return $this->filePath;
     }
 
 }
