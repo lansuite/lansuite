@@ -115,9 +115,7 @@ class Discord
         // -------------------------------- CHANNELS ---------------------------------------- //
         if (isset($cfg['discord_show_channels']) && $cfg['discord_show_channels'] == 1) {
             if ($discordServerData->channels) {
-                usort($discordServerData->channels, function ($a, $b) {
-                    return ($a->position > $b->position) ? 1 : -1;
-                });
+                usort($discordServerData->channels, fn($a, $b) => ($a->position > $b->position) ? 1 : -1);
                 $boxContent .= '<ul class="online_sidebar_channel">';
                 foreach ($discordServerData->members as $member) {
                     if (isset($cfg['discord_hide_bots']) && $cfg['discord_hide_bots'] == 1 && $member->bot) {
