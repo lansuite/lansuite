@@ -62,6 +62,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Use utf8 by default
 - [System] Update Google Analytics Integration
 - [System] Enabled Google Analytics Integration anonymizeIp feature
+- [System] Separated Google API-Keys for Analytics, Maps and Translate into dedicated settings (#887)
 - [System] Don't enforce php-snmp; only suggest it (#148)
 - [Database] Set utf8mb4 as the default charset
 - [Database] Add default database port to connection string if not configured
@@ -69,6 +70,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Statistics] Limit lasthiturl to 100 chars as we expect it to fit varchar(100)
 - [User] Enforce uniqueness of user & email for registration
 - [Boxes/Login] Sign up and Password Recovery are now text links below the login box and not only icons anymore (for better usability)
+- [PDF] Usage of core fonts from fpdf instead of `ext_inc/pdf_fonts`
 
 ### Deprecated
 
@@ -103,6 +105,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Skip cache for installation module
 - [Installation] Fixed #344: Switching to English during Installation breaks the Installation page (#650)
 - [Installation] Fixed dropdown to select the design
+- [Installation] Fixed Database error when going from step 2 to 1 in install wizzard (#871)
 - [Home] Set module `home` as default if we don't have a module parameter
 - [Clanmgr] Only prefix clan URL with http:// if an URL was entered
 - [Clanmgr] Only prefix URL field with http:// for display when an URL exists
@@ -115,6 +118,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] Tournament overview is not displayed if played as a league (#142)
 - [Tournament] MySQL Warning in module tournament2 if the user is not logged in (#97)
 - [Guestlist] Restrict user information shown on Google Maps according to their settings and never show the street details ... unless you are an administrator
+- [Board] Deletion of board failed without error (#861)
 
 ### Security
 

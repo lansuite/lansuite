@@ -1337,7 +1337,7 @@ class Display
         return '<div class="infolink" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
     }
 
-    public function AddTripleRow($key, $value, $id = null, $ext_txt) {
+    public function AddTripleRow($key, $value, $id = null, $ext_txt = '') {
         global $smarty;
 
         if ($key == '') {

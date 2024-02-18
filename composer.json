@@ -37,7 +37,7 @@
         "squizlabs/php_codesniffer": "*",
         "phpstan/phpstan": "^1.9.13",
         "phan/phan": "^5.4",
-        "rector/rector": "^0.18.0"
+        "rector/rector": "^0.18.0 || ^0.19.0 || ^1.0.0"
     },
     "minimum-stability": "stable",
     "config": {

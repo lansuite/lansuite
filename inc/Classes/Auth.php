@@ -243,7 +243,7 @@ class Auth
             $cookierow = $db->qry_first('SELECT userid from %prefix%cookie WHERE cookieid = %int% AND password = %string%', $tmp_login_email, $tmp_login_pass);
             if ($cookierow) {
                 $user = $db->qry_first(
-                    'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE (userid = %int%)',
+                    'SELECT *, 1 AS found, 0 AS user_login FROM %prefix%user WHERE (userid = %int%)',
                     $cookierow['userid']
                 );
 
@@ -431,7 +431,8 @@ class Auth
 
         // Reset Cookiedata
         $this->cookie_read();
-        $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid = %int%', $this->auth['userid'], $this->cookie_data['userid']);
+        $cookieUserId = $this->cookie_data['userid'] ?? 0;
+        $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid = %int%', $this->auth['userid'], $cookieUserId);
         $this->cookie_unset();
 
         // Reset Sessiondata

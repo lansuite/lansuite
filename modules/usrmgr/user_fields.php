@@ -35,7 +35,8 @@ switch ($stepParameter) {
         $mf->AddField(t('Optional'), 'optional', \LanSuite\MasterForm::IS_SELECTION, $selections);
 
         $mf->AdditionalDBUpdateFunction = 'UpdateUsrMgrUserFields';
-        $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $_GET['fieldid']);
+        $fieldIdParameter = $_GET['fieldid'] ?? 0;
+        $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $fieldIdParameter);
         break;
   
     // Delete entry
