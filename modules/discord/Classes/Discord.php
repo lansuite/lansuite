@@ -56,7 +56,7 @@ class Discord
         if (!$discordCache->isHit()) {
             // No cache file or too old; let's fetch data.
             $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
-            $JsonReturnData = @file_get_contents($APIurl, false, stream_context_create(array('http' => array('timeout' => (isset($cfg['discord_json_timeout']) ? $cfg['discord_json_timeout'] : 4)))));
+            $JsonReturnData = @file_get_contents($APIurl, false, stream_context_create(array('http' => array('timeout' => ($cfg['discord_json_timeout'] ?? 4)))));
 
             // Store in cache with timeout of 60 seconds
             $discordCache->set($JsonReturnData, 60);
