@@ -13,7 +13,7 @@ class TranslationTest extends TestCase
     {
         $input = 'This is %1 foo %2 bar baz';
         $parameters = ['Sparta', 'not'];
-        $key = 22;
+        $key = md5(__METHOD__);
         $GLOBALS['auth']['type'] = 5;
         $GLOBALS['cfg'] = [
             'show_translation_links' => true,
@@ -34,7 +34,7 @@ class TranslationTest extends TestCase
     {
         $input = 'This is %1 foo %2 bar baz';
         $parameters = ['Sparta', 'not'];
-        $key = 5;
+        $key = md5(__METHOD__);
         $GLOBALS['auth']['type'] = 2;
         $GLOBALS['cfg'] = [
             'show_translation_links' => true,
