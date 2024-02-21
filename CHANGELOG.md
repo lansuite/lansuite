@@ -39,6 +39,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] Added tournament icon for Rocket League
 - [Tournament] Added roles for organization people (Tech/Admin) into tournaments
 - [Tournament] Added an overview about when the games happen in tournaments
+- [Tournament] Added day of week to tournament timetable
 - [Guestlist] Added Clan Search into Guestlist
 - [Usrmgr] Added Clan Search into Usrmgr
 - [Usrmgr] Added XMPP support in the Contacts field
