@@ -82,30 +82,15 @@ class Display
             return '';
         }
     
-        $formatBeamer1Status = function($var, $bcid)
-        {
-            return formatBStatus($var, $bcid, "1");
-        };
+        $formatBeamer1Status = fn($var, $bcid) => formatBStatus($var, $bcid, "1");
 
-        $formatBeamer2Status = function($var, $bcid)
-        {
-            return formatBStatus($var, $bcid, "2");
-        };
+        $formatBeamer2Status = fn($var, $bcid) => formatBStatus($var, $bcid, "2");
 
-        $formatBeamer3Status = function($var, $bcid)
-        {
-            return formatBStatus($var, $bcid, "3");
-        };
+        $formatBeamer3Status = fn($var, $bcid) => formatBStatus($var, $bcid, "3");
 
-        $formatBeamer4Status = function($var, $bcid)
-        {
-            return formatBStatus($var, $bcid, "4");
-        };
+        $formatBeamer4Status = fn($var, $bcid) => formatBStatus($var, $bcid, "4");
 
-        $formatBeamer5Status = function($var, $bcid)
-        {
-            return formatBStatus($var, $bcid, "5");
-        };
+        $formatBeamer5Status = fn($var, $bcid) => formatBStatus($var, $bcid, "5");
 
         /**
          * @param int $var
