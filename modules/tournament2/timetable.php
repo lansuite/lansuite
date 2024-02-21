@@ -12,7 +12,7 @@ $mintime = 9_999_999_999;
 $maxtime = 0;
 //@TODO: ^rework these - values do not make sense in contect of functionality
 
-$tournaments = $database->query(
+$tournaments = $database->queryWithFullResult(
   "SELECT *,
   UNIX_TIMESTAMP(starttime) AS starttime
   FROM %prefix%tournament_tournaments
@@ -22,7 +22,7 @@ $tournaments = $database->query(
       ? > 1
       OR status != 'invisible'
     )", [$party->party_id, $auth['type']]);
-while ($tournament = $db->fetch_array($tournaments)) {
+foreach ($tournaments as $tournament) {
     // Calc Min-Time
     if ($tournament["starttime"] < $mintime) {
         $mintime = $tournament["starttime"];
@@ -53,7 +53,7 @@ $smarty->assign('head', $head);
 
 // Generate Table-foot
 $rows = "";
-$tournaments = $database->query(
+$tournaments = $database->queryWithFullResult(
     "SELECT
     *,
     UNIX_TIMESTAMP(starttime) AS starttime
@@ -64,7 +64,7 @@ $tournaments = $database->query(
       ? > 1
       OR status != 'invisible'
     )", [$party->party_id, $auth['type']]);
-while ($tournament = $db->fetch_array($tournaments)) {
+foreach ($tournaments as $tournament) {
     $team_anz = $tfunc->GetTeamAnz($tournament["tournamentid"], $tournament["mode"]);
     $max_round = 1;
     for ($z = $team_anz/2; $z >= 2; $z/=2) {
