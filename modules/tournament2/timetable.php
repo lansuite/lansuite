@@ -10,16 +10,18 @@ $dsp->NewContent(t('Turnier-Zeitplan'), t('Hier siehst du, welches Turnier zu we
 // Generate Table-head
 $mintime = 9_999_999_999;
 $maxtime = 0;
-$tournaments = $db->qry("
-  SELECT *,
+//@TODO: ^rework these - values do not make sense in contect of functionality
+
+$tournaments = $database->query(
+  "SELECT *,
   UNIX_TIMESTAMP(starttime) AS starttime
   FROM %prefix%tournament_tournaments
   WHERE
-    party_id = %int%
+    party_id = ?
     AND (
-      %int% > 1
+      ? > 1
       OR status != 'invisible'
-    )", $party->party_id, $auth['type']);
+    )", [$party->party_id, $auth['type']]);
 while ($tournament = $db->fetch_array($tournaments)) {
     // Calc Min-Time
     if ($tournament["starttime"] < $mintime) {
@@ -45,23 +47,23 @@ if ($maxtime > $mintime + 60 * 60 * 24 * 4) {
 
 $head = "<td><b>".t('Turnier')."</b></td>";
 for ($z = $mintime; $z <= $maxtime; $z+= (60 * 60 * 2)) {
-    $head .= "<td colspan = 4>". $func->unixstamp2date($z, "time")."</td>";
+    $head .= "<td colspan = 4>". $func->unixstamp2date($z, "shortdaytime")."</td>";
 }
 $smarty->assign('head', $head);
 
 // Generate Table-foot
 $rows = "";
-$tournaments = $db->qry("
-  SELECT
+$tournaments = $database->query(
+    "SELECT
     *,
     UNIX_TIMESTAMP(starttime) AS starttime
   FROM %prefix%tournament_tournaments
   WHERE
-    party_id = %int%
+    party_id = ?
     AND (
-      %int% > 1
+      ? > 1
       OR status != 'invisible'
-    )", $party->party_id, $auth['type']);
+    )", [$party->party_id, $auth['type']]);
 while ($tournament = $db->fetch_array($tournaments)) {
     $team_anz = $tfunc->GetTeamAnz($tournament["tournamentid"], $tournament["mode"]);
     $max_round = 1;
