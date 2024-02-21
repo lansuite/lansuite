@@ -39,7 +39,6 @@ foreach ($tournaments as $tournament) {
         $maxtime = $endtime;
     }
 }
-$db->free_result($tournaments);
 
 if ($maxtime > $mintime + 60 * 60 * 24 * 4) {
     $maxtime = $mintime + 60 * 60 * 24 * 4;
@@ -87,7 +86,6 @@ foreach ($tournaments as $tournament) {
     $smarty->assign('content', $content);
     $rows .= $smarty->fetch('modules/tournament2/templates/timetable_zeile.htm');
 }
-$db->free_result($tournaments);
 
 $smarty->assign('rows', $rows);
 $dsp->AddSmartyTpl('timetable', 'tournament2');
