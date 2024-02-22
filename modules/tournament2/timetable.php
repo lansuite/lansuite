@@ -10,10 +10,16 @@ $dsp->NewContent(t('Turnier-Zeitplan'), t('Hier siehst du, welches Turnier zu we
 // Generate Table-head
 $mintime = 9_999_999_999;
 $maxtime = 0;
-//@TODO: ^rework these - values do not make sense in contect of functionality
+//@TODO: ^rework these - values do not make sense in context of functionality
 
 $tournaments = $database->queryWithFullResult(
-  "SELECT *,
+  "SELECT 
+  max_games,
+  mode,
+  game_duration,
+  break_duration,
+  tournamentid,
+  `name`,
   UNIX_TIMESTAMP(starttime) AS starttime
   FROM %prefix%tournament_tournaments
   WHERE
@@ -52,17 +58,6 @@ $smarty->assign('head', $head);
 
 // Generate Table-foot
 $rows = "";
-$tournaments = $database->queryWithFullResult(
-    "SELECT
-    *,
-    UNIX_TIMESTAMP(starttime) AS starttime
-  FROM %prefix%tournament_tournaments
-  WHERE
-    party_id = ?
-    AND (
-      ? > 1
-      OR status != 'invisible'
-    )", [$party->party_id, $auth['type']]);
 foreach ($tournaments as $tournament) {
     $team_anz = $tfunc->GetTeamAnz($tournament["tournamentid"], $tournament["mode"]);
     $max_round = 1;
