@@ -2,16 +2,19 @@
 
 $gd = new \LanSuite\GD();
 
+$fileParameter = $_GET['file'] ?? '';
 // Forbid changedir to upper directories
-$_GET['file'] = str_replace('/..', '', $_GET['file']);
-$_GET['file'] = str_replace('\\..', '', $_GET['file']);
+$fileParameter = str_replace('/..', '', $fileParameter);
+$fileParameter = str_replace('\\..', '', $fileParameter);
+$_GET['file'] = $fileParameter;
 
 $icon_dir = "ext_inc/picgallery_icon/";
 
+$galleryNameParameter = $_POST['gallery_name'] ?? '';
 // If a new gallery should be created
-if ($_POST['gallery_name']) {
-    if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
-        $func->CreateDir('ext_inc/picgallery/'. $_GET['file'] . $_POST['gallery_name']);
+if ($galleryNameParameter) {
+    if ($cfg["picgallery_allow_user_upload"] or $auth['type'] > \LS_AUTH_TYPE_USER) {
+        $func->CreateDir('ext_inc/picgallery/'. $_GET['file'] . $galleryNameParameter);
     } else {
         $func->error(t('Du bist nicht berechtigt neue Galerien anzulegen'), "index.php?mod=picgallery&file={$_GET["file"]}");
     }
@@ -26,8 +29,9 @@ $akt_file = substr($_GET["file"], strrpos($_GET["file"], '/') + 1, strlen($_GET[
 $root_dir = "ext_inc/picgallery". $akt_dir;
 $root_file = "ext_inc/picgallery". $_GET["file"];
 
-$gallery_id = $_GET["galleryid"];
-if (!$_GET["page"]) {
+$gallery_id = $_GET["galleryid"] ?? 0;
+$pageParameter = $_GET["page"] ?? 0;
+if (!$pageParameter) {
     $_GET["page"] = 0;
 }
 
@@ -38,7 +42,7 @@ if (!$row['found']) {
 }
 
 // Upload posted File
-if (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["file_upload"]) {
+if (($cfg["picgallery_allow_user_upload"] || $auth['type'] > \LS_AUTH_TYPE_USER) && (array_key_exists('file_upload', $_FILES) && $_FILES['file_upload'])) {
     $extension = substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4);
     if (IsSupportedType($extension) || IsPackage($extension)) {
         $upload = $func->FileUpload("file_upload", $root_dir);
@@ -49,8 +53,9 @@ if (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["fil
 }
 
 // Set Changed Name
-if ($_POST["file_name"] and ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming'])) {
-    $db->qry("UPDATE %prefix%picgallery SET caption = %string% WHERE name = %string%", $_POST["file_name"], $db_dir);
+$fileNameParameter = $_POST["file_name"] ?? '';
+if ($fileNameParameter && ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || $cfg['picgallery_allow_user_naming'])) {
+    $db->qry("UPDATE %prefix%picgallery SET caption = %string% WHERE name = %string%", $fileNameParameter, $db_dir);
 }
 
 // GD-Check
@@ -62,7 +67,7 @@ if (!$gd->available) {
     unset($_SESSION['klick_reload']);
     unset($klick_reload);
 
-    $dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicke auf ein Bild um das Bild in voller Größe anzuzeigen.'));
+    $dsp->NewContent(t('Bildergalerie'), t('Klicke auf ein Bild um das Bild in voller Größe anzuzeigen.'));
 
     if (!$cfg["picgallery_items_per_row"]) {
         $cfg["picgallery_items_per_row"] = 3;
@@ -83,15 +88,16 @@ if (!$gd->available) {
     $package_list = array();
     $dir_size = 0;
     $last_modified = 0;
+    $handle = false;
     if (is_dir($root_dir)) {
         $handle = opendir($root_dir);
     }
     if ($handle) {
         while ($file = readdir($handle)) {
-            if ($file != "." and $file != ".." and $file != ".svn" and substr($file, 0, 1) != '.') {
+            if ($file != "." and $file != ".." and $file != ".svn" and !str_starts_with($file, '.')) {
                 if (is_dir($root_dir . $file)) {
                     $dir_list[] = $file;
-                } elseif (substr($file, 0, 8) != "lsthumb_") {
+                } elseif (!str_starts_with($file, "lsthumb_")) {
                     $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
                     if (IsSupportedType($extension)) {
                         $dir_size += filesize($root_dir . $file);
@@ -130,7 +136,7 @@ if (!$gd->available) {
     if ($dir_list) {
         foreach ($dir_list as $dir) {
             $DelDirLink = '';
-            if ($auth['type'] > 2) {
+            if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
                 $DelDirLink = ' <a href="index.php?mod=picgallery&action=delete&step=10&file='.$akt_dir.$dir.'"><img src="design/'.$auth['design'].'/images/arrows_delete.gif" border="0" /></a>';
             }
             $directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$akt_dir$dir/\">$dir$DelDirLink</a>] <br />";
@@ -167,9 +173,7 @@ if (!$gd->available) {
         $smarty->assign('page', $_GET['page']);
 
         $smarty->assign('name', $key);
-        if ($optional) {
-            $smarty->assign('optional', '_optional');
-        }
+        $smarty->assign('optional', '_optional');
 
         if ($file_list) {
             foreach ($file_list as $file) {
@@ -201,14 +205,18 @@ if (!$gd->available) {
                         p.name = %string%
                         AND c.relatedto_item = 'Picgallery'
                       GROUP BY p.picid", $db_dir . $file);
-                    ($pic['caption']) ? $caption = $pic['caption'] : $caption = "<i>Unbenannt</i>";
+
+                    $caption = $pic['caption'] ?? '<i>Unbenannt</i>';
                     $smarty->assign('caption', $caption);
 
-                    $smarty->assign('clicks', $dsp->HelpText($pic['clicks'], 'Angesehen') .'/'. $dsp->HelpText($pic['comments'], 'Kommentare'));
+                    $smarty->assign('clicks', '');
+                    if (is_array($pic)) {
+                        $smarty->assign('clicks', $dsp->HelpText($pic['clicks'], 'Angesehen') . '/' . $dsp->HelpText($pic['comments'], 'Kommentare'));
+                    }
                     $smarty->assign('galleryid', $gallery_id);
 
                     $buttons = $dsp->FetchIcon("next", "index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", t('Bild anzeigen'));
-                    if ($auth["type"] > 1) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                         $buttons .= " ". $dsp->FetchIcon("delete", "index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", t('Bild löschen'));
                     }
                     $smarty->assign('buttons', $buttons);
@@ -260,20 +268,12 @@ if (!$gd->available) {
                 and $z <= $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * ($_GET["page"] + 1)) {
                     $extension =  strtolower(substr($package, strrpos($package, ".") + 1, 4));
 
-                    switch ($extension) {
-                        case "ace":
-                            $icon = "ace.jpg";
-                            break;
-                        case "rar":
-                            $icon = "rar.jpg";
-                            break;
-                        case "zip":
-                            $icon = "zip.jpg";
-                            break;
-                        default:
-                            $icon = "zip.jpg";
-                            break;
-                    }
+                    $icon = match ($extension) {
+                        "ace" => "ace.jpg",
+                        "rar" => "rar.jpg",
+                        "zip" => "zip.jpg",
+                        default => "zip.jpg",
+                    };
 
                     $thumb_path = $icon_dir . $icon;
                     if (file_exists($thumb_path)) {
@@ -304,7 +304,7 @@ if (!$gd->available) {
                     $smarty->assign('galleryid', $gallery_id);
 
                     $buttons = $dsp->FetchIcon("download", "index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", t('Bild herrunterladen'));
-                    if ($auth["type"] > 1) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                         $buttons .= " ". $dsp->FetchIcon("delete", "index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", t('Bild l&ouml;schen'));
                     }
                     $smarty->assign('buttons', $buttons);
@@ -334,7 +334,7 @@ if (!$gd->available) {
     $dsp->AddDoubleRow(t('Statistiken'), "$num_files ".t('Dateien')." (". (round(($dir_size / 1024), 1)) ."kB); ".t('Letzte Änderung').": ". $func->unixstamp2date($last_modified, "datetime"));
 
     // Upload-Formular
-    if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
+    if ($cfg["picgallery_allow_user_upload"] or $auth['type'] > \LS_AUTH_TYPE_USER) {
         $dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}", "", "", "multipart/form-data");
         $dsp->AddFileSelectRow("file_upload", t('Datei hochladen'), "");
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
@@ -351,7 +351,8 @@ if (!$gd->available) {
         $db->qry("DELETE FROM %prefix%picgallery WHERE name =  %string% AND clicks = 0", $db_dir);
         $func->error(t('Dieses Bild ist nicht vorhanden'), "index.php?mod=picgallery");
     } else {
-        if ($_GET['mcact'] == "show" or $_GET['mcact'] == "") {
+        $mcactParameter = $_GET['mcact'] ?? '';
+        if ($mcactParameter == "show" || $mcactParameter == '') {
             $extension =  strtolower(substr($root_file, strrpos($root_file, ".") + 1, 4));
 
             // Select pic data
@@ -367,7 +368,10 @@ if (!$gd->available) {
               LEFT JOIN %prefix%user AS u ON p.userid = u.userid
               WHERE p.name = %string%", $db_dir);
 
-            if (!$_SESSION["click_reload"][$db_dir]) {
+            if (!array_key_exists('click_reload', $_SESSION) || !is_array($_SESSION["click_reload"])) {
+                $_SESSION["click_reload"] = [];
+            }
+            if (!array_key_exists($db_dir, $_SESSION["click_reload"])) {
                 $db->qry("UPDATE %prefix%picgallery SET clicks = clicks + 1 WHERE name = %string%", $db_dir);
                 $_SESSION["click_reload"][$db_dir] = 1;
             }
@@ -414,7 +418,7 @@ if (!$gd->available) {
                 $handle = opendir($root_dir);
             }
             while ($file = readdir($handle)) {
-                if (($file != ".") and ($file != "..") and ($file != ".svn") and (!is_dir($root_dir . $file) and substr($file, 0, 8) != "lsthumb_")) {
+                if (($file != ".") and ($file != "..") and ($file != ".svn") and (!is_dir($root_dir . $file) and !str_starts_with($file, "lsthumb_"))) {
                     $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
                     if (IsSupportedType($extension)) {
                         $file_list[] = $file;
@@ -425,20 +429,22 @@ if (!$gd->available) {
             $num_files = count($file_list);
             $akt_file = array_keys($file_list, $akt_file);
 
-            if ($file_list[$akt_file[0] - 1]) {
+            if ($akt_file[0] > 0 && $file_list[$akt_file[0] - 1]) {
                 $prev_button = $dsp->FetchIcon("back", "index.php?mod=picgallery&file=$akt_dir" . $file_list[$akt_file[0] - 1], t('Bild zur&uuml;ck'));
             } else {
                 $prev_button = "";
             }
-            if ($file_list[$akt_file[0] + 1]) {
+
+            if (array_key_exists(($akt_file[0] + 1), $file_list)) {
                 $next_button = $dsp->FetchIcon("next", "index.php?mod=picgallery&file=$akt_dir" . $file_list[$akt_file[0] + 1], t('Bild weiter'));
             } else {
                 $next_button = "";
             }
+
             $dsp->AddDoubleRow("", "$prev_button $next_button $full_button $dl_button $del_button $note_button");
 
             // Change Pic-Name
-            if ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or $cfg['picgallery_allow_user_naming']) {
                 $dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}");
                 $dsp->AddTextFieldRow("file_name", t('Bildname'), $pic['caption'], "");
                 $dsp->AddFormSubmitRow(t('Editieren'));
@@ -485,8 +491,9 @@ if (!$gd->available) {
         }
 
         // Mastercomment
-        if ($_GET['picid']) {
-            $pic['picid'] = $_GET['picid'];
+        $picidParameter = $_GET['picid'] ?? 0;
+        if ($picidParameter) {
+            $pic['picid'] = $picidParameter;
         }
         new \LanSuite\MasterComment('Picgallery', $pic['picid']);
     }

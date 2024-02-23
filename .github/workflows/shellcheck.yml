@@ -1,0 +1,15 @@
+name: "ShellCheck"
+
+on:
+  pull_request:
+
+jobs:
+  shellcheck:
+    name: "Testing shell scripts"
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@2.0.0

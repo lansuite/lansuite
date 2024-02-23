@@ -5,15 +5,9 @@ namespace LanSuite\Module\Tournament2;
 class Team
 {
 
-    /**
-     * @var \LanSuite\Module\Mail\Mail
-     */
-    private $mail = null;
+    private ?\LanSuite\Module\Mail\Mail $mail = null;
 
-    /**
-     * @var \LanSuite\Module\Seating\Seat2
-     */
-    private $seating = null;
+    private ?\LanSuite\Module\Seating\Seat2 $seating = null;
 
     public function __construct(\LanSuite\Module\Mail\Mail $mail, \LanSuite\Module\Seating\Seat2 $seating)
     {
@@ -179,19 +173,19 @@ class Team
           GROUP BY members.userid", $userid, $party->party_id);
 
         // Is the user already signed on to this tournament?
-        if ($team["found"]) {
+        if (is_array($team) && $team["found"]) {
             $func->information(t('%1 ist bereits zu diesem Turnier angemeldet!', $user["username"]));
 
         // Is the user member of a team, allready signed on to this tournament?
-        } elseif ($teammember["found"] != "") {
+        } elseif (is_array($teammember) && $teammember["found"] != "") {
             $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu diesem Turnier angemeldet hat!', $user["username"]));
 
         // Is the user allready signed on to a tournament in the same group as this tournament?
-        } elseif ($in_group["found"] != "") {
+        } elseif (is_array($in_group) && $in_group["found"] != "") {
             $func->information(t('%1 ist bereits zu einem Turnier angemeldet, welches der gleichen Gruppe angehört!', $user["username"]));
 
         // Is the user member of a team, allready signed on to a tournament in the same group as this tournament?
-        } elseif ($memb_in_group["found"] != "") {
+        } elseif (is_array($memb_in_group) && $memb_in_group["found"] != "") {
             $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu einem Turnier der gleichen Gruppe angemeldet hat!', $user["username"]));
 
         // Has the user paid?
@@ -203,7 +197,7 @@ class Team
             $func->information(t('%1 kann diesem Turnier nicht beitreten. In diesem Turnier dürfen nur Benutzer mitspielen, die <b>nicht</b> in einem Unter-18-Block sitzen', $user["username"]));
 
         // Are enough coins left to afford this tournament
-        } elseif (($cfg["t_coins"] - $team_coin["t_coins"] - $member_coin["t_coins"] - $t["coins"]) < 0) {
+        } elseif (($cfg["t_coins"] - intval($team_coin["t_coins"]) - intval($member_coin["t_coins"]) - intval($t["coins"])) < 0) {
             $func->information(t('%1 besitzt nicht genügend Coins um an diesem Turnier teilnehmen zu können!', $user["username"]));
 
         // Everything fine
@@ -247,7 +241,7 @@ class Team
                 team.teamid = %int%", $teamid);
 
             // Check password, if set and if acction is not performed, by teamadmin or ls-admin
-            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= 1) and ($team['password'] != '') and (md5($password) != $team['password'])) {
+            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= \LS_AUTH_TYPE_USER) and ($team['password'] != '') and (md5($password) != $team['password'])) {
                 $func->information(t('Das eingegebene Kennwort ist nicht korrekt'));
                 return false;
 
@@ -305,7 +299,8 @@ class Team
               SELECT
                 name,
                 teamplayer,
-                maxteams
+                maxteams,
+                blind_draw
               FROM %prefix%tournament_tournaments
               WHERE
                 tournamentid = %int%", $tournamentid);
@@ -318,7 +313,7 @@ class Team
                   WHERE
                     (tournamentid = %int%)
                   GROUP BY teamid", $tournamentid);
-                $completed_teams = $c_teams["teams"];
+                $completed_teams = intval($c_teams["teams"]);
                 $waiting_teams = 0;
             } else {
                 $waiting_teams = 0;

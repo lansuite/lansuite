@@ -21,7 +21,7 @@ switch ($_GET['shout']) {
         }
 
         if (($_POST['message'] and $auth['login']) or ($_POST['message'] and $captchaCheck)) {
-            if ($auth['type']>=1) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_USER) {
                 $_POST['nickname'] = $auth['username'];
             }
 
@@ -67,4 +67,4 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
-echo json_encode($data);
+echo json_encode($data, JSON_THROW_ON_ERROR);

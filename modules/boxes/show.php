@@ -1,5 +1,6 @@
 <?php
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     // Activate
     case 10:
         foreach ($_POST['action'] as $key => $val) {
@@ -68,10 +69,10 @@ $ms2->AddResultField(t('Position'), 'b.pos');
 $ms2->AddResultField(t('Aktiv'), 'b.active', 'TrueFalse');
 $ms2->AddResultField(t('Quelldatei'), 'b.source');
 
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=boxes&amp;step=20&amp;boxid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=boxes&amp;step=30&amp;boxid=', t('Löschen'));
 }
 

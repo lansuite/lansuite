@@ -2,7 +2,8 @@
 
 $dsp->NewContent(t('Turnier - Pausenverwaltung'), t('Trage Startzeitpunkt und dauer der Pause ein. Lansuite wird entsprechend spätere Rundenzeiten berechnen'));
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     // Delete
     case 10:
         $md = new \LanSuite\MasterDelete();

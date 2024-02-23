@@ -20,7 +20,7 @@ function CheckDeleteUser($userid)
         pu.user_id = %int%
         AND UNIX_TIMESTAMP(p.enddate) > UNIX_TIMESTAMP(NOW())', $userid);
 
-    if ($auth["type"] == 2 and $get_data["type"] >= 2) {
+    if ($auth['type'] == \LS_AUTH_TYPE_ADMIN and $get_data["type"] >= 2) {
         $func->error(t('Du hast nicht die erforderlichen Rechte, um einen Admin zu löschen'), "index.php?mod=usrmgr");
     } elseif ($get_party_data["found"]) {
         $func->error(t('Dieser Benutzer ist noch zu einer Party angemeldet. Melden sie ihn zuerst ab'), "index.php?mod=usrmgr");

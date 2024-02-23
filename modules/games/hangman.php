@@ -31,7 +31,7 @@ if (!$_GET["sieg"]) {
             }
             fclose($handle);
 
-            $linenr = rand(1, $lines -1);
+            $linenr = random_int(1, $lines -1);
             $handle = fopen("modules/games/woerter.txt", "r");
             for ($z = 0; $z < $linenr; $z++) {
                 $_SESSION["losungswort"] = fgets($handle, 4096);
@@ -58,7 +58,7 @@ if (!$_GET["sieg"]) {
 
             $pos = 0;
             $found = 0;
-            while (!(strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) === false)) {
+            while (!(!str_contains($_SESSION["losungswort"], $_POST["buchstabe"]))) {
                 $pos = strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) + 1;
                 $_GET["ratewort"] = substr_replace($_GET["ratewort"], $_POST["buchstabe"], $pos - 1, 1);
                 $found = 1;
@@ -76,7 +76,8 @@ if (!$_GET["sieg"]) {
     }
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     // Spiel
     case 1:
         $dsp->SetForm("index.php?mod=games&action=hangman&step=1&ratewort={$_GET["ratewort"]}");

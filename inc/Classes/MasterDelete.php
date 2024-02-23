@@ -23,9 +23,8 @@ class MasterDelete
      * @param string    $table
      * @param string    $idname
      * @param int       $id
-     * @return bool|int|mysqli_result
      */
-    private function DoDelete($table, $idname, $id)
+    private function DoDelete($table, $idname, $id): bool|int|\mysqli_result
     {
         global $func, $db, $config;
     
@@ -58,7 +57,7 @@ class MasterDelete
                 }
 
                 $row = $db->qry_first('SELECT 1 AS found FROM %prefix%%plain% WHERE %plain% = %int%', $table, $val, $MasterKey[$key]);
-                if (!$row['found']) {
+                if (!$row) {
                     $db->qry('DELETE FROM %prefix%%plain% WHERE %plain% = %int%', $key, $val, $MasterKey[$key]);
                 }
             }
@@ -91,9 +90,8 @@ class MasterDelete
      * @param string    $table
      * @param string    $idname
      * @param int       $id
-     * @return bool|int|mysqli_result
      */
-    public function Delete($table, $idname, $id)
+    public function Delete($table, $idname, $id): bool|int|\mysqli_result
     {
         global $framework, $func, $db;
         
@@ -102,18 +100,19 @@ class MasterDelete
         $CurentURLBase = preg_replace('#&'. $idname .'=[0-9]*#si', '', $CurentURLBase);
         
         // Print confirmation message
-        if (!$_POST['confirmed']) {
+        $confirmedParameter = $_POST['confirmed'] ?? null;
+        if (!$confirmedParameter) {
             if ($func->internal_referer != 'index.php?'.$_SERVER['QUERY_STRING']) {
                 $_SESSION['md_referrer'] = $func->internal_referer;
             }
-            
+
             $refFieldsDelete = '';
             $refFieldsSet0 = '';
             $refFieldsDeny = '';
             $res = $db->qry('SELECT pri_table, pri_key, on_delete FROM %prefix%ref WHERE foreign_table = %string% AND foreign_key = %string%', $table, $idname);
             while ($row = $db->fetch_array($res)) {
                 $row2 = $db->qry_first('SELECT COUNT(*) AS cnt FROM %prefix%%plain% WHERE %plain% = %int%', $row['pri_table'], $row['pri_key'], $id);
-                
+
                 if ($row2['cnt']) {
                     if ($row['on_delete'] == 'ASK_DELETE') {
                         $refFieldsDelete .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
@@ -151,7 +150,7 @@ class MasterDelete
             }
 
             return false;
-        
+
         // Action
         } else {
             $res = $this->DoDelete($table, $idname, $id);

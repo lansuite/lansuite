@@ -12,7 +12,7 @@ class Security
         global $db, $cfg;
 
         // Global blacklist
-        if (strpos($cfg['ip_blacklist'], $_SERVER['REMOTE_ADDR']) !== false) {
+        if (str_contains($cfg['ip_blacklist'], (string) $_SERVER['REMOTE_ADDR'])) {
             return 'Deine IP wird von LanSuite geblockt. Melde dich bitte bei den Administratoren';
         }
 
@@ -98,7 +98,7 @@ class Security
                 ip = INET6_ATON(%string%) 
                 AND module = %string% LIMIT 1', $_SERVER['REMOTE_ADDR'], $module);
 
-            if ($row['found']) {
+            if ($row) {
                 $locked = true;
             } else {
                 $locked = false;

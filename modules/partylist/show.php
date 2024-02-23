@@ -2,13 +2,14 @@
 
 $xml = new \LanSuite\XML();
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 10:
         $row = $db->qry_first("SELECT ls_url FROM %prefix%partylist WHERE partyid = %int%", $_GET['partyid']);
         if (substr($row['ls_url'], strlen($row['ls_url']) - 1, 1) != '/') {
             $row['ls_url'] .= '/';
         }
-        if (substr($row['ls_url'], 0, 7) != 'http://' && substr($row['ls_url'], 0, 8) != 'https://') {
+        if (!str_starts_with($row['ls_url'], 'http://') && !str_starts_with($row['ls_url'], 'https://')) {
             $row['ls_url'] = 'http://'. $row['ls_url'];
         }
         header('Location: '. $row['ls_url'] . 'index.php?mod=signon');
@@ -41,10 +42,10 @@ if (!$_GET['partyid']) {
 
     $ms2->AddIconField('details', 'index.php?mod=partylist&action='. $_GET['action'] .'&partyid=', t('Details'));
     if ($_GET['action'] != 'history') {
-        $ms2->AddIconField('signon', 'nofollow.php?mod=partylist&step=10&design=base&partyid=', t('Anmelden'));
+        $ms2->AddIconField('signon', 'index.php?mod=partylist&step=10&design=base&partyid=', t('Anmelden'));
     }
     $ms2->AddIconField('edit', 'index.php?mod=partylist&action=add&partyid=', t('Editieren'), 'EditAllowed');
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('delete', 'index.php?mod=partylist&action=delete&partyid=', t('Löschen'));
     }
 
@@ -62,14 +63,14 @@ if (!$_GET['partyid']) {
         p.partyid = %int%", $_GET['partyid']);
     $framework->AddToPageTitle($row["name"]);
 
-    if (substr($row['url'], 0, 7) != 'http://' && substr($row['url'], 0, 8) != 'https://') {
+    if (!str_starts_with($row['url'], 'http://') && !str_starts_with($row['url'], 'https://')) {
         $row['url'] = 'http://'. $row['url'];
     }
 
     $dsp->NewContent($row['name'], $row['motto']);
     $dsp->AddDoubleRow(t('Datum'), $func->unixstamp2date($row['start'], 'datetime') .' bis '. $func->unixstamp2date($row['end'], 'datetime'));
     $dsp->AddDoubleRow(t('Adresse'), $row['street'] .' '. $row['hnr'] .', '. $row['plz'] .' '. $row['city']);
-    $dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> ' . $dsp->FetchIcon('signon', 'nofollow.php?mod=partylist&step=10&design=base&partyid=' . $_GET['partyid']));
+    $dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> ' . $dsp->FetchIcon('signon', 'index.php?mod=partylist&step=10&design=base&partyid=' . $_GET['partyid']));
     $dsp->AddDoubleRow(t('Anmeldestatus'), AddSignonStatus($row['ls_url']));
     $dsp->AddDoubleRow(t('Zusätzliche Infos'), $func->text2html($row['text']));
     $dsp->AddDoubleRow(t('Eingetragen durch'), $dsp->FetchUserIcon($row['userid'], $row['username']));

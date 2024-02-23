@@ -1,7 +1,8 @@
 <?php
 
 // Check if news id is valid
-$check = $db->qry_first('SELECT caption FROM %prefix%news WHERE newsid = %int%', $_GET['newsid']);
+$newsQuery = 'SELECT caption FROM %prefix%news WHERE newsid = ?';
+$check = $database->queryWithOnlyFirstRow($newsQuery, [$_GET['newsid']]);
 if ($check["caption"] != "") {
     $framework->AddToPageTitle($check["caption"]);
     $func->SetRead('news', $_GET['newsid']);
@@ -22,7 +23,7 @@ if ($check["caption"] != "") {
     $smarty->assign('date', $func->unixstamp2date($get_news["date"], "daydatetime"));
 
     $text = '';
-    if ($auth["type"] > 1) {
+    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
         $text .= $dsp->FetchIcon("delete", "index.php?mod=news&action=delete&came_from=2&step=2&newsid={$_GET["newsid"]}", '', '', 'right');
         $text .= $dsp->FetchIcon("edit", "index.php?mod=news&action=change&came_from=1&step=2&newsid={$_GET["newsid"]}", '', '', 'right');
     }
@@ -43,7 +44,8 @@ if ($check["caption"] != "") {
     }
     $smarty->assign('text', $text);
 
-    if ($_GET["mcact"] == "" or $_GET["mcact"] == "show") {
+    $mcactParameter = $_GET["mcact"] ?? '';
+    if ($mcactParameter == '' || $mcactParameter == 'show') {
         $dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier kannst du diese News kommentieren'));
         $dsp->AddSingleRow($smarty->fetch("modules/news/templates/show_single_row_$news_type.htm"));
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Newsübersicht'), "index.php?mod=news&action=show"));

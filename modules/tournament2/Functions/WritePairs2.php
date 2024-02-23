@@ -1,12 +1,13 @@
 <?php
 
 /**
- * @param mixed $bracket
  * @param int $max_pos
  * @return void
  */
-function write_pairs2($bracket, $max_pos)
+function write_pairs2(mixed $bracket, $max_pos)
 {
+    $score1 = null;
+    $gameid1 = null;
     global $auth, $templ, $func, $t, $x_start, $height, $height_menu, $box_height, $box_width, $db, $tournamentid, $akt_round, $max_round, $dg, $img_height, $map, $tfunc;
 
     $dg++;
@@ -24,7 +25,7 @@ function write_pairs2($bracket, $max_pos)
 
     $templ['index']['info']['content'] .= "CreateRect(". ($xpos - 5) .", 1, ". ($box_width + 10) .", $img_height, '$bg_color_svg', '#ffffff', '');";
     $templ['index']['info']['content'] .= "CreateText('". t('Runde') .": $akt_round" ."', $xpos, 16, '');";
-    ($auth['type'] >= 2)? $link = 'index.php?mod=tournament2&action=breaks&tournamentid='. $tournamentid : $link = '';
+    ($auth['type'] >= \LS_AUTH_TYPE_ADMIN)? $link = 'index.php?mod=tournament2&action=breaks&tournamentid='. $tournamentid : $link = '';
     $templ['index']['info']['content'] .= "CreateText('". t('Zeit') .": ". $round_start ." - ". $round_end ."', $xpos, 26, '". $link ."');";
     $templ['index']['info']['content'] .= "CreateText('". t('Map') .": ". addslashes(trim($map[(abs(floor($akt_round)) % count($map))])) ."', $xpos, 36, '');";
 

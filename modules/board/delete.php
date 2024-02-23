@@ -2,28 +2,27 @@
 
 $md = new \LanSuite\MasterDelete();
 
+$pidParameter = $request->query->getInt('pid', 0);
+$tidParameter = $request->query->getInt('tid', 0);
+$fidParameter = $request->query->getInt('fid', 0);
+$stepParameter = $request->query->getInt('step', 0);
+
+
 // Delete post
-if ($_GET['pid']) {
+
+if ($pidParameter) {
     $md->DeleteIfEmpty['board_threads'] = 'tid';
-    $md->Delete('board_posts', 'pid', $_GET['pid']);
+    $md->Delete('board_posts', 'pid', $pidParameter);
 
 // Delete thread
-} elseif ($_GET['tid']) {
-    $md->Delete('board_threads', 'tid', $_GET['tid']);
+} elseif ($tidParameter) {
+    $md->Delete('board_threads', 'tid', $tidParameter);
 
 // Delete board
 } else {
-    switch ($_GET['step']) {
-        default:
-            include_once('modules/board/show.php');
-            break;
-
-        case 2:
-            $md->Delete('board_forums', 'fid', $_GET['fid']);
-            break;
-
-        case 10:
-            $md->MultiDelete('board_forums', 'fid');
-            break;
-    }
+    match ($stepParameter) {
+        2 => $md->Delete('board_forums', 'fid', $fidParameter),
+        10 => $md->MultiDelete('board_forums', 'fid'),
+        default => include_once 'modules/board/show.php'
+    };
 }

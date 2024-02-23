@@ -5,13 +5,28 @@ $mail = new \LanSuite\Module\Mail\Mail();
 
 $tteam = new \LanSuite\Module\Tournament2\Team($mail, $seat2);
 
-($_GET['tournamentid'])? $tournamentid = $_GET['tournamentid'] : $tournamentid = $_POST['tournamentid'];
-($_GET['userid'])? $userid = $_GET['userid'] : $userid = $_POST['userid'];
-($_GET['teamid'])? $teamid = $_GET['teamid'] : $teamid = $_POST['teamid'];
-($_GET['member_user'])? $member_user = $_GET['member_user'] : $member_user = $_POST['member_user'];
+$tournamentid = $_GET['tournamentid'] ?? 0;
+if (!$tournamentid) {
+    $tournamentid = $_POST['tournamentid'] ?? $tournamentid;
+}
 
+$userid = $_GET['userid'] ?? 0;
+if (!$userid) {
+    $userid = $_POST['userid'] ?? $userid;
+}
 
-switch ($_GET["step"]) {
+$teamid = $_GET['teamid'] ?? 0;
+if (!$teamid) {
+    $teamid = $_POST['teamid'] ?? $teamid;
+}
+
+$member_user = $_GET['member_user'] ?? 0;
+if ($member_user) {
+    $member_user = $_POST['member_user'] ?? $member_user;
+}
+
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     // Team löschen
     case 10:
         if ($tteam->delete($_POST["teamid"])) {
@@ -24,7 +39,7 @@ switch ($_GET["step"]) {
         include_once('modules/usrmgr/search_main.inc.php');
 
         $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr_admin&step=21&teamid='. $teamid .'&userid=', 'Assign');
         }
 
@@ -40,7 +55,7 @@ switch ($_GET["step"]) {
 
     // Member aus Team löschen
     case 30:
-        list($team_id, $user_id) = explode("-", $_POST["member_user"], 2);
+        [$team_id, $user_id] = explode("-", $_POST["member_user"], 2);
         if ($tteam->kick($team_id, $user_id)) {
             $func->confirmation(t('Der Spieler wurde erfolgreich aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr_admin");
         }
@@ -52,7 +67,7 @@ switch ($_GET["step"]) {
             include_once('modules/usrmgr/search_main.inc.php');
 
             $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
-            if ($auth['type'] >= 2) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid='. $tournamentid .'&userid=', 'Assign');
             }
 
@@ -71,12 +86,16 @@ switch ($_GET["step"]) {
         }
 
         if ($tteam->SignonCheckUser($_GET["tournamentid"], $_GET["userid"])) {
+            $setPasswordParameter = $_POST["set_password"] ?? '';
+            $setPassword2Parameter = $_POST["set_password2"] ?? '';
+            $teamCommentParameter = $_POST["team_comment"] ?? '';
+
             $dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=42&tournamentid=$tournamentid&userid=$userid");
             $dsp->AddTextFieldRow("team_name", t('Teamname'), $_POST["team_name"], "");
-            $dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $_POST["set_password"], $error["set_password"]);
-            $dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $_POST["set_password2"], $error["set_password2"]);
-            $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $team_comment, "", "", "", 1);
-            $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1000000, 1);
+            $dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $setPasswordParameter, '');
+            $dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $setPassword2Parameter, '');
+            $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $teamCommentParameter, "", "", "", 1);
+            $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
             $dsp->AddBackButton("index.php?mod=tournament2&action=teammgr_admin", "");
         }

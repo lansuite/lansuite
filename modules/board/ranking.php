@@ -5,7 +5,7 @@ $dsp->NewContent(t('Ränge'));
 $out = '';
 $lines = explode("\n", $cfg['board_rank']);
 foreach ($lines as $line) {
-    list($num, $name) = explode('->', $line);
+    [$num, $name] = explode('->', $line);
     $out .= t('Ab %1 Posts: %2', array($num, $name)) . HTML_NEWLINE;
 }
 $dsp->AddSingleRow($out);

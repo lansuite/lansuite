@@ -4,10 +4,7 @@ namespace LanSuite\Module\UsrMgr;
 class UserManager
 {
 
-    /**
-     * @var \LanSuite\Module\Mail\Mail
-     */
-    private $mail = null;
+    private ?\LanSuite\Module\Mail\Mail $mail = null;
 
     public function __construct(\LanSuite\Module\Mail\Mail $mail)
     {
@@ -24,7 +21,7 @@ class UserManager
 
         $verification_code = '';
         for ($x = 0; $x <= 24; $x++) {
-            $verification_code .= chr(mt_rand(65, 90));
+            $verification_code .= chr(random_int(65, 90));
         }
         $db->qry('UPDATE %prefix%user SET fcode=%string% WHERE userid = %int%', $verification_code, $id);
         $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
@@ -32,7 +29,7 @@ class UserManager
         if (!empty($cfg['sys_partyurl_ssl'])) {
             $verification_link = $cfg['sys_partyurl_ssl'];
             //make sure that it ends with a slash
-            if (substr($cfg['sys_partyurl_ssl'], -1, 1) != '/') {
+            if (!str_ends_with($cfg['sys_partyurl_ssl'], '/')) {
                 $verification_link .= '/';
             }
             $verification_link .= "index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
@@ -89,7 +86,7 @@ class UserManager
      */
     public function GeneratePassword()
     {
-        return rand(10000, 99999);
+        return random_int(10000, 99999);
     }
 
     /**
@@ -232,8 +229,9 @@ class UserManager
         $xml = new \LanSuite\XML();
         $output = '<?xml version="1.0" encoding="UTF-8"?' . '>' . "\r\n";
 
+        $feedPartyName = $cfg['feed_partyname'] ?? '';
         $system = $xml->write_tag('version', LANSUITE_VERSION, 2);
-        $system .= $xml->write_tag('name', $cfg['feed_partyname'], 2);
+        $system .= $xml->write_tag('name', $feedPartyName, 2);
         $system .= $xml->write_tag('link', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], 2);
         $system .= $xml->write_tag('language', 'de-de', 2);
         $system .= $xml->write_tag('current_party', $cfg['signon_partyid'], 2);
@@ -243,7 +241,18 @@ class UserManager
 
         $lansuite = $xml->write_master_tag('system', $system, 1);
 
-        $res = $db->qry("SELECT party_id, name, max_guest, ort, plz, startdate, enddate FROM %prefix%partys");
+        $res = $db->qry("
+            SELECT
+                `party_id`,
+                `name`,
+                `max_guest`,
+                `ort`,
+                `plz`,
+                `startdate`,
+                `enddate`,
+                `sstartdate`,
+                `senddate`
+            FROM %prefix%partys");
         $partys = '';
         while ($row = $db->fetch_array($res)) {
             $party = $xml->write_tag('partyid', $row['party_id'], 3);

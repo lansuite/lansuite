@@ -14,12 +14,14 @@ $mf->AddDropDownFromTable(t('Benutzergruppe'), 'group_id', 'group_id', 'group_na
 $mf->AddField(t('Nur eingeloggt?'), 'requirement', 'tinyint(1)', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
 
 // Poll Options
-if ($_POST['poll_option']) {
-    foreach ($_POST['poll_option'] as $key => $val) {
+$pollOptionParameter = $_POST['poll_option'] ?? null;
+$pollIdParameter = $_GET['pollid'] ?? 0;
+if ($pollOptionParameter) {
+    foreach ($pollOptionParameter as $key => $val) {
         $_POST["poll_option[$key]"] = $val;
     }
-} elseif ($_GET['pollid']) {
-    $res = $db->qry('SELECT caption FROM %prefix%polloptions WHERE pollid = %int% ORDER BY polloptionid', $_GET['pollid']);
+} elseif ($pollIdParameter) {
+    $res = $db->qry('SELECT caption FROM %prefix%polloptions WHERE pollid = %int% ORDER BY polloptionid', $pollIdParameter);
     for ($z = 1; $row = $db->fetch_array($res); $z++) {
         if (!$_POST["poll_option[$z]"]) {
             $_POST["poll_option[$z]"] = $row['caption'];
@@ -27,7 +29,7 @@ if ($_POST['poll_option']) {
     }
     $db->free_result($res);
 }
-if ($_GET['pollid']) {
+if ($pollIdParameter) {
     $mf->AddField(t('Polloptionen ändern') .'|'. t('Achtung: Dies führt dazu, dass die Abstimmung zurückgesetzt wird!'), 'poll_reset', 'tinyint(1)', '', \LanSuite\MasterForm::FIELD_OPTIONAL, '', 20);
 }
 for ($z = 1; $z <= 20; $z++) {
@@ -36,4 +38,4 @@ for ($z = 1; $z <= 20; $z++) {
 }
 
 $mf->AdditionalDBUpdateFunction = 'UpdatePoll';
-$mf->SendForm('index.php?mod=poll&action=change&step=2&pollid='. $_GET['pollid'], 'polls', 'pollid', $_GET['pollid']);
+$mf->SendForm('index.php?mod=poll&action=change&step=2&pollid='. $pollIdParameter, 'polls', 'pollid', $pollIdParameter);

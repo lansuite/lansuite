@@ -4,7 +4,7 @@
 // modules/usrmgr/details.php to generate Modulspezific Headermenue
 // for Userdetails
 
-if ($auth['type'] >= 1) {
+if ($auth['type'] >= \LS_AUTH_TYPE_USER) {
     $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('usrmgr');
     $ms2->query['from'] = "%prefix%partys p
     LEFT JOIN %prefix%party_user u ON p.party_id = u.party_id AND u.user_id = ". (int)$_GET['userid'] ."
@@ -20,7 +20,7 @@ if ($auth['type'] >= 1) {
     $ms2->AddResultField(t('Bezahltdatum'), 'UNIX_TIMESTAMP(u.paiddate) AS paiddate', 'MS2GetDate');
     $ms2->AddResultField(t('Eingecheckt'), 'UNIX_TIMESTAMP(u.checkin) AS checkin', 'MS2GetDate');
     $ms2->AddResultField(t('Ausgecheckt'), 'UNIX_TIMESTAMP(u.checkout) AS checkout', 'MS2GetDate');
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=party&user_id='. $_GET['userid'] .'&party_id=', t('Editieren'), 'Active');
     }
 

@@ -5,9 +5,8 @@
  * so we need to extract it from the string again
  *
  * @param $SKU
- * @return array|bool
  */
-function SKUtoParty(string $SKU)
+function SKUtoParty(string $SKU): array|bool
 {
     $SKUarray = explode('-', $SKU);
     if ($SKUarray[0] == 'PARTY') {

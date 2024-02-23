@@ -7,7 +7,8 @@ $noc = new noc();
 
 // --------------------------------------------------------------------------------------------
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     // ------------------------------------------------------------------------------------
     // ERROR CHECKING
     case 2:
@@ -47,7 +48,8 @@ switch ($_GET["step"]) {
 
 // -------------------------------------------------------------------------------------------
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     // ------------------------------------------------------------------------------------
     // Display Form
     default:
@@ -91,7 +93,7 @@ switch ($_GET["step"]) {
         $sysLocation    = $noc->getSNMPValue($_POST["device_ip"], $_POST["device_read"], ".1.3.6.1.2.1.1.6.0");
         $sysName    = $noc->getSNMPValue($_POST["device_ip"], $_POST["device_read"], ".1.3.6.1.2.1.1.5.0");
         $ports    = $noc->getSNMPwalk($_POST["device_ip"], $_POST["device_read"], ".1.3.6.1.2.1.2.2.1.1");
-        $numport = count($ports);
+        $numport = is_countable($ports) ? count($ports) : 0;
         
         // Store the device into a SQL table
         $add_query = $db->qry("INSERT INTO %prefix%noc_devices SET
@@ -112,7 +114,7 @@ switch ($_GET["step"]) {
 
         $row = $db->fetch_array();
 
-        for ($ActualPort=0; $ActualPort < count($ports); $ActualPort++) {
+        for ($ActualPort=0; $ActualPort < (is_countable($ports) ? count($ports) : 0); $ActualPort++) {
             $Port[$ActualPort]["deviceid"] = $row["id"];
 
             $Port[$ActualPort]["PortNr"] =

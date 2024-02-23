@@ -2,9 +2,9 @@
 
 $account = new LanSuite\Module\Foodcenter\Accounting($auth['userid']);
 
-if ($auth['type'] > 1 && !isset($_GET['act'])) {
+if ($auth['type'] > \LS_AUTH_TYPE_USER && !isset($_GET['act'])) {
     $_GET['act'] = "menu";
-} elseif ($auth['type'] < 2) {
+} elseif ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
     $_GET['act'] = "";
 }
 

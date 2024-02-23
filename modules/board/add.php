@@ -1,5 +1,7 @@
 <?php
 
+$fId = $_GET['fid'] ?? 0;
+
 $mf = new \LanSuite\MasterForm();
 
 $mf->AddField(t('Forumname'), 'name');
@@ -20,4 +22,4 @@ $mf->AddDropDownFromTable(t('Vorhandene Gruppe'), 'board_group', 'board_group', 
 $mf->AddField(t('Neue Gruppe'), 'group_new', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
 
 $mf->AdditionalDBPreUpdateFunction = 'Update';
-$mf->SendForm('index.php?mod=board&action=add', 'board_forums', 'fid', $_GET['fid']);
+$mf->SendForm('index.php?mod=board&action=add', 'board_forums', 'fid', $fId);

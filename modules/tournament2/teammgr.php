@@ -5,10 +5,20 @@ $mail = new \LanSuite\Module\Mail\Mail();
 
 $tteam = new \LanSuite\Module\Tournament2\Team($mail, $seat2);
 
-($_GET['tournamentid'])? $tournamentid = $_GET['tournamentid'] : $tournamentid = $_POST['tournamentid'];
-($_GET['userid'])? $userid = $_GET['userid'] : $userid = $_POST['userid'];
+$tournamentIDParameter = $_GET['tournamentid'] ?? 0;
 
-switch ($_GET['step']) {
+$tournamentid = $_GET['tournamentid'] ?? 0;
+if (!$tournamentid) {
+    $tournamentid = $_POST['tournamentid'] ?? $tournamentid;
+}
+
+$userid = $_GET['userid'] ?? 0;
+if (!$userid) {
+    $userid = $_POST['userid'] ?? $userid;
+}
+
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     // Team verlassen
     case 10:
         if ($tteam->kick($_GET["teamid"], $auth["userid"])) {
@@ -91,7 +101,7 @@ switch ($_GET['step']) {
         if ($team["banner"]) {
             $dsp->AddSingleRow("<img src=\"ext_inc/team_banners/{$team['banner']}\" alt=\"{$team['banner']}\">");
         }
-        $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1000000, 1);
+        $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
 
         if ($tournament['wwcl_gameid'] > 0) {
             $dsp->AddTextFieldRow("wwclid", t('WWCL ID'), $team['wwclid'], "");

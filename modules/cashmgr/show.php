@@ -1,6 +1,7 @@
 <?php
 
-if (!$_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+if (!$stepParameter) {
     switch ($auth['type']) {
         default:
             $func->information("ACCESS_DENIED");
@@ -12,20 +13,20 @@ if (!$_GET['step']) {
             break;
     
         case 3:
-            $dia_quest[] .= t('Party Kalkulation')    ;
-            $dia_quest[] .= t('Fremder Kontoauszug');
-            $dia_quest[] .= t('Eigener Kontoauszug');
-            $dia_link[]     .= "index.php?mod=cashmgr&action=show&step=1";
-            $dia_link[]     .= "index.php?mod=cashmgr&action=myaccounting&act=him";
-            $dia_link[]     .= "index.php?mod=cashmgr&action=myaccounting";
+            $dia_quest[] = t('Party Kalkulation')    ;
+            $dia_quest[] = t('Fremder Kontoauszug');
+            $dia_quest[] = t('Eigener Kontoauszug');
+            $dia_link[] = "index.php?mod=cashmgr&action=show&step=1";
+            $dia_link[] = "index.php?mod=cashmgr&action=myaccounting&act=him";
+            $dia_link[] = "index.php?mod=cashmgr&action=myaccounting";
             $func->multiquestion($dia_quest, $dia_link, "");
             break;
     }
 }
 
-switch ($_GET['step']) {
+switch ($stepParameter) {
     case 1:
-        if ($auth['type'] < 3) {
+        if ($auth['type'] < \LS_AUTH_TYPE_SUPERADMIN) {
             $func->information("ACCESS_DENIED");
         } else {
             $dsp->NewContent(t('Kalkulation'), t('Zur aktuellen Lanparty zum derzeitigen Stand'));

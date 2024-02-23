@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter ) {
     case 3:
         $get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
         while ($row=$db->fetch_array($get_cat_names)) {
@@ -45,7 +46,8 @@ switch ($_GET["step"]) {
         break;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         include('show.php');
         break;
@@ -76,7 +78,7 @@ switch ($_GET["step"]) {
             while ($row=$db->fetch_array($get_cats)) {
                 $selected=($row["catid"] == $_POST["question_cat"]) ? "selected" : "";
 
-                $faq_cats[] .= "<option $selected value=" . $row["catid"] . "> " . $row["name"] . " </option>";
+                $faq_cats[] = "<option $selected value=" . $row["catid"] . "> " . $row["name"] . " </option>";
             }
 
             $dsp->AddTextFieldRow("question_caption", t('Frage / Überschrift'), $_POST['question_caption'], $faq_error['question_caption']);

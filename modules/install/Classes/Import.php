@@ -4,30 +4,21 @@ namespace LanSuite\Module\Install;
 
 class Import
 {
-    /**
-     * @var string
-     */
-    private $xml_content;
+    private string|bool|null $xml_content = null;
 
     /**
      * @var string
      */
     public $xml_content_lansuite;
 
-    /**
-     * @var array
-     */
-    private $table_state = [];
+    private array $table_state = [];
 
     /**
      * @var array
      */
     public $installed_tables = [];
 
-    /**
-     * @var \LanSuite\XML
-     */
-    private $xml;
+    private \LanSuite\XML $xml;
 
     public function __construct(\LanSuite\XML $xml)
     {
@@ -47,9 +38,8 @@ class Import
 
     /**
      * @param string $usr_file_name
-     * @return bool|string
      */
-    public function GetUploadFileType($usr_file_name)
+    public function GetUploadFileType($usr_file_name): bool|string
     {
         $file_type = substr($usr_file_name, strrpos($usr_file_name, ".") + 1, strlen($usr_file_name));
         return $file_type;
@@ -61,6 +51,7 @@ class Import
      */
     public function GetImportHeader($tmp_file_name)
     {
+        $import = [];
         $xml_file = fopen($tmp_file_name, "r");
         $this->xml_content = fread($xml_file, filesize($tmp_file_name));
         fclose($xml_file);
@@ -171,9 +162,9 @@ class Import
 
                         // Set default value to 0 or '', if NOT NULL and not autoincrement
                         if ($null == 'NOT NULL' and $extra == '') {
-                            if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint' or substr($type, 0, 9) == 'mediumint'
-                            or substr($type, 0, 8) == 'smallint' or substr($type, 0, 6) == 'bigint'
-                            or substr($type, 0, 7) == 'decimal' or substr($type, 0, 5) == 'float' or substr($type, 0, 6) == 'double') {
+                            if (str_starts_with($type, 'int') or str_starts_with($type, 'tinyint') or str_starts_with($type, 'mediumint')
+                            or str_starts_with($type, 'smallint') or str_starts_with($type, 'bigint')
+                            or str_starts_with($type, 'decimal') or str_starts_with($type, 'float') or str_starts_with($type, 'double')) {
                                     $default = 'default '. (int)$default_xml;
                             } elseif ($type == 'timestamp') {
                                 $default = 'default CURRENT_TIMESTAMP';
@@ -182,8 +173,10 @@ class Import
                             } elseif ($type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') {
                                 $default = '';
                             } elseif ($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext') {
+                                // Text fields can't have a default in MySQL
                                 $default = '';
                             } else {
+                                // E.g. fields with type varchar will land here
                                 $default = "default '$default_xml'";
                             }
                         } else {
@@ -219,7 +212,7 @@ class Import
 
                                         // Handle special type changes
                                         // Changing int() to datetime
-                                        if ($type == 'datetime' and substr($db_field["Type"], 0, 3) == 'int') {
+                                        if ($type == 'datetime' and str_starts_with($db_field["Type"], 'int')) {
                                             $db->qry("ALTER TABLE %prefix%$table_name CHANGE %plain% %plain%_lstmp INT", $name, $name);
                                             $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% DATETIME", $table_name, $name);
                                             $db->qry("UPDATE %prefix%%plain% SET %plain% = FROM_UNIXTIME(%plain%_lstmp)", $table_name, $name, $name);
@@ -344,7 +337,7 @@ class Import
                 
                         // Foreign Key references
                         if ($foreign_key) {
-                            list($foreign_table, $foreign_key_name) = explode('.', $foreign_key, 2);
+                            [$foreign_table, $foreign_key_name] = explode('.', $foreign_key, 2);
                             $row = $db->qry_first(
                                 'SELECT 1 AS found, on_delete FROM %prefix%ref WHERE
               pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
@@ -353,7 +346,8 @@ class Import
                                 $foreign_table,
                                 $foreign_key_name
                             );
-                            if ($row['on_delete'] != $on_delete) {
+
+                            if (is_array($row) && $row['on_delete'] != $on_delete) {
                                 $db->qry(
                                     '
                                   DELETE FROM %prefix%ref
@@ -369,7 +363,7 @@ class Import
                                 );
                                     $row['found'] = 0;
                             }
-                            if (!$row['found']) {
+                            if (!$row) {
                                 $db->qry(
                                     '
                                   INSERT INTO %prefix%ref
@@ -388,7 +382,7 @@ class Import
                             }
                         }
                         if ($reference) {
-                            list($reference_table, $reference_key) = explode('.', $reference, 2);
+                            [$reference_table, $reference_key] = explode('.', $reference, 2);
 
                             $row = $db->qry_first(
                                 '
@@ -407,7 +401,7 @@ class Import
                                 $name,
                                 $reference_condition
                             );
-                            if (!$row['found']) {
+                            if (!$row) {
                                 $db->qry(
                                     '
                                   INSERT INTO %prefix%ref
@@ -479,7 +473,8 @@ class Import
                                 if ($value != '') {
                                     $mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
                                 }
-                                if ($field_name == $DBPrimaryKeys[0] and in_array($value, $EntriesFound)) {
+
+                                if (array_key_exists(0, $DBPrimaryKeys) && $field_name == $DBPrimaryKeys[0] && in_array($value, $EntriesFound)) {
                                     $FoundValueInDB = 1;
                                 }
                             }
@@ -554,6 +549,8 @@ class Import
      */
     public function ImportLanSuite($del_db, $replace, $no_seat, $signon, $comment)
     {
+        $users_to_import = [];
+        $seat_blocks_to_import = [];
         global $db, $party, $cfg;
 
         // Delete User-Table

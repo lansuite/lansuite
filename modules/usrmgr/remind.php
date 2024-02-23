@@ -4,7 +4,8 @@ $dsp->NewContent(t('Passwort vergessen'), t('Mit diesem Modul kannst du dir ein 
 if (!$cfg['sys_internet']) {
     $func->information(t('Diese Funktion ist nur im Internetmodus verfügbar'));
 } else {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // Email prüfen, Freischaltecode generieren, Email senden
         case 2:
             $user_data = $db->qry_first("SELECT username FROM %prefix%user WHERE email = %string%", $_POST['pwr_mail']);
@@ -13,7 +14,7 @@ if (!$cfg['sys_internet']) {
             } elseif ($user_data['username']) {
                 $fcode = '';
                 for ($x = 0; $x <= 24; $x++) {
-                    $fcode .= chr(mt_rand(65, 90));
+                    $fcode .= chr(random_int(65, 90));
                 }
 
                 $db->qry("UPDATE %prefix%user SET fcode='$fcode' WHERE email = %string%", $_POST['pwr_mail']);
@@ -25,7 +26,7 @@ if (!$cfg['sys_internet']) {
                 //Try HTTPS first...
                 if (!empty($cfg['sys_partyurl_ssl'])) {
                     $verification_link = $cfg['sys_partyurl_ssl'];
-                    if (substr($cfg['sys_partyurl_ssl'], -1, 1) != '/') {
+                    if (!str_ends_with($cfg['sys_partyurl_ssl'], '/')) {
                         $verification_link .= '/';
                     } //make sure that it ends with a slash
                     $verification_link .= "index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode";
@@ -55,7 +56,7 @@ if (!$cfg['sys_internet']) {
             if (($user_data['fcode']) && ($_GET['fcode'] != '')) {
                 $new_pwd = "";
                 for ($x = 0; $x <= 8; $x++) {
-                    $new_pwd .= chr(mt_rand(65, 90));
+                    $new_pwd .= chr(random_int(65, 90));
                 }
 
                 $db->qry("UPDATE %prefix%user SET password = %string%, fcode = '' WHERE fcode = %string%", md5($new_pwd), $_GET['fcode']);
@@ -67,9 +68,10 @@ if (!$cfg['sys_internet']) {
             break;
 
         default:
+            $passwordReminderMail = $_POST['pwr_mail'] ?? '';
             $dsp->SetForm("index.php?mod=usrmgr&action=pwrecover&step=2");
             $dsp->AddSingleRow(t('Bitte gib die Email-Adresse ein, mit der du dich am System angemeldet hast'));
-            $dsp->AddTextFieldRow("pwr_mail", t('Deine Email'), $_POST['pwr_mail'], $mail_error);
+            $dsp->AddTextFieldRow("pwr_mail", t('Deine Email'), $passwordReminderMail, '');
             $dsp->AddFormSubmitRow(t('Abschicken'));
             $dsp->AddBackButton("index.php", "usrmgr/pwremind");
             break;

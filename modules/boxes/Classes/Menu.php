@@ -19,10 +19,7 @@ class Menu
      */
     public $box;
 
-    /**
-     * @var string
-     */
-    private $title = '';
+    private string $title = '';
 
     /**
      * @param $id
@@ -43,7 +40,7 @@ class Menu
      */
     private function FetchItem($item)
     {
-        global $cfg;
+        global $cfg, $request;
 
         $item['caption'] = t($item['caption']);
         $item['hint'] = t($item['hint']);
@@ -65,14 +62,19 @@ class Menu
 
             // Scan for ID in info2 Link
             if ($_GET['mod'] == 'info2') {
-                preg_match('/(id=)(\\d{1,4})/', $item['link'], $treffer);
-                $info2_id = $treffer[2];
+                $pregMatchResult = preg_match('/(id=)(\\d{1,4})/', $item['link'], $treffer);
+                if ($pregMatchResult) {
+                    $info2_id = $treffer[2];
+                }
             }
+
+            $actionParameter = $request->query->get('action');
+            $idParameter = $_GET['id'] ?? 0;
             if (($item['module'] != 'info2' and $item['module'] == $_GET['mod'] and $item['level']==0)
-                or ($item['module'] == 'info2' and $item['module'] == $_GET['mod'] and $item['level']==0 and $info2_id == $_GET['id'])
-                or ($item['module'] == 'info2' and $_GET['mod'] == 'info2' and $info2_id == $_GET['id'])
+                or ($item['module'] == 'info2' and $item['module'] == $_GET['mod'] and $item['level']==0 and $info2_id == $idParameter)
+                or ($item['module'] == 'info2' and $_GET['mod'] == 'info2' and $info2_id == $idParameter)
                 or ($item['module'] == 'info2' and $_GET['mod'] == 'info2' and $cfg['info2_use_submenus']==1 and $item['level']==0)
-                or ($item['module'] != 'info2' and $item['module'] == $_GET['mod'] and ($item['action'] == $_GET['action']) and $item['level']==1)
+                or ($item['module'] != 'info2' and $item['module'] == $_GET['mod'] and ($item['action'] == $actionParameter) and $item['level']==1)
                ) {
                 $highlighted = 1;
             } else {
@@ -91,7 +93,7 @@ class Menu
     {
         global $auth, $db;
 
-        if (!$_GET['menu_group']) {
+        if (!array_key_exists('menu_group', $_GET) || !$_GET['menu_group']) {
             $_GET['menu_group'] = 0;
         }
 
@@ -156,7 +158,7 @@ class Menu
                     $db->free_result($res2);
 
                     // If Admin add general Management-Links
-                    if ($auth['type'] > 2) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
                         $adminIcons = $this->box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
                         $this->box->Row('<span class="AdminIcons">'. $adminIcons .'</span>');
                     }

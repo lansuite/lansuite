@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/troubleticket/search.inc.php');
         break;
@@ -33,21 +34,12 @@ switch ($_GET["step"]) {
             $dsp->AddDoubleRow(t('Eingetragen am/um'), $func->unixstamp2date($row["created"], "daydatetime"));
             $dsp->AddDoubleRow(t('Von Benutzer'), $dsp->FetchUserIcon($get_originuser["userid"], $get_originuser["username"]));
 
-            // priorität zahl -> text
-            switch ($row["priority"]) {
-                default:
-                    $priority = t('Niedrig');
-                    break;
-                case 20:
-                    $priority = t('Normal');
-                    break;
-                case 30:
-                    $priority = t('Hoch');
-                    break;
-                case 40:
-                    $priority = t('Kritisch');
-                    break;
-            }
+            $priority = match ($row["priority"]) {
+                20 => t('Normal'),
+                30 => t('Hoch'),
+                40 => t('Kritisch'),
+                default => t('Niedrig'),
+            };
             $dsp->AddDoubleRow(t('Priorität'), $priority);
 
             // entsprechend des ticketstatuses passende zeilen ausgeben
@@ -96,13 +88,16 @@ switch ($_GET["step"]) {
             if ($time_text and $time_val) {
                 $dsp->AddDoubleRow($time_text, $time_val);
             }
-            $dsp->AddDoubleRow(t('Bearbeitender Orga'), $dsp->FetchUserIcon($get_targetuser["userid"], $get_targetuser["username"]));
+
+            $targetUserUserId = $get_targetuser["userid"] ?? 0;
+            $targetUserUsername = $get_targetuser["username"] ?? '';
+            $dsp->AddDoubleRow(t('Bearbeitender Orga'), $dsp->FetchUserIcon($targetUserUserId, $targetUserUsername));
 
             if (!$row["publiccomment"]) {
                 $row["publiccomment"] = t(' Kein Hinweis eingetragen');
             }
             $dsp->AddDoubleRow(t('Kommentar'), $func->text2html($row["publiccomment"]));
-            if ($auth['type'] > 1) {
+            if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                 if (!$row["orgacomment"]) {
                     $row["orgacomment"] = t(' Kein Hinweis eingetragen');
                 }

@@ -4,7 +4,8 @@ use LanSuite\Module\Seating\Seat2;
 
 $seat2 = new Seat2();
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $row = $db->qry_first('
           SELECT
@@ -12,13 +13,15 @@ switch ($_GET['step']) {
           FROM %prefix%seat_block
           WHERE
             party_id = %int%', $party->party_id);
-        $_GET['blockid'] = $row['blockid'];
+        $_GET['blockid'] = $row['blockid'] ?? 0;
 
     // Show seatplan
     case 2:
         $dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahre mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
 
         $current_url = 'index.php?mod=seating';
+        $target_icon = '';
+        $target_url = '';
         include_once('modules/seating/search_basic_blockselect.inc.php');
 
         $dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0));
@@ -75,7 +78,7 @@ switch ($_GET['step']) {
                 $row = $db->qry_first("SELECT seatid FROM %prefix%seat_seats WHERE blockid = %int% AND status = 2 AND userid = %int%", $_GET['blockid'], $auth['userid']);
                 if ($user_data['paid']) {
                     // Reserve seat for myselfe
-                    if ($row['seatid']) {
+                    if ($row && $row['seatid']) {
                         $questionarray[] = t('Du hast bereits einen Sitzplatz reserviert. Möchtest du deinen Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?');
                         $linkarray[]     = "index.php?mod=seating&action=show&step=11&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     // Change my seat, if I allready have one
@@ -110,7 +113,7 @@ switch ($_GET['step']) {
                         $db->free_result($res);
                     }
                           // Delete mark, if Admin
-                    if ($auth['type'] > 1 and $seat_user['status'] == 3) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_USER and $seat_user['status'] == 3) {
                         $questionarray[] = t('Möchtest du als Admin diese Vormerkung entfernen?');
                         $linkarray[]     = "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     }
@@ -233,7 +236,7 @@ switch ($_GET['step']) {
             AND party_id = %int%", $auth['userid'], $party->party_id);
 
         // Check Signed on
-        if (!$user_party['user_id']) {
+        if (!$user_party) {
             $func->information(t('Nur zur Party angemeldete Benutzer dürfen Sitzplätze vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
         // Check paid
@@ -255,11 +258,11 @@ switch ($_GET['step']) {
 
             $questionarray[] = t('Diesen Platz für mich vorreservieren, meinen alten Platz freigeben.');
             $linkarray[]     = "index.php?mod=seating&action=show&step=22&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
-        
+
             $questionarray[] = t('Aktion abbrechen. Zurück zum Sitzplan');
             $linkarray[]     = "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}";
-        
-        
+
+
             $func->multiquestion($questionarray, $linkarray, t('Solange du nicht für diese Party bezahlt hast, darfst du nur einen Sitz vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
         // Check number of marked seats of this user
@@ -306,7 +309,7 @@ switch ($_GET['step']) {
     
     // Free seat as admin (question)
     case 30:
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $seatingUser = $db->qry_first("
               SELECT
                 s.userid,
@@ -336,7 +339,7 @@ switch ($_GET['step']) {
     
     // Free seat as admin
     case 31:
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $seat2->FreeSeat($_GET['blockid'], $_GET['row'], $_GET['col']);
             $func->confirmation(t('Der Sitzplatz wurde erfolgreich freigegeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
         }
@@ -344,9 +347,10 @@ switch ($_GET['step']) {
     
     // Umsetzen als Admin
     case 32:
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $current_url = "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}";
             $target_url = "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid=";
+            $target_icon = '';
             include_once('modules/seating/search_basic_blockselect.inc.php');
         }
 }

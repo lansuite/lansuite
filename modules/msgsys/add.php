@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     // Mastersearch
     default:
         $additional_where = 'u.userid != '. (int)$auth["userid"];
@@ -89,7 +90,7 @@ switch ($_GET['step']) {
 
             // Confirmations / Errors
             // Successful
-            if (count($sux) > "0" && count($err) == "0") {
+            if ((is_countable($sux) ? count($sux) : 0) > "0" && (is_countable($err) ? count($err) : 0) == "0") {
                 foreach ($sux as $item) {
                     if ($names1 != "") {
                         $names1 .= ", ";
@@ -100,7 +101,7 @@ switch ($_GET['step']) {
                                            <b>%NAMES1%</b> ' . HTML_NEWLINE . ' Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf sichtbar.')));
 
             // Partly Successful
-            } elseif (count($sux) > "0" && count($err) > "0") {
+            } elseif ((is_countable($sux) ? count($sux) : 0) > "0" && (is_countable($err) ? count($err) : 0) > "0") {
                 foreach ($sux as $item) {
                     if ($names1 != "") {
                         $names1 .= ", ";
@@ -124,7 +125,7 @@ switch ($_GET['step']) {
                                            - Du versuchst dich selbst in die Buddy-Liste hinzuzuf&uuml;gen ' . HTML_NEWLINE . '
                                            Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf sichtbar.'))), "");
                 // Not successful
-            } elseif (count($sux) == "0" && count($err) > "0") {
+            } elseif ((is_countable($sux) ? count($sux) : 0) == "0" && (is_countable($err) ? count($err) : 0) > "0") {
                 $func->error(t('Es konnten keine Benutzer in die Buddy-Liste hinzugef&uuml;gt werden. ' . HTML_NEWLINE . '
                       Dies kann folgende Ursachen haben: ' . HTML_NEWLINE . '
                       - Der Benutzer ist bereits in deiner Buddy-Liste ' . HTML_NEWLINE . '

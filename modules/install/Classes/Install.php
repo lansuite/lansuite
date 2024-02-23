@@ -6,10 +6,7 @@ use LanSuite\XML;
 
 class Install
 {
-    /**
-     * @var Import
-     */
-    private $import;
+    private \LanSuite\Module\Install\Import $import;
 
     public function __construct(Import $import)
     {
@@ -41,10 +38,8 @@ class Install
 
     /**
      * Write $config into file /inc/base/config.php
-     *
-     * @return bool|int
      */
-    public function WriteConfig()
+    public function WriteConfig(): bool|int
     {
         global $config;
 
@@ -80,7 +75,8 @@ class Install
      */
     public function TryCreateDB($createnew = null)
     {
-        global $config, $db;
+        global $config, $db, $request;
+        $ret_val = null;
 
         if (!$db->connect(1)) {
             // No success connection
@@ -100,7 +96,7 @@ class Install
             }
         } else {
             // If User wants to rewrite all tables, drop databse. It will be created anew in the next step
-            if (!$_GET["quest"] and $createnew and $_GET["step"] == 3) {
+            if (!$request->query->get('quest') && $createnew && $request->query->get('step') == 3) {
                 $this->DeleteAllTables();
             }
             if ($createnew) {
@@ -271,7 +267,7 @@ class Install
                     $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%modules WHERE name = %string%", $module);
 
                     if ($name) {
-                        if (!$mod_found["found"]) {
+                        if (!$mod_found) {
                             $db->qry_first(
                                 "
                               REPLACE INTO %prefix%modules
@@ -386,7 +382,7 @@ class Install
 
                                         // Insert into DB, if not exists
                                         $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
-                                        if (!$found['cfg_key']) {
+                                        if (!$found) {
                                             $db->qry(
                                                 "INSERT INTO %prefix%config SET cfg_key = %string%, cfg_value = %string%, cfg_type = %string%, cfg_group = %string%, cfg_desc = %string%, cfg_module = %string%, cfg_pos = %int%",
                                                 $name,
@@ -433,7 +429,7 @@ class Install
                             $callback = $xml->get_tag_content("callback", $box);
 
                             $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
-                            if ($rewrite or !$mod_found['found']) {
+                            if ($rewrite or !$mod_found) {
                                 $db->qry_first("DELETE FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
                                 $db->qry_first(
                                     "INSERT INTO %prefix%boxes
@@ -556,7 +552,7 @@ class Install
         while ($module = readdir($modules_dir)) {
             if ($func->isModActive($module)) {
                 $menu_found = $db->qry_first("SELECT 1 AS found FROM %prefix%menu WHERE module = %string%", $module);
-                if (!$menu_found["found"]) {
+                if (!$menu_found) {
                     $file = "modules/$module/mod_settings/menu.xml";
                     if (file_exists($file)) {
                         $handle = fopen($file, "r");
@@ -618,7 +614,7 @@ class Install
      *
      * @return int
      */
-    public function envcheck()
+    public function envcheck(array $configuration)
     {
         global $db, $dsp, $func;
 
@@ -635,12 +631,10 @@ class Install
         $dsp->AddFieldSetStart("Kritisch - Diese Test müssen alle erfolgreich sein, damit Lansuite funktioniert");
 
         // PHP version
-        $minPHPVersion = '7.0.0';
-        $currentPHPVersion = PHP_VERSION;
-        if (version_compare($currentPHPVersion, $minPHPVersion) >= 0) {
-            $phpv_check = $ok . $currentPHPVersion;
+        if (version_compare(PHP_VERSION, \LANSUITE_MINIMUM_PHP_VERSION) >= 0) {
+            $phpv_check = $ok . PHP_VERSION;
         } else {
-            $phpv_check = $failed . t('Auf deinem System wurde die PHP-Version %1 gefunden. Lansuite benötigt mindestens PHP Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.php.net\' target=\'_blank\'>PHP.net</a>.', $currentPHPVersion, $minPHPVersion);
+            $phpv_check = $failed . t('Auf deinem System wurde die PHP-Version %1 gefunden. Lansuite benötigt mindestens PHP Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.php.net\' target=\'_blank\'>PHP.net</a>.', PHP_VERSION, \LANSUITE_MINIMUM_PHP_VERSION);
         }
         $dsp->AddDoubleRow("PHP Version", $phpv_check);
 
@@ -658,24 +652,36 @@ class Install
         $dsp->AddDoubleRow("MySQLi-Extension", $mysql_check);
 
         // MySQL Server version
-        $minMysqlVersion = '5.6.3';
         $minMariaDBVersion = '10.0';
         $currentMysqlVersion = $db->getServerInfo();
         if (!$currentMysqlVersion) {
-            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (root@localhost) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %1 benutzt.', $minMysqlVersion);
-        } elseif (strpos($currentMysqlVersion, 'MariaDB') !== false) {
+            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (%1@%2) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %3 benutzt.', $configuration['database']['user'], $configuration['database']['server'], \LANSUITE_MINIMUM_MYSQL_VERSION);
+        } elseif (str_contains($currentMysqlVersion, 'MariaDB')) {
             $currentMariaDBVersion = substr($currentMysqlVersion, strpos($currentMysqlVersion, '-')+1);
             if (version_compare($currentMariaDBVersion, $minMariaDBVersion) >= 0) {
                 $mysqlVersionCheck = $optimize . t('MariaDB Version %1 gefunden. <br/>Bitte beachte, das LanSuite primär für MySQL entwickelt wurde und es daher zu unerwarteten Problemen mit MariaDB kommen kann!', $currentMariaDBVersion);
             } else {
                 $mysqlVersionCheck = $failed . t('Die verwendete MariaDB-Version %1 ist leider zu alt. Vorrausgesetzt ist mindestens MariaDB version %2! <br/> Bitte beachte, das LanSuite primär für MySQL entwickelt wurde und es daher zu unerwarteten Problemen mit MariaDB kommen kann!', $currentMariaDBVersion, $minMariaDBVersion);
             }
-        } elseif (version_compare($currentMysqlVersion, $minMysqlVersion) >= 0) {
+        } elseif (version_compare($currentMysqlVersion, \LANSUITE_MINIMUM_MYSQL_VERSION) >= 0) {
             $mysqlVersionCheck = $ok . $currentMysqlVersion;
         } else {
-            $mysqlVersionCheck = $failed . t('LanSuite ist zu einer Datenbank mit der Version %1 verbunden. LanSuite benötigt mindestens eine MySQL Datenbank mit der Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.mysql.com\' target=\'_blank\'>MySQL.com</a>.', $currentMysqlVersion, $minMysqlVersion);
+            $mysqlVersionCheck = $failed . t('LanSuite ist zu einer Datenbank mit der Version %1 verbunden. LanSuite benötigt mindestens eine MySQL Datenbank mit der Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.mysql.com\' target=\'_blank\'>MySQL.com</a>.', $currentMysqlVersion, \LANSUITE_MINIMUM_MYSQL_VERSION);
         }
         $dsp->AddDoubleRow("MySQL Server Version", $mysqlVersionCheck);
+
+        // SQL mode
+        $sqlmodeDisable = ['ONLY_FULL_GROUP_BY', 'STRICT_TRANS_TABLES'];
+        $res = $db->qry('SELECT @@SESSION.SQL_MODE AS sqlmode;');
+        $opts = $db->fetch_array($res)['sqlmode'];
+        $serverOpts = explode(',', $opts);
+        $warnOpts = implode(',', array_values(array_intersect($serverOpts, $sqlmodeDisable)));
+        $newSqlMode = implode(',', array_diff($serverOpts, $sqlmodeDisable));
+        $sqlModeMessage = $ok . t("Folgende SQL-Optionen werden vom Server für die Verbindung gesetzt: %1", $opts);
+        if ($warnOpts) {
+            $sqlModeMessage = $warning . t("LANSuite ist mit folgenden SQL Mode settings inkompatibel: '%1'.\nEs wird versucht, dies automatisch zu kompensieren, indem für jede Verbindung folgender  SQL Mode gesetzt wird: '%2'. Dies hat zur Folge, dass eventuelle Änderungen an der Server-Variable SQL_MODE nicht automatisch für LanSuite übernommen werden, sondern manuell in config.php angepasst werden müssen.", $warnOpts, $newSqlMode);
+        }
+        $dsp->AddDoubleRow("SQL mode", $sqlModeMessage);
 
         // config.php Rights
         $lansuite_conf = "inc/base/config.php";
@@ -749,53 +755,6 @@ class Install
             $xml_check = $warning . t('Das PHP-Modul XML wurde nicht gefunden. Dies wird für (UTF-8 encodierte) eMails und CSV-Datenexporte benötigt');
         }
         $dsp->AddDoubleRow("XML Modul", $xml_check);
-
-        // Test Safe-Mode
-        if (!ini_get("safe_mode")) {
-            $safe_mode = $ok;
-        } else {
-            $safe_mode = $not_possible . t('Auf deinem System ist die PHP-Einstellung <b>safe_mode</b> auf <b>On</b> gesetzt. safe_mode ist dazu gedacht, einige Systemfunktionen auf dem Server zu sperren um Angriffe zu verhindern (siehe dazu: <a href=\'http://de2.php.net/features.safe-mode\' target=\'_blank\'>www.php.net</a>). Doch leider benötigen einige Lansuite-Module (speziell: LansinTV, Serverstatistiken oder das Server-Modul) Zugriff auf genau diese Funktionen. Du solltest daher, wenn du Probleme in diesen Modulen hast, in deiner <b>PHP.ini</b> die Option <b>safe_mode</b> auf <b>Off</b> setzen! <br />Außer bei oben genannten Modulen, kann es bei aktiviertem safe_mode außerdem auch zu Problemen bei dem Generieren von Buttons, wie dem am Ende dieser Seite kommen.');
-        }
-        $dsp->AddDoubleRow("Safe Mode", $safe_mode);
-
-        // Testing Safe-Mode and execution of system-programs
-        if (!ini_get("safe_mode")) {
-            if (stristr(strtolower($_SERVER['SERVER_SOFTWARE']), "win") == "") {
-                $env_stats = '';
-                if (@shell_exec("cat /proc/uptime") == "") {
-                    $env_stats .= "<strong>/proc/uptime</strong>" . HTML_NEWLINE;
-                }
-
-                if (@shell_exec("cat /proc/loadavg") == "") {
-                    $env_stats .= "<strong>/proc/loadavg</strong>" . HTML_NEWLINE;
-                }
-
-                if (@shell_exec("cat /proc/cpuinfo") == "") {
-                    $env_stats .= "<strong>/proc/cpuinfo</strong>" . HTML_NEWLINE;
-                }
-
-                if (@shell_exec("cat /proc/meminfo") == "") {
-                    $env_stats .= "<strong>/proc/meminfo</strong>" . HTML_NEWLINE;
-                }
-
-                if ($env_stats == "") {
-                    $server_stats = $ok;
-                } else {
-                    $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei ' . HTML_NEWLINE . '{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
-                }
-
-                $config["server_stats"]["status"] = 1;
-            } else {
-                system("modules\stats\ls_getinfo.exe", $status);
-                if ($status == 0) {
-                    $server_stats = $ok;
-                } else {
-                    $env_stats = "<strong>modules/stats/ls_getinfo.exe</strong>" . HTML_NEWLINE;
-                    $server_stats = $not_possible . str_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei ' . HTML_NEWLINE . '{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
-                }
-            }
-            $dsp->AddDoubleRow("Server Stats", $server_stats);
-        }
 
         // SNMP-Lib
         if (extension_loaded('snmp')) {
@@ -961,6 +920,7 @@ class Install
      */
     public function getModConfigLine($row, $showLinks = 1)
     {
+        $language = null;
         global $smarty, $db;
 
         $smarty->assign('name', $row['name']);
@@ -1009,7 +969,7 @@ class Install
         $smarty->assign('showLinks', $showLinks);
         if ($showLinks) {
             $find_config = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $row["name"]);
-            if ($find_config["cfg_key"] != '') {
+            if (is_array($find_config) && $find_config["cfg_key"] != '') {
                 $settings_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=10&module={$row["name"]}\">". t('Konfig.') ."</a>";
             } else {
                 $settings_link = "";
@@ -1017,7 +977,7 @@ class Install
             $smarty->assign('settings_link', $settings_link);
 
             $find_mod = $db->qry_first("SELECT module FROM %prefix%menu WHERE module=%string%", $row["name"]);
-            if ($find_mod["module"]) {
+            if (is_array($find_mod) && $find_mod["module"]) {
                 $menu_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
             } else {
                 $menu_link = "";

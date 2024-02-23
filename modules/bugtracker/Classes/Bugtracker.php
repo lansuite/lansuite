@@ -30,7 +30,7 @@ class Bugtracker
     {
         global $db, $func, $auth;
 
-        if ($auth['type'] <= 1) {
+        if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
             $row = $db->qry_first("
               SELECT
                 reporter,
@@ -51,7 +51,7 @@ class Bugtracker
 
         $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE state = %int% AND bugid = %int%", $state, $bugid);
         if (!$row['found']) {
-            $mail = new Lansuite\Module\Mail\Mail();
+            $mail = new \LanSuite\Module\Mail\Mail();
 
             $db->qry("UPDATE %prefix%bugtracker SET state = %int% WHERE bugid = %int%", $state, $bugid);
             $func->log_event(t('Bugreport auf Status "%1" geändert', array($this->stati[$state])), 1, '', $bugid);
@@ -114,7 +114,7 @@ class Bugtracker
 
         $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE agent = %int% AND bugid = %int%", $userid, $bugid);
         if (!$row['found']) {
-            if ($auth['type'] > 1) {
+            if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                 $db->qry("UPDATE %prefix%bugtracker SET agent = %int% WHERE bugid = %int%", $userid, $bugid);
             }
 

@@ -1,8 +1,10 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 2:
-        if ($_POST['tticket_cat'] == 0 && $_GET['act'] == "change") {
+        $tticketCatValue = $_POST['tticket_cat'] ?? 0;
+        if ($tticketCatValue == 0 && $_GET['act'] == "change") {
             $error['tticket_cat'] = t('Du hast keine Kategorie zum ändern ausgewählt');
             $_GET['step'] = 1;
         }
@@ -16,7 +18,8 @@ switch ($_GET['step']) {
         break;
 }
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Kategorie'));
         
@@ -25,11 +28,12 @@ switch ($_GET['step']) {
             $t_cat_array[] = "<option value=\"0\">".t('Bitte Auswählen')."</option>";
             
             while ($row = $db->fetch_array($t_cat)) {
-                $t_cat_array[] .= "<option value=\"{$row['cat_id']}\">{$row['cat_text']}</option>";
+                $t_cat_array[] = "<option value=\"{$row['cat_id']}\">{$row['cat_text']}</option>";
             }
 
             $dsp->SetForm("index.php?mod=troubleticket&action=cat&act=change&step=2");
-            $dsp->AddDropDownFieldRow("tticket_cat", t('Kategorie'), $t_cat_array, $error['tticket_cat']);
+            $errorTticketCat = $error['tticket_cat'] ?? '';
+            $dsp->AddDropDownFieldRow("tticket_cat", t('Kategorie'), $t_cat_array, $errorTticketCat);
             $dsp->AddFormSubmitRow(t('Ändern'));
         } else {
             $dsp->AddSingleRow(t('Keine Kategorien vorhanden'));
@@ -44,29 +48,31 @@ switch ($_GET['step']) {
         $user_row = $db->qry('SELECT * FROM %prefix%user WHERE type > 1');
     
         if (isset($_POST["tticket_cat"]) && $_POST["tticket_cat"] > 0) {
-            $user_row_option[] .= "<option value=\"0\">".t('Kein zuständiger Admin')."</option>";
+            $user_row_option[] = "<option value=\"0\">".t('Kein zuständiger Admin')."</option>";
         } else {
-            $user_row_option[] .= "<option selected value=\"0\">".t('Kein zuständiger Admin')."</option>";
+            $user_row_option[] = "<option selected value=\"0\">".t('Kein zuständiger Admin')."</option>";
         }
-        
+
         while ($user_data = $db->fetch_array($user_row)) {
-            if ($user_data["userid"] == $_POST["tticket_cat"] && isset($_POST["tticket_cat"])) {
-                $user_row_option[] .= "<option selected value=\"{$user_data["userid"]}\">{$user_data["username"]}</option>";
+            if (isset($_POST["tticket_cat"]) && $user_data["userid"] == $_POST["tticket_cat"]) {
+                $user_row_option[] = "<option selected value=\"{$user_data["userid"]}\">{$user_data["username"]}</option>";
             } else {
-                $user_row_option[] .= "<option value=\"{$user_data["userid"]}\">{$user_data["username"]}</option>";
+                $user_row_option[] = "<option value=\"{$user_data["userid"]}\">{$user_data["username"]}</option>";
             }
         }
         
         if ($_GET['act'] == "add") {
             $dsp->SetForm("index.php?mod=troubleticket&action=cat&act=add&step=3");
-            $dsp->AddTextFieldRow("name", t('Kategorie'), "", $error_cat['name']);
+            $errorCatName = $error_cat['name'] ?? '';
+            $dsp->AddTextFieldRow("name", t('Kategorie'), "", $errorCatName);
             $dsp->AddDropDownFieldRow("orga", t('Zuständiger Admin'), $user_row_option, "");
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
         } else {
             $cat_data = $db->qry_first("SELECT * FROM %prefix%troubleticket_cat WHERE cat_id = %string%", $_POST["tticket_cat"]);
             
             $dsp->SetForm("index.php?mod=troubleticket&action=cat&act=change&step=3&cat_id={$_POST['tticket_cat']}");
-            $dsp->AddTextFieldRow("name", t('Kategorie'), $cat_data['cat_text'], $error_cat['name']);
+            $errorCatName = $error_cat['name'] ?? '';
+            $dsp->AddTextFieldRow("name", t('Kategorie'), $cat_data['cat_text'], $errorCatName);
             $dsp->AddDropDownFieldRow("orga", t('Zuständiger Admin'), $user_row_option, "");
             $dsp->AddFormSubmitRow(t('Ändern'));
         }

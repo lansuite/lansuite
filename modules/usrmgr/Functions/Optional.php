@@ -8,9 +8,10 @@ function Optional($key)
 {
     global $cfg;
 
-    if ($cfg["signon_show_".$key] <= 1) {
+    $configKey = 'signon_show_' . $key;
+    if (array_key_exists($configKey, $cfg) && $cfg[$configKey] <= 1) {
         return 1;
-    } else {
-        return 0;
     }
+
+    return 0;
 }

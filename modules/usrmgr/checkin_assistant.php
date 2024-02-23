@@ -10,7 +10,8 @@ if (!$party->party_id) {
     $func->information(t('Es gibt keine aktive Party. Bitte setze im Partymanager eine Party aktiv'));
 } else {
     // Main-Switch
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET['step'] ?? '';
+    switch ($stepParameter) {
         // Auswahl: Angemeldet? ja/Nein
         case '':
         case 1:
@@ -133,7 +134,8 @@ if (!$party->party_id) {
             break;
     }
 
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // Platzpfand prüfen
         case 4:
         // Passwort ausgeben
@@ -210,7 +212,8 @@ if (!$party->party_id) {
             break;
     }
 
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         case 10:
             $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
 

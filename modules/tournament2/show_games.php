@@ -49,6 +49,7 @@ WHERE
   GROUP BY games1.gameid, games2.gameid 
   ORDER BY lastactivity ASC ", $party->party_id);
 
+$tgamestable = [];
 while ($tgamesrow = $db->fetch_array($tgames, 1, MYSQLI_ASSOC)) {
     if (!($tgamesrow['modus']=="single" and $tgamesrow['round']<0) and !($tgamesrow['modus']=="all")) { // Workaround wegen Looserbraketeinträgen bei SingleElimination
         $outall[] = $tgamesrow;
@@ -76,7 +77,7 @@ while ($tgamesrow = $db->fetch_array($tgames, 1, MYSQLI_ASSOC)) {
 
 $dsp->NewContent(t('Aktuelle Turnierbegegnungen'), t('Aktuelle Turnierbegegnungen sortiert nach Zeit. Überfällige werden Rot markiert.'));
 
-if ($tgamestable==null) {
+if (count($tgamestable) == 0) {
     $dsp->AddSingleRow("Aktuell keine Paarungen vorhanden.");
 } else {
     $dsp->AddSingleRow(array_to_table($tgamestable));

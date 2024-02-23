@@ -165,6 +165,10 @@ class Accounting
                 break;
         }
 
+        if ($result['total'] == '') {
+            $result['total'] = 0;
+        }
+
         return $this->getMoneyColor($result['total']);
     }
 
@@ -175,6 +179,7 @@ class Accounting
      */
     private function getGroup($fix, $posneg)
     {
+        $row = null;
         global $db;
         
         $result_list = [];

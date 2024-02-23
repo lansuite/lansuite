@@ -5,7 +5,7 @@ $seat2 = new \LanSuite\Module\Seating\Seat2();
 
 $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
-$headermenuitem    = $_GET['headermenuitem'];
+$headermenuitem = $_GET['headermenuitem'] ?? '';
 
 if ($headermenuitem == "") {
     $headermenuitem = 1;
@@ -25,10 +25,11 @@ $tournament = $db->qry_first("
 if (!$tournament["tournamentid"]) {
     $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
 } else {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // Shuffle maps
         case 20:
-            if ($auth['type'] <= 1) {
+            if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                 $func->information('ACCESS_DENIED');
             } else {
                   $maps = explode("\n", $tournament["mapcycle"]);
@@ -39,7 +40,7 @@ if (!$tournament["tournamentid"]) {
             break;
     }
   
-    switch ($_GET['step']) {
+    switch ($stepParameter) {
         // Activate Seeding
         case 10:
             $seeded = $db->qry_first("
@@ -221,7 +222,7 @@ if (!$tournament["tournamentid"]) {
                 $map_str .= t('Runde')." $key: $val \n";
             }
             $mapcycle = t('Mapcycle'). HTML_NEWLINE . HTML_NEWLINE;
-            if ($auth['type'] > 1) {
+            if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                 $mapcycle .= '<a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. t('Maps neu mischen') .'</a>';
             }
             $dsp->AddDoubleRow($mapcycle, $func->text2html($map_str));
@@ -241,6 +242,8 @@ if (!$tournament["tournamentid"]) {
               FROM %prefix%t2_teams
               WHERE
                 (tournamentid = %int%)", $_GET['tournamentid']);
+
+            $teamcount = [0, 0];
             while ($team = $db->fetch_array($teams)) {
                 $members = $db->qry_first("
                   SELECT
@@ -255,7 +258,7 @@ if (!$tournament["tournamentid"]) {
                     if ($team["seeding_mark"]) {
                         $team_out .= " ". t('Dieses Team wird beim Generieren gesetzt');
                     }
-                    if (($auth["type"] > 1) && ($tournament['status'] == "open")) {
+                    if (($auth['type'] > \LS_AUTH_TYPE_USER) && ($tournament['status'] == "open")) {
                         if ($team["seeding_mark"]) {
                             $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=11&tournamentid={$_GET['tournamentid']}&teamid={$team['teamid']}\">".t('demarkieren')."</a>";
                         } else {
@@ -265,7 +268,7 @@ if (!$tournament["tournamentid"]) {
                 }
 
                 $team_out .= HTML_NEWLINE;
-                if (($members["members"] + 1) < $tournament['teamplayer']) {
+                if (is_array($members) && ($members["members"] + 1) < $tournament['teamplayer']) {
                     $teamcount[0]++;
                     $waiting_teams .= $team_out;
                 } else {
@@ -293,21 +296,21 @@ if (!$tournament["tournamentid"]) {
             switch ($tournament["status"]) {
                 case "open":
                     $buttons .= $dsp->FetchSpanButton(t('Teilnehmen'), "index.php?mod=tournament2&action=join&tournamentid={$_GET['tournamentid']}&step=2"). " ";
-                    if ($auth["type"] > 1) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                         $buttons .= $dsp->FetchSpanButton(t('Generieren'), "index.php?mod=tournament2&action=generate_pairs&step=2&tournamentid={$_GET['tournamentid']}"). " ";
                     }
                     break;
                 case "process":
                     $buttons .= $dsp->FetchSpanButton(t('Paarungen'), "index.php?mod=tournament2&action=games&step=2&tournamentid={$_GET['tournamentid']}"). " ";
                     $buttons .= $dsp->FetchSpanButton(t('Spielbaum'), "index.php?mod=tournament2&action=tree&step=2&tournamentid={$_GET['tournamentid']}"). " ";
-                    if ($auth["type"] > 1) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                         $buttons .= $dsp->FetchSpanButton(t('Generieren rückgängig'), "index.php?mod=tournament2&action=undo_generate&tournamentid={$_GET['tournamentid']}"). " ";
                     }
                     break;
                 case "closed":
                     $buttons .= $dsp->FetchSpanButton(t('Paarungen'), "index.php?mod=tournament2&action=games&step=2&tournamentid={$_GET['tournamentid']}"). " ";
                     $buttons .= $dsp->FetchSpanButton(t('Spielbaum'), "index.php?mod=tournament2&action=tree&step=2&tournamentid={$_GET['tournamentid']}"). " ";
-                    if ($auth["type"] > 1) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                         $buttons .= $dsp->FetchSpanButton(t('Schließen rückgängig'), "index.php?mod=tournament2&action=undo_close&tournamentid={$_GET['tournamentid']}"). " ";
                     }
                     break;

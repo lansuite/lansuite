@@ -66,7 +66,8 @@ class MasterRate
             AND ref_id = %string%
         GROUP BY ref_name, ref_id', $mod, $id);
 
-        $smarty->assign('rating', $row['score']);
+        $score = $row['score'] ?? 0;
+        $smarty->assign('rating', $score);
         $smarty->assign('action', $framework->get_clean_url_query('base') . '&mr_step=2&design=base');
 
         if ($caption == '') {
@@ -74,7 +75,8 @@ class MasterRate
         }
         $dsp->AddDoubleRow($caption, $smarty->fetch('design/templates/ls_masterrate_row.htm'));
     
-        if ($_GET['mr_step'] == 2) {
+        $masterRateStepParameter = $_GET['mr_step'] ?? 0;
+        if ($masterRateStepParameter == 2) {
             $db->qry(
                 'INSERT INTO %prefix%ratings SET score = %int%, ref_name = %string%, ref_id = %string%, date = NOW(), creatorid = %int%',
                 $_POST['rating'],

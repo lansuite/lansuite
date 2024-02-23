@@ -18,17 +18,20 @@ while ($row = $db->fetch_array($res)) {
 }
 $db->free_result($res);
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     case 31:
         $db->qry("INSERT INTO %prefix%menu SET caption = 'Neuer Eintrag', requirement = '0', hint = '', link = 'index.php?mod=', needed_config = '', module=%string%, level = 1", $_GET["module"]);
+        // TODO Remove write access to superglobal once superglobals are removed from modules
         $_GET['step'] = 30;
+        $stepParameter = 30;
         break;
 }
 
 if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
     $func->error(t('Modul "%1" wurde nicht gefunden', $_GET['module']));
 } else {
-    switch ($_GET['step']) {
+    switch ($stepParameter) {
         default:
             $dsp->StartTabs();
 
@@ -37,7 +40,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
             if ($db->num_rows($resGroup) == 0) {
                 $func->information(t('Zu diesem Modul sind keine Einstellungen vorhanden'), NO_LINK);
             } else {
-                if ($_GET['step'] == 11) {
+                if ($stepParameter == 11) {
                     foreach ($_POST as $key => $val) {
                         // Date + Time Values
                         if (strpos($key, '_value_') > 0) {
@@ -90,8 +93,8 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                                     ($row['cfg_value'] == $selection['cfg_value']) ? $selected = 'selected' : $selected = '';
                                     $t_array[] = "<option $selected value=\"{$selection["cfg_value"]}\">" . t($selection['cfg_display']) . '</option>';
                                 }
-                                if ($selections) {
-                                    asort($selections);
+                                if ($t_array) {
+                                    asort($t_array);
                                 }
                                 $dsp->AddDropDownFieldRow($row['cfg_key'], $row['cfg_desc'], $t_array, '', 1);
 
@@ -166,8 +169,9 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
             }
             $db->free_result($res);
 
+            $idParameter = $_GET['id'] ?? 0;
             $mf->SendForm(
-                'index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&id='. $_GET['id'] .'&tab=1',
+                'index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&id='. $idParameter .'&tab=1',
                 'menu',
                 'id',
                 "module = '". $_GET['module'] ."' AND caption != ''"
@@ -180,7 +184,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
             } elseif (!$func->isModActive($_GET['module'])) {
                 $func->information(t('Dieses Modul ist nicht aktiv.'));
             } else {
-                switch ($_GET['step']) {
+                switch ($stepParameter) {
                     // Rewrite specific Module-DB - Question
                     case 41:
                         $func->question(
@@ -251,20 +255,11 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         }
                             $res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
                         while ($row = $db->fetch_array($res)) {
-                            switch ($row['on_delete']) {
-                                case 'ASK_SET0':
-                                case 'SET0':
-                                case 'ASK_DELETE':
-                                case 'DELETE':
-                                    $color = '#ff0000';
-                                    break;
-                                case 'DENY':
-                                    $color = '#008800';
-                                    break;
-                                default:
-                                    $color = '#000000';
-                                    break;
-                            }
+                            $color = match ($row['on_delete']) {
+                                'ASK_SET0', 'SET0', 'ASK_DELETE', 'DELETE' => '#ff0000',
+                                'DENY' => '#008800',
+                                default => '#000000',
+                            };
                             $dsp->AddDoubleRow('<font color="'. $color .'">'. $row['pri_table'] .'.'. $row['pri_key'] .'</font>', $row['foreign_table'] .'.'. $row['foreign_key']);
                         }
                         $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
@@ -278,20 +273,11 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         }
                         $res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
                         while ($row = $db->fetch_array($res)) {
-                            switch ($row['on_delete']) {
-                                case 'ASK_SET0':
-                                case 'SET0':
-                                case 'ASK_DELETE':
-                                case 'DELETE':
-                                    $color = '#ff0000';
-                                    break;
-                                case 'DENY':
-                                    $color = '#008800';
-                                    break;
-                                default:
-                                    $color = '#000000';
-                                    break;
-                            }
+                            $color = match ($row['on_delete']) {
+                                'ASK_SET0', 'SET0', 'ASK_DELETE', 'DELETE' => '#ff0000',
+                                'DENY' => '#008800',
+                                default => '#000000',
+                            };
                             $dsp->AddDoubleRow('<font color="'. $color .'">'. $row['pri_table'] .'.'. $row['pri_key'] .'</font>', $row['foreign_table'] .'.'. $row['foreign_key']);
                         }
                         $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
@@ -314,7 +300,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
             $dsp->EndTab();
 
             $dsp->StartTab(t('Menü'), 'tree');
-            if ($_GET['step'] == 31) {
+            if ($stepParameter == 31) {
                 $db->qry("INSERT INTO %prefix%menu SET caption = 'Neuer Eintrag', requirement = '0', hint = '', link = 'index.php?mod=', needed_config = '', module=%string%, level = 1", $_GET["module"]);
             }
 
@@ -337,10 +323,10 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
 
             $dsp->StartTab(t('Übersetzung'), 'translate');
             $dsp->AddFieldSetStart(t('Sprache wechseln. Achtung, nicht gesicherte &Auml;nderungen gehen verloren.'));
-            if ($_POST['target_language']) {
+            if (array_key_exists('target_language', $_POST) && $_POST['target_language']) {
                 $_SESSION['target_language'] = $_POST['target_language'];
             }
-            if ($_SESSION['target_language'] == '') {
+            if (!array_key_exists('target_language', $_SESSION) || $_SESSION['target_language'] == '') {
                 $_SESSION['target_language'] = 'en';
             }
             $dsp->SetForm('index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&tab=4');
@@ -357,7 +343,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
 
             // Start Tanslation
             $dsp->AddFieldSetStart(t('Texte editieren.'));
-            if ($_POST['id']) {
+            if (array_key_exists('id', $_POST) && $_POST['id']) {
                 foreach ($_POST['id'] as $key => $value) {
                     $db->qry("UPDATE %prefix%translation SET %plain% = %string% WHERE file = %string% AND id = %string%", $_SESSION['target_language'], $value, $_GET['module'], $key);
                 }
@@ -396,4 +382,5 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
     }
 }
 
-$dsp->AddHeaderMenu2($menunames, 'index.php?mod=install&action=mod_cfg&module=', $_GET['headermenuitem']);
+$headerMenuItemParameter = $_GET['headermenuitem'] ?? '';
+$dsp->AddHeaderMenu2($menunames, 'index.php?mod=install&action=mod_cfg&module=', $headerMenuItemParameter);

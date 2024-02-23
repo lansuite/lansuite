@@ -4,7 +4,8 @@ if (!$cfg['download_use_ftp']) {
     $BaseDir = 'ext_inc/downloads/';
 
     // Don't allow directories above base!
-    $_GET['dir'] = str_replace('..', '', $_GET['dir']);
+    $dirParameter = $_GET['dir'] ?? '';
+    $_GET['dir'] = str_replace('..', '', $dirParameter);
 
     // Download dialog, if file is selected
     if (is_file($BaseDir.$_GET['dir'])) {
@@ -48,7 +49,8 @@ if (!$cfg['download_use_ftp']) {
         }
 
         // Upload submittet file
-        if ($_GET['step'] == 20 and $auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
+        $stepParameter = $_GET['step'] ?? 0;
+        if ($stepParameter == 20 && $auth['type'] >= \LS_AUTH_TYPE_ADMIN || ($auth['login'] && $row['allow_upload'])) {
             $func->FileUpload('upload', $BaseDir.$_GET['dir']);
         }
 
@@ -66,11 +68,9 @@ if (!$cfg['download_use_ftp']) {
                 sort($FileList);
             }
         }
-          
+
         if ($FileList) {
             foreach ($FileList as $CurFile) {
-                $CreateTime = filectime($BaseDir.'/'.$CurFilePath);
-
                 if ($_GET['dir']) {
                     $CurFilePath = $_GET['dir'] .'/'. $CurFile;
                 } else {
@@ -96,14 +96,13 @@ if (!$cfg['download_use_ftp']) {
         // Links
         $res2 = $db->qry('SELECT link FROM %prefix%download_urls WHERE dir = %string%', $_GET['dir']);
         while ($row2 = $db->fetch_array($res2)) {
-            $LinkName = substr($row2['link'], strrpos($row2['link'], '/') + 1, strlen($row2['link']));
-            $dsp->AddSingleRow('<a href="'. $row2['link'] .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $LinkName .'</a>');
+            $dsp->AddSingleRow('<a href="'. $row2['link'] .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $row2['link'] .'</a>');
         }
-          $db->free_result($res2);
+        $db->free_result($res2);
 
-          $dsp->AddFieldSetEnd();
+        $dsp->AddFieldSetEnd();
 
-        if ($auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or ($auth['login'] and $row['allow_upload'])) {
             // File Upload Box
             $dsp->AddFieldSetStart(t('Datei hochladen'));
             $dsp->SetForm('index.php?mod=downloads&step=20&dir='. $_GET['dir'], '', '', 'multipart/form-data');
@@ -116,23 +115,27 @@ if (!$cfg['download_use_ftp']) {
             $mf = new \LanSuite\MasterForm();
             $mf->AddField(t('URL'), 'link');
             $mf->AddFix('dir', $_GET['dir']);
-            $mf->SendForm('index.php?mod=downloads&dir='. $_GET['dir'], 'download_urls', 'urlid', $row['urlid']);
+            $mf->SendForm('index.php?mod=downloads&dir=' . $_GET['dir'], 'download_urls', 'urlid', 0);
             $dsp->AddFieldSetEnd();
         }
 
         // Comments
-        if ($_GET['mf_step'] != 2 or $_GET['step'] != 10) {
+        $stepParameter = $_GET['step'] ?? 0;
+        $masterFormStepParameter = $_GET['mf_step'] ?? 0;
+        if ($masterFormStepParameter != 2 || $stepParameter != 10) {
               new \LanSuite\MasterComment('downloads', $row['dirid']);
         }
 
         // Admin functions for dir
-        if ($auth['type'] >= 2 and ($_GET['mf_step'] != 2 or $_GET['step'] == 10)) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN && ($masterFormStepParameter != 2 || $stepParameter == 10)) {
             $dsp->AddFieldSetStart(t('Ordner Text und Einstellungen editieren'));
             $mf = new \LanSuite\MasterForm();
 
             $mf->AddField(t('Text'), 'text', '', \LanSuite\MasterForm::LSCODE_BIG, \LanSuite\MasterForm::FIELD_OPTIONAL);
             $mf->AddField(t('Benutzer-Upload erlauben?'), 'allow_upload', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
-            if (!$_GET['dirid']) {
+
+            $dirIDParameter = $_GET['dirid'] ?? null;
+            if (!$dirIDParameter) {
                 $mf->AddFix('name', $_GET['dir']);
                 $mf->AddFix('userid', $auth['userid']);
             }
@@ -166,7 +169,7 @@ if (!$cfg['download_use_ftp']) {
         if ($_GET['go_dir'] == "up") {
             array_pop($_SESSION['downloads_dir']);
         } elseif ($_GET['go_dir']) {
-            if (count($_SESSION['downloads_dir']) > "0") {
+            if ((is_countable($_SESSION['downloads_dir']) ? count($_SESSION['downloads_dir']) : 0) > "0") {
                 foreach ($_SESSION['downloads_dir'] as $dir_entry) {
                     $set_dir .= "/" . $dir_entry;
                 }
@@ -181,7 +184,7 @@ if (!$cfg['download_use_ftp']) {
             unset($join_dir);
         }
 
-        if (count($_SESSION['downloads_dir']) > "0") {
+        if ((is_countable($_SESSION['downloads_dir']) ? count($_SESSION['downloads_dir']) : 0) > "0") {
             foreach ($_SESSION['downloads_dir'] as $dir_entry) {
                 $set_dir .= "/" . $dir_entry;
             }
@@ -267,7 +270,7 @@ if (!$cfg['download_use_ftp']) {
         }
 
         $dsp->NewContent(t('Downloads'), t('Hier kannst du zum Download bereitgestellte Dateien downloaden. Ordner sind durch ein Ordner-Symbol gekennzeichnet und können per Klick auf dieses oder den Namen ge&ouml;ffnet werden. Bei &ouml;ffnen eines Unterverzeichnisses wird das aktuelle Verzeichnis am oberen Rand angezeigt. Ebenfalls angezeigt wird ein Symbol mit dem du zum nächst höhergelegenen Verzeichnis gelangst'));
-        if (count($_SESSION['downloads_dir']) > "0") {
+        if ((is_countable($_SESSION['downloads_dir']) ? count($_SESSION['downloads_dir']) : 0) > "0") {
             $dsp->AddSingleRow('<a href="index.php?mod=downloads&action=show&go_dir=up"><img src="design/'. $auth['design'] .'/images/downloads_goup.gif" border="0"></a> '. $dir .'/');
         }
         $dsp->AddTableRow($table);

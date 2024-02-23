@@ -27,17 +27,13 @@ class Product
 
     /**
      * Category
-     *
-     * @var Category
      */
-    private $cat;
+    private ?\LanSuite\Module\Foodcenter\Category $cat = null;
 
     /**
      * Supplier
-     *
-     * @var Supplier
      */
-    private $supp;
+    private ?\LanSuite\Module\Foodcenter\Supplier $supp = null;
 
     /**
      * Supplier information
@@ -55,10 +51,8 @@ class Product
 
     /**
      * Management of material
-     *
-     * @var int
      */
-    private $mat;
+    private ?int $mat = null;
 
     /**
      * Product type
@@ -91,21 +85,17 @@ class Product
      *
      * @var ProductOption[]
      */
-    private $option = [];
+    private array $option = [];
 
     /**
      * Error container
-     *
-     * @var array
      */
-    private $error_food = [];
+    private array $error_food = [];
 
     /**
      * Error status
-     *
-     * @var boolean
      */
-    private $noerror = true;
+    private bool $noerror = true;
 
     /**
      * product constructor.
@@ -386,6 +376,7 @@ class Product
      */
     public function form_add_product($step)
     {
+        $add_product_prod_opt = [];
         global $dsp, $smarty;
 
         $nextstep = $step + 1;
@@ -507,9 +498,9 @@ class Product
 
         switch ($this->type) {
             case 1:
-                unset($price_1);
-                unset($price_2);
-                unset($price_3);
+                $price_1 = '';
+                $price_2 = '';
+                $price_3 = '';
 
                 if (is_object($this->option[0])) {
                     $price_3 = "<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a>";
@@ -656,7 +647,7 @@ class Product
                 }
                 break;
         }
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=foodcenter&amp;action=addproduct&amp;id=". $this->id));
         }
         $dsp->AddBackButton($worklink);

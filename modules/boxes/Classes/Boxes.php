@@ -25,16 +25,11 @@ class Boxes
     {
         global $func;
 
-        // Set Item-Class
-        switch ($requirement) {
-            default:
-                $link_class = 'menu';
-                break;
-            case 2:
-            case 3:
-                $link_class = 'admin';
-                break;
-        }
+        $requirement = intval($requirement);
+        $link_class = match ($requirement) {
+            2, 3 => 'admin',
+            default => 'menu',
+        };
 
         $class = '';
         switch ($level) {
@@ -244,7 +239,7 @@ class Boxes
         $smarty->assign('link_open_close', "index.php?box_action=change&amp;boxid=$boxid");
 
         // Open or closed Box
-        if (!$_SESSION['box_'. $boxid .'_active']) {
+        if (!array_key_exists('box_'. $boxid .'_active', $_SESSION)) {
             $file = 'design/'. $auth['design'] .'/templates/box_case.htm';
         } else {
             $file = 'design/'. $auth['design'] .'/templates/box_case_closed.htm';

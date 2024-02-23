@@ -59,6 +59,7 @@ class noc
     // Returns a numeric Value ( 1 for Error, 0 for No Error) <= kinda illogical...
     public function checkSNMPDevice($IP, $ReadCommunity)
     {
+        $error = null;
         unset($error);
 
         if (!(@snmpget($IP, $ReadCommunity, ".1.3.6.1.2.1.1.1.0"))) {
@@ -116,14 +117,15 @@ class noc
 
     public function getSNMPwalk($Device, $ReadCommunity, $OID)
     {
+        $data = [];
         $walkvalue = snmpwalk($Device, $ReadCommunity, $OID);
         
         foreach ($walkvalue as $value) {
             if (stristr($value, ":")) {
                 $tmp = explode(":", $value);
-                $data[] .= trim($tmp[1]);
+                $data[] = trim($tmp[1]);
             } else {
-                $data[] .= trim($value);
+                $data[] = trim($value);
             }
         }
         
@@ -132,6 +134,7 @@ class noc
     
     public function getMacAddress($Device, $ReadComunity, $device_id, $modell)
     {
+        $data = [];
         global $db;
         
         $ports = $this->getSNMPwalk($Device, $ReadComunity, ".1.3.6.1.2.1.17.4.3.1.2");
@@ -144,7 +147,7 @@ class noc
             }
         }
         // Array mit Ports und Adressen zusammenfügen
-        for ($i = 0; $i < count($ports); $i++) {
+        for ($i = 0; $i < (is_countable($ports) ? count($ports) : 0); $i++) {
             if ($data[$ports[$i]] == "") {
                 $data[$ports[$i]] = $Addresses[$i];
             } else {
@@ -188,7 +191,7 @@ class noc
             }
         }
         // Jede gefundene MAC-Adresse zuordnen und im Netzwerk suchen
-        if ($result[0] != '') {
+        if (array_key_exists(0, $result) && $result[0] != '') {
             foreach ($result as $i => $iValue) {
                 $dsp->AddDoubleRow(t('MAC-Addresse'), $iValue);
                 $dsp->AddHRuleRow();

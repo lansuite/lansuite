@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter ) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
@@ -49,7 +50,7 @@ switch ($_GET["step"]) {
         $ms2->AddResultField(t('Prio.'), 'l.type');
 
         $ms2->AddIconField('details', 'index.php?mod=install&action=log&step=2&logid=', t('Details'));
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddMultiSelectAction(t('Löschen'), "index.php?mod=install&action=log&step=10", 1);
         }
 
