@@ -115,7 +115,6 @@ if (isset($frmwrkmode)) {
 // Set HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
 header('X-Frame-Options: sameorigin');
-header('X-XSS-Protection: 1; mode=block');
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: no-referrer');
 header("'Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self'; style-src 'self'; font-src 'self'; object-src 'none'; frame-src 'self'; worker-src 'self'; connect-src 'self';");
