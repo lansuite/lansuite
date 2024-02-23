@@ -208,7 +208,7 @@ class Translation
      *
      * @param string        $input          Text with placeholders (random text %1 here %2)
      * @param array<mixed>  $parameters     Parameters that will replace %1, %2, ...
-     * @param string        $key
+     * @param string        $key            If an Admin user is logged in and Show Translation link is enabled, the $key is used to create a link to the edit translation form
      * @return string                       Text with inserted Parameters
      */
     public function ReplaceParameters(string $input, array $parameters, string $key = ''): string
@@ -233,8 +233,8 @@ class Translation
      * Get a single translation value from database via hashcode.
      *
      * @param string    $hashkey    Hash code from original text in sourcecode
-     * @param string    $module
-     * @param string    $long
+     * @param string    $module     Module name
+     * @param string    $long       Indicates if the short (table: `translation`) or long translation (table: `translation_long`) should be retrieved
      * @return string
      */
     private function get_trans_db(string $hashkey, string $module, string $long): string
@@ -471,7 +471,7 @@ class Translation
      * TODO We may want to think about this, moving out of the Translation class into a "Maintenance" CLI or anything like this.
      *
      * @param string    $baseDir        Path to Scan
-     * @param int       $sub
+     * @param int       $sub            Level of depth to manage recursion
      * @return string
      */
     public function TUpdateFromFiles(string $baseDir, int $sub = 0): string
