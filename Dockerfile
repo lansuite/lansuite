@@ -14,9 +14,9 @@ RUN apt-get update \
         snmp=5.9+dfsg-4+deb11u1 \
         unzip=6.0-26+deb11u1 \
         libzip-dev=1.7.3-1 \
-    && docker-php-ext-install -j$(nproc) mysqli snmp \
+    && docker-php-ext-install -j"$(nproc)" mysqli snmp \
     && docker-php-ext-configure gd --enable-gd --prefix=/usr --with-jpeg --with-freetype \
-    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install -j"$(nproc)" gd \
     # Development extensions
     && pecl install xdebug-3.2.1 \
     && docker-php-ext-enable xdebug \
