@@ -7,7 +7,7 @@ COPY . /code
 
 # Install libraries and PHP-Extensions that are not provided by the base image
 RUN apt-get update \
-    && apt-get install -y \
+    && apt-get install -y --no-install-recommends \
         libfreetype6-dev=2.10.4+dfsg-1+deb11u1 \
         libjpeg62-turbo-dev=1:2.0.6-4 \
         libsnmp-dev=5.9+dfsg-4+deb11u1 \
