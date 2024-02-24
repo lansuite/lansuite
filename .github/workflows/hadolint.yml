@@ -17,7 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run hadolint
+      - name: Run hadolint on Dockerfile
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
+      
+      - name: Run hadolint on Dockerfile-Production-Release
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile-Production-Release
