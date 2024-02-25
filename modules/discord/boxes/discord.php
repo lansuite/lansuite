@@ -1,6 +1,13 @@
 <?php
 
-$discord = new \LanSuite\Module\Discord\Discord();
+// Determine Discord guild ID
+$discordServerID = $cfg['discord_server_id'] ?? '';
+if (!$discordServerID) {
+    $box->Row('<b>Error:</b> Es wurde keine Discord Server ID konfiguriert.');
+    return;
+}
+
+$discord = new \LanSuite\Module\Discord\Discord($discordServerID);
 $discordServerData = $discord->fetchServerData();
 
 // Load either custom style definition or fall back to default one

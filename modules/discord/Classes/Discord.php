@@ -1,43 +1,29 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 namespace LanSuite\Module\Discord;
 
 /**
- * Class implementation for all functions required to interact with the Discord and LS API
- * General intention is to roll this up with the TS3 code into a general "voiceserver" parent class
- *
- * @author MaLuZ
+ * Contains all functions required to interact with the Discord and LanSuite API.
  */
-class Discord
-{
+class Discord {
 
-    // Storage for the discord server id
-    private $discordServerId = '';
+    /**
+     * Discord Guild/Server ID
+     */
+    private string $discordServerId = '';
     
-
-    
-    public function __construct($discordServerId = '')
+    public function __construct($discordServerId)
     {
-        global $cfg,$func;
-        
+        global $func;
+
         if (!extension_loaded('openssl')) {
             $func->error('OpenSSL-Modul nicht geladen!');
-        } elseif (!ini_get('allow_url_fopen')) {
+
+        } elseif (ini_get('allow_url_fopen')) {
             $func->error('allow_url_fopen nicht aktiv');
+
         } else {
-            //Check if server id was passed via constructor, use configuration value otherwise
-            if ($discordServerId!='') {
-                $this->discordServerId = $discordServerId;
-            } elseif (isset($cfg['discord_server_id'])) {
-                $this ->discordServerId =  $cfg['discord_server_id'];
-            } else {
-                $func->error(t('Es wurde keine Discord Server ID konfiguriert oder übergeben'));
-            }
+            $this->discordServerId = $discordServerId;
         }
     }
     
