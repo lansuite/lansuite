@@ -118,6 +118,7 @@ header('X-Frame-Options: sameorigin');
 // TODO: This header is still useful - Once we verified to send the correct MIME types, enable this header
 // header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: strict-origin');
+// TODO Set Content-Security-Policy header
 
 // Enforce HSTS if browsing via HTTPS
 if ($request->isSecure()) {
