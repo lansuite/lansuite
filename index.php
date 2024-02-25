@@ -115,6 +115,8 @@ if (isset($frmwrkmode)) {
 // Set HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
 header('X-Frame-Options: sameorigin');
+// TODO: This header is still useful - Once we verified to send the correct MIME types, enable this header
+// header('X-Content-Type-Options: nosniff');
 
 include_once("ext_scripts/mobile_device_detect.php");
 $framework->IsMobileBrowser = mobile_device_detect();
