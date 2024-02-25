@@ -26,5 +26,5 @@ if (file_exists($customCssPath)) {
     $framework->add_css_path('modules/discord/boxes/default.css');
 }
 
-$boxcontent = $discord->genBoxContent($discordServerData);
+$boxcontent = $discord->generateBoxContent($discordServerData);
 $box->Row($boxcontent);
