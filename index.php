@@ -114,6 +114,7 @@ if (isset($frmwrkmode)) {
 
 // Set HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
+header('X-Frame-Options: sameorigin');
 
 include_once("ext_scripts/mobile_device_detect.php");
 $framework->IsMobileBrowser = mobile_device_detect();
