@@ -8,39 +8,110 @@ namespace LanSuite\Module\Discord;
 class Discord {
 
     /**
+     * API URL of Discord widget.
+     * 
+     * @link https://discord.com/developers/docs/resources/guild#get-guild-widget
+     */
+    private const DISCORD_WIDGET_URL = 'https://discord.com/api/guilds/%s/widget.json';
+    
+    /**
      * Discord Guild/Server ID
      */
     private string $discordServerId = '';
+
+    /**
+     * HTTP Client to call external APIs.
+     */
+    private \Symfony\Contracts\HttpClient\HttpClientInterface $httpClient;
+
+    /**
+     * Cache
+     */
+    private \Symfony\Contracts\Cache\CacheInterface $cache;
+
+    /**
+     * Cache TTL of the discord response in seconds.
+     */
+    private int $cacheTTL = 60;
+
+    /**
+     * Request API timeout in seconds.
+     */
+    private int $discordAPITimeout = 4;
     
-    public function __construct($discordServerId)
-    {
+    public function __construct(
+        $discordServerId,
+        \Symfony\Contracts\Cache\CacheInterface $cache,
+        \Symfony\Contracts\HttpClient\HttpClientInterface $httpClient
+    ) {
+        global $cfg;
+
         $this->discordServerId = $discordServerId;
+        $this->cache = $cache;
+        $this->httpClient = $httpClient;
+        $this->discordAPITimeout = ($cfg['discord_json_timeout'] ?? $this->discordAPITimeout);
     }
     
     /**
-     * Retrieves JSON widget data from the Discord server via the public API
-     * Data is being returned as multi-dimensional array
+     * Retrieves the Discord JSON widget via the public API.
      *
      * @return stdClass decoded JSON content as object of stdClass, FALSE on error
      */
-    
-    public function fetchServerData()
+    public function fetchServerData(): array
     {
-        global $cfg, $cache;
-
-        $discordCache = $cache->getItem('discord.cache');
-        if (!$discordCache->isHit()) {
-            // No cache file or too old; let's fetch data.
-            $APIurl = 'https://discordapp.com/api/servers/'.$this->discordServerId .'/widget.json';
-            $JsonReturnData = @file_get_contents($APIurl, false, stream_context_create(array('http' => array('timeout' => ($cfg['discord_json_timeout'] ?? 4)))));
-
-            // Store in cache with timeout of 60 seconds
-            $discordCache->set($JsonReturnData, 60);
-            $cache->save($discordCache);
+        $discordCache = $this->cache->getItem('discord.cache');
+        if ($discordCache->isHit()) {
+            $cacheContent = $discordCache->get();
+            $content = json_decode($discordCache->get(), true, 512, \JSON_BIGINT_AS_STRING);
+            return $content;
         }
-        $JsonReturnData = $discordCache->get();
 
-        return ($JsonReturnData === false ? false : json_decode($JsonReturnData, false));
+        // No cache file or too old; let's fetch data.
+        $apiURL = sprintf(self::DISCORD_WIDGET_URL, $this->discordServerId);
+        $response = $this->httpClient->request(
+            'GET',
+            $apiURL,
+            ['timeout' => $this->discordAPITimeout]
+        );
+
+        try {
+            $apiContent = $response->toArray(false);
+        } catch(\Symfony\Component\HttpClient\Exception\TransportException $e) {
+            // E.g. If network connection is not given
+            $apiContent = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+            ];
+        }
+
+        // Check if we have an error
+        // A successful response doesn't contain code and message
+        //
+        // An unsuccessful response can contain different error types:
+        //  - {"message": "Unbekannter Server", "code": 10004}
+        //  - {"message": "Widget deaktiviert", "code": 50004}
+        //
+        // @link https://discord.com/developers/docs/topics/opcodes-and-status-codes#json-json-error-codes
+        if ($this->containsServerError($apiContent)) {
+            return $apiContent;
+        }
+
+        // Store in cache
+        $discordCache->set($response->getContent(false), $this->cacheTTL);
+        $this->cache->save($discordCache);
+
+        return $apiContent;
+    }
+
+    /**
+     * Checks if the Discord Server API response contains an error.
+     */
+    public function containsServerError(array $apiResponse): bool {
+        if (array_key_exists('code', $apiResponse) && array_key_exists('message', $apiResponse)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

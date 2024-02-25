@@ -7,8 +7,15 @@ if (!$discordServerID) {
     return;
 }
 
-$discord = new \LanSuite\Module\Discord\Discord($discordServerID);
+$discord = new \LanSuite\Module\Discord\Discord($discordServerID, $cache, $httpClient);
 $discordServerData = $discord->fetchServerData();
+
+// Failed to fetch Discord server data.
+if ($discord->containsServerError($discordServerData)) {
+    $errorMessage = sprintf('%s (%s)', $discordServerData['message'], $discordServerData['code']);
+    $box->Row('<b>Error:</b> ' . $errorMessage);
+    return;
+}
 
 // Load either custom style definition or fall back to default one
 $customCssPath = 'design/' . $auth['design'] . '/discord.css';
@@ -19,16 +26,5 @@ if (file_exists($customCssPath)) {
     $framework->add_css_path('modules/discord/boxes/default.css');
 }
 
-if (!$discordServerData) {
-    // Failed to fetch Discord server data.
-    // Possible reasons:
-    //  - No connectivity
-    //  - Discord server issues
-    //  - Widget not enabled in Discord server settings
-    // TODO: Improve error reporting.
-    $box->Row('<b>Error:</b> Unable to retrieve server data.');
-
-} else {
-    $boxcontent = $discord->genBoxContent($discordServerData);
-    $box->Row($boxcontent);
-}
+$boxcontent = $discord->genBoxContent($discordServerData);
+$box->Row($boxcontent);
