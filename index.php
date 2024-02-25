@@ -119,6 +119,11 @@ header('X-Frame-Options: sameorigin');
 // header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: strict-origin');
 
+// Enforce HSTS if browsing via HTTPS
+if ($request->isSecure()) {
+    header('Strict-Transport-Security: max-age=86400');
+}
+
 include_once("ext_scripts/mobile_device_detect.php");
 $framework->IsMobileBrowser = mobile_device_detect();
 
