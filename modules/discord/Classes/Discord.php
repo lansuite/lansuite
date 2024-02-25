@@ -14,17 +14,7 @@ class Discord {
     
     public function __construct($discordServerId)
     {
-        global $func;
-
-        if (!extension_loaded('openssl')) {
-            $func->error('OpenSSL-Modul nicht geladen!');
-
-        } elseif (ini_get('allow_url_fopen')) {
-            $func->error('allow_url_fopen nicht aktiv');
-
-        } else {
-            $this->discordServerId = $discordServerId;
-        }
+        $this->discordServerId = $discordServerId;
     }
     
     /**
