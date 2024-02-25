@@ -8,5 +8,5 @@
 	<author>MaLuZ</author>										<!-- The author of this module -->
 	<email></email>												<!-- The email adress of the modules author -->
 	<version>0.1</version>										<!-- The version of this module -->
-	<state>in development</state>								<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
+	<state>beta</state>											<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
 </lansuite-module>
