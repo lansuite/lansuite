@@ -127,6 +127,7 @@ class Seat2
           SELECT
             s.row,
             s.col,
+            s.ip,
             b.blockid,
             b.name
           FROM %prefix%seat_seats AS s
