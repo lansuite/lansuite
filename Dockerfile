@@ -8,12 +8,12 @@ COPY . /code
 # Install libraries and PHP-Extensions that are not provided by the base image
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        libfreetype6-dev=2.10.4+dfsg-1+deb11u1 \
-        libjpeg62-turbo-dev=1:2.0.6-4 \
-        libsnmp-dev=5.9+dfsg-4+deb11u1 \
-        snmp=5.9+dfsg-4+deb11u1 \
-        unzip=6.0-26+deb11u1 \
-        libzip-dev=1.7.3-1 \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libsnmp-dev \
+        snmp \
+        unzip \
+        libzip-dev \
     && docker-php-ext-install -j"$(nproc)" mysqli snmp \
     && docker-php-ext-configure gd --enable-gd --prefix=/usr --with-jpeg --with-freetype \
     && docker-php-ext-install -j"$(nproc)" gd \
