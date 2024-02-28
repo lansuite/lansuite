@@ -21,8 +21,10 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
+          config: ./.hadolint.yaml
       
       - name: Run hadolint on Dockerfile-Production-Release
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile-Production-Release
+          config: ./.hadolint.yaml
