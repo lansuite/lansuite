@@ -715,7 +715,7 @@ class Auth
         setcookie(
             $this->cookie_name,
             $this->cookiedata_pack(),
-            ['expires' => time()+3600*24*$this->cookie_time, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain]
+            ['expires' => time()+3600*24*$this->cookie_time, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain, 'secure' => $_SERVER['HTTPS'] == 'on' ? true : false, 'httponly' => true]
         );
     }
 
