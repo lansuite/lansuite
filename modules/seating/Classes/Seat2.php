@@ -373,7 +373,7 @@ class Seat2
 
                 $partyUserCheckin = 0;
                 $partyUserCheckout = 0;
-                if (array_key_exists('checkin', $party_user) && array_key_exists('checkout', $party_user)) {
+                if (is_array($party_user) && array_key_exists('checkin', $party_user) && array_key_exists('checkout', $party_user)) {
                     $partyUserCheckin = $party_user['checkin'];
                     $partyUserCheckout = $party_user['checkout'];
                 }
