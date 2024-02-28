@@ -94,6 +94,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Remove install check "register_argc_argv"
 - [Server2] Removed module server2
 - [Equipment] Removed module equipment because http://www.orgapage.net/ is not available anymore
+- [Captcha] Removed ext_scripts/captcha.php, because it was not in use
 
 ### Fixed
 
