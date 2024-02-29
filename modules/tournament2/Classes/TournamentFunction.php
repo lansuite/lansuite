@@ -177,7 +177,7 @@ class TournamentFunction
                 AND (round = 0)
                 AND (group_nr = 1)
               GROUP BY group_nr", $tournament["tournamentid"]);
-            $team_anz = $get_team_anz["anz"];
+            $team_anz = $get_team_anz["anz"] ?? 0;
             
             $tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
         }

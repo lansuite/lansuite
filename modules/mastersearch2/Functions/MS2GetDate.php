@@ -11,11 +11,9 @@ function MS2GetDate($time)
     global $dsp;
 
     // If it is a string, a date field in the format of "2005-03-15 11:12:31" comes in
-    if (is_string($time)) {
+    if (!is_numeric($time)) {
         return '<span class="small">' . $time  .'</span>';
-    }
-
-    if ($time > 0) {
+    } elseif ($time > 0) {
         return '<span class="small">'. date('d.m.y', $time) . ' ' . date('H:i', $time) .'</span>';
     }
 

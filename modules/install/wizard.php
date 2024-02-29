@@ -43,7 +43,7 @@ switch ($step) {
                 $userid = $db->insert_id();
             }
 
-            $authentication = new \LanSuite\Auth();
+            $authentication = new \LanSuite\Auth($request);
             $authentication->login($_POST["email"], $_POST["password"]);
         }
       // no break!

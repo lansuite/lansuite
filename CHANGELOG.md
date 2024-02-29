@@ -39,6 +39,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] Added tournament icon for Rocket League
 - [Tournament] Added roles for organization people (Tech/Admin) into tournaments
 - [Tournament] Added an overview about when the games happen in tournaments
+- [Tournament] Added day of week to tournament timetable (#902)
 - [Guestlist] Added Clan Search into Guestlist
 - [Usrmgr] Added Clan Search into Usrmgr
 - [Usrmgr] Added XMPP support in the Contacts field
@@ -72,6 +73,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [User] Enforce uniqueness of user & email for registration
 - [Boxes/Login] Sign up and Password Recovery are now text links below the login box and not only icons anymore (for better usability)
 - [PDF] Usage of core fonts from fpdf instead of `ext_inc/pdf_fonts`
+- [Security] Set Cookies HTTP only and protocol aware (https)
 
 ### Deprecated
 
@@ -93,6 +95,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Remove install check "register_argc_argv"
 - [Server2] Removed module server2
 - [Equipment] Removed module equipment because http://www.orgapage.net/ is not available anymore
+- [Captcha] Removed ext_scripts/captcha.php, because it was not in use
 
 ### Fixed
 
