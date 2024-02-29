@@ -178,6 +178,7 @@ if (!$tournament["tournamentid"]) {
                         (teams.leaderid = %int%)
                         AND t.party_id=%int% 
                       GROUP BY teams.leaderid", $auth["userid"], $party->party_id);
+                    $sumTeamCoins = $team_coin['t_coins'] ?? 0;
 
                     $member_coin = $db->qry_first("
                       SELECT
@@ -188,12 +189,13 @@ if (!$tournament["tournamentid"]) {
                         (members.userid = %int%)
                         AND t.party_id=%int% 
                       GROUP BY members.userid", $auth["userid"], $party->party_id);
+                    $sumMemberCoins = $member_coin['t_coins'] ?? 0;
 
-                    (($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']) < $tournament['coins']) ?
+                    (($cfg['t_coins'] - $sumTeamCoins - $sumMemberCoins) < $tournament['coins']) ?
                           $coin_out = t('Das Anmelden kostet %COST% Coins, du besitzt jedoch nur %IS% Coins!')
                           : $coin_out = t('Das Anmelden kostet %COST% Coins. Du besitzen noch: %IS% Coins');
                         
-                    $dsp->AddDoubleRow(t('Coin-Kosten'), "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
+                    $dsp->AddDoubleRow(t('Coin-Kosten'), "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $sumTeamCoins - $sumMemberCoins), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
                 }
             }
 
