@@ -328,7 +328,7 @@ if ($config['environment']['configured'] == 0) {
     }
 
     // Start authentication, just if LS is working
-    $authentication = new \LanSuite\Auth($frmwrkmode);
+    $authentication = new \LanSuite\Auth($request, $frmwrkmode);
     // Test Cookie / Session if user is logged in
     $auth = $authentication->check_logon();
     // Olduserid for Switback on Boxes

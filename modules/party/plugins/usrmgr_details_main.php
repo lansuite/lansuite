@@ -3,16 +3,23 @@
 // This File is a Part of the LS-Pluginsystem. It will be included in
 // modules/usrmgr/details.php to generate Modulspezific Mainpage-entrys
 // (fielsets) for Userdetails
-
-$user_party = $db->qry_first('
-  SELECT
-    *,
-    UNIX_TIMESTAMP(checkin) AS checkin,
-    UNIX_TIMESTAMP(checkout) AS checkout
-  FROM %prefix%party_user
-  WHERE
-    user_id = %int%
-    AND party_id = %int%', $_GET['userid'], $party->party_id);
+$query = '
+    SELECT
+        `party_user`.`price_id`,
+        `party_user`.`user_id`,
+        `party_user`.`paid`,
+        `party_user`.`seatcontrol`,
+        UNIX_TIMESTAMP(`party_user`.`checkin`) AS checkin,
+        UNIX_TIMESTAMP(`party_user`.`checkout`) AS checkout,
+        `party_prices`.`price_text`
+    FROM `%prefix%party_user` AS party_user
+        LEFT JOIN `%prefix%party_prices` AS party_prices ON (
+            `party_user`.`party_id` = `party_prices`.`party_id`
+        )
+    WHERE
+        `party_user`.`user_id` = ?
+        AND `party_user`.`party_id` = ?';
+$user_party = $database->queryWithOnlyFirstRow($query, [$_GET['userid'], $party->party_id]);
 
 // $user_party can be null, thats why we pre-setting the values here
 $userPartyPriceID = $user_party['price_id'] ?? 0;
@@ -20,6 +27,8 @@ $userPartyUserID = $user_party['user_id'] ?? 0;
 $userPartyPaid = $user_party['paid'] ?? false;
 $userPartyCheckin = $user_party['checkin'] ?? null;
 $userPartyCheckout = $user_party['checkout'] ?? null;
+$userPartyPriceText = $user_party['price_text'] ?? '';
+$userPartySeatControl = $user_party['seatcontrol'] ?? 0;
 
 $party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $userPartyPriceID);
 
@@ -40,13 +49,13 @@ if ($party->count > 0) {
     // Paid
     ($userPartyPaid)? $party_row .= ', '. $dsp->FetchIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->FetchIcon('not_paid', $link, t('Nicht bezahlt'));
     if ($userPartyPaid > 0) {
-        $party_row .= ' ['. $user_party['price_text'] .']';
+        $party_row .= ' ['. $userPartyPriceText .']';
     }
 
     // Platzpfand
     if ($partySeatControlDepotPrice > 0) {
         $party_row .= ', '. $party_seatcontrol['depot_desc'];
-        $party_row .= ($user_party['seatcontrol']) ? t(' gezahlt') : t(' NICHT gezahlt');
+        $party_row .= ($userPartySeatControl) ? t(' gezahlt') : t(' NICHT gezahlt');
     }
 
     // CheckIn CheckOut

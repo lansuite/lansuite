@@ -36,7 +36,7 @@ if ($auth['login']) {
         if ($row_new_msg['senderid']) {
             $item = "message_blink";
             if ($cfg['msgsys_popup']) {
-                $caption = "<script type=\"text/javascript\" language=\"JavaScript\"> 
+                $caption = "<script>
                                 var link = \"index.php?mod=msgsys&amp;action=query&amp;design=base&amp;queryid={$row["buddyid"]}$msg_sid\";
                                 var suche = /&amp;/;
 
