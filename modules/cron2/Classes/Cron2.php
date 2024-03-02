@@ -43,12 +43,14 @@ class Cron2
                     last_error = '',
                     error_runs = 0,
                     runtime = ?
-                    WHERE jobid = ?", [$runtime, $jobid]
+                    WHERE jobid = ?",
+                    [$runtime, $jobid]
                 );
                 $func->log_event(t('Cronjob "%1" wurde ausgeführt', array($row['name'])), 1);
                 return $row['function'];
             }
-            catch (\mysqli_sql_exception | \Error $e) {// Execution ran into an issue, mark and handle
+            catch (\mysqli_sql_exception | \Error $e) {
+                // Execution ran into an issue, mark and handle
                 $database->query(
                     'UPDATE %prefix%cron
                     SET
@@ -66,8 +68,6 @@ class Cron2
                     $func->log_event(t('Job %1 wurde auf Grund zu vieler Fehler deaktiviert', $row['name']), 2);
                 }
             }
-
-
         }
         return false;
     }
