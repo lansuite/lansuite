@@ -13,7 +13,7 @@ class Cron2
      */
     public function Run($jobid)
     {
-        global $db, $database, $func, $config;
+        global $database, $func, $config;
 
         if (!$jobid) {
             return false;
@@ -25,7 +25,7 @@ class Cron2
             try {
                 if ($row['type'] == 'sql') {// run SQL query
                     $sql = str_replace('%prefix%', $config['database']['prefix'], $row['function']);
-                    $db->qry('%plain%', $func->AllowHTML($sql));
+                    $database->query($func->AllowHTML($sql)[]);
                 } elseif ($row['type'] == "php") { // run PHP code
                     require 'ext_scripts/'.$row['function'];
                 }
