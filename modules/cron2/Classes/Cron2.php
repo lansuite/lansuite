@@ -23,13 +23,16 @@ class Cron2
 
         if ($row != false) {
             try {
+                $runtime = microtime(true);
                 if ($row['type'] == 'sql') {// run SQL query
                     $sql = str_replace('%prefix%', $config['database']['prefix'], $row['function']);
                     $database->query($func->AllowHTML($sql), []);
                 } elseif ($row['type'] == "php") { // run PHP code
                     require 'ext_scripts/'.$row['function'];
                 }
-                $database->query("UPDATE %prefix%cron SET lastrun = NOW(), last_error = '', error_runs = 0 WHERE jobid = ?", [$jobid]);
+                $runtime = microtime(true) - $runtime;
+
+                $database->query("UPDATE %prefix%cron SET lastrun = NOW(), last_error = '', error_runs = 0, runtime = ? WHERE jobid = ?", [$runtime, $jobid]);
                 $func->log_event(t('Cronjob "%1" wurde ausgeführt', array($row['name'])), 1);
                 return $row['function'];
             }
