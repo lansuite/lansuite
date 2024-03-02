@@ -34,6 +34,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Introduced symfony/cache to easily provide other cache backends like APCu (next to file caching)
 - [System] Introduced symfony/http-foundation to unify safe access to superglobals
 - [Database] Added the setting to replace the hardcoded database table prefix `lansuite_` with something admin configurable
+- [Database] Introduced options to update single module DB structure (#927)
 - [Tournament] Added tournament icon for Starcraft II
 - [Tournament] Added tournament icon for Counter-Strike: Global Offensive
 - [Tournament] Added tournament icon for Rocket League
