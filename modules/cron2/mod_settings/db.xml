@@ -60,6 +60,14 @@
 				<default></default>
 				<extra></extra>
 			</field>
+				<field>
+				<name>runtime</name>
+				<type>int</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
 			<field>
 				<name>runat</name>
 				<type>time</type>
@@ -68,6 +76,22 @@
 				<default></default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>last_error</name>
+				<type>text</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>		
+			<field>
+				<name>error_runs</name>
+				<type>smallint</type>
+				<null>NO</null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>		
 		</structure>
 		<content>
 			<entry>

@@ -26,6 +26,9 @@ switch ($stepParameter) {
         $ms2->AddResultField(t('Typ'), 'type');
         $ms2->AddResultField(t('Aktiv'), 'active', 'TrueFalse');
         $ms2->AddResultField(t('Letzte Ausführung'), 'UNIX_TIMESTAMP(c.lastrun) AS lastrun', 'MS2GetDate');
+        $ms2->AddResultField(t('Anzahl Fehlschläge'), 'error_runs');
+        $ms2->AddResultField(t('Letzte Fehlermeldung'), 'last_error');
+
 
         $ms2->AddIconField('edit', 'index.php?mod=cron2&action=add&jobid=', t('Editieren'));
         $ms2->AddIconField('generate', 'index.php?mod=cron2&step=20&jobid=', t('Jetzt ausführen'));

@@ -4,48 +4,90 @@ namespace LanSuite\Module\Cron2;
 
 class Cron2
 {
+
+    const LS_CRON_MAX_ERRORS = 3; //Maximum amount of errors for a job
+
     /**
      * @param int $jobid
      * @return bool
      */
     public function Run($jobid)
     {
-        global $db, $func, $config;
+        global $db, $database, $func, $config;
 
         if (!$jobid) {
             return false;
         }
 
-        $row = $db->qry_first("SELECT name, type, `function` FROM %prefix%cron WHERE jobid = %int%", $jobid);
+        $row = $database->queryWithOnlyFirstRow("SELECT name, type, `function`, error_runs FROM %prefix%cron WHERE jobid = ?", [$jobid]);
+
         if ($row != false) {
-            if ($row['type'] == 'sql') {
-                $sql = str_replace('%prefix%', $config['database']['prefix'], $row['function']);
-                $db->qry('%plain%', $func->AllowHTML($sql));
-            } elseif ($row['type'] == "php") {
-                require_once 'ext_scripts/'.$row['function'];
+            try {
+                if ($row['type'] == 'sql') {// run SQL query
+                    $sql = str_replace('%prefix%', $config['database']['prefix'], $row['function']);
+                    $db->qry('%plain%', $func->AllowHTML($sql));
+                } elseif ($row['type'] == "php") { // run PHP code
+                    require 'ext_scripts/'.$row['function'];
+                }
+                $database->query("UPDATE %prefix%cron SET lastrun = NOW(), last_error = '', error_runs = 0 WHERE jobid = ?", [$jobid]);
+                $func->log_event(t('Cronjob "%1" wurde ausgeführt', array($row['name'])), 1);
+                return $row['function'];
             }
-            $db->qry("UPDATE %prefix%cron SET lastrun = NOW() WHERE jobid = %int%", $jobid);
-            $func->log_event(t('Cronjob "%1" wurde ausgeführt', array($row['name'])), 1);
-            return $row['function'];
+            catch (\mysqli_sql_exception | \Error $e) { // Execution ran into an issue, mark and handle
+                $database->query(
+                    'UPDATE %prefix%cron 
+                    SET 
+                        lastrun = NOW(),
+                        error_runs = error_runs + 1,
+                        last_error = ?
+                    WHERE jobid = ?
+                    ', [$e->getMessage(), $jobid]
+                );
+                $func->log_event(t('Die Ausführung von Job %1 ist fehlgeschlagen', $row['name']));
+
+                if ($row['error_runs'] >= $this::LS_CRON_MAX_ERRORS) { // more than maximum amount of tries, deactivate job
+                    $this->deactivateJob($jobid);
+                    $func->log_event(t('Job %1 wurde auf Grund zu vieler Fehler deaktiviert', $row['name']), 2);
+                };
+            }
+
+                
         }
         return false;
     }
 
     /**
+     * Checks configured cron jobs if and what the next job to execute it and runs it
      * @return void
      */
     public function CheckJobs()
     {
-        global $db;
+        global $database;
 
-        $row = $db->qry_first("
-          SELECT
-            jobid
-          FROM %prefix%cron
-          WHERE
-            UNIX_TIMESTAMP(NOW()) > UNIX_TIMESTAMP(DATE_ADD(DATE(lastrun), INTERVAL 1 DAY)) + TIME_TO_SEC(runat)");
+        $row = $database->queryWithOnlyFirstRow(
+            "SELECT
+                jobid
+            FROM %prefix%cron
+            WHERE
+                UNIX_TIMESTAMP(NOW()) > UNIX_TIMESTAMP(DATE_ADD(DATE(lastrun), INTERVAL 1 DAY)) + TIME_TO_SEC(runat) AND
+                active = 1
+                ", []
+        );
         if ($row && $row['jobid']) {
             $this->Run($row['jobid']);
         }
+    }
+
+    /**
+     * Deactivates a job with the given ID
+     * 
+     * @param int $jobid ID of the job to be deactivated
+     */
+    public function deactivateJob (int $jobid = 0){
+        global $database;
+
+        $result = $database->query('UPDATE %prefix%cron SET active = 0 WHERE jobid = ?', [$jobid]);
+
+
     }
 }
