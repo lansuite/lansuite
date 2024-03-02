@@ -60,10 +60,11 @@ class Cron2
                 );
                 $func->log_event(t('Die Ausführung von Job %1 ist fehlgeschlagen', $row['name']));
 
-                if ($row['error_runs'] >= $this::LS_CRON_MAX_ERRORS) {// more than maximum amount of tries, deactivate job
+                if ($row['error_runs'] >= $this::LS_CRON_MAX_ERRORS) {
+                    // more than maximum amount of tries, deactivate job
                     $this->deactivateJob($jobid);
                     $func->log_event(t('Job %1 wurde auf Grund zu vieler Fehler deaktiviert', $row['name']), 2);
-                };
+                }
             }
 
 
@@ -98,14 +99,13 @@ class Cron2
      * Deactivates a job with the given ID
      *
      * @param int $jobid ID of the job to be deactivated
-     * @return void
+     * @return bool true if job was found, false if not
      */
     public function deactivateJob(int $jobid = 0)
     {
         global $database;
 
         $result = $database->query('UPDATE %prefix%cron SET active = 0 WHERE jobid = ?', [$jobid]);
-
-
+        return $result->affected_rows == 1;
     }
 }
