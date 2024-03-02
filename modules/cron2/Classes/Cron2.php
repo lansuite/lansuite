@@ -49,6 +49,7 @@ class Cron2
                 $func->log_event(t('Cronjob "%1" wurde ausgeführt', array($row['name'])), 1);
                 return $row['function'];
             }
+
             catch (\mysqli_sql_exception | \Error $e) {
                 // Execution ran into an issue, mark and handle
                 $database->query(
@@ -60,7 +61,7 @@ class Cron2
                     WHERE jobid = ?',
                     [$e->getMessage(), $jobid]
                 );
-                $func->log_event(t('Die Ausführung von Job %1 ist fehlgeschlagen', $row['name']));
+                $func->log_event(t('Die Ausführung von Job %1 ist fehlgeschlagen', $row['name']), 2);
 
                 if ($row['error_runs'] >= $this::LS_CRON_MAX_ERRORS) {
                     // more than maximum amount of tries, deactivate job
