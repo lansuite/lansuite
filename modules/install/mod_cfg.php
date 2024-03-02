@@ -292,7 +292,11 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         $dsp->AddFieldsetEnd();
 
                         $dsp->AddFieldsetStart(t('Weitere Aktionen'));
-                        $dsp->AddDoubleRow('', $dsp->FetchSpanButton('Modul-Datenbank zurücksetzen', 'index.php?mod=install&action=mod_cfg&step=41&module='. $_GET['module'] .'&tab=2'));
+                        $dsp->AddDoubleRow(
+                            t('Modul-Datenbankstruktur aus Quelldateien anpassen'),
+                            $dsp->FetchSpanButton('Modul-Datenbank aktualiseren', 'index.php?mod=install&action=mod_cfg&step=42&module='. $_GET['module'] .'&tab=2') .
+                            $dsp->FetchSpanButton('Modul-Datenbank zurücksetzen', 'index.php?mod=install&action=mod_cfg&step=41&module='. $_GET['module'] .'&tab=2')
+                        );
                         $dsp->AddFieldsetEnd();
                         break;
                 }

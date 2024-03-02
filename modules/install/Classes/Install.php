@@ -708,7 +708,7 @@ class Install
             }
         }
         $dsp->AddDoubleRow(t('Schreibrechte im Ordner \'ext_inc\''), $ext_inc_check);
-        
+
         // PHP temp folder access
         $tmpfile = tmpfile();
         if (!$tmpfile) {
@@ -718,7 +718,7 @@ class Install
             fclose($tmpfile);
         }
         $dsp->AddDoubleRow(t('Schreiben temporärer Dateien'), $tmp_check);
-        
+
         $dsp->AddFieldSetEnd();
 
         #### Warning ####
@@ -771,7 +771,7 @@ class Install
             $ftp_check = $not_possible . t('Auf deinem System konnte das PHP-Modul <b>FTP-Library</b> nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann');
         }
         $dsp->AddDoubleRow("FTP Library", $ftp_check);
-        
+
         // APCu-Lib
         if (extension_loaded('apcu')) {
             $apcu_check = $ok;
@@ -779,7 +779,7 @@ class Install
             $apcu_check = $optimize . t('Auf deinem System konnte das PHP-Modul <b>APCu</b> nicht gefunden werden. Dies wird verwendet, um verschiedenste Daten für schnellen Zugriff zwischenzuspeichern. Eine Aktivierung ist bei vielen Seitenzugriffen angeraten. Als Fallback werden die Daten im Dateisystem vorgehalten');
         }
         $dsp->AddDoubleRow("APCu", $apcu_check);
-        
+
         // OpenSSL
         if (extension_loaded('openssl')) {
             $openssl_check = $ok;
@@ -985,7 +985,8 @@ class Install
             $smarty->assign('menu_link', $menu_link);
 
             if (file_exists("modules/{$row["name"]}/mod_settings/db.xml")) {
-                $db_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=40&module={$row["name"]}\">". t('DB') ."</a>";
+                $db_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=40&module={$row["name"]}&tab=2\">". t('DB config') ."</a>";
+                $db_link .=  " | <a href=\"index.php?mod=install&action=mod_cfg&step=42&module={$row["name"]}&tab=2\">". t('DB update') ."</a>";
             } else {
                 $db_link = "";
             }
