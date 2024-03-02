@@ -66,6 +66,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Enabled Google Analytics Integration anonymizeIp feature
 - [System] Separated Google API-Keys for Analytics, Maps and Translate into dedicated settings (#887)
 - [System] Don't enforce php-snmp; only suggest it (#148)
+- [System] Updated jQuery to v3.7.1 and jQuery UI to v1.13.2
 - [Database] Set utf8mb4 as the default charset
 - [Database] Add default database port to connection string if not configured
 - [User] Allow empty birthday field
