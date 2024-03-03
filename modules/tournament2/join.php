@@ -80,7 +80,7 @@ if ($tteam->SignonCheck($tournamentid)) {
                     $nglclanidParameter = $_POST["nglclanid"] ?? '';
                     $lgzidParameter = $_POST["lgzid"] ?? '';
                     $lgzclanidParameter = $_POST["lgzclanid"] ?? '';
-                    $tteam->UpdateLeagueIDs($auth["userid"], $wwclidParameter, $wwclclanidParameter, $nglidParameter, $nglclanidParameter, $lgzidParameter , $_POST["lgzclanid"]);
+                    $tteam->UpdateLeagueIDs($auth["userid"], $wwclidParameter, $wwclclanidParameter, $nglidParameter, $nglclanidParameter, $lgzidParameter, $lgzclanidParameter);
                     $func->confirmation(t('Du wurdest zum Turnier %1 erfolgreich hinzugefügt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
                 }
                 $sec->lock("t_join");
