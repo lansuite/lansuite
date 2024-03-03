@@ -33,6 +33,7 @@ $seeded = $db->qry_first("
     (tournamentid = %int%)
     AND (seeding_mark = '1')
   GROUP BY tournamentid", $_GET["tournamentid"]);
+$seededCount = $seeded['anz'] ?? 0;
 
 if ($_GET["step"] < 2 and $tournament["blind_draw"]) {
     $team_anz = floor($team_anz / $tournament["teamplayer"]);
@@ -52,7 +53,7 @@ if ($team_anz < 4) {
     $func->information(t('Dieses Turnier wurde bereits gestartet!'), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=1");
 
 // Nicht mehr als die Hälft geseeded
-} elseif (($seeded['anz']) > ($team_anz / 2)) {
+} elseif ($seededCount > ($team_anz / 2)) {
     $func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkiere zuerst ein Team, bevor du ein weiteres markieren'), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
 
 // Keine Fehler gefunden
@@ -101,7 +102,8 @@ if ($team_anz < 4) {
               FROM %prefix%t2_teammembers
               WHERE (teamid = %int%)
               GROUP BY teamid", $team2['teamid']);
-            if (($members["members"] + 1) < $tournament['teamplayer']) {
+            $memberCount = $members["members"] ?? 0;
+            if (($memberCount + 1) < $tournament['teamplayer']) {
                 $waiting_teams ++;
             }
         }
