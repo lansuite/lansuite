@@ -459,9 +459,6 @@ class Func
                 }
 
                 if ($mode != 2) {//mode 1 - BBcode for img & url tags
-                    $img_start2 = '<img src="ext_inc/smilies/';
-                    $img_end   = '" border="0" alt="" />';
-
                     $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:468px; max-height:450px; overflow:hidden;" />', $string);
                     $string = preg_replace('#\[url(?|=[\'"]?([^]"\']+)[\'"]?]([^[]+)|](([^[]+)))\[/url]#i', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
 
@@ -516,14 +513,16 @@ class Func
                 }
             }
         }
-            if ($mode != 1) { // mode 0,2,4 - Smiley replacement
-                $res = $db->qry("SELECT shortcut, image FROM %prefix%smilies");
-                while ($row = $db->fetch_array($res)) {
-                    $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
-                }
-                $db->free_result($res);
+
+        if ($mode != 1) { // mode 0,2,4 - Smiley replacement
+            $img_start2 = '<img src="ext_inc/smilies/';
+            $img_end = '" border="0" alt="" />';
+            $res = $db->qry("SELECT shortcut, image FROM %prefix%smilies");
+            while ($row = $db->fetch_array($res)) {
+                $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
             }
-        
+            $db->free_result($res);
+        }
 
         return $string;
     }
