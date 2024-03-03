@@ -306,13 +306,6 @@
                 <extra></extra>
             </field>
             <field>
-                <name>icq</name>
-                <type>int(11) unsigned</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
                 <name>msn</name>
                 <type>varchar(120)</type>
                 <null></null>

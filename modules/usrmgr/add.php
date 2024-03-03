@@ -197,9 +197,6 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             if (ShowFieldUsrMgr('handy')) {
                 $mf->AddField(t('Handy'), 'handy', '', '', Optional('telefon'));
             }
-            if (ShowFieldUsrMgr('icq')) {
-                $mf->AddField('ICQ', 'icq', '', '', Optional('icq'));
-            }
             if (ShowFieldUsrMgr('msn')) {
                 $mf->AddField('MSN', 'msn', '', '', Optional('msn'));
             }
