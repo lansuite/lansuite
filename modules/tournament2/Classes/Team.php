@@ -309,7 +309,7 @@ class Team
               WHERE
                 tournamentid = %int%", $tournamentid);
 
-            if ($t["teamplayer"] == 1 or $t["blind_draw"]) {
+            if ($t["teamplayer"] == 1 || $t["blind_draw"]) {
                 $c_teams = $db->qry_first("
                   SELECT
                     COUNT(*) AS teams
@@ -317,7 +317,10 @@ class Team
                   WHERE
                     (tournamentid = %int%)
                   GROUP BY teamid", $tournamentid);
-                $completed_teams = intval($c_teams["teams"]);
+                $completed_teams = 0;
+                if (is_array($c_teams)) {
+                  $completed_teams = intval($c_teams["teams"]);
+                }
                 $waiting_teams = 0;
             } else {
                 $waiting_teams = 0;

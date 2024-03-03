@@ -224,7 +224,8 @@ if ($tournament["name"] == "") {
                 }
             }
 
-            if ($_SESSION['tournament_submit_result_blocker']) {
+            $tournamentSubmitResultBlocker = $_SESSION['tournament_submit_result_blocker'] ?? false;
+            if ($tournamentSubmitResultBlocker) {
                 $func->error("NO_REFRESH", "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
             } elseif ($tournament["status"] != "process") {
                 $func->information(t('Dieses Turnier ist bereits beendet, oder noch nicht gestartet!'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
