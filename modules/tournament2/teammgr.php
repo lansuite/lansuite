@@ -64,7 +64,6 @@ switch ($stepParameter) {
         $tournament = $db->qry_first("
           SELECT
             teamplayer,
-            wwcl_gameid,
             ngl_gamename
           FROM %prefix%tournament_tournaments
           WHERE
@@ -76,9 +75,7 @@ switch ($stepParameter) {
             team.comment,
             team.banner,
             user.nglid,
-            user.nglclanid,
-            user.wwclid,
-            user.wwclclanid
+            user.nglclanid
         FROM %prefix%t2_teams AS team
         LEFT JOIN %prefix%user AS user ON user.userid = team.leaderid
         WHERE
@@ -103,12 +100,6 @@ switch ($stepParameter) {
         }
         $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
 
-        if ($tournament['wwcl_gameid'] > 0) {
-            $dsp->AddTextFieldRow("wwclid", t('WWCL ID'), $team['wwclid'], "");
-            if ($tournament['teamplayer'] > 1) {
-                $dsp->AddTextFieldRow("wwclclanid", t('WWCL Clan'), $team['wwclclanid'], "");
-            }
-        }
         if ($tournament['ngl_gamename'] != "") {
             $dsp->AddTextFieldRow("nglid", t('NGL ID'), $team['nglid'], "");
             if ($tournament['teamplayer'] > 1) {

@@ -113,22 +113,6 @@
                 <extra></extra>
             </field>
             <field>
-                <name>wwclid</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-                <key>IND</key>
-            </field>
-            <field>
-                <name>wwclclanid</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-                <key>IND</key>
-            </field>
-            <field>
                 <name>nglid</name>
                 <type>varchar(15)</type>
                 <null></null>

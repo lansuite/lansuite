@@ -415,14 +415,6 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>wwcl_gameid</name>
-				<type>int(6)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
 				<name>ngl_gamename</name>
 				<type>varchar(10)</type>
 				<null></null>
