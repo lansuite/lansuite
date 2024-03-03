@@ -599,7 +599,7 @@ class TournamentFunction
                 AND (leaderid = 0)", $tournamentid, $en_position);
 
             // Wenn neuer Gegner ein Freilos, Spieler eine Runde weiter schieben
-            if ($en_game['gameid'] != 0) {
+            if (is_array($en_game) && $en_game['gameid'] != 0) {
                 $db->qry("
                   DELETE FROM %prefix%t2_games
                   WHERE
@@ -637,7 +637,7 @@ class TournamentFunction
                 AND (leaderid = 0)", $tournamentid, $en_position);
 
             // Wenn neuer Gegner ein Freilos, Spieler eine Runde weiter schieben
-            if ($en_game['gameid'] != 0) {
+            if (is_array($en_game) && $en_game['gameid'] != 0) {
                 $db->qry("
                   DELETE FROM %prefix%t2_games
                   WHERE
@@ -767,7 +767,7 @@ class TournamentFunction
                     AND (games2.leaderid != 0)
                     AND (games1.group_nr = %string%)", $tournamentid, $akt_group);
 
-                if ($unfinished_games['gameid'] == "") {
+                if (!$unfinished_games) {
                     $ranking_data = $this->get_ranking($tournamentid, $akt_group);
 
                     // IF not already written
@@ -781,7 +781,7 @@ class TournamentFunction
                         AND (position = (($akt_group - 1) * 2))
                         AND (group_nr = 0)", $tournamentid);
 
-                    if ($game_written['leaderid'] == "") {
+                    if (!$game_written) {
                         // Write Winner
                         $leader = $db->qry_first("
                           SELECT
