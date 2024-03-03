@@ -52,8 +52,14 @@ function write_pairs2(mixed $bracket, $max_pos)
                   GROUP BY games.gameid", $tournamentid, $akt_round, $akt_pos);
 
         if ($spieler1 == "") {
-            if ($game == 0) {
-                $game['name'] = t('Noch Unbekannt');
+            if (!$game) {
+                $game = [
+                    'name' => t('Noch Unbekannt'),
+                    'teamid' => 0,
+                    'leaderid' => 0,
+                    'gameid' => 0,
+                    'score' => 0
+                ];
                 $known_game1 = 0;
             } else {
                 $known_game1 = 1;
@@ -67,8 +73,14 @@ function write_pairs2(mixed $bracket, $max_pos)
             $score1 = $game['score'];
         } else {
             $i++;
-            if ($game == 0) {
-                $game['name'] = t('Noch Unbekannt');
+            if (!$game) {
+                $game = [
+                    'name' => t('Noch Unbekannt'),
+                    'teamid' => 0,
+                    'leaderid' => 0,
+                    'gameid' => 0,
+                    'score' => 0
+                ];
                 $known_game2 = 0;
             } else {
                 $known_game2 = 1;
