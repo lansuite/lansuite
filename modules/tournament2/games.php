@@ -156,8 +156,8 @@ if (!$tournamentid) {
                         } else {
                             $game['name'] .= $tfunc->button_team_details($game['teamid'], $tournamentid);
                         }
-  
-                        WriteGame();
+
+                        WriteGame($game);
                     }
                     $db->free_result($games);
                     break;
