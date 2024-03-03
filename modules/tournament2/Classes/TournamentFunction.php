@@ -841,7 +841,7 @@ class TournamentFunction
                 AND (games2.score = 0)
                 AND (games1.leaderid != 0)
                 AND (games2.leaderid != 0)", $tournamentid);
-            if ($unfinished_games['gameid'] == "") {
+            if (!$unfinished_games) {
                 $db->qry("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = %int%", $tournamentid);
                 $func->log_event(t('Das letzte Ergebnis im Turnier %1 wurde gemeldet. Das Turnier ist damit geschlossen worden.', $tournament["name"]), 1, t('Turnier Verwaltung'));
             }
