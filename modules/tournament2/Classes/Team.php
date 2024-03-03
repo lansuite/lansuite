@@ -53,8 +53,9 @@ class Team
                   FROM %prefix%t2_teammembers
                   WHERE (teamid = %int%)
                   GROUP BY teamid", $c_team["teamid"]);
+                $memberCount = $c_member["members"] ?? 0;
 
-                if (($c_member["members"] + 1) < $t["teamplayer"]) {
+                if (($memberCount + 1) < $t["teamplayer"]) {
                     $waiting_teams++;
                 } else {
                     $completed_teams++;
@@ -256,9 +257,10 @@ class Team
                   WHERE
                     teamid = %int%
                   GROUP BY teamid", $teamid);
+                $memberCount = $member_anz["members"] ?? 0;
 
                 // Isn't the team full yet?
-                if ($team["teamplayer"] <= ($member_anz["members"] + 1)) {
+                if ($team["teamplayer"] <= ($memberCount + 1)) {
                     $func->information(t('Das gewählte Team ist bereits voll!'));
                     return false;
 

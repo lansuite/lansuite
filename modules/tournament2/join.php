@@ -49,8 +49,11 @@ if ($tteam->SignonCheck($tournamentid)) {
                 $error = array();
 
                 // If joining an existing team
+                // Only if the "Create new team" fields are not filled
                 $existingTeamNameParameter = $_POST['existing_team_name'] ?? '';
-                if (($existingTeamNameParameter != "") && ($tournament['teamplayer'] > 1)) {
+                $newTeamName = $_POST['team_name'] ?? '';
+                $newTeamNamePassword = $_POST['set_password'] ?? '';
+                if ($existingTeamNameParameter != "" && $newTeamName == '' && $newTeamNamePassword == '' && $tournament['teamplayer'] > 1) {
                     $success = $tteam->join($existingTeamNameParameter, $auth["userid"], $_POST["password"]);
 
                 // If creating a new team
