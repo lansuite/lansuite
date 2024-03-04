@@ -102,7 +102,7 @@ class Cron2
      * @param int $jobid ID of the job to be deactivated
      * @return bool true if job was found, false if not
      */
-    public function deactivateJob(int $jobid = 0)
+    public function deactivateJob(int $jobid = 0): bool
     {
         global $database;
 
