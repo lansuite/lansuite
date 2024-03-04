@@ -5,7 +5,10 @@ namespace LanSuite\Module\Cron2;
 class Cron2
 {
 
-    const LS_CRON_MAX_ERRORS = 3; //Maximum amount of errors for a job
+    /**
+     * Maximum amount of errors for a job
+     */
+    const CRON_MAX_ERRORS = 3;
 
     /**
      * @param int $jobid
