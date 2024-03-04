@@ -66,7 +66,7 @@ class Cron2
                 );
                 $func->log_event(t('Die Ausführung von Job %1 ist fehlgeschlagen', $row['name']), 2);
 
-                if ($row['error_runs'] >= $this::LS_CRON_MAX_ERRORS) {
+                if ($row['error_runs'] >= self::CRON_MAX_ERRORS) {
                     // more than maximum amount of tries, deactivate job
                     $this->deactivateJob($jobid);
                     $func->log_event(t('Job %1 wurde auf Grund zu vieler Fehler deaktiviert', $row['name']), 2);
