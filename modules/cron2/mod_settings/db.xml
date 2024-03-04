@@ -60,7 +60,7 @@
 				<default></default>
 				<extra></extra>
 			</field>
-				<field>
+			<field>
 				<name>runtime</name>
 				<type>int</type>
 				<null>YES</null>
