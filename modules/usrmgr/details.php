@@ -255,13 +255,6 @@ if (!$user_data['userid']) {
 
     // Messenger
     $messenger = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
-    if ($user_data['icq']) {
-        if ($cfg['sys_internet']) {
-            $messenger .= ' <a href="http://wwp.icq.com/scripts/search.dll?to='. $user_data['icq'] .'" target="_blank"><img src="ext_inc/footer_buttons/icq.gif" alt="ICQ" title="ICQ#'. $user_data['icq'] .'" border="0" /></a> ';
-        } else {
-            $messenger .= ' <img src="ext_inc/footer_buttons/icq.gif" alt="ICQ" title="ICQ: #'. $user_data['icq'] .'" border="0" /> ';
-        }
-    }
     if ($user_data['msn']) {
         $messenger .= ' <img src="ext_inc/footer_buttons/msn.gif" alt="MSN" title="MSN: '. $user_data['msn'] .'" border="0" /> ';
     }
