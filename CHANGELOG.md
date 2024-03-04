@@ -98,6 +98,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Equipment] Removed module equipment because http://www.orgapage.net/ is not available anymore
 - [Captcha] Removed ext_scripts/captcha.php, because it was not in use
 - [User] Removed ICQ field in user data
+- [User] Removed MSN field in user data
 
 ### Fixed
 
