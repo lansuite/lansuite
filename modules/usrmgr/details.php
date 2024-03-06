@@ -255,11 +255,8 @@ if (!$user_data['userid']) {
 
     // Messenger
     $messenger = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
-    if ($user_data['msn']) {
-        $messenger .= ' <img src="ext_inc/footer_buttons/msn.gif" alt="MSN" title="MSN: '. $user_data['msn'] .'" border="0" /> ';
-    }
     if ($user_data['xmpp']) {
-        $messenger .= ' <img src="ext_inc/footer_buttons/msn.gif" alt="XMPP" title="XMPP: '. $user_data['xmpp'] .'" border="0" /> ';
+        $messenger .= ' <img src="design/images/icon_xmpp.png" alt="XMPP" title="XMPP: '. $user_data['xmpp'] .'" border="0" /> ';
     }
     if ($user_data['skype']) {
         if ($cfg['sys_internet']) {
