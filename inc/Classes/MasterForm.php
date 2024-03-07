@@ -1218,7 +1218,8 @@ class MasterForm
 
                         if ($addUpdSuccess) {
                             if ($this->isChange) {
-                                $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer'][$this->GetNumber()]);
+                                $linkTarget = $_SESSION['mf_referrer'][$this->GetNumber()] ?? '';
+                                $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $linkTarget);
                             } else {
                                 $func->confirmation(t('Die Daten wurden erfolgreich eingefügt.'), $this->LinkBack);
                             }
