@@ -1155,7 +1155,7 @@ class MasterForm
                                     $db_query = '';
                                     foreach ($this->SQLFields as $key => $val) {
                                         $databaseValue = $_POST[$val][$value2] ?? '';
-                                        $databaseValue = mysqli_real_escape_string($databaseValue);
+                                        $databaseValue = $db->real_escape_string($databaseValue);
                                         $db_query .= "$val = '". $databaseValue ."', ";
                                     }
                                     $db_query = substr($db_query, 0, strlen($db_query) - 2);
