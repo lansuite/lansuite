@@ -4,6 +4,7 @@ if ($auth['login'] == 1) {
     // Checkout infos
     $halfanhour = date("U") - 30*60;
 
+    $userId = $_SESSION["auth"]["userid"] ?? 0;
     $query = $db->qry("
       SELECT
         userid,
@@ -17,7 +18,7 @@ if ($auth['login'] == 1) {
       ORDER BY
         priority DESC,
         date DESC
-      LIMIT 0,3", $_SESSION["auth"]["userid"], $halfanhour);
+      LIMIT 0,3", $userId, $halfanhour);
 
     while ($row=$db->fetch_array()) {
         if ($row["priority"] == "1") {
