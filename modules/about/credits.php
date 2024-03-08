@@ -43,7 +43,6 @@ phpBB.com (http://www.phpbb.com)<br />
 Adobe (Photoshop)<br />
 Fraunhofer Institut (MPEG 1 Layer 3)<br />
 Domain Factory GmbH<br />
-ICQ <br />
 Fox&amp;Pro7 (Simpsons)<br />
 Spinnrad St. Wendel <br />
 Gauloises Cigarettes (Raphael)<br />
