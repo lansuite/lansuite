@@ -417,6 +417,7 @@ ga('send', 'pageview');
                 }
 
                 // Ausgabe Hauptseite
+                $smarty->assign('CloseFullscreen', '');
                 if (!$sessionFullScreenSet and !$this->modus == 'beamer') {
                     $smarty->assign('MainFrameworkmessages', $this->framework_messages);
                     if (isset($templ)) {
