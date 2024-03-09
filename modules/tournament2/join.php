@@ -15,7 +15,6 @@ $tournament = $db->qry_first("
     status,
     groupid,
     coins,
-    wwcl_gameid,
     ngl_gamename,
     lgz_gamename,
     maxteams,
@@ -30,8 +29,6 @@ if ($auth["userid"] == "") {
 
 $user = $db->qry_first("
   SELECT
-    wwclid,
-    wwclclanid,
     nglid,
     nglclanid,
     lgzid,
@@ -74,13 +71,11 @@ if ($tteam->SignonCheck($tournamentid)) {
 
                 if (count($error) == 0 and $success) {
                     // Update-League-IDs
-                    $wwclidParameter = $_POST["wwclid"] ?? '';
-                    $wwclclanidParameter = $_POST["wwclclanid"] ?? '';
                     $nglidParameter = $_POST["nglid"] ?? '';
                     $nglclanidParameter = $_POST["nglclanid"] ?? '';
                     $lgzidParameter = $_POST["lgzid"] ?? '';
                     $lgzclanidParameter = $_POST["lgzclanid"] ?? '';
-                    $tteam->UpdateLeagueIDs($auth["userid"], $wwclidParameter, $wwclclanidParameter, $nglidParameter, $nglclanidParameter, $lgzidParameter, $lgzclanidParameter);
+                    $tteam->UpdateLeagueIDs($auth["userid"], $nglidParameter, $nglclanidParameter, $lgzidParameter, $lgzclanidParameter);
                     $func->confirmation(t('Du wurdest zum Turnier %1 erfolgreich hinzugefügt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
                 }
                 $sec->lock("t_join");
@@ -143,12 +138,6 @@ if ($tteam->SignonCheck($tournamentid)) {
             $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $teamCommentParameter, "", "", "", 1);
             $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
 
-            if ($tournament['wwcl_gameid'] > 0) {
-                $dsp->AddTextFieldRow("wwclid", t('WWCL ID'), $user['wwclid'], "");
-                if ($tournament['teamplayer'] > 1) {
-                    $dsp->AddTextFieldRow("wwclclanid", t('WWCL Clan'), $user['wwclclanid'], "");
-                }
-            }
             if ($tournament['ngl_gamename'] != "") {
                 $dsp->AddTextFieldRow("nglid", t('NGL ID'), $user['nglid'], "");
                 if ($tournament['teamplayer'] > 1) {

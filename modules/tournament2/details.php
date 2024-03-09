@@ -95,9 +95,6 @@ if (!$tournament["tournamentid"]) {
             $dsp->AddDoubleRow(t('Spiel'), $icon . $tournament['game'] . $versionInformation);
 
             $league = "";
-            if ($tournament['wwcl_gameid'] != 0) {
-                $league .= ", <img src=\"ext_inc/tournament_icons/leagues/wwcl.png\" alt=\"WWCL\">";
-            }
             if ($tournament['ngl_gamename']) {
                 $league .= ", <img src=\"ext_inc/tournament_icons/leagues/ngl.png\" alt=\"NGL\">";
             }
