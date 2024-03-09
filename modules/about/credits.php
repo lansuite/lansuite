@@ -34,7 +34,6 @@ $dsp->AddSingleRow('an alle aktiven User im Board<br />
 an alle Dokuschreiber<br />
 <a href="http://lansuite-docu.orgapage.de" target="_blank">OpenSource Intranet Blog (http://lansuite-docu.orgapage.de</a>)<br />
 Gigahertz Rent GmbH <br />
-WWCL (http://www.wwcl.de) <br />
 MySQL-Crew<br />
 PHP-Crew<br />
 php.net (Funktionsreferenz)<br />

@@ -112,12 +112,6 @@
     		<description>Clanurl</description>
     	</item>
     	<item>
-    		<name>signon_show_wwcl_id</name>
-    		<type>signon</type>
-    		<default>1</default>
-    		<description>WWCL-ID</description>
-    	</item>
-    	<item>
     		<name>signon_show_ngl_id</name>
     		<type>signon</type>
     		<default>1</default>
