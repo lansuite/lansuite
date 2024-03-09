@@ -24,9 +24,9 @@ function UpdateUsrMgr($id)
     // Update User-Perissions
     if ($id) {
         $db->qry("DELETE FROM %prefix%user_permissions WHERE userid = %int%", $id);
-        $permissionsParamater = $_POST["permissions"] ?? [];
-        if ($_POST["permissions"]) {
-            foreach ($_POST["permissions"] as $perm) {
+        $permissionsParameter = $_POST["permissions"] ?? [];
+        if ($permissionsParameter) {
+            foreach ($permissionsParameter as $perm) {
                 $db->qry("INSERT INTO %prefix%user_permissions SET module = %string%, userid = %int%", $perm, $id);
             }
         }
