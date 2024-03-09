@@ -148,18 +148,6 @@
     		<description>Handy</description>
     	</item>
     	<item>
-    		<name>signon_show_icq</name>
-    		<type>signon</type>
-    		<default>1</default>
-    		<description>ICQ</description>
-    	</item>
-    	<item>
-    		<name>signon_show_msn</name>
-    		<type>signon</type>
-    		<default>1</default>
-    		<description>MSN</description>
-    	</item>
-    	<item>
     		<name>signon_show_xmpp</name>
     		<type>signon</type>
     		<default>1</default>

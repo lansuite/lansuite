@@ -54,7 +54,7 @@ if (!$cfg['sys_internet']) {
         // Freischaltecode prüfen, Passwort generieren, Freischaltcode zurücksetzen
         case 3:
             $user_data = $db->qry_first("SELECT fcode FROM %prefix%user WHERE fcode = %string%", $_GET['fcode']);
-            if (($user_data['fcode']) && ($_GET['fcode'] != '')) {
+            if (is_array($user_data) && $user_data['fcode'] && $_GET['fcode'] != '') {
                 $new_pwd = "";
                 for ($x = 0; $x <= 8; $x++) {
                     $new_pwd .= chr(random_int(65, 90));
