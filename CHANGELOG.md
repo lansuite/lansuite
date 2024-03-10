@@ -101,6 +101,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [User] Removed ICQ field in user data
 - [User] Removed MSN field in user data
 - [Tournament] Removed support for WWCL (WWCL shutdown in 2013)
+- [About] Removed PHP and HTML Line count from about site
 
 ### Fixed
 
