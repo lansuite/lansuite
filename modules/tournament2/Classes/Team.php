@@ -161,6 +161,7 @@ class Team
             teams.leaderid = %int%
             AND t.party_id = %int%
           GROUP BY teams.leaderid", $userid, $party->party_id);
+        $sumTeamCoins = $team_coin["t_coins"] ?? 0;
 
         $member_coin = $db->qry_first("
           SELECT
@@ -171,6 +172,7 @@ class Team
             members.userid = %int%
             AND t.party_id = %int%
           GROUP BY members.userid", $userid, $party->party_id);
+        $sumMemberCoins = $member_coin["t_coins"] ?? 0;
 
         // Is the user already signed on to this tournament?
         if (is_array($team) && $team["found"]) {
@@ -197,7 +199,7 @@ class Team
             $func->information(t('%1 kann diesem Turnier nicht beitreten. In diesem Turnier dürfen nur Benutzer mitspielen, die <b>nicht</b> in einem Unter-18-Block sitzen', $user["username"]));
 
         // Are enough coins left to afford this tournament
-        } elseif (($cfg["t_coins"] - intval($team_coin["t_coins"]) - intval($member_coin["t_coins"]) - intval($t["coins"])) < 0) {
+        } elseif (($cfg["t_coins"] - intval($sumTeamCoins) - intval($sumMemberCoins) - intval($t["coins"])) < 0) {
             $func->information(t('%1 besitzt nicht genügend Coins um an diesem Turnier teilnehmen zu können!', $user["username"]));
 
         // Everything fine
@@ -414,7 +416,7 @@ class Team
           WHERE teamid = %int%", $name, $comment, $_GET["teamid"]);
         $func->log_event(t('Das Team %1 im Turnier %2 hat seine Daten editiert', $_POST['team_name'], $t["name"]), 1, t('Turnier Teamverwaltung'));
 
-        $this->UpdateLeagueIDs($auth["userid"], $_POST["wwclid"], $_POST["wwclclanid"], $_POST["nglid"], $_POST["nglclannid"], $_POST["lgzid"], $_POST["lgzclannid"]);
+        $this->UpdateLeagueIDs($auth["userid"], $_POST["nglid"], $_POST["nglclannid"], $_POST["lgzid"], $_POST["lgzclannid"]);
 
         return true;
     }
@@ -516,23 +518,15 @@ class Team
      * Set new League IDs
      *
      * @param int $userid
-     * @param int $wwclid
-     * @param int $wwclclanid
      * @param int $nglid
      * @param int $nglclanid
      * @param int $lgzid
      * @param int $lgzclanid
      */
-    public function UpdateLeagueIDs($userid, $wwclid = null, $wwclclanid = null, $nglid = null, $nglclanid = null, $lgzid = null, $lgzclanid = null)
+    public function UpdateLeagueIDs($userid, $nglid = null, $nglclanid = null, $lgzid = null, $lgzclanid = null)
     {
         global $db;
 
-        if ($wwclid != "") {
-            $db->qry('UPDATE %prefix%user SET wwclid = %string% WHERE userid = %int%', $wwclid, $userid);
-        }
-        if ($wwclclanid != "") {
-            $db->qry('UPDATE %prefix%user SET wwclclanid = %string% WHERE userid = %int%', $wwclclanid, $userid);
-        }
         if ($nglid != "") {
             $db->qry('UPDATE %prefix%user SET nglid = %string% WHERE userid = %int%', $nglid, $userid);
         }

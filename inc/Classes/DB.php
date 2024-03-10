@@ -89,6 +89,15 @@ class DB
     }
 
     /**
+     * Escapes special characters in a string for use in an SQL statement, taking into account the current charset of the connection.
+     *
+     * @return string
+     */
+    public function real_escape_string(string $text): string {
+        return mysqli_real_escape_string($this->link_id, $text);
+    }
+
+    /**
      * @param bool $save
      * @return bool
      */

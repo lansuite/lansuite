@@ -1003,14 +1003,6 @@
                 <title>Anzahl der Teilnhemer</title>
             </entry>
             <entry>
-                <shortcut>%WWCLID%</shortcut>
-                <title>WWCL ID</title>
-            </entry>
-            <entry>
-                <shortcut>%WWCLCLANID%</shortcut>
-                <title>WWCL Clan ID</title>
-            </entry>
-            <entry>
                 <shortcut>%NGLID%</shortcut>
                 <title>NGL ID</title>
             </entry>

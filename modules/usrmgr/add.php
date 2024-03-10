@@ -158,9 +158,6 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
             // Leagues
             if ($func->isModActive('tournament2')) {
-                if (ShowFieldUsrMgr('wwcl_id')) {
-                    $mf->AddField(t('WWCL ID'), 'wwclid', '', '', Optional('wwcl_id'));
-                }
                 if (ShowFieldUsrMgr('ngl_id')) {
                     $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('ngl_id'));
                 }
@@ -196,12 +193,6 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             }
             if (ShowFieldUsrMgr('handy')) {
                 $mf->AddField(t('Handy'), 'handy', '', '', Optional('telefon'));
-            }
-            if (ShowFieldUsrMgr('icq')) {
-                $mf->AddField('ICQ', 'icq', '', '', Optional('icq'));
-            }
-            if (ShowFieldUsrMgr('msn')) {
-                $mf->AddField('MSN', 'msn', '', '', Optional('msn'));
             }
             if (ShowFieldUsrMgr('xmpp')) {
                 $mf->AddField('XMPP', 'xmpp', '', '', Optional('xmpp'));

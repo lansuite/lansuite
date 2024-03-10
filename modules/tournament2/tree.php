@@ -47,7 +47,7 @@ if (!$_GET['tournamentid']) {
                 if ($tournament['mode'] == "liga") {
                     $height = $team_anz * 20 + 30;
                 } else {
-                    $height = (($team_anz/2) * 50) + 60;
+                    $height = (($team_anz/2) * 50) + 120;
                 }
   
                 if (($tournament["mode"] == "groups") && (!$groupParameter)) {

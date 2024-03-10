@@ -47,14 +47,14 @@ website/i18n/*
 docker/*.env
 
 # designs
-design/**
-!design/beamer
-!design/images
-!design/osX
-!design/simple
+design/*
+!design/beamer/
+!design/images/
+!design/osX/
+!design/simple/
 !design/style.css
-!design/sunset
-!design/templates
+!design/sunset/
+!design/templates/
 
 # ext_inc/
 ext_inc/avatare/*

@@ -67,6 +67,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Enabled Google Analytics Integration anonymizeIp feature
 - [System] Separated Google API-Keys for Analytics, Maps and Translate into dedicated settings (#887)
 - [System] Don't enforce php-snmp; only suggest it (#148)
+- [Cron] Show execution state, runtime and error, deactvate after 3 failed executions (#924) 
 - [System] Updated jQuery to v3.7.1 and jQuery UI to v1.13.2
 - [Database] Set utf8mb4 as the default charset
 - [Database] Add default database port to connection string if not configured
@@ -98,6 +99,9 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Server2] Removed module server2
 - [Equipment] Removed module equipment because http://www.orgapage.net/ is not available anymore
 - [Captcha] Removed ext_scripts/captcha.php, because it was not in use
+- [User] Removed ICQ field in user data
+- [User] Removed MSN field in user data
+- [Tournament] Removed support for WWCL (WWCL shutdown in 2013)
 
 ### Fixed
 
@@ -108,6 +112,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Remove LanSurfer-related code
 - [Party] Fixed start page party statistics
 - [Cron2] Fixed reserved keyword in newer MySQL versions (keyword 'function') (#482)
+- [Cron2] Fixed blank page on failure to execute php / sql (#924)
 - [Installation] Skip cache for installation module
 - [Installation] Fixed #344: Switching to English during Installation breaks the Installation page (#650)
 - [Installation] Fixed dropdown to select the design

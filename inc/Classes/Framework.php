@@ -417,6 +417,7 @@ ga('send', 'pageview');
                 }
 
                 // Ausgabe Hauptseite
+                $smarty->assign('CloseFullscreen', '');
                 if (!$sessionFullScreenSet and !$this->modus == 'beamer') {
                     $smarty->assign('MainFrameworkmessages', $this->framework_messages);
                     if (isset($templ)) {
@@ -427,6 +428,7 @@ ga('send', 'pageview');
                         $smarty->assign('MainRightBox', '');
                     }
                     $smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" border="0" />');
+                    $smarty->assign('MainDebug', '');
                     if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and isset($debug)) { // and $cfg['sys_showdebug'] (no more, for option now in inc/base/config)
                         $smarty->assign('MainDebug', $debug->show());
                     }

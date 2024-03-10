@@ -33,14 +33,20 @@ function WritePairs($bracket, $max_pos)
           GROUP BY games.gameid", $tournamentid, $akt_round, $akt_pos);
 
         // Set Playernames
-        if ($game == 0) {
-            $game['name'] = "<i>".t('Noch Unbekannt')."</i>";
+        if (!$game) {
+          $game = [
+            'name' => '<i>' . t('Noch Unbekannt') . '</i>',
+            'teamid' => 0,
+            'leaderid' => 0,
+            'gameid' => 0,
+            'score' => 0
+          ];
         } elseif ($game['leaderid'] == 0) {
             $game['name'] = "<i><font color=\"#000088\">".t('Freilos')."</font></i>";
         } else {
             $game['name'] .= $tfunc->button_team_details($game['teamid'], $tournamentid);
         }
 
-        WriteGame();
+        WriteGame($game);
     }
 }

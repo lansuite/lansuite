@@ -1155,7 +1155,7 @@ class MasterForm
                                     $db_query = '';
                                     foreach ($this->SQLFields as $key => $val) {
                                         $databaseValue = $_POST[$val][$value2] ?? '';
-                                        $databaseValue = mysqli_real_escape_string($databaseValue);
+                                        $databaseValue = $db->real_escape_string($databaseValue);
                                         $db_query .= "$val = '". $databaseValue ."', ";
                                     }
                                     $db_query = substr($db_query, 0, strlen($db_query) - 2);
@@ -1218,7 +1218,8 @@ class MasterForm
 
                         if ($addUpdSuccess) {
                             if ($this->isChange) {
-                                $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer'][$this->GetNumber()]);
+                                $linkTarget = $_SESSION['mf_referrer'][$this->GetNumber()] ?? '';
+                                $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $linkTarget);
                             } else {
                                 $func->confirmation(t('Die Daten wurden erfolgreich eingefügt.'), $this->LinkBack);
                             }

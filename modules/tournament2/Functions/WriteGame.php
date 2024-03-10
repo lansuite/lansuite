@@ -1,17 +1,19 @@
 <?php
 
 /**
+ * @param array $game Game information
  * @return void
  */
-function WriteGame()
+function WriteGame(array $game): void
 {
-    global $spieler1, $gameid1, $score1, $spieler1_id, $i, $tournamentid, $game, $dsp, $auth;
+    global $spieler1, $gameid1, $score1, $spieler1_id, $i, $tournamentid, $dsp, $auth;
 
-    if ($spieler1 == "") {
+    if ($spieler1 == '') {
         $spieler1 = $game['name'];
         $gameid1 = $game['gameid'];
         $score1 = $game['score'];
         $spieler1_id = $game['leaderid'];
+
     } else {
         $i++;
         $spieler2 = $game['name'];
