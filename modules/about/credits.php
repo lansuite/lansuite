@@ -2,10 +2,7 @@
 $dsp->NewContent(LANSUITE_VERSION, 'A web based lanparty administration tool');
 
 $dsp->AddSingleRow('<b>Contact</b>', 'align="center"');
-$dsp->AddSingleRow('internet: <a href="http://www.lansuite.de" target="_blank">http://www.lansuite.de</a><br />
-board: <a href="http://board.one-network.org" target="_blank">http://board.one-network.org</a><br />
-email:   info(at)one-network.org<br /><br />
-<a href="http://www.one-network.org/?mod=projects&id=1&action=support" target="_blank">support us</a>', 'align="center"');
+$dsp->AddSingleRow('Internet/Development: <a href="https://github.com/lansuite/lansuite" title="lansuite at Github">https://github.com/lansuite/lansuite</a>', 'align="center"');
 
 $dsp->AddSingleRow('<b>Idea based upon lansuite Version 1 by</b>', 'align="center"');
 $dsp->AddSingleRow('Raphael Mansmann<br />Christian Weyer', 'align="center"');
