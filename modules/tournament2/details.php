@@ -94,10 +94,6 @@ if (!$tournament["tournamentid"]) {
             }
             $dsp->AddDoubleRow(t('Spiel'), $icon . $tournament['game'] . $versionInformation);
 
-            $league = "";
-            if ($tournament['ngl_gamename']) {
-                $league .= ", <img src=\"ext_inc/tournament_icons/leagues/ngl.png\" alt=\"NGL\">";
-            }
             if ($tournament['mode'] == "single") {
                 $modus = t('Single-Elimination');
             }
@@ -118,7 +114,7 @@ if (!$tournament["tournamentid"]) {
             } else {
                 $blind_draw = "";
             }
-            $dsp->AddDoubleRow(t('Spiel-Modus'), $modus .", ". $tournament['teamplayer'] ." ".t('gegen')." ". $tournament['teamplayer'] . $blind_draw . $league);
+            $dsp->AddDoubleRow(t('Spiel-Modus'), $modus .", ". $tournament['teamplayer'] ." ".t('gegen')." ". $tournament['teamplayer'] . $blind_draw);
 
             if ($tournament['tournamentadmin']) {
                 $dsp->AddDoubleRow(t('Turniermanagement'), $dsp->FetchUserIcon($tournament['tournamentadmin'], $tournament['tournamentadmin_name']));

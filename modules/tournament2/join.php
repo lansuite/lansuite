@@ -15,7 +15,6 @@ $tournament = $db->qry_first("
     status,
     groupid,
     coins,
-    ngl_gamename,
     lgz_gamename,
     maxteams,
     blind_draw
@@ -29,8 +28,6 @@ if ($auth["userid"] == "") {
 
 $user = $db->qry_first("
   SELECT
-    nglid,
-    nglclanid,
     lgzid,
     lgzclanid
   FROM %prefix%user
@@ -71,11 +68,9 @@ if ($tteam->SignonCheck($tournamentid)) {
 
                 if (count($error) == 0 and $success) {
                     // Update-League-IDs
-                    $nglidParameter = $_POST["nglid"] ?? '';
-                    $nglclanidParameter = $_POST["nglclanid"] ?? '';
                     $lgzidParameter = $_POST["lgzid"] ?? '';
                     $lgzclanidParameter = $_POST["lgzclanid"] ?? '';
-                    $tteam->UpdateLeagueIDs($auth["userid"], $nglidParameter, $nglclanidParameter, $lgzidParameter, $lgzclanidParameter);
+                    $tteam->UpdateLeagueIDs($auth["userid"], $lgzidParameter, $lgzclanidParameter);
                     $func->confirmation(t('Du wurdest zum Turnier %1 erfolgreich hinzugefügt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
                 }
                 $sec->lock("t_join");
@@ -138,12 +133,6 @@ if ($tteam->SignonCheck($tournamentid)) {
             $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $teamCommentParameter, "", "", "", 1);
             $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
 
-            if ($tournament['ngl_gamename'] != "") {
-                $dsp->AddTextFieldRow("nglid", t('NGL ID'), $user['nglid'], "");
-                if ($tournament['teamplayer'] > 1) {
-                    $dsp->AddTextFieldRow("nglclanid", t('NGL Clan ID'), $user['nglclanid'], "");
-                }
-            }
             if ($tournament['lgz_gamename'] != "") {
                 $dsp->AddDoubleRow(t('LGZ ID'), t('Falls temoräre ID gewünscht, bitte <b>0</b> eingeben und nach der Party die Verifizierungsmail bestätigen. Ein leeres Feld bedeutet, dass man außer Konkurenz teilnimt (John Doe)'));
                 $dsp->AddTextFieldRow("lgzid", "", $user['lgzid'], "");
