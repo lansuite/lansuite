@@ -17,6 +17,8 @@ function Addr2Input($field, $mode, $error = ''): bool|string
             if ($plzAndCityParameter == '' && $plzParameter && $_POST['city']) {
                 $_POST['plz|city'] = $plzParameter .' '. $_POST['city'];
             }
+
+            $plzAndCityParameter = $_POST['plz|city'] ?? '';
             $dsp->AddTextFieldRow('plz|city', t('PLZ und Ort'), $plzAndCityParameter, $error, '', Optional('city'));
             return false;
             break;

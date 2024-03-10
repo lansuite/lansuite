@@ -421,7 +421,7 @@ class Team
           WHERE teamid = %int%", $name, $comment, $_GET["teamid"]);
         $func->log_event(t('Das Team %1 im Turnier %2 hat seine Daten editiert', $_POST['team_name'], $t["name"]), 1, t('Turnier Teamverwaltung'));
 
-        $this->UpdateLeagueIDs($auth["userid"], $_POST["wwclid"], $_POST["wwclclanid"], $_POST["nglid"], $_POST["nglclannid"], $_POST["lgzid"], $_POST["lgzclannid"]);
+        $this->UpdateLeagueIDs($auth["userid"], $_POST["nglid"], $_POST["nglclannid"], $_POST["lgzid"], $_POST["lgzclannid"]);
 
         return true;
     }
@@ -523,23 +523,15 @@ class Team
      * Set new League IDs
      *
      * @param int $userid
-     * @param int $wwclid
-     * @param int $wwclclanid
      * @param int $nglid
      * @param int $nglclanid
      * @param int $lgzid
      * @param int $lgzclanid
      */
-    public function UpdateLeagueIDs($userid, $wwclid = null, $wwclclanid = null, $nglid = null, $nglclanid = null, $lgzid = null, $lgzclanid = null)
+    public function UpdateLeagueIDs($userid, $nglid = null, $nglclanid = null, $lgzid = null, $lgzclanid = null)
     {
         global $db;
 
-        if ($wwclid != "") {
-            $db->qry('UPDATE %prefix%user SET wwclid = %string% WHERE userid = %int%', $wwclid, $userid);
-        }
-        if ($wwclclanid != "") {
-            $db->qry('UPDATE %prefix%user SET wwclclanid = %string% WHERE userid = %int%', $wwclclanid, $userid);
-        }
         if ($nglid != "") {
             $db->qry('UPDATE %prefix%user SET nglid = %string% WHERE userid = %int%', $nglid, $userid);
         }
