@@ -28,33 +28,6 @@ $dsp->AddSingleRow('Wir danken allen Modulprogramierern.</b><br /> Im Modulkonfi
 $dsp->AddSingleRow('<b>On-line Documentation</b>', 'align="center"');
 $dsp->AddSingleRow('Sebastian Haslinger', 'align="center"');
 
-$dsp->AddSingleRow('<b>Thanks and Greets go to</b>', 'align="center"');
-$dsp->AddSingleRow('an alle aktiven User im Board<br />
-<a href="http://blog.one-network.org" target="_blank">OpenSource Intranet Blog (http://blog.one-network.org</a>)<br />
-an alle Dokuschreiber<br />
-<a href="http://lansuite-docu.orgapage.de" target="_blank">OpenSource Intranet Blog (http://lansuite-docu.orgapage.de</a>)<br />
-Gigahertz Rent GmbH <br />
-MySQL-Crew<br />
-PHP-Crew<br />
-php.net (Funktionsreferenz)<br />
-Apache-Crew<br />
-TortoiseSVN (http://tortoisesvn.net/)<br />
-phpBB.com (http://www.phpbb.com)<br />
-Adobe (Photoshop)<br />
-Fraunhofer Institut (MPEG 1 Layer 3)<br />
-Domain Factory GmbH<br />
-Fox&amp;Pro7 (Simpsons)<br />
-Spinnrad St. Wendel <br />
-Gauloises Cigarettes (Raphael)<br />
-The crazy old man who\'s complaining over all about the drunken teenagers at the trainstation<br />
-All lanparty organisators<br />
-Lanshock developers<br />
-PHPChrystal developers<br />
-Linus Torvalds <br />
-Mailer-Daemon<br />
-KDE-Team<br />
-and all other friends', 'align="center"');
-
 $dsp->AddSingleRow('<b>&quot; Life is like a Trainstation &quot;</b>', 'align="center"');
 $dsp->AddSingleRow('Written on PSPad, Kate, UltraEdit and ZendStudio', 'align="center"');
 $dsp->AddSingleRow('Lansuite has been written and tested using<br />PHP 4.3.11 / 5.0.5 and MySQL 4.1.1 / 5.0', 'align="center"');
