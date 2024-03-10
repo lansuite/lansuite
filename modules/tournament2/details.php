@@ -82,18 +82,19 @@ if (!$tournament["tournamentid"]) {
             $dsp->StartTab(t('Turnierinfos'), 'details');
             $dsp->AddDoubleRow(t('Turniername'), $tournament['name']);
 
-            if (($tournament['icon']) && ($tournament['icon'] != "none")) {
-                $icon = "<img src=\"ext_inc/tournament_icons/{$tournament['icon']}\" alt=\"Icon\"> ";
+            $icon = '';
+            $iconPath = 'ext_inc/tournament_icons/' . $tournament['icon'];
+            if ($tournament['icon'] && $tournament['icon'] != "none" && file_exists($iconPath)) {
+                $icon = '<img src="' . $iconPath . '" alt="Icon"> ';
             }
-            if ($tournament['version'] == "") {
-                $tournament['version'] = "<i>".t('unbekannt')."</i>";
+
+            $versionInformation = '';
+            if ($tournament['version']) {
+                $versionInformation = ' (' . t('Version') . ': ' . $tournament['version'] . ')';
             }
-            $dsp->AddDoubleRow(t('Spiel'), $icon . $tournament['game'] ." (".t('Version').": ". $tournament['version'] .")");
+            $dsp->AddDoubleRow(t('Spiel'), $icon . $tournament['game'] . $versionInformation);
 
             $league = "";
-            if ($tournament['wwcl_gameid'] != 0) {
-                $league .= ", <img src=\"ext_inc/tournament_icons/leagues/wwcl.png\" alt=\"WWCL\">";
-            }
             if ($tournament['ngl_gamename']) {
                 $league .= ", <img src=\"ext_inc/tournament_icons/leagues/ngl.png\" alt=\"NGL\">";
             }

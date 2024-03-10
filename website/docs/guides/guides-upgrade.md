@@ -197,6 +197,17 @@ Add the following files from the release package to the `ext_inc/pdf_fonts` fold
 
 * `ext_inc/pdf_fonts/.gitkeep`
 
+### Removal of WWCL files
+
+Delete the following files:
+
+* `ext_inc/tournament_icons/leagues/wwcl.png`
+* `ext_inc/tournament_rules/gameini.xml`
+
+Overwrite the following files from LanSuite with the files from the upgrade package:
+
+* `ext_inc/tournament_rules/info.txt`
+
 ### Converting custom fonts
 
 If you have added your own custom fonts into `ext_inc/pdf_fonts`, you need to convert them into the new fpdf format:

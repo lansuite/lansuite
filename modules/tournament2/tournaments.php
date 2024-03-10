@@ -120,24 +120,6 @@ $mf->AddPage(t('Haupteinstellungen'));
 // League + Misc
 $mf->AddField(t('Icon'), 'icon', \LanSuite\MasterForm::IS_PICTURE_SELECT, 'ext_inc/tournament_icons', \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-// WWCL-Spiel Auswahl
-$xml_file = "";
-$file = "ext_inc/tournament_rules/gameini.xml";
-$handle = fopen($file, "rb");
-$xml_file = fread($handle, filesize($file));
-fclose($handle);
-
-$selections = array();
-$game_ids = $xml->get_tag_content_array("id", $xml_file);
-$game_namen = $xml->get_tag_content_array("name", $xml_file);
-while ($akt_game_id = array_shift($game_ids)) {
-    $akt_game_name = array_shift($game_namen);
-    $selections[$akt_game_id] = $akt_game_name;
-}
-asort($selections);
-$selections = array('0' => t('Kein WWCL-Support für dieses Turnier')) + $selections;
-$mf->AddField(t('WWCL-Spiel'), 'wwcl_gameid', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckModeForWWCLLeague');
-
 // NGL-Spiel auswahl
 $xml_file = "";
 $file = "ext_inc/tournament_rules/games.xml";
@@ -193,7 +175,7 @@ $mf->AddField(t('LGZ-Spiel'), 'lgz_gamename', \LanSuite\MasterForm::IS_SELECTION
 $selections = array();
 $verz = opendir('ext_inc/tournament_rules/');
 while ($file_name = readdir($verz)) {
-    if (!is_dir('ext_inc/tournament_rules/'.$file_name) and $file_name != 'gameini.xml'
+    if (!is_dir('ext_inc/tournament_rules/'.$file_name)
     and $file_name != 'games.xml' and $file_name != 'info.txt' and $file_name != 'xml_games.xml') {
         $selections[$file_name] = $file_name;
     }

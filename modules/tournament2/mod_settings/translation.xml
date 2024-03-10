@@ -1043,16 +1043,6 @@
 				<file>tournament2</file>
 			</entry>
 			<entry>
-				<id>3fb21c2cedd8b48f278db6eb6469df78</id>
-				<org>WWCL-Export wurde erstellt</org>
-				<en>WWCL export has been created</en>
-				<es>Exportación WWCL se ha creado</es>
-				<fr>WWCL d&amp;#39;exportation a été créé</fr>
-				<nl>WWCL uitvoer is geschapen</nl>
-				<it>Esportazione WWCL è stato creato</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
 				<id>92b69e06d20cd9c44872d5a7c08f8741</id>
 				<org>Nicht verfügbar. Bitte PVD-ID und PlanetLan-Party-ID angeben!</org>
 				<en>Not available. Please PVD ID and PlanetLAN-Party-ID is missing!</en>
@@ -1540,26 +1530,6 @@
 				<fr>Logo de l&amp;#39;équipe (maximum 1 Mo)</fr>
 				<nl>Team logo (max 1MB)</nl>
 				<it>Logo della squadra (max 1MB)</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
-				<id>cc6c71eb9ea33fc3b29bc29eb79cf196</id>
-				<org>WWCL ID</org>
-				<en>WWCL ID</en>
-				<es>WWCL ID</es>
-				<fr>WWCL ID</fr>
-				<nl>WWCL ID</nl>
-				<it>WWCL ID</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
-				<id>0ff7f0bf78f213c2d14539c10ae8b05c</id>
-				<org>WWCL Clan</org>
-				<en>WWCL Clan</en>
-				<es>WWCL Clan</es>
-				<fr>WWCL Clan</fr>
-				<nl>WWCL Clan</nl>
-				<it>WWCL Clan</it>
 				<file>tournament2</file>
 			</entry>
 			<entry>
@@ -2694,26 +2664,6 @@
 				<file>tournament2</file>
 			</entry>
 			<entry>
-				<id>99ac4f665c1359c80612cabc44fc7464</id>
-				<org>Kein WWCL-Support für dieses Turnier</org>
-				<en>No support for this tournament and side events</en>
-				<es>No hay soporte para este torneo y actividades paralelas</es>
-				<fr>Pas de support pour ce tournoi et aux activités parallèles</fr>
-				<nl>Geen steun voor dit toernooi en side events</nl>
-				<it>Nessun supporto per questo torneo e eventi collaterali</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
-				<id>1d960c64e6d18bc426b939dfaed7db46</id>
-				<org>WWCL-Spiel</org>
-				<en>WWCL Game</en>
-				<es>WWCL Juego</es>
-				<fr>WWCL Game</fr>
-				<nl>WWCL Game</nl>
-				<it>WWCL Game</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
 				<id>d4b868bd6225b2df16872a6549c293f4</id>
 				<org>Kein NGL-Support für dieses Turnier</org>
 				<en>No NGL support for this tournament</en>
@@ -3524,16 +3474,6 @@
 				<file>tournament2</file>
 			</entry>
 			<entry>
-				<id>a0c05e9153894cd893b9f81e1f3854ed</id>
-				<org>WWCL-Turniere müssen im SE, DE oder Gruppenspiele Modus ausgetragen werden</org>
-				<en>Tournaments and side events have on the SE, or group games will be played DE mode</en>
-				<es>Torneos y eventos paralelos tienen en la SE, o de un grupo que se jugarán partidos de mode</es>
-				<fr>Tournois et événements indésirables ont sur la SE, ou le groupe matchs seront joués de mode</fr>
-				<nl>Toernooien en zijkanten gebeurtenissen hebben op de SE, of de groep wedstrijden worden gespeeld DE-modus</nl>
-				<it>Tornei ed eventi collaterali hanno sulla situazione della SE, o il gruppo di giochi saranno effettuati in modalità DE</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
 				<id>3ca8faa0a757458c0daafd1da778feb6</id>
 				<org>Diese Liga ist nur im SE und DE Modus möglich</org>
 				<en>This league is only possible in the SE and DE mode</en>
@@ -3591,16 +3531,6 @@
 				<fr>Ligues</fr>
 				<nl>Competities</nl>
 				<it>Campionati</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
-				<id>c0260539d235b38b4e51abb1844d9b84</id>
-				<org>WWCL-ID</org>
-				<en>WWCL ID</en>
-				<es>WWCL ID</es>
-				<fr>WWCL ID</fr>
-				<nl>WWCL ID</nl>
-				<it>WWCL ID</it>
 				<file>tournament2</file>
 			</entry>
 			<entry>
