@@ -16,13 +16,6 @@ class Framework
     private $timer2 = '';
 
     /**
-     * Checksum of Content
-     *
-     * @var string
-     */
-    private $content_crc = '';
-
-    /**
      * Size of Content
      *
      * @var string
@@ -355,11 +348,11 @@ ga('send', 'pageview');
                     echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
                     $index = $smarty->fetch("design/{$this->design}/templates/main.htm"). "\n<!-- Compressed by $compression_mode -->";
                     $this->content_size = strlen($index);
-                    $this->content_crc = crc32($index);
+                    $contentCRC32 = crc32($index);
                     $index = gzcompress($index, $cfg['sys_compress_level']);
                     $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
                     echo $index;
-                    echo pack('V', $this->content_crc) . pack('V', $this->content_size);
+                    echo pack('V', $contentCRC32) . pack('V', $this->content_size);
                 } else {
                     $smarty->display("design/{$this->design}/templates/main.htm");
                 }
