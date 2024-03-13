@@ -35,11 +35,6 @@ class Framework
     public $modus = '';
 
     /**
-     * All framework messages
-     */
-    private string $framework_messages = '';
-
-    /**
      * Content
      */
     private string $main_content = '';
@@ -405,7 +400,6 @@ ga('send', 'pageview');
                 // Ausgabe Hauptseite
                 $smarty->assign('CloseFullscreen', '');
                 if (!$sessionFullScreenSet and !$this->modus == 'beamer') {
-                    $smarty->assign('MainFrameworkmessages', $this->framework_messages);
                     if (isset($templ)) {
                         $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
                         $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
