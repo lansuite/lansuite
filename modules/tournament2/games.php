@@ -19,7 +19,13 @@ if (!$tournamentid) {
         default:
                 // Check if roundtime has exceeded and set awaiting scores randomly
                 $tfunc->CheckTimeExceed($tournamentid);
-                $tournament = $db->qry_first("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
+                $tournamentQuery = "
+                  SELECT
+                    *,
+                    UNIX_TIMESTAMP(starttime) AS starttime
+                  FROM %prefix%tournament_tournaments
+                  WHERE tournamentid = ?";
+                $tournament = $database->queryWithOnlyFirstRow($tournamentQuery, [$tournamentid]);
   
             // Get Maparray
             $map = explode("\r\n", $tournament["mapcycle"]);
@@ -179,15 +185,15 @@ if (!$tournamentid) {
                         $team_anz = 2 * $db->num_rows($games);
                         $db->free_result($games);
                     } else {
-                        $games = $db->qry_first("
+                        $games = $database->queryWithOnlyFirstRow("
                           SELECT
                             COUNT(*) AS anz
-                          FROM %prefix%t2_games
+                          FROM `%prefix%t2_games`
                           WHERE
-                            (tournamentid = %int%)
-                            AND (round = 0)
-                            AND (group_nr = 0)
-                          GROUP BY round", $tournamentid);
+                            `tournamentid` = ?
+                            AND `round` = 0
+                            AND `group_nr` = 0
+                          GROUP BY `round`", [$tournamentid]);
                         $team_anz = $games["anz"];
                     }
   
@@ -222,20 +228,20 @@ if (!$tournamentid) {
                     // Write Winner
                     $akt_round++;
                     $dsp->AddSingleRow("<b>". t('Turnier-Sieger') ."</b>");
-                    $game = $db->qry_first("
+                    $game = $database->queryWithOnlyFirstRow("
                       SELECT
-                        teams.name,
-                        teams.teamid
+                        `teams`.`name`,
+                        `teams`.`teamid`
                       FROM %prefix%t2_games AS games
                       LEFT JOIN %prefix%t2_teams AS teams ON
-                        (games.tournamentid = teams.tournamentid)
-                        AND (games.leaderid = teams.leaderid)
+                        games.tournamentid = teams.tournamentid
+                        AND games.leaderid = teams.leaderid
                       WHERE
-                        (games.tournamentid = %int%)
-                        AND (games.round = %string%)
-                        AND (games.position = 0)
-                        AND (games.group_nr = 0)
-                      GROUP BY games.gameid", $tournamentid, $akt_round);
+                        games.tournamentid = ?
+                        AND games.round = ?
+                        AND games.position = 0
+                        AND games.group_nr = 0
+                      GROUP BY games.gameid", [$tournamentid, $akt_round]);
                     if ($game == 0) {
                         $game['name'] = "<i>".t('Noch Unbekannt')."</i>";
                     } else {

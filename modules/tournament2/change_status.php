@@ -5,16 +5,16 @@ $tournamentid    = $_GET["tournamentid"];
 if ($tournamentid == "") {
     $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
 } else {
-    $tournament = $db->qry_first("
+    $tournament = $database->queryWithOnlyFirstRow("
       SELECT
-        status,
-        teamplayer,
-        name,
-        mode,
-        blind_draw
-      FROM %prefix%tournament_tournaments
+        `status`,
+        `teamplayer`,
+        `name`,
+        `mode`,
+        `blind_draw`
+      FROM `%prefix%tournament_tournaments`
       WHERE
-        tournamentid = %int%", $tournamentid);
+        `tournamentid` = ?", [$tournamentid]);
 
     switch ($_GET["action"]) {
         case "undo_generate":
@@ -29,11 +29,11 @@ if ($tournamentid == "") {
                     if ($tournament["blind_draw"]) {
                         $bd_teams = $db->qry("SELECT * FROM %prefix%t2_teammembers WHERE tournamentid = %int%", $_GET["tournamentid"]);
                         while ($bd_team = $db->fetch_array($bd_teams)) {
-                            $leader = $db->qry_first("
+                            $leader = $database->queryWithOnlyFirstRow("
                               SELECT
-                                username
-                              FROM %prefix%user
-                              WHERE userid = %int%", $bd_team["userid"]);
+                                `username`
+                              FROM `%prefix%user`
+                              WHERE `userid` = ?", [$bd_team["userid"]]);
 
                             $db->qry("
                               INSERT INTO %prefix%t2_teams 

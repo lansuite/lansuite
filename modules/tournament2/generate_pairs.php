@@ -13,7 +13,7 @@ $teams = $db->qry("
   ORDER BY RAND()", $_GET["tournamentid"]);
 $team_anz = $db->num_rows($teams);
 
-$tournament = $db->qry_first("
+$tournament = $database->queryWithOnlyFirstRow("
   SELECT
     status,
     teamplayer,
@@ -23,16 +23,16 @@ $tournament = $db->qry_first("
     mapcycle
   FROM %prefix%tournament_tournaments
   WHERE
-    tournamentid = %int%", $_GET["tournamentid"]);
+    tournamentid = ?", [$_GET["tournamentid"]]);
 
-$seeded = $db->qry_first("
+$seeded = $database->queryWithOnlyFirstRow("
   SELECT
     COUNT(*) AS anz
   FROM %prefix%t2_teams
   WHERE
-    (tournamentid = %int%)
-    AND (seeding_mark = '1')
-  GROUP BY tournamentid", $_GET["tournamentid"]);
+    tournamentid = ?
+    AND seeding_mark = '1'
+  GROUP BY tournamentid", [$_GET["tournamentid"]]);
 $seededCount = $seeded['anz'] ?? 0;
 
 if ($_GET["step"] < 2 and $tournament["blind_draw"]) {
@@ -96,12 +96,12 @@ if ($team_anz < 4) {
         $waiting_teams = 0;
         $teams2 = $db->qry("SELECT name, teamid FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $_GET["tournamentid"]);
         while ($team2 = $db->fetch_array($teams2)) {
-            $members = $db->qry_first("
+            $members = $database->queryWithOnlyFirstRow("
               SELECT
                 COUNT(*) AS members
               FROM %prefix%t2_teammembers
-              WHERE (teamid = %int%)
-              GROUP BY teamid", $team2['teamid']);
+              WHERE teamid = ?
+              GROUP BY teamid", [$team2['teamid']]);
             $memberCount = $members["members"] ?? 0;
             if (($memberCount + 1) < $tournament['teamplayer']) {
                 $waiting_teams ++;
@@ -121,12 +121,12 @@ if ($team_anz < 4) {
     if ($_GET["step"] == 4) {
         $teams2 = $db->qry("SELECT teamid, leaderid FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $_GET["tournamentid"]);
         while ($team2 = $db->fetch_array($teams2)) {
-            $members = $db->qry_first("
+            $members = $database->queryWithOnlyFirstRow("
               SELECT
                 COUNT(*) AS members
               FROM %prefix%t2_teammembers
-              WHERE (teamid = %int%)
-              GROUP BY teamid", $team2['teamid']);
+              WHERE teamid = ?
+              GROUP BY teamid", [$team2['teamid']]);
             if (($members["members"] + 1) < $tournament['teamplayer']) {
                 $db->qry("DELETE FROM %prefix%t2_teams WHERE (teamid = %int%) AND (tournamentid = %int%)", $team2["teamid"], $_GET["tournamentid"]);
                 $db->qry("DELETE FROM %prefix%t2_teammembers WHERE (teamid = %int%) AND (tournamentid = %int%)", $team2["teamid"], $_GET["tournamentid"]);

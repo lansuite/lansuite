@@ -7,7 +7,7 @@ $tteam = new \LanSuite\Module\Tournament2\Team($mail, $seat2);
 
 $tournamentid = $_GET["tournamentid"];
 
-$tournament = $db->qry_first("
+$tournament = $database->queryWithOnlyFirstRow("
   SELECT
     name,
     teamplayer,
@@ -21,7 +21,7 @@ $tournament = $db->qry_first("
     blind_draw
   FROM %prefix%tournament_tournaments
   WHERE
-    tournamentid = %int%", $tournamentid);
+    tournamentid = ?", [$tournamentid]);
 
 if ($auth["userid"] == "") {
     $auth["userid"] = 0;
