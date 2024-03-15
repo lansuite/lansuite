@@ -350,7 +350,7 @@ class Team
 
                 if (!$name) {
                     $user = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $leaderid);
-                    $name = $func->escape_sql($user["username"]);
+                    $name = $user["username"];
                 }
                 $db->qry("
                   INSERT INTO %prefix%t2_teams 
