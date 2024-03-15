@@ -135,7 +135,7 @@ if ($tournament["name"] == "") {
                 $mf = new \LanSuite\MasterForm();
                 $mf->AddField(t('Server Zuweisen'), 'server_id', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
                 if ($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1)) {
-                    $db->qry("UPDATE %prefix%t2_games SET server_id = %int% WHERE gameid = %int%", $_POST['server_id'], $gameid2);
+                    $database->query("UPDATE %prefix%t2_games SET server_id = ? WHERE gameid = ?", [$_POST['server_id'], $gameid2]);
                 }
             }
 

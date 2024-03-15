@@ -541,42 +541,42 @@ class TournamentFunction
 
         // Wenn im LB, oder Finale verloren wurde -> ausgeschieden. Sonst neuer Eintrag
         if ($winner or ($looser and $round >= 0 and $round != $num_rounds)) {
-            $db->qry("
+            $database->query("
               DELETE FROM %prefix%t2_games
               WHERE
-                (tournamentid = %int%)
-                AND (round = %string%)
-                AND (position = %string%)
-                AND (group_nr = 0)", $tournamentid, $team_round[$player1], $team_pos[$player1]);
+                tournamentid = ?
+                AND round = ?
+                AND position = ?
+                AND group_nr = 0", [$tournamentid, $team_round[$player1], $team_pos[$player1]]);
 
-            $db->qry("
+            $database->query("
               INSERT INTO %prefix%t2_games
               SET
-                tournamentid = %int%,
-                leaderid = %int%,
-                round = %string%,
-                position = %string%,
-                score = 0", $tournamentid, $leaderid[$player1], $team_round[$player1], $team_pos[$player1]);
+                tournamentid = ?,
+                leaderid = ?,
+                round = ?,
+                position = ?,
+                score = 0", [$tournamentid, $leaderid[$player1], $team_round[$player1], $team_pos[$player1]]);
         }
 
         // Verliert jemand das Halb-Finale im SE, gibt es einen zusätzlichen Eintrag im Winnerbracket. (Spiel um Platz 3)
         if ($round == ($num_rounds - 2) and $looser) {
-            $db->qry("
+            $database->query("
               DELETE FROM %prefix%t2_games
               WHERE
-                (tournamentid = %int%)
-                AND (round = %string%)
-                AND (position = %string%)
-                AND (group_nr = 0)", $tournamentid, ($team_round_before + 1), (floor($team_pos_before / 2) + 2));
+                tournamentid = ?
+                AND round = ?
+                AND position = ?
+                AND group_nr = 0", [$tournamentid, ($team_round_before + 1), (floor($team_pos_before / 2) + 2)]);
 
-            $db->qry("
+            $database->query("
               INSERT INTO %prefix%t2_games
               SET
-                tournamentid = %int%,
-                leaderid = %int%,
-                round = %string%,
-                position = %string%,
-                score = 0", $tournamentid, $leaderid[$player1], ($team_round_before + 1), (floor($team_pos_before / 2) + 2));
+                tournamentid = ?,
+                leaderid = ?,
+                round = ?,
+                position = ?,
+                score = 0", [$tournamentid, $leaderid[$player1], ($team_round_before + 1), (floor($team_pos_before / 2) + 2)]);
         }
 
         // Freilose in Runde -0.5 und -1
@@ -600,22 +600,22 @@ class TournamentFunction
 
             // Wenn neuer Gegner ein Freilos, Spieler eine Runde weiter schieben
             if ($en_game['gameid'] != 0) {
-                $db->qry("
+                $database->query("
                   DELETE FROM %prefix%t2_games
                   WHERE
-                    (tournamentid = %int%)
-                    AND (round = -1)
-                    AND (position = %int%)
-                    AND (group_nr = 0)", $tournamentid, (floor($team_pos[$player1]/2)*2 + 1));
+                    tournamentid = ?
+                    AND round = -1
+                    AND position = ?
+                    AND group_nr = 0", [$tournamentid, (floor($team_pos[$player1]/2)*2 + 1)]);
 
-                $db->qry("
+                $database->query("
                   INSERT INTO %prefix%t2_games
                   SET
-                    tournamentid = %int%,
-                    leaderid = %int%,
+                    tournamentid = ?,
+                    leaderid = ?,
                     round = -1,
-                    position = %int%,
-                    score = 0", $tournamentid, $leaderid[$player1], (floor($team_pos[$player1]/2)*2 + 1));
+                    position = ?,
+                    score = 0", [$tournamentid, $leaderid[$player1], (floor($team_pos[$player1]/2)*2 + 1)]);
             }
         }
         if ($team_round[$player1] == -1) {
@@ -638,22 +638,22 @@ class TournamentFunction
 
             // Wenn neuer Gegner ein Freilos, Spieler eine Runde weiter schieben
             if ($en_game['gameid'] != 0) {
-                $db->qry("
+                $database->query("
                   DELETE FROM %prefix%t2_games
                   WHERE
-                    (tournamentid = %int%)
-                    AND (round = -1.5)
-                    AND (position = %int%)
-                    AND (group_nr = 0)", $tournamentid, (floor($team_pos[$player1]/2)));
+                    tournamentid = ?
+                    AND round = -1.5
+                    AND position = ?
+                    AND group_nr = 0", [$tournamentid, (floor($team_pos[$player1]/2))]);
 
-                $db->qry("
+                $database->query("
                   INSERT INTO %prefix%t2_games
                   SET
-                    tournamentid = %int%,
-                    leaderid = %int%,
+                    tournamentid = ?,
+                    leaderid = ?,
                     round = -1.5,
-                    position = %int%,
-                    score = 0", $tournamentid, $leaderid[$player1], (floor($team_pos[$player1]/2)));
+                    position = ?,
+                    score = 0", [$tournamentid, $leaderid[$player1], (floor($team_pos[$player1]/2))]);
             }
         }
     }
@@ -716,20 +716,20 @@ class TournamentFunction
         $leaderid[2] = $leaderid2;
 
         // Write Score for current game
-        $db->qry("
+        $database->query("
           UPDATE %prefix%t2_games 
           SET
-            score = %string%,
-            comment = %string%
+            score = ?,
+            comment = ?
           WHERE
-            gameid = %int%", $score1, $comment, $gameid1);
+            gameid = ?", [$score1, $comment, $gameid1]);
 
-        $db->qry("
+        $database->query("
           UPDATE %prefix%t2_games 
           SET
-            score = %string%
+            score = ?
           WHERE
-            gameid = %int%", $score2, $gameid2);
+            gameid = ?", [$score2, $gameid2]);
         $func->log_event(t('Das Ergebnis (%1 : %2) des Spieles #%3 vs. #%4 wurde eingetragen.', $score1, $score2, $gameid1, $gameid2), 1, t('Turnier Ergebnise'), $gameid1);
 
         // TODO Zusätzlich eine Mail an beide Teamleiter senden?
@@ -790,15 +790,15 @@ class TournamentFunction
                           WHERE
                             teamid = ?", [$ranking_data->tid[0]]);
 
-                        $db->qry("
+                            $database->query("
                           INSERT INTO %prefix%t2_games
                           SET
-                            tournamentid = %int%,
-                            leaderid = %int%,
+                            tournamentid = ?,
+                            leaderid = ?,
                             round = 0,
-                            position = ((%int% - 1) * 2),
+                            position = ((? - 1) * 2),
                             group_nr = 0,
-                            score = 0", $tournamentid, $leader['leaderid'], $akt_group);
+                            score = 0", [$tournamentid, $leader['leaderid'], $akt_group]);
 
                         // Write Semi-Winner
                         $leader = $database->queryWithOnlyFirstRow("
@@ -808,15 +808,15 @@ class TournamentFunction
                           WHERE
                             teamid = ?", [$ranking_data->tid[1]]);
 
-                        $db->qry("
+                        $database->query("
                           INSERT INTO %prefix%t2_games
                           SET
-                            tournamentid = %int%,
-                            leaderid = %int%,
+                            tournamentid = ?,
+                            leaderid = ?,
                             round = 0,
-                            position = ((%int% - (%int% - 1)) * 2 - 1),
+                            position = ((? - (? - 1)) * 2 - 1),
                             group_nr = 0,
-                            score = 0", $tournamentid, $leader['leaderid'], $num_groups, $akt_group);
+                            score = 0", [$tournamentid, $leader['leaderid'], $num_groups, $akt_group]);
                     }
                 }
             }
@@ -842,7 +842,7 @@ class TournamentFunction
                 AND (games1.leaderid != 0)
                 AND (games2.leaderid != 0)", [$tournamentid]);
             if ($unfinished_games['gameid'] == "") {
-                $db->qry("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = %int%", $tournamentid);
+                $database->query("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = ?", [$tournamentid]);
                 $func->log_event(t('Das letzte Ergebnis im Turnier %1 wurde gemeldet. Das Turnier ist damit geschlossen worden.', $tournament["name"]), 1, t('Turnier Verwaltung'));
             }
         }
@@ -879,12 +879,12 @@ class TournamentFunction
             if (($round == $num_rounds)
               or (($tournament["mode"] == "groups") and ($round == $num_rounds - 1))
               or (($tournament["mode"] == "single") and ($round == $num_rounds - 1) and ($unfinished_games['gameid'] == ""))) {
-                $db->qry("
+                $database->query("
                   UPDATE %prefix%tournament_tournaments
                   SET
                     status='closed'
                   WHERE
-                    tournamentid = %int%", $tournamentid);
+                    tournamentid = ?", [$tournamentid]);
 
                 $func->log_event(t('Das letzte Ergebnis im Turnier %1 wurde gemeldet. Das Turnier ist damit geschlossen worden.', $tournament["name"]), 1, t('Turnier Verwaltung'));
             }

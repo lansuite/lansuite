@@ -264,12 +264,12 @@ class Team
 
                 // Everything Okay! -> Insert!
                 } else {
-                    $db->qry("
+                    $database->query("
                       INSERT INTO %prefix%t2_teammembers 
                       SET
-                        tournamentid = %int%,
-                        userid = %int%,
-                        teamid = %int%", $team["tournamentid"], $userid, $teamid);
+                        tournamentid = ?,
+                        userid = ?,
+                        teamid = ?", [$team["tournamentid"], $userid, $teamid]);
 
                     $this->mail->create_sys_mail($userid, t_no_html('Du wurdest dem Team %1 im Turnier %2 hinzugefügt', $team["teamname"], $team["tname"]), t_no_html('Der Ersteller des Teams <b>%1</b> hat dich in sein Team im Turnier <b>%2</b> aufgenommen.', $team["teamname"], $team["tname"]));
                     $func->log_event(t('Der Benutzer %1 ist dem Team %2 im Turnier %3 beigetreten', $auth["username"], $team["teamname"], $team["tname"]), 1, t('Turnier Teamverwaltung'));
@@ -352,15 +352,15 @@ class Team
                     $user = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$leaderid]);
                     $name = $func->escape_sql($user["username"]);
                 }
-                $db->qry("
+                $database->query("
                   INSERT INTO %prefix%t2_teams 
                   SET
-                    tournamentid = %int%,
-                    name = %string%,
-                    leaderid = %int%,
-                    comment = %string%,
-                    banner = %string%,
-                    password = %string%", $tournamentid, $name, $leaderid, $comment, $_FILES[$banner]["name"], md5($password));
+                    tournamentid = ?,
+                    name = ?,
+                    leaderid = ?,
+                    comment = ?,
+                    banner = ?,
+                    password = ?", [$tournamentid, $name, $leaderid, $comment, $_FILES[$banner]["name"], md5($password)]);
 
                 $func->log_event(t('Der Benutzer %1 hat sich zum Turnier %2 angemeldet', $auth["username"], $t["name"]), 1, t('Turnier Teamverwaltung'));
             }
@@ -396,7 +396,7 @@ class Team
         // Upload Banner
         if ($_FILES[$banner]["tmp_name"] != "") {
             $func->FileUpload("team_banner", "ext_inc/team_banners/");
-            $db->qry("UPDATE %prefix%t2_teams SET banner = %string% WHERE teamid = %int%", $_FILES["team_banner"]["name"], $_GET["teamid"]);
+            $database->query("UPDATE %prefix%t2_teams SET banner = ? WHERE teamid = ?", [$_FILES["team_banner"]["name"], $_GET["teamid"]]);
         }
 
         if ($t['teamplayer'] == 1) {
@@ -405,15 +405,15 @@ class Team
 
         // Set Password
         if ($password != "") {
-            $db->qry("UPDATE %prefix%t2_teams SET password = %string% WHERE teamid = %int%", md5($password), $_GET["teamid"]);
+          $database->query("UPDATE %prefix%t2_teams SET password = ? WHERE teamid = ?", [md5($password), $_GET["teamid"]]);
         }
 
-        $db->qry("
+        $database->query("
           UPDATE %prefix%t2_teams 
           SET
-            name = %string%,
-            comment = %string%
-          WHERE teamid = %int%", $name, $comment, $_GET["teamid"]);
+            name = ?,
+            comment = ?
+          WHERE teamid = ?", [$name, $comment, $_GET["teamid"]]);
         $func->log_event(t('Das Team %1 im Turnier %2 hat seine Daten editiert', $_POST['team_name'], $t["name"]), 1, t('Turnier Teamverwaltung'));
 
         $this->UpdateLeagueIDs($auth["userid"], $_POST["nglid"], $_POST["nglclannid"], $_POST["lgzid"], $_POST["lgzclannid"]);
@@ -460,8 +460,8 @@ class Team
         $db->free_result($members);
 
         // Perform Action
-        $db->qry("DELETE FROM %prefix%t2_teams WHERE teamid = %int%", $teamid);
-        $db->qry("DELETE FROM %prefix%t2_teammembers WHERE teamid = %int%", $teamid);
+        $database->query("DELETE FROM %prefix%t2_teams WHERE teamid = ?", [$teamid]);
+        $database->query("DELETE FROM %prefix%t2_teammembers WHERE teamid = ?", [$teamid]);
 
         $func->log_event(t('Das Team %1 wurde aufgelöst', $team['teamname']), 1, t('Turnier Teamverwaltung'));
 
@@ -505,7 +505,7 @@ class Team
             return false;
         }
         // Perform Action
-        $db->qry("DELETE FROM %prefix%t2_teammembers WHERE (userid = %int%) AND (teamid = %int%)", $userid, $teamid);
+        $database->query("DELETE FROM %prefix%t2_teammembers WHERE userid = ? AND teamid = ?", [$userid, $teamid]);
 
         // Create Outputs
         $this->mail->create_sys_mail($userid, t_no_html('Du wurdest im Turnier %1 aus deinem Team geworfen', $t["name"]), str_replace("%NAME%", $t["name"], t_no_html('Der Ersteller dieses Teams hat dich soeben aus seinem Team entfernt. Dies bedeutet, dass du nun nicht mehr zu dem Turnier \'%NAME%\' angemeldet bist.')));

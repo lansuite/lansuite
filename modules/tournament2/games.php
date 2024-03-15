@@ -68,12 +68,12 @@ if (!$tournamentid) {
                                 if (!is_numeric($team_score)) {
                                     $team_score_error[$gameid] = t('Bitte gib eine Zahl ein');
                                 } else {
-                                    $db->qry("
+                                    $database->query("
                                       UPDATE %prefix%t2_games
                                       SET
-                                        score = %string%
+                                        score = ?
                                       WHERE
-                                        gameid = %int%", $team_score, $gameid);
+                                        gameid = ?", [$team_score, $gameid]);
                                 }
                             }
                         }
@@ -81,12 +81,12 @@ if (!$tournamentid) {
   
                     // Finish tournament
                     if ($_GET['step'] == 11) {
-                        $db->qry("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = %int%", $tournamentid);
+                        $database->query("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = ?", [$tournamentid]);
                         $func->confirmation(t('Turnier wurde beendet'), '');
                     }
                     // Unfinish tournament
                     if ($_GET['step'] == 12) {
-                        $db->qry("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = %int%", $tournamentid);
+                        $database->query("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = ?", [$tournamentid]);
                         $func->confirmation(t('Turnier wurde wiedereröffnet'), '');
                     }
         

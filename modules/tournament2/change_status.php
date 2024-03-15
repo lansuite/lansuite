@@ -35,19 +35,19 @@ if ($tournamentid == "") {
                               FROM `%prefix%user`
                               WHERE `userid` = ?", [$bd_team["userid"]]);
 
-                            $db->qry("
+                            $database->query("
                               INSERT INTO %prefix%t2_teams 
                               SET
-                                tournamentid = %int%,
-                                name = %string%,
-                                leaderid = %int%", $_GET["tournamentid"], $leader["username"], $bd_team["userid"]);
+                                tournamentid = ?,
+                                name = ?,
+                                leaderid = ?", [$_GET["tournamentid"], $leader["username"], $bd_team["userid"]]);
 
-                            $db->qry("DELETE FROM %prefix%t2_teammembers WHERE teamid = %int% AND userid = %int%", $bd_team["teamid"], $bd_team["userid"]);
+                            $database->query("DELETE FROM %prefix%t2_teammembers WHERE teamid = ? AND userid = ?", [$bd_team["teamid"], $bd_team["userid"]]);
                         }
                     }
 
-                    $db->qry("DELETE FROM %prefix%t2_games WHERE tournamentid = %int%", $tournamentid);
-                    $db->qry("UPDATE %prefix%tournament_tournaments SET status='open' WHERE tournamentid = %int%", $tournamentid);
+                    $database->query("DELETE FROM %prefix%t2_games WHERE tournamentid = ?", [$tournamentid]);
+                    $database->query("UPDATE %prefix%tournament_tournaments SET status='open' WHERE tournamentid = ?", [$tournamentid]);
 
                     $func->confirmation(t('Das Turnier \'%1\' wurde erfolgreich zurückgesetzt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
                     $func->log_event(t('Das Generieren des Turnieres \'%1\' wurde rückgängig gemacht', $tournament["name"]), 1, t('Turnier Verwaltung'));
@@ -56,7 +56,7 @@ if ($tournamentid == "") {
             break;
 
         case "undo_close":
-            $db->qry("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = %int%", $tournamentid);
+            $database->query("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = ?", [$tournamentid]);
 
             $func->confirmation(t('Der Status wurde wieder auf \'wird gespielt\' gesetzt. Das Turnier wird wieder beendet, sobald du das nächste Ergebniss eingetragen hast.'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
             $func->log_event(t('Der Status wurde wieder auf \'wird gespielt\' gesetzt'), 1, t('Turnier Verwaltung'));
