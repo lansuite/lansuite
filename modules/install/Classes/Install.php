@@ -657,6 +657,7 @@ class Install
         if (!$currentMysqlVersion) {
             $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (%1@%2) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %3 benutzt.', $configuration['database']['user'], $configuration['database']['server'], \LANSUITE_MINIMUM_MYSQL_VERSION);
         } elseif (str_contains($currentMysqlVersion, 'MariaDB')) {
+            $currentMariaDBVersion = $currentMysqlVersion;
             $pos = strpos($currentMysqlVersion, '-');
             if ($pos !== false) {
                 $currentMariaDBVersion = substr($currentMysqlVersion, 0, $pos);
