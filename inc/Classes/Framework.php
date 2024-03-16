@@ -47,9 +47,9 @@ class Framework
     private string $mainContent = '';
 
     /**
-     * Headercode for Meta Tags
+     * Metatags for the header
      */
-    private string $main_header_metatags = '';
+    private string $mainHeaderMetatags = '';
 
     /**
      * JavaScript files for the header
@@ -155,7 +155,7 @@ class Framework
         $query = preg_replace('/&order_by=(.)*&/sUi', '&', $query);
         $query = preg_replace('/&order_dir=(asc|desc)/sUi', '', $query);
         $query = preg_replace('/&EntsPerPage=[0..9]*/sUi', '', $query);
-        $this->main_header_metatags = '<link rel="canonical" href="index.php?'. $query .'" />';
+        $this->mainHeaderMetatags = '<link rel="canonical" href="index.php?'. $query .'" />';
     }
 
     /**
@@ -358,7 +358,7 @@ class Framework
         }
 
         // Add special CSS and JS
-        $smarty->assign('main_header_metatags', $this->main_header_metatags);
+        $smarty->assign('main_header_metatags', $this->mainHeaderMetatags);
         $smarty->assign('main_header_jsfiles', $this->mainHeaderJavaScriptfiles);
         $smarty->assign('main_header_jscode', $this->mainHeaderJavaScriptCode);
         $smarty->assign('main_header_cssfiles', $this->mainHeaderCSSFiles);
