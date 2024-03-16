@@ -98,10 +98,11 @@ class PDFTemplate
         
         // Display the configuration
         $template_config = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE template_id= %int% AND type='config'", $this->tmpl_id);
-        
-        $dsp->AddDoubleRow(t('Rand in x-Richtung'), $template_config['pos_x']);
-        $dsp->AddDoubleRow(t('Rand in y-Richtung'), $template_config['pos_y']);
+
         $dsp->AddDoubleRow(t('Seitengr&ouml;sse'), $template_config['text']);
+        $dsp->AddDoubleRow(t('Rand in x-Richtung'), $template_config['pos_x'] . " mm");
+        $dsp->AddDoubleRow(t('Rand in y-Richtung'), $template_config['pos_y'] . " mm");
+        $dsp->AddCheckBoxRow("format", t('Querformat'), "", "", "0", $template_config['visible'], "1");
 
         // Display the data
         $data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id= %int% AND type != 'config' ORDER BY sort ASC", $this->tmpl_id);
@@ -128,7 +129,7 @@ class PDFTemplate
                 $description .= t('Y') . " : " . $data_array['end_y']. " , ";
                 $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
                 $description .= t('Farbe (r/g/b)') . " : " . $data_array['red'] . "/". $data_array['green'] . "/". $data_array['blue'];
-            } elseif ($data_array['type'] == "text" || $data_array['type'] == "data") {
+            } elseif ($data_array['type'] == "text") {
                 $description = t('Text') . " : " . $data_array['text']. HTML_NEWLINE;
                 $description .= t('Xo') . " : " . $data_array['pos_x']. " , ";
                 $description .= t('Yo') . " : " . $data_array['pos_y']. " , ";
@@ -394,7 +395,7 @@ class PDFTemplate
             $dsp->AddTextFieldRow("pos_y", t('Yo'), $data['pos_y'], '');
             $dsp->AddTextFieldRow("end_x", t('Breite'), $data['end_x'], '');
             $dsp->AddTextFieldRow("end_y", t('H&ouml;he'), $data['end_y'], '');
-            $dsp->AddTextFieldRow("align", t('Ausrichtung'), $data['align'], '');
+            $dsp->AddTextFieldRow("align", t('Ausrichtung (L C R)'), $data['align'], '');
             $dsp->AddTextFieldRow("font", t('Schriftart'), $data['font'], '');
             $dsp->AddTextFieldRow("fontsize", t('Schriftgr&ouml;sse'), $data['fontsize'], '');
             $dsp->AddTextFieldRow("red", t('Rot Anteil'), $data['red'], '');
@@ -410,7 +411,7 @@ class PDFTemplate
             $dsp->AddTextFieldRow("pos_y", t('Yo'), $data['pos_y'], '');
             $dsp->AddTextFieldRow("end_x", t('Breite'), $data['end_x'], '');
             $dsp->AddTextFieldRow("end_y", t('H&ouml;he'), $data['end_y'], '');
-            $dsp->AddTextFieldRow("align", t('Ausrichtung'), $data['align'], '');
+            $dsp->AddTextFieldRow("align", t('Ausrichtung (L C R)'), $data['align'], '');
             $dsp->AddTextFieldRow("font", t('Schriftart'), $data['font'], '');
             $dsp->AddTextFieldRow("fontsize", t('Schriftgr&ouml;sse'), $data['fontsize'], '');
             $dsp->AddTextFieldRow("red", t('Rot Anteil'), $data['red'], '');
@@ -452,14 +453,23 @@ class PDFTemplate
     {
         global $db, $func;
 
-        if ($_POST['visible'] == "checked") {
-            $visible = 1;
-        } else {
-            $visible = 0;
-        }
+        $visible    = $_POST['visible'] ?? 0;
+        $pos_x      = $_POST['pos_x'] ?? 0;
+        $pos_y      = $_POST['pos_y'] ?? 0;
+        $end_x      = $_POST['end_x'] ?? 0;
+        $end_y      = $_POST['end_y'] ?? 0;
+        $align      = $_POST['align'] ?? 0;
+        $fontsize   = $_POST['fontsize'] ?? 0;
+        $font       = $_POST['font'] ?? 0;
+        $red        = $_POST['red'] ?? 0;
+        $green      = $_POST['green'] ?? 0;
+        $blue       = $_POST['blue'] ?? 0;
+        $text       = $_POST['text'] ?? 0;
+        $user_type  = $_POST['user_type'] ?? 0;
+        $sort       = $_POST['sort'] ?? 0;
 
         if ($db->qry("INSERT INTO %prefix%pdf_data ( `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `align` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` , `sort` ) 
-          VALUES %plain%", "('$this->tmpl_id' , '" . $_POST['visible'] . "' , '$object', '" . $_POST['pos_x'] . "', '" . $_POST['pos_y'] . "', '" . $_POST['end_x'] . "', '" . $_POST['end_y'] . "', '" . $_POST['align'] . "', '" . $_POST['fontsize'] . "', '" . $_POST['font'] . "', '" . $_POST['red'] . "', '" . $_POST['green'] . "', '" . $_POST['blue'] . "', '" . $_POST['text'] . "', '" . $_POST['user_type'] . "', '" . $_POST['sort'] . "')")) {
+          VALUES %plain%", "('$this->tmpl_id' , '" . $visible . "' , '$object', '" . $pos_x . "', '" . $pos_y . "', '" . $end_x . "', '" . $end_y . "', '" . $align . "', '" . $fontsize . "', '" . $font . "', '" . $red . "', '" . $green . "', '" . $blue . "', '" . $text . "', '" . $user_type . "', '" . $sort . "')")) {
             $func->confirmation(t('Die Daten wurden hinzugef&uuml;gt'), "index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
         } else {
             $func->error(t('Die Daten konnten nicht hinzugef&uuml;gt werden'), "index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
@@ -476,28 +486,39 @@ class PDFTemplate
     {
         global $db, $func;
 
-        if ($_POST['visible'] == "checked") {
-            $visible = 1;
-        } else {
-            $visible = 0;
-        }
+        $visible    = $_POST['visible'] ?? 0;
+        $pos_x      = $_POST['pos_x'] ?? 0;
+        $pos_y      = $_POST['pos_y'] ?? 0;
+        $end_x      = $_POST['end_x'] ?? 0;
+        $end_y      = $_POST['end_y'] ?? 0;
+        $align      = $_POST['align'] ?? 0;
+        $fontsize   = $_POST['fontsize'] ?? 0;
+        $font       = $_POST['font'] ?? 0;
+        $red        = $_POST['red'] ?? 0;
+        $green      = $_POST['green'] ?? 0;
+        $blue       = $_POST['blue'] ?? 0;
+        $text       = $_POST['text'] ?? 0;
+        $user_type  = $_POST['user_type'] ?? 0;
+        $sort       = $_POST['sort'] ?? 0;
 
-        if ($db->qry("UPDATE %prefix%pdf_data SET %plain%", "  
-             `visible`='" . $_POST['visible'] .
-               "', `pos_x`='" . $_POST['pos_x'] .
-               "', `pos_y`='" . $_POST['pos_y'] .
-               "', `end_x`='" . $_POST['end_x'] .
-               "', `end_y`='" . $_POST['end_y'] .
-               "', `fontsize`='" . $_POST['fontsize'] .
-               "', `font`='" . $_POST['font'] .
-               "', `align`='" . $_POST['align'] .
-               "', `red`='" . $_POST['red'] .
-               "', `green`='" . $_POST['green'] .
-               "', `blue`='" . $_POST['blue'] .
-               "', `text`='" . $_POST['text'] .
-               "', `user_type`='" . $_POST['user_type'] .
-               "', `sort`='" . $_POST['sort'] .
-               "' WHERE `template_id`='" . $this->tmpl_id . "' AND `pdfid`='" . $item_id . "'")) {
+        $queryResult = $db->qry("
+            UPDATE %prefix%pdf_data SET %plain%", "
+                `visible` ='" . $visible .
+                "', `pos_x` ='" . $pos_x .
+                "', `pos_y` ='" . $pos_y .
+                "', `end_x` ='" . $end_x .
+                "', `end_y` ='" . $end_y .
+                "', `align` ='" . $align .
+                "', `fontsize` ='" . $fontsize .
+                "', `font` ='" . $font .
+                "', `red` ='" . $red .
+                "', `green` ='" . $green .
+                "', `blue` ='" . $blue .
+                "', `text` ='" . $text .
+                "', `user_type` ='" . $user_type .
+                "', `sort` ='" . $sort .
+          "' WHERE `template_id`='" . $this->tmpl_id . "' AND `pdfid`='" . $item_id . "'");
+        if ($queryResult) {
             $func->confirmation(t('Die Daten wurden hinzugef&uuml;gt'), "index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
         } else {
             $func->error(t('Die Daten konnten nicht hinzugef&uuml;gt werden'), "index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
