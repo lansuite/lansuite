@@ -133,13 +133,26 @@ class Framework
         $this->add_css_path('ext_scripts/jquery-ui/jquery-ui.min.css');
         $this->add_css_path('design/style.css');
 
-        if ($this->internal_url_query['query']) {
-            $query = preg_replace('/&language=(de|en|it|fr|es|nl)/sUi', '', $this->internal_url_query['query']);
-            $query = preg_replace('/&order_by=(.)*&/sUi', '&', $query);
-            $query = preg_replace('/&order_dir=(asc|desc)/sUi', '', $query);
-            $query = preg_replace('/&EntsPerPage=[0..9]*/sUi', '', $query);
-            $this->main_header_metatags = '<link rel="canonical" href="index.php?'. $query .'" />';
+        $this->generateCanonicalMetatagHeader();
+    }
+
+    /**
+     * Generates the metatag header rel="canonical"
+     *
+     * @return void
+     */
+    private function generateCanonicalMetatagHeader(): void
+    {
+        $queryPart = $this->getURLQueryPart(self::URL_QUERY_PART_QUERY);
+        if (!$queryPart) {
+            return;
         }
+
+        $query = preg_replace('/&language=(de|en|it|fr|es|nl)/sUi', '', $queryPart);
+        $query = preg_replace('/&order_by=(.)*&/sUi', '&', $query);
+        $query = preg_replace('/&order_dir=(asc|desc)/sUi', '', $query);
+        $query = preg_replace('/&EntsPerPage=[0..9]*/sUi', '', $query);
+        $this->main_header_metatags = '<link rel="canonical" href="index.php?'. $query .'" />';
     }
 
     /**
