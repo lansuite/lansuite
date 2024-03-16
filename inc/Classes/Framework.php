@@ -62,9 +62,9 @@ class Framework
     private string $mainHeaderJavaScriptCode = '';
 
     /**
-     * Headercode for CSS-Files
+     * CSS files for the header
      */
-    private string $main_header_cssfiles = '';
+    private string $mainHeaderCSSFiles = '';
 
     /**
      * Headercode for CSS-Code
@@ -130,8 +130,8 @@ class Framework
         $this->addJavaScriptFile('ext_scripts/jquery-ui/jquery-ui.min.js');
         $this->addJavaScriptFile('scripts.js');
 
-        $this->add_css_path('ext_scripts/jquery-ui/jquery-ui.min.css');
-        $this->add_css_path('design/style.css');
+        $this->addCSSFile('ext_scripts/jquery-ui/jquery-ui.min.css');
+        $this->addCSSFile('design/style.css');
 
         $this->generateCanonicalMetatagHeader();
     }
@@ -242,14 +242,14 @@ class Framework
     }
 
     /**
-     * Add Path for a CSS-File to be included in the header output
+     * Add a CSS file into the header
      *
-     * @param string $csspath
+     * @param string $cssFilePath
      * @return void
      */
-    public function add_css_path($csspath)
+    public function addCSSFile(string $cssFilePath): void
     {
-        $this->main_header_cssfiles .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$csspath."\" />\n";
+        $this->mainHeaderCSSFiles .= '<link rel="stylesheet" type="text/css" href="' . $cssFilePath . '" />' . PHP_EOL;
     }
 
     /**
@@ -353,7 +353,7 @@ class Framework
         $smarty->assign('main_header_metatags', $this->main_header_metatags);
         $smarty->assign('main_header_jsfiles', $this->mainHeaderJavaScriptfiles);
         $smarty->assign('main_header_jscode', $this->mainHeaderJavaScriptCode);
-        $smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);
+        $smarty->assign('main_header_cssfiles', $this->mainHeaderCSSFiles);
         $smarty->assign('main_header_csscode', $this->mainHeaderCSSCode);
 
         $smarty->assign('IsMobileBrowser', $this->IsMobileBrowser);
