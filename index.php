@@ -92,6 +92,7 @@ if (!$config['lansuite']['debugmode']) {
 session_start();
 
 // Initialise Frameworkclass for Basic output
+$MainContent = '';
 $framework = new \LanSuite\Framework($request);
 if (isset($_GET['fullscreen'])) {
     $framework->fullscreen($_GET['fullscreen']);
