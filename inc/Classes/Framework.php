@@ -2,6 +2,8 @@
 
 namespace LanSuite;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class Framework
 {
 
@@ -28,13 +30,6 @@ class Framework
      * @var string
      */
     private $content_size = '';
-
-    /**
-     * Clean URL-Query (keys : path, query, base)
-     *
-     * @var array
-     */
-    public $internal_url_query = [];
 
     /**
      * Design
@@ -84,6 +79,22 @@ class Framework
     private string $pageTitle = '';
 
     /**
+     * URL-Query parts.
+     *
+     * Possible keys: base, query, host
+     *
+     * @var array
+     */
+    private $internal_url_query = [];
+
+    /**
+     * Possible keys for URL query parts.
+     */
+    public const URL_QUERY_PART_BASE = 'base';
+    public const URL_QUERY_PART_QUERY = 'query';
+    public const URL_QUERY_PART_HOST = 'host';
+
+    /**
      * Display modus
      *
      * @var string
@@ -99,30 +110,20 @@ class Framework
     public const DISPLAY_MODUS_BASE = 'base';
     public const DISPLAY_MODUS_BEAMER = 'beamer';
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         // Set Script-Start-Time, to calculate the scripts runtime
         $this->timer = time();
         $this->timer2 = explode(' ', microtime());
 
-        if (isset($_SERVER['REQUEST_URI'])) {
-            if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) {
-                $url = 'https://'. $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-            } else {
-                $url = 'http://'. $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-            }
-
-            $CurentURL = parse_url($url);
-            $this->internal_url_query['base'] = $CurentURL['path'];
-            $this->internal_url_query['query'] = '';
-            if (isset($CurentURL['query']) && $CurentURL['query']) {
-                $this->internal_url_query['base'] .= '?' . $CurentURL['query'];
-                $this->internal_url_query['query'] = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', $CurentURL['query']);
-            }
-            $this->internal_url_query['host'] = $CurentURL['host'];
-        }
-        if (!$this->internal_url_query['host']) {
-            $this->internal_url_query['host'] = $_SERVER['SERVER_NAME'];
+        $queryString = $request->getQueryString() ?? '';
+        $this->internal_url_query = [
+            self::URL_QUERY_PART_BASE => $request->getPathInfo(),
+            self::URL_QUERY_PART_QUERY => $queryString,
+            self::URL_QUERY_PART_HOST => $request->getHttpHost(),
+        ];
+        if ($queryString) {
+            $this->internal_url_query[self::URL_QUERY_PART_BASE] .= '?' . $queryString;
         }
 
         $this->add_js_path('ext_scripts/jquery-min.js');
@@ -288,14 +289,17 @@ class Framework
     }
 
     /**
-     * Show clean URL-Query for build internal Links
+     * Get an URL query part to build internal links
      *
-     * @param string $mode Needed part of URL (keys : query, base)
-     * @return mixed
+     * @param string $mode Needed part of URL (keys: base, query, host)
+     * @return string
      */
-    public function get_clean_url_query($mode)
+    public function getURLQueryPart($part): string
     {
-        return $this->internal_url_query[$mode];
+        if(!array_key_exists($part, $this->internal_url_query)) {
+            return '';
+        }
+        return $this->internal_url_query[$part];
     }
 
     /**
@@ -405,7 +409,7 @@ ga('send', 'pageview');
                 $smarty->assign('main_footer_date', date('y'));
                 $smarty->assign('main_footer_countquery', $db->count_query);
                 $smarty->assign('main_footer_timer', round($this->out_work(), 2));
-                $smarty->assign('main_footer_cleanquery', $this->get_clean_url_query('query'));
+                $smarty->assign('main_footer_cleanquery', $this->getURLQueryPart(self::URL_QUERY_PART_QUERY));
 
                 if ($cfg["sys_footer_impressum"]) {
                     $smarty->assign('main_footer_impressum', $cfg["sys_footer_impressum"]);
@@ -462,7 +466,7 @@ ga('send', 'pageview');
                     }
                 } elseif ($_SESSION['lansuite']['fullscreen']) {
                     // Ausgabe Vollbildmodus
-                    $smarty->assign('CloseFullscreen', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span> Lansuite - Vollbildmodus</a>');
+                    $smarty->assign('CloseFullscreen', '<a href="index.php?'. $this->getURLQueryPart(self::URL_QUERY_PART_QUERY) .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span> Lansuite - Vollbildmodus</a>');
                 }
 
                 // Ausgabe des Hautteils mit oder ohne Kompression

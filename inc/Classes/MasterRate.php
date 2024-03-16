@@ -68,7 +68,7 @@ class MasterRate
 
         $score = $row['score'] ?? 0;
         $smarty->assign('rating', $score);
-        $smarty->assign('action', $framework->get_clean_url_query('base') . '&mr_step=2&design=base');
+        $smarty->assign('action', $framework->getURLQueryPart(\LanSuite\Framework::URL_QUERY_PART_BASE) . '&mr_step=2&design=base');
 
         if ($caption == '') {
             $caption = t('Bewertung');
