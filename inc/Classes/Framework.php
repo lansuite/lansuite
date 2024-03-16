@@ -105,6 +105,11 @@ class Framework
     private $modus = '';
 
     /**
+     * Request object
+     */
+    private Request $request;
+
+    /**
      * Display modus constants
      */
     public const DISPLAY_MODUS_PRINT = 'print';
@@ -115,6 +120,8 @@ class Framework
 
     public function __construct(Request $request)
     {
+        $this->request = $request;
+
         // Set Script-Start-Time, to calculate the scripts runtime
         $this->timer = time();
         $this->timer2 = explode(' ', microtime());
@@ -270,21 +277,20 @@ class Framework
     }
 
     /**
-     * Check for errors in content and returns Zip-Mode
+     * Check for the accepted encoding
      */
-    private function check_optimizer(): int|string
+    private function getCompressionMode(): string
     {
-        global $PHPErrors, $db;
-
-        if (headers_sent() || connection_aborted() || $PHPErrors || (isset($db) && $db->errorsFound)) {
-            return 0;
-        } elseif (str_contains($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip')) {
+        $encodings = $this->request->getEncodings();
+        if (in_array('x-gzip', $encodings)) {
             return "x-gzip";
-        } elseif (str_contains($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip')) {
+        }
+
+        if (in_array('gzip', $encodings)) {
             return "gzip";
         }
 
-        return 0;
+        return '';
     }
 
     /**
@@ -348,7 +354,8 @@ class Framework
     public function html_out()
     {
         global $templ, $cfg, $db, $auth, $smarty, $func, $debug, $request;
-        $compression_mode = $this->check_optimizer();
+
+        $compressionMode = $this->getCompressionMode();
 
         // Prepare Header
         if ($request->query->get('sitereload')) {
@@ -403,10 +410,10 @@ ga('send', 'pageview');
                 // Make HTML for Popup
                 $smarty->assign('MainContentStyleID', 'ContentFullscreen');
 
-                if ($compression_mode && $cfg['sys_compress_level']) {
-                    header("Content-Encoding: $compression_mode");
+                if ($compressionMode && $cfg['sys_compress_level']) {
+                    header("Content-Encoding: $compressionMode");
                     echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-                    $index = $smarty->fetch("design/{$this->design}/templates/main.htm"). "\n<!-- Compressed by $compression_mode -->";
+                    $index = $smarty->fetch("design/{$this->design}/templates/main.htm"). "\n<!-- Compressed by $compressionMode -->";
                     $this->content_size = strlen($index);
                     $this->content_crc = crc32($index);
                     $index = gzcompress($index, $cfg['sys_compress_level']);
@@ -491,10 +498,10 @@ ga('send', 'pageview');
                 }
 
                 // Ausgabe des Hautteils mit oder ohne Kompression
-                if ($compression_mode and $cfg['sys_compress_level']) {
-                    header("Content-Encoding: $compression_mode");
+                if ($compressionMode and $cfg['sys_compress_level']) {
+                    header("Content-Encoding: $compressionMode");
                     echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-                    echo gzcompress($smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- Compressed by $compression_mode -->", $cfg['sys_compress_level']);
+                    echo gzcompress($smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- Compressed by $compressionMode -->", $cfg['sys_compress_level']);
                 } else {
                     $smarty->display("design/{$this->design}/templates/main.htm");
                 }
