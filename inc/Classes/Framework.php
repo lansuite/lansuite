@@ -57,9 +57,9 @@ class Framework
     private string $main_header_jsfiles = '';
 
     /**
-     * Headercode for JS-Code
+     * JavaScript-Code for the header
      */
-    private string $main_header_jscode = '';
+    private string $mainHeaderJavaScriptCode = '';
 
     /**
      * Headercode for CSS-Files
@@ -209,14 +209,14 @@ class Framework
     }
 
     /**
-     * Add JS-Code for implementation in header
+     * Add JavaScript-Code for the header
      *
-     * @param $jscode
+     * @param string $javaScriptCode
      * @return void
      */
-    public function add_js_code($jscode)
+    public function addJavaScriptCode(string $javaScriptCode): void
     {
-        $this->main_header_jscode .= "<script type=\"text/javascript\">\n".$jscode."\n</script>\n";
+        $this->mainHeaderJavaScriptCode .= '<script type="text/javascript">' . PHP_EOL . $javaScriptCode . PHP_EOL . '</script>' . PHP_EOL;
     }
 
     /**
@@ -352,7 +352,7 @@ class Framework
         // Add special CSS and JS
         $smarty->assign('main_header_metatags', $this->main_header_metatags);
         $smarty->assign('main_header_jsfiles', $this->main_header_jsfiles);
-        $smarty->assign('main_header_jscode', $this->main_header_jscode);
+        $smarty->assign('main_header_jscode', $this->mainHeaderJavaScriptCode);
         $smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);
         $smarty->assign('main_header_csscode', $this->main_header_csscode);
 
