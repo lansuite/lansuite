@@ -100,7 +100,12 @@ if (isset($_GET['fullscreen'])) {
 // Compromise ... design as base and popup should be deprecated
 $design = $request->query->get('design');
 $frmwrkmode = '';
-if ($design == 'base' || $design == 'popup' || $design == 'ajax' || $design == 'print' || $design == 'beamer') {
+
+if ($design == \LanSuite\Framework::DISPLAY_MODUS_BASE ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_POPUP ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_AJAX ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_PRINT ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_BEAMER) {
     $frmwrkmode = $design;
 }
 // Set Popupmode via GET (base, popup)
@@ -109,7 +114,7 @@ if (isset($_GET['frmwrkmode']) && $_GET['frmwrkmode']) {
 }
 // Set Popupmode via GET (base, popup)
 if (isset($frmwrkmode)) {
-    $framework->set_modus($frmwrkmode);
+    $framework->setDisplayModus($frmwrkmode);
 }
 
 // Set HTTP-Headers

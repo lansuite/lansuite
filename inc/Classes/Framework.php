@@ -42,13 +42,6 @@ class Framework
     private string $design = "simple";
 
     /**
-     * Displaymodus (popup)
-     *
-     * @var string
-     */
-    public $modus = '';
-
-    /**
      * All framework messages
      */
     private string $framework_messages = '';
@@ -89,6 +82,22 @@ class Framework
     public $IsMobileBrowser = false;
 
     private string $pageTitle = '';
+
+    /**
+     * Display modus
+     *
+     * @var string
+     */
+    private $modus = '';
+
+    /**
+     * Display modus constants
+     */
+    public const DISPLAY_MODUS_PRINT = 'print';
+    public const DISPLAY_MODUS_POPUP = 'popup';
+    public const DISPLAY_MODUS_AJAX = 'ajax';
+    public const DISPLAY_MODUS_BASE = 'base';
+    public const DISPLAY_MODUS_BEAMER = 'beamer';
 
     public function __construct()
     {
@@ -147,12 +156,22 @@ class Framework
     /**
      * Set the display modus
      *
-     * @param string $modus Displaymodus (popup,base,print)
+     * @param string $modus Display modus (popup,base,print, etc.)
      * @return void
      */
-    public function set_modus($modus)
+    public function setDisplayModus(string $modus): void
     {
         $this->modus = $modus;
+    }
+
+    /**
+     * Returns the display modus
+     *
+     * @return string
+     */
+    public function getDisplayModus(): string
+    {
+        return $this->modus;
     }
 
     /**
@@ -312,7 +331,7 @@ class Framework
         $smarty->assign('main_header_csscode', $this->main_header_csscode);
 
         $smarty->assign('IsMobileBrowser', $this->IsMobileBrowser);
-        $smarty->assign('DisplayMode', $this->modus);
+        $smarty->assign('DisplayMode', $this->getDisplayModus());
 
         $smarty->assign('MainTitle', $this->pageTitle);
         $smarty->assign('MainLogout', '');
@@ -339,14 +358,14 @@ ga('send', 'pageview');
         $smarty->assign('EndJS', $EndJS);
 
         // Switch Displaymodus (popup, base, print, normal, beamer)
-        switch ($this->modus) {
-            case 'print':
+        switch ($this->getDisplayModus()) {
+            case self::DISPLAY_MODUS_PRINT:
                 // Make a Printpopup (without Boxes and Special CSS for printing)
                 $smarty->assign('MainContentStyleID', 'ContentFullscreen');
                 $smarty->display("design/simple/templates/main.htm");
                 break;
 
-            case 'popup':
+            case self::DISPLAY_MODUS_POPUP:
                 // Make HTML for Popup
                 $smarty->assign('MainContentStyleID', 'ContentFullscreen');
 
@@ -365,8 +384,8 @@ ga('send', 'pageview');
                 }
                 break;
 
-            case 'ajax':
-            case 'base':
+            case self::DISPLAY_MODUS_AJAX:
+            case self::DISPLAY_MODUS_BASE:
                 // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
                 echo $this->main_content;
                 break;
@@ -406,7 +425,7 @@ ga('send', 'pageview');
                 if (array_key_exists('lansuite', $_SESSION) && array_key_exists('fullscreen', $_SESSION['lansuite'])) {
                     $sessionFullScreenSet = $_SESSION['lansuite']['fullscreen'];
                 }
-                if ($sessionFullScreenSet or $this->modus == 'beamer') {
+                if ($sessionFullScreenSet || $this->getDisplayModus() == self::DISPLAY_MODUS_BEAMER) {
                     $smarty->assign('MainContentStyleID', 'ContentFullscreen');
                 } else {
                     $smarty->assign('MainContentStyleID', 'Content');
@@ -418,7 +437,7 @@ ga('send', 'pageview');
 
                 // Ausgabe Hauptseite
                 $smarty->assign('CloseFullscreen', '');
-                if (!$sessionFullScreenSet and !$this->modus == 'beamer') {
+                if (!$sessionFullScreenSet && $this->getDisplayModus() != self::DISPLAY_MODUS_BEAMER) {
                     $smarty->assign('MainFrameworkmessages', $this->framework_messages);
                     if (isset($templ)) {
                         $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);

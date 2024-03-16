@@ -2,7 +2,7 @@
 
 // Info Seite blockiert
 if ($cfg['sys_blocksite'] == 1) {
-    if ($framework->modus != "ajax") {
+    if ($framework->getDisplayModus() != \LanSuite\Framework::DISPLAY_MODUS_AJAX) {
         $func->information($cfg['sys_blocksite_text'], "index.php?mod=install");
     }
 }
@@ -36,7 +36,7 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
 }
 
 $siteblock = false;
-if ($cfg['sys_blocksite'] == 1 && $auth['type'] < \LS_AUTH_TYPE_ADMIN && $_GET['mod'] != 'info2' && $framework->modus != "ajax") {
+if ($cfg['sys_blocksite'] == 1 && $auth['type'] < \LS_AUTH_TYPE_ADMIN && $_GET['mod'] != 'info2' && $framework->getDisplayModus() != \LanSuite\Framework::DISPLAY_MODUS_AJAX) {
     $siteblock = true;
 }
 
