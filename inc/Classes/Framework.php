@@ -126,11 +126,11 @@ class Framework
         $this->timer = time();
         $this->timer2 = explode(' ', microtime());
 
-        $queryString = $request->getQueryString() ?? '';
+        $queryString = $this->request->getQueryString() ?? '';
         $this->internal_url_query = [
-            self::URL_QUERY_PART_BASE => $request->getPathInfo(),
+            self::URL_QUERY_PART_BASE => $this->request->getPathInfo(),
             self::URL_QUERY_PART_QUERY => $queryString,
-            self::URL_QUERY_PART_HOST => $request->getHttpHost(),
+            self::URL_QUERY_PART_HOST => $this->request->getHttpHost(),
         ];
         if ($queryString) {
             $this->internal_url_query[self::URL_QUERY_PART_BASE] .= '?' . $queryString;
@@ -353,18 +353,19 @@ class Framework
      */
     public function html_out()
     {
-        global $templ, $cfg, $db, $auth, $smarty, $func, $debug, $request;
+        global $templ, $cfg, $db, $auth, $smarty, $func, $debug;
 
         $compressionMode = $this->getCompressionMode();
 
-        // Prepare Header
-        if ($request->query->get('sitereload')) {
-            $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
-        } else {
-            $smarty->assign('main_header_sitereload', '');
+        // Site Reload header
+        $smarty->assign('main_header_sitereload', '');
+        $siteReloadParameter = intval($this->request->query->get('sitereload'));
+        if ($siteReloadParameter) {
+            $reloadURL = $this->request->getRequestUri();
+            $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="' . $siteReloadParameter . '; URL=' . $reloadURL . '">');
         }
 
-        // Add special CSS and JS
+        // Assign Metatags, CSS and JS
         $smarty->assign('main_header_metatags', $this->mainHeaderMetatags);
         $smarty->assign('main_header_jsfiles', $this->mainHeaderJavaScriptfiles);
         $smarty->assign('main_header_jscode', $this->mainHeaderJavaScriptCode);
