@@ -39,7 +39,7 @@ class Framework
     /**
      * Design
      */
-    private string $design = "simple";
+    private string $design = '';
 
     /**
      * All framework messages
@@ -102,7 +102,6 @@ class Framework
     public function __construct()
     {
         // Set Script-Start-Time, to calculate the scripts runtime
-        $this->design = '';
         $this->timer = time();
         $this->timer2 = explode(' ', microtime());
 
@@ -148,9 +147,19 @@ class Framework
      * @param string $design Chosen Design
      * @return void
      */
-    public function set_design($design)
+    public function setDesign($design): void
     {
         $this->design = $design;
+    }
+
+    /**
+     * Returns the website design.
+     *
+     * @return string
+     */
+    public function getDesign(): string
+    {
+        return $this->design;
     }
 
     /**

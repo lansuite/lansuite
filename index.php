@@ -439,7 +439,7 @@ $PHPErrors = '';
 include_once('index_module.inc.php');
 
 // Complete Framework and Output HTML
-$framework->set_design($auth['design']);
+$framework->setDesign($auth['design']);
 
 $db->DisplayErrors();
 if ($PHPErrors) {
