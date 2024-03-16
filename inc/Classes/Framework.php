@@ -161,7 +161,7 @@ class Framework
      * @param string $design Chosen Design
      * @return void
      */
-    public function setDesign($design): void
+    public function setDesign(string $design): void
     {
         $this->design = $design;
     }
@@ -203,7 +203,7 @@ class Framework
      * @param string $content
      * @return void
      */
-    public function addContent($content)
+    public function addContent(string $content): void
     {
         $this->mainContent .= $content;
     }
