@@ -186,6 +186,7 @@ $lang = [];
 // Initialize debug mode
 if ($config['lansuite']['debugmode'] > 0) {
     $debug = new \LanSuite\Debug($config['lansuite']['debugmode']);
+    $framework->setDebugMode($debug);
 }
 
 // Load Translationclass. No t()-Function before this point!
@@ -198,6 +199,8 @@ $smarty->cache_dir = './ext_inc/templates_cache/';
 $smarty->caching = false;
 // Lifetime is in seconds
 $smarty->cache_lifetime = 0;
+
+$framework->setTemplateEngine($smarty);
 
 if (isset($debug)) {
     $debug->tracker("Include and Init Smarty");
@@ -462,7 +465,7 @@ if (isset($debug)) {
 }
 
 // Output of all HTML
-$framework->html_out();
+$framework->sendHTMLOutput();
 unset($framework);
 unset($smarty);
 unset($templ);
