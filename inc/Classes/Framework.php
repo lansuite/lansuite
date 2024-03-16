@@ -52,9 +52,9 @@ class Framework
     private string $main_header_metatags = '';
 
     /**
-     * Headercode for JS-Files
+     * JavaScript files for the header
      */
-    private string $main_header_jsfiles = '';
+    private string $mainHeaderJavaScriptfiles = '';
 
     /**
      * JavaScript-Code for the header
@@ -126,9 +126,9 @@ class Framework
             $this->internal_url_query[self::URL_QUERY_PART_BASE] .= '?' . $queryString;
         }
 
-        $this->add_js_path('ext_scripts/jquery-min.js');
-        $this->add_js_path('ext_scripts/jquery-ui/jquery-ui.min.js');
-        $this->add_js_path('scripts.js');
+        $this->addJavaScriptFile('ext_scripts/jquery-min.js');
+        $this->addJavaScriptFile('ext_scripts/jquery-ui/jquery-ui.min.js');
+        $this->addJavaScriptFile('scripts.js');
 
         $this->add_css_path('ext_scripts/jquery-ui/jquery-ui.min.css');
         $this->add_css_path('design/style.css');
@@ -220,14 +220,14 @@ class Framework
     }
 
     /**
-     * Add JS-File for implementation in header (as sourcefile)
+     * Add a JavaScript file into the header
      *
-     * @param string $jspath Path to JS-File
+     * @param string $javaScriptFilePath Path to JavaScript file
      * @return void
      */
-    public function add_js_path($jspath)
+    public function addJavaScriptFile(string $javaScriptFilePath): void
     {
-        $this->main_header_jsfiles .= "<script src=\"".$jspath."\" type=\"text/javascript\"></script>\n";
+        $this->mainHeaderJavaScriptfiles .= '<script src="' . $javaScriptFilePath . '" type="text/javascript"></script>' . PHP_EOL;
     }
 
     /**
@@ -351,7 +351,7 @@ class Framework
 
         // Add special CSS and JS
         $smarty->assign('main_header_metatags', $this->main_header_metatags);
-        $smarty->assign('main_header_jsfiles', $this->main_header_jsfiles);
+        $smarty->assign('main_header_jsfiles', $this->mainHeaderJavaScriptfiles);
         $smarty->assign('main_header_jscode', $this->mainHeaderJavaScriptCode);
         $smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);
         $smarty->assign('main_header_csscode', $this->main_header_csscode);

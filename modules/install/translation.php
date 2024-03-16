@@ -138,7 +138,7 @@ switch ($stepParameter) {
         }
 
         $dsp->NewContent(t('Modul Übersetzen : ').$_GET['file'], '');
-        $framework->add_js_path('http://www.google.com/jsapi');
+        $framework->addJavaScriptFile('http://www.google.com/jsapi');
         $framework->addJavaScriptCode('google.load("language", "1");
 function translate(textid, from, to) {
   google.language.translate($("label[for="+ textid +"]").text(), from, to, function(result) {

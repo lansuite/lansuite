@@ -9,7 +9,7 @@ class MasterRate
     {
         global $auth, $db, $dsp, $framework, $smarty;
       
-        $framework->add_js_path('ext_scripts/jquery.rating.js');
+        $framework->addJavaScriptFile('ext_scripts/jquery.rating.js');
         $framework->addJavaScriptCode("jQuery(function(){
   jQuery('form.rating').rating();
 });");

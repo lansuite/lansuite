@@ -453,10 +453,10 @@ class Seat2
             $smarty->assign('HiddenFields', $HiddenFields);
 
             // Main-Table
-            $framework->add_js_path('ext_scripts/overlib421/Mini/overlib_mini.js');
-            $framework->add_js_path('ext_scripts/SVG2VMLv1_1.js');
-            $framework->add_js_path('ext_scripts/ls_svg2vml.js');
-            $framework->add_js_path('seating.js');
+            $framework->addJavaScriptFile('ext_scripts/overlib421/Mini/overlib_mini.js');
+            $framework->addJavaScriptFile('ext_scripts/SVG2VMLv1_1.js');
+            $framework->addJavaScriptFile('ext_scripts/ls_svg2vml.js');
+            $framework->addJavaScriptFile('seating.js');
 
             $jscode = 'function go() {
                 vectorModel = new VectorModel();
@@ -854,7 +854,7 @@ class Seat2
         if ($mode != 3) {
             $jscode .= ' }';
         }
-        $framework->add_js_code($jscode);
+        $framework->addJavaScriptCode($jscode);
     
         return $plan;
     }
