@@ -69,7 +69,7 @@ class Framework
     /**
      * Headercode for CSS-Code
      */
-    private string $main_header_csscode = '';
+    private string $mainHeaderCSSCode = '';
 
     /**
      * @var bool
@@ -231,14 +231,14 @@ class Framework
     }
 
     /**
-     * Add CSS-Code for implementation in header
+     * Add CSS-Code into the header
      *
-     * @param string $csscode
+     * @param string $cssCode
      * @return void
      */
-    public function add_css_code($csscode)
+    public function addCSSCode(string $cssCode): void
     {
-        $this->main_header_csscode .= "<style type=\"text/css\">\n<!--\n".$csscode."\n-->\n</style>\n";
+        $this->mainHeaderCSSCode .= '<style>' . PHP_EOL . $cssCode . PHP_EOL . '</style>' . PHP_EOL;
     }
 
     /**
@@ -354,7 +354,7 @@ class Framework
         $smarty->assign('main_header_jsfiles', $this->mainHeaderJavaScriptfiles);
         $smarty->assign('main_header_jscode', $this->mainHeaderJavaScriptCode);
         $smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);
-        $smarty->assign('main_header_csscode', $this->main_header_csscode);
+        $smarty->assign('main_header_csscode', $this->mainHeaderCSSCode);
 
         $smarty->assign('IsMobileBrowser', $this->IsMobileBrowser);
         $smarty->assign('DisplayMode', $this->getDisplayModus());

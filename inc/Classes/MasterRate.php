@@ -14,7 +14,7 @@ class MasterRate
   jQuery('form.rating').rating();
 });");
 
-        $framework->add_css_code("
+        $framework->addCSSCode("
   .rating {
       cursor: pointer;
       clear: both;
