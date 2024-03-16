@@ -50,7 +50,7 @@ if ($stepParameter >= 2) {
         }
     }
 
-    $framework->AddToPageTitle($pollrow["caption"]);
+    $framework->addToPageTitle($pollrow["caption"]);
 }
 
 $stepParameter = $_GET['step'] ?? 0;

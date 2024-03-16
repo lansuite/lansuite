@@ -9,7 +9,7 @@ if ($fID) {
     $hyperlink = '<a href="%s" class="menu">%s</a>';
     $overview_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board", t('Forum')).'</b>';
     $dsp->NewContent($row['name'], "<br />".t('Du bist hier » ').$overview_capt.' » '.$row['name']);
-    $framework->AddToPageTitle($row['name']);
+    $framework->addToPageTitle($row['name']);
     $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("back", "index.php?mod=board"));
 }
 

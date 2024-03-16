@@ -185,7 +185,7 @@ if (!$bugidParameter || $actionParameter == 'delete') {
     $dsp->StartTabs();
   
     $dsp->StartTab(t('Eintrag und Kommentare'), 'details');
-    $framework->AddToPageTitle($row['caption']);
+    $framework->addToPageTitle($row['caption']);
 
     $dsp->AddDoubleRow(t('Herkunft'), '<a href="http://'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> Version('. $row['version'] .')');
     $dsp->AddDoubleRow(t('Reporter'), $dsp->FetchUserIcon($row['reporter'], $row['reporter_name']));

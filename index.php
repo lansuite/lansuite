@@ -317,9 +317,9 @@ if ($config['environment']['configured'] == 0) {
     }
     $func->getActiveModules();
 
-    $framework->AddToPageTitle($cfg['sys_page_title']);
+    $framework->addToPageTitle($cfg['sys_page_title']);
     if ($func->isModActive($_GET['mod'], $caption) && $_GET['mod'] != 'home') {
-        $framework->AddToPageTitle($caption);
+        $framework->addToPageTitle($caption);
     }
 
     // Start authentication, just if LS is working

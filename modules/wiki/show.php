@@ -69,8 +69,8 @@ $row = $db->qry_first('
     AND v.versionid = %int%', $_GET['postid'], $_GET['versionid']);
 
 $func->SetRead('wiki', $row['postid']);
-$framework->AddToPageTitle($row["name"]);
-$framework->AddToPageTitle('V'. (int)$_GET['versionid']);
+$framework->addToPageTitle($row["name"]);
+$framework->addToPageTitle('V'. (int)$_GET['versionid']);
 
 $dsp->NewContent($row['name'] . $links_main, $links);
 $dsp->AddSingleRow($func->Text2Wiki($row['text']), '', 'textContent');

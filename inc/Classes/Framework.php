@@ -76,6 +76,9 @@ class Framework
      */
     public $IsMobileBrowser = false;
 
+    /**
+     * Page title
+     */
     private string $pageTitle = '';
 
     /**
@@ -316,17 +319,22 @@ class Framework
     }
 
     /**
-     * @param string $add
+     * Adds a message into the page title
+     *
+     * @param string $pageTitleMessage
      * @return void
      */
-    public function AddToPageTitle($add)
+    public function addToPageTitle(string $pageTitleMessage): void
     {
-        if ($add) {
-            if ($this->pageTitle == '') {
-                $this->pageTitle = $add;
-            } else {
-                $this->pageTitle .= ' - '. $add;
-            }
+        $message = trim($pageTitleMessage);
+        if (!$message) {
+            return;
+        }
+
+        if ($this->pageTitle == '') {
+            $this->pageTitle = $message;
+        } else {
+            $this->pageTitle .= ' - ' . $message;
         }
     }
 
