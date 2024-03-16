@@ -87,13 +87,17 @@ class Auth
     private Request $request;
 
     /**
+     * Database
+     */
+    private Database $database;
+
+    /**
      * auth constructor.
      * @param string $frmwrkmode Frameworkmode for switch Stats
      */
-    public function __construct(Request $request, $frmwrkmode = '')
+    public function __construct(Database $database, Request $request, $frmwrkmode = '')
     {
-        global $db;
-
+        $this->database = $database;
         $this->request = $request;
 
         // Setting default values
@@ -106,25 +110,22 @@ class Auth
         $last10Minutes = $this->timestamp - 60*10;
         $lastMinute = $this->timestamp - 60*1;
 
-        $res = $db->qry(
+        $rows = $this->database->queryWithFullResult(
             'SELECT
                 `userid`,
-                SUM(IF(`lasthit` > %int%, 1, 0)) AS `online`
+                SUM(IF(`lasthit` > ?, 1, 0)) AS `online`
             FROM %prefix%stats_auth
             WHERE
                 login = "1"
                 AND (
-                    lasthit > %int%
-                    OR lastajaxhit > %int%
+                    lasthit > ?
+                    OR lastajaxhit > ?
                 )
                 AND userid > 0
             GROUP BY userid',
-            $last10Minutes,
-            $last10Minutes,
-            $lastMinute
+            [$last10Minutes, $last10Minutes, $lastMinute]
         );
-
-        while ($row = $db->fetch_array($res)) {
+        foreach ($rows as $row) {
             // If at the same time a user is logged in twice or multiple times
             // (e.g. via different browsers)
             // the field `online` will be more than 1.
@@ -145,18 +146,18 @@ class Auth
         // Do check first, for SELECT is faster than DELETE
         $oneHour = 60 * 60;
         $thirtyDays = 60 * 60 * 24 * 30;
-        $row = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
+        $row = $this->database->queryWithOnlyFirstRow('SELECT 1 AS found FROM %prefix%stats_auth WHERE lasthit < ?', [ceil((time() - $oneHour) / $oneHour) * $oneHour]);
         if ($row) {
-            $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
-            $db->qry_first('OPTIMIZE TABLE %prefix%stats_auth');
+            $this->database->query('DELETE FROM %prefix%stats_auth WHERE lasthit < ?', [ceil((time() - $oneHour) / $oneHour) * $oneHour]);
+            $this->database->query('OPTIMIZE TABLE %prefix%stats_auth');
 
             // Delete cookie after 30 days
             // (TODO: Maybe make this time a config option)
             // (TODO: Maybe differ time for admins and non-admins)
-            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
+            $row = $this->database->queryWithOnlyFirstRow('SELECT 1 AS found FROM %prefix%cookie WHERE lastchange < ?', [ceil((time() - $thirtyDays) / $oneHour) * $oneHour]);
             if ($row) {
-                $db->qry_first('DELETE FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
-                $db->qry_first('OPTIMIZE TABLE %prefix%cookie');
+                $this->database->query('DELETE FROM %prefix%cookie WHERE lastchange < ?', [ceil((time() - $thirtyDays) / $oneHour) * $oneHour]);
+                $this->database->query('OPTIMIZE TABLE %prefix%cookie');
             }
         }
     }
