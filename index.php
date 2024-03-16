@@ -449,10 +449,10 @@ $PHPErrors = '';
 
 // Add old Frameworkmessages (should be deprecated)
 if (isset($FrameworkMessages)) {
-    $framework->add_content($FrameworkMessages);
+    $framework->addContent($FrameworkMessages);
 }
 // Add old MainContent-Variable (should be deprecated)
-$framework->add_content($MainContent);
+$framework->addContent($MainContent);
 
     // DEBUG:Alles
 if (isset($debug)) {

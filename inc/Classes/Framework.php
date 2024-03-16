@@ -42,9 +42,9 @@ class Framework
     private string $framework_messages = '';
 
     /**
-     * Content
+     * Main Content
      */
-    private string $main_content = '';
+    private string $mainContent = '';
 
     /**
      * Headercode for Meta Tags
@@ -203,9 +203,9 @@ class Framework
      * @param string $content
      * @return void
      */
-    public function add_content($content)
+    public function addContent($content)
     {
-        $this->main_content .= $content;
+        $this->mainContent .= $content;
     }
 
     /**
@@ -366,7 +366,7 @@ class Framework
         $smarty->assign('MainBodyJS', $templ['index']['body']['js'] ?? '');
         $smarty->assign('MainJS', $templ['index']['control']['js'] ?? '');
 
-        $smarty->assign('MainContent', $this->main_content);
+        $smarty->assign('MainContent', $this->mainContent);
 
         $EndJS = '';
         if ($cfg['google_analytics_id']) {
@@ -413,7 +413,7 @@ ga('send', 'pageview');
             case self::DISPLAY_MODUS_AJAX:
             case self::DISPLAY_MODUS_BASE:
                 // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
-                echo $this->main_content;
+                echo $this->mainContent;
                 break;
 
             default:
