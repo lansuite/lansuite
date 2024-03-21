@@ -20,6 +20,7 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
     }
 
     $stepParameter = $_GET['step'] ?? 0;
+    $infoIDParameter = $_GET['infoID'] ?? 0;
     switch ($stepParameter) {
         default:
             $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Info-Seiten editieren.'));
@@ -80,7 +81,7 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
 
         // Generate Editform
         case 2:
-            if ($_GET['infoID'] != '') {
+            if ($infoIDParameter) {
                 $row = $db->qry_first("
                   SELECT
                     m.id
@@ -88,7 +89,7 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                     %prefix%info AS i
                     LEFT JOIN %prefix%menu AS m ON i.caption = m.caption AND m.action = 'show_info2'
                   WHERE
-                    i.infoID = %int%", $_GET['infoID']);
+                    i.infoID = %int%", $infoIDParameter);
             }
 
             $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Seite editieren.'));
@@ -115,7 +116,7 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                 $mf->AddPage($translation->lang_names[$val]);
             }
             $mf->AdditionalDBUpdateFunction = 'UpdateInfo2';
-            $mf->SendForm('index.php?mod=info2&action=change&step=2', 'info', 'infoID', $_GET['infoID']);
+            $mf->SendForm('index.php?mod=info2&action=change&step=2', 'info', 'infoID', $infoIDParameter);
 
             $dsp->AddBackButton('index.php?mod=info2&action=change', 'info2/form');
             break;
@@ -133,8 +134,8 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
 
         // Deactivate
         case 20:
-            if ($_GET['infoID']) {
-                $_POST['action'][$_GET['infoID']] = '1';
+            if ($infoIDParameter) {
+                $_POST['action'][$infoIDParameter] = '1';
             }
             foreach ($_POST['action'] as $item => $val) {
                 $db->qry('UPDATE %prefix%info SET active = 0 WHERE infoID = %string%', $item);
@@ -146,8 +147,8 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
 
         // Activate
         case 21:
-            if ($_GET['infoID']) {
-                $_POST['action'][$_GET['infoID']] = '1';
+            if ($infoIDParameter) {
+                $_POST['action'][$infoIDParameter] = '1';
             }
             foreach ($_POST['action'] as $item => $val) {
                 $db->qry('UPDATE %prefix%info SET active = 1 WHERE infoID = %string%', $item);
@@ -157,8 +158,8 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
 
         // Activate and link
         case 22:
-            if ($_GET['infoID']) {
-                $_POST['action'][$_GET['infoID']] = '1';
+            if ($infoIDParameter) {
+                $_POST['action'][$infoIDParameter] = '1';
             }
             foreach ($_POST['action'] as $item => $val) {
                 $menu_intem = $db->qry_first('SELECT active, caption, shorttext, link FROM %prefix%info WHERE infoID = %string%', $item);
@@ -245,7 +246,7 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                 $mf->AddField(t('Popup-Infotext'), 'shorttext'.$val);
             }
             $mf->AdditionalDBUpdateFunction = 'UpdateInfo2';
-            $mf->SendForm('index.php?mod=info2&action=change&step=30', 'info', 'infoID', $_GET['infoID']);
+            $mf->SendForm('index.php?mod=info2&action=change&step=30', 'info', 'infoID', $infoIDParameter);
 
             $dsp->AddBackButton('index.php?mod=info2&action=change', 'info2/form');
             break;
