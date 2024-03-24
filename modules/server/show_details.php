@@ -31,7 +31,7 @@ if ($server == "") {
     // Just show details if the user is not adding, deleting or chaning his comment
     $mcactParameter = $_GET["mcact"] ?? '';
     if ($mcactParameter == "" || $mcactParameter == "show") {
-        $dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite diehst du alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangst du zur Übersicht zur&uuml;ck', $server["caption"]));
+        $dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite siehst du alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangst du zur Übersicht zur&uuml;ck', $server["caption"]));
 
         $dsp->AddDoubleRow(t('Name'), $server["caption"]);
         $dsp->AddDoubleRow(t('Besitzer'), $dsp->FetchUserIcon($server['userid'], $server["username"]));
