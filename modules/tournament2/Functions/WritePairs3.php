@@ -9,7 +9,7 @@ function write_pairs3(mixed $bracket, $max_pos)
     $score1 = null;
     $known_game1 = null;
     $spielerid1 = null;
-    global $gd, $func, $tournament, $x_start, $height, $height_menu, $box_height, $box_width, $db, $tournamentid, $akt_round, $max_round, $color, $dg, $img_height, $map, $tfunc;
+    global $gd, $func, $tournament, $x_start, $height, $height_menu, $box_height, $box_width, $database, $tournamentid, $akt_round, $max_round, $color, $dg, $img_height, $map, $tfunc;
 
     $dg++;
     if ($akt_round > 0) {
@@ -34,7 +34,7 @@ function write_pairs3(mixed $bracket, $max_pos)
     $i = 0;
     $line_start = 0;
     for ($akt_pos = 0; $akt_pos <= $max_pos-1; $akt_pos++) {
-        $game = $db->qry_first("
+        $game = $database->queryWithOnlyFirstRow("
               SELECT
                 teams.name,
                 teams.teamid,
@@ -46,11 +46,11 @@ function write_pairs3(mixed $bracket, $max_pos)
                 (games.tournamentid = teams.tournamentid)
                 AND (games.leaderid = teams.leaderid)
               WHERE
-                (games.tournamentid = %int%)
-                AND (games.group_nr = 0)
-                AND (games.round = %string%)
-                AND (games.position = %string%)
-              GROUP BY games.gameid", $tournamentid, $akt_round, $akt_pos);
+                games.tournamentid = ?
+                AND games.group_nr = 0
+                AND games.round = ?
+                AND games.position = ?
+              GROUP BY games.gameid", [$tournamentid, $akt_round, $akt_pos]);
 
         if ($spieler1 == "") {
             if ($game == 0) {
