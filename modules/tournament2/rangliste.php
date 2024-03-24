@@ -10,14 +10,14 @@ if (!$_GET['tournamentid']) {
             break;
 
         default:
-            $tournament = $db->qry_first("
+            $tournament = $database->queryWithOnlyFirstRow("
               SELECT
                 name,
                 mode,
                 status
               FROM %prefix%tournament_tournaments
               WHERE
-                tournamentid = %int%", $_GET['tournamentid']);
+                tournamentid = ?", [$_GET['tournamentid']]);
   
             if ($tournament['mode'] == "single") {
                 $modus = t('Single-Elimination');
