@@ -239,7 +239,6 @@ class PDF
     public function get_data_array($action, $selected = "")
     {
         $data = [];
-        $data[] = [];
         foreach ($this->data_type_array[$action] as $key => $value) {
             if ($key == $selected) {
                 $data[] = "<option selected value=\"$key\">$value</option>";
