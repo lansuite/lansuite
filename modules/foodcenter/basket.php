@@ -4,33 +4,41 @@ $basket = new LanSuite\Module\Foodcenter\Basket();
 
 // Check opening times
 $time = time();
-if ($cfg['foodcenter_foodtime'] == 4) {
+$configFoodcenterFoodtime = $cfg['foodcenter_foodtime'] ?? 4;
+$configFoodcenterSTime1 = $cfg['foodcenter_s_time_1'] ?? 4;
+$configFoodcenterSTime2 = $cfg['foodcenter_s_time_2'] ?? 4;
+$configFoodcenterSTime3 = $cfg['foodcenter_s_time_3'] ?? 4;
+$configFoodcenterETime1 = $cfg['foodcenter_e_time_1'] ?? 4;
+$configFoodcenterETime2 = $cfg['foodcenter_e_time_2'] ?? 4;
+$configFoodcenterETime3 = $cfg['foodcenter_e_time_3'] ?? 4;
+
+if ($configFoodcenterFoodtime == 4) {
     $open = true;
-} elseif ($cfg['foodcenter_s_time_1'] < $time && $cfg['foodcenter_e_time_1'] > $time) {
+} elseif ($configFoodcenterSTime1 < $time && $configFoodcenterETime1 > $time) {
     $open = true;
-} elseif ($cfg['foodcenter_s_time_2'] < $time && $cfg['foodcenter_e_time_2'] > $time) {
+} elseif ($configFoodcenterSTime2 < $time && $cfg['foodcenter_e_time_2'] > $time) {
     $open = true;
-} elseif ($cfg['foodcenter_s_time_3'] < $time && $cfg['foodcenter_e_time_3'] > $time) {
+} elseif ($configFoodcenterSTime3 < $time && $cfg['foodcenter_e_time_3'] > $time) {
     $open = true;
 } else {
     $open = false;
     
-    $timemessage = $func->unixstamp2date($cfg['foodcenter_s_time_1'], 'datetime') . " - ";
-    $timemessage .= $func->unixstamp2date($cfg['foodcenter_e_time_1'], 'datetime') . HTML_NEWLINE;
+    $timemessage = $func->unixstamp2date($configFoodcenterSTime1, 'datetime') . " - ";
+    $timemessage .= $func->unixstamp2date($configFoodcenterETime1, 'datetime') . HTML_NEWLINE;
 
-    if ($cfg['foodcenter_s_time_2'] != $cfg['foodcenter_e_time_2']) {
-        $timemessage .= $func->unixstamp2date($cfg['foodcenter_s_time_2'], 'datetime') . " - ";
-        $timemessage .= $func->unixstamp2date($cfg['foodcenter_e_time_2'], 'datetime') . HTML_NEWLINE;
+    if ($configFoodcenterSTime2 != $configFoodcenterETime2) {
+        $timemessage .= $func->unixstamp2date($configFoodcenterSTime2, 'datetime') . " - ";
+        $timemessage .= $func->unixstamp2date($configFoodcenterETime2, 'datetime') . HTML_NEWLINE;
     }
 
-    if ($cfg['foodcenter_s_time_3'] != $cfg['foodcenter_e_time_3']) {
-        $timemessage .= $func->unixstamp2date($cfg['foodcenter_s_time_3'], 'datetime') . " - ";
-        $timemessage .= $func->unixstamp2date($cfg['foodcenter_e_time_3'], 'datetime') . HTML_NEWLINE;
+    if ($configFoodcenterSTime3 != $configFoodcenterETime3) {
+        $timemessage .= $func->unixstamp2date($configFoodcenterSTime3, 'datetime') . " - ";
+        $timemessage .= $func->unixstamp2date($configFoodcenterETime3, 'datetime') . HTML_NEWLINE;
     }
 }
 
 // Module closed
-if ($open == false && ($cfg['foodcenter_foodtime'] == 3 || $cfg['foodcenter_foodtime'] == 2)) {
+if ($open == false && ($configFoodcenterFoodtime == 3 || $configFoodcenterFoodtime == 2)) {
     $errormessage = t('Das Foodcenter ist geschlossen. Die Öffnungszeigen sind:'). HTML_NEWLINE;
     $errormessage .= $timemessage;
     
@@ -44,11 +52,13 @@ if ($open == false && ($cfg['foodcenter_foodtime'] == 3 || $cfg['foodcenter_food
         $func->error($errormessage, "index.php?mod=home");
     }
 
-    if ($_POST['calculate'] != '') {
+    $calculateParameter = $_POST['calculate'] ?? '';
+    if ($calculateParameter != '') {
         $basket->change_basket($auth['userid']);
     }
 
-    if ($_POST['imageField'] != '') {
+    $imageFieldParameter = $_POST['imageField'] ?? '';
+    if ($imageFieldParameter != '') {
         if ($basket->change_basket($auth['userid'])) {
             $basket->order_basket($auth['userid']);
             $func->confirmation(t('Die Bestellung wurde aufgenommen'), "index.php?mod=foodcenter");
