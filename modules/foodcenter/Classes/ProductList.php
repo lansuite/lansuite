@@ -34,7 +34,7 @@ class ProductList
 
         $i = 0;
         while ($data = $db->fetch_array($products)) {
-            $this->product_list[$i] .= $data['id'];
+            $this->product_list[$i] = $data['id'];
             $this->product[$i] = new Product($data['id']);
             $i++;
         }
