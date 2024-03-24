@@ -101,7 +101,9 @@ class Supplier
 
         if ($_POST['supp_id'] == 0) {
             $this->supp_caption = $_POST['supp_name'];
-            $this->supp_desc = $_POST["supp_desc"];
+
+            $suppDescParameter = $_POST["supp_desc"] ?? '';
+            $this->supp_desc = $suppDescParameter;
         }
     }
 
@@ -176,6 +178,8 @@ class Supplier
         if ($supp_array) {
             $dsp->AddDropDownFieldRow("supp_id", t('Lieferant'), $supp_array, "");
         }
-        $dsp->AddTextFieldRow("supp_name", t('Neuer Lieferant'), $_POST['supp_name'], $this->error['supp_name']);
+        $suppNameParameter = $_POST['supp_name'] ?? '';
+        $errorSuppName = $this->error['supp_name'] ?? '';
+        $dsp->AddTextFieldRow("supp_name", t('Neuer Lieferant'), $suppNameParameter, $errorSuppName);
     }
 }

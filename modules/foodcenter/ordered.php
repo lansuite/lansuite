@@ -38,7 +38,8 @@ $ms2->AddResultField('Letzte änderung', 'a.lastchange', 'MS2GetDate');
 $ms2->AddResultField('Geliefert', 'a.supplytime', 'MS2GetDate');
 $ms2->AddResultField('Status', 's.statusname');
 
-$ms2->NoItemsText = match ($_POST['search_dd_input'][0]) {
+$searchDDInputParameter = $_POST['search_dd_input'][0] ?? 0;
+$ms2->NoItemsText = match ($searchDDInputParameter) {
     1 => t('Keine aktuellen Bestellungen vorhanden.'),
     2 => t('Es müssen keine Produkte bestellt werden.'),
     3 => t('Es wird auf keine Lieferung gewartet.'),
