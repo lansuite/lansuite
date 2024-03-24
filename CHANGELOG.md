@@ -53,6 +53,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Party] Add information `Gesamt` in the Party box to show how many people can sign up for a party
 - [Birthday] New module to show users birthdays
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
+- [Server] Added Voice as server type
 - [Security] Add header `X-Frame-Options`, `Referrer-Policy` and `Strict-Transport-Security`
 
 ### Changed
@@ -77,6 +78,8 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Boxes/Login] Sign up and Password Recovery are now text links below the login box and not only icons anymore (for better usability)
 - [PDF] Usage of core fonts from fpdf instead of `ext_inc/pdf_fonts`
 - [Security] Set Cookies HTTP only and protocol aware (https)
+- [Server] Changed CPU and RAM Unit of measure from Mega to Giga in Server hardware information
+- [Server] Limited visibility for non-Admins to active party
 
 ### Deprecated
 
