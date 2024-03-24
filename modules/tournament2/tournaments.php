@@ -11,7 +11,7 @@ $mf->AddDropDownFromTable(t('Turniermanagement'), 'tournamentadmin', 'userid', '
 $mf->AddDropDownFromTable(t('Technik/Server'), 'techadmin', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
 
 $tournamentIDParameter = $_GET['tournamentid'] ?? 0;
-$t_state = $db->qry_first('SELECT status FROM %prefix%tournament_tournaments WHERE tournamentid=%int%', $tournamentIDParameter);
+$t_state = $database->queryWithOnlyFirstRow('SELECT status FROM %prefix%tournament_tournaments WHERE tournamentid = ?', [$tournamentIDParameter]);
 
 if (is_array($t_state) && $t_state['status'] == 'process') {
     $mf->AddField(t('Status'), '', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Turnier wird gerade gespielt'));
