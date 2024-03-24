@@ -24,8 +24,8 @@ class Basket
     public function __construct($backlink = null)
     {
         global $auth;
-        
-        $this->account = new Accounting($auth->user_id);
+
+        $this->account = new Accounting($auth['userid']);
         
         // Load Basket
         if (!isset($_SESSION['basket_item']['product'])) {

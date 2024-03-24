@@ -4,8 +4,9 @@ $basket = new LanSuite\Module\Foodcenter\Basket();
 $basket->add_to_basket_from_global();
 
 // Get Barcode if exists and translate to userid
-if ($_POST['barcodefield']) {
-    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
+$barcodeFieldParameter = $_POST['barcodefield'] ?? '';
+if ($barcodeFieldParameter ) {
+    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $barcodeFieldParameter );
     $_GET['userid']=$row['userid'];
 }
 
@@ -13,7 +14,8 @@ if (isset($_GET['userid'])) {
     $_SESSION['foodcenter']['theke_userid'] = $_GET['userid'];
 }
 
-if ($_GET['step'] == "del") {
+$stepParameter = $_GET['step'] ?? 0;
+if ($stepParameter == "del") {
     unset($_SESSION['foodcenter']['theke_userid']);
     unset($_SESSION['basket_item']['product']);
 }
