@@ -7,7 +7,7 @@ $ms2->config['EntriesPerPage'] = 30;
 
 $ms2->AddTextSearchField(t('Name'), array('s.caption' => 'like', 's.ip' => 'like'));
 $ms2->AddTextSearchField(t('Besitzer'), array('u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
-$ms2->AddTextSearchDropDown(t('Servertyp'), 's.type', array('' => t('Alle'), 'gameserver' => 'Game', 'ftp' => 'FTP', 'irc' => 'IRC', 'web' => 'Web', 'proxy' => 'Proxy', 'misc' => 'Misc'));
+$ms2->AddTextSearchDropDown(t('Servertyp'), 's.type', array('' => t('Alle'), 'gameserver' => 'Game', 'ftp' => 'FTP', 'irc' => 'IRC', 'voice' => 'Voice','web' => 'Web', 'proxy' => 'Proxy', 'misc' => 'Misc'));
 $ms2->AddTextSearchDropDown('PW', 's.pw', array('' => t('Alle'), '0' => t('Nein'), '1' => t('Ja')));
 
 $ms2->AddSelect('u.userid');

@@ -39,6 +39,7 @@ if ($server == "") {
         $type_descriptor["gameserver"] = t('Gameserver');
         $type_descriptor["ftp"] = t('FTP-Server');
         $type_descriptor["irc"] = t('IRC-Server');
+        $type_descriptor["voice"] = t('Voice-Server');
         $type_descriptor["web"] = t('Webserver');
         $type_descriptor["proxy"] = t('Proxy / Gateway');
         $type_descriptor["misc"] = t('Sonstiges');

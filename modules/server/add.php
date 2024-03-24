@@ -50,6 +50,7 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     $selections['gameserver'] = t('Gameserver');
     $selections['ftp'] = t('FTP Server');
     $selections['irc'] = t('IRC Server');
+    $selections['voice'] = t('Voice Server');
     $selections['web'] = t('Web Server');
     $selections['proxy'] = t('Proxy Server');
     $selections['misc'] = t('Sonstiger Server');
