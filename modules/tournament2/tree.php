@@ -32,9 +32,10 @@ if (!$_GET['tournamentid']) {
             $seat2 = new \LanSuite\Module\Seating\Seat2();
 
             $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
-            $groupParameter = $_POST['group'] ?? 0;
+            // "group" == 0 are the final games.
+            // If the parameter is not set, we set it to false and do explicit checks later.
+            $groupParameter = $_POST['group'] ?? false;
             $team_anz = $tfunc->GetTeamAnz($_GET['tournamentid'], $tournament['mode'], $groupParameter);
-  
             $dsp->NewContent(t('Turnierbaum zum Turnier %1 (%2)', $tournament['name'], $modus), t('Hier siehst du grafisch dargestellt, wer gegen wen spielt und kannst Ergebnisse melden'));
 
             if ($team_anz == 0) {
@@ -45,10 +46,12 @@ if (!$_GET['tournamentid']) {
                   break;
             } else {
                 if ($tournament['mode'] == "liga") {
-                    $height = $team_anz * 20 + 30;
+                    $height = $team_anz * 20 + 100;
                 } else {
                     $height = (($team_anz/2) * 50) + 120;
                 }
+                if (($tournament["mode"] == "groups") && $groupParameter === false) {
+                    $teams = $database->queryWithOnlyFirstRow("
   
                 if (($tournament["mode"] == "groups") && (!$groupParameter)) {
                     $teams = $database->queryWithOnlyFirstRow("

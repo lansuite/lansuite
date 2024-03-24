@@ -181,6 +181,9 @@ if ($t['status'] != "process" and $t['status'] != "closed") {
             $db->free_result($leaders);
 
             for ($y = 1; $y <= $team_anz; $y++) {
+                if (!isset($link)) {
+                    $link = '';
+                }
                 // Draw Frame and write captions
                 $templ['index']['info']['content'] .= "CreateText('". $leader_name_array[$y-1] ."', ". ($x_start + $x_len * $y) .", ". (7 + $y_start) .", '$link');";
                 $templ['index']['info']['content'] .= "CreateText('". $leader_name_array[$y-1] ."', $x_start, ". (7 + $y_start + $y_len * $y) .", '$link');";

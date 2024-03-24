@@ -107,7 +107,8 @@ if (!$tournamentid) {
                         ORDER BY games.position", $tournamentid);
                     $dsp->SetForm("index.php?mod=tournament2&action=games&step=10&tournamentid=$tournamentid");
                     while ($game = $db->fetch_array($games)) {
-                        $dsp->AddTextFieldRow('team_score['. $game['gameid'] .']', $game['name'] .' '. $tfunc->button_team_details($game['teamid'], $tournamentid), $game['score'], $team_score_error[$game['gameid']]);
+                      $teamScoreErrorMessage = $team_score_error[$game['gameid']] ?? '';
+                      $dsp->AddTextFieldRow('team_score['. $game['gameid'] .']', $game['name'] .' '. $tfunc->button_team_details($game['teamid'], $tournamentid), $game['score'], $teamScoreErrorMessage);
                     }
                     $db->free_result($games);
                     $dsp->AddFormSubmitRow(t('Speichern'));
