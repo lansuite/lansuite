@@ -1,6 +1,5 @@
 <?php
-
-$smarty->assign('caption', t('Neue Server'));
+$smarty->assign('caption', t('Server für die ') . ' ' . $_SESSION['party_info']['name']);
 $content = "";
 
 if (!$cfg['server_sortmethod']) {
@@ -14,11 +13,7 @@ $query = $db->qry("
     UNIX_TIMESTAMP(changedate) AS changedate
   FROM %prefix%server
   WHERE
-    (
-      party_id = %int%
-      OR party_id = 0
-      OR party_id = NULL
-    )
+    party_id = %int%
   ORDER BY %string% DESC
   LIMIT 0, %plain%", $party->party_id, $cfg['server_sortmethod'], $cfg['home_item_cnt_server']);
 
