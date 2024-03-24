@@ -6,7 +6,7 @@ $basket->add_to_basket_from_global();
 // Get Barcode if exists and translate to userid
 $barcodeFieldParameter = $_POST['barcodefield'] ?? '';
 if ($barcodeFieldParameter ) {
-    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $barcodeFieldParameter );
+    $row = $database->queryWithOnlyFirstRow('SELECT userid FROM %prefix%user WHERE barcode = ?', [$barcodeFieldParameter] );
     $_GET['userid']=$row['userid'];
 }
 
