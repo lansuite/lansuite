@@ -61,10 +61,10 @@ class Accounting
      */
     public function list_balance()
     {
-        global $db, $dsp, $cfg;
+        global $db, $database, $dsp, $cfg;
 
         $result = $db->qry("SELECT *, DATE_FORMAT(actiontime,\"%d.%m.%y %H:%i\") AS time FROM %prefix%food_accounting WHERE userid = %int% ORDER BY actiontime DESC", $this->user_id);
-        $deposit = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int% AND movement > 0", $this->user_id);
+        $deposit = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement > 0", [$this->user_id]);
         $disbursement = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int% AND movement < 0", $this->user_id);
 
         $dsp->NewContent(t('Kontoauszug'), t('Alle bisher getätigten Zahlungen'));
