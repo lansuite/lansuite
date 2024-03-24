@@ -162,6 +162,8 @@ class Category
             $dsp->AddDropDownFieldRow("cat_id", t('Produktkategorie'), $cat_array, "");
         }
 
-        $dsp->AddTextFieldRow("cat_name", t('Neue Produktkategorie'), $_POST['cat_name'], $this->error['cat_name']);
+        $errorCatName = $this->error['cat_name'] ?? '';
+        $catNameParameter = $_POST['cat_name'] ?? '';
+        $dsp->AddTextFieldRow("cat_name", t('Neue Produktkategorie'), $catNameParameter, $errorCatName);
     }
 }

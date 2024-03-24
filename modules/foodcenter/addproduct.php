@@ -1,6 +1,7 @@
 <?php
 
-$food = new LanSuite\Module\Foodcenter\Product($_GET['id']);
+$productIdParameter = $_GET['id'] ?? 0;
+$food = new LanSuite\Module\Foodcenter\Product($productIdParameter);
 if (!isset($_GET['step'])) {
     $_GET['step'] = 1;
 }
