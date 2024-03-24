@@ -76,6 +76,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Boxes/Login] Sign up and Password Recovery are now text links below the login box and not only icons anymore (for better usability)
 - [PDF] Usage of core fonts from fpdf instead of `ext_inc/pdf_fonts`
 - [Security] Set Cookies HTTP only and protocol aware (https)
+- [Server] Switch Server hardware informatiuon from Megabyte to Gigabyte (for RAM) and from Megaherz to Gigaherz for CPU
 
 ### Deprecated
 
