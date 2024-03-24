@@ -61,14 +61,14 @@ switch ($stepParameter) {
     case 50:
         $sec->unlock("t_team_edit");
 
-        $tournament = $db->qry_first("
+        $tournament = $database->queryWithOnlyFirstRow("
           SELECT
             teamplayer
           FROM %prefix%tournament_tournaments
           WHERE
-            tournamentid = %int%", $tournamentid);
+            tournamentid = ?", [$tournamentid]);
 
-        $team = $db->qry_first("
+        $team = $database->queryWithOnlyFirstRow("
           SELECT
             team.name,
             team.comment,
@@ -76,7 +76,7 @@ switch ($stepParameter) {
         FROM %prefix%t2_teams AS team
         LEFT JOIN %prefix%user AS user ON user.userid = team.leaderid
         WHERE
-          teamid = %int%", $_GET["teamid"]);
+          teamid = ?", [$_GET["teamid"]]);
 
         $dsp->NewContent(t('Teammanager'), t('Hier kannst du deinem Teams verwalten'));
         $dsp->SetForm("index.php?mod=tournament2&action=teammgr&step=51&teamid={$_GET["teamid"]}&tournamentid=$tournamentid", "", "", "multipart/form-data");
@@ -104,7 +104,7 @@ switch ($stepParameter) {
     // Edit Teamdetails (Action)
     case 51:
         if (!$sec->locked("t_team_edit")) {
-            $tournament = $db->qry_first("SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
+            $tournament = $database->queryWithOnlyFirstRow("SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = ?", [$tournamentid]);
 
             if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1) {
                 $func->information(t('Bitte gib einen Teamnamen ein, oder wähle ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");

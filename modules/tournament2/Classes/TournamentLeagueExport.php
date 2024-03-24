@@ -181,7 +181,7 @@ class TournamentLeagueExport
                     if ($db_match['leaderid'] == 0) {
                         $db_teamid['teamid'] = 0;
                     } else {
-                        $db_teamid = $db->qry_first("SELECT teamid FROM %prefix%t2_teams AS teams WHERE (tournamentid = %int%) AND (teams.leaderid = %int%)", $tournament['tournamentid'], $db_match['leaderid']);
+                        $db_teamid = $database->queryWithOnlyFirstRow("SELECT teamid FROM %prefix%t2_teams AS teams WHERE tournamentid = ? AND teams.leaderid = ?", [$tournament['tournamentid'], $db_match['leaderid']]);
                     }
 
                     if ($tmpid1 == "") {

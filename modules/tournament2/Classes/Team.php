@@ -23,38 +23,38 @@ class Team
      */
     public function SignonCheck($tid)
     {
-        global $db, $func;
+        global $db, $database, $func;
 
         if ($tid == "") {
             $func->error(t('Du musst zuerst ein Turnier auswählen!'));
             return false;
         }
 
-        $t = $db->qry_first("
+        $t = $database->queryWithOnlyFirstRow("
           SELECT
             status,
             teamplayer,
             maxteams,
             blind_draw
           FROM %prefix%tournament_tournaments
-          WHERE tournamentid = %int%", $tid);
+          WHERE tournamentid = ?", [$tid]);
 
         if ($t["teamplayer"] == 1 or $t["blind_draw"]) {
-            $c_teams = $db->qry_first("SELECT COUNT(*) AS teams FROM %prefix%t2_teams WHERE tournamentid = %int%", $tid);
+            $c_teams = $database->queryWithOnlyFirstRow("SELECT COUNT(*) AS teams FROM %prefix%t2_teams WHERE tournamentid = ?", [$tid]);
             $completed_teams = $c_teams["teams"];
         } else {
             $waiting_teams = 0;
             $completed_teams = 0;
             $c_teams = $db->qry("SELECT teamid FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $tid);
             while ($c_team = $db->fetch_array($c_teams)) {
-                $c_member = $db->qry_first("
+                $c_member = $database->queryWithOnlyFirstRow("
                   SELECT
                     COUNT(*) AS members
                   FROM %prefix%t2_teammembers
-                  WHERE (teamid = %int%)
-                  GROUP BY teamid", $c_team["teamid"]);
-
-                if (($c_member["members"] + 1) < $t["teamplayer"]) {
+                  WHERE teamid = ?
+                  GROUP BY teamid", [$c_team["teamid"]]);
+                $memberCount = $c_member["members"] ?? 0;
+                if (($memberCount + 1) < $t["teamplayer"]) {
                     $waiting_teams++;
                 } else {
                     $completed_teams++;
@@ -88,9 +88,9 @@ class Team
      */
     public function SignonCheckUser($tid, $userid)
     {
-        global $db, $func, $party, $cfg;
+        global $db, $database, $func, $party, $cfg;
 
-        $t = $db->qry_first("
+        $t = $database->queryWithOnlyFirstRow("
           SELECT
             groupid,
             maxteams,
@@ -98,80 +98,80 @@ class Team
             status,
             coins
           FROM %prefix%tournament_tournaments
-          WHERE tournamentid = %int%", $tid);
+          WHERE tournamentid = ?", [$tid]);
 
-        $user = $db->qry_first("
+        $user = $database->queryWithOnlyFirstRow("
           SELECT
             p.paid,
             u.username
           FROM %prefix%user AS u
           LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
           WHERE
-            u.userid = %int%
-            AND party_id=%int%", $userid, $party->party_id);
+            u.userid = ?
+            AND party_id = ?", [$userid, $party->party_id]);
 
-        $team = $db->qry_first("
+        $team = $database->queryWithOnlyFirstRow("
           SELECT
             1 AS found
           FROM %prefix%t2_teams
           WHERE
-            (tournamentid = %int%)
-            AND (leaderid = %int%)", $tid, $userid);
+            tournamentid = ?
+            AND leaderid = ?", [$tid, $userid]);
 
-        $teammember = $db->qry_first("
+        $teammember = $database->queryWithOnlyFirstRow("
           SELECT
             1 AS found
           FROM %prefix%t2_teammembers
           WHERE
-            (tournamentid = %int%)
-            AND (userid = %int%)", $tid, $userid);
+            tournamentid = ?
+            AND userid = ?", [$tid, $userid]);
 
-        $in_group = $db->qry_first("
+        $in_group = $database->queryWithOnlyFirstRow("
           SELECT
             1 AS found
           FROM %prefix%t2_teams AS team
           LEFT JOIN %prefix%tournament_tournaments AS t ON (t.tournamentid = team.tournamentid)
           WHERE
-            (t.groupid = %int%)
-            AND (t.groupid != 0)
-            AND (t.party_id=%int%)
-            AND (team.leaderid = %int%)", $t["groupid"], $party->party_id, $userid);
+            t.groupid = ?
+            AND t.groupid != 0
+            AND t.party_id = ?
+            AND team.leaderid = ?", [$t["groupid"], $party->party_id, $userid]);
         
-        $memb_in_group = $db->qry_first("
+        $memb_in_group = $database->queryWithOnlyFirstRow("
           SELECT 1 AS found
           FROM %prefix%t2_teammembers AS members
           LEFT JOIN %prefix%tournament_tournaments AS t ON (t.tournamentid = members.tournamentid)
           WHERE
-            (t.groupid = %int%)
-            AND (t.groupid != 0)
-            AND (t.party_id=%int%)
-            AND (userid = %int%)", $t["groupid"], $party->party_id, $userid);
+            t.groupid = ?
+            AND t.groupid != 0
+            AND t.party_id = ?
+            AND userid = ?", [$t["groupid"], $party->party_id, $userid]);
 
         $over_18_error = 0;
         if ($t["over18"] == 1 && $this->seating->U18Block($userid, "u")) {
             $over_18_error = 1;
         }
 
-        $team_coin = $db->qry_first("
+        $team_coin = $database->queryWithOnlyFirstRow("
           SELECT
             SUM(t.coins) AS t_coins
           FROM %prefix%tournament_tournaments AS t
           LEFT JOIN %prefix%t2_teams AS teams ON t.tournamentid = teams.tournamentid
           WHERE
-            teams.leaderid = %int%
-            AND t.party_id = %int%
-          GROUP BY teams.leaderid", $userid, $party->party_id);
+            teams.leaderid = ?
+            AND t.party_id = ?
+          GROUP BY teams.leaderid", [$userid, $party->party_id]);
         $sumTeamCoins = $team_coin["t_coins"] ?? 0;
 
-        $member_coin = $db->qry_first("
+        $member_coin = $database->queryWithOnlyFirstRow("
           SELECT
             SUM(t.coins) AS t_coins
           FROM %prefix%tournament_tournaments AS t
           LEFT JOIN %prefix%t2_teammembers AS members ON t.tournamentid = members.tournamentid
           WHERE
-            members.userid = %int%
-            AND t.party_id = %int%
-          GROUP BY members.userid", $userid, $party->party_id);
+            members.userid = ?
+            AND t.party_id = ?
+          GROUP BY members.userid", [$userid, $party->party_id]);
         $sumMemberCoins = $member_coin["t_coins"] ?? 0;
 
         // Is the user already signed on to this tournament?
@@ -220,7 +220,7 @@ class Team
      */
     public function join($teamid, $userid, $password = null)
     {
-        global $db, $auth, $func;
+        global $db, $database, $auth, $func;
 
         if ($teamid == "") {
             $func->error(t('Du hast kein Team ausgeählt!'));
@@ -229,7 +229,7 @@ class Team
             $func->error(t('Du hast keinen Benutzer ausgewählt!'));
             return false;
         } else {
-            $team = $db->qry_first("
+            $team = $database->queryWithOnlyFirstRow("
               SELECT
                 team.tournamentid,
                 team.password,
@@ -240,7 +240,7 @@ class Team
               FROM %prefix%t2_teams AS team
               LEFT JOIN %prefix%tournament_tournaments AS t ON team.tournamentid = t.tournamentid
               WHERE
-                team.teamid = %int%", $teamid);
+                team.teamid = ?", [$teamid]);
 
             // Check password, if set and if acction is not performed, by teamadmin or ls-admin
             if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= \LS_AUTH_TYPE_USER) and ($team['password'] != '') and (md5($password) != $team['password'])) {
@@ -249,27 +249,28 @@ class Team
 
             // May one still signon for this tournament?
             } elseif ($this->SignonCheckUser($team["tournamentid"], $userid)) {
-                $member_anz = $db->qry_first("
+                $member_anz = $database->queryWithOnlyFirstRow("
                   SELECT
                     COUNT(*) AS members
                   FROM %prefix%t2_teammembers
                   WHERE
-                    teamid = %int%
-                  GROUP BY teamid", $teamid);
+                    teamid = ?
+                  GROUP BY teamid", [$teamid]);
+                $memberCount = $member_anz["members"] ?? 0;
 
                 // Isn't the team full yet?
-                if ($team["teamplayer"] <= ($member_anz["members"] + 1)) {
+                if ($team["teamplayer"] <= ($memberCount + 1)) {
                     $func->information(t('Das gewählte Team ist bereits voll!'));
                     return false;
 
                 // Everything Okay! -> Insert!
                 } else {
-                    $db->qry("
+                    $database->query("
                       INSERT INTO %prefix%t2_teammembers 
                       SET
-                        tournamentid = %int%,
-                        userid = %int%,
-                        teamid = %int%", $team["tournamentid"], $userid, $teamid);
+                        tournamentid = ?,
+                        userid = ?,
+                        teamid = ?", [$team["tournamentid"], $userid, $teamid]);
 
                     $this->mail->create_sys_mail($userid, t_no_html('Du wurdest dem Team %1 im Turnier %2 hinzugefügt', $team["teamname"], $team["tname"]), t_no_html('Der Ersteller des Teams <b>%1</b> hat dich in sein Team im Turnier <b>%2</b> aufgenommen.', $team["teamname"], $team["tname"]));
                     $func->log_event(t('Der Benutzer %1 ist dem Team %2 im Turnier %3 beigetreten', $auth["username"], $team["teamname"], $team["tname"]), 1, t('Turnier Teamverwaltung'));
@@ -294,10 +295,10 @@ class Team
      */
     public function create($tournamentid, $leaderid, $name = null, $password = null, $comment = null, $banner = null)
     {
-        global $db, $auth, $func;
+        global $db, $database, $auth, $func;
 
         if ($this->SignonCheck($tournamentid) and $this->SignonCheckUser($tournamentid, $leaderid)) {
-            $t = $db->qry_first("
+            $t = $database->queryWithOnlyFirstRow("
               SELECT
                 name,
                 teamplayer,
@@ -305,29 +306,32 @@ class Team
                 blind_draw
               FROM %prefix%tournament_tournaments
               WHERE
-                tournamentid = %int%", $tournamentid);
+                tournamentid = ?", [$tournamentid]);
 
-            if ($t["teamplayer"] == 1 or $t["blind_draw"]) {
-                $c_teams = $db->qry_first("
+            if ($t["teamplayer"] == 1 || $t["blind_draw"]) {
+                $c_teams = $database->queryWithOnlyFirstRow("
                   SELECT
                     COUNT(*) AS teams
                   FROM %prefix%t2_teams
                   WHERE
-                    (tournamentid = %int%)
-                  GROUP BY teamid", $tournamentid);
-                $completed_teams = intval($c_teams["teams"]);
+                    tournamentid = ?
+                  GROUP BY teamid", [$tournamentid]);
+                $completed_teams = 0;
+                if (is_array($c_teams)) {
+                  $completed_teams = intval($c_teams["teams"]);
+                }
                 $waiting_teams = 0;
             } else {
                 $waiting_teams = 0;
                 $completed_teams = 0;
                 $c_teams = $db->qry("SELECT teamid FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $tournamentid);
                 while ($c_team = $db->fetch_array($c_teams)) {
-                    $c_member = $db->qry_first("
+                    $c_member = $database->queryWithOnlyFirstRow("
                       SELECT
                         COUNT(*) AS members
                       FROM %prefix%t2_teammembers
-                      WHERE (teamid = %int%)
-                      GROUP BY teamid", $c_team["teamid"]);
+                      WHERE teamid = ?
+                      GROUP BY teamid", [$c_team["teamid"]]);
 
                     if (($c_member["members"] + 1) < $t["teamplayer"]) {
                         $waiting_teams++;
@@ -349,18 +353,18 @@ class Team
                 }
 
                 if (!$name) {
-                    $user = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $leaderid);
+                    $user = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$leaderid]);
                     $name = $func->escape_sql($user["username"]);
                 }
-                $db->qry("
+                $database->query("
                   INSERT INTO %prefix%t2_teams 
                   SET
-                    tournamentid = %int%,
-                    name = %string%,
-                    leaderid = %int%,
-                    comment = %string%,
-                    banner = %string%,
-                    password = %string%", $tournamentid, $name, $leaderid, $comment, $_FILES[$banner]["name"], md5($password));
+                    tournamentid = ?,
+                    name = ?,
+                    leaderid = ?,
+                    comment = ?,
+                    banner = ?,
+                    password = ?", [$tournamentid, $name, $leaderid, $comment, $_FILES[$banner]["name"], md5($password)]);
 
                 $func->log_event(t('Der Benutzer %1 hat sich zum Turnier %2 angemeldet', $auth["username"], $t["name"]), 1, t('Turnier Teamverwaltung'));
             }
@@ -383,20 +387,20 @@ class Team
      */
     public function edit($teamid, $name = null, $password = null, $comment = null, $banner = null)
     {
-        global $db, $auth, $func;
+        global $db, $database, $auth, $func;
 
-        $t = $db->qry_first("
+        $t = $database->queryWithOnlyFirstRow("
           SELECT
             t.name,
             t.teamplayer
           FROM %prefix%tournament_tournaments AS t
           LEFT JOIN %prefix%t2_teams AS team ON t.tournamentid = team.tournamentid
-          WHERE team.teamid = %int%", $teamid);
+          WHERE team.teamid = ?", [$teamid]);
 
         // Upload Banner
         if ($_FILES[$banner]["tmp_name"] != "") {
             $func->FileUpload("team_banner", "ext_inc/team_banners/");
-            $db->qry("UPDATE %prefix%t2_teams SET banner = %string% WHERE teamid = %int%", $_FILES["team_banner"]["name"], $_GET["teamid"]);
+            $database->query("UPDATE %prefix%t2_teams SET banner = ? WHERE teamid = ?", [$_FILES["team_banner"]["name"], $_GET["teamid"]]);
         }
 
         if ($t['teamplayer'] == 1) {
@@ -405,15 +409,15 @@ class Team
 
         // Set Password
         if ($password != "") {
-            $db->qry("UPDATE %prefix%t2_teams SET password = %string% WHERE teamid = %int%", md5($password), $_GET["teamid"]);
+          $database->query("UPDATE %prefix%t2_teams SET password = ? WHERE teamid = ?", [md5($password), $_GET["teamid"]]);
         }
 
-        $db->qry("
+        $database->query("
           UPDATE %prefix%t2_teams 
           SET
-            name = %string%,
-            comment = %string%
-          WHERE teamid = %int%", $name, $comment, $_GET["teamid"]);
+            name = ?,
+            comment = ?
+          WHERE teamid = ?", [$name, $comment, $_GET["teamid"]]);
         $func->log_event(t('Das Team %1 im Turnier %2 hat seine Daten editiert', $_POST['team_name'], $t["name"]), 1, t('Turnier Teamverwaltung'));
 
         $this->UpdateLeagueIDs($auth["userid"], $_POST["lgzid"], $_POST["lgzclannid"]);
@@ -429,14 +433,14 @@ class Team
      */
     public function delete($teamid)
     {
-        global $db, $func;
+        global $db, $database, $func;
 
         if ($teamid == "") {
             $func->error(t('Du hast kein Team ausgeählt!'));
             return false;
         }
 
-        $team = $db->qry_first("
+        $team = $database->queryWithOnlyFirstRow("
           SELECT
             t.status,
             t.name AS tname,
@@ -444,7 +448,7 @@ class Team
             team.leaderid
           FROM %prefix%tournament_tournaments AS t
           LEFT JOIN %prefix%t2_teams AS team ON (t.tournamentid = team.tournamentid)
-          WHERE (teamid = %int%)", $teamid);
+          WHERE teamid = ?", [$teamid]);
 
         // No delete if tournament is generated
         if ($team['status'] != "open") {
@@ -460,8 +464,8 @@ class Team
         $db->free_result($members);
 
         // Perform Action
-        $db->qry("DELETE FROM %prefix%t2_teams WHERE teamid = %int%", $teamid);
-        $db->qry("DELETE FROM %prefix%t2_teammembers WHERE teamid = %int%", $teamid);
+        $database->query("DELETE FROM %prefix%t2_teams WHERE teamid = ?", [$teamid]);
+        $database->query("DELETE FROM %prefix%t2_teammembers WHERE teamid = ?", [$teamid]);
 
         $func->log_event(t('Das Team %1 wurde aufgelöst', $team['teamname']), 1, t('Turnier Teamverwaltung'));
 
@@ -477,7 +481,7 @@ class Team
      */
     public function kick($teamid, $userid)
     {
-        global $db, $func;
+        global $db, $database, $func;
 
         if ($teamid == "") {
             $func->error(t('Du hast kein Team ausgeählt!'));
@@ -489,15 +493,15 @@ class Team
         }
 
         // Select Output information
-        $t = $db->qry_first("
+        $t = $database->queryWithOnlyFirstRow("
           SELECT t.name
           FROM %prefix%tournament_tournaments AS t
           LEFT JOIN %prefix%t2_teammembers AS m ON t.tournamentid = m.tournamentid
           WHERE
-            (m.userid = %int%)
-            AND (m.teamid = %int%)", $userid, $teamid);
-        $user = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
-        $team = $db->qry_first("SELECT name FROM %prefix%t2_teams WHERE teamid = %int%", $teamid);
+            m.userid = ?
+            AND m.teamid = ?", [$userid, $teamid]);
+        $user = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$userid]);
+        $team = $database->queryWithOnlyFirstRow("SELECT name FROM %prefix%t2_teams WHERE teamid = ?", [$teamid]);
 
         // Is the tournament finished?
         if ($t["status"] == "closed") {
@@ -505,7 +509,7 @@ class Team
             return false;
         }
         // Perform Action
-        $db->qry("DELETE FROM %prefix%t2_teammembers WHERE (userid = %int%) AND (teamid = %int%)", $userid, $teamid);
+        $database->query("DELETE FROM %prefix%t2_teammembers WHERE userid = ? AND teamid = ?", [$userid, $teamid]);
 
         // Create Outputs
         $this->mail->create_sys_mail($userid, t_no_html('Du wurdest im Turnier %1 aus deinem Team geworfen', $t["name"]), str_replace("%NAME%", $t["name"], t_no_html('Der Ersteller dieses Teams hat dich soeben aus seinem Team entfernt. Dies bedeutet, dass du nun nicht mehr zu dem Turnier \'%NAME%\' angemeldet bist.')));
