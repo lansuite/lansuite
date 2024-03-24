@@ -1,5 +1,5 @@
 <?php
-$smarty->assign('caption', t('Server für die ') . ' ' . $_SESSION['party_info']['name']);
+$smarty->assign('caption', t('Server für ') . ' ' . $_SESSION['party_info']['name']);
 $content = "";
 
 if (!$cfg['server_sortmethod']) {
