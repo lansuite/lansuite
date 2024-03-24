@@ -12,7 +12,8 @@ function PaidIconLinkFoodcenter($paid)
     global $dsp, $line, $party;
 
     // Only link, if selected party is the current party
-    if ($_POST["search_dd_input"][1] == $party->party_id) {
+    $searchDDInputParameter = $_POST["search_dd_input"][1] ?? '';
+    if ($searchDDInputParameter == $party->party_id) {
         $link = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
     }
 
