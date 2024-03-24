@@ -74,6 +74,7 @@ switch ($stepParameter) {
     // Change Menuentries
     case 21:
         foreach ($_POST["caption"] as $key => $val) {
+            $boxId = $_POST["boxid"][$key] ?? 0;
             $db->qry(
                 "UPDATE %prefix%menu SET caption = %string%, requirement = %string%, action = %string%, hint = %string%, link = %string%, file = %string%, pos = %string%, boxid = %int%, needed_config = %string% WHERE id = %int%",
                 $_POST["caption"][$key],
@@ -83,7 +84,7 @@ switch ($stepParameter) {
                 $_POST["link"][$key],
                 $_POST["file"][$key],
                 $_POST["pos"][$key],
-                $_POST["boxid"][$key],
+                $boxId,
                 $_POST["needed_config"][$key],
                 $key
             );
