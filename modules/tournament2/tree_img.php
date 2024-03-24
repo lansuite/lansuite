@@ -16,7 +16,7 @@ $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 $tfunc->CheckTimeExceed($tournamentid);
 
 
-$tournament = $db->qry_first("
+$tournament = $database->queryWithOnlyFirstRow("
   SELECT
     tournamentid,
     name,
@@ -29,7 +29,7 @@ $tournament = $db->qry_first("
     mapcycle
   FROM %prefix%tournament_tournaments
   WHERE
-    tournamentid = %int%", $tournamentid);
+    tournamentid = ?", [$tournamentid]);
 $map = explode("\n", $tournament["mapcycle"]);
 if ($map[0] == "") {
     $map[0] = t('unbekannt');
@@ -172,7 +172,7 @@ if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['statu
             );
 
             for ($x = 0; $x < $y-1; $x++) {
-                $score = $db->qry_first("
+                $score = $database->queryWithOnlyFirstRow("
                   SELECT
                     games1.score AS s1,
                     games2.score AS s2,
@@ -183,20 +183,20 @@ if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['statu
                     AND (games1.round = games2.round)
                     AND (games1.group_nr = games2.group_nr)
                   WHERE
-                    (games1.tournamentid = %int%)
-                    AND (games1.group_nr = %string%)
+                    (games1.tournamentid = ?)
+                    AND (games1.group_nr = ?)
                     AND ((games1.position + 1) = games2.position)
                     AND ((games1.position / 2) = FLOOR(games1.position / 2))
                     AND (
                       (
-                        (games1.leaderid = %string%)
-                        AND (games2.leaderid = %string%)
+                        (games1.leaderid = ?)
+                        AND (games2.leaderid = ?)
                       )
                     OR (
-                      (games1.leaderid = %string%)
-                      AND (games2.leaderid = %string%)
+                      (games1.leaderid = ?)
+                      AND (games2.leaderid = ?)
                       )
-                    )", $tournamentid, $_GET["group"], $leader_array[$x], $leader_array[$y-1], $leader_array[$y-1], $leader_array[$x]);
+                    )", [$tournamentid, $_GET["group"], $leader_array[$x], $leader_array[$y-1], $leader_array[$y-1], $leader_array[$x]]);
 
                 if (($score['s1'] == 0) && ($score['s2'] == 0)) {
                     $game_score = "- : -";

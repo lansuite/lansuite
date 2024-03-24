@@ -19,7 +19,13 @@ if (!$tournamentid) {
         default:
                 // Check if roundtime has exceeded and set awaiting scores randomly
                 $tfunc->CheckTimeExceed($tournamentid);
-                $tournament = $db->qry_first("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
+                $tournamentQuery = "
+                  SELECT
+                    *,
+                    UNIX_TIMESTAMP(starttime) AS starttime
+                  FROM %prefix%tournament_tournaments
+                  WHERE tournamentid = ?";
+                $tournament = $database->queryWithOnlyFirstRow($tournamentQuery, [$tournamentid]);
   
             // Get Maparray
             $map = explode("\r\n", $tournament["mapcycle"]);
@@ -62,12 +68,12 @@ if (!$tournamentid) {
                                 if (!is_numeric($team_score)) {
                                     $team_score_error[$gameid] = t('Bitte gib eine Zahl ein');
                                 } else {
-                                    $db->qry("
+                                    $database->query("
                                       UPDATE %prefix%t2_games
                                       SET
-                                        score = %string%
+                                        score = ?
                                       WHERE
-                                        gameid = %int%", $team_score, $gameid);
+                                        gameid = ?", [$team_score, $gameid]);
                                 }
                             }
                         }
@@ -75,12 +81,12 @@ if (!$tournamentid) {
   
                     // Finish tournament
                     if ($_GET['step'] == 11) {
-                        $db->qry("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = %int%", $tournamentid);
+                        $database->query("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = ?", [$tournamentid]);
                         $func->confirmation(t('Turnier wurde beendet'), '');
                     }
                     // Unfinish tournament
                     if ($_GET['step'] == 12) {
-                        $db->qry("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = %int%", $tournamentid);
+                        $database->query("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = ?", [$tournamentid]);
                         $func->confirmation(t('Turnier wurde wiedereröffnet'), '');
                     }
         
@@ -179,15 +185,15 @@ if (!$tournamentid) {
                         $team_anz = 2 * $db->num_rows($games);
                         $db->free_result($games);
                     } else {
-                        $games = $db->qry_first("
+                        $games = $database->queryWithOnlyFirstRow("
                           SELECT
                             COUNT(*) AS anz
-                          FROM %prefix%t2_games
+                          FROM `%prefix%t2_games`
                           WHERE
-                            (tournamentid = %int%)
-                            AND (round = 0)
-                            AND (group_nr = 0)
-                          GROUP BY round", $tournamentid);
+                            `tournamentid` = ?
+                            AND `round` = 0
+                            AND `group_nr` = 0
+                          GROUP BY `round`", [$tournamentid]);
                         $team_anz = $games["anz"];
                     }
   
@@ -222,20 +228,20 @@ if (!$tournamentid) {
                     // Write Winner
                     $akt_round++;
                     $dsp->AddSingleRow("<b>". t('Turnier-Sieger') ."</b>");
-                    $game = $db->qry_first("
+                    $game = $database->queryWithOnlyFirstRow("
                       SELECT
-                        teams.name,
-                        teams.teamid
+                        `teams`.`name`,
+                        `teams`.`teamid`
                       FROM %prefix%t2_games AS games
                       LEFT JOIN %prefix%t2_teams AS teams ON
-                        (games.tournamentid = teams.tournamentid)
-                        AND (games.leaderid = teams.leaderid)
+                        games.tournamentid = teams.tournamentid
+                        AND games.leaderid = teams.leaderid
                       WHERE
-                        (games.tournamentid = %int%)
-                        AND (games.round = %string%)
-                        AND (games.position = 0)
-                        AND (games.group_nr = 0)
-                      GROUP BY games.gameid", $tournamentid, $akt_round);
+                        games.tournamentid = ?
+                        AND games.round = ?
+                        AND games.position = 0
+                        AND games.group_nr = 0
+                      GROUP BY games.gameid", [$tournamentid, $akt_round]);
                     if ($game == 0) {
                         $game['name'] = "<i>".t('Noch Unbekannt')."</i>";
                     } else {

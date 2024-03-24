@@ -25,7 +25,7 @@ if ($qacc == 1) {
 }
 
 // Infos holen
-$tournament = $db->qry_first("
+$tournament = $database->queryWithOnlyFirstRow("
   SELECT
     name,
     teamplayer,
@@ -40,23 +40,23 @@ $tournament = $db->qry_first("
     tournamentid
   FROM %prefix%tournament_tournaments
   WHERE
-    tournamentid = %int%", $tournamentid);
+    tournamentid = ?", [$tournamentid]);
 $map = explode("\n", $tournament["mapcycle"]);
 if ($map[0] == "") {
     $map[0] = t('unbekannt');
 }
 
-$games = $db->qry_first("
+$games = $database->queryWithOnlyFirstRow("
   SELECT
     COUNT(*) AS anz
   FROM %prefix%t2_games
   WHERE
-    (tournamentid = %int%)
-    AND (round=0)
-  GROUP BY round", $tournamentid);
+    tournamentid = ?
+    AND round = 0
+  GROUP BY round", [$tournamentid]);
 $team_anz = $games["anz"];
 
-$team1 = $db->qry_first("
+$team1 = $database->queryWithOnlyFirstRow("
   SELECT
     games.group_nr,
     games.round,
@@ -73,10 +73,10 @@ $team1 = $db->qry_first("
   LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
   LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
   WHERE
-    (teams.tournamentid = %int%)
-    AND (games.gameid = %int%)", $tournamentid, $gameid1);
+    teams.tournamentid = ?
+    AND games.gameid = ?", [$tournamentid, $gameid1]);
 
-$team2 = $db->qry_first("
+$team2 = $database->queryWithOnlyFirstRow("
   SELECT
     games.round,
     games.position,
@@ -92,8 +92,8 @@ $team2 = $db->qry_first("
   LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
   LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
   WHERE
-    (teams.tournamentid = %int%)
-    AND (games.gameid = %int%)", $tournamentid, $gameid2);
+    teams.tournamentid = ?
+    AND games.gameid = ?", [$tournamentid, $gameid2]);
 
 // Einschränkungen prüfen
 if ($tournament["name"] == "") {
@@ -135,7 +135,7 @@ if ($tournament["name"] == "") {
                 $mf = new \LanSuite\MasterForm();
                 $mf->AddField(t('Server Zuweisen'), 'server_id', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
                 if ($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1)) {
-                    $db->qry("UPDATE %prefix%t2_games SET server_id = %int% WHERE gameid = %int%", $_POST['server_id'], $gameid2);
+                    $database->query("UPDATE %prefix%t2_games SET server_id = ? WHERE gameid = ?", [$_POST['server_id'], $gameid2]);
                 }
             }
 
@@ -218,7 +218,7 @@ if ($tournament["name"] == "") {
             // Wurde Ergebnis schon eingetragen?
             $not_new = 0;
             if (($tournament["mode"] == "single") || ($tournament["mode"] == "double")) {
-                $score = $db->qry_first("SELECT score FROM %prefix%t2_games WHERE (gameid = %int% OR gameid = %int%) AND score != 0", $gameid1, $gameid2);
+                $score = $database->queryWithOnlyFirstRow("SELECT score FROM %prefix%t2_games WHERE (gameid = ? OR gameid = ?) AND score != 0", [$gameid1, $gameid2]);
                 if ($score['score']) {
                     $not_new = 1;
                 }
