@@ -79,9 +79,9 @@ switch ($stepParameter) {
     case 41:
         $sec->unlock("t_admteam_create");
 
-        $t = $db->qry_first("SELECT teamplayer FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
+        $t = $database->queryWithOnlyFirstRow("SELECT teamplayer FROM %prefix%tournament_tournaments WHERE tournamentid = ?", [$tournamentid]);
         if ($t['teamplayer'] == 1) {
-            $leader = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
+            $leader = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$_GET['userid']]);
             $_POST["team_name"] = $leader["username"];
         }
 
@@ -108,7 +108,7 @@ switch ($stepParameter) {
         } elseif ($_POST['team_name'] == "") {
             $func->information(t('Bitte gib einen Teamnamen ein, oder wähle ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
         } elseif (!$sec->locked("t_admteam_create")) {
-            $t = $db->qry_first("SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $_GET["tournamentid"]);
+            $t = $database->queryWithOnlyFirstRow("SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = ?", [$_GET["tournamentid"]]);
 
             if ($tteam->create($_GET["tournamentid"], $_GET["userid"], $_POST["team_name"], $_POST["set_password"], $_POST["team_comment"], "team_banner")) {
                 $func->confirmation(t('Der Spieler / Das Team wurden zum Turnier %1 erfolgreich angemeldet', $t["name"]), "index.php?mod=tournament2&action=teammgr_admin");
@@ -185,7 +185,7 @@ switch ($stepParameter) {
         } else {
             $t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
             while ($team = $db->fetch_array($teams)) {
-                $member = $db->qry_first("SELECT COUNT(*) AS members FROM %prefix%t2_teammembers WHERE teamid = %int% GROUP BY teamid", $team['teamid']);
+                $member = $database->queryWithOnlyFirstRow("SELECT COUNT(*) AS members FROM %prefix%t2_teammembers WHERE teamid = ? GROUP BY teamid", [$team['teamid']]);
 
                 $freie_platze = $team['teamplayer'] - ($member['members'] + 1);
                 if ($freie_platze > 0) {

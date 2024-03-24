@@ -13,7 +13,7 @@ $teams = $db->qry("
   ORDER BY RAND()", $_GET["tournamentid"]);
 $team_anz = $db->num_rows($teams);
 
-$tournament = $db->qry_first("
+$tournament = $database->queryWithOnlyFirstRow("
   SELECT
     status,
     teamplayer,
@@ -23,16 +23,16 @@ $tournament = $db->qry_first("
     mapcycle
   FROM %prefix%tournament_tournaments
   WHERE
-    tournamentid = %int%", $_GET["tournamentid"]);
+    tournamentid = ?", [$_GET["tournamentid"]]);
 
-$seeded = $db->qry_first("
+$seeded = $database->queryWithOnlyFirstRow("
   SELECT
     COUNT(*) AS anz
   FROM %prefix%t2_teams
   WHERE
-    (tournamentid = %int%)
-    AND (seeding_mark = '1')
-  GROUP BY tournamentid", $_GET["tournamentid"]);
+    tournamentid = ?
+    AND seeding_mark = '1'
+  GROUP BY tournamentid", [$_GET["tournamentid"]]);
 $seededCount = $seeded['anz'] ?? 0;
 
 if ($_GET["step"] < 2 and $tournament["blind_draw"]) {
@@ -67,13 +67,13 @@ if ($team_anz < 4) {
                 if ($z % $tournament["teamplayer"] == 0) {
                     $teamid = $bd_team["teamid"];
                 } else {
-                    $db->qry("
+                    $database->query("
                       INSERT INTO %prefix%t2_teammembers
                       SET
-                        tournamentid = %int%,
-                        userid = %int%,
-                        teamid = %int%", $_GET["tournamentid"], $bd_team["leaderid"], $teamid);
-                    $db->qry("DELETE FROM %prefix%t2_teams WHERE teamid = %int%", $bd_team["teamid"]);
+                        tournamentid = ?,
+                        userid = ?,
+                        teamid = ?", [$_GET["tournamentid"], $bd_team["leaderid"], $teamid]);
+                    $database->query("DELETE FROM %prefix%t2_teams WHERE teamid = ?", [$bd_team["teamid"]]);
                 }
                 $z++;
             }
@@ -96,12 +96,12 @@ if ($team_anz < 4) {
         $waiting_teams = 0;
         $teams2 = $db->qry("SELECT name, teamid FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $_GET["tournamentid"]);
         while ($team2 = $db->fetch_array($teams2)) {
-            $members = $db->qry_first("
+            $members = $database->queryWithOnlyFirstRow("
               SELECT
                 COUNT(*) AS members
               FROM %prefix%t2_teammembers
-              WHERE (teamid = %int%)
-              GROUP BY teamid", $team2['teamid']);
+              WHERE teamid = ?
+              GROUP BY teamid", [$team2['teamid']]);
             $memberCount = $members["members"] ?? 0;
             if (($memberCount + 1) < $tournament['teamplayer']) {
                 $waiting_teams ++;
@@ -121,15 +121,15 @@ if ($team_anz < 4) {
     if ($_GET["step"] == 4) {
         $teams2 = $db->qry("SELECT teamid, leaderid FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $_GET["tournamentid"]);
         while ($team2 = $db->fetch_array($teams2)) {
-            $members = $db->qry_first("
+            $members = $database->queryWithOnlyFirstRow("
               SELECT
                 COUNT(*) AS members
               FROM %prefix%t2_teammembers
-              WHERE (teamid = %int%)
-              GROUP BY teamid", $team2['teamid']);
+              WHERE teamid = ?
+              GROUP BY teamid", [$team2['teamid']]);
             if (($members["members"] + 1) < $tournament['teamplayer']) {
-                $db->qry("DELETE FROM %prefix%t2_teams WHERE (teamid = %int%) AND (tournamentid = %int%)", $team2["teamid"], $_GET["tournamentid"]);
-                $db->qry("DELETE FROM %prefix%t2_teammembers WHERE (teamid = %int%) AND (tournamentid = %int%)", $team2["teamid"], $_GET["tournamentid"]);
+                $database->query("DELETE FROM %prefix%t2_teams WHERE (teamid = ?) AND (tournamentid = ?)", [$team2["teamid"], $_GET["tournamentid"]]);
+                $database->query("DELETE FROM %prefix%t2_teammembers WHERE (teamid = ?) AND (tournamentid = ?)", [$team2["teamid"], $_GET["tournamentid"]]);
 
                 $mail->create_sys_mail($team2['leaderid'], t_no_html('Dein Team wurde vom Turnier %1 abgemeldet', $tournament['name']), t_no_html('Der Turnieradmin hat soeben die Paarungen für das Turnier %1 generiert. Da Dein Team zu diesem Zeitpunkt leider noch nicht vollständig war, wurde es, wie vom Turnieradmin gewünscht, vom Turnier abgemeldet.', $tournament['name']));
                 $func->log_event(t('Alle unvollständigen Teams im Turnier %1 wurden entfernt', $tournament['name']), 1, t('Turnier Teamverwaltung'));
@@ -143,7 +143,7 @@ if ($team_anz < 4) {
     // Random mapcycle
     $rand_map = explode("\r\n", $tournament["mapcycle"]);
     shuffle($rand_map);
-    $db->qry("UPDATE %prefix%tournament_tournaments SET mapcycle = %string% WHERE tournamentid = %int%", implode("\r\n", $rand_map), $_GET["tournamentid"]);
+    $database->query("UPDATE %prefix%tournament_tournaments SET mapcycle = ? WHERE tournamentid = ?", [implode("\r\n", $rand_map), $_GET["tournamentid"]]);
 
     if ($_GET["step"] == 3) {
         switch ($tournament['mode']) {
@@ -205,61 +205,61 @@ if ($team_anz < 4) {
                 $pos_roundm1 = 1;
 
                 while ($akt_leaderid = array_shift($team_liste)) {
-                    $db->qry("
+                    $database->query("
                       INSERT INTO %prefix%t2_games
                       SET
-                        tournamentid = %int%,
-                        leaderid = %int%,
+                        tournamentid = ?,
+                        leaderid = ?,
                         round = 0,
-                        position = %string%,
-                        score = 0", $_GET["tournamentid"], $akt_leaderid, $pos_round0);
+                        position = ?,
+                        score = 0", [$_GET["tournamentid"], $akt_leaderid, $pos_round0]);
                     $pos_round0++;
 
                     // Freilose einfügen
                     if ($needed_freilose > 0) {
                         $needed_freilose--;
-                        $db->qry("
+                        $database->query("
                           INSERT INTO %prefix%t2_games
                           SET
-                            tournamentid = %int%,
+                            tournamentid = ?,
                             leaderid = 0,
                             round = 0,
-                            position = %string%,
-                            score = 0", $_GET["tournamentid"], $pos_round0);
+                            position = ?,
+                            score = 0", [$_GET["tournamentid"], $pos_round0]);
                         $pos_round0++;
 
                         // Spieler gegen Freilose in nächste Runde schieben
-                        $db->qry("
+                        $database->query("
                           INSERT INTO %prefix%t2_games
                           SET
-                           tournamentid = %int%,
-                           leaderid = %int%,
+                           tournamentid = ?,
+                           leaderid = ?,
                            round = 1,
-                           position = %string%,
-                           score = 0", $_GET["tournamentid"], $akt_leaderid, $pos_round1);
+                           position = ?,
+                           score = 0", [$_GET["tournamentid"], $akt_leaderid, $pos_round1]);
                         $pos_round1++;
 
                         // Freilose ins Loser-Bracket schieben
-                        $db->qry("
+                        $database->query("
                           INSERT INTO %prefix%t2_games
                           SET
-                           tournamentid = %int%,
+                           tournamentid = ?,
                            leaderid = 0,
                            round = -0.5,
-                           position = %string%,
-                           score = 0", $_GET["tournamentid"], $pos_round05);
+                           position = ?,
+                           score = 0", [$_GET["tournamentid"], $pos_round05]);
 
                         $pos_round05++;
                         // Freilose vs Freilose im Loser-Bracket Runde -0.5 auswerten und nach Runde -1 verschieben
                         if (($needed_freilose % 2) == 1) {
-                            $db->qry("
+                            $database->query("
                               INSERT INTO %prefix%t2_games
                               SET
-                                tournamentid = %int%,
+                                tournamentid = ?,
                                 leaderid = 0,
                                 round = -1,
-                                position = %string%,
-                                score = 0", $_GET["tournamentid"], $pos_roundm1);
+                                position = ?,
+                                score = 0", [$_GET["tournamentid"], $pos_roundm1]);
                             $pos_roundm1+=2;
                         }
                     }
@@ -309,15 +309,15 @@ if ($team_anz < 4) {
                         // Write games to db
                         for ($position = 0; $position < $group_size; $position++) {
                             $akt_leader_id = array_shift($team_liste);
-                            $db->qry("
+                            $database->query("
                               INSERT INTO %prefix%t2_games
                               SET
-                                tournamentid = %int%,
-                                leaderid = %int%,
-                                round = %string%,
-                                position = %string%,
-                                group_nr = %string%,
-                                score = 0", $_GET["tournamentid"], $akt_leader_id, $round, $position, $group);
+                                tournamentid = ?,
+                                leaderid = ?,
+                                round = ?,
+                                position = ?,
+                                group_nr = ?,
+                                score = 0", [$_GET["tournamentid"], $akt_leader_id, $round, $position, $group]);
                         }
 
                         // Rotate position for next round
@@ -336,14 +336,14 @@ if ($team_anz < 4) {
             case "all":
                 $z = 0;
                 while ($team = $db->fetch_array($teams)) {
-                    $db->qry("
+                    $database->query("
                       INSERT INTO %prefix%t2_games
                       SET
-                        tournamentid = %int%,
-                        leaderid = %int%,
+                        tournamentid = ?,
+                        leaderid = ?,
                         round = 0,
-                        position = %int%,
-                        score = 0", $_GET["tournamentid"], $team['leaderid'], $z);
+                        position = ?,
+                        score = 0", [$_GET["tournamentid"], $team['leaderid'], $z]);
                     $z++;
                 }
                 break;
@@ -351,7 +351,7 @@ if ($team_anz < 4) {
         $db->free_result($teams);
 
         // Turnierstatus auf "process" setzen
-        $db->qry("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = %int%", $_GET["tournamentid"]);
+        $database->query("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = ?", [$_GET["tournamentid"]]);
 
         $func->confirmation(t('Das Turnier %1 wurde generiert.<br>Die Begegnungen können nun gespielt werden.', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}");
         $func->log_event(t('Das Turnier %1 wurde generiert', $tournament["name"]), 1, t('Turnier Verwaltung'));

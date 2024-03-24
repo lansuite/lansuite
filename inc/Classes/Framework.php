@@ -276,13 +276,14 @@ class Framework
     public function html_out()
     {
         global $templ, $cfg, $db, $auth, $smarty, $func, $debug, $request;
+
         $compression_mode = $this->check_optimizer();
 
         // Prepare Header
-        if ($request->query->get('sitereload')) {
-            $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
-        } else {
-            $smarty->assign('main_header_sitereload', '');
+        $siteReloadParameter = intval($request->query->get('sitereload'));
+        $smarty->assign('main_header_sitereload', '');
+        if ($siteReloadParameter) {
+            $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="' . $siteReloadParameter . '; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
         }
 
         // Add special CSS and JS
