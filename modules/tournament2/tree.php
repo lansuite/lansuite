@@ -10,7 +10,7 @@ if (!$_GET['tournamentid']) {
             break;
 
         case 2:
-            $tournament = $db->qry_first('SELECT name, mode FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $_GET['tournamentid']);
+            $tournament = $database->queryWithOnlyFirstRow('SELECT name, mode FROM %prefix%tournament_tournaments WHERE tournamentid = ?', [$_GET['tournamentid']]);
   
             if ($tournament['mode'] == "single") {
                 $modus = t('Single-Elimination');
@@ -50,15 +50,17 @@ if (!$_GET['tournamentid']) {
                 } else {
                     $height = (($team_anz/2) * 50) + 120;
                 }
-
                 if (($tournament["mode"] == "groups") && $groupParameter === false) {
-                    $teams = $db->qry_first("
+                    $teams = $database->queryWithOnlyFirstRow("
+  
+                if (($tournament["mode"] == "groups") && (!$groupParameter)) {
+                    $teams = $database->queryWithOnlyFirstRow("
                       SELECT
                         MAX(group_nr) AS max_group_nr
                       FROM %prefix%t2_games
                       WHERE
-                        (tournamentid = %int%)
-                        AND (round = 0)", $_GET['tournamentid']);
+                        tournamentid = ?
+                        AND round = 0", [$_GET['tournamentid']]);
   
                     $t_array = array("<option value=\"0\">".t('Finalspiele')."</option>");
                     for ($i = 1; $i <= $teams["max_group_nr"]; $i++) {
