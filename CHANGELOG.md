@@ -54,6 +54,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Birthday] New module to show users birthdays
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
 - [Server] Added Voice as server type
+- [Community] Created a discord community
 
 ### Changed
 

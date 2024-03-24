@@ -354,7 +354,7 @@ class Team
 
                 if (!$name) {
                     $user = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$leaderid]);
-                    $name = $func->escape_sql($user["username"]);
+                    $name = $user["username"];
                 }
                 $database->query("
                   INSERT INTO %prefix%t2_teams 
