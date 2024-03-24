@@ -13,7 +13,7 @@ if (!$_GET["teamid"]) {
     $dsp->NewContent(t('Turnier Verwaltung'), t('Mit Hilfe des folgenden Formulars kannst du ein Turnier erstellen / ändern'));
 
     // Get Data
-    $team = $db->qry_first("
+    $team = $database->queryWithOnlyFirstRow("
       SELECT
         teams.name,
         teams.comment,
@@ -24,7 +24,7 @@ if (!$_GET["teamid"]) {
       FROM %prefix%t2_teams AS teams
       LEFT JOIN %prefix%user AS users ON (teams.leaderid = users.userid)
       WHERE
-        (teams.teamid = %int%)", $_GET["teamid"]);
+        teams.teamid = ?", [$_GET["teamid"]]);
 
     // Teamname
     $dsp->AddDoubleRow(t('Teamame'), $team['name']);
