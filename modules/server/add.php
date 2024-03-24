@@ -65,8 +65,8 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     $mf->AddField(t('Port'), 'port', '', '', '', 'CheckPort');
     $mf->AddField(t('MAC-Adresse'), 'mac', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckMAC');
     $mf->AddField(t('Betriebssystem'), 'os', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
-    $mf->AddField(t('CPU (MHz)'), 'cpu', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
-    $mf->AddField(t('RAM (MB)'), 'ram', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+    $mf->AddField(t('CPU (GHz)'), 'cpu', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
+    $mf->AddField(t('RAM (GB)'), 'ram', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddField(t('HDD (GB)'), 'hdd', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddField(t('Passwort geschützt'), 'pw', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
     $mf->AddField(t('Beschreibung'), 'text', '', \LanSuite\MasterForm::LSCODE_ALLOWED, \LanSuite\MasterForm::FIELD_OPTIONAL);

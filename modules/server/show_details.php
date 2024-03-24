@@ -88,8 +88,8 @@ if ($server == "") {
         }
         $dsp->AddDoubleRow(t('Betriebssystem'), $server["os"]);
 
-        ($server["cpu"] == "0") ? $server["cpu"] = "<i>". t('Keine Angabe') ."</i>" : $server["cpu"] = $server["cpu"]." Megaherz";
-        ($server["ram"] == "0") ? $server["ram"] = "<i>". t('Keine Angabe') ."</i>" : $server["ram"] = $server["ram"]." Megabyte";
+        ($server["cpu"] == "0") ? $server["cpu"] = "<i>". t('Keine Angabe') ."</i>" : $server["cpu"] = $server["cpu"]." Gigaherz";
+        ($server["ram"] == "0") ? $server["ram"] = "<i>". t('Keine Angabe') ."</i>" : $server["ram"] = $server["ram"]." Gigabyte";
         ($server["hdd"] == "0") ? $server["hdd"] = "<i>". t('Keine Angabe') ."</i>" : $server["hdd"] = $server["hdd"]." Gigabyte";
         $dsp->AddDoubleRow("CPU", $server["cpu"]);
         $dsp->AddDoubleRow("RAM", $server["ram"]);
