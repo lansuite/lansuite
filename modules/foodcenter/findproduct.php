@@ -21,7 +21,8 @@ $ms2->AddTextSearchField('Produktsuche', array('p.caption' => 'like', 'p.p_desc'
 $ms2->AddSelect('p.cat_id');
 $ms2->AddResultField('Titel', 'p.id', 'GetTitelName');
 
-$ms2->NoItemsText = match ($_POST['search_dd_input'][0]) {
+$searchDDInputParameter = $_POST['search_dd_input'][0] ?? 0;
+$ms2->NoItemsText = match ($searchDDInputParameter) {
     1 => t('Keine aktuellen Bestellungen vorhanden.'),
     2 => t('Es müssen keine Produkte bestellt werden.'),
     3 => t('Es wird auf keine Lieferung gewartet.'),

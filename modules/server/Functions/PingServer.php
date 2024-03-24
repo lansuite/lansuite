@@ -7,10 +7,10 @@
  */
 function PingServer($host, $port)
 {
-    global $db, $func, $cfg;
+    global $database, $func, $cfg;
 
     $cfg["server_ping_refresh"] = (int) $cfg["server_ping_refresh"];
-    $server_daten = $db->qry_first("
+    $server_daten = $database->queryWithOnlyFirstRow("
       SELECT
         UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(lastscan) AS idle,
         type,
@@ -18,9 +18,9 @@ function PingServer($host, $port)
         special_info
       FROM %prefix%server
       WHERE
-        (ip = %string%)
-        AND (port = %string%)
-      HAVING (idle > %int%)", $host, $port, $cfg["server_ping_refresh"]);
+        ip = ?
+        AND port = ?
+      HAVING idle > ?", [$host, $port, $cfg["server_ping_refresh"]]);
 
     if (random_int(0, 2) == 0) {
         // Erreichbarkeit testen
@@ -128,6 +128,6 @@ function PingServer($host, $port)
         if ($special_info =="") {
             $special_info=$server_daten["special_info"];
         }
-        $db->qry('UPDATE %prefix%server SET special_info=%string%, available=%string%, scans=scans+1, success=success+%int%, lastscan=NOW() WHERE ((ip = %string%) AND (port=%int%));', $special_info, $available, $success, $host, $port);
+        $database->query('UPDATE %prefix%server SET special_info = ?, available = ?, scans = scans + 1, success = success + ?, lastscan = NOW() WHERE ip = ? AND port = ?', [$special_info, $available, $success, $host, $port]);
     }
 }
