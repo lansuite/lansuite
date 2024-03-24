@@ -23,7 +23,7 @@ class TournamentFunction
      */
     public function GetMemberList($teamid)
     {
-        global $db, $dsp, $seat2;
+        global $db, $database, $dsp, $seat2;
 
         $member_liste = "";
         $team_memb = $db->qry("
@@ -55,7 +55,7 @@ class TournamentFunction
      */
     public function GetTeamAnz($tid, $mode, $group = 0): float|int
     {
-        global $db;
+        global $db, $database;
 
         $numberOfTeams = 0;
 
@@ -108,7 +108,7 @@ class TournamentFunction
      */
     public function GetGameStart($tournament, $round, $group_nr = 0): float|int
     {
-        global $db;
+        global $db, $database;
         
         $break_duration = $tournament["break_duration"] * 60;
         $round_duration = $tournament["max_games"] * $tournament["game_duration"] * 60 + $break_duration;
@@ -117,15 +117,15 @@ class TournamentFunction
         // If final games of a group-tournament add time for group-games
         if (($tournament["mode"] == "groups") and ($group_nr == 0)) {
             // Count numer of teams of the first group
-            $get_team_anz = $db->qry_first("
+            $get_team_anz = $database->queryWithOnlyFirstRow("
               SELECT
                 COUNT(*) AS anz
               FROM %prefix%t2_games
               WHERE
-                (tournamentid = %int%)
-                AND (round = 0)
-                AND (group_nr = 1)
-              GROUP BY group_nr", $tournament["tournamentid"]);
+                tournamentid = ?
+                AND round = 0
+                AND group_nr = 1
+              GROUP BY group_nr", [$tournament["tournamentid"]]);
             $team_anz = $get_team_anz["anz"];
             
             $tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
@@ -159,7 +159,7 @@ class TournamentFunction
      */
     public function GetGameEnd($tournament, $round, $group_nr = 0): float|int
     {
-        global $db;
+        global $db, $database;
         
         $break_duration = $tournament["break_duration"] * 60;
         $round_duration = $tournament["max_games"] * $tournament["game_duration"] * 60 + $break_duration;
@@ -168,15 +168,15 @@ class TournamentFunction
         // If final games of a group-tournament add time for group-games
         if (($tournament["mode"] == "groups") and ($group_nr == 0)) {
             // Count numer of teams of the first group
-            $get_team_anz = $db->qry_first("
+            $get_team_anz = $database->queryWithOnlyFirstRow("
               SELECT
                 COUNT(*) AS anz
               FROM %prefix%t2_games
               WHERE
-                (tournamentid = %int%)
-                AND (round = 0)
-                AND (group_nr = 1)
-              GROUP BY group_nr", $tournament["tournamentid"]);
+                tournamentid = ?
+                AND round = 0
+                AND group_nr = 1
+              GROUP BY group_nr", [$tournament["tournamentid"]]);
             $team_anz = $get_team_anz["anz"] ?? 0;
             
             $tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
@@ -208,15 +208,15 @@ class TournamentFunction
      */
     public function get_ranking($tournamentid, $group_nr = null)
     {
-        global $db, $akt_round, $num, $cfg, $array_id;
+        global $db, $database, $akt_round, $num, $cfg, $array_id;
 
         $ranking_data = new \LanSuite\Module\Tournament2\RankingData();
 
-        $tournament = $db->qry_first("
+        $tournament = $database->queryWithOnlyFirstRow("
           SELECT
             mode
           FROM %prefix%tournament_tournaments
-          WHERE tournamentid = %int%", $tournamentid);
+          WHERE tournamentid = ?", [$tournamentid]);
 
         $games = $db->qry("SELECT gameid FROM %prefix%t2_games WHERE (tournamentid = %int%) AND (round=0)", $tournamentid);
         $team_anz = $db->num_rows($games);
@@ -477,7 +477,7 @@ class TournamentFunction
     {
         $team_round = [];
         $team_pos = [];
-        global $db, $round, $pos, $score, $tournamentid, $leaderid, $num_rounds, $team_anz;
+        global $db, $database, $round, $pos, $score, $tournamentid, $leaderid, $num_rounds, $team_anz;
 
         $team_round[$player1] = $round;
         $team_pos[$player1] = $pos[$player1];
@@ -541,42 +541,42 @@ class TournamentFunction
 
         // Wenn im LB, oder Finale verloren wurde -> ausgeschieden. Sonst neuer Eintrag
         if ($winner or ($looser and $round >= 0 and $round != $num_rounds)) {
-            $db->qry("
+            $database->query("
               DELETE FROM %prefix%t2_games
               WHERE
-                (tournamentid = %int%)
-                AND (round = %string%)
-                AND (position = %string%)
-                AND (group_nr = 0)", $tournamentid, $team_round[$player1], $team_pos[$player1]);
+                tournamentid = ?
+                AND round = ?
+                AND position = ?
+                AND group_nr = 0", [$tournamentid, $team_round[$player1], $team_pos[$player1]]);
 
-            $db->qry("
+            $database->query("
               INSERT INTO %prefix%t2_games
               SET
-                tournamentid = %int%,
-                leaderid = %int%,
-                round = %string%,
-                position = %string%,
-                score = 0", $tournamentid, $leaderid[$player1], $team_round[$player1], $team_pos[$player1]);
+                tournamentid = ?,
+                leaderid = ?,
+                round = ?,
+                position = ?,
+                score = 0", [$tournamentid, $leaderid[$player1], $team_round[$player1], $team_pos[$player1]]);
         }
 
         // Verliert jemand das Halb-Finale im SE, gibt es einen zusätzlichen Eintrag im Winnerbracket. (Spiel um Platz 3)
         if ($round == ($num_rounds - 2) and $looser) {
-            $db->qry("
+            $database->query("
               DELETE FROM %prefix%t2_games
               WHERE
-                (tournamentid = %int%)
-                AND (round = %string%)
-                AND (position = %string%)
-                AND (group_nr = 0)", $tournamentid, ($team_round_before + 1), (floor($team_pos_before / 2) + 2));
+                tournamentid = ?
+                AND round = ?
+                AND position = ?
+                AND group_nr = 0", [$tournamentid, ($team_round_before + 1), (floor($team_pos_before / 2) + 2)]);
 
-            $db->qry("
+            $database->query("
               INSERT INTO %prefix%t2_games
               SET
-                tournamentid = %int%,
-                leaderid = %int%,
-                round = %string%,
-                position = %string%,
-                score = 0", $tournamentid, $leaderid[$player1], ($team_round_before + 1), (floor($team_pos_before / 2) + 2));
+                tournamentid = ?,
+                leaderid = ?,
+                round = ?,
+                position = ?,
+                score = 0", [$tournamentid, $leaderid[$player1], ($team_round_before + 1), (floor($team_pos_before / 2) + 2)]);
         }
 
         // Freilose in Runde -0.5 und -1
@@ -588,34 +588,34 @@ class TournamentFunction
             }
 
             // Daten des neuen Gegners auslesen
-            $en_game = $db->qry_first("
+            $en_game = $database->queryWithOnlyFirstRow("
               SELECT
                 gameid
               FROM %prefix%t2_games
               WHERE
-                (tournamentid = %int%)
-                AND (position = %string%)
-                AND (round = -0.5)
-                AND (leaderid = 0)", $tournamentid, $en_position);
+                tournamentid = ?
+                AND position = ?
+                AND round = -0.5
+                AND leaderid = 0", [$tournamentid, $en_position]);
 
             // Wenn neuer Gegner ein Freilos, Spieler eine Runde weiter schieben
-            if ($en_game['gameid'] != 0) {
-                $db->qry("
+            if (is_array($en_game) && $en_game['gameid'] != 0) {
+                $database->query("
                   DELETE FROM %prefix%t2_games
                   WHERE
-                    (tournamentid = %int%)
-                    AND (round = -1)
-                    AND (position = %int%)
-                    AND (group_nr = 0)", $tournamentid, (floor($team_pos[$player1]/2)*2 + 1));
+                    tournamentid = ?
+                    AND round = -1
+                    AND position = ?
+                    AND group_nr = 0", [$tournamentid, (floor($team_pos[$player1]/2)*2 + 1)]);
 
-                $db->qry("
+                $database->query("
                   INSERT INTO %prefix%t2_games
                   SET
-                    tournamentid = %int%,
-                    leaderid = %int%,
+                    tournamentid = ?,
+                    leaderid = ?,
                     round = -1,
-                    position = %int%,
-                    score = 0", $tournamentid, $leaderid[$player1], (floor($team_pos[$player1]/2)*2 + 1));
+                    position = ?,
+                    score = 0", [$tournamentid, $leaderid[$player1], (floor($team_pos[$player1]/2)*2 + 1)]);
             }
         }
         if ($team_round[$player1] == -1) {
@@ -626,34 +626,34 @@ class TournamentFunction
             }
 
             // Daten des neuen Gegners auslesen
-            $en_game = $db->qry_first("
+            $en_game = $database->queryWithOnlyFirstRow("
               SELECT
                 gameid
               FROM %prefix%t2_games
               WHERE
-                (tournamentid = %int%)
-                AND (position = %int%)
-                AND (round = -1)
-                AND (leaderid = 0)", $tournamentid, $en_position);
+                tournamentid = ?
+                AND position = ?
+                AND round = -1
+                AND leaderid = 0", [$tournamentid, $en_position]);
 
             // Wenn neuer Gegner ein Freilos, Spieler eine Runde weiter schieben
-            if ($en_game['gameid'] != 0) {
-                $db->qry("
+            if (is_array($en_game) && $en_game['gameid'] != 0) {
+                $database->query("
                   DELETE FROM %prefix%t2_games
                   WHERE
-                    (tournamentid = %int%)
-                    AND (round = -1.5)
-                    AND (position = %int%)
-                    AND (group_nr = 0)", $tournamentid, (floor($team_pos[$player1]/2)));
+                    tournamentid = ?
+                    AND round = -1.5
+                    AND position = ?
+                    AND group_nr = 0", [$tournamentid, (floor($team_pos[$player1]/2))]);
 
-                $db->qry("
+                $database->query("
                   INSERT INTO %prefix%t2_games
                   SET
-                    tournamentid = %int%,
-                    leaderid = %int%,
+                    tournamentid = ?,
+                    leaderid = ?,
                     round = -1.5,
-                    position = %int%,
-                    score = 0", $tournamentid, $leaderid[$player1], (floor($team_pos[$player1]/2)));
+                    position = ?,
+                    score = 0", [$tournamentid, $leaderid[$player1], (floor($team_pos[$player1]/2))]);
             }
         }
     }
@@ -672,64 +672,64 @@ class TournamentFunction
     public function SubmitResult($ttid, $gameid1, $gameid2, $score1, $score2, $comment)
     {
         $unfinished_games = [];
-        global $db, $func, $tournamentid, $round, $pos, $score, $leaderid, $num_rounds, $team_anz;
+        global $db, $database, $func, $tournamentid, $round, $pos, $score, $leaderid, $num_rounds, $team_anz;
         $tournamentid = $ttid;
         $score[1] = $score1;
         $score[2] = $score2;
 
         // Read data
-        $tournament = $db->qry_first("SELECT name, mode FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
+        $tournament = $database->queryWithOnlyFirstRow("SELECT name, mode FROM %prefix%tournament_tournaments WHERE tournamentid = ?", [$tournamentid]);
 
-        $gr_game = $db->qry_first("
+        $gr_game = $database->queryWithOnlyFirstRow("
           SELECT
             group_nr
           FROM %prefix%t2_games
           WHERE
-            gameid= %int%", $gameid1);
+            gameid = ?", [$gameid1]);
 
         $team_anz = $this->GetTeamAnz($tournamentid, $tournament['mode'], $gr_game["group_nr"]);
 
-        $team1 = $db->qry_first("
+        $team1 = $database->queryWithOnlyFirstRow("
           SELECT
             games.position,
             games.leaderid,
             games.round
           FROM %prefix%t2_games AS games
           WHERE
-            (games.tournamentid = %int%)
-            AND (games.gameid = %int%)", $tournamentid, $gameid1);
+            games.tournamentid = ?
+            AND games.gameid = ?", [$tournamentid, $gameid1]);
         $round = $team1["round"];
         $pos[1] = $team1["position"];
         $leaderid1 = $team1["leaderid"];
         $leaderid[1] = $leaderid1;
 
-        $team2 = $db->qry_first("
+        $team2 = $database->queryWithOnlyFirstRow("
           SELECT
             games.position,
             games.leaderid
           FROM %prefix%t2_games AS games
           WHERE
-            (games.tournamentid = %int%)
-            AND (games.gameid = %int%)", $tournamentid, $gameid2);
+            games.tournamentid = ?
+            AND games.gameid = ?", [$tournamentid, $gameid2]);
         $pos[2] = $team2["position"];
         $leaderid2 = $team2["leaderid"];
         $leaderid[2] = $leaderid2;
 
         // Write Score for current game
-        $db->qry("
+        $database->query("
           UPDATE %prefix%t2_games 
           SET
-            score = %string%,
-            comment = %string%
+            score = ?,
+            comment = ?
           WHERE
-            gameid = %int%", $score1, $comment, $gameid1);
+            gameid = ?", [$score1, $comment, $gameid1]);
 
-        $db->qry("
+        $database->query("
           UPDATE %prefix%t2_games 
           SET
-            score = %string%
+            score = ?
           WHERE
-            gameid = %int%", $score2, $gameid2);
+            gameid = ?", [$score2, $gameid2]);
         $func->log_event(t('Das Ergebnis (%1 : %2) des Spieles #%3 vs. #%4 wurde eingetragen.', $score1, $score2, $gameid1, $gameid2), 1, t('Turnier Ergebnise'), $gameid1);
 
         // TODO Zusätzlich eine Mail an beide Teamleiter senden?
@@ -749,7 +749,7 @@ class TournamentFunction
 
             for ($akt_group = 1; $akt_group <= $num_groups; $akt_group++) {
                 // Wenn letztes Ergebnis in einer Gruppe: Erste 2 Teams in den KO-Baum schreiben
-                $unfinished_games = $db->qry_first("
+                $unfinished_games = $database->queryWithOnlyFirstRow("
                   SELECT
                     games1.gameid
                   FROM %prefix%t2_games AS games1
@@ -758,65 +758,65 @@ class TournamentFunction
                     AND (games1.group_nr = games2.group_nr)
                     AND (games1.tournamentid = games2.tournamentid)
                   WHERE
-                    (games1.tournamentid = %int%)
+                    (games1.tournamentid = ?)
                     AND ((games1.position + 1) = games2.position)
                     AND ((games1.position / 2) = FLOOR(games1.position / 2))
                     AND (games1.score = 0)
                     AND (games2.score = 0)
                     AND (games1.leaderid != 0)
                     AND (games2.leaderid != 0)
-                    AND (games1.group_nr = %string%)", $tournamentid, $akt_group);
+                    AND (games1.group_nr = ?)", [$tournamentid, $akt_group]);
 
-                if ($unfinished_games['gameid'] == "") {
+                if (!$unfinished_games) {
                     $ranking_data = $this->get_ranking($tournamentid, $akt_group);
 
                     // IF not already written
-                    $game_written = $db->qry_first("
+                    $game_written = $database->queryWithOnlyFirstRow("
                       SELECT
                         leaderid
                       FROM %prefix%t2_games
                       WHERE
-                        (tournamentid = %int%)
+                        (tournamentid = ?)
                         AND (round = 0)
-                        AND (position = (($akt_group - 1) * 2))
-                        AND (group_nr = 0)", $tournamentid);
+                        AND (position = ((? - 1) * 2))
+                        AND (group_nr = 0)", [$tournamentid, $akt_group]);
 
-                    if ($game_written['leaderid'] == "") {
+                    if (!$game_written) {
                         // Write Winner
-                        $leader = $db->qry_first("
+                        $leader = $database->queryWithOnlyFirstRow("
                           SELECT
                             leaderid
                           FROM %prefix%t2_teams
                           WHERE
-                            teamid = %int%", $ranking_data->tid[0]);
+                            teamid = ?", [$ranking_data->tid[0]]);
 
-                        $db->qry("
+                            $database->query("
                           INSERT INTO %prefix%t2_games
                           SET
-                            tournamentid = %int%,
-                            leaderid = %int%,
+                            tournamentid = ?,
+                            leaderid = ?,
                             round = 0,
-                            position = ((%int% - 1) * 2),
+                            position = ((? - 1) * 2),
                             group_nr = 0,
-                            score = 0", $tournamentid, $leader['leaderid'], $akt_group);
+                            score = 0", [$tournamentid, $leader['leaderid'], $akt_group]);
 
                         // Write Semi-Winner
-                        $leader = $db->qry_first("
+                        $leader = $database->queryWithOnlyFirstRow("
                           SELECT
                             leaderid
                           FROM %prefix%t2_teams
                           WHERE
-                            teamid = %int%", $ranking_data->tid[1]);
+                            teamid = ?", [$ranking_data->tid[1]]);
 
-                        $db->qry("
+                        $database->query("
                           INSERT INTO %prefix%t2_games
                           SET
-                            tournamentid = %int%,
-                            leaderid = %int%,
+                            tournamentid = ?,
+                            leaderid = ?,
                             round = 0,
-                            position = ((%int% - (%int% - 1)) * 2 - 1),
+                            position = ((? - (? - 1)) * 2 - 1),
                             group_nr = 0,
-                            score = 0", $tournamentid, $leader['leaderid'], $num_groups, $akt_group);
+                            score = 0", [$tournamentid, $leader['leaderid'], $num_groups, $akt_group]);
                     }
                 }
             }
@@ -825,7 +825,7 @@ class TournamentFunction
         // League
         if ($tournament["mode"] == "liga") {
             // Wenn letztes Ergebnis: Turnierstatus auf "closed" setzen
-            $unfinished_games = $db->qry_first("
+            $unfinished_games = $database->queryWithOnlyFirstRow("
               SELECT
                 games1.gameid
               FROM %prefix%t2_games AS games1
@@ -834,15 +834,16 @@ class TournamentFunction
                 AND (games1.group_nr = games2.group_nr)
                 AND (games1.tournamentid = games2.tournamentid)
               WHERE
-                (games1.tournamentid = %int%)
+                (games1.tournamentid = ?)
                 AND ((games1.position + 1) = games2.position)
                 AND ((games1.position / 2) = FLOOR(games1.position / 2))
                 AND (games1.score = 0)
                 AND (games2.score = 0)
                 AND (games1.leaderid != 0)
-                AND (games2.leaderid != 0)", $tournamentid);
-            if ($unfinished_games['gameid'] == "") {
-                $db->qry("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = %int%", $tournamentid);
+                AND (games2.leaderid != 0)", [$tournamentid]);
+            if (!$unfinished_games) {
+                $database->query("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = ?", [$tournamentid]);
+
                 $func->log_event(t('Das letzte Ergebnis im Turnier %1 wurde gemeldet. Das Turnier ist damit geschlossen worden.', $tournament["name"]), 1, t('Turnier Verwaltung'));
             }
         }
@@ -857,7 +858,7 @@ class TournamentFunction
 
             // Find unfinished games in last round on SE games
             if (($tournament["mode"] == "single") and $round == ($num_rounds - 1)) {
-                $unfinished_games = $db->qry_first("
+                $unfinished_games = $database->queryWithOnlyFirstRow("
                   SELECT
                     games1.gameid
                   FROM %prefix%t2_games AS games1
@@ -865,26 +866,26 @@ class TournamentFunction
                     (games1.round = games2.round)
                     AND (games1.tournamentid = games2.tournamentid)
                   WHERE
-                    (games1.tournamentid = %int%)
+                    (games1.tournamentid = ?)
                     AND ((games1.position + 1) = games2.position)
                     AND ((games1.position / 2) = FLOOR(games1.position / 2))
                     AND (games1.score = 0)
                     AND (games2.score = 0)
                     AND (games1.leaderid != 0)
                     AND (games2.leaderid != 0)
-                    AND (games1.round = %int%)", $tournamentid, $round);
+                    AND (games1.round = ?)", [$tournamentid, $round]);
             }
       
             // Wenn Final-Ergebnis: Turnierstatus auf "closed" setzen
             if (($round == $num_rounds)
               or (($tournament["mode"] == "groups") and ($round == $num_rounds - 1))
               or (($tournament["mode"] == "single") and ($round == $num_rounds - 1) and ($unfinished_games['gameid'] == ""))) {
-                $db->qry("
+                $database->query("
                   UPDATE %prefix%tournament_tournaments
                   SET
                     status='closed'
                   WHERE
-                    tournamentid = %int%", $tournamentid);
+                    tournamentid = ?", [$tournamentid]);
 
                 $func->log_event(t('Das letzte Ergebnis im Turnier %1 wurde gemeldet. Das Turnier ist damit geschlossen worden.', $tournament["name"]), 1, t('Turnier Verwaltung'));
             }
@@ -900,14 +901,14 @@ class TournamentFunction
      */
     private function CheckRound($max_pos)
     {
-        global $akt_round, $tournament, $db, $tournamentid, $game, $first;
+        global $akt_round, $tournament, $db, $database, $tournamentid, $game, $first;
 
         $round_end = $this->GetGameEnd($tournament, $akt_round);
 
         if (time() > $round_end) {
             $first = 1;
             for ($akt_pos = 0; $akt_pos <= $max_pos-1; $akt_pos ++) {
-                $game = $db->qry_first("
+                $game = $database->queryWithOnlyFirstRow("
                   SELECT
                     games.score,
                     games.gameid,
@@ -918,10 +919,10 @@ class TournamentFunction
                     (teams.leaderid = games.leaderid)
                     AND (teams.tournamentid = games.tournamentid)
                   WHERE
-                    (games.tournamentid = %int%)
-                    AND (games.round = %string%)
-                    AND (games.position = %string%)
-                    AND (games.group_nr = 0)", $tournamentid, $akt_round, $akt_pos);
+                    (games.tournamentid = ?)
+                    AND (games.round = ?)
+                    AND (games.position = ?)
+                    AND (games.group_nr = 0)", [$tournamentid, $akt_round, $akt_pos]);
                 $this->WriteResult();
             }
         }
@@ -987,9 +988,9 @@ class TournamentFunction
      */
     public function CheckTimeExceed($tournamentid)
     {
-        global $team_anz, $akt_round, $tournament, $db, $game, $first;
+        global $team_anz, $akt_round, $tournament, $db, $database, $game, $first;
 
-        $tournament = $db->qry_first("
+        $tournament = $database->queryWithOnlyFirstRow("
           SELECT
             mode,
             defwin_on_time_exceed,
@@ -1001,7 +1002,7 @@ class TournamentFunction
             tournamentid
           FROM %prefix%tournament_tournaments
           WHERE
-            tournamentid = %int%", $tournamentid);
+            tournamentid = ?", [$tournamentid]);
 
         if ($tournament["defwin_on_time_exceed"] == "1") {
             $team_anz = $this->GetTeamAnz($tournamentid, $tournament['mode'], 0);    // Is 0 okay? Maybe group-number is needed
