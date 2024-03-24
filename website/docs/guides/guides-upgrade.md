@@ -216,3 +216,20 @@ If you have added your own custom fonts into `ext_inc/pdf_fonts`, you need to co
 2. Choose your custom font file (ttf)
 3. Download the generated *.z and *.php file
 4. Add the `*.ttf`, `*.z` and `*.php` into `ext_inc/pdf_fonts`
+
+### Server module: Change of hardware information from Megabyte to Gigabyte (for RAM) and from Megaherz to Gigaherz for CPU
+
+The meaning of the fields following fields has changed:
+
+Before:
+
+* `CPU (MHz)`
+* `RAM (MB)`
+
+After:
+
+* `CPU (GHz)`
+* `RAM (GB)`
+
+LanSuite is not taking care about the update of your data.
+Please go to the Server module and change the CPU and RAM values for your servers manually.
