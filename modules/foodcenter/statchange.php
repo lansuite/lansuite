@@ -122,7 +122,8 @@ switch ($stepParameter) {
         $ms2->AddMultiSelectAction($fc_ordered_status_quest[3], 'index.php?mod=foodcenter&action=statchange&step=2&status=7', 1);
         $ms2->AddMultiSelectAction($fc_ordered_status_quest[4], 'index.php?mod=foodcenter&action=statchange&step=2&status=8', 1);
 
-        switch ($_POST['search_dd_input'][0]) {
+        $searchDDInputParameter = $_POST['search_dd_input'][0] ?? 0;
+        switch ($searchDDInputParameter) {
             case 1:
                 $dsp->NewContent(t('Bestellte Produkte'), '');
                 $ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
@@ -162,10 +163,14 @@ switch ($stepParameter) {
         $dsp->SetForm("index.php?mod=foodcenter&action=print&design=base\" target=\"_blank\"", "print");
         $dsp->AddDropDownFieldRow("file", t('Bitte Template auswählen:'), $file_array, "");
 
-        $MainContent .= "<input type=\"hidden\" name=\"search_input[0]\" value=\"{$_POST['search_input'][0]}\">\n";
-        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[0]\" value=\"{$_POST['search_dd_input'][0]}\">\n";
-        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[1]\" value=\"{$_POST['search_dd_input'][1]}\">\n";
-        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$_POST['search_dd_input'][2]}\">\n";
+        $searchInputParameter = $_POST['search_input'][0] ?? '';
+        $searchDDInputParameterZero = $_POST['search_dd_input'][0] ?? '';
+        $searchDDInputParameterOne = $_POST['search_dd_input'][1] ?? '';
+        $searchDDInputParameterTwo = $_POST['search_dd_input'][2] ?? '';
+        $MainContent .= "<input type=\"hidden\" name=\"search_input[0]\" value=\"{$searchInputParameter}\">\n";
+        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[0]\" value=\"{$searchDDInputParameterZero}\">\n";
+        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[1]\" value=\"{$searchDDInputParameterOne}\">\n";
+        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$searchDDInputParameterTwo}\">\n";
         
         $dsp->AddFormSubmitRow(t('Drucken'));
         break;
