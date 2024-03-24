@@ -140,6 +140,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Database] Introduced a new Database class with first-class prepared statement support
 - [System] Protect module inclusion for path traversal
 - [XSS] Prevent XSS possibility in http-equiv="refresh" header
+- [Security] Add header `X-Frame-Options`, `Referrer-Policy` and `Strict-Transport-Security`
 
 ## [4.2] - 2015-03-15
 
