@@ -2,7 +2,7 @@
 
 $get_paid = ['paid' => 0];
 if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
-    $get_paid = $db->qry_first('SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%', $auth['userid'], $party->party_id);
+    $get_paid = $database->queryWithOnlyFirstRow('SELECT paid FROM %prefix%party_user WHERE user_id = ? AND party_id = ?', [$auth['userid'], $party->party_id]);
 }
 if ($cfg['server_ip_auto_assign']) {
     $IPBase = substr($cfg['server_ip_auto_assign'], 0, strrpos($cfg['server_ip_auto_assign'], '.'));
@@ -38,11 +38,10 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     // Party-Liste
     if ($func->isModActive('party')) {
         $party_list = array('' => t('KEINE'));
-        $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
-        while ($res = $db->fetch_array($row)) {
-            $party_list[$res['party_id']] = $res['name'];
+        $rows = $database->queryWithFullResult("SELECT party_id, name FROM %prefix%partys");
+        foreach ($rows as $row) {
+            $party_list[$row['party_id']] = $row['name'];
         }
-        $db->free_result($row);
         $mf->AddField(t('Party'), 'party_id', \LanSuite\MasterForm::IS_SELECTION, $party_list, $party->party_id);
     }
 
@@ -74,7 +73,7 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) {
     if ($mf->SendForm('index.php?mod=server&action=add', 'server', 'serverid', $serverIdParameter)) {
         // Increase auto IP
         if ($cfg['server_ip_auto_assign']) {
-            $db->qry('UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = \'server_ip_next\'', $cfg['server_ip_next'] + 1);
+            $database->query('UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = \'server_ip_next\'', [$cfg['server_ip_next'] + 1]);
         }
     };
 }
