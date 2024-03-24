@@ -6,8 +6,8 @@
  */
 function GetTournamentUserIcon($userid)
 {
-    global $db,$dsp;
-    $user = $db->qry_first("SELECT userid, username FROM %prefix%user WHERE userid = %int%", $userid);
+    global $database, $dsp;
+    $user = $database->queryWithOnlyFirstRow("SELECT userid, username FROM %prefix%user WHERE userid = ?", [$userid]);
     if ($userid == 0) {
         return '-';
     } else {

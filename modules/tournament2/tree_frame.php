@@ -12,7 +12,7 @@ if ($groupParameter == '') {
     $_GET['group'] = 1;
 }
 
-$t = $db->qry_first('
+$t = $database->queryWithOnlyFirstRow('
   SELECT
     tournamentid,
     name,
@@ -25,7 +25,7 @@ $t = $db->qry_first('
     mapcycle
   FROM %prefix%tournament_tournaments
   WHERE
-    tournamentid = %int%', $tournamentid);
+    tournamentid = ?', [$tournamentid]);
 
 $team_anz = $tfunc->GetTeamAnz($tournamentid, $t["mode"], $_GET["group"]);
 
@@ -181,6 +181,9 @@ if ($t['status'] != "process" and $t['status'] != "closed") {
             $db->free_result($leaders);
 
             for ($y = 1; $y <= $team_anz; $y++) {
+                if (!isset($link)) {
+                    $link = '';
+                }
                 // Draw Frame and write captions
                 $templ['index']['info']['content'] .= "CreateText('". $leader_name_array[$y-1] ."', ". ($x_start + $x_len * $y) .", ". (7 + $y_start) .", '$link');";
                 $templ['index']['info']['content'] .= "CreateText('". $leader_name_array[$y-1] ."', $x_start, ". (7 + $y_start + $y_len * $y) .", '$link');";
@@ -191,7 +194,7 @@ if ($t['status'] != "process" and $t['status'] != "closed") {
                 $templ['index']['info']['content'] .= "CreateRect(". ($x_start + $x_len * $y - 6) .", ". ($y_start + $y_len * $y - 6) .", ". ($x_len - 2) .", ". ($y_len - 2) .", '#DEE2E6', '#000000', '$link');";
   
                 for ($x = 0; $x < $y-1; $x++) {
-                    $score = $db->qry_first("
+                    $score = $database->queryWithOnlyFirstRow("
                       SELECT
                         games1.score AS s1,
                         games2.score AS s2,
@@ -200,22 +203,22 @@ if ($t['status'] != "process" and $t['status'] != "closed") {
                         games2.gameid AS gameid2
                       FROM %prefix%t2_games AS games1
                       INNER JOIN %prefix%t2_games AS games2 ON
-                        (games1.tournamentid = games2.tournamentid)
-                        AND (games1.round = games2.round)
-                        AND (games1.group_nr = games2.group_nr)
+                        games1.tournamentid = games2.tournamentid
+                        AND games1.round = games2.round
+                        AND games1.group_nr = games2.group_nr
                       WHERE
-                        (games1.tournamentid = %int%)
-                        AND (games1.group_nr = %string%)
+                        games1.tournamentid = ?
+                        AND games1.group_nr = ?
                         AND ((games1.position + 1) = games2.position)
                         AND ((games1.position / 2) = FLOOR(games1.position / 2))
                         AND (
-                          ((games1.leaderid = %string%)
-                          AND (games2.leaderid = %string%))
+                          ((games1.leaderid = ?)
+                          AND (games2.leaderid = ?))
                           OR (
-                            (games1.leaderid = %string%)
-                            AND (games2.leaderid = %string%)
+                            (games1.leaderid = ?)
+                            AND (games2.leaderid = ?)
                           )
-                        )", $tournamentid, $_GET["group"], $leader_array[$x], $leader_array[$y-1], $leader_array[$y-1], $leader_array[$x]);
+                        )", [$tournamentid, $_GET["group"], $leader_array[$x], $leader_array[$y-1], $leader_array[$y-1], $leader_array[$x]]);
 
                     if (($score['s1'] == 0) && ($score['s2'] == 0)) {
                         $game_score = "- : -";

@@ -18,6 +18,8 @@ function Addr1Input($field, $mode, $error = ''): bool|string
             if ($streetAndNoParameter == '' && $streetParameter  && $streetNoParameter) {
                 $_POST['street|hnr'] = $streetParameter  . ' ' . $streetNoParameter;
             }
+
+            $streetAndNoParameter = $_POST['street|hnr'] ?? '';
             $dsp->AddTextFieldRow('street|hnr', t('Straße und Hausnummer'), $streetAndNoParameter, $error, '', Optional('street'));
             return false;
             break;

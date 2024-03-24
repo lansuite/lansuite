@@ -118,10 +118,10 @@ class Framework
         }
 
         $this->add_js_path('ext_scripts/jquery-min.js');
-        $this->add_js_path('ext_scripts/jquery-ui/jquery-ui.custom.min.js');
+        $this->add_js_path('ext_scripts/jquery-ui/jquery-ui.min.js');
         $this->add_js_path('scripts.js');
 
-        $this->add_css_path('ext_scripts/jquery-ui/smoothness/jquery-ui.custom.css');
+        $this->add_css_path('ext_scripts/jquery-ui/jquery-ui.min.css');
         $this->add_css_path('design/style.css');
 
         if ($this->internal_url_query['query']) {
@@ -295,13 +295,14 @@ class Framework
     public function html_out()
     {
         global $templ, $cfg, $db, $auth, $smarty, $func, $debug, $request;
+
         $compression_mode = $this->check_optimizer();
 
         // Prepare Header
-        if ($request->query->get('sitereload')) {
-            $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
-        } else {
-            $smarty->assign('main_header_sitereload', '');
+        $siteReloadParameter = intval($request->query->get('sitereload'));
+        $smarty->assign('main_header_sitereload', '');
+        if ($siteReloadParameter) {
+            $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="' . $siteReloadParameter . '; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
         }
 
         // Add special CSS and JS
@@ -417,6 +418,7 @@ ga('send', 'pageview');
                 }
 
                 // Ausgabe Hauptseite
+                $smarty->assign('CloseFullscreen', '');
                 if (!$sessionFullScreenSet and !$this->modus == 'beamer') {
                     $smarty->assign('MainFrameworkmessages', $this->framework_messages);
                     if (isset($templ)) {
@@ -427,6 +429,7 @@ ga('send', 'pageview');
                         $smarty->assign('MainRightBox', '');
                     }
                     $smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" border="0" />');
+                    $smarty->assign('MainDebug', '');
                     if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and isset($debug)) { // and $cfg['sys_showdebug'] (no more, for option now in inc/base/config)
                         $smarty->assign('MainDebug', $debug->show());
                     }

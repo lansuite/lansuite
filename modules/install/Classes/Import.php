@@ -471,7 +471,7 @@ class Import
                             foreach ($field_names as $field_name) {
                                 $value = $this->xml->getFirstTagContent($field_name, $entry, 1);
                                 if ($value != '') {
-                                    $mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
+                                    $mysql_entries .= "$field_name = '" . $db->real_escape_string($value) . "', ";
                                 }
 
                                 if (array_key_exists(0, $DBPrimaryKeys) && $field_name == $DBPrimaryKeys[0] && in_array($value, $EntriesFound)) {
@@ -575,8 +575,6 @@ class Import
                 'paid'          => $this->xml->getFirstTagContent("paid", $xml_user),
                 'password'      => $this->xml->getFirstTagContent("password", $xml_user),
                 'email'         => $this->xml->getFirstTagContent("email", $xml_user),
-                'wwclid'        => $this->xml->getFirstTagContent("wwclid", $xml_user),
-                'wwclclanid'    => $this->xml->getFirstTagContent("wwclclanid", $xml_user),
                 'clanurl'       => $this->xml->getFirstTagContent("homepage", $xml_user)
             ];
         }
@@ -656,9 +654,6 @@ class Import
                 $paid       = $user['paid'];
                 $password   = $user['password'];
 
-                $wwclid     = $this->xml->convertinputstr($user['wwclid']);
-                $wwclclanid = $this->xml->convertinputstr($user['wwclclanid']);
-
                 $checkin = ($type > 1) ? "1" : "0";
 
                 $skip = 0;
@@ -692,8 +687,6 @@ class Import
                         type = %string%,
                         clanid = %int%,
                         password = %string%,
-                        wwclid = %int%,
-                        wwclclanid = %int%,
                         comment = %string%",
                         $email,
                         $name,
@@ -702,8 +695,6 @@ class Import
                         $type,
                         $clan_id,
                         $password,
-                        $wwclid,
-                        $wwclclanid,
                         $comment
                     );
                     $id = $db->insert_id();

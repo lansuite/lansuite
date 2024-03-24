@@ -14,12 +14,16 @@
 		<content>
 			<entry>
 				<id>ff16eac4bb1728bdfea6162a83b34d65</id>
-				<org>Dein Passwort und weitere Informationen wurden an deine angegebene E-Mail-Adresse gesendet.</org>
+				<org>Dein Passwort und weitere Informationen wurden an deine angegebene
+					E-Mail-Adresse gesendet.</org>
 				<en>Your password and further information were sent to the e-mail address.</en>
-				<es>Su contraseña y demás información se enviará a la dirección de correo electrónico.</es>
-				<fr>Votre mot de passe et des informations complémentaires ont été envoyés à l&amp;#39;adresse e-mail.</fr>
+				<es>Su contraseña y demás información se enviará a la dirección de correo
+					electrónico.</es>
+				<fr>Votre mot de passe et des informations complémentaires ont été envoyés à
+					l&amp;#39;adresse e-mail.</fr>
 				<nl>Uw wachtwoord en verdere informatie gestuurd naar het e-mailadres.</nl>
-				<it>La tua password e altre informazioni sono state inviate all&amp;#39;indirizzo e-mail.</it>
+				<it>La tua password e altre informazioni sono state inviate all&amp;#39;indirizzo
+					e-mail.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -27,9 +31,11 @@
 				<org>Es ist ein Fehler beim Versand der Informations-Email aufgetreten.</org>
 				<en>There was an error while sending the e-mail information.</en>
 				<es>Se produjo un error al enviar el correo la información de correo electrónico.</es>
-				<fr>Il ya eu une erreur lors de l&amp;#39;envoi du courrier d&amp;#39;information électronique.</fr>
+				<fr>Il ya eu une erreur lors de l&amp;#39;envoi du courrier d&amp;#39;information
+					électronique.</fr>
 				<nl>Er is een fout opgetreden bij het versturen van de e-mail informatie.</nl>
-				<it>Si è verificato un errore durante l&amp;#39;invio di e-informazioni di posta elettronica.</it>
+				<it>Si è verificato un errore durante l&amp;#39;invio di e-informazioni di posta
+					elettronica.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -44,12 +50,26 @@
 			</entry>
 			<entry>
 				<id>bd15dbd29f73a4865f4ab11b9c493202</id>
-				<org>Du hast dich soeben bei uns auf %1 angemeldet. Damit du dich bei uns Einloggen kannst, müssen wir jedoch zuerst sicherstellen, dass deine Email korrekt ist. Klicke zum Verifizieren deiner Email-Adresse bitte auf den folgenden Link %2</org>
-				<en>They have just signed up with us at%1. Before you can login with us, we must first make sure that your email is correct. Click to verify your email address, please visit the following link%2</en>
-				<es>Ellos acaban de firmar con nosotros en%1. Antes de que pueda ingresar con nosotros, primero tiene que asegurarse que su correo sea correcto. Haga clic para verificar su dirección de correo electrónico, por favor, visite el siguiente enlace %2</es>
-				<fr>Ils viennent de signer avec nous à l&amp;#39;adresse%1. Avant que vous pouvez vous connecter avec nous, nous devons d&amp;#39;abord vous assurer que votre email est correcte. Cliquez ici pour vérifier votre adresse email, s&amp;#39;il vous plaît visitez le lien ci</fr>
-				<nl>Ze hebben net getekend met ons op%1. Voordat u kunt inloggen met ons, moeten we eerst zorgen dat uw e-mail juist is. Klik om te controleren of uw e-mailadres, kunt u de volgende link:%2</nl>
-				<it>Hanno appena firmato con noi a%1. Prima di poter effettuare il login con noi, dobbiamo prima fare in modo che la tua email sia corretto. Clicca per verificare il tuo indirizzo e-mail, si prega di visitare il seguente link %2</it>
+				<org>Du hast dich soeben bei uns auf %1 angemeldet. Damit du dich bei uns Einloggen
+					kannst, müssen wir jedoch zuerst sicherstellen, dass deine Email korrekt ist.
+					Klicke zum Verifizieren deiner Email-Adresse bitte auf den folgenden Link %2</org>
+				<en>They have just signed up with us at%1. Before you can login with us, we must
+					first make sure that your email is correct. Click to verify your email address,
+					please visit the following link%2</en>
+				<es>Ellos acaban de firmar con nosotros en%1. Antes de que pueda ingresar con
+					nosotros, primero tiene que asegurarse que su correo sea correcto. Haga clic
+					para verificar su dirección de correo electrónico, por favor, visite el
+					siguiente enlace %2</es>
+				<fr>Ils viennent de signer avec nous à l&amp;#39;adresse%1. Avant que vous pouvez
+					vous connecter avec nous, nous devons d&amp;#39;abord vous assurer que votre
+					email est correcte. Cliquez ici pour vérifier votre adresse email, s&amp;#39;il
+					vous plaît visitez le lien ci</fr>
+				<nl>Ze hebben net getekend met ons op%1. Voordat u kunt inloggen met ons, moeten we
+					eerst zorgen dat uw e-mail juist is. Klik om te controleren of uw e-mailadres,
+					kunt u de volgende link:%2</nl>
+				<it>Hanno appena firmato con noi a%1. Prima di poter effettuare il login con noi,
+					dobbiamo prima fare in modo che la tua email sia corretto. Clicca per verificare
+					il tuo indirizzo e-mail, si prega di visitare il seguente link %2</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -97,7 +117,8 @@
 				<org>Wenn du diesem beitreten möchtest, wähle ihn oberhalb aus dem Dropdownmenü aus.</org>
 				<en>If you want to join this, select it from the dropdown menu above.</en>
 				<es>Si desea unirse a este, seleccione en el menú desplegable.</es>
-				<fr>Si vous souhaitez participer à cela, le sélectionner dans le menu déroulant ci-dessus.</fr>
+				<fr>Si vous souhaitez participer à cela, le sélectionner dans le menu déroulant
+					ci-dessus.</fr>
 				<nl>Als u dit wilt deelnemen, selecteert u uit het dropdown menu hierboven.</nl>
 				<it>Se volete partecipare a questo, selezionare dal menu a discesa.</it>
 				<file>usrmgr</file>
@@ -114,22 +135,39 @@
 			</entry>
 			<entry>
 				<id>9ef16d98f70cf8bab901c12e4ca62645</id>
-				<org>Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: 'aaaaaaaaaaD&lt;&lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</org>
-				<en>The format of the identity card number is incorrect. Please enter the following pattern: &amp;#39;aaaaaaaaaaD &amp;lt; &lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</en>
-				<es>El formato del número de tarjeta de identidad es incorrecta. Por favor introduce el siguiente patrón: «aaaaaaaaaaD &amp;lt; &lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</es>
-				<fr>Le format du numéro de carte d&amp;#39;identité est incorrecte. S&amp;#39;il vous plaît entrer le format suivant: «aaaaaaaaaaD &amp;lt; &lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</fr>
-				<nl>Het formaat van de identiteitskaart nummer is onjuist. Vul het volgende patroon: &amp;#39;aaaaaaaaaaD &amp;lt; &lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</nl>
-				<it>Il formato del numero della carta d&amp;#39;identità non è corretto. Si prega di inserire il seguente schema: &amp;#39;aaaaaaaaaaD &amp;lt; &lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</it>
+				<org>Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster
+					eingeben: 'aaaaaaaaaaD&lt;&lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</org>
+				<en>The format of the identity card number is incorrect. Please enter the following
+					pattern: &amp;#39;aaaaaaaaaaD &amp;lt;
+					&lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</en>
+				<es>El formato del número de tarjeta de identidad es incorrecta. Por favor introduce
+					el siguiente patrón: «aaaaaaaaaaD &amp;lt;
+					&lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</es>
+				<fr>Le format du numéro de carte d&amp;#39;identité est incorrecte. S&amp;#39;il
+					vous plaît entrer le format suivant: «aaaaaaaaaaD &amp;lt;
+					&lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</fr>
+				<nl>Het formaat van de identiteitskaart nummer is onjuist. Vul het volgende patroon:
+					&amp;#39;aaaaaaaaaaD &amp;lt;
+					&lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</nl>
+				<it>Il formato del numero della carta d&amp;#39;identità non è corretto. Si prega di
+					inserire il seguente schema: &amp;#39;aaaaaaaaaaD &amp;lt;
+					&lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b70acced570918cfb100f33d576ddae0</id>
-				<org>Prüfsummenfehler. Bitte überprüfe deine Angabe. Sehr wahrscheinlich hast du eine oder mehrere Zahlen falsch abgeschrieben.</org>
-				<en>Checksum error. Please check your claim. Most likely you have incorrectly written off one or more numbers.</en>
-				<es>Error de comprobación. Por favor, compruebe su reclamo. Lo más probable es que haya escrito incorrectamente fuera de uno o más números.</es>
-				<fr>Checksum error. S&amp;#39;il vous plaît vérifier votre demande. Vous avez probablement incorrectement mis un ou plusieurs numéros.</fr>
-				<nl>Checksum error. Controleer uw vordering. Waarschijnlijk heb je verkeerd afgeschreven een of meer nummers.</nl>
-				<it>Checksum errore. Controlla la tua richiesta. Probabilmente avete erroneamente cancellato uno o più numeri.</it>
+				<org>Prüfsummenfehler. Bitte überprüfe deine Angabe. Sehr wahrscheinlich hast du
+					eine oder mehrere Zahlen falsch abgeschrieben.</org>
+				<en>Checksum error. Please check your claim. Most likely you have incorrectly
+					written off one or more numbers.</en>
+				<es>Error de comprobación. Por favor, compruebe su reclamo. Lo más probable es que
+					haya escrito incorrectamente fuera de uno o más números.</es>
+				<fr>Checksum error. S&amp;#39;il vous plaît vérifier votre demande. Vous avez
+					probablement incorrectement mis un ou plusieurs numéros.</fr>
+				<nl>Checksum error. Controleer uw vordering. Waarschijnlijk heb je verkeerd
+					afgeschreven een of meer nummers.</nl>
+				<it>Checksum errore. Controlla la tua richiesta. Probabilmente avete erroneamente
+					cancellato uno o più numeri.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -184,12 +222,17 @@
 			</entry>
 			<entry>
 				<id>3248e23319978acd17f3a9ce3f126eb5</id>
-				<org>Bitte gib Straße und Hausnummer in folgendem Format ein: &quot;Straßenname 12&quot;.</org>
-				<en>Please enter the street address in the following format: &amp;quot;Street Name 12&amp;quot;.</en>
-				<es>Por favor, introduzca la dirección de la calle en el siguiente formato: &amp;quot;Nombre de la calle 12&amp;quot;.</es>
-				<fr>S&amp;#39;il vous plaît entrez l&amp;#39;adresse dans le format suivant: &amp;quot;Nom de la rue 12&amp;quot;.</fr>
+				<org>Bitte gib Straße und Hausnummer in folgendem Format ein: &quot;Straßenname
+					12&quot;.</org>
+				<en>Please enter the street address in the following format: &amp;quot;Street Name
+					12&amp;quot;.</en>
+				<es>Por favor, introduzca la dirección de la calle en el siguiente formato:
+					&amp;quot;Nombre de la calle 12&amp;quot;.</es>
+				<fr>S&amp;#39;il vous plaît entrez l&amp;#39;adresse dans le format suivant:
+					&amp;quot;Nom de la rue 12&amp;quot;.</fr>
 				<nl>Vul het adres in de volgende notatie: &amp;quot;Straat 12&amp;quot;.</nl>
-				<it>Si prega di inserire l&amp;#39;indirizzo nel seguente formato: &amp;quot;Nome Street 12&amp;quot;.</it>
+				<it>Si prega di inserire l&amp;#39;indirizzo nel seguente formato: &amp;quot;Nome
+					Street 12&amp;quot;.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -214,22 +257,34 @@
 			</entry>
 			<entry>
 				<id>59bcf8bcc6646b03e94be2b39a99cdce</id>
-				<org>Bitte gib Postleitzahl und Ort in folgendem Format ein: &quot;12345 Stadt&quot;.</org>
-				<en>Please enter zip code and city in the following format: &amp;quot;12345 city.&amp;quot;</en>
-				<es>Por favor introduce el código postal y ciudad en el siguiente formato: &amp;quot;12345 de la ciudad.&amp;quot;</es>
-				<fr>S&amp;#39;il vous plaît entrez le code postal et ville dans le format suivant: &amp;quot;12345 ville».</fr>
+				<org>Bitte gib Postleitzahl und Ort in folgendem Format ein: &quot;12345
+					Stadt&quot;.</org>
+				<en>Please enter zip code and city in the following format: &amp;quot;12345
+					city.&amp;quot;</en>
+				<es>Por favor introduce el código postal y ciudad en el siguiente formato:
+					&amp;quot;12345 de la ciudad.&amp;quot;</es>
+				<fr>S&amp;#39;il vous plaît entrez le code postal et ville dans le format suivant:
+					&amp;quot;12345 ville».</fr>
 				<nl>Vul postcode en stad in het volgende formaat: &amp;quot;12345 stad.&amp;quot;</nl>
-				<it>Si prega di inserire il codice di avviamento postale e città nel formato seguente: &amp;quot;12345 città&amp;quot;.</it>
+				<it>Si prega di inserire il codice di avviamento postale e città nel formato
+					seguente: &amp;quot;12345 città&amp;quot;.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8cf9142dabec9614610f3c0443e25453</id>
-				<org>Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).</org>
-				<en>The postal code must consist of 5 digits. ZIP codes with fewer digits with leading zeros, please write (eg 00123).</en>
-				<es>El código postal debe constar de 5 dígitos. Códigos de área con menos dígitos con ceros principales, favor de escribir (por ejemplo, 00123).</es>
-				<fr>Le code postal doit être composé de 5 chiffres. Les codes postaux avec moins de chiffres avec des zéros de premier plan, s&amp;#39;il vous plaît écrire (par exemple 00123).</fr>
-				<nl>De postcode moet bestaan uit 5 cijfers. ZIP codes met minder cijfers met leidende nullen, kunt u schrijven (bijv. 00123).</nl>
-				<it>Il codice postale deve essere composto di 5 cifre. Codici di avviamento postale con meno cifre con zeri leader, si prega di scrivere (ad esempio, 00.123).</it>
+				<org>Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger
+					Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).</org>
+				<en>The postal code must consist of 5 digits. ZIP codes with fewer digits with
+					leading zeros, please write (eg 00123).</en>
+				<es>El código postal debe constar de 5 dígitos. Códigos de área con menos dígitos
+					con ceros principales, favor de escribir (por ejemplo, 00123).</es>
+				<fr>Le code postal doit être composé de 5 chiffres. Les codes postaux avec moins de
+					chiffres avec des zéros de premier plan, s&amp;#39;il vous plaît écrire (par
+					exemple 00123).</fr>
+				<nl>De postcode moet bestaan uit 5 cijfers. ZIP codes met minder cijfers met
+					leidende nullen, kunt u schrijven (bijv. 00123).</nl>
+				<it>Il codice postale deve essere composto di 5 cifre. Codici di avviamento postale
+					con meno cifre con zeri leader, si prega di scrivere (ad esempio, 00.123).</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -244,12 +299,22 @@
 			</entry>
 			<entry>
 				<id>97f56f5948579a25eb83c679970b71f8</id>
-				<org>Als Benutzer kannst du deinen Benutzernamen, Bezahlt &amp; Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen Administrator.</org>
-				<en>As a user you can use your user name &amp;amp; Paid-place status, passport / other, and this DOES NOT change. You should be addressed to an administrator.</en>
-				<es>Como usuario, usted puede utilizar su nombre de usuario y pagado el estatuto de lugar, pasaporte / otro, y este cambio no. Usted debe ser dirigida a un administrador.</es>
-				<fr>En tant qu&amp;#39;utilisateur, vous pouvez utiliser votre nom d&amp;#39;utilisateur et Payant statut de place, passeport / autres, et ce changement n&amp;#39;est pas. Vous devez être adressée à un administrateur.</fr>
-				<nl>Als gebruiker kunt u uw gebruikersnaam &amp;amp; Paid-plaats status paspoort / andere, en dit verandert niet. U moet worden gericht aan een beheerder.</nl>
-				<it>Come utente è possibile utilizzare il proprio nome utente e Paid lo status di luogo, passaporto / altro, e questo cambiamento non. Si dovrebbe essere indirizzata ad un amministratore.</it>
+				<org>Als Benutzer kannst du deinen Benutzernamen, Bezahlt &amp; Platz-Status,
+					Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen
+					Administrator.</org>
+				<en>As a user you can use your user name &amp;amp; Paid-place status, passport /
+					other, and this DOES NOT change. You should be addressed to an administrator.</en>
+				<es>Como usuario, usted puede utilizar su nombre de usuario y pagado el estatuto de
+					lugar, pasaporte / otro, y este cambio no. Usted debe ser dirigida a un
+					administrador.</es>
+				<fr>En tant qu&amp;#39;utilisateur, vous pouvez utiliser votre nom
+					d&amp;#39;utilisateur et Payant statut de place, passeport / autres, et ce
+					changement n&amp;#39;est pas. Vous devez être adressée à un administrateur.</fr>
+				<nl>Als gebruiker kunt u uw gebruikersnaam &amp;amp; Paid-plaats status paspoort /
+					andere, en dit verandert niet. U moet worden gericht aan een beheerder.</nl>
+				<it>Come utente è possibile utilizzare il proprio nome utente e Paid lo status di
+					luogo, passaporto / altro, e questo cambiamento non. Si dovrebbe essere
+					indirizzata ad un amministratore.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -337,19 +402,25 @@
 				<org>Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.</org>
 				<en>The user type must be an additional Admin or Super Admin.</en>
 				<es>El tipo de usuario debe ser un administrador adicional o Super Admin.</es>
-				<fr>Le type d&amp;#39;utilisateur doit être un administrateur supplémentaire, ou Super Admin.</fr>
+				<fr>Le type d&amp;#39;utilisateur doit être un administrateur supplémentaire, ou
+					Super Admin.</fr>
 				<nl>De gebruiker type moet een extra Admin of Super Admin.</nl>
 				<it>Il tipo di utente deve essere un ulteriore Admin o Super Admin.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>67ca595570fe049fcd0e4b9625f5ef1e</id>
-				<org>Solange kein Admin einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.</org>
+				<org>Solange kein Admin einem Modul zugeordnet ist, hat dort jeder Admin
+					Berechtigungen.</org>
 				<en>ADMIM As long as no one module is assigned, where each has Admin privileges.</en>
-				<es>ADMIM Mientras no se le asigna un módulo, donde cada uno tiene privilegios de administrador.</es>
-				<fr>ADMIM Tant qu&amp;#39;il n&amp;#39;existera pas un seul module est assigné, où chacun a des privilèges Admin.</fr>
-				<nl>ADMIM Zolang er geen een module wordt toegewezen, waarbij elk heeft Admin privileges.</nl>
-				<it>ADMIM Finché non un modulo viene assegnato, in cui ognuno ha i privilegi di amministratore.</it>
+				<es>ADMIM Mientras no se le asigna un módulo, donde cada uno tiene privilegios de
+					administrador.</es>
+				<fr>ADMIM Tant qu&amp;#39;il n&amp;#39;existera pas un seul module est assigné, où
+					chacun a des privilèges Admin.</fr>
+				<nl>ADMIM Zolang er geen een module wordt toegewezen, waarbij elk heeft Admin
+					privileges.</nl>
+				<it>ADMIM Finché non un modulo viene assegnato, in cui ognuno ha i privilegi di
+					amministratore.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -450,26 +521,6 @@
 				<fr>Clan</fr>
 				<nl>Clan</nl>
 				<it>Clan</it>
-				<file>usrmgr</file>
-			</entry>
-			<entry>
-				<id>cc6c71eb9ea33fc3b29bc29eb79cf196</id>
-				<org>WWCL ID</org>
-				<en>WWCL ID</en>
-				<es>WWCL ID</es>
-				<fr>WWCL ID</fr>
-				<nl>WWCL ID</nl>
-				<it>WWCL ID</it>
-				<file>usrmgr</file>
-			</entry>
-			<entry>
-				<id>52cc3b0a5af24cac3db06f3bbddba9aa</id>
-				<org>NGL ID</org>
-				<en>NGL ID</en>
-				<es>NGL ID</es>
-				<fr>NGL ID</fr>
-				<nl>NGL-ID</nl>
-				<it>NGL ID</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -614,12 +665,21 @@
 			</entry>
 			<entry>
 				<id>199292108b7b512477d90e905827cc64</id>
-				<org>Hiermit bestätige ich, die %1 der Veranstaltung &lt;b&gt;&quot;%2&quot;&lt;/b&gt; gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.</org>
-				<en>I hereby certify that I have read the %1 of the event &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; and bring back filled to the event.</en>
-				<es>Por la presente certifico que he leído el %1 del evento &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; y traer de vuelta completa al evento.</es>
-				<fr>Je certifie que j&amp;#39;ai lu le %1 de l&amp;#39;événement &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; et de ramener rempli à l&amp;#39;événement.</fr>
-				<nl>Hierbij verklaar ik dat ik de %1 van het evenement hebben gelezen &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; en breng terug gevuld tot het evenement.</nl>
-				<it>Il sottoscritto dichiara di aver letto l&amp;#39;%1 della manifestazione &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; e riportare riempito l&amp;#39;evento.</it>
+				<org>Hiermit bestätige ich, die %1 der Veranstaltung
+					&lt;b&gt;&quot;%2&quot;&lt;/b&gt; gelesen zu haben und ggf. ausgefüllt zur
+					Veranstaltung mitzubringen.</org>
+				<en>I hereby certify that I have read the %1 of the event
+					&lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; and bring back filled to the event.</en>
+				<es>Por la presente certifico que he leído el %1 del evento
+					&lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; y traer de vuelta completa al evento.</es>
+				<fr>Je certifie que j&amp;#39;ai lu le %1 de l&amp;#39;événement
+					&lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; et de ramener rempli à
+					l&amp;#39;événement.</fr>
+				<nl>Hierbij verklaar ik dat ik de %1 van het evenement hebben gelezen
+					&lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; en breng terug gevuld tot het
+					evenement.</nl>
+				<it>Il sottoscritto dichiara di aver letto l&amp;#39;%1 della manifestazione
+					&lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; e riportare riempito l&amp;#39;evento.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -644,12 +704,19 @@
 			</entry>
 			<entry>
 				<id>2a70610f6a423f37edd79c0c32e81328</id>
-				<org>Hiermit bestätige ich die %1 der Veranstaltung &lt;b&gt;&quot;%2&quot;&lt;/b&gt; gelesen zu haben und stimme ihnen zu.</org>
-				<en>I hereby acknowledge having read the %1 of the event &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; and agree with them.</en>
-				<es>Por la presente acuso de haber leído el %1 del evento &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; y de acuerdo con ellos.</es>
-				<fr>Je reconnais avoir lu le %1 de l&amp;#39;événement &lt;b&gt;«%2»&lt;/b&gt; et à s&amp;#39;entendre avec eux.</fr>
-				<nl>Hierbij bevestig ik het lezen van de %1 van het evenement &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; en met ze eens.</nl>
-				<it>Ho l&amp;#39;onore di riconoscere di aver letto l&amp;#39;%1 della manifestazione &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; e d&amp;#39;accordo con loro.</it>
+				<org>Hiermit bestätige ich die %1 der Veranstaltung
+					&lt;b&gt;&quot;%2&quot;&lt;/b&gt; gelesen zu haben und stimme ihnen zu.</org>
+				<en>I hereby acknowledge having read the %1 of the event
+					&lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; and agree with them.</en>
+				<es>Por la presente acuso de haber leído el %1 del evento
+					&lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; y de acuerdo con ellos.</es>
+				<fr>Je reconnais avoir lu le %1 de l&amp;#39;événement &lt;b&gt;«%2»&lt;/b&gt; et à
+					s&amp;#39;entendre avec eux.</fr>
+				<nl>Hierbij bevestig ik het lezen van de %1 van het evenement
+					&lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; en met ze eens.</nl>
+				<it>Ho l&amp;#39;onore di riconoscere di aver letto l&amp;#39;%1 della
+					manifestazione &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; e d&amp;#39;accordo con
+					loro.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -736,10 +803,13 @@
 				<id>bf92b28c96a95efc99b27a0e81d3756a</id>
 				<org>Es gibt keine aktive Party. Bitte setze im Partymanager eine Party aktiv</org>
 				<en>There are no active party. Please get active in the party manager a party</en>
-				<es>No hay parte activa. Por favor, póngase en forma en el gestor de la fiesta de un partido</es>
-				<fr>Il n&amp;#39;ya pas de partie active. S&amp;#39;il vous plaît être actifs dans le gestionnaire de partie Une partie</fr>
+				<es>No hay parte activa. Por favor, póngase en forma en el gestor de la fiesta de un
+					partido</es>
+				<fr>Il n&amp;#39;ya pas de partie active. S&amp;#39;il vous plaît être actifs dans
+					le gestionnaire de partie Une partie</fr>
 				<nl>Er zijn geen actieve partij. Please get actief in de partij manager een partij</nl>
-				<it>Non ci sono parte attiva. Si prega di arrivare attiva nel gestore partito un partito</it>
+				<it>Non ci sono parte attiva. Si prega di arrivare attiva nel gestore partito un
+					partito</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -774,32 +844,62 @@
 			</entry>
 			<entry>
 				<id>2d7495658fddc98d952bd37fed16ef3d</id>
-				<org>Bereits &lt;b&gt;zu einer vergangenen Party angemeldeten Gast einchecken&lt;/b&gt;</org>
+				<org>Bereits &lt;b&gt;zu einer vergangenen Party angemeldeten Gast
+					einchecken&lt;/b&gt;</org>
 				<en>Already a &lt;b&gt;check to a party last notified Guest&lt;/b&gt;</en>
 				<es>Ya un &lt;b&gt;cheque a un partido por última notificado Posadas&lt;/b&gt;</es>
-				<fr>Déjà &lt;b&gt;un&lt;/b&gt; chèque &lt;b&gt;à&lt;/b&gt; une &lt;b&gt;dernière partie notifiée de l&amp;#39;utilisateur&lt;/b&gt;</fr>
+				<fr>Déjà &lt;b&gt;un&lt;/b&gt; chèque &lt;b&gt;à&lt;/b&gt; une &lt;b&gt;dernière
+					partie notifiée de l&amp;#39;utilisateur&lt;/b&gt;</fr>
 				<nl>Al een &lt;b&gt;controle aan een partij het laatst aangemelde gast&lt;/b&gt;</nl>
 				<it>Già un &lt;b&gt;controllo per un partito ultimo comunicato del cliente&lt;/b&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e9ef2295a1778c5f4ecdab8a7f596c4b</id>
-				<org>Neuer Gast. Einen &lt;b&gt;Account erstellen&lt;/b&gt;HTML_NEWLINE&lt;i&gt;Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.&lt;/i&gt;</org>
-				<en>New guest. &lt;b&gt;Create&lt;/b&gt; an &lt;b&gt;account&lt;/b&gt; HTML_NEWLINE &lt;i&gt;It will only create an e-mail address and password automatically. All other data is provided by the user with a login on the first itself.&lt;/i&gt;</en>
-				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Sólo se creará una dirección de correo electrónico y la contraseña de forma automática. Todos los demás datos es proporcionada por el usuario con un inicio de sesión en el primero sí.</es>
-				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Elle ne fera que créer une adresse e-mail et mot de passe automatiquement. Toutes les autres données sont fournies par l&amp;#39;utilisateur avec un login sur le premier lui-même.&lt;/i&gt;</fr>
-				<nl>Nieuwe gasten. &lt;b&gt;Maak&lt;/b&gt; een &lt;b&gt;account&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Het zal alleen een e-mail adres en wachtwoord automatisch. Alle andere gegevens worden verstrekt door de gebruiker met een login op de eerste zelf.&lt;/i&gt;</nl>
-				<it>Nuovo ospite. &lt;b&gt;Creare&lt;/b&gt; un &lt;b&gt;account&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Sarà solo per creare un indirizzo e-mail e la password automaticamente. Tutti gli altri dati sono forniti dagli utenti con un account di accesso al primo stessa.&lt;/i&gt;</it>
+				<org>Neuer Gast. Einen &lt;b&gt;Account erstellen&lt;/b&gt;HTML_NEWLINE&lt;i&gt;Es
+					wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert.
+					Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst
+					ein.&lt;/i&gt;</org>
+				<en>New guest. &lt;b&gt;Create&lt;/b&gt; an &lt;b&gt;account&lt;/b&gt; HTML_NEWLINE
+					&lt;i&gt;It will only create an e-mail address and password automatically. All
+					other data is provided by the user with a login on the first itself.&lt;/i&gt;</en>
+				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta&lt;/b&gt;
+					HTML_NEWLINE &lt;i&gt;Sólo se creará una dirección de correo electrónico y la
+					contraseña de forma automática. Todos los demás datos es proporcionada por el
+					usuario con un inicio de sesión en el primero sí.</es>
+				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte&lt;/b&gt;
+					HTML_NEWLINE &lt;i&gt;Elle ne fera que créer une adresse e-mail et mot de passe
+					automatiquement. Toutes les autres données sont fournies par
+					l&amp;#39;utilisateur avec un login sur le premier lui-même.&lt;/i&gt;</fr>
+				<nl>Nieuwe gasten. &lt;b&gt;Maak&lt;/b&gt; een &lt;b&gt;account&lt;/b&gt;
+					HTML_NEWLINE &lt;i&gt;Het zal alleen een e-mail adres en wachtwoord automatisch.
+					Alle andere gegevens worden verstrekt door de gebruiker met een login op de
+					eerste zelf.&lt;/i&gt;</nl>
+				<it>Nuovo ospite. &lt;b&gt;Creare&lt;/b&gt; un &lt;b&gt;account&lt;/b&gt;
+					HTML_NEWLINE &lt;i&gt;Sarà solo per creare un indirizzo e-mail e la password
+					automaticamente. Tutti gli altri dati sono forniti dagli utenti con un account
+					di accesso al primo stessa.&lt;/i&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c782f31af2e1ff59bc9b4f2baff7c79f</id>
-				<org>Neuer Gast. Einen &lt;b&gt;erweiterten Account erstellen&lt;/b&gt;HTML_NEWLINE&lt;i&gt;Hier legest du direkt am Einlass alle Benutzerdaten fest.&lt;/i&gt;</org>
-				<en>New guest. An &lt;b&gt;expanded account Create&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Here you create directly on the inlet solid all user data.&lt;/i&gt;</en>
-				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta ampliado&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Aquí usted puede crear directamente en la sólida entrada de todos los datos de usuario.&lt;/i&gt;</es>
-				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte élargi&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Ici vous créez directement sur le solide d&amp;#39;entrée de toutes les données utilisateur.&lt;/i&gt;</fr>
-				<nl>Nieuwe gasten. Een &lt;b&gt;uitgebreide account aanmaken&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Hier maakt u direct op de inlaat solide alle gebruikersgegevens.&lt;/i&gt;</nl>
-				<it>Nuovo ospite. &lt;b&gt;Creare&lt;/b&gt; un &lt;b&gt;account ampliato&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Qui si crea direttamente il condotto di aspirazione solidi tutti i dati utente.&lt;/i&gt;</it>
+				<org>Neuer Gast. Einen &lt;b&gt;erweiterten Account
+					erstellen&lt;/b&gt;HTML_NEWLINE&lt;i&gt;Hier legest du direkt am Einlass alle
+					Benutzerdaten fest.&lt;/i&gt;</org>
+				<en>New guest. An &lt;b&gt;expanded account Create&lt;/b&gt; HTML_NEWLINE
+					&lt;i&gt;Here you create directly on the inlet solid all user data.&lt;/i&gt;</en>
+				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta ampliado&lt;/b&gt;
+					HTML_NEWLINE &lt;i&gt;Aquí usted puede crear directamente en la sólida entrada
+					de todos los datos de usuario.&lt;/i&gt;</es>
+				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte élargi&lt;/b&gt;
+					HTML_NEWLINE &lt;i&gt;Ici vous créez directement sur le solide d&amp;#39;entrée
+					de toutes les données utilisateur.&lt;/i&gt;</fr>
+				<nl>Nieuwe gasten. Een &lt;b&gt;uitgebreide account aanmaken&lt;/b&gt; HTML_NEWLINE
+					&lt;i&gt;Hier maakt u direct op de inlaat solide alle
+					gebruikersgegevens.&lt;/i&gt;</nl>
+				<it>Nuovo ospite. &lt;b&gt;Creare&lt;/b&gt; un &lt;b&gt;account ampliato&lt;/b&gt;
+					HTML_NEWLINE &lt;i&gt;Qui si crea direttamente il condotto di aspirazione solidi
+					tutti i dati utente.&lt;/i&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -814,22 +914,31 @@
 			</entry>
 			<entry>
 				<id>f0534f5fcf89fd9f2435e4950a639477</id>
-				<org>Um einen Benutzer hinzuzufügen, fülle bitte das folgende Formular vollständig aus.</org>
+				<org>Um einen Benutzer hinzuzufügen, fülle bitte das folgende Formular vollständig
+					aus.</org>
 				<en>To add a user, please fill out the following form completely.</en>
-				<es>Para añadir un usuario, por favor, rellene el siguiente formulario completamente.</es>
-				<fr>Pour ajouter un utilisateur, s&amp;#39;il vous plaît remplir le formulaire suivant.</fr>
+				<es>Para añadir un usuario, por favor, rellene el siguiente formulario
+					completamente.</es>
+				<fr>Pour ajouter un utilisateur, s&amp;#39;il vous plaît remplir le formulaire
+					suivant.</fr>
 				<nl>Als u een gebruiker, vul dan onderstaand formulier volledig.</nl>
 				<it>Per aggiungere un utente, ti preghiamo di compilare il seguente modulo.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>142cdad3ef137e208c6eaf2170239bc3</id>
-				<org>Willst du diesem Benutzer einen Sitzplatz zuweisen?HTML_NEWLINEEr sitzt aktuell auf:HTML_NEWLINE%1</org>
-				<en>You want to assign that user a seat? HTML_NEWLINEEr currently sits at: HTML_NEWLINE%1</en>
-				<es>Que desea asignar a dicho usuario un asiento? HTML_NEWLINEEr actualmente se encuentra en: HTML_NEWLINE%1</es>
-				<fr>Vous souhaitez attribuer à cet utilisateur un siège? HTML_NEWLINEEr se situe actuellement à: HTML_NEWLINE%1</fr>
-				<nl>U wilt toewijzen aan die gebruiker een stoel? HTML_NEWLINEEr zit momenteel op: HTML_NEWLINE%1</nl>
-				<it>Si desidera assegnare ad un utente la sede? HTML_NEWLINEEr si trova attualmente a: HTML_NEWLINE%1</it>
+				<org>Willst du diesem Benutzer einen Sitzplatz zuweisen?HTML_NEWLINEEr sitzt aktuell
+					auf:HTML_NEWLINE%1</org>
+				<en>You want to assign that user a seat? HTML_NEWLINEEr currently sits at:
+					HTML_NEWLINE%1</en>
+				<es>Que desea asignar a dicho usuario un asiento? HTML_NEWLINEEr actualmente se
+					encuentra en: HTML_NEWLINE%1</es>
+				<fr>Vous souhaitez attribuer à cet utilisateur un siège? HTML_NEWLINEEr se situe
+					actuellement à: HTML_NEWLINE%1</fr>
+				<nl>U wilt toewijzen aan die gebruiker een stoel? HTML_NEWLINEEr zit momenteel op:
+					HTML_NEWLINE%1</nl>
+				<it>Si desidera assegnare ad un utente la sede? HTML_NEWLINEEr si trova attualmente
+					a: HTML_NEWLINE%1</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -857,7 +966,8 @@
 				<org>Du hast nicht die erforderlichen Rechte, um einen Admin zu löschen</org>
 				<en>You do not have the necessary permissions to delete an admin to</en>
 				<es>Usted no tiene los permisos necesarios para eliminar un administrador para</es>
-				<fr>Vous n&amp;#39;avez pas les autorisations nécessaires pour supprimer un administrateur de</fr>
+				<fr>Vous n&amp;#39;avez pas les autorisations nécessaires pour supprimer un
+					administrateur de</fr>
 				<nl>Je hebt niet de vereiste machtigingen om een admin te verwijderen</nl>
 				<it>Non si dispone delle autorizzazioni necessarie per eliminare un admin per</it>
 				<file>usrmgr</file>
@@ -1024,12 +1134,19 @@
 			</entry>
 			<entry>
 				<id>2bec7cc6645b62e2d48b2020b119cba7</id>
-				<org>Hier findest du alle Details zu diesem User. Am Ende der Seite findest du alle Funktionen, die du auf den User anwenden darfst.</org>
-				<en>Here you will find all the details of this user. At the end of the page you will find all the functions that you can apply it to the user.</en>
-				<es>Aquí encontrarás todos los detalles de este usuario. Al final de la página encontrará todas las funciones que se pueden aplicar al usuario.</es>
-				<fr>Ici vous trouverez tous les détails de cet utilisateur. À la fin de la page, vous trouverez toutes les fonctions que vous pouvez l&amp;#39;appliquer à l&amp;#39;utilisateur.</fr>
-				<nl>Hier vindt u alle details van deze gebruiker. Aan het einde van de pagina vindt u alle functies die je kunt toepassen op de gebruiker.</nl>
-				<it>Qui troverete tutti i dettagli di questo utente. Alla fine della pagina troverete tutte le funzioni che è possibile applicare all&amp;#39;utente.</it>
+				<org>Hier findest du alle Details zu diesem User. Am Ende der Seite findest du alle
+					Funktionen, die du auf den User anwenden darfst.</org>
+				<en>Here you will find all the details of this user. At the end of the page you will
+					find all the functions that you can apply it to the user.</en>
+				<es>Aquí encontrarás todos los detalles de este usuario. Al final de la página
+					encontrará todas las funciones que se pueden aplicar al usuario.</es>
+				<fr>Ici vous trouverez tous les détails de cet utilisateur. À la fin de la page,
+					vous trouverez toutes les fonctions que vous pouvez l&amp;#39;appliquer à
+					l&amp;#39;utilisateur.</fr>
+				<nl>Hier vindt u alle details van deze gebruiker. Aan het einde van de pagina vindt
+					u alle functies die je kunt toepassen op de gebruiker.</nl>
+				<it>Qui troverete tutti i dettagli di questo utente. Alla fine della pagina
+					troverete tutte le funzioni che è possibile applicare all&amp;#39;utente.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1284,12 +1401,18 @@
 			</entry>
 			<entry>
 				<id>d0c1334318d5c2a27eb3b34dc8bad4d9</id>
-				<org>Hinweis: Die Angaben zu Straße und Passnummer sind nur für dich und die Organisatoren sichtbar.</org>
-				<en>Note: The information on road and passport number are only visible to you and the organizers.</en>
-				<es>Nota: La información en carretera y número de pasaporte sólo son visibles para usted y los organizadores.</es>
-				<fr>Note: Les informations sur la route et le numéro de passeport ne sont visibles que par vous et les organisateurs.</fr>
-				<nl>Opmerking: De informatie op de weg en het paspoortnummer zijn alleen zichtbaar voor u en de organisatoren.</nl>
-				<it>Nota: Le informazioni su strada e il numero di passaporto sono visibili solo a voi e gli organizzatori.</it>
+				<org>Hinweis: Die Angaben zu Straße und Passnummer sind nur für dich und die
+					Organisatoren sichtbar.</org>
+				<en>Note: The information on road and passport number are only visible to you and
+					the organizers.</en>
+				<es>Nota: La información en carretera y número de pasaporte sólo son visibles para
+					usted y los organizadores.</es>
+				<fr>Note: Les informations sur la route et le numéro de passeport ne sont visibles
+					que par vous et les organisateurs.</fr>
+				<nl>Opmerking: De informatie op de weg en het paspoortnummer zijn alleen zichtbaar
+					voor u en de organisatoren.</nl>
+				<it>Nota: Le informazioni su strada e il numero di passaporto sono visibili solo a
+					voi e gli organizzatori.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1546,8 +1669,10 @@
 				<id>1995495b92941998a46a49513a1055dc</id>
 				<org>Alter wurde falsch angegeben bitte in der Form 14+ , -18 oder 15-17 angeben.</org>
 				<en>Age was incorrectly specified in the form of 14 + please specify -18 or 15-17.</en>
-				<es>Edad se ha especificado correctamente en la forma de 14 + por favor, especifique -18 o 15-17.</es>
-				<fr>L&amp;#39;âge a été incorrectement spécifié sous la forme de 14 + s&amp;#39;il vous plaît préciser -18 ou 15-17.</fr>
+				<es>Edad se ha especificado correctamente en la forma de 14 + por favor, especifique
+					-18 o 15-17.</es>
+				<fr>L&amp;#39;âge a été incorrectement spécifié sous la forme de 14 + s&amp;#39;il
+					vous plaît préciser -18 ou 15-17.</fr>
 				<nl>Leeftijd onjuist vermeld in de vorm van 14 + omschrijf -18 of 15-17.</nl>
 				<it>Di età è stato erroneamente indicato in forma di 14 + specificare -18 o 15-17.</it>
 				<file>usrmgr</file>
@@ -1744,12 +1869,18 @@
 			</entry>
 			<entry>
 				<id>54f668e09cf179fd8fb1b3a1cd025019</id>
-				<org>Hier kannst du die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die höchste Priorität</org>
-				<en>You may submit the groups sort the order in which they are to be Applied. The top has the hchste Prioritt</en>
-				<es>Usted puede presentar la clase grupos de la orden en que han de aplicarse. La parte superior tiene el Prioritt hchste</es>
-				<fr>Vous mai présenter le genre des groupes de l&amp;#39;ordre dans lequel elles doivent être appliquées. Le sommet a le Prioritt hchste</fr>
-				<nl>U kan bij de groepen sorteren de volgorde waarin ze moeten worden toegepast. De top heeft de hchste Prioritt</nl>
-				<it>Si può presentare il tipo gruppi l&amp;#39;ordine in cui essi devono essere applicate. La parte superiore ha il hchste Prioritt</it>
+				<org>Hier kannst du die Gruppen sortieren in welcher Reihenfolge sie Angewendet
+					werden sollen. Die oberste hat die höchste Priorität</org>
+				<en>You may submit the groups sort the order in which they are to be Applied. The
+					top has the hchste Prioritt</en>
+				<es>Usted puede presentar la clase grupos de la orden en que han de aplicarse. La
+					parte superior tiene el Prioritt hchste</es>
+				<fr>Vous mai présenter le genre des groupes de l&amp;#39;ordre dans lequel elles
+					doivent être appliquées. Le sommet a le Prioritt hchste</fr>
+				<nl>U kan bij de groepen sorteren de volgorde waarin ze moeten worden toegepast. De
+					top heeft de hchste Prioritt</nl>
+				<it>Si può presentare il tipo gruppi l&amp;#39;ordine in cui essi devono essere
+					applicate. La parte superiore ha il hchste Prioritt</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1774,12 +1905,16 @@
 			</entry>
 			<entry>
 				<id>54f4731545f7549313ce1f8dcb071198</id>
-				<org>Welche Gruppe möchtest du den Benutzern die in der gelöschten Gruppe sind zuweisen?</org>
+				<org>Welche Gruppe möchtest du den Benutzern die in der gelöschten Gruppe sind
+					zuweisen?</org>
 				<en>Interested in what category you assign users to gelschten in the group are?</en>
 				<es>¿Interesado en qué categoría se asigna a los usuarios gelschten en el grupo son?</es>
-				<fr>Intéressé à quelle catégorie vous assigner des utilisateurs à gelschten dans le groupe sont?</fr>
-				<nl>Geïnteresseerd in welke categorie u toewijst gebruikers gelschten in de groep zijn?</nl>
-				<it>Interessati a quale categoria si assegna agli utenti di gelschten del gruppo sono?</it>
+				<fr>Intéressé à quelle catégorie vous assigner des utilisateurs à gelschten dans le
+					groupe sont?</fr>
+				<nl>Geïnteresseerd in welke categorie u toewijst gebruikers gelschten in de groep
+					zijn?</nl>
+				<it>Interessati a quale categoria si assegna agli utenti di gelschten del gruppo
+					sono?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1807,19 +1942,28 @@
 				<org>Auf dieser Karte findest du alle Benutzer, die eine PLZ eingegeben haben.</org>
 				<en>On this map you will find all users who have entered a zip code.</en>
 				<es>En este mapa encontrarás todos los usuarios que han ingresado un código postal.</es>
-				<fr>Sur cette carte, vous trouverez tous les utilisateurs qui ont entré un code postal.</fr>
+				<fr>Sur cette carte, vous trouverez tous les utilisateurs qui ont entré un code
+					postal.</fr>
 				<nl>Op deze kaart vindt u alle gebruikers die zijn binnengekomen een postcode.</nl>
-				<it>Su questa mappa potrete trovare tutti gli utenti che sono entrati in un codice di avviamento postale.</it>
+				<it>Su questa mappa potrete trovare tutti gli utenti che sono entrati in un codice
+					di avviamento postale.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>30db0e19953c0646116e81ec1c8ed728</id>
-				<org>Du musst dich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben.</org>
-				<en>You must first create a Google under http://www.google.com/apis/maps/signup.html Maps API key and enter it in the%1.</en>
-				<es>Primero debe crear una clave de Google con http://www.google.com/apis/maps/signup.html Maps API e introducirla en el%1.</es>
-				<fr>Vous devez d&amp;#39;abord créer une sous clé Google Maps API http://www.google.com/apis/maps/signup.html et entrez-le dans le répertoire%1.</fr>
-				<nl>U moet eerst een kader http://www.google.com/apis/maps/signup.html Google Maps API-sleutel en voer het in de%1.</nl>
-				<it>È necessario innanzitutto creare un quadro http://www.google.com/apis/maps/signup.html Google Maps API key e inserirlo nella cartella%1.</it>
+				<org>Du musst dich zuerst unter http://www.google.com/apis/maps/signup.html einen
+					Google-Maps API Key erzeugen und diesen auf der %1 eingeben.</org>
+				<en>You must first create a Google under http://www.google.com/apis/maps/signup.html
+					Maps API key and enter it in the%1.</en>
+				<es>Primero debe crear una clave de Google con
+					http://www.google.com/apis/maps/signup.html Maps API e introducirla en el%1.</es>
+				<fr>Vous devez d&amp;#39;abord créer une sous clé Google Maps API
+					http://www.google.com/apis/maps/signup.html et entrez-le dans le répertoire%1.</fr>
+				<nl>U moet eerst een kader http://www.google.com/apis/maps/signup.html Google Maps
+					API-sleutel en voer het in de%1.</nl>
+				<it>È necessario innanzitutto creare un quadro
+					http://www.google.com/apis/maps/signup.html Google Maps API key e inserirlo
+					nella cartella%1.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1844,12 +1988,18 @@
 			</entry>
 			<entry>
 				<id>1784d98330683fbda5d224bdca9de1c5</id>
-				<org>Es gibt noch unausgefüllte Pflichtfelder in deinem Benutzerprofil. Bitte pflege diese nach</org>
-				<en>There are unfilled required fields in your user profile. Please take care of them after</en>
-				<es>Hay campos obligatorios sin llenar en su perfil de usuario. Por favor tenga cuidado de ellos después de</es>
-				<fr>Il ya en carnet champs requis dans votre profil utilisateur. S&amp;#39;il vous plaît prendre soin d&amp;#39;eux après</fr>
-				<nl>Er zijn onvervulde vereiste velden in uw gebruikersprofiel. Houdt u er zorg voor hen na</nl>
-				<it>Ci sono vacanti i campi richiesti nel profilo utente. Si prega di prendersi cura di loro, dopo</it>
+				<org>Es gibt noch unausgefüllte Pflichtfelder in deinem Benutzerprofil. Bitte pflege
+					diese nach</org>
+				<en>There are unfilled required fields in your user profile. Please take care of
+					them after</en>
+				<es>Hay campos obligatorios sin llenar en su perfil de usuario. Por favor tenga
+					cuidado de ellos después de</es>
+				<fr>Il ya en carnet champs requis dans votre profil utilisateur. S&amp;#39;il vous
+					plaît prendre soin d&amp;#39;eux après</fr>
+				<nl>Er zijn onvervulde vereiste velden in uw gebruikersprofiel. Houdt u er zorg voor
+					hen na</nl>
+				<it>Ci sono vacanti i campi richiesti nel profilo utente. Si prega di prendersi cura
+					di loro, dopo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1864,62 +2014,89 @@
 			</entry>
 			<entry>
 				<id>3cfa0c33ca17502b148b9c7d69cc086a</id>
-				<org>Diese Seite ermöglicht es dir deine Eintrittskarte zur Veranstaltung auszudrucken</org>
+				<org>Diese Seite ermöglicht es dir deine Eintrittskarte zur Veranstaltung
+					auszudrucken</org>
 				<en>This page allows you to print your admission ticket to the event</en>
 				<es>Esta página le permite imprimir tu boleto de entrada para el evento</es>
-				<fr>Cette page vous permet d&amp;#39;imprimer votre billet d&amp;#39;entrée à l&amp;#39;événement</fr>
+				<fr>Cette page vous permet d&amp;#39;imprimer votre billet d&amp;#39;entrée à
+					l&amp;#39;événement</fr>
 				<nl>Deze pagina kunt u uw toegangsbewijs tot het evenement af te drukken</nl>
-				<it>Questa pagina ti permette di stampare il biglietto d&amp;#39;ingresso per l&amp;#39;evento</it>
+				<it>Questa pagina ti permette di stampare il biglietto d&amp;#39;ingresso per
+					l&amp;#39;evento</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>878508319b73dfe092a35c3676230e3e</id>
-				<org>Eintrittskarte anzeigen (Bitte speichern sie die Datei vor dem &amp;ouml;ffnen ab.)</org>
+				<org>Eintrittskarte anzeigen (Bitte speichern sie die Datei vor dem &amp;ouml;ffnen
+					ab.)</org>
 				<en>Admission map (Please save the file before opening.)</en>
 				<es>Mapa de admisión (Por favor, guarde el archivo antes de abrirlo.)</es>
-				<fr>La carte d&amp;#39;admission (S&amp;#39;il vous plaît enregistrer le fichier avant de l&amp;#39;ouvrir.)</fr>
+				<fr>La carte d&amp;#39;admission (S&amp;#39;il vous plaît enregistrer le fichier
+					avant de l&amp;#39;ouvrir.)</fr>
 				<nl>Entree kaart (Sla het bestand voor het openen.)</nl>
 				<it>Mappa di ammissione (Si prega di salvare il file prima di aprire.)</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>74b47e4fdda9347c68b8762b0b07747c</id>
-				<org>Für die Eintrittskarte muss das PDF-Modul aktiv sein und es muss ein Template eingestellt sein.</org>
+				<org>Für die Eintrittskarte muss das PDF-Modul aktiv sein und es muss ein Template
+					eingestellt sein.</org>
 				<en>The ticket must have the PDF module to be active and it must be a template set.</en>
-				<es>El billete debe tener el módulo PDF para ser activo y debe ser un conjunto de plantillas.</es>
-				<fr>Le billet doit avoir le module de PDF pour être active et elle doit être un jeu de templates.</fr>
+				<es>El billete debe tener el módulo PDF para ser activo y debe ser un conjunto de
+					plantillas.</es>
+				<fr>Le billet doit avoir le module de PDF pour être active et elle doit être un jeu
+					de templates.</fr>
 				<nl>Het ticket moet de PDF-module actief te zijn en het moet een sjabloon ingesteld.</nl>
-				<it>Il biglietto deve avere il modulo PDF di essere attivo e deve essere un modello di serie.</it>
+				<it>Il biglietto deve avere il modulo PDF di essere attivo e deve essere un modello
+					di serie.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b0d2b68c2b194c535082d58517796fa7</id>
-				<org>Bist du sicher, dass du dem Benutzer &lt;b&gt;%1 %2 (%3)&lt;/b&gt; ein neues Passwort zuweisen willst?</org>
-				<en>Are you sure you want to assign to the user &lt;b&gt;%1 %2 (%3)&lt;/b&gt; a new password?</en>
-				<es>¿Estás seguro de que desea asignar al usuario &lt;b&gt;%1 %2 (%3)&lt;/b&gt; una nueva contraseña?</es>
-				<fr>Êtes-vous sûr que vous voulez attribuer à l&#39;utilisateur &lt;b&gt;%1 %2 (%3)&lt;/b&gt; un nouveau mot de passe?</fr>
-				<nl>Weet u zeker dat u wilt toewijzen aan de gebruiker &lt;b&gt;%1 %2(%3)&lt;/b&gt; een nieuw wachtwoord?</nl>
-				<it>Sei sicuro di voler assegnare per l&#39;utente &lt;b&gt;%1 %2 (%3),&lt;/b&gt; una nuova password?</it>
+				<org>Bist du sicher, dass du dem Benutzer &lt;b&gt;%1 %2 (%3)&lt;/b&gt; ein neues
+					Passwort zuweisen willst?</org>
+				<en>Are you sure you want to assign to the user &lt;b&gt;%1 %2 (%3)&lt;/b&gt; a new
+					password?</en>
+				<es>¿Estás seguro de que desea asignar al usuario &lt;b&gt;%1 %2 (%3)&lt;/b&gt; una
+					nueva contraseña?</es>
+				<fr>Êtes-vous sûr que vous voulez attribuer à l&#39;utilisateur &lt;b&gt;%1 %2
+					(%3)&lt;/b&gt; un nouveau mot de passe?</fr>
+				<nl>Weet u zeker dat u wilt toewijzen aan de gebruiker &lt;b&gt;%1 %2(%3)&lt;/b&gt;
+					een nieuw wachtwoord?</nl>
+				<it>Sei sicuro di voler assegnare per l&#39;utente &lt;b&gt;%1 %2 (%3),&lt;/b&gt;
+					una nuova password?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a25a2b45a188ba2953655d6ee01763fd</id>
-				<org>Du verfügst über ein geringeres Benutzerlevel, als derjenige, auf den du diese Funktion anwenden möchtest. Es wurde kein neues Passwort generiert</org>
-				<en>They have a lower user level than that to which you want to use this feature. It has generated a new password</en>
-				<es>Ellos tienen un menor nivel de usuario que aquel al que desea utilizar esta característica. Se ha generado una nueva contraseña</es>
-				<fr>Ils ont un niveau inférieur à l&amp;#39;utilisateur que celle à laquelle vous souhaitez utiliser cette fonctionnalité. Il a généré un nouveau mot de passe</fr>
-				<nl>Ze hebben een gebruiker lager niveau dan dat waarop u deze functie wilt gebruiken. Het heeft een nieuwe wachtwoord</nl>
-				<it>Hanno un basso livello di utente a quello di cui si desidera utilizzare questa funzionalità. Che ha generato una nuova password</it>
+				<org>Du verfügst über ein geringeres Benutzerlevel, als derjenige, auf den du diese
+					Funktion anwenden möchtest. Es wurde kein neues Passwort generiert</org>
+				<en>They have a lower user level than that to which you want to use this feature. It
+					has generated a new password</en>
+				<es>Ellos tienen un menor nivel de usuario que aquel al que desea utilizar esta
+					característica. Se ha generado una nueva contraseña</es>
+				<fr>Ils ont un niveau inférieur à l&amp;#39;utilisateur que celle à laquelle vous
+					souhaitez utiliser cette fonctionnalité. Il a généré un nouveau mot de passe</fr>
+				<nl>Ze hebben een gebruiker lager niveau dan dat waarop u deze functie wilt
+					gebruiken. Het heeft een nieuwe wachtwoord</nl>
+				<it>Hanno un basso livello di utente a quello di cui si desidera utilizzare questa
+					funzionalità. Che ha generato una nuova password</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0d4955cb9ce166c5a17ea5b9941bd0cb</id>
-				<org>Das Passwort von &lt;b&gt;%2 %3 (%4)&lt;/b&gt; wurde erfolgreich geändert.HTML_NEWLINEDas neue Passwort lautet &lt;b&gt;%1&lt;/b&gt;.</org>
-				<en>The password &lt;b&gt;of %2 %3 (%4)&lt;/b&gt; was successfully geändert.HTML_NEWLINEDas new password &lt;b&gt;is%1.&lt;/b&gt;</en>
-				<es>La contraseña &lt;b&gt;de %2 %3 (%4)&lt;/b&gt; con éxito nueva contraseña geändert.HTML_NEWLINEDas &lt;b&gt;es%1.&lt;/b&gt;</es>
-				<fr>Le mot de passe &lt;b&gt;de %2 %3 (%4)&lt;/b&gt; a été avec succès geändert.HTML_NEWLINEDas nouveau mot de passe &lt;b&gt;est%1.&lt;/b&gt;</fr>
-				<nl>Het wachtwoord &lt;b&gt;van %2 %3 (%4)&lt;/b&gt; is succesvol geändert.HTML_NEWLINEDas nieuwe wachtwoord &lt;b&gt;is%1.&lt;/b&gt;</nl>
-				<it>La password &lt;b&gt;del %3al %2 (%4)&lt;/b&gt; è stata con successo geändert.HTML_NEWLINEDas nuova password &lt;b&gt;è%1.&lt;/b&gt;</it>
+				<org>Das Passwort von &lt;b&gt;%2 %3 (%4)&lt;/b&gt; wurde erfolgreich
+					geändert.HTML_NEWLINEDas neue Passwort lautet &lt;b&gt;%1&lt;/b&gt;.</org>
+				<en>The password &lt;b&gt;of %2 %3 (%4)&lt;/b&gt; was successfully
+					geändert.HTML_NEWLINEDas new password &lt;b&gt;is%1.&lt;/b&gt;</en>
+				<es>La contraseña &lt;b&gt;de %2 %3 (%4)&lt;/b&gt; con éxito nueva contraseña
+					geändert.HTML_NEWLINEDas &lt;b&gt;es%1.&lt;/b&gt;</es>
+				<fr>Le mot de passe &lt;b&gt;de %2 %3 (%4)&lt;/b&gt; a été avec succès
+					geändert.HTML_NEWLINEDas nouveau mot de passe &lt;b&gt;est%1.&lt;/b&gt;</fr>
+				<nl>Het wachtwoord &lt;b&gt;van %2 %3 (%4)&lt;/b&gt; is succesvol
+					geändert.HTML_NEWLINEDas nieuwe wachtwoord &lt;b&gt;is%1.&lt;/b&gt;</nl>
+				<it>La password &lt;b&gt;del %3al %2 (%4)&lt;/b&gt; è stata con successo
+					geändert.HTML_NEWLINEDas nuova password &lt;b&gt;è%1.&lt;/b&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1937,7 +2114,8 @@
 				<org>Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.</org>
 				<en>There was an error while sending the information e-mail.</en>
 				<es>Se produjo un error al enviar la información de correo electrónico.</es>
-				<fr>Il ya eu une erreur lors de l&amp;#39;envoi des informations par courrier électronique.</fr>
+				<fr>Il ya eu une erreur lors de l&amp;#39;envoi des informations par courrier
+					électronique.</fr>
 				<nl>Er is een fout opgetreden bij het verzenden van de informatie e-mail.</nl>
 				<it>Si è verificato un errore durante l&amp;#39;invio delle informazioni e-mail.</it>
 				<file>usrmgr</file>
@@ -1954,12 +2132,18 @@
 			</entry>
 			<entry>
 				<id>dde3f908a92cf1d24f81bae749d973fb</id>
-				<org>Du kannst dich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist</org>
-				<en>You may register at no more to this party, unsubscribe, or because it is already over</en>
-				<es>Usted se puede inscribir en no más a este partido, darse de baja, o porque ya es más de</es>
-				<fr>Vous mai s&amp;#39;inscrire sans plus pour ce parti, vous désabonner, ou parce qu&amp;#39;elle est déjà terminée</fr>
-				<nl>U kunt inschrijven op niet meer aan deze partij, afmelden, of omdat het al meer dan</nl>
-				<it>È possibile registrarsi a non più di questo partito, cancellati, o perché è già finita</it>
+				<org>Du kannst dich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits
+					vorüber ist</org>
+				<en>You may register at no more to this party, unsubscribe, or because it is already
+					over</en>
+				<es>Usted se puede inscribir en no más a este partido, darse de baja, o porque ya es
+					más de</es>
+				<fr>Vous mai s&amp;#39;inscrire sans plus pour ce parti, vous désabonner, ou parce
+					qu&amp;#39;elle est déjà terminée</fr>
+				<nl>U kunt inschrijven op niet meer aan deze partij, afmelden, of omdat het al meer
+					dan</nl>
+				<it>È possibile registrarsi a non più di questo partito, cancellati, o perché è già
+					finita</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1984,12 +2168,18 @@
 			</entry>
 			<entry>
 				<id>c297fc3c889bb0b4b2c511599d4abfc4</id>
-				<org>Du bist für diese Party bereits auf bezahlt gesetzt. Bitte einen Admin dich auf &quot;nicht bezahlt&quot; zu setzen, bevor du dich abmeldest</org>
-				<en>You are already paying for this party set. Ask an admin share on &amp;quot;not paid&amp;quot; before logging off</en>
-				<es>Usted ya está pagando por este partido establecido. Pida una cuota de admin el &amp;quot;no pagar&amp;quot; antes de cerrar la sesión</es>
-				<fr>Vous payez déjà pour ce parti fixés. Demandez une part admin le «non payé» avant de vous déconnecter</fr>
-				<nl>U bent al betaalt voor deze partij stellen. Vraag het een admin aandeel op &amp;quot;niet betaald&amp;quot; voor afmelden</nl>
-				<it>Si stanno già pagando per questa festa insieme. Chiedere una quota di admin il &amp;quot;non pagato&amp;quot; prima della disconnessione</it>
+				<org>Du bist für diese Party bereits auf bezahlt gesetzt. Bitte einen Admin dich auf
+					&quot;nicht bezahlt&quot; zu setzen, bevor du dich abmeldest</org>
+				<en>You are already paying for this party set. Ask an admin share on &amp;quot;not
+					paid&amp;quot; before logging off</en>
+				<es>Usted ya está pagando por este partido establecido. Pida una cuota de admin el
+					&amp;quot;no pagar&amp;quot; antes de cerrar la sesión</es>
+				<fr>Vous payez déjà pour ce parti fixés. Demandez une part admin le «non payé» avant
+					de vous déconnecter</fr>
+				<nl>U bent al betaalt voor deze partij stellen. Vraag het een admin aandeel op
+					&amp;quot;niet betaald&amp;quot; voor afmelden</nl>
+				<it>Si stanno già pagando per questa festa insieme. Chiedere una quota di admin il
+					&amp;quot;non pagato&amp;quot; prima della disconnessione</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -2177,19 +2367,27 @@
 				<org>Für den System-Account darf kein neues Passwort generiert werden</org>
 				<en>For the system account not a new password can be generated</en>
 				<es>Para la cuenta de sistema no una nueva contraseña se puede generar</es>
-				<fr>Pour le compte système n&amp;#39;est pas un nouveau mot de passe peuvent être générés</fr>
+				<fr>Pour le compte système n&amp;#39;est pas un nouveau mot de passe peuvent être
+					générés</fr>
 				<nl>Voor het systeem rekening kan niet een nieuw wachtwoord worden gegenereerd</nl>
 				<it>Per l&amp;#39;account di sistema non è una nuova password può essere generato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>252148a47b3fdbfa32da59349bad9053</id>
-				<org>dir wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit dem Aufruf dieser URL wird Dein neues Passwort generiert werden.</org>
-				<en>They were then sent to a de-energizing URL to the specified email address. By entering this URL Your new password will be generated.</en>
-				<es>Luego fueron enviados a un desenergizar URL a la dirección de correo electrónico especificada. Al entrar en este URL de tu nueva contraseña será generada.</es>
-				<fr>Ils ont ensuite été envoyés à une mise hors tension Web à l&amp;#39;adresse mail indiquée. En s&amp;#39;inscrivant à cette adresse URL de votre nouveau mot de passe sera généré.</fr>
-				<nl>Ze werden vervolgens naar een de-energizing URL naar het opgegeven e-mailadres. Door het invoeren van deze URL Uw nieuwe wachtwoord zal worden gegenereerd.</nl>
-				<it>Sono stati quindi inviati a un de-energizzante URL l&amp;#39;indirizzo email specificato. Entrando in questo URL La nuova password sarà generata.</it>
+				<org>dir wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit
+					dem Aufruf dieser URL wird Dein neues Passwort generiert werden.</org>
+				<en>They were then sent to a de-energizing URL to the specified email address. By
+					entering this URL Your new password will be generated.</en>
+				<es>Luego fueron enviados a un desenergizar URL a la dirección de correo electrónico
+					especificada. Al entrar en este URL de tu nueva contraseña será generada.</es>
+				<fr>Ils ont ensuite été envoyés à une mise hors tension Web à l&amp;#39;adresse mail
+					indiquée. En s&amp;#39;inscrivant à cette adresse URL de votre nouveau mot de
+					passe sera généré.</fr>
+				<nl>Ze werden vervolgens naar een de-energizing URL naar het opgegeven e-mailadres.
+					Door het invoeren van deze URL Uw nieuwe wachtwoord zal worden gegenereerd.</nl>
+				<it>Sono stati quindi inviati a un de-energizzante URL l&amp;#39;indirizzo email
+					specificato. Entrando in questo URL La nuova password sarà generata.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -2206,30 +2404,48 @@
 				<id>0f1f9436e12aefcfe1bb87154229936c</id>
 				<org>Das neue Kennwort wurde erfolgreich generiert.HTML_NEWLINEEs lautet:</org>
 				<en>The new password has been successfully generiert.HTML_NEWLINEEs reads:</en>
-				<es>La nueva contraseña ha sido exitosamente generiert.HTML_NEWLINEEs dice lo siguiente:</es>
-				<fr>Le nouveau mot de passe a été correctement generiert.HTML_NEWLINEEs lit comme suit:</fr>
+				<es>La nueva contraseña ha sido exitosamente generiert.HTML_NEWLINEEs dice lo
+					siguiente:</es>
+				<fr>Le nouveau mot de passe a été correctement generiert.HTML_NEWLINEEs lit comme
+					suit:</fr>
 				<nl>Het nieuwe wachtwoord is met succes generiert.HTML_NEWLINEEs luidt als volgt:</nl>
 				<it>La nuova password è stata correttamente generiert.HTML_NEWLINEEs recita:</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>106953b3883d86158f874bd735a18f7c</id>
-				<org>Der von dir Ã¼bermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prÃ¼fe, ob die URL komplett aus der Benachrichtigungs-Mail kopiert haben.</org>
-				<en>The bermittelte you Ã ¼ Freischaltecode is incorrect! It has generated a new password. Please check your fen you whether you have completely copied the URL from the notification email.</en>
-				<es>El bermittelte un ¼ Freischaltecode es incorrecta! Se ha generado una nueva contraseña. Por favor, consulte su fen si usted ha copiado completamente la dirección de correo electrónico de notificación.</es>
-				<fr>Le vous bermittelte Ã ¼ Freischaltecode est incorrecte! Il a généré un nouveau mot de passe. S&amp;#39;il vous plaît vérifier votre fen-vous si vous avez copié l&amp;#39;URL complète de l&amp;#39;e-mail de notification.</fr>
-				<nl>De bermittelte je Ã ¼ Freischaltecode is onjuist! Het heeft een nieuwe wachtwoord. Controleer uw moeras of u volledig hebben de URL gekopieerd van de aanmelding e-mail.</nl>
-				<it>Il bermittelte si Ã ¼ Freischaltecode non è corretto! Che ha generato una nuova password. Controlla la tua fen se si è completamente copiato l&amp;#39;URL dalla mail di notifica.</it>
+				<org>Der von dir Ã¼bermittelte Freischaltecode ist inkorrekt! Es wurde kein neues
+					Kennwort generiert. Bitte prÃ¼fe, ob die URL komplett aus der
+					Benachrichtigungs-Mail kopiert haben.</org>
+				<en>The bermittelte you Ã ¼ Freischaltecode is incorrect! It has generated a new
+					password. Please check your fen you whether you have completely copied the URL
+					from the notification email.</en>
+				<es>El bermittelte un ¼ Freischaltecode es incorrecta! Se ha generado una nueva
+					contraseña. Por favor, consulte su fen si usted ha copiado completamente la
+					dirección de correo electrónico de notificación.</es>
+				<fr>Le vous bermittelte Ã ¼ Freischaltecode est incorrecte! Il a généré un nouveau
+					mot de passe. S&amp;#39;il vous plaît vérifier votre fen-vous si vous avez copié
+					l&amp;#39;URL complète de l&amp;#39;e-mail de notification.</fr>
+				<nl>De bermittelte je Ã ¼ Freischaltecode is onjuist! Het heeft een nieuwe
+					wachtwoord. Controleer uw moeras of u volledig hebben de URL gekopieerd van de
+					aanmelding e-mail.</nl>
+				<it>Il bermittelte si Ã ¼ Freischaltecode non è corretto! Che ha generato una nuova
+					password. Controlla la tua fen se si è completamente copiato l&amp;#39;URL dalla
+					mail di notifica.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a5f6126a37c91e5ffce3181cde6eef53</id>
-				<org>Bitte geben Sie die Email-Adresse ein, mit der Sie sich am System angemeldet haben</org>
+				<org>Bitte geben Sie die Email-Adresse ein, mit der Sie sich am System angemeldet
+					haben</org>
 				<en>Please enter the email address with which you are logged into the system have</en>
-				<es>Por favor, introduzca la dirección de correo electrónico con el que se registran en el sistema han</es>
-				<fr>S&amp;#39;il vous plaît entrez l&amp;#39;adresse e-mail avec laquelle vous êtes connecté au système ont</fr>
+				<es>Por favor, introduzca la dirección de correo electrónico con el que se registran
+					en el sistema han</es>
+				<fr>S&amp;#39;il vous plaît entrez l&amp;#39;adresse e-mail avec laquelle vous êtes
+					connecté au système ont</fr>
 				<nl>Vul het e-mailadres waarmee u bent aangemeld in het systeem hebben</nl>
-				<it>Inserisci l&amp;#39;indirizzo email con il quale si è registrato nel sistema hanno</it>
+				<it>Inserisci l&amp;#39;indirizzo email con il quale si è registrato nel sistema
+					hanno</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -2626,7 +2842,8 @@
 				<id>c3f497fb804c7651f47f01bb89d91bf5</id>
 				<org>Deine Email-Adresse wurde erfolgreich verifiziert. Vielen Dank!</org>
 				<en>Your email address has been successfully verified. Thank you very much!</en>
-				<es>Su dirección de correo electrónico se ha verificado correctamente. Muchas gracias!</es>
+				<es>Su dirección de correo electrónico se ha verificado correctamente. Muchas
+					gracias!</es>
 				<fr>Votre adresse email a été vérifié avec succès. Merci beaucoup!</fr>
 				<nl>Uw e-mailadres is geverifieerd. Hartelijk dank!</nl>
 				<it>Il tuo indirizzo email è stato verificato correttamente. Grazie mille!</it>
@@ -2634,42 +2851,84 @@
 			</entry>
 			<entry>
 				<id>b871c0aeabd5f0a2f4d136f3613c73e7</id>
-				<org>Der von dir Übermittelte Verifizierungscode ist inkorrekt! Bitte prüfen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.</org>
-				<en>Information reported by you, the verification code is incorrect! Please check that you have completely copied the URL from the notification email.</en>
-				<es>Información presentada por usted, el código de verificación es incorrecta! Por favor, compruebe que ha copiado completamente la dirección de correo electrónico de notificación.</es>
-				<fr>Information communiquée par vous, le code de vérification est incorrect! S&amp;#39;il vous plaît vérifiez que vous avez copié l&amp;#39;URL complète de l&amp;#39;e-mail de notification.</fr>
-				<nl>Informatie gemeld door u, de verificatie code is onjuist! Controleer of u volledig hebben de URL gekopieerd van de aanmelding e-mail.</nl>
-				<it>Informazioni fornite da voi, il codice di verifica non è corretto! Si prega di verificare di aver completamente copiato l&amp;#39;URL dalla mail di notifica.</it>
+				<org>Der von dir Übermittelte Verifizierungscode ist inkorrekt! Bitte prüfen Sie, ob
+					Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.</org>
+				<en>Information reported by you, the verification code is incorrect! Please check
+					that you have completely copied the URL from the notification email.</en>
+				<es>Información presentada por usted, el código de verificación es incorrecta! Por
+					favor, compruebe que ha copiado completamente la dirección de correo electrónico
+					de notificación.</es>
+				<fr>Information communiquée par vous, le code de vérification est incorrect!
+					S&amp;#39;il vous plaît vérifiez que vous avez copié l&amp;#39;URL complète de
+					l&amp;#39;e-mail de notification.</fr>
+				<nl>Informatie gemeld door u, de verificatie code is onjuist! Controleer of u
+					volledig hebben de URL gekopieerd van de aanmelding e-mail.</nl>
+				<it>Informazioni fornite da voi, il codice di verifica non è corretto! Si prega di
+					verificare di aver completamente copiato l&amp;#39;URL dalla mail di notifica.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2c4c27cd20c81464afd5f280cce9d6e7</id>
-				<org>Neuer Gast. Einen &lt;b&gt;Account erstellen&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.&lt;/i&gt;</org>
-				<en>New guest. &lt;b&gt;Create&lt;/b&gt; an &lt;b&gt;account&lt;/b&gt; &lt;br /&gt; &lt;i&gt;It will only create an e-mail address and password automatically. All other data is provided by the user with a login on the first itself.&lt;/i&gt;</en>
-				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Sólo se creará una dirección de correo electrónico y la contraseña de forma automática. Todos los demás datos es proporcionada por el usuario con un inicio de sesión en el primero sí.&lt;/i&gt;</es>
-				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Il ne fera que créer une adresse e-mail et mot de passe automatiquement. Toutes les autres données sont fournies par l&amp;#39;utilisateur avec un login sur le premier lui-même.&lt;/i&gt;</fr>
-				<nl>Nieuwe gasten. &lt;b&gt;Maak&lt;/b&gt; een &lt;b&gt;account&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Het zal alleen een e-mail adres en wachtwoord automatisch. Alle andere gegevens worden verstrekt door de gebruiker met een login op de eerste zelf.&lt;/i&gt;</nl>
-				<it>Nuovo ospite. &lt;b&gt;Crea&lt;/b&gt; un &lt;b&gt;account&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Sarà solo per creare un indirizzo e-mail e la password automaticamente. Tutti gli altri dati sono forniti dagli utenti con un account di accesso al primo stessa.&lt;/i&gt;</it>
+				<org>Neuer Gast. Einen &lt;b&gt;Account erstellen&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Es
+					wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert.
+					Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst
+					ein.&lt;/i&gt;</org>
+				<en>New guest. &lt;b&gt;Create&lt;/b&gt; an &lt;b&gt;account&lt;/b&gt; &lt;br /&gt;
+					&lt;i&gt;It will only create an e-mail address and password automatically. All
+					other data is provided by the user with a login on the first itself.&lt;/i&gt;</en>
+				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta&lt;/b&gt; &lt;br
+					/&gt; &lt;i&gt;Sólo se creará una dirección de correo electrónico y la
+					contraseña de forma automática. Todos los demás datos es proporcionada por el
+					usuario con un inicio de sesión en el primero sí.&lt;/i&gt;</es>
+				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte&lt;/b&gt; &lt;br
+					/&gt; &lt;i&gt;Il ne fera que créer une adresse e-mail et mot de passe
+					automatiquement. Toutes les autres données sont fournies par
+					l&amp;#39;utilisateur avec un login sur le premier lui-même.&lt;/i&gt;</fr>
+				<nl>Nieuwe gasten. &lt;b&gt;Maak&lt;/b&gt; een &lt;b&gt;account&lt;/b&gt; &lt;br
+					/&gt; &lt;i&gt;Het zal alleen een e-mail adres en wachtwoord automatisch. Alle
+					andere gegevens worden verstrekt door de gebruiker met een login op de eerste
+					zelf.&lt;/i&gt;</nl>
+				<it>Nuovo ospite. &lt;b&gt;Crea&lt;/b&gt; un &lt;b&gt;account&lt;/b&gt; &lt;br /&gt;
+					&lt;i&gt;Sarà solo per creare un indirizzo e-mail e la password automaticamente.
+					Tutti gli altri dati sono forniti dagli utenti con un account di accesso al
+					primo stessa.&lt;/i&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cf8f638099c7276677856b18e018a6b5</id>
-				<org>Neuer Gast. Einen &lt;b&gt;erweiterten Account erstellen&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Hier legst du direkt am Einlass alle Benutzerdaten fest.&lt;/i&gt;</org>
-				<en>New guest. &lt;b&gt;Create&lt;/b&gt; an &lt;b&gt;extended account&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Here you can put directly on the inlet solid all user data.&lt;/i&gt;</en>
-				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta extendido&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Aquí se puede poner directamente en la sólida entrada de todos los datos de usuario.&lt;/i&gt;</es>
-				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte étendu&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Ici, vous pouvez directement mis sur le solide d&amp;#39;entrée de toutes les données utilisateur.&lt;/i&gt;</fr>
-				<nl>Nieuwe gasten. &lt;b&gt;Maak&lt;/b&gt; een &lt;b&gt;uitgebreid account&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Hier kunt u rechtstreeks op de inlaat solide alle gebruikersgegevens.&lt;/i&gt;</nl>
-				<it>Nuovo ospite. &lt;b&gt;Creare&lt;/b&gt; un &lt;b&gt;account esteso&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Qui si può mettere direttamente il condotto di aspirazione solidi tutti i dati utente.&lt;/i&gt;</it>
+				<org>Neuer Gast. Einen &lt;b&gt;erweiterten Account erstellen&lt;/b&gt;&lt;br
+					/&gt;&lt;i&gt;Hier legst du direkt am Einlass alle Benutzerdaten fest.&lt;/i&gt;</org>
+				<en>New guest. &lt;b&gt;Create&lt;/b&gt; an &lt;b&gt;extended account&lt;/b&gt;
+					&lt;br /&gt; &lt;i&gt;Here you can put directly on the inlet solid all user
+					data.&lt;/i&gt;</en>
+				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta extendido&lt;/b&gt;
+					&lt;br /&gt; &lt;i&gt;Aquí se puede poner directamente en la sólida entrada de
+					todos los datos de usuario.&lt;/i&gt;</es>
+				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte étendu&lt;/b&gt;
+					&lt;br /&gt; &lt;i&gt;Ici, vous pouvez directement mis sur le solide
+					d&amp;#39;entrée de toutes les données utilisateur.&lt;/i&gt;</fr>
+				<nl>Nieuwe gasten. &lt;b&gt;Maak&lt;/b&gt; een &lt;b&gt;uitgebreid account&lt;/b&gt;
+					&lt;br /&gt; &lt;i&gt;Hier kunt u rechtstreeks op de inlaat solide alle
+					gebruikersgegevens.&lt;/i&gt;</nl>
+				<it>Nuovo ospite. &lt;b&gt;Creare&lt;/b&gt; un &lt;b&gt;account esteso&lt;/b&gt;
+					&lt;br /&gt; &lt;i&gt;Qui si può mettere direttamente il condotto di aspirazione
+					solidi tutti i dati utente.&lt;/i&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c59bf87ad94077fa158bcbd9490f2190</id>
-				<org>Willst du diesem Benutzer einen Sitzplatz zuweisen?&lt;br /&gt;Er sitzt aktuell auf:&lt;br /&gt;%1</org>
-				<en>Do you want to assign that user a seat? &lt;br /&gt; He currently sits on: &lt;br /&gt; %1</en>
-				<es>¿Desea asignar a dicho usuario un asiento? &lt;br /&gt; Actualmente se encuentra en: &lt;br /&gt; %1</es>
-				<fr>Ne vous souhaitez attribuer à cet utilisateur un siège? &lt;br /&gt; Il siège actuellement sur: &lt;br /&gt; %1</fr>
-				<nl>Wilt u die gebruiker toe een stoel? &lt;br /&gt; Hij zit momenteel op: &lt;br /&gt; %1</nl>
-				<it>Volete assegnare ad un utente la sede? &lt;br /&gt; Si siede attualmente in: &lt;br /&gt; %1</it>
+				<org>Willst du diesem Benutzer einen Sitzplatz zuweisen?&lt;br /&gt;Er sitzt aktuell
+					auf:&lt;br /&gt;%1</org>
+				<en>Do you want to assign that user a seat? &lt;br /&gt; He currently sits on:
+					&lt;br /&gt; %1</en>
+				<es>¿Desea asignar a dicho usuario un asiento? &lt;br /&gt; Actualmente se encuentra
+					en: &lt;br /&gt; %1</es>
+				<fr>Ne vous souhaitez attribuer à cet utilisateur un siège? &lt;br /&gt; Il siège
+					actuellement sur: &lt;br /&gt; %1</fr>
+				<nl>Wilt u die gebruiker toe een stoel? &lt;br /&gt; Hij zit momenteel op: &lt;br
+					/&gt; %1</nl>
+				<it>Volete assegnare ad un utente la sede? &lt;br /&gt; Si siede attualmente in:
+					&lt;br /&gt; %1</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -2714,12 +2973,18 @@
 			</entry>
 			<entry>
 				<id>322300b8c47b9c8651823cad639c4a1f</id>
-				<org>Hier kannst du die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die höchste Priorität</org>
-				<en>You can sort the groups in which order they should be applied. The top has the highest priority</en>
-				<es>Puede ordenar los grupos en que orden en que deben aplicarse. La parte superior tiene la más alta prioridad</es>
-				<fr>Vous pouvez trier les groupes de l&amp;#39;ordre dans lequel elles doivent être appliquées. Le sommet a la plus haute priorité</fr>
-				<nl>U kunt de groepen in welke volgorde ze moeten worden toegepast. De top heeft de hoogste prioriteit</nl>
-				<it>È possibile ordinare i gruppi in cui essi dovrebbero essere applicate. La parte superiore ha la massima priorità</it>
+				<org>Hier kannst du die Gruppen sortieren in welcher Reihenfolge sie Angewendet
+					werden sollen. Die oberste hat die höchste Priorität</org>
+				<en>You can sort the groups in which order they should be applied. The top has the
+					highest priority</en>
+				<es>Puede ordenar los grupos en que orden en que deben aplicarse. La parte superior
+					tiene la más alta prioridad</es>
+				<fr>Vous pouvez trier les groupes de l&amp;#39;ordre dans lequel elles doivent être
+					appliquées. Le sommet a la plus haute priorité</fr>
+				<nl>U kunt de groepen in welke volgorde ze moeten worden toegepast. De top heeft de
+					hoogste prioriteit</nl>
+				<it>È possibile ordinare i gruppi in cui essi dovrebbero essere applicate. La parte
+					superiore ha la massima priorità</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -2734,10 +2999,12 @@
 			</entry>
 			<entry>
 				<id>1dbf8f1a03e420baa7be645370a92edc</id>
-				<org>Welche Gruppe möchten Sie den Benutzern die in der gelöschten Gruppe sind zuweisen?</org>
+				<org>Welche Gruppe möchten Sie den Benutzern die in der gelöschten Gruppe sind
+					zuweisen?</org>
 				<en>Which group you want to assign to users in the group are the deleted?</en>
 				<es>¿Qué grupo que desea asignar a los usuarios en el grupo son las suprime?</es>
-				<fr>Quel est le groupe que vous souhaitez attribuer à des utilisateurs dans le groupe sont les supprimer?</fr>
+				<fr>Quel est le groupe que vous souhaitez attribuer à des utilisateurs dans le
+					groupe sont les supprimer?</fr>
 				<nl>Welke groep u wilt toewijzen aan gebruikers in de groep zijn de verwijderde?</nl>
 				<it>Gruppo che si desidera assegnare agli utenti del gruppo sono gli eliminati?</it>
 				<file>usrmgr</file>
@@ -2774,12 +3041,24 @@
 			</entry>
 			<entry>
 				<id>f191b53605c6341fe10e5ff0e43bc6d1</id>
-				<org>Der von dir übermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prüfe, ob du die URL komplett aus der Benachrichtigungs-Mail kopiert hast.</org>
-				<en>The Freischaltecode you submitted is incorrect! It did not generate a new password. Please check that you have completely copied the URL from the notification email.</en>
-				<es>El Freischaltecode que ha enviado es incorrecta! Se ha generado una nueva contraseña. Por favor, compruebe que ha copiado completamente la dirección de correo electrónico de notificación.</es>
-				<fr>Le Freischaltecode vous avez présenté est incorrecte! Il a généré un nouveau mot de passe. S&amp;#39;il vous plaît vérifiez que vous avez copié l&amp;#39;URL complète de l&amp;#39;e-mail de notification.</fr>
-				<nl>De Freischaltecode die u heeft opgegeven is onjuist! Het heeft een nieuwe wachtwoord. Controleer of u volledig hebben de URL gekopieerd van de aanmelding e-mail.</nl>
-				<it>Il Freischaltecode hai inviato non è corretto! Che ha generato una nuova password. Si prega di verificare di aver completamente copiato l&amp;#39;URL dalla mail di notifica.</it>
+				<org>Der von dir übermittelte Freischaltecode ist inkorrekt! Es wurde kein neues
+					Kennwort generiert. Bitte prüfe, ob du die URL komplett aus der
+					Benachrichtigungs-Mail kopiert hast.</org>
+				<en>The Freischaltecode you submitted is incorrect! It did not generate a new
+					password. Please check that you have completely copied the URL from the
+					notification email.</en>
+				<es>El Freischaltecode que ha enviado es incorrecta! Se ha generado una nueva
+					contraseña. Por favor, compruebe que ha copiado completamente la dirección de
+					correo electrónico de notificación.</es>
+				<fr>Le Freischaltecode vous avez présenté est incorrecte! Il a généré un nouveau mot
+					de passe. S&amp;#39;il vous plaît vérifiez que vous avez copié l&amp;#39;URL
+					complète de l&amp;#39;e-mail de notification.</fr>
+				<nl>De Freischaltecode die u heeft opgegeven is onjuist! Het heeft een nieuwe
+					wachtwoord. Controleer of u volledig hebben de URL gekopieerd van de aanmelding
+					e-mail.</nl>
+				<it>Il Freischaltecode hai inviato non è corretto! Che ha generato una nuova
+					password. Si prega di verificare di aver completamente copiato l&amp;#39;URL
+					dalla mail di notifica.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -3088,7 +3367,8 @@
 				<en>This user is currently logged on to a party. They sign him first from</en>
 				<es>Este usuario no está conectado a una fiesta. Ellos firman lo primero de</es>
 				<fr>Cet utilisateur est actuellement connecté à un parti. Ils le premier signe de</fr>
-				<nl>Deze gebruiker is momenteel aangemeld bij een partij. Zij ondertekenen hem eerst uit</nl>
+				<nl>Deze gebruiker is momenteel aangemeld bij een partij. Zij ondertekenen hem eerst
+					uit</nl>
 				<it>Questo utente è attualmente connesso a una festa. Segno che lui per primo da</it>
 				<file>usrmgr</file>
 			</entry>
@@ -3144,7 +3424,8 @@
 			</entry>
 			<entry>
 				<id>bc5520abc2003d74de52d61c030a03c9</id>
-				<org>Du must mindestens %1 Jahre alt sein um an dieser Party teilnehmen zu d&uuml;rfen!</org>
+				<org>Du must mindestens %1 Jahre alt sein um an dieser Party teilnehmen zu
+					d&uuml;rfen!</org>
 				<en>You have to be at least %1 years old for this party!</en>
 				<file>usrmgr</file>
 			</entry>

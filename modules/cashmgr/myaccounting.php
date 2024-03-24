@@ -1,6 +1,7 @@
 <?php
 
 $actParameter = $_GET['act'] ?? '';
+$userid = null;
 if ($actParameter == "him" && $auth['type'] < \LS_AUTH_TYPE_SUPERADMIN) {
     $func->information("ACCESS_DENIED");
 } elseif ($actParameter == "him" && $auth['type'] == \LS_AUTH_TYPE_SUPERADMIN) {
