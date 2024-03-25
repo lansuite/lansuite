@@ -1,46 +1,33 @@
 <?php
 $dsp->NewContent(t('Geburtstage'), t('Hier kannst du die Geburtstage deiner Mitspieler einsehen'));
 
-$display = '
-	<table class=tbl_0>
-		<tr>
-			<th>Username</th>
-			<th>Name</th>
-			<th>Geburtstag</th>
-		</tr>';
+$ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
-$sqlQuery = '
-	SELECT
-		`%prefix%user`.`name`,
-		`%prefix%user`.`firstname`,
-		`%prefix%user`.`username`,
-		`%prefix%user`.`birthday`
-	FROM `%prefix%user`
-	WHERE
-		`%prefix%user`.`show_birthday` = 1
-		AND `%prefix%user`.`birthday` > 0
-	ORDER BY `%prefix%user`.`birthday` ASC';
+$ms2->query['from'] = "%prefix%user AS u
+    LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
+    LEFT JOIN %prefix%party_prices AS i ON i.party_id = p.party_id AND i.price_id = p.price_id";
 
-$userWithBirthdays = $database->queryWithFullResult($sqlQuery);
+$ms2->query['where'] = '1 = 1';
+$ms2->query['default_order_by'] = 'birthday DESC';
 
-foreach ($userWithBirthdays as $birthdays) {
-	$name = $birthdays['name'];
-	$firstname = $birthdays['firstname'];
-	$username = $birthdays['username'];
-	$birthday = date('d.m.Y', strtotime($birthdays['birthday']));
+$ms2->config['EntriesPerPage'] = 20;
 
-	$display .= '
-		<tr>
-			<td>' . $username . '</td>
-			<td>' . $firstname . ' ' . $name .' </td>
-			<td>' .  $birthday . '</td>
-		</tr>';
+$ms2->AddTextSearchField(t('Benutzername'), array('u.username' => '1337'));
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
+$ms2->AddTextSearchField(t('Userid'), array('u.userid' => 'exact'));
+$ms2->AddTextSearchField(t('Name'), array('u.name' => 'like', 'u.firstname' => 'like'));
 }
+$ms2->AddTextSearchField(t('Geburtstag'), array('birthday' => 'like'));
 
-$display .= '</table>';
-
-if (count($userWithBirthdays) > 0) {
-	$dsp->AddSingleRow($display);
-} else {
-	$dsp->AddSingleRow('Niemand hat seinen Geburtstag eingetragen oder als sichtbar konfiguriert.');
+$ms2->AddResultField(t('Benutzername'), 'u.username');
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
+    $ms2->AddResultField(t('Vorname'), 'u.firstname');
+    $ms2->AddResultField(t('Nachname'), 'u.name');
 }
+$ms2->AddResultField(t('Geburtstag anzeigen'), 'IF(u.show_birthday, "ja", "nein") AS show_birthday');
+$ms2->AddResultField('Geburtstag', 'DATE_FORMAT(birthday, "%d.%m.%Y") as birthd');
+$ms2->AddResultField(t('Alter'), 'DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),birthday)), "%Y") + 0 AS age');
+ 
+$ms2->AddIconField('details', 'index.php?mod=guestlist&action=details&userid=', t('Details'));
+
+$ms2->PrintSearch('index.php?mod=birthday', 'u.userid');
