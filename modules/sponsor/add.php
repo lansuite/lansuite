@@ -13,12 +13,10 @@ if ($_GET['action'] == 'change' && $sponsorIdParameter == '') {
     $mf->AddGroup('General');
 
     $code_popup_link_banner = '<ul>
-    <li><a href="javascript:OpenHelplet(\'sponsor\', \'ngl\');">NGL-Button</a></li>
     <li><a href="javascript:OpenHelplet(\'sponsor\', \'adsense\');">Google Anzeigen</a></li>
     </ul>';
 
     $code_popup_link_box = '<ul>
-    <li><a href="javascript:OpenHelplet(\'sponsor\', \'ngl\');">NGL-Button</a></li>
     <li><a href="javascript:OpenHelplet(\'sponsor\', \'adsense_box\');">Google Anzeigen</a></li>
     </ul>';
 
