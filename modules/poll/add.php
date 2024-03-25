@@ -23,7 +23,7 @@ if ($pollOptionParameter) {
 } elseif ($pollIdParameter) {
     $res = $db->qry('SELECT caption FROM %prefix%polloptions WHERE pollid = %int% ORDER BY polloptionid', $pollIdParameter);
     for ($z = 1; $row = $db->fetch_array($res); $z++) {
-        if (!$_POST["poll_option[$z]"]) {
+        if (!array_key_exists("poll_option[$z]", $_POST)) {
             $_POST["poll_option[$z]"] = $row['caption'];
         }
     }

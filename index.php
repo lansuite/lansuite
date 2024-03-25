@@ -114,6 +114,16 @@ if (isset($frmwrkmode)) {
 
 // Set HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
+header('X-Frame-Options: sameorigin');
+// TODO: This header is still useful - Once we verified to send the correct MIME types, enable this header
+// header('X-Content-Type-Options: nosniff');
+header('Referrer-Policy: strict-origin');
+// TODO Set Content-Security-Policy header
+
+// Enforce HSTS if browsing via HTTPS
+if ($request->isSecure()) {
+    header('Strict-Transport-Security: max-age=86400');
+}
 
 include_once("ext_scripts/mobile_device_detect.php");
 $framework->IsMobileBrowser = mobile_device_detect();
