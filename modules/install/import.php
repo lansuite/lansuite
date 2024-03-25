@@ -165,7 +165,7 @@ switch ($stepParameter) {
                         $table = $indexes['user'];
                         $sql = '';
                         foreach ($table as $field => $itemnr) {
-                            $sql .= "$field = '". $func->escape_sql($items[$itemnr]) ."', ";
+                            $sql .= "$field = '" . $db->real_escape_string($items[$itemnr]) . "', ";
                         }
                         $sql = substr($sql, 0, strlen($sql) - 2);
 
@@ -177,7 +177,7 @@ switch ($stepParameter) {
                             $table = $indexes['party_user'];
                             $sql = '';
                             foreach ($table as $field => $itemnr) {
-                                $sql .= "$field = '". $func->escape_sql($items[$itemnr]) ."', ";
+                                $sql .= "$field = '" . $db->real_escape_string($items[$itemnr]) . "', ";
                             }
                             $sql = substr($sql, 0, strlen($sql) - 2);
   
