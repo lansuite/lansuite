@@ -1,21 +1,12 @@
-=== NGL ===
-In der Datei 'games.xml' stehen alle aktuellen NGL-Spiele mit ihren IDs.
-Diese Liste ist wichtig für den NGL-Export.
+=== LGZ ===
+In der Datei 'xml_games.xml' stehen alle aktuellen LGZ-Spiele mit ihren IDs.
+Diese Liste ist wichtig für den LGZ-Export.
 
-Beim Erstellen eines Turnieres hat man ein Dropdown, in dem man das jeweilige NGL-Spiel zuweisen kann.
+Beim Erstellen eines Turnieres hat man ein Dropdown, in dem man das jeweilige LGZ-Spiel zuweisen kann.
 Nur wenn dieses zugewiesen ist, wird dieses Turnier beim Export mit einbezogen.
 
-Die Datei 'games.xml' kann in der aktuellen Version von der URL
-http://www.ngl-germany.de/organiser/extern/games.xml
-bezogen werden. Dies ist dann notwendig, wenn die NGL neue Spiele in ihre Liga mit aufgenommen hat, oder welche gestrichen hat.
-
-
-=== LGZ ===
-Hier gilt das gleiche, wie oberhalb bei der NGL.
-Die NGL-Datei heißt 'xml_games.xml'
-
-Die URL zum aktuallisieren der Datei ist:
-http://lan.gamer-zone.com/xml_games.php?season=3
+Die Datei 'xml_games.xml' kann in der aktuellen Version von der URL http://lan.gamer-zone.com/xml_games.php?season=3 bezogen werden. 
 Darin muss die 3 am Ende der URL durch die ID der aktuellen Saison ersetzt werden.
+Dies ist dann notwendig, wenn die LGZ neue Spiele in ihre Liga mit aufgenommen hat, oder welche gestrichen hat.
 
 Regeln: http://lan.gamer-zone.com/content.php?id=3
