@@ -331,7 +331,7 @@ class MasterForm
      */
     public function AddDropDownFromTable($caption, $id1, $id2, $text, $table, $defText = '', $where = '')
     {
-        global $db;
+        global $db, $database;
 
         $selections = [];
         if ($defText) {
@@ -374,7 +374,7 @@ class MasterForm
         $SQLFieldUnique = [];
         $field = [];
         $addUpdSuccess = null;
-        global $dsp, $db, $config, $func, $sec, $framework, $__POST, $smarty, $cfg;
+        global $dsp, $db, $database, $config, $func, $sec, $framework, $__POST, $smarty, $cfg;
 
         // In freeze-mode there are no changes to the database allowed
         if ($cfg['sys_freeze']) {
