@@ -63,8 +63,7 @@ switch ($stepParameter) {
 
         $tournament = $database->queryWithOnlyFirstRow("
           SELECT
-            teamplayer,
-            ngl_gamename
+            teamplayer
           FROM %prefix%tournament_tournaments
           WHERE
             tournamentid = ?", [$tournamentid]);
@@ -73,9 +72,7 @@ switch ($stepParameter) {
           SELECT
             team.name,
             team.comment,
-            team.banner,
-            user.nglid,
-            user.nglclanid
+            team.banner
         FROM %prefix%t2_teams AS team
         LEFT JOIN %prefix%user AS user ON user.userid = team.leaderid
         WHERE
@@ -99,13 +96,6 @@ switch ($stepParameter) {
             $dsp->AddSingleRow("<img src=\"ext_inc/team_banners/{$team['banner']}\" alt=\"{$team['banner']}\">");
         }
         $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
-
-        if ($tournament['ngl_gamename'] != "") {
-            $dsp->AddTextFieldRow("nglid", t('NGL ID'), $team['nglid'], "");
-            if ($tournament['teamplayer'] > 1) {
-                $dsp->AddTextFieldRow("nglclanid", t('NGL Clan ID'), $team['nglclanid'], "");
-            }
-        }
 
         $dsp->AddFormSubmitRow(t('Editieren'));
         $dsp->AddBackButton("index.php?mod=tournament2&action=teammgr", "tournament2/teammgr");

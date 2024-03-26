@@ -285,7 +285,7 @@ class Export
 
         $user_export = LANSUITE_VERSION." CSV Export\r\nParty: ". $_SESSION['party_info']['name'] ."\r\nExportdate: ".$func->unixstamp2date(time(), 'daydatetime')."\r\n\r\n";
 
-        $user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;md5pwd;usertype;paid;seatcontrol;clan;clanurl;nglid;checkin;checkout;signondate;paiddate;birthday;seatblock;seat;ip;comment\r\n";
+        $user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;md5pwd;usertype;paid;seatcontrol;clan;clanurl;checkin;checkout;signondate;paiddate;birthday;seatblock;seat;ip;comment\r\n";
 
         $query = $db->qry("
           SELECT
@@ -330,7 +330,6 @@ class Export
 
             $user_export .= $row["clan"].$sep;
             $user_export .= $row["clanurl"].$sep;
-            $user_export .= $row["nglid"].$sep;
             $user_export .= $row["checkin"].$sep;
             $user_export .= $row["checkout"].$sep;
             $user_export .= $row["signondate"].$sep;
