@@ -268,10 +268,12 @@ class ProductOption
             $dsp->AddSmartyTpl('hiddenbox_start', 'foodcenter');
             $dsp->AddCheckBoxRow("fix[$nr]", t('Option fixieren'), t('Dies ist ein Pflichtartikel'), "", $optional, $this->fix);
             $dsp->AddSmartyTpl('hiddenbox_stop', 'foodcenter');
-            $dsp->AddTextFieldRow("caption[$nr]", t('Artikelname'), $this->caption, $this->error['caption'], null, $optional);
+            $errorMessageCaption = $this->error['caption'] ?? '';
+            $dsp->AddTextFieldRow("caption[$nr]", t('Artikelname'), $this->caption, $errorMessageCaption, null, $optional);
         }
 
-        $this->addOptionRow(t('Produktoption'), t('Einheit'), t('Preis'), t('Einkaufspreis'), t('Anzahl'), t('Barcode'), "unit[$nr]", "price[$nr]", "eprice[$nr]", "piece[$nr]", "barcode[$nr]", $this->unit, $this->price, $this->eprice, $this->pice, $this->barcode, "hidden[$nr]", $this->id, $this->error['price'], $optional);
+        $errorMessagePrice = $this->error['price'] ?? '';
+        $this->addOptionRow(t('Produktoption'), t('Einheit'), t('Preis'), t('Einkaufspreis'), t('Anzahl'), t('Barcode'), "unit[$nr]", "price[$nr]", "eprice[$nr]", "piece[$nr]", "barcode[$nr]", $this->unit, $this->price, $this->eprice, $this->pice, $this->barcode, "hidden[$nr]", $this->id, $errorMessagePrice, $optional);
         $dsp->AddHRuleRow();
     }
 
@@ -351,10 +353,12 @@ class ProductOption
         $smarty->assign('hidden_name', $hidden_name);
         $smarty->assign('hidden_id', $hidden_id);
 
+        $smarty->assign('errortext', '');
         if ($errortext) {
             $smarty->assign('errortext', $errortext);
         }
 
+        $smarty->assign('optional', '');
         if ($optional) {
             $smarty->assign('optional', '_optional');
         }

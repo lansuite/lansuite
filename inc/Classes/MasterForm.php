@@ -545,7 +545,7 @@ class MasterForm
                                             }
 
                                             // If not in DependOn-Group, or DependOn-Group is active
-                                            if (!$this->DependOnStarted or $_POST[$this->DependOnField]) {
+                                            if (!$this->DependOnStarted || (array_key_exists($this->DependOnField, $_POST) && $_POST[$this->DependOnField])) {
                                                 // -- Convertions --
                                                 // Convert Post-date to unix-timestap
                                                 if (array_key_exists($field['name'], $SQLFieldTypes) && $SQLFieldTypes[$field['name']] == 'datetime') {
@@ -611,7 +611,8 @@ class MasterForm
 
                                                 // Callbacks
                                                 } elseif ($field['callback']) {
-                                                      $err = call_user_func($field['callback'], $_POST[$field['name']]);
+                                                    $postFieldValue = $_POST[$field['name']] ?? '';
+                                                    $err = call_user_func($field['callback'], $postFieldValue);
                                                     if ($err) {
                                                         $this->error[$field['name']] = $err;
                                                     }
@@ -759,7 +760,8 @@ class MasterForm
                                                     ob_end_clean();
                                                     $dsp->AddSingleRow($fcke_content);
 
-                                                    if ($this->error[$field['name']]) {
+                                                    $errorMessage = $this->error[$field['name']] ?? '';
+                                                    if ($errorMessage) {
                                                         $dsp->AddDoubleRow($field['caption'], $dsp->errortext_prefix . $this->error[$field['name']] . $dsp->errortext_suffix);
                                                     }
                                                 } else {
@@ -840,11 +842,15 @@ class MasterForm
                                             // Date-Select
                                             case 'date':
                                                 $values = array(
+                                                    'year' => '',
+                                                    'month' => '',
+                                                    'day' => '',
                                                     'hour' => '',
                                                     'min' => '',
                                                     'sec' => '',
                                                 );
-                                                $dateParts = explode(' ', $_POST[$field['name']]);
+                                                $postFieldValue = $_POST[$field['name']] ?? '';
+                                                $dateParts = explode(' ', $postFieldValue);
 
                                                 $date = $dateParts[0];
                                                 $time = '';
@@ -852,7 +858,9 @@ class MasterForm
                                                     $time = $dateParts[1];
                                                 }
 
-                                                [$values['year'], $values['month'], $values['day']] = explode('-', $date);
+                                                if ($date) {
+                                                    [$values['year'], $values['month'], $values['day']] = explode('-', $date);
+                                                }
 
                                                 if ($time) {
                                                     [$values['hour'], $values['min'], $values['sec']] = explode(':', $time);
@@ -876,7 +884,7 @@ class MasterForm
                                                 $start = $area[0];
                                                 $end = $area[1];
                                                 $fieldErrorText = $this->error[$field['name']] ?? '';
-                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0,  $fieldErrorText, $values, '', $start, $end, 1, $field['optional']);
+                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $fieldErrorText, $values, '', $start, $end, 1, $field['optional']);
                                                 break;
 
                                             // Password-Row
@@ -916,7 +924,9 @@ class MasterForm
                                                 $data = $captcha->create($text);
                                                 $_SESSION['captcha'] = $text;
                                                 $dsp->AddDoubleRow(t('Bitte gib diesen Text unterhalb ein'), "<pre style='font-size:8px;'>$data</pre>");
-                                                $dsp->AddTextFieldRow('captcha', '', $_POST['captcha'], $this->error['captcha']);
+                                                $captchaParameter = $_POST['captcha'] ?? '';
+                                                $captchaError = $this->error['captcha'] ?? '';
+                                                $dsp->AddTextFieldRow('captcha', '', $captchaParameter, $captchaError);
                                                 break;
 
                                             // Pre-Defined Dropdown
@@ -963,7 +973,7 @@ class MasterForm
                                                     $selections = array();
                                                     foreach ($field['selections'] as $key => $val) {
                                                         $selected = '';
-                                                        if ($_POST[$field['name']]) {
+                                                        if (array_key_exists($field['name'], $_POST) && is_array($_POST[$field['name']])) {
                                                             foreach ($_POST[$field['name']] as $PostedField) {
                                                                 if ($PostedField == $key) {
                                                                     $selected = ' selected';
@@ -1144,7 +1154,9 @@ class MasterForm
                                 foreach ($this->MultiLineIDs as $key2 => $value2) {
                                     $db_query = '';
                                     foreach ($this->SQLFields as $key => $val) {
-                                        $db_query .= "$val = '". $_POST[$val][$value2] ."', ";
+                                        $databaseValue = $_POST[$val][$value2] ?? '';
+                                        $databaseValue = $db->real_escape_string($databaseValue);
+                                        $db_query .= "$val = '". $databaseValue ."', ";
                                     }
                                     $db_query = substr($db_query, 0, strlen($db_query) - 2);
                                     $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% = %int%", $table, $db_query, $idname, $value2);
@@ -1156,7 +1168,8 @@ class MasterForm
                                     if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') {
                                         $db_query .= "$val = NOW(), ";
                                     } elseif ($SQLFieldTypes[$val] == 'tinyint(1)') {
-                                        $db_query .= $val .' = '. (int)$_POST[$val] .', ';
+                                        $intValue = $_POST[$val] ?? 0;
+                                        $db_query .= $val .' = '. (int) $intValue .', ';
                                     } elseif ($SQLFieldTypes[$val] == 'varbinary(16)' and $val == 'ip') {
                                         $db_query .= $val .' = INET6_ATON(\''. $_POST[$val] .'\'), ';
                                     } elseif ($postFieldValue == '++' and str_contains($SQLFieldTypes[$val], 'int')) {
@@ -1205,7 +1218,8 @@ class MasterForm
 
                         if ($addUpdSuccess) {
                             if ($this->isChange) {
-                                $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer'][$this->GetNumber()]);
+                                $linkTarget = $_SESSION['mf_referrer'][$this->GetNumber()] ?? '';
+                                $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $linkTarget);
                             } else {
                                 $func->confirmation(t('Die Daten wurden erfolgreich eingefügt.'), $this->LinkBack);
                             }

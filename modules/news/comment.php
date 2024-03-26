@@ -23,7 +23,7 @@ if ($check["caption"] != "") {
     $smarty->assign('date', $func->unixstamp2date($get_news["date"], "daydatetime"));
 
     $text = '';
-    if ($auth["type"] > 1) {
+    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
         $text .= $dsp->FetchIcon("delete", "index.php?mod=news&action=delete&came_from=2&step=2&newsid={$_GET["newsid"]}", '', '', 'right');
         $text .= $dsp->FetchIcon("edit", "index.php?mod=news&action=change&came_from=1&step=2&newsid={$_GET["newsid"]}", '', '', 'right');
     }

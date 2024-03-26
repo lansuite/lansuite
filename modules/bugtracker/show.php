@@ -24,7 +24,7 @@ $colors[7] = '#bc851b';
 $actionPOSTParameter = $_POST['action'] ?? null;
 if ($actionPOSTParameter) {
     foreach ($actionPOSTParameter as $key => $val) {
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             // Change state
             if ($_GET['state'] != '' and $_GET['state'] >= 2) {
                 $bugtracker->SetBugState($key, $_GET['state']);
@@ -44,7 +44,7 @@ if ($actionPOSTParameter) {
 }
 
 $actionParameter = $_GET['action'] ?? '';
-if ($actionParameter == 'delete' && $auth['type'] >= 2) {
+if ($actionParameter == 'delete' && $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     if ($_GET['bugid'] != '') {
         $md = new \LanSuite\MasterDelete();
         $md->Delete('bugtracker', 'bugid', $_GET['bugid']);
@@ -73,7 +73,7 @@ if (!$bugidParameter || $actionParameter == 'delete') {
     LEFT JOIN %prefix%user AS a ON b.agent = a.userid
     LEFT JOIN %prefix%comments AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
     ";
-    $ms2->query['where'] = '(!private OR '. (int)$auth['type'] .' >= 2)';
+    $ms2->query['where'] = '(!private OR '. (int) $auth['type'] .' >= ' . \LS_AUTH_TYPE_ADMIN . ')';
     $ms2->query['default_order_by'] = 'changedate DESC, FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
     $ms2->config['EntriesPerPage'] = 50;
     $ms2->AddBGColor('state', $colors);
@@ -132,14 +132,14 @@ if (!$bugidParameter || $actionParameter == 'delete') {
     $ms2->SetTargetPage('comments', 20);
 
     $ms2->AddIconField('details', 'index.php?mod=bugtracker&bugid=%id%&ms_page=%page%', t('Details'));
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $ms2->AddIconField('edit', 'index.php?mod=bugtracker&action=add&bugid=', t('Editieren'));
     }
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('delete', 'index.php?mod=bugtracker&action=delete&bugid=', t('Löschen'));
     }
 
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         foreach ($bugtracker->stati as $key => $val) {
             $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
         }
@@ -178,7 +178,7 @@ if (!$bugidParameter || $actionParameter == 'delete') {
         bugid = %int%
         AND (
           !private
-          OR ". (int)$auth['type'] ." >= 2
+          OR " . (int) $auth['type'] . " >= " . \LS_AUTH_TYPE_ADMIN . "
         )", $_GET['bugid']);
 
     $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
@@ -207,7 +207,7 @@ if (!$bugidParameter || $actionParameter == 'delete') {
         $dsp->AddDoubleRow(t('SVN-Revision'), $row['revision'] .' (<a href="http://code.google.com/p/lansuite/source/detail?r='. $row['revision'] .'" target="_blank">'. t('Änderungen anzeigen') .'</a>)');
     }
 
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $mf = new \LanSuite\MasterForm();
         $mf->AddField(t('Fix in SVN-Revision'), 'revision');
         $mf->SendForm('', 'bugtracker', 'bugid', $_GET['bugid']);
@@ -222,7 +222,7 @@ if (!$bugidParameter || $actionParameter == 'delete') {
     if ($auth['login']) {
         $mf = new \LanSuite\MasterForm();
         $mf->ManualUpdate = 1;
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $mf->AddField(t('Status'), 'state', \LanSuite\MasterForm::IS_SELECTION, $bugtracker->stati);
         } elseif ($row['state'] == 0) {
             $mf->AddField(t('Status'), 'state', \LanSuite\MasterForm::IS_SELECTION, array('1' => $bugtracker->stati['1']));

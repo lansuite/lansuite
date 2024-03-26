@@ -1,5 +1,6 @@
 <?php
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/troubleticket/search.inc.php');
         break;
@@ -8,7 +9,7 @@ switch ($_GET["step"]) {
         include_once('modules/usrmgr/search_main.inc.php');
     
         $ms2->query['where'] .= "u.type > 1";
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $ms2->AddIconField('assign', 'index.php?mod=troubleticket&action=assign&step=3&ttid='.$_GET['ttid'] .'&userid=', 'Assign');
         }
     

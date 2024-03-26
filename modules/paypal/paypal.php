@@ -37,6 +37,7 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
         if ($cfg['paypal_catering']) {
             $dsp->AddTextFieldRow("catering", t('Einzahlung f&uuml;r Catering'), 0, "");
         }
+        $db->free_result($pay_partys);
     }
 
     if ($cfg['paypal_donation']) {
@@ -44,5 +45,4 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
     }
 
     $dsp->AddFormSubmitRow(t('Weiter'));
-    $db->free_result($pay_partys);
 }

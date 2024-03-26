@@ -2,7 +2,8 @@
 
 $dsp->NewContent(t('Benutzerstatistiken'), t('Hier sehen sie wie viele Benutzer ihre Seite besuchen'));
 
-switch ($_GET['time']) {
+$timeParameter = $_GET['time'] ?? '';
+switch ($timeParameter) {
     default:
         $link = 'y';
         $back = '';
@@ -34,7 +35,7 @@ switch ($_GET['time']) {
         break;
 }
 
-$dsp->AddSingleRow('<object data="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
+$dsp->AddSingleRow('<object data="index.php?mod=stats&action=usage_grafik&design=base&time=' . $timeParameter . '&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
   Dein Browser kann das Objekt leider nicht anzeigen!
 </object>');
 
@@ -52,7 +53,7 @@ $res = $db->qry("
   GROUP BY DATE_FORMAT(time, %string%)
   ORDER BY DATE_FORMAT(time, %string%)", $group_by, $where, $_GET['timeframe'], $group_by, $group_by);
 while ($row = $db->fetch_array($res)) {
-    $out = match ($_GET['time']) {
+    $out = match ($timeParameter) {
         'y' => $func->unixstamp2date($row['display_time'], 'month'),
         'm' => $func->unixstamp2date($row['display_time'], 'daydate'),
         'd' => $func->unixstamp2date($row['display_time'], 'daydatetime'),

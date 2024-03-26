@@ -117,15 +117,19 @@ class Product
      */
     public function read_post()
     {
+        $matParameter = $_POST['mat'] ?? 0;
+        $choisParameter = $_POST['chois'] ?? 0;
+        $waitParmaeter = $_POST['wait'] ?? 0;
+
         $this->caption    = $_POST['p_caption'];
         $this->desc       = $_POST['desc'];
         $this->cat        = new Category($_POST['cat_id']);
         $this->supp       = new Supplier($_POST['supp_id']);
         $this->supp_infos = $_POST['supp_infos'];
-        $this->mat        = (int)$_POST['mat'];
+        $this->mat        = (int) $matParameter;
         $this->type       = $_POST['product_type'];
-        $this->choise     = $_POST['chois'];
-        $this->wait       = $_POST['wait'];
+        $this->choise     = $choisParameter;
+        $this->wait       = $waitParmaeter;
         $this->pic        = $_POST['pic'];
 
         $this->cat->read_post();
@@ -392,15 +396,18 @@ class Product
 
         // Add Javascript Code
         $dsp->AddSmartyTpl('javascript', 'foodcenter');
-        $dsp->AddTextFieldRow("p_caption", t('Produktname'), $this->caption, $this->error_food['caption']);
-        $dsp->AddTextAreaRow("desc", t('Produktbeschreibung'), $this->desc, $this->error_food['desc'], null, null, true);
+        $errorFoodCaption = $this->error_food['caption'] ?? '';
+        $dsp->AddTextFieldRow("p_caption", t('Produktname'), $this->caption, $errorFoodCaption);
+        $errorFoodDesc = $this->error_food['desc'] ?? '';
+        $dsp->AddTextAreaRow("desc", t('Produktbeschreibung'), $this->desc, $errorFoodDesc, null, null, true);
 
         // Not functional now
         // Pic is only active with gd-Libary
         $gd = new \LanSuite\GD();
         if ($gd->available) {
-            $dsp->AddFileSelectRow("file", t('Bild hochladen'), $this->error_food['file'], null, null, true);
-            $dsp->AddPictureDropDownRow("pic", t('Bild hochladen'), "ext_inc/foodcenter", $this->error_food['file'], true, basename($this->pic));
+            $errorFoodFile = $this->error_food['file'] ?? '';
+            $dsp->AddFileSelectRow("file", t('Bild hochladen'), $errorFoodFile, null, null, true);
+            $dsp->AddPictureDropDownRow("pic", t('Bild hochladen'), "ext_inc/foodcenter", $errorFoodFile, true, basename($this->pic));
         }
 
         // Select Cat
@@ -433,14 +440,16 @@ class Product
             }
             $opts[] = "<option $selected value=\"$key\">$value</option>";
         }
-        if ($_POST['product_opts'] == "") {
+        $productOptsParameter = $_POST['product_opts'] ?? '';
+        if ($productOptsParameter == "") {
             $display[1] = "";
         }
 
+        $errorMessageProductOps = $this->error_food['product_opts'] ?? '';
         if ($this->type != null) {
-            $dsp->AddDropDownFieldRow("product_type\" disabled onchange=\"change_option(this.options[this.options.selectedIndex].value)\"", "<input type=\"hidden\" name=\"product_type\" value=\"{$this->type}\" />" . t('Produktart'), $opts, $this->error_food['product_opts']);
+            $dsp->AddDropDownFieldRow("product_type\" disabled onchange=\"change_option(this.options[this.options.selectedIndex].value)\"", "<input type=\"hidden\" name=\"product_type\" value=\"{$this->type}\" />" . t('Produktart'), $opts, $errorMessageProductOps);
         } else {
-            $dsp->AddDropDownFieldRow("product_type\" onchange=\"change_option(this.options[this.options.selectedIndex].value)\"", t('Produktart'), $opts, $this->error_food['product_opts']);
+            $dsp->AddDropDownFieldRow("product_type\" onchange=\"change_option(this.options[this.options.selectedIndex].value)\"", t('Produktart'), $opts, $errorMessageProductOps);
         }
 
         if ($this->type == null || $this->type == 1) {
@@ -452,7 +461,7 @@ class Product
             for ($i = 0; $i < 3; $i++) {
                 ($i == 0) ? $optional = null : $optional = true;
 
-                if (!is_object($this->option[$i])) {
+                if (!array_key_exists($i, $this->option) || !is_object($this->option[$i])) {
                     $this->option[$i] = new ProductOption();
                 }
                 $this->option[$i]->option_form($i, $optional);
@@ -469,7 +478,7 @@ class Product
             ($this->type == null) ? $q = 3 : $q = 0;
             for ($i = $q; $i < ($q+8); $i++) {
                 ($i == $q) ? $optional = null : $optional = true;
-                if (!is_object($this->option[$i])) {
+                if (!array_key_exists($i, $this->option) || !is_object($this->option[$i])) {
                     $this->option[$i] = new ProductOption();
                 }
                 $this->option[$i]->option_form($i, $optional, true, $this->choise);
@@ -507,12 +516,12 @@ class Product
                     $price_3 .= "<a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
                 }
 
-                if (is_object($this->option[1])) {
+                if (array_key_exists(1, $this->option) && is_object($this->option[1])) {
                     $price_2 = "<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a>";
                     $price_2 .= "<a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
                 }
 
-                if (is_object($this->option[2])) {
+                if (array_key_exists(2, $this->option) && is_object($this->option[2])) {
                     $price_1 = "<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a>";
                     $price_1 .= "<a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
                 }
@@ -647,7 +656,7 @@ class Product
                 }
                 break;
         }
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=foodcenter&amp;action=addproduct&amp;id=". $this->id));
         }
         $dsp->AddBackButton($worklink);

@@ -10,7 +10,7 @@ if (!$_GET['tournamentid']) {
             break;
 
         case 2:
-            $tournament = $db->qry_first('SELECT name, mode FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $_GET['tournamentid']);
+            $tournament = $database->queryWithOnlyFirstRow('SELECT name, mode FROM %prefix%tournament_tournaments WHERE tournamentid = ?', [$_GET['tournamentid']]);
   
             if ($tournament['mode'] == "single") {
                 $modus = t('Single-Elimination');
@@ -32,8 +32,10 @@ if (!$_GET['tournamentid']) {
             $seat2 = new \LanSuite\Module\Seating\Seat2();
 
             $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
-            $team_anz = $tfunc->GetTeamAnz($_GET['tournamentid'], $tournament['mode'], $_POST['group']);
-  
+            // "group" == 0 are the final games.
+            // If the parameter is not set, we set it to false and do explicit checks later.
+            $groupParameter = $_POST['group'] ?? false;
+            $team_anz = $tfunc->GetTeamAnz($_GET['tournamentid'], $tournament['mode'], $groupParameter);
             $dsp->NewContent(t('Turnierbaum zum Turnier %1 (%2)', $tournament['name'], $modus), t('Hier siehst du grafisch dargestellt, wer gegen wen spielt und kannst Ergebnisse melden'));
 
             if ($team_anz == 0) {
@@ -44,19 +46,21 @@ if (!$_GET['tournamentid']) {
                   break;
             } else {
                 if ($tournament['mode'] == "liga") {
-                    $height = $team_anz * 20 + 30;
+                    $height = $team_anz * 20 + 100;
                 } else {
-                    $height = (($team_anz/2) * 50) + 60;
+                    $height = (($team_anz/2) * 50) + 120;
                 }
+                if (($tournament["mode"] == "groups") && $groupParameter === false) {
+                    $teams = $database->queryWithOnlyFirstRow("
   
-                if (($tournament["mode"] == "groups") && ($_POST['group'] == '')) {
-                    $teams = $db->qry_first("
+                if (($tournament["mode"] == "groups") && (!$groupParameter)) {
+                    $teams = $database->queryWithOnlyFirstRow("
                       SELECT
                         MAX(group_nr) AS max_group_nr
                       FROM %prefix%t2_games
                       WHERE
-                        (tournamentid = %int%)
-                        AND (round = 0)", $_GET['tournamentid']);
+                        tournamentid = ?
+                        AND round = 0", [$_GET['tournamentid']]);
   
                     $t_array = array("<option value=\"0\">".t('Finalspiele')."</option>");
                     for ($i = 1; $i <= $teams["max_group_nr"]; $i++) {
@@ -70,13 +74,13 @@ if (!$_GET['tournamentid']) {
                     // If specific games of a group was chosen
                     // pass this to the tree frame, otherwise keep it at the final games
                     $groupQueryParam = '';
-                    $groupID = (int) $_POST['group'];
+                    $groupID = (int) $groupParameter;
                     if ($groupID > 0) {
                         $groupQueryParam = '&group='. $groupID;
                     }
 
                     $iFrameURL = 'index.php?mod=tournament2&action=tree_frame&design=popup&tournamentid='. (int) $_GET['tournamentid'] . $groupQueryParam;
-                    $dsp->AddSingleRow('<iframe src="' . $iFrameURL . '" width="100%" height="'. (int)$height .'" style="width:100%; min-width:600px;"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'">Tree</a></iframe>');
+                    $dsp->AddSingleRow('<iframe src="' . $iFrameURL . '" width="100%" height="'. (int)$height .'" style="width:100%; min-width:600px;"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int) $groupParameter .'">Tree</a></iframe>');
                 }
 
                 if ($func->internal_referer) {

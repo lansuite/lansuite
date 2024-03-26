@@ -59,7 +59,7 @@ if (!$teams instanceof mysqli_result || $db->num_rows($teams) == 0) {
 }
 
 // Show dropdown to see all active games
-if ($auth['type'] > 1) {
+if ($auth['type'] > \LS_AUTH_TYPE_USER) {
     $teams = $db->qry("
       SELECT
         games1.gameid AS gid1,

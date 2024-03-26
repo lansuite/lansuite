@@ -15,12 +15,12 @@ $ms2->AddResultField('Zuständig', 'u.username');
 $ms2->AddResultField('Status', 't.status', 'TTStatus');
 
 $ms2->AddIconField('details', 'index.php?mod=troubleticket&action=show&step=2&ttid=', 'Details');
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('assign', 'index.php?mod=troubleticket&action=assign&step=2&ttid=', 'Assign');
 }
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=troubleticket&action=change&step=2&ttid=', 'Edit');
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=troubleticket&action=delete&step=2&ttid=', 'Delete');
 }

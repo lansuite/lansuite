@@ -13,7 +13,7 @@ $icon_dir = "ext_inc/picgallery_icon/";
 $galleryNameParameter = $_POST['gallery_name'] ?? '';
 // If a new gallery should be created
 if ($galleryNameParameter) {
-    if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
+    if ($cfg["picgallery_allow_user_upload"] or $auth['type'] > \LS_AUTH_TYPE_USER) {
         $func->CreateDir('ext_inc/picgallery/'. $_GET['file'] . $galleryNameParameter);
     } else {
         $func->error(t('Du bist nicht berechtigt neue Galerien anzulegen'), "index.php?mod=picgallery&file={$_GET["file"]}");
@@ -36,13 +36,13 @@ if (!$pageParameter) {
 }
 
 // Insert non existing entries
-$row = $db->qry_first("SELECT 1 AS found FROM %prefix%picgallery WHERE name = %string%", $db_dir);
-if (!$row['found']) {
+$row = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%picgallery WHERE name = ?", [$db_dir]);
+if (!$row) {
     $db->qry("INSERT INTO %prefix%picgallery SET userid = '', name = %string%", $db_dir);
 }
 
 // Upload posted File
-if (($cfg["picgallery_allow_user_upload"] || $auth["type"] > 1) && (array_key_exists('file_upload', $_FILES) && $_FILES['file_upload'])) {
+if (($cfg["picgallery_allow_user_upload"] || $auth['type'] > \LS_AUTH_TYPE_USER) && (array_key_exists('file_upload', $_FILES) && $_FILES['file_upload'])) {
     $extension = substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4);
     if (IsSupportedType($extension) || IsPackage($extension)) {
         $upload = $func->FileUpload("file_upload", $root_dir);
@@ -54,7 +54,7 @@ if (($cfg["picgallery_allow_user_upload"] || $auth["type"] > 1) && (array_key_ex
 
 // Set Changed Name
 $fileNameParameter = $_POST["file_name"] ?? '';
-if ($fileNameParameter && ($auth['type'] >= 2 || $cfg['picgallery_allow_user_naming'])) {
+if ($fileNameParameter && ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || $cfg['picgallery_allow_user_naming'])) {
     $db->qry("UPDATE %prefix%picgallery SET caption = %string% WHERE name = %string%", $fileNameParameter, $db_dir);
 }
 
@@ -88,6 +88,7 @@ if (!$gd->available) {
     $package_list = array();
     $dir_size = 0;
     $last_modified = 0;
+    $handle = false;
     if (is_dir($root_dir)) {
         $handle = opendir($root_dir);
     }
@@ -135,7 +136,7 @@ if (!$gd->available) {
     if ($dir_list) {
         foreach ($dir_list as $dir) {
             $DelDirLink = '';
-            if ($auth['type'] > 2) {
+            if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
                 $DelDirLink = ' <a href="index.php?mod=picgallery&action=delete&step=10&file='.$akt_dir.$dir.'"><img src="design/'.$auth['design'].'/images/arrows_delete.gif" border="0" /></a>';
             }
             $directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$akt_dir$dir/\">$dir$DelDirLink</a>] <br />";
@@ -215,7 +216,7 @@ if (!$gd->available) {
                     $smarty->assign('galleryid', $gallery_id);
 
                     $buttons = $dsp->FetchIcon("next", "index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", t('Bild anzeigen'));
-                    if ($auth["type"] > 1) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                         $buttons .= " ". $dsp->FetchIcon("delete", "index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", t('Bild löschen'));
                     }
                     $smarty->assign('buttons', $buttons);
@@ -303,7 +304,7 @@ if (!$gd->available) {
                     $smarty->assign('galleryid', $gallery_id);
 
                     $buttons = $dsp->FetchIcon("download", "index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", t('Bild herrunterladen'));
-                    if ($auth["type"] > 1) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                         $buttons .= " ". $dsp->FetchIcon("delete", "index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", t('Bild l&ouml;schen'));
                     }
                     $smarty->assign('buttons', $buttons);
@@ -333,7 +334,7 @@ if (!$gd->available) {
     $dsp->AddDoubleRow(t('Statistiken'), "$num_files ".t('Dateien')." (". (round(($dir_size / 1024), 1)) ."kB); ".t('Letzte Änderung').": ". $func->unixstamp2date($last_modified, "datetime"));
 
     // Upload-Formular
-    if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
+    if ($cfg["picgallery_allow_user_upload"] or $auth['type'] > \LS_AUTH_TYPE_USER) {
         $dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}", "", "", "multipart/form-data");
         $dsp->AddFileSelectRow("file_upload", t('Datei hochladen'), "");
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
@@ -367,6 +368,9 @@ if (!$gd->available) {
               LEFT JOIN %prefix%user AS u ON p.userid = u.userid
               WHERE p.name = %string%", $db_dir);
 
+            if (!array_key_exists('click_reload', $_SESSION) || !is_array($_SESSION["click_reload"])) {
+                $_SESSION["click_reload"] = [];
+            }
             if (!array_key_exists($db_dir, $_SESSION["click_reload"])) {
                 $db->qry("UPDATE %prefix%picgallery SET clicks = clicks + 1 WHERE name = %string%", $db_dir);
                 $_SESSION["click_reload"][$db_dir] = 1;
@@ -440,7 +444,7 @@ if (!$gd->available) {
             $dsp->AddDoubleRow("", "$prev_button $next_button $full_button $dl_button $del_button $note_button");
 
             // Change Pic-Name
-            if ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']) {
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or $cfg['picgallery_allow_user_naming']) {
                 $dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}");
                 $dsp->AddTextFieldRow("file_name", t('Bildname'), $pic['caption'], "");
                 $dsp->AddFormSubmitRow(t('Editieren'));

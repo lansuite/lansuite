@@ -8,7 +8,7 @@ function write_pairs2(mixed $bracket, $max_pos)
 {
     $score1 = null;
     $gameid1 = null;
-    global $auth, $templ, $func, $t, $x_start, $height, $height_menu, $box_height, $box_width, $db, $tournamentid, $akt_round, $max_round, $dg, $img_height, $map, $tfunc;
+    global $auth, $templ, $func, $t, $x_start, $height, $height_menu, $box_height, $box_width, $database, $tournamentid, $akt_round, $max_round, $dg, $img_height, $map, $tfunc;
 
     $dg++;
     if ($akt_round > 0) {
@@ -25,7 +25,7 @@ function write_pairs2(mixed $bracket, $max_pos)
 
     $templ['index']['info']['content'] .= "CreateRect(". ($xpos - 5) .", 1, ". ($box_width + 10) .", $img_height, '$bg_color_svg', '#ffffff', '');";
     $templ['index']['info']['content'] .= "CreateText('". t('Runde') .": $akt_round" ."', $xpos, 16, '');";
-    ($auth['type'] >= 2)? $link = 'index.php?mod=tournament2&action=breaks&tournamentid='. $tournamentid : $link = '';
+    ($auth['type'] >= \LS_AUTH_TYPE_ADMIN)? $link = 'index.php?mod=tournament2&action=breaks&tournamentid='. $tournamentid : $link = '';
     $templ['index']['info']['content'] .= "CreateText('". t('Zeit') .": ". $round_start ." - ". $round_end ."', $xpos, 26, '". $link ."');";
     $templ['index']['info']['content'] .= "CreateText('". t('Map') .": ". addslashes(trim($map[(abs(floor($akt_round)) % count($map))])) ."', $xpos, 36, '');";
 
@@ -33,7 +33,7 @@ function write_pairs2(mixed $bracket, $max_pos)
     $i = 0;
     $line_start = 0;
     for ($akt_pos = 0; $akt_pos <= $max_pos-1; $akt_pos++) {
-        $game = $db->qry_first("
+        $game = $database->queryWithOnlyFirstRow("
                   SELECT
                     teams.name,
                     teams.teamid,
@@ -45,15 +45,21 @@ function write_pairs2(mixed $bracket, $max_pos)
                     (games.tournamentid = teams.tournamentid)
                     AND (games.leaderid = teams.leaderid)
                   WHERE
-                    (games.tournamentid = %int%)
-                    AND (games.group_nr = 0)
-                    AND (games.round = %string%)
-                    AND (games.position = %string%)
-                  GROUP BY games.gameid", $tournamentid, $akt_round, $akt_pos);
+                    games.tournamentid = ?
+                    AND games.group_nr = 0
+                    AND games.round = ?
+                    AND games.position = ?
+                  GROUP BY games.gameid", [$tournamentid, $akt_round, $akt_pos]);
 
         if ($spieler1 == "") {
-            if ($game == 0) {
-                $game['name'] = t('Noch Unbekannt');
+            if (!$game) {
+                $game = [
+                    'name' => t('Noch Unbekannt'),
+                    'teamid' => 0,
+                    'leaderid' => 0,
+                    'gameid' => 0,
+                    'score' => 0
+                ];
                 $known_game1 = 0;
             } else {
                 $known_game1 = 1;
@@ -67,8 +73,14 @@ function write_pairs2(mixed $bracket, $max_pos)
             $score1 = $game['score'];
         } else {
             $i++;
-            if ($game == 0) {
-                $game['name'] = t('Noch Unbekannt');
+            if (!$game) {
+                $game = [
+                    'name' => t('Noch Unbekannt'),
+                    'teamid' => 0,
+                    'leaderid' => 0,
+                    'gameid' => 0,
+                    'score' => 0
+                ];
                 $known_game2 = 0;
             } else {
                 $known_game2 = 1;

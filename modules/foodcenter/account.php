@@ -2,13 +2,14 @@
 
 $account = new LanSuite\Module\Foodcenter\Accounting($auth['userid']);
 
-if ($auth['type'] > 1 && !isset($_GET['act'])) {
+if ($auth['type'] > \LS_AUTH_TYPE_USER && !isset($_GET['act'])) {
     $_GET['act'] = "menu";
-} elseif ($auth['type'] < 2) {
+} elseif ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
     $_GET['act'] = "";
 }
 
-$step = $_GET['step'];
+$step = $_GET['step'] ?? 0;
+$action = $_GET['action'] ?? '';
 
 if ($action == "payment" && $step == 3) {
     if (!is_numeric($_POST['amount'])) {

@@ -30,10 +30,10 @@ if ($cfg['signon_show_clan']) {
 $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Details'));
 $ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', t('Mail senden'));
 $ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=', t('Passwort ändern'), 'IfLowerOrEqualUserlevel');
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('assign', 'index.php?mod=auth&action=switch_to&userid=', t('Benutzer wechseln'), 'IfLowerUserlevel');
 }
-if ($auth['type'] >= 3 and $func->isModActive('foodcenter')) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN and $func->isModActive('foodcenter')) {
     $ms2->AddIconField('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=', t('Geld auf Konto buchen'));
 }
 $ms2->AddIconField('locked', 'index.php?mod=usrmgr&step=11&userid=', t('Account freigeben'), 'IfLocked');
@@ -45,14 +45,14 @@ while ([$caption, $inc] = $plugin->fetch()) {
     include_once($inc);
 }
 
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', t('Löschen'));
 }
 
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $res = $db->qry("SELECT * FROM %prefix%party_usergroups");
     $ms2->AddMultiSelectAction("Gruppenzuordung aufheben", "index.php?mod=usrmgr&action=group&step=30&group_id=0", 0, 'delete_group');
     while ($row = $db->fetch_array($res)) {
@@ -61,13 +61,13 @@ if ($auth['type'] >= 2) {
     $db->free_result($res);
 }
 
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddMultiSelectAction(t('Freigeben'), "index.php?mod=usrmgr&step=11", 1, 'unlocked');
 }
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddMultiSelectAction(t('Sperren'), "index.php?mod=usrmgr&step=10", 1, 'locked');
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddMultiSelectAction(t('Löschen'), "index.php?mod=usrmgr&action=delete&step=10", 1, 'delete');
 }
 

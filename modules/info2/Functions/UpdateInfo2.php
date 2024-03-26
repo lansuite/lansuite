@@ -14,8 +14,9 @@ function UpdateInfo2($id)
         if ($menu_intem['active']) {
             ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
 
-            if ($_POST['link']) {
-                $link = $_POST['link'] .'" target="_blank';
+            $linkParameter = $_POST['link'] ?? '';
+            if ($linkParameter) {
+                $link = $linkParameter .'" target="_blank';
             } else {
                 $link = 'index.php?mod=info2&action=show_info2&id='. $id;
             }

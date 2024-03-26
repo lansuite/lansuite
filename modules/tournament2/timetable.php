@@ -10,17 +10,25 @@ $dsp->NewContent(t('Turnier-Zeitplan'), t('Hier siehst du, welches Turnier zu we
 // Generate Table-head
 $mintime = 9_999_999_999;
 $maxtime = 0;
-$tournaments = $db->qry("
-  SELECT *,
+//@TODO: ^rework these - values do not make sense in context of functionality
+
+$tournaments = $database->queryWithFullResult(
+  "SELECT 
+  max_games,
+  mode,
+  game_duration,
+  break_duration,
+  tournamentid,
+  `name`,
   UNIX_TIMESTAMP(starttime) AS starttime
   FROM %prefix%tournament_tournaments
   WHERE
-    party_id = %int%
+    party_id = ?
     AND (
-      %int% > 1
+      ? > 1
       OR status != 'invisible'
-    )", $party->party_id, $auth['type']);
-while ($tournament = $db->fetch_array($tournaments)) {
+    )", [$party->party_id, $auth['type']]);
+foreach ($tournaments as $tournament) {
     // Calc Min-Time
     if ($tournament["starttime"] < $mintime) {
         $mintime = $tournament["starttime"];
@@ -37,7 +45,6 @@ while ($tournament = $db->fetch_array($tournaments)) {
         $maxtime = $endtime;
     }
 }
-$db->free_result($tournaments);
 
 if ($maxtime > $mintime + 60 * 60 * 24 * 4) {
     $maxtime = $mintime + 60 * 60 * 24 * 4;
@@ -45,24 +52,13 @@ if ($maxtime > $mintime + 60 * 60 * 24 * 4) {
 
 $head = "<td><b>".t('Turnier')."</b></td>";
 for ($z = $mintime; $z <= $maxtime; $z+= (60 * 60 * 2)) {
-    $head .= "<td colspan = 4>". $func->unixstamp2date($z, "time")."</td>";
+    $head .= "<td colspan = 4>". $func->unixstamp2date($z, "shortdaytime")."</td>";
 }
 $smarty->assign('head', $head);
 
 // Generate Table-foot
 $rows = "";
-$tournaments = $db->qry("
-  SELECT
-    *,
-    UNIX_TIMESTAMP(starttime) AS starttime
-  FROM %prefix%tournament_tournaments
-  WHERE
-    party_id = %int%
-    AND (
-      %int% > 1
-      OR status != 'invisible'
-    )", $party->party_id, $auth['type']);
-while ($tournament = $db->fetch_array($tournaments)) {
+foreach ($tournaments as $tournament) {
     $team_anz = $tfunc->GetTeamAnz($tournament["tournamentid"], $tournament["mode"]);
     $max_round = 1;
     for ($z = $team_anz/2; $z >= 2; $z/=2) {
@@ -85,7 +81,6 @@ while ($tournament = $db->fetch_array($tournaments)) {
     $smarty->assign('content', $content);
     $rows .= $smarty->fetch('modules/tournament2/templates/timetable_zeile.htm');
 }
-$db->free_result($tournaments);
 
 $smarty->assign('rows', $rows);
 $dsp->AddSmartyTpl('timetable', 'tournament2');

@@ -70,11 +70,12 @@ class PDFTemplate
         $this->tmpl_id = $db->insert_id();
         
         // Create config
+        $landscapeParameter = $_POST['landscape'] ?? '';
         $db->qry(
             "INSERT INTO %prefix%pdf_data ( `pdfid` , `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` ) VALUES
   ('', %int%, %string%, 'config', %string%, %string%,'0','0','0','','0','0','0', %string%, '')",
             $this->tmpl_id,
-            $_POST['landscape'],
+            $landscapeParameter,
             $_POST['rand_x'],
             $_POST['rand_y'],
             $_POST['pagesize']
@@ -137,10 +138,11 @@ class PDFTemplate
                 $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
                 $description .= t('Farbe (r/g/b)') . " : " . $data_array['red'] . "/". $data_array['green'] . "/". $data_array['blue'];
             } elseif ($data_array['type'] == "multicell" || $data_array['type'] == "data") {
+                $alignSetting = $data_array['align'] ?? '';
                 $description = t('Text') . " : " . $data_array['text']. HTML_NEWLINE;
                 $description .= t('Xo') . " : " . $data_array['pos_x']. " , ";
                 $description .= t('Yo') . " : " . $data_array['pos_y']. " , ";
-                $description .= t('Ausrichtung') . " : " . $data_array['align']. " , ";
+                $description .= t('Ausrichtung') . " : " . $alignSetting . " , ";
                 $description .= t('Schriftart') . " : " . $data_array['font']. " , ";
                 $description .= t('Schriftgr&ouml;sse') . " : " . $data_array['fontsize']. " , ";
                 $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
@@ -158,8 +160,8 @@ class PDFTemplate
             }
 
             $smarty->assign('description', $description);
-            $button_edit = $dsp->FetchIcon("index.php?mod=pdf&action=". $_GET['action'] ."&act=change_mask&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'edit', t('Editieren'));
-            $button_del = $dsp->FetchIcon("index.php?mod=pdf&action=". $_GET['action'] ."&act=change&delete_item=1&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'delete', t('Löschen'));
+            $button_edit = $dsp->FetchIcon('edit', "index.php?mod=pdf&action=". $_GET['action'] ."&act=change_mask&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'edit', t('Editieren'));
+            $button_del = $dsp->FetchIcon('delete', "index.php?mod=pdf&action=". $_GET['action'] ."&act=change&delete_item=1&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'delete', t('Löschen'));
             $smarty->assign('button_edit', $button_edit);
             $smarty->assign('button_del', $button_del);
 

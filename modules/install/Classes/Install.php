@@ -631,12 +631,10 @@ class Install
         $dsp->AddFieldSetStart("Kritisch - Diese Test müssen alle erfolgreich sein, damit Lansuite funktioniert");
 
         // PHP version
-        $minPHPVersion = '8.1.0';
-        $currentPHPVersion = PHP_VERSION;
-        if (version_compare($currentPHPVersion, $minPHPVersion) >= 0) {
-            $phpv_check = $ok . $currentPHPVersion;
+        if (version_compare(PHP_VERSION, \LANSUITE_MINIMUM_PHP_VERSION) >= 0) {
+            $phpv_check = $ok . PHP_VERSION;
         } else {
-            $phpv_check = $failed . t('Auf deinem System wurde die PHP-Version %1 gefunden. Lansuite benötigt mindestens PHP Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.php.net\' target=\'_blank\'>PHP.net</a>.', $currentPHPVersion, $minPHPVersion);
+            $phpv_check = $failed . t('Auf deinem System wurde die PHP-Version %1 gefunden. Lansuite benötigt mindestens PHP Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.php.net\' target=\'_blank\'>PHP.net</a>.', PHP_VERSION, \LANSUITE_MINIMUM_PHP_VERSION);
         }
         $dsp->AddDoubleRow("PHP Version", $phpv_check);
 
@@ -654,22 +652,25 @@ class Install
         $dsp->AddDoubleRow("MySQLi-Extension", $mysql_check);
 
         // MySQL Server version
-        $minMysqlVersion = '5.7.0';
         $minMariaDBVersion = '10.0';
         $currentMysqlVersion = $db->getServerInfo();
         if (!$currentMysqlVersion) {
-            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (%1@%2) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %3 benutzt.', $configuration['database']['user'], $configuration['database']['server'], $minMysqlVersion);
+            $mysqlVersionCheck = $not_possible . t('Konnte MySQL-Version nicht überprüfen, da keine Verbindung mit den Standarddaten (%1@%2) möglich war. <br/>Dies ist kein direkter Fehler, bedeutetet aber, dass einige Setup-Schritte per Hand durchgeführt werden müssen. <br/>Bitte Stelle sicher, dass du MySQL mindestens in Version %3 benutzt.', $configuration['database']['user'], $configuration['database']['server'], \LANSUITE_MINIMUM_MYSQL_VERSION);
         } elseif (str_contains($currentMysqlVersion, 'MariaDB')) {
-            $currentMariaDBVersion = substr($currentMysqlVersion, strpos($currentMysqlVersion, '-')+1);
+            $currentMariaDBVersion = $currentMysqlVersion;
+            $pos = strpos($currentMysqlVersion, '-');
+            if ($pos !== false) {
+                $currentMariaDBVersion = substr($currentMysqlVersion, 0, $pos);
+            }
             if (version_compare($currentMariaDBVersion, $minMariaDBVersion) >= 0) {
                 $mysqlVersionCheck = $optimize . t('MariaDB Version %1 gefunden. <br/>Bitte beachte, das LanSuite primär für MySQL entwickelt wurde und es daher zu unerwarteten Problemen mit MariaDB kommen kann!', $currentMariaDBVersion);
             } else {
                 $mysqlVersionCheck = $failed . t('Die verwendete MariaDB-Version %1 ist leider zu alt. Vorrausgesetzt ist mindestens MariaDB version %2! <br/> Bitte beachte, das LanSuite primär für MySQL entwickelt wurde und es daher zu unerwarteten Problemen mit MariaDB kommen kann!', $currentMariaDBVersion, $minMariaDBVersion);
             }
-        } elseif (version_compare($currentMysqlVersion, $minMysqlVersion) >= 0) {
+        } elseif (version_compare($currentMysqlVersion, \LANSUITE_MINIMUM_MYSQL_VERSION) >= 0) {
             $mysqlVersionCheck = $ok . $currentMysqlVersion;
         } else {
-            $mysqlVersionCheck = $failed . t('LanSuite ist zu einer Datenbank mit der Version %1 verbunden. LanSuite benötigt mindestens eine MySQL Datenbank mit der Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.mysql.com\' target=\'_blank\'>MySQL.com</a>.', $currentMysqlVersion, $minMysqlVersion);
+            $mysqlVersionCheck = $failed . t('LanSuite ist zu einer Datenbank mit der Version %1 verbunden. LanSuite benötigt mindestens eine MySQL Datenbank mit der Version %2. Lade und installiere dir eine aktuellere Version von <a href=\'https://www.mysql.com\' target=\'_blank\'>MySQL.com</a>.', $currentMysqlVersion, \LANSUITE_MINIMUM_MYSQL_VERSION);
         }
         $dsp->AddDoubleRow("MySQL Server Version", $mysqlVersionCheck);
 
@@ -711,7 +712,7 @@ class Install
             }
         }
         $dsp->AddDoubleRow(t('Schreibrechte im Ordner \'ext_inc\''), $ext_inc_check);
-        
+
         // PHP temp folder access
         $tmpfile = tmpfile();
         if (!$tmpfile) {
@@ -721,7 +722,7 @@ class Install
             fclose($tmpfile);
         }
         $dsp->AddDoubleRow(t('Schreiben temporärer Dateien'), $tmp_check);
-        
+
         $dsp->AddFieldSetEnd();
 
         #### Warning ####
@@ -774,7 +775,7 @@ class Install
             $ftp_check = $not_possible . t('Auf deinem System konnte das PHP-Modul <b>FTP-Library</b> nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann');
         }
         $dsp->AddDoubleRow("FTP Library", $ftp_check);
-        
+
         // APCu-Lib
         if (extension_loaded('apcu')) {
             $apcu_check = $ok;
@@ -782,7 +783,7 @@ class Install
             $apcu_check = $optimize . t('Auf deinem System konnte das PHP-Modul <b>APCu</b> nicht gefunden werden. Dies wird verwendet, um verschiedenste Daten für schnellen Zugriff zwischenzuspeichern. Eine Aktivierung ist bei vielen Seitenzugriffen angeraten. Als Fallback werden die Daten im Dateisystem vorgehalten');
         }
         $dsp->AddDoubleRow("APCu", $apcu_check);
-        
+
         // OpenSSL
         if (extension_loaded('openssl')) {
             $openssl_check = $ok;
@@ -972,7 +973,7 @@ class Install
         $smarty->assign('showLinks', $showLinks);
         if ($showLinks) {
             $find_config = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $row["name"]);
-            if ($find_config["cfg_key"] != '') {
+            if (is_array($find_config) && $find_config["cfg_key"] != '') {
                 $settings_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=10&module={$row["name"]}\">". t('Konfig.') ."</a>";
             } else {
                 $settings_link = "";
@@ -980,7 +981,7 @@ class Install
             $smarty->assign('settings_link', $settings_link);
 
             $find_mod = $db->qry_first("SELECT module FROM %prefix%menu WHERE module=%string%", $row["name"]);
-            if ($find_mod["module"]) {
+            if (is_array($find_mod) && $find_mod["module"]) {
                 $menu_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
             } else {
                 $menu_link = "";
@@ -988,7 +989,8 @@ class Install
             $smarty->assign('menu_link', $menu_link);
 
             if (file_exists("modules/{$row["name"]}/mod_settings/db.xml")) {
-                $db_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=40&module={$row["name"]}\">". t('DB') ."</a>";
+                $db_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=40&module={$row["name"]}&tab=2\">". t('DB config') ."</a>";
+                $db_link .=  " | <a href=\"index.php?mod=install&action=mod_cfg&step=42&module={$row["name"]}&tab=2\">". t('DB update') ."</a>";
             } else {
                 $db_link = "";
             }

@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter ) {
     case 2:
         $get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
 
@@ -47,7 +48,8 @@ switch ($_GET["step"]) {
         break;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         unset($_SESSION['add_blocker_faqitem']);
 

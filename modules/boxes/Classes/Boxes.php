@@ -228,9 +228,6 @@ class Boxes
                 case 10:
                     $title = 'messenger';
                     break;
-                case 11:
-                    $title = 'wwcl';
-                    break;
             }
         }
         $smarty->assign('title', $title);
