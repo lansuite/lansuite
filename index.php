@@ -7,9 +7,11 @@ use Symfony\Component\Cache;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpClient\HttpClient;
 
 $request = Request::createFromGlobals();
 $filesystem = new Filesystem();
+$httpClient = HttpClient::create();
 
 define('ROOT_DIRECTORY', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 FileCollection::setBasePath(ROOT_DIRECTORY);
