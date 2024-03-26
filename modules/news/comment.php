@@ -1,9 +1,9 @@
 <?php
 
 // Check if news id is valid
-$newsQuery = 'SELECT caption FROM %prefix%news WHERE newsid = ?';
-$check = $database->queryWithOnlyFirstRow($newsQuery, [$_GET['newsid']]);
-if ($check["caption"] != "") {
+$newsQuery = 'SELECT caption FROM %prefix%news WHERE newsid = ? AND visibility <= ?';
+$check = $database->queryWithOnlyFirstRow($newsQuery, [$_GET['newsid'], $auth['type']]);
+if ($check) {
     $framework->AddToPageTitle($check["caption"]);
     $func->SetRead('news', $_GET['newsid']);
   
@@ -57,5 +57,5 @@ if ($check["caption"] != "") {
         new \LanSuite\MasterComment('news', $_GET['newsid'], array('news' => 'newsid'));
     }
 } else {
-    $func->error(t('Diese Newsmeldung existiert nicht'));
+    $func->error(t('Diese Newsmeldung existiert nicht oder du bist nicht berechtigt, sie zu sehen'));
 }
