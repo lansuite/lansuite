@@ -177,8 +177,6 @@ switch ($stepParameter) {
             $text = str_replace('%PARTYURL%', (!empty($cfg['sys_partyurl_ssl'])) ? $cfg["sys_partyurl_ssl"] : $cfg["sys_partyurl"], $text);
             // $text = str_replace("%MAXGUESTS%", $party_data['max_guest'], $text);
             
-            $text = str_replace("%NGLID%", $user["nglid"], $text);
-            $text = str_replace("%NGLCLANID%", $user["nglclanid"], $text);
             $text = str_replace("%IP%", $user["ip"], $text);
 
             ($user["paid"]) ? $text = str_replace("%BEZAHLT%", t('Ja'), $text)
