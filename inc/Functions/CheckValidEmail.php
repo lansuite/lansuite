@@ -11,7 +11,7 @@ use LanSuite\Validator\Email;
  */
 function CheckValidEmail($email)
 {
-    global $cfg,$db;
+    global $cfg, $db, $database;
 
     $emailValidator = match ($cfg['sys_email_regex_verification']) {
         'loose' => new Email(Email::VALIDATION_MODE_LOOSE),

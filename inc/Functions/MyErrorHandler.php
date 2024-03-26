@@ -9,7 +9,7 @@
  */
 function MyErrorHandler($errno, $errstr, $errfile, $errline)
 {
-    global $PHPErrors, $PHPErrorsFound, $db, $auth;
+    global $PHPErrors, $PHPErrorsFound, $db, $database, $auth;
 
     // Only show errors, which sould be reported according to error_reporting
     // Also filters @ (for @ will have error_reporting "0")
