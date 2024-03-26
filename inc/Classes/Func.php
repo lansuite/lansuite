@@ -16,8 +16,6 @@ class Func
 
     public function __construct()
     {
-        define('NO_LINK', -1);
-
         $url_array = [];
         $this->internal_referer = 'index.php';
 
