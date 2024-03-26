@@ -529,7 +529,7 @@ class Team
      */
     public function UpdateLeagueIDs($userid, $nglid = null, $nglclanid = null, $lgzid = null, $lgzclanid = null)
     {
-        global $db;
+        global $db, $database;
 
         if ($nglid != "") {
             $db->qry('UPDATE %prefix%user SET nglid = %string% WHERE userid = %int%', $nglid, $userid);

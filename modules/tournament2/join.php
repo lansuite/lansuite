@@ -27,7 +27,7 @@ if ($auth["userid"] == "") {
     $auth["userid"] = 0;
 }
 
-$user = $db->qry_first("
+$user = $database->queryWithOnlyFirstRow("
   SELECT
     nglid,
     nglclanid,
@@ -35,7 +35,7 @@ $user = $db->qry_first("
     lgzclanid
   FROM %prefix%user
   WHERE
-    userid = %int%", $auth["userid"]);
+    userid = ?", [$auth["userid"]]);
 
 if ($tteam->SignonCheck($tournamentid)) {
     $stepParameter = $_GET["step"] ?? 0;
