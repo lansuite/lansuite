@@ -3,6 +3,7 @@
 namespace LanSuite;
 
 use LanSuite\AzDGCrypt;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class auth
@@ -81,31 +82,22 @@ class Auth
     public $away_users = [];
 
     /**
+     * Request object
+     */
+    private Request $request;
+
+    /**
      * auth constructor.
      * @param string $frmwrkmode Frameworkmode for switch Stats
      */
-    public function __construct($frmwrkmode = "")
+    public function __construct(Request $request, $frmwrkmode = '')
     {
         global $db;
 
+        $this->request = $request;
+
         // Setting default values
-        $this->auth = [
-            'sessid' => session_id(),
-            'ip' => $_SERVER['REMOTE_ADDR'],
-
-            'login' => LS_AUTH_LOGIN_LOGGED_OUT,
-            'type' => LS_AUTH_TYPE_ANONYMOUS,
-
-            // In theory, all fields of the user database table should be present.
-            // See loadAuthBySID()
-            'userid' => 0,
-            'email' => '',
-            'username' => '',
-            'userpassword' => '',
-            'group_id' => 0,
-            'design' => 'simple', // TODO Get design from default configuration
-            'clanid' => 0,
-        ];
+        $this->auth = $this->getAuthenticationDefaultValues();
         $this->timestamp = time();
 
         // Update statistics
@@ -167,6 +159,29 @@ class Auth
                 $db->qry_first('OPTIMIZE TABLE %prefix%cookie');
             }
         }
+    }
+
+    /**
+     * Default values for global variable $auth
+     */
+    private function getAuthenticationDefaultValues(): array {
+        return [
+            'sessid' => session_id(),
+            'ip' => $_SERVER['REMOTE_ADDR'],
+
+            'login' => LS_AUTH_LOGIN_LOGGED_OUT,
+            'type' => LS_AUTH_TYPE_ANONYMOUS,
+
+            // In theory, all fields of the user database table should be present.
+            // See loadAuthBySID()
+            'userid' => 0,
+            'email' => '',
+            'username' => '',
+            'userpassword' => '',
+            'group_id' => 0,
+            'design' => 'simple', // TODO Get design from default configuration
+            'clanid' => 0,
+        ];
     }
 
     /**
@@ -236,7 +251,7 @@ class Auth
             $cookierow = $db->qry_first('SELECT userid from %prefix%cookie WHERE cookieid = %int% AND password = %string%', $tmp_login_email, $tmp_login_pass);
             if ($cookierow) {
                 $user = $db->qry_first(
-                    'SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user WHERE (userid = %int%)',
+                    'SELECT *, 1 AS found, 0 AS user_login FROM %prefix%user WHERE (userid = %int%)',
                     $cookierow['userid']
                 );
 
@@ -424,18 +439,14 @@ class Auth
 
         // Reset Cookiedata
         $this->cookie_read();
-        $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid = %int%', $this->auth['userid'], $this->cookie_data['userid']);
+        $cookieUserId = $this->cookie_data['userid'] ?? 0;
+        $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid = %int%', $this->auth['userid'], $cookieUserId);
         $this->cookie_unset();
 
         // Reset Sessiondata
         unset($this->auth);
         unset($_SESSION['auth']);
-        $this->auth['login'] = "0";
-        $this->auth["userid"] = "";
-        $this->auth["email"] = "";
-        $this->auth["username"] = "";
-        $this->auth["userpassword"] = "";
-        $this->auth["type"] = 0;
+        $this->auth = $this->getAuthenticationDefaultValues();
 
         $func->confirmation(t('Du wurdest erfolgreich ausgeloggt. Vielen dank für deinen Besuch.'), "", 1, 'FORWARD');
         return $this->auth;
@@ -712,7 +723,13 @@ class Auth
         setcookie(
             $this->cookie_name,
             $this->cookiedata_pack(),
-            ['expires' => time()+3600*24*$this->cookie_time, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain]
+            [
+                'expires' => time() + 3600 * 24 * $this->cookie_time,
+                'path' => $this->cookie_path,
+                'domain' => $this->cookie_domain,
+                'secure' => $this->request->isSecure(),
+                'httponly' => true,
+            ]
         );
     }
 
@@ -726,7 +743,13 @@ class Auth
         setcookie(
             $this->cookie_name,
             '',
-            ['expires' => time()+1, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain]
+            [
+                'expires' => time() + 1,
+                'path' => $this->cookie_path,
+                'domain' => $this->cookie_domain,
+                'secure' => $this->request->isSecure(),
+                'httponly' => true,
+            ]
         );
     }
 

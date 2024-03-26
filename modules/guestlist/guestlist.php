@@ -11,11 +11,12 @@ $stepParameter = $_GET['step'] ?? 0;
 switch ($stepParameter) {
     // Paid
     case 10:
-        if (!$_POST['action'] and $_GET['userid']) {
+        $actionParameter = $_POST['action'] ?? '';
+        if (!$actionParameter && $_GET['userid']) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN && $_POST['action']) {
             $Messages = array('success' => '', 'error' => '');
             foreach ($_POST['action'] as $key => $val) {
                 $Msg = $guestlist->SetPaid($key, $party->party_id);
@@ -40,11 +41,12 @@ switch ($stepParameter) {
 
     // Not paid
     case 11:
-        if (!$_POST['action'] and $_GET['userid']) {
+        $actionParameter = $_POST['action'] ?? '';
+        if (!$actionParameter && $_GET['userid']) {
             $_POST['action'][$_GET['userid']] = 1;
         }
 
-        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN and $_POST['action']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN && $_POST['action']) {
             $Messages = array('success' => '', 'error' => '');
             foreach ($_POST['action'] as $key => $val) {
                 $Msg = $guestlist->SetNotPaid($key, $party->party_id);

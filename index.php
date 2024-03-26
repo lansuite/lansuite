@@ -6,9 +6,11 @@ use Symfony\Component\Cache;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpClient\HttpClient;
 
 $request = Request::createFromGlobals();
 $filesystem = new Filesystem();
+$httpClient = HttpClient::create();
 
 define('ROOT_DIRECTORY', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 
@@ -114,6 +116,16 @@ if (isset($frmwrkmode)) {
 
 // Set HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
+header('X-Frame-Options: sameorigin');
+// TODO: This header is still useful - Once we verified to send the correct MIME types, enable this header
+// header('X-Content-Type-Options: nosniff');
+header('Referrer-Policy: strict-origin');
+// TODO Set Content-Security-Policy header
+
+// Enforce HSTS if browsing via HTTPS
+if ($request->isSecure()) {
+    header('Strict-Transport-Security: max-age=86400');
+}
 
 include_once("ext_scripts/mobile_device_detect.php");
 $framework->IsMobileBrowser = mobile_device_detect();
@@ -249,7 +261,12 @@ if ($config['environment']['configured'] == 0) {
     $_GET['action'] = 'wizard';
 
     // Silent connect
-    $db->connect(1);
+    try {
+        $db->connect(1);
+    } catch (\mysqli_sql_exception $e) {
+        //ignore connection error, this wil be dealt with later in the installation
+    }
+
     $IsAboutToInstall = 1;
 
     // Force Admin rights for installing User
@@ -313,7 +330,7 @@ if ($config['environment']['configured'] == 0) {
     }
 
     // Start authentication, just if LS is working
-    $authentication = new \LanSuite\Auth($frmwrkmode);
+    $authentication = new \LanSuite\Auth($request, $frmwrkmode);
     // Test Cookie / Session if user is logged in
     $auth = $authentication->check_logon();
     // Olduserid for Switback on Boxes
@@ -338,11 +355,21 @@ if ($config['environment']['configured'] != 0) {
     if ($_GET['mod']=='auth') {
         switch ($_GET['action']) {
             case 'login':
-                $auth = $authentication->login($_POST['email'], $_POST['password']);
+                $emailValue = $_POST['email'] ?? '';
+                $passwordValue = $_POST['password'] ?? '';
+                $auth = $authentication->login($emailValue, $passwordValue);
                 break;
             case 'logout':
                 $auth = $authentication->logout();
+
+                // At the moment we did not migrate fully to "Symfony\Component\HttpFoundation\Request".
+                // LanSuite has the behaviour to write into superglobals, like $_GET.
+                // HttpFoundation initiates from the superglobal only once.
+                // In a regular case, writes to the superglobals won't be respected by HttpFoundation.
+                // For the time being (until we fully migrate), we need to double write:
+                // Once to the superglobal, once to HttpFoundation.
                 $_GET['mod'] = 'home';
+                $request->query->set('mod', 'home');
                 break;
             // Switch to user
             case 'switch_to':

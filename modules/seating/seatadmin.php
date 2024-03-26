@@ -14,18 +14,19 @@ if ($stepParameter > 2 && (!$_GET['blockid'])) {
 }
 
 // Exec step10-query
-if ($stepParameter == 10 and $_GET['quest']) {
+$questParameter = $_GET['quest'] ?? 0;
+if ($stepParameter == 10 and $questParameter) {
     // Assign seat
     $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
 
     // If old owner should get a new seat, jump to step 2 an procede with this user
-    if ($_GET['quest'] == 2) {
+    if ($questParameter == 2) {
         $_GET['step'] = 2;
         $_GET['userid'] = $_GET['next_userid'];
     }
 
     $back_link = '';
-    if ($_GET['quest'] == 1) {
+    if ($questParameter == 1) {
         $back_link = 'index.php?mod=seating&action=seatadmin';
     }
     $func->confirmation(t('Der Sitzplatz wurde erfolgreich für %1 reserviert', $new_user['username']), $back_link);
@@ -98,10 +99,11 @@ switch ($stepParameter) {
             // Seat free, or just marked -> ask if reserve, or mark
             case 1:
             case 3:
-                if (!$_GET['quest']) {
+                if (!$questParameter) {
                     $questionarray = array();
                     $linkarray = array();
-                    if ($new_user['paid'] == 0) {
+                    $markinfo = '';
+                    if (is_array($new_user) && $new_user['paid'] == 0) {
                         $markinfo = HTML_NEWLINE . "(Alle markierten Sitzplätze von %1 werden gelöscht, da %1 noch nicht bezahlt hat)";
                     }
 
@@ -120,7 +122,7 @@ switch ($stepParameter) {
 
             // Seat occupied -> show action selection
             case 2:
-                if (!$_GET['quest']) {
+                if (!$questParameter) {
                     // Selected users own seat
                     if ($seat['userid'] == $_GET['userid']) {
                         $func->question(t('Dies ist der Sitzplatz des aktuell ausgewählten Benutzers. Soll der Platz freigegeben werden?'), 'index.php?mod=seating&action=seatadmin&step=20&userid='. $_GET['userid'] .'&blockid='. $_GET['blockid'] .'&row='. $_GET['row'] .'&col='. $_GET['col'], 'index.php?mod=seating&action=seatadmin&step=3&userid='. $_GET['userid'] .'&blockid='. $_GET['blockid']);

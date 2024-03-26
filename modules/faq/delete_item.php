@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 2:
         $get_caption = $db->qry_first("SELECT caption FROM %prefix%faq_item WHERE itemid = %int%", $_GET['itemid']);
         $caption = $get_caption["caption"];

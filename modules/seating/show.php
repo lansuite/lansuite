@@ -236,7 +236,7 @@ switch ($stepParameter) {
             AND party_id = %int%", $auth['userid'], $party->party_id);
 
         // Check Signed on
-        if (!$user_party['user_id']) {
+        if (!$user_party) {
             $func->information(t('Nur zur Party angemeldete Benutzer dürfen Sitzplätze vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
         // Check paid

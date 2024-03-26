@@ -21,7 +21,8 @@
 *
 */
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 2:
         if (strlen($_POST["tticket_text"]) > 5000) {
             $func->information(t('Der Text darf nicht mehr als 5000 Zeichen enthalten'), "index.php?mod=troubleticket&action=add");
@@ -40,7 +41,8 @@ switch ($_GET["step"]) {
         break;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Troubleticket hinzufügen'), t(' Mit diesem Formular kannst du ein Troubleticket hinzufügen, falls du ein Problem hast'));
         $dsp->SetForm("index.php?mod=troubleticket&action=add&step=2");

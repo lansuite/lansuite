@@ -20,7 +20,7 @@ switch ($stepParameter) {
         $ms2->AddIconField('delete', 'index.php?mod=tournament2&action=breaks&tournamentid='. (int)$_GET['tournamentid'] .'&step=10&breakid=', t('Löschen'));
         $ms2->PrintSearch('index.php?mod=tournament2&action=breaks&tournamentid='. (int)$_GET['tournamentid'], 'breakid');
         
-        $t = $db->qry_first('SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $_GET['tournamentid']);
+        $t = $database->queryWithOnlyFirstRow("SELECT `name` FROM `%prefix%tournament_tournaments` WHERE `tournamentid` = ?", [$_GET['tournamentid']]);
           
         $dsp->AddFieldSetStart(t('Pause für Turnier %1 festlegen', $t['name']));
         $mf = new \LanSuite\MasterForm();

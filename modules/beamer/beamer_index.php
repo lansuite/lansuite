@@ -6,20 +6,23 @@ if (!VALID_LS) {
 }
 
 $beamerid = '';
-if ($_GET['beamerid']) {
+$beamerIdParameter = $_GET['beamerid'] ?? '';
+if ($beamerIdParameter) {
     $beamerid = substr($_GET['beamerid'], 0, 3);
 }
 
 $bcid = '';
-if ($_GET['bcid']) {
+$bcIdParameter = $_GET['bcid'] ?? '';
+if ($bcIdParameter) {
     $bcid = substr($_GET['bcid'], 0, 3);
 }
 
 $ctype = '';
-if ($_REQUEST['ctype']) {
+$cTypeParameter = $_REQUEST['ctype'] ?? '';
+if ($cTypeParameter) {
     $ctype = substr($_REQUEST['ctype'], 0, 7);
 }
-$action = $_GET['action'];
+$action = $_GET['action'] ?? '';
  
 // Debug mode
 if (isset($debug)) {
@@ -45,8 +48,8 @@ switch ($action) {
             $newContent['bcid'] = $bcid;
         }
         $newContent['type'] = $ctype;
-        $newContent['caption'] = $_POST['ccaption'];
-        $newContent['maxrepeats'] = $_POST['cmaxrepeats'];
+        $newContent['caption'] = $_POST['ccaption'] ?? '';
+        $newContent['maxrepeats'] = $_POST['cmaxrepeats'] ?? '';
 
         switch ($ctype) {
             case 'text':

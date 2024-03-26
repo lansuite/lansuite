@@ -47,6 +47,7 @@ if ($tid) {
     $thread = $db->qry_first("SELECT need_type, need_group FROM %prefix%board_forums WHERE fid = %int%", $_GET['fid']);
 }
 
+$fid = 0;
 if (!$thread and $tid) {
     $func->information(t('Keine Beiträge vorhanden'));
 } elseif ($thread['caption'] != '') {
@@ -186,7 +187,8 @@ if (!$thread and $tid) {
         $z++;
     }
 
-    if ($_SESSION['threadview'] != $tid) {
+    $threadViewId = $_SESSION['threadview'] ?? 0;
+    if ($threadViewId != $tid) {
         $db->qry("UPDATE %prefix%board_threads SET views=views+1 WHERE tid=%int%", $tid);
     }
     $_SESSION['threadview'] = $tid;
@@ -195,21 +197,21 @@ if (!$thread and $tid) {
 }
 
 $pIdParameter = $_GET['pid'] ?? 0;
-if ($thread['closed']) {
+if (is_array($thread) && $thread['closed']) {
     $func->information(t('Dieser Thread wurde geschlossen. Es können keine Antworten mehr geschrieben werden'), NO_LINK);
-} elseif ($thread['need_type'] >= 1 and !$auth['login'] and !$_GET['tid']) {
+} elseif (is_array($thread) && $thread['need_type'] >= 1 and !$auth['login'] and !$_GET['tid']) {
     $func->information(t('Du musst dich zuerst einloggen, um einen Thread in diesem Forum starten zu können'), NO_LINK);
-} elseif ($thread['need_type'] >= 1 and !$auth['login'] and $_GET['tid']) {
+} elseif (is_array($thread) && $thread['need_type'] >= 1 and !$auth['login'] and $_GET['tid']) {
     $func->information(t('Um in diesem Board zu posten zu antworten, logge dich bitte zuerst ein.'), NO_LINK);
-} elseif ($thread['need_type'] > (int)($auth['type'] + 1)) {
+} elseif (is_array($thread) && $thread['need_type'] > (int)($auth['type'] + 1)) {
     $func->information(t('Um in diesem Board zu posten, musst du Admin sein.'), NO_LINK);
-} elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group'] and $_GET['tid']) {
+} elseif (is_array($thread) && $thread['need_group'] and $auth['group_id'] != $thread['need_group'] and $_GET['tid']) {
     $func->information(t('Du gehörst nicht der richtigen Gruppe an, um auf diese Beiträge zu antworten.'), NO_LINK);
-} elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group'] and !$_GET['tid']) {
+} elseif (is_array($thread) && $thread['need_group'] and $auth['group_id'] != $thread['need_group'] and !$_GET['tid']) {
     $new_thread = t('Du gehörst nicht der richtigen Gruppe an, um einen Thread in diesem Forum starten zu können');
 } elseif ($pIdParameter && $auth['type'] <= \LS_AUTH_TYPE_USER and $current_post['userid'] != $auth['userid']) {
     $func->error('Du darfst nur deine eigenen Beiträge editieren!', NO_LINK);
-} elseif ($thread) {
+} elseif (is_array($thread)) {
     // Topic erstellen oder auf Topic antworten
     if ($_GET['tid']) {
         $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));
@@ -302,7 +304,7 @@ if ($thread['closed']) {
     $dsp->AddFieldsetEnd();
 }
 
-if ($thread['caption'] != '') {
+if (is_array($thread) && $thread['caption'] != '') {
     // Bookmarks and Auto-Mail
     if ($auth['login']) {
         $setBmParameter = $_GET["set_bm"] ?? '';

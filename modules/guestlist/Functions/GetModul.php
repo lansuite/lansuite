@@ -6,7 +6,7 @@
  */
 function getModul($url)
 {
-    $ret=array();
+    $ret = [];
     parse_str(substr(stristr($url, '.php'), 5), $ret);
-    return $ret['mod'];
+    return $ret['mod'] ?? '';
 }

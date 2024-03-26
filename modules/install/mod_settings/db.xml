@@ -108,8 +108,8 @@
                 <key>IND</key>
                 <default>0</default>
                 <extra></extra>
-            	  <foreign_key>user.userid</foreign_key>
-            	  <on_delete>ASK_SET0</on_delete>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>ASK_SET0</on_delete>
             </field>
             <field>
                 <name>date</name>
@@ -167,8 +167,8 @@
                 <key>IND</key>
                 <default>0</default>
                 <extra></extra>
-            	  <foreign_key>user.userid</foreign_key>
-            	  <on_delete>DELETE</on_delete>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>DELETE</on_delete>
             </field>
             <field>
                 <name>email</name>
@@ -393,7 +393,7 @@
                 <key>IND</key>
                 <default></default>
                 <extra></extra>
-            	  <foreign_key>stats_auth.sessid</foreign_key>
+                <foreign_key>stats_auth.sessid</foreign_key>
             </field>
             <field>
                 <name>Besucher_IP</name>
@@ -435,8 +435,8 @@
                 <key>IND</key>
                 <default>0</default>
                 <extra></extra>
-            	  <foreign_key>user.userid</foreign_key>
-            	  <on_delete>ASK_DELETE</on_delete>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>ASK_DELETE</on_delete>
             </field>
             <field>
                 <name>text</name>
@@ -551,8 +551,8 @@
                 <key>IND</key>
                 <default>0</default>
                 <extra></extra>
-            	  <foreign_key>user.userid</foreign_key>
-            	  <on_delete>DELETE</on_delete>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>DELETE</on_delete>
             </field>
             <field>
                 <name>date</name>
@@ -714,8 +714,8 @@
                 <key>IND</key>
                 <default>1</default>
                 <extra></extra>
-            	  <foreign_key>boxes.boxid</foreign_key>
-            	  <on_delete>ASK_SET0</on_delete>
+                <foreign_key>boxes.boxid</foreign_key>
+                <on_delete>ASK_SET0</on_delete>
             </field>
         </structure>
         <content>
@@ -939,7 +939,7 @@
             </entry>
         </content>
     </table>
-        <table>
+    <table>
         <table_head>
             <name>variables</name>
         </table_head>
@@ -1003,22 +1003,6 @@
                 <title>Anzahl der Teilnhemer</title>
             </entry>
             <entry>
-                <shortcut>%WWCLID%</shortcut>
-                <title>WWCL ID</title>
-            </entry>
-            <entry>
-                <shortcut>%WWCLCLANID%</shortcut>
-                <title>WWCL Clan ID</title>
-            </entry>
-            <entry>
-                <shortcut>%NGLID%</shortcut>
-                <title>NGL ID</title>
-            </entry>
-            <entry>
-                <shortcut>%NGLCLANID%</shortcut>
-                <title>NGL Clan ID</title>
-            </entry>
-            <entry>
                 <shortcut>%IP%</shortcut>
                 <title>IP Adresse (Aus Sitzplan)</title>
             </entry>
@@ -1056,8 +1040,8 @@
                 <key>IND</key>
                 <default>0</default>
                 <extra></extra>
-            	  <foreign_key>user.userid</foreign_key>
-            	  <on_delete>DELETE</on_delete>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>DELETE</on_delete>
             </field>
             <field>
                 <name>login</name>
@@ -1107,7 +1091,7 @@
                 <default>0</default>
                 <extra></extra>
             </field>
-			<field>
+            <field>
                 <name>lastajaxhit</name>
                 <type>int(11) unsigned</type>
                 <null></null>
@@ -1432,8 +1416,8 @@
                 <key>IND</key>
                 <default></default>
                 <extra></extra>
-            	  <foreign_key>user.userid</foreign_key>
-    	       <on_delete>DELETE</on_delete>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>DELETE</on_delete>
             </field>
             <field>
                 <name>ip</name>
@@ -1491,8 +1475,8 @@
                 <key>IND</key>
                 <default>0</default>
                 <extra></extra>
-            	  <foreign_key>user.userid</foreign_key>
-        	  <on_delete>ASK_DELETE</on_delete>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>ASK_DELETE</on_delete>
             </field>
             <field>
                 <name>date</name>
@@ -1514,236 +1498,237 @@
         <content>
         </content>
     </table>
-	<table>
-		<table_head>
-			<name>lastread</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>readid</name>
-				<type>int(11) unsigned</type>
-				<null></null>
-				<key>PRI</key>
-				<default></default>
-				<extra>auto_increment</extra>
-			</field>
-			<field>
-				<name>tab</name>
-				<type>varchar(100)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>entryid</name>
-				<type>int(11) unsigned</type>
-				<null></null>
-				<key>IND</key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>userid</name>
-				<type>mediumint(8) unsigned</type>
-				<null></null>
-				<key>IND</key>
-				<default></default>
-				<extra></extra>
-    	  <foreign_key>user.userid</foreign_key>
-    	  <on_delete>DELETE</on_delete>
-			</field>
-			<field>
-				<name>date</name>
-				<type>datetime</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-		</structure>
-  </table>
-	<table>
-		<table_head>
-			<name>boxes</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>boxid</name>
-				<type>smallint(5) unsigned</type>
-				<null></null>
-				<key>PRI</key>
-				<default>0</default>
-				<extra>auto_increment</extra>
-			</field>
-			<field>
-				<name>name</name>
-				<type>varchar(20)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>place</name>
-				<type>tinyint(3) unsigned</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>pos</name>
-				<type>smallint(5) unsigned</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>active</name>
-				<type>tinyint(1) unsigned</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>internet</name>
-				<type>tinyint(1) unsigned</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>login</name>
-				<type>tinyint(1) unsigned</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>module</name>
-				<type>varchar(20)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>source</name>
-				<type>varchar(20)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>callback</name>
-				<type>varchar(20)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-		</structure>
-	</table>
-	<table>
-		<table_head>
-			<name>cookie</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>cookieid</name>
-				<type>int(11) unsigned</type>
-				<null></null>
-				<key>PRI</key>
-				<default></default>
-				<extra>auto_increment</extra>
-			</field>
-			<field>
-				<name>password</name>
-				<type>char(32)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>lastchange</name>
-				<type>timestamp</type>
-				<null></null>
-				<key>IND</key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>userid</name>
-				<type>mediumint(8) unsigned</type>
-				<null></null>
-				<key>IND</key>
-				<default></default>
-				<extra></extra>
-        <foreign_key>user.userid</foreign_key>
-        <on_delete>DELETE</on_delete>
-			</field>
-		</structure>
+    <table>
+        <table_head>
+            <name>lastread</name>
+        </table_head>
+        <structure>
+            <field>
+                <name>readid</name>
+                <type>int(11) unsigned</type>
+                <null></null>
+                <key>PRI</key>
+                <default></default>
+                <extra>auto_increment</extra>
+            </field>
+            <field>
+                <name>tab</name>
+                <type>varchar(100)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>entryid</name>
+                <type>int(11) unsigned</type>
+                <null></null>
+                <key>IND</key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>userid</name>
+                <type>mediumint(8) unsigned</type>
+                <null></null>
+                <key>IND</key>
+                <default></default>
+                <extra></extra>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>DELETE</on_delete>
+            </field>
+            <field>
+                <name>date</name>
+                <type>datetime</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+        </structure>
     </table>
-	<table>
-		<table_head>
-			<name>plugin</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>pluginid</name>
-				<type>int(11) unsigned</type>
-				<null></null>
-				<key>PRI</key>
-				<default></default>
-				<extra>auto_increment</extra>
-			</field>
-			<field>
-				<name>caption</name>
-				<type>varchar(20)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>module</name>
-				<type>varchar(20)</type>
-				<null></null>
-				<key>IND</key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>pluginType</name>
-				<type>enum('home','signon','systemtest','usrmgr_details_tab','usrmgr_details_main','usrmgr_search')</type>
-				<null></null>
-				<key>IND</key>
-				<default>home</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>pos</name>
-				<type>tinyint(3) unsigned</type>
-				<null></null>
-				<key>IND</key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>icon</name>
-				<type>varchar(16)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-		</structure>
+    <table>
+        <table_head>
+            <name>boxes</name>
+        </table_head>
+        <structure>
+            <field>
+                <name>boxid</name>
+                <type>smallint(5) unsigned</type>
+                <null></null>
+                <key>PRI</key>
+                <default>0</default>
+                <extra>auto_increment</extra>
+            </field>
+            <field>
+                <name>name</name>
+                <type>varchar(20)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>place</name>
+                <type>tinyint(3) unsigned</type>
+                <null></null>
+                <key></key>
+                <default>0</default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>pos</name>
+                <type>smallint(5) unsigned</type>
+                <null></null>
+                <key></key>
+                <default>0</default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>active</name>
+                <type>tinyint(1) unsigned</type>
+                <null></null>
+                <key></key>
+                <default>0</default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>internet</name>
+                <type>tinyint(1) unsigned</type>
+                <null></null>
+                <key></key>
+                <default>0</default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>login</name>
+                <type>tinyint(1) unsigned</type>
+                <null></null>
+                <key></key>
+                <default>0</default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>module</name>
+                <type>varchar(20)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>source</name>
+                <type>varchar(20)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>callback</name>
+                <type>varchar(20)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+        </structure>
+    </table>
+    <table>
+        <table_head>
+            <name>cookie</name>
+        </table_head>
+        <structure>
+            <field>
+                <name>cookieid</name>
+                <type>int(11) unsigned</type>
+                <null></null>
+                <key>PRI</key>
+                <default></default>
+                <extra>auto_increment</extra>
+            </field>
+            <field>
+                <name>password</name>
+                <type>char(32)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>lastchange</name>
+                <type>timestamp</type>
+                <null></null>
+                <key>IND</key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>userid</name>
+                <type>mediumint(8) unsigned</type>
+                <null></null>
+                <key>IND</key>
+                <default></default>
+                <extra></extra>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>DELETE</on_delete>
+            </field>
+        </structure>
+    </table>
+    <table>
+        <table_head>
+            <name>plugin</name>
+        </table_head>
+        <structure>
+            <field>
+                <name>pluginid</name>
+                <type>int(11) unsigned</type>
+                <null></null>
+                <key>PRI</key>
+                <default></default>
+                <extra>auto_increment</extra>
+            </field>
+            <field>
+                <name>caption</name>
+                <type>varchar(20)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>module</name>
+                <type>varchar(20)</type>
+                <null></null>
+                <key>IND</key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>pluginType</name>
+                <type>
+                    enum('home','signon','systemtest','usrmgr_details_tab','usrmgr_details_main','usrmgr_search')</type>
+                <null></null>
+                <key>IND</key>
+                <default>home</default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>pos</name>
+                <type>tinyint(3) unsigned</type>
+                <null></null>
+                <key>IND</key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>icon</name>
+                <type>varchar(16)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+        </structure>
     </table>
 </lansuite>

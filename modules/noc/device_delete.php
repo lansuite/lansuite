@@ -3,7 +3,8 @@
 include_once("modules/noc/class_noc.php");
 $noc = new noc();
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
     case 1:
         include_once('modules/noc/search.inc.php');

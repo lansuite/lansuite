@@ -127,6 +127,7 @@ class Seat2
           SELECT
             s.row,
             s.col,
+            s.ip,
             b.blockid,
             b.name
           FROM %prefix%seat_seats AS s
@@ -373,7 +374,7 @@ class Seat2
 
                 $partyUserCheckin = 0;
                 $partyUserCheckout = 0;
-                if (array_key_exists('checkin', $party_user) && array_key_exists('checkout', $party_user)) {
+                if (is_array($party_user) && array_key_exists('checkin', $party_user) && array_key_exists('checkout', $party_user)) {
                     $partyUserCheckin = $party_user['checkin'];
                     $partyUserCheckout = $party_user['checkout'];
                 }
@@ -902,7 +903,7 @@ class Seat2
             AND s.userid = %int%
             AND s.status = 2", $party->party_id, $userid);
 
-        if ($row['seatid'] > 0) {
+        if (is_array($row) && $row['seatid'] > 0) {
             $db->qry("UPDATE %prefix%seat_seats SET status = 3 WHERE seatid = %int%", $row['seatid']);
         }
     }
@@ -929,7 +930,7 @@ class Seat2
             AND s.userid = %int%
             AND status = 2", $party->party_id, $userid);
 
-        if ($my_party_seat['seatid']) {
+        if (is_array($my_party_seat) && $my_party_seat['seatid']) {
             $db->qry("UPDATE %prefix%seat_seats SET userid = 0, status = 1 WHERE seatid = %int%", $my_party_seat['seatid']);
         }
 

@@ -2,7 +2,8 @@
 
 $gd = new \LanSuite\GD();
 
-if ($_GET['action'] == 'change' and $_GET['sponsorid'] == '') {
+$sponsorIdParameter = $_GET['sponsorid'] ?? '';
+if ($_GET['action'] == 'change' && $sponsorIdParameter == '') {
     include_once('modules/sponsor/search.inc.php');
 } else {
     $mf = new \LanSuite\MasterForm();
@@ -12,14 +13,10 @@ if ($_GET['action'] == 'change' and $_GET['sponsorid'] == '') {
     $mf->AddGroup('General');
 
     $code_popup_link_banner = '<ul>
-    <li><a href="javascript:OpenHelplet(\'sponsor\', \'ngl\');">NGL-Button</a></li>
-    <li><a href="javascript:OpenHelplet(\'sponsor\', \'wwcl\');">WWCL-Banner</a></li>
     <li><a href="javascript:OpenHelplet(\'sponsor\', \'adsense\');">Google Anzeigen</a></li>
     </ul>';
 
     $code_popup_link_box = '<ul>
-    <li><a href="javascript:OpenHelplet(\'sponsor\', \'ngl\');">NGL-Button</a></li>
-    <li><a href="javascript:OpenHelplet(\'sponsor\', \'wwcl\');">WWCL-Banner</a></li>
     <li><a href="javascript:OpenHelplet(\'sponsor\', \'adsense_box\');">Google Anzeigen</a></li>
     </ul>';
 
@@ -55,5 +52,5 @@ if ($_GET['action'] == 'change' and $_GET['sponsorid'] == '') {
 
     $mf->AdditionalDBAfterSelectFunction = 'RewriteFields';
     $mf->AdditionalDBPreUpdateFunction = 'UploadFiles';
-    $mf->SendForm('index.php?mod=sponsor&amp;action='. $_GET['action'], 'sponsor', 'sponsorid', $_GET['sponsorid']);
+    $mf->SendForm('index.php?mod=sponsor&amp;action='. $_GET['action'], 'sponsor', 'sponsorid', $sponsorIdParameter);
 }

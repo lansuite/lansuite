@@ -9,23 +9,23 @@ $seat2 = new \LanSuite\Module\Seating\Seat2();
 
 $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
-$qacc           = $_GET["qacc"];
+$qacc           = $_GET["qacc"] ?? 0;
 $tournamentid   = $_GET["tournamentid"];
 $gameid1        = $_GET["gameid1"];
 $gameid2        = $_GET["gameid2"];
-$score_team1    = $_POST["score_team1"];
-$score_team2    = $_POST["score_team2"];
-$score_comment  = $_POST["score_comment"];
+$score_team1    = $_POST["score_team1"] ?? 0;
+$score_team2    = $_POST["score_team2"] ?? 0;
+$score_comment  = $_POST["score_comment"] ?? '';
 
 // Ueberschreibungsabfrage
-if ($_GET["qacc"] == 1) {
-    $score_team1 = $_GET["score_team1"];
-    $score_team2 = $_GET["score_team2"];
-    $score_comment = $_GET["score_comment"];
+if ($qacc == 1) {
+    $score_team1 = $_GET["score_team1"] ?? 0;
+    $score_team2 = $_GET["score_team2"] ?? 0;
+    $score_comment = $_GET["score_comment"] ?? '';
 }
 
 // Infos holen
-$tournament = $db->qry_first("
+$tournament = $database->queryWithOnlyFirstRow("
   SELECT
     name,
     teamplayer,
@@ -40,23 +40,23 @@ $tournament = $db->qry_first("
     tournamentid
   FROM %prefix%tournament_tournaments
   WHERE
-    tournamentid = %int%", $tournamentid);
+    tournamentid = ?", [$tournamentid]);
 $map = explode("\n", $tournament["mapcycle"]);
 if ($map[0] == "") {
     $map[0] = t('unbekannt');
 }
 
-$games = $db->qry_first("
+$games = $database->queryWithOnlyFirstRow("
   SELECT
     COUNT(*) AS anz
   FROM %prefix%t2_games
   WHERE
-    (tournamentid = %int%)
-    AND (round=0)
-  GROUP BY round", $tournamentid);
+    tournamentid = ?
+    AND round = 0
+  GROUP BY round", [$tournamentid]);
 $team_anz = $games["anz"];
 
-$team1 = $db->qry_first("
+$team1 = $database->queryWithOnlyFirstRow("
   SELECT
     games.group_nr,
     games.round,
@@ -73,10 +73,10 @@ $team1 = $db->qry_first("
   LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
   LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
   WHERE
-    (teams.tournamentid = %int%)
-    AND (games.gameid = %int%)", $tournamentid, $gameid1);
+    teams.tournamentid = ?
+    AND games.gameid = ?", [$tournamentid, $gameid1]);
 
-$team2 = $db->qry_first("
+$team2 = $database->queryWithOnlyFirstRow("
   SELECT
     games.round,
     games.position,
@@ -92,8 +92,8 @@ $team2 = $db->qry_first("
   LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
   LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
   WHERE
-    (teams.tournamentid = %int%)
-    AND (games.gameid = %int%)", $tournamentid, $gameid2);
+    teams.tournamentid = ?
+    AND games.gameid = ?", [$tournamentid, $gameid2]);
 
 // Einschränkungen prüfen
 if ($tournament["name"] == "") {
@@ -103,7 +103,8 @@ if ($tournament["name"] == "") {
 
 // Keine Einschränkungen gefunden
 } else {
-    switch ($_GET["step"]) {
+    $stepParameter = $_GET["step"] ?? 0;
+    switch ($stepParameter) {
         default:
             $seat2 = new Seat2();
 
@@ -134,7 +135,7 @@ if ($tournament["name"] == "") {
                 $mf = new \LanSuite\MasterForm();
                 $mf->AddField(t('Server Zuweisen'), 'server_id', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
                 if ($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1)) {
-                    $db->qry("UPDATE %prefix%t2_games SET server_id = %int% WHERE gameid = %int%", $_POST['server_id'], $gameid2);
+                    $database->query("UPDATE %prefix%t2_games SET server_id = ? WHERE gameid = ?", [$_POST['server_id'], $gameid2]);
                 }
             }
 
@@ -217,13 +218,14 @@ if ($tournament["name"] == "") {
             // Wurde Ergebnis schon eingetragen?
             $not_new = 0;
             if (($tournament["mode"] == "single") || ($tournament["mode"] == "double")) {
-                $score = $db->qry_first("SELECT score FROM %prefix%t2_games WHERE (gameid = %int% OR gameid = %int%) AND score != 0", $gameid1, $gameid2);
+                $score = $database->queryWithOnlyFirstRow("SELECT score FROM %prefix%t2_games WHERE (gameid = ? OR gameid = ?) AND score != 0", [$gameid1, $gameid2]);
                 if ($score['score']) {
                     $not_new = 1;
                 }
             }
 
-            if ($_SESSION['tournament_submit_result_blocker']) {
+            $tournamentSubmitResultBlocker = $_SESSION['tournament_submit_result_blocker'] ?? false;
+            if ($tournamentSubmitResultBlocker) {
                 $func->error("NO_REFRESH", "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
             } elseif ($tournament["status"] != "process") {
                 $func->information(t('Dieses Turnier ist bereits beendet, oder noch nicht gestartet!'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");

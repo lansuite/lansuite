@@ -8,7 +8,8 @@ if ($auth['type'] > \LS_AUTH_TYPE_USER && !isset($_GET['act'])) {
     $_GET['act'] = "";
 }
 
-$step = $_GET['step'];
+$step = $_GET['step'] ?? 0;
+$action = $_GET['action'] ?? '';
 
 if ($action == "payment" && $step == 3) {
     if (!is_numeric($_POST['amount'])) {
