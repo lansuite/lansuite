@@ -9,7 +9,7 @@ if (!$cfg['sys_internet']) {
         // Email prüfen, Freischaltecode generieren, Email senden
         case 2:
             $passwordReminderMail = $_POST['pwr_mail'] ?? '';
-            $user_data = $db->qry_first("SELECT username FROM %prefix%user WHERE email = %string%", $passwordReminderMail);
+            $user_data = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE email = ?", [$passwordReminderMail]);
             if ($user_data === false || $user_data['username'] == "") {
                 $func->information(t('Die von dir eigegebene Email existiert nicht in der Datenbank'), "index.php?mod=usrmgr&action=pwrecover&step=1");
             } elseif ($user_data['username'] == "LS_SYSTEM") {
@@ -20,7 +20,7 @@ if (!$cfg['sys_internet']) {
                     $fcode .= chr(random_int(65, 90));
                 }
 
-                $db->qry("UPDATE %prefix%user SET fcode='$fcode' WHERE email = %string%", $_POST['pwr_mail']);
+                $database->query("UPDATE %prefix%user SET fcode = ? WHERE email = ?", [$fcode, $_POST['pwr_mail']]);
 
                 $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
@@ -53,14 +53,14 @@ if (!$cfg['sys_internet']) {
 
         // Freischaltecode prüfen, Passwort generieren, Freischaltcode zurücksetzen
         case 3:
-            $user_data = $db->qry_first("SELECT fcode FROM %prefix%user WHERE fcode = %string%", $_GET['fcode']);
+            $user_data = $database->queryWithOnlyFirstRow("SELECT fcode FROM %prefix%user WHERE fcode = ?", [$_GET['fcode']]);
             if (is_array($user_data) && $user_data['fcode'] && $_GET['fcode'] != '') {
                 $new_pwd = "";
                 for ($x = 0; $x <= 8; $x++) {
                     $new_pwd .= chr(random_int(65, 90));
                 }
 
-                $db->qry("UPDATE %prefix%user SET password = %string%, fcode = '' WHERE fcode = %string%", md5($new_pwd), $_GET['fcode']);
+                $database->query("UPDATE %prefix%user SET password = ?, fcode = '' WHERE fcode = ?", [md5($new_pwd), $_GET['fcode']]);
 
                 $func->confirmation(t('Das neue Kennwort wurde erfolgreich generiert.<br>Es lautet:') . "\"<b>$new_pwd</b>\"", "index.php");
             } else {
