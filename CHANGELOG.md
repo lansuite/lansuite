@@ -88,7 +88,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 
 ### Removed
 
-- [Usrmgr] Removed the WWCL/NGL Search in Usrmgr
+- [Usrmgr] Removed the WWCL/NGL/LGZ Search in Usrmgr
 - [Teamspeak2] Removed module Teamspeak2
 - [System] Removed old IE 7/8 compatibility tags - Dropping support for IE7 and IE8
 - [System] Removed dependency to proxy `62.67.200.4`
@@ -107,6 +107,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [User] Removed MSN field in user data
 - [Tournament] Removed support for WWCL (WWCL shutdown in 2013)
 - [Tournament] Removed support for NGL (NGL shutdown in 2006)
+- [Tournament] Removed support for LGZ (LGZ is not longer available)
 
 ### Fixed
 
