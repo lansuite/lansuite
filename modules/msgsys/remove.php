@@ -12,10 +12,10 @@ if ($_GET['queryid']) {
 
             // User in buddylist ?
             if ($db->num_rows() != '0') {
-                $row = $db->qry_first("
+                $row = $database->queryWithOnlyFirstRow("
                   SELECT username, name, firstname
                   FROM %prefix%user
-                  WHERE userid = %int%", $_GET['queryid']);
+                  WHERE userid = ?", [$_GET['queryid']]);
 
                 if ($cfg['sys_internet'] == 0) {
                     $func->question(t('Willst du den Benutzer <b>%1 (%2 %3)</b> wirklich aus deiner Buddy-Liste entfernen?', $row['name'], $row['firstname'], $row['username']), 'index.php?mod=msgsys&action=removebuddy&queryid=' . $_GET['queryid'] . '&step=2', "index.php");
@@ -29,15 +29,15 @@ if ($_GET['queryid']) {
 
         // Case remove
         case 2:
-            $row1 = $db->qry_first("
+            $row1 = $database->queryWithOnlyFirstRow("
                SELECT username, name, firstname
                FROM %prefix%user
-               WHERE userid = %int%", $_GET['queryid']);
+               WHERE userid = ?", [$_GET['queryid']]);
 
-            $row2 = $db->qry("
+            $row2 = $database->query("
                DELETE FROM %prefix%buddys
-               WHERE buddyid = %int%
-               AND userid = %int%", $_GET['queryid'], $auth['userid']);
+               WHERE buddyid = ?
+               AND userid = ?", [$_GET['queryid'], $auth['userid']]);
 
             // Confirmation
             if ($row2 == true) {
