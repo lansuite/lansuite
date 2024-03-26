@@ -29,7 +29,7 @@ class ProductList
      */
     public function load_cat($cat)
     {
-        global $db;
+        global $db, $database;
         $products = $db->qry("SELECT id FROM %prefix%food_product WHERE cat_id=%string%", $cat);
 
         $i = 0;
