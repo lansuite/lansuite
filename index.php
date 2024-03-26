@@ -6,9 +6,11 @@ use Symfony\Component\Cache;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpClient\HttpClient;
 
 $request = Request::createFromGlobals();
 $filesystem = new Filesystem();
+$httpClient = HttpClient::create();
 
 define('ROOT_DIRECTORY', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 
@@ -114,6 +116,16 @@ if (isset($frmwrkmode)) {
 
 // Set HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
+header('X-Frame-Options: sameorigin');
+// TODO: This header is still useful - Once we verified to send the correct MIME types, enable this header
+// header('X-Content-Type-Options: nosniff');
+header('Referrer-Policy: strict-origin');
+// TODO Set Content-Security-Policy header
+
+// Enforce HSTS if browsing via HTTPS
+if ($request->isSecure()) {
+    header('Strict-Transport-Security: max-age=86400');
+}
 
 include_once("ext_scripts/mobile_device_detect.php");
 $framework->IsMobileBrowser = mobile_device_detect();
@@ -318,7 +330,7 @@ if ($config['environment']['configured'] == 0) {
     }
 
     // Start authentication, just if LS is working
-    $authentication = new \LanSuite\Auth($frmwrkmode);
+    $authentication = new \LanSuite\Auth($request, $frmwrkmode);
     // Test Cookie / Session if user is logged in
     $auth = $authentication->check_logon();
     // Olduserid for Switback on Boxes

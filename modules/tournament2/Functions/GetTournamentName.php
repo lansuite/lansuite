@@ -15,14 +15,6 @@ function GetTournamentName($name)
     }
     // Name
     $return .= $name;
-    // WWCL Icon
-    if ($line['wwcl_gameid']) {
-        $return .= ' <img src="ext_inc/tournament_icons/leagues/wwcl.png" title="WWCL Game\" border="0" />';
-    }
-    // NGL Icon
-    if ($line['ngl_gamename']) {
-        $return .= ' <img src="ext_inc/tournament_icons/leagues/ngl.png" title="NGL Game" border="0" />';
-    }
     // LGZ Icon
     if ($line['lgz_gamename']) {
         $return .= ' <img src="ext_inc/tournament_icons/leagues/lgz.png" title="LGZ Game" border="0" />';

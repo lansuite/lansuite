@@ -20,6 +20,7 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
     }
 
     $stepParameter = $_GET['step'] ?? 0;
+    $infoIDParameter = $_GET['infoID'] ?? 0;
     switch ($stepParameter) {
         default:
             $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Info-Seiten editieren.'));
@@ -80,15 +81,15 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
 
         // Generate Editform
         case 2:
-            if ($_GET['infoID'] != '') {
-                $row = $db->qry_first("
+            if ($infoIDParameter) {
+                $row = $database->queryWithOnlyFirstRow("
                   SELECT
                     m.id
                   FROM
                     %prefix%info AS i
                     LEFT JOIN %prefix%menu AS m ON i.caption = m.caption AND m.action = 'show_info2'
                   WHERE
-                    i.infoID = %int%", $_GET['infoID']);
+                    i.infoID = ?", [$infoIDParameter]);
             }
 
             $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Seite editieren.'));
@@ -115,7 +116,7 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                 $mf->AddPage($translation->lang_names[$val]);
             }
             $mf->AdditionalDBUpdateFunction = 'UpdateInfo2';
-            $mf->SendForm('index.php?mod=info2&action=change&step=2', 'info', 'infoID', $_GET['infoID']);
+            $mf->SendForm('index.php?mod=info2&action=change&step=2', 'info', 'infoID', $infoIDParameter);
 
             $dsp->AddBackButton('index.php?mod=info2&action=change', 'info2/form');
             break;
@@ -123,9 +124,9 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
         // Delete entry
         case 10:
             foreach ($_POST['action'] as $item => $val) {
-                $menu_intem = $db->qry_first('SELECT caption FROM %prefix%info WHERE infoID = %string%', $item);
-                $db->qry("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = %string%", $menu_intem['caption']);
-                $db->qry('DELETE FROM %prefix%info WHERE infoID = %string%', $item);
+                $menu_intem = $database->queryWithOnlyFirstRow('SELECT caption FROM %prefix%info WHERE infoID = ?', [$item]);
+                $database->query("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = ?", [$menu_intem['caption']]);
+                $database->query('DELETE FROM %prefix%info WHERE infoID = ?', [$item]);
             }
 
             $func->confirmation(t('Der Eintrag wurde gelöscht.'), 'index.php?mod=info2&action=change');
@@ -133,38 +134,38 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
 
         // Deactivate
         case 20:
-            if ($_GET['infoID']) {
-                $_POST['action'][$_GET['infoID']] = '1';
+            if ($infoIDParameter) {
+                $_POST['action'][$infoIDParameter] = '1';
             }
             foreach ($_POST['action'] as $item => $val) {
-                $db->qry('UPDATE %prefix%info SET active = 0 WHERE infoID = %string%', $item);
-                $menu_intem = $db->qry_first('SELECT active, caption, shorttext FROM %prefix%info WHERE infoID = %string%', $item);
-                $db->qry("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = %string%", $menu_intem['caption']);
+                $database->query('UPDATE %prefix%info SET active = 0 WHERE infoID = ?', [$item]);
+                $menu_intem = $database->queryWithOnlyFirstRow('SELECT active, caption, shorttext FROM %prefix%info WHERE infoID = ?', [$item]);
+                $database->query("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = ?", [$menu_intem['caption']]);
             }
             $func->confirmation(t('Eintrag deaktiviert'), 'index.php?mod=info2&action=change');
             break;
 
         // Activate
         case 21:
-            if ($_GET['infoID']) {
-                $_POST['action'][$_GET['infoID']] = '1';
+            if ($infoIDParameter) {
+                $_POST['action'][$infoIDParameter] = '1';
             }
             foreach ($_POST['action'] as $item => $val) {
-                $db->qry('UPDATE %prefix%info SET active = 1 WHERE infoID = %string%', $item);
+                $database->query('UPDATE %prefix%info SET active = 1 WHERE infoID = ?', [$item]);
             }
             $func->confirmation(t('Eintrag aktiviert'), 'index.php?mod=info2&action=change');
             break;
 
         // Activate and link
         case 22:
-            if ($_GET['infoID']) {
-                $_POST['action'][$_GET['infoID']] = '1';
+            if ($infoIDParameter) {
+                $_POST['action'][$infoIDParameter] = '1';
             }
             foreach ($_POST['action'] as $item => $val) {
-                $menu_intem = $db->qry_first('SELECT active, caption, shorttext, link FROM %prefix%info WHERE infoID = %string%', $item);
-                $info_menu = $db->qry_first("SELECT pos FROM %prefix%menu WHERE module='info2'");
+                $menu_intem = $database->queryWithOnlyFirstRow('SELECT active, caption, shorttext, link FROM %prefix%info WHERE infoID = ?', [$item]);
+                $info_menu = $database->queryWithOnlyFirstRow("SELECT pos FROM %prefix%menu WHERE module='info2'");
 
-                $db->qry("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = %string%", $menu_intem['caption']);
+                $database->query("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = ?", [$menu_intem['caption']]);
 
                 ($cfg['info2_use_submenus']) ? $level = 1 : $level = 0;
 
@@ -174,33 +175,33 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                     $link = 'index.php?mod=info2&action=show_info2&id='.$item;
                 }
 
-                $db->qry('UPDATE %prefix%info SET active = 1 WHERE infoID = %string%', $item);
-                $db->qry("
+                $database->query('UPDATE %prefix%info SET active = 1 WHERE infoID = ?', [$item]);
+                $database->query("
                   INSERT INTO %prefix%menu
                   SET
                     module = 'info2',
-                    caption = %string%,
-                    hint = %string%,
-                    link = %string%,
+                    caption = ?,
+                    hint = ?,
+                    link = ?,
                     requirement = 0,
-                    level = %string%,
-                    pos = %string%,
+                    level = ?,
+                    pos = ?,
                     action = 'show_info2',
-                    file = 'show'", $menu_intem['caption'], $menu_intem['shorttext'], $link, $level, $info_menu['pos']);
+                    file = 'show'", [$menu_intem['caption'], $menu_intem['shorttext'], $link, $level, $info_menu['pos']]);
             }
             $func->confirmation(t('Eintrag aktiviert'), 'index.php?mod=info2&action=change');
             break;
 
         // Activate and link (admin only)
         case 23:
-            if ($_GET['id']) {
-                $_POST['action'][$_GET['id']] = '1';
+            if ($infoIDParameter) {
+                $_POST['action'][$infoIDParameter] = '1';
             }
             foreach ($_POST['action'] as $item => $val) {
-                $menu_intem = $db->qry_first('SELECT active, caption, shorttext, link FROM %prefix%info WHERE infoID = %string%', $item);
-                $info_menu = $db->qry_first("SELECT pos FROM %prefix%menu WHERE module='info2'");
+                $menu_intem = $database->queryWithOnlyFirstRow('SELECT active, caption, shorttext, link FROM %prefix%info WHERE infoID = ?', [$item]);
+                $info_menu = $database->queryWithOnlyFirstRow("SELECT pos FROM %prefix%menu WHERE module='info2'");
 
-                $db->qry("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = %string%", $menu_intem['caption']);
+                $database->query("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = ?", [$menu_intem['caption']]);
 
                 ($cfg['info2_use_submenus']) ? $level = 1 : $level = 0;
 
@@ -210,19 +211,19 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                     $link = 'index.php?mod=info2&action=show_info2&id='.$item;
                 }
 
-                $db->qry('UPDATE %prefix%info SET active = 1 WHERE infoID = %string%', $item);
-                $db->qry("
+                $database->query('UPDATE %prefix%info SET active = 1 WHERE infoID = ?', [$item]);
+                $database->query("
                   INSERT INTO %prefix%menu
                   SET
                     module = 'info2',
-                    caption = %string%,
-                    hint = %string%,
-                    link = %string%,
+                    caption = ?,
+                    hint = ?,
+                    link = ?,
                     requirement = 2,
-                    level = %string%,
-                    pos = %string%,
+                    level = ?,
+                    pos = ?,
                     action = 'show_info2',
-                    file = 'show'", $menu_intem['caption'], $menu_intem['shorttext'], $link, $level, $info_menu['pos']);
+                    file = 'show'", [$menu_intem['caption'], $menu_intem['shorttext'], $link, $level, $info_menu['pos']]);
             }
             $func->confirmation(t('Eintrag aktiviert'), 'index.php?mod=info2&action=change');
             break;
@@ -245,7 +246,7 @@ if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                 $mf->AddField(t('Popup-Infotext'), 'shorttext'.$val);
             }
             $mf->AdditionalDBUpdateFunction = 'UpdateInfo2';
-            $mf->SendForm('index.php?mod=info2&action=change&step=30', 'info', 'infoID', $_GET['infoID']);
+            $mf->SendForm('index.php?mod=info2&action=change&step=30', 'info', 'infoID', $infoIDParameter);
 
             $dsp->AddBackButton('index.php?mod=info2&action=change', 'info2/form');
             break;

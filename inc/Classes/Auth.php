@@ -3,6 +3,7 @@
 namespace LanSuite;
 
 use LanSuite\AzDGCrypt;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class auth
@@ -81,12 +82,19 @@ class Auth
     public $away_users = [];
 
     /**
+     * Request object
+     */
+    private Request $request;
+
+    /**
      * auth constructor.
      * @param string $frmwrkmode Frameworkmode for switch Stats
      */
-    public function __construct($frmwrkmode = "")
+    public function __construct(Request $request, $frmwrkmode = '')
     {
         global $db;
+
+        $this->request = $request;
 
         // Setting default values
         $this->auth = $this->getAuthenticationDefaultValues();
@@ -715,7 +723,13 @@ class Auth
         setcookie(
             $this->cookie_name,
             $this->cookiedata_pack(),
-            ['expires' => time()+3600*24*$this->cookie_time, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain]
+            [
+                'expires' => time() + 3600 * 24 * $this->cookie_time,
+                'path' => $this->cookie_path,
+                'domain' => $this->cookie_domain,
+                'secure' => $this->request->isSecure(),
+                'httponly' => true,
+            ]
         );
     }
 
@@ -729,7 +743,13 @@ class Auth
         setcookie(
             $this->cookie_name,
             '',
-            ['expires' => time()+1, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain]
+            [
+                'expires' => time() + 1,
+                'path' => $this->cookie_path,
+                'domain' => $this->cookie_domain,
+                'secure' => $this->request->isSecure(),
+                'httponly' => true,
+            ]
         );
     }
 

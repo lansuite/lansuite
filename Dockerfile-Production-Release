@@ -1,11 +1,11 @@
 # Get composer
-FROM composer:2.7.1 as composer
+FROM composer:2.7.2 as composer
 
 FROM php:8.1.27-fpm-bullseye
 
 # Install libraries and PHP-Extensions that are not provided by the base image
 RUN apt-get update \
-    && apt-get install -y \
+    && apt-get install -y --no-install-recommends \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libsnmp-dev \
@@ -14,9 +14,9 @@ RUN apt-get update \
         libzip-dev \
         git \
         wget \
-    && docker-php-ext-install -j$(nproc) mysqli snmp \
+    && docker-php-ext-install -j"$(nproc)" mysqli snmp \
     && docker-php-ext-configure gd --enable-gd --prefix=/usr --with-jpeg --with-freetype \
-    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install -j"$(nproc)" gd \
     # Cleanup
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
@@ -27,7 +27,7 @@ COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # Install phpDocumentor
-RUN wget https://phpdoc.org/phpDocumentor.phar \
+RUN wget --progress=dot:giga https://phpdoc.org/phpDocumentor.phar \
     && chmod +x phpDocumentor.phar \
     && mv phpDocumentor.phar /usr/local/bin/phpDocumentor
 

@@ -6,24 +6,7 @@
 
 // League IDs
 $dsp->AddFieldsetStart(t('Ligen'));
-    $wwcl = '';
-if ($user_data['wwclid']) {
-    $wwcl .= $user_data['wwclid'] .' ';
-}
-if ($user_data['wwclclanid']) {
-    $wwcl .= '('. $user_data['wwclclanid'] .')';
-}
 
-$dsp->AddDoubleRow(t('WWCL-ID'). ' (Clan-ID)', $wwcl);
-$ngl = '';
-if ($user_data['nglid']) {
-    $ngl .= $user_data['nglid'] .' ';
-}
-if ($user_data['nglclanid']) {
-    $ngl .= '('. $user_data['nglclanid'] .')';
-}
-
-$dsp->AddDoubleRow(t('NGL-ID'). ' (Clan-ID)', $ngl);
 $lgz = '';
 if ($user_data['lgzid']) {
     $lgz .= $user_data['lgzid'] .' ';
