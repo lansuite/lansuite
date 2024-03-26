@@ -1,14 +1,14 @@
 <?php
 
-$get_banner = $db->qry_first("SELECT url FROM %prefix%sponsor WHERE sponsorid = %int%", $_GET['sponsorid']);
+$get_banner = $database->queryWithOnlyFirstRow("SELECT url FROM %prefix%sponsor WHERE sponsorid = ?", [$_GET['sponsorid']]);
 
 if ($get_banner) {
     if ($_GET['type'] == 'banner') {
-        $db->qry("UPDATE %prefix%sponsor SET hits_banner = hits_banner + 1 WHERE sponsorid = %int%", $_GET['sponsorid']);
+        $database->query("UPDATE %prefix%sponsor SET hits_banner = hits_banner + 1 WHERE sponsorid = ?", [$_GET['sponsorid']]);
     } elseif ($_GET['type'] == 'box') {
-        $db->qry("UPDATE %prefix%sponsor SET hits_box = hits_box + 1 WHERE sponsorid = %int%", $_GET['sponsorid']);
+        $database->query("UPDATE %prefix%sponsor SET hits_box = hits_box + 1 WHERE sponsorid = ?", [$_GET['sponsorid']]);
     } else {
-        $db->qry("UPDATE %prefix%sponsor SET hits = hits + 1 WHERE sponsorid = %int%", $_GET['sponsorid']);
+        $database->query("UPDATE %prefix%sponsor SET hits = hits + 1 WHERE sponsorid = ?", [$_GET['sponsorid']]);
     }
     Header("Location: ". $get_banner["url"]);
 } else {
