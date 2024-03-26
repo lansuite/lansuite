@@ -3,7 +3,6 @@
 // Check, if all required user data fields, are known and force user to add them, if not.
 $auth['lastname'] = $auth['name'];
 $auth['gender'] = $auth['sex'];
-$auth['ngl_id'] = $auth['nglid'];
 foreach ($auth as $key => $val) {
     if (!is_int($key) and Needed($key) and ($val == '' or $val == '1927-01-01')) {
         $missing_fields++;
