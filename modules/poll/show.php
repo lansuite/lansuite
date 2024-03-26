@@ -38,7 +38,7 @@ if ($stepParameter >= 2) {
         if ($pollrow['endtime'] and $pollrow['endtime'] < time()) {
             $func->information(t('Dieser Poll ist bereits beendet'));
             $_GET['step'] = 2;
-        } elseif ($voted['found']) {
+        } elseif ($voted) {
             $func->information(t('Du hast bereits gevoted'));
             $_GET['step'] = 2;
         } elseif ($pollrow['requirement'] == 1 and $auth['login'] == 0) {
