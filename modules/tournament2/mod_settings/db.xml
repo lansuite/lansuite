@@ -27,8 +27,8 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>tournament_tournaments.tournamentid</foreign_key>
-    	  <on_delete>DELETE</on_delete>
+				<foreign_key>tournament_tournaments.tournamentid</foreign_key>
+				<on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>leaderid</name>
@@ -37,8 +37,8 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>user.userid</foreign_key>
-    	  <on_delete>DENY</on_delete>
+				<foreign_key>user.userid</foreign_key>
+				<on_delete>DENY</on_delete>
 			</field>
 			<field>
 				<name>lastchange</name>
@@ -94,8 +94,8 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
-    	  <foreign_key>server.serverid</foreign_key>
-    	  <on_delete>ASK_SET0</on_delete>
+				<foreign_key>server.serverid</foreign_key>
+				<on_delete>ASK_SET0</on_delete>
 			</field>
 		</structure>
 	</table>
@@ -119,8 +119,8 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>tournament_tournaments.tournamentid</foreign_key>
-    	  <on_delete>DELETE</on_delete>
+				<foreign_key>tournament_tournaments.tournamentid</foreign_key>
+				<on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>userid</name>
@@ -129,8 +129,8 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>user.userid</foreign_key>
-    	  <on_delete>DENY</on_delete>
+				<foreign_key>user.userid</foreign_key>
+				<on_delete>DENY</on_delete>
 			</field>
 			<field>
 				<name>teamid</name>
@@ -139,8 +139,8 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>t2_teams.teamid</foreign_key>
-    	  <on_delete>DELETE</on_delete>
+				<foreign_key>t2_teams.teamid</foreign_key>
+				<on_delete>DELETE</on_delete>
 			</field>
 		</structure>
 	</table>
@@ -164,8 +164,8 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>tournament_tournaments.tournamentid</foreign_key>
-    	  <on_delete>DELETE</on_delete>
+				<foreign_key>tournament_tournaments.tournamentid</foreign_key>
+				<on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>name</name>
@@ -182,8 +182,8 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>user.userid</foreign_key>
-    	  <on_delete>DENY</on_delete>
+				<foreign_key>user.userid</foreign_key>
+				<on_delete>DENY</on_delete>
 			</field>
 			<field>
 				<name>comment</name>
@@ -247,9 +247,9 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>partys.party_id</foreign_key>
-    	  <on_delete>DENY</on_delete>
-			</field>			
+				<foreign_key>partys.party_id</foreign_key>
+				<on_delete>DENY</on_delete>
+			</field>
 			<field>
 				<name>name</name>
 				<type>varchar(40)</type>
@@ -377,8 +377,8 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-                <foreign_key>user.userid</foreign_key>
-                <on_delete>ASK_SET0</on_delete>
+				<foreign_key>user.userid</foreign_key>
+				<on_delete>ASK_SET0</on_delete>
 			</field>
 			<field>
 				<name>techadmin</name>
@@ -387,8 +387,8 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-                <foreign_key>user.userid</foreign_key>
-                <on_delete>ASK_SET0</on_delete>
+				<foreign_key>user.userid</foreign_key>
+				<on_delete>ASK_SET0</on_delete>
 			</field>
 			<field>
 				<name>over18</name>
@@ -412,14 +412,6 @@
 				<null></null>
 				<key></key>
 				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>ngl_gamename</name>
-				<type>varchar(10)</type>
-				<null></null>
-				<key></key>
-				<default></default>
 				<extra></extra>
 			</field>
 			<field>
@@ -500,8 +492,8 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>tournament_tournaments.tournamentid</foreign_key>
-    	  <on_delete>DELETE</on_delete>
+				<foreign_key>tournament_tournaments.tournamentid</foreign_key>
+				<on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>start</name>
@@ -510,7 +502,7 @@
 				<key></key>
 				<default></default>
 				<extra></extra>
-    	  <foreign_key></foreign_key>
+				<foreign_key></foreign_key>
 			</field>
 			<field>
 				<name>duration</name>
