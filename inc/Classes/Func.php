@@ -57,70 +57,14 @@ class Func
     }
 
     /**
-     * Convert a date string to a timestamp
+     * Convert a date string to a unix timestamp.
      *
-     * @param string    $strStr
-     * @param string    $strPattern
+     * @param string    $datetime   A date/time string. Valid formats are explained in https://www.php.net/manual/en/datetime.formats.php
+     * @return bool|int             Returns a timestamp on success, false otherwise.
      */
-    public function str2time($strStr, $strPattern = 'Y-m-d H:i:s'): bool|int
+    public function str2time($datetime): bool|int
     {
-        // An array of the valid date characters, see: http://php.net/date#AEN21898
-        $arrCharacters = [
-         'd', // day
-         'm', // month
-         'y', // year, 2 digits
-         'Y', // year, 4 digits
-         'H', // hours
-         'i', // minutes
-         's'  // seconds
-        ];
-
-        // Transform the characters array to a string
-        $strCharacters = implode('', $arrCharacters);
-
-        // Splits up the pattern by the date characters to get an array of the delimiters between the date characters
-        $arrDelimiters = preg_split('~['.$strCharacters.']~', $strPattern);
-
-        // Transform the delimiters array to a string
-        $strDelimiters = quotemeta(implode('', array_unique($arrDelimiters)));
-
-        // Splits up the date by the delimiters to get an array of the declaration
-        $arrStr    = preg_split('~['.$strDelimiters.']~', $strStr);
-
-        // Splits up the pattern by the delimiters to get an array of the used characters
-        $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
-
-        // If the numbers of the two array are not the same, return false, because the cannot belong together
-        if ((is_countable($arrStr) ? count($arrStr) : 0) !== (is_countable($arrPattern) ? count($arrPattern) : 0)) {
-            return false;
-        }
-
-        // Creates a new array which has the keys from the $arrPattern array and the values from the $arrStr array
-        $arrTime = [];
-        for ($i = 0; $i < (is_countable($arrStr) ? count($arrStr) : 0); $i++) {
-            $arrTime[$arrPattern[$i]] = $arrStr[$i];
-        }
-
-        // Generates a 4 digit year declaration of a 2 digit one by using the current year
-        if (isset($arrTime['y']) && !isset($arrTime['Y'])) {
-            $arrTime['Y'] = substr(date('Y'), 0, 2) . $arrTime['y'];
-        }
-
-        // If a declaration is empty, it will be filled with the current date declaration
-        foreach ($arrCharacters as $strCharacter) {
-            if (empty($arrTime[$strCharacter])) {
-                $arrTime[$strCharacter] = date($strCharacter);
-            }
-        }
-
-        // Checks if the date is a valide date
-        if (!checkdate($arrTime['m'], $arrTime['d'], $arrTime['Y'])) {
-            return false;
-        }
-
-        $intTime = mktime($arrTime['H'], $arrTime['i'], $arrTime['s'], $arrTime['m'], $arrTime['d'], $arrTime['Y']);
-
-        return $intTime;
+        return strtotime($datetime);
     }
 
     /**
