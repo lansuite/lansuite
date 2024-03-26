@@ -5,9 +5,9 @@
  */
 function CheckModeChangeAllowed($mode): bool|string
 {
-    global $mf, $db;
+    global $mf, $database;
 
-    $t = $db->qry_first('SELECT mode, status FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $_GET['tournamentid']);
+    $t = $database->queryWithOnlyFirstRow('SELECT mode, status FROM %prefix%tournament_tournaments WHERE tournamentid = ?', [$_GET['tournamentid']]);
     if ($mf->isChange and $t['status'] != 'open' and $t['mode'] != $mode) {
         if ($t['mode'] == 'single' or $t['mode'] == 'double') {
             if ($mode != 'single' and $mode != 'double') {

@@ -884,7 +884,7 @@ class MasterForm
                                                 $start = $area[0];
                                                 $end = $area[1];
                                                 $fieldErrorText = $this->error[$field['name']] ?? '';
-                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0,  $fieldErrorText, $values, '', $start, $end, 1, $field['optional']);
+                                                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $fieldErrorText, $values, '', $start, $end, 1, $field['optional']);
                                                 break;
 
                                             // Password-Row
@@ -1154,7 +1154,9 @@ class MasterForm
                                 foreach ($this->MultiLineIDs as $key2 => $value2) {
                                     $db_query = '';
                                     foreach ($this->SQLFields as $key => $val) {
-                                        $db_query .= "$val = '". $_POST[$val][$value2] ."', ";
+                                        $databaseValue = $_POST[$val][$value2] ?? '';
+                                        $databaseValue = $db->real_escape_string($databaseValue);
+                                        $db_query .= "$val = '". $databaseValue ."', ";
                                     }
                                     $db_query = substr($db_query, 0, strlen($db_query) - 2);
                                     $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% = %int%", $table, $db_query, $idname, $value2);
@@ -1216,7 +1218,8 @@ class MasterForm
 
                         if ($addUpdSuccess) {
                             if ($this->isChange) {
-                                $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer'][$this->GetNumber()]);
+                                $linkTarget = $_SESSION['mf_referrer'][$this->GetNumber()] ?? '';
+                                $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $linkTarget);
                             } else {
                                 $func->confirmation(t('Die Daten wurden erfolgreich eingefügt.'), $this->LinkBack);
                             }

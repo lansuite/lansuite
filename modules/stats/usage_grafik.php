@@ -54,6 +54,10 @@ switch ($_GET['time']) {
 }
 
 // Select max
+$row_max = [
+  'hits' => 0,
+  'visits' => 0,
+];
 $res = $db->qry("
   SELECT
     SUM(hits) AS hits,

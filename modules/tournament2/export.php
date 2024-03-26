@@ -14,24 +14,6 @@ $dsp->NewContent(t('Exporte'), t('Hier stehen die Turnier-Exports der verschiede
 $stepParameter = $_GET["step"] ?? 0;
 switch ($stepParameter) {
     case 2:
-        // WWCL
-        $dsp->AddSingleRow("WWCL");
-        if (($_POST["pvd_id"] != "") && ($_POST["plp_id"] != "")) {
-            $dsp->AddSingleRow("<textarea cols=70 rows=25>". $t_league_export->wwcl_export($_POST["plp_id"], $_POST["pvd_id"]) ."</textarea>");
-            $func->log_event(t('WWCL-Export wurde erstellt'), 1, t('Turnier Verwaltung'));
-        } else {
-            $dsp->AddSingleRow(t('Nicht verfügbar. Bitte PVD-ID und PlanetLan-Party-ID angeben!'));
-        }
-
-        // NGL
-        $dsp->AddSingleRow("NGL");
-        if ($_POST["ngl_event_id"] != "") {
-            $dsp->AddSingleRow("<textarea cols=70 rows=25>". $t_league_export->ngl_export($_POST["ngl_event_id"]) ."</textarea>");
-            $func->log_event(t('NGL-Export wurde erstellt'), 1, t('Turnier Verwaltung'));
-        } else {
-            $dsp->AddSingleRow(t('Nicht verfügbar. Bitte NGL-Event-ID angeben!'));
-        }
-
         // LGZ
         $dsp->AddSingleRow("LGZ");
         if ($_POST["lgz_event_id"] != "") {
@@ -46,11 +28,6 @@ switch ($stepParameter) {
 
     default:
         $dsp->SetForm("index.php?mod=tournament2&action=export&step=2");
-        $dsp->AddSingleRow("WWCL");
-        $dsp->AddTextFieldRow("pvd_id", "PVD-ID", "", "");
-        $dsp->AddTextFieldRow("plp_id", "PlanetLan-Party-ID", "", "");
-        $dsp->AddSingleRow("NGL");
-        $dsp->AddTextFieldRow("ngl_event_id", "NGL-Event-ID", "", "");
         $dsp->AddSingleRow("LGZ");
         $dsp->AddTextFieldRow("lgz_event_id", "LGZ-Event-ID", "", "");
         $dsp->AddFormSubmitRow(t('Weiter'));

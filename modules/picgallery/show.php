@@ -36,8 +36,8 @@ if (!$pageParameter) {
 }
 
 // Insert non existing entries
-$row = $db->qry_first("SELECT 1 AS found FROM %prefix%picgallery WHERE name = %string%", $db_dir);
-if (!$row['found']) {
+$row = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%picgallery WHERE name = ?", [$db_dir]);
+if (!$row) {
     $db->qry("INSERT INTO %prefix%picgallery SET userid = '', name = %string%", $db_dir);
 }
 

@@ -55,8 +55,7 @@ $BoxRes = $db->qry("
   ORDER BY pos", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
 
 while ($BoxRow = $db->fetch_array($BoxRes)) {
-    if (($BoxRow['module'] == '' or $func->isModActive($BoxRow['module'])) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
-
+    if (($BoxRow['module'] == '' || $func->isModActive($BoxRow['module'])) && ($BoxRow['callback'] == '' || (is_callable($BoxRow['callback']) && call_user_func($BoxRow['callback'], '')))) {
         // Preset $templ, if it is not defined yet
         if (!isset($templ)) {
             $templ = [
