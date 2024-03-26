@@ -8,7 +8,8 @@ function UpdatePoll($id)
 {
     global $db;
 
-    if ($_POST['poll_reset'] or !$_GET['pollid']) {
+    $pollReset = $_POST['poll_reset'] ?? false;
+    if ($pollReset || !$_GET['pollid']) {
         $res = $db->qry('SELECT polloptionid FROM %prefix%polloptions WHERE pollid = %int%', $id);
         while ($row = $db->fetch_array($res)) {
             $db->qry('DELETE FROM %prefix%pollvotes WHERE polloptionid = %int%', $row['polloptionid']);

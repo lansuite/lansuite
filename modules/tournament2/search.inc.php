@@ -11,7 +11,6 @@ $ms2->config['EntriesPerPage'] = 50;
 
 $ms2->AddSelect('t.over18');
 $ms2->AddSelect('t.icon');
-$ms2->AddSelect('t.ngl_gamename');
 $ms2->AddSelect('t.lgz_gamename');
 $ms2->AddSelect('COUNT(teams.tournamentid) AS teamanz');
 $ms2->AddResultField(t('Turniername'), 't.name', 'GetTournamentName');
