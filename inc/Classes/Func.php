@@ -411,19 +411,6 @@ class Func
     }
 
     /**
-     * Add slashes at any non GPC-variable.
-     * This function must be used, if $text comes from another sources, than $_GET, or $_POST.
-     * For example language-files
-     *
-     * @param $text
-     * @return string
-     */
-    public function escape_sql($text)
-    {
-        return addslashes(stripslashes($text));
-    }
-
-    /**
      * Transforms given input text to HTML-enriched output. 
      * Based on the mode provided, various tags are allowed.
      * These are - to my understanding  - as follows:
