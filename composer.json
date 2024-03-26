@@ -20,7 +20,7 @@
         "ext-zlib": "*",
         "ext-ftp": "*",
 
-        "smarty/smarty": "^4.0",
+        "smarty/smarty": "^5.0",
         "geshi/geshi": "^1.0.9",
         "setasign/fpdf": "^1.8",
         "paypal/rest-api-sdk-php": "^1.13",
