@@ -156,14 +156,6 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $mf->AddGroup(t('Clan'));
             }
 
-            // Leagues
-            if ($func->isModActive('tournament2')) {
-                if (ShowFieldUsrMgr('lgz_id')) {
-                    $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgz_id'));
-                }
-                $mf->AddGroup(t('Ligen'));
-            }
-
             // Address
             if (ShowFieldUsrMgr('street')) {
                 $mf->AddField('', 'street|hnr', \LanSuite\MasterForm::IS_CALLBACK, 'Addr1Input', Optional('street'));
