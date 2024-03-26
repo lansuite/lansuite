@@ -15,9 +15,9 @@ switch ($stepParameter) {
         break;
 
     case 3:
-        $db->qry("DELETE FROM %prefix%seat_block WHERE blockid=%int%", $_GET['blockid']);
-        $db->qry("DELETE FROM %prefix%seat_sep WHERE blockid=%int%", $_GET['blockid']);
-        $db->qry("DELETE FROM %prefix%seat_seats WHERE blockid=%int%", $_GET['blockid']);
+        $database->query("DELETE FROM %prefix%seat_block WHERE blockid = ?", [$_GET['blockid']]);
+        $database->query("DELETE FROM %prefix%seat_sep WHERE blockid = ?", [$_GET['blockid']]);
+        $database->query("DELETE FROM %prefix%seat_seats WHERE blockid = ?", [$_GET['blockid']]);
 
         $func->confirmation(t('Der Sitzblock wurde erfolgreich gelöscht'), 'index.php?mod=seating&action=delete');
         break;
