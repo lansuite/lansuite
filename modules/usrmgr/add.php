@@ -158,9 +158,6 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
             // Leagues
             if ($func->isModActive('tournament2')) {
-                if (ShowFieldUsrMgr('ngl_id')) {
-                    $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('ngl_id'));
-                }
                 if (ShowFieldUsrMgr('lgz_id')) {
                     $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgz_id'));
                 }
