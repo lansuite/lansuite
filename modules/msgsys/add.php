@@ -54,21 +54,21 @@ switch ($stepParameter) {
                 }
 
                 // Get name
-                $name = $db->qry_first("
+                $name = $database->queryWithOnlyFirstRow("
                   SELECT
                     username,
                     firstname,
                     name
                   FROM %prefix%user
-                  WHERE userid = %int%", $buddyid);
+                  WHERE userid = ?", [$buddyid]);
 
                 // If the user isn't in the list
                 if ($user_exist_in_the_list != 1 && $user_exist == 1 && $to_many_users != 1 && $i_am_the_user != 1) {
-                    $insert = $db->qry("
+                    $insert = $database->query("
                       INSERT INTO %prefix%buddys
                       SET
-                        userid = %int%,
-                        buddyid = %int%", $auth['userid'], $buddyid);
+                        userid = ?,
+                        buddyid = ?", [$auth['userid'], $buddyid]);
 
                     if ($insert == true) {
                         if ($cfg['sys_internet'] == 0) {
