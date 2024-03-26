@@ -54,6 +54,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Birthday] New module to show users birthdays
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
 - [Server] Added Voice as server type
+- [Community] Created a discord community
 
 ### Changed
 
@@ -104,6 +105,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [User] Removed ICQ field in user data
 - [User] Removed MSN field in user data
 - [Tournament] Removed support for WWCL (WWCL shutdown in 2013)
+- [Tournament] Removed support for NGL (NGL shutdown in 2006)
 
 ### Fixed
 
@@ -138,6 +140,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Database] Introduced a new Database class with first-class prepared statement support
 - [System] Protect module inclusion for path traversal
 - [XSS] Prevent XSS possibility in http-equiv="refresh" header
+- [Security] Add header `X-Frame-Options`, `Referrer-Policy` and `Strict-Transport-Security`
 
 ## [4.2] - 2015-03-15
 
