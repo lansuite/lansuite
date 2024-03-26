@@ -79,7 +79,7 @@ if ($open == false && $configFoodcenterFoodtime == 3) {
     $infoParameter = $_GET['info'] ?? '';
     if ($infoParameter) {
         $product_list->load_cat($cat[$_GET['headermenuitem']]);
-        $product_list->get_info($$infoParameter, "index.php?mod=foodcenter&action=showfood&headermenuitem={$_GET['headermenuitem']}");
+        $product_list->get_info($infoParameter, "index.php?mod=foodcenter&action=showfood&headermenuitem={$_GET['headermenuitem']}");
     } else {
         if (is_numeric($cat[$_GET['headermenuitem']])) {
             $dsp->AddHeaderMenu($menus, "index.php?mod=foodcenter", $_GET['headermenuitem']);
