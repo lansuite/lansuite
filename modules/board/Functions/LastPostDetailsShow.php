@@ -6,10 +6,10 @@
  */
 function LastPostDetailsShow($date)
 {
-    global $db, $line, $dsp, $cfg;
+    global $db, $database, $line, $dsp, $cfg;
 
     if ($date) {
-        $row = $db->qry_first("
+        $row = $database->queryWithOnlyFirstRow("
           SELECT
             t.caption,
             p.userid,
@@ -18,14 +18,14 @@ function LastPostDetailsShow($date)
           FROM %prefix%board_posts AS p
           LEFT JOIN %prefix%board_threads AS t ON p.tid = t.tid
           WHERE
-            UNIX_TIMESTAMP(p.date) = %string%
-            AND t.fid = %int%", $date, $line['fid']);
+            UNIX_TIMESTAMP(p.date) = ?
+            AND t.fid = ?", [$date, $line['fid']]);
 
-        $row2 = $db->qry_first("
+        $row2 = $database->queryWithOnlyFirstRow("
           SELECT COUNT(*) AS cnt
           FROM %prefix%board_posts AS p
-          WHERE p.tid = %int%
-          GROUP BY p.tid", $row['tid']);
+          WHERE p.tid = ?
+          GROUP BY p.tid", [$row['tid']]);
         $page = floor(($row2['cnt'] - 1) / $cfg['board_max_posts']);
 
         if (strlen($row['caption']) > 18) {
