@@ -15,10 +15,6 @@ function GetTournamentName($name)
     }
     // Name
     $return .= $name;
-    // NGL Icon
-    if ($line['ngl_gamename']) {
-        $return .= ' <img src="ext_inc/tournament_icons/leagues/ngl.png" title="NGL Game" border="0" />';
-    }
     // LGZ Icon
     if ($line['lgz_gamename']) {
         $return .= ' <img src="ext_inc/tournament_icons/leagues/lgz.png" title="LGZ Game" border="0" />';
