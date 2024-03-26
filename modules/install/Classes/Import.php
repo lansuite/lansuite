@@ -464,7 +464,7 @@ class Import
                             foreach ($field_names as $field_name) {
                                 $value = $this->xml->getFirstTagContent($field_name, $entry, 1);
                                 if ($value != '') {
-                                    $mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
+                                    $mysql_entries .= "$field_name = '" . $db->real_escape_string($value) . "', ";
                                 }
 
                                 if (array_key_exists(0, $DBPrimaryKeys) && $field_name == $DBPrimaryKeys[0] && in_array($value, $EntriesFound)) {
