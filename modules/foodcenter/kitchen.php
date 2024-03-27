@@ -29,7 +29,7 @@ $ms2->PrintSearch('index.php?mod=foodcenter&action=kitchen', 'o.id');
 
 $stepParameter = $_GET['step'] ?? 0;
 if ($stepParameter == 1) {
-    $db->qry("UPDATE %prefix%food_ordering SET status = '4' WHERE id = %string%", $_GET["orderid"]);
+    $database->query("UPDATE %prefix%food_ordering SET status = '4' WHERE id = ?", [$_GET["orderid"]]);
 }
 
 // Display autorefresh status and control link

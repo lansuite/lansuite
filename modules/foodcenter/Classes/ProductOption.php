@@ -136,9 +136,9 @@ class ProductOption
      */
     private function read()
     {
-        global $db;
+        global $database;
 
-        $row = $db->qry_first("SELECT * FROM %prefix%food_option WHERE id=%int%", $this->id);
+        $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%food_option WHERE id = ?", [$this->id]);
 
         $this->parentid = $row['parentid'];
         $this->caption  = $row['caption'];
@@ -158,7 +158,7 @@ class ProductOption
      */
     public function write($id = 0)
     {
-        global $db;
+        global $db, $database;
 
         if ($this->parentid == null) {
             $this->parentid = $id;
@@ -176,16 +176,16 @@ class ProductOption
                                     pice        = %string%", $this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->fix, $this->pice);
             $this->id = $db->insert_id();
         } else {
-            $db->qry("UPDATE %prefix%food_option  SET 
-                                    parentid    = %int%,
-                                    barcode     = %string%,
-                                    caption     = %string%,
-                                    unit        = %string%,
-                                    price       = %string%,
-                                    eprice      = %string%,
-                                    pice        = %string%,
-                                    fix         = %string%
-                                    WHERE id = %int%", $this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->pice, $this->fix, $this->id);
+            $database->query("UPDATE %prefix%food_option  SET 
+                                    parentid    = ?,
+                                    barcode     = ?,
+                                    caption     = ?,
+                                    unit        = ?,
+                                    price       = ?,
+                                    eprice      = ?,
+                                    pice        = ?,
+                                    fix         = ?
+                                    WHERE id = ?", [$this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->pice, $this->fix, $this->id]);
         }
     }
 

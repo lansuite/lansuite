@@ -31,9 +31,8 @@ class ProductList
     {
         global $database;
 
-        $products = $database->queryWithFullResult("SELECT id FROM %prefix%food_product WHERE cat_id = ?", [$cat]);
-
         $i = 0;
+        $products = $database->queryWithFullResult("SELECT id FROM %prefix%food_product WHERE cat_id = ?", [$cat]);
         foreach ($products as $data) {
             $this->product_list[$i] = $data['id'];
             $this->product[$i] = new Product($data['id']);
