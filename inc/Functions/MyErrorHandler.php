@@ -9,7 +9,7 @@
  */
 function MyErrorHandler($errno, $errstr, $errfile, $errline)
 {
-    global $PHPErrors, $PHPErrorsFound, $db, $auth;
+    global $PHPErrors, $PHPErrorsFound, $database, $auth;
 
     // Only show errors, which sould be reported according to error_reporting
     // Also filters @ (for @ will have error_reporting "0")
@@ -89,18 +89,18 @@ function MyErrorHandler($errno, $errstr, $errfile, $errline)
     $PHPErrors .= $err .'<br />';
     $PHPErrorsFound = 1;
 
-    // Write to DB-Log
-    if (isset($db) and $db->success) {
-        $db->qry(
-            '
-            INSERT INTO %prefix%log
-            SET date = NOW(),
-                userid = %int%,
+    // Write log line to database
+    if (isset($database) && $database->isConnected()) {
+        $userId = $auth['userid'] ?? 0;
+        $database->query(
+            'INSERT INTO %prefix%log
+            SET
+                date = NOW(),
+                userid = ?,
                 type = 3,
-                description = %string%,
+                description = ?,
                 sort_tag = "PHP-Fehler"',
-            (int) ($auth['userid'] ?? 0),
-            $err
+            [$userId, $err]
         );
     }
 

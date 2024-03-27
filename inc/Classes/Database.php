@@ -45,6 +45,11 @@ class Database
     private ?\mysqli $database = null;
 
     /**
+     * Connection status
+     */
+    private bool $isConnected = false;
+
+    /**
      * Database table prefix
      */
     private string $tablePrefix = '';
@@ -72,8 +77,25 @@ class Database
         // If it is _not_ successful, an exception will be thrown.
     
         $this->setCharset($this->charset);
+        $this->setConnectionStatus(true);
 
         return true;
+    }
+
+    /**
+     * Sets the connection status
+     */
+    private function setConnectionStatus(bool $status): void
+    {
+        $this->isConnected = $status;
+    }
+
+    /**
+     * Returns the connection status
+     */
+    public function isConnected(): bool
+    {
+        return $this->isConnected;
     }
 
     /**
@@ -110,7 +132,10 @@ class Database
      */
     public function disconnect(): bool
     {
-        return $this->database->close();
+        $closeResult = $this->database->close();
+        $this->setConnectionStatus(false);
+
+        return $closeResult;
     }
 
     /**
