@@ -43,10 +43,15 @@ switch ($_GET['act']) {
     case "payment":
         switch ($step) {
             case "2":
+                $errorAmount = $error['amount'] ?? '';
+                $valueAmount = $_POST['amount'] ?? 0;
+                $errorComment = $error['comment'] ?? '';
+                $valueComment = $_POST['comment'] ?? 0;
+
                 $dsp->NewContent(t('Zahlungen'));
                 $dsp->SetForm("index.php?mod=foodcenter&action=account&act=payment&step=3&userid=".$_GET['userid']);
-                $dsp->AddTextFieldRow("amount", t('Betrag'), $_POST['amount'], $error['amount']);
-                $dsp->AddTextFieldRow("comment", t('Kommentar (Dein Name wird in Klammer angefügt)'), $_POST['comment'], $error['comment']);
+                $dsp->AddTextFieldRow("amount", t('Betrag'), $valueAmount, $errorAmount );
+                $dsp->AddTextFieldRow("comment", t('Kommentar (Dein Name wird in Klammer angefügt)'), $valueComment, $errorComment);
                 $dsp->AddFormSubmitRow(t('Abschicken'));
                 $account = new LanSuite\Module\Foodcenter\Accounting($_GET['userid']);
                 $account->list_balance();
