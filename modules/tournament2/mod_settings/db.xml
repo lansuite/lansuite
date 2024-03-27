@@ -415,14 +415,6 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>lgz_gamename</name>
-				<type>varchar(10)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
 				<name>max_games</name>
 				<type>tinyint(3) unsigned</type>
 				<null></null>

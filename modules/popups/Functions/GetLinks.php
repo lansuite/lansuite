@@ -11,7 +11,7 @@
  */
 function GetLinks($caption, $mod, $table, $id, $name, $link)
 {
-    global $func, $db, $dsp;
+    global $func, $db, $database, $dsp;
 
     if ($func->isModActive($mod)) {
         $out = '<select name="link" onChange="javascript:if (this.options[this.selectedIndex].value != \'\') InsertCode(opener.document.'. $_GET['form'] .'.'. $_GET['textarea'] .', \'[url='. $link .'\' + this.options[this.selectedIndex].value + \']\', \'[/url]\')">';

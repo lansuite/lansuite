@@ -2,7 +2,7 @@
 
 $poll = new LanSuite\Module\Poll\Poll();
 
-$pollrow = $db->qry_first('
+$pollrow = $database->queryWithOnlyFirstRow('
   SELECT
     caption,
     comment,
@@ -12,21 +12,21 @@ $pollrow = $db->qry_first('
     requirement
   FROM %prefix%polls
   WHERE
-    pollid = %int%
+    pollid = ?
     AND (
       !group_id
-      OR group_id = %int%
-    )', $_GET['pollid'], $auth['group_id']);
+      OR group_id = ?
+    )', [$_GET['pollid'], $auth['group_id']]);
 $dsp->NewContent(t('Poll') .': '. $pollrow["caption"], $func->text2html($pollrow['comment']));
 
-$voted = $db->qry_first('
+$voted = $database->queryWithOnlyFirstRow('
   SELECT
     1 AS found
     FROM %prefix%polloptions AS o
   INNER JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
   WHERE
-    o.pollid = %int%
-    AND v.userid = %int%', $_GET['pollid'], $auth['userid']);
+    o.pollid = ?
+    AND v.userid = ?', [$_GET['pollid'], $auth['userid']]);
 
 if (!$pollrow['caption']) {
     $func->error(t('Dieser Poll existiert nicht, oder du hast keine Berechtigung ihn zu sehen'), NO_LINK);
