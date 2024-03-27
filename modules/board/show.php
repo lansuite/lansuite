@@ -24,8 +24,8 @@ if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
 $ms2->PrintSearch('index.php?mod=board', 'f.fid');
 
 // Statistics
-$total_threads = $db->qry_first("SELECT COUNT(tid) as threads FROM %prefix%board_threads");
-$total_posts = $db->qry_first("SELECT COUNT(pid) as posts FROM %prefix%board_posts");
+$total_threads = $database->queryWithOnlyFirstRow("SELECT COUNT(tid) as threads FROM %prefix%board_threads");
+$total_posts = $database->queryWithOnlyFirstRow("SELECT COUNT(pid) as posts FROM %prefix%board_posts");
 
 $info_line = t('Es wurden bereits %1 Beiträge in %2 Threads geschrieben', array($total_posts['posts'], $total_threads['threads'])) .HTML_NEWLINE.
   '<a href="index.php?mod=board&action=forum&fid=&order_by=LastPost&order_dir=DESC">'. t('Die neusten Beiträge anzeigen') .'</a>';
