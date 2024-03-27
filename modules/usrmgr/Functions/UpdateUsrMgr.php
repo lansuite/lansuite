@@ -6,7 +6,7 @@
  */
 function UpdateUsrMgr($id)
 {
-    global $mf, $db, $usrmgr, $func, $cfg;
+    global $mf, $db, $database, $usrmgr, $func, $cfg;
 
     // Clan-Management
     $clan = new \LanSuite\Module\ClanMgr\Clan();
@@ -23,11 +23,11 @@ function UpdateUsrMgr($id)
 
     // Update User-Perissions
     if ($id) {
-        $db->qry("DELETE FROM %prefix%user_permissions WHERE userid = %int%", $id);
+        $database->query("DELETE FROM %prefix%user_permissions WHERE userid = ?", [$id]);
         $permissionsParameter = $_POST["permissions"] ?? [];
         if ($permissionsParameter) {
             foreach ($permissionsParameter as $perm) {
-                $db->qry("INSERT INTO %prefix%user_permissions SET module = %string%, userid = %int%", $perm, $id);
+                $database->query("INSERT INTO %prefix%user_permissions SET module = ?, userid = ?", [$perm, $id]);
             }
         }
     }

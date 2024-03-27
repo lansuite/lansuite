@@ -6,7 +6,7 @@
  * for user details
  */
 
-$hardware = $db->qry_first("SELECT * FROM %prefix%hardware WHERE userid=%int%", $_GET['userid']);
+$hardware = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%hardware WHERE userid = ?", [$_GET['userid']]);
 $dsp->AddDoubleRow(t('CPU'), $dsp->FetchIcon('cpu').' '.$hardware['cpu']);
 $dsp->AddDoubleRow(t('Ram'), $dsp->FetchIcon('ram').' '.$hardware['ram']);
 $dsp->AddDoubleRow(t('Grafikkarte'), $dsp->FetchIcon('graka').' '.$hardware['graka']);
