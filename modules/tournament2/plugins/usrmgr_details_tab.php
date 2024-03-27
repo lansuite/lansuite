@@ -4,20 +4,6 @@
 // modules/usrmgr/details.php to generate Modulspezific Headermenue
 // for Userdetails
 
-// League IDs
-$dsp->AddFieldsetStart(t('Ligen'));
-
-$lgz = '';
-if ($user_data['lgzid']) {
-    $lgz .= $user_data['lgzid'] .' ';
-}
-if ($user_data['lgzclanid']) {
-    $lgz .= '('. $user_data['lgzclanid'] .')';
-}
-
-$dsp->AddDoubleRow(t('LGZ-ID').' (Clan-ID)', $lgz);
-$dsp->AddFieldsetEnd();
-
 $mail = new \LanSuite\Module\Mail\Mail();
 $seat2 = new \LanSuite\Module\Seating\Seat2();
 
