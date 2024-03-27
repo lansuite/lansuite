@@ -8,7 +8,7 @@ $dsp->AddDoubleRow('Party', $party->data['name']);
 $stepParameter = $_GET['step'] ?? 0;
 switch ($stepParameter) {
     case 11:
-        $db->qry('UPDATE %prefix%partys SET evening_price_id = %int% WHERE party_id = %int%', $_GET['evening_price_id'], $_GET['party_id']);
+        $database->query('UPDATE %prefix%partys SET evening_price_id = ? WHERE party_id = ?', [$_GET['evening_price_id'], $_GET['party_id']]);
         $func->confirmation(t('Der neue Abendkasse-Preis wurde gesetzt'));
         break;
 }

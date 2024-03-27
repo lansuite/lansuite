@@ -18,7 +18,7 @@ if ($auth['userid']) {
         case 14:
         case 15:
             foreach ($_POST['action'] as $key => $val) {
-                $db->qry('UPDATE %prefix%mail_messages SET label = %int% WHERE mailID = %int%', ($_GET['step'] - 10), $key);
+                $database->query('UPDATE %prefix%mail_messages SET label = ? WHERE mailID = ?', [($_GET['step'] - 10), $key]);
             }
             break;
 
@@ -29,7 +29,7 @@ if ($auth['userid']) {
             }
             if ($_POST['action']) {
                 foreach ($_POST['action'] as $key => $val) {
-                    $db->qry("UPDATE %prefix%mail_messages SET mail_status = 'delete' WHERE mailID = %int%", $key);
+                    $database->query("UPDATE %prefix%mail_messages SET mail_status = 'delete' WHERE mailID = ?", [$key]);
                 }
             }
             break;
@@ -43,8 +43,8 @@ if ($auth['userid']) {
     $colors[4] = 'yellow';
     $colors[5] = 'purple';
 
-    $mail_new_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active' AND des_status = 'new'", $auth['userid']);
-    $mail_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active'", $auth['userid']);
+    $mail_new_total = $database->queryWithOnlyFirstRow("SELECT COUNT(*) AS n FROM %prefix%mail_messages WHERE ToUserID = ? AND mail_status = 'active' AND des_status = 'new'", [$auth['userid']]);
+    $mail_total = $database->queryWithOnlyFirstRow("SELECT COUNT(*) AS n FROM %prefix%mail_messages WHERE ToUserID = ? AND mail_status = 'active'", [$auth['userid']]);
     $dsp->NewContent(t('Posteingang'), t('Du hast <b>%1</b> Mail(s) empfangen. Davon sind <b>%2</b> ungelesen.', array($mail_total['n'], $mail_new_total['n'])));
     
     $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
