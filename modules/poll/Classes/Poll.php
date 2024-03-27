@@ -13,16 +13,16 @@ class Poll
      */
     public function ShowResult($pollid, $anonym, $boxmode = 0, $width = 400)
     {
-        global $db, $auth, $dsp, $box;
+        global $db, $database, $auth, $dsp, $box;
   
-        $total = $db->qry_first('
+        $total = $database->queryWithOnlyFirstRow('
           SELECT
             COUNT(v.polloptionid) AS votes
           FROM %prefix%polloptions AS o
           LEFT JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
           WHERE
-            o.pollid = %int%
-          GROUP BY o.pollid', $pollid);
+            o.pollid = ?
+          GROUP BY o.pollid', [$pollid]);
 
         $res = $db->qry('
           SELECT
