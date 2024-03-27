@@ -1190,30 +1190,6 @@
 				<file>tournament2</file>
 			</entry>
 			<entry>
-				<id>57cc5e6520ac71a9c24ca3e3d7d8c6fa</id>
-				<org>Exporte</org>
-				<en>Exports</en>
-				<es>Exportaciones</es>
-				<fr>Exportations</fr>
-				<nl>Uitvoer</nl>
-				<it>Esportazioni</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
-				<id>106a32b84fbf3b1e1befcb8caef2c8b2</id>
-				<org>Hier stehen die Turnier-Exports der verschiedenen Ligen zum download bereit.</org>
-				<en>Here are the tournament export of various leagues are available for download.</en>
-				<es>Éstos son la exportación del torneo de varias ligas están disponibles para su
-					descarga.</es>
-				<fr>Voici l&amp;#39;exportation du tournoi de ligues différentes sont disponibles
-					pour téléchargement.</fr>
-				<nl>Hier zijn het toernooi uitvoer van de verschillende competities zijn beschikbaar
-					voor download.</nl>
-				<it>Ecco l&amp;#39;esportazione torneo di vari campionati sono disponibili per il
-					download.</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
 				<id>92b69e06d20cd9c44872d5a7c08f8741</id>
 				<org>Nicht verfügbar. Bitte PVD-ID und PlanetLan-Party-ID angeben!</org>
 				<en>Not available. Please PVD ID and PlanetLAN-Party-ID is missing!</en>
@@ -1221,26 +1197,6 @@
 				<fr>Non disponible. S&amp;#39;il vous plaît PVD ID et PlanetLAN-Party-ID is missing!</fr>
 				<nl>Niet beschikbaar. Gelieve PVD-ID en PlanetLAN-Party-ID is missing!</nl>
 				<it>Non disponibile. Si prega di PVD ID e PlanetLAN-Party-ID è mancante!</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
-				<id>bd8a269225a41becc8740f24139668ff</id>
-				<org>LGZ-Export wurde erstellt</org>
-				<en>LGZ export has been created</en>
-				<es>LGZ de exportación se ha creado</es>
-				<fr>LGZ d&amp;#39;exportation a été créé</fr>
-				<nl>LGZ uitvoer is geschapen</nl>
-				<it>Esportazione LGZ è stato creato</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
-				<id>4bd013a5be568fed63849a8365627dd8</id>
-				<org>Nicht verfügbar. Bitte LGZ-Event-ID angeben!</org>
-				<en>Not available. Please LGZ event ID is missing!</en>
-				<es>No disponible. Si LGZ evento ID que falta!</es>
-				<fr>Non disponible. S&amp;#39;il vous plaît LGZ ID d&amp;#39;événement est manquant!</fr>
-				<nl>Niet beschikbaar. Gelieve LGZ gebeurtenis-id ontbreekt!</nl>
-				<it>Non disponibile. Si prega di evento LGZ ID manca!</it>
 				<file>tournament2</file>
 			</entry>
 			<entry>
@@ -1745,16 +1701,6 @@
 				<file>tournament2</file>
 			</entry>
 			<entry>
-				<id>4a91af7cb25af50cd78ad670feeb59c0</id>
-				<org>LGZ ID</org>
-				<en>LGZ ID</en>
-				<es>LGZ ID</es>
-				<fr>LGZ ID</fr>
-				<nl>LGZ ID</nl>
-				<it>LGZ ID</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
 				<id>8507e91aeb341248b17c2da4f0317c87</id>
 				<org>Falls temporäre ID gewünscht, bitte &lt;b&gt;0&lt;/b&gt; eingeben und nach der
 					Party die Verifizierungsmail bestätigen. Ein leeres Feld bedeutet, dass man
@@ -1774,16 +1720,6 @@
 				<it>Se gewnscht ID temorre, inserisci &lt;b&gt;0&lt;/b&gt; e besttigen dopo la
 					festa, la mail di verifica. Un campo vuoto significa che si teilnimt concorrenti
 					Auer (John Doe)</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
-				<id>ad152bb7c736c3d814eee5a0d3010a6a</id>
-				<org>LGZ Clan ID</org>
-				<en>LGZ Clan ID</en>
-				<es>LGZ Clan ID</es>
-				<fr>LGZ Clan ID</fr>
-				<nl>LGZ Clan ID</nl>
-				<it>LGZ Clan ID</it>
 				<file>tournament2</file>
 			</entry>
 			<entry>
@@ -2963,26 +2899,6 @@
 				<file>tournament2</file>
 			</entry>
 			<entry>
-				<id>6d17240c17c55ab3a792fe25d9030245</id>
-				<org>Kein LGZ-Support für dieses Turnier</org>
-				<en>LGZ no support for this tournament</en>
-				<es>LGZ ningún apoyo para este torneo</es>
-				<fr>LGZ pas de support pour ce tournoi</fr>
-				<nl>LGZ geen ondersteuning voor dit toernooi</nl>
-				<it>LGZ alcun supporto per questo torneo</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
-				<id>71455dd0b42fe10d6ed6137316b2a34d</id>
-				<org>LGZ-Spiel</org>
-				<en>LGZ Game</en>
-				<es>LGZ Juego</es>
-				<fr>LGZ Game</fr>
-				<nl>LGZ Game</nl>
-				<it>LGZ Game</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
 				<id>9d7e0d0c1dbc8b6b4821c8ec1f7b7ef1</id>
 				<org>Keines</org>
 				<en>None</en>
@@ -3925,16 +3841,6 @@
 				<fr>Ligues</fr>
 				<nl>Competities</nl>
 				<it>Campionati</it>
-				<file>tournament2</file>
-			</entry>
-			<entry>
-				<id>f5937172ca386278e2e94e01c7227567</id>
-				<org>LGZ-ID</org>
-				<en>LGZ ID</en>
-				<es>LGZ ID</es>
-				<fr>LGZ ID</fr>
-				<nl>LGZ ID</nl>
-				<it>LGZ ID</it>
 				<file>tournament2</file>
 			</entry>
 			<entry>

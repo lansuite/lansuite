@@ -6,7 +6,7 @@
  */
 function UpdateUsrMgrUserFields($id)
 {
-    global $db;
+    global $db, $database;
 
     $db->qry("ALTER TABLE %prefix%user ADD %plain% VARCHAR(255) NOT NULL;", $_POST['name']);
 
