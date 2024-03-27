@@ -20,7 +20,7 @@
         "ext-zlib": "*",
         "ext-ftp": "*",
 
-        "smarty/smarty": "^4.0",
+        "smarty/smarty": "^5.0",
         "geshi/geshi": "^1.0.9",
         "setasign/fpdf": "^1.8",
         "paypal/rest-api-sdk-php": "^1.13",
@@ -191,7 +191,6 @@
             "modules/tournament2/Functions/ArrayToTable.php",
             "modules/tournament2/Functions/CheckDateInFuture.php",
             "modules/tournament2/Functions/CheckModeChangeAllowed.php",
-            "modules/tournament2/Functions/CheckModeForLeague.php",
             "modules/tournament2/Functions/CheckStateChangeAllowed.php",
             "modules/tournament2/Functions/GetTournamentName.php",
             "modules/tournament2/Functions/GetTournamentStatus.php",
