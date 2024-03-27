@@ -15,7 +15,7 @@ class Clan
      */
     public function Add($name, $userid, $url = '', $password = ''): bool|int|string
     {
-        global $db;
+        global $db, $database;
 
         if ($name == '') {
             return false;
@@ -47,7 +47,7 @@ class Clan
      */
     public function AddMember($clanid, $userid, $isAdmin = 0)
     {
-        global $db;
+        global $db, $database;
     
         $db->qry("
           UPDATE %prefix%user
@@ -67,7 +67,7 @@ class Clan
      */
     public function RemoveMember($userid)
     {
-        global $db;
+        global $db, $database;
 
         $db->qry("
           UPDATE %prefix%user 
