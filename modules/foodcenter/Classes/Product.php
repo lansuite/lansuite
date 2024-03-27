@@ -209,7 +209,7 @@ class Product
      */
     private function read()
     {
-        global $db, $database;
+        global $database;
 
         if ($this->id == null) {
             return false;
@@ -227,12 +227,11 @@ class Product
             $this->wait       = $row['wait'];
             $this->pic        = $row['p_file'];
 
-            $opt = $db->qry("SELECT id FROM %prefix%food_option WHERE parentid=%int%", $this->id);
-
-            $int = 0;
-            while ($option = $db->fetch_array($opt)) {
-                $this->option[$int] = new ProductOption($option['id'], $this->type);
-                $int++;
+            $opt = $database->queryWithFullResult("SELECT id FROM %prefix%food_option WHERE parentid = ?", [$this->id]);
+            $i = 0;
+            foreach ($opt as $option) {
+                $this->option[$i] = new ProductOption($option['id'], $this->type);
+                $i++;
             }
         }
 
@@ -616,18 +615,13 @@ class Product
 
         switch ($this->type) {
             case 1:
-                if (is_object($this->option[0])) {
-                    $dsp->AddDoubleRow("", "<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" /></a>");
-                }
+                foreach ($this->option as $key => $productOption) {
+                    if (!is_object($productOption)) {
+                        continue;
+                    }
 
-                if (is_object($this->option[1])) {
-                    $dsp->AddDoubleRow("", "<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" /></a>");
+                    $dsp->AddDoubleRow('', '<b>' . $productOption->unit . '</b>  <a href="' . $worklink . '&add=' . $this->id . '&opt=' . $productOption->id . '">' . $productOption->price . ' ' . $cfg['sys_currency'] . '</a><a href="' . $worklink . '&add=' . $this->id . '&opt=' . $productOption->id . '"><img src="design/images/icon_basket.png" border="0" alt="basket" /></a>');
                 }
-
-                if (is_object($this->option[2])) {
-                    $dsp->AddDoubleRow("", "<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" /></a>");
-                }
-
                 break;
 
             case 2:

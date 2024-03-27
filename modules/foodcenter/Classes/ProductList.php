@@ -29,11 +29,11 @@ class ProductList
      */
     public function load_cat($cat)
     {
-        global $db, $database;
-        $products = $db->qry("SELECT id FROM %prefix%food_product WHERE cat_id=%string%", $cat);
+        global $database;
 
         $i = 0;
-        while ($data = $db->fetch_array($products)) {
+        $products = $database->queryWithFullResult("SELECT id FROM %prefix%food_product WHERE cat_id = ?", [$cat]);
+        foreach ($products as $data) {
             $this->product_list[$i] = $data['id'];
             $this->product[$i] = new Product($data['id']);
             $i++;

@@ -15,7 +15,6 @@ $tournament = $database->queryWithOnlyFirstRow("
     status,
     groupid,
     coins,
-    lgz_gamename,
     maxteams,
     blind_draw
   FROM %prefix%tournament_tournaments
@@ -25,14 +24,6 @@ $tournament = $database->queryWithOnlyFirstRow("
 if ($auth["userid"] == "") {
     $auth["userid"] = 0;
 }
-
-$user = $db->qry_first("
-  SELECT
-    lgzid,
-    lgzclanid
-  FROM %prefix%user
-  WHERE
-    userid = %int%", $auth["userid"]);
 
 if ($tteam->SignonCheck($tournamentid)) {
     $stepParameter = $_GET["step"] ?? 0;
@@ -69,13 +60,6 @@ if ($tteam->SignonCheck($tournamentid)) {
                     }
                 }
 
-                if (count($error) == 0 and $success) {
-                    // Update-League-IDs
-                    $lgzidParameter = $_POST["lgzid"] ?? '';
-                    $lgzclanidParameter = $_POST["lgzclanid"] ?? '';
-                    $tteam->UpdateLeagueIDs($auth["userid"], $lgzidParameter, $lgzclanidParameter);
-                    $func->confirmation(t('Du wurdest zum Turnier %1 erfolgreich hinzugefügt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
-                }
                 $sec->lock("t_join");
             }
 
@@ -135,14 +119,6 @@ if ($tteam->SignonCheck($tournamentid)) {
             $teamCommentParameter = $_POST["team_comment"] ?? '';
             $dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $teamCommentParameter, "", "", "", 1);
             $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
-
-            if ($tournament['lgz_gamename'] != "") {
-                $dsp->AddDoubleRow(t('LGZ ID'), t('Falls temoräre ID gewünscht, bitte <b>0</b> eingeben und nach der Party die Verifizierungsmail bestätigen. Ein leeres Feld bedeutet, dass man außer Konkurenz teilnimt (John Doe)'));
-                $dsp->AddTextFieldRow("lgzid", "", $user['lgzid'], "");
-                if ($tournament['teamplayer'] > 1) {
-                    $dsp->AddTextFieldRow("lgzclanid", t('LGZ Clan ID'), $user['lgzclanid'], "");
-                }
-            }
 
             $dsp->AddFormSubmitRow(t('Beitreten'));
             $dsp->AddBackButton("index.php?mod=tournament2&action=details&tournamentid=$tournamentid", "tournament2/join");
