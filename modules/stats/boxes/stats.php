@@ -4,15 +4,15 @@
  */
  
 // Number of visits
-$total = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
+$total = $database->queryWithOnlyFirstRow("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
 
 // Ermittle die Anzahl der registrierten Usern
-$get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user WHERE user.type > 0');
+$get_cur = $database->queryWithOnlyFirstRow('SELECT count(userid) as n FROM %prefix%user AS user WHERE user.type > 0');
 $reg = $get_cur["n"];
 $box->DotRow(t('Benutzer').': '. $reg);
 
 // Avg online, this hour
-$avg = $db->qry_first("
+$avg = $database->queryWithOnlyFirstRow("
   SELECT
     visits,
     hits
@@ -35,12 +35,12 @@ $box->EngangedRow('<span class="infolink">'.number_format($total['hits'], 0, '',
 
 $box->DotRow(t('Online') .': '. (is_countable($authentication->online_users) ? count($authentication->online_users) : 0), 'index.php?mod=guestlist&action=onlineuser');
 foreach ($authentication->online_users as $userid) {
-    $row = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
+    $row = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$userid]);
     $box->EngangedRow($dsp->FetchUserIcon($userid, $row["username"]));
 }
 
 $box->DotRow(t('Untätig') .': '. (is_countable($authentication->away_users) ? count($authentication->away_users) : 0), 'index.php?mod=guestlist&action=onlineuser');
 foreach ($authentication->away_users as $userid) {
-    $row = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
+    $row = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$userid]);
     $box->EngangedRow($dsp->FetchUserIcon($userid, $row["username"]));
 }

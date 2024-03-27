@@ -8,8 +8,8 @@
  */
 function SeatsAvailable($blockid)
 {
-    global $db;
+    global $database;
 
-    $row = $db->qry_first("SELECT COUNT(*) AS SeatsAvailable FROM %prefix%seat_seats WHERE blockid=%int% AND status > 0 AND status < 7", $blockid);
+    $row = $database->queryWithOnlyFirstRow("SELECT COUNT(*) AS SeatsAvailable FROM %prefix%seat_seats WHERE blockid = ? AND status > 0 AND status < 7", [$blockid]);
     return $row['SeatsAvailable'];
 }
