@@ -5,9 +5,9 @@
  */
 function CheckClanNotExists($ClanName): bool|string
 {
-    global $db;
+    global $db, $database;
 
-    $clan = $db->qry_first("SELECT 1 AS found FROM %prefix%clan WHERE name = %string%", $ClanName);
+    $clan = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%clan WHERE name = ?", [$ClanName]);
     if ($clan['found']) {
         return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn du diesem beitreten möchten, wähle ihn oberhalb aus dem Dropdownmenü aus.');
     }

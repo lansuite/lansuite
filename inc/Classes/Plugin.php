@@ -27,7 +27,7 @@ class Plugin
 
     public function __construct($type)
     {
-        global $db, $func;
+        global $db, $database, $func;
 
         $res = $db->qry('SELECT caption, module, icon FROM %prefix%plugin WHERE pluginType = %string% ORDER BY pos', $type);
         while ($row = $db->fetch_array($res)) {

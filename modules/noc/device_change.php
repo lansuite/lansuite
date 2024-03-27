@@ -103,12 +103,12 @@ switch ($stepParameter) {
         // ------------------------------------------------------------------------------------------
 
         // U p d a t e it, not delete and reinsert it.
-        $add_query = $db->qry("UPDATE %prefix%noc_devices SET
-         name = %string%,
-         ip = %string%,
-         readcommunity = %string%,
-         writecommunity = %string%
-         WHERE id = %int%", $_POST['device_caption'], $_POST['device_ip'], $_POST['device_read'], $_POST['device_write'], $_GET["deviceid"]);
+        $add_query = $database->query("UPDATE %prefix%noc_devices SET
+         name = ?,
+         ip = ?,
+         readcommunity = ?,
+         writecommunity = ?
+         WHERE id = ?", [$_POST['device_caption'], $_POST['device_ip'], $_POST['device_read'], $_POST['device_write'], $_GET["deviceid"]]);
 
         if ($add_query == 1) {
             $func->confirmation(t('Das Device wurde erfolgreich ge&auml;ndert.'));

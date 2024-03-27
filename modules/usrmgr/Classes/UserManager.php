@@ -17,13 +17,13 @@ class UserManager
      */
     public function SendVerificationEmail($id)
     {
-        global $cfg, $db, $mail, $func;
+        global $cfg, $db, $database, $mail, $func;
 
         $verification_code = '';
         for ($x = 0; $x <= 24; $x++) {
             $verification_code .= chr(random_int(65, 90));
         }
-        $db->qry('UPDATE %prefix%user SET fcode=%string% WHERE userid = %int%', $verification_code, $id);
+        $database->query('UPDATE %prefix%user SET fcode = ? WHERE userid = ?', [$verification_code, $id]);
         $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
         //Use the HTTPS party URL if defined, otherwise check what the user is currently using
         if (!empty($cfg['sys_partyurl_ssl'])) {
@@ -41,7 +41,7 @@ class UserManager
             }
             $verification_link = "{$proto}://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
         }
-        $row = $db->qry_first('SELECT firstname, name, email FROM %prefix%user WHERE userid = %int%', $id);
+        $row = $database->queryWithOnlyFirstRow('SELECT firstname, name, email FROM %prefix%user WHERE userid = ?', [$id]);
         if (!$_POST['firstname']) {
             $_POST['firstname'] = $row['firstname'];
         }
@@ -64,10 +64,10 @@ class UserManager
      */
     public function LockAccount($userid)
     {
-        global $db;
+        global $database;
 
-        $db->qry("UPDATE %prefix%user SET locked = 1 WHERE userid=%int%", $userid);
-        $db->qry('DELETE FROM %prefix%stats_auth WHERE userid=%int%', $userid);
+        $database->query("UPDATE %prefix%user SET locked = 1 WHERE userid = ?", [$userid]);
+        $database->query('DELETE FROM %prefix%stats_auth WHERE userid = ?', [$userid]);
     }
 
     /**
@@ -76,9 +76,9 @@ class UserManager
      */
     public function UnlockAccount($userid)
     {
-        global $db;
+        global $database;
 
-        $db->qry("UPDATE %prefix%user SET locked = 0 WHERE userid=%int%", $userid);
+        $database->query("UPDATE %prefix%user SET locked = 0 WHERE userid = ?", [$userid]);
     }
 
     /**
@@ -155,7 +155,7 @@ class UserManager
      */
     public function SendSignonMail($type = 0)
     {
-        global $cfg, $func, $mail, $db, $auth;
+        global $cfg, $func, $mail, $db, $database, $auth;
 
         switch ($type) {
             // Register-Mail
@@ -166,7 +166,7 @@ class UserManager
                 $message = str_replace('%EMAIL%', $_POST['email'], $message);
                 $message = str_replace('%PASSWORD%', $_SESSION['tmp_pass'], $message);
                 if ($_POST['clan']) {
-                    $row = $db->qry_first("SELECT name FROM %prefix%clan WHERE clanid = %int%", $_POST['clan']);
+                    $row = $database->queryWithOnlyFirstRow("SELECT name FROM %prefix%clan WHERE clanid = ?", [$_POST['clan']]);
                     $clan = $row['name'];
                 } else {
                     $clan = $_POST['clan_new'];
@@ -196,7 +196,7 @@ class UserManager
                     $_GET['user_id'] = $auth['userid'];
                 }
                 if ($_GET['user_id']) {
-                    $row = $db->qry_first("SELECT firstname, name, username, email FROM %prefix%user WHERE userid = %int%", $_GET['user_id']);
+                    $row = $database->queryWithOnlyFirstRow("SELECT firstname, name, username, email FROM %prefix%user WHERE userid = ?", [$_GET['user_id']]);
                     $message = str_replace('%USERNAME%', $row['username'], $message);
                     $message = str_replace('%EMAIL%', $row['email'], $message);
                     $message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
@@ -224,7 +224,7 @@ class UserManager
      */
     public function WriteXMLStatFile()
     {
-        global $cfg, $db, $config;
+        global $cfg, $db, $database, $config;
 
         $xml = new \LanSuite\XML();
         $output = '<?xml version="1.0" encoding="UTF-8"?' . '>' . "\r\n";
@@ -236,7 +236,7 @@ class UserManager
         $system .= $xml->write_tag('language', 'de-de', 2);
         $system .= $xml->write_tag('current_party', $cfg['signon_partyid'], 2);
 
-        $row = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%user WHERE type > 0");
+        $row = $database->queryWithOnlyFirstRow("SELECT COUNT(*) AS anz FROM %prefix%user WHERE type > 0");
         $system .= $xml->write_tag('users', $row['anz'], 2);
 
         $lansuite = $xml->write_master_tag('system', $system, 1);
@@ -265,25 +265,25 @@ class UserManager
             $party .= $xml->write_tag('sstartdate', $row['sstartdate'], 3);
             $party .= $xml->write_tag('senddate', $row['senddate'], 3);
 
-            $row2 = $db->qry_first("
+            $row2 = $database->queryWithOnlyFirstRow("
               SELECT
                 COUNT(userid) AS anz
               FROM %prefix%user AS user
               LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
               WHERE
-                party_id=%int%
-                AND (type >= 1)", $row['party_id']);
+                party_id = ?
+                AND (type >= 1)", [$row['party_id']]);
             $party .= $xml->write_tag('registered', $row2['anz'], 3);
 
-            $row2 = $db->qry_first("
+            $row2 = $database->queryWithOnlyFirstRow("
               SELECT
                 COUNT(userid) AS anz
               FROM %prefix%user AS user
               LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
               WHERE
                 (party.paid > 0)
-                AND party_id=%int%
-                AND (type >= 1)", $row['party_id']);
+                AND party_id = ?
+                AND (type >= 1)", [$row['party_id']]);
             $party .= $xml->write_tag('paid', $row2['anz'], 3);
 
             $partys .= $xml->write_master_tag('party', $party, 2);
