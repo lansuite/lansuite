@@ -120,24 +120,6 @@ $mf->AddPage(t('Haupteinstellungen'));
 // League + Misc
 $mf->AddField(t('Icon'), 'icon', \LanSuite\MasterForm::IS_PICTURE_SELECT, 'ext_inc/tournament_icons', \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-// LGZ-Spiel auswahl
-$xml_file = "";
-$file = "ext_inc/tournament_rules/xml_games.xml";
-$handle = fopen($file, "rb");
-$xml_file = fread($handle, filesize($file));
-fclose($handle);
-
-$selections = array();
-$games = $xml->get_tag_content_array("game", $xml_file);
-foreach ($games as $game) {
-    $akt_game_name = $xml->get_tag_content("contest", $game) .' - '. $xml->get_tag_content("name", $game);
-    $syscode = $xml->get_tag_content("syscode", $game);
-    $selections[$syscode] = $akt_game_name;
-}
-asort($selections);
-$selections = array('' => t('Kein LGZ-Support für dieses Turnier')) + $selections;
-$mf->AddField(t('LGZ-Spiel'), 'lgz_gamename', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckModeForLeague');
-
 // Rules (Extern)
 $selections = array();
 $verz = opendir('ext_inc/tournament_rules/');
