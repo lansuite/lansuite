@@ -75,7 +75,7 @@ class Install
      */
     public function TryCreateDB($createnew = null)
     {
-        global $config, $db, $request;
+        global $config, $db, $database, $request;
         $ret_val = null;
 
         if (!$db->connect(1)) {
@@ -119,7 +119,7 @@ class Install
      */
     public function WriteTableFromXMLFile($mod, $rewrite = null)
     {
-        global $db, $config;
+        global $db, $database, $config;
 
         // Delete references, if table exists, for they will be recreated in ImportXML()
         if (in_array($config['database']['prefix'] .'ref', $this->import->installed_tables)) {
@@ -192,7 +192,7 @@ class Install
      */
     public function InsertPLZs()
     {
-        global $db, $cfg;
+        global $db, $database, $cfg;
 
         if ($cfg['guestlist_guestmap'] == 1) {
             $return_val = 1;
@@ -227,7 +227,7 @@ class Install
      */
     public function InsertModules($rewrite = false)
     {
-        global $db, $func;
+        global $db, $database, $func;
 
         $xml = new XML();
         // Tabelle Modules leeren um Module zu deinstallieren
@@ -264,26 +264,26 @@ class Install
                     $reqMysql       = $xml->get_tag_content("mysql", $requires);
 
                     $ModActive = $active;
-                    $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%modules WHERE name = %string%", $module);
+                    $mod_found = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%modules WHERE name = ?", [$module]);
 
                     if ($name) {
                         if (!$mod_found) {
-                            $db->qry_first(
+                            $database->query(
                                 "
                               REPLACE INTO %prefix%modules
                               SET
-                                name=%string%,
-                                caption=%string%,
-                                description=%string%,
-                                author=%string%,
-                                email=%string%,
-                                active=%string%,
-                                changeable=%string%,
-                                version=%string%,
-                                state=%string%,
-                                reqphp=%string%,
-                                reqmysql=%string%",
-                                $name,
+                                name = ?,
+                                caption = ?,
+                                description = ?,
+                                author = ?,
+                                email = ?,
+                                active = ?,
+                                changeable = ?,
+                                version = ?,
+                                state = ?,
+                                reqphp = ?,
+                                reqmysql = ?",
+                                [$name,
                                 $caption,
                                 $description,
                                 $author,
@@ -293,24 +293,24 @@ class Install
                                 $version,
                                 $state,
                                 $reqPhp,
-                                $reqMysql
+                                $reqMysql]
                             );
                         } elseif ($rewrite) {
-                            $db->qry_first(
+                            $database->query(
                                 "
                               REPLACE INTO %prefix%modules
                               SET
-                                name=%string%,
-                                caption=%string%,
-                                description=%string%,
-                                author=%string%,
-                                email=%string%,
-                                changeable=%string%,
-                                version=%string%,
-                                state=%string%,
-                                reqphp=%string%,
-                                reqmysql=%string%",
-                                $name,
+                                name = ?,
+                                caption = ?,
+                                description = ?,
+                                author = ?,
+                                email = ?,
+                                changeable = ?,
+                                version = ?,
+                                state = ?,
+                                reqphp = ?,
+                                reqmysql = ?",
+                                [$name,
                                 $caption,
                                 $description,
                                 $author,
@@ -319,7 +319,7 @@ class Install
                                 $version,
                                 $state,
                                 $reqPhp,
-                                $reqMysql
+                                $reqMysql]
                             );
                         }
                     }
@@ -342,7 +342,7 @@ class Install
                             while ($xml_type = array_shift($xml_types)) {
                                 $xml_head = $xml->get_tag_content('head', $xml_type);
                                 $name = $xml->get_tag_content('name', $xml_head);
-                                $db->qry("DELETE FROM %prefix%config_selections WHERE cfg_key = %string%", $name);
+                                $database->query("DELETE FROM %prefix%config_selections WHERE cfg_key = ?", [$name]);
 
                                 $xml_entries = $xml->get_tag_content_array('entry', $xml_type);
                                 if ($xml_entries) {
@@ -381,17 +381,17 @@ class Install
                                         $SettingList[] = $name;
 
                                         // Insert into DB, if not exists
-                                        $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
+                                        $found = $database->queryWithOnlyFirstRow("SELECT cfg_key FROM %prefix%config WHERE cfg_key = ?", [$name]);
                                         if (!$found) {
-                                            $db->qry(
-                                                "INSERT INTO %prefix%config SET cfg_key = %string%, cfg_value = %string%, cfg_type = %string%, cfg_group = %string%, cfg_desc = %string%, cfg_module = %string%, cfg_pos = %int%",
-                                                $name,
+                                            $database->query(
+                                                "INSERT INTO %prefix%config SET cfg_key = ?, cfg_value = ?, cfg_type = ?, cfg_group = ?, cfg_desc = ?, cfg_module = ?, cfg_pos = ?",
+                                                [$name,
                                                 $default,
                                                 $type,
                                                 $group,
                                                 $description,
                                                 $module,
-                                                $pos
+                                                $pos]
                                             );
                                         }
                                     }
@@ -403,7 +403,7 @@ class Install
                         $settings_db = $db->qry("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $module);
                         while ($setting_db = $db->fetch_array($settings_db)) {
                             if (!in_array($setting_db["cfg_key"], $SettingList)) {
-                                $db->qry("DELETE FROM %prefix%config WHERE cfg_key = %string%", $setting_db["cfg_key"]);
+                                $database->query("DELETE FROM %prefix%config WHERE cfg_key = ?", [$setting_db["cfg_key"]]);
                             }
                         }
                     }
@@ -428,13 +428,13 @@ class Install
                             $source = $xml->get_tag_content("source", $box);
                             $callback = $xml->get_tag_content("callback", $box);
 
-                            $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
+                            $mod_found = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%boxes WHERE source = ? AND module = ?", [$source, $modTmp]);
                             if ($rewrite or !$mod_found) {
-                                $db->qry_first("DELETE FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
-                                $db->qry_first(
+                                $database->query("DELETE FROM %prefix%boxes WHERE source = ? AND module = ?", [$source, $modTmp]);
+                                $database->query(
                                     "INSERT INTO %prefix%boxes
-                SET name=%string%, place=%string%, pos=%string%, active=%string%, internet=%string%, login=%string%, source=%string%, callback=%string%, module=%string%",
-                                    $name,
+                SET name = ?, place = ?, pos = ?, active = ?, internet = ?, login = ?, source = ?, callback = ?, module = ?",
+                                    [$name,
                                     $place,
                                     $pos,
                                     $active,
@@ -442,7 +442,7 @@ class Install
                                     $login,
                                     $source,
                                     $callback,
-                                    $modTmp
+                                    $modTmp]
                                 );
                             }
                         }
@@ -523,7 +523,7 @@ class Install
         $mods = $db->qry("SELECT name FROM %prefix%modules");
         while ($row = $db->fetch_array($mods)) {
             if (!in_array($row["name"], $mod_list)) {
-                $db->qry("DELETE FROM %prefix%modules WHERE name = %string%", $row["name"]);
+                $database->query("DELETE FROM %prefix%modules WHERE name = ?", [$row["name"]]);
             }
         }
         $db->free_result($mods);
@@ -540,18 +540,18 @@ class Install
      */
     public function InsertMenus($rewrite = false)
     {
-        global $db, $func;
+        global $db, $database, $func;
 
         $xml = new XML();
         if ($rewrite) {
-            $db->qry("TRUNCATE TABLE %prefix%menu");
+            $database->query("TRUNCATE TABLE %prefix%menu");
         }
-        $menubox = $db->qry_first('SELECT boxid FROM %prefix%boxes WHERE source = \'menu\' AND active = 1');
+        $menubox = $database->queryWithOnlyFirstRow('SELECT boxid FROM %prefix%boxes WHERE source = \'menu\' AND active = 1');
 
         $modules_dir = opendir("modules/");
         while ($module = readdir($modules_dir)) {
             if ($func->isModActive($module)) {
-                $menu_found = $db->qry_first("SELECT 1 AS found FROM %prefix%menu WHERE module = %string%", $module);
+                $menu_found = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%menu WHERE module = ?", [$module]);
                 if (!$menu_found) {
                     $file = "modules/$module/mod_settings/menu.xml";
                     if (file_exists($file)) {
@@ -587,9 +587,9 @@ class Install
                             ($level == 0)? $pos = $main_pos : $pos = $i;
                             $i++;
 
-                            $db->qry_first(
-                                "INSERT INTO %prefix%menu SET module=%string%, action=%string%, file=%string%, caption=%string%, hint=%string%, link=%string%, requirement=%string%, level=%string%, pos=%string%, needed_config=%string%, boxid=%int%",
-                                $module,
+                            $database->query(
+                                "INSERT INTO %prefix%menu SET module = ?, action = ?, file = ?, caption = ?, hint = ?, link = ?, requirement = ?, level = ?, pos = ?, needed_config = ?, boxid = ?",
+                                [$module,
                                 $action,
                                 $file,
                                 $caption,
@@ -599,7 +599,7 @@ class Install
                                 $level,
                                 $pos,
                                 $needed_config,
-                                $menubox['boxid']
+                                $menubox['boxid']]
                             );
                         }
                     }
@@ -616,7 +616,7 @@ class Install
      */
     public function envcheck(array $configuration)
     {
-        global $db, $dsp, $func;
+        global $db, $database, $dsp, $func;
 
         $continue = 1;
 
@@ -892,7 +892,7 @@ class Install
      */
     private function deleteAllTables()
     {
-        global $xml, $db;
+        global $xml, $db, $database;
 
         $modules_dir = opendir("modules/");
         while ($module = readdir($modules_dir)) {
@@ -925,7 +925,7 @@ class Install
     public function getModConfigLine($row, $showLinks = 1)
     {
         $language = null;
-        global $smarty, $db;
+        global $smarty, $db, $database;
 
         $smarty->assign('name', $row['name']);
         $smarty->assign('caption', $row['caption']);
@@ -972,7 +972,7 @@ class Install
 
         $smarty->assign('showLinks', $showLinks);
         if ($showLinks) {
-            $find_config = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $row["name"]);
+            $find_config = $database->queryWithOnlyFirstRow("SELECT cfg_key FROM %prefix%config WHERE cfg_module = ?", [$row["name"]]);
             if (is_array($find_config) && $find_config["cfg_key"] != '') {
                 $settings_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=10&module={$row["name"]}\">". t('Konfig.') ."</a>";
             } else {
@@ -980,7 +980,7 @@ class Install
             }
             $smarty->assign('settings_link', $settings_link);
 
-            $find_mod = $db->qry_first("SELECT module FROM %prefix%menu WHERE module=%string%", $row["name"]);
+            $find_mod = $database->queryWithOnlyFirstRow("SELECT module FROM %prefix%menu WHERE module = ?", [$row["name"]]);
             if (is_array($find_mod) && $find_mod["module"]) {
                 $menu_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
             } else {

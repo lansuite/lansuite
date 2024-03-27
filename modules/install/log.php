@@ -58,7 +58,7 @@ switch ($stepParameter ) {
         break;
 
     case 2:
-        $log = $db->qry_first("
+        $log = $database->queryWithOnlyFirstRow("
           SELECT
             l.type,
             l.sort_tag,
@@ -71,7 +71,7 @@ switch ($stepParameter ) {
             u.username
         FROM %prefix%log AS l
         LEFT JOIN %prefix%user AS u ON l.userid = u.userid
-        WHERE l.logid = %int%", $_GET['logid']);
+        WHERE l.logid = ?", [$_GET['logid']]);
         $dsp->NewContent($log['sort_tag']);
         $dsp->AddDoubleRow(t('Meldung'), $log['description']);
         $dsp->AddDoubleRow(t('Zeitpunkt'), $func->unixstamp2date($log['date'], 'datetime'));

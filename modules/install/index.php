@@ -3,7 +3,7 @@
 $dsp->NewContent(t('Installation und Administration'), t('Auf diesen Seiten kannst du Lansuite installieren und verwalten'));
 
 // Scan for DB-Structure SQL-Errors
-$row = $db->qry_first('SELECT 1 AS found FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
+$row = $database->queryWithOnlyFirstRow('SELECT 1 AS found FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
 if (is_array($row) && $row['found']) {
     $func->information(t('Es wurden SQL-Fehler im Log gefunden, die auf eine nicht aktuelle Struktur der Lansuite-Datenbank hindeuten. Es wird empfohlen die Datenbank zu aktuallisieren.'). '<br><br><a href="index.php?mod=install&action=db">'. t('Datenbank jetzt aktuallisieren') .'</a>', NO_LINK);
 }
