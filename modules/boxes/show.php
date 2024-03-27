@@ -4,14 +4,14 @@ switch ($stepParameter) {
     // Activate
     case 10:
         foreach ($_POST['action'] as $key => $val) {
-            $db->qry("UPDATE %prefix%boxes SET active = 1 WHERE boxid = %int%", $key);
+            $database->query("UPDATE %prefix%boxes SET active = 1 WHERE boxid = ?", [$key]);
         }
         break;
   
     // Deactivate
     case 11:
         foreach ($_POST['action'] as $key => $val) {
-            $db->qry("UPDATE %prefix%boxes SET active = 0 WHERE boxid = %int%", $key);
+            $database->query("UPDATE %prefix%boxes SET active = 0 WHERE boxid = ?", [$key]);
         }
         break;
   

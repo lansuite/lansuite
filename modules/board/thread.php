@@ -6,12 +6,12 @@ if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     switch ($stepParameter ) {
         // Close Thread
         case 10:
-            $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $_GET['tid']);
+            $database->query("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = ?", [$_GET['tid']]);
             break;
 
         // Open Thread
         case 11:
-            $db->qry("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = %int%", $_GET['tid']);
+            $database->query("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = ?", [$_GET['tid']]);
             break;
     }
 }
@@ -21,7 +21,7 @@ $list_type = $auth['type'] + 1;
 
 // Show Thread or create new
 if ($tid) {
-    $thread = $db->qry_first("
+    $thread = $database->queryWithOnlyFirstRow("
       SELECT
         t.fid,
         t.caption,
@@ -32,19 +32,19 @@ if ($tid) {
       FROM %prefix%board_threads AS t
         LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
       WHERE
-        t.tid=%int%
-        AND f.need_type <= %string%
+        t.tid = ?
+        AND f.need_type <= ?
         AND (
           !f.need_group
-          OR f.need_group = %int%
-        )", $tid, $list_type, $auth['group_id']);
+          OR f.need_group = ?
+        )", [$tid, $list_type, $auth['group_id']]);
 
     $pId = $_GET['pid'] ?? 0;
     if ($pId) {
-        $current_post = $db->qry_first("SELECT userid FROM %prefix%board_posts WHERE pid = %int%", $_GET['pid']);
+        $current_post = $database->queryWithOnlyFirstRow("SELECT userid FROM %prefix%board_posts WHERE pid = ?", [$_GET['pid']]);
     }
 } else {
-    $thread = $db->qry_first("SELECT need_type, need_group FROM %prefix%board_forums WHERE fid = %int%", $_GET['fid']);
+    $thread = $database->queryWithOnlyFirstRow("SELECT need_type, need_group FROM %prefix%board_forums WHERE fid = ?", [$_GET['fid']]);
 }
 
 $fid = 0;
@@ -189,7 +189,7 @@ if (!$thread and $tid) {
 
     $threadViewId = $_SESSION['threadview'] ?? 0;
     if ($threadViewId != $tid) {
-        $db->qry("UPDATE %prefix%board_threads SET views=views+1 WHERE tid=%int%", $tid);
+        $database->query("UPDATE %prefix%board_threads SET views = views + 1 WHERE tid = ?", [$tid]);
     }
     $_SESSION['threadview'] = $tid;
 
@@ -251,7 +251,7 @@ if (is_array($thread) && $thread['closed']) {
                 $tid = $db->insert_id();
   
                 // Assign just created post to this new thread
-                $db->qry("UPDATE %prefix%board_posts SET tid = %int% WHERE pid = %int%", $tid, $pid);
+                $database->query("UPDATE %prefix%board_posts SET tid = ? WHERE pid = ?", [$tid, $pid]);
         }
 
         // Send email-notifications to thread-subscribers
@@ -309,13 +309,13 @@ if (is_array($thread) && $thread['caption'] != '') {
     if ($auth['login']) {
         $setBmParameter = $_GET["set_bm"] ?? '';
         if ($setBmParameter) {
-            $db->qry_first("DELETE FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
+            $database->query("DELETE FROM %prefix%board_bookmark WHERE tid = ? AND userid = ?", [$tid, $auth['userid']]);
             if ($_POST["check_bookmark"]) {
-                $db->qry_first("INSERT INTO %prefix%board_bookmark SET tid = %int%, userid = %int%, email = %string%, sysemail = %string%", $tid, $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]);
+                $database->query("INSERT INTO %prefix%board_bookmark SET tid = ?, userid = ?, email = ?, sysemail = ?", [$tid, $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]]);
             }
         }
   
-        $bookmark = $db->qry_first("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
+        $bookmark = $database->queryWithOnlyFirstRow("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE tid = ? AND userid = ?", [$tid, $auth['userid']]);
         if (is_array($bookmark) && $bookmark["found"]) {
             $_POST["check_bookmark"] = 1;
         }

@@ -2,6 +2,7 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
+use Smarty\Smarty;
 use Symfony\Component\Cache;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
@@ -206,12 +207,12 @@ if ($config['lansuite']['debugmode'] > 0) {
 $translation = new \LanSuite\Translation();
 
 $smarty = new Smarty();
-$smarty->template_dir = '.';
-$smarty->compile_dir = './ext_inc/templates_c/';
-$smarty->cache_dir = './ext_inc/templates_cache/';
-$smarty->caching = false;
-// Lifetime is in seconds
-$smarty->cache_lifetime = 0;
+$smarty->setTemplateDir('.');
+$smarty->setCompileDir('./ext_inc/templates_c/');
+$smarty->setCacheDir('./ext_inc/templates_cache/');
+// TODO Think about enabling caching for templates in production mode, but not in development mode
+// See https://smarty-php.github.io/smarty/stable/api/caching/basics/
+$smarty->setCaching(Smarty::CACHING_OFF);
 
 $framework->setTemplateEngine($smarty);
 

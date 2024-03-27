@@ -8,11 +8,11 @@ $usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
 // Get Barcode if exists and translate to userid
 $barcodefieldParameter = $_POST['barcodefield'] ?? null;
 if ($barcodefieldParameter) {
-    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $barcodefieldParameter);
+    $row = $database->queryWithOnlyFirstRow('SELECT userid FROM %prefix%user WHERE barcode = ?', [$barcodefieldParameter]);
     $_GET['userid']=$row['userid'];
 }
 
-$user_data = $db->qry_first("
+$user_data = $database->queryWithOnlyFirstRow("
   SELECT
     u.*,
     g.*,
@@ -27,7 +27,7 @@ $user_data = $db->qry_first("
   LEFT JOIN %prefix%party_usergroups AS g ON u.group_id = g.group_id
   LEFT JOIN %prefix%clan AS clan ON u.clanid = clan.clanid
   WHERE
-    u.userid = %int%", $_GET['userid']);
+    u.userid = ?", [$_GET['userid']]);
 
 // If exists
 if (!$user_data['userid']) {
@@ -35,7 +35,7 @@ if (!$user_data['userid']) {
 } else {
     $framework->addToPageTitle($user_data['username']);
 
-    $user_party = $db->qry_first("
+    $user_party = $database->queryWithOnlyFirstRow("
       SELECT
         u.*,
         p.*,
@@ -44,9 +44,9 @@ if (!$user_data['userid']) {
       FROM %prefix%party_user AS u
       LEFT JOIN %prefix%party_prices AS p ON u.price_id = p.price_id
       WHERE
-        user_id = %int%
-        AND u.party_id = %int%
-      GROUP BY u.user_id", $_GET['userid'], $party->party_id);
+        user_id = ?
+        AND u.party_id = ?
+      GROUP BY u.user_id", [$_GET['userid'], $party->party_id]);
 
     // $user_party can be null, thats why we pre-setting the values here
     $userPartyPriceID = $user_party['price_id'] ?? 0;
@@ -56,8 +56,8 @@ if (!$user_data['userid']) {
     $userPartyCheckout = $user_party['checkout'] ?? null;
     $userPartyPriceText = $user_party['price_text'] ?? '';
 
-    $count_rows = $db->qry_first('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = %int%', $_GET['userid']);
-    $party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $userPartyPriceID);
+    $count_rows = $database->queryWithOnlyFirstRow('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = ?', $_GET['userid']);
+    $party_seatcontrol = $database->queryWithOnlyFirstRow('SELECT * FROM %prefix%party_prices WHERE price_id = ?', $userPartyPriceID);
 
     // $party_seatcontrol can be null, thats why we pre-setting the values here
     $partySeatControlDepotPrice = $party_seatcontrol['depot_price'] ?? 0;
@@ -203,7 +203,7 @@ if (!$user_data['userid']) {
 
     // Kontostand
     if ($func->isModActive('foodcenter')) {
-        $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int%", $_GET['userid']);
+        $result = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ?", [$_GET['userid']]);
         if ($result['total'] == "") {
             $amount = 0;
         } else {
@@ -346,7 +346,7 @@ if (!$user_data['userid']) {
     $dsp->StartTab(t('Sonstiges'));
     // logins, last login
     if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
-        $lastLoginTS = $db->qry_first("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", $_GET['userid']);
+        $lastLoginTS = $database->queryWithOnlyFirstRow("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", [$_GET['userid']]);
         $dsp->AddDoubleRow(t('Logins'), $user_data['logins']);
         if ($user_data['lastlogin']) {
             $loginTime = t('am/um: ') . $func->unixstamp2date($user_data['lastlogin'], 'daydatetime');
@@ -418,11 +418,11 @@ if (!$user_data['userid']) {
     } else {
         $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod=guestlist&action=guestlist').' ';
     }
-    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE type > 0 AND userid < %int% order by userid desc', $_GET['userid']);
+    $row = $database->queryWithOnlyFirstRow('SELECT userid FROM %prefix%user WHERE type > 0 AND userid < ? ORDER BY userid DESC', [$_GET['userid']]);
     if (is_array($row) && $row['userid']) {
         $buttons .= $dsp->FetchSpanButton(t('Vorheriger Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']).' ';
     }
-    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE type > 0 AND userid > %int%', $_GET['userid']);
+    $row = $database->queryWithOnlyFirstRow('SELECT userid FROM %prefix%user WHERE type > 0 AND userid > ?', [$_GET['userid']]);
     if (is_array($row) && $row['userid']) {
         $buttons .= $dsp->FetchSpanButton(t('Nächster Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']);
     }

@@ -145,12 +145,12 @@ if (!$row = $db->fetch_array()) {
                 $Port["AdminStatus"] =    $noc->getSNMPValue($device_ip, $readcommunity, ".1.3.6.1.2.1.2.2.1.7." . $row["portnr"]);
 
                 if ($Port["LinkStatus"] != $row["linkstatus"]) {
-                    $db->qry_first("UPDATE %prefix%noc_ports SET linkstatus=%string% WHERE portid=%int%", $Port["LinkStatus"], $row["portid"]);
+                    $database->query("UPDATE %prefix%noc_ports SET linkstatus = ? WHERE portid = ?", [$Port["LinkStatus"], $row["portid"]]);
                     $row["linkstatus"] = $Port["LinkStatus"];
                 }
 
                 if ($Port["AdminStatus"] != $row["adminstatus"]) {
-                    $db->qry_first("UPDATE %prefix%noc_ports SET adminstatus=%string% WHERE portid=%int%", $Port["AdminStatus"], $row["portid"]);
+                    $database->query("UPDATE %prefix%noc_ports SET adminstatus = ? WHERE portid = ?", [$Port["AdminStatus"], $row["portid"]]);
                     $row["adminstatus"] = $Port["AdminStatus"];
                 }
 
@@ -319,7 +319,7 @@ if (!$row = $db->fetch_array()) {
         case 4:
             if (is_array($_SESSION['noc_ports'])) {
                 foreach ($_SESSION['noc_ports'] as $noc_data) {
-                    $device = $db->qry_first("SELECT name, readcommunity, writecommunity, ip FROM %prefix%noc_devices WHERE id = %int%", $noc_data);
+                    $device = $database->queryWithOnlyFirstRow("SELECT name, readcommunity, writecommunity, ip FROM %prefix%noc_devices WHERE id = ?", [$noc_data]);
 
 
 
@@ -344,7 +344,7 @@ if (!$row = $db->fetch_array()) {
                     }
 
                     if ($noc->setSNMPValue($row["ip"], $row["writecommunity"], ".1.3.6.1.2.1.2.2.1.7.{$noc_data}", "i", $newstatus)) {
-                        $db->qry_first("UPDATE %prefix%noc_ports SET adminstatus=%string% WHERE portnr=%string% AND deviceid=%int%", $statusdb, $noc_data, $_GET['deviceid']);
+                        $database->query("UPDATE %prefix%noc_ports SET adminstatus = ? WHERE portnr = ? AND deviceid = ?", [$statusdb, $noc_data, $_GET['deviceid']]);
 
                         $text .= $noc_data . t('Der Portstatus wurde ge&auml;ndert') . HTML_NEWLINE;
                     } else {
@@ -359,7 +359,7 @@ if (!$row = $db->fetch_array()) {
                     $func->confirmation($text, "index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]);
                 }
             } elseif (isset($_SESSION['noc_ports'])) {
-                $device = $db->qry_first("SELECT name, readcommunity, writecommunity, ip FROM %prefix%noc_devices WHERE id = %int%", $_SESSION['noc_ports']);
+                $device = $database->queryWithOnlyFirstRow("SELECT name, readcommunity, writecommunity, ip FROM %prefix%noc_devices WHERE id = ?", [$_SESSION['noc_ports']]);
 
 
 
@@ -384,7 +384,7 @@ if (!$row = $db->fetch_array()) {
                 }
 
                 if ($noc->setSNMPValue($row["ip"], $row["writecommunity"], ".1.3.6.1.2.1.2.2.1.7.{$_SESSION['noc_ports']}", "i", $newstatus)) {
-                    $db->qry_first("UPDATE %prefix%noc_ports SET adminstatus=%string% WHERE portnr=%string% AND deviceid=%int%", $statusdb, $noc_data, $_GET['deviceid']);
+                    $database->query("UPDATE %prefix%noc_ports SET adminstatus = ? WHERE portnr = ? AND deviceid = ?", [$statusdb, $noc_data, $_GET['deviceid']]);
 
                     $text .= $noc_data . t('Der Portstatus wurde ge&auml;ndert') . HTML_NEWLINE;
                 } else {

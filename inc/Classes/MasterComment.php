@@ -19,7 +19,7 @@ class MasterComment
      */
     public function __construct($mod, $id, $update_table = [])
     {
-        global $framework, $dsp, $auth, $db, $func, $cfg;
+        global $framework, $dsp, $auth, $db, $database, $func, $cfg;
 
         $dsp->AddFieldsetStart(t('Kommentare'));
 
@@ -74,7 +74,7 @@ class MasterComment
         } else {
             $commentIdParameter = $_GET['commentid'] ?? 0;
             if ($commentIdParameter) {
-                $row = $db->qry_first('SELECT creatorid FROM %prefix%comments WHERE commentid = %int%', $_GET['commentid']);
+                $row = $database->queryWithOnlyFirstRow('SELECT creatorid FROM %prefix%comments WHERE commentid = ?', [$_GET['commentid']]);
             }
 
             if (!$commentIdParameter || (is_array($row) && $row['creatorid'] && $row['creatorid'] == $auth['userid']) || $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
@@ -152,7 +152,7 @@ class MasterComment
         if ($auth['login'] and $auth['type'] > \LS_AUTH_TYPE_USER) {
             $setBmParameter = $_GET['set_bm'] ?? '';
             if ($setBmParameter) {
-                $db->qry_first('DELETE FROM %prefix%comments_bookmark WHERE relatedto_id = %int% AND relatedto_item = %string%', $id, $mod);
+                $database->query('DELETE FROM %prefix%comments_bookmark WHERE relatedto_id = ? AND relatedto_item = ?', [$id, $mod]);
                 if ($_POST["check_bookmark"]) {
                     $db->qry(
                         '
@@ -172,16 +172,16 @@ class MasterComment
                 }
             }
     
-            $bookmark = $db->qry_first('
+            $bookmark = $database->queryWithOnlyFirstRow('
               SELECT
                 1 AS found,
                 email,
                 sysemail
               FROM %prefix%comments_bookmark
               WHERE
-                relatedto_id = %int%
-                AND relatedto_item = %string%
-                AND userid = %int%', $id, $mod, $auth['userid']);
+                relatedto_id = ?
+                AND relatedto_item = ?
+                AND userid = ?', [$id, $mod, $auth['userid']]);
 
             $checkBookmark = 0;
             if (is_array($bookmark) && $bookmark['found']) {
