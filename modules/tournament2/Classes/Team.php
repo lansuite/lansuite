@@ -420,8 +420,6 @@ class Team
           WHERE teamid = ?", [$name, $comment, $_GET["teamid"]]);
         $func->log_event(t('Das Team %1 im Turnier %2 hat seine Daten editiert', $_POST['team_name'], $t["name"]), 1, t('Turnier Teamverwaltung'));
 
-        $this->UpdateLeagueIDs($auth["userid"], $_POST["lgzid"], $_POST["lgzclannid"]);
-
         return true;
     }
 
@@ -516,24 +514,5 @@ class Team
         $func->log_event(t('Der Benutzer %1 wurde vom Teamadmin aus dem Team %2 geworfen', $user["username"], $team['name']), 1, t('Turnier Teamverwaltung'));
 
         return true;
-    }
-
-    /**
-     * Set new League IDs
-     *
-     * @param int $userid
-     * @param int $lgzid
-     * @param int $lgzclanid
-     */
-    public function UpdateLeagueIDs($userid, $lgzid = null, $lgzclanid = null)
-    {
-        global $db;
-
-        if ($lgzid != "") {
-            $db->qry('UPDATE %prefix%user SET lgzid = %string% WHERE userid = %int%', $lgzid, $userid);
-        }
-        if ($lgzclanid != "") {
-            $db->qry('UPDATE %prefix%user SET lgzclanid = %string% WHERE userid = %int%', $lgzclanid, $userid);
-        }
     }
 }

@@ -13,7 +13,7 @@ if ($userIdParameter) {
 
 $replyToParameter = $_GET['replyto'] ?? 0;
 if ($replyToParameter) {
-    $row = $db->qry_first("
+    $row = $database->queryWithOnlyFirstRow("
       SELECT
         m.mailID,
         m.Subject,
@@ -24,7 +24,7 @@ if ($replyToParameter) {
         %prefix%mail_messages AS m
         LEFT JOIN %prefix%user AS u ON m.fromUserID = u.userid
       WHERE
-        m.mailID = %int%", $_GET['replyto']);
+        m.mailID = ?", [$_GET['replyto']]);
 
     $reply_message = $row['mailID'];
     if (!$_POST['toUserID'] and $_GET['replyto']) {
@@ -138,7 +138,7 @@ if ($mf->SendForm('index.php?mod=mail&action=newmail&reply_message', 'mail_messa
         $reply_to = strrchr($url_parts['query'], 'replyto');
         if ($reply_to) {
             $reply_to_id = substr(strrchr($reply_to, '='), 1);
-            $setreply = $db->qry("UPDATE %prefix%mail_messages SET des_status = 'reply' WHERE mailID = %int% ", $reply_to_id);
+            $database->query("UPDATE %prefix%mail_messages SET des_status = 'reply' WHERE mailID = ?", [$reply_to_id]);
         }
     }
 }
