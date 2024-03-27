@@ -92,16 +92,6 @@
 		<level>1</level>
 	</entry>
 	<entry>
-		<action>export</action>
-		<file>export</file>
-		<caption>Export</caption>
-		<hint>Hier kannst du Ergebnisse exportieren</hint>
-		<link>?mod=tournament2&amp;action=export</link>
-		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
 		<action>details</action>
 		<file>details</file>
 		<requirement>0</requirement>

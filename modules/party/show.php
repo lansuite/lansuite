@@ -3,7 +3,7 @@
 // Set Active PartyID
 $stepParameter = $_GET['step'] ?? 0;
 if ($stepParameter == 10 and is_numeric($_GET['party_id'])) {
-    $db->qry("UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = 'signon_partyid'", $_GET['party_id']);
+    $database->query("UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = 'signon_partyid'", [$_GET['party_id']]);
     $cfg['signon_partyid'] = $_GET['party_id'];
 }
 
@@ -48,7 +48,7 @@ switch ($stepParameter) {
         break;
 
     case 1:
-        $row = $db->qry_first("SELECT p.*, UNIX_TIMESTAMP(p.startdate) AS startdate, UNIX_TIMESTAMP(p.enddate) AS enddate, UNIX_TIMESTAMP(p.sstartdate) AS sstartdate, UNIX_TIMESTAMP(p.senddate) AS senddate FROM %prefix%partys AS p WHERE party_id=%int%", $_GET["party_id"]);
+        $row = $database->queryWithOnlyFirstRow("SELECT p.*, UNIX_TIMESTAMP(p.startdate) AS startdate, UNIX_TIMESTAMP(p.enddate) AS enddate, UNIX_TIMESTAMP(p.sstartdate) AS sstartdate, UNIX_TIMESTAMP(p.senddate) AS senddate FROM %prefix%partys AS p WHERE party_id = ?", [$_GET["party_id"]]);
 
         $dsp->AddDoubleRow(t('Partyname'), $row['name']);
         $dsp->AddDoubleRow(t('Anzahl Plätze'), $row['max_guest']);
