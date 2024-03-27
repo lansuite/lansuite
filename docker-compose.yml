@@ -24,5 +24,16 @@ services:
             - "3306:3306"
         env_file:
             - docker/mysql.env
+
+    # https://github.com/axllent/mailpit
+    mailpit:
+        image: axllent/mailpit:v1.7.1
+        container_name: mailpit
+        profiles:
+            - mail
+        ports:
+            - "8025:8025"
+            - "1025:1025"
+
 volumes:
     mysql_data: 
