@@ -35,7 +35,7 @@ if ($stepParameter == 10 and $questParameter) {
 // Select seat and user infos
 $blockIDParameter = $_GET['blockid'] ?? 0;
 if ($blockIDParameter && isset($_GET['row']) && isset($_GET['col'])) {
-    $seat = $db->qry_first("
+    $seat = $database->queryWithOnlyFirstRow("
       SELECT
         s.userid,
         s.status,
@@ -45,14 +45,14 @@ if ($blockIDParameter && isset($_GET['row']) && isset($_GET['col'])) {
       FROM %prefix%seat_seats AS s
       LEFT JOIN %prefix%user AS u ON s.userid = u.userid
       WHERE
-        blockid = %int%
-        AND row = %string%
-        AND col = %string%", $blockIDParameter, $_GET['row'], $_GET['col']);
+        blockid = ?
+        AND row = ?
+        AND col = ?", [$blockIDParameter, $_GET['row'], $_GET['col']]);
 }
 
 $userIDParameter = $_GET['userid'] ?? 0;
 if ($userIDParameter) {
-    $new_user = $db->qry_first("
+    $new_user = $database->queryWithOnlyFirstRow("
       SELECT
         u.userid,
         u.username,
@@ -62,8 +62,8 @@ if ($userIDParameter) {
       FROM %prefix%user AS u
       LEFT JOIN %prefix%party_user AS pu ON pu.user_id = u.userid
       WHERE
-        userid = %int%
-        AND pu.party_id = %int%", $userIDParameter, $party->party_id);
+        userid = ?
+        AND pu.party_id = ?", [$userIDParameter, $party->party_id]);
 }
 
 $stepParameter = $_GET['step'] ?? 0;
