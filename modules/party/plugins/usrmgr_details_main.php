@@ -30,7 +30,7 @@ $userPartyCheckout = $user_party['checkout'] ?? null;
 $userPartyPriceText = $user_party['price_text'] ?? '';
 $userPartySeatControl = $user_party['seatcontrol'] ?? 0;
 
-$party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $userPartyPriceID);
+$party_seatcontrol = $database->queryWithOnlyFirstRow('SELECT * FROM %prefix%party_prices WHERE price_id = ?', [$userPartyPriceID]);
 
 // $party_seatcontrol can be null, thats why we pre-setting the values here
 $partySeatControlDepotPrice = $party_seatcontrol['depot_price'] ?? 0;

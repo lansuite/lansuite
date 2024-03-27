@@ -7,10 +7,10 @@
 function GetUserInfo($userid)
 {
     $user = [];
-    global $db, $cfg, $func;
+    global $db, $database, $cfg, $func;
 
-    $row_poster = $db->qry_first("SELECT username, type, avatar_path, signature FROM %prefix%user WHERE userid=%int%", $userid);
-    $count_rows = $db->qry_first("SELECT COUNT(*) AS posts FROM %prefix%board_posts WHERE userid = %int%", $userid);
+    $row_poster = $database->queryWithOnlyFirstRow("SELECT username, type, avatar_path, signature FROM %prefix%user WHERE userid = ?", [$userid]);
+    $count_rows = $database->queryWithOnlyFirstRow("SELECT COUNT(*) AS posts FROM %prefix%board_posts WHERE userid = ?", [$userid]);
 
     $html_image= '<img src="%s" alt="%s" border="0">';
 

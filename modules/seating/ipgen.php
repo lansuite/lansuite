@@ -33,7 +33,7 @@ switch ($stepParameter) {
         $block_id = $_GET["blockid"];
 
         // Lösche alle IP einträge (sicher ist sicher)
-        $del_ips = $db->qry("UPDATE %prefix%seat_seats SET ip = '' WHERE blockid=%int%", $block_id);
+        $del_ips = $database->query("UPDATE %prefix%seat_seats SET ip = '' WHERE blockid = ?", [$block_id]);
 
         // ermittle wieviele reihen und spalten der sitzplan hat
         $getSizeQuery = '
@@ -111,7 +111,7 @@ switch ($stepParameter) {
             $ip = $ip_a.".".$ip_b.".".$ip_c.".".$ip_d;
 
             // db updaten
-            $db->qry("UPDATE %prefix%seat_seats SET ip=%string% WHERE seatid=%int%", $ip, $seat_id);
+            $database->query("UPDATE %prefix%seat_seats SET ip = ? WHERE seatid = ?", [$ip, $seat_id]);
 
             switch ($br) {
                 case "rowcol":
@@ -173,7 +173,7 @@ switch ($stepParameter) {
         break;
 
     case 21:
-        $db->qry('UPDATE %prefix%seat_seats SET ip = \'\' WHERE blockid = %int%', $_GET['blockid']);
+        $database->query('UPDATE %prefix%seat_seats SET ip = \'\' WHERE blockid = ?', [$_GET['blockid']]);
         $func->confirmation(t('Die IPs dieses Plans wurden erfolgreich gelöscht'), 'index.php?mod=seating');
         break;
 }

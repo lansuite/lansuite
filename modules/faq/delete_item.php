@@ -3,7 +3,7 @@
 $stepParameter = $_GET["step"] ?? 0;
 switch ($stepParameter) {
     case 2:
-        $get_caption = $db->qry_first("SELECT caption FROM %prefix%faq_item WHERE itemid = %int%", $_GET['itemid']);
+        $get_caption = $database->queryWithOnlyFirstRow("SELECT caption FROM %prefix%faq_item WHERE itemid = ?", [$_GET['itemid']]);
         $caption = $get_caption["caption"];
     
         if ($caption != "") {
@@ -15,11 +15,11 @@ switch ($stepParameter) {
         break;
     
     case 3:
-        $get_caption = $db->qry_first("SELECT caption FROM %prefix%faq_item WHERE itemid = %int%", $_GET['itemid']);
+        $get_caption = $database->queryWithOnlyFirstRow("SELECT caption FROM %prefix%faq_item WHERE itemid = ?", [$_GET['itemid']]);
         $caption = $get_caption["caption"];
     
         if ($caption != "") {
-            $del_item = $db->qry("DELETE FROM %prefix%faq_item WHERE itemid = %int%", $_GET['itemid']);
+            $del_item = $database->query("DELETE FROM %prefix%faq_item WHERE itemid = ?", [$_GET['itemid']]);
         
             if ($del_item == true) {
                 $func->confirmation(t('Die Frage wurde erfolgreich gelöscht'), "index.php?mod=faq&object=cat&action=delete_cat");
