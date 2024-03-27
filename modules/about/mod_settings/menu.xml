@@ -26,9 +26,4 @@
 		<file>license</file>
 		<requirement>0</requirement>
 	</entry>
-	<entry>
-		<action>generate_file_stats</action>
-		<file>generate_file_stats</file>
-		<requirement>2</requirement>
-	</entry>
 </menu>
