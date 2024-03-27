@@ -197,16 +197,18 @@ Add the following files from the release package to the `ext_inc/pdf_fonts` fold
 
 * `ext_inc/pdf_fonts/.gitkeep`
 
-### Removal of WWCL files
+### Removal of files of deprecates leagues like WWCL, NGL and LGZ files
 
 Delete the following files:
 
-* `ext_inc/tournament_icons/leagues/wwcl.png`
 * `ext_inc/tournament_rules/gameini.xml`
-
-Overwrite the following files from LanSuite with the files from the upgrade package:
-
+* `ext_inc/tournament_rules/games.xml`
+* `ext_inc/tournament_rules/xml_games.xml`
 * `ext_inc/tournament_rules/info.txt`
+
+Delete the following folders:
+
+* `ext_inc/tournament_icons/leagues/`
 
 ### Converting custom fonts
 

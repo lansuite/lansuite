@@ -3,23 +3,23 @@
 $_GET['mf_id'] = '1';
 
 $nextVersionId = 0;
-$row = $db->qry_first('
+$row = $database->queryWithOnlyFirstRow('
   SELECT
     1 AS found,
     MAX(versionid) AS versionid
   FROM %prefix%wiki_versions
   WHERE
-    postid = %int%
-  GROUP BY postid', $_GET['postid']);
+    postid = ?
+  GROUP BY postid', [$_GET['postid']]);
 if ($row['found']) {
     $nextVersionId = $row['versionid'] + 1;
-    $row = $db->qry_first('
+    $row = $database->queryWithOnlyFirstRow('
       SELECT
         text
       FROM %prefix%wiki_versions
       WHERE
-        postid = %int%
-        AND versionid = %int%', $_GET['postid'], $row['versionid']);
+        postid = ?
+        AND versionid = ?', [$_GET['postid'], $row['versionid']]);
     if ($_GET['mf_step'] != 2) {
         $_POST['text'] = $row['text'];
     }
