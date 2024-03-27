@@ -25,7 +25,7 @@ class GuestList
      */
     public function SetPaid($userid, $partyid)
     {
-        global $db, $cfg, $func;
+        global $db, $database, $cfg, $func;
 
         $mail = new Mail();
 
@@ -37,10 +37,10 @@ class GuestList
         }
 
         $Messages = array('success' => '', 'error' => '');
-        $db->qry('UPDATE %prefix%party_user SET paid = 1, paiddate=NOW() WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+        $database->query('UPDATE %prefix%party_user SET paid = 1, paiddate = NOW() WHERE user_id = ? AND party_id = ? LIMIT 1', [$userid, $partyid]);
 
-        $row = $db->qry_first('SELECT username, email from %prefix%user WHERE userid = %int%', $userid);
-        $row2 = $db->qry_first('SELECT name from %prefix%partys WHERE party_id = %int%', $partyid);
+        $row = $database->queryWithOnlyFirstRow('SELECT username, email from %prefix%user WHERE userid = ?', [$userid]);
+        $row2 = $database->queryWithOnlyFirstRow('SELECT name from %prefix%partys WHERE party_id = ?', [$partyid]);
         $msgtext = $cfg['signon_paid_email_text'];
         $msgtext = str_replace('%USERNAME%', $row['username'], $msgtext);
         $msgtext = str_replace('%PARTYNAME%', $row2['name'], $msgtext);
@@ -73,15 +73,15 @@ class GuestList
      */
     public function SetNotPaid($userid, $partyid)
     {
-        global $db, $cfg, $func;
+        global $db, $database, $cfg, $func;
 
         $mail = new \LanSuite\Module\Mail\Mail();
 
         $Messages = array('success' => '', 'error' => '');
-        $db->qry('UPDATE %prefix%party_user SET paid = 0, paiddate = "" WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+        $database->query('UPDATE %prefix%party_user SET paid = 0, paiddate = "" WHERE user_id = ? AND party_id = ? LIMIT 1', [$userid, $partyid]);
 
-        $row = $db->qry_first('SELECT username, email from %prefix%user WHERE userid = %int%', $userid);
-        $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
+        $row = $database->queryWithOnlyFirstRow('SELECT username, email from %prefix%user WHERE userid = ?', [$userid]);
+        $row2 = $database->queryWithOnlyFirstRow('SELECT name FROM %prefix%partys WHERE party_id = ?', [$partyid]);
         $msgtext = $cfg['signon_not_paid_email_text'];
         $msgtext = str_replace('%USERNAME%', $row['username'], $msgtext);
         $msgtext = str_replace('%PARTYNAME%', $row2['name'], $msgtext);
@@ -114,19 +114,19 @@ class GuestList
      */
     public function CheckIn($userid, $partyid)
     {
-        global $db, $func;
+        global $database, $func;
 
         // Check paid
-        $row = $db->qry_first('SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+        $row = $database->queryWithOnlyFirstRow('SELECT paid FROM %prefix%party_user WHERE user_id = ? AND party_id = ? LIMIT 1', [$userid, $partyid]);
         if (!$row['paid']) {
             return 1;
         }
 
-        $db->qry('UPDATE %prefix%party_user SET checkin = NOW() WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+        $database->query('UPDATE %prefix%party_user SET checkin = NOW() WHERE user_id = ? AND party_id = ? LIMIT 1', [$userid, $partyid]);
 
         // Log
-        $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
-        $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
+        $row = $database->queryWithOnlyFirstRow('SELECT username, email FROM %prefix%user WHERE userid = ?', [$userid]);
+        $row2 = $database->queryWithOnlyFirstRow('SELECT name FROM %prefix%partys WHERE party_id = ?', [$partyid]);
         $func->log_event(t('Benutzer "%1" wurde für die Party "%2" eingecheckt', $row['username'], $row2['name']), 1, '', 'Checkin');
     }
 
@@ -137,19 +137,19 @@ class GuestList
      */
     public function CheckOut($userid, $partyid)
     {
-        global $db, $func;
+        global $database, $func;
 
         // Check checkin
-        $row = $db->qry_first('SELECT checkin FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+        $row = $database->queryWithOnlyFirstRow('SELECT checkin FROM %prefix%party_user WHERE user_id = ? AND party_id = ? LIMIT 1', [$userid, $partyid]);
         if (!$row['checkin']) {
             return 1;
         }
 
-        $db->qry('UPDATE %prefix%party_user SET checkout = NOW() WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+        $database->query('UPDATE %prefix%party_user SET checkout = NOW() WHERE user_id = ? AND party_id = ? LIMIT 1', [$userid, $partyid]);
 
         // Log
-        $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
-        $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
+        $row = $database->queryWithOnlyFirstRow('SELECT username, email FROM %prefix%user WHERE userid = ?', [$userid]);
+        $row2 = $database->queryWithOnlyFirstRow('SELECT name FROM %prefix%partys WHERE party_id = ?', [$partyid]);
         $func->log_event(t('Benutzer "%1" wurde für die Party "%2" ausgecheckt', $row['username'], $row2['name']), 1, '', 'Checkin');
     }
 
@@ -160,13 +160,13 @@ class GuestList
      */
     public function UndoCheckInOut($userid, $partyid)
     {
-        global $db, $func;
+        global $database, $func;
 
-        $db->qry('UPDATE %prefix%party_user SET checkin = 0, checkout = 0 WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+        $database->query('UPDATE %prefix%party_user SET checkin = 0, checkout = 0 WHERE user_id = ? AND party_id = ? LIMIT 1', [$userid, $partyid]);
 
         // Log
-        $row = $db->qry_first('SELECT username, email FROM %prefix%user WHERE userid = %int%', $userid);
-        $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
+        $row = $database->queryWithOnlyFirstRow('SELECT username, email FROM %prefix%user WHERE userid = ?', [$userid]);
+        $row2 = $database->queryWithOnlyFirstRow('SELECT name FROM %prefix%partys WHERE party_id = ?', [$partyid]);
         $func->log_event(t('Einceck- und Auscheckstatus des Benutzers "%1" wurde für die Party "%2" zurückgesetzt', $row['username'], $row2['name']), 1, '', 'Checkin');
     }
 
@@ -177,9 +177,9 @@ class GuestList
      */
     public function SetExported($userid, $partyid)
     {
-        global $db;
+        global $database;
         
-        $db->qry('UPDATE %prefix%party_user SET exported = 1 WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+        $database->query('UPDATE %prefix%party_user SET exported = 1 WHERE user_id = ? AND party_id = ? LIMIT 1', [$userid, $partyid]);
     }
 
     /**
@@ -189,9 +189,9 @@ class GuestList
      */
     public function Export($userid, $partyid)
     {
-        global $db;
+        global $database;
         
-        $row = $db->qry_first('
+        $row = $database->queryWithOnlyFirstRow('
           SELECT
             pu.user_id "user_id",
             u.username "username",
@@ -203,9 +203,9 @@ class GuestList
             INNER JOIN %prefix%user u ON u.userid = pu.user_id
             LEFT JOIN %prefix%clan c ON c.clanid = u.clanid
           WHERE
-            pu.user_id = %int%
-            AND pu.party_id = %int%
-          LIMIT 1', $userid, $partyid);
+            pu.user_id = ?
+            AND pu.party_id = ?
+          LIMIT 1', [$userid, $partyid]);
             
         return $row['user_id'] . ';' . $row['username'] . ';' . $row['firstname'] . ';' . $row['secondname'] . ';' . $row['clan'];
     }
