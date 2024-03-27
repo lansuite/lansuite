@@ -8,11 +8,15 @@ if (!$auth['userid']) {
 } else {
     $userid = $auth['userid'];
 }
-    
-$framework->add_js_code('var shoutdelay = '.$cfg['shout_delay'].';
-                        var maxcount = '.$cfg['shout_entries'].';');
+
+$shoutDelay = $cfg['shout_delay'] ?? 20;
+$shoutEntries = $cfg['shout_entries'] ?? 5;
+$shoutLength = $cfg['shout_length'] ?? 160;
+
+$framework->add_js_code('var shoutdelay = ' . intval($shoutDelay) . ';
+                        var maxcount = ' . intval($shoutEntries) . ';');
 
 $smarty->assign("shoutuserid", $auth['userid']);
-$smarty->assign("shoutlength", $cfg['shout_length']);
+$smarty->assign("shoutlength", intval($shoutLength));
 
 $box->ItemRow('data', $smarty->fetch('modules/shoutbox/templates/box-template.htm'));

@@ -2,6 +2,8 @@
 
 namespace LanSuite;
 
+use Gregwar\Captcha\CaptchaBuilder;
+
 class MasterForm
 {
     //@TODO: Check and properly set accessiblity for all of these
@@ -602,8 +604,8 @@ class MasterForm
                                                       $this->error[$field['name'].'2'] = t('Die beiden Kennworte stimmen nicht überein.');
 
                                                 // Check captcha
-                                                } elseif ($field['type'] == self::IS_CAPTCHA && ($_POST['captcha'] == '' || $_SESSION['captcha'] != strtoupper($_POST['captcha']))) {
-                                                      $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
+                                                } elseif ($field['type'] == self::IS_CAPTCHA && ($_POST['captcha'] == '' || $_SESSION['captcha'] != $_POST['captcha'])) {
+                                                    $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
 
                                                 // No \r \n \t \0 \x0B in Non-Multiline-Fields
                                                 } elseif ($field['type'] != 'text' && $field['type'] != 'mediumtext' && $field['type'] != 'longtext' && array_key_exists($field['name'], $SQLFieldTypes) && $SQLFieldTypes[$field['name']] != 'text' && $SQLFieldTypes[$field['name']] != 'mediumtext' && $SQLFieldTypes[$field['name']] != 'longtext' && !is_array($fieldValue) && ((str_contains($fieldValue, "\r")) || (str_contains($fieldValue, "\n")) || (str_contains($fieldValue, "\t")) || (str_contains($fieldValue, "\0")) || (str_contains($fieldValue, "\x0B")))) {
@@ -919,11 +921,17 @@ class MasterForm
 
                                             // Captcha-Row
                                             case self::IS_CAPTCHA:
-                                                include_once('ext_scripts/ascii_captcha.class.php');
-                                                $captcha = new \ASCII_Captcha();
-                                                $data = $captcha->create($text);
-                                                $_SESSION['captcha'] = $text;
-                                                $dsp->AddDoubleRow(t('Bitte gib diesen Text unterhalb ein'), "<pre style='font-size:8px;'>$data</pre>");
+                                                $builder = new CaptchaBuilder();
+
+                                                $width = 300;
+                                                $height = 80;
+                                                $builder->build($width, $height);
+
+                                                $_SESSION['captcha'] = $builder->getPhrase();
+
+                                                $captchaImage = '<img src="' . $builder->inline() . '" />';
+                                                $dsp->AddDoubleRow(t('Bitte gib diesen Text unterhalb ein'), $captchaImage);
+
                                                 $captchaParameter = $_POST['captcha'] ?? '';
                                                 $captchaError = $this->error['captcha'] ?? '';
                                                 $dsp->AddTextFieldRow('captcha', '', $captchaParameter, $captchaError);
