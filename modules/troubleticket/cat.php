@@ -68,7 +68,7 @@ switch ($stepParameter) {
             $dsp->AddDropDownFieldRow("orga", t('Zuständiger Admin'), $user_row_option, "");
             $dsp->AddFormSubmitRow(t('Hinzufügen'));
         } else {
-            $cat_data = $db->qry_first("SELECT * FROM %prefix%troubleticket_cat WHERE cat_id = %string%", $_POST["tticket_cat"]);
+            $cat_data = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%troubleticket_cat WHERE cat_id = ?", [$_POST["tticket_cat"]]);
             
             $dsp->SetForm("index.php?mod=troubleticket&action=cat&act=change&step=3&cat_id={$_POST['tticket_cat']}");
             $errorCatName = $error_cat['name'] ?? '';

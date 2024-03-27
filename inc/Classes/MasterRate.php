@@ -7,7 +7,7 @@ class MasterRate
 
     public function __construct($mod, $id, $caption = '')
     {
-        global $auth, $db, $dsp, $framework, $smarty;
+        global $auth, $db, $database, $dsp, $framework, $smarty;
       
         $framework->add_js_path('ext_scripts/jquery.rating.js');
         $framework->add_js_code("jQuery(function(){
@@ -58,13 +58,13 @@ class MasterRate
         background-position: 0 -32px;
     }");
 
-        $row = $db->qry_first('
+        $row = $database->queryWithOnlyFirstRow('
           SELECT ROUND(AVG(score), 1) AS score
           FROM %prefix%ratings
           WHERE
-            ref_name = %string%
-            AND ref_id = %string%
-        GROUP BY ref_name, ref_id', $mod, $id);
+            ref_name = ?
+            AND ref_id = ?
+        GROUP BY ref_name, ref_id', [$mod, $id]);
 
         $score = $row['score'] ?? 0;
         $smarty->assign('rating', $score);

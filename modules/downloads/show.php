@@ -9,11 +9,11 @@ if (!$cfg['download_use_ftp']) {
 
     // Download dialog, if file is selected
     if (is_file($BaseDir.$_GET['dir'])) {
-        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%download_stats WHERE file = %string% AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
+        $row = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%download_stats WHERE file = ? AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$_GET['dir']]);
         if ($row['found']) {
-            $db->qry("UPDATE %prefix%download_stats SET hits = hits + 1 WHERE file = %string% AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
+            $database->query("UPDATE %prefix%download_stats SET hits = hits + 1 WHERE file = ? AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$_GET['dir']]);
         } else {
-            $db->qry("INSERT INTO %prefix%download_stats SET file = %string%, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
+            $database->query("INSERT INTO %prefix%download_stats SET file = ?, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$_GET['dir']]);
         }
 
         header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $_GET['dir']);
@@ -37,7 +37,7 @@ if (!$cfg['download_use_ftp']) {
         $dsp->NewContent(t('Downloads'), $LinkUp);
 
         // Display Dir-Info-Text from DB
-        $row = $db->qry_first("SELECT dirid, text, allow_upload FROM %prefix%download_dirs WHERE name = %string%", $_GET['dir']);
+        $row = $database->queryWithOnlyFirstRow("SELECT dirid, text, allow_upload FROM %prefix%download_dirs WHERE name = ?", [$_GET['dir']]);
         if (!$row['dirid'] and is_dir($BaseDir.$_GET['dir'])) {
             $db->qry("INSERT INTO %prefix%download_dirs SET name = %string%", $_GET['dir']);
             $row['dirid'] = $db->insert_id();

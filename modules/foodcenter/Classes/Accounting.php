@@ -63,16 +63,19 @@ class Accounting
     {
         global $db, $database, $dsp, $cfg;
 
-        $result = $db->qry("SELECT *, DATE_FORMAT(actiontime,\"%d.%m.%y %H:%i\") AS time FROM %prefix%food_accounting WHERE userid = %int% ORDER BY actiontime DESC", $this->user_id);
+        $result = $database->queryWithFullResult("SELECT *, DATE_FORMAT(actiontime,\"%d.%m.%y %H:%i\") AS time FROM %prefix%food_accounting WHERE userid = ? ORDER BY actiontime DESC", [$this->user_id]);
         $deposit = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement > 0", [$this->user_id]);
-        $disbursement = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int% AND movement < 0", $this->user_id);
+        $disbursement = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement < 0", [$this->user_id]);
+
+        $depositTotal = $deposit['total'] ?? 0;
+        $disbursementTotal = $disbursement['total'] ?? 0;
 
         $dsp->NewContent(t('Kontoauszug'), t('Alle bisher getätigten Zahlungen'));
 
         if ($this->balance > 0) {
             $dsp->AddDoubleRow("<strong>" . t('Total') . "</strong>", "<table width=\"100%\">
-								<tr><td align=\"right\" width=\"33%\"><strong><font color='green'>" . round($deposit['total'], 2) . " " . $cfg['sys_currency'] ."</font></strong></td>
-								<td align=\"right\" width=\"33%\"><strong><font color='red'>" . round($disbursement['total'], 2) . " " . $cfg['sys_currency'] ."</font></strong></td>
+								<tr><td align=\"right\" width=\"33%\"><strong><font color='green'>" . round($depositTotal, 2) . " " . $cfg['sys_currency'] ."</font></strong></td>
+								<td align=\"right\" width=\"33%\"><strong><font color='red'>" . round($disbursementTotal, 2) . " " . $cfg['sys_currency'] ."</font></strong></td>
 								<td align=\"right\" width=\"34%\"><strong><font color='green'>" . round($this->balance, 2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");
         } else {
             $dsp->AddDoubleRow("<strong>" . t('Total') . "</strong>", "<table width=\"100%\">
@@ -81,9 +84,9 @@ class Accounting
 								<td align=\"right\" width=\"34%\"><strong><font color='red'>" . round($this->balance, 2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");
         }
         
-        if ($db->num_rows($result) > 0) {
+        if (count($result) > 0) {
             $total = $this->balance;
-            while ($row = $db->fetch_array($result)) {
+            foreach ($result as $row) {
                 if ($row['movement'] > 0) {
                     if ($total > 0) {
                         $dsp->AddDoubleRow($row['time'] . "  " . $row['comment'], "<table width=\"100%\">

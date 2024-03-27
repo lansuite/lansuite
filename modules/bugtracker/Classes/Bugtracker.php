@@ -28,17 +28,17 @@ class Bugtracker
      */
     private function SetBugStateInternal($bugid, $state)
     {
-        global $db, $func, $auth;
+        global $db, $database, $func, $auth;
 
         if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
-            $row = $db->qry_first("
+            $row = $database->queryWithOnlyFirstRow("
               SELECT
                 reporter,
                 caption,
                 state
               FROM %prefix%bugtracker
               WHERE
-                bugid = %int%", $bugid);
+                bugid = ?", [$bugid]);
             if (!(($row['state'] == 0 and $state == 1) or ($row['state'] == 4 and $state == 7) or ($row['state'] == 3 and $state == 2))) {
                 $func->information(t('Der Status des Bugreports <b>"%1"</b> konnte nicht geändert werden, da du nur von <b>"Neu" auf "Bestätigt"</b>, von <b>"Feedback benötigt" auf "In Bearbeitung"</b> und von <b>"Behoben" auf "Wiedereröffnet"</b> wechseln darfst.', array($row['caption'])));
                 return;
@@ -49,11 +49,11 @@ class Bugtracker
             }
         }
 
-        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE state = %int% AND bugid = %int%", $state, $bugid);
+        $row = $$database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%bugtracker WHERE state = ? AND bugid = ?", [$state, $bugid]);
         if (!$row['found']) {
             $mail = new \LanSuite\Module\Mail\Mail();
 
-            $db->qry("UPDATE %prefix%bugtracker SET state = %int% WHERE bugid = %int%", $state, $bugid);
+            $database->query("UPDATE %prefix%bugtracker SET state = ? WHERE bugid = ?", [$state, $bugid]);
             $func->log_event(t('Bugreport auf Status "%1" geändert', array($this->stati[$state])), 1, '', $bugid);
 
             // Mails
@@ -61,7 +61,7 @@ class Bugtracker
 
 [url=index.php?mod=bugtracker&bugid=%2]'. t('Zum Bug-Eintrag') .'[/url]';
             if ($state == 1 or $state == 2 or $state == 3 or $state == 4 or $state == 5 or $state == 6) {
-                $row = $db->qry_first("SELECT reporter, caption FROM %prefix%bugtracker WHERE bugid = %int%", $bugid);
+                $row = $database->queryWithOnlyFirstRow("SELECT reporter, caption FROM %prefix%bugtracker WHERE bugid = ?", [$bugid]);
                 if ($row['reporter'] != $auth['userid']) {
                     switch ($state) {
                         case 1:
@@ -87,7 +87,7 @@ class Bugtracker
                 }
             }
             if ($state == 2 or $state == 7) {
-                $row = $db->qry_first("SELECT agent, caption FROM %prefix%bugtracker WHERE bugid = %int%", $bugid);
+                $row = $database->queryWithOnlyFirstRow("SELECT agent, caption FROM %prefix%bugtracker WHERE bugid = ?", [$bugid]);
                 if ($row['agent'] != $auth['userid']) {
                     switch ($state) {
                         case 2:
@@ -110,18 +110,18 @@ class Bugtracker
      */
     private function AssignBugToUserInternal($bugid, $userid)
     {
-        global $db, $func, $auth;
+        global $db, $database, $func, $auth;
 
-        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE agent = %int% AND bugid = %int%", $userid, $bugid);
+        $row = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%bugtracker WHERE agent = ? AND bugid = ?", [$userid, $bugid]);
         if (!$row['found']) {
             if ($auth['type'] > \LS_AUTH_TYPE_USER) {
-                $db->qry("UPDATE %prefix%bugtracker SET agent = %int% WHERE bugid = %int%", $userid, $bugid);
+                $database->query("UPDATE %prefix%bugtracker SET agent = ? WHERE bugid = ?", [$userid, $bugid]);
             }
 
             if ($userid == 0) {
                 $func->log_event(t('Benutzerzuordnung gelöscht'), 1, '', $bugid);
             } else {
-                $row = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
+                $row = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$userid]);
                 $func->log_event(t('Bugreport Benutzer "%1" zugeordnet', array($row['username'])), 1, '', $bugid);
             }
         }
