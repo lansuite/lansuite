@@ -9,7 +9,7 @@ class Stats
 
     public function __construct(Request $request)
     {
-        global $db, $cfg;
+        global $db, $database, $cfg;
 
         $httpReferer = $request->server->get('HTTP_REFERER');
         $httpUserAgent = $request->server->get('HTTP_USER_AGENT');
@@ -108,9 +108,9 @@ class Stats
                     if ($para_var == $query_var[$search_engine]) {
                         $row = $db->qry_first_rows("SELECT term FROM %prefix%stats_se WHERE term = %string% AND se = %string%", $para_val, $search_engine);
                         if ($row["number"] > 0) {
-                            $db->qry("UPDATE %prefix%stats_se SET hits = hits + 1 WHERE term = %string% AND se = %string%", $para_val, $search_engine);
+                            $database->query("UPDATE %prefix%stats_se SET hits = hits + 1 WHERE term = ? AND se = ?", [$para_val, $search_engine]);
                         } else {
-                            $db->qry("INSERT INTO %prefix%stats_se SET hits = 1, term = %string%, se = %string%, first = NOW()", $para_val, $search_engine);
+                            $database->query("INSERT INTO %prefix%stats_se SET hits = 1, term = ?, se = ?, first = NOW()", [$para_val, $search_engine]);
                         }
                     }
                 }

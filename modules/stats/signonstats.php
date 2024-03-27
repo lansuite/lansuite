@@ -33,11 +33,11 @@ $get_cur = $db->qry_first("
 $paid = $get_cur["n"];
 
 // Ermittel die derzeitige Zeitdifferenz zwischen Startdatum und Heute
-$party_date = $db->qry_first("
+$party_date = $database->queryWithOnlyFirstRow("
   SELECT
     DATEDIFF(startdate, NOW()) AS timetoleft
   FROM %prefix%partys
-  WHERE party_id = %int%", $party->party_id);
+  WHERE party_id = ?", [$party->party_id]);
 
 if (!$party_date['timetoleft']) {
     $dsp->AddSingleRow(t('Derzeit ist keine Party geplant'));
@@ -47,11 +47,11 @@ if (!$party_date['timetoleft']) {
 }
 
 // Ermittel die derzeitige Zeitdifferenz zwischen Startdatum und Heute
-$party_date = $db->qry_first("
+$party_date = $database->queryWithOnlyFirstRow("
   SELECT
     DATEDIFF(startdate, NOW()) AS timetoleft
   FROM %prefix%partys
-  WHERE party_id = %int%", $party->party_id);
+  WHERE party_id = ?", [$party->party_id]);
 
 // Ausgabe der Anmeldeliste
 $res = $db->qry("
