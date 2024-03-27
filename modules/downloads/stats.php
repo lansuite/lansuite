@@ -93,8 +93,8 @@ if (!$fileParameter) {
     $db->free_result($res);
 
     if ($where_back) {
-        $row_back = $db->qry_first("SELECT DATE_FORMAT(time, %string%) AS back_time FROM %prefix%download_stats
-      WHERE DATE_FORMAT(time, %string%) = %string%", $where_back, $where, $_GET['timeframe']);
+        $row_back = $database->queryWithOnlyFirstRow("SELECT DATE_FORMAT(time, ?) AS back_time FROM %prefix%download_stats
+      WHERE DATE_FORMAT(time, ?) = ?", [$where_back, $where, $_GET['timeframe']]);
         $dsp->AddBackButton('index.php?mod=downloads&action=stats&file='.$_GET['file'].'&time='. $back .'&timeframe='. $row_back['back_time']);
     } else {
         $dsp->AddBackButton('index.php?mod=downloads&action=stats');

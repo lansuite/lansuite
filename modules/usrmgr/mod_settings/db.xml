@@ -113,22 +113,6 @@
                 <extra></extra>
             </field>
             <field>
-                <name>lgzid</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-                <key>IND</key>
-            </field>
-            <field>
-                <name>lgzclanid</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-                <key>IND</key>
-            </field>
-            <field>
                 <name>comment</name>
                 <type>text</type>
                 <null></null>

@@ -13,8 +13,8 @@ switch ($stepParameter) {
 
     case 3:
         $tt_id = $_GET["ttid"];
-        $del_ticket = $db->qry('DELETE FROM %prefix%troubleticket WHERE ttid = %int%', $tt_id);
-        $db->qry('DELETE FROM %prefix%infobox WHERE id_in_class = %int% AND class = \'troubleticket\'', $tt_id);
+        $del_ticket = $database->query('DELETE FROM %prefix%troubleticket WHERE ttid = ?', [$tt_id]);
+        $database->query('DELETE FROM %prefix%infobox WHERE id_in_class = ? AND class = \'troubleticket\'', [$tt_id]);
         if ($del_ticket) {
             $func->confirmation(t('Das ausgewählte Ticket wurde gelöscht.'), "index.php?mod=troubleticket&action=delete");
         } else {
