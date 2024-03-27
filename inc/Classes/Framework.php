@@ -294,7 +294,7 @@ class Framework
      */
     public function html_out()
     {
-        global $templ, $cfg, $db, $auth, $smarty, $func, $debug, $request;
+        global $templ, $cfg, $db, $database, $auth, $smarty, $func, $debug, $request;
 
         $compression_mode = $this->check_optimizer();
 
