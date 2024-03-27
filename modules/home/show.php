@@ -1,7 +1,7 @@
 <?php
 
 // Delete old read states
-$db->qry('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7 AND tab != "task"');
+$database->query('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7 AND tab != "task"');
 
 if ($auth['type'] == \LS_AUTH_TYPE_USER) {
     $home_page = $cfg["home_login"];

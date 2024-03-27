@@ -272,7 +272,7 @@ class PDF
      */
     private function _menuUsercards($action)
     {
-        global $dsp, $db;
+        global $dsp, $db, $database;
 
         $dsp->NewContent(t('Besucherausweise erstellen.'), t('Hier k&ouml;nnen Karten erstellt werden die beim Einlass an die G&auml;ste ausgeh&auml;ndigt werden.'));
         $dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
@@ -1027,7 +1027,7 @@ class PDF
      */
     private function _make_page($title)
     {
-        global $db;
+        global $db, $database;
 
         $page_data = $db->qry_first("
           SELECT * 

@@ -64,7 +64,7 @@ class PDFTemplate
      */
     public function add_templ()
     {
-        global $db;
+        global $db, $database;
 
         $db->qry("INSERT INTO %prefix%pdf_list ( `template_id` , `template_type` , `name` ) VALUES ('', %string%, %string%)", $this->action, $_POST['template_name']);
         $this->tmpl_id = $db->insert_id();
@@ -534,7 +534,7 @@ class PDFTemplate
      */
     public function sortorder($direction, $item_id)
     {
-        global $db;
+        global $db, $database;
         
         if ($direction == "minus") {
             $sort = "-1";
@@ -552,10 +552,10 @@ class PDFTemplate
      */
     public function delete_templ()
     {
-        global $db;
+        global $database;
         
-        $db->qry("DELETE FROM %prefix%pdf_list WHERE template_id = %int%", $this->tmpl_id);
-        $db->qry("DELETE FROM %prefix%pdf_data WHERE template_id = %int%", $this->tmpl_id);
+        $database->query("DELETE FROM %prefix%pdf_list WHERE template_id = ?", [$this->tmpl_id]);
+        $database->query("DELETE FROM %prefix%pdf_data WHERE template_id = ?", [$this->tmpl_id]);
     }
 
     /**
@@ -566,7 +566,7 @@ class PDFTemplate
      */
     public function delete_item($itemid)
     {
-        global $db;
+        global $db, $database;
         
         $db->qry("DELETE FROM %prefix%pdf_data WHERE pdfid = %int%", $itemid);
     }

@@ -107,7 +107,7 @@ switch ($stepParameter) {
         if (!isset($_POST["tticket_cat"]) || $_POST["tticket_cat"] == 0) {
             $_POST["tticket_cat"] = 0;
         } else {
-            $cat_data = $db->qry_first("SELECT * FROM %prefix%troubleticket_cat WHERE cat_id = %string%", $_POST["tticket_cat"]);
+            $cat_data = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%troubleticket_cat WHERE cat_id = ?", [$_POST["tticket_cat"]]);
             if ($cat_data['orga'] > 0) {
                 $target_userid    = $cat_data['orga'];
             }
