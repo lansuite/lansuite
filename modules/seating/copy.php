@@ -18,7 +18,7 @@ switch ($stepParameter) {
         break;
   
     case 2:
-        $row = $db->qry_first('SELECT * FROM %prefix%seat_block WHERE blockid = %int%', $_GET['blockid']);
+        $row = $database->queryWithOnlyFirstRow('SELECT * FROM %prefix%seat_block WHERE blockid = ?', [$_GET['blockid']]);
         $db->qry(
             '
           INSERT INTO %prefix%seat_block

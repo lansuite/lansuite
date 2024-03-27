@@ -2,7 +2,7 @@
 
 $poll = new LanSuite\Module\Poll\Poll();
 
-$pollrow = $db->qry_first('
+$pollrow = $database->queryWithOnlyFirstRow('
   SELECT
     pollid,
     caption,
@@ -13,18 +13,18 @@ $pollrow = $db->qry_first('
   WHERE 
     (
       !group_id
-      OR group_id = %int%
+      OR group_id = ?
     )
-  ORDER BY RAND() LIMIT 1', $auth['group_id']);
+  ORDER BY RAND() LIMIT 1', [$auth['group_id']]);
 
-$voted = $db->qry_first('
+$voted = $database->queryWithOnlyFirstRow('
   SELECT
     1 AS found
   FROM %prefix%polloptions AS o
   INNER JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
   WHERE
-    o.pollid = %int%
-    AND v.userid = %int%', $pollrow['pollid'], $auth['userid']);
+    o.pollid = ?
+    AND v.userid = ?', [$pollrow['pollid'], $auth['userid']]);
 
 $box->DotRow('<b>'. $pollrow['caption'] .'</b>');
 

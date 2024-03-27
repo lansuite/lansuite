@@ -9,7 +9,7 @@ class News
      */
     public function GenerateNewsfeed()
     {
-        global $db, $cfg, $func;
+        global $db, $database, $cfg, $func;
 
         $xml = new \LanSuite\XML();
 

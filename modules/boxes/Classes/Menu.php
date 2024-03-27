@@ -91,7 +91,7 @@ class Menu
      */
     public function get_menu_items()
     {
-        global $auth, $db;
+        global $auth, $db, $database;
 
         if (!array_key_exists('menu_group', $_GET) || !$_GET['menu_group']) {
             $_GET['menu_group'] = 0;

@@ -5,9 +5,9 @@
  */
 function CheckOldPW($old_password): bool|string
 {
-    global $db, $auth;
+    global $db, $database, $auth;
 
-    $get_dbpwd = $db->qry_first("SELECT password FROM %prefix%user WHERE userid = %int%", $auth["userid"]);
+    $get_dbpwd = $database->queryWithOnlyFirstRow("SELECT password FROM %prefix%user WHERE userid = ?", [$auth["userid"]]);
     if ($get_dbpwd["password"] != md5($old_password)) {
         return t('Passwort inkorrekt');
     }

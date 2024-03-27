@@ -23,7 +23,7 @@ class BarcodeSystem
 
     public function __construct()
     {
-        global $cfg, $db;
+        global $cfg, $database;
         
         $this->class_barcode = new Barcode($cfg['sys_barcode_typ']);
 
@@ -32,7 +32,7 @@ class BarcodeSystem
         $this->class_barcode->setHexColor("#000000", "#FFFFFF");
         
         if (isset($_POST['barcodefield']) && $cfg['sys_barcode_on']) {
-            $data = $db->qry_first("SELECT userid FROM %prefix%user WHERE barcode=%string%", $_POST['barcodefield']);
+            $data = $database->queryWithOnlyFirstRow("SELECT userid FROM %prefix%user WHERE barcode = ?", [$_POST['barcodefield']]);
             $_POST['userid'] = $data['userid'];
             $_GET['userid'] = $data['userid'];
         }
@@ -56,13 +56,13 @@ class BarcodeSystem
      */
     private function getcode($userid)
     {
-        global $db;
+        global $database;
         
-        $data = $db->qry_first("SELECT barcode FROM %prefix%user WHERE userid=%int%", $userid);
+        $data = $database->queryWithOnlyFirstRow("SELECT barcode FROM %prefix%user WHERE userid = ?", [$userid]);
         if ($data['barcode'] == "0") {
             $data['barcode'] = $this->gencode($userid);
 
-            $db->qry_first("UPDATE %prefix%user SET barcode = %string% WHERE userid=%int%", $data['barcode'], $userid);
+            $database->query("UPDATE %prefix%user SET barcode = ? WHERE userid = ?", [$data['barcode'], $userid]);
         }
 
         return $data['barcode'];

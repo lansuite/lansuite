@@ -20,7 +20,7 @@ class Mail
      */
     public function create_mail($from_userid, $to_userid, $subject_text, $msgbody_text)
     {
-        global $db, $cfg;
+        global $db, $database, $cfg;
 
         if ($from_userid == "") {
             $this->error = t('Sys-Mail Fehler: Kein Absender angegeben');
@@ -31,21 +31,21 @@ class Mail
             return false;
         }
 
-        $db->qry("
+        $database->query("
           INSERT INTO %prefix%mail_messages
           SET
             mail_status = 'active',
             des_status = 'new',
-            fromUserID = %int%,
-            toUserID = %int%,
-            Subject= %string%,
-            msgbody= %string%,
-            tx_date= NOW()", $from_userid, $to_userid, $subject_text, $msgbody_text);
+            fromUserID = ?,
+            toUserID = ?,
+            Subject= ?,
+            msgbody= ?,
+            tx_date= NOW()", [$from_userid, $to_userid, $subject_text, $msgbody_text]);
         $this->error = 'OK';
         
         // Send Info-Mail to receiver
         if ($cfg['sys_internet']) {
-            $row = $db->qry_first('SELECT u.username, u.email, u.lsmail_alert FROM %prefix%user AS u WHERE u.userid = %int%', $to_userid);
+            $row = $database->queryWithOnlyFirstRow('SELECT u.username, u.email, u.lsmail_alert FROM %prefix%user AS u WHERE u.userid = ?', [$to_userid]);
             if ($row['lsmail_alert']) {
                 $this->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Du hast eine neue Lansuite-Mail erhalten. Diese Benachrichtigung kkannst du im System unter "Meine Einstellungen" deaktivieren'));
             }
