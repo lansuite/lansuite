@@ -26,7 +26,7 @@ class MasterDelete
      */
     private function DoDelete($table, $idname, $id): bool|int|\mysqli_result
     {
-        global $func, $db, $config;
+        global $func, $db, $database, $config;
     
         // Get key to master table
         foreach ($this->DeleteIfEmpty as $key => $val) {
@@ -93,7 +93,7 @@ class MasterDelete
      */
     public function Delete($table, $idname, $id): bool|int|\mysqli_result
     {
-        global $framework, $func, $db;
+        global $framework, $func, $db, $database;
         
         $CurentURLBase = $framework->get_clean_url_query('base');
         $CurentURLBase = str_replace('&md_step=2', '', $CurentURLBase);
