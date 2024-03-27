@@ -33,7 +33,7 @@ $user_data = $database->queryWithOnlyFirstRow("
 if (!$user_data['userid']) {
     $func->error(t('Dieser Benutzer existiert nicht'));
 } else {
-    $framework->AddToPageTitle($user_data['username']);
+    $framework->addToPageTitle($user_data['username']);
 
     $user_party = $database->queryWithOnlyFirstRow("
       SELECT

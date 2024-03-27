@@ -558,7 +558,7 @@ class MasterSearch2
         $pages = '';
         if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {
             $msPageParameter = $_GET['ms_page'] ?? 0;
-            $framework->AddToPageTitle(t('Seite') .' '. ((int) $msPageParameter + 1));
+            $framework->addToPageTitle(t('Seite') .' '. ((int) $msPageParameter + 1));
 
             $link = $_SERVER['QUERY_STRING'] .'&ms_page=';
             $link = preg_replace('#mf_step=.\\&?#si', '', $link);

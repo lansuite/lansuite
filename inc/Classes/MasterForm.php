@@ -400,7 +400,7 @@ class MasterForm
         if ($BaseURL) {
             $StartURL = $BaseURL . '&' . $idname . '=' . $id;
         } else {
-            $StartURL = $framework->get_clean_url_query('base');
+            $StartURL = $framework->getURLQueryPart(\LanSuite\Framework::URL_QUERY_PART_BASE);
             $StartURL = str_replace('&mf_step=2', '', $StartURL);
             $StartURL = preg_replace('#&mf_id=[0-9]*#si', '', $StartURL);
 
