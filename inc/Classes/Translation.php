@@ -129,7 +129,7 @@ class Translation
      */
     private function load_cache_bydb(string $module): void
     {
-        global $db;
+        global $db, $database;
 
         $res = $db->qry('
             SELECT
@@ -239,14 +239,15 @@ class Translation
      */
     private function get_trans_db(string $hashkey, string $module, string $long): string
     {
-        global $db;
+        global $database;
 
         $entry = $this->getLangCacheEntry($module, $hashkey);
         if ($entry) {
             return $entry;
         }
 
-        $row = $db->qry_first('
+        // TODO escape / whitelist variables
+        $row = $database->queryWithOnlyFirstRow('
             SELECT
                 `id`,
                 `org`,
@@ -254,7 +255,7 @@ class Translation
             FROM
                 %prefix%translation' . $long . '
             WHERE
-                id = %string%', $hashkey);
+                id = ?', [$hashkey]);
 
         if (is_array($row) && $row[$this->language]) {
             $entry = $row[$this->language];
@@ -279,7 +280,7 @@ class Translation
      */
     public function xml_write_db_to_file(string $module): void
     {
-        global $db;
+        global $db, $database;
 
         $xml = new XML();
 
@@ -437,7 +438,7 @@ class Translation
      */
     public function TUpdateFromDB(string $table, string $field): int
     {
-        global $db, $FoundTransEntries;
+        global $db, $database, $FoundTransEntries;
 
         $i = 0;
         $res = $db->qry('SELECT `'. $field .'` FROM %prefix%' . $table);
@@ -447,10 +448,10 @@ class Translation
             }
 
             $key = md5($row[$field]);
-            $row2 = $db->qry_first('SELECT 1 AS `found`, `tid` FROM %prefix%translation WHERE `id` = %string%', $key);
+            $row2 = $database->queryWithOnlyFirstRow('SELECT 1 AS `found`, `tid` FROM %prefix%translation WHERE `id` = ?', [$key]);
 
             if (is_bool($row2)) {
-                $db->qry('REPLACE INTO %prefix%translation SET `id` = %string%, `file` = \'DB\', `org` = %string%', $key, $row[$field]);
+                $database->query('REPLACE INTO %prefix%translation SET `id` = ?, `file` = \'DB\', `org` = ?', [$key, $row[$field]]);
                 $row2 = [
                     'tid' => $db->insert_id(),
                 ];
@@ -476,7 +477,7 @@ class Translation
      */
     public function TUpdateFromFiles(string $baseDir, int $sub = 0): string
     {
-        global $db, $FoundTransEntries;
+        global $db, $database, $FoundTransEntries;
 
         $output = '';
         if (!str_ends_with($baseDir, DIRECTORY_SEPARATOR)) {
@@ -572,7 +573,7 @@ class Translation
                 AND `obsolete` = 0", $CurrentFile);
             while ($row = $db->fetch_array($res)) {
                 if (!in_array($row['tid'], $FoundTransEntries)) {
-                    $db->qry("UPDATE %prefix%translation SET `obsolete` = 1 WHERE `tid` = %int%", $row['tid']);
+                    $database->query("UPDATE %prefix%translation SET `obsolete` = 1 WHERE `tid` = ?", [$row['tid']]);
                     $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
                 }
             }
@@ -603,7 +604,7 @@ class Translation
      */
     public function translate(array $args): string
     {
-        global $db, $config, $func, $translation_no_html_replace;
+        global $db, $database, $config, $func, $translation_no_html_replace;
 
         $parameters = [];
 
