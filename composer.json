@@ -191,7 +191,6 @@
             "modules/tournament2/Functions/ArrayToTable.php",
             "modules/tournament2/Functions/CheckDateInFuture.php",
             "modules/tournament2/Functions/CheckModeChangeAllowed.php",
-            "modules/tournament2/Functions/CheckModeForLeague.php",
             "modules/tournament2/Functions/CheckStateChangeAllowed.php",
             "modules/tournament2/Functions/GetTournamentName.php",
             "modules/tournament2/Functions/GetTournamentStatus.php",

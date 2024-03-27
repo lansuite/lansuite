@@ -5,7 +5,7 @@
  */
 function SendOnlineMail()
 {
-    global $db, $cfg, $func, $__POST, $auth;
+    global $db, $database, $cfg, $func, $__POST, $auth;
 
     $mail = new \LanSuite\Module\Mail\Mail();
 
@@ -26,7 +26,7 @@ function SendOnlineMail()
     } elseif ($auth['userid'] and $_POST['type'] == 0) {
         // Send Info-Mail to receiver
         if ($cfg['sys_internet']) {
-            $row = $db->qry_first('SELECT u.username, u.email, u.lsmail_alert FROM %prefix%user AS u WHERE u.userid = %int%', $_POST['toUserID']);
+            $row = $database->queryWithOnlyFirstRow('SELECT u.username, u.email, u.lsmail_alert FROM %prefix%user AS u WHERE u.userid = ?', [$_POST['toUserID']]);
             if ($row['lsmail_alert']) {
                 $mail->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Du hast eine neue Lansuite-Mail erhalten. Diese Benachrichtigung kannst du im System unter "Meine Einstellungen" deaktivieren'));
             }
@@ -35,9 +35,9 @@ function SendOnlineMail()
 
         // Inet-Mail
     } else {
-        $row = $db->qry_first("SELECT name, firstname, email FROM %prefix%user WHERE userid = %int%", $_POST['toUserID']);
+        $row = $database->queryWithOnlyFirstRow("SELECT name, firstname, email FROM %prefix%user WHERE userid = ?", [$_POST['toUserID']]);
         if ($auth['userid']) {
-            $row2 = $db->qry_first("SELECT email FROM %prefix%user WHERE userid = %int%", $auth['userid']);
+            $row2 = $database->queryWithOnlyFirstRow("SELECT email FROM %prefix%user WHERE userid = ?", [$auth['userid']]);
             $_POST['SenderMail'] = $row2['email'];
         }
 
