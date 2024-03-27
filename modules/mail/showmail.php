@@ -3,7 +3,7 @@
 if (!$_GET['mailID']) {
     $func->error(t('Keine Mail ausgewählt'));
 } else {
-    $row = $db->qry_first("
+    $row = $database->queryWithOnlyFirstRow("
       SELECT
         mm.*,
         UNIX_TIMESTAMP(mm.tx_date) AS tx_date,
@@ -15,7 +15,7 @@ if (!$_GET['mailID']) {
         LEFT JOIN %prefix%user AS u1 ON mm.FromUserID = u1.userid
         LEFT JOIN %prefix%user AS u2 ON mm.ToUserID = u2.userid
       WHERE
-        mailID = %int%", $_GET['mailID']);
+        mailID = ?", [$_GET['mailID']]);
 
     if (!($auth['userid'] == $row['fromUserID'] or $auth['userid'] == $row['toUserID'])) {
         $func->information(t('Zugriff verweigert'));
@@ -62,7 +62,7 @@ if (!$_GET['mailID']) {
         $dsp->AddBackButton($back_link);
 
         if ($auth['userid'] == $row['toUserID'] and !$row['rx_date']) {
-            $db->qry("UPDATE %prefix%mail_messages SET des_status = 'read', rx_date = NOW() WHERE mailID = %int%", $_GET['mailID']);
+            $database->query("UPDATE %prefix%mail_messages SET des_status = 'read', rx_date = NOW() WHERE mailID = ?", [$_GET['mailID']]);
         }
     }
 }

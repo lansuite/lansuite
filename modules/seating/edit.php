@@ -23,14 +23,14 @@ switch ($stepParameter) {
         } elseif ($_POST['cols'] >= 60) {
             $error['cols'] = t('Bitte gib eine kleinere Zahl als 60 ein');
         } else {
-            $row = $db->qry_first("
+            $row = $database->queryWithOnlyFirstRow("
               SELECT
                 COUNT(*) AS number
               FROM %prefix%seat_seats
               WHERE
-                blockid = %int%
+                blockid = ?
                 AND status = 2
-                AND col >= %int%", $_GET['blockid'], $_POST['cols']);
+                AND col >= ?", [$_GET['blockid'], $_POST['cols']]);
             if ($row["number"] != 0) {
                 $error['cols'] = t('Bitte gib eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entferne bitte die betroffenen Benutzer.');
             }
@@ -44,14 +44,14 @@ switch ($stepParameter) {
         } elseif ($_POST['rows'] >= 100) {
             $error['rows'] = t('Bitte gib eine kleinere Zahl als 100 ein');
         } else {
-            $row = $db->qry_first("
+            $row = $database->queryWithOnlyFirstRow("
               SELECT
                 COUNT(*) AS number
               FROM %prefix%seat_seats
               WHERE
-                blockid = %int%
+                blockid = ?
                 AND status = 2
-                AND `row` >= %int%", $_GET['blockid'], $_POST['rows']);
+                AND `row` >= ?", [$_GET['blockid'], $_POST['rows']]);
             if ($row["number"] != 0) {
                 $error['rows'] = t('Bitte gib eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entferne bitte die betroffenen Benutzer.');
             }
@@ -74,56 +74,56 @@ switch ($stepParameter) {
     case 4:
         $changeSepRowParameter = $_GET['change_sep_row'] ?? 0;
         if ($changeSepRowParameter > 0) {
-            $seperator = $db->qry_first("
+            $seperator = $database->queryWithOnlyFirstRow("
               SELECT
                 value
               FROM %prefix%seat_sep
               WHERE
-                blockid = %int%
+                blockid = ?
                 AND orientation = '1'
-                AND value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
+                AND value = ?", [$_GET['blockid'], $_GET['change_sep_row']]);
 
             if ($seperator && $seperator['value']) {
-                $db->qry("
+                $database->query("
                   DELETE FROM %prefix%seat_sep
                   WHERE
-                    blockid = %int%
+                    blockid = ?
                     AND orientation = '1'
-                    AND value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
+                    AND value = ?", [$_GET['blockid'], $_GET['change_sep_row']]);
             } else {
-                $db->qry("
+                $database->query("
                   INSERT INTO %prefix%seat_sep
                   SET
-                    blockid = %int%,
+                    blockid = ?,
                     orientation = '1',
-                    value = %string%", $_GET['blockid'], $_GET['change_sep_row']);
+                    value = ?", [$_GET['blockid'], $_GET['change_sep_row']]);
             }
         }
 
         $changeSepColParameter = $_GET['change_sep_col'] ?? 0;
         if ($changeSepColParameter > 0) {
-            $seperator = $db->qry_first("
+            $seperator = $database->queryWithOnlyFirstRow("
               SELECT value
               FROM %prefix%seat_sep
               WHERE
-                blockid = %int%
+                blockid = ?
                 AND orientation = '0'
-                AND value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
+                AND value = ?", [$_GET['blockid'], $_GET['change_sep_col']]);
 
             if ($seperator && $seperator['value']) {
-                $db->qry("
+                $database->query("
                   DELETE FROM %prefix%seat_sep
                   WHERE
-                    blockid = %int%
+                    blockid = ?
                     AND orientation = '0'
-                    AND value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
+                    AND value = ?", [$_GET['blockid'], $_GET['change_sep_col']]);
             } else {
-                $db->qry("
+                $database->query("
                   INSERT INTO %prefix%seat_sep
                   SET
-                    blockid = %int%,
+                    blockid = ?,
                     orientation = '0',
-                    value = %string%", $_GET['blockid'], $_GET['change_sep_col']);
+                    value = ?", [$_GET['blockid'], $_GET['change_sep_col']]);
             }
         }
         break;
@@ -135,29 +135,29 @@ switch ($stepParameter) {
                 $row = $cur_cell % 100;
                 $value = (int)$value;
 
-                $seats_qry = $db->qry_first("
+                $seats_qry = $database->queryWithOnlyFirstRow("
                   SELECT
                     seatid
                   FROM %prefix%seat_seats
                   WHERE
-                    blockid = %int%
-                    AND row = %string%
-                    AND col = %string%", $_GET['blockid'], $row, $col);
+                    blockid = ?
+                    AND row = ?
+                    AND col = ?", [$_GET['blockid'], $row, $col]);
 
                 if (!$seats_qry) {
-                    $db->qry("
+                    $database->query("
                       INSERT INTO %prefix%seat_seats
                       SET
-                        blockid = %int%,
-                        row = %int%,
-                        col = %int%,
-                        status = %string%", $_GET['blockid'], $row, $col, $value);
+                        blockid = ?,
+                        row = ?,
+                        col = ?,
+                        status = ?", [$_GET['blockid'], $row, $col, $value]);
                 } else {
-                    $db->qry("
+                    $database->query("
                       UPDATE %prefix%seat_seats
                       SET
-                        status = %string%
-                      WHERE seatid = %int%", $value, $seats_qry['seatid']);
+                        status = ?
+                      WHERE seatid = ?", [$value, $seats_qry['seatid']]);
                 }
             }
         }
@@ -187,7 +187,7 @@ switch ($stepParameter) {
 
         // Get data from DB
         if ($_GET['action'] == 'edit') {
-            $block = $db->qry_first("SELECT * FROM %prefix%seat_block WHERE blockid = %int%", $_GET['blockid']);
+            $block = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%seat_block WHERE blockid = ?", [$_GET['blockid']]);
             if (!array_key_exists('name', $_POST)) {
                 $_POST['name'] = $block['name'];
             }
