@@ -77,7 +77,7 @@ class Accounting
      */
     public function booking($movement, $comment, $toUserid = 0, $silentMode = false)
     {
-        global $func, $db;
+        global $func, $db, $database;
 
         $db->qry(
             "INSERT INTO %prefix%cashmgr_accounting SET
@@ -108,15 +108,15 @@ class Accounting
      */
     public function GetUserBalance($userid = 0)
     {
-        global $db;
+        global $database;
 
         if ($userid == 0) {
             $userid = $this->editorid;
         }
 
-        $result = $db->qry_first("SELECT 
-            (SELECT SUM(movement) FROM %prefix%cashmgr_accounting WHERE toUserid = %int%) AS received,
-            (SELECT SUM(movement) FROM %prefix%cashmgr_accounting WHERE fromUserid = %int%) AS sent;", $userid, $userid);
+        $result = $database->queryWithOnlyFirstRow("SELECT 
+            (SELECT SUM(movement) FROM %prefix%cashmgr_accounting WHERE toUserid = ?) AS received,
+            (SELECT SUM(movement) FROM %prefix%cashmgr_accounting WHERE fromUserid = ?) AS sent", [$userid, $userid]);
 
         return $result['received'] - $result['sent'];
     }
@@ -127,9 +127,9 @@ class Accounting
      */
     private function getEnergyUsage($paid)
     {
-        global $cfg, $db;
+        global $cfg, $db, $database;
         
-        $partydate = $db->qry_first("SELECT UNIX_TIMESTAMP(startdate) AS startdate, UNIX_TIMESTAMP(enddate) AS enddate FROM %prefix%partys WHERE party_id = %int%", $this->partyid);
+        $partydate = $database->queryWithOnlyFirstRow("SELECT UNIX_TIMESTAMP(startdate) AS startdate, UNIX_TIMESTAMP(enddate) AS enddate FROM %prefix%partys WHERE party_id = ?", [$this->partyid]);
         $partytime = ($partydate['enddate'] - $partydate['startdate']) /3600;
         
         $query = $db->qry("SELECT user_id FROM %prefix%party_user WHERE party_id = %int% AND paid != %int%", $this->partyid, $paid);
@@ -145,23 +145,23 @@ class Accounting
      */
     private function getSum($fix, $posneg)
     {
-        global $db;
+        global $database;
 
         $result = [];
         switch ($posneg) {
             // All negative
             case 0:
-                $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string% AND movement < 0", $this->partyid, $fix);
+                $result = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = ? AND fix = ? AND movement < 0", [$this->partyid, $fix]);
                 break;
 
             // All positive
             case 1:
-                $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string% AND movement > 0", $this->partyid, $fix);
+                $result = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = ? AND fix = ? AND movement > 0", [$this->partyid, $fix]);
                 break;
 
             // All
             case 3:
-                $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string", $this->partyid, $fix);
+                $result = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = ? AND fix = ?", [$this->partyid, $fix]);
                 break;
         }
 
@@ -180,7 +180,7 @@ class Accounting
     private function getGroup($fix, $posneg)
     {
         $row = null;
-        global $db;
+        global $db, $database;
         
         $result_list = [];
     
