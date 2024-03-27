@@ -268,7 +268,7 @@ class MasterSearch2
      */
     public function PrintSearch($working_link, $select_id_field)
     {
-        global $smarty, $db, $config, $dsp, $func, $auth, $line, $framework;
+        global $smarty, $db, $database, $config, $dsp, $func, $auth, $line, $framework;
 
         $UrlParas = explode('&', substr($working_link, strpos($working_link, '?') + 1, strlen($working_link)));
         foreach ($UrlParas as $UrlPara) {
@@ -550,7 +550,7 @@ class MasterSearch2
 
         // Generate Page-Links
         $count_pages = 0;
-        $count_rows = $db->qry_first('SELECT FOUND_ROWS() AS count');
+        $count_rows = $database->queryWithOnlyFirstRow('SELECT FOUND_ROWS() AS count');
         if ($this->config['EntriesPerPage'] > 0) {
             $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
         }
