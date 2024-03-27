@@ -873,12 +873,14 @@ class Display
             $year = date("Y", $time);
             $hour = date("H", $time);
             $min = date("i", $time);
-        } elseif ($values['day'] != "" and $values['month'] != "" and $values['year'] != "") {
+
+        } elseif ($values['day'] != "" && $values['month'] != "" && $values['year'] != "") {
             $day = ltrim($values['day'],'0');
             $month = ltrim($values['month'],'0');
             $year = $values['year'];
             $hour = $values['hour'];
             $min = $values['min'];
+
         } else {
             $day = date("j");
             $month = date("n");
@@ -892,15 +894,17 @@ class Display
         $smarty->assign('hour', $hour);
         $smarty->assign('min', $min);
 
-        $arr = array();
+        $arr = [];
         for ($x = 0; $x <= 55; $x+=5) {
-            $arr[$x] = $x;
+            $numberWithLeadingZero = str_pad($x, 2, "0", STR_PAD_LEFT);
+            $arr[$numberWithLeadingZero] = $numberWithLeadingZero;
         }
         $smarty->assign('mins', $arr);
 
-        $arr = array();
+        $arr = [];
         for ($x = 0; $x <= 23; $x++) {
-            $arr[$x] = $x;
+            $numberWithLeadingZero = str_pad($x, 2, "0", STR_PAD_LEFT);
+            $arr[$numberWithLeadingZero] = $numberWithLeadingZero;
         }
         $smarty->assign('hours', $arr);
 
