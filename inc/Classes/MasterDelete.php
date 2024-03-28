@@ -94,8 +94,8 @@ class MasterDelete
     public function Delete($table, $idname, $id): bool|int|\mysqli_result
     {
         global $framework, $func, $db, $database;
-        
-        $CurentURLBase = $framework->get_clean_url_query('base');
+
+        $CurentURLBase = $framework->getURLQueryPart(\LanSuite\Framework::URL_QUERY_PART_BASE);
         $CurentURLBase = str_replace('&md_step=2', '', $CurentURLBase);
         $CurentURLBase = preg_replace('#&'. $idname .'=[0-9]*#si', '', $CurentURLBase);
         
