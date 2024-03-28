@@ -333,7 +333,7 @@ class MasterForm
      */
     public function AddDropDownFromTable($caption, $id1, $id2, $text, $table, $defText = '', $where = '')
     {
-        global $db;
+        global $db, $database;
 
         $selections = [];
         if ($defText) {
@@ -376,7 +376,7 @@ class MasterForm
         $SQLFieldUnique = [];
         $field = [];
         $addUpdSuccess = null;
-        global $dsp, $db, $config, $func, $sec, $framework, $__POST, $smarty, $cfg;
+        global $dsp, $db, $database, $config, $func, $sec, $framework, $__POST, $smarty, $cfg;
 
         // In freeze-mode there are no changes to the database allowed
         if ($cfg['sys_freeze']) {
@@ -402,7 +402,7 @@ class MasterForm
         if ($BaseURL) {
             $StartURL = $BaseURL . '&' . $idname . '=' . $id;
         } else {
-            $StartURL = $framework->get_clean_url_query('base');
+            $StartURL = $framework->getURLQueryPart(\LanSuite\Framework::URL_QUERY_PART_BASE);
             $StartURL = str_replace('&mf_step=2', '', $StartURL);
             $StartURL = preg_replace('#&mf_id=[0-9]*#si', '', $StartURL);
 

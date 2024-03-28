@@ -1,6 +1,6 @@
 <?php
 
-$sponsoren = $db->qry("UPDATE %prefix%sponsor SET hits = hits + 1 WHERE url=%string%", $_GET["url"]);
+$sponsoren = $database->query("UPDATE %prefix%sponsor SET hits = hits + 1 WHERE url = ?", [$_GET["url"]]);
 
 $dsp->NewContent(t('Unsere Sponsoren'), t('Bei den folgenden Sponsoren möchten wir uns herzlich für ihren Beitrag zu unserer Veranstaltung bedanken.'));
 $dsp->AddDoubleRow(t('Du wirst weitergeleitet...'), "<a href=\"{$_GET["url"]}\">{$_GET["url"]}</a>" . HTML_NEWLINE . "
