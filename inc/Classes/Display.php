@@ -176,7 +176,7 @@ class Display
         if (array_key_exists('tab', $_GET) && $_GET['tab']) {
             $sel = '{ selected: '. (int)$_GET['tab'] .' }';
         }
-        $framework->add_js_code('$(function() { $("#tabs").tabs('. $sel .'); });');
+        $framework->addJavaScriptCode('$(function() { $("#tabs").tabs('. $sel .'); });');
 
         $out .= $MainContent .'</div>';
         $MainContent = $out;

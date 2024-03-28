@@ -39,7 +39,7 @@ class Func
      */
     public function read_db_config()
     {
-        global $db;
+        global $db, $database;
         $cfg = [];
 
         $res = $db->qry('SELECT cfg_value, cfg_key, cfg_type FROM %prefix%config');
@@ -151,13 +151,13 @@ class Func
      */
     public function setainfo($text, $userid, $priority, $item, $itemid)
     {
-        global $db;
+        global $db, $database;
 
         if ($priority != "0" && $priority != "1" && $priority != "2") {
             echo(t('Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)'));
         } else {
             $date = date("U");
-            $db->qry("INSERT INTO %prefix%infobox SET userid=%int%, class=%string%, id_in_class = %int%, text=%string%, date=%string%, priority=%string%", $userid, $item, $itemid, $text, $date, $priority);
+            $database->query("INSERT INTO %prefix%infobox SET userid = ?, class = ?, id_in_class = ?, `text` = ?, `date` = ?, `priority`= ?", [$userid, $item, $itemid, $text, $date, $priority]);
         }
     }
 
@@ -366,7 +366,7 @@ class Func
      */
     public function text2html($string, $mode = 0)
     {
-        global $db;
+        global $db, $database;
         
         if ($mode == 0)
         {
@@ -601,7 +601,7 @@ class Func
      */
     public function log_event($message, $type = 1, $sort_tag = '', $target_id = '')
     {
-        global $db, $auth;
+        global $db, $database, $auth;
 
         if ($message == '') {
             echo("Function log_event needs message defined! - Invalid arguments supplied!");
@@ -922,7 +922,7 @@ class Func
      */
     public function admin_exists()
     {
-        global $db;
+        global $db, $database;
 
         if (is_object($db) and $db->success==1) {
             $res = $db->qry("SELECT userid FROM %prefix%user WHERE type = 3 LIMIT 1");
@@ -970,7 +970,7 @@ class Func
      */
     public function CheckNewPosts($last_change, $table, $entryid, $userid = 0)
     {
-        global $db, $auth;
+        global $database, $auth;
 
         // Older, than one week
         if ($last_change < (time() - 60 * 60 * 24 * 7)) {
@@ -985,10 +985,10 @@ class Func
         if (!$userid) {
             return 1;
         } else {
-            $last_read = $db->qry_first('
+            $last_read = $database->queryWithOnlyFirstRow('
             SELECT UNIX_TIMESTAMP(date) AS date 
             FROM %prefix%lastread
-            WHERE userid = %int% AND tab = %string% AND entryid = %int%', $userid, $table, $entryid);
+            WHERE userid = ? AND tab = ? AND entryid = ?', [$userid, $table, $entryid]);
 
             // Older, than one week
             if ($last_change < (time() - 60 * 60 * 24 * 7)) {
@@ -1020,17 +1020,17 @@ class Func
      */
     public function SetRead($table, $entryid, $userid = 0)
     {
-        global $db, $auth;
+        global $database, $auth;
 
         if (!$userid) {
             $userid = $auth['userid'];
         }
 
-        $search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%lastread WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
+        $search_read = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%lastread WHERE tab = ? AND entryid = ? AND userid = ?", [$table, $entryid, $userid]);
         if ($search_read) {
-            $db->qry_first("UPDATE %prefix%lastread SET date = NOW() WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
+            $database->query("UPDATE %prefix%lastread SET date = NOW() WHERE tab = ? AND entryid = ? AND userid = ?", [$table, $entryid, $userid]);
         } else {
-            $db->qry_first("INSERT INTO %prefix%lastread SET date = NOW(), tab = %string%, entryid = %int%, userid = %int%", $table, $entryid, $userid);
+            $database->query("INSERT INTO %prefix%lastread SET date = NOW(), tab = ?, entryid = ?, userid = ?", [$table, $entryid, $userid]);
         }
     }
 
@@ -1090,7 +1090,7 @@ class Func
      */
     public function getActiveModules()
     {
-        global $db;
+        global $db, $database;
 
         $this->ActiveModules = array();
         $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1');
