@@ -4,7 +4,7 @@
 $newsQuery = 'SELECT caption FROM %prefix%news WHERE newsid = ?';
 $check = $database->queryWithOnlyFirstRow($newsQuery, [$_GET['newsid']]);
 if ($check["caption"] != "") {
-    $framework->AddToPageTitle($check["caption"]);
+    $framework->addToPageTitle($check["caption"]);
     $func->SetRead('news', $_GET['newsid']);
   
     // Get news data

@@ -50,7 +50,7 @@ if (!isset($_SESSION['foodcenter']['theke_userid'])) {
         $_GET['headermenuitem'] = 1;
     }
     $dsp->NewContent(t('Speiseliste'));
-    $user_theke = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $_SESSION['foodcenter']['theke_userid']);
+    $user_theke = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$_SESSION['foodcenter']['theke_userid']]);
     $dsp->AddDoubleRow(HTML_FONT_ERROR . t('Ausgewählter Benutzer:') . HTML_FONT_END, "<table border=\"0\" width=\"100%\"><tr><td>{$user_theke['username']}</td><td align=\"right\"><a href=\"index.php?mod=foodcenter&action=theke&step=del\">".t('Exit')."</a></td></tr></table>");
 
     $product_list = new LanSuite\Module\Foodcenter\ProductList();
