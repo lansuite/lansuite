@@ -95,7 +95,8 @@ if (!$config['lansuite']['debugmode']) {
 session_start();
 
 // Initialise Frameworkclass for Basic output
-$framework = new \LanSuite\Framework();
+$MainContent = '';
+$framework = new \LanSuite\Framework($request);
 if (isset($_GET['fullscreen'])) {
     $framework->fullscreen($_GET['fullscreen']);
 }
@@ -103,7 +104,12 @@ if (isset($_GET['fullscreen'])) {
 // Compromise ... design as base and popup should be deprecated
 $design = $request->query->get('design');
 $frmwrkmode = '';
-if ($design == 'base' || $design == 'popup' || $design == 'ajax' || $design == 'print' || $design == 'beamer') {
+
+if ($design == \LanSuite\Framework::DISPLAY_MODUS_BASE ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_POPUP ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_AJAX ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_PRINT ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_BEAMER) {
     $frmwrkmode = $design;
 }
 // Set Popupmode via GET (base, popup)
@@ -112,7 +118,7 @@ if (isset($_GET['frmwrkmode']) && $_GET['frmwrkmode']) {
 }
 // Set Popupmode via GET (base, popup)
 if (isset($frmwrkmode)) {
-    $framework->set_modus($frmwrkmode);
+    $framework->setDisplayModus($frmwrkmode);
 }
 
 // Set HTTP-Headers
@@ -194,6 +200,7 @@ $lang = [];
 // Initialize debug mode
 if ($config['lansuite']['debugmode'] > 0) {
     $debug = new \LanSuite\Debug($config['lansuite']['debugmode']);
+    $framework->setDebugMode($debug);
 }
 
 // Load Translationclass. No t()-Function before this point!
@@ -206,6 +213,8 @@ $smarty->setCacheDir('./ext_inc/templates_cache/');
 // TODO Think about enabling caching for templates in production mode, but not in development mode
 // See https://smarty-php.github.io/smarty/stable/api/caching/basics/
 $smarty->setCaching(Smarty::CACHING_OFF);
+
+$framework->setTemplateEngine($smarty);
 
 if (isset($debug)) {
     $debug->tracker("Include and Init Smarty");
@@ -325,9 +334,9 @@ if ($config['environment']['configured'] == 0) {
     }
     $func->getActiveModules();
 
-    $framework->AddToPageTitle($cfg['sys_page_title']);
+    $framework->addToPageTitle($cfg['sys_page_title']);
     if ($func->isModActive($_GET['mod'], $caption) && $_GET['mod'] != 'home') {
-        $framework->AddToPageTitle($caption);
+        $framework->addToPageTitle($caption);
     }
 
     // Start authentication, just if LS is working
@@ -447,7 +456,7 @@ $PHPErrors = '';
 include_once('index_module.inc.php');
 
 // Complete Framework and Output HTML
-$framework->set_design($auth['design']);
+$framework->setDesign($auth['design']);
 
 $db->DisplayErrors();
 if ($PHPErrors) {
@@ -457,10 +466,10 @@ $PHPErrors = '';
 
 // Add old Frameworkmessages (should be deprecated)
 if (isset($FrameworkMessages)) {
-    $framework->add_content($FrameworkMessages);
+    $framework->addContent($FrameworkMessages);
 }
 // Add old MainContent-Variable (should be deprecated)
-$framework->add_content($MainContent);
+$framework->addContent($MainContent);
 
     // DEBUG:Alles
 if (isset($debug)) {
@@ -470,7 +479,7 @@ if (isset($debug)) {
 }
 
 // Output of all HTML
-$framework->html_out();
+$framework->sendHTMLOutput();
 unset($framework);
 unset($smarty);
 unset($templ);

@@ -49,10 +49,10 @@ class Category
      */
     private function read()
     {
-        global $db;
+        global $database;
 
         if ($this->cat_id != null) {
-            $row = $db->qry_first("SELECT * FROM %prefix%food_cat WHERE cat_id=%int%", $this->cat_id);
+            $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%food_cat WHERE cat_id = ?", [$this->cat_id]);
             if (is_array($row)) {
                 $this->name = $row['name'];
                 return true;
@@ -73,7 +73,7 @@ class Category
      */
     private function get_cat_array($select_id, $new = null)
     {
-        global $db;
+        global $db, $database;
 
         $row = $db->qry("SELECT * FROM %prefix%food_cat");
 
@@ -126,13 +126,13 @@ class Category
      */
     public function write()
     {
-        global $db;
+        global $db, $database;
 
         if ($this->cat_id == null) {
             $db->qry("INSERT INTO %prefix%food_cat SET name = %string%", $this->name);
             $this->cat_id = $db->insert_id();
         } else {
-            $db->qry("UPDATE %prefix%food_cat SET name = %string% WHERE cat_id=%int%", $this->name, $this->cat_id);
+            $database->query("UPDATE %prefix%food_cat SET name = ? WHERE cat_id = ?", [$this->name, $this->cat_id]);
         }
     }
 
