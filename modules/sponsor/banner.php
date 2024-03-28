@@ -24,7 +24,7 @@ if ($banner) {
 }
 
 if ($banner && $banner['sponsorid']) {
-    $db->qry("UPDATE %prefix%sponsor SET views_banner = views_banner + 1 WHERE sponsorid = %int%", $banner['sponsorid']);
+    $database->query("UPDATE %prefix%sponsor SET views_banner = views_banner + 1 WHERE sponsorid = ?", [$banner['sponsorid']]);
 }
 
 // If no specific rotation banner is given, use the banner from the sponsor page
