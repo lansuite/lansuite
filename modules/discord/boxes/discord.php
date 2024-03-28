@@ -20,10 +20,10 @@ if ($discord->containsServerError($discordServerData)) {
 // Load either custom style definition or fall back to default one
 $customCssPath = 'design/' . $auth['design'] . '/discord.css';
 if (file_exists($customCssPath)) {
-    $framework->add_css_path($customCssPath);
+    $framework->addCSSFile($customCssPath);
 
 } else {
-    $framework->add_css_path('modules/discord/boxes/default.css');
+    $framework->addCSSFile('modules/discord/boxes/default.css');
 }
 
 $boxcontent = $discord->generateBoxContent($discordServerData);

@@ -36,7 +36,7 @@ while ($row = $db->fetch_array($res)) {
 }
 $db->free_result($res);
 
-$framework->add_js_code($jscode);
+$framework->addJavaScriptCode($jscode);
 $smarty->assign('define_url_options', $define_url_options);
 $dsp->AddDoubleRow('', $smarty->fetch('modules/wiki/templates/add_page_link.htm'));
 
