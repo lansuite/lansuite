@@ -115,7 +115,7 @@ class Basket
      */
     public function change_basket($userid)
     {
-        global $func, $cfg, $db;
+        global $func, $cfg, $db, $database;
 
         $ok = true;
         $this->count = 0;
@@ -137,7 +137,7 @@ class Basket
         // Only executed if credit system is activated
         $configFoodcenterCredit = $cfg['foodcenter_credit'] ?? 1;
         if ($configFoodcenterCredit) {
-            $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ".$userid);
+            $result = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ?", [$userid]);
         
             if ($result['total'] == "") {
                 $this->balance = 0;

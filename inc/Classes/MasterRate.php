@@ -9,12 +9,12 @@ class MasterRate
     {
         global $auth, $db, $database, $dsp, $framework, $smarty;
       
-        $framework->add_js_path('ext_scripts/jquery.rating.js');
-        $framework->add_js_code("jQuery(function(){
+        $framework->addJavaScriptFile('ext_scripts/jquery.rating.js');
+        $framework->addJavaScriptCode("jQuery(function(){
   jQuery('form.rating').rating();
 });");
 
-        $framework->add_css_code("
+        $framework->addCSSCode("
   .rating {
       cursor: pointer;
       clear: both;
@@ -68,7 +68,7 @@ class MasterRate
 
         $score = $row['score'] ?? 0;
         $smarty->assign('rating', $score);
-        $smarty->assign('action', $framework->get_clean_url_query('base') . '&mr_step=2&design=base');
+        $smarty->assign('action', $framework->getURLQueryPart(\LanSuite\Framework::URL_QUERY_PART_BASE) . '&mr_step=2&design=base');
 
         if ($caption == '') {
             $caption = t('Bewertung');
