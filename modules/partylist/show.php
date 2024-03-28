@@ -5,7 +5,7 @@ $xml = new \LanSuite\XML();
 $stepParameter = $_GET['step'] ?? 0;
 switch ($stepParameter) {
     case 10:
-        $row = $db->qry_first("SELECT ls_url FROM %prefix%partylist WHERE partyid = %int%", $_GET['partyid']);
+        $row = $database->queryWithOnlyFirstRow("SELECT ls_url FROM %prefix%partylist WHERE partyid = ?", [$_GET['partyid']]);
         if (substr($row['ls_url'], strlen($row['ls_url']) - 1, 1) != '/') {
             $row['ls_url'] .= '/';
         }
@@ -51,7 +51,7 @@ if (!$_GET['partyid']) {
 
     $ms2->PrintSearch('index.php?mod=partylist&action='. $_GET['action'], 'p.partyid');
 } else {
-    $row = $db->qry_first("
+    $row = $database->queryWithOnlyFirstRow("
       SELECT
         u.username,
         p.*,
@@ -60,8 +60,8 @@ if (!$_GET['partyid']) {
       FROM %prefix%partylist AS p
       LEFT JOIN %prefix%user AS u on p.userid = u.userid
       WHERE
-        p.partyid = %int%", $_GET['partyid']);
-    $framework->AddToPageTitle($row["name"]);
+        p.partyid = ?", [$_GET['partyid']]);
+    $framework->addToPageTitle($row["name"]);
 
     if (!str_starts_with($row['url'], 'http://') && !str_starts_with($row['url'], 'https://')) {
         $row['url'] = 'http://'. $row['url'];

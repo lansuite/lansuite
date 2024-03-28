@@ -52,8 +52,8 @@ if (!$thread and $tid) {
     $func->information(t('Keine Beiträge vorhanden'));
 } elseif ($thread['caption'] != '') {
     $postsPageParameter = $_GET['posts_page'] ?? 0;
-    $framework->AddToPageTitle($thread['caption']);
-    $framework->AddToPageTitle(t('Seite') .' '. ((int) $postsPageParameter + 1));
+    $framework->addToPageTitle($thread['caption']);
+    $framework->addToPageTitle(t('Seite') .' '. ((int) $postsPageParameter + 1));
     $fid = $thread["fid"];
 
     // Mark thread read
