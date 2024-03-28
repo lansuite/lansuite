@@ -61,7 +61,7 @@ if (!$_GET['partyid']) {
       LEFT JOIN %prefix%user AS u on p.userid = u.userid
       WHERE
         p.partyid = ?", [$_GET['partyid']]);
-    $framework->AddToPageTitle($row["name"]);
+    $framework->addToPageTitle($row["name"]);
 
     if (!str_starts_with($row['url'], 'http://') && !str_starts_with($row['url'], 'https://')) {
         $row['url'] = 'http://'. $row['url'];
