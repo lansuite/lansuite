@@ -31,8 +31,8 @@ class MasterComment
             $md->Delete('comments', 'commentid', $_GET['commentid']);
             unset($_GET['commentid']);
         }
-    
-        $CurentURLBase = $framework->get_clean_url_query('base');
+
+        $CurentURLBase = $framework->getURLQueryPart(\LanSuite\Framework::URL_QUERY_PART_BASE);
         $CurentURLBase = str_replace('&mc_step=10', '', $CurentURLBase);
         $CurentURLBase = str_replace('&mf_step=2', '', $CurentURLBase);
         $CurentURLBase = preg_replace('#&mf_id=[0-9]*#si', '', $CurentURLBase);
