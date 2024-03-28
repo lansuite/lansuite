@@ -8,9 +8,9 @@
  */
 function GetTitelName($id)
 {
-    global $db;
+    global $database;
 
-    $data = $db->qry_first("SELECT caption, p_desc, cat_id FROM %prefix%food_product WHERE id = %int%", $id);
+    $data = $database->queryWithOnlyFirstRow("SELECT caption, p_desc, cat_id FROM %prefix%food_product WHERE id = ?", [$id]);
 
     $return = "";
     $return .= "<a href='index.php?mod=foodcenter&headermenuitem=".$data['cat_id']."&info=".$id."'><b>".$data['caption']."</b>";

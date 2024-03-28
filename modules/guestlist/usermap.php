@@ -80,7 +80,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
 // Use Geofreedb
 } else {
     $res = $db->qry("SELECT plz FROM %prefix%user LEFT JOIN %prefix%party_user ON userid = user_id WHERE (plz > 0) AND (party_id = %int%)", $party->party_id);
-    $res3 = $db->qry_first("SELECT laenge, breite FROM %prefix%locations WHERE plz = %int%", $_SESSION['party_info']['partyplz']);
+    $res3 = $database->queryWithOnlyFirstRow("SELECT laenge, breite FROM %prefix%locations WHERE plz = ?", [$_SESSION['party_info']['partyplz']]);
 
     if ($db->num_rows($res) == 0) {
         $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, ($cfg["guestlist_showorga"] == 0 ? "type = 1" : "type >= 1"));

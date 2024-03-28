@@ -30,22 +30,26 @@ $userid_formated = sprintf("%04d", $auth['userid']);
 $box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout" class="icon_delete" title="'. t('Ausloggen') .'"></a>');
 $box->EngangedRow($dsp->FetchUserIcon($auth['userid'], $username));
 
-// Show last log in and login count
-$user_lg = $database->queryWithOnlyFirstRow("
-  SELECT
-    user.logins,
-    MAX(auth.logintime) AS logintime
+// Get number of Logins for user
+$userRow = $database->queryWithOnlyFirstRow("
+  SELECT `logins`
   FROM %prefix%user AS user
-  LEFT JOIN %prefix%stats_auth AS auth ON auth.userid = user.userid
+  WHERE userid = ?", [$auth["userid"]]);
+
+// Show last log in time
+$userLastLogin = $database->queryWithOnlyFirstRow("
+  SELECT
+    MAX(auth.logintime) AS logintime
+  FROM %prefix%stats_auth AS auth
   WHERE
-    user.userid = ?
+    auth.userid = ?
   GROUP BY auth.userid", [$auth["userid"]]);
 
 if (isset($_POST['login']) and isset($_POST['password'])) {
-    $box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] .'</b>');
+    $box->DotRow(t('Logins'). ": <b>". $userRow["logins"] .'</b>');
     $box->DotRow(t('Zuletzt eingeloggt'));
     date_default_timezone_set($cfg['sys_timezone']);
-    $box->EngangedRow("<b>". date('d.m H:i', $user_lg["logintime"]) ."</b>");
+    $box->EngangedRow("<b>". date('d.m H:i', $userLastLogin["logintime"]) ."</b>");
 }
 
 // Show Clan
