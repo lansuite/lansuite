@@ -8,7 +8,7 @@ sidebar_position: 1
 
 This is an incomplete list of sites that using the LanSuite system.
 
-If you are using LanSuite and want to appear in this list, head over to our [ticket system and let us know via a new ticket](https://github.com/lansuite/lansuite/issues) or join our [Discord Community](https://discord.gg/3wkDqGmrFZ).
+If you are using LanSuite and want to appear in this list, head over to our [ticket system and let us know via a new ticket](https://github.com/lansuite/lansuite/issues) or join our [Discord Community](https://discord.gg/3wkDqGmrFZ) or raise a Pull Request for a change on this file yourself.
 
 ## Users
 
