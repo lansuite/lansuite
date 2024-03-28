@@ -20,7 +20,7 @@ switch ($stepParameter) {
         break;
 
     case 10:
-        $db->qry('UPDATE %prefix%rentuser SET back_orgaid = %int% WHERE rentid = %int%', $auth['userid'], $_GET['rentid']);
-        $func->confirmation(t('Artikel wurde zurückgenommen'), 'index.php?mod=rent&action=back');
-        break;
+      $database->query('UPDATE %prefix%rentuser SET back_orgaid = ? WHERE rentid = ?', [$auth['userid'], $_GET['rentid']]);
+      $func->confirmation(t('Artikel wurde zurückgenommen'), 'index.php?mod=rent&action=back');
+      break;
 }

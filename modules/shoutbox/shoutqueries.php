@@ -1,6 +1,6 @@
 <?php
 
-$framework->set_modus('ajax');
+$framework->setDisplayModus(\LanSuite\Framework::DISPLAY_MODUS_AJAX);
 switch ($_GET['shout']) {
     case 'add':
         if ($_POST['captchaInputSend'] == $_SESSION['captcha'] and $_POST['captchaInputSend'] != "") {
