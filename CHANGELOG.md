@@ -80,6 +80,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Security] Set Cookies HTTP only and protocol aware (https)
 - [Server] Changed CPU and RAM Unit of measure from Mega to Giga in Server hardware information
 - [Server] Limited visibility for non-Admins to active party
+- [Captcha] Replaced ASCII-Captcha with a graphical captcha
 
 ### Deprecated
 
