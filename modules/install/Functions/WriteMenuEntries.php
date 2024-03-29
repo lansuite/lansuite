@@ -5,7 +5,7 @@
  */
 function WriteMenuEntries()
 {
-    global $smarty, $res, $db, $dsp, $MenuCallbacks;
+    global $smarty, $res, $db, $database, $dsp, $MenuCallbacks;
 
     if ($db->num_rows($res) == 0) {
         $dsp->AddDoubleRow("", "<i>- keine -</i>");

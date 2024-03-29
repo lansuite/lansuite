@@ -67,7 +67,7 @@ class Export
      */
     private function ExportTranslation($mod)
     {
-        global $db;
+        global $db, $database;
 
         $table_head = $this->xml->write_tag('name', 'translation', 3);
         $tables = $this->xml->write_master_tag("table_head", $table_head, 2);
@@ -113,7 +113,7 @@ class Export
      */
     public function ExportTable($table, $e_struct = null, $e_cont = null)
     {
-        global $db;
+        global $db, $database;
 
         if ($e_struct || $e_cont) {
             // Table-Head
@@ -243,7 +243,7 @@ class Export
      */
     public function ExportAllTables($e_struct = null, $e_cont = null)
     {
-        global $db;
+        global $db, $database;
 
         $this->LSTableHead();
 
@@ -279,7 +279,7 @@ class Export
      */
     public function ExportCSVComplete($sep)
     {
-        global $db, $config, $func, $party;
+        global $db, $database, $config, $func, $party;
 
         $seat2 = new Seat2();
 
@@ -337,10 +337,10 @@ class Export
             $user_export .= $row["birthday"].$sep;
 
             // Seat
-            $row_seat = $db->qry_first("SELECT blockid, col, row, ip FROM %prefix%seat_seats WHERE userid=%int% AND status = 2", $row["userid"]);
+            $row_seat = $database->queryWithOnlyFirstRow("SELECT blockid, col, row, ip FROM %prefix%seat_seats WHERE userid = ? AND status = 2", [$row["userid"]]);
             $blockid  = $row_seat["blockid"];
             if ($blockid != "") {
-                $row_block    = $db->qry_first("SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%", $blockid);
+                $row_block = $database->queryWithOnlyFirstRow("SELECT orientation, name FROM %prefix%seat_block WHERE blockid = %int%", [$blockid]);
                 $seatindex = $seat2->CoordinateToName($row_seat["col"] + 1, $row_seat["row"], $row_block["orientation"]);
                 $user_export .= $row_block["name"].$sep;
                 $user_export .= $seatindex.$sep;
@@ -362,7 +362,7 @@ class Export
      */
     public function ExportCSVSticker($sep)
     {
-        global $db, $config, $func, $party;
+        global $db, $database, $config, $func, $party;
 
         $seat2 = new Seat2();
 
@@ -419,7 +419,7 @@ class Export
      */
     public function ExportCSVCard($sep)
     {
-        global $db, $config, $func, $party;
+        global $db, $database, $config, $func, $party;
 
         $seat2 = new Seat2();
 
@@ -439,7 +439,7 @@ class Export
         while ($row_seat = $db->fetch_array($query)) {
             $userid = $row_seat["userid"];
 
-            $row = $db->qry_first("
+            $row = $database->queryWithOnlyFirstRow("
               SELECT
                 u.*,
                 c.name AS clan,
@@ -452,7 +452,7 @@ class Export
               FROM %prefix%user AS u
               LEFT JOIN %prefix%party_user AS p ON p.user_id = u.userid
               LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
-              WHERE u.userid=%int%", $userid);
+              WHERE u.userid = ?", [$userid]);
       
             $username = str_replace("&gt;", "", $row["username"]);
             $username = str_replace("&lt;", "", $username);
@@ -465,7 +465,7 @@ class Export
             $user_export .= $row["clan"].$sep;
       
             $blockid  = $row_seat["blockid"];
-            $row_block    = $db->qry_first("SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%", $blockid);
+            $row_block    = $database->queryWithOnlyFirstRow("SELECT orientation, name FROM %prefix%seat_block WHERE blockid = ?", [$blockid]);
             $seatindex = $seat2->CoordinateToName($row_seat["col"] + 1, $row_seat["row"], $row_block["orientation"]);
             $user_export .= $row_block["name"].$sep;
             $user_export .= $row_seat["col"].$sep;
