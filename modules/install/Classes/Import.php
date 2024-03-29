@@ -665,7 +665,7 @@ class Import
 
                         // Insert new clan
                         } else {
-                            $database->query("INSERT INTO %prefix%clan SET name = ?, url = ?", [$clan, $clanurl]);
+                            $database->query("INSERT INTO %prefix%clan SET name = ?, url = ?", [$clan, '']);
                             $clan_id = $db->insert_id();
                         }
                     }
