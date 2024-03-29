@@ -24,11 +24,6 @@ class Framework
     private string $design = '';
 
     /**
-     * All framework messages
-     */
-    private string $framework_messages = '';
-
-    /**
      * Main Content
      */
     private string $mainContent = '';
@@ -386,7 +381,6 @@ ga('send', 'pageview');
         $this->templateEngine->assign('MainRightBox', '');
         $this->templateEngine->assign('Footer', '');
         $this->templateEngine->assign('CloseFullscreen', '');
-        $this->templateEngine->assign('MainFrameworkmessages', $this->framework_messages);
         $this->templateEngine->assign('Design', $this->getDesign());
         $this->templateEngine->assign('MainDebug', '');
         $this->templateEngine->assign('MainContentStyleID', $mainContentStyleID);
