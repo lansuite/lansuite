@@ -110,7 +110,7 @@ class Framework
     /**
      * Smarty templating engine
      */
-    private \Smarty $templateEngine;
+    private \Smarty\Smarty $templateEngine;
 
     /**
      * Debugging object
@@ -167,7 +167,7 @@ class Framework
     /**
      * Set the template engine
      */
-    public function setTemplateEngine(\Smarty $engine): void
+    public function setTemplateEngine(\Smarty\Smarty $engine): void
     {
         $this->templateEngine = $engine;
     }
