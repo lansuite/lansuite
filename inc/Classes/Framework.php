@@ -3,6 +3,7 @@
 namespace LanSuite;
 
 use Symfony\Component\HttpFoundation\Request;
+use Smarty\Smarty;
 
 class Framework
 {
