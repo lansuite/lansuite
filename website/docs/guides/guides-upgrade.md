@@ -235,3 +235,9 @@ After:
 
 LanSuite is not taking care about the update of your data.
 Please go to the Server module and change the CPU and RAM values for your servers manually.
+
+### Templating: Removed variable `$MainFrameworkmessages`
+
+If you use a custom or modified template, please go to your design (in your `/design/<name/` folder) and remove all occurrences of the variable `$MainFrameworkmessages.`
+
+This variable is no longer provided / replaced by LanSuite.
