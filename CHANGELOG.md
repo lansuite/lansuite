@@ -137,6 +137,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] MySQL Warning in module tournament2 if the user is not logged in (#97)
 - [Guestlist] Restrict user information shown on Google Maps according to their settings and never show the street details ... unless you are an administrator
 - [Board] Deletion of board failed without error (#861)
+- [Forms] Hours and Minutes are not getting pre-selected in date time fields, if they are single digit (#971)
 
 ### Security
 
