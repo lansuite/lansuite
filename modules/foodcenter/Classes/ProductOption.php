@@ -121,9 +121,9 @@ class ProductOption
 
         $this->parentid = $parentid;
         $this->parenttyp = $type;
-        $this->barcode  = $_POST['barcode'][$nr];
-        $this->caption  = $_POST['caption'][$nr];
-        $this->unit     = $_POST['unit'][$nr];
+        $this->barcode  = $_POST['barcode'][$nr] ?? '';
+        $this->caption  = $_POST['caption'][$nr] ?? '';
+        $this->unit     = $_POST['unit'][$nr] ?? '';
         $this->price    = str_replace(',', '.', $_POST['price'][$nr]);
         $this->eprice   = str_replace(',', '.', $_POST['eprice'][$nr]);
         $this->pice     = $_POST['piece'][$nr];

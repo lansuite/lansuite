@@ -150,7 +150,7 @@ class Beamer
      */
     public function getContent($bcid): array|bool|null
     {
-        global $databse;
+        global $database;
 
         $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%beamer_content WHERE bcid = ? LIMIT 1", [$bcid]);
 

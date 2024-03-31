@@ -44,7 +44,7 @@ if (!$user_data['userid']) {
       FROM %prefix%party_user AS u
       LEFT JOIN %prefix%party_prices AS p ON u.price_id = p.price_id
       WHERE
-        user_id = ?
+        u.user_id = ?
         AND u.party_id = ?
       GROUP BY u.user_id", [$_GET['userid'], $party->party_id]);
 
@@ -56,8 +56,8 @@ if (!$user_data['userid']) {
     $userPartyCheckout = $user_party['checkout'] ?? null;
     $userPartyPriceText = $user_party['price_text'] ?? '';
 
-    $count_rows = $database->queryWithOnlyFirstRow('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = ?', $_GET['userid']);
-    $party_seatcontrol = $database->queryWithOnlyFirstRow('SELECT * FROM %prefix%party_prices WHERE price_id = ?', $userPartyPriceID);
+    $count_rows = $database->queryWithOnlyFirstRow('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = ?', [$_GET['userid']]);
+    $party_seatcontrol = $database->queryWithOnlyFirstRow('SELECT * FROM %prefix%party_prices WHERE price_id = ?', [$userPartyPriceID]);
 
     // $party_seatcontrol can be null, thats why we pre-setting the values here
     $partySeatControlDepotPrice = $party_seatcontrol['depot_price'] ?? 0;
@@ -346,7 +346,7 @@ if (!$user_data['userid']) {
     $dsp->StartTab(t('Sonstiges'));
     // logins, last login
     if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
-        $lastLoginTS = $database->queryWithOnlyFirstRow("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", [$_GET['userid']]);
+        $lastLoginTS = $database->queryWithOnlyFirstRow("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = ? AND login = '1'", [$_GET['userid']]);
         $dsp->AddDoubleRow(t('Logins'), $user_data['logins']);
         if ($user_data['lastlogin']) {
             $loginTime = t('am/um: ') . $func->unixstamp2date($user_data['lastlogin'], 'daydatetime');
