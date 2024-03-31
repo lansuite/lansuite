@@ -156,8 +156,8 @@ class FoodcenterPrint
     {
         global $func;
 
-        $datetimeFormat = $this->config['datetime_format'] ?? 'datetime';
-        return $func->unixstamp2date($time, "datetime");
+        $dateTimeFormat = $this->config['datetime_format'] ?? 'datetime';
+        return $func->unixstamp2date($time, $dateTimeFormat);
     }
 
     /**
