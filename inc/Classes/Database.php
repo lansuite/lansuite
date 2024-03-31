@@ -40,6 +40,11 @@ class Database
     private string $charset = '';
 
     /**
+     * SQL mode we set for the connection
+     */
+    private string $sqlMode = '';
+
+    /**
      * Database object
      */
     private ?\mysqli $database = null;
@@ -54,13 +59,14 @@ class Database
      */
     private string $tablePrefix = '';
 
-    public function __construct($host, $port, $username, $password, $databaseName, $charset) {
+    public function __construct(string $host, int $port, string $username, string $password, string $databaseName, string $charset, string $sqlMode) {
         $this->host = $host;
         $this->port = $port;
         $this->username = $username;
         $this->password = $password;
         $this->databaseName = $databaseName;
         $this->charset = $charset;
+        $this->sqlMode = $sqlMode;
     }
 
     /**
@@ -77,6 +83,12 @@ class Database
         // If it is _not_ successful, an exception will be thrown.
     
         $this->setCharset($this->charset);
+
+        // Set sql mode, if specified
+        if (!empty($this->sqlMode)) {
+            $this->setSQLMode($this->sqlMode);
+        }
+
         $this->setConnectionStatus(true);
 
         return true;
@@ -117,6 +129,15 @@ class Database
         if ($charset) {
             $this->database->set_charset($charset);
         }
+    }
+
+    /**
+     * Sets the SQL Mode for this database session.
+     */
+    public function setSQLMode(string $sqlMode): void
+    {
+        $query = 'SET SESSION SQL_MODE = ?';
+        $this->query($query, [$sqlMode]);
     }
 
     /**
