@@ -4,26 +4,8 @@ $dsp->NewContent(LANSUITE_VERSION, 'A web based lanparty administration tool');
 $dsp->AddSingleRow('<b>Contact</b>', 'align="center"');
 $dsp->AddSingleRow('Internet/Development: <a href="https://github.com/lansuite/lansuite" title="lansuite at Github">https://github.com/lansuite/lansuite</a>', 'align="center"');
 
-$dsp->AddSingleRow('<b>Idea based upon lansuite Version 1 by</b>', 'align="center"');
-$dsp->AddSingleRow('Raphael Mansmann<br />Christian Weyer', 'align="center"');
-
-$dsp->AddSingleRow('<b>Project Management</b>', 'align="center"');
-$dsp->AddSingleRow('Jochen Jung<br />Marco Müller<br />Denny Mleinek<br />Raphael Mansmann', 'align="center"');
-
-$dsp->AddSingleRow('<b>HTML and Graphics</b>', 'align="center"');
-$dsp->AddSingleRow('Sebastian Haslinger<br />Johannes Treitz<br />Marco Scholl', 'align="center"');
-
-$dsp->AddSingleRow('<b>Framework-Programming and Class-Design</b>', 'align="center"');
-$dsp->AddSingleRow('Raphael Mansmann<br />Johannes Treitz<br />Christian Weyer<br />Denny Mleinek<br />Marco Scholl<br />Jochen Jung<br />Marco Müller', 'align="center"');
-
-$dsp->AddSingleRow('<b>Erweiterungen, Optimierungen, Fehlerbeseitigung</b>', 'align="center"');
-$dsp->AddSingleRow('Raphael Mansmann<br />Jochen Jung<br />Marco Müller', 'align="center"');
-
-$dsp->AddSingleRow('<b>Modul-Programming</b>', 'align="center"');
-$dsp->AddSingleRow('Wir danken allen Modulprogramierern.</b><br /> Im Modulkonfigurator kann man nachsehen wer welches Modul geschrieben hat', 'align="center"');
-
-$dsp->AddSingleRow('<b>On-line Documentation</b>', 'align="center"');
-$dsp->AddSingleRow('Sebastian Haslinger', 'align="center"');
+$dsp->AddSingleRow('<b>Thanks to all project contributos</b>', 'align="center"');
+$dsp->AddSingleRow('Please head over to <a href="https://github.com/lansuite/lansuite/blob/master/CONTRIBUTORS.md" title="All lansuite contributors">project contributors</a> to see the full list of project contributors.', 'align="center"');
 
 $dsp->AddSingleRow('<b>Lansuite consists of:</b>', 'align="center"');
 $dsp->AddSingleRow('PHP: <!--PHP-LINES-START-->51268<!--PHP-LINES-STOP--> php-code lines and <!--PHP-CHARS-START-->2149482<!--PHP-CHARS-STOP--> chars<br />

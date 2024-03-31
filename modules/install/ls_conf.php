@@ -5,26 +5,34 @@ $installImport = new \LanSuite\Module\Install\Import($importXml);
 $install = new \LanSuite\Module\Install\Install($installImport);
 
 $stepParameter = $_GET["step"] ?? 0;
+
+$hostFormParameter = $_POST["host"] ?? '';
+$userFormParameter = $_POST["user"] ?? '';
+$passFormParameter = $_POST["pass"] ?? '';
+$databaseFormParameter = $_POST["database"] ?? '';
+$prefixFormParameter = $_POST["prefix"] ?? '';
+$designFormParameter = $_POST["design"] ?? '';
+
 switch ($stepParameter) {
     case 2:
         // Set new $config-Vars
-        if ($_POST["host"]) {
-            $config["database"]["server"] = $_POST["host"];
+        if ($hostFormParameter) {
+            $config["database"]["server"] = $hostFormParameter;
         }
-        if ($_POST["user"]) {
-            $config["database"]["user"] = $_POST["user"];
+        if ($userFormParameter) {
+            $config["database"]["user"] = $userFormParameter;
         }
-        if ($_POST["pass"]) {
-            $config["database"]["passwd"] = $_POST["pass"];
+        if ($passFormParameter) {
+            $config["database"]["passwd"] = $passFormParameter;
         }
-        if ($_POST["database"]) {
-            $config["database"]["database"] = $_POST["database"];
+        if ($databaseFormParameter) {
+            $config["database"]["database"] = $databaseFormParameter;
         }
-        if ($_POST["prefix"]) {
-            $config["database"]["prefix"] = $_POST["prefix"];
+        if ($prefixFormParameter) {
+            $config["database"]["prefix"] = $prefixFormParameter;
         }
-        if ($_POST["design"]) {
-            $config["lansuite"]["default_design"] = $_POST["design"];
+        if ($designFormParameter) {
+            $config["lansuite"]["default_design"] = $designFormParameter;
         }
 
         if (!$install->WriteConfig()) {
@@ -38,19 +46,19 @@ switch ($stepParameter) {
         $dsp->NewContent(t('Grundeinstellungen'), t('Bitte gib nun die Zugangsdaten zur Datenbank an.'));
         $dsp->SetForm("index.php?mod=install&action=ls_conf&step=2");
 
-        if ($_POST["host"] == "") {
+        if ($hostFormParameter == "") {
             $_POST["host"] = $config['database']['server'];
         }
-        if ($_POST["user"] == "") {
+        if ($userFormParameter == "") {
             $_POST["user"] = $config['database']['user'];
         }
-        if ($_POST["pass"] == "") {
+        if ($passFormParameter == "") {
             $_POST["pass"] = $config['database']['passwd'];
         }
-        if ($_POST["database"] == "") {
+        if ($databaseFormParameter == "") {
             $_POST["database"] = $config['database']['database'];
         }
-        if ($_POST["prefix"] == "") {
+        if ($prefixFormParameter == "") {
             $_POST["prefix"] = $config['database']['prefix'];
         }
 
