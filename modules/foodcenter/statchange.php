@@ -175,7 +175,8 @@ switch ($stepParameter) {
         $dsp->AddFormSubmitRow(t('Drucken'));
         break;
     case 2:
-        if ($_POST['action']) {
+        $actionParameter = $_POST['action'] ?? '';
+        if ($actionParameter) {
             $seat2 = new \LanSuite\Module\Seating\Seat2();
 
             $time = time();
@@ -255,6 +256,13 @@ switch ($stepParameter) {
             $fc_ordered_status_ask[1] = t('Status auf bestellen gesetzt');
             $func->confirmation($fc_ordered_status_ask[$_GET["status"]], "index.php?mod=foodcenter&action=statchange");
         } else {
+            $fc_ordered_status_quest[0]    = t('Status ändern: Abgeholt');
+            $fc_ordered_status_quest[1]    = t('Status ändern: Abholbereit');
+            $fc_ordered_status_quest[2]    = t('Status ändern: Lieferung erwartet');
+            $fc_ordered_status_quest[3]    = t('Status ändern: An Platz geliefert');
+            $fc_ordered_status_quest[4]    = t('Produkt abbestellen und Geld zurücküberweisen.');
+            $fc_ordered_status_quest[5]    = t('Zurück');
+
             $link_array[0] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=6";
             $link_array[1] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=5";
             $link_array[2] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=3";
