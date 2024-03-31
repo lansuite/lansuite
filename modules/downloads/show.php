@@ -1,16 +1,14 @@
 <?php
 // Use /ext_inc/downloads
-if (!$cfg['download_use_ftp']) {
+if (!array_key_exists('download_use_ftp', $cfg) || !$cfg['download_use_ftp'] ) {
     $fileCollection = new \LanSuite\FileCollection();
     $fileCollection->setRelativePath('ext_inc/downloads/');
     $BaseDir = 'ext_inc/downloads/';
 
-    // Don't allow directories above base!
     $dirParameter = $_GET['dir'] ?? '';
-    //$_GET['dir'] = str_replace('..', '', $dirParameter);
 
     // Download dialog, if file is selected
-    if ($dirParameter !='' && $fileCollection->exists($dirParameter)) {
+    if ($fileCollection->exists($dirParameter) && is_file($fileCollection->getFullPath($dirParameter))) {
         $row = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%download_stats WHERE file = ? AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$_GET['dir']]);
         if ($row['found']) {
             $database->query("UPDATE %prefix%download_stats SET hits = hits + 1 WHERE file = ? AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$_GET['dir']]);
@@ -24,14 +22,14 @@ if (!$cfg['download_use_ftp']) {
       // Display directory
     } else {
         // Generate up-links
-        $Dirs = explode('/', $_GET['dir']);
+        $Dirs = explode('/', $dirParameter);
         $LinkUp = '<a href="index.php?mod=downloads" class="menu">Downloads</a>';
         $LinkUpDir = '';
         $FileName = '';
         foreach ($Dirs as $val) {
             if ($val != '') {
                 $LinkUpDir .= $val;
-                $LinkUp .= ' - <a href="index.php?mod=downloads&dir='. $LinkUpDir .'" class="menu">'. $val .'</a>';
+                $LinkUp .= ' >> <a href="index.php?mod=downloads&dir='. $LinkUpDir .'" class="menu">'. $val .'</a>';
                 $LinkUpDir .= '/';
                 $FileName = $val;
             }
@@ -79,7 +77,7 @@ if (!$cfg['download_use_ftp']) {
                     $CurFilePath = $CurFile;
                 }
 
-                if ($CurFilePath != 'info.txt' and $CurFilePath != '.svn') {
+                if ($CurFilePath != 'info.txt' and $CurFilePath != '.svn' and $CurFilePath !='.gitkeep' and $CurFilePath !='.htaccess') {
                     // Directory
                     if (is_dir($BaseDir.'/'.$CurFilePath)) {
                         $dsp->AddSingleRow('<a href="index.php?mod=downloads&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_folder.gif" border="0" /> '. $CurFile .'</a>');
