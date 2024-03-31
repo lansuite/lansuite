@@ -2,7 +2,7 @@
 
 Thanks goes to all contributors to this project.
 
-Have a look at https://github.com/lansuite/lansuite/graphs/contributors to see all contributors.
+Have a look at https://github.com/lansuite/lansuite/graphs/contributors to see current contributors.
 
 # Thanks to the initiators and previous people involved
 
