@@ -64,8 +64,8 @@ class Accounting
         global $db, $database, $dsp, $cfg;
 
         $result = $database->queryWithFullResult("SELECT *, DATE_FORMAT(actiontime,\"%d.%m.%y %H:%i\") AS time FROM %prefix%food_accounting WHERE userid = ? ORDER BY actiontime DESC", [$this->user_id]);
-        $deposit = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement > 0", [$this->user_id]);
-        $disbursement = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement < 0", [$this->user_id]);
+        $deposit = $database->queryWithOnlyFirstRow("SELECT movement, SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement > 0", [$this->user_id]);
+        $disbursement = $database->queryWithOnlyFirstRow("SELECT movement, SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement < 0", [$this->user_id]);
 
         $depositTotal = $deposit['total'] ?? 0;
         $disbursementTotal = $disbursement['total'] ?? 0;
