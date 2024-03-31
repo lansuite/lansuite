@@ -156,11 +156,8 @@ class FoodcenterPrint
     {
         global $func;
 
-        if ($this->config['datetime_format'] == '') {
-            return $func->unixstamp2date($time, "datetime");
-        } else {
-            return $func->unixstamp2date($time, $this->config['datetime_format']);
-        }
+        $dateTimeFormat = $this->config['datetime_format'] ?? 'datetime';
+        return $func->unixstamp2date($time, $dateTimeFormat);
     }
 
     /**
@@ -237,20 +234,20 @@ class FoodcenterPrint
 
         while ($data = $db->fetch_array($result)) {
             unset($row_temp);
-            unset($userdata);
+
             $userdata = $this->GetUserdata($data['userid']);
-            $row_temp['supp_name']            = $data['name'];
-            $row_temp['supp_info']            = $data['supp_infos'];
+            $row_temp['supp_name']          = $data['name'];
+            $row_temp['supp_info']          = $data['supp_infos'];
             $row_temp['product_caption']    = $data['caption'];
-            $row_temp['username']            = $userdata['username'];
-            $row_temp['userip']            = $userdata['ip'];
-            $row_temp['usercomment']        = $userdata['comment'];
-            $row_temp['product_option']    = $this->GetFoodoption($data['opts']);
+            $row_temp['username']           = $userdata['username'] ?? '';
+            $row_temp['userip']             = $userdata['ip'] ?? '';
+            $row_temp['usercomment']        = $userdata['comment'] ?? '';
+            $row_temp['product_option']     = $this->GetFoodoption($data['opts']);
             $row_temp['order_count']        = $data['pice'];
-            $row_temp['ordertime']            = $this->GetDate($data['ordertime']);
-            $row_temp['lastchange']            = $this->GetDate($data['lastchange']);
-            $row_temp['supplytime']            = $this->GetDate($data['supplytime']);
-            $row_temp['status']                = $data['status'];
+            $row_temp['ordertime']          = $this->GetDate($data['ordertime']);
+            $row_temp['lastchange']         = $this->GetDate($data['lastchange']);
+            $row_temp['supplytime']         = $this->GetDate($data['supplytime']);
+            $row_temp['status']             = $data['status'];
 
             if ($row_temp['status'] == 2) {
                 $this->fetch_row($row_temp);
