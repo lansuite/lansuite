@@ -112,12 +112,6 @@
 				<description>Clanurl</description>
 			</item>
 			<item>
-				<name>signon_show_lgz_id</name>
-				<type>signon</type>
-				<default>1</default>
-				<description>LGZ-ID</description>
-			</item>
-			<item>
 				<name>signon_show_newsletter</name>
 				<type>signon</type>
 				<default>1</default>

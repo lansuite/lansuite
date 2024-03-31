@@ -209,12 +209,12 @@ class Product
      */
     private function read()
     {
-        global $db;
+        global $database;
 
         if ($this->id == null) {
             return false;
         } else {
-            $row = $db->qry_first("SELECT * FROM %prefix%food_product WHERE id=%int%", $this->id);
+            $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%food_product WHERE id = ?", [$this->id]);
 
             $this->caption    = $row['caption'];
             $this->desc       = $row['p_desc'];
@@ -227,12 +227,11 @@ class Product
             $this->wait       = $row['wait'];
             $this->pic        = $row['p_file'];
 
-            $opt = $db->qry("SELECT id FROM %prefix%food_option WHERE parentid=%int%", $this->id);
-
-            $int = 0;
-            while ($option = $db->fetch_array($opt)) {
-                $this->option[$int] = new ProductOption($option['id'], $this->type);
-                $int++;
+            $opt = $database->queryWithFullResult("SELECT id FROM %prefix%food_option WHERE parentid = ?", [$this->id]);
+            $i = 0;
+            foreach ($opt as $option) {
+                $this->option[$i] = new ProductOption($option['id'], $this->type);
+                $i++;
             }
         }
 
@@ -246,7 +245,7 @@ class Product
      */
     public function write()
     {
-        global $db;
+        global $db, $database;
 
         if ($this->supp->supp_id == null) {
             $this->supp->write();
@@ -270,18 +269,18 @@ class Product
                         chois = %int%", $this->caption, $this->desc, $this->cat->cat_id, $this->supp->supp_id, $this->supp_infos, $this->pic, $this->mat, $this->type, $this->wait, $this->choise);
             $this->id = $db->insert_id();
         } else {
-            $db->qry("UPDATE %prefix%food_product SET
-                        caption = %string%,
-                        p_desc = %string%,
-                        cat_id = %int%,
-                        supp_id = %int%,
-                        supp_infos = %string%,
-                        p_file = %string%,
-                        mat = %int%,
-                        p_type = %string%,
-                        chois = %int%,
-                        wait = %int%
-                        WHERE id=%int%", $this->caption, $this->desc, $this->cat->cat_id, $this->supp->supp_id, $this->supp_infos, $this->pic, $this->mat, $this->type, $this->choise, $this->wait, $this->id);
+            $database->query("UPDATE %prefix%food_product SET
+                        caption = ?,
+                        p_desc = ?,
+                        cat_id = ?,
+                        supp_id = ?,
+                        supp_infos = ?,
+                        p_file = ?,
+                        mat = ?,
+                        p_type = ?,
+                        chois = ?,
+                        wait = ?
+                        WHERE id = ?", [$this->caption, $this->desc, $this->cat->cat_id, $this->supp->supp_id, $this->supp_infos, $this->pic, $this->mat, $this->type, $this->choise, $this->wait, $this->id]);
         }
 
         foreach ($this->option as $opts) {
@@ -616,18 +615,13 @@ class Product
 
         switch ($this->type) {
             case 1:
-                if (is_object($this->option[0])) {
-                    $dsp->AddDoubleRow("", "<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" /></a>");
-                }
+                foreach ($this->option as $key => $productOption) {
+                    if (!is_object($productOption)) {
+                        continue;
+                    }
 
-                if (is_object($this->option[1])) {
-                    $dsp->AddDoubleRow("", "<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" /></a>");
+                    $dsp->AddDoubleRow('', '<b>' . $productOption->unit . '</b>  <a href="' . $worklink . '&add=' . $this->id . '&opt=' . $productOption->id . '">' . $productOption->price . ' ' . $cfg['sys_currency'] . '</a><a href="' . $worklink . '&add=' . $this->id . '&opt=' . $productOption->id . '"><img src="design/images/icon_basket.png" border="0" alt="basket" /></a>');
                 }
-
-                if (is_object($this->option[2])) {
-                    $dsp->AddDoubleRow("", "<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" /></a>");
-                }
-
                 break;
 
             case 2:
@@ -723,7 +717,7 @@ class Product
      */
     public function order($userid, $delivered)
     {
-        global $db, $party;
+        global $db, $database, $party;
 
         $time = time();
         $price = 0;
@@ -737,7 +731,7 @@ class Product
                     $price += $this->option[$key]->price;
                     if ($this->mat == 1) {
                         $tmp_rest1 = $this->option[$key]->pice - $this->option[$key]->ordered;
-                        $db->qry("UPDATE %prefix%food_option SET pice = %int% WHERE id = %int%", $tmp_rest1, $this->option[$key]->id);
+                        $database->query("UPDATE %prefix%food_option SET pice = ? WHERE id = ?", [$tmp_rest1, $this->option[$key]->id]);
                     }
                 }
             }
@@ -789,7 +783,7 @@ class Product
 
                     if ($this->mat == 1) {
                         $tmp_rest2 = $this->option[$key]->pice - $this->option[$key]->ordered;
-                        $db->qry("UPDATE %prefix%food_option SET pice = %int% WHERE id = %int%", $tmp_rest2, $this->option[$key]->id);
+                        $database->query("UPDATE %prefix%food_option SET pice = ? WHERE id = ?", [$tmp_rest2, $this->option[$key]->id]);
                     }
                 }
             }

@@ -2,6 +2,7 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
+use Smarty\Smarty;
 use Symfony\Component\Cache;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,7 +95,8 @@ if (!$config['lansuite']['debugmode']) {
 session_start();
 
 // Initialise Frameworkclass for Basic output
-$framework = new \LanSuite\Framework();
+$MainContent = '';
+$framework = new \LanSuite\Framework($request);
 if (isset($_GET['fullscreen'])) {
     $framework->fullscreen($_GET['fullscreen']);
 }
@@ -102,7 +104,12 @@ if (isset($_GET['fullscreen'])) {
 // Compromise ... design as base and popup should be deprecated
 $design = $request->query->get('design');
 $frmwrkmode = '';
-if ($design == 'base' || $design == 'popup' || $design == 'ajax' || $design == 'print' || $design == 'beamer') {
+
+if ($design == \LanSuite\Framework::DISPLAY_MODUS_BASE ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_POPUP ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_AJAX ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_PRINT ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_BEAMER) {
     $frmwrkmode = $design;
 }
 // Set Popupmode via GET (base, popup)
@@ -111,7 +118,7 @@ if (isset($_GET['frmwrkmode']) && $_GET['frmwrkmode']) {
 }
 // Set Popupmode via GET (base, popup)
 if (isset($frmwrkmode)) {
-    $framework->set_modus($frmwrkmode);
+    $framework->setDisplayModus($frmwrkmode);
 }
 
 // Set HTTP-Headers
@@ -193,18 +200,21 @@ $lang = [];
 // Initialize debug mode
 if ($config['lansuite']['debugmode'] > 0) {
     $debug = new \LanSuite\Debug($config['lansuite']['debugmode']);
+    $framework->setDebugMode($debug);
 }
 
 // Load Translationclass. No t()-Function before this point!
 $translation = new \LanSuite\Translation();
 
 $smarty = new Smarty();
-$smarty->template_dir = '.';
-$smarty->compile_dir = './ext_inc/templates_c/';
-$smarty->cache_dir = './ext_inc/templates_cache/';
-$smarty->caching = false;
-// Lifetime is in seconds
-$smarty->cache_lifetime = 0;
+$smarty->setTemplateDir('.');
+$smarty->setCompileDir('./ext_inc/templates_c/');
+$smarty->setCacheDir('./ext_inc/templates_cache/');
+// TODO Think about enabling caching for templates in production mode, but not in development mode
+// See https://smarty-php.github.io/smarty/stable/api/caching/basics/
+$smarty->setCaching(Smarty::CACHING_OFF);
+
+$framework->setTemplateEngine($smarty);
 
 if (isset($debug)) {
     $debug->tracker("Include and Init Smarty");
@@ -221,13 +231,18 @@ $dsp = new \LanSuite\Display();
 $db = new \LanSuite\DB();
 
 // Loading the new database class with standard support for prepared statements.
+$sqlmode = '';
+if (array_key_exists('sqlmode', $config['database'])) {
+    $sqlmode = $config['database']['sqlmode'];
+}
 $database = new \LanSuite\Database(
     $config['database']['server'],
     $config['database']['dbport'] ?? 3306,
     $config['database']['user'],
     $config['database']['passwd'],
     $config['database']['database'],
-    $config['database']['charset'] ?? 'utf8mb4'
+    $config['database']['charset'] ?? 'utf8mb4',
+    $sqlmode
 );
 try {
     $database->connect();
@@ -324,9 +339,9 @@ if ($config['environment']['configured'] == 0) {
     }
     $func->getActiveModules();
 
-    $framework->AddToPageTitle($cfg['sys_page_title']);
+    $framework->addToPageTitle($cfg['sys_page_title']);
     if ($func->isModActive($_GET['mod'], $caption) && $_GET['mod'] != 'home') {
-        $framework->AddToPageTitle($caption);
+        $framework->addToPageTitle($caption);
     }
 
     // Start authentication, just if LS is working
@@ -446,7 +461,7 @@ $PHPErrors = '';
 include_once('index_module.inc.php');
 
 // Complete Framework and Output HTML
-$framework->set_design($auth['design']);
+$framework->setDesign($auth['design']);
 
 $db->DisplayErrors();
 if ($PHPErrors) {
@@ -456,10 +471,10 @@ $PHPErrors = '';
 
 // Add old Frameworkmessages (should be deprecated)
 if (isset($FrameworkMessages)) {
-    $framework->add_content($FrameworkMessages);
+    $framework->addContent($FrameworkMessages);
 }
 // Add old MainContent-Variable (should be deprecated)
-$framework->add_content($MainContent);
+$framework->addContent($MainContent);
 
     // DEBUG:Alles
 if (isset($debug)) {
@@ -469,7 +484,7 @@ if (isset($debug)) {
 }
 
 // Output of all HTML
-$framework->html_out();
+$framework->sendHTMLOutput();
 unset($framework);
 unset($smarty);
 unset($templ);

@@ -42,7 +42,7 @@ if ($party->count > 0) {
             AND p.party_id=%int%", $querytype, $party->party_id);
         $content .= t('Gäste bezahlt / eingecheckt / ausgecheckt') .': '. $user_paid['n'] .' / '. $user_checkin['n'] .' / '. $user_checkout['n'] . HTML_NEWLINE;
 
-        $visits = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
+        $visits = $database->queryWithOnlyFirstRow("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
         $content .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. (is_countable($authentication->online_users) ? count($authentication->online_users) : 0) . HTML_NEWLINE;
     }
 }

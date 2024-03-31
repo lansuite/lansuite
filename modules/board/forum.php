@@ -2,14 +2,14 @@
 
 $fID = $_GET['fid'] ?? 0;
 if ($fID) {
-    $row = $db->qry_first("SELECT name, need_type, need_group FROM %prefix%board_forums WHERE fid=%int%", $_GET["fid"]);
+    $row = $database->queryWithOnlyFirstRow("SELECT name, need_type, need_group FROM %prefix%board_forums WHERE fid = ?", [$_GET["fid"]]);
     $new_thread = $dsp->FetchIcon("add", "index.php?mod=board&action=thread&fid=" . $_GET['fid']);
 
     // Board Headline
     $hyperlink = '<a href="%s" class="menu">%s</a>';
     $overview_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board", t('Forum')).'</b>';
     $dsp->NewContent($row['name'], "<br />".t('Du bist hier » ').$overview_capt.' » '.$row['name']);
-    $framework->AddToPageTitle($row['name']);
+    $framework->addToPageTitle($row['name']);
     $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("back", "index.php?mod=board"));
 }
 
@@ -29,16 +29,16 @@ switch ($stepParameter) {
     case 20:
         if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             foreach ($_POST['action'] as $key => $val) {
-                $db->qry_first("UPDATE %prefix%board_threads SET fid = %int% WHERE tid = %int%", $_GET['to_fid'], $key);
+                $database->query("UPDATE %prefix%board_threads SET fid = ? WHERE tid = ?", [$_GET['to_fid'], $key]);
             }
         }
         break;
   
     // Delete Bookmark
     case 30:
-        $GetFid = $db->qry_first('SELECT fid FROM %prefix%board_threads WHERE tid = %int%', $_GET['tid']);
-        $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = 0 AND tid = %int% AND userid = %int%', $_GET['tid'], $auth['userid']);
-        $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = %int% AND tid = 0 AND userid = %int%', $GetFid['fid'], $auth['userid']);
+        $GetFid = $database->queryWithOnlyFirstRow('SELECT fid FROM %prefix%board_threads WHERE tid = ?', [$_GET['tid']]);
+        $database->query('DELETE FROM %prefix%board_bookmark WHERE fid = 0 AND tid = ? AND userid = ?', [$_GET['tid'], $auth['userid']]);
+        $database->query('DELETE FROM %prefix%board_bookmark WHERE fid = ? AND tid = 0 AND userid = ?', [$GetFid['fid'], $auth['userid']]);
         break;
 
     // Label
@@ -51,7 +51,7 @@ switch ($stepParameter) {
     case 45:
         if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             foreach ($_POST['action'] as $key => $val) {
-                $db->qry('UPDATE %prefix%board_threads SET label = %int% WHERE tid = %int%', $_GET['step'] - 40, $key);
+                $database->query('UPDATE %prefix%board_threads SET label = ? WHERE tid = ?', [$_GET['step'] - 40, $key]);
             }
         }
         break;
@@ -61,7 +61,7 @@ switch ($stepParameter) {
     case 50:
         if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             foreach ($_POST['action'] as $key => $val) {
-                $db->qry('UPDATE %prefix%board_threads SET sticky = 1 WHERE tid = %int%', $key);
+                $database->query('UPDATE %prefix%board_threads SET sticky = 1 WHERE tid = ?', [$key]);
             }
         }
         break;
@@ -69,7 +69,7 @@ switch ($stepParameter) {
     case 51:
         if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             foreach ($_POST['action'] as $key => $val) {
-                $db->qry('UPDATE %prefix%board_threads SET sticky = 0 WHERE tid = %int%', $key);
+                $database->query('UPDATE %prefix%board_threads SET sticky = 0 WHERE tid = ?', [$key]);
             }
         }
         break;
@@ -77,7 +77,7 @@ switch ($stepParameter) {
     case 52:
         if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             foreach ($_POST['action'] as $key => $val) {
-                $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $key);
+                $database->query("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = ?", [$key]);
             }
         }
         break;
@@ -195,13 +195,13 @@ if ($fId) {
 if ($fId && $auth['login']) {
     $setBmParameter = $_GET["set_bm"] ?? 0;
     if ($setBmParameter) {
-        $db->qry_first("DELETE FROM %prefix%board_bookmark WHERE fid = %int% AND userid = %int%", $_GET['fid'], $auth['userid']);
+        $database->query("DELETE FROM %prefix%board_bookmark WHERE fid = ? AND userid = ?", [$_GET['fid'], $auth['userid']]);
         if ($_POST["check_bookmark"]) {
-            $db->qry_first("INSERT INTO %prefix%board_bookmark SET fid = %int%, userid = %int%, email = %string%, sysemail = %string%", $_GET['fid'], $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]);
+            $database->query("INSERT INTO %prefix%board_bookmark SET fid = ?, userid = ?, email = ?, sysemail = ?", [$_GET['fid'], $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]]);
         }
     }
 
-    $bookmark = $db->qry_first("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE fid = %int% AND userid = %int%", $_GET['fid'], $auth['userid']);
+    $bookmark = $database->queryWithOnlyFirstRow("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE fid = ? AND userid = ?", [$_GET['fid'], $auth['userid']]);
     if (is_array($bookmark) && $bookmark["found"]) {
         $_POST["check_bookmark"] = 1;
     }

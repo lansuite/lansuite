@@ -80,6 +80,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Security] Set Cookies HTTP only and protocol aware (https)
 - [Server] Changed CPU and RAM Unit of measure from Mega to Giga in Server hardware information
 - [Server] Limited visibility for non-Admins to active party
+- [Captcha] Replaced ASCII-Captcha with a graphical captcha
 
 ### Deprecated
 
@@ -87,7 +88,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 
 ### Removed
 
-- [Usrmgr] Removed the WWCL/NGL Search in Usrmgr
+- [Usrmgr] Removed the WWCL/NGL/LGZ Search in Usrmgr
 - [Teamspeak2] Removed module Teamspeak2
 - [System] Removed old IE 7/8 compatibility tags - Dropping support for IE7 and IE8
 - [System] Removed dependency to proxy `62.67.200.4`
@@ -106,6 +107,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [User] Removed MSN field in user data
 - [Tournament] Removed support for WWCL (WWCL shutdown in 2013)
 - [Tournament] Removed support for NGL (NGL shutdown in 2006)
+- [Tournament] Removed support for LGZ (LGZ is not longer available)
 
 ### Fixed
 
@@ -134,6 +136,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] MySQL Warning in module tournament2 if the user is not logged in (#97)
 - [Guestlist] Restrict user information shown on Google Maps according to their settings and never show the street details ... unless you are an administrator
 - [Board] Deletion of board failed without error (#861)
+- [Forms] Hours and Minutes are not getting pre-selected in date time fields, if they are single digit (#971)
 
 ### Security
 
