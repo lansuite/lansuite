@@ -559,7 +559,7 @@ class MasterSearch2
 
         // Generate Page-Links
         $count_pages = 0;
-        $count_rows = $database->queryWithOnlyFirstRow('SELECT FOUND_ROWS() AS count');
+        $count_rows = $db->qry_first('SELECT FOUND_ROWS() AS count');
         if ($this->config['EntriesPerPage'] > 0) {
             $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
         }
