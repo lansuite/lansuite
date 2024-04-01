@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunklansuite_documentation=self.webpackChunklansuite_documentation||[]).push([[585],{4722:t=>{t.exports=JSON.parse('{"permalink":"/lansuite/blog/tags/documentation","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

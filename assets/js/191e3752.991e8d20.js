@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunklansuite_documentation=self.webpackChunklansuite_documentation||[]).push([[752],{5407:e=>{e.exports=JSON.parse('{"label":"website","permalink":"/lansuite/blog/tags/website","allTagsPath":"/lansuite/blog/tags","count":1,"unlisted":false}')}}]);

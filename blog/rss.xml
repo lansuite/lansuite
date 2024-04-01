@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>LANSuite Blog</title>
-        <link>https://lansuite.github.io/lansuite/blog</link>
+        <link>https://lansuite.github.io/lansuite/blog/</link>
         <description>LANSuite Blog</description>
         <lastBuildDate>Fri, 01 Jun 2018 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,8 +10,8 @@
         <language>en</language>
         <item>
             <title><![CDATA[Launch of the documentation]]></title>
-            <link>https://lansuite.github.io/lansuite/blog/documentation-launch</link>
-            <guid>https://lansuite.github.io/lansuite/blog/documentation-launch</guid>
+            <link>https://lansuite.github.io/lansuite/blog/documentation-launch/</link>
+            <guid>https://lansuite.github.io/lansuite/blog/documentation-launch/</guid>
             <pubDate>Fri, 01 Jun 2018 00:00:00 GMT</pubDate>
             <description><![CDATA[In April 2017 we kicked off the development of LANSuite again.]]></description>
             <content:encoded><![CDATA[<p>In April 2017 we kicked off the development of LANSuite again.
@@ -20,11 +20,11 @@ Since then more than 900 commits including tons of bug fixes were done.</p>
 <p>Especially the last point, asking questions, will be tackled with this announcement. <strong>Today we are launching the new documentation of LANSuite</strong>.</p>
 <p>With the new documentation suite, we want to make LANSuite more accessible and more comfortable for our users. The articles in it are far from complete, but we will extend those over time.
 Especially with questions asked by users.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="contribution">Contribution<a href="https://lansuite.github.io/lansuite/blog/documentation-launch#contribution" class="hash-link" aria-label="Direct link to Contribution" title="Direct link to Contribution">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="contribution">Contribution<a href="https://lansuite.github.io/lansuite/blog/documentation-launch/#contribution" class="hash-link" aria-label="Direct link to Contribution" title="Direct link to Contribution">​</a></h2>
 <p>A contribution is welcome.
 If you know a particular area of LANSuite and think that others can benefit from it, <a href="https://github.com/lansuite/lansuite/pulls" target="_blank" rel="noopener noreferrer">send us a Pull Request</a>.
 We would be happy to review it.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="technical-background">Technical background<a href="https://lansuite.github.io/lansuite/blog/documentation-launch#technical-background" class="hash-link" aria-label="Direct link to Technical background" title="Direct link to Technical background">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="technical-background">Technical background<a href="https://lansuite.github.io/lansuite/blog/documentation-launch/#technical-background" class="hash-link" aria-label="Direct link to Technical background" title="Direct link to Technical background">​</a></h2>
 <p>This documentation page is powered by <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer">Docusaurus</a>. An open source project by <a href="https://github.com/facebook/Docusaurus" target="_blank" rel="noopener noreferrer">Facebook</a>.</p>
 <p>Articles are written in <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank" rel="noopener noreferrer">Markdown syntax</a> and are organized in <code>.md</code> files in the <a href="https://github.com/lansuite/lansuite/tree/master/docs" target="_blank" rel="noopener noreferrer"><code>doc</code> folder in our repository</a>.</p>
 <p>That's it so far.
