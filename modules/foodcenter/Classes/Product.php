@@ -527,10 +527,10 @@ class Product
                     $price_1 .= "<a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
                 }
 
-				$productlink 	= "<a href='$worklink&info={$this->id}'><b>" . $this->caption . "</b><br />" . $this->desc . "</a>";
-				$productimg 	= "<a href='$worklink&info={$this->id}'><img src=\"ext_inc/foodcenter/{$this->pic}\" border=\"1\" alt=\"{$this->caption}\" width=\"50\" /></a>";
+		$productlink 	= "<a href='$worklink&info={$this->id}'><b>" . $this->caption . "</b><br />" . $this->desc . "</a>";
+		$productimg 	= "<a href='$worklink&info={$this->id}'><img src=\"ext_inc/foodcenter/{$this->pic}\" border=\"1\" alt=\"{$this->caption}\" width=\"50\" /></a>";
 								
-				$smarty->assign('productlink', $productlink);
+		$smarty->assign('productlink', $productlink);
                 $smarty->assign('productimg', $productimg);
 								
                 $smarty->assign('price_1', $price_1);
