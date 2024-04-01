@@ -494,7 +494,7 @@ class Seat2
 
                 $jscode .= "DrawClearSeatingSymbol(22, 84, 14, 'javascript:UpdateCurrentDrawingSymbol(\"22\")', '');\n";
                 $jscode .= "DrawClearSeatingSymbol(21, 98, 14, 'javascript:UpdateCurrentDrawingSymbol(\"21\")', '');\n";
-                $jscode .= "DrawClearSeatingSymbol(23, 84, 28, 'javascript:UpdateCurrentDrawingSymbol(\"108\")', '');\n";
+                $jscode .= "DrawClearSeatingSymbol(23, 84, 28, 'javascript:UpdateCurrentDrawingSymbol(\"23\")', '');\n";
                 $jscode .= "DrawClearSeatingSymbol(24, 98, 28, 'javascript:UpdateCurrentDrawingSymbol(\"24\")', '');\n";
                 $jscode .= "DrawClearSeatingSymbol(10, 84, 42, 'javascript:UpdateCurrentDrawingSymbol(\"10\")', '');\n";
                 $jscode .= "DrawClearSeatingSymbol(11, 98, 42, 'javascript:UpdateCurrentDrawingSymbol(\"11\")', '');\n";
