@@ -506,29 +506,38 @@ class Product
 
         switch ($this->type) {
             case 1:
-                $price_1 = '';
-                $price_2 = '';
-                $price_3 = '';
+                $price_1     = '';
+                $price_2     = '';
+                $price_3     = '';
+                $productlink = '';
+                $productimg  = '';
 
                 if (is_object($this->option[0])) {
-                    $price_3 = "<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a>";
+                    $price_3 = "<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a>&nbsp;&nbsp;";
                     $price_3 .= "<a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
                 }
 
                 if (array_key_exists(1, $this->option) && is_object($this->option[1])) {
-                    $price_2 = "<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a>";
+                    $price_2 = "<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a>&nbsp;&nbsp;";
                     $price_2 .= "<a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
                 }
 
                 if (array_key_exists(2, $this->option) && is_object($this->option[2])) {
-                    $price_1 = "<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a>";
+                    $price_1 = "<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a>&nbsp;&nbsp;";
                     $price_1 .= "<a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
                 }
 
+				$productlink 	= "<a href='$worklink&info={$this->id}'><b>" . $this->caption . "</b><br />" . $this->desc . "</a>";
+				$productimg 	= "<a href='$worklink&info={$this->id}'><img src=\"ext_inc/foodcenter/{$this->pic}\" border=\"1\" alt=\"{$this->caption}\" width=\"50\" /></a>";
+								
+				$smarty->assign('productlink', $productlink);
+                $smarty->assign('productimg', $productimg);
+								
                 $smarty->assign('price_1', $price_1);
                 $smarty->assign('price_2', $price_2);
                 $smarty->assign('price_3', $price_3);
-                $dsp->AddDoubleRow("<a href='$worklink&info={$this->id}'><b>" . $this->caption . "</b><br />" . $this->desc . "</a>", $smarty->fetch('modules/foodcenter/templates/product_price_row.htm'));
+																	  
+                $dsp->AddSingleRow($smarty->fetch('modules/foodcenter/templates/product_price_row.htm'));
 
                 break;
             case 2:
