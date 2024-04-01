@@ -9,8 +9,26 @@ $seat2 = new Seat2();
 if ($stepParameter > 1 && (!$_GET['userid'])) {
     $func->error(t('Es wurde kein Benutzer ausgewählt'), "index.php?mod=seating&action=seatadmin");
 }
+
 if ($stepParameter > 2 && (!$_GET['blockid'])) {
     $func->error(t('Es wurde kein Sitzblock ausgewählt'), "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}");
+}
+
+
+$userIDParameter = $_GET['userid'] ?? 0;
+if ($userIDParameter) {
+    $new_user = $database->queryWithOnlyFirstRow("
+      SELECT
+        u.userid,
+        u.username,
+        u.firstname,
+        u.name,
+        pu.paid
+      FROM %prefix%user AS u
+      LEFT JOIN %prefix%party_user AS pu ON pu.user_id = u.userid
+      WHERE
+        userid = ?
+        AND pu.party_id = ?", [$userIDParameter, $party->party_id]);
 }
 
 // Exec step10-query
@@ -48,22 +66,6 @@ if ($blockIDParameter && isset($_GET['row']) && isset($_GET['col'])) {
         blockid = ?
         AND row = ?
         AND col = ?", [$blockIDParameter, $_GET['row'], $_GET['col']]);
-}
-
-$userIDParameter = $_GET['userid'] ?? 0;
-if ($userIDParameter) {
-    $new_user = $database->queryWithOnlyFirstRow("
-      SELECT
-        u.userid,
-        u.username,
-        u.firstname,
-        u.name,
-        pu.paid
-      FROM %prefix%user AS u
-      LEFT JOIN %prefix%party_user AS pu ON pu.user_id = u.userid
-      WHERE
-        userid = ?
-        AND pu.party_id = ?", [$userIDParameter, $party->party_id]);
 }
 
 $stepParameter = $_GET['step'] ?? 0;
