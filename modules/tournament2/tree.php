@@ -52,9 +52,6 @@ if (!$_GET['tournamentid']) {
                 }
                 if (($tournament["mode"] == "groups") && $groupParameter === false) {
                     $teams = $database->queryWithOnlyFirstRow("
-  
-                if (($tournament["mode"] == "groups") && (!$groupParameter)) {
-                    $teams = $database->queryWithOnlyFirstRow("
                       SELECT
                         MAX(group_nr) AS max_group_nr
                       FROM %prefix%t2_games
