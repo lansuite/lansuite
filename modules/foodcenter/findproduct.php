@@ -4,8 +4,9 @@ $product_list = new LanSuite\Module\Foodcenter\ProductList();
 $dsp->NewContent(t('Produktsuche'), t('Hier findest du alles was das Herz begehrt'));
 
 $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
+
 $ms2->query['from'] = "%prefix%food_product AS p
-                       LEFT JOIN %prefix%food_option AS o ON o.parentid = p.id";
+											 LEFT JOIN %prefix%food_cat AS f ON p.cat_id = f.cat_id";
 
 $cat_list = array('' => 'Alle');
 $row = $db->qry("SELECT * FROM %prefix%food_cat");
@@ -15,11 +16,18 @@ while ($res = $db->fetch_array($row)) {
 
 $db->free_result($row);
 
+$ms2->query['default_order_by'] = 'p.cat_id DESC';
+
+$ms2->config['EntriesPerPage'] = 20;
+
 $ms2->AddTextSearchDropDown('Produktkategorie', 'p.cat_id', $cat_list);
 $ms2->AddTextSearchField('Produktsuche', array('p.caption' => 'like', 'p.p_desc' => 'like'));
 
 $ms2->AddSelect('p.cat_id');
-$ms2->AddResultField('Titel', 'p.id', 'GetTitelName');
+$ms2->AddResultField(t('Produkt'), 'p.caption');
+$ms2->AddResultField(t('Beschreibung'), 'p.p_desc');
+$ms2->AddResultField(t('Kategorie'), 'f.name');
+$ms2->AddIconField('details', 'index.php?mod=foodcenter&action=showfood&info=', t('Details'));
 
 $searchDDInputParameter = $_POST['search_dd_input'][0] ?? 0;
 $ms2->NoItemsText = match ($searchDDInputParameter) {
