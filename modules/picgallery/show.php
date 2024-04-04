@@ -42,13 +42,15 @@ if (!$row) {
 }
 
 // Upload posted File
-if (($cfg["picgallery_allow_user_upload"] || $auth['type'] > \LS_AUTH_TYPE_USER) && (array_key_exists('file_upload', $_FILES) && $_FILES['file_upload'])) {
-    $extension = substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4);
-    if (IsSupportedType($extension) || IsPackage($extension)) {
-        $upload = $func->FileUpload("file_upload", $root_dir);
-        $db->qry("REPLACE INTO %prefix%picgallery SET userid = %int%, name = %string%", $auth["userid"], $db_dir.$_FILES["file_upload"]["name"]);
-    } else {
-        $func->error("Bitte nur Grafik-Dateien hochladen (Format: Jpg, Png, Gif, Bmp)<br> oder Archive (Format: zip,ace,rar,tar,gz,bz)", "index.php?mod=picgallery");
+if (($cfg["picgallery_allow_user_upload"] || $auth['type'] > \LS_AUTH_TYPE_USER) && ($request->)) {
+    foreach ($_FILES['file_upload'] as $file) {
+        $extension = substr($file['file_upload']['name'], strrpos($file['file_upload']['name'], ".") + 1, 4);
+        if (IsSupportedType($extension) || IsPackage($extension)) {
+            $upload = $func->FileUpload("file_upload", $root_dir);
+            $database->query("REPLACE INTO %prefix%picgallery SET userid = ?, name = ?", [$auth["userid"], $db_dir . $file["file_upload"]["name"]]);
+        } else {
+            $func->error("Bitte nur Grafik-Dateien hochladen (Format: Jpg, Png, Gif, Bmp)<br> oder Archive (Format: zip,ace,rar,tar,gz,bz)", "index.php?mod=picgallery");
+        }
     }
 }
 
@@ -336,7 +338,7 @@ if (!$gd->available) {
     // Upload-Formular
     if ($cfg["picgallery_allow_user_upload"] or $auth['type'] > \LS_AUTH_TYPE_USER) {
         $dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}", "", "", "multipart/form-data");
-        $dsp->AddFileSelectRow("file_upload", t('Datei hochladen'), "");
+        $dsp->AddFileSelectRow("file_upload", t('Datei hochladen'), "", null, null, null, true);
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
 
         // Add Gallery
