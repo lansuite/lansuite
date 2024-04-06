@@ -138,10 +138,11 @@ switch ($stepParameter) {
         break;
 
     case 11:
-        if ($_POST['checkbox']) {
+        $checkBoxParameter = $_POST['checkbox'] ?? [];
+        if (count($checkBoxParameter) > 0) {
             $text = "";
             $userids = "";
-            foreach ($_POST['checkbox'] as $userid) {
+            foreach ($checkBoxParameter as $userid) {
                 $user_data = $database->queryWithOnlyFirstRow("SELECT user.username, g.group_name FROM %prefix%user AS user LEFT JOIN %prefix%party_usergroups AS g ON user.group_id = g.group_id WHERE userid = ?", [$userid]);
                 if ($user_data["group_name"] != "") {
                     $text .=  "<b>{$user_data["username"]}</b> " . t('ist in der Gruppe') . " <b>" . $user_data["group_name"] . "</b>" . HTML_NEWLINE;
