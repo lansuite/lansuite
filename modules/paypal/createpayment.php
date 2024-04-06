@@ -10,7 +10,7 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
     $func->error(t('Du kannst nichts einzahlen wenn du nicht eingeloggt bist.'), "index.php?mod=home");
 } else {
     $dsp->NewContent(t('Übersicht der Zahlung'), t('Folgend alle Artikel und Kosten'));
-    
+
     // Get a payment link from PayPal
     $paypalObj = new \LanSuite\Module\PayPal\PayPal();
     $paypalObj->initAccessToken();
@@ -26,10 +26,10 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
     }
     // Add foodorder item...
 
-    $catergingValueParameter = $_POST['catering'] ?? 0;
-    if ($catergingValueParameter > 0) {
-        $paypalitem = new PayPalItem(t('Guthaben Catering'), SanitizeVal($catergingValueParameter), 'CATERING', 1);
-        $dsp->AddDoubleRow(t('Guthaben Catering'), SanitizeVal($catergingValueParameter). '€');
+    $cateringValueParameter = $_POST['catering'] ?? 0;
+    if ($cateringValueParameter > 0) {
+        $paypalitem = new PayPalItem(t('Guthaben Catering'), SanitizeVal($cateringValueParameter), 'CATERING', 1);
+        $dsp->AddDoubleRow(t('Guthaben Catering'), SanitizeVal($cateringValueParameter). '€');
         $paypalObj->addItem($paypalitem);
     }
 
@@ -42,7 +42,7 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
     }
 
     // Total
-    if (!empty($_POST['price']) || $donationValueParameter > 0 || $catergingValueParameter > 0) {
+    if (!empty($_POST['price']) || $donationValueParameter > 0 || $cateringValueParameter > 0) {
         $dsp->AddDoubleRow(t('Gesamtsumme'), $paypalObj->calcItemsTotal(). '€');
         $PaymentLink = $paypalObj->createPaymentLink();
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Mit PayPal Bezahlen'), $PaymentLink));
