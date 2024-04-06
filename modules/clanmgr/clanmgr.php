@@ -213,18 +213,20 @@ switch ($stepParameter) {
 
     // Enter a new clan
     case 60:
+        $clanPassParameter = $_POST['clan_pass'] ?? '';
+
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), 'index.php?mod=home');
         } elseif ($auth['type'] < \LS_AUTH_TYPE_USER) {
             $func->error(t('Keine Berechtigung diese Funktion auszuführen'), 'index.php?mod=home');
-        } elseif (!$_POST['clan_pass']) {
+        } elseif (!$clanPassParameter) {
             $dsp->SetForm('index.php?mod=clanmgr&action=clanmgr&step=60&clanid='.$_GET['clanid']);
             $dsp->AddSingleRow(t('Um den Clan beizutreten, musst du das Clanpasswort eingeben. Solltest du dies nicht kennen, wenden dich bitte an deinen Clan-Admin.'));
-            $dsp->AddPasswordRow('clan_pass', t('Clan Passwort'), $_POST['clan_pass'], '');
+            $dsp->AddPasswordRow('clan_pass', t('Clan Passwort'), $clanPassParameter, '');
             $dsp->AddFormSubmitRow('send');
             $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr&step=2&clanid='.$_GET['clanid'], 'usrmgr/pwremind');
         } else {
-            if (CheckClanPW($_POST['clan_pass'])) {
+            if (CheckClanPW($clanPassParameter)) {
                 $database->query('UPDATE %prefix%user SET clanid = ?, clanadmin = 0 WHERE userid = ?', [$_GET['clanid'], $auth['userid']]);
                 $tmpclanname = $database->queryWithOnlyFirstRow('SELECT name FROM %prefix%clan WHERE clanid = ?', [$_GET['clanid']]);
                 $func->confirmation(t('Du bist erfolgreich dem Clan beigetreten.'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='.$_GET['clanid']);
