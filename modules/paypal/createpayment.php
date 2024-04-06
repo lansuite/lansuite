@@ -10,7 +10,7 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
     $func->error(t('Du kannst nichts einzahlen wenn du nicht eingeloggt bist.'), "index.php?mod=home");
 } else {
     $dsp->NewContent(t('Übersicht der Zahlung'), t('Folgend alle Artikel und Kosten'));
-    
+
     // Get a payment link from PayPal
     $paypalObj = new \LanSuite\Module\PayPal\PayPal();
     $paypalObj->initAccessToken();
@@ -25,21 +25,24 @@ if ($auth['userid'] == 0 && $cfg['paypal_donation'] == 0) {
         }
     }
     // Add foodorder item...
-    if ($_POST['catering']>0) {
-        $paypalitem = new PayPalItem(t('Guthaben Catering'), SanitizeVal($_POST['catering']), 'CATERING', 1);
-        $dsp->AddDoubleRow(t('Guthaben Catering'), SanitizeVal($_POST['catering']). '€');
+
+    $cateringValueParameter = $_POST['catering'] ?? 0;
+    if ($cateringValueParameter > 0) {
+        $paypalitem = new PayPalItem(t('Guthaben Catering'), SanitizeVal($cateringValueParameter), 'CATERING', 1);
+        $dsp->AddDoubleRow(t('Guthaben Catering'), SanitizeVal($cateringValueParameter). '€');
         $paypalObj->addItem($paypalitem);
     }
 
     // Add donation item
-    if ($_POST['donation']>0) {
-        $paypalitem = new PayPalItem(t('Spende'), SanitizeVal($_POST['donation']), 'DONATION', 1);
-        $dsp->AddDoubleRow(t('Spende'), SanitizeVal($_POST['donation']). '€');
+    $donationValueParameter = $_POST['donation'] ?? 0;
+    if ($donationValueParameter > 0) {
+        $paypalitem = new PayPalItem(t('Spende'), SanitizeVal($donationValueParameter), 'DONATION', 1);
+        $dsp->AddDoubleRow(t('Spende'), SanitizeVal($donationValueParameter). '€');
         $paypalObj->addItem($paypalitem);
     }
 
     // Total
-    if (!empty($_POST['price']) || $_POST['donation']>0 || $_POST['catering']>0) {
+    if (!empty($_POST['price']) || $donationValueParameter > 0 || $cateringValueParameter > 0) {
         $dsp->AddDoubleRow(t('Gesamtsumme'), $paypalObj->calcItemsTotal(). '€');
         $PaymentLink = $paypalObj->createPaymentLink();
         $dsp->AddSingleRow($dsp->FetchSpanButton(t('Mit PayPal Bezahlen'), $PaymentLink));
