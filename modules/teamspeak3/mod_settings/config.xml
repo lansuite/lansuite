@@ -9,7 +9,7 @@
             <name>ts3_serveraddress</name>
             <type>string</type>
             <default>*.*.*.*</default>
-            <description>Hier die TeamSpeak IP Adresse eintragen !!Wichtig!! (Beispiel: 192.168.7.1)</description>
+            <description>Hier die TeamSpeak (IP) Adresse eintragen !!Wichtig!! (Beispiel: 192.168.7.1)</description>
         </item>
         <item>
             <name>ts3_serverqueryport</name>
@@ -19,21 +19,21 @@
         </item>
         <item>
             <name>ts3_serverqueryuser</name>
-            <type>integer</type>
-            <default>51234</default>
-            <description>Teamspeak user für server Queries</description>
+            <type>string</type>
+            <default>serveradmin</default>
+            <description>Teamspeak query user für server Queries</description>
         </item>
                 <item>
             <name>ts3_serverquerypassword</name>
             <type>password</type>
-            <default>51234</default>
+            <default></default>
             <description>Passwort des Server query Benutzers</description>
         </item>
         <item>
             <name>ts3_serverudpport</name>
             <type>integer</type>
             <default>9987</default>
-            <description>UDP Port für Teamspeak, der auch hinter der IP Adresse genutzt wird (Standard: 8767)</description>
+            <description>UDP Port für Teamspeak, der auch hinter der IP Adresse genutzt wird (Standard: 9987)</description>
         </item>
         <item>
             <name>ts3_serverpassword</name>

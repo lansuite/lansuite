@@ -1,8 +1,10 @@
 <?php
 
-namespace LanSuite\Modules\TeamSpeak3;
+namespace LanSuite\Module\TeamSpeak3;
+use \PlanetTeamSpeak\TeamSpeak3Framework\TeamSpeak3;
+use \PlanetTeamSpeak\TeamSpeak3Framework\Viewer;
 
-class TeamSpeak3
+class TS3Server
 {
 
     /**
@@ -15,15 +17,17 @@ class TeamSpeak3
      */
     private $settings = [];
 
-    public function __construct($LoadStandardConfig = true)
+    public function __construct($settings = null)
     {
-        if ($LoadStandardConfig) {
+        if (!$settings) {// load from config file if not provided
             $this->loadLanSuiteConfig();
+        } else { //take over config passed
+            $this->settings = $settings;
         }
     }
 
     /**
-     * Loads the default configuration LanSuite
+     * Loads the default configuration from config
      * @return void
      */
     private function loadLanSuiteConfig()
@@ -53,11 +57,11 @@ class TeamSpeak3
         global $cfg;
 
         $link = 'ts3server://'. $this->settings['serveraddress'];
-        if (!empty($this->settings['serverport'])) {
-            $link .= '?port='. $cfg['ts3_serverport'];
+        if (!empty($this->settings['serverudpport'])) {
+            $link .= '?port='. $this->settings['serverudpport'];
         }
-        if (!empty($this->settings['ts3_serverpassword'])) {
-            $link .= '?password='. $cfg['ts3_serverpassword'];
+        if (!empty($this->settings["serverpassword"])) {
+            $link .= '?password='. $this->settings["serverpassword"] ;
         }
         if (!empty($channelID)) {
             $link .= '?cid='. $channelID;
@@ -69,6 +73,28 @@ class TeamSpeak3
         return $link;
     }
 
+     /**
+     * Builds and returns the link to be used for server queries
+     *
+     * @return string Serverquery URI
+     */
+    public function getQueryURL()
+    {
+        $link = 'ts3server://';
+        if (!empty($this->settings['serverqueryuser']) && !empty($this->settings['serverquerypassword'])) {
+            $link .= rawurldecode($this->settings['serverqueryuser']) .':'. rawurldecode($this->settings['serverquerypassword']) . '@';
+        }
+
+        $link .= $this->settings['serveraddress'];
+        $queryport = $this->settings['serverqueryport'] ?? 10011;
+        $link .= ':'. $queryport. '/';
+
+        $serverport = $this->settings['serverport'] ?? 9987;
+        $link .= '?server_port=' . $serverport;
+
+        return $link;
+    }
+
     /**
      * @return void
      */
@@ -76,7 +102,7 @@ class TeamSpeak3
     {
         global $func;
         try {
-            $this->teamspeak = \TeamSpeak3::factory("serverquery://" . /*$settings['serverqueryuser'].':'.$settings['serverquerypassword'].'@'.*/ $this->settings['ts3_serveraddress']. ':' . $this->settings['ts3_serverqueryport']);
+            $this->teamspeak = TeamSpeak3::factory("serverquery://" . $this->settings['serverqueryuser'].':'.$this->settings['serverquerypassword'].'@'. $this->settings['serveraddress']. ':' . $this->settings['serverqueryport']);
             $this->teamspeak->serverSelectById(1);
         } catch (TeamSpeak3_Exception $e) {
             // TODO: Add proper Error-Handling
@@ -113,14 +139,16 @@ class TeamSpeak3
 
         $password = rand(10000, 99999);
         try {
-            $this->teamspeak->channelCreate([
-            'channel_name'           => 'My Sub-Channel',
-            'channel_topic'          => 'This is a sub-level channel',
-            'channel_codec'          => \TeamSpeak3::CODEC_OPUS_VOICE,
-            'channel_flag_permanent' => true,
-            'channel_password'       => $password,
-            'cpid'                   => $this->settings['tournamentchannel']
-            ]);
+            $this->teamspeak->channelCreate(
+                [
+                'channel_name'           => 'My Sub-Channel',
+                'channel_topic'          => 'This is a sub-level channel',
+                'channel_codec'          => \TeamSpeak3::CODEC_OPUS_VOICE,
+                'channel_flag_permanent' => true,
+                'channel_password'       => $password,
+                'cpid'                   => $this->settings['tournamentchannel']
+                ]
+            );
 
         // TODO: Add data as comment (or separate Field) to Match
         } catch (\Exception $e) {
