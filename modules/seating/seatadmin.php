@@ -6,16 +6,16 @@ $stepParameter = $_GET['step'] ?? 0;
 $seat2 = new Seat2();
 
 // Errors
-if ($stepParameter > 1 && (!$_GET['userid'])) {
+$userIDParameter = $_GET['userid'] ?? 0;
+$userIDParameter = intval($userIDParameter);
+if ($stepParameter > 1 && !$userIDParameter) {
     $func->error(t('Es wurde kein Benutzer ausgewählt'), "index.php?mod=seating&action=seatadmin");
 }
 
 if ($stepParameter > 2 && (!$_GET['blockid'])) {
-    $func->error(t('Es wurde kein Sitzblock ausgewählt'), "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}");
+    $func->error(t('Es wurde kein Sitzblock ausgewählt'), "index.php?mod=seating&action=seatadmin&step=2&userid={$userIDParameter}");
 }
 
-
-$userIDParameter = $_GET['userid'] ?? 0;
 if ($userIDParameter) {
     $new_user = $database->queryWithOnlyFirstRow("
       SELECT
@@ -35,7 +35,7 @@ if ($userIDParameter) {
 $questParameter = $_GET['quest'] ?? 0;
 if ($stepParameter == 10 and $questParameter) {
     // Assign seat
-    $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
+    $seat2->AssignSeat($userIDParameter, $_GET['blockid'], $_GET['row'], $_GET['col']);
 
     // If old owner should get a new seat, jump to step 2 an procede with this user
     if ($questParameter == 2) {
