@@ -80,7 +80,7 @@ class TS3Server
      */
     public function getQueryURL()
     {
-        $link = 'ts3server://';
+        $link = 'serverquery://';
         if (!empty($this->settings['serverqueryuser']) && !empty($this->settings['serverquerypassword'])) {
             $link .= rawurldecode($this->settings['serverqueryuser']) .':'. rawurldecode($this->settings['serverquerypassword']) . '@';
         }

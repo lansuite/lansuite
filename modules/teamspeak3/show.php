@@ -1,6 +1,5 @@
 <?php
 use PlanetTeamSpeak\TeamSpeak3Framework\TeamSpeak3;
-use PlanetTeamSpeak\TeamSpeak3Framework\TeamSpeak3_Exception;
 
 /*
 if (isset($_GET['autorefresh'])) {
