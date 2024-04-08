@@ -9,6 +9,10 @@ if (!$auth['userid']) {
     $userid = $auth['userid'];
 }
 
+$shoutDelay = $cfg['shout_delay'] ?? 20;
+$shoutEntries = $cfg['shout_entries'] ?? 5;
+$shoutLength = $cfg['shout_length'] ?? 160;
+
 $framework->addJavaScriptCode('var shoutdelay = ' . intval($shoutDelay) . ';
                         var maxcount = ' . intval($shoutEntries) . ';');
 
