@@ -15,7 +15,7 @@ class TS3ServerTest extends TestCase
         $settings = [
             'serveraddress' => 'localhost',
             'serverpassword' => 'testpw',
-            'serverudpport' = > 100,
+            'serverudpport' => 100,
             'serverqueryport' => 200,
             'serverqueryuser' => 'svqryusr',
             'serverquerypassword' => 'srvqrypw',
