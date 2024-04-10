@@ -15,10 +15,8 @@
         "php": "^8.1",
         "ext-gd": "*",
         "ext-mysqli": "*",
-        "ext-snmp": "*",
         "ext-json": "*",
         "ext-zlib": "*",
-        "ext-ftp": "*",
 
         "smarty/smarty": "^5.0",
         "geshi/geshi": "^1.0.9",
@@ -56,6 +54,7 @@
         ]
     },
     "suggest": {
+        "ext-ftp": "Required to have file downloads on an external FTP for the \"Download\" module",
         "ext-snmp": "Required to use the \"Network Operation Center\" module.",
         "paypal/rest-api-sdk-php": "Required to use the PayPal module"
     },
