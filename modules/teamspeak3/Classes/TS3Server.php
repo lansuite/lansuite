@@ -82,7 +82,7 @@ class TS3Server
     {
         $link = 'serverquery://';
         if (!empty($this->settings['serverqueryuser']) && !empty($this->settings['serverquerypassword'])) {
-            $link .= rawurldecode($this->settings['serverqueryuser']) .':'. rawurldecode($this->settings['serverquerypassword']) . '@';
+            $link .= rawurlencode($this->settings['serverqueryuser']) .':'. rawurlencode($this->settings['serverquerypassword']) . '@';
         }
 
         $link .= $this->settings['serveraddress'];
@@ -90,7 +90,7 @@ class TS3Server
         $link .= ':'. $queryport. '/';
 
         $serverport = $this->settings['serverport'] ?? 9987;
-        $link .= '?server_port=' . $serverport;
+        $link .= '?server_port=' . $serverport . '&blocking=1&timeout=5';
 
         return $link;
     }
