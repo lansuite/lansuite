@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+        <item>
+            <name>ts3_serveraddress</name>
+            <type>string</type>
+            <default>*.*.*.*</default>
+            <description>Hier die TeamSpeak (IP) Adresse eintragen !!Wichtig!! (Beispiel: 192.168.7.1)</description>
+        </item>
+        <item>
+            <name>ts3_serverqueryport</name>
+            <type>integer</type>
+            <default>10011</default>
+            <description>TeamSpeak QueryPort. Schaue in die server.ini von TeamSpeak (Standard: 10011)</description>
+        </item>
+        <item>
+            <name>ts3_serverqueryuser</name>
+            <type>string</type>
+            <default>serveradmin</default>
+            <description>Teamspeak query user für server Queries</description>
+        </item>
+                <item>
+            <name>ts3_serverquerypassword</name>
+            <type>password</type>
+            <default></default>
+            <description>Passwort des Server query Benutzers</description>
+        </item>
+        <item>
+            <name>ts3_serverudpport</name>
+            <type>integer</type>
+            <default>9987</default>
+            <description>UDP Port für Teamspeak, der auch hinter der IP Adresse genutzt wird (Standard: 9987)</description>
+        </item>
+        <item>
+            <name>ts3_serverpassword</name>
+            <type>password</type>
+            <default></default>
+            <description>Serverpasswort das bei Serversettings eingestellt wird (wenn kein Passwort erteilt, dann leer lassen)</description>
+        </item>
+        <item>
+            <name>ts3_tournamentchannel</name>
+            <type>string</type>
+            <default></default>
+            <description>Name des Channels unter dem Turnierchannel erstellt werden sollen (Setzt Turniermodul vorraus)</description>
+        </item>
+        <item>
+            <name>ts3_hintergrund</name>
+            <type>string</type>
+            <default></default>
+            <description>Hintergrundfarbe der Teamspeakanzeige (Standard Teamspeak Farbe: #A3A3CB - leer lassen, wenn nicht erwünscht)</description>
+        </item>
+        <item>
+            <name>ts3_tabellenbreite</name>
+            <type>integer</type>
+            <default>300</default>
+            <description>Breite der Teamspeakanzeige</description>
+        </item>
+        <item>
+            <name>ts3_autorefresh</name>
+            <type>integer</type>
+            <default>20</default>
+            <description>Zeit in Sekunden nach der die Anzeige aktualisiert wird, wenn "Autorefresh" aktiviert ist</description>
+        </item>
+    </items>
+  </group>
+</config>

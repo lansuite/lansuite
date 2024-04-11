@@ -24,6 +24,7 @@
         "geshi/geshi": "^1.0.9",
         "setasign/fpdf": "^1.8",
         "paypal/rest-api-sdk-php": "^1.13",
+        "planetteamspeak/ts3-php-framework": "^1.2",
         "youthweb/bbcode-parser": "^1.6",
         "symfony/cache": "^v6.0.19",
         "psr/simple-cache": "^1.0",
@@ -57,6 +58,7 @@
     },
     "suggest": {
         "ext-snmp": "Required to use the \"Network Operation Center\" module.",
+        "planetteamspeak/ts3-php-framework":"Required to use the TeamSpeak3 module",
         "paypal/rest-api-sdk-php": "Required to use the PayPal module"
     },
     "autoload": {
@@ -80,6 +82,7 @@
             "LanSuite\\Module\\Poll\\": "modules/poll/Classes/",
             "LanSuite\\Module\\Seating\\": "modules/seating/Classes/",
             "LanSuite\\Module\\Stats\\": "modules/stats/Classes/",
+            "LanSuite\\Module\\TeamSpeak3\\": "modules/teamspeak3/Classes/",
             "LanSuite\\Module\\Tournament2\\": "modules/tournament2/Classes/",
             "LanSuite\\Module\\UsrMgr\\": "modules/usrmgr/Classes/",
             "LanSuite\\": "inc/Classes"
@@ -189,6 +192,11 @@
             "modules/server/Functions/ServerType.php",
             "modules/sponsor/Functions/RewriteFields.php",
             "modules/sponsor/Functions/UploadFiles.php",
+            "modules/teamspeak3/Functions/TS3BuildServerLink.php",
+            "modules/teamspeak3/Functions/TS3CacheIsFresh.php",
+            "modules/teamspeak3/Functions/TS3GenerateCacheFile.php",
+            "modules/teamspeak3/Functions/TS3PrintContent.php",
+            "modules/teamspeak3/Functions/TS3ShowOverview.php",
             "modules/tournament2/Functions/ArrayToTable.php",
             "modules/tournament2/Functions/CheckDateInFuture.php",
             "modules/tournament2/Functions/CheckModeChangeAllowed.php",
