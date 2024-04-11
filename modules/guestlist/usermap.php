@@ -38,9 +38,9 @@ if ($cfg['guestlist_guestmap'] == 2) {
             };
 
             // Show detailed map to admins only, otherwise stick to user settings
-            if ($row['show_me_in_map'] == 1 || $auth['type'] >= 2) {
+            if ($row['show_me_in_map'] == 1 || $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $text = "<b>{$row['username']}</b>";
-                if ($cfg['guestlist_shownames']|| $auth['type'] >= 2) {
+                if ($cfg['guestlist_shownames']|| $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                     $text .= " {$row['firstname']} {$row['name']}";
                 }
             } else {
@@ -62,12 +62,12 @@ if ($cfg['guestlist_guestmap'] == 2) {
         }
         $adresses .= '];';
         $db->free_result($res);
-        if (!empty($cfg['google_analytics_id'])) {
-            $smarty->assign('apikey', 'key='. $cfg['google_analytics_id']);
+        if (!empty($cfg['google_maps_key'])) {
+            $smarty->assign('apikey', 'key='. $cfg['google_maps_key']);
             $smarty->assign('adresses', $adresses);
             $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
         } else {
-            $func->error(t('Die Google Analytics ID wurde nicht konfiguriert, ist aber notwendig zur Benutzung von Google Maps-Diensten.'));
+            $func->error(t('Ein Google Maps API key wurde nicht konfiguriert, ist aber notwendig zur Benutzung von Google Maps-Diensten.'));
         }
     } else {
         $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, ($cfg["guestlist_showorga"] == 0 ? "type = 1" : "type >= 1"));
@@ -80,7 +80,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
 // Use Geofreedb
 } else {
     $res = $db->qry("SELECT plz FROM %prefix%user LEFT JOIN %prefix%party_user ON userid = user_id WHERE (plz > 0) AND (party_id = %int%)", $party->party_id);
-    $res3 = $db->qry_first("SELECT laenge, breite FROM %prefix%locations WHERE plz = %int%", $_SESSION['party_info']['partyplz']);
+    $res3 = $database->queryWithOnlyFirstRow("SELECT laenge, breite FROM %prefix%locations WHERE plz = ?", [$_SESSION['party_info']['partyplz']]);
 
     if ($db->num_rows($res) == 0) {
         $get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, ($cfg["guestlist_showorga"] == 0 ? "type = 1" : "type >= 1"));
@@ -156,7 +156,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
             $UsersOut = '';
 
             while ($current_user = $db->fetch_array($res2)) {
-                if ($auth['type'] < 2 and ($cfg['sys_internet'])) {
+                if ($auth['type'] < \LS_AUTH_TYPE_ADMIN and ($cfg['sys_internet'])) {
                     $current_user['firstname'] = '---';
                     $current_user['name'] = '---';
                 }

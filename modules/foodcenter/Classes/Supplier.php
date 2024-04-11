@@ -56,7 +56,7 @@ class Supplier
      */
     private function get_supp_array($select_id, $new = null): array|bool
     {
-        global $db;
+        global $db, $database;
 
         $row = $db->qry("SELECT * FROM %prefix%food_supp");
 
@@ -101,7 +101,9 @@ class Supplier
 
         if ($_POST['supp_id'] == 0) {
             $this->supp_caption = $_POST['supp_name'];
-            $this->supp_desc = $_POST["supp_desc"];
+
+            $suppDescParameter = $_POST["supp_desc"] ?? '';
+            $this->supp_desc = $suppDescParameter;
         }
     }
 
@@ -112,10 +114,10 @@ class Supplier
      */
     private function read()
     {
-        global $db;
+        global $database;
 
         if ($this->supp_id != null) {
-            $row = $db->qry_first("SELECT * FROM %prefix%food_supp WHERE supp_id=%int%", $this->supp_id);
+            $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%food_supp WHERE supp_id = ?", [$this->supp_id]);
             if (is_array($row)) {
                 $this->supp_caption = $row['name'];
                 $this->supp_desc    = $row['s_desc'];
@@ -135,7 +137,7 @@ class Supplier
      */
     public function write()
     {
-        global $db;
+        global $db, $database;
 
         if ($this->supp_id == null) {
             $db->qry("INSERT INTO %prefix%food_supp SET 
@@ -143,10 +145,10 @@ class Supplier
                             s_desc = %string%", $this->supp_caption, $this->supp_desc);
             $this->supp_id = $db->insert_id();
         } else {
-            $db->qry("UPDADE %prefix%food_supp SET 
-                            name = %string%,
-                            s_desc = %string%
-                            WHERE supp_id = %int%", $this->supp_caption, $this->supp_desc, $this->supp_id);
+            $database->query("UPDADE %prefix%food_supp SET 
+                            name = ?,
+                            s_desc = ?
+                            WHERE supp_id = ?", [$this->supp_caption, $this->supp_desc, $this->supp_id]);
         }
     }
 
@@ -176,6 +178,8 @@ class Supplier
         if ($supp_array) {
             $dsp->AddDropDownFieldRow("supp_id", t('Lieferant'), $supp_array, "");
         }
-        $dsp->AddTextFieldRow("supp_name", t('Neuer Lieferant'), $_POST['supp_name'], $this->error['supp_name']);
+        $suppNameParameter = $_POST['supp_name'] ?? '';
+        $errorSuppName = $this->error['supp_name'] ?? '';
+        $dsp->AddTextFieldRow("supp_name", t('Neuer Lieferant'), $suppNameParameter, $errorSuppName);
     }
 }

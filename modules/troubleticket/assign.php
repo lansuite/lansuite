@@ -1,5 +1,6 @@
 <?php
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/troubleticket/search.inc.php');
         break;
@@ -8,7 +9,7 @@ switch ($_GET["step"]) {
         include_once('modules/usrmgr/search_main.inc.php');
     
         $ms2->query['where'] .= "u.type > 1";
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $ms2->AddIconField('assign', 'index.php?mod=troubleticket&action=assign&step=3&ttid='.$_GET['ttid'] .'&userid=', 'Assign');
         }
     
@@ -22,7 +23,7 @@ switch ($_GET["step"]) {
         $zeit = time();
 
         // aktuelles Ticket laden
-        $get_ticket = $db->qry_first("SELECT target_userid, caption FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);
+        $get_ticket = $database->queryWithOnlyFirstRow("SELECT target_userid, caption FROM %prefix%troubleticket WHERE ttid = ?", [$tt_id]);
         $tt_caption = $get_ticket["caption"];
         $target_userid_old = $get_ticket["target_userid"];
 
@@ -42,7 +43,7 @@ switch ($_GET["step"]) {
         // Wenn Update erfolgreich folgende Funktionen ausführen
         if ($assign_ticket) {
             // Infobox Messages erstellen bzw. ggf. löschen
-            $db->qry('DELETE FROM %prefix%infobox WHERE id_in_class = %int% AND class = \'troubleticket\'', $tt_id);
+            $database->query('DELETE FROM %prefix%infobox WHERE id_in_class = ? AND class = \'troubleticket\'', [$tt_id]);
             $func->setainfo(t('dir wurde das Troubleticket "<b>%1</b>"zugewiesen. ', $tt_caption), $t_userid, 1, "troubleticket", $tt_id);
             // Bestätigung ausgeben
             $func->confirmation(t('Das ausgewählte Ticket wurde dem Orga zugewiesen.'), "index.php?mod=troubleticket&action=assign");

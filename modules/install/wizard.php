@@ -24,7 +24,7 @@ switch ($step) {
             $func->error(t('Das Passwort und seine Verifizierung stimmen nicht überein!'), "index.php?mod=install&action=wizard&step=6");
         } else {
             // Check for existing Admin-Account.
-            $row = $db->qry_first("SELECT email FROM %prefix%user WHERE email=%string%", $_POST["email"]);
+            $row = $database->queryWithOnlyFirstRow("SELECT email FROM %prefix%user WHERE email = ?", [$_POST["email"]]);
 
             // If found, update password
             if ($row !== false) {
@@ -43,7 +43,7 @@ switch ($step) {
                 $userid = $db->insert_id();
             }
 
-            $authentication = new \LanSuite\Auth();
+            $authentication = new \LanSuite\Auth($database, $request);
             $authentication->login($_POST["email"], $_POST["password"]);
         }
       // no break!
@@ -353,17 +353,17 @@ switch ($step) {
                 if ($row['reqphp'] and version_compare(PHP_VERSION, $row['reqphp']) < 0) {
                     $func->information(t('Das Modul %1 kann nicht aktiviert werden, da die PHP Version %2 benötigt wird', $row["name"], $row['reqphp']), NO_LINK);
                 } else {
-                    $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = %string%", $row["name"]);
+                    $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = ?", [$row["name"]]);
                 }
             } elseif (count($_POST)) {
-                $db->qry_first("UPDATE %prefix%modules SET active = 0 WHERE name = %string%", $row["name"]);
+                $database->query("UPDATE %prefix%modules SET active = 0 WHERE name = ?", [$row["name"]]);
             }
         }
         $db->free_result($res);
 
-        $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'settings'");
-        $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'banner'");
-        $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'about'");
+        $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = 'settings'");
+        $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = 'banner'");
+        $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = 'about'");
 
         $func->getActiveModules();
         $install->CreateNewTables(0);
@@ -413,11 +413,11 @@ switch ($step) {
     // Display final hints
     case 10:
         // Set variables
-        $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_language'", $language);
-        $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_country'", $_POST['country']);
-        $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_partyurl'", $_POST['url']);
-        $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_party_mail'", $_POST['email']);
-        $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_internet'", $_POST['mode']);
+        $database->query("UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = 'sys_language'", [$language]);
+        $database->query("UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = 'sys_country'", [$_POST['country']]);
+        $database->query("UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = 'sys_partyurl'", [$_POST['url']]);
+        $database->query("UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = 'sys_party_mail'", [$_POST['email']]);
+        $database->query("UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = 'sys_internet'", [$_POST['mode']]);
 
         unset($_SESSION['language']);
 

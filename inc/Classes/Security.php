@@ -9,7 +9,7 @@ class Security
      */
     public function check_blacklist()
     {
-        global $db, $cfg;
+        global $db, $database, $cfg;
 
         // Global blacklist
         if (str_contains($cfg['ip_blacklist'], (string) $_SERVER['REMOTE_ADDR'])) {
@@ -22,21 +22,15 @@ class Security
                 $cfg['reload_time'] = 600;
             }
 
-            $db->qry('DELETE FROM %prefix%ip_hits WHERE (date + %int%) < NOW()', $cfg["reload_time"]);
-            $db->qry(
-                'INSERT INTO %prefix%ip_hits SET ip = INET6_ATON(%string%)',
-                $_SERVER['REMOTE_ADDR'],
-                $_GET["mod"],
-                $_GET["action"],
-                $_GET["step"]
-            );
+            $database->query('DELETE FROM %prefix%ip_hits WHERE (date + ?) < NOW()', [$cfg["reload_time"]]);
+            $database->query('INSERT INTO %prefix%ip_hits SET ip = INET6_ATON(?)', [$_SERVER['REMOTE_ADDR']]);
 
-            $ip_hits = $db->qry_first('
+            $ip_hits = $database->queryWithOnlyFirstRow('
               SELECT COUNT(*) AS hits 
               FROM %prefix%ip_hits
-              WHERE ip = INET6_ATON(%string%)
+              WHERE ip = INET6_ATON(?)
               GROUP BY ip
-              LIMIT 1', $_SERVER['REMOTE_ADDR']);
+              LIMIT 1', [$_SERVER['REMOTE_ADDR']]);
 
             if (!$cfg['reload_hits']) {
                 $cfg['reload_hits'] = 120;
@@ -57,10 +51,10 @@ class Security
      */
     public function lock($module = null)
     {
-        global $db;
+        global $database;
 
         $_SESSION["lock_$module"] = true;
-        $db->qry('REPLACE INTO %prefix%ip_locklist SET ip = INET6_ATON(%string%), module = %string%', $_SERVER['REMOTE_ADDR'], $module);
+        $database->query('REPLACE INTO %prefix%ip_locklist SET ip = INET6_ATON(?), module = ?', [$_SERVER['REMOTE_ADDR'], $module]);
     }
 
     /**
@@ -71,10 +65,10 @@ class Security
      */
     public function unlock($module = null)
     {
-        global $db;
+        global $database;
 
         $_SESSION["lock_$module"] = false;
-        $db->qry('DELETE FROM %prefix%ip_locklist WHERE ip = INET6_ATON(%string%) AND module = %string%', $_SERVER['REMOTE_ADDR'], $module);
+        $database->query('DELETE FROM %prefix%ip_locklist WHERE ip = INET6_ATON(?) AND module = ?', [$_SERVER['REMOTE_ADDR'], $module]);
     }
 
     /**
@@ -86,17 +80,17 @@ class Security
      */
     public function locked($module = null, $referrer = '')
     {
-        global $db, $func;
+        global $database, $func;
 
         if ($_SESSION["lock_$module"]) {
             $locked = true;
         } else {
-            $row = $db->qry_first('
+            $row = $database->queryWithOnlyFirstRow('
               SELECT 1 AS found 
               FROM %prefix%ip_locklist 
               WHERE 
-                ip = INET6_ATON(%string%) 
-                AND module = %string% LIMIT 1', $_SERVER['REMOTE_ADDR'], $module);
+                ip = INET6_ATON(?) 
+                AND module = ? LIMIT 1', [$_SERVER['REMOTE_ADDR'], $module]);
 
             if ($row) {
                 $locked = true;

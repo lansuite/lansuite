@@ -18,7 +18,7 @@ $ms2->AddResultField(t('Letzer Autor'), 'u.username', 'UserNameAndIcon');
 $ms2->AddResultField(t('Letzte Änderung'), 'UNIX_TIMESTAMP(v.date) AS date', 'MS2GetDate');
 
 $ms2->AddIconField('details', 'index.php?mod=wiki&action=show&postid=', t('Details'));
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=wiki&action=delete&step=2&postid=', t('Löschen'));
 }
 

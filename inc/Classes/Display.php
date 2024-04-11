@@ -176,7 +176,7 @@ class Display
         if (array_key_exists('tab', $_GET) && $_GET['tab']) {
             $sel = '{ selected: '. (int)$_GET['tab'] .' }';
         }
-        $framework->add_js_code('$(function() { $("#tabs").tabs('. $sel .'); });');
+        $framework->addJavaScriptCode('$(function() { $("#tabs").tabs('. $sel .'); });');
 
         $out .= $MainContent .'</div>';
         $MainContent = $out;
@@ -873,12 +873,14 @@ class Display
             $year = date("Y", $time);
             $hour = date("H", $time);
             $min = date("i", $time);
-        } elseif ($values['day'] != "" and $values['month'] != "" and $values['year'] != "") {
+
+        } elseif ($values['day'] != "" && $values['month'] != "" && $values['year'] != "") {
             $day = ltrim($values['day'],'0');
             $month = ltrim($values['month'],'0');
             $year = $values['year'];
             $hour = $values['hour'];
             $min = $values['min'];
+
         } else {
             $day = date("j");
             $month = date("n");
@@ -892,15 +894,17 @@ class Display
         $smarty->assign('hour', $hour);
         $smarty->assign('min', $min);
 
-        $arr = array();
+        $arr = [];
         for ($x = 0; $x <= 55; $x+=5) {
-            $arr[$x] = $x;
+            $numberWithLeadingZero = str_pad($x, 2, "0", STR_PAD_LEFT);
+            $arr[$numberWithLeadingZero] = $numberWithLeadingZero;
         }
         $smarty->assign('mins', $arr);
 
-        $arr = array();
+        $arr = [];
         for ($x = 0; $x <= 23; $x++) {
-            $arr[$x] = $x;
+            $numberWithLeadingZero = str_pad($x, 2, "0", STR_PAD_LEFT);
+            $arr[$numberWithLeadingZero] = $numberWithLeadingZero;
         }
         $smarty->assign('hours', $arr);
 
@@ -960,6 +964,7 @@ class Display
             $smarty->assign('errortext', $this->errortext_prefix . $errortext . $this->errortext_suffix);
         }
 
+        $smarty->assign('showtime', '0');
         if ($hidetime != 1) {
             $smarty->assign('showtime', '1');
         }
@@ -1336,7 +1341,7 @@ class Display
         return '<div class="infolink" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
     }
 
-    public function AddTripleRow($key, $value, $id = null, $ext_txt) {
+    public function AddTripleRow($key, $value, $id = null, $ext_txt = '') {
         global $smarty;
 
         if ($key == '') {

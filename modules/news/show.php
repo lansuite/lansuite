@@ -1,6 +1,6 @@
 <?php
 
-$get_amount = $db->qry_first('SELECT count(*) as number FROM %prefix%news');
+$get_amount = $database->queryWithOnlyFirstRow('SELECT count(*) as number FROM %prefix%news');
 $overall_news = $get_amount["number"];
 
 if ($overall_news == 0) {
@@ -92,7 +92,7 @@ if ($overall_news == 0) {
 
                 // Get number of comments
                 if ($cfg['news_comments_allowed']) {
-                    $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
+                    $get_comments = $database->queryWithOnlyFirstRow('SELECT COUNT(*) AS number FROM %prefix%comments WHERE relatedto_id = ? AND relatedto_item=\'news\'', [$newsid]);
 
                     if ($get_comments["number"] >= 0) {
                         $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>");
@@ -101,7 +101,7 @@ if ($overall_news == 0) {
 
                 // Buttons
                 $buttons = "";
-                if ($auth["type"] > 1) {
+                if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                     $buttons .= $dsp->FetchIcon("edit", "index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid") . " ";
                     $buttons .= $dsp->FetchIcon("delete", "index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid") . " ";
                 }
@@ -155,7 +155,7 @@ if ($overall_news == 0) {
                 $smarty->assign('text', $text);
 
                 if ($cfg['news_comments_allowed']) {
-                    $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
+                    $get_comments = $database->queryWithOnlyFirstRow('SELECT COUNT(*) AS number FROM %prefix%comments WHERE relatedto_id = ? AND relatedto_item=\'news\'', [$newsid]);
 
                     if ($get_comments["number"] >= 0) {
                         $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>");
@@ -164,7 +164,7 @@ if ($overall_news == 0) {
 
                 // Buttons
                 $buttons = "";
-                if ($auth["type"] > 1) {
+                if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                     $buttons .= $dsp->FetchIcon("edit", "index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid") . " ";
                     $buttons .= $dsp->FetchIcon("delete", "index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid") . " ";
                 }

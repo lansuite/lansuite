@@ -11,7 +11,7 @@ $mf->AddDropDownFromTable(t('Turniermanagement'), 'tournamentadmin', 'userid', '
 $mf->AddDropDownFromTable(t('Technik/Server'), 'techadmin', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
 
 $tournamentIDParameter = $_GET['tournamentid'] ?? 0;
-$t_state = $db->qry_first('SELECT status FROM %prefix%tournament_tournaments WHERE tournamentid=%int%', $tournamentIDParameter);
+$t_state = $database->queryWithOnlyFirstRow('SELECT status FROM %prefix%tournament_tournaments WHERE tournamentid = ?', [$tournamentIDParameter]);
 
 if (is_array($t_state) && $t_state['status'] == 'process') {
     $mf->AddField(t('Status'), '', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Turnier wird gerade gespielt'));
@@ -120,81 +120,12 @@ $mf->AddPage(t('Haupteinstellungen'));
 // League + Misc
 $mf->AddField(t('Icon'), 'icon', \LanSuite\MasterForm::IS_PICTURE_SELECT, 'ext_inc/tournament_icons', \LanSuite\MasterForm::FIELD_OPTIONAL);
 
-// WWCL-Spiel Auswahl
-$xml_file = "";
-$file = "ext_inc/tournament_rules/gameini.xml";
-$handle = fopen($file, "rb");
-$xml_file = fread($handle, filesize($file));
-fclose($handle);
-
-$selections = array();
-$game_ids = $xml->get_tag_content_array("id", $xml_file);
-$game_namen = $xml->get_tag_content_array("name", $xml_file);
-while ($akt_game_id = array_shift($game_ids)) {
-    $akt_game_name = array_shift($game_namen);
-    $selections[$akt_game_id] = $akt_game_name;
-}
-asort($selections);
-$selections = array('0' => t('Kein WWCL-Support für dieses Turnier')) + $selections;
-$mf->AddField(t('WWCL-Spiel'), 'wwcl_gameid', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckModeForWWCLLeague');
-
-// NGL-Spiel auswahl
-$xml_file = "";
-$file = "ext_inc/tournament_rules/games.xml";
-$handle = fopen($file, "rb");
-$xml_file = fread($handle, filesize($file));
-fclose($handle);
-
-$selections = array();
-if ($cfg["sys_country"] != "de") {
-    $mf->AddField(t('NGL-Support ist nur für Partys in Deutschland möglich. Das Land deiner Party kannst du auf der Adminseite einstellen'), 'ngl_gamename', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('NGL-Support ist nur in Deutschland, Österreich, oder der Schweiz möglich. Das Land deiner Party kannst du auf der Adminseite einstellen'));
-} else {
-    $country_xml = $xml->get_tag_content("country short=\"{$cfg["sys_country"]}\"", $xml_file);
-    $liga_xml = $xml->get_tag_content_array("league", $xml_file);
-    while ($akt_liga = array_shift($liga_xml)) {
-        $info_xml = $xml->get_tag_content_array("info", $akt_liga);
-        while ($akt_info = array_shift($info_xml)) {
-            $info_title = $xml->get_tag_content("title", $akt_info);
-        }
-
-        $game_xml = $xml->get_tag_content_array("game", $akt_liga);
-        if (is_array($game_xml)) {
-            while ($game_xml_id = array_shift($game_xml)) {
-                $akt_game_id = $xml->get_tag_content("short", $game_xml_id);
-                $akt_game_name = $xml->get_tag_content("title", $game_xml_id);
-                $selections[$akt_game_id] = $info_title .' - '. $akt_game_name;
-            }
-        }
-    }
-    asort($selections);
-    $selections = array('' => t('Kein NGL-Support für dieses Turnier')) + $selections;
-    $mf->AddField(t('NGL-Spiel'), 'ngl_gamename', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckModeForLeague');
-}
-
-// LGZ-Spiel auswahl
-$xml_file = "";
-$file = "ext_inc/tournament_rules/xml_games.xml";
-$handle = fopen($file, "rb");
-$xml_file = fread($handle, filesize($file));
-fclose($handle);
-
-$selections = array();
-$games = $xml->get_tag_content_array("game", $xml_file);
-foreach ($games as $game) {
-    $akt_game_name = $xml->get_tag_content("contest", $game) .' - '. $xml->get_tag_content("name", $game);
-    $syscode = $xml->get_tag_content("syscode", $game);
-    $selections[$syscode] = $akt_game_name;
-}
-asort($selections);
-$selections = array('' => t('Kein LGZ-Support für dieses Turnier')) + $selections;
-$mf->AddField(t('LGZ-Spiel'), 'lgz_gamename', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckModeForLeague');
-
 // Rules (Extern)
 $selections = array();
 $verz = opendir('ext_inc/tournament_rules/');
 while ($file_name = readdir($verz)) {
-    if (!is_dir('ext_inc/tournament_rules/'.$file_name) and $file_name != 'gameini.xml'
-    and $file_name != 'games.xml' and $file_name != 'info.txt' and $file_name != 'xml_games.xml') {
+    if (!is_dir('ext_inc/tournament_rules/'.$file_name)
+    and $file_name != 'info.txt' and $file_name != 'xml_games.xml') {
         $selections[$file_name] = $file_name;
     }
 }

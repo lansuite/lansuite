@@ -8,16 +8,19 @@ if (!$cfg['sys_internet']) {
     switch ($stepParameter) {
         // Email prüfen, Freischaltecode generieren, Email senden
         case 2:
-            $user_data = $db->qry_first("SELECT username FROM %prefix%user WHERE email = %string%", $_POST['pwr_mail']);
-            if ($user_data['username'] == "LS_SYSTEM") {
+            $passwordReminderMail = $_POST['pwr_mail'] ?? '';
+            $user_data = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE email = ?", [$passwordReminderMail]);
+            if ($user_data === false || $user_data['username'] == "") {
+                $func->information(t('Die von dir eigegebene Email existiert nicht in der Datenbank'), "index.php?mod=usrmgr&action=pwrecover&step=1");
+            } elseif ($user_data['username'] == "LS_SYSTEM") {
                 $func->information(t('Für den System-Account darf kein neues Passwort generiert werden'), "index.php?mod=usrmgr&action=pwrecover&step=1");
-            } elseif ($user_data['username']) {
+            } else {
                 $fcode = '';
                 for ($x = 0; $x <= 24; $x++) {
                     $fcode .= chr(random_int(65, 90));
                 }
 
-                $db->qry("UPDATE %prefix%user SET fcode='$fcode' WHERE email = %string%", $_POST['pwr_mail']);
+                $database->query("UPDATE %prefix%user SET fcode = ? WHERE email = ?", [$fcode, $_POST['pwr_mail']]);
 
                 $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
@@ -45,21 +48,19 @@ if (!$cfg['sys_internet']) {
                 //now assemble it all into a mail
                 $mail->create_inet_mail($user_data['username'], $_POST['pwr_mail'], $cfg['usrmgr_pwrecovery_subject'], $pwrecoverytxt);
                 $func->confirmation(t('Dir wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit dem Aufruf dieser URL wird dir neues Passwort generiert werden.'), "index.php");
-            } else {
-                $func->information(t('Die von dir eigegebene Email existiert nicht in der Datenbank'), "index.php?mod=usrmgr&action=pwrecover&step=1");
             }
             break;
 
         // Freischaltecode prüfen, Passwort generieren, Freischaltcode zurücksetzen
         case 3:
-            $user_data = $db->qry_first("SELECT fcode FROM %prefix%user WHERE fcode = %string%", $_GET['fcode']);
-            if (($user_data['fcode']) && ($_GET['fcode'] != '')) {
+            $user_data = $database->queryWithOnlyFirstRow("SELECT fcode FROM %prefix%user WHERE fcode = ?", [$_GET['fcode']]);
+            if (is_array($user_data) && $user_data['fcode'] && $_GET['fcode'] != '') {
                 $new_pwd = "";
                 for ($x = 0; $x <= 8; $x++) {
                     $new_pwd .= chr(random_int(65, 90));
                 }
 
-                $db->qry("UPDATE %prefix%user SET password = %string%, fcode = '' WHERE fcode = %string%", md5($new_pwd), $_GET['fcode']);
+                $database->query("UPDATE %prefix%user SET password = ?, fcode = '' WHERE fcode = ?", [md5($new_pwd), $_GET['fcode']]);
 
                 $func->confirmation(t('Das neue Kennwort wurde erfolgreich generiert.<br>Es lautet:') . "\"<b>$new_pwd</b>\"", "index.php");
             } else {
@@ -68,9 +69,10 @@ if (!$cfg['sys_internet']) {
             break;
 
         default:
+            $passwordReminderMail = $_POST['pwr_mail'] ?? '';
             $dsp->SetForm("index.php?mod=usrmgr&action=pwrecover&step=2");
             $dsp->AddSingleRow(t('Bitte gib die Email-Adresse ein, mit der du dich am System angemeldet hast'));
-            $dsp->AddTextFieldRow("pwr_mail", t('Deine Email'), $_POST['pwr_mail'], $mail_error);
+            $dsp->AddTextFieldRow("pwr_mail", t('Deine Email'), $passwordReminderMail, '');
             $dsp->AddFormSubmitRow(t('Abschicken'));
             $dsp->AddBackButton("index.php", "usrmgr/pwremind");
             break;

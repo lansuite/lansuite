@@ -6,19 +6,20 @@
  */
 function UpdatePoll($id)
 {
-    global $db;
+    global $db, $database;
 
-    if ($_POST['poll_reset'] or !$_GET['pollid']) {
+    $pollReset = $_POST['poll_reset'] ?? false;
+    if ($pollReset || !$_GET['pollid']) {
         $res = $db->qry('SELECT polloptionid FROM %prefix%polloptions WHERE pollid = %int%', $id);
         while ($row = $db->fetch_array($res)) {
-            $db->qry('DELETE FROM %prefix%pollvotes WHERE polloptionid = %int%', $row['polloptionid']);
+            $database->query('DELETE FROM %prefix%pollvotes WHERE polloptionid = ?', [$row['polloptionid']]);
         }
         $db->free_result($res);
-        $db->qry('DELETE FROM %prefix%polloptions WHERE pollid = %int%', $id);
+        $database->query('DELETE FROM %prefix%polloptions WHERE pollid = ?', [$id]);
         if ($_POST['poll_option']) {
             foreach ($_POST['poll_option'] as $key => $val) {
                 if (trim($val) != '') {
-                    $db->qry('INSERT INTO %prefix%polloptions SET caption = %string%, pollid = %int%', $val, $id);
+                    $database->query('INSERT INTO %prefix%polloptions SET caption = ?, pollid = ?', [$val, $id]);
                 }
             }
         }

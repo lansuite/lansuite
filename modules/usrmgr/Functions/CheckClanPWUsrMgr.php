@@ -5,11 +5,12 @@
  */
 function CheckClanPWUsrMgr($clanpw): bool|string
 {
-    global $db, $auth;
+    global $db, $database, $auth;
 
-    if (!$_POST['new_clan_select'] and $auth['type'] <= 1 and $auth['clanid'] != $_POST['clan']) {
-        $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_POST['clan']);
-        if ($clan['password'] and $clan['password'] != md5($clanpw)) {
+    $newClanSelect = $_POST['new_clan_select'] ?? 0;
+    if (!$newClanSelect && $auth['type'] <= \LS_AUTH_TYPE_USER && $auth['clanid'] != $_POST['clan']) {
+        $clan = $database->queryWithOnlyFirstRow("SELECT password FROM %prefix%clan WHERE clanid = ?", [$_POST['clan']]);
+        if ($clan['password'] && $clan['password'] != md5($clanpw)) {
             return t('Passwort falsch!');
         }
     }

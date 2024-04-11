@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 3:
         $get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
         while ($row=$db->fetch_array($get_cat_names)) {
@@ -19,9 +20,10 @@ switch ($_GET["step"]) {
         break;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 2:
-        $get_data = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET["catid"]);
+        $get_data = $database->queryWithOnlyFirstRow("SELECT name FROM %prefix%faq_cat WHERE catid = ?", [$_GET["catid"]]);
         $_POST["cat_caption"] = $get_data["name"];
         
         $_SESSION["change_blocker_faq_cat"] = "";
@@ -39,11 +41,11 @@ switch ($_GET["step"]) {
 
     case 3:
         if ($_SESSION["change_blocker_faq_cat"] != 1) {
-            $get_data = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET["catid"]);
+            $get_data = $database->queryWithOnlyFirstRow("SELECT name FROM %prefix%faq_cat WHERE catid = ?", [$_GET["catid"]]);
             $catcaption = $get_data["name"];
         
             if ($catcaption != "") {
-                $change_it = $db->qry("UPDATE %prefix%faq_cat SET name = %string% WHERE catid = %int%", $_POST['cat_caption'], $_GET["catid"]);
+                $change_it = $database->query("UPDATE %prefix%faq_cat SET name = ? WHERE catid = ?", [$_POST['cat_caption'], $_GET["catid"]]);
                 
                 if ($change_it == true) {
                     $_SESSION["change_blocker_faq_cat"] = 1;

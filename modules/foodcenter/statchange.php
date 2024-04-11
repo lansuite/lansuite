@@ -2,7 +2,7 @@
 
 $product_list = new LanSuite\Module\Foodcenter\ProductList();
 
-if ($auth['type'] < 2) {
+if ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
     unset($_GET['step']);
 }
 
@@ -11,9 +11,9 @@ switch ($stepParameter) {
     case 3:
         $time = time();
         if ($_GET['status'] == 6 || $_GET['status'] == 7) {
-            $db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string%, supplytime = %string%  WHERE id = %int%", $_GET['status'], $time, $time, $_GET['id']);
+            $database->query("UPDATE %prefix%food_ordering SET status = ?, lastchange = ?, supplytime = ? WHERE id = ?", [$_GET['status'], $time, $time, $_GET['id']]);
         } elseif ($_GET['status'] == 8) {
-            $prodrow = $db->qry_first("SELECT * FROM %prefix%food_ordering WHERE id = %int%", $_GET['id']);
+            $prodrow = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%food_ordering WHERE id = ?", [$_GET['id']]);
             
             if ($prodrow['pice'] > 1 && !isset($_POST['delcount'])) {
                 $count_array[] = "<option selected value=\"{$prodrow['pice']}\">".t('Alle')."</option>";
@@ -30,12 +30,12 @@ switch ($stepParameter) {
 
                     foreach ($values as $number) {
                         if (is_numeric($number)) {
-                            $optrow = $db->qry_first("SELECT price FROM %prefix%food_option WHERE id = %int%", $number);
+                            $optrow = $database->queryWithOnlyFirstRow("SELECT price FROM %prefix%food_option WHERE id = ?", [$number]);
                             $price += $optrow['price'];
                         }
                     }
                 } else {
-                    $optrow = $db->qry_first("SELECT price FROM %prefix%food_option WHERE id = %int%", $prodrow['opts']);
+                    $optrow = $database->queryWithOnlyFirstRow("SELECT price FROM %prefix%food_option WHERE id = ?", [$prodrow['opts']]);
                     $price += $optrow['price'];
                 }
 
@@ -47,16 +47,16 @@ switch ($stepParameter) {
                 $account->change($price, t('Rückzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ")", $prodrow['userid']);
                 
                 if (!isset($_POST['delcount']) || $_POST['delcount'] == $prodrow['pice']) {
-                    $db->qry_first("DELETE FROM %prefix%food_ordering WHERE id = %int%", $_GET['id']);
+                    $database->query("DELETE FROM %prefix%food_ordering WHERE id = ?", [$_GET['id']]);
                 } else {
                     $pice = $prodrow['pice'] - $_POST['delcount'];
-                    $db->qry_first("UPDATE %prefix%food_ordering SET pice = %int% WHERE id = %int%", $pice, $_GET['id']);
+                    $database->query("UPDATE %prefix%food_ordering SET pice = ? WHERE id = ?", [$pice, $_GET['id']]);
                 }
             }
         } else {
-            $db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string% WHERE id = %int%", $_GET['status'], $time, $_GET['id']);
+            $database->query("UPDATE %prefix%food_ordering SET status = ?, lastchange = ? WHERE id = ?", [$_GET['status'], $time, $_GET['id']]);
             if ($_GET['status'] == 3) {
-                $user_id = $db->qry_first("SELECT userid FROM %prefix%food_ordering WHERE id = %int%", $_GET['id']);
+                $user_id = $database->queryWithOnlyFirstRow("SELECT userid FROM %prefix%food_ordering WHERE id = ?", [$_GET['id']]);
                 $func->setainfo(t('Deine bestellten Produkte sind abholbereit'), $user_id['userid'], 2, "foodcenter", $_GET['id']);
             }
         }
@@ -122,7 +122,8 @@ switch ($stepParameter) {
         $ms2->AddMultiSelectAction($fc_ordered_status_quest[3], 'index.php?mod=foodcenter&action=statchange&step=2&status=7', 1);
         $ms2->AddMultiSelectAction($fc_ordered_status_quest[4], 'index.php?mod=foodcenter&action=statchange&step=2&status=8', 1);
 
-        switch ($_POST['search_dd_input'][0]) {
+        $searchDDInputParameter = $_POST['search_dd_input'][0] ?? 0;
+        switch ($searchDDInputParameter) {
             case 1:
                 $dsp->NewContent(t('Bestellte Produkte'), '');
                 $ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
@@ -162,24 +163,29 @@ switch ($stepParameter) {
         $dsp->SetForm("index.php?mod=foodcenter&action=print&design=base\" target=\"_blank\"", "print");
         $dsp->AddDropDownFieldRow("file", t('Bitte Template auswählen:'), $file_array, "");
 
-        $MainContent .= "<input type=\"hidden\" name=\"search_input[0]\" value=\"{$_POST['search_input'][0]}\">\n";
-        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[0]\" value=\"{$_POST['search_dd_input'][0]}\">\n";
-        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[1]\" value=\"{$_POST['search_dd_input'][1]}\">\n";
-        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$_POST['search_dd_input'][2]}\">\n";
+        $searchInputParameter = $_POST['search_input'][0] ?? '';
+        $searchDDInputParameterZero = $_POST['search_dd_input'][0] ?? '';
+        $searchDDInputParameterOne = $_POST['search_dd_input'][1] ?? '';
+        $searchDDInputParameterTwo = $_POST['search_dd_input'][2] ?? '';
+        $MainContent .= "<input type=\"hidden\" name=\"search_input[0]\" value=\"{$searchInputParameter}\">\n";
+        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[0]\" value=\"{$searchDDInputParameterZero}\">\n";
+        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[1]\" value=\"{$searchDDInputParameterOne}\">\n";
+        $MainContent .= "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$searchDDInputParameterTwo}\">\n";
         
         $dsp->AddFormSubmitRow(t('Drucken'));
         break;
     case 2:
-        if ($_POST['action']) {
+        $actionParameter = $_POST['action'] ?? '';
+        if ($actionParameter) {
             $seat2 = new \LanSuite\Module\Seating\Seat2();
 
             $time = time();
             $totprice = 0;
             foreach ($_POST["action"] as $item => $val) {
-                if ($_GET["status"] == 6 | $_GET["status"] == 7) {
-                    $db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string%, supplytime = %string%  WHERE id = %string%", $_GET["status"], $time, $time, $item);
+                if ($_GET["status"] == 6 || $_GET["status"] == 7) {
+                    $database->query("UPDATE %prefix%food_ordering SET status = ?, lastchange = ?, supplytime = ? WHERE id = ?", [$_GET["status"], $time, $time, $item]);
 
-                    $abfrage = $db->qry_first("
+                    $abfrage = $database->queryWithOnlyFirstRow("
                       SELECT
                         %prefix%food_ordering.userid AS userid,
                         %prefix%food_ordering.pice AS pice,unit,
@@ -193,16 +199,17 @@ switch ($stepParameter) {
                         %prefix%food_product,
                         %prefix%user
                       WHERE
-                        %prefix%food_ordering.id = ".$item."
-                        AND lastchange=".$time."
-                        AND supplytime=".$time."
+                        %prefix%food_ordering.id = ?
+                        AND lastchange = ?
+                        AND supplytime = ?
                         AND %prefix%food_product.id = %prefix%food_option.parentid
                         AND %prefix%food_ordering.productid = %prefix%food_product.id
-                        AND %prefix%user.userid = %prefix%food_ordering.userid");
+                        AND %prefix%user.userid = %prefix%food_ordering.userid",
+                    [$item, $time, $time]);
                     $dsp->AddDoubleRow('Was -> Wohin', $abfrage['pice'].' x '.$abfrage['caption']. ' ('.$abfrage['unit']. ') -> '.$abfrage['username'].' ('.$abfrage['firstname'].' '.$abfrage['name'].') '.$seat2->SeatOfUser($abfrage['userid'], 0, 2));
                 } elseif ($_GET["status"] == 8) {
                     $totprice = 0;
-                    $prodrow = $db->qry_first("SELECT * FROM %prefix%food_ordering WHERE id = %string%", $item);
+                    $prodrow = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%food_ordering WHERE id = ?", [$item]);
                 
                     unset($account);
                     $account = new LanSuite\Module\Foodcenter\Accounting($prodrow['userid']);
@@ -214,13 +221,13 @@ switch ($stepParameter) {
 
                         foreach ($values as $number) {
                             if (is_numeric($number)) {
-                                $optrow = $db->qry_first("SELECT price, caption FROM %prefix%food_option WHERE id = %int%", $number);
+                                $optrow = $database->queryWithOnlyFirstRow("SELECT price, caption FROM %prefix%food_option WHERE id = ?", [$number]);
                                 $price += $optrow['price'];
                                 $tempdesc .= $optrow['caption'];
                             }
                         }
                     } else {
-                        $optrow = $db->qry_first("SELECT price, caption FROM %prefix%food_option WHERE id = %int%", $prodrow['opts']);
+                        $optrow = $database->queryWithOnlyFirstRow("SELECT price, caption FROM %prefix%food_option WHERE id = ?", [$prodrow['opts']]);
                         $price += $optrow['price'];
                         $tempdesc .= $optrow['caption'];
                     }
@@ -233,11 +240,11 @@ switch ($stepParameter) {
                     );
                     $_SESSION = $tempsession;
                     unset($tempsession);
-                    $db->qry_first("DELETE FROM %prefix%food_ordering WHERE id = %int%", $item);
+                    $database->query("DELETE FROM %prefix%food_ordering WHERE id = ?", [$item]);
                 } else {
-                    $db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string%  WHERE id = %string%", $_GET["status"], $time, $item);
+                    $database->query("UPDATE %prefix%food_ordering SET status = ?, lastchange = ? WHERE id = ?", [$_GET["status"], $time, $item]);
                     if ($_GET["status"] == 3) {
-                        $user_id = $db->qry_first("SELECT userid FROM %prefix%food_ordering WHERE id = %string%", $item);
+                        $user_id = $database->queryWithOnlyFirstRow("SELECT userid FROM %prefix%food_ordering WHERE id = ?", [$item]);
                         $func->setainfo(t('Deine bestellten Produkte sind abholbereit'), $user_id['userid'], 2, "foodcenter", $item);
                     }
                 }
@@ -249,6 +256,13 @@ switch ($stepParameter) {
             $fc_ordered_status_ask[1] = t('Status auf bestellen gesetzt');
             $func->confirmation($fc_ordered_status_ask[$_GET["status"]], "index.php?mod=foodcenter&action=statchange");
         } else {
+            $fc_ordered_status_quest[0]    = t('Status ändern: Abgeholt');
+            $fc_ordered_status_quest[1]    = t('Status ändern: Abholbereit');
+            $fc_ordered_status_quest[2]    = t('Status ändern: Lieferung erwartet');
+            $fc_ordered_status_quest[3]    = t('Status ändern: An Platz geliefert');
+            $fc_ordered_status_quest[4]    = t('Produkt abbestellen und Geld zurücküberweisen.');
+            $fc_ordered_status_quest[5]    = t('Zurück');
+
             $link_array[0] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=6";
             $link_array[1] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=5";
             $link_array[2] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=3";

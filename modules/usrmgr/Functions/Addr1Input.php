@@ -11,10 +11,16 @@ function Addr1Input($field, $mode, $error = ''): bool|string
 
     switch ($mode) {
         case \LanSuite\MasterForm::OUTPUT_PROC:
-            if ($_POST['street|hnr'] == '' and $_POST['street'] and $_POST['hnr']) {
-                $_POST['street|hnr'] = $_POST['street'] .' '. $_POST['hnr'];
+            $streetAndNoParameter = $_POST['street|hnr'] ?? '';
+            $streetParameter = $_POST['street'] ?? '';
+            $streetNoParameter = $_POST['hnr'] ?? '';
+
+            if ($streetAndNoParameter == '' && $streetParameter  && $streetNoParameter) {
+                $_POST['street|hnr'] = $streetParameter  . ' ' . $streetNoParameter;
             }
-            $dsp->AddTextFieldRow('street|hnr', t('Straße und Hausnummer'), $_POST['street|hnr'], $error, '', Optional('street'));
+
+            $streetAndNoParameter = $_POST['street|hnr'] ?? '';
+            $dsp->AddTextFieldRow('street|hnr', t('Straße und Hausnummer'), $streetAndNoParameter, $error, '', Optional('street'));
             return false;
             break;
 

@@ -11,8 +11,10 @@ $install = new \LanSuite\Module\Install\Install($installImport);
 $install->TryCreateDB(1);
 $db->connect();
 
-if ($_GET["quest"]) {
-    switch ($_GET["step"]) {
+$questParameter = $_GET["quest"] ?? 0;
+$stepParameter = $_GET["step"] ?? 0;
+if ($questParameter ) {
+    switch ($stepParameter) {
         // Rewrite specific table
         case 2:
             $func->question(str_replace("%NAME%", $_GET["table"], t('Bist du sicher, dass du die Datenbank des Moduls <b>\'%NAME%\'</b> zurücksetzen möchtest? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!')), "index.php?mod=install&action=db&step=2&table={$_GET["table"]}&quest=0", "index.php?mod=install&action=db");
@@ -40,7 +42,7 @@ if ($_GET["quest"]) {
     }
 } else {
     // Action Switch
-    switch ($_GET["step"]) {
+    switch ($stepParameter) {
         // Rewrite specific table
         case 2:
             $db->qry("DROP TABLE %plain%", $_GET["table"]);
@@ -48,13 +50,13 @@ if ($_GET["quest"]) {
 
         // Rewrite configs
         case 4:
-            $db->qry("DROP TABLE %prefix%config");
-            $db->qry("DROP TABLE %prefix%config_selections");
+            $database->query("DROP TABLE %prefix%config");
+            $database->query("DROP TABLE %prefix%config_selections");
             break;
 
         // Rewrite Configs
         case 6:
-            $db->qry("DROP TABLE %prefix%modules");
+            $database->query("DROP TABLE %prefix%modules");
             break;
 
         // Reset Module DBs
@@ -68,7 +70,7 @@ if ($_GET["quest"]) {
     $install->InsertPLZs();
 
     // Delete Log eintries which indicate a broken DB-Structure, for they are most likely fixed by now
-    $db->qry_first('DELETE FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
+    $database->query('DELETE FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
 
     $dsp->AddBackButton("index.php?mod=install", "install/db");
 }

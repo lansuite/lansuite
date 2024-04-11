@@ -6,52 +6,18 @@ $stepParameter = $_GET['step'] ?? 0;
 $seat2 = new Seat2();
 
 // Errors
-if ($stepParameter > 1 && (!$_GET['userid'])) {
+$userIDParameter = $_GET['userid'] ?? 0;
+$userIDParameter = intval($userIDParameter);
+if ($stepParameter > 1 && !$userIDParameter) {
     $func->error(t('Es wurde kein Benutzer ausgewählt'), "index.php?mod=seating&action=seatadmin");
 }
+
 if ($stepParameter > 2 && (!$_GET['blockid'])) {
-    $func->error(t('Es wurde kein Sitzblock ausgewählt'), "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}");
+    $func->error(t('Es wurde kein Sitzblock ausgewählt'), "index.php?mod=seating&action=seatadmin&step=2&userid={$userIDParameter}");
 }
 
-// Exec step10-query
-if ($stepParameter == 10 and $_GET['quest']) {
-    // Assign seat
-    $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
-
-    // If old owner should get a new seat, jump to step 2 an procede with this user
-    if ($_GET['quest'] == 2) {
-        $_GET['step'] = 2;
-        $_GET['userid'] = $_GET['next_userid'];
-    }
-
-    $back_link = '';
-    if ($_GET['quest'] == 1) {
-        $back_link = 'index.php?mod=seating&action=seatadmin';
-    }
-    $func->confirmation(t('Der Sitzplatz wurde erfolgreich für %1 reserviert', $new_user['username']), $back_link);
-}
-
-// Select seat and user infos
-$blockIDParameter = $_GET['blockid'] ?? 0;
-if ($blockIDParameter && isset($_GET['row']) && isset($_GET['col'])) {
-    $seat = $db->qry_first("
-      SELECT
-        s.userid,
-        s.status,
-        u.username,
-        u.firstname,
-        u.name
-      FROM %prefix%seat_seats AS s
-      LEFT JOIN %prefix%user AS u ON s.userid = u.userid
-      WHERE
-        blockid = %int%
-        AND row = %string%
-        AND col = %string%", $blockIDParameter, $_GET['row'], $_GET['col']);
-}
-
-$userIDParameter = $_GET['userid'] ?? 0;
 if ($userIDParameter) {
-    $new_user = $db->qry_first("
+    $new_user = $database->queryWithOnlyFirstRow("
       SELECT
         u.userid,
         u.username,
@@ -61,8 +27,45 @@ if ($userIDParameter) {
       FROM %prefix%user AS u
       LEFT JOIN %prefix%party_user AS pu ON pu.user_id = u.userid
       WHERE
-        userid = %int%
-        AND pu.party_id = %int%", $userIDParameter, $party->party_id);
+        userid = ?
+        AND pu.party_id = ?", [$userIDParameter, $party->party_id]);
+}
+
+// Exec step10-query
+$questParameter = $_GET['quest'] ?? 0;
+if ($stepParameter == 10 and $questParameter) {
+    // Assign seat
+    $seat2->AssignSeat($userIDParameter, $_GET['blockid'], $_GET['row'], $_GET['col']);
+
+    // If old owner should get a new seat, jump to step 2 an procede with this user
+    if ($questParameter == 2) {
+        $_GET['step'] = 2;
+        $_GET['userid'] = $_GET['next_userid'];
+    }
+
+    $back_link = '';
+    if ($questParameter == 1) {
+        $back_link = 'index.php?mod=seating&action=seatadmin';
+    }
+    $func->confirmation(t('Der Sitzplatz wurde erfolgreich für %1 reserviert', $new_user['username']), $back_link);
+}
+
+// Select seat and user infos
+$blockIDParameter = $_GET['blockid'] ?? 0;
+if ($blockIDParameter && isset($_GET['row']) && isset($_GET['col'])) {
+    $seat = $database->queryWithOnlyFirstRow("
+      SELECT
+        s.userid,
+        s.status,
+        u.username,
+        u.firstname,
+        u.name
+      FROM %prefix%seat_seats AS s
+      LEFT JOIN %prefix%user AS u ON s.userid = u.userid
+      WHERE
+        blockid = ?
+        AND row = ?
+        AND col = ?", [$blockIDParameter, $_GET['row'], $_GET['col']]);
 }
 
 $stepParameter = $_GET['step'] ?? 0;
@@ -98,10 +101,11 @@ switch ($stepParameter) {
             // Seat free, or just marked -> ask if reserve, or mark
             case 1:
             case 3:
-                if (!$_GET['quest']) {
+                if (!$questParameter) {
                     $questionarray = array();
                     $linkarray = array();
-                    if ($new_user['paid'] == 0) {
+                    $markinfo = '';
+                    if (is_array($new_user) && $new_user['paid'] == 0) {
                         $markinfo = HTML_NEWLINE . "(Alle markierten Sitzplätze von %1 werden gelöscht, da %1 noch nicht bezahlt hat)";
                     }
 
@@ -120,7 +124,7 @@ switch ($stepParameter) {
 
             // Seat occupied -> show action selection
             case 2:
-                if (!$_GET['quest']) {
+                if (!$questParameter) {
                     // Selected users own seat
                     if ($seat['userid'] == $_GET['userid']) {
                         $func->question(t('Dies ist der Sitzplatz des aktuell ausgewählten Benutzers. Soll der Platz freigegeben werden?'), 'index.php?mod=seating&action=seatadmin&step=20&userid='. $_GET['userid'] .'&blockid='. $_GET['blockid'] .'&row='. $_GET['row'] .'&col='. $_GET['col'], 'index.php?mod=seating&action=seatadmin&step=3&userid='. $_GET['userid'] .'&blockid='. $_GET['blockid']);

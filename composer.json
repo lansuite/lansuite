@@ -15,12 +15,10 @@
         "php": "^8.1",
         "ext-gd": "*",
         "ext-mysqli": "*",
-        "ext-snmp": "*",
         "ext-json": "*",
         "ext-zlib": "*",
-        "ext-ftp": "*",
 
-        "smarty/smarty": "^4.0",
+        "smarty/smarty": "^5.0",
         "geshi/geshi": "^1.0.9",
         "setasign/fpdf": "^1.8",
         "paypal/rest-api-sdk-php": "^1.13",
@@ -29,7 +27,9 @@
         "psr/simple-cache": "^1.0",
         "symfony/http-foundation": "^6.0",
         "symfony/error-handler": "^6.0",
-        "symfony/filesystem": "^6.3"
+        "symfony/filesystem": "^6.3",
+        "symfony/http-client": "^6.3",
+        "gregwar/captcha": "^1.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.2",
@@ -37,7 +37,7 @@
         "squizlabs/php_codesniffer": "*",
         "phpstan/phpstan": "^1.9.13",
         "phan/phan": "^5.4",
-        "rector/rector": "^0.18.0"
+        "rector/rector": "^0.18.0 || ^0.19.0 || ^1.0.0"
     },
     "minimum-stability": "stable",
     "config": {
@@ -54,6 +54,7 @@
         ]
     },
     "suggest": {
+        "ext-ftp": "Required to have file downloads on an external FTP for the \"Download\" module",
         "ext-snmp": "Required to use the \"Network Operation Center\" module.",
         "paypal/rest-api-sdk-php": "Required to use the PayPal module"
     },
@@ -105,7 +106,6 @@
             "modules/board/Functions/NewPosts.php",
             "modules/board/Functions/Update.php",
             "modules/boxes/Functions/DokuWikiNotInstalled.php",
-            "modules/boxes/Functions/IsWWCLT.php",
             "modules/boxes/Functions/MsgInIntMode.php",
             "modules/boxes/Functions/PartyAvailible.php",
             "modules/boxes/Functions/PlaceName.php",
@@ -191,8 +191,6 @@
             "modules/tournament2/Functions/ArrayToTable.php",
             "modules/tournament2/Functions/CheckDateInFuture.php",
             "modules/tournament2/Functions/CheckModeChangeAllowed.php",
-            "modules/tournament2/Functions/CheckModeForLeague.php",
-            "modules/tournament2/Functions/CheckModeForWWCLLeague.php",
             "modules/tournament2/Functions/CheckStateChangeAllowed.php",
             "modules/tournament2/Functions/GetTournamentName.php",
             "modules/tournament2/Functions/GetTournamentStatus.php",

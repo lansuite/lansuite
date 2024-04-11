@@ -21,7 +21,8 @@
 *
 */
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 2:
         if (strlen($_POST["tticket_text"]) > 5000) {
             $func->information(t('Der Text darf nicht mehr als 5000 Zeichen enthalten'), "index.php?mod=troubleticket&action=add");
@@ -40,7 +41,8 @@ switch ($_GET["step"]) {
         break;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Troubleticket hinzufügen'), t(' Mit diesem Formular kannst du ein Troubleticket hinzufügen, falls du ein Problem hast'));
         $dsp->SetForm("index.php?mod=troubleticket&action=add&step=2");
@@ -75,7 +77,7 @@ switch ($_GET["step"]) {
         }
         $dsp->AddDropDownFieldRow("tticket_priority", t('Priorität'), $t_array, $error["tticket_priority"], 1);
 
-        if ($auth["type"] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $dsp->AddRadioRow("orgaonly", t('Sichtbar für Alle'), "0", $error["orgaonly"], 0, 1);
             $dsp->AddRadioRow("orgaonly", t('Sichtbar nur für Orgas'), "1", "", 0, 0);
         }
@@ -89,7 +91,7 @@ switch ($_GET["step"]) {
     case 2:
         $czeit = time();
 
-        if ($auth["type"] <= 1) {
+        if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
             $ticketstatus = '1';
             $vzeit = '';
         } else {
@@ -105,7 +107,7 @@ switch ($_GET["step"]) {
         if (!isset($_POST["tticket_cat"]) || $_POST["tticket_cat"] == 0) {
             $_POST["tticket_cat"] = 0;
         } else {
-            $cat_data = $db->qry_first("SELECT * FROM %prefix%troubleticket_cat WHERE cat_id = %string%", $_POST["tticket_cat"]);
+            $cat_data = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%troubleticket_cat WHERE cat_id = ?", [$_POST["tticket_cat"]]);
             if ($cat_data['orga'] > 0) {
                 $target_userid    = $cat_data['orga'];
             }

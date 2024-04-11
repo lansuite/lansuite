@@ -5,113 +5,119 @@ $usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
 $gd = new \LanSuite\GD();
 
+$quick_signon = 0;
+if (array_key_exists('quick_signon', $_SESSION) && $_SESSION['quick_signon']) {
+    $quick_signon = $_SESSION['quick_signon'];
+}
+
 if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
-    $party_user = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id= %int%", $_GET["userid"], $party->party_id);
+    $userIdParameter = $_GET['userid'] ?? 0;
+    $party_user = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_user WHERE user_id = ? AND party_id = ?", [$userIdParameter, $party->party_id]);
     $mf = new \LanSuite\MasterForm();
   
-    if ($cfg['signon_def_locked'] && !$_GET['userid']) {
+    if ($cfg['signon_def_locked'] && !$userIdParameter) {
         $mf->AddFix('locked', 1);
     }
 
-    if ($auth['type'] >= 2 || !$_GET['userid'] || ($auth['userid'] == $_GET['userid'] && ($cfg['user_self_details_change'] || $missing_fields))) {
-        if (!$DoSignon) {
-            // If Admin, Creating a new user, or Missing fields:
-            // Show Username Field
-            ($quick_signon)? $optional = 1 : $optional = 0;
-            if (($auth['type'] >= 2 || !$_GET['userid'] or $missing_fields)) {
-                $mf->AddField(t('Benutzername'), 'username', '', '', $optional, 'CheckValidUsername');
-            } else {
-                $mf->AddField(t('Benutzername'), '', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen Administrator.'));
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || !$userIdParameter || ($auth['userid'] == $userIdParameter && ($cfg['user_self_details_change'] || $missing_fields))) {
+        // If Admin, Creating a new user, or Missing fields:
+        // Show Username Field
+        ($quick_signon)? $optional = 1 : $optional = 0;
+        if (($auth['type'] >= \LS_AUTH_TYPE_ADMIN || !$userIdParameter or $missing_fields)) {
+            $mf->AddField(t('Benutzername'), 'username', '', '', $optional, 'CheckValidUsername');
+        } else {
+            $mf->AddField(t('Benutzername'), '', \LanSuite\MasterForm::IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen Administrator.'));
+        }
+
+        if (!$quick_signon) {
+            if (ShowFieldUsrMgr('firstname')) {
+                $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
             }
-  
-            if (!$quick_signon) {
-                if (ShowFieldUsrMgr('firstname')) {
-                    $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
+            if (ShowFieldUsrMgr('lastname')) {
+                $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
+            }
+            $mf->AddGroup(t('Namen'));
+
+            // If Admin: Usertype, Group and Module-Permissions
+            if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
+                // Usertype
+                $selections = [];
+                $selections['1'] = t('Benutzer');
+                $selections['2'] = t('Administrator');
+                if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
+                    $selections['3'] = t('Superadmin');
                 }
-                if (ShowFieldUsrMgr('lastname')) {
-                    $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
+                $mf->AddField(t('Benutzertyp'), 'type', \LanSuite\MasterForm::IS_SELECTION, $selections, '', '', 1, array('2', '3'));
+
+                // Module-Permissions
+                $selections = [];
+                $res = $db->qry("
+                    SELECT
+                    module.name,
+                    module.caption
+                    FROM %prefix%modules AS module
+                    LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
+                    WHERE
+                    menu.file != ''
+                    GROUP BY menu.module");
+                while ($row = $db->fetch_array($res)) {
+                        $selections[$row['name']] = $row['caption'];
                 }
-                $mf->AddGroup(t('Namen'));
-  
-                // If Admin: Usertype, Group and Module-Permissions
-                if ($auth['type'] >= 2) {
-                    // Usertype
-                    $selections = [];
-                    $selections['1'] = t('Benutzer');
-                    $selections['2'] = t('Administrator');
-                    if ($auth['type'] >= 3) {
-                        $selections['3'] = t('Superadmin');
-                    }
-                    $mf->AddField(t('Benutzertyp'), 'type', \LanSuite\MasterForm::IS_SELECTION, $selections, '', '', 1, array('2', '3'));
-  
-                    // Module-Permissions
-                    $selections = [];
-                    $res = $db->qry("
-                      SELECT
-                        module.name,
-                        module.caption
-                      FROM %prefix%modules AS module
-                      LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
-                      WHERE
-                        menu.file != ''
-                      GROUP BY menu.module");
+                $db->free_result($res);
+
+                $masterFormStepParameter = $_GET['mf_step'] ?? 0;
+                if (!$masterFormStepParameter && $userIdParameter) {
+                    $res = $db->qry("SELECT module FROM %prefix%user_permissions WHERE userid = %int%", $userIdParameter);
                     while ($row = $db->fetch_array($res)) {
-                          $selections[$row['name']] = $row['caption'];
+                        $_POST["permissions"][] = $row["module"];
                     }
                     $db->free_result($res);
-  
-                    if (!$_GET['mf_step'] and $_GET['userid']) {
-                        $res = $db->qry("SELECT module FROM %prefix%user_permissions WHERE userid = %int%", $_GET['userid']);
-                        while ($row = $db->fetch_array($res)) {
-                            $_POST["permissions"][] = $row["module"];
-                        }
-                        $db->free_result($res);
-                    }
-
-                    $mf->AddField(
-                        t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
-                        '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
-                        '('.t('Solange kein Admin einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
-                        'permissions',
-                        \LanSuite\MasterForm::IS_MULTI_SELECTION,
-                        $selections,
-                        \LanSuite\MasterForm::FIELD_OPTIONAL
-                    );
-
-                    $mf->AddDropDownFromTable(t('Gruppe'), 'group_id', 'group_id', 'group_name', 'party_usergroups', t('Keine'));
-                    $mf->AddGroup('Rechte');
                 }
-            }
 
-            // If not admin and user is created (not changed)
-            // or if quick sign on is enabled
-            if ($quick_signon or ($auth['type'] < 2 && !$_GET['userid'])) {
-                $mf->AddFix('type', 1);
+                $mf->AddField(
+                    t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
+                    '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
+                    '('.t('Solange kein Admin einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
+                    'permissions',
+                    \LanSuite\MasterForm::IS_MULTI_SELECTION,
+                    $selections,
+                    \LanSuite\MasterForm::FIELD_OPTIONAL
+                );
+
+                $mf->AddDropDownFromTable(t('Gruppe'), 'group_id', 'group_id', 'group_name', 'party_usergroups', t('Keine'));
+                $mf->AddGroup('Rechte');
             }
-  
-            $mf->AddField(t('E-Mail'), 'email', '', '', '', 'CheckDuplicateAndValidEmail');
-            $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', true);
-            if (($_GET['action'] != 'change' && $_GET['action'] != 'entrance') || ($_GET['action'] == 'entrance' && !$_GET['userid'])) {
-                if ($cfg['signon_autopw']) {
-                    $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
-                    $mf->AddFix('password', md5($_SESSION['tmp_pass']));
-                } else {
-                    $mf->AddField(t('Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
-                }
-  
-                if ($cfg['signon_captcha'] && !$_GET['userid']) {
-                    $mf->AddField('', 'captcha', \LanSuite\MasterForm::IS_CAPTCHA);
-                }
-            }
-            $mf->AddGroup(t('Zugangsdaten'));
         }
+
+        // If not admin and user is created (not changed)
+        // or if quick sign on is enabled
+        if ($quick_signon or ($auth['type'] < \LS_AUTH_TYPE_ADMIN && !$userIdParameter)) {
+            $mf->AddFix('type', 1);
+        }
+
+        $mf->AddField(t('E-Mail'), 'email', '', '', '', 'CheckDuplicateAndValidEmail');
+        $mf->AddField(t('E-Mail wiederholen'), 'email2', '', '', true);
+        $actionParameter = $_GET['action'] ?? '';
+        if (($actionParameter != 'change' && $actionParameter != 'entrance') || ($actionParameter == 'entrance' && !$userIdParameter)) {
+            if ($cfg['signon_autopw']) {
+                $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
+                $mf->AddFix('password', md5($_SESSION['tmp_pass']));
+            } else {
+                $mf->AddField(t('Passwort'), 'password', \LanSuite\MasterForm::IS_NEW_PASSWORD);
+            }
+
+            if ($cfg['signon_captcha'] && !$userIdParameter) {
+                $mf->AddField('', 'captcha', \LanSuite\MasterForm::IS_CAPTCHA);
+            }
+        }
+        $mf->AddGroup(t('Zugangsdaten'));
   
-        if (!$DoSignon && !$quick_signon) {
+        if (!$quick_signon) {
             // Clan Options
             if (ShowFieldUsrMgr('clan')) {
                 if (!isset($_POST['clan'])) {
-                    $users_clan = $db->qry_first("SELECT clanid FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
-                    $_POST['clan'] = $users_clan['clanid'];
+                    $users_clan = $database->queryWithOnlyFirstRow("SELECT clanid FROM %prefix%user WHERE userid = ?", [$userIdParameter]);
+                    $_POST['clan'] = $users_clan['clanid'] ?? 0;
                 }
 
                 $selections = [];
@@ -150,20 +156,6 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
                 $mf->AddGroup(t('Clan'));
             }
 
-            // Leagues
-            if ($func->isModActive('tournament2')) {
-                if (ShowFieldUsrMgr('wwcl_id')) {
-                    $mf->AddField(t('WWCL ID'), 'wwclid', '', '', Optional('wwclid'));
-                }
-                if (ShowFieldUsrMgr('ngl_id')) {
-                    $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('nglid'));
-                }
-                if (ShowFieldUsrMgr('lgz_id')) {
-                    $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgzid'));
-                }
-                $mf->AddGroup(t('Ligen'));
-            }
-
             // Address
             if (ShowFieldUsrMgr('street')) {
                 $mf->AddField('', 'street|hnr', \LanSuite\MasterForm::IS_CALLBACK, 'Addr1Input', Optional('street'));
@@ -191,12 +183,6 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             if (ShowFieldUsrMgr('handy')) {
                 $mf->AddField(t('Handy'), 'handy', '', '', Optional('telefon'));
             }
-            if (ShowFieldUsrMgr('icq')) {
-                $mf->AddField('ICQ', 'icq', '', '', Optional('icq'));
-            }
-            if (ShowFieldUsrMgr('msn')) {
-                $mf->AddField('MSN', 'msn', '', '', Optional('msn'));
-            }
             if (ShowFieldUsrMgr('xmpp')) {
                 $mf->AddField('XMPP', 'xmpp', '', '', Optional('xmpp'));
             }
@@ -206,12 +192,13 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             $mf->AddGroup(t('Kontakt'));
 
             // Misc (Perso + Birthday + Gender + Newsletter)
-            if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
+            if (($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$userIdParameter or $missing_fields)) {
                 if (ShowFieldUsrMgr('perso')) {
                     $mf->AddField(t('Personalausweis'), 'perso', \LanSuite\MasterForm::IS_CALLBACK, 'PersoInput', Optional('perso'));
                 }
                 if (ShowFieldUsrMgr('birthday')) {
                     $mf->AddField(t('Geburtstag'), 'birthday', '', '-80/-8', Optional('birthday'), 'check_birthday');
+                    $mf->AddField(t('Geburtstag anzeigen') . '|' . t('Meinen Geburtstag öffentlich sichtbar machen?'), 'show_birthday', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
                 }
             }
             if (ShowFieldUsrMgr('gender')) {
@@ -226,13 +213,13 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             }
 
             // If Admin: Picture and Comment
-            if (($auth['type'] >= 2)) {
+            if (($auth['type'] >= \LS_AUTH_TYPE_ADMIN)) {
                 $mf->AddField(t('Benutzerbild hochladen'), 'picture', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/user_pics/', Optional('picture'));
                 $mf->AddField(t('Kommentar'), 'comment', '', \LanSuite\MasterForm::HTML_ALLOWED, \LanSuite\MasterForm::FIELD_OPTIONAL);
             }
 
             // AGB and Vollmacht, if new user
-            if ((!$_GET['userid'] or $DoSignon) and $auth['type'] <= 1) {
+            if (!$userIdParameter && $auth['type'] <= \LS_AUTH_TYPE_USER) {
                 if (ShowFieldUsrMgr('voll')) {
                     $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich, die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.', "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name']), 'vollmacht', 'tinyint(1)');
                 }
@@ -257,9 +244,9 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
         }
     }
 
-    if (!$DoSignon && !$quick_signon) {
+    if (!$quick_signon) {
         // Settings
-        if ($auth['type'] >= 2 or !$_GET['userid'] or $auth['userid'] == $_GET['userid']) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or !$userIdParameter or $auth['userid'] == $userIdParameter) {
             if ($cfg['user_design_change']) {
                 $selections = [];
                 $selections[''] = t('System-Vorgabe');
@@ -286,7 +273,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             $mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
       
             if ($cfg['user_avatarupload']) {
-                $mf->AddField(t('Avatar'), 'avatar_path', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/avatare/'. $_GET['userid'] .'_', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
+                $mf->AddField(t('Avatar'), 'avatar_path', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/avatare/'. $userIdParameter .'_', \LanSuite\MasterForm::FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
             }
             $mf->AddField(t('Signatur'), 'signature', '', \LanSuite\MasterForm::LSCODE_ALLOWED, \LanSuite\MasterForm::FIELD_OPTIONAL);
             $mf->AddGroup(t('Einstellungen'));
@@ -295,13 +282,16 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
 
     if ($_GET['mod'] == 'signon') {
         $mf->SendButtonText = 'Benutzer anlegen';
-    } elseif ($_GET['mod'] == 'usrmgr' and $_GET['action'] == 'entrance' and $_GET['step'] == 3) {
+    } elseif ($_GET['mod'] == 'usrmgr' and $actionParameter == 'entrance' and $_GET['step'] == 3) {
         $mf->SendButtonText = 'Edit. + Einchecken';
     }
 
     $AddUserSuccess = 0;
     $mf->AdditionalDBUpdateFunction = 'UpdateUsrMgr';
-    if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $_GET['step'] .'&signon='. $_GET['signon'], 'user', 'userid', $_GET['userid'])) {
+    $signOnParameter = $_GET['signon'] ?? 0;
+    $stepParameter = $_GET['step'] ?? 0;
+    $userID = $_GET['userid'] ?? 0;
+    if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $actionParameter .'&step='. $stepParameter  .'&signon='. $signOnParameter, 'user', 'userid', $userID)) {
         // Log in new user
         if (!$auth['login']) {
             $_POST['login'] = 1;

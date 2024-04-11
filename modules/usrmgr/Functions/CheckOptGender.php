@@ -13,8 +13,11 @@ function check_opt_gender($gender): bool|string
     if ($cfg["signon_show_gender"] == 2) {
         if ($gender == 0) {
             return t("Bitte wählen sie ein Geschlecht aus.");
+
         } else {
             return false;
         }
     }
+
+    return false;
 }

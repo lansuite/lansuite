@@ -82,7 +82,7 @@
                 <default>0</default>
                 <extra></extra>
                 <key>IND</key>
-    	          <foreign_key>clan.clanid</foreign_key>
+                <foreign_key>clan.clanid</foreign_key>
             </field>
             <field>
                 <name>clanadmin</name>
@@ -111,54 +111,6 @@
                 <null></null>
                 <default>0</default>
                 <extra></extra>
-            </field>
-            <field>
-                <name>wwclid</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-                <key>IND</key>
-            </field>
-            <field>
-                <name>wwclclanid</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-                <key>IND</key>
-            </field>
-            <field>
-                <name>nglid</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-                <key>IND</key>
-            </field>
-            <field>
-                <name>nglclanid</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-                <key>IND</key>
-            </field>
-            <field>
-                <name>lgzid</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-                <key>IND</key>
-            </field>
-            <field>
-                <name>lgzclanid</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-                <key>IND</key>
             </field>
             <field>
                 <name>comment</name>
@@ -240,6 +192,13 @@
                 <extra></extra>
             </field>
             <field>
+                <name>show_birthday</name>
+                <type>tinyint(1)</type>
+                <null></null>
+                <default>0</default>
+                <extra></extra>
+            </field>
+            <field>
                 <name>newsletter</name>
                 <type>tinyint(1)</type>
                 <null></null>
@@ -261,7 +220,7 @@
                 <default>0</default>
                 <extra></extra>
                 <key>IND</key>
-    	          <foreign_key>party_usergroups.group_id</foreign_key>
+                <foreign_key>party_usergroups.group_id</foreign_key>
             </field>
             <field>
                 <name>votes_left</name>
@@ -294,20 +253,6 @@
             <field>
                 <name>picture</name>
                 <type>varchar(80)</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
-                <name>icq</name>
-                <type>int(11) unsigned</type>
-                <null></null>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
-                <name>msn</name>
-                <type>varchar(120)</type>
                 <null></null>
                 <default></default>
                 <extra></extra>
@@ -437,10 +382,10 @@
                 <type>mediumint(8) unsigned</type>
                 <null></null>
                 <default>0</default>
-                <key>IND</key>                
+                <key>IND</key>
                 <extra></extra>
-    	          <foreign_key>user.userid</foreign_key>
-    	  <on_delete>DELETE</on_delete>
+                <foreign_key>user.userid</foreign_key>
+                <on_delete>DELETE</on_delete>
             </field>
             <field>
                 <name>module</name>

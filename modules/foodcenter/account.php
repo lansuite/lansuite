@@ -2,13 +2,14 @@
 
 $account = new LanSuite\Module\Foodcenter\Accounting($auth['userid']);
 
-if ($auth['type'] > 1 && !isset($_GET['act'])) {
+if ($auth['type'] > \LS_AUTH_TYPE_USER && !isset($_GET['act'])) {
     $_GET['act'] = "menu";
-} elseif ($auth['type'] < 2) {
+} elseif ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
     $_GET['act'] = "";
 }
 
-$step = $_GET['step'];
+$step = $_GET['step'] ?? 0;
+$action = $_GET['action'] ?? '';
 
 if ($action == "payment" && $step == 3) {
     if (!is_numeric($_POST['amount'])) {
@@ -42,10 +43,15 @@ switch ($_GET['act']) {
     case "payment":
         switch ($step) {
             case "2":
+                $errorAmount = $error['amount'] ?? '';
+                $valueAmount = $_POST['amount'] ?? 0;
+                $errorComment = $error['comment'] ?? '';
+                $valueComment = $_POST['comment'] ?? 0;
+
                 $dsp->NewContent(t('Zahlungen'));
                 $dsp->SetForm("index.php?mod=foodcenter&action=account&act=payment&step=3&userid=".$_GET['userid']);
-                $dsp->AddTextFieldRow("amount", t('Betrag'), $_POST['amount'], $error['amount']);
-                $dsp->AddTextFieldRow("comment", t('Kommentar (Dein Name wird in Klammer angefügt)'), $_POST['comment'], $error['comment']);
+                $dsp->AddTextFieldRow("amount", t('Betrag'), $valueAmount, $errorAmount );
+                $dsp->AddTextFieldRow("comment", t('Kommentar (Dein Name wird in Klammer angefügt)'), $valueComment, $errorComment);
                 $dsp->AddFormSubmitRow(t('Abschicken'));
                 $account = new LanSuite\Module\Foodcenter\Accounting($_GET['userid']);
                 $account->list_balance();

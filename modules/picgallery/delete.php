@@ -9,18 +9,19 @@ $akt_file = substr($_GET["file"], strrpos($_GET["file"], '/') + 1, strlen($_GET[
 $root_dir = "ext_inc/picgallery". $akt_dir;
 $root_file = "ext_inc/picgallery". $_GET["file"];
 
-$pic = $db->qry_first("SELECT caption FROM %prefix%picgallery WHERE name = %string%", $db_dir);
+$pic = $database->queryWithOnlyFirstRow("SELECT caption FROM %prefix%picgallery WHERE name = ?", [$db_dir]);
 if (!$pic['caption']) {
     $pic['caption'] = "<i>".t('Unbekannt')."</i>";
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         $func->question(t('Willst du das Bild <b>%1 (%2)</b> wirklich l&ouml;schen?', $pic['caption'], $_GET["file"]), "index.php?mod=picgallery&action=delete&step=2&file={$_GET["file"]}", "index.php?mod=picgallery&file=$akt_dir");
         break;
     
     case 2:
-        $delete_db = $db->qry("DELETE FROM %prefix%picgallery WHERE name = %string%", $db_dir);
+        $database->query("DELETE FROM %prefix%picgallery WHERE name = ?", [$db_dir]);
 
         unlink($root_file);
         if (file_exists($root_dir ."lsthumb_". $akt_file)) {

@@ -16,7 +16,7 @@ LANSuite has features like ...
 
 ## Getting started
 
-See our documentation on [lansuite.github.io/lansuite](https://lansuite.github.io/lansuite/docs/installation.html).
+See our documentation on [lansuite.github.io/lansuite](https://lansuite.github.io/lansuite/).
 There you will find information on how to install it, what the requirements are, how to configure the system and more.
 
 If you still struggle with getting started, feel free to [open an issue](https://github.com/lansuite/lansuite/issues/new) and tell us your challenge.
@@ -54,8 +54,14 @@ To help you get your feet wet and get you familiar with our contribution process
 
 ## Contact
 
-The best way to get in contact with us is via [GitHub Issues](https://github.com/lansuite/lansuite/issues).
-Over this way, it is transparent to the community, and all team members and contributors are informed and have the chance to respond.
+### For Bugs and feature requests
+
+Please use our ticket system via [GitHub Issues](https://github.com/lansuite/lansuite/issues).
+This way, it is transparent to the community, and all team members and contributors are informed and have the chance to respond.
+
+## Discord Community
+
+Join the community today: [https://discord.gg/xbZjkjyF](https://discord.gg/xbZjkjyF).
 
 ## Similar projects
 

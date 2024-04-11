@@ -19,7 +19,7 @@ class MasterComment
      */
     public function __construct($mod, $id, $update_table = [])
     {
-        global $framework, $dsp, $auth, $db, $func, $cfg;
+        global $framework, $dsp, $auth, $db, $database, $func, $cfg;
 
         $dsp->AddFieldsetStart(t('Kommentare'));
 
@@ -31,8 +31,8 @@ class MasterComment
             $md->Delete('comments', 'commentid', $_GET['commentid']);
             unset($_GET['commentid']);
         }
-    
-        $CurentURLBase = $framework->get_clean_url_query('base');
+
+        $CurentURLBase = $framework->getURLQueryPart(\LanSuite\Framework::URL_QUERY_PART_BASE);
         $CurentURLBase = str_replace('&mc_step=10', '', $CurentURLBase);
         $CurentURLBase = str_replace('&mf_step=2', '', $CurentURLBase);
         $CurentURLBase = preg_replace('#&mf_id=[0-9]*#si', '', $CurentURLBase);
@@ -61,7 +61,7 @@ class MasterComment
         $ms2->AddIconField('quote', 'javascript:document.getElementById(\'text\').value += \'[quote]\' + document.getElementById(\'post%id%\').innerHTML + \'[/quote]\'', t('Zitieren'));
         $ms2->AddIconField('edit', $CurentURLBase.'&commentid=%id%#dsp_form2', t('Editieren'), 'MasterCommentEditAllowed');
 
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddIconField('delete', $CurentURLBase.'&mc_step=10&commentid=', t('Löschen'));
         }
 
@@ -74,10 +74,10 @@ class MasterComment
         } else {
             $commentIdParameter = $_GET['commentid'] ?? 0;
             if ($commentIdParameter) {
-                $row = $db->qry_first('SELECT creatorid FROM %prefix%comments WHERE commentid = %int%', $_GET['commentid']);
+                $row = $database->queryWithOnlyFirstRow('SELECT creatorid FROM %prefix%comments WHERE commentid = ?', [$_GET['commentid']]);
             }
 
-            if (!$commentIdParameter || (is_array($row) && $row['creatorid'] && $row['creatorid'] == $auth['userid']) || $auth['type'] >= 2) {
+            if (!$commentIdParameter || (is_array($row) && $row['creatorid'] && $row['creatorid'] == $auth['userid']) || $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                 $mf = new MasterForm();
                 $mf->LogID = $id;
 
@@ -149,10 +149,10 @@ class MasterComment
         $dsp->AddFieldsetEnd();
 
         // Bookmarks and Auto-Mail
-        if ($auth['login'] and $auth['type'] > 1) {
+        if ($auth['login'] and $auth['type'] > \LS_AUTH_TYPE_USER) {
             $setBmParameter = $_GET['set_bm'] ?? '';
             if ($setBmParameter) {
-                $db->qry_first('DELETE FROM %prefix%comments_bookmark WHERE relatedto_id = %int% AND relatedto_item = %string%', $id, $mod);
+                $database->query('DELETE FROM %prefix%comments_bookmark WHERE relatedto_id = ? AND relatedto_item = ?', [$id, $mod]);
                 if ($_POST["check_bookmark"]) {
                     $db->qry(
                         '
@@ -172,16 +172,16 @@ class MasterComment
                 }
             }
     
-            $bookmark = $db->qry_first('
+            $bookmark = $database->queryWithOnlyFirstRow('
               SELECT
                 1 AS found,
                 email,
                 sysemail
               FROM %prefix%comments_bookmark
               WHERE
-                relatedto_id = %int%
-                AND relatedto_item = %string%
-                AND userid = %int%', $id, $mod, $auth['userid']);
+                relatedto_id = ?
+                AND relatedto_item = ?
+                AND userid = ?', [$id, $mod, $auth['userid']]);
 
             $checkBookmark = 0;
             if (is_array($bookmark) && $bookmark['found']) {

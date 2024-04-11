@@ -1,21 +1,21 @@
 <?php
 
 if ($_GET['name']) {
-    $row = $db->qry_first('SELECT postid FROM %prefix%wiki WHERE name = %string%', $_GET['name']);
+    $row = $database->queryWithOnlyFirstRow('SELECT postid FROM %prefix%wiki WHERE name = ?', [$_GET['name']]);
     $_GET['postid'] = $row['postid'];
 }
 if (!$_GET['postid']) {
     $_GET['postid'] = 1;
 }
 if (!isset($_GET['versionid'])) {
-    $row = $db->qry_first('
+    $row = $database->queryWithOnlyFirstRow('
       SELECT
         MAX(versionid) AS versionid
       FROM
         %prefix%wiki_versions
       WHERE
-        postid = %int%
-      GROUP BY postid', $_GET['postid']);
+        postid = ?
+      GROUP BY postid', [$_GET['postid']]);
     $_GET['versionid'] = $row['versionid'];
 }
 
@@ -41,7 +41,7 @@ while ($row = $db->fetch_array($res)) {
         $links .= ' - '. $row['username'] .'@'. $row['date'] .' ';
     }
     $links .= '</a>';
-    if ($_GET['versionid'] == $row['versionid'] and $auth['type'] > 2) {
+    if ($_GET['versionid'] == $row['versionid'] and $auth['type'] > \LS_AUTH_TYPE_ADMIN) {
         $links .= ' <a href="index.php?mod=wiki&action=delete&step=10&postid='. $_GET['postid'] .'&versionid='. $_GET['versionid'] .'" rel="nofollow" class="icon_delete" title="'. t('Löschen') .'"> </a> ';
     }
     $links .= '] ';
@@ -53,11 +53,11 @@ if ($auth['login']) {
 }
 
 $links_main = '';
-if ($auth['type'] > 2) {
+if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
     $links_main .= ' <a href="index.php?mod=wiki&action=delete&step=2&postid='. $_GET['postid'] .'" class="icon_delete" title="'. t('Löschen') .'"> </a>';
 }
 
-$row = $db->qry_first('
+$row = $database->queryWithOnlyFirstRow('
   SELECT
     w.postid,
     w.name,
@@ -65,12 +65,12 @@ $row = $db->qry_first('
   FROM %prefix%wiki AS w 
   LEFT JOIN %prefix%wiki_versions AS v ON w.postid = v.postid
   WHERE
-    w.postid = %int%
-    AND v.versionid = %int%', $_GET['postid'], $_GET['versionid']);
+    w.postid = ?
+    AND v.versionid = ?', [$_GET['postid'], $_GET['versionid']]);
 
 $func->SetRead('wiki', $row['postid']);
-$framework->AddToPageTitle($row["name"]);
-$framework->AddToPageTitle('V'. (int)$_GET['versionid']);
+$framework->addToPageTitle($row["name"]);
+$framework->addToPageTitle('V'. (int)$_GET['versionid']);
 
 $dsp->NewContent($row['name'] . $links_main, $links);
 $dsp->AddSingleRow($func->Text2Wiki($row['text']), '', 'textContent');

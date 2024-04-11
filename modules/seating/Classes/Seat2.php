@@ -12,16 +12,16 @@ class Seat2
      */
     public function SeatNameLink($userid, $MaxBlockLength = 0, $break = '<br />')
     {
-        global $db, $party;
+        global $db, $database, $party;
   
         // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
-        $seat_paid = $db->qry_first("
+        $seat_paid = $database->queryWithOnlyFirstRow("
           SELECT
             paid
           FROM %prefix%party_user
           WHERE
-            party_id=%int%
-            AND user_id=%int%", $party->party_id, $userid);
+            party_id = ?
+            AND user_id = ?", [$party->party_id, $userid]);
 
         if ($seat_paid && $seat_paid['paid'] > 0) {
             $seat_status = 2;
@@ -32,7 +32,7 @@ class Seat2
         if (!$userid) {
             return '';
         } else {
-            $row = $db->qry_first("
+            $row = $database->queryWithOnlyFirstRow("
               SELECT
                 b.blockid,
                 b.name,
@@ -42,9 +42,9 @@ class Seat2
               FROM %prefix%seat_block AS b
               LEFT JOIN %prefix%seat_seats AS s ON b.blockid = s.blockid
               WHERE
-                b.party_id = %int%
-                AND s.userid = %int%
-                AND s.status = %string%", $party->party_id, $userid, $seat_status);
+                b.party_id = ?
+                AND s.userid = ?
+                AND s.status = ?", [$party->party_id, $userid, $seat_status]);
         }
   
         if (!$row || !$row['blockid']) {
@@ -63,16 +63,16 @@ class Seat2
      */
     public function SeatOfUser($userid, $MaxBlockLength = 0, $LinkIt = 0): bool|string
     {
-        global $db, $party;
+        global $db, $database, $party;
 
         // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
-        $seat_paid = $db->qry_first("
+        $seat_paid = $database->queryWithOnlyFirstRow("
           SELECT
             paid
           FROM %prefix%party_user
           WHERE
-            party_id=%int%
-            AND user_id=%int%", $party->party_id, $userid);
+            party_id = ?
+            AND user_id = ?", [$party->party_id, $userid]);
 
         if ($seat_paid['paid']>0) {
             $seat_status = 2;
@@ -80,7 +80,7 @@ class Seat2
             $seat_status = 3;
         };
 
-        $row = $db->qry_first("
+        $row = $database->queryWithOnlyFirstRow("
           SELECT
             s.row,
             s.col,
@@ -89,9 +89,9 @@ class Seat2
           FROM %prefix%seat_seats AS s
           LEFT JOIN %prefix%seat_block AS b ON s.blockid = b.blockid
           WHERE
-            s.userid=%int%
-            AND s.status = %string%
-            AND b.party_id = %int%", $userid, $seat_status, $party->party_id);
+            s.userid = ?
+            AND s.status = ?
+            AND b.party_id = ?", [$userid, $seat_status, $party->party_id]);
 
         if ($row['blockid']) {
             return $this->CoordinateToBlockAndName($row['col'] + 1, $row['row'], $row['blockid'], $MaxBlockLength, $LinkIt, $userid);
@@ -105,37 +105,40 @@ class Seat2
      */
     public function SeatOfUserArray($userid): array|bool
     {
-        global $db, $party;
+        global $db, $database, $party;
 
         // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
-        $seat_paid = $db->qry_first("
+        $seat_paid = $database->queryWithOnlyFirstRow("
           SELECT
             paid
           FROM %prefix%party_user
           WHERE
-            party_id=%int%
-            AND user_id=%int%", $party->party_id, $userid);
+            party_id = ?
+            AND user_id = ?", [$party->party_id, $userid]);
 
-        if ($seat_paid['paid']>0) {
+        $seatPaidPaid = $seat_paid['paid'] ?? 0;
+        if ($seatPaidPaid > 0) {
             $seat_status = 2;
         } else {
             $seat_status = 3;
         };
 
-        $row = $db->qry_first("
+        $row = $database->queryWithOnlyFirstRow("
           SELECT
             s.row,
             s.col,
+            s.ip,
             b.blockid,
             b.name
           FROM %prefix%seat_seats AS s
           LEFT JOIN %prefix%seat_block AS b ON s.blockid = b.blockid
           WHERE
-            s.userid=%int%
-            AND s.status = %string%
-            AND b.party_id = %int%", $userid, $seat_status, $party->party_id);
+            s.userid = ?
+            AND s.status = ?
+            AND b.party_id = ?", [$userid, $seat_status, $party->party_id]);
     
-        if ($row['blockid']) {
+        $blockID = $row['blockid'] ?? 0;
+        if ($blockID) {
             $arr = array();
             $arr['block'] = $row['blockid'];
             $arr['row'] = $row['row'];
@@ -157,14 +160,14 @@ class Seat2
      */
     private function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0, $userid = 0): bool|string
     {
-        global $db;
+        global $db, $database;
     
-        $row = $db->qry_first("
+        $row = $database->queryWithOnlyFirstRow("
           SELECT
             name,
             orientation
           FROM %prefix%seat_block
-          WHERE blockid = %int%", $blockid);
+          WHERE blockid = ?", [$blockid]);
 
         if (!$row['name']) {
             return false;
@@ -267,19 +270,19 @@ class Seat2
     public function U18Block($id, $idtype)
     {
         $blockid = null;
-        global $db;
+        global $db, $database;
 
         if ($idtype == "b") {
             $blockid = $id;
         } elseif ($idtype != "b") {
-            $row_seat = $db->qry_first("SELECT blockid FROM %prefix%seat_seats WHERE userid=%int%", $id);
+            $row_seat = $database->queryWithOnlyFirstRow("SELECT blockid FROM %prefix%seat_seats WHERE userid = ?", [$id]);
             $blockid = $row_seat['blockid'] ?? '';
             if ($blockid == "") {
                 return false;
             }
         }
 
-        $row_block = $db->qry_first("SELECT u18, blockid FROM %prefix%seat_block WHERE blockid=%int%", $blockid);
+        $row_block = $database->queryWithOnlyFirstRow("SELECT u18, blockid FROM %prefix%seat_block WHERE blockid = ?", [$blockid]);
         $blockid = $row_block['blockid'];
         if ($blockid == "") {
             return false;
@@ -312,10 +315,10 @@ class Seat2
         $jscode = null;
         $XStartPlan = null;
         $YOffset = null;
-        global $db, $templ, $auth, $cfg, $party, $smarty, $framework, $func;
+        global $db, $database, $templ, $auth, $cfg, $party, $smarty, $framework, $func;
 
         // Get Block data (side descriptions + number of rows + cols)
-        $block = $db->qry_first("SELECT * FROM %prefix%seat_block WHERE blockid = %int%", $blockid);
+        $block = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%seat_block WHERE blockid = ?", [$blockid]);
 
         // If we don't have a seatplan or block ID, we don't need to render something.
         if (!$block) {
@@ -359,19 +362,19 @@ class Seat2
         if (!$db->num_rows() == 0) {
             while ($seat_row = $db->fetch_array($seats_qry)) {
                 if ($seat_row['userid']) {
-                    $party_user = $db->qry_first("
+                    $party_user = $database->queryWithOnlyFirstRow("
                       SELECT
                         checkin,
                         checkout
                       FROM %prefix%party_user
                       WHERE
-                        user_id = %int%
-                        AND party_id = %int%", $seat_row['userid'], $party->party_id);
+                        user_id = ?
+                        AND party_id = ?", [$seat_row['userid'], $party->party_id]);
                 }
 
                 $partyUserCheckin = 0;
                 $partyUserCheckout = 0;
-                if (array_key_exists('checkin', $party_user) && array_key_exists('checkout', $party_user)) {
+                if (is_array($party_user) && array_key_exists('checkin', $party_user) && array_key_exists('checkout', $party_user)) {
                     $partyUserCheckin = $party_user['checkin'];
                     $partyUserCheckout = $party_user['checkout'];
                 }
@@ -398,7 +401,7 @@ class Seat2
 
         // Has user paid?
         if ($auth['login']) {
-            $user_paid = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%", $auth['userid'], $party->party_id);
+            $user_paid = $database->queryWithOnlyFirstRow("SELECT paid FROM %prefix%party_user WHERE user_id = ? AND party_id = ?", [$auth['userid'], $party->party_id]);
         }
 
         // Header-Row
@@ -450,10 +453,10 @@ class Seat2
             $smarty->assign('HiddenFields', $HiddenFields);
 
             // Main-Table
-            $framework->add_js_path('ext_scripts/overlib421/Mini/overlib_mini.js');
-            $framework->add_js_path('ext_scripts/SVG2VMLv1_1.js');
-            $framework->add_js_path('ext_scripts/ls_svg2vml.js');
-            $framework->add_js_path('seating.js');
+            $framework->addJavaScriptFile('ext_scripts/overlib421/Mini/overlib_mini.js');
+            $framework->addJavaScriptFile('ext_scripts/SVG2VMLv1_1.js');
+            $framework->addJavaScriptFile('ext_scripts/ls_svg2vml.js');
+            $framework->addJavaScriptFile('seating.js');
 
             $jscode = 'function go() {
                 vectorModel = new VectorModel();
@@ -491,7 +494,7 @@ class Seat2
 
                 $jscode .= "DrawClearSeatingSymbol(22, 84, 14, 'javascript:UpdateCurrentDrawingSymbol(\"22\")', '');\n";
                 $jscode .= "DrawClearSeatingSymbol(21, 98, 14, 'javascript:UpdateCurrentDrawingSymbol(\"21\")', '');\n";
-                $jscode .= "DrawClearSeatingSymbol(23, 84, 28, 'javascript:UpdateCurrentDrawingSymbol(\"108\")', '');\n";
+                $jscode .= "DrawClearSeatingSymbol(23, 84, 28, 'javascript:UpdateCurrentDrawingSymbol(\"23\")', '');\n";
                 $jscode .= "DrawClearSeatingSymbol(24, 98, 28, 'javascript:UpdateCurrentDrawingSymbol(\"24\")', '');\n";
                 $jscode .= "DrawClearSeatingSymbol(10, 84, 42, 'javascript:UpdateCurrentDrawingSymbol(\"10\")', '');\n";
                 $jscode .= "DrawClearSeatingSymbol(11, 98, 42, 'javascript:UpdateCurrentDrawingSymbol(\"11\")', '');\n";
@@ -686,7 +689,7 @@ class Seat2
                                     } elseif (($seatStateValue == 2 || $seatStateValue == 3) && $seat_userid[$y][$x] == $auth['userid']) {
                                         $link = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
                                     // If assigned and user is admin -> Possibility to free this seat
-                                    } elseif ($seatStateValue == 2 && $auth['type'] > 1) {
+                                    } elseif ($seatStateValue == 2 && $auth['type'] > \LS_AUTH_TYPE_USER) {
                                         #$link = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
                                     }
                                 }
@@ -725,13 +728,13 @@ class Seat2
                             case "9":
                                 $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
                                 $tooltip .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
-                                if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)) {
+                                if (!$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER or ($auth['userid'] == $selected_user and $selected_user != false)) {
                                     $tooltip .= t('Name') .': '. trim($user_info[$y][$x]['firstname']) .' '. trim($user_info[$y][$x]['name']) . HTML_NEWLINE;
                                 }
                                 $tooltip .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
                                 $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
                                 if ($func->chk_img_path($user_info[$y][$x]['avatar_path']) and
-                                ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))) {
+                                ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER or ($auth['userid'] == $selected_user and $selected_user != false))) {
                                       $tooltip .= '<img src=\''. $user_info[$y][$x]['avatar_path'] .'\' style=\'max-width:100%;\' />' . HTML_NEWLINE;
                                 }
                                 break;
@@ -851,7 +854,7 @@ class Seat2
         if ($mode != 3) {
             $jscode .= ' }';
         }
-        $framework->add_js_code($jscode);
+        $framework->addJavaScriptCode($jscode);
     
         return $plan;
     }
@@ -863,7 +866,7 @@ class Seat2
      */
     public function ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid)
     {
-        global $db, $party;
+        global $db, $database, $party;
     
         $res = $db->qry("
           SELECT
@@ -877,7 +880,7 @@ class Seat2
 
         $row = $db->fetch_array($res);
         if ($db->num_rows($res) == 1 and $row['status'] == 3) {
-            $db->qry("UPDATE %prefix%seat_seats SET status = 2 WHERE seatid = %int%", $row['seatid']);
+            $database->query("UPDATE %prefix%seat_seats SET status = 2 WHERE seatid = ?", [$row['seatid']]);
         }
     }
 
@@ -887,21 +890,21 @@ class Seat2
      */
     public function MarkSeatIfNotPaidAndSeatReserved($userid)
     {
-        global $db, $party;
+        global $db, $database, $party;
     
-        $row = $db->qry_first("
+        $row = $database->queryWithOnlyFirstRow("
           SELECT
             s.seatid,
             s.status
           FROM %prefix%seat_block AS b
           LEFT JOIN %prefix%seat_seats AS s ON b.blockid = s.blockid
           WHERE
-            b.party_id = %int%
-            AND s.userid = %int%
-            AND s.status = 2", $party->party_id, $userid);
+            b.party_id = ?
+            AND s.userid = ?
+            AND s.status = 2", [$party->party_id, $userid]);
 
-        if ($row['seatid'] > 0) {
-            $db->qry("UPDATE %prefix%seat_seats SET status = 3 WHERE seatid = %int%", $row['seatid']);
+        if (is_array($row) && $row['seatid'] > 0) {
+            $database->query("UPDATE %prefix%seat_seats SET status = 3 WHERE seatid = ?", [$row['seatid']]);
         }
     }
 
@@ -914,33 +917,33 @@ class Seat2
      */
     public function AssignSeat($userid, $blockid, $row, $col)
     {
-        global $db, $party;
+        global $database, $party;
 
         // Delete old seat, if exists
-        $my_party_seat = $db->qry_first("
+        $my_party_seat = $database->queryWithOnlyFirstRow("
           SELECT
             s.seatid
           FROM %prefix%seat_block AS b
           LEFT JOIN %prefix%seat_seats AS s ON b.blockid = s.blockid
           WHERE
-            b.party_id = %int%
-            AND s.userid = %int%
-            AND status = 2", $party->party_id, $userid);
+            b.party_id = ?
+            AND s.userid = ?
+            AND status = 2", [$party->party_id, $userid]);
 
-        if ($my_party_seat['seatid']) {
-            $db->qry("UPDATE %prefix%seat_seats SET userid = 0, status = 1 WHERE seatid = %int%", $my_party_seat['seatid']);
+        if (is_array($my_party_seat) && $my_party_seat['seatid']) {
+            $database->query("UPDATE %prefix%seat_seats SET userid = 0, status = 1 WHERE seatid = ?", [$my_party_seat['seatid']]);
         }
 
         // Assign new seat
-        $db->qry("
+        $database->query("
           UPDATE %prefix%seat_seats
           SET
-            userid = %int%,
+            userid = ?,
             status = 2
           WHERE
-            blockid = %int%
-            AND row = %string%
-            AND col = %string%", $userid, $blockid, $row, $col);
+            blockid = ?
+            AND row = ?
+            AND col = ?", [$userid, $blockid, $row, $col]);
     }
 
     /**
@@ -952,7 +955,7 @@ class Seat2
      */
     public function MarkSeat($userid, $blockid, $row, $col)
     {
-        global $db;
+        global $db, $database;
 
         $db->qry("
           UPDATE %prefix%seat_seats
@@ -973,7 +976,7 @@ class Seat2
      */
     public function FreeSeat($blockid, $row, $col)
     {
-        global $db;
+        global $db, $database;
 
         $db->qry("
           UPDATE %prefix%seat_seats
@@ -992,7 +995,7 @@ class Seat2
      */
     public function FreeSeatAllMarkedByUser($userid)
     {
-        global $db, $party;
+        global $db, $database, $party;
 
         $db->qry("
           UPDATE %prefix%seat_seats AS s

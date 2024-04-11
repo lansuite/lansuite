@@ -1,17 +1,17 @@
 <?php
 
 // Exec Admin-Functions
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $stepParameter = $_GET['step'] ?? 0;
     switch ($stepParameter ) {
         // Close Thread
         case 10:
-            $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $_GET['tid']);
+            $database->query("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = ?", [$_GET['tid']]);
             break;
 
         // Open Thread
         case 11:
-            $db->qry("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = %int%", $_GET['tid']);
+            $database->query("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = ?", [$_GET['tid']]);
             break;
     }
 }
@@ -21,7 +21,7 @@ $list_type = $auth['type'] + 1;
 
 // Show Thread or create new
 if ($tid) {
-    $thread = $db->qry_first("
+    $thread = $database->queryWithOnlyFirstRow("
       SELECT
         t.fid,
         t.caption,
@@ -32,25 +32,28 @@ if ($tid) {
       FROM %prefix%board_threads AS t
         LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
       WHERE
-        t.tid=%int%
-        AND f.need_type <= %string%
+        t.tid = ?
+        AND f.need_type <= ?
         AND (
           !f.need_group
-          OR f.need_group = %int%
-        )", $tid, $list_type, $auth['group_id']);
-      
-    if ($_GET['pid'] != '') {
-        $current_post = $db->qry_first("SELECT userid FROM %prefix%board_posts WHERE pid = %int%", $_GET['pid']);
+          OR f.need_group = ?
+        )", [$tid, $list_type, $auth['group_id']]);
+
+    $pId = $_GET['pid'] ?? 0;
+    if ($pId) {
+        $current_post = $database->queryWithOnlyFirstRow("SELECT userid FROM %prefix%board_posts WHERE pid = ?", [$_GET['pid']]);
     }
 } else {
-    $thread = $db->qry_first("SELECT need_type, need_group FROM %prefix%board_forums WHERE fid = %int%", $_GET['fid']);
+    $thread = $database->queryWithOnlyFirstRow("SELECT need_type, need_group FROM %prefix%board_forums WHERE fid = ?", [$_GET['fid']]);
 }
 
+$fid = 0;
 if (!$thread and $tid) {
     $func->information(t('Keine Beiträge vorhanden'));
 } elseif ($thread['caption'] != '') {
-    $framework->AddToPageTitle($thread['caption']);
-    $framework->AddToPageTitle(t('Seite') .' '. ((int)$_GET['posts_page'] + 1));
+    $postsPageParameter = $_GET['posts_page'] ?? 0;
+    $framework->addToPageTitle($thread['caption']);
+    $framework->addToPageTitle(t('Seite') .' '. ((int) $postsPageParameter + 1));
     $fid = $thread["fid"];
 
     // Mark thread read
@@ -64,7 +67,7 @@ if (!$thread and $tid) {
 
     // Generate Thread-Buttons
     $buttons = '';
-    if ($auth["type"] > 1) {
+    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
         if ($thread['closed']) {
             $buttons .= ' '. $dsp->FetchIcon("unlocked", "index.php?mod=board&action=thread&step=11&tid=$tid");
         } else {
@@ -79,6 +82,8 @@ if (!$thread and $tid) {
         comment,
         userid,
         UNIX_TIMESTAMP(date) AS date,
+        UNIX_TIMESTAMP(changedate) AS changedate,
+        changecount,
         INET6_NTOA(ip) AS ip,
         file
       FROM %prefix%board_posts
@@ -87,6 +92,12 @@ if (!$thread and $tid) {
     $count_entrys = $db->num_rows($query);
     
     // Page select
+    $pages = [
+        'html' => '',
+        'sql' => '',
+        'a' => 0,
+        'b' => 0,
+    ];
     if ($count_entrys > $cfg['board_max_posts']) {
         $pages = $func->page_split($_GET['posts_page'], $cfg['board_max_posts'], $count_entrys, "index.php?mod=board&action=thread&tid=$tid", "posts_page");
         $query = $db->qry("
@@ -103,7 +114,7 @@ if (!$thread and $tid) {
           WHERE tid=%int%
           ORDER BY date %plain%", $tid, $pages['sql']);
     }
-    $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
+    $dsp->AddSingleRow($buttons . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $pages['html']);
 
     $z = 0;
     while ($row = $db->fetch_array($query)) {
@@ -139,7 +150,7 @@ if (!$thread and $tid) {
         $smarty->assign('username', $dsp->FetchUserIcon($row['userid'], $userdata["username"]));
 
         $type = $userdata["type"];
-        if ($auth['type'] >= 2) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $type .= '<br />IP: <a href="https://dnsquery.org/ipwhois/'. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';
         }
         $smarty->assign('type', $userdata["type"]);
@@ -158,11 +169,12 @@ if (!$thread and $tid) {
         $smarty->assign('signature', $signature);
 
         $edit = '';
-        if ($auth['type'] > 1) {
-            $edit .= $dsp->FetchIcon("delete", "index.php?mod=board&action=delete&pid=$pid&posts_page=" . $_GET['posts_page'], '', '', 'right');
+        $postsPageParameter = $_GET['posts_page'] ?? 0;
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
+            $edit .= $dsp->FetchIcon("delete", "index.php?mod=board&action=delete&pid=$pid&posts_page=" . $postsPageParameter, '', '', 'right');
         }
-        if ($auth['type'] > 1 or $row["userid"] == $auth["userid"]) {
-            $edit .= $dsp->FetchIcon("edit", "index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&posts_page=" . $_GET['posts_page'], '', '', 'right');
+        if ($auth['type'] > \LS_AUTH_TYPE_USER or $row["userid"] == $auth["userid"]) {
+            $edit .= $dsp->FetchIcon("edit", "index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&posts_page=" . $postsPageParameter, '', '', 'right');
         }
         $edit .= $dsp->FetchIcon("quote", "javascript:InsertCode(document.dsp_form1.comment, '[quote]" . str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["comment"]))) . "[/quote]')", '', '', 'right');
         ;
@@ -175,29 +187,31 @@ if (!$thread and $tid) {
         $z++;
     }
 
-    if ($_SESSION['threadview'] != $tid) {
-        $db->qry("UPDATE %prefix%board_threads SET views=views+1 WHERE tid=%int%", $tid);
+    $threadViewId = $_SESSION['threadview'] ?? 0;
+    if ($threadViewId != $tid) {
+        $database->query("UPDATE %prefix%board_threads SET views = views + 1 WHERE tid = ?", [$tid]);
     }
     $_SESSION['threadview'] = $tid;
 
     $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
 }
 
-if ($thread['closed']) {
+$pIdParameter = $_GET['pid'] ?? 0;
+if (is_array($thread) && $thread['closed']) {
     $func->information(t('Dieser Thread wurde geschlossen. Es können keine Antworten mehr geschrieben werden'), NO_LINK);
-} elseif ($thread['need_type'] >= 1 and !$auth['login'] and !$_GET['tid']) {
+} elseif (is_array($thread) && $thread['need_type'] >= 1 and !$auth['login'] and !$_GET['tid']) {
     $func->information(t('Du musst dich zuerst einloggen, um einen Thread in diesem Forum starten zu können'), NO_LINK);
-} elseif ($thread['need_type'] >= 1 and !$auth['login'] and $_GET['tid']) {
+} elseif (is_array($thread) && $thread['need_type'] >= 1 and !$auth['login'] and $_GET['tid']) {
     $func->information(t('Um in diesem Board zu posten zu antworten, logge dich bitte zuerst ein.'), NO_LINK);
-} elseif ($thread['need_type'] > (int)($auth['type'] + 1)) {
+} elseif (is_array($thread) && $thread['need_type'] > (int)($auth['type'] + 1)) {
     $func->information(t('Um in diesem Board zu posten, musst du Admin sein.'), NO_LINK);
-} elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group'] and $_GET['tid']) {
+} elseif (is_array($thread) && $thread['need_group'] and $auth['group_id'] != $thread['need_group'] and $_GET['tid']) {
     $func->information(t('Du gehörst nicht der richtigen Gruppe an, um auf diese Beiträge zu antworten.'), NO_LINK);
-} elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group'] and !$_GET['tid']) {
+} elseif (is_array($thread) && $thread['need_group'] and $auth['group_id'] != $thread['need_group'] and !$_GET['tid']) {
     $new_thread = t('Du gehörst nicht der richtigen Gruppe an, um einen Thread in diesem Forum starten zu können');
-} elseif ($_GET['pid'] != '' and $auth['type'] <= 1 and $current_post['userid'] != $auth['userid']) {
+} elseif ($pIdParameter && $auth['type'] <= \LS_AUTH_TYPE_USER and $current_post['userid'] != $auth['userid']) {
     $func->error('Du darfst nur deine eigenen Beiträge editieren!', NO_LINK);
-} elseif ($thread) {
+} elseif (is_array($thread)) {
     // Topic erstellen oder auf Topic antworten
     if ($_GET['tid']) {
         $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));
@@ -214,7 +228,7 @@ if ($thread['closed']) {
     $mf->AddField(t('Bild / Datei anhängen'), 'file', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/board_upload/', \LanSuite\MasterForm::FIELD_OPTIONAL);
   
     $mf->AddFix('tid', $_GET['tid']);
-    if ($_GET['pid'] == '') {
+    if (!$pIdParameter) {
         $mf->AddFix('date', 'NOW()');
         $mf->AddFix('userid', $auth['userid']);
         $mf->AddFix('ip', $_SERVER['REMOTE_ADDR']);
@@ -223,7 +237,9 @@ if ($thread['closed']) {
         $mf->AddFix('changecount', '++');
     }
   
-    if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $_GET['fid'] .'&tid='. $_GET['tid'].'&posts_page='.$_GET['posts_page'], 'board_posts', 'pid', $_GET['pid'])) {
+    $fIdParameter = $_GET['fid'] ?? 0;
+    $postsPageParameter = $_GET['posts_page'] ?? 0;
+    if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $fIdParameter .'&tid='. $_GET['tid'].'&posts_page=' . $postsPageParameter, 'board_posts', 'pid', $pIdParameter)) {
         $tid = (int)$_GET['tid'];
   
         // Update thread-table, if new thread
@@ -235,7 +251,7 @@ if ($thread['closed']) {
                 $tid = $db->insert_id();
   
                 // Assign just created post to this new thread
-                $db->qry("UPDATE %prefix%board_posts SET tid = %int% WHERE pid = %int%", $tid, $pid);
+                $database->query("UPDATE %prefix%board_posts SET tid = ? WHERE pid = ?", [$tid, $pid]);
         }
 
         // Send email-notifications to thread-subscribers
@@ -288,39 +304,45 @@ if ($thread['closed']) {
     $dsp->AddFieldsetEnd();
 }
 
-if ($thread['caption'] != '') {
+if (is_array($thread) && $thread['caption'] != '') {
     // Bookmarks and Auto-Mail
     if ($auth['login']) {
-        if ($_GET["set_bm"]) {
-            $db->qry_first("DELETE FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
+        $setBmParameter = $_GET["set_bm"] ?? '';
+        if ($setBmParameter) {
+            $database->query("DELETE FROM %prefix%board_bookmark WHERE tid = ? AND userid = ?", [$tid, $auth['userid']]);
             if ($_POST["check_bookmark"]) {
-                $db->qry_first("INSERT INTO %prefix%board_bookmark SET tid = %int%, userid = %int%, email = %string%, sysemail = %string%", $tid, $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]);
+                $database->query("INSERT INTO %prefix%board_bookmark SET tid = ?, userid = ?, email = ?, sysemail = ?", [$tid, $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]]);
             }
         }
   
-        $bookmark = $db->qry_first("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
-        if ($bookmark["found"]) {
+        $bookmark = $database->queryWithOnlyFirstRow("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE tid = ? AND userid = ?", [$tid, $auth['userid']]);
+        if (is_array($bookmark) && $bookmark["found"]) {
             $_POST["check_bookmark"] = 1;
         }
-        if ($bookmark["email"]) {
+        if (is_array($bookmark) && $bookmark["email"]) {
             $_POST["check_email"] = 1;
         }
-        if ($bookmark["sysemail"]) {
+        if (is_array($bookmark) && $bookmark["sysemail"]) {
             $_POST["check_sysemail"] = 1;
         }
   
+        $checkBookmarkParameter = $_POST["check_bookmark"] ?? 0;
+        $checkEmailParameter = $_POST["check_email"] ?? 0;
+        $checkSysEmailParameter = $_POST["check_sysemail"] ?? 0;
+
         $dsp->SetForm("index.php?mod=board&action=thread&tid=$tid&fid=$fid&set_bm=1");
         $dsp->AddFieldsetStart(t('Monitoring'));
         $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
-        $dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Diesen Beitrag in meine Lesezeichen aufnehmen<br><i>(Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren)</i>'), "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
-        $dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
-        $dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden'), "", 1, $_POST["check_email"]);
-        $dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf diesen Beitrag eine System-Mail an mich senden'), "", 1, $_POST["check_sysemail"]);
-        if ($bookmark["found"]) {
+        
+        $dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Diesen Beitrag in meine Lesezeichen aufnehmen<br><i>(Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren)</i>'), "", 1, $checkBookmarkParameter, '', '', $additionalHTML);
+        $dsp->StartHiddenBox('email', $checkBookmarkParameter);
+        $dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden'), "", 1, $checkEmailParameter);
+        $dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf diesen Beitrag eine System-Mail an mich senden'), "", 1, $checkSysEmailParameter);
+        if (is_array($bookmark) && $bookmark["found"]) {
             $dsp->StopHiddenBox();
         }
         $dsp->AddFormSubmitRow("edit");
-        if (!$bookmark["found"]) {
+        if (!$bookmark) {
             $dsp->StopHiddenBox();
         }
         $dsp->AddFieldsetEnd();

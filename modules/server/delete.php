@@ -1,11 +1,13 @@
 <?php
-switch ($_GET["step"]) {
+
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/server/search.inc.php');
         break;
     
     case 2:
-        $server = $db->qry_first("SELECT caption FROM %prefix%server WHERE serverid = %int%", $_GET["serverid"]);
+        $server = $database->queryWithOnlyFirstRow("SELECT caption FROM %prefix%server WHERE serverid = ?", [$_GET["serverid"]]);
         $servername = $server["caption"];
 
         if ($server) {
@@ -16,19 +18,19 @@ switch ($_GET["step"]) {
         break;
 
     case 3:
-        $server = $db->qry_first("
+        $server = $database->queryWithOnlyFirstRow("
           SELECT
             caption,
             owner
           FROM %prefix%server
           WHERE
-            serverid = %int%", $_GET["serverid"]);
+            serverid = ?", [$_GET["serverid"]]);
 
         if ($server) {
-            if ($server["owner"] != $auth["userid"] and $auth["type"] <= 1) {
+            if ($server["owner"] != $auth["userid"] and $auth['type'] <= \LS_AUTH_TYPE_USER) {
                 $func->information(t('Nur der Besitzer und Administratoren d&uuml;rfen diese Aktion ausf&uuml;hren'), "index.php?mod=server&action=delete");
             } else {
-                $delete = $db->qry("DELETE FROM %prefix%server WHERE serverid = %int%", $_GET["serverid"]);
+                $delete = $database->query("DELETE FROM %prefix%server WHERE serverid = ?", [$_GET["serverid"]]);
             
                 $servername = $server["caption"];
                 if ($delete) {

@@ -9,6 +9,7 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    versioning-strategy: widen
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -24,3 +25,4 @@ updates:
     directory: "/website/"
     schedule:
       interval: "monthly"
+    versioning-strategy: auto

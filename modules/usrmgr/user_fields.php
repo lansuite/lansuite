@@ -13,7 +13,7 @@ switch ($stepParameter) {
         $ms2->AddResultField('Bezeichnung', 'f.caption');
         $ms2->AddResultField('Optional', 'f.optional');
     
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=user_fields&step=20&fieldid=', t('Löschen'));
         }
         $ms2->PrintSearch('index.php?mod=usrmgr&action=user_fields', 'f.fieldid');
@@ -35,15 +35,16 @@ switch ($stepParameter) {
         $mf->AddField(t('Optional'), 'optional', \LanSuite\MasterForm::IS_SELECTION, $selections);
 
         $mf->AdditionalDBUpdateFunction = 'UpdateUsrMgrUserFields';
-        $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $_GET['fieldid']);
+        $fieldIdParameter = $_GET['fieldid'] ?? 0;
+        $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $fieldIdParameter);
         break;
   
     // Delete entry
     case 20:
-        $fild_row = $db->qry_first("SELECT name FROM %prefix%user_fields WHERE fieldid = %int%", $_GET['fieldid']);
+        $fild_row = $database->queryWithOnlyFirstRow("SELECT name FROM %prefix%user_fields WHERE fieldid = ?", [$_GET['fieldid']]);
         $db->qry("ALTER TABLE %prefix%user DROP %plain%", $fild_row['name']);
 
-        $db->qry("DELETE FROM %prefix%user_fields WHERE fieldid = %int%", $_GET['fieldid']);
+        $database->query("DELETE FROM %prefix%user_fields WHERE fieldid = ?", [$_GET['fieldid']]);
     
         $func->confirmation('Gelöscht', 'index.php?mod=usrmgr&action=user_fields');
         break;

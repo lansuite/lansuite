@@ -6,12 +6,13 @@ $mail = new \LanSuite\Module\Mail\Mail();
 $usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
 // Get Barcode if exists and translate to userid
-if ($_POST['barcodefield']) {
-    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
+$barcodefieldParameter = $_POST['barcodefield'] ?? null;
+if ($barcodefieldParameter) {
+    $row = $database->queryWithOnlyFirstRow('SELECT userid FROM %prefix%user WHERE barcode = ?', [$barcodefieldParameter]);
     $_GET['userid']=$row['userid'];
 }
 
-$user_data = $db->qry_first("
+$user_data = $database->queryWithOnlyFirstRow("
   SELECT
     u.*,
     g.*,
@@ -26,15 +27,15 @@ $user_data = $db->qry_first("
   LEFT JOIN %prefix%party_usergroups AS g ON u.group_id = g.group_id
   LEFT JOIN %prefix%clan AS clan ON u.clanid = clan.clanid
   WHERE
-    u.userid = %int%", $_GET['userid']);
+    u.userid = ?", [$_GET['userid']]);
 
 // If exists
 if (!$user_data['userid']) {
     $func->error(t('Dieser Benutzer existiert nicht'));
 } else {
-    $framework->AddToPageTitle($user_data['username']);
+    $framework->addToPageTitle($user_data['username']);
 
-    $user_party = $db->qry_first("
+    $user_party = $database->queryWithOnlyFirstRow("
       SELECT
         u.*,
         p.*,
@@ -43,11 +44,23 @@ if (!$user_data['userid']) {
       FROM %prefix%party_user AS u
       LEFT JOIN %prefix%party_prices AS p ON u.price_id = p.price_id
       WHERE
-        user_id = %int%
-        AND u.party_id = %int%
-      GROUP BY u.user_id", $_GET['userid'], $party->party_id);
-    $count_rows = $db->qry_first('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = %int%', $_GET['userid']);
-    $party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $user_party['price_id']);
+        u.user_id = ?
+        AND u.party_id = ?
+      GROUP BY u.user_id", [$_GET['userid'], $party->party_id]);
+
+    // $user_party can be null, thats why we pre-setting the values here
+    $userPartyPriceID = $user_party['price_id'] ?? 0;
+    $userPartyUserID = $user_party['user_id'] ?? 0;
+    $userPartyPaid = $user_party['paid'] ?? false;
+    $userPartyCheckin = $user_party['checkin'] ?? null;
+    $userPartyCheckout = $user_party['checkout'] ?? null;
+    $userPartyPriceText = $user_party['price_text'] ?? '';
+
+    $count_rows = $database->queryWithOnlyFirstRow('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = ?', [$_GET['userid']]);
+    $party_seatcontrol = $database->queryWithOnlyFirstRow('SELECT * FROM %prefix%party_prices WHERE price_id = ?', [$userPartyPriceID]);
+
+    // $party_seatcontrol can be null, thats why we pre-setting the values here
+    $partySeatControlDepotPrice = $party_seatcontrol['depot_price'] ?? 0;
 
     $user_fields = $db->qry("SELECT name, caption, optional FROM %prefix%user_fields");
     ($db->num_rows($user_fields) > 0)? $hasUserFields = 1 : $hasUserFields = 0;
@@ -59,7 +72,7 @@ if (!$user_data['userid']) {
 
     // First name, last name, username, user ID
     $name = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
-    if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['userid'] == $_GET['userid']) {
+    if (!$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER or $auth['userid'] == $_GET['userid']) {
         if ($user_data['firstname']) {
             $name .= $user_data['firstname'] .' ';
         }
@@ -86,7 +99,7 @@ if (!$user_data['userid']) {
     if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'])) { # and $cfg['user_self_details_change']
         $name .= ' '. $dsp->FetchIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=' . $_GET['userid'], t('Editieren'));
     }
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $name .= ' '. $dsp->FetchIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=' . $_GET['userid'], t('Löschen'));
     }
     $name .= '</td></tr></table>';
@@ -123,43 +136,43 @@ if (!$user_data['userid']) {
         $clan = '<table width="100%"><tr><td>';
         $party_row = '';
         $link = '';
-        ($user_party['user_id'])? $party_row .= t('Angemeldet') :  $party_row .= t('Nicht Angemeldet');
+        ($userPartyUserID)? $party_row .= t('Angemeldet') :  $party_row .= t('Nicht Angemeldet');
         if (IsAuthorizedAdmin()) {
-            ($user_party['paid'])? $link = 'index.php?mod=guestlist&step=11&userid='. $_GET['userid']
+            ($userPartyPaid)? $link = 'index.php?mod=guestlist&step=11&userid='. $_GET['userid']
             : $link = 'index.php?mod=guestlist&step=10&userid='. $_GET['userid'];
         }
         // Paid
-        ($user_party['paid'])? $party_row .= ', '. $dsp->FetchIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->FetchIcon('not_paid', $link, t('Nicht bezahlt'));
-        if ($user_party['price_text']) {
-            $party_row .= ' ['. $user_party['price_text'] .']';
+        ($userPartyPaid)? $party_row .= ', '. $dsp->FetchIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->FetchIcon('not_paid', $link, t('Nicht bezahlt'));
+        if ($userPartyPriceText) {
+            $party_row .= ' ['. $userPartyPriceText .']';
         }
         // Platzpfand
-        if ($party_seatcontrol['depot_price'] > 0) {
+        if ($partySeatControlDepotPrice > 0) {
             $party_row .= ', '. $party_seatcontrol['depot_desc'];
             $party_row .= ($user_party['seatcontrol']) ? t(' gezahlt') : t(' NICHT gezahlt');
         }
         // CheckIn CheckOut
         $link = '';
-        if (IsAuthorizedAdmin() and !$user_party['checkin']) {
+        if (IsAuthorizedAdmin() and !$userPartyCheckin) {
             $link = 'index.php?mod=guestlist&step=20&userid='. $_GET['userid'];
         }
-        if ($user_party['checkin']) {
-            $party_row .= ' '. $dsp->FetchIcon('in', $link, t('Eingecheckt')) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
+        if ($userPartyCheckin) {
+            $party_row .= ' '. $dsp->FetchIcon('in', $link, t('Eingecheckt')) .'['. $func->unixstamp2date($userPartyCheckin, 'datetime') .']';
         } else {
             $party_row .= ' '.$dsp->FetchIcon('not_in', $link, t('Nicht eingecheckt'));
         }
 
           $link = '';
-        if (IsAuthorizedAdmin() and !$user_party['checkout'] and $user_party['checkin']) {
+        if (IsAuthorizedAdmin() && !$userPartyCheckout && $userPartyCheckin) {
             $link = 'index.php?mod=guestlist&step=21&userid='. $_GET['userid'];
         }
-        if ($user_party['checkout']) {
-            $party_row .= ' '. $dsp->FetchIcon('out', $link, t('Ausgecheckt')) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
+        if ($userPartyCheckout) {
+            $party_row .= ' '. $dsp->FetchIcon('out', $link, t('Ausgecheckt')) .'['. $func->unixstamp2date($userPartyCheckout, 'datetime') .']';
         } else {
             $party_row .= ' '.$dsp->FetchIcon('not_out', $link, t('Nicht ausgecheckt'));
         }
 
-        if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) {
+        if (IsAuthorizedAdmin() && $userPartyCheckin > 0 && $userPartyCheckout > 0) {
             $party_row .= $dsp->FetchIcon('delete', 'index.php?mod=guestlist&step=22&userid=' . $_GET['userid'], 'Reset Checkin');
         }
 
@@ -171,7 +184,7 @@ if (!$user_data['userid']) {
         $seat2 = new Seat2();
 
         $user_data_seating = $seat2->SeatOfUserArray($_GET['userid']);
-        if ($user_data_seating['block'] == '') {
+        if (!$user_data_seating) {
             $seat = t('Kein Sitzplatz ausgewählt / zugeteilt.');
         } else {
             $seat = $seat2->SeatOfUser($_GET['userid'], 0, 2);
@@ -190,7 +203,7 @@ if (!$user_data['userid']) {
 
     // Kontostand
     if ($func->isModActive('foodcenter')) {
-        $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int%", $_GET['userid']);
+        $result = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ?", [$_GET['userid']]);
         if ($result['total'] == "") {
             $amount = 0;
         } else {
@@ -205,10 +218,10 @@ if (!$user_data['userid']) {
     $dsp->AddFieldsetStart(t('Kontakt'));
     // Address
     $address = '';
-    if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
+    if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
         $address .= $user_data['street'] .' '. $user_data['hnr'] .', ';
     }
-    if (($user_data['plz'] != '' or $user_data['city']) and ($cfg['user_showcity4all'] == '1' or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid'])) {
+    if (($user_data['plz'] != '' or $user_data['city']) and ($cfg['user_showcity4all'] == '1' or $auth['type'] >= \LS_AUTH_TYPE_ADMIN or $auth['userid'] == $_GET['userid'])) {
         $address .= $user_data['plz'] .' '. $user_data['city'];
     }
     if ($address) {
@@ -227,7 +240,7 @@ if (!$user_data['userid']) {
 
     // Mail
     $mail = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
-    if ((!$cfg['sys_internet'] and $cfg['user_showmail4all']) or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']) {
+    if ((!$cfg['sys_internet'] and $cfg['user_showmail4all']) or $auth['type'] >= \LS_AUTH_TYPE_ADMIN or $auth['userid'] == $_GET['userid']) {
         $mail .= '<a href="mailto:'. $user_data['email'] .'">'. $user_data['email'] .'</a> ';
     }
     $mail .= '[Newsletter-Abo:';
@@ -242,18 +255,8 @@ if (!$user_data['userid']) {
 
     // Messenger
     $messenger = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
-    if ($user_data['icq']) {
-        if ($cfg['sys_internet']) {
-            $messenger .= ' <a href="http://wwp.icq.com/scripts/search.dll?to='. $user_data['icq'] .'" target="_blank"><img src="ext_inc/footer_buttons/icq.gif" alt="ICQ" title="ICQ#'. $user_data['icq'] .'" border="0" /></a> ';
-        } else {
-            $messenger .= ' <img src="ext_inc/footer_buttons/icq.gif" alt="ICQ" title="ICQ: #'. $user_data['icq'] .'" border="0" /> ';
-        }
-    }
-    if ($user_data['msn']) {
-        $messenger .= ' <img src="ext_inc/footer_buttons/msn.gif" alt="MSN" title="MSN: '. $user_data['msn'] .'" border="0" /> ';
-    }
     if ($user_data['xmpp']) {
-        $messenger .= ' <img src="ext_inc/footer_buttons/msn.gif" alt="XMPP" title="XMPP: '. $user_data['xmpp'] .'" border="0" /> ';
+        $messenger .= ' <img src="design/images/icon_xmpp.png" alt="XMPP" title="XMPP: '. $user_data['xmpp'] .'" border="0" /> ';
     }
     if ($user_data['skype']) {
         if ($cfg['sys_internet']) {
@@ -277,12 +280,12 @@ if (!$user_data['userid']) {
     $dsp->AddDoubleRow(t('Benutzertyp'), GetTypeDescription($user_data['type']));
 
     // Perso
-    if ($user_data['perso'] and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
+    if ($user_data['perso'] and ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1'))) {
         $dsp->AddDoubleRow(t('Passnummer / Sonstiges'), $user_data['perso'] .'<br>'. t('Hinweis: Die Angaben zu Straße und Passnummer sind nur für dich und die Organisatoren sichtbar.'));
     }
 
     // Birthday
-    if ($cfg['sys_internet'] == 0 or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']) {
+    if ($cfg['sys_internet'] == 0 or $auth['type'] >= \LS_AUTH_TYPE_ADMIN or $auth['userid'] == $_GET['userid']) {
         $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], 'date') .' ('. $user_data['age']  .')' : t('Nicht angegeben'));
     }
 
@@ -311,7 +314,9 @@ if (!$user_data['userid']) {
 
     $dsp->StartTab(t('Lesezeichen'), 'details');
     $dsp->AddFieldsetStart(t('In Kommentaren'));
-    switch ($_GET['step']) {
+
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         case 10:
             $md = new \LanSuite\MasterDelete();
             $md->MultiDelete('comments_bookmark', 'bid');
@@ -330,7 +335,7 @@ if (!$user_data['userid']) {
     $ms2->AddResultField(t('Internet-Mail'), 'b.email');
     $ms2->AddResultField(t('System-Mail'), 'b.sysemail');
 
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&step=10&tab=1', 1);
     }
 
@@ -340,8 +345,8 @@ if (!$user_data['userid']) {
   
     $dsp->StartTab(t('Sonstiges'));
     // logins, last login
-    if ($auth['type'] >= 2) {
-        $lastLoginTS = $db->qry_first("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", $_GET['userid']);
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
+        $lastLoginTS = $database->queryWithOnlyFirstRow("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = ? AND login = '1'", [$_GET['userid']]);
         $dsp->AddDoubleRow(t('Logins'), $user_data['logins']);
         if ($user_data['lastlogin']) {
             $loginTime = t('am/um: ') . $func->unixstamp2date($user_data['lastlogin'], 'daydatetime');
@@ -375,7 +380,7 @@ if (!$user_data['userid']) {
         $dsp->EndTab();
     }
 
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $dsp->StartTab(t('Sessions'), 'generate');
 
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('usrmgr');
@@ -408,17 +413,17 @@ if (!$user_data['userid']) {
 
     $db->free_result($user_fields);
 
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod='. $_GET['mod'] .'&action=search').' ';
     } else {
         $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod=guestlist&action=guestlist').' ';
     }
-    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE type > 0 AND userid < %int% order by userid desc', $_GET['userid']);
-    if ($row['userid']) {
+    $row = $database->queryWithOnlyFirstRow('SELECT userid FROM %prefix%user WHERE type > 0 AND userid < ? ORDER BY userid DESC', [$_GET['userid']]);
+    if (is_array($row) && $row['userid']) {
         $buttons .= $dsp->FetchSpanButton(t('Vorheriger Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']).' ';
     }
-    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE type > 0 AND userid > %int%', $_GET['userid']);
-    if ($row['userid']) {
+    $row = $database->queryWithOnlyFirstRow('SELECT userid FROM %prefix%user WHERE type > 0 AND userid > ?', [$_GET['userid']]);
+    if (is_array($row) && $row['userid']) {
         $buttons .= $dsp->FetchSpanButton(t('Nächster Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']);
     }
 

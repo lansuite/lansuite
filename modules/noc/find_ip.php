@@ -3,10 +3,14 @@
 include_once("modules/noc/class_noc.php");
 $noc = new noc();
 
+$ipAddressParameter = $_POST['ip'] ?? '';
+$error_noc = [
+    'ip' => '',
+];
 $stepParameter = $_GET['step'] ?? 0;
 switch ($stepParameter) {
     case "2":
-        if ($_POST['ip'] == '') {
+        if ($ipAddressParameter == '') {
             $error_noc['ip'] = t('Bitte gib eine IP-Adresse f&uuml;r das Device ein');
             $_GET['step'] = 1;
         }
@@ -17,16 +21,16 @@ switch ($stepParameter) {
     default:
             $dsp->NewContent(t('User im Netzwerk finden'), t('Mit diesem Formular kannst du einen User im Netzwerk lokalisieren'));
             $dsp->SetForm("index.php?mod=noc&action=find&step=2");
-            $dsp->AddTextFieldRow("ip", t('IP-Adresse'), $_POST['ip'], $error_noc['ip']);
+            $dsp->AddTextFieldRow("ip", t('IP-Adresse'), $ipAddressParameter, $error_noc['ip']);
             $dsp->AddFormSubmitRow(t('Weiter'));
             $dsp->AddBackButton("index.php?mod=noc");
         break;
     
     case "2":
             $dsp->NewContent(t('User im Netzwerk finden'), t('Mit diesem Formular kannst du einen User im Netzwerk lokalisieren'));
-            $dsp->AddDoubleRow(t('IP-Adresse'), $_POST['ip']);
-            $noc->IPtoMAC_arp($_POST['ip']);
-            $dsp->AddSingleRow("<a href='index.php?mod=noc&action=find&step=3&ip={$_POST['ip']}'>Alle Ports Updaten</<a>");
+            $dsp->AddDoubleRow(t('IP-Adresse'), $ipAddressParameter);
+            $noc->IPtoMAC_arp($ipAddressParameter);
+            $dsp->AddSingleRow("<a href='index.php?mod=noc&action=find&step=3&ip={$ipAddressParameter}'>Alle Ports Updaten</<a>");
             $dsp->AddBackButton("index.php?mod=noc&action=find&step=1");
         break;
 
@@ -37,7 +41,7 @@ switch ($stepParameter) {
             $dsp->NewContent(t('User im Netzwerk finden'), t('Mit diesem Formular kannst du einen User im Netzwerk lokalisieren'));
             
             // Alle Device Updaten
-            $row = $db->qry_first("SELECT * FROM %prefix%noc_devices");
+            $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%noc_devices");
         while ($db->fetch_array($row)) {
             $noc->getMacAddress($row["ip"], $row["readcommunity"], $row["id"], $row["sysDescr"]);
         }

@@ -32,11 +32,11 @@ if ($auth['login']) {
         $msg_sid = "&" . session_name() . "=" . session_id();
         
         // New message available?
-        $row_new_msg = $db->qry_first('SELECT senderid FROM %prefix%messages WHERE senderid = %int% AND receiverid = %int% AND new = \'1\'', $row['buddyid'], $auth["userid"]);
+        $row_new_msg = $database->queryWithOnlyFirstRow('SELECT senderid FROM %prefix%messages WHERE senderid = ? AND receiverid = ? AND new = \'1\'', [$row['buddyid'], $auth["userid"]]);
         if ($row_new_msg['senderid']) {
             $item = "message_blink";
             if ($cfg['msgsys_popup']) {
-                $caption = "<script type=\"text/javascript\" language=\"JavaScript\"> 
+                $caption = "<script>
                                 var link = \"index.php?mod=msgsys&amp;action=query&amp;design=base&amp;queryid={$row["buddyid"]}$msg_sid\";
                                 var suche = /&amp;/;
 

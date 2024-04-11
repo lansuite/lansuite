@@ -6,12 +6,13 @@
  */
 function UpdateUsrMgr($id)
 {
-    global $mf, $db, $usrmgr, $func, $cfg;
+    global $mf, $db, $database, $usrmgr, $func, $cfg;
 
     // Clan-Management
     $clan = new \LanSuite\Module\ClanMgr\Clan();
     if (ShowField('clan')) {
-        if ($_POST['new_clan_select']) {
+        $newClanSelectKey = 'new_clan_select';
+        if (array_key_exists($newClanSelectKey, $_POST) && $_POST[$newClanSelectKey]) {
             $clan->Add($_POST['clan_new'], $id, $_POST["clanurl"], $_POST["newclanpw"]);
         } elseif ($_POST['clan']) {
             $clan->AddMember($_POST['clan'], $id);
@@ -22,10 +23,11 @@ function UpdateUsrMgr($id)
 
     // Update User-Perissions
     if ($id) {
-        $db->qry("DELETE FROM %prefix%user_permissions WHERE userid = %int%", $id);
-        if ($_POST["permissions"]) {
-            foreach ($_POST["permissions"] as $perm) {
-                $db->qry("INSERT INTO %prefix%user_permissions SET module = %string%, userid = %int%", $perm, $id);
+        $database->query("DELETE FROM %prefix%user_permissions WHERE userid = ?", [$id]);
+        $permissionsParameter = $_POST["permissions"] ?? [];
+        if ($permissionsParameter) {
+            foreach ($permissionsParameter as $perm) {
+                $database->query("INSERT INTO %prefix%user_permissions SET module = ?, userid = ?", [$perm, $id]);
             }
         }
     }

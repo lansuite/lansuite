@@ -8,7 +8,7 @@ $seat2 = new \LanSuite\Module\Seating\Seat2();
 if ($party->count == 0) {
     $func->information(t('Aktuell sind keine Partys geplant.'), 'index.php?mod='. $_GET['mod']);
 } else {
-    if ($_GET['user_id'] == $auth['userid'] or $auth['type'] >= 2) {
+    if ($_GET['user_id'] == $auth['userid'] or $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         // Show Upcomming
         $MFID = 1;
 
@@ -35,7 +35,7 @@ if ($party->count == 0) {
                 $mf->AddChangeCondition = 'ChangeAllowed';
 
                 // Paid
-                if ($auth['type'] >= 2) {
+                if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                     $selections = array();
                     $selections['0'] = t('Nicht bezahlt');
                     $selections['1'] = t('Bezahlt');
@@ -51,7 +51,7 @@ if ($party->count == 0) {
                 // Prices
                 $qrytmp = "SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND requirement <= %string%";
                 // Show all prices for administrators and only the one not ended for normal users
-                if ($auth['type'] <= 1) {
+                if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
                     $qrytmp.=" AND enddate > now()";
                 }
                 $res2 = $db->qry($qrytmp, $row['party_id'], $auth['type']);
@@ -72,7 +72,7 @@ if ($party->count == 0) {
 
                 $mf->AddFix('signondate', 'NOW()');
 
-                if ($auth['type'] >= 2) {
+                if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
                     $mf->AddField(t('Mail versenden?') .'|'. t('Den Benutzer per Mail über die Änderung informieren'), 'sendmail', 'tinyint(1)', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
                 }
                 $mf->SendButtonText = 'An-/Abmelden';

@@ -8,7 +8,7 @@ $dsp->AddDoubleRow('Party', $party->data['name']);
 $stepParameter = $_GET['step'] ?? 0;
 switch ($stepParameter) {
     case 11:
-        $db->qry('UPDATE %prefix%partys SET evening_price_id = %int% WHERE party_id = %int%', $_GET['evening_price_id'], $_GET['party_id']);
+        $database->query('UPDATE %prefix%partys SET evening_price_id = ? WHERE party_id = ?', [$_GET['evening_price_id'], $_GET['party_id']]);
         $func->confirmation(t('Der neue Abendkasse-Preis wurde gesetzt'));
         break;
 }
@@ -26,11 +26,11 @@ $ms2->AddResultField(t('Preis'), 'p.price');
 $ms2->AddResultField(t('Abendkasse-Preis?'), 'party.evening_price_id', 'EveningPriceIdLink');
 $ms2->AddResultField('Party', 'party.name');
 
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=party&action=price_edit&party_id='. $_GET['party_id'] .'&price_id=', t('Editieren'));
 }
 
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=party&action=price_del&party_id='. $_GET['party_id'], 1);
 }
 

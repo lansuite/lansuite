@@ -16,7 +16,8 @@ if ($headermenuitem == 2) {
     $_GET["step"] = 5;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter ) {
     case 2:
         if ($_POST["rows"] > 20) {
             $func->information(t('Es dürfen maximal 20 Reihen ausgewählt werden'), "index.php?mod=games&action=minesweeper");

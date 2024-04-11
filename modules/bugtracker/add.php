@@ -2,8 +2,8 @@
 $dsp->NewContent(t('Bugtracker'), t('Hier kannst du Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
 
 $bugidParameter = $_GET['bugid'] ?? 0;
-$row = $db->qry_first('SELECT reporter FROM %prefix%bugtracker WHERE bugid = %int%', $bugidParameter);
-if ($bugidParameter && $auth['type'] < 2 && $row['reporter'] != $auth['userid']) {
+$row = $database->queryWithOnlyFirstRow('SELECT reporter FROM %prefix%bugtracker WHERE bugid = ?', [$bugidParameter]);
+if ($bugidParameter && $auth['type'] < \LS_AUTH_TYPE_ADMIN && $row['reporter'] != $auth['userid']) {
     $func->error(t('Nur Admins und der Reporter dürfen Bug-Einträge im Nachhinein editieren'), 'index.php?mod=bugtracker');
 } else {
     $mf = new \LanSuite\MasterForm();
@@ -38,7 +38,7 @@ if ($bugidParameter && $auth['type'] < 2 && $row['reporter'] != $auth['userid'])
     $mf->AddField(t('Priorität'), 'priority', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
     // Assign bug
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $mf->AddDropDownFromTable(t('Bearbeiter'), 'agent', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
         $mf->AddField(t('Preis'), 'price', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
         $mf->AddField(t('Bereits gespendet'), 'price_payed', '', '', \LanSuite\MasterForm::FIELD_OPTIONAL);
@@ -52,7 +52,7 @@ if ($bugidParameter && $auth['type'] < 2 && $row['reporter'] != $auth['userid'])
         $mf->AddFix('url', $_SERVER['SERVER_NAME']);
         $mf->AddFix('reporter', $auth['userid']);
         $mf->AddFix('state', '0');
-    } elseif ($auth['type'] >= 2) {
+    } elseif ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $selections = array();
         $selections['0'] = t('Neu');
         $selections['1'] = t('Bestätigt');

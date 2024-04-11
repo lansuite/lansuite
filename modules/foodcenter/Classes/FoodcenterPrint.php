@@ -71,12 +71,12 @@ class FoodcenterPrint
      */
     private function GetSupp($value)
     {
-        global $db;
+        global $database;
 
         if ($value == "") {
             return t('Verschiedene');
         } else {
-            $supp = $db->qry_first("SELECT name FROM %prefix%food_supp WHERE supp_id = %int%", $value);
+            $supp = $database->queryWithOnlyFirstRow("SELECT name FROM %prefix%food_supp WHERE supp_id = ?", [$value]);
             return $supp['name'];
         }
     }
@@ -87,7 +87,7 @@ class FoodcenterPrint
      */
     private function GetFoodoption($value)
     {
-        global $db;
+        global $database;
 
         $out = '';
         if (stristr($value, "/")) {
@@ -95,7 +95,7 @@ class FoodcenterPrint
 
             foreach ($values as $number) {
                 if (is_numeric($number)) {
-                    $data = $db->qry_first("SELECT caption, unit FROM %prefix%food_option WHERE id = %int%", $number);
+                    $data = $database->queryWithOnlyFirstRow("SELECT caption, unit FROM %prefix%food_option WHERE id = ?", [$number]);
                     if ($data['caption'] == "") {
                         $out .= $data['unit'] . "<br />";
                     } else {
@@ -104,7 +104,7 @@ class FoodcenterPrint
                 }
             }
         } else {
-            $data = $db->qry_first("SELECT caption,unit FROM %prefix%food_option WHERE id = %int%", $value);
+            $data = $database->queryWithOnlyFirstRow("SELECT caption,unit FROM %prefix%food_option WHERE id = ?", [$value]);
             if ($data['caption'] == "") {
                 $out .= $data['unit'] . "<br />";
             } else {
@@ -121,12 +121,12 @@ class FoodcenterPrint
      */
     private function GetUsername($userid)
     {
-        global $db;
+        global $database;
 
         if ($userid == 'all') {
             return t('Verschiedene');
         } else {
-            $get_username = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
+            $get_username = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$userid]);
             return $get_username["username"];
         }
     }
@@ -136,15 +136,15 @@ class FoodcenterPrint
      */
     private function GetUserdata($userid): array|bool|null|string
     {
-        global $db, $party;
+        global $database, $party;
 
         if ($userid == 'all') {
             return t('Verschiedene');
         } else {
-            $get_userdata = $db->qry_first("SELECT u.*, s.ip FROM %prefix%user AS u
+            $get_userdata = $database->queryWithOnlyFirstRow("SELECT u.*, s.ip FROM %prefix%user AS u
       								LEFT JOIN %prefix%seat_seats AS s ON s.userid = u.userid
       								LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid
-      WHERE u.userid = %int% AND (b.party_id = %int% OR b.party_id IS NULL)", $userid, $party->party_id);
+      WHERE u.userid = ? AND (b.party_id = ? OR b.party_id IS NULL)", [$userid, $party->party_id]);
             return $get_userdata;
         }
     }
@@ -156,11 +156,8 @@ class FoodcenterPrint
     {
         global $func;
 
-        if ($this->config['datetime_format'] == '') {
-            return $func->unixstamp2date($time, "datetime");
-        } else {
-            return $func->unixstamp2date($time, $this->config['datetime_format']);
-        }
+        $dateTimeFormat = $this->config['datetime_format'] ?? 'datetime';
+        return $func->unixstamp2date($time, $dateTimeFormat);
     }
 
     /**
@@ -170,7 +167,7 @@ class FoodcenterPrint
     {
         $config = [];
         $row_temp = [];
-        global $db;
+        global $db, $database;
 
         $search = '';
         // Create search string
@@ -237,20 +234,20 @@ class FoodcenterPrint
 
         while ($data = $db->fetch_array($result)) {
             unset($row_temp);
-            unset($userdata);
+
             $userdata = $this->GetUserdata($data['userid']);
-            $row_temp['supp_name']            = $data['name'];
-            $row_temp['supp_info']            = $data['supp_infos'];
+            $row_temp['supp_name']          = $data['name'];
+            $row_temp['supp_info']          = $data['supp_infos'];
             $row_temp['product_caption']    = $data['caption'];
-            $row_temp['username']            = $userdata['username'];
-            $row_temp['userip']            = $userdata['ip'];
-            $row_temp['usercomment']        = $userdata['comment'];
-            $row_temp['product_option']    = $this->GetFoodoption($data['opts']);
+            $row_temp['username']           = $userdata['username'] ?? '';
+            $row_temp['userip']             = $userdata['ip'] ?? '';
+            $row_temp['usercomment']        = $userdata['comment'] ?? '';
+            $row_temp['product_option']     = $this->GetFoodoption($data['opts']);
             $row_temp['order_count']        = $data['pice'];
-            $row_temp['ordertime']            = $this->GetDate($data['ordertime']);
-            $row_temp['lastchange']            = $this->GetDate($data['lastchange']);
-            $row_temp['supplytime']            = $this->GetDate($data['supplytime']);
-            $row_temp['status']                = $data['status'];
+            $row_temp['ordertime']          = $this->GetDate($data['ordertime']);
+            $row_temp['lastchange']         = $this->GetDate($data['lastchange']);
+            $row_temp['supplytime']         = $this->GetDate($data['supplytime']);
+            $row_temp['status']             = $data['status'];
 
             if ($row_temp['status'] == 2) {
                 $this->fetch_row($row_temp);

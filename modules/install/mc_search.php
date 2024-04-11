@@ -60,7 +60,7 @@ $ms2->AddResultField(t('Beitrags ID'), 'c.relatedto_id');
 $ms2->AddResultField(t('Datum'), 'UNIX_TIMESTAMP(c.date) AS date', 'MS2GetDate');
 $ms2->AddResultField(t('Auslöser'), 'u.username', 'UserNameAndIcon');
 
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=install&action=mc_search&step=10', 1);
 }
 
