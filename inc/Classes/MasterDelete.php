@@ -26,7 +26,7 @@ class MasterDelete
      */
     private function DoDelete($table, $idname, $id): bool|int|\mysqli_result
     {
-        global $func, $db, $config;
+        global $func, $db, $database, $config;
     
         // Get key to master table
         foreach ($this->DeleteIfEmpty as $key => $val) {
@@ -57,7 +57,7 @@ class MasterDelete
                 }
 
                 $row = $db->qry_first('SELECT 1 AS found FROM %prefix%%plain% WHERE %plain% = %int%', $table, $val, $MasterKey[$key]);
-                if (!$row['found']) {
+                if (!$row) {
                     $db->qry('DELETE FROM %prefix%%plain% WHERE %plain% = %int%', $key, $val, $MasterKey[$key]);
                 }
             }
@@ -93,9 +93,9 @@ class MasterDelete
      */
     public function Delete($table, $idname, $id): bool|int|\mysqli_result
     {
-        global $framework, $func, $db;
-        
-        $CurentURLBase = $framework->get_clean_url_query('base');
+        global $framework, $func, $db, $database;
+
+        $CurentURLBase = $framework->getURLQueryPart(\LanSuite\Framework::URL_QUERY_PART_BASE);
         $CurentURLBase = str_replace('&md_step=2', '', $CurentURLBase);
         $CurentURLBase = preg_replace('#&'. $idname .'=[0-9]*#si', '', $CurentURLBase);
         

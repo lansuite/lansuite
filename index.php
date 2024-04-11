@@ -2,13 +2,16 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
+use Smarty\Smarty;
 use Symfony\Component\Cache;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpClient\HttpClient;
 
 $request = Request::createFromGlobals();
 $filesystem = new Filesystem();
+$httpClient = HttpClient::create();
 
 define('ROOT_DIRECTORY', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 
@@ -92,7 +95,8 @@ if (!$config['lansuite']['debugmode']) {
 session_start();
 
 // Initialise Frameworkclass for Basic output
-$framework = new \LanSuite\Framework();
+$MainContent = '';
+$framework = new \LanSuite\Framework($request);
 if (isset($_GET['fullscreen'])) {
     $framework->fullscreen($_GET['fullscreen']);
 }
@@ -100,7 +104,12 @@ if (isset($_GET['fullscreen'])) {
 // Compromise ... design as base and popup should be deprecated
 $design = $request->query->get('design');
 $frmwrkmode = '';
-if ($design == 'base' || $design == 'popup' || $design == 'ajax' || $design == 'print' || $design == 'beamer') {
+
+if ($design == \LanSuite\Framework::DISPLAY_MODUS_BASE ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_POPUP ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_AJAX ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_PRINT ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_BEAMER) {
     $frmwrkmode = $design;
 }
 // Set Popupmode via GET (base, popup)
@@ -109,11 +118,21 @@ if (isset($_GET['frmwrkmode']) && $_GET['frmwrkmode']) {
 }
 // Set Popupmode via GET (base, popup)
 if (isset($frmwrkmode)) {
-    $framework->set_modus($frmwrkmode);
+    $framework->setDisplayModus($frmwrkmode);
 }
 
 // Set HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
+header('X-Frame-Options: sameorigin');
+// TODO: This header is still useful - Once we verified to send the correct MIME types, enable this header
+// header('X-Content-Type-Options: nosniff');
+header('Referrer-Policy: strict-origin');
+// TODO Set Content-Security-Policy header
+
+// Enforce HSTS if browsing via HTTPS
+if ($request->isSecure()) {
+    header('Strict-Transport-Security: max-age=86400');
+}
 
 include_once("ext_scripts/mobile_device_detect.php");
 $framework->IsMobileBrowser = mobile_device_detect();
@@ -181,18 +200,21 @@ $lang = [];
 // Initialize debug mode
 if ($config['lansuite']['debugmode'] > 0) {
     $debug = new \LanSuite\Debug($config['lansuite']['debugmode']);
+    $framework->setDebugMode($debug);
 }
 
 // Load Translationclass. No t()-Function before this point!
 $translation = new \LanSuite\Translation();
 
 $smarty = new Smarty();
-$smarty->template_dir = '.';
-$smarty->compile_dir = './ext_inc/templates_c/';
-$smarty->cache_dir = './ext_inc/templates_cache/';
-$smarty->caching = false;
-// Lifetime is in seconds
-$smarty->cache_lifetime = 0;
+$smarty->setTemplateDir('.');
+$smarty->setCompileDir('./ext_inc/templates_c/');
+$smarty->setCacheDir('./ext_inc/templates_cache/');
+// TODO Think about enabling caching for templates in production mode, but not in development mode
+// See https://smarty-php.github.io/smarty/stable/api/caching/basics/
+$smarty->setCaching(Smarty::CACHING_OFF);
+
+$framework->setTemplateEngine($smarty);
 
 if (isset($debug)) {
     $debug->tracker("Include and Init Smarty");
@@ -209,13 +231,18 @@ $dsp = new \LanSuite\Display();
 $db = new \LanSuite\DB();
 
 // Loading the new database class with standard support for prepared statements.
+$sqlmode = '';
+if (array_key_exists('sqlmode', $config['database'])) {
+    $sqlmode = $config['database']['sqlmode'];
+}
 $database = new \LanSuite\Database(
     $config['database']['server'],
     $config['database']['dbport'] ?? 3306,
     $config['database']['user'],
     $config['database']['passwd'],
     $config['database']['database'],
-    $config['database']['charset'] ?? 'utf8mb4'
+    $config['database']['charset'] ?? 'utf8mb4',
+    $sqlmode
 );
 try {
     $database->connect();
@@ -249,11 +276,16 @@ if ($config['environment']['configured'] == 0) {
     $_GET['action'] = 'wizard';
 
     // Silent connect
-    $db->connect(1);
+    try {
+        $db->connect(1);
+    } catch (\mysqli_sql_exception $e) {
+        //ignore connection error, this wil be dealt with later in the installation
+    }
+
     $IsAboutToInstall = 1;
 
     // Force Admin rights for installing User
-    $auth["type"] = 3;
+    $auth['type'] = \LS_AUTH_TYPE_SUPERADMIN;
     $auth["login"] = 1;
     $auth['userid'] = 0;
 
@@ -307,13 +339,13 @@ if ($config['environment']['configured'] == 0) {
     }
     $func->getActiveModules();
 
-    $framework->AddToPageTitle($cfg['sys_page_title']);
+    $framework->addToPageTitle($cfg['sys_page_title']);
     if ($func->isModActive($_GET['mod'], $caption) && $_GET['mod'] != 'home') {
-        $framework->AddToPageTitle($caption);
+        $framework->addToPageTitle($caption);
     }
 
     // Start authentication, just if LS is working
-    $authentication = new \LanSuite\Auth($frmwrkmode);
+    $authentication = new \LanSuite\Auth($database, $request, $frmwrkmode);
     // Test Cookie / Session if user is logged in
     $auth = $authentication->check_logon();
     // Olduserid for Switback on Boxes
@@ -338,11 +370,21 @@ if ($config['environment']['configured'] != 0) {
     if ($_GET['mod']=='auth') {
         switch ($_GET['action']) {
             case 'login':
-                $auth = $authentication->login($_POST['email'], $_POST['password']);
+                $emailValue = $_POST['email'] ?? '';
+                $passwordValue = $_POST['password'] ?? '';
+                $auth = $authentication->login($emailValue, $passwordValue);
                 break;
             case 'logout':
                 $auth = $authentication->logout();
+
+                // At the moment we did not migrate fully to "Symfony\Component\HttpFoundation\Request".
+                // LanSuite has the behaviour to write into superglobals, like $_GET.
+                // HttpFoundation initiates from the superglobal only once.
+                // In a regular case, writes to the superglobals won't be respected by HttpFoundation.
+                // For the time being (until we fully migrate), we need to double write:
+                // Once to the superglobal, once to HttpFoundation.
                 $_GET['mod'] = 'home';
+                $request->query->set('mod', 'home');
                 break;
             // Switch to user
             case 'switch_to':
@@ -375,7 +417,7 @@ function initializeDesign()
     }
 
     // Design switch by URL
-    if ($design != 'popup' && $design != 'base') {
+    if ($design && $design != 'popup' && $design != 'base') {
         $auth['design'] = $design;
     }
 
@@ -419,7 +461,7 @@ $PHPErrors = '';
 include_once('index_module.inc.php');
 
 // Complete Framework and Output HTML
-$framework->set_design($auth['design']);
+$framework->setDesign($auth['design']);
 
 $db->DisplayErrors();
 if ($PHPErrors) {
@@ -429,10 +471,10 @@ $PHPErrors = '';
 
 // Add old Frameworkmessages (should be deprecated)
 if (isset($FrameworkMessages)) {
-    $framework->add_content($FrameworkMessages);
+    $framework->addContent($FrameworkMessages);
 }
 // Add old MainContent-Variable (should be deprecated)
-$framework->add_content($MainContent);
+$framework->addContent($MainContent);
 
     // DEBUG:Alles
 if (isset($debug)) {
@@ -442,7 +484,7 @@ if (isset($debug)) {
 }
 
 // Output of all HTML
-$framework->html_out();
+$framework->sendHTMLOutput();
 unset($framework);
 unset($smarty);
 unset($templ);

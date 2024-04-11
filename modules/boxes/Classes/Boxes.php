@@ -25,6 +25,7 @@ class Boxes
     {
         global $func;
 
+        $requirement = intval($requirement);
         $link_class = match ($requirement) {
             2, 3 => 'admin',
             default => 'menu',
@@ -226,9 +227,6 @@ class Boxes
                     break;
                 case 10:
                     $title = 'messenger';
-                    break;
-                case 11:
-                    $title = 'wwcl';
                     break;
             }
         }

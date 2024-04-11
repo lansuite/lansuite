@@ -81,10 +81,10 @@ $ms2->AddResultField(t('Datum'), 'n.date', 'MS2GetDate');
 
 // These functions could be accessed for each row. To each link the group-by id is attached. See PrintSearch
 $ms2->AddIconField('details', 'index.php?mod=news&action=comment&newsid=', t('Details'));
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
 }
-if ($auth['type'] >= 3) {
+if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
 }
 

@@ -121,9 +121,9 @@ class ProductOption
 
         $this->parentid = $parentid;
         $this->parenttyp = $type;
-        $this->barcode  = $_POST['barcode'][$nr];
-        $this->caption  = $_POST['caption'][$nr];
-        $this->unit     = $_POST['unit'][$nr];
+        $this->barcode  = $_POST['barcode'][$nr] ?? '';
+        $this->caption  = $_POST['caption'][$nr] ?? '';
+        $this->unit     = $_POST['unit'][$nr] ?? '';
         $this->price    = str_replace(',', '.', $_POST['price'][$nr]);
         $this->eprice   = str_replace(',', '.', $_POST['eprice'][$nr]);
         $this->pice     = $_POST['piece'][$nr];
@@ -136,9 +136,9 @@ class ProductOption
      */
     private function read()
     {
-        global $db;
+        global $database;
 
-        $row = $db->qry_first("SELECT * FROM %prefix%food_option WHERE id=%int%", $this->id);
+        $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%food_option WHERE id = ?", [$this->id]);
 
         $this->parentid = $row['parentid'];
         $this->caption  = $row['caption'];
@@ -158,7 +158,7 @@ class ProductOption
      */
     public function write($id = 0)
     {
-        global $db;
+        global $db, $database;
 
         if ($this->parentid == null) {
             $this->parentid = $id;
@@ -176,16 +176,16 @@ class ProductOption
                                     pice        = %string%", $this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->fix, $this->pice);
             $this->id = $db->insert_id();
         } else {
-            $db->qry("UPDATE %prefix%food_option  SET 
-                                    parentid    = %int%,
-                                    barcode     = %string%,
-                                    caption     = %string%,
-                                    unit        = %string%,
-                                    price       = %string%,
-                                    eprice      = %string%,
-                                    pice        = %string%,
-                                    fix         = %string%
-                                    WHERE id = %int%", $this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->pice, $this->fix, $this->id);
+            $database->query("UPDATE %prefix%food_option  SET 
+                                    parentid    = ?,
+                                    barcode     = ?,
+                                    caption     = ?,
+                                    unit        = ?,
+                                    price       = ?,
+                                    eprice      = ?,
+                                    pice        = ?,
+                                    fix         = ?
+                                    WHERE id = ?", [$this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->pice, $this->fix, $this->id]);
         }
     }
 
@@ -268,10 +268,12 @@ class ProductOption
             $dsp->AddSmartyTpl('hiddenbox_start', 'foodcenter');
             $dsp->AddCheckBoxRow("fix[$nr]", t('Option fixieren'), t('Dies ist ein Pflichtartikel'), "", $optional, $this->fix);
             $dsp->AddSmartyTpl('hiddenbox_stop', 'foodcenter');
-            $dsp->AddTextFieldRow("caption[$nr]", t('Artikelname'), $this->caption, $this->error['caption'], null, $optional);
+            $errorMessageCaption = $this->error['caption'] ?? '';
+            $dsp->AddTextFieldRow("caption[$nr]", t('Artikelname'), $this->caption, $errorMessageCaption, null, $optional);
         }
 
-        $this->addOptionRow(t('Produktoption'), t('Einheit'), t('Preis'), t('Einkaufspreis'), t('Anzahl'), t('Barcode'), "unit[$nr]", "price[$nr]", "eprice[$nr]", "piece[$nr]", "barcode[$nr]", $this->unit, $this->price, $this->eprice, $this->pice, $this->barcode, "hidden[$nr]", $this->id, $this->error['price'], $optional);
+        $errorMessagePrice = $this->error['price'] ?? '';
+        $this->addOptionRow(t('Produktoption'), t('Einheit'), t('Preis'), t('Einkaufspreis'), t('Anzahl'), t('Barcode'), "unit[$nr]", "price[$nr]", "eprice[$nr]", "piece[$nr]", "barcode[$nr]", $this->unit, $this->price, $this->eprice, $this->pice, $this->barcode, "hidden[$nr]", $this->id, $errorMessagePrice, $optional);
         $dsp->AddHRuleRow();
     }
 
@@ -351,10 +353,12 @@ class ProductOption
         $smarty->assign('hidden_name', $hidden_name);
         $smarty->assign('hidden_id', $hidden_id);
 
+        $smarty->assign('errortext', '');
         if ($errortext) {
             $smarty->assign('errortext', $errortext);
         }
 
+        $smarty->assign('optional', '');
         if ($optional) {
             $smarty->assign('optional', '_optional');
         }

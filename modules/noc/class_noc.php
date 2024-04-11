@@ -135,7 +135,7 @@ class noc
     public function getMacAddress($Device, $ReadComunity, $device_id, $modell)
     {
         $data = [];
-        global $db;
+        global $db, $database;
         
         $ports = $this->getSNMPwalk($Device, $ReadComunity, ".1.3.6.1.2.1.17.4.3.1.2");
         $Addresses = $this->getSNMPwalk($Device, $ReadComunity, ".1.3.6.1.2.1.17.4.3.1.1");
@@ -159,17 +159,17 @@ class noc
     
         if (is_array($data)) {
             // Alte Adressen löschen
-            $db->qry("UPDATE %prefix%noc_ports SET mac='0' WHERE deviceid =%int%", $device_id);
+            $database->query("UPDATE %prefix%noc_ports SET mac = '0' WHERE deviceid = ?", [$device_id]);
             // Neue Adresse setzen
             foreach ($data as $key => $value) {
-                $db->qry("UPDATE %prefix%noc_ports SET mac=%string% WHERE deviceid =%int% AND portnr=%string%", $value, $device_id, $key);
+                $database->query("UPDATE %prefix%noc_ports SET mac = ? WHERE deviceid = ? AND portnr = ?", [$value, $device_id, $key]);
             }
         }
     }
         
     public function IPtoMAC_arp($ip)
     {
-        global $db, $dsp ,$func;
+        global $db, $database, $dsp ,$func;
         // Host anpingen um seine MAC-Adresse in den Speicher zu laden.
         $func->ping($ip);
         if (stristr(strtolower($_SERVER['SERVER_SOFTWARE']), "win") == "") {
@@ -191,7 +191,7 @@ class noc
             }
         }
         // Jede gefundene MAC-Adresse zuordnen und im Netzwerk suchen
-        if ($result[0] != '') {
+        if (array_key_exists(0, $result) && $result[0] != '') {
             foreach ($result as $i => $iValue) {
                 $dsp->AddDoubleRow(t('MAC-Addresse'), $iValue);
                 $dsp->AddHRuleRow();
@@ -199,7 +199,7 @@ class noc
                 $query = $db->qry("SELECT * FROM %prefix%noc_ports WHERE mac LIKE %string%", '%'. $string .'%');
                 if ($db->num_rows($query) > 0) {
                     while ($row = $db->fetch_array($query)) {
-                        $device = $db->qry_first("SELECT name,ip,id FROM %prefix%noc_devices WHERE id = %int%", $row['deviceid']);
+                        $device = $database->queryWithOnlyFirstRow("SELECT name, ip, id FROM %prefix%noc_devices WHERE id = ?", [$row['deviceid']]);
                         $dsp->AddDoubleRow(t('Device und IP'), "<a href='index.php?mod=noc&action=details_device&deviceid={$device['id']}'>" . $device['name'] . " " . $device['ip'] . "</a>");
                         $dsp->AddDoubleRow(t('Portnummer'), "<a href='index.php?mod=noc&action=port_details&portid={$row['portid']}'>{$row['portnr']}</a>");
                         $dsp->AddHRuleRow();

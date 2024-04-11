@@ -1,8 +1,6 @@
-<script language="JavaScript" type="text/javascript">
-<!--
+<script>
 MultiSelectActions = new Array({$multi_select_actions});
 MultiSelectSecurityQuest = new Array({$security_questions});
--->
 </script>
 {if $pages != ''}
   <form name="MSEntsPerPage" method="get" action="" rel="nofollow">
@@ -37,7 +35,7 @@ MultiSelectSecurityQuest = new Array({$security_questions});
     {if isset($v.link)}</a>{/if}
     </td>
   {/foreach}
-  {if is_array($line.icons) && $line.icons|@count > 0}
+  {if isset($line.icons) && is_array($line.icons) && $line.icons|@count > 0}
     <td class="mastersearch2_result_row_value" valign="top" align="right" width="{$maxIcons*24}" {if isset($line.bgcolor)}{$line.bgcolor}{/if}>
     {foreach from=$line.icons item=v}
       {if isset($v.link)}<a href="{$v.link}" class="menu">{/if}

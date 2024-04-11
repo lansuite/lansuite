@@ -89,6 +89,15 @@ class DB
     }
 
     /**
+     * Escapes special characters in a string for use in an SQL statement, taking into account the current charset of the connection.
+     *
+     * @return string
+     */
+    public function real_escape_string(string $text): string {
+        return mysqli_real_escape_string($this->link_id, $text);
+    }
+
+    /**
      * @param bool $save
      * @return bool
      */
@@ -101,7 +110,7 @@ class DB
         $pass = $config['database']['passwd'];
         $database = $config['database']['database'];
         $port = $config['database']['dbport'] ?? 3306;
-        $charset = $config['database']['charset'];
+        $charset = $config['database']['charset'] ?? '';
         $sqlmode = '';
         if (array_key_exists('sqlmode', $config['database'])) {
             $sqlmode = $config['database']['sqlmode'];

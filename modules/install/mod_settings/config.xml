@@ -444,7 +444,13 @@ nospamfor.us</default>
         <name>google_analytics_id</name>
         <type>string</type>
         <default></default>
-        <description>Google-Analytics-ID. ID um Google-Analytics Code zu aktivieren</description>
+        <description>Google API-Key um Google-Analytics Code zu aktivieren</description>
+      </item>
+        <item>
+        <name>google_maps_key</name>
+        <type>string</type>
+        <default></default>
+        <description>Google API-Key um Google-Maps Code zu aktivieren</description>
       </item>
     </items>
   </group>

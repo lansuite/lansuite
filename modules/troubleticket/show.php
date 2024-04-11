@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         include_once('modules/troubleticket/search.inc.php');
         break;
@@ -8,7 +9,7 @@ switch ($_GET["step"]) {
     case 2:
         $tt_id = $_GET['ttid'];
 
-        $rowtest = $db->qry_first("SELECT COUNT(*) AS n FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);
+        $rowtest = $database->queryWithOnlyFirstRow("SELECT COUNT(*) AS n FROM %prefix%troubleticket WHERE ttid = ?", [$tt_id]);
         $numrows = $rowtest["n"];
 
         // Check if ticketid is empty
@@ -21,12 +22,12 @@ switch ($_GET["step"]) {
             $dsp->NewContent(t('Troubleticket anzeigen'), t('Hier siehst du alle Informationen zu diesem Ticket'));
 
             // Ticket aus DB laden und ausgeben
-            $row = $db->qry_first("SELECT * FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);
+            $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%troubleticket WHERE ttid = ?", [$tt_id]);
 
             $origin_user_id = $row["origin_userid"];
-            $get_originuser = $db->qry_first("SELECT userid, username FROM %prefix%user WHERE userid = %int% ", $origin_user_id);
+            $get_originuser = $database->queryWithOnlyFirstRow("SELECT userid, username FROM %prefix%user WHERE userid = ?", [$origin_user_id]);
             $target_user_id = $row["target_userid"];
-            $get_targetuser = $db->qry_first("SELECT userid, username FROM %prefix%user WHERE userid = %int% ", $target_user_id);
+            $get_targetuser = $database->queryWithOnlyFirstRow("SELECT userid, username FROM %prefix%user WHERE userid = ?", [$target_user_id]);
 
             $dsp->AddDoubleRow(t('Überschrift'), $row["caption"]);
             $dsp->AddDoubleRow(t('Problembeschreibung'), $func->text2html($row["text"]));
@@ -87,13 +88,16 @@ switch ($_GET["step"]) {
             if ($time_text and $time_val) {
                 $dsp->AddDoubleRow($time_text, $time_val);
             }
-            $dsp->AddDoubleRow(t('Bearbeitender Orga'), $dsp->FetchUserIcon($get_targetuser["userid"], $get_targetuser["username"]));
+
+            $targetUserUserId = $get_targetuser["userid"] ?? 0;
+            $targetUserUsername = $get_targetuser["username"] ?? '';
+            $dsp->AddDoubleRow(t('Bearbeitender Orga'), $dsp->FetchUserIcon($targetUserUserId, $targetUserUsername));
 
             if (!$row["publiccomment"]) {
                 $row["publiccomment"] = t(' Kein Hinweis eingetragen');
             }
             $dsp->AddDoubleRow(t('Kommentar'), $func->text2html($row["publiccomment"]));
-            if ($auth['type'] > 1) {
+            if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                 if (!$row["orgacomment"]) {
                     $row["orgacomment"] = t(' Kein Hinweis eingetragen');
                 }

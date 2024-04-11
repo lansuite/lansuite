@@ -8,7 +8,7 @@ use LanSuite\PasswordHash;
  */
 function CheckClanPW($clanpw)
 {
-    global $db;
+    global $database;
 
     $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
     if ($clan['password'] and PasswordHash::verify($clanpw, $clan['password'])) {

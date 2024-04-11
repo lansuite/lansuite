@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $dsp->NewContent(t('Gruppen verwalten'), t('Uebersicht'));
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('cashmgr');
@@ -26,7 +27,7 @@ switch ($_GET['step']) {
         break;
         
     case 2:
-        $db->qry("DELETE FROM %prefix%cashmgr_group WHERE id = %int%", $_GET['id']);
+        $database->query("DELETE FROM %prefix%cashmgr_group WHERE id = ?", [$_GET['id']]);
         $func->confirmation('Erfolgreich gelöscht', 'index.php?mod=cashmgr&action=managegroup');
         break;
 }

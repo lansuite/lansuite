@@ -4,26 +4,27 @@ $importXml = new \LanSuite\XML();
 $installImport = new \LanSuite\Module\Install\Import($importXml);
 $install = new \LanSuite\Module\Install\Install($installImport);
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     // Update Modules
     case 2:
         $res = $db->qry("SELECT name, reqphp, reqmysql FROM %prefix%modules WHERE changeable");
         while ($row = $db->fetch_array($res)) {
-            if ($_POST[$row["name"]]) {
+            if (array_key_exists($row["name"], $_POST) && $_POST[$row["name"]]) {
                 if ($row['reqphp'] and version_compare(PHP_VERSION, $row['reqphp']) < 0) {
                     $func->information(t('Das Modul %1 kann nicht aktiviert werden, da die PHP Version %2 benötigt wird', $row["name"], $row['reqphp']), NO_LINK);
                 } else {
-                    $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = %string%", $row["name"]);
+                    $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = ?", [$row["name"]]);
                 }
             } elseif (count($_POST)) {
-                $db->qry_first("UPDATE %prefix%modules SET active = 0 WHERE name = %string%", $row["name"]);
+                $database->query("UPDATE %prefix%modules SET active = 0 WHERE name = ?", [$row["name"]]);
             }
         }
         $db->free_result($res);
 
-        $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'settings'");
-        $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'banner'");
-        $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'about'");
+        $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = 'settings'");
+        $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = 'banner'");
+        $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = 'about'");
         
         $install->CreateNewTables(0);
         $func->confirmation(t('Änderungen erfolgreich gespeichert.'), "index.php?mod=install&action=modules");
@@ -45,7 +46,7 @@ switch ($_GET["step"]) {
 
     // Menuentries
     case 20:
-        $db->qry("DELETE FROM %prefix%menu WHERE caption='' AND action='' AND file=''");
+        $database->query("DELETE FROM %prefix%menu WHERE caption = '' AND action = '' AND file = ''");
 
         $dsp->NewContent(t('Modul-Menüeinträge'), t('Hier kannst du die Navigationseinträge dieses Moduls ändern.'));
         $dsp->SetForm("index.php?mod=install&action=modules&step=21&module={$_GET["module"]}");
@@ -73,6 +74,7 @@ switch ($_GET["step"]) {
     // Change Menuentries
     case 21:
         foreach ($_POST["caption"] as $key => $val) {
+            $boxId = $_POST["boxid"][$key] ?? 0;
             $db->qry(
                 "UPDATE %prefix%menu SET caption = %string%, requirement = %string%, action = %string%, hint = %string%, link = %string%, file = %string%, pos = %string%, boxid = %int%, needed_config = %string% WHERE id = %int%",
                 $_POST["caption"][$key],
@@ -82,7 +84,7 @@ switch ($_GET["step"]) {
                 $_POST["link"][$key],
                 $_POST["file"][$key],
                 $_POST["pos"][$key],
-                $_POST["boxid"][$key],
+                $boxId,
                 $_POST["needed_config"][$key],
                 $key
             );
@@ -93,11 +95,11 @@ switch ($_GET["step"]) {
 
     // Delete Menuentry
     case 23:
-        $row = $db->qry_first("SELECT requirement FROM %prefix%menu WHERE id=%int%", $_GET["id"]);
+        $row = $database->queryWithOnlyFirstRow("SELECT requirement FROM %prefix%menu WHERE id = ?", [$_GET["id"]]);
         if ($row['requirement'] > 0) {
             $func->information(t('Mit diesem Eintrag ist eine Zugriffsberechtigung verknüpft. Du solltest diesen Eintrag daher nicht löschen, da sonst jeder Zugriff auf die betreffende Datei hat.' . HTML_NEWLINE . 'Wenn du nur den Menülink entfernen möchten, lösche die Felder Titel und Linkziel.' . HTML_NEWLINE . 'Wenn du wirklich jedem Zugriff auf die Datei geben möchten, setze den Zugriff auf Jeder und lösche dann den Eintrag.'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
         } else {
-            $db->qry("DELETE FROM %prefix%menu WHERE id=%int%", $_GET["id"]);
+            $database->query("DELETE FROM %prefix%menu WHERE id = ?", [$_GET["id"]]);
             $func->confirmation(t('Der Menü-Eintrag wurde erfolgreich gelöscht'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
         }
         break;
@@ -107,27 +109,28 @@ switch ($_GET["step"]) {
     default:
       // If Rewrite, delete corresponding items
         $rewrite_all = 0;
-        if ($_GET["rewrite"] == "all") {
-            $db->qry("TRUNCATE TABLE %prefix%config");
-            $db->qry("TRUNCATE TABLE %prefix%modules");
-            $db->qry("TRUNCATE TABLE %prefix%menu");
+        $rewriteParameter = $_GET["rewrite"] ?? '';
+        if ($rewriteParameter == "all") {
+            $database->query("TRUNCATE TABLE %prefix%config");
+            $database->query("TRUNCATE TABLE %prefix%modules");
+            $database->query("TRUNCATE TABLE %prefix%menu");
             $rewrite_all = 1;
-        } elseif ($_GET["rewrite"]) {
-            $db->qry("DELETE FROM %prefix%modules WHERE name = %string%", $_GET["rewrite"]);
-            $db->qry("DELETE FROM %prefix%menu WHERE module = %string%", $_GET["rewrite"]);
-            $db->qry("DELETE FROM %prefix%boxes WHERE module = %string%", $_GET["rewrite"]);
+        } elseif ($rewriteParameter) {
+            $database->query("DELETE FROM %prefix%modules WHERE name = ?", [$rewriteParameter]);
+            $database->query("DELETE FROM %prefix%menu WHERE module = ?", [$rewriteParameter]);
+            $database->query("DELETE FROM %prefix%boxes WHERE module = ?", [$rewriteParameter]);
 
-            $_GET["rewrite"] .= "_";
-            if ($_GET["rewrite"] == "downloads_") {
-                $_GET["rewrite"] = "Download";
+            $rewriteParameter .= "_";
+            if ($rewriteParameter == "downloads_") {
+                $rewriteParameter= "Download";
             }
-            if ($_GET["rewrite"] == "usrmgr_") {
-                $_GET["rewrite"] = "Userdetails";
+            if ($rewriteParameter == "usrmgr_") {
+                $rewriteParameter = "Userdetails";
             }
-            if ($_GET["rewrite"] == "tournament2_") {
-                $_GET["rewrite"] = "t";
+            if ($rewriteParameter == "tournament2_") {
+                $rewriteParameter = "t";
             }
-            $find_config = $db->qry_first("DELETE FROM %prefix%config WHERE (cfg_group = %string%) OR (cfg_key LIKE %string%)", $_GET["rewrite"], $_GET["rewrite"].'%');
+            $find_config = $database->query("DELETE FROM %prefix%config WHERE cfg_group = ? OR cfg_key LIKE ?", [$rewriteParameter, $rewriteParameter . '%']);
         }
 
         // Auto-Load Modules from XML-Files

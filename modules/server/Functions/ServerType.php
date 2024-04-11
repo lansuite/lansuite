@@ -10,6 +10,7 @@ function ServerType($type)
         "gameserver" => "Game",
         "ftp" => "FTP",
         "irc" => "IRC",
+        "voice" => "Voice",
         "web" => "Web",
         "proxy" => "Proxy",
         "misc" => "Misc",

@@ -1,38 +1,39 @@
 <?php
-$mail_total = $db->qry_first("
+$mail_total = $database->queryWithOnlyFirstRow("
   SELECT
     COUNT(*) as n
   FROM %prefix%mail_messages
   WHERE
-    ToUserID = %int%
-    AND mail_status = 'delete'", $auth['userid']);
+    ToUserID = ?
+    AND mail_status = 'delete'", [$auth['userid']]);
 
-$mail_unread_total = $db->qry_first("
+$mail_unread_total = $database->queryWithOnlyFirstRow("
   SELECT
     COUNT(*) as n
   FROM %prefix%mail_messages
   WHERE
-    ToUserID = %int%
+    ToUserID = ?
     AND mail_status = 'delete'
-    AND des_status = 'new'", $auth['userid']);
+    AND des_status = 'new'", [$auth['userid']]);
 
 $dsp->NewContent(t('Papierkorb'), t('Du hast <b>%1</b> Mail(s) in ihrem Papierkorb. Davon wurde(n) <b>%2</b> nicht von dir gelesen.', $mail_total["n"], $mail_unread_total["n"]));
 
 if ($auth['userid']) {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // check if it can delete from Database and delete
         case 20:
             if (!$_POST['action'] and $_GET['mailid']) {
                 $_POST['action'][$_GET['mailid']] = 1;
             }
             foreach ($_POST['action'] as $key => $val) {
-                  $tx_status = $db->qry_first("SELECT fromUserID, tx_deleted FROM %prefix%mail_messages WHERE mailID = %int%", $key);
+                  $tx_status = $database->queryWithOnlyFirstRow("SELECT fromUserID, tx_deleted FROM %prefix%mail_messages WHERE mailID = ?", [$key]);
           
                   // Ist eMail vom Sender gelöscht? JA: Lösche aus DB, NEIN: Setze rx flag
                 if ($tx_status['tx_deleted'] == 1 or $tx_status['fromUserID'] == 0) {
-                    $db->qry("DELETE FROM %prefix%mail_messages WHERE mailID = %int%", $key);
+                    $database->query("DELETE FROM %prefix%mail_messages WHERE mailID = ?", [$key]);
                 } else {
-                    $db->qry("UPDATE %prefix%mail_messages SET rx_deleted = 1 WHERE mailID = %int%", $key);
+                    $database->query("UPDATE %prefix%mail_messages SET rx_deleted = 1 WHERE mailID = ?", [$key]);
                 }
             }
             break;

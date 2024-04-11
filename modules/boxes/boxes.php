@@ -8,10 +8,11 @@ if ($auth['login'] == "1") {
     $boxActionParameter = $request->query->get('box_action');
     // Change state, when Item is clicked
     if ($boxActionParameter == 'change' and $_GET['boxid'] != "") {
-        if ($_SESSION['box_'. $_GET['boxid'] .'_active']) {
+        $sessionBoxKey = 'box_' . $_GET['boxid'] . '_active';
+        if (array_key_exists($sessionBoxKey, $_SESSION) && $_SESSION[$sessionBoxKey]) {
             unset($_SESSION['box_'. $_GET['boxid'] .'_active']);
         } else {
-            $_SESSION['box_'. $_GET['boxid'] .'_active'] = 1;
+            $_SESSION[$sessionBoxKey] = 1;
         }
     }
 }
@@ -54,8 +55,7 @@ $BoxRes = $db->qry("
   ORDER BY pos", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
 
 while ($BoxRow = $db->fetch_array($BoxRes)) {
-    if (($BoxRow['module'] == '' or $func->isModActive($BoxRow['module'])) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
-
+    if (($BoxRow['module'] == '' || $func->isModActive($BoxRow['module'])) && ($BoxRow['callback'] == '' || (is_callable($BoxRow['callback']) && call_user_func($BoxRow['callback'], '')))) {
         // Preset $templ, if it is not defined yet
         if (!isset($templ)) {
             $templ = [
@@ -115,7 +115,7 @@ unset($BoxRes);
 
 // Add Link to boxmanager, if menu is missing and loginbox, if not logged in
 if (!$MenuActive) {
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $box = new Boxes();
         $box->Row(t('Keine Navigation gefunden. Bitte korrekte zuweisung Box / Navigation prüfen (BoxID). Temporäre Links aktiviert.'));
         $box->EmptyRow();

@@ -91,7 +91,7 @@ class Menu
      */
     public function get_menu_items()
     {
-        global $auth, $db;
+        global $auth, $db, $database;
 
         if (!array_key_exists('menu_group', $_GET) || !$_GET['menu_group']) {
             $_GET['menu_group'] = 0;
@@ -158,7 +158,7 @@ class Menu
                     $db->free_result($res2);
 
                     // If Admin add general Management-Links
-                    if ($auth['type'] > 2) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
                         $adminIcons = $this->box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
                         $this->box->Row('<span class="AdminIcons">'. $adminIcons .'</span>');
                     }

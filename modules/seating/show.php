@@ -4,21 +4,24 @@ use LanSuite\Module\Seating\Seat2;
 
 $seat2 = new Seat2();
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
-        $row = $db->qry_first('
+        $row = $database->queryWithOnlyFirstRow('
           SELECT
             blockid
           FROM %prefix%seat_block
           WHERE
-            party_id = %int%', $party->party_id);
-        $_GET['blockid'] = $row['blockid'];
+            party_id = ?', [$party->party_id]);
+        $_GET['blockid'] = $row['blockid'] ?? 0;
 
     // Show seatplan
     case 2:
         $dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahre mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
 
         $current_url = 'index.php?mod=seating';
+        $target_icon = '';
+        $target_url = '';
         include_once('modules/seating/search_basic_blockselect.inc.php');
 
         $dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0));
@@ -27,22 +30,22 @@ switch ($_GET['step']) {
 
     // Reserve free seat
     case 10:
-        $user_data = $db->qry_first("
+        $user_data = $database->queryWithOnlyFirstRow("
           SELECT
             paid
         FROM %prefix%party_user
         WHERE
-          user_id = %int%
-          AND party_id = %int%", $auth['userid'], $party->party_id);
+          user_id = ?
+          AND party_id = ?", [$auth['userid'], $party->party_id]);
 
-        $seat_user = $db->qry_first("
+        $seat_user = $database->queryWithOnlyFirstRow("
           SELECT
             status
           FROM %prefix%seat_seats
           WHERE
-            blockid = %int%
-            AND row = %string%
-            AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
+            blockid = ?
+            AND row = ?
+            AND col = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
 
         // Check paid
         if (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) {
@@ -56,14 +59,14 @@ switch ($_GET['step']) {
         // No errors
         } else {
             // Get number of marked seats of this user
-            $marked_seats = $db->qry_first("
+            $marked_seats = $database->queryWithOnlyFirstRow("
               SELECT COUNT(*) AS anz
               FROM %prefix%seat_seats AS s
               LEFT JOIN %prefix%seat_block AS b ON s.blockid = b. blockid
               WHERE
-                s.userid = %int%
+                s.userid = ?
                 AND s.status = 3
-                AND b.party_id = %int%", $auth['userid'], $party->party_id);
+                AND b.party_id = ?", [$auth['userid'], $party->party_id]);
 
             // Check if not paid user has allready marked one seat
             if (!$user_data['paid'] and $marked_seats['anz'] >= 1) {
@@ -72,10 +75,10 @@ switch ($_GET['step']) {
                 $questionarray = array();
                 $linkarray = array();
 
-                $row = $db->qry_first("SELECT seatid FROM %prefix%seat_seats WHERE blockid = %int% AND status = 2 AND userid = %int%", $_GET['blockid'], $auth['userid']);
+                $row = $database->queryWithOnlyFirstRow("SELECT seatid FROM %prefix%seat_seats WHERE blockid = ? AND status = 2 AND userid = ?", [$_GET['blockid'], $auth['userid']]);
                 if ($user_data['paid']) {
                     // Reserve seat for myselfe
-                    if ($row['seatid']) {
+                    if ($row && $row['seatid']) {
                         $questionarray[] = t('Du hast bereits einen Sitzplatz reserviert. Möchtest du deinen Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?');
                         $linkarray[]     = "index.php?mod=seating&action=show&step=11&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     // Change my seat, if I allready have one
@@ -110,7 +113,7 @@ switch ($_GET['step']) {
                         $db->free_result($res);
                     }
                           // Delete mark, if Admin
-                    if ($auth['type'] > 1 and $seat_user['status'] == 3) {
+                    if ($auth['type'] > \LS_AUTH_TYPE_USER and $seat_user['status'] == 3) {
                         $questionarray[] = t('Möchtest du als Admin diese Vormerkung entfernen?');
                         $linkarray[]     = "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}";
                     }
@@ -134,36 +137,36 @@ switch ($_GET['step']) {
   
     // Reserve seat for clan-member
     case 13:
-        $user = $db->qry_first("
+        $user = $database->queryWithOnlyFirstRow("
           SELECT
             group_id
           FROM %prefix%user
-          WHERE userid = %int%", $_GET['userid']);
+          WHERE userid = ?", [$_GET['userid']]);
 
-        $user_data = $db->qry_first("
+        $user_data = $database->queryWithOnlyFirstRow("
           SELECT
             paid,
             price_id
           FROM %prefix%party_user
           WHERE
-            user_id = %int%
-            AND party_id = %int%", $_GET['userid'], $party->party_id);
+            user_id = ?
+            AND party_id = ?", [$_GET['userid'], $party->party_id]);
 
-        $block_data = $db->qry_first("
+        $block_data = $database->queryWithOnlyFirstRow("
           SELECT
             group_id,
             price_id
           FROM %prefix%seat_block
-          WHERE blockid = %int%", $_GET['blockid']);
+          WHERE blockid = ?", [$_GET['blockid']]);
 
-        $seat_user = $db->qry_first("
+        $seat_user = $database->queryWithOnlyFirstRow("
           SELECT
             status
           FROM %prefix%seat_seats
           WHERE
-            blockid = %int%
-            AND row = %string%
-            AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
+            blockid = ?
+            AND row = ?
+            AND col = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
 
         // Check paid
         if (!$user_data['paid'] and $cfg['seating_paid_only']) {
@@ -189,51 +192,51 @@ switch ($_GET['step']) {
 
     // Mark seat for friend (or myselfe, if not paid)
     case 12:
-        $marked_seats = $db->qry_first("
+        $marked_seats = $database->queryWithOnlyFirstRow("
           SELECT
             COUNT(*) AS anz
           FROM %prefix%seat_seats AS s
           LEFT JOIN %prefix%seat_block AS b ON s.blockid = b. blockid
           WHERE
-            s.userid = %int%
+            s.userid = ?
             AND s.status = 3
-            AND b.party_id = %int%", $auth['userid'], $party->party_id);
+            AND b.party_id = ?", [$auth['userid'], $party->party_id]);
 
-        $user_data = $db->qry_first("
+        $user_data = $database->queryWithOnlyFirstRow("
           SELECT
             paid
           FROM %prefix%party_user
           WHERE
-            user_id = %int%
-            AND party_id = %int%", $auth['userid'], $party->party_id);
+            user_id = ?
+            AND party_id = ?", [$auth['userid'], $party->party_id]);
 
-        $seat_user = $db->qry_first("
+        $seat_user = $database->queryWithOnlyFirstRow("
           SELECT
             userid
           FROM %prefix%seat_seats
           WHERE
-            blockid = %int%
-            AND row = %string%
-            AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
+            blockid = ?
+            AND row = ?
+            AND col = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
         
-        $block_data = $db->qry_first("
+        $block_data = $database->queryWithOnlyFirstRow("
           SELECT
             group_id,
             price_id
           FROM %prefix%seat_block
           WHERE
-            blockid = %int%", $_GET['blockid']);
+            blockid = ?", [$_GET['blockid']]);
 
-        $user_party = $db->qry_first("
+        $user_party = $database->queryWithOnlyFirstRow("
           SELECT
             user_id
           FROM %prefix%party_user
           WHERE
-            user_id = %int%
-            AND party_id = %int%", $auth['userid'], $party->party_id);
+            user_id = ?
+            AND party_id = ?", [$auth['userid'], $party->party_id]);
 
         // Check Signed on
-        if (!$user_party['user_id']) {
+        if (!$user_party) {
             $func->information(t('Nur zur Party angemeldete Benutzer dürfen Sitzplätze vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
         // Check paid
@@ -306,17 +309,17 @@ switch ($_GET['step']) {
     
     // Free seat as admin (question)
     case 30:
-        if ($auth['type'] > 1) {
-            $seatingUser = $db->qry_first("
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
+            $seatingUser = $database->queryWithOnlyFirstRow("
               SELECT
                 s.userid,
                 u.username
               FROM %prefix%seat_seats AS s
               INNER JOIN %prefix%user AS u ON u.userid = s.userid
               WHERE
-                blockid = %int%
-                AND row = %string%
-                AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
+                blockid = ?
+                AND row = ?
+                AND col = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
             
             $questionarray = array();
             $linkarray = array();
@@ -336,7 +339,7 @@ switch ($_GET['step']) {
     
     // Free seat as admin
     case 31:
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $seat2->FreeSeat($_GET['blockid'], $_GET['row'], $_GET['col']);
             $func->confirmation(t('Der Sitzplatz wurde erfolgreich freigegeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
         }
@@ -344,9 +347,10 @@ switch ($_GET['step']) {
     
     // Umsetzen als Admin
     case 32:
-        if ($auth['type'] > 1) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $current_url = "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}";
             $target_url = "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid=";
+            $target_icon = '';
             include_once('modules/seating/search_basic_blockselect.inc.php');
         }
 }

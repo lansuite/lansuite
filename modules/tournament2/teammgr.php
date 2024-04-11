@@ -61,28 +61,22 @@ switch ($stepParameter) {
     case 50:
         $sec->unlock("t_team_edit");
 
-        $tournament = $db->qry_first("
+        $tournament = $database->queryWithOnlyFirstRow("
           SELECT
-            teamplayer,
-            wwcl_gameid,
-            ngl_gamename
+            teamplayer
           FROM %prefix%tournament_tournaments
           WHERE
-            tournamentid = %int%", $tournamentid);
+            tournamentid = ?", [$tournamentid]);
 
-        $team = $db->qry_first("
+        $team = $database->queryWithOnlyFirstRow("
           SELECT
             team.name,
             team.comment,
-            team.banner,
-            user.nglid,
-            user.nglclanid,
-            user.wwclid,
-            user.wwclclanid
+            team.banner
         FROM %prefix%t2_teams AS team
         LEFT JOIN %prefix%user AS user ON user.userid = team.leaderid
         WHERE
-          teamid = %int%", $_GET["teamid"]);
+          teamid = ?", [$_GET["teamid"]]);
 
         $dsp->NewContent(t('Teammanager'), t('Hier kannst du deinem Teams verwalten'));
         $dsp->SetForm("index.php?mod=tournament2&action=teammgr&step=51&teamid={$_GET["teamid"]}&tournamentid=$tournamentid", "", "", "multipart/form-data");
@@ -103,19 +97,6 @@ switch ($stepParameter) {
         }
         $dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1_000_000, 1);
 
-        if ($tournament['wwcl_gameid'] > 0) {
-            $dsp->AddTextFieldRow("wwclid", t('WWCL ID'), $team['wwclid'], "");
-            if ($tournament['teamplayer'] > 1) {
-                $dsp->AddTextFieldRow("wwclclanid", t('WWCL Clan'), $team['wwclclanid'], "");
-            }
-        }
-        if ($tournament['ngl_gamename'] != "") {
-            $dsp->AddTextFieldRow("nglid", t('NGL ID'), $team['nglid'], "");
-            if ($tournament['teamplayer'] > 1) {
-                $dsp->AddTextFieldRow("nglclanid", t('NGL Clan ID'), $team['nglclanid'], "");
-            }
-        }
-
         $dsp->AddFormSubmitRow(t('Editieren'));
         $dsp->AddBackButton("index.php?mod=tournament2&action=teammgr", "tournament2/teammgr");
         break;
@@ -123,7 +104,7 @@ switch ($stepParameter) {
     // Edit Teamdetails (Action)
     case 51:
         if (!$sec->locked("t_team_edit")) {
-            $tournament = $db->qry_first("SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
+            $tournament = $database->queryWithOnlyFirstRow("SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = ?", [$tournamentid]);
 
             if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1) {
                 $func->information(t('Bitte gib einen Teamnamen ein, oder wähle ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");

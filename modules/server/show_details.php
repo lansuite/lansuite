@@ -1,7 +1,7 @@
 <?php
 $serverid = $_GET["serverid"];
 
-$server = $db->qry_first("
+$server = $database->queryWithOnlyFirstRow("
   SELECT
     a.serverid,
     a.owner,
@@ -21,7 +21,7 @@ $server = $db->qry_first("
   FROM %prefix%server AS a
   LEFT JOIN %prefix%user AS b ON a.owner = b.userid
   WHERE
-    serverid = %int%", $serverid);
+    serverid = ?", [$serverid]);
      
 if ($server == "") {
     $func->error(t('Der von dir aufgerufene Server existiert nicht'), "index.php?mod=server&action=show");
@@ -29,8 +29,9 @@ if ($server == "") {
     $func->SetRead('server', $_GET["serverid"]);
 
     // Just show details if the user is not adding, deleting or chaning his comment
-    if ($_GET["mcact"] == "" || $_GET["mcact"] == "show") {
-        $dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite diehst du alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangst du zur Übersicht zur&uuml;ck', $server["caption"]));
+    $mcactParameter = $_GET["mcact"] ?? '';
+    if ($mcactParameter == "" || $mcactParameter == "show") {
+        $dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite siehst du alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangst du zur Übersicht zur&uuml;ck', $server["caption"]));
 
         $dsp->AddDoubleRow(t('Name'), $server["caption"]);
         $dsp->AddDoubleRow(t('Besitzer'), $dsp->FetchUserIcon($server['userid'], $server["username"]));
@@ -38,6 +39,7 @@ if ($server == "") {
         $type_descriptor["gameserver"] = t('Gameserver');
         $type_descriptor["ftp"] = t('FTP-Server');
         $type_descriptor["irc"] = t('IRC-Server');
+        $type_descriptor["voice"] = t('Voice-Server');
         $type_descriptor["web"] = t('Webserver');
         $type_descriptor["proxy"] = t('Proxy / Gateway');
         $type_descriptor["misc"] = t('Sonstiges');
@@ -48,7 +50,7 @@ if ($server == "") {
             PingServer($server["ip"], $server["port"]);
 
             // Gescannte Daten neu auslesen
-            $server_scan = $db->qry_first('
+            $server_scan = $database->queryWithOnlyFirstRow('
               SELECT
                 special_info,
                 available,
@@ -56,7 +58,7 @@ if ($server == "") {
                 scans,
                 UNIX_TIMESTAMP(lastscan) AS lastscan
               FROM %prefix%server
-              WHERE serverid = %int%', $serverid);
+              WHERE serverid = ?', [$serverid]);
 
             ($server_scan["available"] == 1) ?
                 $serverstatus = "<div class=\"tbl_green\">".t('Dienst erreichbar')."</div>" : $serverstatus = "<div class=\"tbl_red\">".t('Dienst nicht ereichbar')."</div>";
@@ -86,8 +88,8 @@ if ($server == "") {
         }
         $dsp->AddDoubleRow(t('Betriebssystem'), $server["os"]);
 
-        ($server["cpu"] == "0") ? $server["cpu"] = "<i>". t('Keine Angabe') ."</i>" : $server["cpu"] = $server["cpu"]." Megaherz";
-        ($server["ram"] == "0") ? $server["ram"] = "<i>". t('Keine Angabe') ."</i>" : $server["ram"] = $server["ram"]." Megabyte";
+        ($server["cpu"] == "0") ? $server["cpu"] = "<i>". t('Keine Angabe') ."</i>" : $server["cpu"] = $server["cpu"]." Gigaherz";
+        ($server["ram"] == "0") ? $server["ram"] = "<i>". t('Keine Angabe') ."</i>" : $server["ram"] = $server["ram"]." Gigabyte";
         ($server["hdd"] == "0") ? $server["hdd"] = "<i>". t('Keine Angabe') ."</i>" : $server["hdd"] = $server["hdd"]." Gigabyte";
         $dsp->AddDoubleRow("CPU", $server["cpu"]);
         $dsp->AddDoubleRow("RAM", $server["ram"]);
@@ -99,7 +101,7 @@ if ($server == "") {
         $dsp->AddDoubleRow(t('Beschreibung'), $func->text2html($server["text"]));
 
         $buttons = "";
-        if ($auth['type'] > 1 or $auth['userid'] == $server["owner"]) {
+        if ($auth['type'] > \LS_AUTH_TYPE_USER or $auth['userid'] == $server["owner"]) {
             $buttons .= $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=server&action=change&step=2&serverid=$serverid") ." ";
             $buttons .= $dsp->FetchSpanButton(t('Löschen'), "index.php?mod=server&action=delete&step=2&serverid=$serverid") ." ";
         }

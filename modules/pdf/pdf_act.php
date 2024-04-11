@@ -10,6 +10,7 @@ if (isset($_GET['userid'])) {
 }
 
 // Get template ID
+$templ_id = 0;
 if (isset($_POST['id'])) {
     $templ_id = $_POST['id'];
 }
@@ -22,7 +23,8 @@ $barcodeSystem = new BarcodeSystem();
 $seating = new Seat2();
 $pdf_export = new PDF($templ_id, $barcodeSystem, $seating);
 
-switch ($_GET['act']) {
+$actParameter = $_GET['act'] ?? '';
+switch ($actParameter) {
     default:
         // Delete an entry
         if (isset($_GET['delete'])) {

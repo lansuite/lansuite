@@ -10,7 +10,7 @@ class Beamer
      */
     private function countSQL($where)
     {
-        global $db;
+        global $db, $database;
 
         $row = $db->qry_first("SELECT COUNT(bcID) AS n FROM %prefix%beamer_content %plain%", $where);
 
@@ -61,9 +61,9 @@ class Beamer
      */
     public function set2first($bcid)
     {
-        global $db;
+        global $database;
 
-        $db->qry("UPDATE %prefix%beamer_content SET lastView = '0' WHERE bcid = %int% LIMIT 1", $bcid);
+        $database->query("UPDATE %prefix%beamer_content SET lastView = '0' WHERE bcid = ? LIMIT 1", [$bcid]);
     }
 
     /**
@@ -72,14 +72,15 @@ class Beamer
      */
     public function toggleActive($bcid)
     {
-        global $db;
-        $row = $db->qry_first("SELECT active FROM %prefix%beamer_content WHERE bcID = %int%", $bcid);
+        global $database;
+
+        $row = $database->queryWithOnlyFirstRow("SELECT active FROM %prefix%beamer_content WHERE bcID = ?", [$bcid]);
         $active = $row['active'];
     
         if ($active == "1") {
-            $db->qry("UPDATE %prefix%beamer_content SET active = '0' WHERE bcID = %int% LIMIT 1", $bcid);
+            $database->query("UPDATE %prefix%beamer_content SET active = '0' WHERE bcID = ? LIMIT 1", [$bcid]);
         } else {
-            $db->qry("UPDATE %prefix%beamer_content SET active = '1' WHERE bcID = %int% LIMIT 1", $bcid);
+            $database->query("UPDATE %prefix%beamer_content SET active = '1' WHERE bcID = ? LIMIT 1", [$bcid]);
         }
     }
 
@@ -90,7 +91,7 @@ class Beamer
      */
     public function toggleBeamerActive($bcid, $beamerid)
     {
-        global $db;
+        global $db, $database;
 
         if ($beamerid == '') {
             return;
@@ -111,9 +112,9 @@ class Beamer
      */
     public function deleteContent($bcid)
     {
-        global $db;
+        global $database;
   
-        $db->qry("DELETE FROM %prefix%beamer_content WHERE bcID = %int% LIMIT 1", $bcid);
+        $database->query("DELETE FROM %prefix%beamer_content WHERE bcID = ? LIMIT 1", [$bcid]);
     }
 
     /**
@@ -122,10 +123,11 @@ class Beamer
      */
     public function saveContent($c)
     {
-        global $db;
+        global $db, $database;
   
         $lastview = time();
-        if (!$c['bcid']) {
+        $bcId = $c['bcid'] ?? 0;
+        if (!$bcId) {
             $db->qry(
                 "INSERT INTO %prefix%beamer_content SET caption = %string%, maxRepeats = %string%, contentType = %string%, lastView = %string%, contentData = %string%",
                 $c['caption'],
@@ -148,9 +150,9 @@ class Beamer
      */
     public function getContent($bcid): array|bool|null
     {
-        global $db;
+        global $database;
 
-        $row = $db->qry_first("SELECT * FROM %prefix%beamer_content WHERE bcid = %int% LIMIT 1", $bcid);
+        $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%beamer_content WHERE bcid = ? LIMIT 1", [$bcid]);
 
         return $row;
     }
@@ -161,10 +163,10 @@ class Beamer
      */
     public function getCurrentContent($beamerid)
     {
-        global $db;
+        global $db, $database;
   
         $row = $db->qry_first('SELECT * FROM %prefix%beamer_content WHERE active = 1 AND b%plain% = 1 ORDER BY lastView ASC', $beamerid);
-        $db->qry('UPDATE %prefix%beamer_content SET lastView = %int% WHERE bcID = %int% LIMIT 1', time(), $row['bcID']);
+        $database->query('UPDATE %prefix%beamer_content SET lastView = ? WHERE bcID = ? LIMIT 1', [time(), $row['bcID']]);
 
         switch ($row['contentType']) {
             case 'text':
@@ -191,7 +193,7 @@ class Beamer
      */
     public function getAllTournamentsAsOptionList()
     {
-        global $db;
+        global $db, $database;
 
         $tournaments = [];
         $result = $db->qry('SELECT tournamentid, name FROM %prefix%tournament_tournaments');
@@ -208,9 +210,9 @@ class Beamer
      */
     public function getTournamentNamebyID($ctid)
     {
-        global $db;
+        global $database;
 
-        $result = $db->qry_first('SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $ctid);
+        $result = $database->queryWithOnlyFirstRow('SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = ?', [$ctid]);
 
         return $result['name'];
     }

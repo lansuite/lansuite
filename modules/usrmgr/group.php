@@ -32,17 +32,17 @@ switch ($stepParameter) {
     
     // Move Up
     case 16:
-        $db->qry("UPDATE %prefix%party_usergroups SET pos = 0 WHERE pos = %int%", ($_GET["pos"] - 1));
-        $db->qry("UPDATE %prefix%party_usergroups SET pos = pos - 1 WHERE pos = %int%", $_GET["pos"]);
-        $db->qry("UPDATE %prefix%party_usergroups SET pos = %string% WHERE pos = 0", $_GET["pos"]);
+        $database->query("UPDATE %prefix%party_usergroups SET pos = 0 WHERE pos = ?", [$_GET["pos"] - 1]);
+        $database->query("UPDATE %prefix%party_usergroups SET pos = pos - 1 WHERE pos = ?", [$_GET["pos"]]);
+        $database->query("UPDATE %prefix%party_usergroups SET pos = ? WHERE pos = 0", [$_GET["pos"]]);
         $_GET['step'] = 15;
         break;
 
     // Move Down
     case 17:
-        $db->qry("UPDATE %prefix%party_usergroups SET pos = 0 WHERE pos = %int%", ($_GET["pos"] + 1));
-        $db->qry("UPDATE %prefix%party_usergroups SET pos = pos + 1 WHERE pos = %int%", $_GET["pos"]);
-        $db->qry("UPDATE %prefix%party_usergroups SET pos = %string% WHERE pos = 0", $_GET["pos"]);
+        $database->query("UPDATE %prefix%party_usergroups SET pos = 0 WHERE pos = ?", [$_GET["pos"] + 1]);
+        $database->query("UPDATE %prefix%party_usergroups SET pos = pos + 1 WHERE pos = ?", [$_GET["pos"]]);
+        $database->query("UPDATE %prefix%party_usergroups SET pos = ? WHERE pos = 0", [$_GET["pos"]]);
         $_GET['step'] = 15;
         break;
     
@@ -64,7 +64,7 @@ switch ($stepParameter) {
             $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=usrmgr&action=group&step=2&var=new"));
             $dsp->SetForm("index.php?mod=usrmgr&action=group&step=3&var=update&group_id={$_POST['group_id']}");
             if (!isset($_POST['group_name'])) {
-                $row = $db->qry_first("SELECT * FROM %prefix%party_usergroups WHERE group_id=%int%", $_POST['group_id']);
+                $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_usergroups WHERE group_id = ?", [$_POST['group_id']]);
                 $_POST = array_merge_recursive($_POST, $row);
             }
         } else {
@@ -82,7 +82,7 @@ switch ($stepParameter) {
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
         
         if ($varParameter != "update") {
-            $count = $db->qry_first("SELECT count(group_id) as n FROM %prefix%party_usergroups WHERE selection != 0");
+            $count = $database->queryWithOnlyFirstRow("SELECT COUNT(group_id) AS n FROM %prefix%party_usergroups WHERE selection != 0");
             if ($count['n'] > 1) {
                 $dsp->AddHRuleRow();
                 $dsp->AddDoubleRow("", "<a href='index.php?mod=usrmgr&action=group&step=15'>".t('Automatisch Zuordnung sortieren')."</a>");
@@ -138,11 +138,12 @@ switch ($stepParameter) {
         break;
 
     case 11:
-        if ($_POST['checkbox']) {
+        $checkBoxParameter = $_POST['checkbox'] ?? [];
+        if (count($checkBoxParameter) > 0) {
             $text = "";
             $userids = "";
-            foreach ($_POST['checkbox'] as $userid) {
-                $user_data = $db->qry_first("SELECT user.username, g.group_name FROM %prefix%user AS user LEFT JOIN %prefix%party_usergroups AS g ON user.group_id = g.group_id WHERE userid = %int%", $userid);
+            foreach ($checkBoxParameter as $userid) {
+                $user_data = $database->queryWithOnlyFirstRow("SELECT user.username, g.group_name FROM %prefix%user AS user LEFT JOIN %prefix%party_usergroups AS g ON user.group_id = g.group_id WHERE userid = ?", [$userid]);
                 if ($user_data["group_name"] != "") {
                     $text .=  "<b>{$user_data["username"]}</b> " . t('ist in der Gruppe') . " <b>" . $user_data["group_name"] . "</b>" . HTML_NEWLINE;
                 } else {
@@ -150,12 +151,12 @@ switch ($stepParameter) {
                 }
                 $userids .= "$userid,";
             }
-            $row = $db->qry_first("SELECT group_name FROM %prefix%party_usergroups WHERE group_id=%int%", $_GET['group_id']);
+            $row = $database->queryWithOnlyFirstRow("SELECT group_name FROM %prefix%party_usergroups WHERE group_id = ?", [$_GET['group_id']]);
             $text .= HTML_NEWLINE . t('Willst du diese Benutzer der Gruppe %1 zuweisen?', "\"<b>" .$row['group_name'] . "</b>\"");
             $userids = substr($userids, 0, strlen($userids) - 1);
             $func->question($text, "index.php?mod=usrmgr&action=group&step=12&userids=$userids&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}");
         } elseif ($_GET["userid"]) {
-            $user_data = $db->qry_first("SELECT user.username, g.group_name FROM %prefix%user AS user LEFT JOIN %prefix%party_usergroups AS g ON user.group_id = g.group_id WHERE userid = %int%", $_GET["userid"]);
+            $user_data = $database->queryWithOnlyFirstRow("SELECT user.username, g.group_name FROM %prefix%user AS user LEFT JOIN %prefix%party_usergroups AS g ON user.group_id = g.group_id WHERE userid = ?", [$_GET["userid"]]);
                     
             if ($user_data["username"]) {
                 $func->question(t('Willst du den Benutzer %1 der Gruppe %2 zuweisen?', $user_data["username"], $user_data["group_name"]), "index.php?mod=usrmgr&action=group&step=12&userid={$_GET["userid"]}&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}");
@@ -172,10 +173,10 @@ switch ($stepParameter) {
         if ($_GET["userids"]) {
             $userids = explode(",", $_GET["userids"]);
             foreach ($userids as $userid) {
-                $db->qry("UPDATE %prefix%user SET group_id = %int% WHERE userid = %int% LIMIT 1", $_GET['group_id'], $_GET["userid"]);
+                $database->query("UPDATE %prefix%user SET group_id = ? WHERE userid = ? LIMIT 1", [$_GET['group_id'], $_GET["userid"]]);
             }
         } else {
-            $db->qry("UPDATE %prefix%user SET group_id = %int% WHERE userid = %int% LIMIT 1", $_GET['group_id'], $_GET["userid"]);
+            $database->query("UPDATE %prefix%user SET group_id = ? WHERE userid = ? LIMIT 1", [$_GET['group_id'], $_GET["userid"]]);
         }
 
         $func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgeführt'), "index.php?mod=usrmgr&action=group&group_id={$_GET['group_id']}");
@@ -190,7 +191,7 @@ switch ($stepParameter) {
         
         while ($group = $db->fetch_array($groups)) {
             $z++;
-            $db->qry("UPDATE %prefix%party_usergroups SET pos = %int% WHERE group_id = %int%", $z, $group["group_id"]);
+            $database->query("UPDATE %prefix%party_usergroups SET pos = ? WHERE group_id = ?", [$z, $group["group_id"]]);
 
             $link = "";
             if ($z > 1) {
@@ -210,7 +211,7 @@ switch ($stepParameter) {
     
     // Delete Group
     case 20:
-        $row = $db->qry_first("SELECT * FROM %prefix%party_usergroups WHERE group_id=%int%", $_POST['group_id']);
+        $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_usergroups WHERE group_id = ?", [$_POST['group_id']]);
         $func->question(t('Wollen sie die Gruppe %1 wirklich löschen?', $row['group_name']), "index.php?mod=usrmgr&action=group&step=21&group_id={$_POST['group_id']}", "index.php?mod=usrmgr&action=group");
         break;
     
@@ -229,7 +230,7 @@ switch ($stepParameter) {
     // Multi-User-Assign
     case 30:
         foreach ($_POST['action'] as $key => $val) {
-            $db->qry("UPDATE %prefix%user SET group_id = %int% WHERE userid = %int%", $_GET['group_id'], $key);
+            $database->query("UPDATE %prefix%user SET group_id = ? WHERE userid = ?", [$_GET['group_id'], $key]);
         }
         $func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgeführt'), "index.php?mod=usrmgr");
         break;

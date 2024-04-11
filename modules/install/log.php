@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter ) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2();
 
@@ -49,7 +50,7 @@ switch ($_GET["step"]) {
         $ms2->AddResultField(t('Prio.'), 'l.type');
 
         $ms2->AddIconField('details', 'index.php?mod=install&action=log&step=2&logid=', t('Details'));
-        if ($auth['type'] >= 3) {
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
             $ms2->AddMultiSelectAction(t('Löschen'), "index.php?mod=install&action=log&step=10", 1);
         }
 
@@ -57,7 +58,7 @@ switch ($_GET["step"]) {
         break;
 
     case 2:
-        $log = $db->qry_first("
+        $log = $database->queryWithOnlyFirstRow("
           SELECT
             l.type,
             l.sort_tag,
@@ -70,7 +71,7 @@ switch ($_GET["step"]) {
             u.username
         FROM %prefix%log AS l
         LEFT JOIN %prefix%user AS u ON l.userid = u.userid
-        WHERE l.logid = %int%", $_GET['logid']);
+        WHERE l.logid = ?", [$_GET['logid']]);
         $dsp->NewContent($log['sort_tag']);
         $dsp->AddDoubleRow(t('Meldung'), $log['description']);
         $dsp->AddDoubleRow(t('Zeitpunkt'), $func->unixstamp2date($log['date'], 'datetime'));

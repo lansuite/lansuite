@@ -2,7 +2,7 @@
 
 // Info Seite blockiert
 if ($cfg['sys_blocksite'] == 1) {
-    if ($framework->modus != "ajax") {
+    if ($framework->getDisplayModus() != \LanSuite\Framework::DISPLAY_MODUS_AJAX) {
         $func->information($cfg['sys_blocksite_text'], "index.php?mod=install");
     }
 }
@@ -17,16 +17,31 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
     // Reset $auth['type'], if no permission to Mod
     if ($auth['type'] > \LS_AUTH_TYPE_USER) {
         // Has at least someone (with rights equal or above) access to this mod?
-        $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions AS p
-        LEFT JOIN %prefix%user AS u on p.userid = u.userid
-        WHERE p.module = %string% AND u.type >= %int%", $_GET['mod'], $auth['type']);
+        $permissionQuery = '
+        SELECT
+            1 AS found
+        FROM
+            `%prefix%user_permissions` AS p
+            LEFT JOIN `%prefix%user` AS u on `p`.`userid` = `u`.`userid`
+        WHERE
+            `p`.`module` = ?
+            AND `u`.`type` >= ?';
+        $permission = $database->queryWithOnlyFirstRow($permissionQuery, [$_GET['mod'], $auth['type']]);
 
-          // If so: Has the current user access to this mod?
+        // If so: Has the current user access to this mod?
         if ($permission && $permission['found']) {
-            $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string% AND userid = %int%", $_GET['mod'], $auth['userid']);
+
+            $permissionQuery = '
+            SELECT
+                1 AS found
+            FROM `%prefix%user_permissions`
+            WHERE
+                `module` = ?
+                AND `userid` = ?';
+            $permission = $database->queryWithOnlyFirstRow($permissionQuery, [$_GET['mod'], $auth['userid']]);
 
             // If not: Set his rights to user-rights
-            if (!$permission['found']) {
+            if (!$permission) {
                 $auth['type'] = \LS_AUTH_TYPE_USER;
                 $_SESSION['auth']['type'] = 1;
                 $authentication->auth['type'] = 1;
@@ -36,7 +51,7 @@ if ($_GET["mod"] != 'install' && $func->admin_exists()) {
 }
 
 $siteblock = false;
-if ($cfg['sys_blocksite'] == 1 && $auth['type'] < \LS_AUTH_TYPE_ADMIN && $_GET['mod'] != 'info2' && $framework->modus != "ajax") {
+if ($cfg['sys_blocksite'] == 1 && $auth['type'] < \LS_AUTH_TYPE_ADMIN && $_GET['mod'] != 'info2' && $framework->getDisplayModus() != \LanSuite\Framework::DISPLAY_MODUS_AJAX) {
     $siteblock = true;
 }
 
@@ -61,8 +76,12 @@ if (!$missing_fields && !$siteblock) {
 
             // If module is deactivated display information message and redirect to home-mod
             if ($modParameter && !$func->isModActive($modParameter)) {
-                $row = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name = %string%', $modParameter);
-                if ($row['caption']) {
+                $disabledModulesQueries = '
+                    SELECT `caption`
+                    FROM `%prefix%modules`
+                    WHERE `name` = ?';
+                $row = $database->queryWithOnlyFirstRow($disabledModulesQueries, [$modParameter]);
+                if (is_array($row) && $row['caption']) {
                     $func->information(t('Das Modul %1 wurde deaktiviert und steht somit nicht zur Verfügung. Du wurdest zur Startseite weitergeleitet', $row['caption']), NO_LINK);
                 } else {
                     $func->information(t('Das Modul %1 existiert nicht. Überprüfe, ob du die Adresse korrekt eingegeben hast. Du wurdest zur Startseite weitergeleitet', $_GET['mod']), NO_LINK);
@@ -117,7 +136,11 @@ if (!$missing_fields && !$siteblock) {
                 } elseif ($fileInModDirectoryExists) {
                     // Case like
                     //  - /?mod=downloads&action=stats_grafik
-                    if ($authentication->authorized($menu['requirement'])) {
+                    $authRequirement = 0;
+                    if ($menu && $menu['requirement']) {
+                        $authRequirement = $menu['requirement'];
+                    }
+                    if ($authentication->authorized($authRequirement)) {
                         include_once($pathToInclude);
                     }
 

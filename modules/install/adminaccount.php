@@ -12,7 +12,8 @@ if ($db->num_rows($find) == 0) {
 }
 $db->free_result($find);
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     case 2:
         if ($_POST["email"] == "") {
             $func->error(t('Bitte gib eine E-Mail-Adresse ein!'), "index.php?mod=install&action=adminaccount");

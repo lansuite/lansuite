@@ -22,7 +22,7 @@ class Import
 
     public function __construct(\LanSuite\XML $xml)
     {
-        global $db;
+        global $db, $database;
 
         $this->xml = $xml;
 
@@ -80,7 +80,7 @@ class Import
      */
     public function ImportXML($rewrite = null)
     {
-        global $db, $config, $func;
+        global $db, $database, $config, $func;
 
         $tables = $this->xml->getTagContentArray("table", $this->xml_content_lansuite);
         foreach ($tables as $table) {
@@ -338,13 +338,10 @@ class Import
                         // Foreign Key references
                         if ($foreign_key) {
                             [$foreign_table, $foreign_key_name] = explode('.', $foreign_key, 2);
-                            $row = $db->qry_first(
+                            $row = $database->queryWithOnlyFirstRow(
                                 'SELECT 1 AS found, on_delete FROM %prefix%ref WHERE
-              pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
-                                $table_name,
-                                $name,
-                                $foreign_table,
-                                $foreign_key_name
+              pri_table = ? AND pri_key = ? AND foreign_table = ? AND foreign_key = ?',
+                                [$table_name, $name, $foreign_table, $foreign_key_name]
                             );
 
                             if (is_array($row) && $row['on_delete'] != $on_delete) {
@@ -384,22 +381,18 @@ class Import
                         if ($reference) {
                             [$reference_table, $reference_key] = explode('.', $reference, 2);
 
-                            $row = $db->qry_first(
+                            $row = $database->queryWithOnlyFirstRow(
                                 '
                               SELECT
                                 1 AS found
                               FROM %prefix%ref
                               WHERE
-                                pri_table = %string%
-                                AND pri_key = %string%
-                                AND foreign_table = %string%
-                                AND foreign_key = %string%
-                                AND foreign_condition = %string%',
-                                $reference_table,
-                                $reference_key,
-                                $table_name,
-                                $name,
-                                $reference_condition
+                                pri_table = ?
+                                AND pri_key = ?
+                                AND foreign_table = ?
+                                AND foreign_key = ?
+                                AND foreign_condition = ?',
+                                [$reference_table, $reference_key, $table_name, $name, $reference_condition]
                             );
                             if (!$row) {
                                 $db->qry(
@@ -471,7 +464,7 @@ class Import
                             foreach ($field_names as $field_name) {
                                 $value = $this->xml->getFirstTagContent($field_name, $entry, 1);
                                 if ($value != '') {
-                                    $mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
+                                    $mysql_entries .= "$field_name = '" . $db->real_escape_string($value) . "', ";
                                 }
 
                                 if (array_key_exists(0, $DBPrimaryKeys) && $field_name == $DBPrimaryKeys[0] && in_array($value, $EntriesFound)) {
@@ -515,24 +508,24 @@ class Import
                   LEFT JOIN %prefix%usersettings AS s ON s.userid = u.userid");
                 while ($row = $db->fetch_array($res)) {
                     if ($row['design'] != '' and $row['design2'] == '') {
-                        $db->qry('UPDATE %prefix%user SET design = %string% WHERE userid = %int%', $row['design'], $row['userid']);
-                        $db->qry('UPDATE %prefix%usersettings SET design = \'\' WHERE userid = %int%', $row['userid']);
+                        $database->query('UPDATE %prefix%user SET design = ? WHERE userid = ?', [$row['design'], $row['userid']]);
+                        $database->query('UPDATE %prefix%usersettings SET design = \'\' WHERE userid = ?', [$row['userid']]);
                     }
                     if ($row['avatar_path'] != '' and $row['avatar_path2'] == '') {
-                        $db->qry('UPDATE %prefix%user SET avatar_path = %string% WHERE userid = %int%', $row['avatar_path'], $row['userid']);
-                        $db->qry('UPDATE %prefix%usersettings SET avatar_path = \'\' WHERE userid = %int%', $row['userid']);
+                        $database->query('UPDATE %prefix%user SET avatar_path = ? WHERE userid = ?', [$row['avatar_path'], $row['userid']]);
+                        $database->query('UPDATE %prefix%usersettings SET avatar_path = \'\' WHERE userid = ?', [$row['userid']]);
                     }
                     if ($row['signature'] != '' and $row['designsignature2'] == '') {
-                        $db->qry('UPDATE %prefix%user SET signature = %string% WHERE userid = %int%', $row['signature'], $row['userid']);
-                        $db->qry('UPDATE %prefix%usersettings SET signature = \'\' WHERE userid = %int%', $row['userid']);
+                        $database->query('UPDATE %prefix%user SET signature = ? WHERE userid = ?', [$row['signature'], $row['userid']]);
+                        $database->query('UPDATE %prefix%usersettings SET signature = \'\' WHERE userid = ?', [$row['userid']]);
                     }
                     if ($row['show_me_in_map'] != '' and $row['show_me_in_map2'] == '') {
-                        $db->qry('UPDATE %prefix%user SET show_me_in_map = %int% WHERE userid = %int%', $row['show_me_in_map'], $row['userid']);
-                        $db->qry('UPDATE %prefix%usersettings SET show_me_in_map = 0 WHERE userid = %int%', $row['userid']);
+                        $database->query('UPDATE %prefix%user SET show_me_in_map = ? WHERE userid = ?', [$row['show_me_in_map'], $row['userid']]);
+                        $database->query('UPDATE %prefix%usersettings SET show_me_in_map = 0 WHERE userid = ?', [$row['userid']]);
                     }
                     if ($row['lsmail_alert'] != '' and $row['lsmail_alert2'] == '') {
-                        $db->qry('UPDATE %prefix%user SET lsmail_alert = %int% WHERE userid = %int%', $row['lsmail_alert'], $row['userid']);
-                        $db->qry('UPDATE %prefix%usersettings SET lsmail_alert = 0 WHERE userid = %int%', $row['userid']);
+                        $database->query('UPDATE %prefix%user SET lsmail_alert = ? WHERE userid = ?', [$row['lsmail_alert'], $row['userid']]);
+                        $database->query('UPDATE %prefix%usersettings SET lsmail_alert = 0 WHERE userid = ?', [$row['userid']]);
                     }
                 }
             }
@@ -551,7 +544,7 @@ class Import
     {
         $users_to_import = [];
         $seat_blocks_to_import = [];
-        global $db, $party, $cfg;
+        global $db, $database, $party, $cfg;
 
         // Delete User-Table
         if ($del_db) {
@@ -575,8 +568,6 @@ class Import
                 'paid'          => $this->xml->getFirstTagContent("paid", $xml_user),
                 'password'      => $this->xml->getFirstTagContent("password", $xml_user),
                 'email'         => $this->xml->getFirstTagContent("email", $xml_user),
-                'wwclid'        => $this->xml->getFirstTagContent("wwclid", $xml_user),
-                'wwclclanid'    => $this->xml->getFirstTagContent("wwclclanid", $xml_user),
                 'clanurl'       => $this->xml->getFirstTagContent("homepage", $xml_user)
             ];
         }
@@ -656,9 +647,6 @@ class Import
                 $paid       = $user['paid'];
                 $password   = $user['password'];
 
-                $wwclid     = $this->xml->convertinputstr($user['wwclid']);
-                $wwclclanid = $this->xml->convertinputstr($user['wwclclanid']);
-
                 $checkin = ($type > 1) ? "1" : "0";
 
                 $skip = 0;
@@ -671,13 +659,13 @@ class Import
                     $clan_id = 0;
                     if ($clan != '') {
                         // Search clan
-                        $search_clan = $db->qry_first("SELECT clanid FROM %prefix%clan WHERE name = %string%", $clan);
+                        $search_clan = $database->queryWithOnlyFirstRow("SELECT clanid FROM %prefix%clan WHERE name = ?", [$clan]);
                         if ($search_clan['clanid'] != '') {
                             $clan_id = $search_clan['clanid'];
 
                         // Insert new clan
                         } else {
-                            $db->qry("INSERT INTO %prefix%clan SET name = %string%, url = %string% ", $clan, $clanurl);
+                            $database->query("INSERT INTO %prefix%clan SET name = ?, url = ?", [$clan, '']);
                             $clan_id = $db->insert_id();
                         }
                     }
@@ -692,8 +680,6 @@ class Import
                         type = %string%,
                         clanid = %int%,
                         password = %string%,
-                        wwclid = %int%,
-                        wwclclanid = %int%,
                         comment = %string%",
                         $email,
                         $name,
@@ -702,8 +688,6 @@ class Import
                         $type,
                         $clan_id,
                         $password,
-                        $wwclid,
-                        $wwclclanid,
                         $comment
                     );
                     $id = $db->insert_id();
@@ -837,7 +821,7 @@ class Import
      */
     public function ImportCSV($tmp_file_name, $del_db, $replace, $signon, $comment)
     {
-        global $db;
+        global $db, $database;
 
         // Delete User-Table
         if ($del_db) {

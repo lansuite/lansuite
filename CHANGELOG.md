@@ -27,17 +27,20 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Development] Introduced PHP_CodeSniffer to ensure a unified coding standard inside our codebase
 - [Development] Introduced a Makefile to make standard commands easier and scriptable
 - [Development] Introduced an automated way to create a new production release incl., documentation and API docs
-- [Development] Add basic Pull Request template
+- [Development] Added basic Pull Request template
+- [Development] Added versioning strategy for dependabot for npm and composer to auto-increase dependency versions if needed
 - [Documentation] Introduced an official documentation website at https://lansuite.github.io/lansuite/
 - [System] Introduced symfony/error-handler to provide more information in an error case rather than the native PHP errors (only active in debug mode)
 - [System] Introduced symfony/cache to easily provide other cache backends like APCu (next to file caching)
 - [System] Introduced symfony/http-foundation to unify safe access to superglobals
 - [Database] Added the setting to replace the hardcoded database table prefix `lansuite_` with something admin configurable
+- [Database] Introduced options to update single module DB structure (#927)
 - [Tournament] Added tournament icon for Starcraft II
 - [Tournament] Added tournament icon for Counter-Strike: Global Offensive
 - [Tournament] Added tournament icon for Rocket League
 - [Tournament] Added roles for organization people (Tech/Admin) into tournaments
 - [Tournament] Added an overview about when the games happen in tournaments
+- [Tournament] Added day of week to tournament timetable (#902)
 - [Guestlist] Added Clan Search into Guestlist
 - [Usrmgr] Added Clan Search into Usrmgr
 - [Usrmgr] Added XMPP support in the Contacts field
@@ -47,7 +50,14 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Added check for incompatible SQL Modes to the first installation page
 - [Installation] If there is no `config.php` file available during installation, create it during setup from the default config
 - [Discord] Introduced a new module to manage Discord Servers
-  
+- [Party] Add information `Gesamt` in the Party box to show how many people can sign up for a party
+- [Birthday] New module to show users birthdays
+- [Hall of fame] New module to present all tournament winners in a Hall of Fame
+- [Server] Added Voice as server type
+- [Community] Created a discord community
+- [PDF] In-Module Documentation
+- [PDF] New options "align" and "border" to configure for a single PDF document
+
 ### Changed
 
 - [System] Raised the requirements of minimum PHP Version to v8.1
@@ -58,12 +68,22 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Use utf8 by default
 - [System] Update Google Analytics Integration
 - [System] Enabled Google Analytics Integration anonymizeIp feature
+- [System] Separated Google API-Keys for Analytics, Maps and Translate into dedicated settings (#887)
 - [System] Don't enforce php-snmp; only suggest it (#148)
+- [Cron] Show execution state, runtime and error, deactvate after 3 failed executions (#924) 
+- [System] Updated jQuery to v3.7.1 and jQuery UI to v1.13.2
 - [Database] Set utf8mb4 as the default charset
 - [Database] Add default database port to connection string if not configured
 - [User] Allow empty birthday field
 - [Statistics] Limit lasthiturl to 100 chars as we expect it to fit varchar(100)
 - [User] Enforce uniqueness of user & email for registration
+- [Boxes/Login] Sign up and Password Recovery are now text links below the login box and not only icons anymore (for better usability)
+- [PDF] Usage of core fonts from fpdf instead of `ext_inc/pdf_fonts`
+- [Security] Set Cookies HTTP only and protocol aware (https)
+- [Server] Changed CPU and RAM Unit of measure from Mega to Giga in Server hardware information
+- [Server] Limited visibility for non-Admins to active party
+- [Captcha] Replaced ASCII-Captcha with a graphical captcha
+- [PDF] Rework of the PDF module and adding full support for Certificates and new basic templates
 
 ### Deprecated
 
@@ -71,7 +91,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 
 ### Removed
 
-- [Usrmgr] Removed the WWCL/NGL Search in Usrmgr
+- [Usrmgr] Removed the WWCL/NGL/LGZ Search in Usrmgr
 - [Teamspeak2] Removed module Teamspeak2
 - [System] Removed old IE 7/8 compatibility tags - Dropping support for IE7 and IE8
 - [System] Removed dependency to proxy `62.67.200.4`
@@ -85,6 +105,14 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Remove install check "register_argc_argv"
 - [Server2] Removed module server2
 - [Equipment] Removed module equipment because http://www.orgapage.net/ is not available anymore
+- [Captcha] Removed ext_scripts/captcha.php, because it was not in use
+- [User] Removed ICQ field in user data
+- [User] Removed MSN field in user data
+- [Tournament] Removed support for WWCL (WWCL shutdown in 2013)
+- [Tournament] Removed support for NGL (NGL shutdown in 2006)
+- [Tournament] Removed support for LGZ (LGZ is not longer available)
+- [About] Removed PHP and HTML Line count from about site
+- [Hardware] Removed settings "Optisches Laufwerk 1 + 2"
 
 ### Fixed
 
@@ -95,9 +123,11 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Remove LanSurfer-related code
 - [Party] Fixed start page party statistics
 - [Cron2] Fixed reserved keyword in newer MySQL versions (keyword 'function') (#482)
+- [Cron2] Fixed blank page on failure to execute php / sql (#924)
 - [Installation] Skip cache for installation module
 - [Installation] Fixed #344: Switching to English during Installation breaks the Installation page (#650)
 - [Installation] Fixed dropdown to select the design
+- [Installation] Fixed Database error when going from step 2 to 1 in install wizzard (#871)
 - [Home] Set module `home` as default if we don't have a module parameter
 - [Clanmgr] Only prefix clan URL with http:// if an URL was entered
 - [Clanmgr] Only prefix URL field with http:// for display when an URL exists
@@ -110,11 +140,15 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] Tournament overview is not displayed if played as a league (#142)
 - [Tournament] MySQL Warning in module tournament2 if the user is not logged in (#97)
 - [Guestlist] Restrict user information shown on Google Maps according to their settings and never show the street details ... unless you are an administrator
+- [Board] Deletion of board failed without error (#861)
+- [Forms] Hours and Minutes are not getting pre-selected in date time fields, if they are single digit (#971)
 
 ### Security
 
 - [Database] Introduced a new Database class with first-class prepared statement support
 - [System] Protect module inclusion for path traversal
+- [XSS] Prevent XSS possibility in http-equiv="refresh" header
+- [Security] Add header `X-Frame-Options`, `Referrer-Policy` and `Strict-Transport-Security`
 
 ## [4.2] - 2015-03-15
 

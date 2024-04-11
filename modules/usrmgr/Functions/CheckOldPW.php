@@ -7,9 +7,9 @@ use LanSuite\PasswordHash;
  */
 function CheckOldPW($old_password): bool|string
 {
-    global $db, $auth;
+    global $database, $auth;
 
-    $get_dbpwd = $db->qry_first("SELECT password FROM %prefix%user WHERE userid = %int%", $auth["userid"]);
+    $get_dbpwd = $database->queryWithOnlyFirstRow("SELECT password FROM %prefix%user WHERE userid = ?", [$auth["userid"]]);
     if (!PasswordHash::verify($old_password, $get_dbpwd["password"])) {
         return t('Passwort inkorrekt');
     }

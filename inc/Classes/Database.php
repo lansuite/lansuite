@@ -40,22 +40,33 @@ class Database
     private string $charset = '';
 
     /**
+     * SQL mode we set for the connection
+     */
+    private string $sqlMode = '';
+
+    /**
      * Database object
      */
     private ?\mysqli $database = null;
+
+    /**
+     * Connection status
+     */
+    private bool $isConnected = false;
 
     /**
      * Database table prefix
      */
     private string $tablePrefix = '';
 
-    public function __construct($host, $port, $username, $password, $databaseName, $charset) {
+    public function __construct(string $host, int $port, string $username, string $password, string $databaseName, string $charset, string $sqlMode) {
         $this->host = $host;
         $this->port = $port;
         $this->username = $username;
         $this->password = $password;
         $this->databaseName = $databaseName;
         $this->charset = $charset;
+        $this->sqlMode = $sqlMode;
     }
 
     /**
@@ -73,7 +84,30 @@ class Database
     
         $this->setCharset($this->charset);
 
+        // Set sql mode, if specified
+        if (!empty($this->sqlMode)) {
+            $this->setSQLMode($this->sqlMode);
+        }
+
+        $this->setConnectionStatus(true);
+
         return true;
+    }
+
+    /**
+     * Sets the connection status
+     */
+    private function setConnectionStatus(bool $status): void
+    {
+        $this->isConnected = $status;
+    }
+
+    /**
+     * Returns the connection status
+     */
+    public function isConnected(): bool
+    {
+        return $this->isConnected;
     }
 
     /**
@@ -98,6 +132,15 @@ class Database
     }
 
     /**
+     * Sets the SQL Mode for this database session.
+     */
+    public function setSQLMode(string $sqlMode): void
+    {
+        $query = 'SET SESSION SQL_MODE = ?';
+        $this->query($query, [$sqlMode]);
+    }
+
+    /**
      * Returns a string representing the type of connection used
      */
     public function getHostInfo(): string
@@ -110,7 +153,10 @@ class Database
      */
     public function disconnect(): bool
     {
-        return $this->database->close();
+        $closeResult = $this->database->close();
+        $this->setConnectionStatus(false);
+
+        return $closeResult;
     }
 
     /**

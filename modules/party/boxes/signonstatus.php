@@ -99,6 +99,7 @@ if ($cfg['sys_internet']) {
 }
 
 $box->EngangedRow($bar);
+$box->EngangedRow(t('Gesamt').': '. $max);
 $box->EngangedRow(t('Angemeldet').': '. $cur);
 $box->EngangedRow(t('Bezahlt').': '. $paid);
 $box->EngangedRow(t('Frei').': '. ($max - $paid));
@@ -149,7 +150,7 @@ if ($cfg['sys_internet']) {
   
         $box->EngangedRow($count);
   
-        $checked = $db->qry_first("SELECT UNIX_TIMESTAMP(checked) AS n FROM %prefix%partys WHERE party_id = %int%", $party->party_id);
+        $checked = $database->queryWithOnlyFirstRow("SELECT UNIX_TIMESTAMP(checked) AS n FROM %prefix%partys WHERE party_id = ?", [$party->party_id]);
         $box->EmptyRow();
         $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>");
         $box->EngangedRow($func->unixstamp2date($checked['n'], "datetime"));

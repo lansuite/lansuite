@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('seating');
 
@@ -11,11 +12,13 @@ switch ($_GET['step']) {
 
         $ms2->AddIconField('in', 'index.php?mod=seating&action=copy&step=2&blockid=', t('Kopieren'));
         $ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', t('Editieren'));
+
+        $current_url = 'index.php?mod=seating&action=copy';
         $ms2->PrintSearch($current_url, 'b.blockid');
         break;
   
     case 2:
-        $row = $db->qry_first('SELECT * FROM %prefix%seat_block WHERE blockid = %int%', $_GET['blockid']);
+        $row = $database->queryWithOnlyFirstRow('SELECT * FROM %prefix%seat_block WHERE blockid = ?', [$_GET['blockid']]);
         $db->qry(
             '
           INSERT INTO %prefix%seat_block

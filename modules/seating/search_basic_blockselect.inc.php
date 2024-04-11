@@ -12,7 +12,7 @@ $ms2->AddResultField(t('Plätze'), 'b.blockid', 'SeatsAvailable');
 $ms2->AddResultField(t('Belegt'), 'b.blockid', 'SeatsOccupied');
 $ms2->AddResultField(t('Auslastung'), 'b.blockid', 'SeatLoad');
 
-if (!$target_icon) {
+if (!isset($target_icon)) {
     $target_icon = 'details';
 }
 if ($target_url) {
@@ -20,20 +20,20 @@ if ($target_url) {
 } else {
     $ms2->AddIconField('details', 'index.php?mod=seating&action=show&step=2&blockid=', t('Details'));
 
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('ip_generate', 'index.php?mod=seating&action=ipgen&blockid=', t('IPs generieren'));
     }
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('ip_edit', 'index.php?mod=seating&action=ip&step=2&blockid=', t('IPs editieren'));
     }
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('ip_del', 'index.php?mod=seating&action=ipgen&step=20&blockid=', t('IPs löschen'));
     }
 
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
         $ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', t('Editieren'));
     }
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('delete', 'index.php?mod=seating&action=delete&step=2&blockid=', t('Löschen'));
     }
 }

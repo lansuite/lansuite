@@ -7,14 +7,14 @@
  */
 function WritePairs($bracket, $max_pos)
 {
-    global $db, $tournamentid, $tfunc, $akt_round, $i, $game;
+    global $database, $tournamentid, $tfunc, $akt_round, $i, $game;
 
     WriteRoundHeadline("$bracket-Bracket - ", $akt_round);
 
     $i = 0;
 
     for ($akt_pos = 0; $akt_pos <= $max_pos-1; $akt_pos++) {
-        $game = $db->qry_first("
+        $game = $database->queryWithOnlyFirstRow("
           SELECT
             teams.name,
             teams.teamid,
@@ -26,21 +26,27 @@ function WritePairs($bracket, $max_pos)
             (games.tournamentid = teams.tournamentid)
             AND (games.leaderid = teams.leaderid)
           WHERE
-            (games.tournamentid = %int%)
-            AND (games.group_nr = 0)
-            AND (games.round = %string%)
-            AND (games.position = %string%)
-          GROUP BY games.gameid", $tournamentid, $akt_round, $akt_pos);
+            games.tournamentid = ?
+            AND games.group_nr = 0
+            AND games.round = ?
+            AND games.position = ?
+          GROUP BY games.gameid", [$tournamentid, $akt_round, $akt_pos]);
 
         // Set Playernames
-        if ($game == 0) {
-            $game['name'] = "<i>".t('Noch Unbekannt')."</i>";
+        if (!$game) {
+          $game = [
+            'name' => '<i>' . t('Noch Unbekannt') . '</i>',
+            'teamid' => 0,
+            'leaderid' => 0,
+            'gameid' => 0,
+            'score' => 0
+          ];
         } elseif ($game['leaderid'] == 0) {
             $game['name'] = "<i><font color=\"#000088\">".t('Freilos')."</font></i>";
         } else {
             $game['name'] .= $tfunc->button_team_details($game['teamid'], $tournamentid);
         }
 
-        WriteGame();
+        WriteGame($game);
     }
 }

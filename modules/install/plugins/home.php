@@ -7,10 +7,10 @@ $exclude = '';
 if (!$func->isModActive('faq')) {
     $exclude .= ' AND relatedto_item != \'faq\'';
 }
-if (!$func->isModActive('task') or $auth['type'] < 2) {
+if (!$func->isModActive('task') or $auth['type'] < \LS_AUTH_TYPE_ADMIN) {
     $exclude .= ' AND relatedto_item != \'task\'';
 }
-if ($auth['type'] < 2) {
+if ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
     $exclude .= ' AND relatedto_item != \'SponSupp\'';
 }
 if (!$func->isModActive('usrmgr')) {
@@ -50,22 +50,22 @@ if ($db->num_rows($query) > 0) {
     while ($row = $db->fetch_array($query)) {
         switch ($row['relatedto_item']) {
             case 'faq':
-                $row2 = $db->qry_first('SELECT caption FROM %prefix%faq_item WHERE itemid = %int%', $row['relatedto_id']);
+                $row2 = $database->queryWithOnlyFirstRow('SELECT caption FROM %prefix%faq_item WHERE itemid = ?', [$row['relatedto_id']]);
                 $link = 'index.php?mod=faq&action=comment&itemid='. (int)$row['relatedto_id'];
                 $title = 'FAQ: '. $row2['caption'];
                 break;
             case 'User':
-                $row2 = $db->qry_first('SELECT username FROM %prefix%user WHERE userid = %int%', $row['relatedto_id']);
+                $row2 = $database->queryWithOnlyFirstRow('SELECT username FROM %prefix%user WHERE userid = ?', [$row['relatedto_id']]);
                 $link = 'index.php?mod=usrmgr&action=details&userid='. (int)$row['relatedto_id'] .'#tabs-2';
                 $title = 'User: '. $row2['username'];
                 break;
             case 'Poll':
-                $row2 = $db->qry_first('SELECT caption FROM %prefix%polls WHERE pollid = %int%', $row['relatedto_id']);
+                $row2 = $database->queryWithOnlyFirstRow('SELECT caption FROM %prefix%polls WHERE pollid = ?', [$row['relatedto_id']]);
                 $link = 'index.php?mod=poll&action=show&step=2&pollid='. (int)$row['relatedto_id'];
                 $title = 'Poll: '. $row2['caption'];
                 break;
             case 'server':
-                $row2 = $db->qry_first('SELECT caption FROM %prefix%server WHERE serverid = %int%', $row['relatedto_id']);
+                $row2 = $database->queryWithOnlyFirstRow('SELECT caption FROM %prefix%server WHERE serverid = ?', [$row['relatedto_id']]);
                 $link = 'index.php?mod=server&action=show_details&serverid='. (int)$row['relatedto_id'];
                 $title = 'Server: '. $row2['caption'];
                 break;
@@ -74,23 +74,23 @@ if ($db->num_rows($query) > 0) {
                 $title = 'Download';
                 break;
             case 'Picgallery':
-                $row2 = $db->qry_first('SELECT name FROM %prefix%picgallery WHERE picid = %int%', $row['relatedto_id']);
+                $row2 = $database->queryWithOnlyFirstRow('SELECT name FROM %prefix%picgallery WHERE picid = ?', [$row['relatedto_id']]);
                 $link = 'index.php?mod=picgallery&action=show&step=2&file=/'. $row2['name'];
                 $title = 'Gallery: '. $row2['name'];
                 break;
             case 'Task':
-                $row2 = $db->qry_first('SELECT caption FROM %prefix%tasks WHERE id = %int%', $row['relatedto_id']);
+                $row2 = $database->queryWithOnlyFirstRow('SELECT caption FROM %prefix%tasks WHERE id = ?', [$row['relatedto_id']]);
                 $link = 'index.php?mod=task&action=show&step=1&tid='. (int)$row['relatedto_id'];
                 $title = 'Task: '. $row2['caption'];
                 break;
             case 'Clan':
-                $row2 = $db->qry_first('SELECT name FROM %prefix%clan WHERE clanid = %int%', $row['relatedto_id']);
+                $row2 = $database->queryWithOnlyFirstRow('SELECT name FROM %prefix%clan WHERE clanid = ?', [$row['relatedto_id']]);
                 $link = 'index.php?mod=clanmgr&step=2&clanid='. (int)$row['relatedto_id'];
                 $title = 'Clan: '. $row2['name'];
                 break;
             case 'SponSupp':
-                $row2 = $db->qry_first('SELECT sponsorid FROM %prefix%sponsorsupport WHERE supportid = %int%', $row['relatedto_id']);
-                $row3 = $db->qry_first('SELECT name FROM %prefix%sponsor WHERE sponsorid = %int%', $row2['sponsorid']);
+                $row2 = $database->queryWithOnlyFirstRow('SELECT sponsorid FROM %prefix%sponsorsupport WHERE supportid = ?', [$row['relatedto_id']]);
+                $row3 = $database->queryWithOnlyFirstRow('SELECT name FROM %prefix%sponsor WHERE sponsorid = ?', [$row2['sponsorid']]);
                 $link = 'index.php?mod=sponsor&action=change&step=40&supportid='. (int)$row['relatedto_id'];
                 $title = 'Sponsor: '. $row3['name'];
                 break;

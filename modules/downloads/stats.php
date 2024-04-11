@@ -1,14 +1,16 @@
 <?php
-$dsp->NewContent(t('Statistiken'), $_GET['file']);
+$fileParameter = $_GET['file'] ?? '';
+$dsp->NewContent(t('Statistiken'), $fileParameter);
 
 // Delete
-if ($_GET['delfile'] and $auth['type'] >= 3) {
+$deleteFileParameter = $_GET['delfile'] ?? false;
+if ($deleteFileParameter && $auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
     $md = new \LanSuite\MasterDelete();
     $md->Delete('download_stats', 'file', $_GET['delfile']);
 }
 
 // List
-if (!$_GET['file']) {
+if (!$fileParameter) {
     $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
     $ms2->query['from'] = "%prefix%download_stats AS s";
@@ -18,7 +20,7 @@ if (!$_GET['file']) {
     $ms2->AddResultField(t('Downloads'), 'SUM(s.hits) AS hits');
 
     $ms2->AddIconField('details', 'index.php?mod=downloads&action=stats&file=', t('Details'));
-    if ($auth['type'] >= 3) {
+    if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
         $ms2->AddIconField('delete', 'index.php?mod=downloads&action=stats&delfile=', t('Löschen'));
     }
 
@@ -91,8 +93,8 @@ if (!$_GET['file']) {
     $db->free_result($res);
 
     if ($where_back) {
-        $row_back = $db->qry_first("SELECT DATE_FORMAT(time, %string%) AS back_time FROM %prefix%download_stats
-      WHERE DATE_FORMAT(time, %string%) = %string%", $where_back, $where, $_GET['timeframe']);
+        $row_back = $database->queryWithOnlyFirstRow("SELECT DATE_FORMAT(time, ?) AS back_time FROM %prefix%download_stats
+      WHERE DATE_FORMAT(time, ?) = ?", [$where_back, $where, $_GET['timeframe']]);
         $dsp->AddBackButton('index.php?mod=downloads&action=stats&file='.$_GET['file'].'&time='. $back .'&timeframe='. $row_back['back_time']);
     } else {
         $dsp->AddBackButton('index.php?mod=downloads&action=stats');

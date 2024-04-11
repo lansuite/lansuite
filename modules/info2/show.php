@@ -6,8 +6,9 @@ if ($language == 'de') {
     $val = '_'. $language;
 }
 
-if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
-    if ($_GET["submod"]) {
+$submodParameter = $_GET["submod"] ?? '';
+if ($submodParameter != "" || ($_GET["id"]>=1)) {
+    if ($submodParameter) {
         // TODO Remove on next Version, SUBMOD is only for compartiblity
         $info = $db->qry_first("SELECT active, text%plain%, shorttext%plain%, caption%plain% FROM %prefix%info WHERE caption = %string%", $val, $val, $val, $_GET["submod"]);
     } else {
@@ -15,7 +16,7 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
     }
 
     $dsp->NewContent("{$info["caption$val"]}", $info["shorttext$val"]);
-    $framework->AddToPageTitle($info["caption$val"]);
+    $framework->addToPageTitle($info["caption$val"]);
 
     if ($info['active'] == 1) {
         if ($info["text$val"] == null) {
@@ -29,8 +30,8 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
     
     // Show edit/aktivate Buttons
     // TODO add delete
-    if ($auth["type"] > 1) {
-        $buttons .= $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=info2&action=change&step=2&infoID={$_GET["id"]}"). " ";
+    if ($auth['type'] > \LS_AUTH_TYPE_USER) {
+        $buttons = $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=info2&action=change&step=2&infoID={$_GET["id"]}"). " ";
         if ($info['active'] == 1) {
             $buttons .= $dsp->FetchSpanButton(t('Deaktivieren'), "index.php?mod=info2&action=change&step=20&infoID={$_GET["id"]}"). " ";
         } else {

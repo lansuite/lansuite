@@ -4,8 +4,9 @@ $basket = new LanSuite\Module\Foodcenter\Basket();
 $basket->add_to_basket_from_global();
 
 // Get Barcode if exists and translate to userid
-if ($_POST['barcodefield']) {
-    $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
+$barcodeFieldParameter = $_POST['barcodefield'] ?? '';
+if ($barcodeFieldParameter ) {
+    $row = $database->queryWithOnlyFirstRow('SELECT userid FROM %prefix%user WHERE barcode = ?', [$barcodeFieldParameter] );
     $_GET['userid']=$row['userid'];
 }
 
@@ -13,7 +14,8 @@ if (isset($_GET['userid'])) {
     $_SESSION['foodcenter']['theke_userid'] = $_GET['userid'];
 }
 
-if ($_GET['step'] == "del") {
+$stepParameter = $_GET['step'] ?? 0;
+if ($stepParameter == "del") {
     unset($_SESSION['foodcenter']['theke_userid']);
     unset($_SESSION['basket_item']['product']);
 }
@@ -48,14 +50,15 @@ if (!isset($_SESSION['foodcenter']['theke_userid'])) {
         $_GET['headermenuitem'] = 1;
     }
     $dsp->NewContent(t('Speiseliste'));
-    $user_theke = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $_SESSION['foodcenter']['theke_userid']);
+    $user_theke = $database->queryWithOnlyFirstRow("SELECT username FROM %prefix%user WHERE userid = ?", [$_SESSION['foodcenter']['theke_userid']]);
     $dsp->AddDoubleRow(HTML_FONT_ERROR . t('Ausgewählter Benutzer:') . HTML_FONT_END, "<table border=\"0\" width=\"100%\"><tr><td>{$user_theke['username']}</td><td align=\"right\"><a href=\"index.php?mod=foodcenter&action=theke&step=del\">".t('Exit')."</a></td></tr></table>");
 
     $product_list = new LanSuite\Module\Foodcenter\ProductList();
 
-    if ($_GET['info']) {
+    $infoParameter = $_GET['info'] ?? 0;
+    if ($infoParameter) {
         $product_list->load_cat($cat[$_GET['headermenuitem']]);
-        $product_list->get_info($_GET['info'], "index.php?mod=foodcenter&action=theke&headermenuitem={$_GET['headermenuitem']}");
+        $product_list->get_info($infoParameter, "index.php?mod=foodcenter&action=theke&headermenuitem={$_GET['headermenuitem']}");
     } else {
         if (is_numeric($cat[$_GET['headermenuitem']])) {
             $dsp->AddHeaderMenu($menus, "index.php?mod=foodcenter&action=theke", $_GET['headermenuitem']);
@@ -66,11 +69,13 @@ if (!isset($_SESSION['foodcenter']['theke_userid'])) {
         }
     }
 
-    if ($_POST['calculate']) {
+    $calculateParameter = $_POST['calculate'] ?? '';
+    if ($calculateParameter) {
         $basket->change_basket($_SESSION['foodcenter']['theke_userid']);
     }
 
-    if ($_POST['imageField'] && !isset($_GET['add'])) {
+    $imageFieldParameter = $_POST['imageField'] ?? '';
+    if ($imageFieldParameter && !isset($_GET['add'])) {
         if ($basket->change_basket($_SESSION['foodcenter']['theke_userid'])) {
             $basket->order_basket($_SESSION['foodcenter']['theke_userid'], $_POST['delivered']);
             $func->information(t('Die Bestellung wurde aufgenommen'), "index.php?mod=foodcenter&action=theke");

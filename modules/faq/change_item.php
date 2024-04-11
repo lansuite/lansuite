@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter ) {
     case 3:
         $get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
         while ($row=$db->fetch_array($get_cat_names)) {
@@ -45,7 +46,8 @@ switch ($_GET["step"]) {
         break;
 }
 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
         include('show.php');
         break;
@@ -53,7 +55,7 @@ switch ($_GET["step"]) {
     case 2:
         unset($_SESSION['change_blocker_faqitem']);
 
-        $get_data = $db->qry_first("SELECT caption, text, catid FROM %prefix%faq_item WHERE itemid = %int%", $_GET["itemid"]);
+        $get_data = $database->queryWithOnlyFirstRow("SELECT caption, text, catid FROM %prefix%faq_item WHERE itemid = ?", [$_GET["itemid"]]);
         $question_caption = $get_data["caption"];
 
         if ($question_caption != "") {
@@ -90,7 +92,7 @@ switch ($_GET["step"]) {
         break;
 
     case 3:
-        $get_itemid = $db->qry_first("SELECT caption FROM %prefix%faq_item WHERE itemid = %int%", $_GET["itemid"]);
+        $get_itemid = $database->queryWithOnlyFirstRow("SELECT caption FROM %prefix%faq_item WHERE itemid = ?", [$_GET["itemid"]]);
         $faqitem_caption_test = $get_itemid["caption"];
 
         if ($faqitem_caption_test != "") {
@@ -104,7 +106,7 @@ switch ($_GET["step"]) {
                     poster = %int%,
                     date = %string%", $_POST["question_new_cat"], $_SESSION["auth"]["userid"], $courent_date);
 
-                $get_catid = $db->qry_first("SELECT catid FROM %prefix%faq_cat WHERE name = %string%", $_POST["question_new_cat"]);
+                $get_catid = $database->queryWithOnlyFirstRow("SELECT catid FROM %prefix%faq_cat WHERE name = ?", [$_POST["question_new_cat"]]);
                 $catid = $get_catid["catid"];
 
                 $update_it2 = $db->qry("

@@ -10,10 +10,13 @@ function UserNameAndIcon($username)
 {
     global $line, $dsp;
 
+    $userId = $line['userid'] ?? 0;
     if ($username == '') {
         return '<i>System</i>';
-    } elseif ($line['userid']) {
-        return $dsp->FetchUserIcon($line['userid'], $username);
+
+    } elseif ($userId) {
+        return $dsp->FetchUserIcon($userId, $username);
+
     } else {
         return $username;
     }

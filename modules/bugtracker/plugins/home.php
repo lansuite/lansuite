@@ -17,7 +17,7 @@ $query = $db->qry("
     b.state <= 3
     AND (
       !private
-      OR ". (int)$auth['type'] ." >= 2
+      OR " . (int) $auth['type'] . " >= " . \LS_AUTH_TYPE_ADMIN . "
     )
   GROUP BY b.bugid
   ORDER BY changedate DESC

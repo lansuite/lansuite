@@ -3,20 +3,21 @@
 if (!$_GET['tournamentid']) {
     $func->error(t('Du hast kein Turnier ausgewählt!'));
 } else {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         case 1:
               include_once('modules/tournament2/search.inc.php');
             break;
 
         default:
-            $tournament = $db->qry_first("
+            $tournament = $database->queryWithOnlyFirstRow("
               SELECT
                 name,
                 mode,
                 status
               FROM %prefix%tournament_tournaments
               WHERE
-                tournamentid = %int%", $_GET['tournamentid']);
+                tournamentid = ?", [$_GET['tournamentid']]);
   
             if ($tournament['mode'] == "single") {
                 $modus = t('Single-Elimination');

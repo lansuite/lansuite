@@ -1,18 +1,23 @@
 <?php
 
-$get_amount = $db->qry_first('SELECT count(*) as number FROM %prefix%news');
+$get_amount = $database->queryWithOnlyFirstRow('SELECT count(*) as number FROM %prefix%news');
 $overall_news = $get_amount["number"];
 
 if ($overall_news == 0) {
     $func->information(t('Es sind keine News vorhanden.'));
 } else {
-    if ($_GET['subaction'] == 'archive') {
+    $rows = '';
+    $subActionParameter = $_GET['subaction'] ?? '';
+    $newsPageParameter = $_GET["news_page"] ?? '';
+    if ($subActionParameter == 'archive') {
         $dsp->NewContent(t('News Archiv'), t('Archivierte Mitteilungen'));
 
         if ($cfg["news_shorted_archiv"] == "") {
             $cfg["news_shorted_archiv"] = 10;
         }
-        $pages = $func->page_split($_GET["news_page"], $cfg["news_shorted_archiv"], $overall_news - ($cfg['news_shorted'] + $cfg['news_completed']), "index.php?mod=news&action=show&subaction=archive", "news_page");
+
+        $newsCompletedConfig = $cfg['news_completed'] ?? 0;
+        $pages = $func->page_split($newsPageParameter, $cfg["news_shorted_archiv"], $overall_news - ($cfg['news_shorted'] + $newsCompletedConfig), "index.php?mod=news&action=show&subaction=archive", "news_page");
 
         $get_newsshorted = $db->qry("SELECT UNIX_TIMESTAMP(n.date) AS date, n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC %plain%", $pages["sql"]);
         while ($row=$db->fetch_array($get_newsshorted)) {
@@ -34,8 +39,6 @@ if ($overall_news == 0) {
         $rows .= $tmpSNCode;
 
         $smarty->assign('number', $overall_news);
-        $templ_news_case_number_per_site = $howmany;
-
         $smarty->assign('rows', $rows);
         $smarty->assign('pages', $pages["html"] ."<strong><a href=\"index.php?mod=news\">" .t('Zur&uuml;ck') ."</a></strong>");
         $dsp->AddSingleRow($smarty->fetch('modules/news/templates/show_case.htm'));
@@ -45,7 +48,7 @@ if ($overall_news == 0) {
             if ($cfg["news_count"] == "") {
                 $cfg["news_count"] = 5;
             }
-            $pages = $func->page_split($_GET["news_page"], $cfg["news_count"], $overall_news, "index.php?mod=news&amp;action=show", "news_page");
+            $pages = $func->page_split($newsPageParameter, $cfg["news_count"], $overall_news, "index.php?mod=news&amp;action=show", "news_page");
 
             $get_news = $db->qry('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC %plain%', $pages["sql"]);
 
@@ -68,7 +71,6 @@ if ($overall_news == 0) {
                 }
 
                 $newsid = $row["newsid"];
-                $howmany++;
 
                 $smarty->assign('date', $func->unixstamp2date($row["date"], "daydatetime"));
 
@@ -90,7 +92,7 @@ if ($overall_news == 0) {
 
                 // Get number of comments
                 if ($cfg['news_comments_allowed']) {
-                    $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
+                    $get_comments = $database->queryWithOnlyFirstRow('SELECT COUNT(*) AS number FROM %prefix%comments WHERE relatedto_id = ? AND relatedto_item=\'news\'', [$newsid]);
 
                     if ($get_comments["number"] >= 0) {
                         $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>");
@@ -99,7 +101,7 @@ if ($overall_news == 0) {
 
                 // Buttons
                 $buttons = "";
-                if ($auth["type"] > 1) {
+                if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                     $buttons .= $dsp->FetchIcon("edit", "index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid") . " ";
                     $buttons .= $dsp->FetchIcon("delete", "index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid") . " ";
                 }
@@ -134,7 +136,6 @@ if ($overall_news == 0) {
                 }
 
                 $newsid = $row["newsid"];
-                $howmany++;
                 $smarty->assign('date', $func->unixstamp2date($row["date"], "daydatetime"));
 
                 if ($cfg["news_html"] == 1) {
@@ -154,7 +155,7 @@ if ($overall_news == 0) {
                 $smarty->assign('text', $text);
 
                 if ($cfg['news_comments_allowed']) {
-                    $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
+                    $get_comments = $database->queryWithOnlyFirstRow('SELECT COUNT(*) AS number FROM %prefix%comments WHERE relatedto_id = ? AND relatedto_item=\'news\'', [$newsid]);
 
                     if ($get_comments["number"] >= 0) {
                         $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>");
@@ -163,7 +164,7 @@ if ($overall_news == 0) {
 
                 // Buttons
                 $buttons = "";
-                if ($auth["type"] > 1) {
+                if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                     $buttons .= $dsp->FetchIcon("edit", "index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid") . " ";
                     $buttons .= $dsp->FetchIcon("delete", "index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid") . " ";
                 }
@@ -212,7 +213,6 @@ if ($overall_news == 0) {
         }
 
         $smarty->assign('number', $overall_news);
-        $templ_news_case_number_per_site = $howmany;
         $smarty->assign('pages', $pages["html"]);
 
         $smarty->assign('rows', $rows);

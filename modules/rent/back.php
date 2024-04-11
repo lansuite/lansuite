@@ -1,6 +1,7 @@
 <?php
 
-switch ($_GET['step']) {
+$stepParameter = $_GET['step'] ?? 0;
+switch ($stepParameter) {
     default:
         $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
@@ -19,7 +20,7 @@ switch ($_GET['step']) {
         break;
 
     case 10:
-        $db->qry('UPDATE %prefix%rentuser SET back_orgaid = %int% WHERE rentid = %int%', $auth['userid'], $_GET['rentid']);
-        $func->confirmation(t('Artikel wurde zurückgenommen'), 'index.php?mod=rent&action=back');
-        break;
+      $database->query('UPDATE %prefix%rentuser SET back_orgaid = ? WHERE rentid = ?', [$auth['userid'], $_GET['rentid']]);
+      $func->confirmation(t('Artikel wurde zurückgenommen'), 'index.php?mod=rent&action=back');
+      break;
 }

@@ -3,12 +3,12 @@
 include_once("modules/noc/class_noc.php");
 $noc = new noc();
 
- 
-switch ($_GET["step"]) {
+$stepParameter = $_GET["step"] ?? 0;
+switch ($stepParameter) {
     default:
     case 1:
         // Get all the Port data
-        $row = $db->qry_first("SELECT * FROM %prefix%noc_ports WHERE portid = %int%", $_GET["portid"]);
+        $row = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%noc_ports WHERE portid = ?", [$_GET["portid"]]);
         
         if ($row["portid"] == "") {
             $func->error(t('Dieser Port existiert nicht'));
@@ -71,12 +71,12 @@ switch ($_GET["step"]) {
     
     // 3 stands for change the port "status" (deactivate it, regulate the speed, and so on)
     case 3:
-        $port = $db->qry_first("SELECT portid, deviceid, portnr, adminstatus FROM %prefix%noc_ports WHERE portid = %int%", $_GET["portid"]);
+        $port = $database->queryWithOnlyFirstRow("SELECT portid, deviceid, portnr, adminstatus FROM %prefix%noc_ports WHERE portid = ?", [$_GET["portid"]]);
         
         if ($port["portid"] == "") {
             $func->error(t('Dieser Port existiert nicht'));
         } else {
-            $device = $db->qry_first("SELECT name, readcommunity, writecommunity, ip FROM %prefix%noc_devices WHERE id = %int%", $port['deviceid']);
+            $device = $database->queryWithOnlyFirstRow("SELECT name, readcommunity, writecommunity, ip FROM %prefix%noc_devices WHERE id = ?", [$port['deviceid']]);
 
 
 
@@ -101,7 +101,7 @@ switch ($_GET["step"]) {
             }
 
             if ($noc->setSNMPValue($device["ip"], $device["writecommunity"], ".1.3.6.1.2.1.2.2.1.7.{$port["portnr"]}", "i", $newstatus)) {
-                $db->qry_first("UPDATE %prefix%noc_ports SET adminstatus=%string% WHERE portid=%int%", $statusdb, $_GET["portid"]);
+                $database->query("UPDATE %prefix%noc_ports SET adminstatus = ? WHERE portid = ?", [$statusdb, $_GET["portid"]]);
             
                 $func->confirmation(t('Der Portstatus wurde ge&auml;ndert'), "index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
             } else {

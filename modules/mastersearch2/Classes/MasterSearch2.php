@@ -263,12 +263,30 @@ class MasterSearch2
     }
 
     /**
+     * Retrieves data base field types for $table.
+     *
+     * @param string $table Database table to initialize SQL field types for
+     */
+    private function initializeSQLFieldTypesForTable(string $table): void
+    {
+        global $database;
+
+        // TODO Whitelist table names - Prepared statements don't work with identifiers like tables
+        // See https://stackoverflow.com/questions/23482104/can-i-use-a-pdo-prepared-statement-to-bind-an-identifier-a-table-or-field-name
+        // See https://stackoverflow.com/questions/19532636/is-there-a-way-to-execute-a-prepared-describe-query
+        $describeResult = $database->queryWithFullResult('DESCRIBE `' . $table . '`');
+        foreach ($describeResult as $row) {
+            $this->SQLFieldTypes[$row['Field']] = $row['Type'];
+        }
+    }
+
+    /**
      * @param $working_link
      * @param $select_id_field
      */
     public function PrintSearch($working_link, $select_id_field)
     {
-        global $smarty, $db, $config, $dsp, $func, $auth, $line, $framework;
+        global $smarty, $db, $database, $config, $dsp, $func, $auth, $line, $framework;
 
         $UrlParas = explode('&', substr($working_link, strpos($working_link, '?') + 1, strlen($working_link)));
         foreach ($UrlParas as $UrlPara) {
@@ -407,6 +425,15 @@ class MasterSearch2
                             $this->query['where'] .= " AND ($sql_one_search_field)";
                         } else {
                             $this->query['having'] .= "($sql_one_search_field) AND ";
+
+                            // If we add a field to the HAVING query, it need to be part of the SELECT part
+                            // See MySQL documentation https://dev.mysql.com/doc/refman/8.0/en/select.html
+                            //
+                            // The SQL standard requires that HAVING must reference only columns in the GROUP BY clause or columns used in aggregate functions.
+                            // However, MySQL supports an extension to this behavior, and permits HAVING to refer to columns in the SELECT list and columns in outer subqueries as well.
+                            if (!str_contains($this->query['select'], $current_field_list['sql_field'])) {
+                                $this->query['select'] .= $current_field_list['sql_field'] . ', ';
+                            }
                         }
                     }
                 }
@@ -414,14 +441,15 @@ class MasterSearch2
             }
         }
 
-        // Modofy HAVING
+        // Modify HAVING
         if ($this->query['having'] != '') {
             // Cut off trailing AND, if exists
             if (substr($this->query['having'], strlen($this->query['having']) - 5, 5) == ' AND ') {
                 $this->query['having'] = substr($this->query['having'], 0, strlen($this->query['having']) - 5);
             }
-              // Write HAVING in front of statement
-              $this->query['having'] = 'HAVING '.$this->query['having'];
+
+            // Write HAVING in front of statement
+            $this->query['having'] = 'HAVING '.$this->query['having'];
         }
 
         // Generate SELECT
@@ -430,10 +458,7 @@ class MasterSearch2
         // Generate GROUP BY
         $this->query['group_by'] .= $select_id_field;
 
-        $orderByParameter = '';
-        if (array_key_exists('order_by', $_GET)) {
-            $orderByParameter = $_GET['order_by'];
-        }
+        $orderByParameter = $_GET['order_by'] ?? '';
 
         // Generate ORDER BY
         if (strpos($orderByParameter, "\'") > 0) {
@@ -451,6 +476,12 @@ class MasterSearch2
             $orderByParameter = '';
         }
 
+        $tableToDescribe = $this->query['from'];
+        if (strpos($this->query['from'], ' ')) {
+            $tableToDescribe = substr($this->query['from'], 0, strpos($this->query['from'], ' '));
+        }
+        $this->initializeSQLFieldTypesForTable($tableToDescribe);
+
         // Order by user selection
         if ($orderByParameter) {
             $this->query['order_by'] = $orderByParameter;
@@ -460,23 +491,11 @@ class MasterSearch2
                 if (strtolower($_GET['order_dir']) != 'desc') {
                     $_GET['order_dir'] = 'asc';
                 } else {
-                    $this->query['order_by'] .= ' '. $_GET['order_dir'];
+                    $this->query['order_by'] .= ' ' . $_GET['order_dir'];
                 }
 
             // Get default order direction by sql-field type
             } else {
-                if (strpos($this->query['from'], ' ')) {
-                    $FirstTable = substr($this->query['from'], 0, strpos($this->query['from'], ' '));
-                } else {
-                    $FirstTable = $this->query['from'];
-                }
-
-                $res = $db->qry("DESCRIBE %plain%", $FirstTable);
-                while ($row = $db->fetch_array($res)) {
-                    $this->SQLFieldTypes[$row['Field']] = $row['Type'];
-                }
-                $db->free_result($res);
-
                 if ($this->SQLFieldTypes[$this->query['order_by']] == 'datetime'
                     || $this->SQLFieldTypes[$this->query['order_by']] == 'date'
                     || $this->SQLFieldTypes[$this->query['order_by']] == 'time'
@@ -509,8 +528,9 @@ class MasterSearch2
             $this->query['limit'] = '';
         } else {
             $msPageParameter = $_GET['ms_page'] ?? '';
-            if ($msPageParameter != '' && (!$_GET['ms_number'] || $_GET['ms_number'] == $this->ms_number)) {
-                $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
+            $msNumber = $_GET['ms_number'] ?? 0;
+            if ($msPageParameter != '' && (!$msNumber || $msNumber == $this->ms_number)) {
+                $page_start = (int)$msPageParameter * (int)$this->config['EntriesPerPage'];
             } else {
                 $page_start = 0;
             }
@@ -546,7 +566,8 @@ class MasterSearch2
 
         $pages = '';
         if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {
-            $framework->AddToPageTitle(t('Seite') .' '. ((int)$_GET['ms_page'] + 1));
+            $msPageParameter = $_GET['ms_page'] ?? 0;
+            $framework->addToPageTitle(t('Seite') .' '. ((int) $msPageParameter + 1));
 
             $link = $_SERVER['QUERY_STRING'] .'&ms_page=';
             $link = preg_replace('#mf_step=.\\&?#si', '', $link);
@@ -557,21 +578,21 @@ class MasterSearch2
             $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
 
             // Previous page link
-            if ((int)$_GET['ms_page'] > 0) {
-                $pages .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
+            if ((int) $msPageParameter > 0) {
+                $pages .= $link_start . $link . ($msPageParameter - 1) . $link_end .'<b>&lt;</b></a>';
             }
       
             // First page link
-            if ($_GET['ms_page'] > 4) {
+            if ($msPageParameter > 4) {
                 $pages .= $link_start . $link . '0' . $link_end .'<b>1</b></a> ... ';
-                $i = $_GET['ms_page'] - 3;
+                $i = $msPageParameter - 3;
             } else {
                 $i = 0;
             }
 
             // Direct page link
-            while ($i < $count_pages and $i < ($_GET['ms_page'] + 4)) {
-                if ($_GET['ms_page'] == $i) {
+            while ($i < $count_pages and $i < ($msPageParameter + 4)) {
+                if ($msPageParameter == $i) {
                     $pages .= (" " . ($i + 1));
                 } else {
                     $pages .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
@@ -588,8 +609,8 @@ class MasterSearch2
             }
       
             // Next page link
-            if (($_GET['ms_page'] + 1) < $count_pages) {
-                $pages .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
+            if (($msPageParameter + 1) < $count_pages) {
+                $pages .= $link_start . $link . ($msPageParameter + 1) . $link_end .'<b>&gt;</b></a>';
             }
         }
         $EntsPerPage = array();
@@ -738,11 +759,12 @@ class MasterSearch2
                 $orderByParameter = $_GET['order_by'] ?? '';
                 ($msPageParameter == 'all')? $add_page = '&ms_page=all' : $add_page = '';
                 $order_dir = 'asc';
+
                 if ($orderByParameter == $current_field['sql_field']) {
-                    if ($this->SQLFieldTypes[$current_field['sql_field']] == 'datetime'
-                        || $this->SQLFieldTypes[$current_field['sql_field']] == 'date'
-                        || $this->SQLFieldTypes[$current_field['sql_field']] == 'time'
-                        || $this->SQLFieldTypes[$current_field['sql_field']] == 'timestamp') {
+                    $currentSqlField = $current_field['sql_field'];
+                    $dateFields = ['datetime', 'date', 'time', 'timestamp'];
+
+                    if (array_key_exists($currentSqlField, $this->SQLFieldTypes) && in_array($this->SQLFieldTypes[$currentSqlField], $dateFields)) {
                         ($_GET['order_dir'] != 'asc')? $order_dir = 'asc' : $order_dir = 'desc';
                     } else {
                         ($_GET['order_dir'] != 'desc')? $order_dir = 'desc' : $order_dir = 'asc';

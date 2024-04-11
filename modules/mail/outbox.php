@@ -1,39 +1,40 @@
 <?php
 
-$mail_send_total = $db->qry_first("
+$mail_send_total = $database->queryWithOnlyFirstRow("
   SELECT
     COUNT(*) as n
   FROM %prefix%mail_messages
   WHERE
-    FromUserID = %int%
-    AND mail_status != 'disabled'", $auth['userid']);
+    FromUserID = ?
+    AND mail_status != 'disabled'", [$auth['userid']]);
 
-$mail_read_total = $db->qry_first("
+$mail_read_total = $database->queryWithOnlyFirstRow("
   SELECT
     COUNT(*) as n
   FROM %prefix%mail_messages
   WHERE
-    FromUserID = %int%
+    FromUserID = ?
     AND mail_status != 'disabled'
-    AND des_status = 'read'", $auth['userid']);
+    AND des_status = 'read'", [$auth['userid']]);
 
 $dsp->NewContent(t('Postausgang'), t('Du hast <b>%1</b> Mail(s) versendet. Davon wurde(n) <b>%2</b> gelesen.', $mail_send_total["n"], $mail_read_total["n"]));
 
 if ($auth['userid']) {
-    switch ($_GET['step']) {
+    $stepParameter = $_GET['step'] ?? 0;
+    switch ($stepParameter) {
         // Check if it can delete from Database and delete
         case 20:
             if (!$_POST['action'] and $_GET['mailid']) {
                 $_POST['action'][$_GET['mailid']] = 1;
             }
             foreach ($_POST['action'] as $key => $val) {
-                  $rx_status = $db->qry_first("SELECT rx_deleted FROM %prefix%mail_messages WHERE mailID = %int%", $key);
+                  $rx_status = $database->queryWithOnlyFirstRow("SELECT rx_deleted FROM %prefix%mail_messages WHERE mailID = ?", [$key]);
           
                 // Ist eMail vom Sender gelöscht? JA: Lösche aus DB, NEIN: Setze rx flag
                 if ($rx_status['rx_deleted']) {
-                    $db->qry("DELETE FROM %prefix%mail_messages WHERE mailID = %int%", $key);
+                    $database->query("DELETE FROM %prefix%mail_messages WHERE mailID = ?", [$key]);
                 } else {
-                    $db->qry("UPDATE %prefix%mail_messages SET tx_deleted = 1 WHERE mailID = %int%", $key);
+                    $database->query("UPDATE %prefix%mail_messages SET tx_deleted = 1 WHERE mailID = ?", [$key]);
                 }
             }
             break;
