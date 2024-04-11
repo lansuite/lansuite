@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2005-02-26 01:29</date>
+		<date>2024-03-22 01:33</date>
 	</header>
 	<table>
 		<table_head>
@@ -16,9 +16,9 @@
 				<name>pdfid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>PRI</key>
 				<default></default>
 				<extra>auto_increment</extra>
+				<key>PRI</key>
 			</field>
 			<field>
 				<name>template_id</name>
@@ -77,6 +77,14 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>align</name>
+				<type>varchar(1)</type>
+				<null></null>
+				<key></key>
+				<default>L</default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>font</name>
 				<type>varchar(30)</type>
 				<null></null>
@@ -125,6 +133,14 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>border</name>
+				<type>int(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>user_type</name>
 				<type>int(3)</type>
 				<null></null>
@@ -144,502 +160,1926 @@
 		<content>
 			<entry>
 				<pdfid>19</pdfid>
-				<template_id>6</template_id>
+				<template_id>1</template_id>
 				<visible>0</visible>
 				<type>config</type>
 				<pos_x>10</pos_x>
-				<pos_y>10</pos_y>
+				<pos_y>30</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
 				<fontsize>0</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
 				<text>A4</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
 			<entry>
 				<pdfid>59</pdfid>
-				<template_id>6</template_id>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>text</type>
+				<pos_x>5</pos_x>
+				<pos_y>45</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>10</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>IP:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>3</sort>
+			</entry>
+			<entry>
+				<pdfid>57</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>25</pos_x>
+				<pos_y>35</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>10</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>clan</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>4</sort>
+			</entry>
+			<entry>
+				<pdfid>39</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>25</pos_x>
+				<pos_y>30</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>10</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>fullname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>10</sort>
+			</entry>
+			<entry>
+				<pdfid>60</pdfid>
+				<template_id>1</template_id>
 				<visible>1</visible>
 				<type>text</type>
 				<pos_x>5</pos_x>
 				<pos_y>40</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>10</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Platz:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>4</sort>
+			</entry>
+			<entry>
+				<pdfid>36</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>25</pos_x>
+				<pos_y>45</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>10</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>user_ip</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>3</sort>
+			</entry>
+			<entry>
+				<pdfid>37</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>25</pos_x>
+				<pos_y>40</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>255</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>user_seat</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>3</sort>
+			</entry>
+			<entry>
+				<pdfid>38</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>25</pos_x>
+				<pos_y>25</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>10</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>user_nickname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>2</sort>
+			</entry>
+			<entry>
+				<pdfid>134</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>220</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>40</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
 				<font>Arial</font>
 				<fontsize>8</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
-				<text>IP:</text>
+				<text>party_name</text>
+				<border>0</border>
 				<user_type>0</user_type>
-				<sort>3</sort>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>170</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>9</pos_x>
+				<pos_y>55</pos_y>
+				<end_x>18</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>vom:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
 			</entry>
 			<entry>
 				<pdfid>58</pdfid>
-				<template_id>6</template_id>
+				<template_id>1</template_id>
 				<visible>1</visible>
 				<type>line</type>
 				<pos_x>0</pos_x>
 				<pos_y>54</pos_y>
 				<end_x>85</end_x>
 				<end_y>54</end_y>
+				<align>L</align>
+				<font>Arial</font>
 				<fontsize>0</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>11</sort>
 			</entry>
 			<entry>
-				<pdfid>57</pdfid>
-				<template_id>6</template_id>
+				<pdfid>62</pdfid>
+				<template_id>1</template_id>
 				<visible>1</visible>
-				<type>data</type>
-				<pos_x>5</pos_x>
-				<pos_y>15</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
-				<font>Arial</font>
-				<fontsize>8</fontsize>
+				<type>rect</type>
+				<pos_x>0</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>86</end_x>
+				<end_y>74</end_y>
+				<align>0</align>
+				<font>0</font>
+				<fontsize>0</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
-				<text>clan</text>
+				<text>0</text>
+				<border>0</border>
 				<user_type>0</user_type>
-				<sort>4</sort>
+				<sort>-2</sort>
 			</entry>
 			<entry>
-				<pdfid>39</pdfid>
-				<template_id>6</template_id>
+				<pdfid>157</pdfid>
+				<template_id>5</template_id>
 				<visible>1</visible>
-				<type>data</type>
-				<pos_x>30</pos_x>
-				<pos_y>20</pos_y>
-				<end_x>1</end_x>
-				<end_y>0</end_y>
+				<type>rect</type>
+				<pos_x>0</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>20</end_x>
+				<end_y>8</end_y>
+				<align>L</align>
 				<font>Arial</font>
-				<fontsize>8</fontsize>
+				<fontsize>0</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
-				<text>firstname</text>
+				<border>0</border>
 				<user_type>0</user_type>
-				<sort>10</sort>
+				<sort>3</sort>
 			</entry>
 			<entry>
-				<pdfid>24</pdfid>
-				<template_id>6</template_id>
-				<visible>1</visible>
-				<type>data</type>
-				<pos_x>5</pos_x>
-				<pos_y>20</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
-				<font>Arial</font>
-				<fontsize>8</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<text>name</text>
-				<user_type>0</user_type>
-				<sort>4</sort>
-			</entry>
-			<entry>
-				<pdfid>60</pdfid>
-				<template_id>6</template_id>
+				<pdfid>66</pdfid>
+				<template_id>1</template_id>
 				<visible>1</visible>
 				<type>text</type>
 				<pos_x>5</pos_x>
 				<pos_y>30</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
+				<align>L</align>
 				<font>Arial</font>
-				<fontsize>8</fontsize>
+				<fontsize>10</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
-				<text>Platz</text>
-				<user_type>0</user_type>
-				<sort>4</sort>
-			</entry>
-			<entry>
-				<pdfid>56</pdfid>
-				<template_id>10</template_id>
-				<visible>1</visible>
-				<type>data</type>
-				<pos_x>8</pos_x>
-				<pos_y>8</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
-				<font>Arial</font>
-				<fontsize>12</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<text>seat_ip</text>
-				<user_type>0</user_type>
-				<sort>0</sort>
-			</entry>
-			<entry>
-				<pdfid>55</pdfid>
-				<template_id>10</template_id>
-				<visible>1</visible>
-				<type>rect</type>
-				<pos_x>0</pos_x>
-				<pos_y>0</pos_y>
-				<end_x>50</end_x>
-				<end_y>40</end_y>
-				<fontsize>0</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<user_type>0</user_type>
-				<sort>0</sort>
-			</entry>
-			<entry>
-				<pdfid>41</pdfid>
-				<template_id>9</template_id>
-				<visible>0</visible>
-				<type>config</type>
-				<pos_x>10</pos_x>
-				<pos_y>10</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
-				<fontsize>0</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<text>A4</text>
-				<user_type>0</user_type>
-				<sort>0</sort>
-			</entry>
-			<entry>
-				<pdfid>36</pdfid>
-				<template_id>6</template_id>
-				<visible>1</visible>
-				<type>data</type>
-				<pos_x>15</pos_x>
-				<pos_y>40</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
-				<font>Arial</font>
-				<fontsize>8</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<text>user_ip</text>
-				<user_type>0</user_type>
-				<sort>3</sort>
-			</entry>
-			<entry>
-				<pdfid>37</pdfid>
-				<template_id>6</template_id>
-				<visible>1</visible>
-				<type>data</type>
-				<pos_x>15</pos_x>
-				<pos_y>30</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
-				<font>Arial</font>
-				<fontsize>8</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<text>user_seat</text>
-				<user_type>0</user_type>
-				<sort>3</sort>
-			</entry>
-			<entry>
-				<pdfid>38</pdfid>
-				<template_id>6</template_id>
-				<visible>1</visible>
-				<type>data</type>
-				<pos_x>5</pos_x>
-				<pos_y>8</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
-				<font>Arial</font>
-				<fontsize>12</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<text>user_nickname</text>
+				<text>Name:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>2</sort>
 			</entry>
 			<entry>
-				<pdfid>54</pdfid>
-				<template_id>10</template_id>
+				<pdfid>106</pdfid>
+				<template_id>2</template_id>
 				<visible>1</visible>
-				<type>config</type>
+				<type>rect</type>
 				<pos_x>10</pos_x>
-				<pos_y>10</pos_y>
+				<pos_y>25</pos_y>
+				<end_x>54</end_x>
+				<end_y>20</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>1</fontsize>
+				<red>100</red>
+				<green>100</green>
+				<blue>100</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>137</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>35</pos_x>
+				<pos_y>12</pos_y>
+				<end_x>100</end_x>
+				<end_y>8</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>party_name</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>72</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>text</type>
+				<pos_x>5</pos_x>
+				<pos_y>50</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>10</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Netmask:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>1</sort>
+			</entry>
+			<entry>
+				<pdfid>73</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>text</type>
+				<pos_x>25</pos_x>
+				<pos_y>50</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>10</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>255.255.255.0</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>1</sort>
+			</entry>
+			<entry>
+				<pdfid>126</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>text</type>
+				<pos_x>5</pos_x>
+				<pos_y>35</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>10</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Clan:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>74</pdfid>
+				<template_id>2</template_id>
+				<visible>0</visible>
+				<type>config</type>
+				<pos_x>30</pos_x>
+				<pos_y>30</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
 				<fontsize>0</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
 				<text>A4</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
 			<entry>
-				<pdfid>42</pdfid>
-				<template_id>9</template_id>
+				<pdfid>75</pdfid>
+				<template_id>2</template_id>
 				<visible>1</visible>
 				<type>rect</type>
-				<pos_x>10</pos_x>
+				<pos_x>0</pos_x>
 				<pos_y>0</pos_y>
-				<end_x>20</end_x>
-				<end_y>6</end_y>
+				<end_x>74</end_x>
+				<end_y>105</end_y>
+				<align>L</align>
+				<font>Arial</font>
 				<fontsize>0</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
 			<entry>
-				<pdfid>43</pdfid>
-				<template_id>9</template_id>
+				<pdfid>76</pdfid>
+				<template_id>2</template_id>
 				<visible>1</visible>
-				<type>rect</type>
-				<pos_x>30</pos_x>
-				<pos_y>0</pos_y>
-				<end_x>40</end_x>
-				<end_y>6</end_y>
-				<fontsize>0</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<user_type>0</user_type>
-				<sort>0</sort>
-			</entry>
-			<entry>
-				<pdfid>44</pdfid>
-				<template_id>9</template_id>
-				<visible>1</visible>
-				<type>rect</type>
-				<pos_x>70</pos_x>
-				<pos_y>0</pos_y>
-				<end_x>40</end_x>
-				<end_y>6</end_y>
-				<fontsize>0</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<user_type>0</user_type>
-				<sort>0</sort>
-			</entry>
-			<entry>
-				<pdfid>45</pdfid>
-				<template_id>9</template_id>
-				<visible>1</visible>
-				<type>rect</type>
-				<pos_x>110</pos_x>
-				<pos_y>0</pos_y>
-				<end_x>40</end_x>
-				<end_y>6</end_y>
-				<fontsize>0</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<user_type>0</user_type>
-				<sort>0</sort>
-			</entry>
-			<entry>
-				<pdfid>46</pdfid>
-				<template_id>9</template_id>
-				<visible>1</visible>
-				<type>rect</type>
-				<pos_x>150</pos_x>
-				<pos_y>0</pos_y>
-				<end_x>40</end_x>
-				<end_y>6</end_y>
-				<fontsize>0</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<user_type>0</user_type>
-				<sort>0</sort>
-			</entry>
-			<entry>
-				<pdfid>47</pdfid>
-				<template_id>9</template_id>
-				<visible>1</visible>
-				<type>data</type>
-				<pos_x>10</pos_x>
-				<pos_y>3</pos_y>
+				<type>text</type>
+				<pos_x>25</pos_x>
+				<pos_y>15</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Sitzplatzinfo</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>2</sort>
+			</entry>
+			<entry>
+				<pdfid>77</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>image</type>
+				<pos_x>1</pos_x>
+				<pos_y>1</pos_y>
+				<end_x>72</end_x>
+				<end_y>14</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>logo.png</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>90</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>0</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>10</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
 				<font>Arial</font>
 				<fontsize>8</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
 				<text>nr</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>-1</sort>
+			</entry>
+			<entry>
+				<pdfid>80</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>10</pos_x>
+				<pos_y>25</pos_y>
+				<end_x>54</end_x>
+				<end_y>20</end_y>
+				<align>C</align>
+				<font>Arial</font>
+				<fontsize>45</fontsize>
+				<red>255</red>
+				<green>255</green>
+				<blue>255</blue>
+				<text>seat</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
 			<entry>
-				<pdfid>48</pdfid>
-				<template_id>9</template_id>
+				<pdfid>152</pdfid>
+				<template_id>4</template_id>
 				<visible>1</visible>
-				<type>data</type>
-				<pos_x>40</pos_x>
-				<pos_y>3</pos_y>
+				<type>rect</type>
+				<pos_x>274</pos_x>
+				<pos_y>1</pos_y>
+				<end_x>5</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>88</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>config</type>
+				<pos_x>10</pos_x>
+				<pos_y>15</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>A4</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>86</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>text</type>
+				<pos_x>18</pos_x>
+				<pos_y>18</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>10</red>
+				<green>10</green>
+				<blue>10</blue>
+				<text>Ausweis:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>85</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>image</type>
+				<pos_x>1</pos_x>
+				<pos_y>1</pos_y>
+				<end_x>84</end_x>
+				<end_y>16</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>logo.png</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>-1</sort>
+			</entry>
+			<entry>
+				<pdfid>92</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>10</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>30</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
 				<font>Arial</font>
 				<fontsize>8</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_nickname</text>
+				<border>0</border>
 				<user_type>0</user_type>
-				<sort>1</sort>
+				<sort>0</sort>
 			</entry>
 			<entry>
-				<pdfid>53</pdfid>
-				<template_id>9</template_id>
+				<pdfid>94</pdfid>
+				<template_id>4</template_id>
 				<visible>1</visible>
 				<type>data</type>
-				<pos_x>80</pos_x>
-				<pos_y>3</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
+				<pos_x>40</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>30</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
 				<font>Arial</font>
 				<fontsize>8</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
 				<text>lastname</text>
+				<border>0</border>
 				<user_type>0</user_type>
-				<sort>1</sort>
+				<sort>0</sort>
 			</entry>
 			<entry>
-				<pdfid>50</pdfid>
-				<template_id>9</template_id>
+				<pdfid>96</pdfid>
+				<template_id>4</template_id>
 				<visible>1</visible>
 				<type>data</type>
-				<pos_x>120</pos_x>
-				<pos_y>3</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
+				<pos_x>70</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>30</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
 				<font>Arial</font>
 				<fontsize>8</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
 				<text>firstname</text>
+				<border>0</border>
 				<user_type>0</user_type>
-				<sort>1</sort>
+				<sort>0</sort>
 			</entry>
 			<entry>
-				<pdfid>51</pdfid>
-				<template_id>9</template_id>
+				<pdfid>98</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>100</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>10</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>plz</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>100</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>130</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>30</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>clan</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>102</pdfid>
+				<template_id>4</template_id>
 				<visible>1</visible>
 				<type>data</type>
 				<pos_x>160</pos_x>
-				<pos_y>3</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
+				<pos_y>0</pos_y>
+				<end_x>10</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
 				<font>Arial</font>
 				<fontsize>8</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_seat</text>
-				<user_type>0</user_type>
-				<sort>1</sort>
-			</entry>
-			<entry>
-				<pdfid>52</pdfid>
-				<template_id>9</template_id>
-				<visible>1</visible>
-				<type>rect</type>
-				<pos_x>0</pos_x>
-				<pos_y>0</pos_y>
-				<end_x>190</end_x>
-				<end_y>6</end_y>
-				<fontsize>0</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
 			<entry>
-				<pdfid>61</pdfid>
-				<template_id>10</template_id>
+				<pdfid>104</pdfid>
+				<template_id>4</template_id>
 				<visible>1</visible>
 				<type>data</type>
-				<pos_x>40</pos_x>
-				<pos_y>30</pos_y>
-				<end_x>1</end_x>
+				<pos_x>170</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>30</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>user_block</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>105</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>110</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>20</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>city</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>174</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>9</pos_x>
+				<pos_y>80</pos_y>
+				<end_x>18</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>IP:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>171</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>27</pos_x>
+				<pos_y>55</pos_y>
+				<end_x>47</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>16.03.2024</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>113</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>27</pos_x>
+				<pos_y>65</pos_y>
+				<end_x>47</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>seat_block</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>112</pdfid>
+				<template_id>2</template_id>
+				<visible>0</visible>
+				<type>data</type>
+				<pos_x>27</pos_x>
+				<pos_y>80</pos_y>
+				<end_x>47</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>seat_ip</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>111</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>27</pos_x>
+				<pos_y>50</pos_y>
+				<end_x>47</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>party_name</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>125</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>text</type>
+				<pos_x>5</pos_x>
+				<pos_y>25</pos_y>
+				<end_x>0</end_x>
 				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>10</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Nick:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>109</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>27</pos_x>
+				<pos_y>75</pos_y>
+				<end_x>47</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
 				<font>Arial</font>
 				<fontsize>12</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_nickname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>3</sort>
+			</entry>
+			<entry>
+				<pdfid>173</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>9</pos_x>
+				<pos_y>75</pos_y>
+				<end_x>18</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Nick:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
 			<entry>
-				<pdfid>62</pdfid>
+				<pdfid>175</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>27</pos_x>
+				<pos_y>80</pos_y>
+				<end_x>47</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>DHCP</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>149</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>barcode</type>
+				<pos_x>40</pos_x>
+				<pos_y>60</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>133</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>190</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>30</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>user_ip</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>130</pdfid>
+				<template_id>7</template_id>
+				<visible>0</visible>
+				<type>config</type>
+				<pos_x>10</pos_x>
+				<pos_y>10</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>A4</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>131</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>text</type>
+				<pos_x>63</pos_x>
+				<pos_y>50</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>0</align>
+				<font>OldEnglishTextMT</font>
+				<fontsize>100</fontsize>
+				<red>50</red>
+				<green>50</green>
+				<blue>50</blue>
+				<text>rkunde</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>135</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>text</type>
+				<pos_x>262</pos_x>
+				<pos_y>4</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Bezahlt:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>153</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>0</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>280</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>139</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>text</type>
+				<pos_x>32</pos_x>
+				<pos_y>50</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>0</align>
+				<font>OldEnglishTextMT</font>
+				<fontsize>100</fontsize>
+				<red>150</red>
+				<green>0</green>
+				<blue>50</blue>
+				<text>U</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>140</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>image</type>
+				<pos_x>45</pos_x>
+				<pos_y>60</pos_y>
+				<end_x>100</end_x>
+				<end_y>100</end_y>
+				<align>0</align>
+				<font>0</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>lorbeerkranz.png</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>1</sort>
+			</entry>
+			<entry>
+				<pdfid>141</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>0</pos_x>
+				<pos_y>220</pos_y>
+				<end_x>190</end_x>
+				<end_y>20</end_y>
+				<align>C</align>
+				<font>Arial</font>
+				<fontsize>30</fontsize>
+				<red>50</red>
+				<green>50</green>
+				<blue>50</blue>
+				<text>fullname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>2</sort>
+			</entry>
+			<entry>
+				<pdfid>146</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>image</type>
+				<pos_x>35</pos_x>
+				<pos_y>165</pos_y>
+				<end_x>120</end_x>
+				<end_y>25</end_y>
+				<align>0</align>
+				<font>0</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>cs2_2.png</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>1</sort>
+			</entry>
+			<entry>
+				<pdfid>147</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>image</type>
+				<pos_x>0</pos_x>
+				<pos_y>30</pos_y>
+				<end_x>190</end_x>
+				<end_y>180</end_y>
+				<align>0</align>
+				<font>0</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>back.png</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>-1</sort>
+			</entry>
+			<entry>
+				<pdfid>24</pdfid>
+				<template_id>1</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>5</pos_x>
+				<pos_y>20</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>name</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>4</sort>
+			</entry>
+			<entry>
+				<pdfid>172</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>9</pos_x>
+				<pos_y>65</pos_y>
+				<end_x>18</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Raum:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>41</pdfid>
+				<template_id>6</template_id>
+				<visible>0</visible>
+				<type>config</type>
+				<pos_x>10</pos_x>
+				<pos_y>15</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>A4</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>42</pdfid>
+				<template_id>6</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>10</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>20</end_x>
+				<end_y>6</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>43</pdfid>
+				<template_id>6</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>30</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>40</end_x>
+				<end_y>6</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>44</pdfid>
+				<template_id>6</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>70</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>40</end_x>
+				<end_y>6</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>45</pdfid>
+				<template_id>6</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>110</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>40</end_x>
+				<end_y>6</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>46</pdfid>
+				<template_id>6</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>150</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>40</end_x>
+				<end_y>6</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>47</pdfid>
+				<template_id>6</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>10</pos_x>
+				<pos_y>3</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>nr</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>1</sort>
+			</entry>
+			<entry>
+				<pdfid>48</pdfid>
+				<template_id>6</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>40</pos_x>
+				<pos_y>3</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>user_nickname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>1</sort>
+			</entry>
+			<entry>
+				<pdfid>53</pdfid>
+				<template_id>6</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>80</pos_x>
+				<pos_y>3</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>lastname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>1</sort>
+			</entry>
+			<entry>
+				<pdfid>50</pdfid>
+				<template_id>6</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>120</pos_x>
+				<pos_y>3</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>firstname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>1</sort>
+			</entry>
+			<entry>
+				<pdfid>51</pdfid>
+				<template_id>6</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>160</pos_x>
+				<pos_y>3</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>user_seat</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>1</sort>
+			</entry>
+			<entry>
+				<pdfid>52</pdfid>
 				<template_id>6</template_id>
 				<visible>1</visible>
 				<type>rect</type>
 				<pos_x>0</pos_x>
 				<pos_y>0</pos_y>
-				<end_x>85</end_x>
-				<end_y>108</end_y>
+				<end_x>190</end_x>
+				<end_y>6</end_y>
+				<align>L</align>
+				<font>Arial</font>
 				<fontsize>0</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
-			</entry>		
+			</entry>
 			<entry>
-				<pdfid>62</pdfid>
-				<template_id>6</template_id>
+				<pdfid>63</pdfid>
+				<template_id>1</template_id>
 				<visible>1</visible>
 				<type>barcode</type>
-				<pos_x>1</pos_x>
+				<pos_x>15</pos_x>
 				<pos_y>60</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
 				<fontsize>0</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
-				<sort>100</sort>
+				<sort>10</sort>
 			</entry>
-			<entry>		
-			  <pdfid>63</pdfid> 
-			  <template_id>6</template_id> 
-			  <visible>1</visible> 
-			  <type>barcode</type> 
-			  <pos_x>15</pos_x> 
-			  <pos_y>60</pos_y> 
-			  <end_x>0</end_x> 
-			  <end_y>0</end_y> 
-			  <fontsize>0</fontsize> 
-			  <red>0</red> 
-			  <green>0</green> 
-			  <blue>0</blue> 
-			  <user_type>0</user_type> 
-			  <sort>10</sort> 
+			<entry>
+				<pdfid>169</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>9</pos_x>
+				<pos_y>50</pos_y>
+				<end_x>18</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Party:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
 			</entry>
-		</content>		
+			<entry>
+				<pdfid>163</pdfid>
+				<template_id>7</template_id>
+				<visible>0</visible>
+				<type>multicell</type>
+				<pos_x>0</pos_x>
+				<pos_y>85</pos_y>
+				<end_x>190</end_x>
+				<end_y>35</end_y>
+				<align>C</align>
+				<font>Arial</font>
+				<fontsize>100</fontsize>
+				<red>50</red>
+				<green>50</green>
+				<blue>50</blue>
+				<text>2.</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>3</sort>
+			</entry>
+			<entry>
+				<pdfid>164</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>0</pos_x>
+				<pos_y>220</pos_y>
+				<end_x>190</end_x>
+				<end_y>20</end_y>
+				<align>0</align>
+				<font>0</font>
+				<fontsize>1</fontsize>
+				<red>240</red>
+				<green>240</green>
+				<blue>240</blue>
+				<text>0</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>186</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>0</pos_x>
+				<pos_y>85</pos_y>
+				<end_x>190</end_x>
+				<end_y>35</end_y>
+				<align>C</align>
+				<font>Arial</font>
+				<fontsize>100</fontsize>
+				<red>50</red>
+				<green>50</green>
+				<blue>50</blue>
+				<text>rank</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>5</sort>
+			</entry>
+			<entry>
+				<pdfid>168</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>0</pos_x>
+				<pos_y>190</pos_y>
+				<end_x>190</end_x>
+				<end_y>20</end_y>
+				<align>C</align>
+				<font>Arial</font>
+				<fontsize>30</fontsize>
+				<red>50</red>
+				<green>50</green>
+				<blue>50</blue>
+				<text>[ 2 on 2]</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>2</sort>
+			</entry>
+			<entry>
+				<pdfid>160</pdfid>
+				<template_id>5</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>20</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>20</end_x>
+				<end_y>8</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>2</sort>
+			</entry>
+			<entry>
+				<pdfid>158</pdfid>
+				<template_id>5</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>0</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>20</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>firstname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>54</pdfid>
+				<template_id>3</template_id>
+				<visible>1</visible>
+				<type>config</type>
+				<pos_x>22</pos_x>
+				<pos_y>20</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>A4</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>55</pdfid>
+				<template_id>3</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>0</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>50</end_x>
+				<end_y>40</end_y>
+				<align>0</align>
+				<font>0</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>0</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>-1</sort>
+			</entry>
+			<entry>
+				<pdfid>56</pdfid>
+				<template_id>3</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>5</pos_x>
+				<pos_y>25</pos_y>
+				<end_x>40</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>seat_ip</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>61</pdfid>
+				<template_id>3</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>5</pos_x>
+				<pos_y>10</pos_y>
+				<end_x>40</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>user_nickname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>176</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>header</type>
+				<pos_x>0</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>12</red>
+				<green>12</green>
+				<blue>12</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>177</pdfid>
+				<template_id>4</template_id>
+				<visible>1</visible>
+				<type>footer</type>
+				<pos_x>0</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>12</red>
+				<green>12</green>
+				<blue>12</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>159</pdfid>
+				<template_id>5</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>20</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>200</end_x>
+				<end_y>7</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>8</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>lastname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>156</pdfid>
+				<template_id>5</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>0</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>190</end_x>
+				<end_y>8</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>3</sort>
+			</entry>
+			<entry>
+				<pdfid>155</pdfid>
+				<template_id>5</template_id>
+				<visible>0</visible>
+				<type>config</type>
+				<pos_x>10</pos_x>
+				<pos_y>15</pos_y>
+				<end_x>0</end_x>
+				<end_y>0</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>A4</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>161</pdfid>
+				<template_id>5</template_id>
+				<visible>1</visible>
+				<type>rect</type>
+				<pos_x>40</pos_x>
+				<pos_y>0</pos_y>
+				<end_x>75</end_x>
+				<end_y>8</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>0</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>178</pdfid>
+				<template_id>3</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>5</pos_x>
+				<pos_y>5</pos_y>
+				<end_x>40</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Name:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>179</pdfid>
+				<template_id>3</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>5</pos_x>
+				<pos_y>20</pos_y>
+				<end_x>40</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>IP-Adresse:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>180</pdfid>
+				<template_id>3</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>5</pos_x>
+				<pos_y>15</pos_y>
+				<end_x>40</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>fullname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>187</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>9</pos_x>
+				<pos_y>60</pos_y>
+				<end_x>18</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>bis:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>188</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>27</pos_x>
+				<pos_y>60</pos_y>
+				<end_x>47</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>17.03.2024</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>145</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>line</type>
+				<pos_x>0</pos_x>
+				<pos_y>10</pos_y>
+				<end_x>190</end_x>
+				<end_y>10</end_y>
+				<align>0</align>
+				<font>0</font>
+				<fontsize>0</fontsize>
+				<red>127</red>
+				<green>127</green>
+				<blue>127</blue>
+				<text>0</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>165</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>0</pos_x>
+				<pos_y>5</pos_y>
+				<end_x>50</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>127</red>
+				<green>127</green>
+				<blue>127</blue>
+				<text>party_name</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>166</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>135</pos_x>
+				<pos_y>5</pos_y>
+				<end_x>55</end_x>
+				<end_y>5</end_y>
+				<align>R</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>127</red>
+				<green>127</green>
+				<blue>127</blue>
+				<text>www.YOUR-WEBSITE.org</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+		</content>
 	</table>
 	<table>
 		<table_head>
@@ -650,15 +2090,14 @@
 				<name>template_id</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>PRI</key>
 				<default></default>
 				<extra>auto_increment</extra>
+				<key>PRI</key>
 			</field>
 			<field>
 				<name>template_type</name>
 				<type>varchar(20)</type>
 				<null></null>
-				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -666,26 +2105,45 @@
 				<name>name</name>
 				<type>varchar(100)</type>
 				<null></null>
-				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 		</structure>
 		<content>
 			<entry>
-				<template_id>10</template_id>
-				<template_type>seatcards</template_type>
-				<name>Sitzplatzkarten</name>
-			</entry>
-			<entry>
-				<template_id>6</template_id>
+				<template_id>1</template_id>
 				<template_type>guestcards</template_type>
 				<name>Ausweise</name>
 			</entry>
 			<entry>
-				<template_id>9</template_id>
+				<template_id>2</template_id>
+				<template_type>seatcards</template_type>
+				<name>Aufstellerinlay</name>
+			</entry>
+			<entry>
+				<template_id>4</template_id>
 				<template_type>userlist</template_type>
-				<name>Benutzerliste</name>
+				<name>Teilnehmerliste (Bezahlstatus)</name>
+			</entry>
+			<entry>
+				<template_id>7</template_id>
+				<template_type>certificate</template_type>
+				<name>Urkunde CS2</name>
+			</entry>
+			<entry>
+				<template_id>6</template_id>
+				<template_type>userlist</template_type>
+				<name>Teilnehmerliste kompakt</name>
+			</entry>
+			<entry>
+				<template_id>5</template_id>
+				<template_type>userlist</template_type>
+				<name>Snack-Strichliste</name>
+			</entry>
+			<entry>
+				<template_id>3</template_id>
+				<template_type>seatcards</template_type>
+				<name>Sitzplatzverteilung IP-Adressen</name>
 			</entry>
 		</content>
 	</table>
@@ -698,7 +2156,6 @@
 				<name>template_id</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -706,7 +2163,6 @@
 				<name>item_id</name>
 				<type>varchar(100)</type>
 				<null></null>
-				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -714,10 +2170,11 @@
 				<name>time</name>
 				<type>int(10) unsigned</type>
 				<null></null>
-				<key></key>
 				<default>0</default>
 				<extra></extra>
 			</field>
 		</structure>
+		<content>
+		</content>
 	</table>
 </lansuite>
