@@ -23,13 +23,7 @@ class Security
             }
 
             $database->query('DELETE FROM %prefix%ip_hits WHERE (date + ?) < NOW()', [$cfg["reload_time"]]);
-            $db->qry(
-                'INSERT INTO %prefix%ip_hits SET ip = INET6_ATON(%string%)',
-                $_SERVER['REMOTE_ADDR'],
-                $_GET["mod"],
-                $_GET["action"],
-                $_GET["step"]
-            );
+            $database->query('INSERT INTO %prefix%ip_hits SET ip = INET6_ATON(?)', [$_SERVER['REMOTE_ADDR']]);
 
             $ip_hits = $database->queryWithOnlyFirstRow('
               SELECT COUNT(*) AS hits 

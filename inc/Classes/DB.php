@@ -110,7 +110,7 @@ class DB
         $pass = $config['database']['passwd'];
         $database = $config['database']['database'];
         $port = $config['database']['dbport'] ?? 3306;
-        $charset = $config['database']['charset'];
+        $charset = $config['database']['charset'] ?? '';
         $sqlmode = '';
         if (array_key_exists('sqlmode', $config['database'])) {
             $sqlmode = $config['database']['sqlmode'];
