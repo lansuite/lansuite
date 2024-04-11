@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2024-03-15 08:51</date>
+		<date>2024-03-22 01:33</date>
 	</header>
 	<table>
 		<table_head>
@@ -16,9 +16,9 @@
 				<name>pdfid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>PRI</key>
 				<default></default>
 				<extra>auto_increment</extra>
+				<key>PRI</key>
 			</field>
 			<field>
 				<name>template_id</name>
@@ -133,6 +133,14 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>border</name>
+				<type>int(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>user_type</name>
 				<type>int(3)</type>
 				<null></null>
@@ -166,6 +174,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>A4</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -185,6 +194,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>IP:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>3</sort>
 			</entry>
@@ -204,6 +214,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>clan</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>4</sort>
 			</entry>
@@ -223,6 +234,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>fullname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>10</sort>
 			</entry>
@@ -242,6 +254,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>Platz:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>4</sort>
 			</entry>
@@ -261,6 +274,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_ip</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>3</sort>
 			</entry>
@@ -280,6 +294,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_seat</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>3</sort>
 			</entry>
@@ -299,6 +314,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_nickname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>2</sort>
 			</entry>
@@ -318,6 +334,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>party_name</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -336,7 +353,8 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
-				<text>Datum:</text>
+				<text>vom:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -355,6 +373,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>11</sort>
 			</entry>
@@ -366,13 +385,15 @@
 				<pos_x>0</pos_x>
 				<pos_y>0</pos_y>
 				<end_x>86</end_x>
-				<end_y>54</end_y>
-				<align>L</align>
-				<font>Arial</font>
+				<end_y>74</end_y>
+				<align>0</align>
+				<font>0</font>
 				<fontsize>0</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<text>0</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>-2</sort>
 			</entry>
@@ -391,6 +412,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>3</sort>
 			</entry>
@@ -410,6 +432,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>Name:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>2</sort>
 			</entry>
@@ -428,6 +451,7 @@
 				<red>100</red>
 				<green>100</green>
 				<blue>100</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -447,6 +471,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>party_name</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -466,6 +491,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>Netmask:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
@@ -485,6 +511,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>255.255.255.0</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
@@ -504,6 +531,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>Clan:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -512,8 +540,8 @@
 				<template_id>2</template_id>
 				<visible>0</visible>
 				<type>config</type>
-				<pos_x>20</pos_x>
-				<pos_y>25</pos_y>
+				<pos_x>30</pos_x>
+				<pos_y>30</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
 				<align>L</align>
@@ -523,6 +551,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>A4</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -541,6 +570,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -560,6 +590,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>Sitzplatzinfo</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>2</sort>
 			</entry>
@@ -579,6 +610,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>logo.png</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -598,6 +630,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>nr</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>-1</sort>
 			</entry>
@@ -617,6 +650,7 @@
 				<green>255</green>
 				<blue>255</blue>
 				<text>seat</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
@@ -635,6 +669,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -644,7 +679,7 @@
 				<visible>1</visible>
 				<type>config</type>
 				<pos_x>10</pos_x>
-				<pos_y>10</pos_y>
+				<pos_y>15</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
 				<align>L</align>
@@ -654,6 +689,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>A4</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -673,6 +709,7 @@
 				<green>10</green>
 				<blue>10</blue>
 				<text>Ausweis:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -692,6 +729,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>logo.png</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>-1</sort>
 			</entry>
@@ -711,6 +749,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_nickname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -730,6 +769,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>lastname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -749,6 +789,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>firstname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -768,6 +809,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>plz</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -787,6 +829,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>clan</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -806,6 +849,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_seat</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -825,6 +869,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_block</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -844,6 +889,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>city</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -853,7 +899,7 @@
 				<visible>1</visible>
 				<type>multicell</type>
 				<pos_x>9</pos_x>
-				<pos_y>75</pos_y>
+				<pos_y>80</pos_y>
 				<end_x>18</end_x>
 				<end_y>5</end_y>
 				<align>L</align>
@@ -863,6 +909,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>IP:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -882,6 +929,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>16.03.2024</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -891,7 +939,7 @@
 				<visible>1</visible>
 				<type>data</type>
 				<pos_x>27</pos_x>
-				<pos_y>60</pos_y>
+				<pos_y>65</pos_y>
 				<end_x>47</end_x>
 				<end_y>5</end_y>
 				<align>L</align>
@@ -901,16 +949,17 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>seat_block</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
 			<entry>
 				<pdfid>112</pdfid>
 				<template_id>2</template_id>
-				<visible>1</visible>
+				<visible>0</visible>
 				<type>data</type>
 				<pos_x>27</pos_x>
-				<pos_y>75</pos_y>
+				<pos_y>80</pos_y>
 				<end_x>47</end_x>
 				<end_y>5</end_y>
 				<align>L</align>
@@ -920,6 +969,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>seat_ip</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -939,6 +989,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>party_name</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -958,6 +1009,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>Nick:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -966,44 +1018,6 @@
 				<template_id>2</template_id>
 				<visible>1</visible>
 				<type>data</type>
-				<pos_x>27</pos_x>
-				<pos_y>70</pos_y>
-				<end_x>47</end_x>
-				<end_y>5</end_y>
-				<align>L</align>
-				<font>Arial</font>
-				<fontsize>12</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<text>user_nickname</text>
-				<user_type>0</user_type>
-				<sort>3</sort>
-			</entry>
-			<entry>
-				<pdfid>173</pdfid>
-				<template_id>2</template_id>
-				<visible>1</visible>
-				<type>multicell</type>
-				<pos_x>9</pos_x>
-				<pos_y>70</pos_y>
-				<end_x>18</end_x>
-				<end_y>5</end_y>
-				<align>L</align>
-				<font>Arial</font>
-				<fontsize>12</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<text>Nick:</text>
-				<user_type>0</user_type>
-				<sort>0</sort>
-			</entry>
-			<entry>
-				<pdfid>175</pdfid>
-				<template_id>2</template_id>
-				<visible>0</visible>
-				<type>multicell</type>
 				<pos_x>27</pos_x>
 				<pos_y>75</pos_y>
 				<end_x>47</end_x>
@@ -1014,7 +1028,48 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<text>user_nickname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>3</sort>
+			</entry>
+			<entry>
+				<pdfid>173</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>9</pos_x>
+				<pos_y>75</pos_y>
+				<end_x>18</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Nick:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>175</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>27</pos_x>
+				<pos_y>80</pos_y>
+				<end_x>47</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
 				<text>DHCP</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1033,6 +1088,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1052,6 +1108,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_ip</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1071,6 +1128,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>A4</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1090,6 +1148,7 @@
 				<green>50</green>
 				<blue>50</blue>
 				<text>rkunde</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1109,6 +1168,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>Bezahlt:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1127,6 +1187,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1146,6 +1207,7 @@
 				<green>0</green>
 				<blue>50</blue>
 				<text>U</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1165,6 +1227,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>lorbeerkranz.png</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
@@ -1184,27 +1247,9 @@
 				<green>50</green>
 				<blue>50</blue>
 				<text>fullname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>2</sort>
-			</entry>
-			<entry>
-				<pdfid>145</pdfid>
-				<template_id>7</template_id>
-				<visible>1</visible>
-				<type>line</type>
-				<pos_x>0</pos_x>
-				<pos_y>10</pos_y>
-				<end_x>190</end_x>
-				<end_y>10</end_y>
-				<align>0</align>
-				<font>0</font>
-				<fontsize>0</fontsize>
-				<red>127</red>
-				<green>127</green>
-				<blue>127</blue>
-				<text>0</text>
-				<user_type>0</user_type>
-				<sort>0</sort>
 			</entry>
 			<entry>
 				<pdfid>146</pdfid>
@@ -1222,6 +1267,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>cs2_2.png</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
@@ -1241,27 +1287,9 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>back.png</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>-1</sort>
-			</entry>
-			<entry>
-				<pdfid>162</pdfid>
-				<template_id>8</template_id>
-				<visible>0</visible>
-				<type>config</type>
-				<pos_x>10</pos_x>
-				<pos_y>10</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
-				<align>L</align>
-				<font>Arial</font>
-				<fontsize>0</fontsize>
-				<red>0</red>
-				<green>0</green>
-				<blue>0</blue>
-				<text>A4</text>
-				<user_type>0</user_type>
-				<sort>0</sort>
 			</entry>
 			<entry>
 				<pdfid>24</pdfid>
@@ -1279,6 +1307,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>name</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>4</sort>
 			</entry>
@@ -1288,7 +1317,7 @@
 				<visible>1</visible>
 				<type>multicell</type>
 				<pos_x>9</pos_x>
-				<pos_y>60</pos_y>
+				<pos_y>65</pos_y>
 				<end_x>18</end_x>
 				<end_y>5</end_y>
 				<align>L</align>
@@ -1298,6 +1327,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>Raum:</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1307,7 +1337,7 @@
 				<visible>0</visible>
 				<type>config</type>
 				<pos_x>10</pos_x>
-				<pos_y>10</pos_y>
+				<pos_y>15</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
 				<align>L</align>
@@ -1317,6 +1347,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>A4</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1335,6 +1366,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1353,6 +1385,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1371,6 +1404,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1389,6 +1423,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1407,6 +1442,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1426,6 +1462,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>nr</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
@@ -1445,6 +1482,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_nickname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
@@ -1464,6 +1502,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>lastname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
@@ -1483,6 +1522,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>firstname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
@@ -1502,6 +1542,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_seat</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>1</sort>
 			</entry>
@@ -1520,6 +1561,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1538,6 +1580,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>10</sort>
 			</entry>
@@ -1557,32 +1600,14 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>Party:</text>
-				<user_type>0</user_type>
-				<sort>0</sort>
-			</entry>
-			<entry>
-				<pdfid>165</pdfid>
-				<template_id>7</template_id>
-				<visible>1</visible>
-				<type>data</type>
-				<pos_x>0</pos_x>
-				<pos_y>5</pos_y>
-				<end_x>50</end_x>
-				<end_y>5</end_y>
-				<align>L</align>
-				<font>Arial</font>
-				<fontsize>12</fontsize>
-				<red>127</red>
-				<green>127</green>
-				<blue>127</blue>
-				<text>party_name</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
 			<entry>
 				<pdfid>163</pdfid>
 				<template_id>7</template_id>
-				<visible>1</visible>
+				<visible>0</visible>
 				<type>multicell</type>
 				<pos_x>0</pos_x>
 				<pos_y>85</pos_y>
@@ -1595,6 +1620,7 @@
 				<green>50</green>
 				<blue>50</blue>
 				<text>2.</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>3</sort>
 			</entry>
@@ -1614,27 +1640,29 @@
 				<green>240</green>
 				<blue>240</blue>
 				<text>0</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
 			<entry>
-				<pdfid>166</pdfid>
+				<pdfid>186</pdfid>
 				<template_id>7</template_id>
 				<visible>1</visible>
-				<type>multicell</type>
-				<pos_x>135</pos_x>
-				<pos_y>5</pos_y>
-				<end_x>55</end_x>
-				<end_y>5</end_y>
-				<align>R</align>
+				<type>data</type>
+				<pos_x>0</pos_x>
+				<pos_y>85</pos_y>
+				<end_x>190</end_x>
+				<end_y>35</end_y>
+				<align>C</align>
 				<font>Arial</font>
-				<fontsize>12</fontsize>
-				<red>127</red>
-				<green>127</green>
-				<blue>127</blue>
-				<text>www.psycholanpartys.org</text>
+				<fontsize>100</fontsize>
+				<red>50</red>
+				<green>50</green>
+				<blue>50</blue>
+				<text>rank</text>
+				<border>0</border>
 				<user_type>0</user_type>
-				<sort>0</sort>
+				<sort>5</sort>
 			</entry>
 			<entry>
 				<pdfid>168</pdfid>
@@ -1652,6 +1680,7 @@
 				<green>50</green>
 				<blue>50</blue>
 				<text>[ 2 on 2]</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>2</sort>
 			</entry>
@@ -1670,6 +1699,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>2</sort>
 			</entry>
@@ -1689,6 +1719,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>firstname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1697,8 +1728,8 @@
 				<template_id>3</template_id>
 				<visible>1</visible>
 				<type>config</type>
-				<pos_x>10</pos_x>
-				<pos_y>10</pos_y>
+				<pos_x>22</pos_x>
+				<pos_y>20</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
 				<align>L</align>
@@ -1708,6 +1739,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>A4</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1720,24 +1752,26 @@
 				<pos_y>0</pos_y>
 				<end_x>50</end_x>
 				<end_y>40</end_y>
-				<align>L</align>
-				<font>Arial</font>
+				<align>0</align>
+				<font>0</font>
 				<fontsize>0</fontsize>
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<text>0</text>
+				<border>0</border>
 				<user_type>0</user_type>
-				<sort>0</sort>
+				<sort>-1</sort>
 			</entry>
 			<entry>
 				<pdfid>56</pdfid>
 				<template_id>3</template_id>
 				<visible>1</visible>
 				<type>data</type>
-				<pos_x>8</pos_x>
-				<pos_y>8</pos_y>
-				<end_x>0</end_x>
-				<end_y>0</end_y>
+				<pos_x>5</pos_x>
+				<pos_y>25</pos_y>
+				<end_x>40</end_x>
+				<end_y>5</end_y>
 				<align>L</align>
 				<font>Arial</font>
 				<fontsize>12</fontsize>
@@ -1745,6 +1779,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>seat_ip</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1753,10 +1788,10 @@
 				<template_id>3</template_id>
 				<visible>1</visible>
 				<type>data</type>
-				<pos_x>40</pos_x>
-				<pos_y>30</pos_y>
-				<end_x>1</end_x>
-				<end_y>0</end_y>
+				<pos_x>5</pos_x>
+				<pos_y>10</pos_y>
+				<end_x>40</end_x>
+				<end_y>5</end_y>
 				<align>L</align>
 				<font>Arial</font>
 				<fontsize>12</fontsize>
@@ -1764,6 +1799,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>user_nickname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1782,6 +1818,7 @@
 				<red>12</red>
 				<green>12</green>
 				<blue>12</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1800,6 +1837,7 @@
 				<red>12</red>
 				<green>12</green>
 				<blue>12</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1810,7 +1848,7 @@
 				<type>data</type>
 				<pos_x>20</pos_x>
 				<pos_y>0</pos_y>
-				<end_x>20</end_x>
+				<end_x>200</end_x>
 				<end_y>7</end_y>
 				<align>L</align>
 				<font>Arial</font>
@@ -1819,6 +1857,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>lastname</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1837,6 +1876,7 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>3</sort>
 			</entry>
@@ -1846,7 +1886,7 @@
 				<visible>0</visible>
 				<type>config</type>
 				<pos_x>10</pos_x>
-				<pos_y>10</pos_y>
+				<pos_y>15</pos_y>
 				<end_x>0</end_x>
 				<end_y>0</end_y>
 				<align>L</align>
@@ -1856,6 +1896,7 @@
 				<green>0</green>
 				<blue>0</blue>
 				<text>A4</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1874,6 +1915,167 @@
 				<red>0</red>
 				<green>0</green>
 				<blue>0</blue>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>178</pdfid>
+				<template_id>3</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>5</pos_x>
+				<pos_y>5</pos_y>
+				<end_x>40</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>Name:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>179</pdfid>
+				<template_id>3</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>5</pos_x>
+				<pos_y>20</pos_y>
+				<end_x>40</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>IP-Adresse:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>180</pdfid>
+				<template_id>3</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>5</pos_x>
+				<pos_y>15</pos_y>
+				<end_x>40</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>fullname</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>187</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>9</pos_x>
+				<pos_y>60</pos_y>
+				<end_x>18</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>bis:</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>188</pdfid>
+				<template_id>2</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>27</pos_x>
+				<pos_y>60</pos_y>
+				<end_x>47</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>0</red>
+				<green>0</green>
+				<blue>0</blue>
+				<text>17.03.2024</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>145</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>line</type>
+				<pos_x>0</pos_x>
+				<pos_y>10</pos_y>
+				<end_x>190</end_x>
+				<end_y>10</end_y>
+				<align>0</align>
+				<font>0</font>
+				<fontsize>0</fontsize>
+				<red>127</red>
+				<green>127</green>
+				<blue>127</blue>
+				<text>0</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>165</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>data</type>
+				<pos_x>0</pos_x>
+				<pos_y>5</pos_y>
+				<end_x>50</end_x>
+				<end_y>5</end_y>
+				<align>L</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>127</red>
+				<green>127</green>
+				<blue>127</blue>
+				<text>party_name</text>
+				<border>0</border>
+				<user_type>0</user_type>
+				<sort>0</sort>
+			</entry>
+			<entry>
+				<pdfid>166</pdfid>
+				<template_id>7</template_id>
+				<visible>1</visible>
+				<type>multicell</type>
+				<pos_x>135</pos_x>
+				<pos_y>5</pos_y>
+				<end_x>55</end_x>
+				<end_y>5</end_y>
+				<align>R</align>
+				<font>Arial</font>
+				<fontsize>12</fontsize>
+				<red>127</red>
+				<green>127</green>
+				<blue>127</blue>
+				<text>www.psycholanpartys.org</text>
+				<border>0</border>
 				<user_type>0</user_type>
 				<sort>0</sort>
 			</entry>
@@ -1887,7 +2089,7 @@
 			<field>
 				<name>template_id</name>
 				<type>int(6)</type>
-				<null>NO</null>
+				<null></null>
 				<default></default>
 				<extra>auto_increment</extra>
 				<key>PRI</key>
@@ -1895,14 +2097,14 @@
 			<field>
 				<name>template_type</name>
 				<type>varchar(20)</type>
-				<null>NO</null>
+				<null></null>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>name</name>
 				<type>varchar(100)</type>
-				<null>NO</null>
+				<null></null>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -1916,7 +2118,7 @@
 			<entry>
 				<template_id>2</template_id>
 				<template_type>seatcards</template_type>
-				<name>Sitzplatzkarten für Aufsteller</name>
+				<name>Aufstellerinlay</name>
 			</entry>
 			<entry>
 				<template_id>4</template_id>
@@ -1931,22 +2133,17 @@
 			<entry>
 				<template_id>6</template_id>
 				<template_type>userlist</template_type>
-				<name>Benutzerliste</name>
-			</entry>
-			<entry>
-				<template_id>8</template_id>
-				<template_type>certificate</template_type>
-				<name>Urkunde Blur</name>
+				<name>Teilnehmerliste kompakt</name>
 			</entry>
 			<entry>
 				<template_id>5</template_id>
 				<template_type>userlist</template_type>
-				<name>Getränkeliste</name>
+				<name>Snack-Strichliste</name>
 			</entry>
 			<entry>
 				<template_id>3</template_id>
 				<template_type>seatcards</template_type>
-				<name>Sitzplatzkarten</name>
+				<name>Sitzplatzverteilung IP-Adressen</name>
 			</entry>
 		</content>
 	</table>
@@ -1959,7 +2156,6 @@
 				<name>template_id</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -1967,7 +2163,6 @@
 				<name>item_id</name>
 				<type>varchar(100)</type>
 				<null></null>
-				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -1975,17 +2170,11 @@
 				<name>time</name>
 				<type>int(10) unsigned</type>
 				<null></null>
-				<key></key>
 				<default>0</default>
 				<extra></extra>
 			</field>
 		</structure>
 		<content>
-			<entry>
-				<template_id>1</template_id>
-				<item_id>3</item_id>
-				<time>1118233345</time>
-			</entry>
 		</content>
 	</table>
 </lansuite>
