@@ -46,7 +46,8 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         if (strpos($key, '_value_') > 0) {
                             if (strpos($key, '_value_minutes') > 0) {
                                 $key = substr($key, 0, strpos($key, '_value_minutes'));
-                                $cfg_value = mktime($_POST[$key.'_value_hours'], $_POST[$key.'_value_minutes'], $_POST[$key.'_value_seconds'], $_POST[$key.'_value_month'], $_POST[$key.'_value_day'], $_POST[$key.'_value_year']);
+                                $postValueSeconds = $_POST[$key.'_value_seconds'] ?? 0;
+                                $cfg_value = mktime($_POST[$key.'_value_hours'], $_POST[$key.'_value_minutes'], $postValueSeconds, $_POST[$key.'_value_month'], $_POST[$key.'_value_day'], $_POST[$key.'_value_year']);
                                 $database->query('UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = ?', [$cfg_value, $key]);
                             }
                             // Other Values

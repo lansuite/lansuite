@@ -29,6 +29,16 @@ $t = $database->queryWithOnlyFirstRow('
 
 $team_anz = $tfunc->GetTeamAnz($tournamentid, $t["mode"], $_GET["group"]);
 
+if (!isset($templ)) {
+    $templ = [
+        'index' => [
+            'info' => [
+                'content' => '',
+            ],
+        ],
+    ];
+}
+
 // Check Generated
 if ($t['status'] != "process" and $t['status'] != "closed") {
     $func->information(t('Dieses Turnier wurde noch nicht generiert. Die Paarungen sind noch nicht bekannt.'), 'index.php?mod=tournament2&action=tree&step=1');

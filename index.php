@@ -231,13 +231,18 @@ $dsp = new \LanSuite\Display();
 $db = new \LanSuite\DB();
 
 // Loading the new database class with standard support for prepared statements.
+$sqlmode = '';
+if (array_key_exists('sqlmode', $config['database'])) {
+    $sqlmode = $config['database']['sqlmode'];
+}
 $database = new \LanSuite\Database(
     $config['database']['server'],
     $config['database']['dbport'] ?? 3306,
     $config['database']['user'],
     $config['database']['passwd'],
     $config['database']['database'],
-    $config['database']['charset'] ?? 'utf8mb4'
+    $config['database']['charset'] ?? 'utf8mb4',
+    $sqlmode
 );
 try {
     $database->connect();
@@ -340,7 +345,7 @@ if ($config['environment']['configured'] == 0) {
     }
 
     // Start authentication, just if LS is working
-    $authentication = new \LanSuite\Auth($request, $frmwrkmode);
+    $authentication = new \LanSuite\Auth($database, $request, $frmwrkmode);
     // Test Cookie / Session if user is logged in
     $auth = $authentication->check_logon();
     // Olduserid for Switback on Boxes
