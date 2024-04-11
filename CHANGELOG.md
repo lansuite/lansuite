@@ -55,6 +55,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
 - [Server] Added Voice as server type
 - [Community] Created a discord community
+- [Tasks] New module to manage basic tasks
 
 ### Changed
 
