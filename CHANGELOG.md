@@ -112,6 +112,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] Removed support for NGL (NGL shutdown in 2006)
 - [Tournament] Removed support for LGZ (LGZ is not longer available)
 - [About] Removed PHP and HTML Line count from about site
+- [Hardware] Removed settings "Optisches Laufwerk 1 + 2"
 
 ### Fixed
 
