@@ -55,6 +55,8 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
 - [Server] Added Voice as server type
 - [Community] Created a discord community
+- [PDF] In-Module Documentation
+- [PDF] New options "align" and "border" to configure for a single PDF document
 
 ### Changed
 
@@ -81,6 +83,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Server] Changed CPU and RAM Unit of measure from Mega to Giga in Server hardware information
 - [Server] Limited visibility for non-Admins to active party
 - [Captcha] Replaced ASCII-Captcha with a graphical captcha
+- [PDF] Rework of the PDF module and adding full support for Certificates and new basic templates
 
 ### Deprecated
 
