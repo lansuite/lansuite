@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2902eaaf1142084d1984854bd94e86d0",
+    "content-hash": "7810cdac079a74d231238aeb870c9f55",
     "packages": [
         {
             "name": "cache/adapter-common",
@@ -5323,10 +5323,8 @@
         "php": "^8.1",
         "ext-gd": "*",
         "ext-mysqli": "*",
-        "ext-snmp": "*",
         "ext-json": "*",
-        "ext-zlib": "*",
-        "ext-ftp": "*"
+        "ext-zlib": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
