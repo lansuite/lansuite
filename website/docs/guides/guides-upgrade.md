@@ -80,7 +80,7 @@ This can be done by editing the following line in `inc/base/config.php`
 ```
 [...]
 [environment]
-configured = 1
+configured = 0
 [...]
 ```
 ...just *DO NOT select the option to overwrite the existing DB*
