@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Prerequisites
 
-* Your target system need to run PHP >= 8.1 and MySQL >= 5.7
+* Your target system needs to run PHP >= 8.1 and MySQL >= 5.7
 * A fair bit of time
 
 ## Preparation
@@ -72,6 +72,18 @@ Like:
 
 Copy them to the same place on the new installation, overwriting everything there.
 
+### Configuration: `environment.configured`
+
+In order to simplify some configuration steps and updates it is recommended to reset the configuration back to unconfigured and run through the installer again.
+This updates tables and menu entries and configures some standard options.
+This can be done by editing the following line in `inc/base/config.php`
+```
+[...]
+[environment]
+configured = 0
+[...]
+```
+...just *DO NOT select the option to overwrite the existing DB*
 ### Run specific release tasks
 
 It may be required to run additional steps to prepare everything for the new version.
@@ -126,7 +138,7 @@ Add the following line to your configuration at `/inc/base/config.php`:
 ```
 [...]
 [database]
-sqlmode = "NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+sqlmode = "NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
 [...]
 ```
 
