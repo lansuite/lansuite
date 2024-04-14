@@ -100,6 +100,9 @@ Um diese API Dokumentation im HTML-Format zu generieren, kann [phpDocumentor](ht
 $ composer install
 $ bin/phpdoc run --progressbar -t ./docs/
 ```
+## Discord Community
+
+Schaut auch gerne in Discord vorbei: [https://discord.gg/3wkDqGmrFZ](https://discord.gg/3wkDqGmrFZ).
 
 ## Ähnliche Projekte
 
