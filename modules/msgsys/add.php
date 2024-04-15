@@ -16,46 +16,43 @@ switch ($stepParameter) {
             $func->error(t('Du hast keinen Benutzer ausgew&auml;hlt'), "index.php?mod=msgsys&action=addbuddy");
         } else {
               $user[] = $_GET['userid'];
+
+            //init loop variables
+            $err = [];
+            $names1 = "";
+            $sux = [];
             foreach ($user as $buddyid) {
-                  // User already in list ?
-                  $existsinthelist = $db->qry("
-                    SELECT
-                      id
+                // User already in list ?
+                $userAlreadyAdded= $database->queryWithOnlyFirstRow(
+                    "SELECT id
                     FROM %prefix%buddys
-                    WHERE userid =%int%
-                    AND buddyid =%int%", $auth['userid'], $buddyid);
+                    WHERE userid = ?
+                    AND buddyid = ?",
+                    [$auth['userid'], $buddyid]
+                );
 
-                if ($db->num_rows() != "0") {
-                    $user_exist_in_the_list = 1;
-                }
-
-                  // Does the user exist ?
-                $exist = $db->qry("
-                  SELECT userid
+                // Does the user exist ?
+                $userExists = $database->queryWithOnlyFirstRow(
+                "SELECT userid
                   FROM %prefix%user
-                  WHERE userid =%int%", $buddyid);
-                if ($db->num_rows() != "0") {
-                    $user_exist = 1;
-                }
+                  WHERE userid = ?",
+                  [$buddyid]
+                  );
 
                 // Too many users in the list ?
-                $num = $db->qry("
-                  SELECT id
+                $user_num = $database->queryWithFullResult(
+                 "SELECT id
                   FROM %prefix%buddys
-                  WHERE userid =%int%", $auth['userid']);
-                $user_num = $db->num_rows();
-                if ($user_num >= 20) {
-                    $to_many_users = 1;
-                }
+                  WHERE userid = ?", [$auth['userid']]);
+
+                $too_many_users = sizeof($user_num) >= 20;
 
                 // Is it the User himself ?
-                if ($buddyid == $auth['userid']) {
-                    $i_am_the_user = 1;
-                }
+                $i_am_the_user = $buddyid == $auth['userid'];
 
                 // Get name
-                $name = $database->queryWithOnlyFirstRow("
-                  SELECT
+                $name = $database->queryWithOnlyFirstRow(
+                    "SELECT
                     username,
                     firstname,
                     name
@@ -63,7 +60,7 @@ switch ($stepParameter) {
                   WHERE userid = ?", [$buddyid]);
 
                 // If the user isn't in the list
-                if ($user_exist_in_the_list != 1 && $user_exist == 1 && $to_many_users != 1 && $i_am_the_user != 1) {
+                if (!$userAlreadyAdded && $userExists && !$too_many_users && !$i_am_the_user) {
                     $insert = $database->query("
                       INSERT INTO %prefix%buddys
                       SET
@@ -83,7 +80,7 @@ switch ($stepParameter) {
                     if ($cfg['sys_internet'] == 0) {
                         $err[] = $name["username"] . " (" . $name["firstname"] . " " . $name["name"] . ")";
                     } else {
-                        $err[] = $name["username"];
+                        $err[] = $name["username"] ?? t('Unbekannte Nutzerid');
                     }
                 }
             }
@@ -114,6 +111,7 @@ switch ($stepParameter) {
                     }
                     $names2 .= "$item";
                 }
+
                 $func->confirmation(str_replace('%NAMES2%', $names2, str_replace('%NAMES1%', $names1, t('Die folgenden Benutzer wurden in deiner Buddy-Liste hinzugef&uuml;gt:
                                            <b>%NAMES1%</b> ' . HTML_NEWLINE . '
                                            Folgende Benutzer konnten nicht in deiner Buddy-Liste hinzugef&uuml;gt werden:
