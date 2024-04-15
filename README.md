@@ -61,7 +61,7 @@ This way, it is transparent to the community, and all team members and contribut
 
 ## Discord Community
 
-Join the community today: [https://discord.gg/xbZjkjyF](https://discord.gg/xbZjkjyF).
+Join the community today: [https://discord.gg/3wkDqGmrFZ](https://discord.gg/3wkDqGmrFZ).
 
 ## Similar projects
 
