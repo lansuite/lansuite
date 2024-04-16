@@ -45,7 +45,7 @@ switch ($stepParameter) {
                   FROM %prefix%buddys
                   WHERE userid = ?", [$auth['userid']]);
 
-                $too_many_users = sizeof($user_num) >= 20;
+                $too_many_users = count($user_num) >= 20;
 
                 // Is it the User himself ?
                 $i_am_the_user = $buddyid == $auth['userid'];
