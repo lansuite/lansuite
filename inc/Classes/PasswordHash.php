@@ -49,7 +49,7 @@ class PasswordHash
                 if (self::isAlgorithmSupported($algo_cfg['algo'])) {
 
                     $iterations = intval($algo_cfg['iterations']);
-                    $algo = $algo_cfg['algo'];
+                    $algo = str_replace('pbkdf2-', '', $algo_cfg['algo']);
 
                     //check that a solid number of iterations is configured
                     if (!is_numeric($iterations) || $iterations < 1) {
@@ -190,6 +190,7 @@ class PasswordHash
     {
         switch ($algo) {
             case 'pbkdf2-sha1':
+            default:
                 return [
                     'iterations' => '500000'
                 ];
