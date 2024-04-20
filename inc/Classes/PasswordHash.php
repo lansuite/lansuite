@@ -29,7 +29,7 @@ class PasswordHash
 
                 $iterations = $algo_cfg['iterations'];
                 if (!is_numeric($iterations) || $iterations < 1) {
-                    throw new Exception('Unexpected iterations value');
+                    throw new \Exception('Unexpected iterations value');
                 }
                 $iterations = intval($iterations);
 
@@ -43,9 +43,33 @@ class PasswordHash
                 }
 
                 return '$pbkdf2-sha1$'.$iterations.'$'.$b64salt.'$'.$b64hash;
-        }
 
-        throw new \Exception('Unsupported password hashing algorithm');
+            default:
+                //check that selected algo is available
+                if (self::isAlgorithmSupported($algo_cfg['algo'])) {
+
+                    $iterations = intval($algo_cfg['iterations']);
+                    $algo = $algo_cfg['algo'];
+
+                    //check that a solid number of iterations is configured
+                    if (!is_numeric($iterations) || $iterations < 1) {
+                            throw new \Exception('Unexpected iterations value');
+                        }
+                        $rawsalt = random_bytes(16);
+                        $rawhash = hash_pbkdf2($algo, $password, $rawsalt, $iterations, 0, true);
+
+                        $b64salt = base64_encode($rawsalt);
+                        $b64hash = base64_encode($rawhash);
+                        if ($b64salt === false || $b64hash === false) {
+                            throw new \Exception('Unexpected base64_encode error');
+                        }
+
+                        return '$pbkdf2-' . $algo . '$'.$iterations.'$'.$b64salt.'$'.$b64hash;
+                }   else {
+                    throw new \Exception('Unsupported hash algorithm configured: ' . $algo_cfg['algo']);
+                }
+
+        }
     }
 
     /**
@@ -65,8 +89,15 @@ class PasswordHash
             case 'pbkdf2-sha1':
                 $newhash = hash_pbkdf2('sha1', $password, $info['salt'], intval($info['iterations']), 0, true);
                 return hash_equals($info['hash'], $newhash);
+            default:
+            if (self::isAlgorithmSupported($info['algo'])){
+                $algo = str_replace('pbkdf2-', '', $info['algo']);
+                $newhash = hash_pbkdf2($algo, $password, $info['salt'], intval($info['iterations']), 0, true);
+                return hash_equals($info['hash'], $newhash);
+            } else {
+                 throw new \Exception('Unsupported hash algorithm configured: ' . $algo_cfg['algo']);
+            }
         }
-
         return false;
     }
 
@@ -210,5 +241,18 @@ class PasswordHash
         }
 
         return array_merge($algo_cfg, array('algo' => $algo));
+    }
+
+    /**
+     * Checks if a given Hash-Algorithm is available on the system
+     *
+     * @param string $hashAlgorithm
+     * @return bool true if algorithm is available, false if not
+     */
+    private static function isAlgorithmSupported(string $hashAlgorithm) {
+        //remove unnecessary 'pbkdf2-' if present to match built-in names
+        $hashAlgorithm = str_replace('pbkdf2-', '', $hashAlgorithm);
+        //return if in list of supported algorithms
+        return in_array($hashAlgorithm, hash_algos());
     }
 }
