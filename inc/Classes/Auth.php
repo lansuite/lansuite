@@ -223,7 +223,7 @@ class Auth
      */
     public function login($email, $password, $show_confirmation = 1)
     {
-        global $func, $cfg, $party;
+        global $database,$func, $cfg, $party;
 
         $tmp_login_email = "";
         $tmp_login_pass = "";
@@ -360,7 +360,7 @@ class Auth
             } else {
                 if ($user["user_login"] and PasswordHash::needsRehash($user["password"])) {
                     try {
-                        $db->qry('UPDATE %prefix%user SET password = %string% WHERE userid = %int%', PasswordHash::hash($password), $user["userid"]);
+                        $database->query('UPDATE %prefix%user SET password = ? WHERE userid = ?', [PasswordHash::hash($password), $user["userid"]]);
                         $func->information(t('Es wurde ein Sicherheitsupgrade von deinem Passwort durchgeführt.'), '', 1);
                     } catch (\Exception $e) {
                         $func->error(t('Sicherheitsupgrade von deinem Passwort ist fehlgeschlagen!'));
