@@ -4,10 +4,12 @@ namespace LanSuite;
 
 class PasswordHash
 {
-    public static function hash($password)
+    public static function hash(string $password,array $algo_cfg = null)
     {
-        $algo_cfg = self::getAlgoCfg();
-
+        //use provided config or default
+        if ($algo_cfg == null) {
+            $algo_cfg = self::getAlgoCfg();
+        }
         switch ($algo_cfg['algo']) {
         case 'md5':
             return md5($password);
