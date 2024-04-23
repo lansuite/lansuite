@@ -143,7 +143,7 @@ class Import
                 $mysql_fields = "";
                 $primary_key = "";
                 $unique_key = "";
-  
+
                 // Read the DB-Structure form XML-File
                 if ($fields) {
                     foreach ($fields as $field) {
@@ -224,7 +224,7 @@ class Import
                                         or (!($db_field["Null"] == $null or ($db_field["Null"] == 'YES' and $null == 'NULL')))
                                         or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
                                         or $db_field["Extra"] != $extra) {
-                                            $db->qry("ALTER TABLE %prefix%%plain% CHANGE %plain% %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $name, $type, $null, $default, $extra);
+                                            $db->qry("ALTER TABLE %prefix%%plain% CHANGE `%plain%` `%plain%` %plain% %plain% %plain% %plain%", $table_name, $name, $name, $type, $null, $default, $extra);
                                         }
                                         break;
                                     }
@@ -334,7 +334,7 @@ class Import
                                 }
                             }
                         }
-                
+
                         // Foreign Key references
                         if ($foreign_key) {
                             [$foreign_table, $foreign_key_name] = explode('.', $foreign_key, 2);
@@ -464,7 +464,7 @@ class Import
                             foreach ($field_names as $field_name) {
                                 $value = $this->xml->getFirstTagContent($field_name, $entry, 1);
                                 if ($value != '') {
-                                    $mysql_entries .= "$field_name = '" . $db->real_escape_string($value) . "', ";
+                                    $mysql_entries .= "`$field_name` = '" . $db->real_escape_string($value) . "', ";
                                 }
 
                                 if (array_key_exists(0, $DBPrimaryKeys) && $field_name == $DBPrimaryKeys[0] && in_array($value, $EntriesFound)) {
@@ -488,7 +488,7 @@ class Import
 
             // Optimize table
             $db->qry_first("OPTIMIZE TABLE `%prefix%%plain%`", $table_name);
-            
+
             // Move usersettings to user
             if ($table_name == 'user' and in_array('usersettings', $this->installed_tables)) {
                 $res = $db->qry("
@@ -837,7 +837,7 @@ class Import
             $csv_line = trim($csv_line);
             $csv_line = str_replace("\"", "", $csv_line);
             $csv_line = str_replace("'", "", $csv_line);
-                        
+
             $user = explode(";", $csv_line);
             ($user[5] == "Not Paid") ? $user_paid = 0 : $user_paid = 1;
 
@@ -878,15 +878,15 @@ class Import
                 case "-1":
                     $import["error"]++;
                     break;
-                
+
                 case "0":
                     $import["nothing"]++;
                     break;
-                
+
                 case "1":
                     $import["insert"]++;
                     break;
-                
+
                 case "2":
                     $import["replace"]++;
                     break;
