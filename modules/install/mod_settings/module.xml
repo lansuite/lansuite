@@ -7,6 +7,6 @@
 	<changeable>0</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Jochen (KnoX)</author>				<!-- The author of this module -->
 	<email>knox@orgapage.net</email>					<!-- The E-Mail-Adress of the modules author -->
-	<version>1.0</version>			<!-- The version of this module -->
+	<version>2.0</version>			<!-- The version of this module -->
 	<state>Stable</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
 </lansuite-module>

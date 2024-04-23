@@ -9,61 +9,51 @@ class PasswordHash
         $algo_cfg = self::getAlgoCfg();
 
         switch ($algo_cfg['algo']) {
-            case 'md5':
-                return md5($password);
+        case 'md5':
+            return md5($password);
+        case 'md5-sha512':
+            $iterations = intval($algo_cfg['iterations']);
+            $rawsalt = random_bytes(16);
+            $rawhash = hash_pbkdf2($algo, $password, $rawsalt, $iterations, 0, true);
+            $b64salt = base64_encode($rawsalt);
+            $b64hash = base64_encode($rawhash);
+            if ($b64salt === false || $b64hash === false) {
+                throw new \Exception('Unexpected base64_encode error');
+            }
+            return '$md5-sha512' . '$'.$iterations.'$'.$b64salt.'$'.$b64hash;
+        default:
+            /*
+            * Hash format: $pbkdf2-(algorithm)$(iterations)$(salt)$(hash)
+            * Example:     $pbkdf2-sha1$500000$o2ermOW/WQy1XFFDVfx/Zw==$otf1NOkfKFTrIh9Au1oTPdwdnTc=
+            * Parameters:
+            *   - iterations: integer
+            *   - salt: base64-encoded salt
+            *   - hash: base64-encoded hash
+            */
 
-            case 'pbkdf2-sha1':
-                /*
-                 * Hash format: $pbkdf2-sha1$(iterations)$(salt)$(hash)
-                 * Example:     $pbkdf2-sha1$500000$o2ermOW/WQy1XFFDVfx/Zw==$otf1NOkfKFTrIh9Au1oTPdwdnTc=
-                 * Parameters:
-                 *   - iterations: integer
-                 *   - salt: base64-encoded salt
-                 *   - hash: base64-encoded hash
-                 */
+            //check that selected algo is available
+            if (self::isAlgorithmSupported($algo_cfg['algo'])) {
 
-                $iterations = $algo_cfg['iterations'];
+                $iterations = intval($algo_cfg['iterations']);
+                $algo = str_replace('pbkdf2-', '', $algo_cfg['algo']);
+
+                //check that a solid number of iterations is configured
                 if (!is_numeric($iterations) || $iterations < 1) {
-                    throw new \Exception('Unexpected iterations value');
-                }
-                $iterations = intval($iterations);
+                        throw new \Exception('Unexpected iterations value');
+                    }
+                    $rawsalt = random_bytes(16);
+                    $rawhash = hash_pbkdf2($algo, $password, $rawsalt, $iterations, 0, true);
 
-                $rawsalt = random_bytes(16);
-                $rawhash = hash_pbkdf2('sha1', $password, $rawsalt, $iterations, 0, true);
+                    $b64salt = base64_encode($rawsalt);
+                    $b64hash = base64_encode($rawhash);
+                    if ($b64salt === false || $b64hash === false) {
+                        throw new \Exception('Unexpected base64_encode error');
+                    }
 
-                $b64salt = base64_encode($rawsalt);
-                $b64hash = base64_encode($rawhash);
-                if ($b64salt === false || $b64hash === false) {
-                    throw new Exception('Unexpected base64_encode error');
-                }
-
-                return '$pbkdf2-sha1$'.$iterations.'$'.$b64salt.'$'.$b64hash;
-
-            default:
-                //check that selected algo is available
-                if (self::isAlgorithmSupported($algo_cfg['algo'])) {
-
-                    $iterations = intval($algo_cfg['iterations']);
-                    $algo = str_replace('pbkdf2-', '', $algo_cfg['algo']);
-
-                    //check that a solid number of iterations is configured
-                    if (!is_numeric($iterations) || $iterations < 1) {
-                            throw new \Exception('Unexpected iterations value');
-                        }
-                        $rawsalt = random_bytes(16);
-                        $rawhash = hash_pbkdf2($algo, $password, $rawsalt, $iterations, 0, true);
-
-                        $b64salt = base64_encode($rawsalt);
-                        $b64hash = base64_encode($rawhash);
-                        if ($b64salt === false || $b64hash === false) {
-                            throw new \Exception('Unexpected base64_encode error');
-                        }
-
-                        return '$pbkdf2-' . $algo . '$'.$iterations.'$'.$b64salt.'$'.$b64hash;
-                }   else {
-                    throw new \Exception('Unsupported hash algorithm configured: ' . $algo_cfg['algo']);
-                }
-
+                    return '$pbkdf2-' . $algo . '$'.$iterations.'$'.$b64salt.'$'.$b64hash;
+            }   else {
+                throw new \Exception('Unsupported hash algorithm configured: ' . $algo_cfg['algo']);
+            }
         }
     }
 
@@ -72,27 +62,24 @@ class PasswordHash
         $info = self::getInfo($hash);
 
         switch ($info['algo']) {
-            case 'md5':
-                $newhash = md5($password);
-                return hash_equals($info['hash'], $newhash);
-            case 'pbkdf2-sha1':
-                $newhash = hash_pbkdf2('sha1', $password, $info['salt'], intval($info['iterations']), 0, true);
-                return hash_equals($info['hash'], $newhash);
-            default:
-            if (self::isAlgorithmSupported($info['algo'])){
+        case 'md5':
+            $newhash = md5($password);
+        case 'md5-sha512':
+            $newhash = hash_pbkdf2('sha512', md5($password), $info['salt'],intval($info['iterations']), 0, true)
+        default:
+            if (self::isAlgorithmSupported($info['algo'])) {
                 $algo = str_replace('pbkdf2-', '', $info['algo']);
                 $newhash = hash_pbkdf2($algo, $password, $info['salt'], intval($info['iterations']), 0, true);
-                return hash_equals($info['hash'], $newhash);
             } else {
-                 throw new \Exception('Unsupported hash algorithm configured: ' . $algo_cfg['algo']);
+                throw new \Exception('Unsupported hash algorithm configured: ' . $algo_cfg['algo']);
             }
         }
-        return false;
+        return hash_equals($info['hash'], $newhash);
     }
 
     public static function needsRehash($hash)
     {
-        global $config;
+        global $cfg;
 
         $algo_cfg = self::getAlgoCfg();
 
@@ -139,14 +126,14 @@ class PasswordHash
     {
         global $cfg;
 
-        if (array_key_exists('pwhash_algo', $cfg)) {
-            $pwhash_algo = $cfg['pwhash_algo'];
+        if (array_key_exists('password_hash_algorithm', $cfg)) {
+            $pwhash_algo = $cfg['password_hash_algorithm'];
         } else {
             $pwhash_algo = 'md5';
         }
 
         if ($pwhash_algo === 'default') {
-            $pwhash_algo = 'pbkdf2-sha1';
+            $pwhash_algo = 'pbkdf2-sha512';
         }
 
         return $pwhash_algo;
@@ -155,13 +142,18 @@ class PasswordHash
     private static function getDefaultAlgoCfg($algo)
     {
         switch ($algo) {
-            case 'pbkdf2-sha1':
+            default:
                 return array('iterations' => '500000');
         }
 
         return array();
     }
 
+
+    /**
+     * It appears that custom config was supposed to be loaded from an imploded string to be stored in the config, but
+     *
+     */
     private static function parseAlgoCfg($algo_cfg_str)
     {
         $algo_cfg = array();
@@ -192,8 +184,8 @@ class PasswordHash
         $algo = self::getAlgo();
         $algo_cfg = self::getDefaultAlgoCfg($algo);
 
-        if (array_key_exists('pwhash_algo_cfg', $cfg)) {
-            $custom_algo_cfg = self::parseAlgoCfg($cfg['pwhash_algo_cfg']);
+        if (array_key_exists('password_hash_algorithm', $cfg)) {
+            $custom_algo_cfg = self::parseAlgoCfg($cfg['password_hash_algorithm']);
             $algo_cfg = array_merge($algo_cfg, $custom_algo_cfg);
         }
 
