@@ -66,8 +66,10 @@ class PasswordHash
         switch ($info['algo']) {
         case 'md5':
             $newhash = md5($password);
+            break;
         case 'md5-sha512':
-            $newhash = hash_pbkdf2('sha512', md5($password), $info['salt'],intval($info['iterations']), 0, true)
+            $newhash = hash_pbkdf2('sha512', md5($password), $info['salt'], intval($info['iterations']), 0, true);
+            break;
         default:
             if (self::isAlgorithmSupported($info['algo'])) {
                 $algo = str_replace('pbkdf2-', '', $info['algo']);
@@ -120,7 +122,7 @@ class PasswordHash
 
             return array('algo' => $algo, 'iterations' => $iterations, 'hash' => $rawhash, 'salt' => $rawsalt);
         } else {
-            return array('algo' => 'md5', 'hash' => $hash);
+            return array('algo' => 'md5', 'iterations' => 0, 'hash' => $hash, 'salt' => '');
         }
     }
 
