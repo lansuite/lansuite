@@ -4,13 +4,31 @@ namespace LanSuite;
 
 class PasswordHash
 {
-    public static function hash(string $password,array $algo_cfg = null)
+    //define default values to be used
+    public final const PBKDF2_DEFAULT_CONFIG =
+    [
+        'default' => ['algorithm'=>'sha512', 'iterations' => 50000],
+        'md5-sha512' => ['algorithm'=>'sha512', 'iterations' => 50000],
+        'pbkdf2-sha1' => ['algorithm'=>'sha1', 'iterations' => 200000],
+        'pbkdf2-sha256' => ['algorithm'=>'sha256', 'iterations' => 50000],
+        'pbkdf2-sha512' => ['algorithm'=>'sha512', 'iterations' => 50000]
+    ];
+
+
+    /**
+     * creates a hash from a given password with either system default config or the configuration provided
+     *
+     * @param string $password The password to be hashed as cleartext
+     * @param array $algo_cfg A custom configuration to be used if provided
+     * @return string The hashed ciphertext with additional header information
+     */
+    public static function hash(string $password, array $algo_cfg = null) :string
     {
         //use provided config or default
         if ($algo_cfg == null) {
             $algo_cfg = self::getAlgoCfg();
         }
-        switch ($algo_cfg['algo']) {
+        switch ($algo_cfg['algorithm']) {
         case 'md5':
             return md5($password);
         case 'md5-sha512':
@@ -34,10 +52,10 @@ class PasswordHash
             */
 
             //check that selected algo is available
-            if (self::isAlgorithmSupported($algo_cfg['algo'])) {
+            if (self::isAlgorithmSupported($algo_cfg['algorithm'])) {
 
                 $iterations = intval($algo_cfg['iterations']);
-                $algo = str_replace('pbkdf2-', '', $algo_cfg['algo']);
+                $algo = str_replace('pbkdf2-', '', $algo_cfg['algorithm']);
 
                 //check that a solid number of iterations is configured
                 if (!is_numeric($iterations) || $iterations < 1) {
@@ -54,7 +72,7 @@ class PasswordHash
 
                     return '$pbkdf2-' . $algo . '$'.$iterations.'$'.$b64salt.'$'.$b64hash;
             }   else {
-                throw new \Exception('Unsupported hash algorithm configured: ' . $algo_cfg['algo']);
+                throw new \Exception('Unsupported hash algorithm configured: ' . $algo_cfg['algorithm']);
             }
         }
     }
@@ -63,7 +81,7 @@ class PasswordHash
     {
         $info = self::getInfo($hash);
 
-        switch ($info['algo']) {
+        switch ($info['algorithm']) {
         case 'md5':
             $newhash = md5($password);
             break;
@@ -71,11 +89,11 @@ class PasswordHash
             $newhash = hash_pbkdf2('sha512', md5($password), $info['salt'], intval($info['iterations']), 0, true);
             break;
         default:
-            if (self::isAlgorithmSupported($info['algo'])) {
-                $algo = str_replace('pbkdf2-', '', $info['algo']);
+            if (self::isAlgorithmSupported($info['algorithm'])) {
+                $algo = str_replace('pbkdf2-', '', $info['algorithm']);
                 $newhash = hash_pbkdf2($algo, $password, $info['salt'], intval($info['iterations']), 0, true);
             } else {
-                throw new \Exception('Unsupported hash algorithm configured: ' . $algo_cfg['algo']);
+                throw new \Exception('Unsupported hash algorithm configured: ' . $algo_cfg['algorithm']);
             }
         }
         return hash_equals($info['hash'], $newhash);
@@ -85,21 +103,12 @@ class PasswordHash
     {
         global $cfg;
 
-        $algo_cfg = self::getAlgoCfg();
+        $systemConfig = self::getAlgoCfg();
 
-        $info = self::getInfo($hash);
-
-        foreach ($info as $key => $value) {
-            if ($key === 'hash' || $key === 'salt') {
-                continue;
-            }
-
-            if ($algo_cfg[$key] !== $value) {
-                return true;
-            }
-        }
-
-        return false;
+        $hashProperties = self::getInfo($hash);
+        // rehashing needed if algorithm does not match or amount of iterations is different than system setting
+        // I was thinking about keeping higher iteration counts, but this would prevent any recovery from setting value too high by mistake
+        return ($hashProperties['hash'] != $systemConfig['hash']) || ($hashProperties['iterations'] != $systemConfig['iterations']);
     }
 
     private static function getInfo($hash)
@@ -120,9 +129,9 @@ class PasswordHash
                 throw new Exception('Unexpected base64_decode error');
             }
 
-            return array('algo' => $algo, 'iterations' => $iterations, 'hash' => $rawhash, 'salt' => $rawsalt);
+            return array('algorithm' => $algo, 'iterations' => $iterations, 'hash' => $rawhash, 'salt' => $rawsalt);
         } else {
-            return array('algo' => 'md5', 'iterations' => 0, 'hash' => $hash, 'salt' => '');
+            return array('algorithm' => 'md5', 'iterations' => 0, 'hash' => $hash, 'salt' => '');
         }
     }
 
@@ -143,42 +152,29 @@ class PasswordHash
         return $pwhash_algo;
     }
 
-    private static function getDefaultAlgoCfg($algo)
-    {
-        switch ($algo) {
-            default:
-                return array('iterations' => '500000');
-        }
-
-        return array();
-    }
-
-
     /**
-     * It appears that custom config was supposed to be loaded from an imploded string to be stored in the config, but
-     *
+     * Returns the default config for the algorithm provided
+     * Also returns a default config if selected algorithm has no config
+     * If selected algorithm is not supported on the system it is being overwritten with standard config
+     * @param string $algo The algorithm to receive the config for
+     * @return mixed[] Array of configuration options, currently only algorithm and iterations
      */
-    private static function parseAlgoCfg($algo_cfg_str)
+    public static function getDefaultAlgorithmConfig(string $algo = 'default') : array
     {
-        $algo_cfg = array();
-
-        $pairs = explode(',', $algo_cfg_str);
-
-        foreach ($pairs as $pair) {
-            $parts = explode('=', $pair, 2);
-
-            $key = $parts[0];
-
-            if (count($parts) > 1) {
-                $value = $parts[1];
+        if (PasswordHash::isAlgorithmSupported($algo)) {
+            // only consider Algorithm further if supported on the system
+            if (array_key_exists($algo, PasswordHash::PBKDF2_DEFAULT_CONFIG)){
+                // we have a valid config, return it
+                return PasswordHash::PBKDF2_DEFAULT_CONFIG[$algo];
             } else {
-                $value = null;
+                //while we have no standard config, it is a supported algorithm, so we return it with the default options
+                $hashConfig = PasswordHash::PBKDF2_DEFAULT_CONFIG['default'];
+                $hashConfig ['algorithm'] = str_replace('pbkdf2-', '', $algo);
+                return $hashConfig;
             }
-
-            $algo_cfg[$key] = $value;
         }
-
-        return $algo_cfg;
+        //fallback to standard config if selection not supported on the system
+        return PasswordHash::PBKDF2_DEFAULT_CONFIG['default'];
     }
 
     private static function getAlgoCfg()
@@ -186,14 +182,11 @@ class PasswordHash
         global $cfg;
 
         $algo = self::getAlgo();
-        $algo_cfg = self::getDefaultAlgoCfg($algo);
-
         if (array_key_exists('password_hash_algorithm', $cfg)) {
-            $custom_algo_cfg = self::parseAlgoCfg($cfg['password_hash_algorithm']);
-            $algo_cfg = array_merge($algo_cfg, $custom_algo_cfg);
+            return self::getDefaultAlgorithmConfig($cfg['password_hash_algorithm']);
+        } else {
+            return self::getDefaultAlgorithmConfig('default');
         }
-
-        return array_merge($algo_cfg, array('algo' => $algo));
     }
 
     /**
@@ -202,10 +195,10 @@ class PasswordHash
      * @param string $hashAlgorithm
      * @return bool true if algorithm is available, false if not
      */
-    private static function isAlgorithmSupported(string $hashAlgorithm) {
+    public static function isAlgorithmSupported(string $hashAlgorithm) {
         //remove unnecessary 'pbkdf2-' if present to match built-in names
         $hashAlgorithm = str_replace('pbkdf2-', '', $hashAlgorithm);
         //return if in list of supported algorithms
-        return in_array($hashAlgorithm, hash_algos());
+        return in_array($hashAlgorithm, hash_algos()) || $hashAlgorithm == 'md5-sha512';
     }
 }

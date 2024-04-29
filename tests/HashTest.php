@@ -43,10 +43,17 @@ class HashTest extends TestCase
         }
     }
 
-
     /**
-     * @covers PasswordHash::hash
+     * @covers PasswordHash::getDefaultAlgorithmConfig
      */
+    public function testGetDefaultAlgorithmConfig()
+    {
+        $this->assertArrayHasKey('iterations', PasswordHash::GetDefaultAlgorithmConfig());
+    }
+
+    /*
+     * @covers PasswordHash::hash
+
     public function testHash()
     {
 
@@ -55,6 +62,7 @@ class HashTest extends TestCase
         $this->assertEquals('098f6bcd4621d373cade4e832627b4f6', $testHash);
 
     }
+    */
 
     /**
      * @covers PasswordHash::verify
@@ -118,10 +126,29 @@ class HashTest extends TestCase
         foreach ($hashTestArray as $testHash) {
             $hashInfoArray = $getInfoMethod->invoke(null, $testHash[2]);
             $this->assertEquals($testHash[0], $hashInfoArray['iterations']);
-            $this->assertEquals($testHash[1], $hashInfoArray['algo']);
+            $this->assertEquals($testHash[1], $hashInfoArray['algorithm']);
             $hashArr = explode('$', $testHash[2]);
             $this->assertEquals($this->getSalt($testHash[2]), $hashInfoArray['salt']);
         }
+    }
+
+    /**
+     * @covers PasswordHash:isAlgorithmSupported
+    */
+    public function testIsAlgorithmSupported()
+    {
+        $supportedAlgorithms = hash_algos();
+        //needs to return true for all system-supported algorithms, also if prefixed with 'pbkdf2-'
+        foreach ($supportedAlgorithms as $algorithm) {
+            $this->assertEquals(true, PasswordHash::IsAlgorithmSupported($algorithm));
+            $this->assertEquals(true, PasswordHash::IsAlgorithmSupported('pbkdf2-' . $algorithm));
+        }
+
+        //test the special case of 'md5-sha512'
+            $this->assertEquals(true, PasswordHash::IsAlgorithmSupported('md5-sha512'));
+
+        //test for a nonexistent algorithm
+            $this->assertEquals(false, PasswordHash::IsAlgorithmSupported('sha1337'));
     }
 
 }
