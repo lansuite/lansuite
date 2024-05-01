@@ -42,7 +42,7 @@ website/i18n/*
 # IDE
 .idea/
 
-# Docker 
+# Docker
 # Avoid accidently commit of .env files
 docker/*.env
 
@@ -71,3 +71,4 @@ ext_inc/pdf_fonts/*.z
 ext_inc/pdf_fonts/*.ttf
 ext_inc/pdf_templates/*
 !ext_inc/pdf_templates/background_usercard.jpg
+ext_inc/user_pics/*

@@ -209,6 +209,17 @@ Add the following files from the release package to the `ext_inc/pdf_fonts` fold
 
 * `ext_inc/pdf_fonts/.gitkeep`
 
+### Files in `ext_inc/user_pics`
+
+Delete the following files
+
+* `ext_inc/user_pics/info.txt`
+* `ext_inc/user_pics/pic_.jpg`
+
+Add the following files from the release package to the `ext_inc/user_pics` folder
+
+* `ext_inc/user_pics/.gitkeep`
+
 ### Removal of files of deprecates leagues like WWCL, NGL and LGZ files
 
 Delete the following files:

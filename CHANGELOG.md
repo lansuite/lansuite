@@ -128,6 +128,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Fixed #344: Switching to English during Installation breaks the Installation page (#650)
 - [Installation] Fixed dropdown to select the design
 - [Installation] Fixed Database error when going from step 2 to 1 in install wizzard (#871)
+- [Installation] Fixed compatibility with database names containing a hyphen (#1095)
 - [Home] Set module `home` as default if we don't have a module parameter
 - [Clanmgr] Only prefix clan URL with http:// if an URL was entered
 - [Clanmgr] Only prefix URL field with http:// for display when an URL exists
