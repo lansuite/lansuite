@@ -61,11 +61,11 @@ switch ($stepParameter) {
                             $xml_content = fread($xml_file, filesize($file));
                             fclose($xml_file);
 
-                            $lansuite = $xml->get_tag_content("lansuite", $xml_content);
-                            $tables = $xml->get_tag_content_array("table", $lansuite);
+                            $lansuite = $xmlExport->get_tag_content("lansuite", $xml_content);
+                            $tables = $xmlExport->get_tag_content_array("table", $lansuite);
                             foreach ($tables as $table) {
-                                $table_head = $xml->get_tag_content("table_head", $table);
-                                $table_name = $xml->get_tag_content("name", $table_head);
+                                $table_head = $xmlExport->get_tag_content("table_head", $table);
+                                $table_name = $xmlExport->get_tag_content("name", $table_head);
                                 if ($table_name) {
                                     $found = 1;
                                 }
@@ -100,11 +100,11 @@ switch ($stepParameter) {
                             $xml_content = fread($xml_file, filesize($file));
                             fclose($xml_file);
 
-                            $lansuite = $xml->get_tag_content("lansuite", $xml_content);
-                            $tables = $xml->get_tag_content_array("table", $lansuite);
+                            $lansuite = $xmlExport->get_tag_content("lansuite", $xml_content);
+                            $tables = $xmlExport->get_tag_content_array("table", $lansuite);
                             foreach ($tables as $table) {
-                                $table_head = $xml->get_tag_content("table_head", $table);
-                                $table_name = $xml->get_tag_content("name", $table_head);
+                                $table_head = $xmlExport->get_tag_content("table_head", $table);
+                                $table_name = $xmlExport->get_tag_content("name", $table_head);
                                 $dsp->AddCheckBoxRow("table[$table_name]", $table_name, t('Diese Tabelle exportieren'), "", 1);
                             }
                         }
