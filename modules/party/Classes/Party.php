@@ -21,7 +21,7 @@ class Party
 
     public function __construct($party_id = null)
     {
-        global $cfg, $db, $database, $request;
+        global $cfg, $database, $request;
 
         $setPartyIDGETParameter = $request->query->get('set_party_id');
         $setPartyIDPOSTParameter = $request->request->get('set_party_id');
@@ -355,25 +355,26 @@ class Party
     /**
      * Change a user group
      *
-     * @param int $group_id
-     * @param string $group
-     * @param string $description
+     * @param int $groupId Id of the user group to change
+     * @param string $groupName The (new) name of the group
+     * @param string $description Description of the group
      * @param string $selection
      * @param string $select_opts
      * @return void
      */
-    public function update_user_group($group_id, $group, $description, $selection, $select_opts)
+    public function update_user_group($groupId, $groupName, $description, $selection, $select_opts)
     {
-        global $db, $database;
+        global $database;
 
-        $db->qry("
+        $database->query("
           UPDATE %prefix%party_usergroups
           SET
-            group_name = %string%,
-            description = %string%,
-            selection = %string%,
-            select_opts = %string%
-          WHERE group_id = %int%", $group, $description, $selection, $select_opts, $group_id);
+            group_name = ?,
+            description = ?,
+            selection = ?,
+            select_opts = ?
+          WHERE group_id = ?", [$groupName, $description, $selection, $select_opts, $groupId]
+        );
     }
 
     /**
@@ -390,37 +391,50 @@ class Party
         $database->query("UPDATE %prefix%user SET group_id = ? WHERE group_id = ?", [$set_group, $del_group]);
         $database->query("DELETE FROM %prefix%party_usergroups WHERE group_id = ?", [$del_group]);
     }
-    
+
     /**
      * Returns the amount of users registered for a party.
-     * 
-     * @param int $party_id The ID of the party to calculate this for
+     *
+     * @param int $partyId The ID of the party to calculate this for (uses object value otherwise)
+     * @param
      * @return array Result array with elements "qty" and "paid"
     */
-    public function getGuestQty($party_id = NULL)
+    public function getGuestQty($partyId = null, $showOrga = null)
     {
-        $cfg = [];
-        $db = null;
-        global $cache;
-        
-        if (empty($party_id)) {
-            $party_id = $this->party_id;
-        }
-        
-        $partyCache = $cache->getItem('party.guestcount.' . $party_id);
+        global $cfg, $cache, $database;
+
+        $partyIdParameter = $partyId ?? $this->party_id;
+        $showOrgaParameter = $showOrga ?? $cfg["guestlist_showorga"];
+
+        $partyCache = $cache->getItem('party.guestcount.' . $partyIdParameter);
         if (!$partyCache->isHit()) {
-            // Fetch in one query
-            if ($cfg["guestlist_showorga"] == 0) {
-                $querytype = "type = 1";
-            } else {
+            // Include Admins or not
+            if ($showOrgaParameter) {
                 $querytype = "type >= 1";
+            } else {
+                $querytype = "type = 1";
             }
             // Fetch amounts from DB
-            $countQry = $db->qry('SELECT COUNT(*) as qty, party.paid as paid FROM %prefix%user as user LEFT JOIN %prefix%party_user as party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%) GROUP BY paid ORDER BY paid DESC;');
-            while ($guestCounts = $countQry->fetch_array()){}
+            $guestCounts = $database->queryWithOnlyFirstRow('SELECT COUNT(*) as qty, party.paid as paid FROM %prefix%user as user LEFT JOIN %prefix%party_user as party ON user.userid = party.user_id WHERE party_id= ? AND ' . $querytype . ' GROUP BY paid ORDER BY paid DESC;', [$partyIdParameter]);
             $partyCache->set($guestCounts);
             $cache->save($partyCache);
         }
         return $partyCache->get();
     }
+
+    /**
+     * Get details about this users participation at the party.
+     * Most prominently the name and price of the entrance ticket
+     * @param int $userid The userid to look the status up for
+     * @return array Array with party & Price information
+     */
+    public function getUserParticipationData($userId = null)
+    {
+        global $database, $auth;
+
+        $userIdParameter = $userId ?? $auth['userid'];
+        $data= $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_user AS pu LEFT JOIN %prefix%party_prices AS price ON price.price_id=pu.price_id WHERE user_id= ? and pu.party_id =?", [$userIdParameter, $this->party_id]);
+        return $data;
+    }
+
 }
