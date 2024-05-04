@@ -1145,7 +1145,12 @@ class Func
             $replacementValues []= $auth['userid'];
         }
 
-        if (array_key_exists('userid', $auth)) {
+        if (array_key_exists('username', $auth)) {
+            $placeholderNames []= '%USERNAME%';
+            $replacementValues []= $auth['username'];
+        }
+
+        if (array_key_exists('party_id', $_SESSION)) {
             $placeholderNames []= '%PARTYID%';
             $replacementValues []= $_SESSION['party_id'];
         }
