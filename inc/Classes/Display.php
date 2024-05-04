@@ -1292,7 +1292,7 @@ class Display
             $username = '<i>System</i>';
         }
 
-        $smarty->assign('userid', $userid);
+        $smarty->assign('userid', htmlspecialchars($userid));
         $smarty->assign('username', $username);
         $smarty->assign('hint', t('Benutzerdetails aufrufen'));
 
