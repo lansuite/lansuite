@@ -230,7 +230,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                                     $table_name = $xml->get_tag_content('name', $table_head);
 
                                     if ($table_name != 'translation') {
-                                        $row = $db->qry_first("SHOW TABLE STATUS FROM %plain% LIKE '%prefix%%plain%'", $config['database']['database'], $table_name);
+                                        $row = $db->qry_first("SHOW TABLE STATUS FROM `%plain%` LIKE '%prefix%%plain%'", $config['database']['database'], $table_name);
                                         $TableInfo = ' ['. $row['Rows'] .' Zeilen, '. $func->FormatFileSize($row['Data_length']) .' Daten, '. $func->FormatFileSize($row['Index_length']) .' Indizes]'; #Name, Engine, Version, Row_format, Rows, Avg_row_length, Data_length, Max_data_length, Index_length, Data_free, Auto_increment, Create_time, Update_time, Check_time, Collation, Checksum, Create_options, Comment
                                         $mod_tables .= '<b>'. $config['database']['prefix'] . $table_name .'</b>'. $TableInfo . HTML_NEWLINE;
                                         $mod_tables_arr[] = $table_name;
