@@ -48,7 +48,9 @@ class Party
             $this->party_id = $party_id;
         }
 
+        //@TODO: We should not switch the party just because somebody used this class
         $_SESSION['party_id'] = $this->party_id;
+
         $this->UpdatePartyArray();
     }
 
@@ -209,7 +211,7 @@ class Party
      */
     private function update_user_at_party($user_id, $paid, $price_id = "0", $checkin = "0", $checkout = "0", $seatcontrol = "NULL")
     {
-        global $db, $database, $func;
+        global $cache, $db, $database, $func;
         $timestamp = time();
 
         if ($checkin == "1") {
@@ -247,6 +249,9 @@ class Party
         $msg = str_replace("%PARTY%", $this->party_id, str_replace("%ID%", $user_id, str_replace("%PIRCEID%", $price_id, str_replace("%SEATCONTROL%", $seatcontrol, str_replace("%CHECKOUT%", $checkout, str_replace("%CHECKIN%", $checkin, str_replace("%PAID%", $paid, t('Die Anmeldung von %ID% bei der Party %PARTY% wurde geändert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%'))))))));
         $func->log_event($msg, 1);
         $db->qry('UPDATE %prefix%party_user SET %plain%', $query);
+
+        // reset cached party statistics
+        $cache->delete('party.guestcount.' . $this->party_id);
     }
 
     /**
@@ -258,7 +263,7 @@ class Party
     public function delete_user_from_party($user_id)
     {
         $checkin = null;
-        global $db, $database, $cfg;
+        global $cache, $database, $cfg;
 
         $timestamp = time();
         if ($checkin == "1" || $cfg["signon_autocheckin"] == "1") {
@@ -267,11 +272,14 @@ class Party
             $checkin = "0";
         }
 
-        $db->qry("
+        $database->query("
           DELETE FROM %prefix%party_user
           WHERE
-            user_id = %int%
-            AND party_id = %int%", $user_id, $this->party_id);
+            user_id = ?
+            AND party_id = ?", [$user_id, $this->party_id]);
+
+        // reset cached party statistics
+        $cache->delete('party.guestcount.' . $this->party_id);
     }
 
     /**
