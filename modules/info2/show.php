@@ -18,11 +18,14 @@ if ($submodParameter != "" || ($_GET["id"]>=1)) {
     $dsp->NewContent("{$info["caption$val"]}", $info["shorttext$val"]);
     $framework->addToPageTitle($info["caption$val"]);
 
-    if ($info['active'] == 1) {
+    if ($info['active'] == 1 || $auth['type'] > \LS_AUTH_TYPE_USER) {
         if ($info["text$val"] == null) {
             $func->information(t("Es liegen Informationen zu der ausgewählten Seite vor, jedoch nicht in deiner aktuell gewählten Sprache: <b>%1</b>", $language));
         } else {
             $dsp->AddSingleRow($func->replaceVariables($func->AllowHTML($info["text$val"]), '', 'textContent'));
+            if (!$info['active']) {
+                $func->information(t('Diese Info-Seite ist nicht aktiviert. Ein Admin muss sie zuerst im Info-Modul aktivieren'));
+            }
         }
     } else {
         $func->error(t('Diese Info-Seite ist nicht aktiviert. Ein Admin muss sie zuerst im Info-Modul aktivieren'));
