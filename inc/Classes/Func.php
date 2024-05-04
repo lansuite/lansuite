@@ -1136,12 +1136,16 @@ class Func
         //initialize replacement array
         $placeholderNames = [];
         $replacementValues = [];
-        if (in_array('userid', $auth)) {
+
+            $placeholderNames []= '%TEST%';
+            $replacementValues []= 'Test OK!';
+
+        if (array_key_exists('userid', $auth)) {
             $placeholderNames []= '%USERID%';
             $replacementValues []= $auth['userid'];
         }
 
-        if (in_array('userid', $auth)) {
+        if (array_key_exists('userid', $auth)) {
             $placeholderNames []= '%PARTYID%';
             $replacementValues []= $_SESSION['party_id'];
         }

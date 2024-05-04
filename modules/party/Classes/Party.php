@@ -443,7 +443,8 @@ class Party
         global $database, $auth;
 
         $userIdParameter = $userId ?? $auth['userid'];
-        $data= $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_user AS pu LEFT JOIN %prefix%party_prices AS price ON price.price_id=pu.price_id WHERE user_id= ? and pu.party_id =?", [$userIdParameter, $this->party_id]);
+        $data = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_user AS pu LEFT JOIN %prefix%party_prices AS price ON price.price_id=pu.price_id WHERE user_id= ? and pu.party_id =?", [$userIdParameter, $this->party_id]) ?? [];
+
         return $data;
     }
 
