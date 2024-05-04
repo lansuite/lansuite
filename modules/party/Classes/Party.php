@@ -347,7 +347,7 @@ class Party
      * @param string $select_opts
      * @return void
      */
-    public function add_user_group($group, $description, $selection, $select_opts)
+    public function addUsergroup($group, $description, $selection, $select_opts)
     {
         global $db, $database;
 
@@ -370,7 +370,7 @@ class Party
      * @param string $select_opts
      * @return void
      */
-    public function update_user_group($groupId, $groupName, $description, $selection, $select_opts)
+    public function updateUserGroup($groupId, $groupName, $description, $selection, $select_opts)
     {
         global $database;
 
@@ -443,9 +443,7 @@ class Party
         global $database, $auth;
 
         $userIdParameter = $userId ?? $auth['userid'];
-        $data = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_user AS pu LEFT JOIN %prefix%party_prices AS price ON price.price_id=pu.price_id WHERE user_id= ? and pu.party_id =?", [$userIdParameter, $this->party_id]) ?? [];
-
-        return $data;
+        return $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_user AS pu LEFT JOIN %prefix%party_prices AS price ON price.price_id=pu.price_id WHERE user_id= ? and pu.party_id =?", [$userIdParameter, $this->party_id]) ?? [];
     }
 
 }

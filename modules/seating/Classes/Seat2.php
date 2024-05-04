@@ -732,7 +732,7 @@ class Seat2
                                     !$cfg['sys_internet']
                                     || $auth['type'] > \LS_AUTH_TYPE_USER
                                     || (
-                                        $selected_user != false
+                                        $selected_user
                                         && $auth['userid'] == $user_info[$y][$x]['userid']
                                         )
                                     ) {
@@ -747,7 +747,7 @@ class Seat2
                                         || !$cfg['sys_internet']
                                         || $auth['type'] > \LS_AUTH_TYPE_USER
                                         || (
-                                            $selected_user != false
+                                            $selected_user
                                             && $auth['userid'] == $user_info[$y][$x]['userid']
                                             )
                                         )

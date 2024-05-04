@@ -1130,7 +1130,7 @@ class Func
      *
      * @return string The text with placeholders replaced
      */
-    function replaceVariables($text){
+    public function replaceVariables($text) {
         global $auth;
 
         //initialize replacement array
@@ -1167,6 +1167,16 @@ class Func
             $placeholderNames []= '%PARTYPRICEVALUE%';
             $replacementValues []= $entrancedata['price'];
         }
+
+         //create girocode if required
+
+        //check if user is signed in and registered for the party before trying to generate a code
+        if (isset($auth)&& !empty($entrancedata['price_text'])) {
+                array_push($replace, '<img src="ext_scripts/girocode.php" />');
+            } else {
+                array_push($replace, '<p>' . t('Bitte melde dich zuerst zur Party an'). '</p>');
+            }
+
 
         return str_replace($placeholderNames, $replacementValues, $text);
     }
