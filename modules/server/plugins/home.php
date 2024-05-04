@@ -2,9 +2,9 @@
 $smarty->assign('caption', t('Server für ') . ' ' . $_SESSION['party_info']['name']);
 $content = "";
 
-if (!$cfg['server_sortmethod']) {
-    $cfg['server_sortmethod'] = 'changedate';
-}
+$serverSortmethod = $cfg['server_sortmethod'] ?? 'changedate';
+$serverItemCount = $cfg['home_item_cnt_server'] ?? 5;
+$partyId = $party->party_id ?? 0;
 
 $serverRows = $database->queryWithFullResult("
   SELECT
@@ -15,8 +15,8 @@ $serverRows = $database->queryWithFullResult("
   FROM %prefix%server
   WHERE
     party_id = ?
-  ORDER BY ? DESC
-  LIMIT 0, ?", [$party->party_id, $cfg['server_sortmethod'], $cfg['home_item_cnt_server']]);
+  ORDER BY " . $serverSortmethod . " DESC
+  LIMIT 0, " . $serverItemCount, [$partyId]);
 
 if (count($serverRows) > 0) {
   foreach ($serverRows as $row) {
