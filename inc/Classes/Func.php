@@ -1123,7 +1123,11 @@ class Func
      * Searches through a text and replaces occurences of %VARIABLENAME% with their counterpart.
      * Just has basic stuff required to make information pages more dynamic, more to be added
      * Be careful that you only expose uncritical commonly visible values or user-specifc information, otherwise this could be used to leak important data.
+     *
      * @param string $text The text to replace placeholders in
+     *
+     * @global array $auth fetches userid for replacement
+     *
      * @return string The text with placeholders replaced
      */
     function replaceVariables($text){
@@ -1155,6 +1159,6 @@ class Func
             $replacementValues []= $entrancedata['price'];
         }
 
-        return str_replace($vars, $replace, $text);
+        return str_replace($placeholderNames, $replacementValues, $text);
     }
 }

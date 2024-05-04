@@ -433,10 +433,12 @@ class Party
     /**
      * Get details about this users participation at the party.
      * Most prominently the name and price of the entrance ticket
-     * @param int $userid The userid to look the status up for
+     *
+     * @param int|null $userId The userid to look the status up for
+     *
      * @return array Array with party & Price information
      */
-    public function getUserParticipationData($userId = null)
+    public function getUserParticipationData(int|null $userId = null) : array
     {
         global $database, $auth;
 
