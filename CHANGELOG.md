@@ -49,8 +49,10 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Added database value User@Server into MySQL error message
 - [Installation] Added check for incompatible SQL Modes to the first installation page
 - [Installation] If there is no `config.php` file available during installation, create it during setup from the default config
+- [Info2] Added ability to replace variables in info texts
 - [Discord] Introduced a new module to manage Discord Servers
 - [Party] Add information `Gesamt` in the Party box to show how many people can sign up for a party
+- [Party] Added ability to switch party in internet system for admins
 - [Birthday] New module to show users birthdays
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
 - [Server] Added Voice as server type
