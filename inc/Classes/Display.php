@@ -1278,9 +1278,11 @@ class Display
     }
 
     /**
-     * @param int $userid
-     * @param string $username
-     * @return string
+     * Adds user icon and username based on template ls_usericon.htm to output
+     *
+     * @param int $userid The numeric user id to fetch the icon for
+     * @param string $username The username to display, empty if not given
+     * @return string raw html for output
      * @throws \Exception
      * @throws \SmartyException
      */
@@ -1292,8 +1294,8 @@ class Display
             $username = '<i>System</i>';
         }
 
-        $smarty->assign('userid', htmlspecialchars($userid));
-        $smarty->assign('username', $username);
+        $smarty->assign('userid', $userid);
+        $smarty->assign('username', htmlspecialchars($username)); // username may contain special characters
         $smarty->assign('hint', t('Benutzerdetails aufrufen'));
 
         if (in_array($userid, $authentication->online_users)) {
