@@ -1137,9 +1137,6 @@ class Func
         $placeholderNames = [];
         $replacementValues = [];
 
-            $placeholderNames []= '%TEST%';
-            $replacementValues []= 'Test OK!';
-
         if (array_key_exists('userid', $auth)) {
             $placeholderNames []= '%USERID%';
             $replacementValues []= $auth['userid'];
