@@ -10,7 +10,10 @@ This module provides the abilitity to create and manage multiple rich-text pages
 
 ## Configuration options
 
-TBD
+| Option     | Impact                    | Default value |
+|------------|---------------------------|---------------|
+|Use WYSIWYG-Editor| Loads FCKedit for editing of Info pages, raw HTML-Input field will be used otherwise | Yes |
+|Add new Entries as subentries of info2 | If enabled new & enabled entries will be automatically added as submenu-Item for the Module| Yes |
 
 ## Placeholders and replacement values
 
@@ -21,7 +24,7 @@ The placeholder name will be displayed if the value cannot be resolved
 | Variable   | Replacement value         |
 |------------|---------------------------|
 | %USERID%   | The numeric ID of the user|
-| %USERNAME% | The username (nickname) |
+| %USERNAME% | The username (nickname)   |
 
 ## Party Related
 | Variable         | Replacement value         |
