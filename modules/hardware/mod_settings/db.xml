@@ -66,20 +66,6 @@
                 <extra></extra>
             </field>
             <field>
-                <name>cd1</name>
-                <type>varchar(200)</type>
-                <null>NO</null>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
-                <name>cd2</name>
-                <type>varchar(200)</type>
-                <null>NO</null>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
                 <name>maus</name>
                 <type>varchar(200)</type>
                 <null>NO</null>

@@ -7,7 +7,7 @@ $install = new \LanSuite\Module\Install\Install($installImport);
 // XML is a global requirement during installation
 $xml = new \LanSuite\XML();
 
-$CurrentMod = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name=%string%', $_GET['module']);
+$CurrentMod = $database->queryWithOnlyFirstRow('SELECT caption FROM %prefix%modules WHERE name = ?', [$_GET['module']]);
 
 $dsp->NewContent(t('Modul-Konfiguration') .' - '. $CurrentMod['caption'], t('Hier kannst du dieses Modul deinen Bedürfnissen anpassen'));
 
@@ -46,12 +46,13 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                         if (strpos($key, '_value_') > 0) {
                             if (strpos($key, '_value_minutes') > 0) {
                                 $key = substr($key, 0, strpos($key, '_value_minutes'));
-                                $cfg_value = mktime($_POST[$key.'_value_hours'], $_POST[$key.'_value_minutes'], $_POST[$key.'_value_seconds'], $_POST[$key.'_value_month'], $_POST[$key.'_value_day'], $_POST[$key.'_value_year']);
-                                $db->qry('UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = %string%', $cfg_value, $key);
+                                $postValueSeconds = $_POST[$key.'_value_seconds'] ?? 0;
+                                $cfg_value = mktime($_POST[$key.'_value_hours'], $_POST[$key.'_value_minutes'], $postValueSeconds, $_POST[$key.'_value_month'], $_POST[$key.'_value_day'], $_POST[$key.'_value_year']);
+                                $database->query('UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = ?', [$cfg_value, $key]);
                             }
                             // Other Values
                         } else {
-                            $db->qry('UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = %string%', $val, $key);
+                            $database->query('UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = ?', [$val, $key]);
                         }
                     }
                     $func->confirmation(t('Erfolgreich geändert'), 'index.php?mod=install&action=mod_cfg&module='. $_GET["module"]. '&tab=0');
@@ -229,7 +230,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                                     $table_name = $xml->get_tag_content('name', $table_head);
 
                                     if ($table_name != 'translation') {
-                                        $row = $db->qry_first("SHOW TABLE STATUS FROM %plain% LIKE '%prefix%%plain%'", $config['database']['database'], $table_name);
+                                        $row = $db->qry_first("SHOW TABLE STATUS FROM `%plain%` LIKE '%prefix%%plain%'", $config['database']['database'], $table_name);
                                         $TableInfo = ' ['. $row['Rows'] .' Zeilen, '. $func->FormatFileSize($row['Data_length']) .' Daten, '. $func->FormatFileSize($row['Index_length']) .' Indizes]'; #Name, Engine, Version, Row_format, Rows, Avg_row_length, Data_length, Max_data_length, Index_length, Data_free, Auto_increment, Create_time, Update_time, Check_time, Collation, Checksum, Create_options, Comment
                                         $mod_tables .= '<b>'. $config['database']['prefix'] . $table_name .'</b>'. $TableInfo . HTML_NEWLINE;
                                         $mod_tables_arr[] = $table_name;

@@ -7,14 +7,14 @@ class MasterRate
 
     public function __construct($mod, $id, $caption = '')
     {
-        global $auth, $db, $dsp, $framework, $smarty;
+        global $auth, $db, $database, $dsp, $framework, $smarty;
       
-        $framework->add_js_path('ext_scripts/jquery.rating.js');
-        $framework->add_js_code("jQuery(function(){
+        $framework->addJavaScriptFile('ext_scripts/jquery.rating.js');
+        $framework->addJavaScriptCode("jQuery(function(){
   jQuery('form.rating').rating();
 });");
 
-        $framework->add_css_code("
+        $framework->addCSSCode("
   .rating {
       cursor: pointer;
       clear: both;
@@ -58,17 +58,17 @@ class MasterRate
         background-position: 0 -32px;
     }");
 
-        $row = $db->qry_first('
+        $row = $database->queryWithOnlyFirstRow('
           SELECT ROUND(AVG(score), 1) AS score
           FROM %prefix%ratings
           WHERE
-            ref_name = %string%
-            AND ref_id = %string%
-        GROUP BY ref_name, ref_id', $mod, $id);
+            ref_name = ?
+            AND ref_id = ?
+        GROUP BY ref_name, ref_id', [$mod, $id]);
 
         $score = $row['score'] ?? 0;
         $smarty->assign('rating', $score);
-        $smarty->assign('action', $framework->get_clean_url_query('base') . '&mr_step=2&design=base');
+        $smarty->assign('action', $framework->getURLQueryPart(\LanSuite\Framework::URL_QUERY_PART_BASE) . '&mr_step=2&design=base');
 
         if ($caption == '') {
             $caption = t('Bewertung');

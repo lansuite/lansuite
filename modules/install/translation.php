@@ -104,13 +104,13 @@ switch ($stepParameter) {
             $translation->TUpdateFromDB('boxes', 'name');
 
             // DELETE empty rows
-            $res = $db->qry("DELETE FROM %prefix%translation WHERE org = ''");
+            $database->query("DELETE FROM %prefix%translation WHERE org = ''");
 
             // Mark entries as obsolete, which no do no longer exist
             $res = $db->qry("SELECT tid, file, org FROM %prefix%translation WHERE file = 'DB' AND obsolete = 0", $CurrentFile);
             while ($row = $db->fetch_array($res)) {
                 if (!in_array($row['tid'], $FoundTransEntries)) {
-                    $db->qry("UPDATE %prefix%translation SET obsolete = 1 WHERE tid = %int%", $row['tid']);
+                    $database->query("UPDATE %prefix%translation SET obsolete = 1 WHERE tid = ?", [$row['tid']]);
                 }
             }
             $db->free_result($res);
@@ -138,8 +138,8 @@ switch ($stepParameter) {
         }
 
         $dsp->NewContent(t('Modul Übersetzen : ').$_GET['file'], '');
-        $framework->add_js_path('http://www.google.com/jsapi');
-        $framework->add_js_code('google.load("language", "1");
+        $framework->addJavaScriptFile('http://www.google.com/jsapi');
+        $framework->addJavaScriptCode('google.load("language", "1");
 function translate(textid, from, to) {
   google.language.translate($("label[for="+ textid +"]").text(), from, to, function(result) {
     if (!result.error) {

@@ -93,26 +93,6 @@
 				<file>hardware</file>
 			</entry>
 			<entry>
-				<id>9b644da5672cfd3fce6833bb0d1ceda8</id>
-				<org>Optisches Laufwerk 1</org>
-				<en>Optical Drive 1</en>
-				<es>Optical Drive 1</es>
-				<fr>Lecteur optique 1</fr>
-				<nl>Optische Drive 1</nl>
-				<it>Unità ottica 1</it>
-				<file>hardware</file>
-			</entry>
-			<entry>
-				<id>ccafe8d92f7bef4d7746d6d7adb4677a</id>
-				<org>Optisches Laufwerk 2</org>
-				<en>Optical drive 2</en>
-				<es>Unidad óptica 2</es>
-				<fr>Lecteur optique 2</fr>
-				<nl>Optische drive 2</nl>
-				<it>Unità ottica 2</it>
-				<file>hardware</file>
-			</entry>
-			<entry>
 				<id>88a1e6fbe7b4e04128622929ebc9b35f</id>
 				<org>Maus</org>
 				<en>Mouse</en>

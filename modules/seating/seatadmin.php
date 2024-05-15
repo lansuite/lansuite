@@ -6,18 +6,36 @@ $stepParameter = $_GET['step'] ?? 0;
 $seat2 = new Seat2();
 
 // Errors
-if ($stepParameter > 1 && (!$_GET['userid'])) {
+$userIDParameter = $_GET['userid'] ?? 0;
+$userIDParameter = intval($userIDParameter);
+if ($stepParameter > 1 && !$userIDParameter) {
     $func->error(t('Es wurde kein Benutzer ausgewählt'), "index.php?mod=seating&action=seatadmin");
 }
+
 if ($stepParameter > 2 && (!$_GET['blockid'])) {
-    $func->error(t('Es wurde kein Sitzblock ausgewählt'), "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}");
+    $func->error(t('Es wurde kein Sitzblock ausgewählt'), "index.php?mod=seating&action=seatadmin&step=2&userid={$userIDParameter}");
+}
+
+if ($userIDParameter) {
+    $new_user = $database->queryWithOnlyFirstRow("
+      SELECT
+        u.userid,
+        u.username,
+        u.firstname,
+        u.name,
+        pu.paid
+      FROM %prefix%user AS u
+      LEFT JOIN %prefix%party_user AS pu ON pu.user_id = u.userid
+      WHERE
+        userid = ?
+        AND pu.party_id = ?", [$userIDParameter, $party->party_id]);
 }
 
 // Exec step10-query
 $questParameter = $_GET['quest'] ?? 0;
 if ($stepParameter == 10 and $questParameter) {
     // Assign seat
-    $seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
+    $seat2->AssignSeat($userIDParameter, $_GET['blockid'], $_GET['row'], $_GET['col']);
 
     // If old owner should get a new seat, jump to step 2 an procede with this user
     if ($questParameter == 2) {
@@ -35,7 +53,7 @@ if ($stepParameter == 10 and $questParameter) {
 // Select seat and user infos
 $blockIDParameter = $_GET['blockid'] ?? 0;
 if ($blockIDParameter && isset($_GET['row']) && isset($_GET['col'])) {
-    $seat = $db->qry_first("
+    $seat = $database->queryWithOnlyFirstRow("
       SELECT
         s.userid,
         s.status,
@@ -45,25 +63,9 @@ if ($blockIDParameter && isset($_GET['row']) && isset($_GET['col'])) {
       FROM %prefix%seat_seats AS s
       LEFT JOIN %prefix%user AS u ON s.userid = u.userid
       WHERE
-        blockid = %int%
-        AND row = %string%
-        AND col = %string%", $blockIDParameter, $_GET['row'], $_GET['col']);
-}
-
-$userIDParameter = $_GET['userid'] ?? 0;
-if ($userIDParameter) {
-    $new_user = $db->qry_first("
-      SELECT
-        u.userid,
-        u.username,
-        u.firstname,
-        u.name,
-        pu.paid
-      FROM %prefix%user AS u
-      LEFT JOIN %prefix%party_user AS pu ON pu.user_id = u.userid
-      WHERE
-        userid = %int%
-        AND pu.party_id = %int%", $userIDParameter, $party->party_id);
+        blockid = ?
+        AND row = ?
+        AND col = ?", [$blockIDParameter, $_GET['row'], $_GET['col']]);
 }
 
 $stepParameter = $_GET['step'] ?? 0;

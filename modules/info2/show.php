@@ -16,7 +16,7 @@ if ($submodParameter != "" || ($_GET["id"]>=1)) {
     }
 
     $dsp->NewContent("{$info["caption$val"]}", $info["shorttext$val"]);
-    $framework->AddToPageTitle($info["caption$val"]);
+    $framework->addToPageTitle($info["caption$val"]);
 
     if ($info['active'] == 1) {
         if ($info["text$val"] == null) {

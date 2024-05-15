@@ -1,7 +1,7 @@
 <?php
 
-$get_data = $db->qry_first("SELECT caption,text FROM %prefix%faq_item WHERE itemid = %int%", $_GET['itemid']);
-$framework->AddToPageTitle($get_data["caption"]);
+$get_data = $database->queryWithOnlyFirstRow("SELECT `caption`, `text` FROM %prefix%faq_item WHERE itemid = ?", [$_GET['itemid']]);
+$framework->addToPageTitle($get_data["caption"]);
 
 $dsp->NewContent(t('<b>F</b>requently <b>A</b>sked <b>Q</b>uestions'));
 $buttons = $dsp->FetchSpanButton(t('Zurück'), "index.php?mod=faq");

@@ -9,13 +9,13 @@
  */
 function CheckDuplicateAndValidEmail($email)
 {
-    global $cfg,$db;
+    global $cfg, $db, $database;
 
     $email = trim($email);
 
     $useremail = null;
     if (isset($_GET['userid'])) {
-        $userrow = $db->qry_first('SELECT email FROM %prefix%user WHERE userid=%int%', $_GET['userid']);
+        $userrow = $database->queryWithOnlyFirstRow('SELECT email FROM %prefix%user WHERE userid = ?', [$_GET['userid']]);
         $useremail = $userrow['email'];
     }
 
@@ -27,7 +27,7 @@ function CheckDuplicateAndValidEmail($email)
         }
     
         // Check if we already have a user with that email address
-        $row = $db->qry_first('SELECT * FROM %prefix%user WHERE email = %string%', $email);
+        $row = $database->queryWithOnlyFirstRow('SELECT * FROM %prefix%user WHERE email = ?', [$email]);
         if ($row) {
             return t('Diese E-Mail-Adresse ist bereits in Verwendung. Bitte verwende die "Passwort zurücksetzen"-Funktion, um dein Passwort zurück zu setzen');
         }

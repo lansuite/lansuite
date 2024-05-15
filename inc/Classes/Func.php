@@ -16,8 +16,6 @@ class Func
 
     public function __construct()
     {
-        define('NO_LINK', -1);
-
         $url_array = [];
         $this->internal_referer = 'index.php';
 
@@ -41,7 +39,7 @@ class Func
      */
     public function read_db_config()
     {
-        global $db;
+        global $db, $database;
         $cfg = [];
 
         $res = $db->qry('SELECT cfg_value, cfg_key, cfg_type FROM %prefix%config');
@@ -59,70 +57,14 @@ class Func
     }
 
     /**
-     * Convert a date string to a timestamp
+     * Convert a date string to a unix timestamp.
      *
-     * @param string    $strStr
-     * @param string    $strPattern
+     * @param string    $datetime   A date/time string. Valid formats are explained in https://www.php.net/manual/en/datetime.formats.php
+     * @return bool|int             Returns a timestamp on success, false otherwise.
      */
-    public function str2time($strStr, $strPattern = 'Y-m-d H:i:s'): bool|int
+    public function str2time($datetime): bool|int
     {
-        // An array of the valid date characters, see: http://php.net/date#AEN21898
-        $arrCharacters = [
-         'd', // day
-         'm', // month
-         'y', // year, 2 digits
-         'Y', // year, 4 digits
-         'H', // hours
-         'i', // minutes
-         's'  // seconds
-        ];
-
-        // Transform the characters array to a string
-        $strCharacters = implode('', $arrCharacters);
-
-        // Splits up the pattern by the date characters to get an array of the delimiters between the date characters
-        $arrDelimiters = preg_split('~['.$strCharacters.']~', $strPattern);
-
-        // Transform the delimiters array to a string
-        $strDelimiters = quotemeta(implode('', array_unique($arrDelimiters)));
-
-        // Splits up the date by the delimiters to get an array of the declaration
-        $arrStr    = preg_split('~['.$strDelimiters.']~', $strStr);
-
-        // Splits up the pattern by the delimiters to get an array of the used characters
-        $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
-
-        // If the numbers of the two array are not the same, return false, because the cannot belong together
-        if ((is_countable($arrStr) ? count($arrStr) : 0) !== (is_countable($arrPattern) ? count($arrPattern) : 0)) {
-            return false;
-        }
-
-        // Creates a new array which has the keys from the $arrPattern array and the values from the $arrStr array
-        $arrTime = [];
-        for ($i = 0; $i < (is_countable($arrStr) ? count($arrStr) : 0); $i++) {
-            $arrTime[$arrPattern[$i]] = $arrStr[$i];
-        }
-
-        // Generates a 4 digit year declaration of a 2 digit one by using the current year
-        if (isset($arrTime['y']) && !isset($arrTime['Y'])) {
-            $arrTime['Y'] = substr(date('Y'), 0, 2) . $arrTime['y'];
-        }
-
-        // If a declaration is empty, it will be filled with the current date declaration
-        foreach ($arrCharacters as $strCharacter) {
-            if (empty($arrTime[$strCharacter])) {
-                $arrTime[$strCharacter] = date($strCharacter);
-            }
-        }
-
-        // Checks if the date is a valide date
-        if (!checkdate($arrTime['m'], $arrTime['d'], $arrTime['Y'])) {
-            return false;
-        }
-
-        $intTime = mktime($arrTime['H'], $arrTime['i'], $arrTime['s'], $arrTime['m'], $arrTime['d'], $arrTime['Y']);
-
-        return $intTime;
+        return strtotime($datetime);
     }
 
     /**
@@ -209,13 +151,13 @@ class Func
      */
     public function setainfo($text, $userid, $priority, $item, $itemid)
     {
-        global $db;
+        global $db, $database;
 
         if ($priority != "0" && $priority != "1" && $priority != "2") {
             echo(t('Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)'));
         } else {
             $date = date("U");
-            $db->qry("INSERT INTO %prefix%infobox SET userid=%int%, class=%string%, id_in_class = %int%, text=%string%, date=%string%, priority=%string%", $userid, $item, $itemid, $text, $date, $priority);
+            $database->query("INSERT INTO %prefix%infobox SET userid = ?, class = ?, id_in_class = ?, `text` = ?, `date` = ?, `priority`= ?", [$userid, $item, $itemid, $text, $date, $priority]);
         }
     }
 
@@ -424,7 +366,7 @@ class Func
      */
     public function text2html($string, $mode = 0)
     {
-        global $db;
+        global $db, $database;
         
         if ($mode == 0)
         {
@@ -659,7 +601,7 @@ class Func
      */
     public function log_event($message, $type = 1, $sort_tag = '', $target_id = '')
     {
-        global $db, $auth;
+        global $db, $database, $auth;
 
         if ($message == '') {
             echo("Function log_event needs message defined! - Invalid arguments supplied!");
@@ -980,7 +922,7 @@ class Func
      */
     public function admin_exists()
     {
-        global $db;
+        global $db, $database;
 
         if (is_object($db) and $db->success==1) {
             $res = $db->qry("SELECT userid FROM %prefix%user WHERE type = 3 LIMIT 1");
@@ -1028,7 +970,7 @@ class Func
      */
     public function CheckNewPosts($last_change, $table, $entryid, $userid = 0)
     {
-        global $db, $auth;
+        global $database, $auth;
 
         // Older, than one week
         if ($last_change < (time() - 60 * 60 * 24 * 7)) {
@@ -1043,10 +985,10 @@ class Func
         if (!$userid) {
             return 1;
         } else {
-            $last_read = $db->qry_first('
+            $last_read = $database->queryWithOnlyFirstRow('
             SELECT UNIX_TIMESTAMP(date) AS date 
             FROM %prefix%lastread
-            WHERE userid = %int% AND tab = %string% AND entryid = %int%', $userid, $table, $entryid);
+            WHERE userid = ? AND tab = ? AND entryid = ?', [$userid, $table, $entryid]);
 
             // Older, than one week
             if ($last_change < (time() - 60 * 60 * 24 * 7)) {
@@ -1078,17 +1020,17 @@ class Func
      */
     public function SetRead($table, $entryid, $userid = 0)
     {
-        global $db, $auth;
+        global $database, $auth;
 
         if (!$userid) {
             $userid = $auth['userid'];
         }
 
-        $search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%lastread WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
+        $search_read = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%lastread WHERE tab = ? AND entryid = ? AND userid = ?", [$table, $entryid, $userid]);
         if ($search_read) {
-            $db->qry_first("UPDATE %prefix%lastread SET date = NOW() WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
+            $database->query("UPDATE %prefix%lastread SET date = NOW() WHERE tab = ? AND entryid = ? AND userid = ?", [$table, $entryid, $userid]);
         } else {
-            $db->qry_first("INSERT INTO %prefix%lastread SET date = NOW(), tab = %string%, entryid = %int%, userid = %int%", $table, $entryid, $userid);
+            $database->query("INSERT INTO %prefix%lastread SET date = NOW(), tab = ?, entryid = ?, userid = ?", [$table, $entryid, $userid]);
         }
     }
 
@@ -1148,7 +1090,7 @@ class Func
      */
     public function getActiveModules()
     {
-        global $db;
+        global $db, $database;
 
         $this->ActiveModules = array();
         $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1');

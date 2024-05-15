@@ -5,7 +5,7 @@
  */
 function ChangeAllowed($id): bool|string
 {
-    global $db, $row, $func, $auth, $seat2;
+    global $db, $database, $row, $func, $auth, $seat2;
 
     // Do not allow changes, if party is over
     if ($row['enddate'] < time()) {
@@ -24,7 +24,7 @@ function ChangeAllowed($id): bool|string
 
     // Do not allow changes, if user has paid
     if ($auth['type'] <= \LS_AUTH_TYPE_USER) {
-        $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
+        $row2 = $database->queryWithOnlyFirstRow("SELECT paid FROM %prefix%party_user WHERE party_id = ? AND user_id = ?", [$_GET['party_id'], $id]);
         if (is_array($row2) && $row2['paid'] != 0) {
             return t('Du bist für diese Party bereits auf bezahlt gesetzt. Bitte einen Admin dich auf "nicht bezahlt" zu setzen, bevor du dich abmeldest');
         }
@@ -49,7 +49,7 @@ function ChangeAllowed($id): bool|string
         }
     }
 
-    $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
+    $row2 = $database->queryWithOnlyFirstRow("SELECT paid FROM %prefix%party_user WHERE party_id = ? AND user_id = ?", [$_GET['party_id'], $id]);
 
     // Free seats if the user hasn't paid already
     if ($row2 && $row2['paid'] == 0) {

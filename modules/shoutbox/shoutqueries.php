@@ -1,26 +1,32 @@
 <?php
 
-$framework->set_modus('ajax');
+use Gregwar\Captcha\CaptchaBuilder;
+
+$framework->setDisplayModus(\LanSuite\Framework::DISPLAY_MODUS_AJAX);
+
 switch ($_GET['shout']) {
     case 'add':
-        if ($_POST['captchaInputSend'] == $_SESSION['captcha'] and $_POST['captchaInputSend'] != "") {
+        $captchaCheck = false;
+        if ($_POST['captchaInputSend'] == $_SESSION['captcha'] && $_POST['captchaInputSend'] != "") {
             $captchaCheck = true;
-        } else {
-            $captchaCheck = false;
         }
 
-        if (!$auth['login'] or !$captchaCheck) {
+        if (!$auth['login'] || !$captchaCheck) {
             // No Login -> Captcha
-            include_once('ext_scripts/ascii_captcha.class.php');
-            $captcha = new \ASCII_Captcha();
-            $cap = $captcha->create($text);
-            $_SESSION['captcha'] = $text;
+            $builder = new CaptchaBuilder();
+
+            $width = 300;
+            $height = 80;
+            $builder->build($width, $height);
+
+            $captchaPhrase = $builder->getPhrase();
+            $_SESSION['captcha'] = $captchaPhrase;
             $data['response'] = 'captcha';
-            $data['code'] = $text;
-            $data['captcha'] = $cap;
+            $data['code'] = $captchaPhrase;
+            $data['captcha'] = '<img src="' . $builder->inline() . '" />';
         }
 
-        if (($_POST['message'] and $auth['login']) or ($_POST['message'] and $captchaCheck)) {
+        if (($_POST['message'] && $auth['login']) || ($_POST['message'] && $captchaCheck)) {
             if ($auth['type'] >= \LS_AUTH_TYPE_USER) {
                 $_POST['nickname'] = $auth['username'];
             }
