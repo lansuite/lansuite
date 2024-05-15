@@ -13,7 +13,7 @@ class Seat2
     public function SeatNameLink($userid, $MaxBlockLength = 0, $break = '<br />')
     {
         global $db, $database, $party;
-  
+
         // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
         $seat_paid = $database->queryWithOnlyFirstRow("
           SELECT
@@ -46,7 +46,7 @@ class Seat2
                 AND s.userid = ?
                 AND s.status = ?", [$party->party_id, $userid, $seat_status]);
         }
-  
+
         if (!$row || !$row['blockid']) {
             return '';
 
@@ -136,7 +136,7 @@ class Seat2
             s.userid = ?
             AND s.status = ?
             AND b.party_id = ?", [$userid, $seat_status, $party->party_id]);
-    
+
         $blockID = $row['blockid'] ?? 0;
         if ($blockID) {
             $arr = array();
@@ -161,7 +161,7 @@ class Seat2
     private function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0, $userid = 0): bool|string
     {
         global $db, $database;
-    
+
         $row = $database->queryWithOnlyFirstRow("
           SELECT
             name,
@@ -175,7 +175,7 @@ class Seat2
             if ($MaxBlockLength > 4 and strlen($row['name']) > $MaxBlockLength) {
                 $row['name'] = substr($row['name'], 0, $MaxBlockLength - 3) . '...';
             }
-              
+
             $LinkText = $row['name'] .' - '. $this->CoordinateToName($x, $y, $row['orientation']);
             if ($LinkIt == 1) {
                 return "<a href=\"index.php?mod=seating&action=show&step=2&blockid=$blockid&col=$x&row=$y\">$LinkText</a>";
@@ -328,7 +328,7 @@ class Seat2
         $smarty->assign('row_count', $block['rows'] + 1);
         $smarty->assign('col_count', $block['cols'] + 1);
         $smarty->assign('mode', $mode);
-        
+
         // Get seperators
         $sep_cols = array();
         $sep_rows = array();
@@ -378,7 +378,7 @@ class Seat2
                     $partyUserCheckin = $party_user['checkin'];
                     $partyUserCheckout = $party_user['checkout'];
                 }
-          
+
                 $seat_state[$seat_row['row']][$seat_row['col']] = $seat_row['status'];
                 $seat_ip[$seat_row['row']][$seat_row['col']] = $seat_row['ip'];
                 $seat_userid[$seat_row['row']][$seat_row['col']] = $seat_row['userid'];
@@ -468,7 +468,7 @@ class Seat2
                 myG = vectorModel.createElement("g");
                 mySvg.appendChild(myG);
             ';
-  
+
             // Icon selection in mode 2
             if ($mode == 2) {
                 $jscode .= "CreateText('Auswahl:', 0, 14);\n";
@@ -562,7 +562,7 @@ class Seat2
                 $y = 56;
                 for ($i = 300; $i <= 383; $i++) {
                     $jscode .= "DrawClearSeatingSymbol($i, $x, $y, 'javascript:UpdateCurrentDrawingSymbol(\"$i\")', 'Test');\n";
-  
+
                     $x += 14;
                     if ($x > 580) {
                         $x = 0;
@@ -570,7 +570,7 @@ class Seat2
                     }
                 }
             }
-  
+
             $jscode .= "CreateRect(4, $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
             $jscode .= "CreateText('". $block['text_tl'] ."', ". (($SVGWidth / 6 * 1) - strlen($block['text_tl']) * 4) .", ". ($YStartPlanFrame + 15) .", '');\n";
             $jscode .= "CreateRect(". (($SVGWidth / 3) + 4) .", $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
@@ -592,7 +592,7 @@ class Seat2
             for ($i = 0; $i <= strlen($block['text_lb']); $i++) {
                 $jscode .= "CreateText('". substr($block['text_lb'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 5 + ($YStartPlanFrame + 27)) - strlen($block['text_lb']) * 5 + 10 * $i) .", '');\n";
             }
-  
+
             $jscode .= "CreateRect(". ($SVGWidth - 25) .", ". ($YStartPlanFrame + 27) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
             for ($i = 0; $i <= strlen($block['text_rt']); $i++) {
                 $jscode .= "CreateText('". substr($block['text_rt'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 1 + ($YStartPlanFrame + 27)) - strlen($block['text_rt']) * 5 + 10 * $i) .", '');\n";
@@ -607,7 +607,7 @@ class Seat2
             for ($i = 0; $i <= strlen($block['text_rb']); $i++) {
                 $jscode .= "CreateText('". substr($block['text_rb'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 5 + ($YStartPlanFrame + 27)) - strlen($block['text_rb']) * 5 + 10 * $i) .", '');\n";
             }
-  
+
             $jscode .= "CreateRect(4, ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
             $jscode .= "CreateText('". $block['text_bl'] ."', ". (($SVGWidth / 6 * 1) - strlen($block['text_bl']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
             $jscode .= "CreateRect(". (($SVGWidth / 3) + 4) .", ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
@@ -659,7 +659,7 @@ class Seat2
                     // Show plan
                     default:
                         $templ['seat']['cell_nr'] = $cell_nr;
-                        
+
                         if ($y == 1) {
                             $jscode .= "CreateText('". $this->CoordinateToName($x + 1, -1, $block['orientation']) ."', ". ($XOffset - 2) .", ". ($YStartPlan - 6) .", '');\n";
                         }
@@ -728,13 +728,30 @@ class Seat2
                             case "9":
                                 $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
                                 $tooltip .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
-                                if (!$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER or ($auth['userid'] == $selected_user and $selected_user != false)) {
-                                    $tooltip .= t('Name') .': '. trim($user_info[$y][$x]['firstname']) .' '. trim($user_info[$y][$x]['name']) . HTML_NEWLINE;
-                                }
+                                if (
+                                    !$cfg['sys_internet']
+                                    || $auth['type'] > \LS_AUTH_TYPE_USER
+                                    || (
+                                        $selected_user
+                                        && $auth['userid'] == $user_info[$y][$x]['userid']
+                                        )
+                                    ) {
+                                        $tooltip .= t('Name') .': '. trim($user_info[$y][$x]['firstname']) .' '. trim($user_info[$y][$x]['name']) . HTML_NEWLINE;
+                                    }
                                 $tooltip .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
                                 $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-                                if ($func->chk_img_path($user_info[$y][$x]['avatar_path']) and
-                                ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER or ($auth['userid'] == $selected_user and $selected_user != false))) {
+                                if (
+                                    $func->chk_img_path($user_info[$y][$x]['avatar_path'])
+                                    && (
+                                        $cfg['seating_show_user_pics']
+                                        || !$cfg['sys_internet']
+                                        || $auth['type'] > \LS_AUTH_TYPE_USER
+                                        || (
+                                            $selected_user
+                                            && $auth['userid'] == $user_info[$y][$x]['userid']
+                                            )
+                                        )
+                                    ) {
                                       $tooltip .= '<img src=\''. $user_info[$y][$x]['avatar_path'] .'\' style=\'max-width:100%;\' />' . HTML_NEWLINE;
                                 }
                                 break;
@@ -781,7 +798,7 @@ class Seat2
                                 } else {
                                     $userid = $auth['userid'];
                                 }
-                                
+
                                 if ($seat_userid[$y][$x] == $userid) {
                                     $seat_state[$y][$x] = 4;
                                 // My Seat
@@ -855,7 +872,7 @@ class Seat2
             $jscode .= ' }';
         }
         $framework->addJavaScriptCode($jscode);
-    
+
         return $plan;
     }
 
@@ -867,7 +884,7 @@ class Seat2
     public function ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid)
     {
         global $db, $database, $party;
-    
+
         $res = $db->qry("
           SELECT
             s.seatid,
@@ -891,7 +908,7 @@ class Seat2
     public function MarkSeatIfNotPaidAndSeatReserved($userid)
     {
         global $db, $database, $party;
-    
+
         $row = $database->queryWithOnlyFirstRow("
           SELECT
             s.seatid,

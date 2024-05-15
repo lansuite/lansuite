@@ -2,6 +2,8 @@
 $get_cat = $db->qry("SELECT catid, name FROM %prefix%faq_cat ORDER BY name");
 $count_cat = $db->num_rows($get_cat);
 
+$admin_link = '';
+
 if ($count_cat == 0) {
     $func->information(t('Keine Einträge vorhanden.'), "index.php?mod=home");
 } else {
@@ -9,17 +11,19 @@ if ($count_cat == 0) {
 
     while ($row = $db->fetch_array($get_cat)) {
         if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
-            $admin_link = $dsp->FetchIcon('delete', 'index.php?mod=faq&object=item&action=delete_cat&catid=' . $row["catid"] . '&step=2');
+            $admin_link .= $dsp->FetchIcon('delete', 'index.php?mod=faq&object=item&action=delete_cat&catid=' . $row["catid"] . '&step=2');
         }
         if ($auth['type'] > \LS_AUTH_TYPE_USER) {
             $admin_link .= $dsp->FetchIcon('edit', 'index.php?mod=faq&object=cat&action=change_cat&catid=' . $row["catid"] . '&step=2');
         }
+
         $dsp->AddFieldsetStart($admin_link . $row["name"]);
 
         $get_item = $db->qry("SELECT caption,itemid FROM %prefix%faq_item WHERE catid = %int% ORDER BY caption", $row['catid']);
+        $admin_link = '';
         while ($row = $db->fetch_array($get_item)) {
             if ($auth['type'] > \LS_AUTH_TYPE_ADMIN) {
-                $admin_link = $dsp->FetchIcon('delete', 'index.php?mod=faq&object=item&action=delete_item&itemid=' . $row["itemid"] . '&step=2');
+                $admin_link .= $dsp->FetchIcon('delete', 'index.php?mod=faq&object=item&action=delete_item&itemid=' . $row["itemid"] . '&step=2');
             }
             if ($auth['type'] > \LS_AUTH_TYPE_USER) {
                 $admin_link .= $dsp->FetchIcon('edit', 'index.php?mod=faq&object=cat&action=change_item&itemid=' . $row["itemid"] . '&step=2');
