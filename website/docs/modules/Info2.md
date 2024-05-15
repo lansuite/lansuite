@@ -6,7 +6,8 @@ sidebar_position: 1
 
 ## Module Description
 
-This module provides the abilitity to create and manage multiple rich-text pages for user information pages
+This module provides the abilitity to create and manage multiple rich-text pages for user information.
+Multiple default pages are provided as example / template including generic party information, how to reach the party, participation rules and so on.
 
 ## Configuration options
 
