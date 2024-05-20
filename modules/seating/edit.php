@@ -141,16 +141,16 @@ switch ($stepParameter) {
                   FROM %prefix%seat_seats
                   WHERE
                     blockid = ?
-                    AND row = ?
-                    AND col = ?", [$_GET['blockid'], $row, $col]);
+                    AND `row` = ?
+                    AND `col` = ?", [$_GET['blockid'], $row, $col]);
 
                 if (!$seats_qry) {
                     $database->query("
                       INSERT INTO %prefix%seat_seats
                       SET
                         blockid = ?,
-                        row = ?,
-                        col = ?,
+                        `row` = ?,
+                        `col` = ?,
                         status = ?", [$_GET['blockid'], $row, $col, $value]);
                 } else {
                     $database->query("
