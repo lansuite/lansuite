@@ -118,6 +118,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 
 ### Fixed
 
+- [Installation] Fixed #1135: Wizard failed after step three
 - [Foodcenter] Fixed the display of prices in Foodcenter by using the data type decimal instead of float
 - [System] Fixed various bugs rooted by typos in variable names
 - [System] Fixed several PHP syntax errors in the code base
