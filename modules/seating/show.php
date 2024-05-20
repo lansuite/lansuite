@@ -44,7 +44,7 @@ switch ($stepParameter) {
           FROM %prefix%seat_seats
           WHERE
             blockid = ?
-            AND row = ?
+            AND `row` = ?
             AND col = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
 
         // Check paid
@@ -134,7 +134,7 @@ switch ($stepParameter) {
     case 11:
         $_GET['userid'] = $auth['userid'];
         // no break!
-  
+
     // Reserve seat for clan-member
     case 13:
         $user = $database->queryWithOnlyFirstRow("
@@ -165,7 +165,7 @@ switch ($stepParameter) {
           FROM %prefix%seat_seats
           WHERE
             blockid = ?
-            AND row = ?
+            AND `row` = ?
             AND col = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
 
         // Check paid
@@ -216,9 +216,9 @@ switch ($stepParameter) {
           FROM %prefix%seat_seats
           WHERE
             blockid = ?
-            AND row = ?
+            AND `row` = ?
             AND col = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
-        
+
         $block_data = $database->queryWithOnlyFirstRow("
           SELECT
             group_id,
@@ -306,7 +306,7 @@ switch ($stepParameter) {
         $seat2->MarkSeat($auth['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
         $func->confirmation(t('Der alte Sitzplatz wurde freigegeben und der neue erfolgreich vorgemerkt.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
         break;
-    
+
     // Free seat as admin (question)
     case 30:
         if ($auth['type'] > \LS_AUTH_TYPE_USER) {
@@ -318,9 +318,9 @@ switch ($stepParameter) {
               INNER JOIN %prefix%user AS u ON u.userid = s.userid
               WHERE
                 blockid = ?
-                AND row = ?
+                AND `row` = ?
                 AND col = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
-            
+
             $questionarray = array();
             $linkarray = array();
 
@@ -336,7 +336,7 @@ switch ($stepParameter) {
             $func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist momentan für %1 reserviert. Du kannst:', $seatingUser['username']));
         }
         break;
-    
+
     // Free seat as admin
     case 31:
         if ($auth['type'] > \LS_AUTH_TYPE_USER) {
@@ -344,7 +344,7 @@ switch ($stepParameter) {
             $func->confirmation(t('Der Sitzplatz wurde erfolgreich freigegeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
         }
         break;
-    
+
     // Umsetzen als Admin
     case 32:
         if ($auth['type'] > \LS_AUTH_TYPE_USER) {

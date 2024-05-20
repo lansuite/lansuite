@@ -87,7 +87,7 @@ switch ($stepParameter) {
 
             // aktuelle anzahl der Spalten falls Sitzplaetze deaktiviert
             $colakt = $seat_col[$i-1];
-            $get_size = $db->qry("SELECT row FROM %prefix%seat_seats WHERE blockid=%int% and col=%string%", $block_id, $colakt);
+            $get_size = $db->qry("SELECT `row` FROM %prefix%seat_seats WHERE blockid=%int% and col=%string%", $block_id, $colakt);
             $max_row_durchg = $db->num_rows($get_size);
 
             // aktuelle anzahl der Zeilen falls Sitzplaetze deaktiviert
