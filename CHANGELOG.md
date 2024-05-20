@@ -146,6 +146,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Board] Deletion of board failed without error (#861)
 - [Forms] Hours and Minutes are not getting pre-selected in date time fields, if they are single digit (#971)
 - [Server] Fixed invalid query for homescreen (#1125)
+- [Seating] Fixed queries using reserved keyword 'row' (#1133)
 
 ### Security
 
