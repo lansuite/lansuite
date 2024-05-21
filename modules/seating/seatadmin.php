@@ -65,7 +65,7 @@ if ($blockIDParameter && isset($_GET['row']) && isset($_GET['col'])) {
       WHERE
         blockid = ?
         AND `row` = ?
-        AND col = ?", [$blockIDParameter, $_GET['row'], $_GET['col']]);
+        AND `col` = ?", [$blockIDParameter, $_GET['row'], $_GET['col']]);
 }
 
 $stepParameter = $_GET['step'] ?? 0;
