@@ -959,7 +959,7 @@ class Seat2
             status = 2
           WHERE
             blockid = ?
-            AND row = ?
+            AND `row` = ?
             AND col = ?", [$userid, $blockid, $row, $col]);
     }
 
@@ -981,7 +981,7 @@ class Seat2
             status = 3
           WHERE
             blockid = %int%
-            AND row = %string%
+            AND `row` = %string%
             AND col = %string%", $userid, $blockid, $row, $col);
     }
 
@@ -1002,7 +1002,7 @@ class Seat2
             status = 1
           WHERE
             blockid = %int%
-            AND row = %string%
+            AND `row` = %string%
             AND col = %string%", $blockid, $row, $col);
     }
 

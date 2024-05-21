@@ -64,8 +64,8 @@ if ($blockIDParameter && isset($_GET['row']) && isset($_GET['col'])) {
       LEFT JOIN %prefix%user AS u ON s.userid = u.userid
       WHERE
         blockid = ?
-        AND row = ?
-        AND col = ?", [$blockIDParameter, $_GET['row'], $_GET['col']]);
+        AND `row` = ?
+        AND `col` = ?", [$blockIDParameter, $_GET['row'], $_GET['col']]);
 }
 
 $stepParameter = $_GET['step'] ?? 0;
@@ -117,7 +117,7 @@ switch ($stepParameter) {
 
                     $questionarray[] = t('Aktion abbrechen. Zurück zum Sitzplan');
                     $linkarray[]     = "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid={$_GET['blockid']}";
-            
+
                     $func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist noch frei (bzw. nur markiert)' . HTML_NEWLINE . 'Soll er fest reserviert oder nur markiert werden?'));
                 }
                 break;
