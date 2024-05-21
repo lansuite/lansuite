@@ -319,7 +319,7 @@ switch ($stepParameter) {
               WHERE
                 blockid = ?
                 AND `row` = ?
-                AND col = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
+                AND `col` = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
 
             $questionarray = array();
             $linkarray = array();
