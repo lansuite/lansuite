@@ -166,7 +166,7 @@ switch ($stepParameter) {
           WHERE
             blockid = ?
             AND `row` = ?
-            AND col = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
+            AND `col` = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
 
         // Check paid
         if (!$user_data['paid'] and $cfg['seating_paid_only']) {
