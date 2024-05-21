@@ -1,5 +1,7 @@
 <?php
 
+use LanSuite\PasswordHash;
+
 if ($request->request->get('resetdb')) {
     $db->success = 0;
 }
@@ -30,7 +32,7 @@ switch ($step) {
             if ($row !== false) {
                 $db->qry(
                     "UPDATE %prefix%user SET password = %string%, type = '3' WHERE email=%string%",
-                    md5($_POST["password"]),
+                    PasswordHash::hash($_POST["password"]),
                     $_POST["email"]
                 );
             // If not found, insert
@@ -38,7 +40,7 @@ switch ($step) {
                 $db->qry(
                     "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3', lastlogin = NOW(), comment = '', birthday = NULL, signature = ''",
                     $_POST["email"],
-                    md5($_POST["password"])
+                    PasswordHash::hash($_POST["password"])
                 );
                 $userid = $db->insert_id();
             }

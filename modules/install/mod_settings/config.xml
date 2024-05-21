@@ -176,6 +176,25 @@
   </typedefinition>
   <typedefinition>
     <head>
+      <name>passwordhashalgo</name>
+    </head>
+    <entries>
+      <entry>
+        <value>default</value>
+        <description>Standard</description>
+      </entry>
+      <entry>
+        <value>pbkdf2-sha1</value>
+        <description>PBKDF2-SHA1 (kompatibel mit ejabberd)</description>
+      </entry>
+      <entry>
+        <value>md5</value>
+        <description>MD5 (Legacy, DANGEROUS!)</description>
+      </entry>
+    </entries>
+  </typedefinition>
+  <typedefinition>
+    <head>
       <name>email_dns_verification</name>
     </head>
     <entries>
@@ -309,6 +328,18 @@ mailtrash.net
 eintagsmail.de
 nospamfor.us</default>
         <description>Email-Domain-Blacklist (Um Wegwerf-Mailadressen zu vermeiden)</description>
+      </item>
+      <item>
+        <name>pwhash_algo</name>
+        <type>passwordhashalgo</type>
+        <default>default</default>
+        <description>Passwort Hashing Algorithmus</description>
+      </item>
+      <item>
+        <name>pwhash_algo_cfg</name>
+        <type>string</type>
+        <default></default>
+        <description>Parameter für Passwort Hashing Algorithmus</description>
       </item>
     </items>
   </group>
