@@ -1130,7 +1130,8 @@ class Func
      *
      * @return string The text with placeholders replaced
      */
-    public function replaceVariables($text) {
+    public function replaceVariables($text)
+    {
         global $auth;
 
         //initialize replacement array
@@ -1151,18 +1152,24 @@ class Func
             $placeholderNames []= '%PARTYID%';
             $replacementValues []= $_SESSION['party_id'];
         }
-
+        if (array_key_exists('party_info', $_SESSION)) {
+            array_push($placeholderNames, '%PARTYNAME%', '%PARTYBEGIN%', '%PARTYEND%', '%PARTYGUESTS%', '%PARTYLOCATION%');
+            array_push(
+                $replacementValues,
+                $_SESSION['party_info']['name'],
+                date('H:i d.m.y', $_SESSION['party_info']['partybegin']),
+                date('H:i d.m.y', $_SESSION['party_info']['partyend']),
+                $_SESSION['party_info']['max_guest'],
+                $_SESSION['party_info']['partyort']
+            );
+        }
 
         //fetch partyprice...
         $party = new \LanSuite\Module\Party\Party();
         $entrancedata = $party->GetUserParticipationData();
         if ($entrancedata) {
-            $placeholderNames []= '%PARTYPRICEID%';
-            $replacementValues []= $entrancedata['price_id'];
-            $placeholderNames []= '%PARTYPRICETEXT%';
-            $replacementValues []= $entrancedata['price_text'];
-            $placeholderNames []= '%PARTYPRICEVALUE%';
-            $replacementValues []= $entrancedata['price'];
+            array_push($placeholderNames, '%PARTYPRICEID%', '%PARTYPRICETEXT%', '%PARTYPRICEVALUE%');
+            array_push($replacementValues,  $entrancedata['price_id'], $entrancedata['price_text'], $entrancedata['price']);
         }
 
         return str_replace($placeholderNames, $replacementValues, $text);
