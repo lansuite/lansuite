@@ -24,43 +24,49 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
 
 $PHPErrors = '';
 
+
+
+// Read Config and Definitionfiles
+// Load Basic Config
+if (file_exists('inc/base/config.php')) {
+    $config = parse_ini_file('inc/base/config.php', 1);
+
+} else { // Default config. Will be used only until the wizard has created the config file
+    $config = [];
+
+    $config['lansuite']['default_design'] = 'simple';
+    $config['lansuite']['chmod_dir'] = '777';
+    $config['lansuite']['chmod_file'] = '666';
+    $config['lansuite']['debugmode'] = '0';
+    $config['lansuite']['uid'] = uniqid('ls_', true);
+
+    $config['database']['server'] = 'localhost';
+    $config['database']['dbport'] = 3306;
+    $config['database']['user'] = 'root';
+    $config['database']['passwd'] = '';
+    $config['database']['database'] = 'lansuite';
+    $config['database']['prefix'] = 'ls_';
+    $config['database']['charset'] = 'utf8mb4';
+
+    $config['environment']['configured'] = 0;
+}
+
+// Check cache pool name - generate one if not existing
+if (!array_key_exists('uid', $config['lansuite']) || $config['lansuite']['uid'] == '')
+{
+    $config['lansuite']['uid'] = uniqid('ls_', true);
+
+    //write config to file to ensure that uid is persistant
+    $install = new \LanSuite\Module\Install\Install();
+    $install->WriteConfig();
+}
+
 // Initialize Cache. Go for APCu first, filebased otherwise. DB adaptor to be used when we implement PDO.
 if (extension_loaded('apcu')) {
-    $cache = new Symfony\Component\Cache\Adapter\ApcuAdapter('lansuite', 600);
+    $cache = new Symfony\Component\Cache\Adapter\ApcuAdapter($config['lansuite']['uid'], 600);
 } else {
-    $cache = new Symfony\Component\Cache\Adapter\FilesystemAdapter('lansuite', 600);
+    $cache = new Symfony\Component\Cache\Adapter\FilesystemAdapter($config['lansuite']['uid'], 600);
 }
-
-// Check cache for config, try to load from file otherwise
-$configCache = $cache->getItem('config');
-if (!$configCache->isHit() || $request->query->get('mod') == 'install') {
-    // Read Config and Definitionfiles
-    // Load Basic Config
-    if (file_exists('inc/base/config.php')) {
-        $config = parse_ini_file('inc/base/config.php', 1);
-    // Default config. Will be used only until the wizard has created the config file
-    } else {
-        $config = [];
-
-        $config['lansuite']['default_design'] = 'simple';
-        $config['lansuite']['chmod_dir'] = '777';
-        $config['lansuite']['chmod_file'] = '666';
-        $config['lansuite']['debugmode'] = '0';
-
-        $config['database']['server'] = 'localhost';
-        $config['database']['dbport'] = 3306;
-        $config['database']['user'] = 'root';
-        $config['database']['passwd'] = '';
-        $config['database']['database'] = 'lansuite';
-        $config['database']['prefix'] = 'ls_';
-        $config['database']['charset'] = 'utf8mb4';
-
-        $config['environment']['configured'] = 0;
-    }
-    $configCache->set($config);
-    $cache->save($configCache);
-}
-$config = $configCache->get();
 
 if (!isset($config['environment'])) {
     $config['environment']['configured'] = 0;
@@ -313,7 +319,7 @@ if ($config['environment']['configured'] == 0) {
     if (!$func->admin_exists() && isset($_GET["action"]) && (($_GET["action"] == "wizard" && $_GET["step"] <= 3) || ($_GET["action"] == "ls_conf"))) {
         $db->success = 0;
     }
-    
+
     //load $cfg from cache
     $cfgCache = $cache->getItem('cfg');
     if (!$cfgCache->isHit()) {
@@ -329,7 +335,7 @@ if ($config['environment']['configured'] == 0) {
     // if another language is selected in the install module.
 
     $message = $sec->check_blacklist();
-    
+
     if (strlen($message) > 0) {
         die($message);
     }

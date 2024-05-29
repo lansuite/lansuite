@@ -6,13 +6,6 @@ use LanSuite\XML;
 
 class Install
 {
-    private \LanSuite\Module\Install\Import $import;
-
-    public function __construct(Import $import)
-    {
-        $this->import = $import;
-    }
-
     /**
      * @param string $dir
      * @return string
@@ -113,21 +106,28 @@ class Install
      * Creates a DB-table using the file $table,
      * located in the mod_settings-directory of the module $mod
      *
-     * @param string $mod
-     * @param boolean $rewrite
+     * @param string $mod The module name to be imported
+     * @param boolean $rewrite Drops current tables if true
+     * @param Import $import LanSuite Import Object to be used, creates one otherwise
      * @return void
      */
-    public function WriteTableFromXMLFile($mod, $rewrite = null)
+    public function WriteTableFromXMLFile($mod, $rewrite = null, Import $import = null)
     {
         global $db, $database, $config;
 
+        //Initialize Import object if not given
+        if (!$import) {
+                $importXml = new \LanSuite\XML();
+                $import = new \LanSuite\Module\Install\Import($importXml);
+        }
+
         // Delete references, if table exists, for they will be recreated in ImportXML()
-        if (in_array($config['database']['prefix'] .'ref', $this->import->installed_tables)) {
+        if (in_array($config['database']['prefix'] .'ref', $import->installed_tables)) {
             $db->qry('TRUNCATE TABLE %prefix%ref');
         }
 
-        $this->import->GetImportHeader("modules/$mod/mod_settings/db.xml");
-        $this->import->ImportXML($rewrite);
+        $import->GetImportHeader("modules/$mod/mod_settings/db.xml");
+        $import->ImportXML($rewrite);
         if ($mod == 'install') {
             $this->InsertModules($rewrite);
             $this->InsertMenus($rewrite);
