@@ -151,7 +151,11 @@ if ($cfg['sys_internet']) {
 
         $checked = $database->queryWithOnlyFirstRow("SELECT UNIX_TIMESTAMP(checked) AS n FROM %prefix%partys WHERE party_id = ?", [$party->party_id]);
         $box->EmptyRow();
-        $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>");
+        $updateIcon = '';
+        if ($auth && $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
+            $updateIcon = $dsp->FetchIcon('change', 'index.php?mod=guestlist&action=checking', t('Aktualisieren'));
+        }
+        $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>" . $updateIcon);
         $box->EngangedRow($func->unixstamp2date($checked['n'], "datetime"));
     }
 }
