@@ -53,6 +53,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Discord] Introduced a new module to manage Discord Servers
 - [Party] Add information `Gesamt` in the Party box to show how many people can sign up for a party
 - [Party] Added ability to switch party in internet system for admins
+- [Party] Added ability to trigger account check update from display box
 - [Birthday] New module to show users birthdays
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
 - [Server] Added Voice as server type
