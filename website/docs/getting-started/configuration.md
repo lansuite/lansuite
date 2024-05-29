@@ -7,7 +7,6 @@ sidebar_position: 3
 ## Configuration file
 
 LANSuite's configuration file is written in the `ini` format and should be placed into `inc/base/config.php`.
-Please note that all entries are cached and only reloaded every 10 Minutes.
 
 An example configuration file looks like:
 
