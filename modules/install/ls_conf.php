@@ -1,8 +1,6 @@
 <?php
 
-$importXml = new \LanSuite\XML();
-$installImport = new \LanSuite\Module\Install\Import($importXml);
-$install = new \LanSuite\Module\Install\Install($installImport);
+$install = new \LanSuite\Module\Install\Install();
 
 $stepParameter = $_GET["step"] ?? 0;
 

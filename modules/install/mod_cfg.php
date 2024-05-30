@@ -2,7 +2,7 @@
 
 $importXml = new \LanSuite\XML();
 $installImport = new \LanSuite\Module\Install\Import($importXml);
-$install = new \LanSuite\Module\Install\Install($installImport);
+$install = new \LanSuite\Module\Install\Install();
 
 // XML is a global requirement during installation
 $xml = new \LanSuite\XML();
@@ -197,7 +197,7 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
 
                     // Rewrite specific Module-DB
                     case 42:
-                        $install->WriteTableFromXMLFile($_GET['module'], 1);
+                        $install->WriteTableFromXMLFile($_GET['module'], 1, $installImport);
                         $func->confirmation(t('Tabelle wurde erfolgreich neu geschrieben'), 'index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&tab=2');
                         break;
 

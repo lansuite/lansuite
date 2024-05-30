@@ -49,7 +49,7 @@ class Bugtracker
             }
         }
 
-        $row = $$database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%bugtracker WHERE state = ? AND bugid = ?", [$state, $bugid]);
+        $row = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%bugtracker WHERE state = ? AND bugid = ?", [$state, $bugid]);
         if (!$row['found']) {
             $mail = new \LanSuite\Module\Mail\Mail();
 
