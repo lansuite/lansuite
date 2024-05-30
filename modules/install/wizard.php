@@ -7,7 +7,7 @@ if ($request->request->get('resetdb')) {
 }
 $importXml = new \LanSuite\XML();
 $import = new \LanSuite\Module\Install\Import($importXml);
-$install = new \LanSuite\Module\Install\Install($import);
+$install = new \LanSuite\Module\Install\Install();
 
 // XML is a global requirement during installation
 $xml = new \LanSuite\XML();
