@@ -1,7 +1,7 @@
 # Get composer
 FROM composer:2.7.6 as composer
 
-FROM php:8.1.28-fpm-bullseye
+FROM php:8.2.19-fpm-bullseye
 
 # Install libraries and PHP-Extensions that are not provided by the base image
 RUN apt-get update \
