@@ -148,7 +148,7 @@ class MasterForm
     /**
      * Master form ID
      */
-    private int $MFID;
+    private readonly int $MFID;
 
     /**
      * Current page in pagination

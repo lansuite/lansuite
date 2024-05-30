@@ -15,7 +15,7 @@ class Export
      */
     public $lansuite;
 
-    private \LanSuite\XML $xml;
+    private readonly \LanSuite\XML $xml;
 
     public function __construct(\LanSuite\XML $xml)
     {

@@ -18,7 +18,7 @@ class PayPal
 
     private ?\PayPal\Api\Payment $payment = null;
 
-    private \PayPal\Rest\ApiContext $apiContext;
+    private readonly \PayPal\Rest\ApiContext $apiContext;
     
     public function __construct()
     {
