@@ -115,10 +115,10 @@ class Install
     {
         global $db, $database, $config;
 
-        //Initialize Import object if not given
+        // Initialize Import object if not given
         if (!$import) {
-                $importXml = new \LanSuite\XML();
-                $import = new \LanSuite\Module\Install\Import($importXml);
+            $importXml = new \LanSuite\XML();
+            $import = new \LanSuite\Module\Install\Import($importXml);
         }
 
         // Delete references, if table exists, for they will be recreated in ImportXML()
