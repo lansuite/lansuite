@@ -6,12 +6,6 @@
     </head>
     <items>
     	<item>
-    		<name>info2_toolbar</name>
-    		<type>boolean</type>
-    		<default>1</default>
-    		<description>Erweiterte Toolbar</description>
-    	</item>
-    	<item>
     		<name>info2_use_fckedit</name>
     		<type>boolean</type>
     		<default>1</default>

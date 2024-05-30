@@ -353,7 +353,7 @@ class Func
     }
 
     /**
-     * Transforms given input text to HTML-enriched output. 
+     * Transforms given input text to HTML-enriched output.
      * Based on the mode provided, various tags are allowed.
      * These are - to my understanding  - as follows:
      * mode 0: Full BBcode parsing, Smileys
@@ -367,7 +367,7 @@ class Func
     public function text2html($string, $mode = 0)
     {
         global $db, $database;
-        
+
         if ($mode == 0)
         {
             $parser = new \Youthweb\BBCodeParser\Manager();
@@ -612,7 +612,7 @@ class Func
 
             $userId = $auth['userid'] ?? 0;
             $entry = $db->qry("
-            INSERT INTO %prefix%log 
+            INSERT INTO %prefix%log
             SET
               userid = %int%,
               description=%string%,
@@ -986,7 +986,7 @@ class Func
             return 1;
         } else {
             $last_read = $database->queryWithOnlyFirstRow('
-            SELECT UNIX_TIMESTAMP(date) AS date 
+            SELECT UNIX_TIMESTAMP(date) AS date
             FROM %prefix%lastread
             WHERE userid = ? AND tab = ? AND entryid = ?', [$userid, $table, $entryid]);
 
@@ -1117,5 +1117,61 @@ class Func
         }
 
         return array_key_exists($mod, $this->ActiveModules);
+    }
+
+    /**
+     * Searches through a text and replaces occurences of %VARIABLENAME% with their counterpart.
+     * Just has basic stuff required to make information pages more dynamic, more to be added
+     * Be careful that you only expose uncritical commonly visible values or user-specifc information, otherwise this could be used to leak important data.
+     *
+     * @param string $text The text to replace placeholders in
+     *
+     * @global array $auth fetches userid for replacement
+     *
+     * @return string The text with placeholders replaced
+     */
+    public function replaceVariables($text)
+    {
+        global $auth;
+
+        //initialize replacement array
+        $placeholderNames = [];
+        $replacementValues = [];
+
+        if (array_key_exists('userid', $auth)) {
+            $placeholderNames []= '%USERID%';
+            $replacementValues []= $auth['userid'];
+        }
+
+        if (array_key_exists('username', $auth)) {
+            $placeholderNames []= '%USERNAME%';
+            $replacementValues []= $auth['username'];
+        }
+
+        if (array_key_exists('party_id', $_SESSION)) {
+            $placeholderNames []= '%PARTYID%';
+            $replacementValues []= $_SESSION['party_id'];
+        }
+        if (array_key_exists('party_info', $_SESSION)) {
+            array_push($placeholderNames, '%PARTYNAME%', '%PARTYBEGIN%', '%PARTYEND%', '%PARTYGUESTS%', '%PARTYLOCATION%');
+            array_push(
+                $replacementValues,
+                $_SESSION['party_info']['name'],
+                date('H:i d.m.y', $_SESSION['party_info']['partybegin']),
+                date('H:i d.m.y', $_SESSION['party_info']['partyend']),
+                $_SESSION['party_info']['max_guest'],
+                $_SESSION['party_info']['partyort']
+            );
+        }
+
+        //fetch partyprice...
+        $party = new \LanSuite\Module\Party\Party();
+        $entrancedata = $party->GetUserParticipationData();
+        if ($entrancedata) {
+            array_push($placeholderNames, '%PARTYPRICEID%', '%PARTYPRICETEXT%', '%PARTYPRICEVALUE%');
+            array_push($replacementValues,  $entrancedata['price_id'], $entrancedata['price_text'], $entrancedata['price']);
+        }
+
+        return str_replace($placeholderNames, $replacementValues, $text);
     }
 }

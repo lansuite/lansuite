@@ -64,7 +64,7 @@ switch ($stepParameter) {
                     ip = ?
                   WHERE
                     blockid = ?
-                    AND row = ?
+                    AND `row` = ?
                     AND col = ?", [$value, $_GET['blockid'], $row, $col]);
             }
         }

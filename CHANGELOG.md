@@ -49,8 +49,11 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Added database value User@Server into MySQL error message
 - [Installation] Added check for incompatible SQL Modes to the first installation page
 - [Installation] If there is no `config.php` file available during installation, create it during setup from the default config
+- [Info2] Added ability to replace variables in info texts and to see disabled info pages for admins
 - [Discord] Introduced a new module to manage Discord Servers
 - [Party] Add information `Gesamt` in the Party box to show how many people can sign up for a party
+- [Party] Added ability to switch party in internet system for admins
+- [Party] Added ability to trigger account check update from display box
 - [Birthday] New module to show users birthdays
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
 - [Server] Added Voice as server type
@@ -116,6 +119,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 
 ### Fixed
 
+- [Installation] Fixed #1135: Wizard failed after step three
 - [Foodcenter] Fixed the display of prices in Foodcenter by using the data type decimal instead of float
 - [System] Fixed various bugs rooted by typos in variable names
 - [System] Fixed several PHP syntax errors in the code base
@@ -143,6 +147,8 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Guestlist] Restrict user information shown on Google Maps according to their settings and never show the street details ... unless you are an administrator
 - [Board] Deletion of board failed without error (#861)
 - [Forms] Hours and Minutes are not getting pre-selected in date time fields, if they are single digit (#971)
+- [Server] Fixed invalid query for homescreen (#1125)
+- [Seating] Fixed queries using reserved keyword 'row' (#1133)
 
 ### Security
 

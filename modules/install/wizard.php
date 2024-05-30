@@ -200,6 +200,18 @@ switch ($step) {
 
             if ($res == 1 or $res == 3 or $res == 5) {
                 $db->connect();
+                $database = new \LanSuite\Database(
+                    $config['database']['server'],
+                    $config['database']['dbport'] ?? 3306,
+                    $config['database']['user'],
+                    $config['database']['passwd'],
+                    $config['database']['database'],
+                    $config['database']['charset'] ?? 'utf8mb4',
+                    $sqlmode
+                );
+                $database->connect();
+                $database->setTablePrefix($config['database']['prefix']);
+        
 
                 if ($db->success) {
                     // Write new compatible SQL mode to configuration

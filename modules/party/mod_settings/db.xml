@@ -47,7 +47,7 @@
 			</field>
 			<field>
 				<name>ort</name>
-				<type>varchar(30)</type>
+				<type>varchar(160)</type>
 				<null></null>
 				<key></key>
 				<default>integer</default>
@@ -112,7 +112,7 @@
 		</structure>
 		<content>
 		</content>
-	</table>	
+	</table>
 	<table>
 		<table_head>
 			<name>party_prices</name>
@@ -254,7 +254,7 @@
 				<key></key>
 				<default></default>
 				<extra></extra>
-			</field>			
+			</field>
 			<field>
 				<name>checkin</name>
 				<type>datetime</type>
@@ -278,7 +278,7 @@
 				<key></key>
 				<default></default>
 				<extra></extra>
-			</field>			
+			</field>
 			<field>
 				<name>exported</name>
 				<type>boolean</type>
@@ -286,9 +286,9 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
-			</field>		
+			</field>
 		</structure>
 		<content>
 		</content>
-	</table>	
+	</table>
 </lansuite>
