@@ -24,14 +24,12 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
 
 $PHPErrors = '';
 
-
-
-// Read Config and Definitionfiles
 // Load Basic Config
 if (file_exists('inc/base/config.php')) {
     $config = parse_ini_file('inc/base/config.php', 1);
 
-} else { // Default config. Will be used only until the wizard has created the config file
+// Default config. Will be used only until the wizard has created the config file
+} else {
     $config = [];
 
     $config['lansuite']['default_design'] = 'simple';
@@ -56,7 +54,7 @@ if (!array_key_exists('uid', $config['lansuite']) || $config['lansuite']['uid'] 
 {
     $config['lansuite']['uid'] = uniqid('ls_', true);
 
-    //write config to file to ensure that uid is persistant
+    // Write config to file to ensure that uid is persistent
     $install = new \LanSuite\Module\Install\Install();
     $install->WriteConfig();
 }
