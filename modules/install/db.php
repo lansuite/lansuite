@@ -6,7 +6,7 @@ set_time_limit(0);
 // And now continue with the fun stuff...
 $importXml = new \LanSuite\XML();
 $installImport = new \LanSuite\Module\Install\Import($importXml);
-$install = new \LanSuite\Module\Install\Install($installImport);
+$install = new \LanSuite\Module\Install\Install();
 
 $install->TryCreateDB(1);
 $db->connect();
@@ -61,7 +61,7 @@ if ($questParameter ) {
 
         // Reset Module DBs
         case 7:
-            $install->WriteTableFromXMLFile($_GET["module"], 1);
+            $install->WriteTableFromXMLFile($_GET["module"], 1, $installImport);
             break;
     }
 
