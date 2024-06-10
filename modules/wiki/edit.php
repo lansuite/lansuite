@@ -1,6 +1,7 @@
 <?php
 
 $_GET['mf_id'] = '1';
+$masterFormStepParameter = $_GET['mf_step'] ?? null;
 
 $nextVersionId = 0;
 $row = $database->queryWithOnlyFirstRow('
@@ -20,7 +21,7 @@ if ($row['found']) {
       WHERE
         postid = ?
         AND versionid = ?', [$_GET['postid'], $row['versionid']]);
-    if ($_GET['mf_step'] != 2) {
+    if ($masterFormStepParameter != 2) {
         $_POST['text'] = $row['text'];
     }
 }
@@ -49,7 +50,7 @@ $mf->AddFix('postid', $_GET['postid']);
 $mf->AddFix('versionid', $nextVersionId);
 
 $mf->SendForm('index.php?mod=wiki&amp;action='. $_GET['action'] .'&postid='. $_GET['postid'], 'wiki_versions');
-if ($_GET['mf_step'] == '2') {
+if ($masterFormStepParameter == '2') {
     $_GET['action'] = 'show';
     include_once('modules/wiki/show.php');
 }
