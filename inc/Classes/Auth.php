@@ -25,7 +25,7 @@ class Auth
     /**
      * Time
      */
-    private int $timestamp;
+    private readonly int $timestamp;
 
     /**
      * Cookie data
@@ -84,12 +84,12 @@ class Auth
     /**
      * Request object
      */
-    private Request $request;
+    private readonly Request $request;
 
     /**
      * Database
      */
-    private Database $database;
+    private readonly Database $database;
 
     /**
      * auth constructor.
