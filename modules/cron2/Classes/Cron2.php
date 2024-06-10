@@ -8,7 +8,7 @@ class Cron2
     /**
      * Maximum amount of errors for a job
      */
-    const CRON_MAX_ERRORS = 3;
+    public const CRON_MAX_ERRORS = 3;
 
     /**
      * @param int $jobid

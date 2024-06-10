@@ -63,7 +63,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 
 ### Changed
 
-- [System] Raised the requirements of minimum PHP Version to v8.1
+- [System] Raised the requirements of minimum PHP Version to v8.2
 - [System] Raised the requirements of minimum MySQL Version to v5.7
 - [System] Upgraded smarty/smarty to 4.3.2
 - [System] Upgraded setasign/fpdf to 1.8.6
