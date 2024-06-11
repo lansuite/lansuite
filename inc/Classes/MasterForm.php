@@ -749,13 +749,15 @@ class MasterForm
                                                 } elseif ($field['selections'] == self::LSCODE_BIG) {
                                                     $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $postFieldValue, $errorText, 70, 20, $field['optional'], $maxchar);
                                                 } elseif ($field['selections'] == self::HTML_WYSIWYG) {
+                                                    $fieldValueParameter = $_POST[$field['name']] ?? '';
+
                                                     $this->FCKeditorID++;
                                                     ob_start();
                                                     include_once("ext_scripts/FCKeditor/fckeditor.php");
                                                     $oFCKeditor = new \FCKeditor('FCKeditor'. $this->FCKeditorID) ;
                                                     $oFCKeditor->BasePath = 'ext_scripts/FCKeditor/';
                                                     $oFCKeditor->Config["CustomConfigurationsPath"] = "../myconfig.js"  ;
-                                                    $oFCKeditor->Value = $func->AllowHTML($_POST[$field['name']]);
+                                                    $oFCKeditor->Value = $func->AllowHTML($fieldValueParameter);
                                                     $oFCKeditor->Height = 460;
                                                     $oFCKeditor->Create();
                                                     $fcke_content = ob_get_contents();

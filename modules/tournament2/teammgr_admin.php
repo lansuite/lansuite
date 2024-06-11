@@ -187,7 +187,8 @@ switch ($stepParameter) {
             while ($team = $db->fetch_array($teams)) {
                 $member = $database->queryWithOnlyFirstRow("SELECT COUNT(*) AS members FROM %prefix%t2_teammembers WHERE teamid = ? GROUP BY teamid", [$team['teamid']]);
 
-                $freie_platze = $team['teamplayer'] - ($member['members'] + 1);
+                $memberCount = $member['members'] ?? 0;
+                $freie_platze = $team['teamplayer'] - ($memberCount + 1);
                 if ($freie_platze > 0) {
                     $t_array[] = "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']} (" . t('Noch %1 frei', $freie_platze) . ")</option>";
                 }

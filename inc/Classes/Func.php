@@ -701,7 +701,12 @@ class Func
             echo("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
         }
 
-        return [];
+        return [
+            'html' => '',
+            'sql' => '',
+            'a' => 0,
+            'b' => 0,
+        ];
     }
 
     /**

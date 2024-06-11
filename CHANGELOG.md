@@ -60,6 +60,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Community] Created a discord community
 - [PDF] In-Module Documentation
 - [PDF] New options "align" and "border" to configure for a single PDF document
+- [System] Restrict display of PHP warnings to (Super-)Admins (#1131)
 
 ### Changed
 
