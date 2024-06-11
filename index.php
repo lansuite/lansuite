@@ -356,6 +356,14 @@ if ($config['environment']['configured'] == 0) {
     $olduserid = $authentication->get_olduserid();
 }
 
+// If the current user is not an admin, we suppress PHP warnings
+// We keep them for Admins and Superadmins, because they might be interested in a fully functional system.
+// We assume those errors get reported back to the developers.
+if ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
+    $errorlevel = error_reporting();
+    error_reporting($errorlevel & ~E_WARNING);
+}
+
 // Initialize party
 // Needed also, when not configured for LanSuite Import
 if ($func->isModActive('party')) {
