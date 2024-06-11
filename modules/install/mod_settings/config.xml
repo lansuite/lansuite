@@ -189,7 +189,7 @@
       </entry>
       <entry>
         <value>md5</value>
-        <description>MD5 (Legacy, DANGEROUS!)</description>
+        <description>MD5 (Legacy, insecure)</description>
       </entry>
     </entries>
   </typedefinition>
