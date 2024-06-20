@@ -75,9 +75,7 @@ public function disable(string $moduleName) : bool
      */
     public function updateModuleTables(string $moduleName = null) : void
     {
-        $importXml = new \LanSuite\XML();
-        $installImport = new \LanSuite\Module\Install\Import($importXml);
-        $install = new \LanSuite\Module\Install\Install($installImport);
+        $install = new \LanSuite\Module\Install\Install();
         $install->WriteTableFromXMLFile($moduleName, 1);
     }
 
