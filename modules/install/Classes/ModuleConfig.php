@@ -2,6 +2,9 @@
 
 namespace LanSuite\Module\Install;
 
+use Error;
+use Exception;
+
 /**
  * Class to handle module specific functions currently distributed everywhere in the code.
  * Separate "Module" class may come later to deal with this on a one-object-per-module basis
@@ -88,6 +91,11 @@ public function disable(string $moduleName) : bool
     public function writeModuleMenu($moduleName='')
     {
         global $database;
+
+        if (!ctype_alnum($moduleName)){
+            throw new Exception(t('Ungültiger Modulname "%1" angegeben'));
+        }
+
         $xml = new \LanSuite\XML();
         $file = "modules/$moduleName/mod_settings/menu.xml";
         if (file_exists($file)) {
@@ -145,7 +153,7 @@ public function disable(string $moduleName) : bool
                 );
             }
         } else {
-            echo('module.xml für modul nicht gefunden');
+            throw new Exception(t('Datei menu.xml wurde für Modul "%1" nicht gefunden', $moduleName));
         }
     }
 }
