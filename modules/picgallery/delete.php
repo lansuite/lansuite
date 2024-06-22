@@ -10,6 +10,9 @@ $path = $request->query->get('file');
 $path = Path::canonicalize($path);
 if (str_starts_with($path, '/')) {
     $path = substr($path, 1);
+$pic = $database->queryWithOnlyFirstRow("SELECT caption FROM %prefix%picgallery WHERE name = ?", [$path]);
+if (!$pic['caption']) {
+    $pic['caption'] = "<i>".t('Unbekannt')."</i>";
 }
 $directoryPath = Path::getDirectory($path);
 

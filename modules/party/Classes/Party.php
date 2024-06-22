@@ -21,7 +21,7 @@ class Party
 
     public function __construct($party_id = null)
     {
-        global $cfg, $db, $request;
+        global $cfg, $database, $request;
 
         $setPartyIDGETParameter = $request->query->get('set_party_id');
         $setPartyIDPOSTParameter = $request->request->get('set_party_id');
@@ -33,7 +33,7 @@ class Party
                 $this->party_id = $setPartyIDPOSTParameter;
             } elseif (array_key_exists('party_id', $_SESSION) && is_numeric($_SESSION['party_id'])) {
                 // Look whether this partyId exists
-                $row = $db->qry_first('SELECT 1 AS found FROM %prefix%partys WHERE party_id = %int%', $_SESSION['party_id']);
+                $row = $database->queryWithOnlyFirstRow('SELECT 1 AS found FROM %prefix%partys WHERE party_id = ?', [$_SESSION['party_id']]);
                 if (is_array($row) && $row['found']) {
                     $this->party_id = $_SESSION['party_id'];
                 } else {
@@ -48,7 +48,9 @@ class Party
             $this->party_id = $party_id;
         }
 
+        //@TODO: We should not switch the party just because somebody used this class
         $_SESSION['party_id'] = $this->party_id;
+
         $this->UpdatePartyArray();
     }
 
@@ -59,7 +61,7 @@ class Party
      */
     private function UpdatePartyArray()
     {
-        global $db;
+        global $db, $database;
 
         if ($db->success) {
             // Count Parties
@@ -69,7 +71,7 @@ class Party
 
             $_SESSION['party_info'] = [];
             if ($this->count > 0) {
-                $row = $db->qry_first("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM %prefix%partys WHERE party_id=%int%", $this->party_id);
+                $row = $database->queryWithOnlyFirstRow("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM %prefix%partys WHERE party_id = ?", [$this->party_id]);
                 $this->data = $row;
 
                 $_SESSION['party_info'] = [
@@ -92,7 +94,7 @@ class Party
      */
     private function set_party_id($id)
     {
-        global $db;
+        global $db, $database;
 
         $row = $db->qry_first_rows("SELECT * FROM %prefix%partys WHERE party_id = %int%", $id);
         if ($row['number'] == 1) {
@@ -109,7 +111,7 @@ class Party
     public function get_party_dropdown_form($show_old = 0, $link = '')
     {
         $list_array = [];
-        global $dsp, $db, $func;
+        global $dsp, $db, $database, $func;
 
         if ($link == '') {
             $link = "index.php?" . $_SERVER['QUERY_STRING'];
@@ -156,7 +158,7 @@ class Party
      */
     public function add_user_to_party($user_id, $price_id = "0", $paid = "NULL", $checkin = "NULL")
     {
-        global $db, $cfg;
+        global $db, $database, $cfg;
 
         $timestamp = time();
 
@@ -174,7 +176,7 @@ class Party
 
         $row = $db->qry("SELECT * FROM %prefix%party_user WHERE user_id=%int% AND party_id=%int%", $user_id, $this->party_id);
         if ($db->num_rows($row) < 1) {
-            $prices = $db->qry_first("SELECT * FROM %prefix%party_prices WHERE price_id=%int%", $price_id);
+            $prices = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_prices WHERE price_id = ?", [$price_id]);
             if ($prices['depot_price'] == 0) {
                 $seatcontrol = 1;
             } else {
@@ -209,7 +211,7 @@ class Party
      */
     private function update_user_at_party($user_id, $paid, $price_id = "0", $checkin = "0", $checkout = "0", $seatcontrol = "NULL")
     {
-        global $db, $func;
+        global $cache, $db, $database, $func;
         $timestamp = time();
 
         if ($checkin == "1") {
@@ -221,7 +223,7 @@ class Party
         }
 
         if ($price_id != 0) {
-            $prices = $db->qry_first("SELECT * FROM %prefix%party_prices WHERE price_id=%int%", $price_id);
+            $prices = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_prices WHERE price_id = ?", [$price_id]);
             if ($prices['depot_price'] == 0) {
                 $seatcontrol = 1;
             }
@@ -247,6 +249,9 @@ class Party
         $msg = str_replace("%PARTY%", $this->party_id, str_replace("%ID%", $user_id, str_replace("%PIRCEID%", $price_id, str_replace("%SEATCONTROL%", $seatcontrol, str_replace("%CHECKOUT%", $checkout, str_replace("%CHECKIN%", $checkin, str_replace("%PAID%", $paid, t('Die Anmeldung von %ID% bei der Party %PARTY% wurde geändert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%'))))))));
         $func->log_event($msg, 1);
         $db->qry('UPDATE %prefix%party_user SET %plain%', $query);
+
+        // reset cached party statistics
+        $cache->delete('party.guestcount.' . $this->party_id);
     }
 
     /**
@@ -258,7 +263,7 @@ class Party
     public function delete_user_from_party($user_id)
     {
         $checkin = null;
-        global $db, $cfg;
+        global $cache, $database, $cfg;
 
         $timestamp = time();
         if ($checkin == "1" || $cfg["signon_autocheckin"] == "1") {
@@ -267,11 +272,14 @@ class Party
             $checkin = "0";
         }
 
-        $db->qry("
+        $database->query("
           DELETE FROM %prefix%party_user
           WHERE
-            user_id = %int%
-            AND party_id = %int%", $user_id, $this->party_id);
+            user_id = ?
+            AND party_id = ?", [$user_id, $this->party_id]);
+
+        // reset cached party statistics
+        $cache->delete('party.guestcount.' . $this->party_id);
     }
 
     /**
@@ -284,7 +292,7 @@ class Party
     public function get_user_group_dropdown($group_id = "NULL", $nogroub = 0, $select_id = 0, $javascript = false)
     {
         $data = [];
-        global $db, $dsp;
+        global $db, $database, $dsp;
 
         if ($group_id == "NULL") {
             $row = $db->qry("SELECT * FROM %prefix%party_usergroups");
@@ -339,9 +347,9 @@ class Party
      * @param string $select_opts
      * @return void
      */
-    public function add_user_group($group, $description, $selection, $select_opts)
+    public function addUsergroup($group, $description, $selection, $select_opts)
     {
-        global $db;
+        global $db, $database;
 
         $db->qry("
             INSERT %prefix%party_usergroups
@@ -355,25 +363,26 @@ class Party
     /**
      * Change a user group
      *
-     * @param int $group_id
-     * @param string $group
-     * @param string $description
+     * @param int $groupId Id of the user group to change
+     * @param string $groupName The (new) name of the group
+     * @param string $description Description of the group
      * @param string $selection
      * @param string $select_opts
      * @return void
      */
-    public function update_user_group($group_id, $group, $description, $selection, $select_opts)
+    public function updateUserGroup($groupId, $groupName, $description, $selection, $select_opts)
     {
-        global $db;
+        global $database;
 
-        $db->qry("
+        $database->query("
           UPDATE %prefix%party_usergroups
           SET
-            group_name = %string%,
-            description = %string%,
-            selection = %string%,
-            select_opts = %string%
-          WHERE group_id = %int%", $group, $description, $selection, $select_opts, $group_id);
+            group_name = ?,
+            description = ?,
+            selection = ?,
+            select_opts = ?
+          WHERE group_id = ?", [$groupName, $description, $selection, $select_opts, $groupId]
+        );
     }
 
     /**
@@ -386,41 +395,55 @@ class Party
      */
     public function delete_usergroups($del_group, $set_group)
     {
-        global $db;
-        $db->qry("UPDATE %prefix%user  SET group_id=%string% WHERE group_id=%string%", $set_group, $del_group);
-        $db->qry("DELETE FROM %prefix%party_usergroups WHERE group_id=%string%", $del_group);
+        global $database;
+        $database->query("UPDATE %prefix%user SET group_id = ? WHERE group_id = ?", [$set_group, $del_group]);
+        $database->query("DELETE FROM %prefix%party_usergroups WHERE group_id = ?", [$del_group]);
     }
-    
+
     /**
      * Returns the amount of users registered for a party.
-     * 
-     * @param int $party_id The ID of the party to calculate this for
+     *
+     * @param int $partyId The ID of the party to calculate this for (uses object value otherwise)
+     * @param
      * @return array Result array with elements "qty" and "paid"
     */
-    public function getGuestQty($party_id = NULL)
+    public function getGuestQty($partyId = null, $showOrga = null)
     {
-        $cfg = [];
-        $db = null;
-        global $cache;
-        
-        if (empty($party_id)) {
-            $party_id = $this->party_id;
-        }
-        
-        $partyCache = $cache->getItem('party.guestcount.' . $party_id);
+        global $cfg, $cache, $database;
+
+        $partyIdParameter = $partyId ?? $this->party_id;
+        $showOrgaParameter = $showOrga ?? $cfg["guestlist_showorga"];
+
+        $partyCache = $cache->getItem('party.guestcount.' . $partyIdParameter);
         if (!$partyCache->isHit()) {
-            // Fetch in one query
-            if ($cfg["guestlist_showorga"] == 0) {
-                $querytype = "type = 1";
-            } else {
+            // Include Admins or not
+            if ($showOrgaParameter) {
                 $querytype = "type >= 1";
+            } else {
+                $querytype = "type = 1";
             }
             // Fetch amounts from DB
-            $countQry = $db->qry('SELECT COUNT(*) as qty, party.paid as paid FROM %prefix%user as user LEFT JOIN %prefix%party_user as party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%) GROUP BY paid ORDER BY paid DESC;');
-            while ($guestCounts = $countQry->fetch_array()){}
+            $guestCounts = $database->queryWithOnlyFirstRow('SELECT COUNT(*) as qty, party.paid as paid FROM %prefix%user as user LEFT JOIN %prefix%party_user as party ON user.userid = party.user_id WHERE party_id= ? AND ' . $querytype . ' GROUP BY paid ORDER BY paid DESC;', [$partyIdParameter]);
             $partyCache->set($guestCounts);
             $cache->save($partyCache);
         }
         return $partyCache->get();
     }
+
+    /**
+     * Get details about this users participation at the party.
+     * Most prominently the name and price of the entrance ticket
+     *
+     * @param int|null $userId The userid to look the status up for
+     *
+     * @return array Array with party & Price information
+     */
+    public function getUserParticipationData(int|null $userId = null) : array
+    {
+        global $database, $auth;
+
+        $userIdParameter = $userId ?? $auth['userid'];
+        return $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_user AS pu LEFT JOIN %prefix%party_prices AS price ON price.price_id=pu.price_id WHERE user_id= ? and pu.party_id =?", [$userIdParameter, $this->party_id]) ?? [];
+    }
+
 }

@@ -49,12 +49,18 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Added database value User@Server into MySQL error message
 - [Installation] Added check for incompatible SQL Modes to the first installation page
 - [Installation] If there is no `config.php` file available during installation, create it during setup from the default config
+- [Info2] Added ability to replace variables in info texts and to see disabled info pages for admins
 - [Discord] Introduced a new module to manage Discord Servers
 - [Party] Add information `Gesamt` in the Party box to show how many people can sign up for a party
+- [Party] Added ability to switch party in internet system for admins
+- [Party] Added ability to trigger account check update from display box
 - [Birthday] New module to show users birthdays
 - [Hall of fame] New module to present all tournament winners in a Hall of Fame
 - [Server] Added Voice as server type
 - [Community] Created a discord community
+- [PDF] In-Module Documentation
+- [PDF] New options "align" and "border" to configure for a single PDF document
+- [System] Restrict display of PHP warnings to (Super-)Admins (#1131)
 
 ### Changed
 
@@ -68,7 +74,8 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Enabled Google Analytics Integration anonymizeIp feature
 - [System] Separated Google API-Keys for Analytics, Maps and Translate into dedicated settings (#887)
 - [System] Don't enforce php-snmp; only suggest it (#148)
-- [Cron] Show execution state, runtime and error, deactvate after 3 failed executions (#924) 
+- [System] Added unique id per installation to `config.php` for cache pool separation (#1141)
+- [Cron] Show execution state, runtime and error, deactvate after 3 failed executions (#924)
 - [System] Updated jQuery to v3.7.1 and jQuery UI to v1.13.2
 - [Database] Set utf8mb4 as the default charset
 - [Database] Add default database port to connection string if not configured
@@ -80,6 +87,8 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Security] Set Cookies HTTP only and protocol aware (https)
 - [Server] Changed CPU and RAM Unit of measure from Mega to Giga in Server hardware information
 - [Server] Limited visibility for non-Admins to active party
+- [Captcha] Replaced ASCII-Captcha with a graphical captcha
+- [PDF] Rework of the PDF module and adding full support for Certificates and new basic templates
 
 ### Deprecated
 
@@ -107,9 +116,12 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] Removed support for WWCL (WWCL shutdown in 2013)
 - [Tournament] Removed support for NGL (NGL shutdown in 2006)
 - [Tournament] Removed support for LGZ (LGZ is not longer available)
+- [About] Removed PHP and HTML Line count from about site
+- [Hardware] Removed settings "Optisches Laufwerk 1 + 2"
 
 ### Fixed
 
+- [Installation] Fixed #1135: Wizard failed after step three
 - [Foodcenter] Fixed the display of prices in Foodcenter by using the data type decimal instead of float
 - [System] Fixed various bugs rooted by typos in variable names
 - [System] Fixed several PHP syntax errors in the code base
@@ -122,6 +134,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Fixed #344: Switching to English during Installation breaks the Installation page (#650)
 - [Installation] Fixed dropdown to select the design
 - [Installation] Fixed Database error when going from step 2 to 1 in install wizzard (#871)
+- [Installation] Fixed compatibility with database names containing a hyphen (#1095)
 - [Home] Set module `home` as default if we don't have a module parameter
 - [Clanmgr] Only prefix clan URL with http:// if an URL was entered
 - [Clanmgr] Only prefix URL field with http:// for display when an URL exists
@@ -135,6 +148,9 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] MySQL Warning in module tournament2 if the user is not logged in (#97)
 - [Guestlist] Restrict user information shown on Google Maps according to their settings and never show the street details ... unless you are an administrator
 - [Board] Deletion of board failed without error (#861)
+- [Forms] Hours and Minutes are not getting pre-selected in date time fields, if they are single digit (#971)
+- [Server] Fixed invalid query for homescreen (#1125)
+- [Seating] Fixed queries using reserved keyword 'row' (#1133)
 
 ### Security
 

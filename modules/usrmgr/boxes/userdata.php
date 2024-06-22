@@ -6,7 +6,7 @@
 // If an admin is logged in as an user
 // show admin name and switch back link
 if ($olduserid > 0) {
-    $old_user = $db->qry_first('SELECT username FROM %prefix%user WHERE userid=%int%', $olduserid);
+    $old_user = $database->queryWithOnlyFirstRow('SELECT username FROM %prefix%user WHERE userid = ?', [$olduserid]);
 
     if (strlen($old_user['username']) > 14) {
         $old_user['username'] = substr($old_user['username'], 0, 11) . "...";
@@ -30,22 +30,26 @@ $userid_formated = sprintf("%04d", $auth['userid']);
 $box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout" class="icon_delete" title="'. t('Ausloggen') .'"></a>');
 $box->EngangedRow($dsp->FetchUserIcon($auth['userid'], $username));
 
-// Show last log in and login count
-$user_lg = $db->qry_first("
-  SELECT
-    user.logins,
-    MAX(auth.logintime) AS logintime
+// Get number of Logins for user
+$userRow = $database->queryWithOnlyFirstRow("
+  SELECT `logins`
   FROM %prefix%user AS user
-  LEFT JOIN %prefix%stats_auth AS auth ON auth.userid = user.userid
+  WHERE userid = ?", [$auth["userid"]]);
+
+// Show last log in time
+$userLastLogin = $database->queryWithOnlyFirstRow("
+  SELECT
+    MAX(auth.logintime) AS logintime
+  FROM %prefix%stats_auth AS auth
   WHERE
-    user.userid = %int%
-  GROUP BY auth.userid", $auth["userid"]);
+    auth.userid = ?
+  GROUP BY auth.userid", [$auth["userid"]]);
 
 if (isset($_POST['login']) and isset($_POST['password'])) {
-    $box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] .'</b>');
+    $box->DotRow(t('Logins'). ": <b>". $userRow["logins"] .'</b>');
     $box->DotRow(t('Zuletzt eingeloggt'));
     date_default_timezone_set($cfg['sys_timezone']);
-    $box->EngangedRow("<b>". date('d.m H:i', $user_lg["logintime"]) ."</b>");
+    $box->EngangedRow("<b>". date('d.m H:i', $userLastLogin["logintime"]) ."</b>");
 }
 
 // Show Clan
@@ -86,13 +90,13 @@ if ($cfg["user_show_ticket"]) {
 
 // Zeige Anmeldestatus
 if ($party->count > 0 and $_SESSION['party_info']['partyend'] > time()) {
-    $query_signstat = $db->qry_first("
+    $query_signstat = $database->queryWithOnlyFirstRow("
       SELECT
         *
       FROM %prefix%party_user AS pu
       WHERE
-        pu.user_id = %int%
-        AND pu.party_id = %int%", $auth["userid"], $party->party_id);
+        pu.user_id = ?
+        AND pu.party_id = ?", [$auth["userid"], $party->party_id]);
 
     $paidstat_info = '';
     $signstat_info = '';
@@ -112,7 +116,7 @@ if ($party->count > 0 and $_SESSION['party_info']['partyend'] > time()) {
         }
     }
   
-    $query_partys = $db->qry_first("SELECT * FROM %prefix%partys AS p WHERE p.party_id = %int%", $_SESSION["party_id"]);
+    $query_partys = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%partys AS p WHERE p.party_id = ?", [$_SESSION["party_id"]]);
                     
     $box->DotRow("<b>".$query_partys["name"]."</b> ". t('Status') .':');
     $box->EngangedRow(t('Angemeldet') .': <b>'. $signstat .'</b><br> '. $signstat_info);

@@ -16,14 +16,14 @@ class Accounting
 
     public function __construct($user_id)
     {
-        global $db;
+        global $database;
         
         $this->user_id = $user_id;
         
         if (isset($_SESSION['foodcenter']['account_block']) && $_SESSION['foodcenter']['account_block'] != $_SERVER['QUERY_STRING']) {
             unset($_SESSION['foodcenter']['account_block']);
         }
-        $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int%", $this->user_id);
+        $result = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ?", [$this->user_id]);
         
         if ($result['total'] == "") {
             $this->balance = 0;
@@ -40,14 +40,14 @@ class Accounting
      */
     public function change($price, $comment, $userid)
     {
-        global $db;
+        global $database;
 
         if (!isset($_SESSION['foodcenter']['account_block'])) {
-            $db->qry("INSERT INTO %prefix%food_accounting SET userID=%int%, comment=%string%, movement=%string%,actiontime=NOW()", $userid, $comment, $price);
+            $database->query("INSERT INTO %prefix%food_accounting SET userID = ?, comment = ?, movement = ?, actiontime = NOW()", [$userid, $comment, $price]);
             $_SESSION['foodcenter']['account_block'] = $_SERVER['QUERY_STRING'];
         }
         
-        $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userID = %int%", $userid);
+        $result = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userID = ?", [$userid]);
         
         if ($result['total'] == "") {
             $this->balance = 0;
@@ -64,8 +64,8 @@ class Accounting
         global $db, $database, $dsp, $cfg;
 
         $result = $database->queryWithFullResult("SELECT *, DATE_FORMAT(actiontime,\"%d.%m.%y %H:%i\") AS time FROM %prefix%food_accounting WHERE userid = ? ORDER BY actiontime DESC", [$this->user_id]);
-        $deposit = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement > 0", [$this->user_id]);
-        $disbursement = $database->queryWithOnlyFirstRow("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement < 0", [$this->user_id]);
+        $deposit = $database->queryWithOnlyFirstRow("SELECT movement, SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement > 0", [$this->user_id]);
+        $disbursement = $database->queryWithOnlyFirstRow("SELECT movement, SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ? AND movement < 0", [$this->user_id]);
 
         $depositTotal = $deposit['total'] ?? 0;
         $disbursementTotal = $disbursement['total'] ?? 0;

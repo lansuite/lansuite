@@ -12,7 +12,7 @@ if (array_key_exists('quick_signon', $_SESSION) && $_SESSION['quick_signon']) {
 
 if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
     $userIdParameter = $_GET['userid'] ?? 0;
-    $party_user = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id= %int%", $userIdParameter, $party->party_id);
+    $party_user = $database->queryWithOnlyFirstRow("SELECT * FROM %prefix%party_user WHERE user_id = ? AND party_id = ?", [$userIdParameter, $party->party_id]);
     $mf = new \LanSuite\MasterForm();
   
     if ($cfg['signon_def_locked'] && !$userIdParameter) {
@@ -116,7 +116,7 @@ if (!($_GET['mod'] == 'signon' && $auth['login'] && $_GET['party_id'])) {
             // Clan Options
             if (ShowFieldUsrMgr('clan')) {
                 if (!isset($_POST['clan'])) {
-                    $users_clan = $db->qry_first("SELECT clanid FROM %prefix%user WHERE userid = %int%", $userIdParameter);
+                    $users_clan = $database->queryWithOnlyFirstRow("SELECT clanid FROM %prefix%user WHERE userid = ?", [$userIdParameter]);
                     $_POST['clan'] = $users_clan['clanid'] ?? 0;
                 }
 

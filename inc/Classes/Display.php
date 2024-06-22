@@ -176,7 +176,7 @@ class Display
         if (array_key_exists('tab', $_GET) && $_GET['tab']) {
             $sel = '{ selected: '. (int)$_GET['tab'] .' }';
         }
-        $framework->add_js_code('$(function() { $("#tabs").tabs('. $sel .'); });');
+        $framework->addJavaScriptCode('$(function() { $("#tabs").tabs('. $sel .'); });');
 
         $out .= $MainContent .'</div>';
         $MainContent = $out;
@@ -873,12 +873,14 @@ class Display
             $year = date("Y", $time);
             $hour = date("H", $time);
             $min = date("i", $time);
-        } elseif ($values['day'] != "" and $values['month'] != "" and $values['year'] != "") {
+
+        } elseif ($values['day'] != "" && $values['month'] != "" && $values['year'] != "") {
             $day = ltrim($values['day'],'0');
             $month = ltrim($values['month'],'0');
             $year = $values['year'];
             $hour = $values['hour'];
             $min = $values['min'];
+
         } else {
             $day = date("j");
             $month = date("n");
@@ -892,15 +894,17 @@ class Display
         $smarty->assign('hour', $hour);
         $smarty->assign('min', $min);
 
-        $arr = array();
+        $arr = [];
         for ($x = 0; $x <= 55; $x+=5) {
-            $arr[$x] = $x;
+            $numberWithLeadingZero = str_pad($x, 2, "0", STR_PAD_LEFT);
+            $arr[$numberWithLeadingZero] = $numberWithLeadingZero;
         }
         $smarty->assign('mins', $arr);
 
-        $arr = array();
+        $arr = [];
         for ($x = 0; $x <= 23; $x++) {
-            $arr[$x] = $x;
+            $numberWithLeadingZero = str_pad($x, 2, "0", STR_PAD_LEFT);
+            $arr[$numberWithLeadingZero] = $numberWithLeadingZero;
         }
         $smarty->assign('hours', $arr);
 
@@ -1277,9 +1281,11 @@ class Display
     }
 
     /**
-     * @param int $userid
-     * @param string $username
-     * @return string
+     * Adds user icon and username based on template ls_usericon.htm to output
+     *
+     * @param int $userid The numeric user id to fetch the icon for
+     * @param string $username The username to display, empty if not given
+     * @return string raw html for output
      * @throws \Exception
      * @throws \SmartyException
      */
@@ -1292,7 +1298,7 @@ class Display
         }
 
         $smarty->assign('userid', $userid);
-        $smarty->assign('username', $username);
+        $smarty->assign('username', htmlspecialchars($username)); // username may contain special characters
         $smarty->assign('hint', t('Benutzerdetails aufrufen'));
 
         if (in_array($userid, $authentication->online_users)) {

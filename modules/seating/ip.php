@@ -58,14 +58,14 @@ switch ($stepParameter) {
                 $col = floor($cur_cell / 100);
                 $row = $cur_cell % 100;
 
-                $db->qry_first("
+                $database->queryWithOnlyFirstRow("
                   UPDATE %prefix%seat_seats
                   SET
-                    ip=%string%
+                    ip = ?
                   WHERE
-                    blockid = %int%
-                    AND row = %string%
-                    AND col = %string%", $value, $_GET['blockid'], $row, $col);
+                    blockid = ?
+                    AND `row` = ?
+                    AND col = ?", [$value, $_GET['blockid'], $row, $col]);
             }
         }
         $func->confirmation(t('Die IPs wurden erfolgreich eingetragen'), 'index.php?mod=seating');

@@ -36,7 +36,7 @@ switch ($stepParameter) {
 
     // Details
     case 2:
-        $row = $db->qry_first('SELECT name, url, clanlogo_path FROM %prefix%clan WHERE clanid = %int%', $_GET['clanid']);
+        $row = $database->queryWithOnlyFirstRow('SELECT name, url, clanlogo_path FROM %prefix%clan WHERE clanid = ?', [$_GET['clanid']]);
 
         if ($func->chk_img_path($row['clanlogo_path'])) {
             $dsp->AddDoubleRow(t(''), '<img src="'.$row['clanlogo_path'].'" alt="'.$row['name'].'">');
@@ -125,8 +125,8 @@ switch ($stepParameter) {
             }
             if ($_POST['action']) {
                 foreach ($_POST['action'] as $key => $val) {
-                    $db->qry('DELETE FROM %prefix%clan WHERE clanid = %string%', $key);
-                    $db->qry('UPDATE %prefix%user SET clanid = 0 WHERE clanid = %string%', $key);
+                    $database->query('DELETE FROM %prefix%clan WHERE clanid = ?', [$key]);
+                    $database->query('UPDATE %prefix%user SET clanid = 0 WHERE clanid = ?', [$key]);
                 }
             }
             $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr');
@@ -184,7 +184,7 @@ switch ($stepParameter) {
         } elseif (CountAdmins() == 1 and $auth['clanadmin'] == 1) {
             $func->information(t('Löschen nicht möglich. Du bist der einzige Clan-Admin in diesem Clan. Benne bitte vorher einen weiteren Admin.'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='.$_GET['clanid']);
         } elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) or ($_GET['clanid'] == $auth['clanid'] and $_GET['userid'] = $auth['userid']) or $auth['type'] > \LS_AUTH_TYPE_ADMIN) {
-            $db->qry('UPDATE %prefix%user SET clanid = 0 WHERE userid = %int%', $_GET['userid']);
+            $database->query('UPDATE %prefix%user SET clanid = 0 WHERE userid = ?', [$_GET['userid']]);
             $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='.$_GET['clanid']);
         } else {
             $func->information(t('Du bist nicht berechtigt Mitglieder aus diesem Clan zu entfernen'), 'index.php?mod=home');
@@ -196,14 +196,14 @@ switch ($stepParameter) {
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), 'index.php?mod=home');
         } elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > \LS_AUTH_TYPE_USER) {
-            $cur_role = $db->qry_first('SELECT username, clanadmin FROM %prefix%user WHERE clanid = %int% AND userid = %int%', $_GET['clanid'], $_GET['userid']);
+            $cur_role = $database->queryWithOnlyFirstRow('SELECT username, clanadmin FROM %prefix%user WHERE clanid = ? AND userid = ?', [$_GET['clanid'], $_GET['userid']]);
             if ($cur_role['clanadmin'] and CountAdmins() == 1) {
                 $func->information(t('Du kannst %1 nicht die Admin Rolle entziehen, da %1 z.z das einzige Mitglied mit der Rolle Clan-Admin ist. Benenne bitte vorher einen anderen Admin.', $cur_role['username']), 'index.php?mod=clanmgr&step=2&clanid='.$_GET['clanid']);
             } elseif ($cur_role['clanadmin']) {
-                $db->qry('UPDATE %prefix%user SET clanadmin = 0 WHERE userid = %int%', $_GET['userid']);
+                $database->query('UPDATE %prefix%user SET clanadmin = 0 WHERE userid = ?', [$_GET['userid']]);
                 $func->confirmation(t('Benutzer %1 ist nun kein Clan-Admin mehr', $cur_role['username']), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='.$_GET['clanid']);
             } else {
-                $db->qry('UPDATE %prefix%user SET clanadmin = 1 WHERE userid = %int%', $_GET['userid']);
+                $database->query('UPDATE %prefix%user SET clanadmin = 1 WHERE userid = ?', [$_GET['userid']]);
                 $func->confirmation(t('Benutzer %1 ist nun Clan-Admin', $cur_role['username']), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='.$_GET['clanid']);
             }
         } else {
@@ -213,20 +213,22 @@ switch ($stepParameter) {
 
     // Enter a new clan
     case 60:
+        $clanPassParameter = $_POST['clan_pass'] ?? '';
+
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), 'index.php?mod=home');
         } elseif ($auth['type'] < \LS_AUTH_TYPE_USER) {
             $func->error(t('Keine Berechtigung diese Funktion auszuführen'), 'index.php?mod=home');
-        } elseif (!$_POST['clan_pass']) {
+        } elseif (!$clanPassParameter) {
             $dsp->SetForm('index.php?mod=clanmgr&action=clanmgr&step=60&clanid='.$_GET['clanid']);
             $dsp->AddSingleRow(t('Um den Clan beizutreten, musst du das Clanpasswort eingeben. Solltest du dies nicht kennen, wenden dich bitte an deinen Clan-Admin.'));
-            $dsp->AddPasswordRow('clan_pass', t('Clan Passwort'), $_POST['clan_pass'], '');
+            $dsp->AddPasswordRow('clan_pass', t('Clan Passwort'), $clanPassParameter, '');
             $dsp->AddFormSubmitRow('send');
             $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr&step=2&clanid='.$_GET['clanid'], 'usrmgr/pwremind');
         } else {
-            if (CheckClanPW($_POST['clan_pass'])) {
-                $db->qry('UPDATE %prefix%user SET clanid = %int%, clanadmin = 0 WHERE userid =%int%', $_GET['clanid'], $auth['userid']);
-                $tmpclanname = $db->qry_first('SELECT name FROM %prefix%clan WHERE clanid = %int%', $_GET['clanid']);
+            if (CheckClanPW($clanPassParameter)) {
+                $database->query('UPDATE %prefix%user SET clanid = ?, clanadmin = 0 WHERE userid = ?', [$_GET['clanid'], $auth['userid']]);
+                $tmpclanname = $database->queryWithOnlyFirstRow('SELECT name FROM %prefix%clan WHERE clanid = ?', [$_GET['clanid']]);
                 $func->confirmation(t('Du bist erfolgreich dem Clan beigetreten.'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='.$_GET['clanid']);
                 $func->log_event(t('%1 ist dem Clan %2 beigetreten', $auth['username'], $tmpclanname['name']), 1, t('clanmgr'));
             } else {

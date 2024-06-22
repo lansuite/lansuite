@@ -6,9 +6,9 @@
  */
 function CheckClanPW($clanpw)
 {
-    global $db;
+    global $database;
 
-    $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
+    $clan = $database->queryWithOnlyFirstRow("SELECT password FROM %prefix%clan WHERE clanid = ?", [$_GET['clanid']]);
     if ($clan['password'] and $clan['password'] == md5($clanpw)) {
         return true;
     }

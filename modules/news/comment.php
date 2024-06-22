@@ -4,11 +4,11 @@
 $newsQuery = 'SELECT caption FROM %prefix%news WHERE newsid = ?';
 $check = $database->queryWithOnlyFirstRow($newsQuery, [$_GET['newsid']]);
 if ($check["caption"] != "") {
-    $framework->AddToPageTitle($check["caption"]);
+    $framework->addToPageTitle($check["caption"]);
     $func->SetRead('news', $_GET['newsid']);
   
     // Get news data
-    $get_news = $db->qry_first('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news n LEFT JOIN %prefix%user u ON u.userid = n.poster WHERE n.newsid = %int%', $_GET['newsid']);
+    $get_news = $database->queryWithOnlyFirstRow('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news n LEFT JOIN %prefix%user u ON u.userid = n.poster WHERE n.newsid = ?', [$_GET['newsid']]);
     $templ_news_single_row_priority = $get_news["priority"];
     
     if ($templ_news_single_row_priority == 1) {

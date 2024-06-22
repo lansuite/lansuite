@@ -16,9 +16,9 @@ switch ($stepParameter) {
         $current_url = 'index.php?mod=seating&action=copy';
         $ms2->PrintSearch($current_url, 'b.blockid');
         break;
-  
+
     case 2:
-        $row = $db->qry_first('SELECT * FROM %prefix%seat_block WHERE blockid = %int%', $_GET['blockid']);
+        $row = $database->queryWithOnlyFirstRow('SELECT * FROM %prefix%seat_block WHERE blockid = ?', [$_GET['blockid']]);
         $db->qry(
             '
           INSERT INTO %prefix%seat_block
@@ -77,7 +77,7 @@ switch ($stepParameter) {
               SET
                 blockid = %int%,
                 col = %int%,
-                row = %int%,
+                `row` = %int%,
                 status = %int%,
                 ip = %string%,
                 userid = 0',
@@ -105,7 +105,7 @@ switch ($stepParameter) {
                 );
         }
         $db->free_result($res);
-    
+
         $func->confirmation(t('Der Sitzplan wurde erfolgreich kopiert'), 'index.php?mod=seating');
         break;
 }

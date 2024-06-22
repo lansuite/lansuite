@@ -1,6 +1,7 @@
 <?php
 
 $_GET['mf_id'] = '1';
+$masterFormStepParameter = $_GET['mf_step'] ?? null;
 
 $nextVersionId = 0;
 $row = $database->queryWithOnlyFirstRow('
@@ -20,7 +21,7 @@ if ($row['found']) {
       WHERE
         postid = ?
         AND versionid = ?', [$_GET['postid'], $row['versionid']]);
-    if ($_GET['mf_step'] != 2) {
+    if ($masterFormStepParameter != 2) {
         $_POST['text'] = $row['text'];
     }
 }
@@ -36,7 +37,7 @@ while ($row = $db->fetch_array($res)) {
 }
 $db->free_result($res);
 
-$framework->add_js_code($jscode);
+$framework->addJavaScriptCode($jscode);
 $smarty->assign('define_url_options', $define_url_options);
 $dsp->AddDoubleRow('', $smarty->fetch('modules/wiki/templates/add_page_link.htm'));
 
@@ -49,7 +50,7 @@ $mf->AddFix('postid', $_GET['postid']);
 $mf->AddFix('versionid', $nextVersionId);
 
 $mf->SendForm('index.php?mod=wiki&amp;action='. $_GET['action'] .'&postid='. $_GET['postid'], 'wiki_versions');
-if ($_GET['mf_step'] == '2') {
+if ($masterFormStepParameter == '2') {
     $_GET['action'] = 'show';
     include_once('modules/wiki/show.php');
 }

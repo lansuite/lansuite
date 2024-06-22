@@ -6,7 +6,7 @@ set_time_limit(0);
 // And now continue with the fun stuff...
 $importXml = new \LanSuite\XML();
 $installImport = new \LanSuite\Module\Install\Import($importXml);
-$install = new \LanSuite\Module\Install\Install($installImport);
+$install = new \LanSuite\Module\Install\Install();
 
 $install->TryCreateDB(1);
 $db->connect();
@@ -55,18 +55,18 @@ if ($questParameter ) {
 
         // Rewrite configs
         case 4:
-            $db->qry("DROP TABLE %prefix%config");
-            $db->qry("DROP TABLE %prefix%config_selections");
+            $database->query("DROP TABLE %prefix%config");
+            $database->query("DROP TABLE %prefix%config_selections");
             break;
 
         // Rewrite Configs
         case 6:
-            $db->qry("DROP TABLE %prefix%modules");
+            $database->query("DROP TABLE %prefix%modules");
             break;
 
         // Reset Module DBs
         case 7:
-            $install->WriteTableFromXMLFile($moduleParameter, 1);
+            $install->WriteTableFromXMLFile($moduleParameter, 1, $installImport);
             break;
     }
 
@@ -75,7 +75,7 @@ if ($questParameter ) {
     $install->InsertPLZs();
 
     // Delete Log eintries which indicate a broken DB-Structure, for they are most likely fixed by now
-    $db->qry_first('DELETE FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
+    $database->query('DELETE FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
 
     $dsp->AddBackButton("index.php?mod=install", "install/db");
 }

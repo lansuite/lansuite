@@ -26,43 +26,47 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
 
 $PHPErrors = '';
 
+// Load Basic Config
+if (file_exists('inc/base/config.php')) {
+    $config = parse_ini_file('inc/base/config.php', 1);
+
+// Default config. Will be used only until the wizard has created the config file
+} else {
+    $config = [];
+
+    $config['lansuite']['default_design'] = 'simple';
+    $config['lansuite']['chmod_dir'] = '777';
+    $config['lansuite']['chmod_file'] = '666';
+    $config['lansuite']['debugmode'] = '0';
+    $config['lansuite']['uid'] = uniqid('ls_', true);
+
+    $config['database']['server'] = 'localhost';
+    $config['database']['dbport'] = 3306;
+    $config['database']['user'] = 'root';
+    $config['database']['passwd'] = '';
+    $config['database']['database'] = 'lansuite';
+    $config['database']['prefix'] = 'ls_';
+    $config['database']['charset'] = 'utf8mb4';
+
+    $config['environment']['configured'] = 0;
+}
+
+// Check cache pool name - generate one if not existing
+if (!array_key_exists('uid', $config['lansuite']) || $config['lansuite']['uid'] == '')
+{
+    $config['lansuite']['uid'] = uniqid('ls_', true);
+
+    // Write config to file to ensure that uid is persistent
+    $install = new \LanSuite\Module\Install\Install();
+    $install->WriteConfig();
+}
+
 // Initialize Cache. Go for APCu first, filebased otherwise. DB adaptor to be used when we implement PDO.
 if (extension_loaded('apcu')) {
-    $cache = new Symfony\Component\Cache\Adapter\ApcuAdapter('lansuite', 600);
+    $cache = new Symfony\Component\Cache\Adapter\ApcuAdapter($config['lansuite']['uid'], 600);
 } else {
-    $cache = new Symfony\Component\Cache\Adapter\FilesystemAdapter('lansuite', 600);
+    $cache = new Symfony\Component\Cache\Adapter\FilesystemAdapter($config['lansuite']['uid'], 600);
 }
-
-// Check cache for config, try to load from file otherwise
-$configCache = $cache->getItem('config');
-if (!$configCache->isHit() || $request->query->get('mod') == 'install') {
-    // Read Config and Definitionfiles
-    // Load Basic Config
-    if (file_exists('inc/base/config.php')) {
-        $config = parse_ini_file('inc/base/config.php', 1);
-    // Default config. Will be used only until the wizard has created the config file
-    } else {
-        $config = [];
-
-        $config['lansuite']['default_design'] = 'simple';
-        $config['lansuite']['chmod_dir'] = '777';
-        $config['lansuite']['chmod_file'] = '666';
-        $config['lansuite']['debugmode'] = '0';
-
-        $config['database']['server'] = 'localhost';
-        $config['database']['dbport'] = 3306;
-        $config['database']['user'] = 'root';
-        $config['database']['passwd'] = '';
-        $config['database']['database'] = 'lansuite';
-        $config['database']['prefix'] = 'ls_';
-        $config['database']['charset'] = 'utf8mb4';
-
-        $config['environment']['configured'] = 0;
-    }
-    $configCache->set($config);
-    $cache->save($configCache);
-}
-$config = $configCache->get();
 
 if (!isset($config['environment'])) {
     $config['environment']['configured'] = 0;
@@ -97,7 +101,8 @@ if (!$config['lansuite']['debugmode']) {
 session_start();
 
 // Initialise Frameworkclass for Basic output
-$framework = new \LanSuite\Framework();
+$MainContent = '';
+$framework = new \LanSuite\Framework($request);
 if (isset($_GET['fullscreen'])) {
     $framework->fullscreen($_GET['fullscreen']);
 }
@@ -105,7 +110,12 @@ if (isset($_GET['fullscreen'])) {
 // Compromise ... design as base and popup should be deprecated
 $design = $request->query->get('design');
 $frmwrkmode = '';
-if ($design == 'base' || $design == 'popup' || $design == 'ajax' || $design == 'print' || $design == 'beamer') {
+
+if ($design == \LanSuite\Framework::DISPLAY_MODUS_BASE ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_POPUP ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_AJAX ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_PRINT ||
+    $design == \LanSuite\Framework::DISPLAY_MODUS_BEAMER) {
     $frmwrkmode = $design;
 }
 // Set Popupmode via GET (base, popup)
@@ -114,7 +124,7 @@ if (isset($_GET['frmwrkmode']) && $_GET['frmwrkmode']) {
 }
 // Set Popupmode via GET (base, popup)
 if (isset($frmwrkmode)) {
-    $framework->set_modus($frmwrkmode);
+    $framework->setDisplayModus($frmwrkmode);
 }
 
 // Set HTTP-Headers
@@ -196,6 +206,7 @@ $lang = [];
 // Initialize debug mode
 if ($config['lansuite']['debugmode'] > 0) {
     $debug = new \LanSuite\Debug($config['lansuite']['debugmode']);
+    $framework->setDebugMode($debug);
 }
 
 // Load Translationclass. No t()-Function before this point!
@@ -208,6 +219,8 @@ $smarty->setCacheDir('./ext_inc/templates_cache/');
 // TODO Think about enabling caching for templates in production mode, but not in development mode
 // See https://smarty-php.github.io/smarty/stable/api/caching/basics/
 $smarty->setCaching(Smarty::CACHING_OFF);
+
+$framework->setTemplateEngine($smarty);
 
 if (isset($debug)) {
     $debug->tracker("Include and Init Smarty");
@@ -224,13 +237,18 @@ $dsp = new \LanSuite\Display();
 $db = new \LanSuite\DB();
 
 // Loading the new database class with standard support for prepared statements.
+$sqlmode = '';
+if (array_key_exists('sqlmode', $config['database'])) {
+    $sqlmode = $config['database']['sqlmode'];
+}
 $database = new \LanSuite\Database(
     $config['database']['server'],
     $config['database']['dbport'] ?? 3306,
     $config['database']['user'],
     $config['database']['passwd'],
     $config['database']['database'],
-    $config['database']['charset'] ?? 'utf8mb4'
+    $config['database']['charset'] ?? 'utf8mb4',
+    $sqlmode
 );
 try {
     $database->connect();
@@ -301,7 +319,7 @@ if ($config['environment']['configured'] == 0) {
     if (!$func->admin_exists() && isset($_GET["action"]) && (($_GET["action"] == "wizard" && $_GET["step"] <= 3) || ($_GET["action"] == "ls_conf"))) {
         $db->success = 0;
     }
-    
+
     //load $cfg from cache
     $cfgCache = $cache->getItem('cfg');
     if (!$cfgCache->isHit()) {
@@ -317,7 +335,7 @@ if ($config['environment']['configured'] == 0) {
     // if another language is selected in the install module.
 
     $message = $sec->check_blacklist();
-    
+
     if (strlen($message) > 0) {
         die($message);
     }
@@ -327,17 +345,25 @@ if ($config['environment']['configured'] == 0) {
     }
     $func->getActiveModules();
 
-    $framework->AddToPageTitle($cfg['sys_page_title']);
+    $framework->addToPageTitle($cfg['sys_page_title']);
     if ($func->isModActive($_GET['mod'], $caption) && $_GET['mod'] != 'home') {
-        $framework->AddToPageTitle($caption);
+        $framework->addToPageTitle($caption);
     }
 
     // Start authentication, just if LS is working
-    $authentication = new \LanSuite\Auth($request, $frmwrkmode);
+    $authentication = new \LanSuite\Auth($database, $request, $frmwrkmode);
     // Test Cookie / Session if user is logged in
     $auth = $authentication->check_logon();
     // Olduserid for Switback on Boxes
     $olduserid = $authentication->get_olduserid();
+}
+
+// If the current user is not an admin, we suppress PHP warnings
+// We keep them for Admins and Superadmins, because they might be interested in a fully functional system.
+// We assume those errors get reported back to the developers.
+if ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
+    $errorlevel = error_reporting();
+    error_reporting($errorlevel & ~E_WARNING);
 }
 
 // Initialize party
@@ -449,7 +475,7 @@ $PHPErrors = '';
 include_once('index_module.inc.php');
 
 // Complete Framework and Output HTML
-$framework->set_design($auth['design']);
+$framework->setDesign($auth['design']);
 
 $db->DisplayErrors();
 if ($PHPErrors) {
@@ -459,10 +485,10 @@ $PHPErrors = '';
 
 // Add old Frameworkmessages (should be deprecated)
 if (isset($FrameworkMessages)) {
-    $framework->add_content($FrameworkMessages);
+    $framework->addContent($FrameworkMessages);
 }
 // Add old MainContent-Variable (should be deprecated)
-$framework->add_content($MainContent);
+$framework->addContent($MainContent);
 
     // DEBUG:Alles
 if (isset($debug)) {
@@ -472,7 +498,7 @@ if (isset($debug)) {
 }
 
 // Output of all HTML
-$framework->html_out();
+$framework->sendHTMLOutput();
 unset($framework);
 unset($smarty);
 unset($templ);

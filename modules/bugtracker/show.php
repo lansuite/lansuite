@@ -164,7 +164,7 @@ if (!$bugidParameter || $actionParameter == 'delete') {
 } else {
     $func->SetRead('bugtracker', $_GET['bugid']);
 
-    $row = $db->qry_first("
+    $row = $database->queryWithOnlyFirstRow("
       SELECT
         b.*,
         UNIX_TIMESTAMP(b.changedate) AS changedate,
@@ -175,17 +175,16 @@ if (!$bugidParameter || $actionParameter == 'delete') {
       LEFT JOIN %prefix%user AS r ON b.reporter = r.userid
       LEFT JOIN %prefix%user AS a ON b.agent = a.userid
       WHERE
-        bugid = %int%
+        bugid = ?
         AND (
           !private
-          OR " . (int) $auth['type'] . " >= " . \LS_AUTH_TYPE_ADMIN . "
-        )", $_GET['bugid']);
+          OR " . (int) $auth['type'] . " >= ?)", [$_GET['bugid'], \LS_AUTH_TYPE_ADMIN]);
 
     $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
     $dsp->StartTabs();
   
     $dsp->StartTab(t('Eintrag und Kommentare'), 'details');
-    $framework->AddToPageTitle($row['caption']);
+    $framework->addToPageTitle($row['caption']);
 
     $dsp->AddDoubleRow(t('Herkunft'), '<a href="http://'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> Version('. $row['version'] .')');
     $dsp->AddDoubleRow(t('Reporter'), $dsp->FetchUserIcon($row['reporter'], $row['reporter_name']));

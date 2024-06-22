@@ -4,7 +4,7 @@ $poll = new LanSuite\Module\Poll\Poll();
 
 $stepParameter = $_GET['step'] ?? 0;
 if ($stepParameter >= 2) {
-    $pollrow = $db->qry_first('
+    $pollrow = $database->queryWithOnlyFirstRow('
       SELECT
         caption,
         comment,
@@ -14,21 +14,21 @@ if ($stepParameter >= 2) {
         requirement
       FROM %prefix%polls
       WHERE
-        pollid = %int%
+        pollid = ?
         AND (
           !group_id
-          OR group_id = %int%
-        )', $_GET['pollid'], $auth['group_id']);
+          OR group_id = ?
+        )', [$_GET['pollid'], $auth['group_id']]);
     $dsp->NewContent(t('Poll') .': '. $pollrow["caption"], $func->text2html($pollrow['comment']));
 
-    $voted = $db->qry_first('
+    $voted = $database->queryWithOnlyFirstRow('
       SELECT
         1 AS found
       FROM %prefix%polloptions AS o
       INNER JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
       WHERE
-        o.pollid = %int%
-        AND v.userid = %int%', $_GET['pollid'], $auth['userid']);
+        o.pollid = ?
+        AND v.userid = ?', [$_GET['pollid'], $auth['userid']]);
     if (!$pollrow['caption']) {
         $func->error(t('Dieser Poll existiert nicht, oder du hast keine Berechtigung ihn zu sehen'), NO_LINK);
         $_GET['step'] = 1;
@@ -50,7 +50,7 @@ if ($stepParameter >= 2) {
         }
     }
 
-    $framework->AddToPageTitle($pollrow["caption"]);
+    $framework->addToPageTitle($pollrow["caption"]);
 }
 
 $stepParameter = $_GET['step'] ?? 0;
@@ -88,10 +88,10 @@ switch ($stepParameter) {
     case 3:
         if ($pollrow['multi']) {
             foreach ($_POST['option'] as $option) {
-                $db->qry('INSERT INTO %prefix%pollvotes SET userid = %int%, polloptionid = %int%', $auth['userid'], $option);
+                $database->query('INSERT INTO %prefix%pollvotes SET userid = ?, polloptionid = ?', [$auth['userid'], $option]);
             }
         } else {
-            $db->qry('INSERT INTO %prefix%pollvotes SET userid = %int%, polloptionid = %int%', $auth['userid'], $_POST['option']);
+            $database->query('INSERT INTO %prefix%pollvotes SET userid = ?, polloptionid = ?', [$auth['userid'], $_POST['option']]);
         }
             $func->confirmation(t('Deine Stimme wurde gezählt'), 'index.php?mod=poll&action=show&step=2&pollid='. $_GET['pollid']);
         break;

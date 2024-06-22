@@ -13,15 +13,15 @@ if ($cfg["guestlist_showorga"] == 0) {
 }
 
 // Number of registered users
-$get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user WHERE %plain%', $querytype);
+$get_cur = $database->queryWithOnlyFirstRow('SELECT COUNT(userid) as n FROM %prefix%user AS user WHERE ' . $querytype, []);
 $reg = $get_cur["n"];
 
 // Number of users who signed up for the party
-$get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, $querytype);
+$get_cur = $database->queryWithOnlyFirstRow('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id = ? AND ' . $querytype, [$party->party_id]);
 $cur = $get_cur["n"];
 
 // Number of users who have signed up and payed
-$get_cur = $db->qry_first('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE (%plain%) AND (party.paid > 0) AND party_id=%int%', $querytype, $party->party_id);
+$get_cur = $database->queryWithOnlyFirstRow('SELECT COUNT(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE '. $querytype .' AND (party.paid > 0) AND party_id = ?', [$party->party_id]);
 $paid = $get_cur["n"];
 
 // Max. attenteed
@@ -76,9 +76,9 @@ $bar .= '<ul class="BarClear">&nbsp;</ul>';
 
 if ($cfg['sys_internet']) {
     $options = '';
-    $res = $db->qry('SELECT party_id, name FROM %prefix%partys');
-    if ($db->num_rows($res) > 1 && $cfg['display_change_party']) {
-        while ($row = $db->fetch_array($res)) {
+    $queryResult = $database->queryWithFullResult('SELECT party_id, name FROM %prefix%partys', []);
+    if (count($queryResult) && $cfg['display_change_party'] || $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
+        foreach ($queryResult as $row) {
             ($row['party_id'] == $party->party_id)? $selected = 'selected="selected"' : $selected = '';
             if (strlen($row['name']) > 20) {
                 $row['name'] = substr($row['name'], 0, 18) .'...';
@@ -90,8 +90,7 @@ if ($cfg['sys_internet']) {
         $partyName = $_SESSION['party_info']['name'] ?? '';
         $box->ItemRow("data", '<b>'. $partyName .'</b>');
     }
-    $db->free_result($res);
-  
+
     date_default_timezone_set($cfg['sys_timezone']);
     $partyBegin = $_SESSION['party_info']['partybegin'] ?? time();
     $partyEnd = $_SESSION['party_info']['partyend'] ?? time();
@@ -105,26 +104,26 @@ $box->EngangedRow(t('Bezahlt').': '. $paid);
 $box->EngangedRow(t('Frei').': '. ($max - $paid));
 
 if (!$cfg['sys_internet']) {
-    $checkedin = $db->qry_first('
+    $checkedin = $database->queryWithOnlyFirstRow('
       SELECT
         COUNT(p.user_id) as n
       FROM %prefix%user AS u
       LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
       WHERE
-        (%plain%)
+        ' . $querytype. '
         AND (p.checkin > 0)
-        AND p.party_id = %int%', $querytype, $party->party_id);
+        AND p.party_id = ?', [$party->party_id]);
     $box->EngangedRow(t('Eingecheckt').': '. ($checkedin['n']));
 
-    $checkedout = $db->qry_first('
+    $checkedout = $database->queryWithOnlyFirstRow('
       SELECT
         COUNT(p.user_id) as n
       FROM %prefix%user AS u
       LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
       WHERE
-        (%plain%)
+        ' . $querytype. '
         AND (p.checkout > 0)
-        AND p.party_id = %int%', $querytype, $party->party_id);
+        AND p.party_id = ?', [$party->party_id]);
     $box->EngangedRow(t('Ausgecheckt').': '. ($checkedout['n']));
 }
 
@@ -132,7 +131,7 @@ if (!$cfg['sys_internet']) {
 if ($cfg['sys_internet']) {
     $box->EmptyRow();
     $box->ItemRow("data", '<b>'. t('Counter') .'</b>');
-  
+
     $partyEnd = $_SESSION['party_info']['partyend'] ?? 0;
     if ($partyEnd < time()) {
         $box->EngangedRow(t('Diese Party ist bereits vorüber'));
@@ -147,12 +146,16 @@ if ($cfg['sys_internet']) {
         } else {
             $count = t('Noch %1 Tage.', array(floor($count/1440)));
         }
-  
+
         $box->EngangedRow($count);
-  
-        $checked = $db->qry_first("SELECT UNIX_TIMESTAMP(checked) AS n FROM %prefix%partys WHERE party_id = %int%", $party->party_id);
+
+        $checked = $database->queryWithOnlyFirstRow("SELECT UNIX_TIMESTAMP(checked) AS n FROM %prefix%partys WHERE party_id = ?", [$party->party_id]);
         $box->EmptyRow();
-        $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>");
+        $updateIcon = '';
+        if ($auth && $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
+            $updateIcon = $dsp->FetchIcon('change', 'index.php?mod=guestlist&action=checking', t('Aktualisieren'));
+        }
+        $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>" . $updateIcon);
         $box->EngangedRow($func->unixstamp2date($checked['n'], "datetime"));
     }
 }

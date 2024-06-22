@@ -1,7 +1,7 @@
 <?php
 
 // Delete old read states
-$db->qry('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7 AND tab != "task"');
+$database->query('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7 AND tab != "task"');
 
 if ($auth['type'] == \LS_AUTH_TYPE_USER) {
     $home_page = $cfg["home_login"];
@@ -14,7 +14,7 @@ if ($auth['type'] == \LS_AUTH_TYPE_USER) {
 switch ($home_page) {
     // Show overview
     default:
-        $dsp->NewContent($cfg['sys_page_title'], t('Übersicht der neusten Aktivitäten auf %1.', $framework->internal_url_query['host']));
+        $dsp->NewContent($cfg['sys_page_title'], t('Übersicht der neusten Aktivitäten auf %1.', $framework->getURLQueryPart(\LanSuite\Framework::URL_QUERY_PART_HOST)));
 
         $z = 0;
 

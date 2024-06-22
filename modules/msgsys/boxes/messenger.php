@@ -5,18 +5,21 @@ if ($auth['login']) {
     // Buddylist
     $box->EngangedRow('<span class="copyright">-- Buddy List --</span>');
 
-    $query = $db->qry("
+    $query = $database->queryWithFullResult("
       SELECT
         b.buddyid,
         u.username
       FROM %prefix%buddys AS b
         LEFT JOIN %prefix%user AS u ON b.buddyid = u.userid
       WHERE
-        b.userid = %int%
+        b.userid = ?
       GROUP BY b.buddyid
-      ORDER BY u.username", $auth['userid']);
+      ORDER BY u.username", [$auth['userid']]);
 
-    while ($row = $db->fetch_array($query)) {
+    //init counter for loop
+    $buddycount = 0;
+
+    foreach ($query as $row) {
         // Is user online, or offline?
         (in_array($auth['userid'], $authentication->online_users))? $class = "menu" : $class = "admin";
 
@@ -30,10 +33,10 @@ if ($auth['login']) {
 
         // Session ID
         $msg_sid = "&" . session_name() . "=" . session_id();
-        
+
         // New message available?
-        $row_new_msg = $db->qry_first('SELECT senderid FROM %prefix%messages WHERE senderid = %int% AND receiverid = %int% AND new = \'1\'', $row['buddyid'], $auth["userid"]);
-        if ($row_new_msg['senderid']) {
+        $row_new_msg = $database->queryWithOnlyFirstRow('SELECT senderid FROM %prefix%messages WHERE senderid = ? AND receiverid = ? AND new = \'1\'', [$row['buddyid'], $auth["userid"]]);
+        if ($row_new_msg) {
             $item = "message_blink";
             if ($cfg['msgsys_popup']) {
                 $caption = "<script>

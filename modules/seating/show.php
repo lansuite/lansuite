@@ -7,12 +7,12 @@ $seat2 = new Seat2();
 $stepParameter = $_GET['step'] ?? 0;
 switch ($stepParameter) {
     default:
-        $row = $db->qry_first('
+        $row = $database->queryWithOnlyFirstRow('
           SELECT
             blockid
           FROM %prefix%seat_block
           WHERE
-            party_id = %int%', $party->party_id);
+            party_id = ?', [$party->party_id]);
         $_GET['blockid'] = $row['blockid'] ?? 0;
 
     // Show seatplan
@@ -30,22 +30,22 @@ switch ($stepParameter) {
 
     // Reserve free seat
     case 10:
-        $user_data = $db->qry_first("
+        $user_data = $database->queryWithOnlyFirstRow("
           SELECT
             paid
         FROM %prefix%party_user
         WHERE
-          user_id = %int%
-          AND party_id = %int%", $auth['userid'], $party->party_id);
+          user_id = ?
+          AND party_id = ?", [$auth['userid'], $party->party_id]);
 
-        $seat_user = $db->qry_first("
+        $seat_user = $database->queryWithOnlyFirstRow("
           SELECT
             status
           FROM %prefix%seat_seats
           WHERE
-            blockid = %int%
-            AND row = %string%
-            AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
+            blockid = ?
+            AND `row` = ?
+            AND `col` = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
 
         // Check paid
         if (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) {
@@ -59,14 +59,14 @@ switch ($stepParameter) {
         // No errors
         } else {
             // Get number of marked seats of this user
-            $marked_seats = $db->qry_first("
+            $marked_seats = $database->queryWithOnlyFirstRow("
               SELECT COUNT(*) AS anz
               FROM %prefix%seat_seats AS s
               LEFT JOIN %prefix%seat_block AS b ON s.blockid = b. blockid
               WHERE
-                s.userid = %int%
+                s.userid = ?
                 AND s.status = 3
-                AND b.party_id = %int%", $auth['userid'], $party->party_id);
+                AND b.party_id = ?", [$auth['userid'], $party->party_id]);
 
             // Check if not paid user has allready marked one seat
             if (!$user_data['paid'] and $marked_seats['anz'] >= 1) {
@@ -75,7 +75,7 @@ switch ($stepParameter) {
                 $questionarray = array();
                 $linkarray = array();
 
-                $row = $db->qry_first("SELECT seatid FROM %prefix%seat_seats WHERE blockid = %int% AND status = 2 AND userid = %int%", $_GET['blockid'], $auth['userid']);
+                $row = $database->queryWithOnlyFirstRow("SELECT seatid FROM %prefix%seat_seats WHERE blockid = ? AND status = 2 AND userid = ?", [$_GET['blockid'], $auth['userid']]);
                 if ($user_data['paid']) {
                     // Reserve seat for myselfe
                     if ($row && $row['seatid']) {
@@ -134,39 +134,39 @@ switch ($stepParameter) {
     case 11:
         $_GET['userid'] = $auth['userid'];
         // no break!
-  
+
     // Reserve seat for clan-member
     case 13:
-        $user = $db->qry_first("
+        $user = $database->queryWithOnlyFirstRow("
           SELECT
             group_id
           FROM %prefix%user
-          WHERE userid = %int%", $_GET['userid']);
+          WHERE userid = ?", [$_GET['userid']]);
 
-        $user_data = $db->qry_first("
+        $user_data = $database->queryWithOnlyFirstRow("
           SELECT
             paid,
             price_id
           FROM %prefix%party_user
           WHERE
-            user_id = %int%
-            AND party_id = %int%", $_GET['userid'], $party->party_id);
+            user_id = ?
+            AND party_id = ?", [$_GET['userid'], $party->party_id]);
 
-        $block_data = $db->qry_first("
+        $block_data = $database->queryWithOnlyFirstRow("
           SELECT
             group_id,
             price_id
           FROM %prefix%seat_block
-          WHERE blockid = %int%", $_GET['blockid']);
+          WHERE blockid = ?", [$_GET['blockid']]);
 
-        $seat_user = $db->qry_first("
+        $seat_user = $database->queryWithOnlyFirstRow("
           SELECT
             status
           FROM %prefix%seat_seats
           WHERE
-            blockid = %int%
-            AND row = %string%
-            AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
+            blockid = ?
+            AND `row` = ?
+            AND `col` = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
 
         // Check paid
         if (!$user_data['paid'] and $cfg['seating_paid_only']) {
@@ -192,48 +192,48 @@ switch ($stepParameter) {
 
     // Mark seat for friend (or myselfe, if not paid)
     case 12:
-        $marked_seats = $db->qry_first("
+        $marked_seats = $database->queryWithOnlyFirstRow("
           SELECT
             COUNT(*) AS anz
           FROM %prefix%seat_seats AS s
           LEFT JOIN %prefix%seat_block AS b ON s.blockid = b. blockid
           WHERE
-            s.userid = %int%
+            s.userid = ?
             AND s.status = 3
-            AND b.party_id = %int%", $auth['userid'], $party->party_id);
+            AND b.party_id = ?", [$auth['userid'], $party->party_id]);
 
-        $user_data = $db->qry_first("
+        $user_data = $database->queryWithOnlyFirstRow("
           SELECT
             paid
           FROM %prefix%party_user
           WHERE
-            user_id = %int%
-            AND party_id = %int%", $auth['userid'], $party->party_id);
+            user_id = ?
+            AND party_id = ?", [$auth['userid'], $party->party_id]);
 
-        $seat_user = $db->qry_first("
+        $seat_user = $database->queryWithOnlyFirstRow("
           SELECT
             userid
           FROM %prefix%seat_seats
           WHERE
-            blockid = %int%
-            AND row = %string%
-            AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
-        
-        $block_data = $db->qry_first("
+            blockid = ?
+            AND `row` = ?
+            AND `col` = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
+
+        $block_data = $database->queryWithOnlyFirstRow("
           SELECT
             group_id,
             price_id
           FROM %prefix%seat_block
           WHERE
-            blockid = %int%", $_GET['blockid']);
+            blockid = ?", [$_GET['blockid']]);
 
-        $user_party = $db->qry_first("
+        $user_party = $database->queryWithOnlyFirstRow("
           SELECT
             user_id
           FROM %prefix%party_user
           WHERE
-            user_id = %int%
-            AND party_id = %int%", $auth['userid'], $party->party_id);
+            user_id = ?
+            AND party_id = ?", [$auth['userid'], $party->party_id]);
 
         // Check Signed on
         if (!$user_party) {
@@ -306,21 +306,21 @@ switch ($stepParameter) {
         $seat2->MarkSeat($auth['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
         $func->confirmation(t('Der alte Sitzplatz wurde freigegeben und der neue erfolgreich vorgemerkt.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
         break;
-    
+
     // Free seat as admin (question)
     case 30:
         if ($auth['type'] > \LS_AUTH_TYPE_USER) {
-            $seatingUser = $db->qry_first("
+            $seatingUser = $database->queryWithOnlyFirstRow("
               SELECT
                 s.userid,
                 u.username
               FROM %prefix%seat_seats AS s
               INNER JOIN %prefix%user AS u ON u.userid = s.userid
               WHERE
-                blockid = %int%
-                AND row = %string%
-                AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
-            
+                blockid = ?
+                AND `row` = ?
+                AND `col` = ?", [$_GET['blockid'], $_GET['row'], $_GET['col']]);
+
             $questionarray = array();
             $linkarray = array();
 
@@ -336,7 +336,7 @@ switch ($stepParameter) {
             $func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist momentan für %1 reserviert. Du kannst:', $seatingUser['username']));
         }
         break;
-    
+
     // Free seat as admin
     case 31:
         if ($auth['type'] > \LS_AUTH_TYPE_USER) {
@@ -344,7 +344,7 @@ switch ($stepParameter) {
             $func->confirmation(t('Der Sitzplatz wurde erfolgreich freigegeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
         }
         break;
-    
+
     // Umsetzen als Admin
     case 32:
         if ($auth['type'] > \LS_AUTH_TYPE_USER) {

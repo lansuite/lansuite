@@ -1,10 +1,13 @@
 <?php
 
-if ($_GET['name']) {
+$nameParameter = $_GET['name'] ?? '';
+if ($nameParameter) {
     $row = $database->queryWithOnlyFirstRow('SELECT postid FROM %prefix%wiki WHERE name = ?', [$_GET['name']]);
     $_GET['postid'] = $row['postid'];
 }
-if (!$_GET['postid']) {
+
+$postIDParameter = $_GET['postid'] ?? null;
+if (!$postIDParameter) {
     $_GET['postid'] = 1;
 }
 if (!isset($_GET['versionid'])) {
@@ -69,8 +72,8 @@ $row = $database->queryWithOnlyFirstRow('
     AND v.versionid = ?', [$_GET['postid'], $_GET['versionid']]);
 
 $func->SetRead('wiki', $row['postid']);
-$framework->AddToPageTitle($row["name"]);
-$framework->AddToPageTitle('V'. (int)$_GET['versionid']);
+$framework->addToPageTitle($row["name"]);
+$framework->addToPageTitle('V'. (int)$_GET['versionid']);
 
 $dsp->NewContent($row['name'] . $links_main, $links);
 $dsp->AddSingleRow($func->Text2Wiki($row['text']), '', 'textContent');

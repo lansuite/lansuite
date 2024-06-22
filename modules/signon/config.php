@@ -25,7 +25,7 @@ switch ($step) {
 
     case 2:
         foreach ($_POST as $key => $val) {
-            $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = %string%", $val, $key);
+            $database->query("UPDATE %prefix%config SET cfg_value = ? WHERE cfg_key = ?", [$val, $key]);
         }
         $func->confirmation(t('Einstellungen wurden erfolgreich geändert'), "index.php?mod=signon&action=config");
         break;

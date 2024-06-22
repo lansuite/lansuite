@@ -1,7 +1,7 @@
 ---
 id: performance-measurement
 title: Performance measurement
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 ## Flame graphs

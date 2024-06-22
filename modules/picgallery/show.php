@@ -42,12 +42,12 @@ if (!$row) {
 }
 
 // Upload posted File
-if (($cfg["picgallery_allow_user_upload"] || $auth['type'] > \LS_AUTH_TYPE_USER) && ($request->)) {
+if (($cfg["picgallery_allow_user_upload"] || $auth['type'] > \LS_AUTH_TYPE_USER) && (array_key_exists('file_upload', $_FILES) && $_FILES['file_upload'])) {
     foreach ($_FILES['file_upload'] as $file) {
         $extension = substr($file['file_upload']['name'], strrpos($file['file_upload']['name'], ".") + 1, 4);
         if (IsSupportedType($extension) || IsPackage($extension)) {
             $upload = $func->FileUpload("file_upload", $root_dir);
-            $database->query("REPLACE INTO %prefix%picgallery SET userid = ?, name = ?", [$auth["userid"], $db_dir . $file["file_upload"]["name"]]);
+            $database->query("REPLACE INTO %prefix%picgallery SET userid = ?, name = ?", [$auth["userid"], $db_dir . $_FILES["file_upload"]["name"]]);
         } else {
             $func->error("Bitte nur Grafik-Dateien hochladen (Format: Jpg, Png, Gif, Bmp)<br> oder Archive (Format: zip,ace,rar,tar,gz,bz)", "index.php?mod=picgallery");
         }
@@ -57,7 +57,7 @@ if (($cfg["picgallery_allow_user_upload"] || $auth['type'] > \LS_AUTH_TYPE_USER)
 // Set Changed Name
 $fileNameParameter = $_POST["file_name"] ?? '';
 if ($fileNameParameter && ($auth['type'] >= \LS_AUTH_TYPE_ADMIN || $cfg['picgallery_allow_user_naming'])) {
-    $db->qry("UPDATE %prefix%picgallery SET caption = %string% WHERE name = %string%", $fileNameParameter, $db_dir);
+    $database->query("UPDATE %prefix%picgallery SET caption = ? WHERE name = ?", [$fileNameParameter, $db_dir]);
 }
 
 // GD-Check
@@ -195,7 +195,7 @@ if (!$gd->available) {
                     }
                     $smarty->assign('file_name', $file_name);
 
-                    $pic = $db->qry_first("
+                    $pic = $database->queryWithOnlyFirstRow("
                       SELECT
                         p.picid,
                         p.caption,
@@ -204,9 +204,9 @@ if (!$gd->available) {
                       FROM %prefix%picgallery AS p
                       LEFT JOIN %prefix%comments AS c ON p.picid = c.relatedto_id
                       WHERE
-                        p.name = %string%
+                        p.name = ?
                         AND c.relatedto_item = 'Picgallery'
-                      GROUP BY p.picid", $db_dir . $file);
+                      GROUP BY p.picid", [$db_dir . $file]);
 
                     $caption = $pic['caption'] ?? '<i>Unbenannt</i>';
                     $smarty->assign('caption', $caption);
@@ -298,7 +298,7 @@ if (!$gd->available) {
                     }
                     $smarty->assign('file_name', $file_name);
 
-                    $pic = $db->qry_first("SELECT picid, caption, clicks FROM %prefix%picgallery WHERE name = %string%", $db_dir . $package);
+                    $pic = $database->queryWithOnlyFirstRow("SELECT picid, caption, clicks FROM %prefix%picgallery WHERE name = ?", [$db_dir . $package]);
                     ($pic['caption']) ? $caption = $pic['caption'] : $caption = "<i>Unbenannt</i>";
                     $smarty->assign('caption', $caption);
 
@@ -350,7 +350,7 @@ if (!$gd->available) {
 // Details
 } else {
     if (!is_file($root_file)) {
-        $db->qry("DELETE FROM %prefix%picgallery WHERE name =  %string% AND clicks = 0", $db_dir);
+        $database->query("DELETE FROM %prefix%picgallery WHERE name =  ? AND clicks = 0", [$db_dir]);
         $func->error(t('Dieses Bild ist nicht vorhanden'), "index.php?mod=picgallery");
     } else {
         $mcactParameter = $_GET['mcact'] ?? '';
@@ -358,7 +358,7 @@ if (!$gd->available) {
             $extension =  strtolower(substr($root_file, strrpos($root_file, ".") + 1, 4));
 
             // Select pic data
-            $pic = $db->qry_first("
+            $pic = $database->queryWithOnlyFirstRow("
               SELECT
                 p.picid,
                 p.userid,
@@ -368,13 +368,13 @@ if (!$gd->available) {
                 u.username
               FROM %prefix%picgallery AS p
               LEFT JOIN %prefix%user AS u ON p.userid = u.userid
-              WHERE p.name = %string%", $db_dir);
+              WHERE p.name = ?", [$db_dir]);
 
             if (!array_key_exists('click_reload', $_SESSION) || !is_array($_SESSION["click_reload"])) {
                 $_SESSION["click_reload"] = [];
             }
             if (!array_key_exists($db_dir, $_SESSION["click_reload"])) {
-                $db->qry("UPDATE %prefix%picgallery SET clicks = clicks + 1 WHERE name = %string%", $db_dir);
+                $database->query("UPDATE %prefix%picgallery SET clicks = clicks + 1 WHERE name = ?", [$db_dir]);
                 $_SESSION["click_reload"][$db_dir] = 1;
             }
 
