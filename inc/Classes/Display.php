@@ -1083,7 +1083,7 @@ class Display
 
         $key = '<label for="'. $name .'">'. $key .'</label>';
         $value = '<input type="hidden" name="MAX_FILE_SIZE" value="'. $maxfilesize .'" />';
-        $value .= '<input type="file" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" value="" size="'. $size .'" enctype="multipart/form-data" maxlength="'. $maxlength . '"';
+        $value .= '<input type="file" id="'. $name .'" name="'. $name .'[]" class="form'. $optional .'" value="" size="'. $size .'" enctype="multipart/form-data" maxlength="'. $maxlength . '"';
         if ($multiFile) {$value .=' multiple ';}
         $value .= ' /> '. $maxfilesize_formated;
         $value .= $errortext;

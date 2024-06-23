@@ -41,10 +41,11 @@ if (!$row) {
     $db->qry("INSERT INTO %prefix%picgallery SET userid = '', name = %string%", $db_dir);
 }
 
-// Upload posted File
-if (($cfg["picgallery_allow_user_upload"] || $auth['type'] > \LS_AUTH_TYPE_USER) && (array_key_exists('file_upload', $_FILES) && $_FILES['file_upload'])) {
-    foreach ($_FILES['file_upload'] as $file) {
-        $extension = substr($file['file_upload']['name'], strrpos($file['file_upload']['name'], ".") + 1, 4);
+// Upload posted File if logged in user with user upload or admin
+if ((($cfg["picgallery_allow_user_upload"] + $auth['type']) > \LS_AUTH_TYPE_USER) && ($request->files->count())) {
+    $fileUploads = $request->files->all();
+    foreach ($fileUploads as $file) {
+        $extension = $file->getClientOriginalExtension();
         if (IsSupportedType($extension) || IsPackage($extension)) {
             $upload = $func->FileUpload("file_upload", $root_dir);
             $database->query("REPLACE INTO %prefix%picgallery SET userid = ?, name = ?", [$auth["userid"], $db_dir . $_FILES["file_upload"]["name"]]);
