@@ -15,6 +15,8 @@ class FileCollection
     private string $relativePath='';
     private Filesystem $fileSystem;
     private array $files=[];
+    private array $blacklist=[];
+    private array $whitelist=[];
 
     /**
      * Constructor sets base path and initializes FS object
@@ -118,7 +120,7 @@ class FileCollection
      * @param  string $relativePath a path to be added on top of basepath
      * @return bool true if set, false if not secure
      */
-    public function setRelativePath($relativePath) :bool
+    public function setRelativePath(string $relativePath) :bool
     {
         //ensure path ends with directory separator
         if (str_starts_with($relativePath, '/')) {
@@ -138,7 +140,6 @@ class FileCollection
             return false;
         }
     }
-
 
     /**
      * Checks if a file exists and is accessible based on the path
@@ -183,5 +184,49 @@ class FileCollection
         return self::$basePath;
     }
 
+    /**
+     * Sets whitelist für filenames and extensions
+     *
+     * @param array $entries the whitelist entries to be set
+     *
+     * @return void No return value
+     */
+    public function setWhiteList(array $entries) : void
+    {
+        $this->whitelist = $entries;
 
+    }
+
+    /**
+     * Sets blacklist für filenames and extensions
+     *
+     * @param array $entries the blacklist entries to be set
+     *
+     * @return void No return value
+     */
+    public function setBlackList(array $entries) : void
+    {
+        $this->blacklist = $entries;
+
+    }
+
+    /**
+     * Gets whitelist für filenames and extensions
+     *
+     * @return array $entries the whitelist entries to be set
+     */
+    public function getWhiteList() : array
+    {
+        return $this->whitelist;
+    }
+
+    /**
+     * Gets blacklist für filenames and extensions
+     *
+     * @return array $entries the blacklist entries to be set
+     */
+    public function getBlackList() : array
+    {
+        return $this->blacklist;
+    }
 }
