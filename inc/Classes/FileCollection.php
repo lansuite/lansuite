@@ -10,6 +10,12 @@ use Symfony\Component\Filesystem\Path;
 
 class FileCollection
 {
+    //class constants for default filters
+    const SECURITY_BLACKLIST = ['\.htaccess','.php.+$'];
+    const IMAGE_WHITELIST = [];
+
+
+
     private static string $basePath='';
     private static bool $basePathInitialized=false;
     private string $relativePath='';
@@ -191,7 +197,7 @@ class FileCollection
      *
      * @return void No return value
      */
-    public function setWhiteList(array $entries) : void
+    public function setWhitelist(array $entries) : void
     {
         $this->whitelist = $entries;
 
@@ -204,7 +210,7 @@ class FileCollection
      *
      * @return void No return value
      */
-    public function setBlackList(array $entries) : void
+    public function setBlacklist(array $entries) : void
     {
         $this->blacklist = $entries;
 
@@ -215,7 +221,7 @@ class FileCollection
      *
      * @return array $entries the whitelist entries to be set
      */
-    public function getWhiteList() : array
+    public function getWhitelist() : array
     {
         return $this->whitelist;
     }
@@ -225,7 +231,7 @@ class FileCollection
      *
      * @return array $entries the blacklist entries to be set
      */
-    public function getBlackList() : array
+    public function getBlacklist() : array
     {
         return $this->blacklist;
     }

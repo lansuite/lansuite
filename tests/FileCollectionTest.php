@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class FileCollectionTest extends TestCase
 {
-    
+
     public function setUp() :void
     {
         if (!defined('ROOT_DIRECTORY'))
@@ -71,7 +71,7 @@ class FileCollectionTest extends TestCase
         //$this->assertEquals('/foo/bar/test/',$fc->getFullPath('test/'));
         //$this->assertEquals('/foo/bar/test/',$fc->getFullPath('/test/'));
 
-    
+
         $this->expectException(\InvalidArgumentException::class);
         $fc->getFullPath('../test');
     }
@@ -86,5 +86,32 @@ class FileCollectionTest extends TestCase
         $this->assertEquals('foo/', $fc->getRelativePath());
     }
 
- 
+    /**
+     * @covers FileCollection:setWhitelist
+     * @covers FileCollection:getWhitelist
+     */
+    public function testWhitelist()
+    {
+        $fc = new \LanSuite\FileCollection();
+        //check if initialized correctly
+        $this->assertEquals([], $fc->getWhitelist());
+        //set and readback
+        $fc->setWhitelist(['test','test2']);
+        $this->assertEquals(['test','test2'], $fc->getWhitelist());
+    }
+
+    /**
+     * @covers FileCollection:setBlackList
+     * @covers FileCollection:getBlackList
+     */
+    public function testBlacklist()
+    {
+        $fc = new \LanSuite\FileCollection();
+        //check if initialized correctly
+        $this->assertEquals([], $fc->getBlacklist());
+        //set and readback
+        $fc->setBlacklist(['test','test2']);
+        $this->assertEquals(['test','test2'], $fc->getBlacklist());
+    }
+
 }
