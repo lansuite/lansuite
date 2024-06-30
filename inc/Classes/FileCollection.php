@@ -11,9 +11,9 @@ use Symfony\Component\Filesystem\Path;
 class FileCollection
 {
     //class constants for default filters
-    const SECURITY_BLACKLIST = ['\.htaccess','.php.+$'];
-    const IMAGE_WHITELIST = [];
-
+    const SECURITY_BLACKLIST = ['/^\.htaccess$/','/.php.?$/', '/user\.ini$/'];
+    const IMAGE_WHITELIST = ['/.*\.(png|jpg|jpeg|webp|gif|png|bmp|ico)$/'];
+    const ARCHIVE_WHITELIST = ['/.*\.(zip|rar)$/'];
 
 
     private static string $basePath='';
@@ -21,7 +21,7 @@ class FileCollection
     private string $relativePath='';
     private Filesystem $fileSystem;
     private array $files=[];
-    private array $blacklist=[];
+    private array $blacklist= fileCollection::SECURITY_BLACKLIST;
     private array $whitelist=[];
 
     /**
@@ -190,6 +190,11 @@ class FileCollection
         return self::$basePath;
     }
 
+
+    /**************************************
+     * White / Blacklist related functions
+     *************************************/
+
     /**
      * Sets whitelist für filenames and extensions
      *
@@ -234,5 +239,36 @@ class FileCollection
     public function getBlacklist() : array
     {
         return $this->blacklist;
+    }
+
+    /**
+     * Checks a file URI against both black and whitelist if they are defined
+     *
+     * @param string $fileName
+     *
+     * @returns bool true if filename does not match any regex in blacklist and matches whitelist - if defined
+     */
+    public function checkLists($fileName)
+    {
+        //check against all blacklist entries, return false if anything matches
+        if ($this->blacklist){
+            foreach ($this->blacklist as $blackListEntry) {
+                if (preg_match($blackListEntry, $fileName)!== 0) {
+                    return false;
+                }
+            }
+        }
+        //check whitelist entries, return true if any matches
+        if ($this->whitelist) {
+            foreach ($this->whitelist as $whiteListEntry) {
+                if (preg_match($whiteListEntry, $fileName)== 1) {
+                    return true;
+                }
+            }
+            //no match against defined whitelist, thus false
+            return false;
+        }
+        //no match in blacklist, no whitelist defined, thus OK
+        return true;
     }
 }

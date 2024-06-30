@@ -2,6 +2,7 @@
 
 namespace LanSuite\Tests;
 
+use LanSuite\FileCollection;
 use PHPUnit\Framework\TestCase;
 
 class FileCollectionTest extends TestCase
@@ -90,7 +91,7 @@ class FileCollectionTest extends TestCase
      * @covers FileCollection:setWhitelist
      * @covers FileCollection:getWhitelist
      */
-    public function testWhitelist()
+    public function testWhitelistSetGet()
     {
         $fc = new \LanSuite\FileCollection();
         //check if initialized correctly
@@ -104,14 +105,51 @@ class FileCollectionTest extends TestCase
      * @covers FileCollection:setBlackList
      * @covers FileCollection:getBlackList
      */
-    public function testBlacklist()
+    public function testBlacklistSetGet()
     {
         $fc = new \LanSuite\FileCollection();
         //check if initialized correctly
-        $this->assertEquals([], $fc->getBlacklist());
+        $this->assertEquals(FileCollection::SECURITY_BLACKLIST, $fc->getBlacklist());
         //set and readback
         $fc->setBlacklist(['test','test2']);
         $this->assertEquals(['test','test2'], $fc->getBlacklist());
     }
+
+    /**
+     * @covers FileCollection:checkLists
+     */
+    public function testCheckLists()
+    {
+        $fc = new \LanSuite\FileCollection();
+        //.htaccess and user.ini should be blocked by default, let's test that
+        $this->assertEquals(false, $fc->checkLists('.htaccess'));
+        $this->assertEquals(false, $fc->checkLists('user.ini'));
+        $this->assertEquals(false, $fc->checkLists('test.php'));
+        //clean blacklist and try again
+        $fc->setBlacklist([]);
+        $this->assertEquals(true, $fc->checkLists('.htaccess'));
+        $this->assertEquals(true, $fc->checkLists('user.ini'));
+        $this->assertEquals(true, $fc->checkLists('test.php'));
+
+        //now test whitelist matching
+        $fc->setWhitelist(['/test\.php/']);
+        $this->assertEquals(true, $fc->checkLists('test.php'));
+        $this->assertEquals(false, $fc->checkLists('testfail.php'));
+        $this->assertEquals(true, $fc->checkLists('goodtest.php5'));
+
+        //test image whitelist constant
+        $fc->setWhitelist(FileCollection::IMAGE_WHITELIST);
+        $this->assertEquals(false, $fc->checkLists('test.php'));
+        $this->assertEquals(false, $fc->checkLists('test.bmp.php'));
+        $this->assertEquals(false, $fc->checkLists('test.jpg.php'));
+        $this->assertEquals(false, $fc->checkLists('test.docx'));
+        $this->assertEquals(true, $fc->checkLists('test.jpg'));
+        $this->assertEquals(true, $fc->checkLists('test.bmp'));
+        $this->assertEquals(true, $fc->checkLists('test.jpeg'));
+        $this->assertEquals(true, $fc->checkLists('test.webp'));
+        $this->assertEquals(true, $fc->checkLists('test.png'));
+        $this->assertEquals(true, $fc->checkLists('test.ico'));
+    }
+
 
 }
