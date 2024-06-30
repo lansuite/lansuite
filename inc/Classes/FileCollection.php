@@ -12,7 +12,7 @@ class FileCollection
 {
     //class constants for default filters
     const SECURITY_BLACKLIST = ['/^\.htaccess$/','/.php.?$/', '/user\.ini$/'];
-    const IMAGE_WHITELIST = ['/.*\.(png|jpg|jpeg|webp|gif|png|bmp|ico)$/'];
+    const IMAGE_WHITELIST = ['/.*\.(png|jpg|jpeg|webp|gif|bmp|ico)$/'];
     const ARCHIVE_WHITELIST = ['/.*\.(zip|rar)$/'];
 
 
