@@ -79,7 +79,7 @@ class Mail
      */
     public function create_inet_mail($to_user_name, $to_user_email, $subject_text, $msgbody_text, $from = '')
     {
-        global $cfg, $board_config;
+        global $cfg;
         
         // The sending mail address must be the sys_part_mail, otherwise some mail-provider won't send the mail.
         // Set default Sender-Mail, if non is set
@@ -114,21 +114,20 @@ class Mail
 
         // SMTP-Mail
         if ($cfg["mail_use_smtp"]) {
-            $board_config["smtp_host"] = $cfg["mail_smtp_host"];
-            $board_config["smtp_username"] = $cfg["mail_smtp_user"];
-            $board_config["smtp_password"] = $cfg["mail_smtp_pass"];
-            $board_config["board_email"] = $from;
-
-            include_once("modules/mail/smtp.php");
-            if (SMTPMail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) {
-                return true;
-            }
-
-            return false;
+            $smtpMail = new SMTPMail(
+                $cfg["mail_smtp_host"],
+                $cfg["mail_smtp_port"],
+                $cfg["mail_smtp_tls"],
+                $cfg["mail_smtp_user"],
+                $cfg["mail_smtp_pass"]
+            );
+            // Either use explicit sender or use indivdiual user, depends on the SMTP configuration
+            $from = empty($cfg["mail_smtp_send_from"]) ? $from : $cfg["mail_smtp_send_from"];
+            return $smtpMail->sendMail($from, $to_user_email, $subject_text, $msgbody_text, $this->inet_headers);
 
         // PHP-Mail
         } else {
-            if (@mail("$to_user_name <$to_user_email>", $subject_text, $msgbody_text, $this->inet_headers)) {
+            if (mail("$to_user_name <$to_user_email>", $subject_text, $msgbody_text, $this->inet_headers)) {
                 return true;
             }
 
