@@ -2,7 +2,7 @@
 <config>
   <typedefinition>
     <head>
-      <name>boolean</name>    
+      <name>boolean</name>
     </head>
     <entries>
       <entry>
@@ -17,7 +17,7 @@
   </typedefinition>
   <typedefinition>
     <head>
-      <name>language</name>    
+      <name>language</name>
     </head>
     <entries>
       <entry>
@@ -48,7 +48,7 @@
   </typedefinition>
   <typedefinition>
     <head>
-      <name>timezone</name>    
+      <name>timezone</name>
     </head>
     <entries>
       <entry>
@@ -91,7 +91,7 @@
   </typedefinition>
   <typedefinition>
     <head>
-      <name>country</name>    
+      <name>country</name>
     </head>
     <entries>
       <entry>
@@ -134,7 +134,7 @@
   </typedefinition>
   <typedefinition>
     <head>
-      <name>mail_verifiy</name>    
+      <name>mail_verifiy</name>
     </head>
     <entries>
       <entry>
@@ -153,7 +153,7 @@
   </typedefinition>
   <typedefinition>
     <head>
-      <name>barcode</name>    
+      <name>barcode</name>
     </head>
     <entries>
       <entry>
@@ -171,6 +171,25 @@
       <entry>
         <value>UPC-A</value>
         <description>UPC-A</description>
+      </entry>
+    </entries>
+  </typedefinition>
+  <typedefinition>
+    <head>
+      <name>passwordhashalgo</name>
+    </head>
+    <entries>
+      <entry>
+        <value>default</value>
+        <description>Standard</description>
+      </entry>
+      <entry>
+        <value>pbkdf2-sha1</value>
+        <description>PBKDF2-SHA1 (kompatibel mit ejabberd)</description>
+      </entry>
+      <entry>
+        <value>md5</value>
+        <description>MD5 (Legacy, insecure)</description>
       </entry>
     </entries>
   </typedefinition>
@@ -205,6 +224,33 @@
       <entry>
         <value>loose</value>
         <description>Basis-Prüfung des Formats</description>
+      </entry>
+    </entries>
+  </typedefinition>
+  <typedefinition>
+    <head>
+      <name>passwordhashalgo</name>
+    </head>
+    <entries>
+      <entry>
+        <value>default</value>
+        <description>Standard</description>
+      </entry>
+      <entry>
+        <value>pbkdf2-sha1</value>
+        <description>PBKDF2-SHA1 (unsicher, kompatibel mit ejabberd)</description>
+      </entry>
+      <entry>
+        <value>pbkdf2-sha256</value>
+        <description>PBKDF2-SHA256 (kompatibel mit ejabberd)</description>
+      </entry>
+      <entry>
+        <value>pbkdf2-sha512</value>
+        <description>PBKDF2-SHA512 (kompatibel mit ejabberd)</description>
+      </entry>
+      <entry>
+        <value>md5</value>
+        <description>MD5 (Legacy, DANGEROUS!)</description>
       </entry>
     </entries>
   </typedefinition>
@@ -309,6 +355,18 @@ mailtrash.net
 eintagsmail.de
 nospamfor.us</default>
         <description>Email-Domain-Blacklist (Um Wegwerf-Mailadressen zu vermeiden)</description>
+      </item>
+      <item>
+        <name>pwhash_algo</name>
+        <type>passwordhashalgo</type>
+        <default>default</default>
+        <description>Passwort Hashing Algorithmus</description>
+      </item>
+      <item>
+        <name>pwhash_algo_cfg</name>
+        <type>string</type>
+        <default></default>
+        <description>Parameter für Passwort Hashing Algorithmus</description>
       </item>
     </items>
   </group>

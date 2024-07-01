@@ -2,6 +2,8 @@
 
 namespace LanSuite\Module\Tournament2;
 
+use LanSuite\PasswordHash;
+
 class Team
 {
 
@@ -243,7 +245,7 @@ class Team
                 team.teamid = ?", [$teamid]);
 
             // Check password, if set and if acction is not performed, by teamadmin or ls-admin
-            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= \LS_AUTH_TYPE_USER) and ($team['password'] != '') and (md5($password) != $team['password'])) {
+            if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= \LS_AUTH_TYPE_USER) and ($team['password'] != '') and !PasswordHash::verify($password, $team['password'])) {
                 $func->information(t('Das eingegebene Kennwort ist nicht korrekt'));
                 return false;
 
@@ -364,7 +366,7 @@ class Team
                     leaderid = ?,
                     comment = ?,
                     banner = ?,
-                    password = ?", [$tournamentid, $name, $leaderid, $comment, $_FILES[$banner]["name"], md5($password)]);
+                    password = ?", [$tournamentid, $name, $leaderid, $comment, $_FILES[$banner]["name"], PasswordHash::hash($password)]);
 
                 $func->log_event(t('Der Benutzer %1 hat sich zum Turnier %2 angemeldet', $auth["username"], $t["name"]), 1, t('Turnier Teamverwaltung'));
             }
@@ -409,7 +411,7 @@ class Team
 
         // Set Password
         if ($password != "") {
-          $database->query("UPDATE %prefix%t2_teams SET password = ? WHERE teamid = ?", [md5($password), $_GET["teamid"]]);
+          $database->query("UPDATE %prefix%t2_teams SET password = ? WHERE teamid = ?", [PasswordHash::hash($password), $_GET["teamid"]]);
         }
 
         $database->query("
