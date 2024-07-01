@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Prerequisites
 
-* Your target system needs to run PHP >= 8.1 and MySQL >= 5.7
+* Your target system needs to run PHP >= 8.2 and MySQL >= 5.7
 * A fair bit of time
 
 ## Preparation
