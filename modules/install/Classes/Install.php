@@ -553,63 +553,14 @@ class Install
             if ($func->isModActive($module)) {
                 $menu_found = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%menu WHERE module = ?", [$module]);
                 if (!$menu_found) {
-                    $file = "modules/$module/mod_settings/menu.xml";
-                    if (file_exists($file)) {
-                        $handle = fopen($file, "r");
-                        $xml_file = fread($handle, filesize($file));
-                        fclose($handle);
-
-                        $menu = $xml->get_tag_content("menu", $xml_file);
-                        $main_pos = $xml->get_tag_content("pos", $menu);
-                        $entrys = $xml->get_tag_content_array("entry", $menu);
-
-                        $i = 0;
-                        foreach ($entrys as $entry) {
-                            $action = $xml->get_tag_content("action", $entry);
-                            $file = $xml->get_tag_content("file", $entry);
-                            $caption = $xml->get_tag_content("caption", $entry);
-                            $hint = $xml->get_tag_content("hint", $entry);
-                            $link = $xml->get_tag_content("link", $entry);
-                            $requirement = $xml->get_tag_content("requirement", $entry);
-                            $level = $xml->get_tag_content("level", $entry);
-                            $needed_config = $xml->get_tag_content("needed_config", $entry);
-
-                            if ($file == "") {
-                                $file = $action;
-                            }
-                            if (!$level) {
-                                $level = 0;
-                            }
-                            if (!$requirement) {
-                                $requirement = 0;
-                            }
-
-                            ($level == 0)? $pos = $main_pos : $pos = $i;
-                            $i++;
-
-                            $database->query(
-                                "INSERT INTO %prefix%menu SET module = ?, action = ?, file = ?, caption = ?, hint = ?, link = ?, requirement = ?, level = ?, pos = ?, needed_config = ?, boxid = ?",
-                                [$module,
-                                $action,
-                                $file,
-                                $caption,
-                                $hint,
-                                $link,
-                                $requirement,
-                                $level,
-                                $pos,
-                                $needed_config,
-                                $menubox['boxid']]
-                            );
-                        }
-                    }
+                    $moduleConfig = new ModuleConfig();
+                    $moduleConfig->writeModuleMenu($module);
                 }
             }
         }
     }
 
-
-    /**
+     /**
      * Check the general env for installation.
      *
      * @return int
@@ -982,7 +933,7 @@ class Install
 
             $find_mod = $database->queryWithOnlyFirstRow("SELECT module FROM %prefix%menu WHERE module = ?", [$row["name"]]);
             if (is_array($find_mod) && $find_mod["module"]) {
-                $menu_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
+                $menu_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}&tab=1\">". t('Menü') ."</a>";
             } else {
                 $menu_link = "";
             }

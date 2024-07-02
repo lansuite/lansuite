@@ -34,7 +34,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Introduced symfony/cache to easily provide other cache backends like APCu (next to file caching)
 - [System] Introduced symfony/http-foundation to unify safe access to superglobals
 - [Database] Added the setting to replace the hardcoded database table prefix `lansuite_` with something admin configurable
-- [Database] Introduced options to update single module DB structure (#927)
+- [Database] Introduced options to update single module DB structure (#927), menu entries and permissions (#1187)
 - [Tournament] Added tournament icon for Starcraft II
 - [Tournament] Added tournament icon for Counter-Strike: Global Offensive
 - [Tournament] Added tournament icon for Rocket League
@@ -75,6 +75,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [System] Separated Google API-Keys for Analytics, Maps and Translate into dedicated settings (#887)
 - [System] Don't enforce php-snmp; only suggest it (#148)
 - [System] Added unique id per installation to `config.php` for cache pool separation (#1141)
+- [System] Add separate Class for module configuration
 - [Cron] Show execution state, runtime and error, deactvate after 3 failed executions (#924)
 - [System] Updated jQuery to v3.7.1 and jQuery UI to v1.13.2
 - [Database] Set utf8mb4 as the default charset
