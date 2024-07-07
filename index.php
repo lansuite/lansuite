@@ -434,7 +434,7 @@ function initializeDesign()
     }
 
     // Fallback design is 'simple'
-    if (!$auth['design'] || !file_exists('design/' . $auth['design'] . '/templates/main.htm')) {
+    if (!array_key_exists('design', $auth) || !file_exists('design/' . $auth['design'] . '/templates/main.htm')) {
         $auth['design'] = 'simple';
         if (!isset($_GET['design']) || ($_GET['design'] != 'popup' && $_GET['design'] != 'base')) {
             $design = 'simple';
