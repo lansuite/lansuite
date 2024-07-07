@@ -39,11 +39,11 @@ For example, if you want to only allow upload files that have an image extension
 $fc->new FileCollection();
 $fc->setWhitelist(FileCollection::IMAGE_WHITELIST);
 ```
-And now only files with the extensions jpg, jpeg, webp, gif, png, bmp or ico will be accepted
+And now only files with the extensions jpg, jpeg, webp, gif, png, bmp or ico will be accepted when evaluating with `$fc->checkLists($fileName)`
 
 ### Setting a file blacklist
 
 Note that setting a new blacklist overwrites the existing (default) list.
 You may want to read out the current value (via `getBlacklist()`) and array-merge it with what you want to add.
-the class constant `IMAGE_WHITELIST` is used by default, which permits any files named `.htaccess`, `user.ini` or have a php file extension
+the class constant `IMAGE_WHITELIST` is used by default, which permits any files not named `.htaccess`, `user.ini` and not having a php file extension
 

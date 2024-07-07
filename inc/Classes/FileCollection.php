@@ -60,7 +60,7 @@ class FileCollection
 
     public function scanDir($path='')
     {
-        //scan a given path or base+rel-dir for files and return file objects
+        //scan a given path or base+rel-dir for files and return file objects that evaluate fine for the black/whitelist set
     }
 
      /**
