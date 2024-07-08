@@ -61,6 +61,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [PDF] In-Module Documentation
 - [PDF] New options "align" and "border" to configure for a single PDF document
 - [System] Restrict display of PHP warnings to (Super-)Admins (#1131)
+- [Clanmanager] Added user registration button from user listing for superadmins (#1194)
 
 ### Changed
 
