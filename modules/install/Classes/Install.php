@@ -982,7 +982,7 @@ class Install
 
             $find_mod = $database->queryWithOnlyFirstRow("SELECT module FROM %prefix%menu WHERE module = ?", [$row["name"]]);
             if (is_array($find_mod) && $find_mod["module"]) {
-                $menu_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
+                $menu_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}&tab=3\">". t('Menü') ."</a>";
             } else {
                 $menu_link = "";
             }
