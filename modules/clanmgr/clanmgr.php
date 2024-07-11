@@ -52,7 +52,7 @@ switch ($stepParameter) {
             $buttons .= $dsp->FetchSpanButton(t('Clan beitreten'), 'index.php?mod='. $_GET['mod'] .'&step=60&clanid='. $_GET['clanid']).' ';
             $buttons .= $dsp->FetchSpanButton(t('Clan verlassen'), 'index.php?mod='. $_GET['mod'] .'&step=40&clanid='. $_GET['clanid'].'&userid='.$auth['userid']).' ';
         }
-        if (($auth['type'] >= \LS_AUTH_TYPE_USER and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
+        if (($auth['type'] >= \LS_AUTH_TYPE_USER and $auth['clanid'] == $_GET['clanid'] && $auth['clanadmin'] == 1) || $auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
             $buttons .= $dsp->FetchSpanButton(t('Clan editieren'), 'index.php?mod='. $_GET['mod'] .'&step=30&clanid='. $_GET['clanid']).' ';
             $buttons .= $dsp->FetchSpanButton(t('Passwort ändern'), 'index.php?mod='. $_GET['mod'] .'&step=10&clanid='. $_GET['clanid']).' ';
         }
@@ -70,7 +70,7 @@ switch ($stepParameter) {
         $ms2->AddSelect('u.name');
 
         $ms2->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
-        if (!$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER or $auth['clanid'] == $_GET['clanid']) {
+        if (!$cfg['sys_internet'] or $auth['type'] > \LS_AUTH_TYPE_USER || $auth['clanid'] == $_GET['clanid']) {
             $ms2->AddResultField(t('Vorname'), 'u.firstname', '');
             $ms2->AddResultField(t('Nachname'), 'u.name', '');
         }
@@ -79,6 +79,10 @@ switch ($stepParameter) {
         $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Clan-Details'));
         if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN || ($auth['clanid'] == $_GET['clanid'] && $auth['clanadmin'] == 1)) {
             $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='.$_GET['clanid'].'&userid=', t('Löschen'));
+        }
+
+        if ($auth['type'] >= \LS_AUTH_TYPE_SUPERADMIN) {
+            $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action=party&user_id=', t('Partyanmeldung'));
         }
 
         $ms2->PrintSearch('index.php?mod=clanmgr&action=clanmgr&step=2', 'u.userid');
@@ -93,7 +97,7 @@ switch ($stepParameter) {
     case 10:
         if ($_GET['clanid'] == '') {
             $func->error(t('Keine Clan-ID angegeben!'), 'index.php?mod=home');
-        } elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < \LS_AUTH_TYPE_ADMIN) {
+        } elseif ($_GET['clanid'] != $auth['clanid'] && $auth['type'] < \LS_AUTH_TYPE_ADMIN) {
             $func->information(t('Du bist nicht berechtigt das Passwort dieses Clans zu ändern'), 'index.php?mod=home');
         } else {
             $mf = new \LanSuite\MasterForm();

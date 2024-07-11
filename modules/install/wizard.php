@@ -27,25 +27,24 @@ switch ($step) {
             $row = $database->queryWithOnlyFirstRow("SELECT email FROM %prefix%user WHERE email = ?", [$_POST["email"]]);
 
             // If found, update password
-            if ($row !== false) {
-                $db->qry(
-                    "UPDATE %prefix%user SET password = %string%, type = '3' WHERE email=%string%",
-                    md5($_POST["password"]),
-                    $_POST["email"]
-                );
-            // If not found, insert
-            } else {
-                $db->qry(
-                    "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3', lastlogin = NOW(), comment = '', birthday = NULL, signature = ''",
-                    $_POST["email"],
-                    md5($_POST["password"])
-                );
-                $userid = $db->insert_id();
-            }
-
-            $authentication = new \LanSuite\Auth($database, $request);
-            $authentication->login($_POST["email"], $_POST["password"]);
+        if ($row) {
+            $database->query(
+                "UPDATE %prefix%user SET password = ?, type = '3' WHERE email=?",
+                [md5($_POST["password"]),
+                $_POST["email"]]
+            );
+        // If not found, insert
+        } else {
+            $database->query(
+                "INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=?, password = ?, type = '3', lastlogin = NOW(), comment = '', birthday = NULL, signature = ''",
+                [$_POST["email"],
+                md5($_POST["password"])]
+            );
         }
+
+        $authentication = new \LanSuite\Auth($database, $request);
+        $authentication->login($_POST["email"], $_POST["password"]);
+    }
       // no break!
 
     case 8:
@@ -209,7 +208,7 @@ switch ($step) {
                 );
                 $database->connect();
                 $database->setTablePrefix($config['database']['prefix']);
-        
+
 
                 if ($db->success) {
                     // Write new compatible SQL mode to configuration
@@ -334,14 +333,16 @@ switch ($step) {
         $dsp->AddDoubleRow('', $smarty->fetch('design/templates/ls_row_pw_security.htm'));
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
 
-        $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=8"));
+        $dsp->AddSingleRow(t("Wenn ein Adminaccount bereits existiert und nicht geändert werden soll, dann kann dieser Schritt übersprungen werden"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/admin");
+        $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Überspringen'), "index.php?mod=install&action=wizard&step=8"));
         break;
 
     // Create Adminaccount
     case 7:
-        //@TODO: Add the functionality here or remove the code
-        break;
+
+        //this is being handled by the case structure at the start, jump to eight by not breaking case
+
     // Load modules
     case 8:
         $dsp->NewContent(t('Module aktivieren'), t('Hier kannst du festlegen, welche Module aktiv sein sollen'));
@@ -445,9 +446,9 @@ switch ($step) {
 
         $config["environment"]["configured"] = 1;
         $install->WriteConfig();
-        
+
         //flush cached values to force recreation on next load
         $cache->delete('config');
-        
+
         break;
 }
