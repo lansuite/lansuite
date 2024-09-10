@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunklansuite_documentation=self.webpackChunklansuite_documentation||[]).push([[7393],{1838:t=>{t.exports=JSON.parse('{"blogBasePath":"/lansuite/blog","blogTitle":"Blog","authorsListPath":"/lansuite/blog/authors"}')}}]);
