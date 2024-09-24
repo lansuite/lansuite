@@ -27,6 +27,7 @@
         "psr/simple-cache": "^1.0",
         "symfony/http-foundation": "^6.0",
         "symfony/error-handler": "^6.0",
+        "phpmailer/phpmailer": "^6.8",
         "symfony/filesystem": "^6.3",
         "symfony/http-client": "^6.3",
         "gregwar/captcha": "^1.2"
@@ -143,8 +144,6 @@
             "modules/install/Functions/YesNo.php",
             "modules/mail/Functions/MailStatus.php",
             "modules/mail/Functions/SendOnlineMail.php",
-            "modules/mail/Functions/ServerParse.php",
-            "modules/mail/Functions/SMTPMail.php",
             "modules/mastersearch2/Functions/MS2GetDate.php",
             "modules/mastersearch2/Functions/MS2GetTime.php",
             "modules/mastersearch2/Functions/Text2LSCode.php",
