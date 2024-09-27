@@ -16,7 +16,7 @@ if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
     }
 }
 
-$tid = (int)$_GET["tid"];
+$tid = intval($_GET["tid"] ?? 0);
 $list_type = $auth['type'] + 1;
 
 // Show Thread or create new
@@ -44,7 +44,7 @@ if ($tid) {
         $current_post = $database->queryWithOnlyFirstRow("SELECT userid FROM %prefix%board_posts WHERE pid = ?", [$_GET['pid']]);
     }
 } else {
-    $thread = $database->queryWithOnlyFirstRow("SELECT need_type, need_group FROM %prefix%board_forums WHERE fid = ?", [$_GET['fid']]);
+    $thread = $database->queryWithOnlyFirstRow("SELECT need_type, need_group, '' AS caption FROM %prefix%board_forums WHERE fid = ?", [$_GET['fid']]);
 }
 
 $fid = 0;
@@ -197,7 +197,7 @@ if (!$thread and $tid) {
 }
 
 $pIdParameter = $_GET['pid'] ?? 0;
-if (is_array($thread) && $thread['closed']) {
+if (is_array($thread) && array_key_exists('closed', $thread) && $thread['closed']) {
     $func->information(t('Dieser Thread wurde geschlossen. Es können keine Antworten mehr geschrieben werden'), NO_LINK);
 } elseif (is_array($thread) && $thread['need_type'] >= 1 and !$auth['login'] and !$_GET['tid']) {
     $func->information(t('Du musst dich zuerst einloggen, um einen Thread in diesem Forum starten zu können'), NO_LINK);
@@ -213,7 +213,8 @@ if (is_array($thread) && $thread['closed']) {
     $func->error('Du darfst nur deine eigenen Beiträge editieren!', NO_LINK);
 } elseif (is_array($thread)) {
     // Topic erstellen oder auf Topic antworten
-    if ($_GET['tid']) {
+    $tidParameter = intval($_GET['tid'] ?? 0);
+    if ($tidParameter) {
         $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));
     } else {
         $dsp->AddFieldsetStart(t('Thread erstellen'));
@@ -227,7 +228,7 @@ if (is_array($thread) && $thread['closed']) {
     $mf->AddField(t('Text'), 'comment', '', \LanSuite\MasterForm::LSCODE_BIG);
     $mf->AddField(t('Bild / Datei anhängen'), 'file', \LanSuite\MasterForm::IS_FILE_UPLOAD, 'ext_inc/board_upload/', \LanSuite\MasterForm::FIELD_OPTIONAL);
   
-    $mf->AddFix('tid', $_GET['tid']);
+    $mf->AddFix('tid', $tidParameter);
     if (!$pIdParameter) {
         $mf->AddFix('date', 'NOW()');
         $mf->AddFix('userid', $auth['userid']);
@@ -239,7 +240,7 @@ if (is_array($thread) && $thread['closed']) {
   
     $fIdParameter = $_GET['fid'] ?? 0;
     $postsPageParameter = $_GET['posts_page'] ?? 0;
-    if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $fIdParameter .'&tid='. $_GET['tid'].'&posts_page=' . $postsPageParameter, 'board_posts', 'pid', $pIdParameter)) {
+    if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $fIdParameter .'&tid=' . $tidParameter . '&posts_page=' . $postsPageParameter, 'board_posts', 'pid', $pIdParameter)) {
         $tid = (int)$_GET['tid'];
   
         // Update thread-table, if new thread
