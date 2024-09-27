@@ -27,11 +27,11 @@ class TourneyTree
      */
     private $size;
 
-    private float|int $wb_rounds;
+    private readonly float|int $wb_rounds;
 
-    private int|float $wb_num_rows;
+    private readonly int|float $wb_num_rows;
 
-    private float|int $wb_num_cols;
+    private readonly float|int $wb_num_cols;
 
     private array $wb_tbl = [];
 

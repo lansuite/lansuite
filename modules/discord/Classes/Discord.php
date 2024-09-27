@@ -22,12 +22,12 @@ class Discord {
     /**
      * HTTP Client to call external APIs.
      */
-    private \Symfony\Contracts\HttpClient\HttpClientInterface $httpClient;
+    private readonly \Symfony\Contracts\HttpClient\HttpClientInterface $httpClient;
 
     /**
      * Cache
      */
-    private \Symfony\Contracts\Cache\CacheInterface $cache;
+    private readonly \Symfony\Contracts\Cache\CacheInterface $cache;
 
     /**
      * Cache TTL of the discord response in seconds.
