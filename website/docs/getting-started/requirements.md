@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## System requirements
 
-* Minimum [PHP](https://php.net/) 8.1 with the following extensions activated:
+* Minimum [PHP](https://php.net/) 8.2 with the following extensions activated:
   * gd
   * json
   * mysqli
