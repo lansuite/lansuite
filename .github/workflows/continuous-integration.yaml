@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['8.1']
+        php-versions: ['8.2']
 
     steps:
       - uses: actions/checkout@v4
@@ -59,7 +59,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           # Run style checks only on one version (latest supported)
-          php-version: 8.1
+          php-version: 8.2
           extensions: gd, mysqli
 
       - name: Determine composer cache directory
@@ -78,7 +78,7 @@ jobs:
         
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v45
 
       - name: Run phpcs on all changed files
         run: |
