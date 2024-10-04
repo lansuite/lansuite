@@ -58,9 +58,21 @@ class FileCollection
         return $fileCollection;
     }
 
-    public function scanDir($path='')
+    /**
+     * scans the given path for files and folders and returns elements that are OK regarding the set white & blacklist
+     *
+     * @param string $path the path to scan on top on the path set for the fileCollection. Empty by default
+     * @param bool $recursive If true then subfolders will be searched also and files returned. False by default
+     */
+    public function scanDir(string $path='', bool $recursive=false) :array
     {
         //scan a given path or base+rel-dir for files and return file objects that evaluate fine for the black/whitelist set
+        $fileSystemObjects = array_diff(scandir($this->getFullPath($path)), array('..', '.'));
+
+        foreach ($fileSystemObjects as $fsObj) {
+
+        }
+
     }
 
      /**
@@ -209,7 +221,7 @@ class FileCollection
     }
 
     /**
-     * Sets blacklist für filenames and extensions
+     * Sets blacklist for filenames and extensions
      *
      * @param array $entries the blacklist entries to be set
      *
@@ -219,6 +231,18 @@ class FileCollection
     {
         $this->blacklist = $entries;
 
+    }
+
+    /**
+     * Adds an entry to the blacklist without removing existing enties
+     *
+     * @param array $entries the blacklist entries to be added
+     *
+     * @return void No return value
+     */
+    public function addToBlacklist(array $entries) : void
+    {
+        $this->blacklist = array_merge($this->blacklist,$entries);
     }
 
     /**
