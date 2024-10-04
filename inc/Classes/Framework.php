@@ -96,7 +96,7 @@ class Framework
     /**
      * Request object
      */
-    private Request $request;
+    private readonly Request $request;
 
     /**
      * Display modus constants
