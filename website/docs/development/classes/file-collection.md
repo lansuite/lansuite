@@ -39,11 +39,21 @@ For example, if you want to only allow upload files that have an image extension
 $fc->new FileCollection();
 $fc->setWhitelist(FileCollection::IMAGE_WHITELIST);
 ```
-And now only files with the extensions jpg, jpeg, webp, gif, png, bmp or ico will be accepted when evaluating with `$fc->checkLists($fileName)`
+And now only files with the extensions jpg, jpeg, webp, gif, png, bmp or ico will be accepted when evaluating with `$fc->checkLists($fileName)` (or by using any of the function that call this implicitly internally)
 
 ### Setting a file blacklist
+The FileCollection Class has by default a blacklist defined in class constant `SECURITY_BLACKLIST`, which permits any files not named `.htaccess`, `user.ini` and not having a php file extension.
+It is recommended to keep these entries unless absolutely required and only add additional entries by calling
+```
+$fc->new FileCollection();
+$fc->addToBlacklist($filterRegExArray);
+```
+where $filterRegExArray is an 1D-Array containing regular Expressions that should NOT be matched. Any file matching any of them will be not accessible through the FileCollection.
+If you really need to overwrite the default blacklst set, then the blacklist can be overwritten with own entries by calling `setBlacklist` as per the example above.
+But be very careful as that opens the door to potential exploits.
 
-Note that setting a new blacklist overwrites the existing (default) list.
-You may want to read out the current value (via `getBlacklist()`) and array-merge it with what you want to add.
-the class constant `IMAGE_WHITELIST` is used by default, which permits any files not named `.htaccess`, `user.ini` and not having a php file extension
+### Accessing files in Collection scope
+The file collection acts as guardrail to prevent any access any access outside of the configured scope of white/blacklist and path.
+At the current level of implementation it does NOT offer dedicated functions to identify files and paths, so these must be known before
+
 
