@@ -1,7 +1,7 @@
 # Get composer
 FROM composer:2.8.2 as composer
 
-FROM php:8.2.19-fpm-bullseye
+FROM php:8.4.1-fpm-bullseye
 
 COPY . /code
 
