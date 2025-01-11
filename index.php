@@ -3,11 +3,11 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Smarty\Smarty;
-use Symfony\Component\Cache;
 use Symfony\Component\ErrorHandler\Debug;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Cache;
 
 $request = Request::createFromGlobals();
 $filesystem = new Filesystem();
@@ -28,7 +28,7 @@ $PHPErrors = '';
 if (file_exists('inc/base/config.php')) {
     $config = parse_ini_file('inc/base/config.php', 1);
 
-// Default config. Will be used only until the wizard has created the config file
+    // Default config. Will be used only until the wizard has created the config file
 } else {
     $config = [];
 
@@ -50,8 +50,7 @@ if (file_exists('inc/base/config.php')) {
 }
 
 // Check cache pool name - generate one if not existing
-if (!array_key_exists('uid', $config['lansuite']) || $config['lansuite']['uid'] == '')
-{
+if (!array_key_exists('uid', $config['lansuite']) || $config['lansuite']['uid'] == '') {
     $config['lansuite']['uid'] = uniqid('ls_', true);
 
     // Write config to file to ensure that uid is persistent
@@ -79,12 +78,12 @@ if (!$config['lansuite']['debugmode']) {
     // The error handler writes into the database. If the environment is
     // not set up yet, we don't have the respective database tables.
     if ($config['environment']['configured']) {
-        set_error_handler("myErrorHandler");
+        set_error_handler('myErrorHandler');
     }
 
-// If the debug mode is enabled, we register the Symonfy/Debug component.
-// This component shows the error in a nice stack trace.
-// More information here: https://symfony.com/components/Debug
+    // If the debug mode is enabled, we register the Symonfy/Debug component.
+    // This component shows the error in a nice stack trace.
+    // More information here: https://symfony.com/components/Debug
 } elseif ($config['lansuite']['debugmode'] > 0) {
     Debug::enable();
 
@@ -110,10 +109,10 @@ $design = $request->query->get('design');
 $frmwrkmode = '';
 
 if ($design == \LanSuite\Framework::DISPLAY_MODUS_BASE ||
-    $design == \LanSuite\Framework::DISPLAY_MODUS_POPUP ||
-    $design == \LanSuite\Framework::DISPLAY_MODUS_AJAX ||
-    $design == \LanSuite\Framework::DISPLAY_MODUS_PRINT ||
-    $design == \LanSuite\Framework::DISPLAY_MODUS_BEAMER) {
+        $design == \LanSuite\Framework::DISPLAY_MODUS_POPUP ||
+        $design == \LanSuite\Framework::DISPLAY_MODUS_AJAX ||
+        $design == \LanSuite\Framework::DISPLAY_MODUS_PRINT ||
+        $design == \LanSuite\Framework::DISPLAY_MODUS_BEAMER) {
     $frmwrkmode = $design;
 }
 // Set Popupmode via GET (base, popup)
@@ -138,7 +137,7 @@ if ($request->isSecure()) {
     header('Strict-Transport-Security: max-age=86400');
 }
 
-include_once("ext_scripts/mobile_device_detect.php");
+include_once ('ext_scripts/mobile_device_detect.php');
 $framework->IsMobileBrowser = mobile_device_detect();
 
 // For XHTML compatibility
@@ -221,7 +220,7 @@ $smarty->setCaching(Smarty::CACHING_OFF);
 $framework->setTemplateEngine($smarty);
 
 if (isset($debug)) {
-    $debug->tracker("Include and Init Smarty");
+    $debug->tracker('Include and Init Smarty');
 }
 
 // Global counter for \LanSuite\Module\MasterSearch2\MasterSearch2 class
@@ -251,7 +250,7 @@ $database = new \LanSuite\Database(
 try {
     $database->connect();
     $database->setTablePrefix($config['database']['prefix']);
-} catch(\mysqli_sql_exception $e) {
+} catch (\mysqli_sql_exception $e) {
     $databaseError = $e->getMessage() . ' (' . $e->getCode() . ')';
     echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. LanSuite wird abgebrochen. Zurückgegebener MySQL-Fehler: ' . $databaseError) . HTML_FONT_END;
     exit();
@@ -261,7 +260,7 @@ try {
 $sec = new \LanSuite\Security();
 
 if (isset($debug)) {
-    $debug->tracker("Include and Init Base Classes");
+    $debug->tracker('Include and Init Base Classes');
 }
 
 // Initalize Basic Parameters
@@ -283,14 +282,14 @@ if ($config['environment']['configured'] == 0) {
     try {
         $db->connect(1);
     } catch (\mysqli_sql_exception $e) {
-        //ignore connection error, this wil be dealt with later in the installation
+        // ignore connection error, this wil be dealt with later in the installation
     }
 
     $IsAboutToInstall = 1;
 
     // Force Admin rights for installing User
     $auth['type'] = \LS_AUTH_TYPE_SUPERADMIN;
-    $auth["login"] = 1;
+    $auth['login'] = 1;
     $auth['userid'] = 0;
 
     // At this point in time, we are in the installation mode and the global
@@ -302,7 +301,7 @@ if ($config['environment']['configured'] == 0) {
     $cfg = $configLoader->getConfigurationAsArray();
 
     // Load DB-Data after installwizard step 3
-    if ($_GET["action"] == "wizard" && isset($_GET["step"]) && $_GET["step"] > 3) {
+    if ($_GET['action'] == 'wizard' && isset($_GET['step']) && $_GET['step'] > 3) {
         $cfg = $func->read_db_config();
     }
 } else {
@@ -314,11 +313,11 @@ if ($config['environment']['configured'] == 0) {
     }
 
     // Reset DB-Success in Setup if no Adm.-Account was found, because a connection could work, but prefix is wrong
-    if (!$func->admin_exists() && isset($_GET["action"]) && (($_GET["action"] == "wizard" && $_GET["step"] <= 3) || ($_GET["action"] == "ls_conf"))) {
+    if (!$func->admin_exists() && isset($_GET['action']) && (($_GET['action'] == 'wizard' && $_GET['step'] <= 3) || ($_GET['action'] == 'ls_conf'))) {
         $db->success = 0;
     }
 
-    //load $cfg from cache
+    // load $cfg from cache
     $cfgCache = $cache->getItem('cfg');
     if (!$cfgCache->isHit()) {
         $cfg = $func->read_db_config();
@@ -350,7 +349,7 @@ if ($config['environment']['configured'] == 0) {
 
     // Start authentication, just if LS is working
     $authentication = new \LanSuite\Auth($database, $request, $frmwrkmode);
-    // Test Cookie / Session if user is logged in
+    // Test Session if user is logged in
     $auth = $authentication->check_logon();
     // Olduserid for Switback on Boxes
     $olduserid = $authentication->get_olduserid();
@@ -369,7 +368,7 @@ if ($auth['type'] < \LS_AUTH_TYPE_ADMIN) {
 if ($func->isModActive('party')) {
     $party = new \LanSuite\Module\Party\Party();
 
-// If without party-module: Just give a fake ID, for many modules need it
+    // If without party-module: Just give a fake ID, for many modules need it
 } else {
     $party = new class {
         public $party_id;
@@ -379,7 +378,7 @@ if ($func->isModActive('party')) {
 }
 
 if ($config['environment']['configured'] != 0) {
-    if ($_GET['mod']=='auth') {
+    if ($_GET['mod'] == 'auth') {
         switch ($_GET['action']) {
             case 'login':
                 $emailValue = $_POST['email'] ?? '';
@@ -398,11 +397,11 @@ if ($config['environment']['configured'] != 0) {
                 $_GET['mod'] = 'home';
                 $request->query->set('mod', 'home');
                 break;
-            // Switch to user
+                // Switch to user
             case 'switch_to':
-                $authentication->switchto($_GET["userid"]);
+                $authentication->switchto($_GET['userid']);
                 break;
-            // Switch back to Adminuser
+                // Switch back to Adminuser
             case 'switch_back':
                 $authentication->switchback();
                 break;
@@ -447,6 +446,7 @@ function initializeDesign()
     // Assign
     $smarty->assign('default_design', $auth['design']);
 }
+
 initializeDesign();
 
 // Load Rotation Banner
@@ -456,12 +456,12 @@ if (array_key_exists('lansuite', $_SESSION) && array_key_exists('fullscreen', $_
     $fullscreenSessionParameter = $_SESSION['lansuite']['fullscreen'];
 }
 if ($design != 'popup' && $actionParameter != 'wizard' && !$fullscreenSessionParameter && $db->success && $func->isModActive('sponsor')) {
-    include_once("modules/sponsor/banner.php");
+    include_once ('modules/sponsor/banner.php');
 }
 
 // Create Boxes / load Boxmanager
 if (!$IsAboutToInstall && $design != 'base') {
-    include_once("modules/boxes/boxes.php");
+    include_once ('modules/boxes/boxes.php');
 }
 
 $db->DisplayErrors();
@@ -470,7 +470,7 @@ if ($PHPErrors) {
 }
 $PHPErrors = '';
 
-include_once('index_module.inc.php');
+include_once ('index_module.inc.php');
 
 // Complete Framework and Output HTML
 $framework->setDesign($auth['design']);
@@ -488,11 +488,11 @@ if (isset($FrameworkMessages)) {
 // Add old MainContent-Variable (should be deprecated)
 $framework->addContent($MainContent);
 
-    // DEBUG:Alles
+// DEBUG:Alles
 if (isset($debug)) {
     $debug->addvar('$auth', $auth);
     $debug->addvar('$cfg', $cfg);
-    $debug->tracker("All up to HTML-Output");
+    $debug->tracker('All up to HTML-Output');
 }
 
 // Output of all HTML

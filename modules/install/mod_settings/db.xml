@@ -1636,47 +1636,6 @@
     </table>
     <table>
         <table_head>
-            <name>cookie</name>
-        </table_head>
-        <structure>
-            <field>
-                <name>cookieid</name>
-                <type>int(11) unsigned</type>
-                <null></null>
-                <key>PRI</key>
-                <default></default>
-                <extra>auto_increment</extra>
-            </field>
-            <field>
-                <name>password</name>
-                <type>char(32)</type>
-                <null></null>
-                <key></key>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
-                <name>lastchange</name>
-                <type>timestamp</type>
-                <null></null>
-                <key>IND</key>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
-                <name>userid</name>
-                <type>mediumint(8) unsigned</type>
-                <null></null>
-                <key>IND</key>
-                <default></default>
-                <extra></extra>
-                <foreign_key>user.userid</foreign_key>
-                <on_delete>DELETE</on_delete>
-            </field>
-        </structure>
-    </table>
-    <table>
-        <table_head>
             <name>plugin</name>
         </table_head>
         <structure>
