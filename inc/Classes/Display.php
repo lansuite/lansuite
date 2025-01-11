@@ -64,9 +64,9 @@ class Display
         global $smarty, $MainContent;
 
         if ($mod == '') {
-            $MainContent .= $smarty->fetch('design/templates/'. $name .'.htm');
+            $MainContent .= $smarty->fetch('design/templates/' . $name . '.htm');
         } else {
-            $MainContent .= $smarty->fetch('modules/'. $mod .'/templates/'. $name .'.htm');
+            $MainContent .= $smarty->fetch('modules/' . $mod . '/templates/' . $name . '.htm');
         }
     }
 
@@ -106,7 +106,7 @@ class Display
     {
         global $smarty, $language;
 
-        if (file_exists('modules/'. $_GET['mod'] .'/docu/'. $language .'_'. $helplet_id .'.php')) {
+        if (file_exists('modules/' . $_GET['mod'] . '/docu/' . $language . '_' . $helplet_id . '.php')) {
             $smarty->assign('helplet_id', $helplet_id);
         } else {
             $smarty->assign('helplet_id', '');
@@ -140,10 +140,10 @@ class Display
         global $MainContent;
 
         if ($icon) {
-            $name = '<img src="design/images/icon_'. $icon .'.png" height="14" alt="'. $icon .'" border=\"0\" /> '. $name;
+            $name = '<img src="design/images/icon_' . $icon . '.png" height="14" alt="' . $icon . '" border=\"0\" /> ' . $name;
         }
         $this->TabNames[] = $name;
-        $MainContent .= '<div id="tabs-'. (int)$this->CurrentTab .'">';
+        $MainContent .= '<div id="tabs-' . (int) $this->CurrentTab . '">';
         $this->CurrentTab++;
     }
 
@@ -168,17 +168,17 @@ class Display
 
         $items = '';
         foreach ($this->TabNames as $key => $name) {
-            $items .= '<li><a href="#tabs-'. $key .'">'. $name .'</a></li>';
+            $items .= '<li><a href="#tabs-' . $key . '">' . $name . '</a></li>';
         }
-        $out .= '<div id="tabs"><ul>'. $items .'</ul>';
+        $out .= '<div id="tabs"><ul>' . $items . '</ul>';
 
         $sel = '';
         if (array_key_exists('tab', $_GET) && $_GET['tab']) {
-            $sel = '{ active: '. (int)$_GET['tab'] .' }';
+            $sel = '{ active: ' . (int) $_GET['tab'] . ' }';
         }
-        $framework->addJavaScriptCode('$(function() { $("#tabs").tabs('. $sel .'); });');
+        $framework->addJavaScriptCode('$(function() { $("#tabs").tabs(' . $sel . '); });');
 
-        $out .= $MainContent .'</div>';
+        $out .= $MainContent . '</div>';
         $MainContent = $out;
     }
 
@@ -195,9 +195,9 @@ class Display
         $items = '';
         foreach ($names as $key => $name) {
             if ($key == $active && $active != null) {
-                $items .= '<span class="HeaderMenuItemActive">'. $name .'</span>';
+                $items .= '<span class="HeaderMenuItemActive">' . $name . '</span>';
             } else {
-                $items .= '<span class="HeaderMenuItem"><a href="'. $link .'&headermenuitem='. $key .'">'. $name .'</a></span>';
+                $items .= '<span class="HeaderMenuItem"><a href="' . $link . '&headermenuitem=' . $key . '">' . $name . '</a></span>';
             }
         }
 
@@ -221,11 +221,11 @@ class Display
             } else {
                 $am = 'class="menu"';
             }
-            $items .= '<a href="'. $link . $key .'"'. $am .'><b>'. $name .'</b></a> - ';
+            $items .= '<a href="' . $link . $key . '"' . $am . '><b>' . $name . '</b></a> - ';
         }
         $items = substr($items, 0, -3);
 
-        $MainContent .=  $items;
+        $MainContent .= $items;
     }
 
     /**
@@ -242,7 +242,7 @@ class Display
         } else {
             $vissible = 'none';
         }
-        $MainContent .=  '<div id="'. $name .'" style="display:'. $vissible .'">';
+        $MainContent .= '<div id="' . $name . '" style="display:' . $vissible . '">';
     }
 
     /**
@@ -252,7 +252,7 @@ class Display
     {
         global $MainContent;
 
-        $MainContent .=  '</div>';
+        $MainContent .= '</div>';
     }
 
     /**
@@ -296,15 +296,15 @@ class Display
         global $smarty;
 
         if ($key == '') {
-            $key = "&nbsp;";
+            $key = '&nbsp;';
         }
 
         if ($value == '') {
-            $value = "&nbsp;";
+            $value = '&nbsp;';
         }
 
         if ($id == '') {
-            $id = "DoubleRowVal";
+            $id = 'DoubleRowVal';
         }
 
         $smarty->assign('key', $key);
@@ -340,7 +340,6 @@ class Display
             $disabled = '';
         }
 
-
         if ($errortext) {
             $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix;
         } else {
@@ -349,7 +348,7 @@ class Display
 
         // TODO Remove variable $optional, it is not used at all (or implement it)
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
@@ -358,9 +357,9 @@ class Display
             $val = '1';
         }
 
-        $key = '<label for="'. $name .'">'. $key .'</label>';
-        $value = '<input id="'. $name .'" name="'. $name .'" type="checkbox" class="checkbox" value="'. $val .'" '. $checked .' '. $disabled .' '. $additionalHTML .' />';
-        $value .= '<label for="'. $name .'">'. $text .'</label>'. $errortext;
+        $key = '<label for="' . $name . '">' . $key . '</label>';
+        $value = '<input id="' . $name . '" name="' . $name . '" type="checkbox" class="checkbox" value="' . $val . '" ' . $checked . ' ' . $disabled . ' ' . $additionalHTML . ' />';
+        $value .= '<label for="' . $name . '">' . $text . '</label>' . $errortext;
         $this->AddDoubleRow($key, $value);
     }
 
@@ -375,7 +374,6 @@ class Display
      */
     public function AddRadioRow($name, $key, $val, $errortext = null, $optional = null, $checked = null, $disabled = null)
     {
-
         if ($checked) {
             $checked = 'checked="checked"';
         } else {
@@ -395,13 +393,13 @@ class Display
         }
 
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
 
-        $value = '<input name="'. $name .'" type="radio" class="form'. $optional .'" value="'. $val .'" '. $checked .' '. $disabled .' />'. $errortext;
-        $key = '<label for="'. $name .'">'. $key .'</label>';
+        $value = '<input name="' . $name . '" type="radio" class="form' . $optional . '" value="' . $val . '" ' . $checked . ' ' . $disabled . ' />' . $errortext;
+        $key = '<label for="' . $name . '">' . $key . '</label>';
         $this->AddDoubleRow($key, $value);
     }
 
@@ -416,7 +414,7 @@ class Display
      * @param int $maxlength
      * @return void
      */
-    public function AddTextFieldRow($name, $key, $value, $errortext, $size = null, $optional = null, $not_changeable = null, $maxlength = null)
+    public function AddTextFieldRow($name, $key, $value, $errortext, $size = null, $optional = null, $not_changeable = null, $maxlength = null, $tooltip = null)
     {
         if ($errortext) {
             $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix;
@@ -425,7 +423,7 @@ class Display
         }
 
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
@@ -437,14 +435,17 @@ class Display
         }
 
         if ($maxlength) {
-            $maxlength = ' maxlength="'. $maxlength .'"';
+            $maxlength = ' maxlength="' . $maxlength . '"';
         }
         if ($size == '') {
             $size = '30';
         }
+        if ($tooltip) {
+            $tooltip = ' title="' . $tooltip . '"';
+        }
 
-        $value = '<input type="text" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'"'. $not_changeable .' value="'. $value .'"'. $maxlength .' />'. $errortext;
-        $key = '<label for="'. $name .'">'. $key .'</label>';
+        $value = '<input type="text" id="' . $name . '" name="' . $name . '" class="form' . $optional . '" size="' . $size . '"' . $not_changeable . ' value="' . $value . '"' . $maxlength . ' />' . $errortext;
+        $key = '<label for="' . $name . '"' . $tooltip . '>' . $key . '</label>';
         $this->AddDoubleRow($key, $value);
     }
 
@@ -467,7 +468,7 @@ class Display
         }
 
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
@@ -476,8 +477,8 @@ class Display
             $size = '30';
         }
 
-        $value = '<input type="password" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'" value="'. $value .'" '. $additional .' />'. $errortext;
-        $key = '<label for="'. $name .'">'. $key .'</label>';
+        $value = '<input type="password" id="' . $name . '" name="' . $name . '" class="form' . $optional . '" size="' . $size . '" value="' . $value . '" ' . $additional . ' />' . $errortext;
+        $key = '<label for="' . $name . '">' . $key . '</label>';
         $this->AddDoubleRow($key, $value);
     }
 
@@ -531,14 +532,14 @@ class Display
      */
     public function AddTextAreaMailRow($name, $key, $value, $errortext, $cols = null, $rows = null, $optional = null, $maxchar = null)
     {
-        if ($cols == "") {
-            $cols = "50";
+        if ($cols == '') {
+            $cols = '50';
         }
-        if ($rows == "") {
-            $rows = "7";
+        if ($rows == '') {
+            $rows = '7';
         }
-        if ($maxchar == "") {
-            $maxchar = "5000";
+        if ($maxchar == '') {
+            $maxchar = '5000';
         }
 
         if ($errortext) {
@@ -548,17 +549,17 @@ class Display
         }
 
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
 
-        $key = '<label for="'. $name .'">'. $key .'</label>
+        $key = '<label for="' . $name . '">' . $key . '</label>
       <br />
       <br />
       <br />
-      <a href="index.php?mod=popups&action=ls_row_textareamail_popup&design=popup&form='. $this->form_name .'&textarea='. $name .'" onclick="OpenWindow(this.href, \'TextFormatSelect\'); return false">Variablen einfügen</a>';
-        $value = '<textarea name="'. $name .'" id="'. $name .'" class="form'. $name .'" cols="'. $cols .'" rows="'. $rows .'" onKeyUp="TextAreaPlusCharsLeft(this, document.'. $this->form_name .'.'. $name .'_chr, '. $maxchar .'); AddaptTextAreaHeight(this)">'. $value .'</textarea>';
+      <a href="index.php?mod=popups&action=ls_row_textareamail_popup&design=popup&form=' . $this->form_name . '&textarea=' . $name . '" onclick="OpenWindow(this.href, \'TextFormatSelect\'); return false">Variablen einfügen</a>';
+        $value = '<textarea name="' . $name . '" id="' . $name . '" class="form' . $name . '" cols="' . $cols . '" rows="' . $rows . '" onKeyUp="TextAreaPlusCharsLeft(this, document.' . $this->form_name . '.' . $name . '_chr, ' . $maxchar . '); AddaptTextAreaHeight(this)">' . $value . '</textarea>';
         $value .= $errortext;
         $this->AddDoubleRow($key, $value);
     }
@@ -575,11 +576,11 @@ class Display
      */
     public function AddTextAreaRow($name, $key, $value, $errortext, $cols = null, $rows = null, $optional = null)
     {
-        if ($cols == "") {
-            $cols = "50";
+        if ($cols == '') {
+            $cols = '50';
         }
-        if ($rows == "") {
-            $rows = "7";
+        if ($rows == '') {
+            $rows = '7';
         }
 
         if ($errortext) {
@@ -590,13 +591,13 @@ class Display
 
         // TODO implement $optional, right now it is not in use
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
 
-        $key = '<label for="'. $name .'">'. $key .'</label>';
-        $value = '<textarea name="'. $name .'" id="'. $name .'" class="form'. $name .'" cols="'. $cols .'" rows="'. $rows .'" onKeyUp="AddaptTextAreaHeight(this)">'. $value .'</textarea>';
+        $key = '<label for="' . $name . '">' . $key . '</label>';
+        $value = '<textarea name="' . $name . '" id="' . $name . '" class="form' . $name . '" cols="' . $cols . '" rows="' . $rows . '" onKeyUp="AddaptTextAreaHeight(this)">' . $value . '</textarea>';
         $value .= $errortext;
         $this->AddDoubleRow($key, $value);
     }
@@ -620,23 +621,23 @@ class Display
     {
         global $smarty;
 
-        if ($rows == "") {
-            $rows = "7";
+        if ($rows == '') {
+            $rows = '7';
         }
-        if ($maxchar == "") {
-            $maxchar = "5000";
+        if ($maxchar == '') {
+            $maxchar = '5000';
         }
 
         $this->form_open = false;
-        $buttons = $this->FetchSpanButton(t('Vorschau'), 'index.php?mod=popups&action=textareaplus_preview&design=popup&textareaname='. $name .'" onclick="javascript:OpenPreviewWindow(this.href, document.'. $this->form_name .'); return false;');
-        $buttons .= " ". $this->FetchIcon('bold', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", t('Fett'));
-        $buttons .= " ". $this->FetchIcon('italic', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[i]', '[/i]')", t('Kursiv'));
-        $buttons .= " ". $this->FetchIcon('underline', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[u]', '[/u]')", t('Unterstrichen'));
-        $buttons .= " ". $this->FetchIcon('strike', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[s]', '[/s]')", t('Durchstreichen'));
-        $buttons .= " ". $this->FetchIcon('sub', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[sub]', '[/sub]')", t('Tiefstellen'));
-        $buttons .= " ". $this->FetchIcon('sup', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[sup]', '[/sup]')", t('Hochstellen'));
-        $buttons .= " ". $this->FetchIcon('quote', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[c]', '[/c]')", t('Code'));
-        $buttons .= " ". $this->FetchIcon('img', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[img]', '[/img]')", t('Bild'));
+        $buttons = $this->FetchSpanButton(t('Vorschau'), 'index.php?mod=popups&action=textareaplus_preview&design=popup&textareaname=' . $name . '" onclick="javascript:OpenPreviewWindow(this.href, document.' . $this->form_name . '); return false;');
+        $buttons .= ' ' . $this->FetchIcon('bold', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", t('Fett'));
+        $buttons .= ' ' . $this->FetchIcon('italic', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[i]', '[/i]')", t('Kursiv'));
+        $buttons .= ' ' . $this->FetchIcon('underline', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[u]', '[/u]')", t('Unterstrichen'));
+        $buttons .= ' ' . $this->FetchIcon('strike', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[s]', '[/s]')", t('Durchstreichen'));
+        $buttons .= ' ' . $this->FetchIcon('sub', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[sub]', '[/sub]')", t('Tiefstellen'));
+        $buttons .= ' ' . $this->FetchIcon('sup', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[sup]', '[/sup]')", t('Hochstellen'));
+        $buttons .= ' ' . $this->FetchIcon('quote', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[c]', '[/c]')", t('Code'));
+        $buttons .= ' ' . $this->FetchIcon('img', "javascript:InsertCode(document.{$this->form_name}.{$name}, '[img]', '[/img]')", t('Bild'));
         $this->form_open = true;
         $smarty->assign('buttons', $buttons);
 
@@ -678,7 +679,7 @@ class Display
         }
 
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
@@ -689,8 +690,8 @@ class Display
             $options = '';
         }
 
-        $key = '<label for="'. $name .'">'. $key .'</label>';
-        $value = '<select name="'. $name .'" class="form'. $optional .'" '. $additionalHTML .'>';
+        $key = '<label for="' . $name . '">' . $key . '</label>';
+        $value = '<select name="' . $name . '" class="form' . $optional . '" ' . $additionalHTML . '>';
         $value .= $options;
         $value .= '</select>';
         $value .= $errortext;
@@ -705,7 +706,7 @@ class Display
     {
         global $MainContent;
 
-        $MainContent .=  '<br /><fieldset width="100%" style="clear:left; width:100%"><legend><b>'. $name .'</b></legend>';
+        $MainContent .= '<br /><fieldset width="100%" style="clear:left; width:100%"><legend><b>' . $name . '</b></legend>';
         $this->FirstLine = 1;
     }
 
@@ -716,7 +717,7 @@ class Display
     {
         global $MainContent;
 
-        $MainContent .=  '</fieldset>';
+        $MainContent .= '</fieldset>';
         $this->FirstLine = 1;
     }
 
@@ -738,7 +739,7 @@ class Display
         }
 
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
@@ -753,8 +754,8 @@ class Display
             $size = 4;
         }
 
-        $key = '<label for="'. $name .'">'. $key .'</label>';
-        $value = '<select name="'. $name .'[]" class="form'. $optional .'" size="'. $size .'" multiple>';
+        $key = '<label for="' . $name . '">' . $key . '</label>';
+        $value = '<select name="' . $name . '[]" class="form' . $optional . '" size="' . $size . '" multiple>';
         $value .= $options;
         $value .= '</select>';
         $value .= $errortext;
@@ -767,9 +768,9 @@ class Display
      * @param string $name
      * @return void
      */
-    public function AddFormSubmitRow($text, $close = true, $name = "imageField")
+    public function AddFormSubmitRow($text, $close = true, $name = 'imageField')
     {
-        $this->AddDoubleRow('&nbsp;', '<input type="submit" class="Button" name="'. $name .'" value="'. $text .'" />');
+        $this->AddDoubleRow('&nbsp;', '<input type="submit" class="Button" name="' . $name . '" value="' . $text . '" />');
         if ($this->form_open and $close) {
             $this->CloseForm();
         }
@@ -802,7 +803,7 @@ class Display
      * @param boolean $optional
      * @return void
      */
-    public function AddBarcodeForm($key, $value, $action, $method = "post", $errortext = null, $size = null, $optional = null)
+    public function AddBarcodeForm($key, $value, $action, $method = 'post', $errortext = null, $size = null, $optional = null)
     {
         if ($size == '') {
             $size = '30';
@@ -814,14 +815,14 @@ class Display
         }
 
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
 
-        $key = '<label for="barcode">'. $key .'</label>';
-        $val= '<form name="barcode" method="'. $method .'" action="'. $action .'">';
-        $val .= '<input onkeyup="checkfield(this)" type="text" name="barcodefield" class="form'. $optional .'" size="'. $size .'" value="'. $value .'" />';
+        $key = '<label for="barcode">' . $key . '</label>';
+        $val = '<form name="barcode" method="' . $method . '" action="' . $action . '">';
+        $val .= '<input onkeyup="checkfield(this)" type="text" name="barcodefield" class="form' . $optional . '" size="' . $size . '" value="' . $value . '" />';
         $val .= $errortext;
         $val .= '</form>';
         $val .= '<script type="text/javascript">';
@@ -868,25 +869,23 @@ class Display
         }
 
         if ($time > 0) {
-            $day = date("j", $time);
-            $month = date("n", $time);
-            $year = date("Y", $time);
-            $hour = date("H", $time);
-            $min = date("i", $time);
-
-        } elseif ($values['day'] != "" && $values['month'] != "" && $values['year'] != "") {
-            $day = ltrim($values['day'],'0');
-            $month = ltrim($values['month'],'0');
+            $day = date('j', $time);
+            $month = date('n', $time);
+            $year = date('Y', $time);
+            $hour = date('H', $time);
+            $min = date('i', $time);
+        } elseif ($values['day'] != '' && $values['month'] != '' && $values['year'] != '') {
+            $day = ltrim($values['day'], '0');
+            $month = ltrim($values['month'], '0');
             $year = $values['year'];
             $hour = $values['hour'];
             $min = $values['min'];
-
         } else {
-            $day = date("j");
-            $month = date("n");
-            $year = date("Y");
-            $hour = date("H");
-            $min = round(date("i") / 5) * 5;
+            $day = date('j');
+            $month = date('n');
+            $year = date('Y');
+            $hour = date('H');
+            $min = round(date('i') / 5) * 5;
         }
         $smarty->assign('day', $day);
         $smarty->assign('month', $month);
@@ -895,15 +894,15 @@ class Display
         $smarty->assign('min', $min);
 
         $arr = [];
-        for ($x = 0; $x <= 55; $x+=5) {
-            $numberWithLeadingZero = str_pad($x, 2, "0", STR_PAD_LEFT);
+        for ($x = 0; $x <= 55; $x += 5) {
+            $numberWithLeadingZero = str_pad($x, 2, '0', STR_PAD_LEFT);
             $arr[$numberWithLeadingZero] = $numberWithLeadingZero;
         }
         $smarty->assign('mins', $arr);
 
         $arr = [];
         for ($x = 0; $x <= 23; $x++) {
-            $numberWithLeadingZero = str_pad($x, 2, "0", STR_PAD_LEFT);
+            $numberWithLeadingZero = str_pad($x, 2, '0', STR_PAD_LEFT);
             $arr[$numberWithLeadingZero] = $numberWithLeadingZero;
         }
         $smarty->assign('hours', $arr);
@@ -920,14 +919,14 @@ class Display
         }
         $smarty->assign('months', $arr);
 
-        if ($start_year == "") {
+        if ($start_year == '') {
             $start_year = -1;
         }
-        if ($end_year == "") {
+        if ($end_year == '') {
             $end_year = 5;
         }
-        $start_year = date("Y") + $start_year;
-        $end_year = date("Y") + $end_year;
+        $start_year = date('Y') + $start_year;
+        $end_year = date('Y') + $end_year;
         $arr = [];
         for ($x = $start_year; $x <= $end_year; $x++) {
             $arr[$x] = $x;
@@ -983,7 +982,7 @@ class Display
     {
         global $MainContent;
 
-        $MainContent .=  '<div class="hrule"></div>';
+        $MainContent .= '<div class="hrule"></div>';
     }
 
     /**
@@ -1001,13 +1000,14 @@ class Display
 
         $dir = $func->GetDirList($path);
         $file_out = array();
-        $file_out[] = "<option value=\"none\">None</option>";
+        $file_out[] = '<option value="none">None</option>';
         if ($dir) {
             foreach ($dir as $file) {
                 $extension = substr($file, strpos($file, '.') + 1, 4);
-                if ($extension == "jpeg" or $extension == "jpg" or $extension == "png" or $extension == "gif") {
-                    ($file == $selected)? $file_out[] = "<option value=\"".$file."\" selected>".$file."</option>"
-                    : $file_out[] = "<option value=\"".$file."\">".$file."</option>";
+                if ($extension == 'jpeg' or $extension == 'jpg' or $extension == 'png' or $extension == 'gif') {
+                    ($file == $selected)
+                        ? $file_out[] = '<option value="' . $file . '" selected>' . $file . '</option>'
+                        : $file_out[] = '<option value="' . $file . '">' . $file . '</option>';
                 }
             }
         }
@@ -1019,22 +1019,22 @@ class Display
         }
 
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
-        if ($selected && $selected != "none") {
-            $picpreview_init = $path."/".$selected;
+        if ($selected && $selected != 'none') {
+            $picpreview_init = $path . '/' . $selected;
         } else {
             $picpreview_init = 'design/images/transparent.png';
         }
-        $options = implode("", $file_out);
+        $options = implode('', $file_out);
 
-        $key = '<label for="'. $name .'">'. $key .'</label>';
-        $value = '<select name="'. $name .'" id="'. $name .'" class="form'. $optional .'" onChange="javascript:changepic(\''. $path .'/\'+ this.value, window.document.'. $name .'_picpreview)" > '. $options .'';
+        $key = '<label for="' . $name . '">' . $key . '</label>';
+        $value = '<select name="' . $name . '" id="' . $name . '" class="form' . $optional . '" onChange="javascript:changepic(\'' . $path . "/'+ this.value, window.document." . $name . '_picpreview)" > ' . $options . '';
         $value .= '</select>';
         $value .= $errortext;
-        $value .= '<br /><img src="'. $picpreview_init .'" name="'. $name .'_picpreview" alt="pic" />';
+        $value .= '<br /><img src="' . $picpreview_init . '" name="' . $name . '_picpreview" alt="pic" />';
         $this->AddDoubleRow($key, $value);
     }
 
@@ -1053,18 +1053,18 @@ class Display
 
         $maxfilesize = ini_get('upload_max_filesize');
         if (strpos($maxfilesize, 'M') > 0) {
-            $maxfilesize = (int)$maxfilesize * 1024 * 1024;
+            $maxfilesize = (int) $maxfilesize * 1024 * 1024;
         } elseif (strpos($maxfilesize, 'K') > 0) {
-            $maxfilesize = (int)$maxfilesize * 1024;
+            $maxfilesize = (int) $maxfilesize * 1024;
         } else {
-            $maxfilesize = (int)$maxfilesize;
+            $maxfilesize = (int) $maxfilesize;
         }
 
         // If value is too low (most likely because of errors in above statement), set it to 100M
         if ($maxfilesize < 1000) {
             $maxfilesize = 1024 * 1024 * 100;
         }
-        $maxfilesize_formated = '(Max: '. $func->FormatFileSize($maxfilesize) .')';
+        $maxfilesize_formated = '(Max: ' . $func->FormatFileSize($maxfilesize) . ')';
 
         if ($size == '') {
             $size = '30';
@@ -1075,14 +1075,14 @@ class Display
             $errortext = '';
         }
         if ($optional) {
-            $optional = "_optional";
+            $optional = '_optional';
         } else {
             $optional = '';
         }
 
-        $key = '<label for="'. $name .'">'. $key .'</label>';
-        $value = '<input type="hidden" name="MAX_FILE_SIZE" value="'. $maxfilesize .'" />';
-        $value .= '<input type="file" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" value="" size="'. $size .'" enctype="multipart/form-data" maxlength="'. $maxlength .'" /> '. $maxfilesize_formated;
+        $key = '<label for="' . $name . '">' . $key . '</label>';
+        $value = '<input type="hidden" name="MAX_FILE_SIZE" value="' . $maxfilesize . '" />';
+        $value .= '<input type="file" id="' . $name . '" name="' . $name . '" class="form' . $optional . '" value="" size="' . $size . '" enctype="multipart/form-data" maxlength="' . $maxlength . '" /> ' . $maxfilesize_formated;
         $value .= $errortext;
         $this->AddDoubleRow($key, $value);
     }
@@ -1111,14 +1111,14 @@ class Display
         global $smarty;
 
         if ($f_name == null) {
-            $f_name = "dsp_form" . $this->formcount++;
+            $f_name = 'dsp_form' . $this->formcount++;
         }
         if ($f_method == null) {
-            $f_method = "POST";
+            $f_method = 'POST';
         }
 
         if ($f_enctype == null) {
-            $f_enctype = "";
+            $f_enctype = '';
         } else {
             $f_enctype = "enctype=\"$f_enctype\"";
         }
@@ -1126,16 +1126,16 @@ class Display
         if ($this->form_open) {
             $this->CloseForm();
         }
-          $this->form_open = true;
+        $this->form_open = true;
 
-          $this->form_name = $f_name;
+        $this->form_name = $f_name;
 
-          $smarty->assign('name', $f_name);
-          $smarty->assign('method', strtolower($f_method));
-          $smarty->assign('action', $f_url);
-          $smarty->assign('enctype', $f_enctype);
+        $smarty->assign('name', $f_name);
+        $smarty->assign('method', strtolower($f_method));
+        $smarty->assign('action', $f_url);
+        $smarty->assign('enctype', $f_enctype);
 
-          $this->AddSmartyTpl('ls_row_formbegin');
+        $this->AddSmartyTpl('ls_row_formbegin');
     }
 
     /**
@@ -1161,13 +1161,13 @@ class Display
 
         if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') {
             $FileNamePath = strtolower(substr($file, 0, strrpos($file, '.')));
-            $FileThumb = $FileNamePath. '_thumb' .$FileEnding;
+            $FileThumb = $FileNamePath . '_thumb' . $FileEnding;
 
             $gd->CreateThumb($file, $FileThumb, '300', '300');
-            return HTML_NEWLINE . HTML_NEWLINE. '<a href="'. $file .'" target="_blank"><img src="'. $FileThumb .'" border="0" /></a>';
+            return HTML_NEWLINE . HTML_NEWLINE . '<a href="' . $file . '" target="_blank"><img src="' . $FileThumb . '" border="0" /></a>';
         }
 
-        return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon('download', $file) .' ('. t('Angehängte Datei herunterladen').')';
+        return HTML_NEWLINE . HTML_NEWLINE . $this->FetchIcon('download', $file) . ' (' . t('Angehängte Datei herunterladen') . ')';
     }
 
     /**
@@ -1180,7 +1180,7 @@ class Display
     public function FetchCssButton($title, $link, $hint = null, $target = null)
     {
         if ($hint) {
-            $hint = '<span class="infobox">'. t($hint) .'</span>';
+            $hint = '<span class="infobox">' . t($hint) . '</span>';
         } else {
             $hint = '';
         }
@@ -1191,7 +1191,7 @@ class Display
             $target = '';
         }
 
-        return '<div class="Button"><a href="'. $link .'"'. $target .'>'. $title . $hint .'</a></div>';
+        return '<div class="Button"><a href="' . $link . '"' . $target . '>' . $title . $hint . '</a></div>';
     }
 
     /**
@@ -1204,7 +1204,7 @@ class Display
     public function FetchSpanButton($title, $link, $hint = null, $target = null)
     {
         if ($hint) {
-            $hint = '<span class="infobox">'. t($hint) .'</span>';
+            $hint = '<span class="infobox">' . t($hint) . '</span>';
         } else {
             $hint = '';
         }
@@ -1215,7 +1215,7 @@ class Display
             $target = '';
         }
 
-        return '<div class="Buttons" style="display:inline"><a href="'. $link .'"'. $target .'>'. $title . $hint .'</a></div>';
+        return '<div class="Buttons" style="display:inline"><a href="' . $link . '"' . $target . '>' . $title . $hint . '</a></div>';
     }
 
     /**
@@ -1271,7 +1271,7 @@ class Display
         }
 
         if ($link) {
-            $ret = '<a href="'.$link.'"'.$target.'>'. $ret .'</a>';
+            $ret = '<a href="' . $link . '"' . $target . '>' . $ret . '</a>';
         }
 
         return $ret;
@@ -1295,17 +1295,17 @@ class Display
         }
 
         $smarty->assign('userid', $userid);
-        $smarty->assign('username', htmlspecialchars($username)); // username may contain special characters
+        $smarty->assign('username', htmlspecialchars($username));  // username may contain special characters
         $smarty->assign('hint', t('Benutzerdetails aufrufen'));
 
         if (in_array($userid, $authentication->online_users)) {
-            $state ='online';
+            $state = 'online';
         } else {
-            $state ='offline';
+            $state = 'offline';
         }
 
         if (in_array($userid, $authentication->away_users)) {
-            $state ='idle';
+            $state = 'idle';
         }
 
         $smarty->assign('state', $state);
@@ -1323,14 +1323,14 @@ class Display
     public function FetchLink($text, $link, $class = '', $target = '')
     {
         if ($class) {
-            $class = ' class="'. $class .'"';
+            $class = ' class="' . $class . '"';
         }
 
         if ($target) {
-            $target = ' target="'. $target .'"';
+            $target = ' target="' . $target . '"';
         }
 
-        return '<a href="'.$link.'"'. $class . $target.'>'. $text .'</a>';
+        return '<a href="' . $link . '"' . $class . $target . '>' . $text . '</a>';
     }
 
     /**
@@ -1340,10 +1340,11 @@ class Display
      */
     public function HelpText($text, $help)
     {
-        return '<div class="infolink" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
+        return '<div class="infolink" style="display:inline">' . t($text) . '<span class="infobox">' . t($help) . '</span></div>';
     }
 
-    public function AddTripleRow($key, $value, $id = null, $ext_txt = '') {
+    public function AddTripleRow($key, $value, $id = null, $ext_txt = '')
+    {
         global $smarty;
 
         if ($key == '') {
@@ -1368,5 +1369,5 @@ class Display
         $smarty->assign('ls_triplerow_ext', $ext_txt);
 
         $this->AddContentLine($smarty->fetch('design/templates/ls_row_triple.htm'));
-      }
+    }
 }

@@ -93,6 +93,18 @@ class PasswordHash
         return false;
     }
 
+    public static function getAlgoToolTip(): string
+    {
+        $algo_cfg = self::getAlgoCfg();
+        switch ($algo_cfg['algo']) {
+            case 'pbkdf2-sha1':
+                return 'Define the iterations of the pbkdf2 Algorithm &#013; e.g. iterations=500000';
+            case 'argon2id':
+                return "Define the parameters of the Argon2ID Algorithm &#013; e.g. time_cost=3,threads=2,memory_cost=131072 &#013; you need only define those values you wan't to override";
+        }
+        return null;
+    }
+
     private static function getArgon2idOptions($algo_cfg): array
     {
         $timecost = $algo_cfg['time_cost'];
