@@ -19,7 +19,7 @@ namespace LanSuite;
  */
 class BarcodeSystem
 {
-    private \LanSuite\Barcode $class_barcode;
+    private readonly \LanSuite\Barcode $class_barcode;
 
     public function __construct()
     {
