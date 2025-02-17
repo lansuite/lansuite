@@ -460,12 +460,12 @@ class PDF
 
         $pdf_sqlstring = "";
 
-        $pdf_paid   = $pdf_paid ?? 0;
-        $pdf_normal = $pdf_normal ?? 0;
-        $pdf_op     = $pdf_op ?? 0;
-        $pdf_orga   = $pdf_orga ?? 0;
+        $pdf_paid ??= 0;
+        $pdf_normal ??= 0;
+        $pdf_op ??= 0;
+        $pdf_orga ??= 0;
         $pdf_party  = $_POST['party'] ?? 0;
-        $pdf_order  = $pdf_order ?? 0;
+        $pdf_order ??= 0;
 
         $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id WHERE user.type > -1";
 
@@ -772,12 +772,12 @@ class PDF
 
         $pdf_sqlstring = "";
 
-        $pdf_paid   = $pdf_paid ?? 0;
-        $pdf_normal = $pdf_normal ?? 0;
-        $pdf_op     = $pdf_op ?? 0;
-        $pdf_orga   = $pdf_orga ?? 0;
-        $pdf_party  = $pdf_party ?? 0;
-        $pdf_order  = $pdf_order ?? 0;
+        $pdf_paid ??= 0;
+        $pdf_normal ??= 0;
+        $pdf_op ??= 0;
+        $pdf_orga ??= 0;
+        $pdf_party ??= 0;
+        $pdf_order ??= 0;
 
         $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id WHERE user.type > -1";
 
