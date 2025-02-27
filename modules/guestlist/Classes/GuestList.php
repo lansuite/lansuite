@@ -8,9 +8,9 @@ use LanSuite\Module\Seating\Seat2;
 class GuestList
 {
 
-    private \LanSuite\Module\Seating\Seat2 $seating;
+    private readonly \LanSuite\Module\Seating\Seat2 $seating;
 
-    private \LanSuite\Module\UsrMgr\UserManager $userManager;
+    private readonly \LanSuite\Module\UsrMgr\UserManager $userManager;
 
     public function __construct(Seat2 $seating, \LanSuite\Module\UsrMgr\UserManager $userManager)
     {

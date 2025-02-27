@@ -203,7 +203,7 @@ class DB
         $query = array_shift($this->QueryArgs);
 
         $query = str_replace('%prefix%', $config['database']['prefix'], $query);
-        $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array(&$this, 'escape'), $query);
+        $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', $this->escape(...), $query);
 
         // TODO: Don't replace %prefix% within quotes!
         if (isset($debug)) {

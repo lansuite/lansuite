@@ -22,7 +22,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     // Define sets of rules
     $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_80
+        LevelSetList::UP_TO_PHP_81
     ]);
 
     $rectorConfig->skip([
@@ -41,5 +41,12 @@ return static function (RectorConfig $rectorConfig): void {
         //  - https://wiki.php.net/rfc/constructor_promotion
         //  - https://github.com/php/php-src/pull/5291
         Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class,
+
+        // Skipping strict string defined function call args right now, because the changelog is too big.
+        // Right now, we did not see an issue with this yet.
+        // However, to keep the changeset small, we might introduce this at a later stage.
+        // More info:
+        //  - https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#nulltostrictstringfunccallargrector
+        Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector::class,
     ]);
 };
