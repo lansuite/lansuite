@@ -47,7 +47,7 @@ If you had to run the steps above on a different system then you'll need to uplo
 Use a (S)FTP-client then to upload the whole folder to your webspace.
 Ensure that file permissions are properly set so that the webserver user is able to write both to the file `/inc/base/config.php` and the folder `./ext_inc/` and it's contents.
 
-### Create Database and databaase user
+### Create Database and database user
 
 If not provided you need to create a database user and database for LanSuite to store its data in.
 While it is possible to share a database with a different application it is not recommended to do so, for both usability and security reasons.
