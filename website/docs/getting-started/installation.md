@@ -53,7 +53,7 @@ If not provided you need to create a database user and database for LanSuite to 
 While it is possible to share a database with a different application it is not recommended to do so, for both usability and security reasons.
 The database user should only have privileges on the lansuite database and should only be able to connect from the webserver host, in most cases "localhost".
 At the current point in time there is no separation between installation/update privileges and privileges for normal operation.
-Thus all privilegs on the neew database (and only there!) need to be granted to the lansuite database user.
+Thus, all privileges on the new database (and only there!) need to be granted to the lansuite database user.
 
 Native SQL-Statements as reference:
 ```
