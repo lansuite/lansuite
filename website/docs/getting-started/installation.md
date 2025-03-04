@@ -72,7 +72,7 @@ If that also does not help then check the server error logs as these will provid
 
 ### Installation Wizard
 
-Once the intial page loads you should see the guided installation wizzard that should help to create the required database scheme, configure essential settings and a first user.
+Once the initial page loads you should see the guided installation wizard that should help to create the required database scheme, configure essential settings, and create a first user.
 Once that is done, the installation is ready for use.
 
 ## Docker
