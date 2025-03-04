@@ -70,7 +70,7 @@ If you end up with a blank page or a "page not found"-error then check if browsi
 In that case the webserver is not configured to serve index.php by default and should be configured accordingly.
 If that also does not help then check the server error logs as these will provide a hint at what went wrong.
 
-### Installation Wizzard
+### Installation Wizard
 
 Once the intial page loads you should see the guided installation wizzard that should help to create the required database scheme, configure essential settings and a first user.
 Once that is done, the installation is ready for use.
