@@ -65,7 +65,7 @@ It is recommended to do this before continuing with the application installation
 
 ## Installation
 
-Once the source code files are ready for use and the database has been set up you can start the installation wizzard by accessing the destination folder.
+Once the source code files are ready for use and the database has been set up you can start the installation wizard by accessing the destination folder.
 If you end up with a blank page or a "page not found"-error then check if browsing to  e.g. `lansuite/index.php` works.
 In that case the webserver is not configured to serve index.php by default and should be configured accordingly.
 If that also does not help then check the server error logs as these will provide a hint at what went wrong.
