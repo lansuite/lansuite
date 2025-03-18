@@ -2,21 +2,21 @@
 // Use /ext_inc/downloads
 if (!array_key_exists('download_use_ftp', $cfg) || !$cfg['download_use_ftp'] ) {
     $fileCollection = new \LanSuite\FileCollection();
-    $fileCollection->setRelativePath('ext_inc/downloads/');
     $BaseDir = 'ext_inc/downloads/';
+    $fileCollection->setRelativePath($BaseDir);
 
     $dirParameter = $_GET['dir'] ?? '';
 
     // Download dialog, if file is selected
     if ($fileCollection->exists($dirParameter) && is_file($fileCollection->getFullPath($dirParameter))) {
-        $row = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%download_stats WHERE file = ? AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$_GET['dir']]);
+        $row = $database->queryWithOnlyFirstRow("SELECT 1 AS found FROM %prefix%download_stats WHERE file = ? AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$dirParameter]);
         if ($row['found']) {
-            $database->query("UPDATE %prefix%download_stats SET hits = hits + 1 WHERE file = ? AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$_GET['dir']]);
+            $database->query("UPDATE %prefix%download_stats SET hits = hits + 1 WHERE file = ? AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$dirParameter]);
         } else {
-            $database->query("INSERT INTO %prefix%download_stats SET file = ?, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$_GET['dir']]);
+            $database->query("INSERT INTO %prefix%download_stats SET file = ?, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", [$dirParameter]);
         }
 
-        header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $_GET['dir']);
+        header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $dirParameter);
         exit;
 
       // Display directory
@@ -37,9 +37,9 @@ if (!array_key_exists('download_use_ftp', $cfg) || !$cfg['download_use_ftp'] ) {
         $dsp->NewContent(t('Downloads'), $LinkUp);
 
         // Display Dir-Info-Text from DB
-        $row = $database->queryWithOnlyFirstRow("SELECT dirid, text, allow_upload FROM %prefix%download_dirs WHERE name = ?", [$_GET['dir']]);
-        if (!$row['dirid'] and is_dir($BaseDir.$_GET['dir'])) {
-            $db->qry("INSERT INTO %prefix%download_dirs SET name = %string%", $_GET['dir']);
+        $row = $database->queryWithOnlyFirstRow("SELECT dirid, text, allow_upload FROM %prefix%download_dirs WHERE name = ?", [$dirParameter]);
+        if (!$row['dirid'] and is_dir($BaseDir.$dirParameter)) {
+            $db->qry("INSERT INTO %prefix%download_dirs SET name = %string%", $dirParameter);
             $row['dirid'] = $db->insert_id();
         }
         if ($row['text']) {
@@ -48,16 +48,16 @@ if (!array_key_exists('download_use_ftp', $cfg) || !$cfg['download_use_ftp'] ) {
             $dsp->AddFieldSetEnd();
         }
 
-        // Upload submittet file
+        // Upload submitted file
         $stepParameter = $_GET['step'] ?? 0;
         if ($stepParameter == 20 && $auth['type'] >= \LS_AUTH_TYPE_ADMIN || ($auth['login'] && $row['allow_upload'])) {
-            $func->FileUpload('upload', $BaseDir.$_GET['dir']);
+            $func->FileUpload('upload', $BaseDir.$dirParameter);
         }
 
         $dsp->AddFieldSetStart(t('Navigation: ') . $LinkUp);
         $FileList = array();
-        if (file_exists($BaseDir.$_GET['dir'])) {
-            $DLDesign = opendir($BaseDir.$_GET['dir']);
+        if (file_exists($BaseDir.$dirParameter)) {
+            $DLDesign = opendir($BaseDir.$dirParameter);
             if ($DLDesign) {
                 while ($CurFile = readdir($DLDesign)) {
                     if ($CurFile != '.' and $CurFile != '..') {
@@ -71,8 +71,8 @@ if (!array_key_exists('download_use_ftp', $cfg) || !$cfg['download_use_ftp'] ) {
 
         if ($FileList) {
             foreach ($FileList as $CurFile) {
-                if ($_GET['dir']) {
-                    $CurFilePath = $_GET['dir'] .'/'. $CurFile;
+                if ($dirParameter) {
+                    $CurFilePath = $dirParameter .'/'. $CurFile;
                 } else {
                     $CurFilePath = $CurFile;
                 }
@@ -90,11 +90,11 @@ if (!array_key_exists('download_use_ftp', $cfg) || !$cfg['download_use_ftp'] ) {
                 }
             }
         } else {
-            $func->information('No files found in "'. ($BaseDir.$_GET['dir']) .'"');
+            $func->information('No files found in "'. ($BaseDir.$dirParameter) .'"');
         }
 
         // Links
-        $res2 = $db->qry('SELECT link FROM %prefix%download_urls WHERE dir = %string%', $_GET['dir']);
+        $res2 = $db->qry('SELECT link FROM %prefix%download_urls WHERE dir = %string%', $dirParameter);
         while ($row2 = $db->fetch_array($res2)) {
             $dsp->AddSingleRow('<a href="'. $row2['link'] .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $row2['link'] .'</a>');
         }
@@ -105,7 +105,7 @@ if (!array_key_exists('download_use_ftp', $cfg) || !$cfg['download_use_ftp'] ) {
         if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN or ($auth['login'] and $row['allow_upload'])) {
             // File Upload Box
             $dsp->AddFieldSetStart(t('Datei hochladen'));
-            $dsp->SetForm('index.php?mod=downloads&step=20&dir='. $_GET['dir'], '', '', 'multipart/form-data');
+            $dsp->SetForm('index.php?mod=downloads&step=20&dir='. $dirParameter, '', '', 'multipart/form-data');
             $dsp->AddFileSelectRow('upload', t('Datei'), '', '', '', 1);
             $dsp->AddFormSubmitRow('add');
             $dsp->AddFieldSetEnd();
@@ -114,8 +114,8 @@ if (!array_key_exists('download_use_ftp', $cfg) || !$cfg['download_use_ftp'] ) {
             $dsp->AddFieldSetStart(t('URL verlinken'));
             $mf = new \LanSuite\MasterForm();
             $mf->AddField(t('URL'), 'link');
-            $mf->AddFix('dir', $_GET['dir']);
-            $mf->SendForm('index.php?mod=downloads&dir=' . $_GET['dir'], 'download_urls', 'urlid', 0);
+            $mf->AddFix('dir', $dirParameter);
+            $mf->SendForm('index.php?mod=downloads&dir=' . $dirParameter, 'download_urls', 'urlid', 0);
             $dsp->AddFieldSetEnd();
         }
 
@@ -136,11 +136,11 @@ if (!array_key_exists('download_use_ftp', $cfg) || !$cfg['download_use_ftp'] ) {
 
             $dirIDParameter = $_GET['dirid'] ?? null;
             if (!$dirIDParameter) {
-                $mf->AddFix('name', $_GET['dir']);
+                $mf->AddFix('name', $dirParameter);
                 $mf->AddFix('userid', $auth['userid']);
             }
 
-            $mf->SendForm('index.php?mod=downloads&step=10&dir='. $_GET['dir'], 'download_dirs', 'dirid', $row['dirid']);
+            $mf->SendForm('index.php?mod=downloads&step=10&dir='. $dirParameter, 'download_dirs', 'dirid', $row['dirid']);
             $dsp->AddFieldSetEnd();
         }
     }
