@@ -74,7 +74,7 @@ if (!$tournament["tournamentid"]) {
             }
             break;
     }
-  
+
     switch ($stepParameter) {
         // Activate Seeding
         case 10:
@@ -232,9 +232,9 @@ if (!$tournament["tournamentid"]) {
                     $sumMemberCoins = $member_coin['t_coins'] ?? 0;
 
                     (($cfg['t_coins'] - $sumTeamCoins - $sumMemberCoins) < $tournament['coins']) ?
-                          $coin_out = t('Das Anmelden kostet %COST% Coins, du besitzt jedoch nur %IS% Coins!')
-                          : $coin_out = t('Das Anmelden kostet %COST% Coins. Du besitzen noch: %IS% Coins');
-                        
+                          $coin_out = t('Das Anmelden kostet %COST% Coins, du besitzt jedoch nur %IS% Coin(s)!')
+                          : $coin_out = t('Das Anmelden kostet %COST% Coins. Du besitzt noch: %IS% Coin(s)');
+
                     $dsp->AddDoubleRow(t('Coin-Kosten'), "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $sumTeamCoins - $sumMemberCoins), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
                 }
             }
