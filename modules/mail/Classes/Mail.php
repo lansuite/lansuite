@@ -101,8 +101,8 @@ class Mail
             $CharsetStr = ' charset=utf-8';
         } else {
             $CharsetStr = '';
-            $subject_text = utf8_decode($subject_text);
-            $msgbody_text = utf8_decode($msgbody_text);
+            $subject_text = mb_convert_encoding($subject_text, 'ISO-8859-1');
+            $msgbody_text = mb_convert_encoding($msgbody_text, 'ISO-8859-1');
         }
 
         $this->inet_headers = "MIME-Version: 1.0\n";
