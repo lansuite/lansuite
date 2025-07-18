@@ -977,7 +977,7 @@ class MasterSearch2
                             if ($field['entry'] == '&nbsp;') {
                                 $field['entry'] = '';
                             }
-                            $output .= '"'. str_replace('"', '""', strip_tags(utf8_decode($field['entry']))) .'"';
+                            $output .= '"'. str_replace('"', '""', strip_tags(mb_convert_encoding($field['entry'], 'ISO-8859-1'))) .'"';
                         }
                     }
 
@@ -993,7 +993,7 @@ class MasterSearch2
                                 if ($field['entry'] == '&nbsp;') {
                                     $field['entry'] = '';
                                 }
-                                $output .= '"'. str_replace('"', '""', strip_tags(utf8_decode($field['entry']))) .'"';
+                                $output .= '"'. str_replace('"', '""', strip_tags(mb_convert_encoding($field['entry'], 'ISO-8859-1'))) .'"';
                             }
                         }
                     }
