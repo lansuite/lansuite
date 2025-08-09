@@ -42,6 +42,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] Added an overview about when the games happen in tournaments
 - [Tournament] Added day of week to tournament timetable (#902)
 - [Guestlist] Added Clan Search into Guestlist
+- [Guestlist] Added quicklink to access user registration details
 - [Usrmgr] Added Clan Search into Usrmgr
 - [Usrmgr] Added XMPP support in the Contacts field
 - [Discord] Added configurable timeout for JSON data retrieval
