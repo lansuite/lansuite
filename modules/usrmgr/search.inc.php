@@ -5,7 +5,7 @@ include_once('modules/usrmgr/search_main.inc.php');
 $ms2->AddTextSearchField(t('Clan'), array('c.name' => 'like'));
 
 $ms2->AddTextSearchDropDown(t('Benutzertyp'), 'u.type', array('' => t('Alle'), '1' => t('Gast'), '!1' => t('Nicht Gast'), '<0' => t('Deaktiviert'), '2' => t('Admin'), '3' => t('Superadmin'), '2,3' => t('Admin, oder Superadmin')));
-    
+
 $party_list = array('' => 'Alle', 'NULL' => 'Zu keiner Party angemeldet');
 $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
 while ($res = $db->fetch_array($row)) {
@@ -42,7 +42,7 @@ $ms2->AddIconField('unlocked', 'index.php?mod=usrmgr&step=10&userid=', t('Accoun
 // Add icons depending on other modules
 $plugin = new \LanSuite\Plugin('usrmgr_search');
 while ([$caption, $inc] = $plugin->fetch()) {
-    include_once($inc);
+    include_once $inc;
 }
 
 if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
