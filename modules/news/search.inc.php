@@ -4,6 +4,7 @@ $ms2 = new \LanSuite\Module\MasterSearch2\MasterSearch2('news');
 
 $ms2->query['from'] = "%prefix%news n LEFT JOIN %prefix%user u ON n.poster=u.userid";
 $ms2->query['default_order_by'] = 'DATE DESC';
+$ms2->query['where'] = 'n.visibility <='. $auth['type'];
 
 $ms2->config['EntriesPerPage'] = 20;
 
