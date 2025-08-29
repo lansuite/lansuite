@@ -540,12 +540,6 @@ class MasterForm
                                         if ($field['name']) {
                                             $err = false;
 
-                                            // Copy WYSIWYG editor variable
-                                            if (array_key_exists($field['name'], $SQLFieldTypes) && ($SQLFieldTypes[$field['name']] == 'text' || $SQLFieldTypes[$field['name']] == 'mediumtext' || $SQLFieldTypes[$field['name']] == 'longtext') && $field['selections'] == self::HTML_WYSIWYG) {
-                                                $this->FCKeditorID++;
-                                                $_POST[$field['name']] = $_POST['FCKeditor'. $this->FCKeditorID];
-                                            }
-
                                             // If not in DependOn-Group, or DependOn-Group is active
                                             if (!$this->DependOnStarted || (array_key_exists($this->DependOnField, $_POST) && $_POST[$this->DependOnField])) {
                                                 // -- Convertions --
@@ -751,18 +745,9 @@ class MasterForm
                                                 } elseif ($field['selections'] == self::HTML_WYSIWYG) {
                                                     $fieldValueParameter = $_POST[$field['name']] ?? '';
 
-                                                    $this->FCKeditorID++;
-                                                    ob_start();
-                                                    include_once("ext_scripts/FCKeditor/fckeditor.php");
-                                                    $oFCKeditor = new \FCKeditor('FCKeditor'. $this->FCKeditorID) ;
-                                                    $oFCKeditor->BasePath = 'ext_scripts/FCKeditor/';
-                                                    $oFCKeditor->Config["CustomConfigurationsPath"] = "../myconfig.js"  ;
-                                                    $oFCKeditor->Value = $func->AllowHTML($fieldValueParameter);
-                                                    $oFCKeditor->Height = 460;
-                                                    $oFCKeditor->Create();
-                                                    $fcke_content = ob_get_contents();
-                                                    ob_end_clean();
-                                                    $dsp->AddSingleRow($fcke_content);
+                                                    $value = $func->AllowHTML($fieldValueParameter);
+                                                    $textarea = "<textarea name=\"{$field['name']}\" id=\"{$field['name']}\" class=\"tinymce-editor\" style=\"height: 460px;\">{$value}</textarea>";
+                                                    $dsp->AddSingleRow($textarea);
 
                                                     $errorMessage = $this->error[$field['name']] ?? '';
                                                     if ($errorMessage) {

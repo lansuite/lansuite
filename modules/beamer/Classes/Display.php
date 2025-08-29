@@ -210,16 +210,9 @@ class Display
 
         if ($ctype == 'text') {
             $dsp->AddTextFieldRow("ccaption", t("Bezeichnung: "), "", "", '50');
-            ob_start();
-            include_once("ext_scripts/FCKeditor/fckeditor.php");
-            $oFCKeditor = new \FCKeditor('FCKeditor1') ;
-            $oFCKeditor->BasePath    = 'ext_scripts/FCKeditor/';
-            $oFCKeditor->Value = "";
-            $oFCKeditor->Height = 380;
-            $oFCKeditor->Create();
-            $fcke_content = ob_get_contents();
-            ob_end_clean();
-            $dsp->AddSingleRow($fcke_content);
+            $value = "";
+            $textarea = "<textarea name=\"beamer_content\" id=\"beamer_content\" class=\"tinymce-editor\" style=\"height: 380px;\">{$value}</textarea>";
+            $dsp->AddSingleRow($textarea);
         }
         
         if ($ctype == 'wrapper') {
@@ -250,16 +243,9 @@ class Display
 
         if ($content['contentType']=='text') {
             $dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", $content['caption'], "", '50');
-            ob_start();
-            include_once("ext_scripts/FCKeditor/fckeditor.php");
-            $oFCKeditor = new \FCKeditor('FCKeditor1') ;
-            $oFCKeditor->BasePath    = 'ext_scripts/FCKeditor/';
-            $oFCKeditor->Value = $func->AllowHTML($content['contentData']);
-            $oFCKeditor->Height = 380;
-            $oFCKeditor->Create();
-            $fcke_content = ob_get_contents();
-            ob_end_clean();
-            $dsp->AddSingleRow($fcke_content);
+            $value = $func->AllowHTML($content['contentData']);
+            $textarea = "<textarea name=\"beamer_content\" id=\"beamer_content\" class=\"tinymce-editor\" style=\"height: 380px;\">{$value}</textarea>";
+            $dsp->AddSingleRow($textarea);
         }
         if ($content['contentType']=='wrapper') {
             $arr = explode("*", $content['contentData']);
