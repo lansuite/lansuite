@@ -138,6 +138,14 @@ class Framework
         $this->addJavaScriptFile('ext_scripts/jquery-min.js');
         $this->addJavaScriptFile('ext_scripts/jquery-ui/jquery-ui.min.js');
         $this->addJavaScriptFile('scripts.js');
+        $this->mainHeaderJavaScriptfiles .= '<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/8/tinymce.min.js" referrerpolicy="origin"></script>';
+        $this->addJavaScriptCode(
+            "tinymce.init({
+                selector: 'textarea.tinymce-editor',
+                plugins: 'code table lists',
+                toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
+            });"
+        );
 
         $this->addCSSFile('ext_scripts/jquery-ui/jquery-ui.min.css');
         $this->addCSSFile('design/style.css');

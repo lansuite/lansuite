@@ -72,3 +72,4 @@ ext_inc/pdf_fonts/*.ttf
 ext_inc/pdf_templates/*
 !ext_inc/pdf_templates/background_usercard.jpg
 ext_inc/user_pics/*
+/ext_scripts/FCKeditor/

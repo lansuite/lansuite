@@ -28,7 +28,6 @@ $action = $_GET['action'] ?? '';
 if (isset($debug)) {
     echo "<br/>Ctype: " . $ctype;
     echo "<br/>bcID: " . $bcid;
-    echo "<br/>FCKeditor1-Data: " . $_POST['FCKeditor1'];
 }
 
 $beamermodul = new LanSuite\Module\Beamer\Beamer();
@@ -53,7 +52,7 @@ switch ($action) {
 
         switch ($ctype) {
             case 'text':
-                $newContent['text'] = $_POST['FCKeditor1'];
+                $newContent['text'] = $_POST['beamer_content'];
                 break;
             case 'wrapper':
                 $newContent['text'] = $_POST['curl'] ."*". $_POST['choehe'] ."*". $_POST['cbreite'];
