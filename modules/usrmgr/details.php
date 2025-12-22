@@ -303,11 +303,11 @@ if (!$user_data['userid']) {
     // Comment
     $dsp->AddDoubleRow(t('Kommentar'), ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
     $dsp->AddFieldsetEnd();
-  
+
     $plugin = new \LanSuite\Plugin('usrmgr_details_main');
     while ([$caption, $inc] = $plugin->fetch()) {
         $dsp->AddFieldsetStart($caption);
-        include_once($inc);
+        include_once $inc;
         $dsp->AddFieldsetEnd();
     }
     $dsp->EndTab();
@@ -342,7 +342,7 @@ if (!$user_data['userid']) {
     $ms2->PrintSearch('index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&tab=1', 'b.bid');
     $dsp->AddFieldsetEnd();
     $dsp->EndTab();
-  
+
     $dsp->StartTab(t('Sonstiges'));
     // logins, last login
     if ($auth['type'] >= \LS_AUTH_TYPE_ADMIN) {
@@ -371,7 +371,7 @@ if (!$user_data['userid']) {
     }
 
     $dsp->EndTab();
-  
+
     if ($hasUserFields) {
         $dsp->StartTab(t('Eigene Felder'), 'database');
         while ($user_field = $db->fetch_array($user_fields)) {
@@ -405,7 +405,7 @@ if (!$user_data['userid']) {
     $plugin = new \LanSuite\Plugin('usrmgr_details_tab');
     while ([$caption, $inc, $icon] = $plugin->fetch()) {
         $dsp->StartTab($caption, $icon);
-        include_once($inc);
+        include_once $inc;
         $dsp->EndTab();
     }
 

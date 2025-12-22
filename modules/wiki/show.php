@@ -1,10 +1,13 @@
 <?php
 
-if ($_GET['name']) {
+$nameParameter = $_GET['name'] ?? '';
+if ($nameParameter) {
     $row = $database->queryWithOnlyFirstRow('SELECT postid FROM %prefix%wiki WHERE name = ?', [$_GET['name']]);
     $_GET['postid'] = $row['postid'];
 }
-if (!$_GET['postid']) {
+
+$postIDParameter = $_GET['postid'] ?? null;
+if (!$postIDParameter) {
     $_GET['postid'] = 1;
 }
 if (!isset($_GET['versionid'])) {

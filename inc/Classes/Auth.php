@@ -687,7 +687,7 @@ class Auth
 
         // Heartbeat
         if ($frmwrkmode == "ajax") {
-            $this->database->query('UPDATE %prefix%stats_auth SET lastajaxhit = ?% WHERE sessid = ?', [$this->timestamp, $this->auth["sessid"]]);
+            $this->database->query('UPDATE %prefix%stats_auth SET lastajaxhit = ? WHERE sessid = ?', [$this->timestamp, $this->auth["sessid"]]);
         }
     }
 

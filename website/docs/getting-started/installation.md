@@ -7,6 +7,7 @@ sidebar_position: 2
 # LanSuite Release
 
 Sadly there is no current official release, we are on that!
+!DO NOT USE THE V4.2 Release from 2015!
 
 # LanSuite development branch
 
@@ -17,7 +18,7 @@ First of all you need to take an inventory of the tools at your disposal.
 Following tools are relevant:
  * A machine with a configured web- and database server fulfilling the requirements as listed on [the requirements page](requirements.md)
  * A PHP environment with Composer for local/remote installations (here guides for [Windows](https://www.thecodedeveloper.com/install-composer-windows-xampp/) and [Linux](https://getcomposer.org/download/))
- * [Docker Community Edition](https://www.docker.com/community-edition) to run the container 
+ * [Docker Community Edition](https://www.docker.com/community-edition) to run the container
  * Git (recommended, either as command-line or GUI)
 It is required that you have at least a PHP environment with composer available if you do not want to run the Docker container.
 
@@ -45,6 +46,34 @@ In that case it may also be advised to correct file ownership of the folder to t
 If you had to run the steps above on a different system then you'll need to upload the prepared code to your target
 Use a (S)FTP-client then to upload the whole folder to your webspace.
 Ensure that file permissions are properly set so that the webserver user is able to write both to the file `/inc/base/config.php` and the folder `./ext_inc/` and it's contents.
+
+### Create Database and database user
+
+If not provided you need to create a database user and database for LanSuite to store its data in.
+While it is possible to share a database with a different application it is not recommended to do so, for both usability and security reasons.
+The database user should only have privileges on the lansuite database and should only be able to connect from the webserver host, in most cases "localhost".
+At the current point in time there is no separation between installation/update privileges and privileges for normal operation.
+Thus, all privileges on the new database (and only there!) need to be granted to the lansuite database user.
+
+Native SQL-Statements as reference:
+```
+CREATE DATABASE lansuite;
+CREATE USER 'lansuite'@'localhost' IDENTIFIED BY '<strongpasswordhere>';
+GRANT ALL ON lansuite.* TO 'lansuite'@'localhost';
+```
+It is recommended to do this before continuing with the application installation as the credentials, database and server names will be needed during the Installation Wizzard phase.
+
+## Installation
+
+Once the source code files are ready for use and the database has been set up you can start the installation wizard by accessing the destination folder.
+If you end up with a blank page or a "page not found"-error then check if browsing to  e.g. `lansuite/index.php` works.
+In that case the webserver is not configured to serve index.php by default and should be configured accordingly.
+If that also does not help then check the server error logs as these will provide a hint at what went wrong.
+
+### Installation Wizard
+
+Once the initial page loads you should see the guided installation wizard that should help to create the required database scheme, configure essential settings, and create a first user.
+Once that is done, the installation is ready for use.
 
 ## Docker
 

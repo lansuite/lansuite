@@ -42,6 +42,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Tournament] Added an overview about when the games happen in tournaments
 - [Tournament] Added day of week to tournament timetable (#902)
 - [Guestlist] Added Clan Search into Guestlist
+- [Guestlist] Added quicklink to access user registration details
 - [Usrmgr] Added Clan Search into Usrmgr
 - [Usrmgr] Added XMPP support in the Contacts field
 - [Discord] Added configurable timeout for JSON data retrieval
@@ -60,6 +61,8 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Community] Created a discord community
 - [PDF] In-Module Documentation
 - [PDF] New options "align" and "border" to configure for a single PDF document
+- [System] Restrict display of PHP warnings to (Super-)Admins (#1131)
+- [Clanmanager] Added user registration button from user listing for superadmins (#1194)
 
 ### Changed
 
@@ -134,6 +137,7 @@ We could not reconstruct _all_ changes, but we tried our best to make the most o
 - [Installation] Fixed dropdown to select the design
 - [Installation] Fixed Database error when going from step 2 to 1 in install wizzard (#871)
 - [Installation] Fixed compatibility with database names containing a hyphen (#1095)
+- [Installation] Fixed regression causing no admin user to be created (#1193)
 - [Home] Set module `home` as default if we don't have a module parameter
 - [Clanmgr] Only prefix clan URL with http:// if an URL was entered
 - [Clanmgr] Only prefix URL field with http:// for display when an URL exists
