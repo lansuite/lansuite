@@ -41,14 +41,19 @@ if (!$row) {
     $db->qry("INSERT INTO %prefix%picgallery SET userid = '', name = %string%", $db_dir);
 }
 
-// Upload posted File
-if (($cfg["picgallery_allow_user_upload"] || $auth['type'] > \LS_AUTH_TYPE_USER) && (array_key_exists('file_upload', $_FILES) && $_FILES['file_upload'])) {
-    $extension = substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4);
-    if (IsSupportedType($extension) || IsPackage($extension)) {
-        $upload = $func->FileUpload("file_upload", $root_dir);
-        $database->query("REPLACE INTO %prefix%picgallery SET userid = ?, name = ?", [$auth["userid"], $db_dir . $_FILES["file_upload"]["name"]]);
-    } else {
-        $func->error("Bitte nur Grafik-Dateien hochladen (Format: Jpg, Png, Gif, Bmp)<br> oder Archive (Format: zip,ace,rar,tar,gz,bz)", "index.php?mod=picgallery");
+// Upload posted File if logged in user with user upload or admin
+if ((($cfg["picgallery_allow_user_upload"] + $auth['type']) > \LS_AUTH_TYPE_USER) && ($request->files->count()))
+{
+    $fileUploads = $request->files->all();
+    foreach ($fileUploads['file_upload'] as $file) {
+        $extension = $file->getClientOriginalExtension();
+        if ((IsSupportedType($extension) || IsPackage($extension)) && $file->getError() == 0) {
+            //$upload = $func->FileUpload($file->getClientOriginalName(), $root_dir);
+            $file->move($root_dir, $file->getClientOriginalName());
+            $database->query("REPLACE INTO %prefix%picgallery SET userid = ?, name = ?", [$auth["userid"], $db_dir . $file->getClientOriginalName()]);
+        } else {
+            $func->error("Bitte nur Grafik-Dateien hochladen (Format: Jpg, Png, Gif, Bmp)<br> oder Archive (Format: zip,ace,rar,tar,gz,bz)", "index.php?mod=picgallery");
+        }
     }
 }
 
@@ -336,7 +341,7 @@ if (!$gd->available) {
     // Upload-Formular
     if ($cfg["picgallery_allow_user_upload"] or $auth['type'] > \LS_AUTH_TYPE_USER) {
         $dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}", "", "", "multipart/form-data");
-        $dsp->AddFileSelectRow("file_upload", t('Datei hochladen'), "");
+        $dsp->AddFileSelectRow("file_upload", t('Datei hochladen'), "", null, null, null, true);
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
 
         // Add Gallery

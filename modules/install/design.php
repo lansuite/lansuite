@@ -5,6 +5,9 @@ $xml = new \LanSuite\XML();
 $dsp->NewContent(t('Design Manager'), t('Editiere Design-Templates und setze das aktive Design'));
 
 $stepParameter = $_GET['step'] ?? 0;
+preg_match('/[:alnum:]*/', $request->query->get('des'), $matches);
+$designParameter = $matches[0];
+
 switch ($stepParameter) {
     // List designs
     default:
@@ -38,10 +41,10 @@ switch ($stepParameter) {
 
     // List designs templates
     case 10:
-        $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=index\">index.php</a>");
-        $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=index_fullscreen\">index_fullscreen.htm</a>");
-        $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=box_case\">box_case.htm</a>");
-        $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=box_case_closed\">box_case_closed.htm</a>");
+        $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$designParameter}&file=index\">index.php</a>");
+        $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$designParameter}&file=index_fullscreen\">index_fullscreen.htm</a>");
+        $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$designParameter}&file=box_case\">box_case.htm</a>");
+        $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$designParameter}&file=box_case_closed\">box_case_closed.htm</a>");
         break;
 
     // Edit template
@@ -49,16 +52,16 @@ switch ($stepParameter) {
         if (!$_POST['content']) {
             switch ($_GET['file']) {
                 case 'index':
-                    $file = "design/{$_GET['des']}/templates/index.php";
+                    $file = "design/{$designParameter}/templates/index.php";
                     break;
                 case 'index_fullscreen':
-                    $file = "design/{$_GET['des']}/templates/index_fullscreen.htm";
+                    $file = "design/{$designParameter}/templates/index_fullscreen.htm";
                     break;
                 case 'box_case':
-                    $file = "design/{$_GET['des']}/templates/box_case.htm";
+                    $file = "design/{$designParameter}/templates/box_case.htm";
                     break;
                 case 'box_case_closed':
-                    $file = "design/{$_GET['des']}/templates/box_case_closed.htm";
+                    $file = "design/{$designParameter}/templates/box_case_closed.htm";
                     break;
             }
 
