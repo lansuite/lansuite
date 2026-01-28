@@ -21,7 +21,6 @@ If you are using LanSuite and want to appear in this list, head over to our [tic
 * PsychoLANPartys: https://www.psycholanpartys.org/
 * lansin: https://www.lansin.de/lansuite/
 * Synergy Lan: https://synergy-lan.de/
-* C-LAN-SAP: https://lan.clansap.org/
 * MUFA LAN: https://lan.erdbeermilch.de/
 * X-Treme LAN: https://www.xtrlan.net/
 * GameFarm: https://lan.gamefarm.at/
