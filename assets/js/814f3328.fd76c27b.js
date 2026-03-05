@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunklansuite_documentation=globalThis.webpackChunklansuite_documentation||[]).push([[7472],{5513(t){t.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Launch of the documentation","permalink":"/lansuite/blog/documentation-launch","unlisted":false,"date":"2018-06-01T00:00:00.000Z"}]}')}}]);
