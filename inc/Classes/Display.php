@@ -1045,9 +1045,10 @@ class Display
      * @param string $size
      * @param int $maxlength
      * @param boolean $optional
+     * @param bool $multiFile use multi-file selection for upload
      * @return void
      */
-    public function AddFileSelectRow($name, $key, $errortext, $size = null, $maxlength = null, $optional = null)
+    public function AddFileSelectRow($name, $key, $errortext, $size = null, $maxlength = null, $optional = null, $multiFile = false)
     {
         global $func;
 
@@ -1082,7 +1083,9 @@ class Display
 
         $key = '<label for="'. $name .'">'. $key .'</label>';
         $value = '<input type="hidden" name="MAX_FILE_SIZE" value="'. $maxfilesize .'" />';
-        $value .= '<input type="file" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" value="" size="'. $size .'" enctype="multipart/form-data" maxlength="'. $maxlength .'" /> '. $maxfilesize_formated;
+        $value .= '<input type="file" id="'. $name .'" name="'. $name .'[]" class="form'. $optional .'" value="" size="'. $size .'" enctype="multipart/form-data" maxlength="'. $maxlength . '"';
+        if ($multiFile) {$value .=' multiple ';}
+        $value .= ' /> '. $maxfilesize_formated;
         $value .= $errortext;
         $this->AddDoubleRow($key, $value);
     }
