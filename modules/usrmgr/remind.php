@@ -1,4 +1,7 @@
 <?php
+
+use LanSuite\PasswordHash;
+
 $dsp->NewContent(t('Passwort vergessen'), t('Mit diesem Modul kannst du dir ein neues Passwort generieren lassen'));
 
 if (!$cfg['sys_internet']) {
@@ -60,7 +63,7 @@ if (!$cfg['sys_internet']) {
                     $new_pwd .= chr(random_int(65, 90));
                 }
 
-                $database->query("UPDATE %prefix%user SET password = ?, fcode = '' WHERE fcode = ?", [md5($new_pwd), $_GET['fcode']]);
+                $database->query("UPDATE %prefix%user SET password = ?, fcode = '' WHERE fcode = ?", [PasswordHash::hash($new_pwd), $_GET['fcode']]);
 
                 $func->confirmation(t('Das neue Kennwort wurde erfolgreich generiert.<br>Es lautet:') . "\"<b>$new_pwd</b>\"", "index.php");
             } else {

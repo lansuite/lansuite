@@ -46,7 +46,7 @@
             </field>
             <field>
                 <name>password</name>
-                <type>char(32)</type>
+                <type>char(255)</type>
                 <null></null>
                 <default></default>
                 <extra></extra>
