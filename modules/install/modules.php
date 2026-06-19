@@ -1,5 +1,7 @@
 <?php
 
+use LanSuite\Module\Install\ModuleConfig;
+
 $install = new \LanSuite\Module\Install\Install();
 
 $stepParameter = $_GET["step"] ?? 0;
@@ -23,7 +25,7 @@ switch ($stepParameter) {
         $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = 'settings'");
         $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = 'banner'");
         $database->query("UPDATE %prefix%modules SET active = 1 WHERE name = 'about'");
-        
+
         $install->CreateNewTables(0);
         $func->confirmation(t('Änderungen erfolgreich gespeichert.'), "index.php?mod=install&action=modules");
         break;
@@ -41,6 +43,7 @@ switch ($stepParameter) {
     // Add Menuentry
     case 22:
         $db->qry("INSERT INTO %prefix%menu SET caption = 'Neuer Eintrag', requirement = '0', hint = '', link = 'index.php?mod=', needed_config = '', module=%string%, level = 1", $_GET["module"]);
+        break;
 
     // Menuentries
     case 20:
@@ -73,18 +76,20 @@ switch ($stepParameter) {
     case 21:
         foreach ($_POST["caption"] as $key => $val) {
             $boxId = $_POST["boxid"][$key] ?? 0;
-            $db->qry(
-                "UPDATE %prefix%menu SET caption = %string%, requirement = %string%, action = %string%, hint = %string%, link = %string%, file = %string%, pos = %string%, boxid = %int%, needed_config = %string% WHERE id = %int%",
-                $_POST["caption"][$key],
-                $_POST["requirement"][$key],
-                $_POST["action"][$key],
-                $_POST["hint"][$key],
-                $_POST["link"][$key],
-                $_POST["file"][$key],
-                $_POST["pos"][$key],
-                $boxId,
-                $_POST["needed_config"][$key],
-                $key
+            $database->query(
+                "UPDATE %prefix%menu SET caption = ?, requirement = ?, action = ?, hint = ?, link = ?, file = ?, pos = ?, boxid = ?, needed_config = ? WHERE id = ?",
+                [
+                    $_POST["caption"][$key],
+                    $_POST["requirement"][$key],
+                    $_POST["action"][$key],
+                    $_POST["hint"][$key],
+                    $_POST["link"][$key],
+                    $_POST["file"][$key],
+                    $_POST["pos"][$key],
+                    $boxId,
+                    $_POST["needed_config"][$key],
+                    $key
+                ]
             );
         }
 
@@ -102,6 +107,15 @@ switch ($stepParameter) {
         }
         break;
 
+    // rewrite module menu for defined module
+    case 25:
+        if (array_key_exists('module', $_GET) && $_GET['module'])
+        {
+            $moduleConfig = new ModuleConfig();
+            $moduleConfig->writeModuleMenu($_GET['module']);
+            $func->confirmation(t('Die Menüeinträge für Modul %1 wurden erfolgreich neu geschrieben', $_GET['module']));
+        }
+        break;
 
     // Show Modulelist
     default:
