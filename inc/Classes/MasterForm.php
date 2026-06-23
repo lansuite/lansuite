@@ -1177,7 +1177,7 @@ class MasterForm
                                     $postFieldValue = $_POST[$val] ?? '';
                                     if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') {
                                         $db_query .= "$val = NOW(), ";
-                                    } elseif ($SQLFieldTypes[$val] == 'tinyint(1)') {
+                                    } elseif ($this->is_field_int($SQLFieldTypes[$val])) {
                                         $intValue = $_POST[$val] ?? 0;
                                         $db_query .= $val .' = '. (int) $intValue .', ';
                                     } elseif ($SQLFieldTypes[$val] == 'varbinary(16)' and $val == 'ip') {
@@ -1186,6 +1186,10 @@ class MasterForm
                                         $db_query .= "$val = $val + 1, ";
                                     } elseif ($postFieldValue == '--' and str_contains($SQLFieldTypes[$val], 'int')) {
                                         $db_query .= "$val = $val - 1, ";
+                                    } elseif ($this->is_field_enum($SQLFieldTypes[$val])) {
+                                        if ($_POST[$val] != '') {
+                                            $db_query .= "$val = '{$_POST[$val]}', ";
+                                        } // otherwise ignore value; default has to be defined
                                     } else {
                                         $db_query .= "$val = '{$postFieldValue}', ";
                                     }
@@ -1267,5 +1271,19 @@ class MasterForm
         }
 
         return 0;
+    }
+
+    private function is_field_enum($field_type)
+    {
+        return str_starts_with($field_type, 'enum');
+    }
+
+    private function is_field_int($field_type)
+    {
+        return str_starts_with($field_type, 'tinyint')
+            || str_starts_with($field_type, 'smallint')
+            || str_starts_with($field_type, 'mediumint')
+            || str_starts_with($field_type, 'int')
+            || str_starts_with($field_type, 'bigint');
     }
 }
