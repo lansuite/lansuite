@@ -27,8 +27,8 @@ switch ($stepParameter) {
 
         $sort  = $_POST["ipgen_sort"];
         $br    = $_POST["ipgen_break"];
-        $s_col = $_POST["ipgen_startcol"];
-        $s_row = $_POST["ipgen_startrow"];
+        $s_col = ($_POST["ipgen_startcol"] == "DESC") ? "DESC" : "ASC";
+        $s_row = ($_POST["ipgen_startrow"] == "DESC") ? "DESC" : "ASC";
 
         $block_id = $_GET["blockid"];
 
