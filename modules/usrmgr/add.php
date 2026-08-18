@@ -1,5 +1,7 @@
 <?php
 
+use LanSuite\PasswordHash;
+
 $mail = new \LanSuite\Module\Mail\Mail();
 $usrmgr = new \LanSuite\Module\UsrMgr\UserManager($mail);
 
