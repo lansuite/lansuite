@@ -16,6 +16,16 @@ $selections['0'] = t('Nein');
 $selections['1'] = t('Ja');
 $mf->AddField(t('Top-Meldung'), 'top', \LanSuite\MasterForm::IS_SELECTION, $selections, \LanSuite\MasterForm::FIELD_OPTIONAL);
 
+$privs = [0 => t('Alle'), 1 => t('Benutzer'), 2 => t('Admins'), 3 => t('SuperAdmins')];
+$mf->AddField(t('Sichtbar für Benutzergruppe'),'visibility',\Lansuite\Masterform::IS_SELECTION, $privs, \LanSuite\MasterForm::FIELD_OPTIONAL);
+
+//@todo: Add release date
+
+//@todo: Add date to remove
+
+
+
+
 $newsIdParameter = $_GET['newsid'] ?? 0;
 if (!$newsIdParameter) {
     $mf->AddFix('date', 'NOW()');
