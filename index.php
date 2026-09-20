@@ -2,6 +2,7 @@
 // Composer autoloading
 require __DIR__ . '/vendor/autoload.php';
 
+use LanSuite\FileCollection;
 use Smarty\Smarty;
 use Symfony\Component\Cache;
 use Symfony\Component\ErrorHandler\Debug;
@@ -14,6 +15,7 @@ $filesystem = new Filesystem();
 $httpClient = HttpClient::create();
 
 define('ROOT_DIRECTORY', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
+FileCollection::setBasePath(ROOT_DIRECTORY);
 
 // Set error_reporting.
 // It is set to this value on purpose, because otherwise
