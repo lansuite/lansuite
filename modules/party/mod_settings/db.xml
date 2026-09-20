@@ -98,7 +98,7 @@
 				<type>datetime</type>
 				<null></null>
 				<key></key>
-				<default></default>
+				<default>0000-00-00 00:00:00</default>
 				<extra></extra>
 			</field>
 			<field>
