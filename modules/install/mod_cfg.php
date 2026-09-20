@@ -177,6 +177,8 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
                 'id',
                 "module = '". $_GET['module'] ."' AND caption != ''"
             );
+            $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Menü neu schreiben'), 'index.php?mod=install&action=modules&step=25&module='. $_GET['module'] .'&tab=3'));
+
             $dsp->EndTab();
 
             $dsp->StartTab(t('Datenbank'), 'database');
@@ -324,6 +326,8 @@ if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
 
             $mf->SendForm('', 'menu', 'id', "module = '". $_GET['module'] ."' AND caption != ''");
             $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Link hinzufügen'), 'index.php?mod=install&action=mod_cfg&step=31&module='. $_GET['module'] .'&tab=3'));
+            $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Menü neu schreiben'), 'index.php?mod=install&action=modules&step=25&module='. $_GET['module'] .'&tab=3'));
+
             $dsp->EndTab();
 
             $dsp->StartTab(t('Übersetzung'), 'translate');
