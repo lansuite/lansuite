@@ -2,11 +2,14 @@
 
 namespace LanSuite\Module\Foodcenter;
 
+use LanSuite\File;
+use LanSuite\FileCollection;
+
 class FoodcenterPrint
 {
     private string $output = '';
 
-    private string $path = 'ext_inc/foodcenter_templates/';
+    private FileCollection $fileCollection;
 
     private string $row_file = '';
 
@@ -14,29 +17,33 @@ class FoodcenterPrint
 
     private array $config = [];
 
-    public function __construct()
+    public function __construct(string $fileName = null)
     {
-        $temp = [];
         global $func, $auth;
 
-        if (!file_exists($this->path . $_POST['file']) || $_POST['file'] == "") {
+        $this->fileCollection = new FileCollection();
+        $this->fileCollection->setRelativePath('ext_inc/foodcenter_templates/');
+
+        $temp = [];
+        $fileParameter = $fileName ?? $_POST['file'];
+        $fileHandle = $this->fileCollection->getFileHandle($fileParameter);
+        
+        if ($fileParameter == "" || !$fileHandle->exists()) {
             header("HTTP/1.0 404 Not Found");
             exit();
         }
 
-        $handle = fopen($this->path . $_POST['file'], "rb");
-        $temp_file = fread($handle, filesize($this->path . $_POST['file']));
-        fclose($handle);
+        $fileContent = file_get_contents($fileHandle->getPath());
 
-        [$file, $ext] = explode(".", $_POST['file']);
-        $this->row_file = $file . "_row." . $ext;
-
-        if (!file_exists($this->path . $this->row_file)) {
+        [$fileName, $ext] = explode(".", $fileParameter);
+        $this->row_file = $fileName . "_row." . $ext;
+        $rowFileHandle = $this->fileCollection->getFileHandle($this->row_file);
+        if (!$rowFileHandle->exists()) {
             header("HTTP/1.0 404 Not Found");
             exit();
         }
 
-        $temp_file = str_replace("\"", "\\\"", $temp_file);
+         $fileContent = str_replace("\"", "\\\"",  $fileContent);
 
         $time = time();
         $this->sql();
@@ -45,7 +52,7 @@ class FoodcenterPrint
         $temp['user'] = $this->GetUsername((int)$auth['userid']);
         $temp['time'] = $func->unixstamp2date($time, "datetime");
 
-        eval("\$this->output .= \"" .$temp_file. "\";");
+        eval("\$this->output .= \"" . $fileContent. "\";");
 
         echo $this->output;
     }
@@ -230,7 +237,8 @@ class FoodcenterPrint
 								LEFT JOIN %prefix%food_product AS p ON a.productid = p.id
 								LEFT JOIN %prefix%food_supp AS s ON p.supp_id = s.supp_id
 				WHERE %string%
-				ORDER BY p.caption ASC", $search);
+				ORDER BY p.caption ASC", $search
+        );
 
         while ($data = $db->fetch_array($result)) {
             unset($row_temp);

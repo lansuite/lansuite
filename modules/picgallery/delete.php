@@ -1,47 +1,61 @@
 <?php
 
-if (!$_GET["file"]) {
-    $_GET["file"] = "/";
-}
-$akt_dir = substr($_GET["file"], 0, strrpos($_GET["file"], '/') + 1);
-$db_dir = substr($_GET["file"], 1, strlen($_GET["file"]));
-$akt_file = substr($_GET["file"], strrpos($_GET["file"], '/') + 1, strlen($_GET["file"]));
-$root_dir = "ext_inc/picgallery". $akt_dir;
-$root_file = "ext_inc/picgallery". $_GET["file"];
+namespace LanSuite;
+use Symfony\Component\Filesystem\Path;
 
-$pic = $database->queryWithOnlyFirstRow("SELECT caption FROM %prefix%picgallery WHERE name = ?", [$db_dir]);
+$fileCollection = new FileCollection();
+$fileCollection->setRelativePath('ext_inc/picgallery/');
+
+$path = $request->query->get('file');
+$path = Path::canonicalize($path);
+if (str_starts_with($path, '/')) {
+    $path = substr($path, 1);
+}
+$pic = $database->queryWithOnlyFirstRow("SELECT caption FROM %prefix%picgallery WHERE name = ?", [$path]);
 if (!$pic['caption']) {
     $pic['caption'] = "<i>".t('Unbekannt')."</i>";
 }
+$directoryPath = Path::getDirectory($path);
 
-$stepParameter = $_GET["step"] ?? 0;
-switch ($stepParameter) {
-    default:
-        $func->question(t('Willst du das Bild <b>%1 (%2)</b> wirklich l&ouml;schen?', $pic['caption'], $_GET["file"]), "index.php?mod=picgallery&action=delete&step=2&file={$_GET["file"]}", "index.php?mod=picgallery&file=$akt_dir");
-        break;
-    
-    case 2:
-        $database->query("DELETE FROM %prefix%picgallery WHERE name = ?", [$db_dir]);
+switch ($request->query->getInt('step')) {
+default:
+    $pic = $database->queryWithOnlyFirstRow("SELECT caption FROM %prefix%picgallery WHERE name = ?", [$path]);
+    if (!$pic['caption']) {
+        $pic['caption'] = "<i>".t('Unbekannt')."</i>";
+    }
+    $func->question(
+        t('Willst du das Bild <b>%1 (%2)</b> wirklich l&ouml;schen?', $pic['caption'], $path),
+        "index.php?mod=picgallery&action=delete&step=2&file=$path&caption={$pic['caption']}",
+        "index.php?mod=picgallery&file=$directoryPath"
+    );
+    break;
 
-        unlink($root_file);
-        if (file_exists($root_dir ."lsthumb_". $akt_file)) {
-            unlink($root_dir ."lsthumb_". $akt_file);
-        }
+case 2:
+    $deletionResult = $database->query("DELETE FROM %prefix%picgallery WHERE name = ?", [$path]);
+    $fileObj = $fileCollection->getFileHandle($path);
+    $fileObj->delete();
+    $thumbFile = $fileCollection->getFileHandle($directoryPath . 'lsthumb_'. basename($path));
+    if ($thumbFile->exists()) {
+        $thumbFile->delete();
+    }
+    $func->confirmation(
+        t('Das Bild <b>%1 (%2)</b> wurde gel&ouml;scht', $_GET["caption"], $path),
+        "index.php?mod=picgallery&file=$directoryPath"
+    );
+    break;
 
-        $func->confirmation(t('Das Bild <b>%1 (%2)</b> wurde gel&ouml;scht', $pic['caption'], $_GET["file"]), "index.php?mod=picgallery&file=$akt_dir");
-        break;
-    
-    // Delete directory
-    case 10:
-        $func->question(
-            t('Möchtest du dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!'),
-            "index.php?mod=picgallery&action=delete&step=11&file={$_GET["file"]}",
-            "index.php?mod=picgallery&file=$akt_dir"
-        );
-        break;
+// Delete directory
+case 10:
+    $func->question(
+        t('Möchtest du das Verzeichnis %1 wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!', $path),
+        "index.php?mod=picgallery&action=delete&step=11&file={$path}",
+        "index.php?mod=picgallery&file=$path"
+    );
+    break;
 
-    case 11:
-        recursiveRemoveDirectory("ext_inc/picgallery".$_GET["file"]);
-        $func->confirmation(t('Das Verzeichnis wurde erfolgreich gelöscht'), 'index.php?mod=picgallery');
-        break;
+case 11:
+
+    recursiveRemoveDirectory($fileCollection->getFullPath($path));
+    $func->confirmation(t('Das Verzeichnis wurde erfolgreich gelöscht'), 'index.php?mod=picgallery');
+    break;
 }

@@ -11,8 +11,8 @@ $tfunc = new \LanSuite\Module\Tournament2\TournamentFunction($mail, $seat2);
 
 $qacc           = $_GET["qacc"] ?? 0;
 $tournamentid   = $_GET["tournamentid"];
-$gameid1        = $_GET["gameid1"];
-$gameid2        = $_GET["gameid2"];
+$gameid1        = $request->query->getInt('gameid1');
+$gameid2        = $request->query->getInt('gameid2');
 $score_team1    = $_POST["score_team1"] ?? 0;
 $score_team2    = $_POST["score_team2"] ?? 0;
 $score_comment  = $_POST["score_comment"] ?? '';
@@ -252,7 +252,7 @@ if ($tournament["name"] == "") {
                 // Upload Screenshot
                 $old_file = $func->FileUpload('screenshot', 'ext_inc/tournament_screenshots/');
                 if ($old_file) { //if we have a file to store...
-                    $filePath='ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png';
+                    $filePath='ext_inc/tournament_screenshots/'. $gameid1 .'.png';
                     if (file_exists($filePath)) {
                         unlink($filePath);
                     }

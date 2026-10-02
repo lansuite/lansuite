@@ -710,9 +710,13 @@ class Func
     }
 
     /**
-     * @param string    $source_var
-     * @param string    $path
-     * @param string    $name
+     * Stores a file upload with the options given
+     *
+     * @param string    $source_var Form element name for the file upload
+     * @param string    $path The path where the uploaded file should be stored
+     * @param string    $name New filename (uses existing name otherwise)
+     *
+     * @return int|string Returns new file path if unique name generated or 0 if some error occurred
      */
     public function FileUpload($source_var, $path, $name = null): int|string
     {
