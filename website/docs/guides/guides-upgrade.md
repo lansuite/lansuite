@@ -94,6 +94,14 @@ Please check the upgrade guide to your specific version below.
 Visit "Admin-Page" -> "Lansuite updaten / reparieren" ->> "Datenbank updaten und verwalten".
 This is also available at `http(s)://<your-domain>/index.php?mod=install&action=db`.
 
+### Execute Rewrite of menu items and permissions
+
+Visit "Admin-Page" -> "Lansuite updaten / reparieren" ->> "Menüeinträge neu schreiben".
+This is also available at `http(s)://<your-domain>/index.php?mod=install&action=dbmenu`.
+This rewrites all menue entries and permissions.
+Keep in mind that this also resets any customizing done to the installation.
+You can also selectively update/reset each module in the related module settings
+
 ### Test your installation
 
 Now is the time to look if everything is as expected.
